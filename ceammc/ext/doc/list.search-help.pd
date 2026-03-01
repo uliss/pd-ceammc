@@ -6,31 +6,31 @@ input list;
 #X obj 1 1 cnv 5 765 40 empty empty list.search 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.search;
-#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Returns item position in list or -1 if not found.;
 #X text 240 123 If several items are specified returns list of positions.;
-#X msg 50 201 1 2 3 4;
-#X msg 146 201 list ABC BC A;
-#X floatatom 203 230 5 0 0 0 - - -;
-#X msg 270 230 3 2;
-#X obj 50 259 list.search A;
-#X obj 50 288 ui.dt;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 343 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 50 211 1 2 3 4;
+#X msg 146 211 list ABC BC A;
+#X floatatom 203 240 5 0 0 0 - - -;
+#X msg 270 240 3 2;
+#X obj 50 269 list.search A;
+#X obj 50 298 ui.dt;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 353 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 344 1\.;
-#X text 170 344 list:;
-#X text 270 344 input list.;
-#X text 170 369 data:mlist:;
-#X text 270 369 input mlist.;
-#X text 130 394 2\.;
-#X text 170 394 list:;
-#X text 270 394 set searched items.;
-#X obj 20 429 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 434 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 354 1\.;
+#X text 170 354 list:;
+#X text 270 354 input list.;
+#X text 170 379 data:mlist:;
+#X text 270 379 input mlist.;
+#X text 130 404 2\.;
+#X text 170 404 list:;
+#X text 270 404 set searched items.;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 444 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 435 1\.;
-#X text 270 435 position of search item or list of such positions.;
+#X text 130 445 1\.;
+#X text 270 445 position of search item or list of such positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

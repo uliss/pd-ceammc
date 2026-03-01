@@ -6,101 +6,100 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.out 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 hoa.out;
-#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 hoa.out defines a message outlet for a patcher loaded
 by a hoa.process~ object.;
-#X msg 50 191 open 0;
-#X msg 136 191 open 1;
-#X msg 232 191 42;
-#X msg 280 191 #0 43;
-#X msg 366 191 #1 44;
-#X obj 50 235 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
-#X obj 50 263 print A;
-#X msg 50 292 open 0;
-#X msg 174 292 42;
-#X msg 222 292 #0 43;
-#X msg 309 292 #1 44;
-#X msg 395 292 45;
-#X msg 443 292 #0 46;
-#X msg 530 292 #1 47;
-#X msg 69 321 open 1;
-#X obj 50 350 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
-#X obj 50 378 print B;
-#X obj 366 378 print C;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 201 open 0;
+#X msg 136 201 open 1;
+#X msg 232 201 42;
+#X msg 280 201 #0 43;
+#X msg 366 201 #1 44;
+#X obj 50 245 hoa.process~ 2 hoa/hoa_in_example1 planewaves;
+#X obj 50 273 print A;
+#X msg 50 302 open 0;
+#X msg 174 302 42;
+#X msg 222 302 #0 43;
+#X msg 309 302 #1 44;
+#X msg 395 302 45;
+#X msg 443 302 #0 46;
+#X msg 530 302 #1 47;
+#X msg 69 331 open 1;
+#X obj 50 360 hoa.process~ 2 hoa/hoa_in_example2 planewaves;
+#X obj 50 388 print B;
+#X obj 366 388 print C;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 443 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 434 1\.;
-#X text 170 434 int;
-#X obj 268 435 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 434 INDEX: outlet index. Тип: int. Минимальное значение:
-1\.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 474 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 444 1\.;
+#X text 170 444 int;
+#X obj 268 445 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 444 INDEX: outlet index. Type: int. Min value: 1;
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 484 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 475 @index;
-#X text 270 475 Outlet index. Тип: int. Значение по умолчанию: 1\.
-Минимальное значение: 1\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 485 @index;
+#X text 270 485 Outlet index. Type: int. Default value: 1\. Min value:
+1\.;
+#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 530 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 533 1\.;
-#X text 170 533 bang:;
-#X text 270 533 output bang message in the corresponding hoa.process~
+#X text 130 531 1\.;
+#X text 170 531 bang:;
+#X text 270 531 output bang message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 573 float:;
-#X text 270 573 output float message in the corresponding hoa.process~
+#X text 170 571 float:;
+#X text 270 571 output float message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 613 symbol:;
-#X text 270 613 output symbol message in the corresponding hoa.process~
+#X text 170 611 symbol:;
+#X text 270 611 output symbol message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 653 list:;
-#X text 270 653 output list message in the corresponding hoa.process~
+#X text 170 651 list:;
+#X text 270 651 output list message in the corresponding hoa.process~
 object's message outlet.;
-#X text 170 693 any:;
-#X text 270 693 output any message in the corresponding hoa.process~
+#X text 170 691 any:;
+#X text 270 691 output any message in the corresponding hoa.process~
 object's message outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 763 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 766 библиотека: ceammc v0.9.8;
-#X text 434 778 смотрите также:;
-#X obj 555 778 hoa.out~;
-#X obj 629 778 hoa.in;
-#X obj 688 778 hoa.in~;
-#N canvas 10 785 400 290 info 0;
+#X obj 1 761 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 764 library: ceammc v0.9.8;
+#X text 480 776 see also:;
+#X obj 555 776 hoa.out~;
+#X obj 629 776 hoa.in;
+#X obj 688 776 hoa.in~;
+#N canvas 10 783 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 hoa.out;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 spat;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.8;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
 Thomas Le Meur;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 hoa \, outlet;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 785 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 783 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 1;

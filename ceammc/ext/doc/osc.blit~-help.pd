@@ -18,7 +18,7 @@
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
@@ -33,7 +33,7 @@ all available harmonics until SR/2\. Type: int. Min value: 0;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 515 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 518 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 516 @harmonics;
 #X text 270 516 Number of harmonics. 0 means all available harmonics

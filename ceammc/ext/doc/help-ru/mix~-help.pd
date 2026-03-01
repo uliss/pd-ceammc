@@ -19,109 +19,107 @@
 #X obj 50 305 ui.gain~ @size 120 16;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 int;
 #X obj 268 391 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 N: number of inputs. Тип: int. Диапазон: 2…16;
+#X text 270 390 N: number of inputs. Type: int. Range: 2\...16;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 430 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 431 @db;
-#X text 270 431 Amplitude values in decibels. Тип: list. Единицы: 'db'.
-Значение по умолчанию: -144 -144\. Минимальное значение: -144\.;
-#X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 488 @mute;
-#X text 270 488 Mute channel list \, allowed values: 0 \, 1\. Тип:
-list. Значение по умолчанию: 0 0\.;
-#X obj 250 530 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 530 @solo;
-#X text 270 530 Solo channel list \, allowed values: 0 \, 1\. Тип:
-list. Значение по умолчанию: 0 0\.;
-#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 572 @value;
-#X text 270 572 Linear amplitude values. Тип: list. Значение по умолчанию:
-0 0\. Минимальное значение: 0\.;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @xfade_time;
-#X text 270 614 Smooth time. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 20\. Минимальное значение: 1\.;
-#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 671 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 431 Amplitude values in decibels. Type: list. Units: 'db'.
+Default value: -144 -144\. Min value: -144\.;
+#X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 473 @mute;
+#X text 270 473 Mute channel list \, allowed values: 0 \, 1\. Type:
+list. Default value: 0 0\.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 515 @solo;
+#X text 270 515 Solo channel list \, allowed values: 0 \, 1\. Type:
+list. Default value: 0 0\.;
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 557 @value;
+#X text 270 557 Linear amplitude values. Type: list. Default value:
+0 0\. Min value: 0\.;
+#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 599 @xfade_time;
+#X text 270 599 Smooth time. Type: float. Units: 'ms'. Default value:
+20\. Min value: 1\.;
+#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 656 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 657 mute;
+#X text 270 657 mute specified channel. Arguments are:;
+#X obj 280 680 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 680 CH: channel index (from 0). Type: int. Min value: 0\.;
+#X obj 280 703 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 703 VAL: 1 - mute \, 0 - unmute. Type: int. Allowed values:
+0 \, 1\.;
+#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 728 solo;
+#X text 270 728 solo (mute all others that not solo) specified channel.
+Arguments are:;
+#X obj 280 766 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 766 CH: channel index (from 0). Type: int. Min value: 0\.;
+#X obj 280 789 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 789 [VAL]: 1 - enable solo \, 0 - disable solo. Type: int.
+Allowed values: 0 \, 1\.;
+#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 844 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 672 mute;
-#X text 270 672 mute specified channel. Аргументы:;
-#X obj 280 695 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 695 CH: channel index (from 0). Тип: int. Минимальное значение:
-0\.;
-#X obj 280 733 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 733 VAL: 1 - mute \, 0 - unmute. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 773 solo;
-#X text 270 773 solo (mute all others that not solo) specified channel.
-Аргументы:;
-#X obj 280 811 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 811 CH: channel index (from 0). Тип: int. Минимальное значение:
-0\.;
-#X obj 280 849 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 849 [VAL]: 1 - enable solo \, 0 - disable solo. Тип: int.
-Разрешённые значения: 0 \, 1\.;
-#X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 904 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 905 1\.;
-#X text 170 905 ~;
-#X text 270 905 input signal.;
-#X text 130 930 ...;
-#X text 170 930 ~;
-#X text 270 930 input signal.;
-#X text 130 955 n.;
-#X text 170 955 float:;
-#X text 270 955 input signal.;
-#X obj 20 990 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 995 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 996 1\.;
-#X text 170 996 ~;
-#X text 270 996 output mixed signal.;
+#X text 130 845 1\.;
+#X text 170 845 ~;
+#X text 270 845 input signal.;
+#X text 130 870 ...;
+#X text 170 870 ~;
+#X text 270 870 input signal.;
+#X text 130 895 n.;
+#X text 170 895 float:;
+#X text 270 895 input signal.;
+#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 936 1\.;
+#X text 170 936 ~;
+#X text 270 936 output mixed signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1046 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1049 библиотека: ceammc v0.9.8;
-#N canvas 10 1068 400 290 info 0;
+#X obj 1 986 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 989 library: ceammc v0.9.8;
+#N canvas 10 1008 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 mix~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 base;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 mix \, amplitude \, decibel;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1068 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1008 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 14 0;
 #X connect 5 0 15 0;

@@ -5,26 +5,26 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.abs 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 math.abs;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The abs() function computes the absolute value of the
 float input.;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X msg 117 176 1 2 -5 7 d b;
-#X obj 50 205 math.abs;
-#X obj 50 234 ui.dt;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X floatatom 50 186 5 0 0 0 - - -;
+#X msg 117 186 1 2 -5 7 d b;
+#X obj 50 215 math.abs;
+#X obj 50 244 ui.dt;
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 299 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 290 1\.;
-#X text 170 290 float:;
-#X text 270 290 input value.;
-#X text 170 315 list:;
-#X text 270 315 apply to all numeric values.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 355 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 300 1\.;
+#X text 170 300 float:;
+#X text 270 300 input value.;
+#X text 170 325 list:;
+#X text 270 325 apply to all numeric values.;
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 365 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 356 1\.;
-#X text 270 356 result value.;
+#X text 130 366 1\.;
+#X text 270 366 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -6,302 +6,302 @@
 0;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.matrix] @url ui.matrix-help.pd;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Rectangle matrix of toggles. Note: all matrix operations
 have following cell address format - ROW COL.;
 #X text 240 123 On click outputs message with format [cell ROW COL
 VALUE(;
-#X floatatom 146 201 5 0 0 0 - - -;
-#X floatatom 270 201 5 0 0 0 - - -;
-#X msg 50 216 dump;
-#X msg 146 230 get row \$1;
-#X msg 270 230 get col \$1;
-#X msg 69 245 reset;
-#X msg 165 259 bang;
-#X msg 290 259 flip;
-#X msg 357 259 get list;
-#X msg 462 259 set matrix 2 2 1 0 0 1;
-#X obj 50 302 ui.matrix;
-#X obj 50 374 route cell row col;
-#X obj 222 403 ui.d;
-#X obj 155 432 ui.d;
-#X obj 107 461 ui.d;
-#X obj 50 489 ui.d;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 544 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X floatatom 146 211 5 0 0 0 - - -;
+#X floatatom 270 211 5 0 0 0 - - -;
+#X msg 50 226 dump;
+#X msg 146 240 get row \$1;
+#X msg 270 240 get col \$1;
+#X msg 69 255 reset;
+#X msg 165 269 bang;
+#X msg 290 269 flip;
+#X msg 357 269 get list;
+#X msg 462 269 set matrix 2 2 1 0 0 1;
+#X obj 50 312 ui.matrix;
+#X obj 50 384 route cell row col;
+#X obj 222 413 ui.d;
+#X obj 155 442 ui.d;
+#X obj 107 471 ui.d;
+#X obj 50 499 ui.d;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 554 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 579 Mouse-drag;
-#X text 310 579 toggle cells under cursor.;
-#X text 130 599 Left-click;
-#X text 310 599 toggle cell under cursor.;
-#X text 130 619 Right-click + ⌥;
-#X text 310 619 open properties dialog.;
-#X text 130 639 Right-click + ⇧;
-#X text 310 639 open object help.;
-#X text 130 659 Right-click + ⌥;
-#X text 310 659 open properties dialog.;
-#X text 81 659 [Edit];
-#X text 130 679 Right-click + ⇧;
-#X text 310 679 open the object help.;
-#X text 81 679 [Edit];
-#X text 130 699 Right-click;
-#X text 310 699 open Pd popup menu.;
-#X text 81 699 [Edit];
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 734 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 589 Mouse-drag;
+#X text 310 589 toggle cells under cursor.;
+#X text 130 609 Left-click;
+#X text 310 609 toggle cell under cursor.;
+#X text 130 629 Right-click + ⌥;
+#X text 310 629 open properties dialog.;
+#X text 130 649 Right-click + ⇧;
+#X text 310 649 open object help.;
+#X text 130 669 Right-click + ⌥;
+#X text 310 669 open properties dialog.;
+#X text 81 669 [Edit];
+#X text 130 689 Right-click + ⇧;
+#X text 310 689 open the object help.;
+#X text 81 689 [Edit];
+#X text 130 709 Right-click;
+#X text 310 709 open Pd popup menu.;
+#X text 81 709 [Edit];
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 744 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 737 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 747 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 735 1\.;
-#X text 170 735 int;
-#X obj 268 736 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 735 ROW: matrix rows. Type: int. Range: 1\...64;
-#X text 130 760 2\.;
-#X text 170 760 int;
-#X obj 268 761 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 760 COL: matrix columns. Type: int. Range: 1\...64;
-#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 800 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 745 1\.;
+#X text 170 745 int;
+#X obj 268 746 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 745 ROW: matrix rows. Type: int. Range: 1\...64;
+#X text 130 770 2\.;
+#X text 170 770 int;
+#X obj 268 771 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 770 COL: matrix columns. Type: int. Range: 1\...64;
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 810 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 803 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 813 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 801 @cols;
-#X text 270 801 Number of matrix columns. Type: int. Default value:
+#X msg 130 811 @cols;
+#X text 270 811 Number of matrix columns. Type: int. Default value:
 8\. Range: 1\...64\.;
-#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 843 @current_col;
-#X text 270 843 Current column index. -1 if not specified. This property
+#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 853 @current_col;
+#X text 270 853 Current column index. -1 if not specified. This property
 is not saved in patch. Type: int. Default value: -1\. Min value: -1\.;
-#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 900 @current_row;
-#X text 270 900 Current row index. -1 if not specified. This property
+#X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 910 @current_row;
+#X text 270 910 Current row index. -1 if not specified. This property
 is not saved in patch. Type: int. Default value: -1\. Min value: -1\.;
-#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 957 @receive;
-#X text 270 957 Source of message receive. Type: symbol. Default value:
+#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 967 @receive;
+#X text 270 967 Source of message receive. Type: symbol. Default value:
 (null).;
-#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 999 @rows;
-#X text 270 999 Number of matrix rows. Type: int. Default value: 4\.
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1009 @rows;
+#X text 270 1009 Number of matrix rows. Type: int. Default value: 4\.
 Range: 1\...64\.;
-#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1041 @send;
-#X text 270 1041 Address for sending messages. Type: symbol. Default
+#X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1051 @send;
+#X text 270 1051 Address for sending messages. Type: symbol. Default
 value: (null).;
-#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1083 @active_color;
-#X text 270 1083 Element active color (list of red \, green \, blue
+#X obj 250 1093 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1093 @active_color;
+#X text 270 1093 Element active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X obj 250 1125 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1125 @background_color;
-#X text 270 1125 Element background color (list of red \, green \,
+#X obj 250 1135 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1135 @background_color;
+#X text 270 1135 Element background color (list of red \, green \,
 blue values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93
 1\.;
-#X obj 250 1182 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1182 @border_color;
-#X text 270 1182 Border color (list of red \, green \, blue values
+#X obj 250 1192 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1192 @border_color;
+#X text 270 1192 Border color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X obj 250 1224 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1224 @current_color;
-#X text 270 1224 Current col/row color (list of red \, green \, blue
+#X obj 250 1234 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1234 @current_color;
+#X text 270 1234 Current col/row color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 1 0.75 0 1\.;
-#X obj 250 1266 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1266 @fontname;
-#X text 270 1266 Font name. Type: symbol. Default value: Helvetica.
+#X obj 250 1276 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1276 @fontname;
+#X text 270 1276 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1308 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1308 @fontsize;
-#X text 270 1308 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
-#X obj 250 1338 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1338 @fontslant;
-#X text 270 1338 Font slant. Type: symbol. Default value: roman. Allowed
+#X obj 250 1318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1318 @fontsize;
+#X text 270 1318 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1348 @fontslant;
+#X text 270 1348 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 1380 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1380 @fontweight;
-#X text 270 1380 Font weight. Type: symbol. Default value: normal.
+#X obj 250 1390 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1390 @fontweight;
+#X text 270 1390 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X obj 250 1422 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1422 @pinned;
-#X text 270 1422 Pin mode. If set to 1 \, it places the element at
+#X obj 250 1432 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1432 @pinned;
+#X text 270 1432 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X obj 250 1479 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1479 @presetname;
-#X text 270 1479 Preset name for using with [ui.preset] or [preset.storage]
+#X obj 250 1489 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1489 @presetname;
+#X text 270 1489 Preset name for using with [ui.preset] or [preset.storage]
 objects. Type: symbol. Default value: (null).;
-#X obj 250 1521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1521 @size;
-#X text 270 1521 Object size (width \, height pair). Type: list. Default
+#X obj 250 1531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1531 @size;
+#X text 270 1531 Object size (width \, height pair). Type: list. Default
 value: 105 53\.;
-#X obj 20 1573 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1578 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1588 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1579 clear;
-#X text 270 1579 clears specified preset. Arguments are:;
-#X obj 280 1602 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1602 IDX: preset index. Type: int.;
-#X obj 250 1627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1627 flip;
-#X text 270 1627 flips all matrix cells.;
-#X obj 250 1655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1655 flip R C;
-#X text 270 1655 flips single cell. Arguments are:;
-#X obj 280 1678 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1678 R: row index. Type: int. Min value: 0\.;
-#X obj 280 1701 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1701 C: column index. Type: int. Min value: 0\.;
-#X obj 250 1726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1726 flip col N;
-#X text 270 1726 flips cells in specified column. Arguments are:;
-#X obj 280 1749 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1749 N: column index. Type: int. Min value: 0\.;
-#X obj 250 1774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1774 flip row N;
-#X text 270 1774 flips cells in specified row. Arguments are:;
-#X obj 280 1797 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1797 N: row index. Type: int. Min value: 0\.;
-#X obj 250 1822 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1822 get cell R C;
-#X text 270 1822 outputs single cell value as message [cell ROW COL
+#X msg 130 1589 clear;
+#X text 270 1589 clears specified preset. Arguments are:;
+#X obj 280 1612 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1612 IDX: preset index. Type: int.;
+#X obj 250 1637 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1637 flip;
+#X text 270 1637 flips all matrix cells.;
+#X obj 250 1665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1665 flip R C;
+#X text 270 1665 flips single cell. Arguments are:;
+#X obj 280 1688 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1688 R: row index. Type: int. Min value: 0\.;
+#X obj 280 1711 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1711 C: column index. Type: int. Min value: 0\.;
+#X obj 250 1736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1736 flip col N;
+#X text 270 1736 flips cells in specified column. Arguments are:;
+#X obj 280 1759 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1759 N: column index. Type: int. Min value: 0\.;
+#X obj 250 1784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1784 flip row N;
+#X text 270 1784 flips cells in specified row. Arguments are:;
+#X obj 280 1807 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1807 N: row index. Type: int. Min value: 0\.;
+#X obj 250 1832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1832 get cell R C;
+#X text 270 1832 outputs single cell value as message [cell ROW COL
 VALUE(. Arguments are:;
-#X obj 280 1860 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1860 R: row index. Type: int. Min value: 0\.;
-#X obj 280 1883 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1883 C: column index. Type: int. Min value: 0\.;
-#X obj 250 1908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1908 get cells;
-#X text 270 1908 output all cells as separate messages [cell R C VALUE(.;
-#X obj 250 1936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1936 get col N;
-#X text 270 1936 outputs column cells as message [col N V0 V1\...(.
+#X obj 280 1870 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1870 R: row index. Type: int. Min value: 0\.;
+#X obj 280 1893 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1893 C: column index. Type: int. Min value: 0\.;
+#X obj 250 1918 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1918 get cells;
+#X text 270 1918 output all cells as separate messages [cell R C VALUE(.;
+#X obj 250 1946 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1946 get col N;
+#X text 270 1946 outputs column cells as message [col N V0 V1\...(.
 Arguments are:;
-#X obj 280 1974 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1974 N: column index. Type: int. Min value: 0\.;
-#X obj 250 1999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1999 get cols;
-#X text 270 1999 output all columns as separate messages [col N V0
+#X obj 280 1984 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1984 N: column index. Type: int. Min value: 0\.;
+#X obj 250 2009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2009 get cols;
+#X text 270 2009 output all columns as separate messages [col N V0
 V1\...(.;
-#X obj 250 2027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2027 get list;
-#X text 270 2027 output all cell values as list \, row by raw. [0 1
+#X obj 250 2037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2037 get list;
+#X text 270 2037 output all cell values as list \, row by raw. [0 1
 1 1 0\...(.;
-#X obj 250 2055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2055 get matrix;
-#X text 270 2055 output as matrix [matrix NROWS NCOLS DATA...(.;
-#X obj 250 2083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2083 get row N;
-#X text 270 2083 outputs row cells as message [row N V0 V1\...(. Arguments
+#X obj 250 2065 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2065 get matrix;
+#X text 270 2065 output as matrix [matrix NROWS NCOLS DATA...(.;
+#X obj 250 2093 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2093 get row N;
+#X text 270 2093 outputs row cells as message [row N V0 V1\...(. Arguments
 are:;
-#X obj 280 2121 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2121 N: row index. Type: int. Min value: 0\.;
-#X obj 250 2146 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2146 get rows;
-#X text 270 2146 output all rows as separate messages [row N V0 V1\...(.;
-#X obj 250 2174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2174 interp;
-#X text 270 2174 for this object acts as *load* \, no interpolation
+#X obj 280 2131 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2131 N: row index. Type: int. Min value: 0\.;
+#X obj 250 2156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2156 get rows;
+#X text 270 2156 output all rows as separate messages [row N V0 V1\...(.;
+#X obj 250 2184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2184 interp;
+#X text 270 2184 for this object acts as *load* \, no interpolation
 performed.;
-#X obj 250 2202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2202 load;
-#X text 270 2202 loads specified preset. Arguments are:;
-#X obj 280 2225 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2225 IDX: preset index. Type: int.;
-#X obj 250 2250 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2250 pos;
-#X text 270 2250 set UI element position. Arguments are:;
-#X obj 280 2273 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2273 X: top left x-coord. Type: float.;
-#X obj 280 2296 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2296 Y: top right y-coord. Type: float.;
-#X obj 250 2321 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2321 random;
-#X text 270 2321 fill matrix random and output.;
-#X obj 250 2349 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2349 read;
-#X text 270 2349 Arguments are:;
-#X obj 280 2372 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2372 [FNAME]: read matrix values from text file (space
+#X obj 250 2212 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2212 load;
+#X text 270 2212 loads specified preset. Arguments are:;
+#X obj 280 2235 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2235 IDX: preset index. Type: int.;
+#X obj 250 2260 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2260 pos;
+#X text 270 2260 set UI element position. Arguments are:;
+#X obj 280 2283 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2283 X: top left x-coord. Type: float.;
+#X obj 280 2306 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2306 Y: top right y-coord. Type: float.;
+#X obj 250 2331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2331 random;
+#X text 270 2331 fill matrix random and output.;
+#X obj 250 2359 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2359 read;
+#X text 270 2359 Arguments are:;
+#X obj 280 2382 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2382 [FNAME]: read matrix values from text file (space
 separated). If fname argument is not specified opens file chooser dialog.
 Type: symbol.;
-#X obj 250 2427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2427 reset;
-#X text 270 2427 uncheck all matrix cells. No output.;
-#X obj 250 2455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2455 set col N ...;
-#X text 270 2455 set specified column without output. Arguments are:;
-#X obj 280 2478 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2478 N: column index. Type: int. Min value: 0\.;
-#X obj 280 2501 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2501 ...: cell values (1 - checked \, 0 - unchecked). Type:
+#X obj 250 2437 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2437 reset;
+#X text 270 2437 uncheck all matrix cells. No output.;
+#X obj 250 2465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2465 set col N ...;
+#X text 270 2465 set specified column without output. Arguments are:;
+#X obj 280 2488 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2488 N: column index. Type: int. Min value: 0\.;
+#X obj 280 2511 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2511 ...: cell values (1 - checked \, 0 - unchecked). Type:
 list.;
-#X obj 250 2526 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2526 set list ...;
-#X text 270 2526 set matrix data without output. Arguments are:;
-#X obj 280 2549 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2549 ...: cell values (1 - checked \, 0 - unchecked) \,
+#X obj 250 2536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2536 set list ...;
+#X text 270 2536 set matrix data without output. Arguments are:;
+#X obj 280 2559 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2559 ...: cell values (1 - checked \, 0 - unchecked) \,
 row by row. Type: list.;
-#X obj 250 2589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2589 set matrix R C ...;
-#X text 270 2589 set matrix without output. Arguments are:;
-#X obj 280 2612 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2612 R: number of rows in matrix. Type: int. Min value:
+#X obj 250 2599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2599 set matrix R C ...;
+#X text 270 2599 set matrix without output. Arguments are:;
+#X obj 280 2622 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2622 R: number of rows in matrix. Type: int. Min value:
 1\.;
-#X obj 280 2635 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2635 C: number of columns in matrix. Type: int. Min value:
+#X obj 280 2645 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2645 C: number of columns in matrix. Type: int. Min value:
 1\.;
-#X obj 280 2658 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2658 ...: cell values (1 - checked \, 0 - unchecked). Type:
+#X obj 280 2668 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2668 ...: cell values (1 - checked \, 0 - unchecked). Type:
 list.;
-#X obj 250 2683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2683 set row N ...;
-#X text 270 2683 set specified row without output. Arguments are:;
-#X obj 280 2706 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2706 N: row index. Type: int. Min value: 0\.;
-#X obj 280 2729 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2729 ...: cell values (1 - checked \, 0 - unchecked). Type:
+#X obj 250 2693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2693 set row N ...;
+#X text 270 2693 set specified row without output. Arguments are:;
+#X obj 280 2716 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2716 N: row index. Type: int. Min value: 0\.;
+#X obj 280 2739 cnv 1 26 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2739 ...: cell values (1 - checked \, 0 - unchecked). Type:
 list.;
-#X obj 250 2754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2754 store;
-#X text 270 2754 stores specified preset. Arguments are:;
-#X obj 280 2777 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2777 IDX: preset index. Type: int.;
-#X obj 250 2802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2802 write;
-#X text 270 2802 Arguments are:;
-#X obj 280 2825 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2825 [FNAME]: write matrix values to text file (space separated).
+#X obj 250 2764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2764 store;
+#X text 270 2764 stores specified preset. Arguments are:;
+#X obj 280 2787 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2787 IDX: preset index. Type: int.;
+#X obj 250 2812 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2812 write;
+#X text 270 2812 Arguments are:;
+#X obj 280 2835 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2835 [FNAME]: write matrix values to text file (space separated).
 If fname argument is not specified opens file chooser dialog. Type:
 symbol.;
-#X obj 250 2880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2880 dump;
-#X text 270 2880 dumps all object info to Pd console window.;
-#X obj 20 2918 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2923 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 2890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2890 dump;
+#X text 270 2890 dumps all object info to Pd console window.;
+#X obj 20 2928 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2933 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2924 1\.;
-#X text 170 2924 bang:;
-#X text 270 2924 output all cells. Same as [get cells(.;
-#X text 170 2949 list:;
-#X text 270 2949 sets matrix state. Input format: 0 and 1 \, row by
+#X text 130 2934 1\.;
+#X text 170 2934 bang:;
+#X text 270 2934 output all cells. Same as [get cells(.;
+#X text 170 2959 list:;
+#X text 270 2959 sets matrix state. Input format: 0 and 1 \, row by
 row.;
-#X obj 20 2984 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2989 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 2994 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2999 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2990 1\.;
-#X text 270 2990 output.;
+#X text 130 3000 1\.;
+#X text 270 3000 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 3040 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3043 library: ceammc v0.9.8;
-#X text 521 3055 see also:;
-#X obj 596 3058 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 3050 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3053 library: ceammc v0.9.8;
+#X text 521 3065 see also:;
+#X obj 596 3068 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
-#X obj 672 3058 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 3068 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.toggle] @url ui.toggle-help.pd;
-#N canvas 10 3062 400 290 info 0;
+#N canvas 10 3072 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -325,7 +325,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 3062 pd info;
+#X restore 10 3072 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 9 0 17 0;

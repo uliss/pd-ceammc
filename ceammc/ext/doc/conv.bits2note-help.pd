@@ -7,75 +7,75 @@
 #X obj 391 11 ceammc/bits->note;
 #X obj 540 11 bits->note;
 #X obj 638 11 conv.bits2note;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 In default mode: output NOTE VEL pair to corresponding
 bit index outlet. If bit is on: velocity is @vel \, otherwise 0;
 #X text 240 138 In @poly mode: output VOICE NOTE VEL triplet to first
 outlet;
-#X msg 50 216 bang;
-#X obj 50 245 ui.hrd* 4;
-#X obj 174 245 ui.tab tie off raw;
-#X msg 174 274 @mode \$2;
-#X obj 50 303 bits->note 60 70 80 90 @vel 100;
-#X obj 50 332 ui.d @auto_size 0 @size 50 18;
-#X obj 146 332 ui.d @auto_size 0 @size 50 18;
-#X obj 242 332 ui.d @auto_size 0 @size 50 18;
-#X obj 338 332 ui.d @auto_size 0 @size 50 18;
-#X msg 50 375 bang;
-#X obj 50 403 ui.hrd* 4;
-#X obj 174 403 ui.tab tie off raw;
-#X msg 174 432 @mode \$2;
-#X obj 50 461 bits->note 60 70 80 90 @vel 100 @poly;
-#X obj 50 490 ui.dt;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 545 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 226 bang;
+#X obj 50 255 ui.hrd* 4;
+#X obj 174 255 ui.tab tie off raw;
+#X msg 174 284 @mode \$2;
+#X obj 50 313 bits->note 60 70 80 90 @vel 100;
+#X obj 50 342 ui.d @auto_size 0 @size 50 18;
+#X obj 146 342 ui.d @auto_size 0 @size 50 18;
+#X obj 242 342 ui.d @auto_size 0 @size 50 18;
+#X obj 338 342 ui.d @auto_size 0 @size 50 18;
+#X msg 50 385 bang;
+#X obj 50 413 ui.hrd* 4;
+#X obj 174 413 ui.tab tie off raw;
+#X msg 174 442 @mode \$2;
+#X obj 50 471 bits->note 60 70 80 90 @vel 100 @poly;
+#X obj 50 500 ui.dt;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 555 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 548 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 558 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 546 1\.;
-#X text 170 546 list;
-#X obj 268 547 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 546 KEYS: list of note values. Type: list.;
-#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 586 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 556 1\.;
+#X text 170 556 list;
+#X obj 268 557 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 556 KEYS: list of note values. Type: list.;
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 596 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 589 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 599 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 587 @keys;
-#X text 270 587 (initonly) List of notes. Type: list.;
-#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 617 @poly;
-#X text 270 617 Polyphonic mode for using with [clone] object. Default
+#X msg 130 597 @keys;
+#X text 270 597 (initonly) List of notes. Type: list.;
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 627 @poly;
+#X text 270 627 Polyphonic mode for using with [clone] object. Default
 value: 0\.;
-#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 659 @mode;
-#X text 270 659 Mode for repeated notes. If 'off' - send note off before
+#X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 669 @mode;
+#X text 270 669 Mode for repeated notes. If 'off' - send note off before
 retriggering \, if 'tie' - ignore repeated events \, if 'raw' - always
 send on/off events. Type: symbol. Default value: off. Allowed values:
 off \, tie \, raw.;
-#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 731 @vel;
-#X text 270 731 Output velocity. Type: float. Default value: 90\. Range:
+#X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 741 @vel;
+#X text 270 741 Output velocity. Type: float. Default value: 90\. Range:
 0\...127\.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 788 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 789 1\.;
-#X text 170 789 list:;
-#X text 270 789 input bit list.;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 829 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 799 1\.;
+#X text 170 799 list:;
+#X text 270 799 input bit list.;
+#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 839 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 830 1\.;
-#X text 270 830 output.;
+#X text 130 840 1\.;
+#X text 270 840 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 880 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 883 library: ceammc v0.9.8;
-#N canvas 10 902 400 290 info 0;
+#X obj 1 890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 893 library: ceammc v0.9.8;
+#N canvas 10 912 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 902 pd info;
+#X restore 10 912 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 10 0 13 0;

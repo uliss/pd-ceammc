@@ -13,81 +13,81 @@
 #X obj 50 205 flow.count;
 #X floatatom 50 234 5 0 0 0 - - -;
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 271 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 274 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 272 1\.;
 #X text 170 272 int;
 #X obj 268 273 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 272 VALUE: начальное значение счетчика. Тип: int. Минимальное
-значение: 0\.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 327 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 270 272 VALUE: начальное значение счетчика. Type: int. Min
+value: 0;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 312 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 315 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 328 @value;
-#X text 270 328 Текущее значение счетчика. Его можно установить через
+#X msg 130 313 @value;
+#X text 270 313 Текущее значение счетчика. Его можно установить через
 отправку сообщения на второй (!) вход или используя [prop.set] объект.
-Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 415 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+Type: int. Default value: 0\. Min value: 0\.;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 400 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 416 1\.;
-#X text 170 416 any:;
-#X text 270 416 входные сообщения.;
-#X text 130 441 2\.;
-#X text 170 441 bang:;
-#X text 270 441 сбрасывает счетчик на начальное значение (без вывода).;
-#X text 170 466 int:;
-#X text 270 466 устанавливает текущее значение (без вывода).;
-#X msg 170 491 @value X;
-#X text 270 491 установить текущее значение (без вывода).;
-#X msg 170 516 @value?;
-#X text 270 516 выводит текущее значение.;
-#X msg 170 541 + X;
-#X text 270 541 добавить указанное значение к текущему (без вывода).;
-#X msg 170 566 - X;
-#X text 270 566 вычесть указанное значение из текущего (без вывода).;
-#X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 609 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 610 1\.;
-#X text 170 610 int:;
-#X text 270 610 выводит значение счетчика.;
+#X text 130 401 1\.;
+#X text 170 401 any:;
+#X text 270 401 входные сообщения.;
+#X text 130 426 2\.;
+#X text 170 426 bang:;
+#X text 270 426 сбрасывает счетчик на начальное значение (без вывода).;
+#X text 170 451 int:;
+#X text 270 451 устанавливает текущее значение (без вывода).;
+#X msg 170 476 @value X;
+#X text 270 476 установить текущее значение (без вывода).;
+#X msg 170 501 @value?;
+#X text 270 501 выводит текущее значение.;
+#X msg 170 526 + X;
+#X text 270 526 добавить указанное значение к текущему (без вывода).;
+#X msg 170 551 - X;
+#X text 270 551 вычесть указанное значение из текущего (без вывода).;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 595 1\.;
+#X text 170 595 int:;
+#X text 270 595 выводит значение счетчика.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 660 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 663 библиотека: ceammc v0.9.8;
-#N canvas 10 682 400 290 info 0;
+#X obj 1 645 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 648 library: ceammc v0.9.8;
+#N canvas 10 667 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 flow.count;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 flow;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 counter;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 682 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 667 pd info;
 #X connect 4 0 5 0;
 #X connect 6 0 8 0;
 #X connect 5 0 9 0;

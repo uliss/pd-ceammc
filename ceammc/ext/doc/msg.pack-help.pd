@@ -14,7 +14,7 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 261 1\.;
 #X text 170 261 int;
@@ -27,7 +27,7 @@
 #X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 326 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 329 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 329 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 327 @n;
 #X text 270 327 (initonly) Number of inlets. Type: int. Default value:

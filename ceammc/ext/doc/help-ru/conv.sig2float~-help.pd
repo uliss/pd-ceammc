@@ -11,90 +11,90 @@
 #X obj 30 154 s->f~;
 #X restore 533 11 pd aliases;
 #X obj 630 11 conv.sig2float~;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 convert signal to float via specified time intervals;
-#X obj 50 161 phasor~ 0.5;
-#X msg 184 161 bang;
-#X obj 50 190 sig->float~ 500;
-#X floatatom 50 219 5 0 0 0 - - -;
-#X obj 184 219 ui.dsp~;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 274 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 50 171 phasor~ 0.5;
+#X msg 184 171 bang;
+#X obj 50 200 sig->float~ 500;
+#X floatatom 50 229 5 0 0 0 - - -;
+#X obj 184 229 ui.dsp~;
+#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 284 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 309 Left-click;
-#X text 310 309 sample immediately.;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 344 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 319 Left-click;
+#X text 310 319 sample immediately.;
+#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 354 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 357 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 345 1\.;
-#X text 170 345 float;
-#X obj 268 346 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 345 INTERVAL(ms): интервал выборки. Тип: float. Минимальное
-значение: -1\.;
-#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 400 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 355 1\.;
+#X text 170 355 float;
+#X obj 268 356 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 355 INTERVAL(ms): интервал выборки. Type: float. Min value:
+-1;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 395 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 398 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 401 @interval;
-#X text 270 401 Sampling interval. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 50\. Минимальное значение: -1\.;
-#X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 443 @offset;
-#X text 270 443 Sample offset inside DSP block. Тип: int. Единицы:
-'samp'. Значение по умолчанию: 0\. Диапазон: 0\...8192\.;
-#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 500 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 396 @interval;
+#X text 270 396 Sampling interval. Type: float. Units: 'ms'. Default
+value: 50\. Min value: -1\.;
+#X obj 250 438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 438 @offset;
+#X text 270 438 Sample offset inside DSP block. Type: int. Units: 'samp'.
+Default value: 0\. Range: 0\...8192\.;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 495 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 501 1\.;
-#X text 170 501 ~;
-#X text 270 501 input signal.;
-#X text 170 526 bang:;
-#X text 270 526 sample immediately.;
-#X text 130 551 2\.;
-#X text 170 551 float:;
-#X text 270 551 set sample interval.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 591 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 592 1\.;
-#X text 270 592 float: sample.;
+#X text 130 496 1\.;
+#X text 170 496 ~;
+#X text 270 496 input signal.;
+#X text 170 521 bang:;
+#X text 270 521 sample immediately.;
+#X text 130 546 2\.;
+#X text 170 546 float:;
+#X text 270 546 set sample interval.;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 586 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 587 1\.;
+#X text 270 587 float: sample.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 642 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 645 библиотека: ceammc v0.9.8;
-#X text 553 657 смотрите также:;
-#X obj 674 657 snapshot~;
-#N canvas 10 664 400 290 info 0;
+#X obj 1 637 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 640 library: ceammc v0.9.8;
+#X text 599 652 see also:;
+#X obj 674 652 snapshot~;
+#N canvas 10 659 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 conv.sig2float~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 conv;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.2;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 conv \, signal \, float \, snapshot;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 664 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 659 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;

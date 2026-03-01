@@ -7,111 +7,111 @@
 #X obj 391 11 ceammc/lin->curve;
 #X obj 540 11 lin->curve;
 #X obj 638 11 conv.lin2curve;
-#X obj 230 78 cnv 1 535 95 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 map the receiver from an assumed linear input range
 to an exponential curve output range. Unlike with [conv.lin2exp] \,
 the output range may include zero. If the input exceeds the input range
 \, the following behaviours are specified by the clip property.;
-#X obj 50 221 loadbang;
-#X floatatom 194 221 5 0 0 0 - - -;
+#X obj 50 231 loadbang;
+#X floatatom 194 231 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array l2c 255 float 0;
 #X coords 0 1 255 0 250 180 1;
-#X restore 357 221 graph;
-#X msg 50 250 0 256;
-#X obj 194 250 t b f;
-#X obj 50 279 list.seq;
-#X msg 194 279 @curve \$1;
-#X obj 50 308 list.separate;
-#X obj 50 337 t f f, f 12;
-#X obj 50 365 lin->curve 0 256 0 1;
-#X obj 50 394 tabwrite l2c;
-#X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 449 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 357 231 graph;
+#X msg 50 260 0 256;
+#X obj 194 260 t b f;
+#X obj 50 289 list.seq;
+#X msg 194 289 @curve \$1;
+#X obj 50 318 list.separate;
+#X obj 50 347 t f f, f 12;
+#X obj 50 375 lin->curve 0 256 0 1;
+#X obj 50 404 tabwrite l2c;
+#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 459 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 452 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 462 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 450 1\.;
-#X text 170 450 float;
-#X obj 268 451 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 450 IN_FROM: begin of input range. Type: float.;
-#X text 130 475 2\.;
-#X text 170 475 float;
-#X obj 268 476 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 475 IN_TO: end of input range. Type: float.;
-#X text 130 500 3\.;
-#X text 170 500 float;
-#X obj 268 501 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 500 OUT_FROM: begin of output range. Type: float.;
-#X text 130 525 4\.;
-#X text 170 525 float;
-#X obj 268 526 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 525 OUT_TO: end of output range. Type: float.;
-#X text 130 550 5\.;
-#X text 170 550 float;
-#X obj 268 551 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 550 CURVE: curve shape. Type: float.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 590 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 460 1\.;
+#X text 170 460 float;
+#X obj 268 461 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 460 IN_FROM: begin of input range. Type: float.;
+#X text 130 485 2\.;
+#X text 170 485 float;
+#X obj 268 486 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 485 IN_TO: end of input range. Type: float.;
+#X text 130 510 3\.;
+#X text 170 510 float;
+#X obj 268 511 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 510 OUT_FROM: begin of output range. Type: float.;
+#X text 130 535 4\.;
+#X text 170 535 float;
+#X obj 268 536 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 535 OUT_TO: end of output range. Type: float.;
+#X text 130 560 5\.;
+#X text 170 560 float;
+#X obj 268 561 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 560 CURVE: curve shape. Type: float.;
+#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 600 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 593 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 603 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 591 @clip;
-#X text 270 591 Noclip (don't clip) max (clip ceiling) min (clip floor)
+#X msg 130 601 @clip;
+#X text 270 601 Noclip (don't clip) max (clip ceiling) min (clip floor)
 minmax (clip both). Type: symbol. Default value: minmax. Allowed values:
 noclip \, min \, max \, minmax.;
-#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 648 @curve;
-#X text 270 648 0 (linear) <0 (concave \, negatively curved) >0 (convex
+#X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 658 @curve;
+#X text 270 658 0 (linear) <0 (concave \, negatively curved) >0 (convex
 \, positively curved). Type: float. Default value: -4\.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 @in_from;
-#X text 270 690 Begin of input range. Type: float. Default value: 0\.;
-#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 720 @in_to;
-#X text 270 720 End of input range. Type: float. Default value: 127\.;
-#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 750 @max;
-#X text 270 750 Alias to @clip max.;
-#X obj 250 780 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 780 @min;
-#X text 270 780 Alias to @clip min.;
-#X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 810 @minmax;
-#X text 270 810 Alias to @clip minmax.;
-#X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 840 @noclip;
-#X text 270 840 Alias to @clip noclip.;
-#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 870 @out_from;
-#X text 270 870 Begin of output range. Type: float. Default value:
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 700 @in_from;
+#X text 270 700 Begin of input range. Type: float. Default value: 0\.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 730 @in_to;
+#X text 270 730 End of input range. Type: float. Default value: 127\.;
+#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 760 @max;
+#X text 270 760 Alias to @clip max.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 790 @min;
+#X text 270 790 Alias to @clip min.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 820 @minmax;
+#X text 270 820 Alias to @clip minmax.;
+#X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 850 @noclip;
+#X text 270 850 Alias to @clip noclip.;
+#X obj 250 880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 880 @out_from;
+#X text 270 880 Begin of output range. Type: float. Default value:
 0\.;
-#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 900 @out_to;
-#X text 270 900 End of output range. Type: float. Default value: 1\.;
-#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 945 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 910 @out_to;
+#X text 270 910 End of output range. Type: float. Default value: 1\.;
+#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 955 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 946 1\.;
-#X text 170 946 float:;
-#X text 270 946 input value.;
-#X text 170 971 list:;
-#X text 270 971 input list.;
-#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1011 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 956 1\.;
+#X text 170 956 float:;
+#X text 270 956 input value.;
+#X text 170 981 list:;
+#X text 270 981 input list.;
+#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1021 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1012 1\.;
-#X text 270 1012 converted value.;
+#X text 130 1022 1\.;
+#X text 270 1022 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1062 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1065 library: ceammc v0.9.8;
-#X text 578 1077 see also:;
-#X obj 653 1077 conv.lin2exp;
-#N canvas 10 1084 400 290 info 0;
+#X obj 1 1072 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1075 library: ceammc v0.9.8;
+#X text 578 1087 see also:;
+#X obj 653 1087 conv.lin2exp;
+#N canvas 10 1094 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -135,7 +135,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1084 pd info;
+#X restore 10 1094 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;

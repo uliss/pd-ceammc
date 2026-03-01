@@ -6,84 +6,84 @@
 -4096 0;
 #X obj 586 11 random.i;
 #X obj 669 11 random.int;
-#X obj 230 78 cnv 1 535 154 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 164 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Generates pseudo-random number in specified closed interval.;
 #X text 240 108 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
 #X text 240 163 Algorithm: 32-bit Mersenne Twister by Matsumoto and
 Nishimura \, 1998;
-#X obj 240 203 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 206 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Mersenne Twister @url
 https://en.wikipedia.org/wiki/Mersenne_Twister;
-#X obj 50 280 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 290 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 280 @seed 0;
-#X msg 184 280 gen 5;
-#X obj 50 338 random.int -10 10;
-#X obj 50 367 ui.dt;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 422 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 88 290 @seed 0;
+#X msg 184 290 gen 5;
+#X obj 50 348 random.int -10 10;
+#X obj 50 377 ui.dt;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 432 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 425 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 435 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 423 1\.;
-#X text 170 423 list;
-#X obj 268 424 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 423 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
+#X text 130 433 1\.;
+#X text 170 433 list;
+#X obj 268 434 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 433 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
 arg: @min=0 \, @max=ARG[0]. Type: list.;
-#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 478 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 488 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 481 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 491 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 479 @max;
-#X text 270 479 Random range upper bound. Type: int. Default value:
+#X msg 130 489 @max;
+#X text 270 489 Random range upper bound. Type: int. Default value:
 255\.;
-#X obj 250 509 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 509 @min;
-#X text 270 509 Random range lower bound. Type: int. Default value:
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 519 @min;
+#X text 270 519 Random range lower bound. Type: int. Default value:
 0\.;
-#X obj 250 539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 539 @seed;
-#X text 270 539 Generator seed. Type: int. Default value: 0\. Min value:
+#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 549 @seed;
+#X text 270 549 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 584 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 585 gen;
-#X text 270 585 generate list of random integers with specified length.
+#X msg 130 595 gen;
+#X text 270 595 generate list of random integers with specified length.
 Arguments are:;
-#X obj 280 623 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 623 N: list length. Type: int. Min value: 1\.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 663 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 280 633 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 633 N: list length. Type: int. Min value: 1\.;
+#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 673 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 664 1\.;
-#X text 170 664 bang:;
-#X text 270 664 generate new number.;
-#X text 130 689 2\.;
-#X text 170 689 int:;
-#X text 270 689 set @min property.;
-#X text 130 714 3\.;
-#X text 170 714 int:;
-#X text 270 714 set @max property.;
-#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 754 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 674 1\.;
+#X text 170 674 bang:;
+#X text 270 674 generate new number.;
+#X text 130 699 2\.;
+#X text 170 699 int:;
+#X text 270 699 set @min property.;
+#X text 130 724 3\.;
+#X text 170 724 int:;
+#X text 270 724 set @max property.;
+#X obj 20 759 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 764 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 755 1\.;
-#X text 270 755 int or list: generated value.;
+#X text 130 765 1\.;
+#X text 270 765 int or list: generated value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 805 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 808 library: ceammc v0.9.8;
-#X text 478 820 see also:;
-#X obj 553 820 random.float;
-#X obj 654 820 random.gauss;
-#N canvas 10 827 400 290 info 0;
+#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 818 library: ceammc v0.9.8;
+#X text 478 830 see also:;
+#X obj 553 830 random.float;
+#X obj 654 830 random.gauss;
+#N canvas 10 837 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 827 pd info;
+#X restore 10 837 pd info;
 #X connect 10 0 13 0;
 #X connect 11 0 13 0;
 #X connect 12 0 13 0;

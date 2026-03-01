@@ -5,110 +5,110 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.midi.casio 20 20 0 20
 -104026 -4096 0;
 #X obj 624 11 proto.midi.casio;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: only PX160 model supported at this moment;
 #X text 240 108 Note: on PX160 instrument change done only for incoming
 midi signals.;
-#X obj 50 201 ui.midi;
-#X text 232 201 choose CASIO output device!;
-#X obj 50 230 ui.tab piano epiano strings bass organ vibr harps @size
+#X obj 50 211 ui.midi;
+#X text 232 211 choose CASIO output device!;
+#X obj 50 240 ui.tab piano epiano strings bass organ vibr harps @size
 310 15;
-#X msg 50 259 \$2;
-#X obj 117 259 ui.hrd 6;
-#X obj 242 259 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 288 flow.pack' 2;
-#X obj 242 288 metro.wchoice 120 85% 240 15%;
-#X obj 50 317 msg instr 0;
-#X obj 242 317 random.a 58 56 46 53 41 @nonrep 1;
-#X obj 50 345 proto.midi.casio;
-#X obj 242 345 makenote 100 90;
-#X obj 50 374 midiout;
-#X obj 242 374 noteout;
-#X obj 50 403 proto.midi.casio-rev;
-#X obj 50 432 proto.midi.casio-chorus;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X msg 50 269 \$2;
+#X obj 117 269 ui.hrd 6;
+#X obj 242 269 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 298 flow.pack' 2;
+#X obj 242 298 metro.wchoice 120 85% 240 15%;
+#X obj 50 327 msg instr 0;
+#X obj 242 327 random.a 58 56 46 53 41 @nonrep 1;
+#X obj 50 355 proto.midi.casio;
+#X obj 242 355 makenote 100 90;
+#X obj 50 384 midiout;
+#X obj 242 384 noteout;
+#X obj 50 413 proto.midi.casio-rev;
+#X obj 50 442 proto.midi.casio-chorus;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 497 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 490 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 500 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 488 @model;
-#X text 270 488 Device model. Type: symbol. Default value: px160\.
+#X msg 130 498 @model;
+#X text 270 498 Device model. Type: symbol. Default value: px160\.
 Allowed values: px160\.;
-#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 545 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 555 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 546 chorus;
-#X text 270 546 set chorus fx level. Arguments are:;
-#X obj 280 569 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 569 VALUE: level. Type: float. Range: 0\...1\.;
-#X obj 250 594 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 594 chorus_depth;
-#X text 270 594 set chorus depth. Arguments are:;
-#X obj 280 617 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 617 DEPTH: depth value. Type: float. Range: 0\...1\.;
-#X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 642 chorus_fb;
-#X text 270 642 set chorus feedback level. Arguments are:;
-#X obj 280 665 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 665 AMOUNT: level. Type: float. Range: 0\...1\.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 chorus_rate;
-#X text 270 690 set chorus rate. Arguments are:;
-#X obj 280 713 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 713 RATE: rate value. Type: float. Range: 0\...1\.;
-#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 738 chorus_send;
-#X text 270 738 set chorus send level. Arguments are:;
-#X obj 280 761 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 761 AMOUNT: level. Type: float. Range: 0\...1\.;
-#X obj 250 786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 786 chorus_type;
-#X text 270 786 set chorus type. Arguments are:;
-#X obj 280 809 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 809 TYPE: chorus type. For PX160 - 1: chorus1 \, 2: chorus2
+#X msg 130 556 chorus;
+#X text 270 556 set chorus fx level. Arguments are:;
+#X obj 280 579 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 579 VALUE: level. Type: float. Range: 0\...1\.;
+#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 604 chorus_depth;
+#X text 270 604 set chorus depth. Arguments are:;
+#X obj 280 627 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 627 DEPTH: depth value. Type: float. Range: 0\...1\.;
+#X obj 250 652 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 652 chorus_fb;
+#X text 270 652 set chorus feedback level. Arguments are:;
+#X obj 280 675 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 675 AMOUNT: level. Type: float. Range: 0\...1\.;
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 700 chorus_rate;
+#X text 270 700 set chorus rate. Arguments are:;
+#X obj 280 723 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 723 RATE: rate value. Type: float. Range: 0\...1\.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 748 chorus_send;
+#X text 270 748 set chorus send level. Arguments are:;
+#X obj 280 771 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 771 AMOUNT: level. Type: float. Range: 0\...1\.;
+#X obj 250 796 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 796 chorus_type;
+#X text 270 796 set chorus type. Arguments are:;
+#X obj 280 819 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 819 TYPE: chorus type. For PX160 - 1: chorus1 \, 2: chorus2
 \, 3: deep chorus \, 4: flanger. Type: int. Range: 1\...4\.;
-#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 849 instr;
-#X text 270 849 send Note On message. Arguments are:;
-#X obj 280 872 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 872 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 280 895 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 895 NAME: instrument name. Type: symbol. Allowed values:
+#X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 859 instr;
+#X text 270 859 send Note On message. Arguments are:;
+#X obj 280 882 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 882 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 280 905 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 905 NAME: instrument name. Type: symbol. Allowed values:
 piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
-#X obj 280 933 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 933 TYPE: instrument type. for 'piano': concert|modern|classic|mellow|bright|0\..4
+#X obj 280 943 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 943 TYPE: instrument type. for 'piano': concert|modern|classic|mellow|bright|0\..4
 \, for 'epiano': 0|1|fm|2|3|60 \, for 'strings': 0|1 \, for 'bass':
 0 \, for 'organ': pipe|jass|elec1|elec2|0\..3 \, for 'vibr' and 'haprs':
 0\. Type: atom.;
-#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1018 rev_time;
-#X text 270 1018 set reverb time. Arguments are:;
-#X obj 280 1041 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1041 AMOUNT: reverb time. Type: int. Range: 0\...127\.;
-#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1066 rev_type;
-#X text 270 1066 set reverb type. Arguments are:;
-#X obj 280 1089 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1089 TYPE: reverb type. For PX160 - 1: room \, 2: default
+#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1028 rev_time;
+#X text 270 1028 set reverb time. Arguments are:;
+#X obj 280 1051 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1051 AMOUNT: reverb time. Type: int. Range: 0\...127\.;
+#X obj 250 1076 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1076 rev_type;
+#X text 270 1076 set reverb type. Arguments are:;
+#X obj 280 1099 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1099 TYPE: reverb type. For PX160 - 1: room \, 2: default
 (hall) \, 3: hall2 \, 4: stadium. Type: int. Range: 1\...4\.;
-#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1144 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1149 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1154 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1145 1\.;
-#X text 270 1145 control messages.;
-#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1185 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1155 1\.;
+#X text 270 1155 control messages.;
+#X obj 20 1190 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1195 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1186 1\.;
-#X text 270 1186 float: raw midi output.;
+#X text 130 1196 1\.;
+#X text 270 1196 float: raw midi output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1236 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1239 library: ceammc v0.9.8;
-#N canvas 10 1258 400 290 info 0;
+#X obj 1 1246 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1249 library: ceammc v0.9.8;
+#N canvas 10 1268 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -132,7 +132,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1258 pd info;
+#X restore 10 1268 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 13 0;
 #X connect 11 0 13 1;

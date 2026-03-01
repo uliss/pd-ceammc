@@ -7,30 +7,30 @@
 #X obj 415 11 ceammc/bits->int;
 #X obj 556 11 bits->int;
 #X obj 646 11 conv.bits2int;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: byte default the least significant bit is the
 rightmost \, this can be changed with @rev property;
-#X msg 50 176 1 0 1 1;
-#X obj 50 205 bits->int;
-#X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X msg 50 186 1 0 1 1;
+#X obj 50 215 bits->int;
+#X floatatom 50 244 5 0 0 0 - - -;
+#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 281 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 274 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 284 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 272 @rev;
-#X text 270 272 Reversed bit order. Type: bool. Default value: 0\.;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 282 @rev;
+#X text 270 282 Reversed bit order. Type: bool. Default value: 0\.;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 327 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 318 1\.;
-#X text 170 318 list:;
-#X text 270 318 input bit list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 328 1\.;
+#X text 170 328 list:;
+#X text 270 328 input bit list.;
+#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 368 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 359 1\.;
-#X text 270 359 list of bits.;
+#X text 130 369 1\.;
+#X text 270 369 list of bits.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

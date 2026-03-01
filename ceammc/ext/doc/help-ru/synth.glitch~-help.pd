@@ -5,113 +5,113 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.glitch~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 synth.glitch~;
-#X obj 230 78 cnv 1 535 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 A minimal \, modern and easy-to-use synthesizer for
 Bytebeat music and not only;
-#X obj 240 123 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 126 ui.link @background_color 0.90196 0.90196 0.90196
 @title        Glitch @url
 https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5;
-#X msg 50 200 @expr sin(440);
-#X obj 520 200 r~ \$0-gl;
-#X msg 50 229 byte (t>>6|t|t>>(t>>16))*10+((t>>11)&7);
-#X obj 520 229 ui.scope~ @size 150 100;
-#X msg 50 258 read sur_la_planche.glitch;
-#X obj 376 258 ui.hsl 0.25 4 @show_value 1;
-#X msg 50 287 byte ((t>>3|t^5|t<<4)<<3);
-#X msg 376 287 speed \$1;
-#X msg 50 316 @expr byte((t*5&t>>7)|(t*3&t>>10));
-#X msg 50 344 @expr w=(t>>10)&7\ \,(tri(w*220)+sin(w*220))/2;
-#X msg 50 373 reset \, byte (t*t/256)&(t>>((t/1024)%16))^t%64*(828188282217>>(t>>9&30)&t%32)*t>>18;
-#X msg 50 431 byte (t*((t>>12|t>>8)&63&t>>2));
-#X msg 414 431 reset;
-#X obj 50 460 synth.glitch~ byte(t*(42&t>>10));
-#X obj 50 488 ui.hgain~;
-#X obj 184 488 s~ \$0-gl;
-#X obj 299 488 ui.dsp~;
-#X obj 50 517 dac~;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 572 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 210 @expr sin(440);
+#X obj 520 210 r~ \$0-gl;
+#X msg 50 239 byte (t>>6|t|t>>(t>>16))*10+((t>>11)&7);
+#X obj 520 239 ui.scope~ @size 150 100;
+#X msg 50 268 read sur_la_planche.glitch;
+#X obj 376 268 ui.hsl 0.25 4 @show_value 1;
+#X msg 50 297 byte ((t>>3|t^5|t<<4)<<3);
+#X msg 376 297 speed \$1;
+#X msg 50 326 @expr byte((t*5&t>>7)|(t*3&t>>10));
+#X msg 50 354 @expr w=(t>>10)&7\ \,(tri(w*220)+sin(w*220))/2;
+#X msg 50 383 reset \, byte (t*t/256)&(t>>((t/1024)%16))^t%64*(828188282217>>(t>>9&30)&t%32)*t>>18;
+#X msg 50 441 byte (t*((t>>12|t>>8)&63&t>>2));
+#X msg 414 441 reset;
+#X obj 50 470 synth.glitch~ byte(t*(42&t>>10));
+#X obj 50 498 ui.hgain~;
+#X obj 184 498 s~ \$0-gl;
+#X obj 299 498 ui.dsp~;
+#X obj 50 527 dac~;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 575 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 585 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 573 1\.;
-#X text 170 573 list;
-#X obj 268 574 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 573 EXPR: Glitch expression. Тип: list.;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 613 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 583 1\.;
+#X text 170 583 list;
+#X obj 268 584 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 583 EXPR: Glitch expression. Type: list.;
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 616 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 626 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 614 @clip;
-#X text 270 614 Clip output to -1\..+1 range. Use false value only
-when you are know what are you doing and at your own risk!. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 671 @expr;
-#X text 270 671 Expression. Тип: list.;
-#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 716 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 624 @clip;
+#X text 270 624 Clip output to -1\..+1 range. Use false value only
+when you are know what are you doing and at your own risk!. Type: bool.
+Default value: 1\.;
+#X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 681 @expr;
+#X text 270 681 Expression. Type: list.;
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 726 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 727 byte;
+#X text 270 727 set expression wrapper to byte() glitch function.;
+#X obj 250 755 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 755 read;
+#X text 270 755 read glitch synth file. Arguments are:;
+#X obj 280 778 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 778 PATH: path to file. Type: atom.;
+#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 803 reset;
+#X text 270 803 reset synth.;
+#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 831 speed;
+#X text 270 831 set global playing speed for all synth.glitch~ objects.
+Arguments are:;
+#X obj 280 869 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 869 SPEED: speed. Type: float.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 717 byte;
-#X text 270 717 set expression wrapper to byte() glitch function.;
-#X obj 250 745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 745 read;
-#X text 270 745 read glitch synth file. Аргументы:;
-#X obj 280 768 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 768 PATH: path to file. Тип: atom.;
-#X obj 250 793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 793 reset;
-#X text 270 793 reset synth.;
-#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 821 speed;
-#X text 270 821 set global playing speed for all synth.glitch~ objects.
-Аргументы:;
-#X obj 280 859 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 859 SPEED: speed. Тип: float.;
-#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 899 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 900 1\.;
-#X text 270 900 ...;
-#X obj 20 935 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 940 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 941 1\.;
-#X text 170 941 ~;
-#X text 270 941 synth output.;
+#X text 130 910 1\.;
+#X text 270 910 ...;
+#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 950 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 951 1\.;
+#X text 170 951 ~;
+#X text 270 951 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 991 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 994 библиотека: ceammc v0.9.8;
-#N canvas 10 1013 400 290 info 0;
+#X obj 1 1001 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1004 library: ceammc v0.9.8;
+#N canvas 10 1023 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 synth.glitch~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 synth;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 naivesound \, Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 glitch;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1013 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1023 pd info;
 #X connect 8 0 10 0;
 #X connect 12 0 14 0;
 #X connect 18 0 20 0;

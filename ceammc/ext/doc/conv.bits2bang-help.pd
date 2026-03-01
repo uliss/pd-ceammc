@@ -7,73 +7,73 @@
 #X obj 394 11 ceammc/bits->bang;
 #X obj 542 11 bits->bang;
 #X obj 639 11 conv.bits2bang;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 in default mode if bit is on - sends bang to corresponding
 outlet;
 #X text 240 123 in @poly mode if bit is on - send list (BIT_IDX bang)
 to single outlet;
-#X msg 50 216 random;
-#X obj 50 245 ui.hrd* @nitems 4;
-#X obj 50 274 bits->bang 4;
-#X obj 50 303 osc~ 400;
-#X obj 174 303 osc~ 800;
-#X obj 299 303 osc~ 1200;
-#X obj 424 303 osc~ 1600;
-#X obj 50 332 env.ar~ 50 500;
-#X obj 174 332 env.ar~ 50 500;
-#X obj 299 332 env.ar~ 50 500;
-#X obj 424 332 env.ar~ 50 500;
-#X obj 50 360 pan.spread~ 4, f 54;
-#X obj 50 389 ui.hgain2~;
-#X obj 50 418 dac~;
-#X text 50 447 Poly version;
-#X obj 50 476 ui.hrd* 4;
-#X obj 50 504 bits->bang @poly;
-#X obj 50 533 clone conv.bits2bang-osc~ 4 400 800 1200 1600;
-#X obj 50 562 ui.hgain~;
-#X obj 50 591 dac~;
-#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 646 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 226 random;
+#X obj 50 255 ui.hrd* @nitems 4;
+#X obj 50 284 bits->bang 4;
+#X obj 50 313 osc~ 400;
+#X obj 174 313 osc~ 800;
+#X obj 299 313 osc~ 1200;
+#X obj 424 313 osc~ 1600;
+#X obj 50 342 env.ar~ 50 500;
+#X obj 174 342 env.ar~ 50 500;
+#X obj 299 342 env.ar~ 50 500;
+#X obj 424 342 env.ar~ 50 500;
+#X obj 50 370 pan.spread~ 4, f 54;
+#X obj 50 399 ui.hgain2~;
+#X obj 50 428 dac~;
+#X text 50 457 Poly version;
+#X obj 50 486 ui.hrd* 4;
+#X obj 50 514 bits->bang @poly;
+#X obj 50 543 clone conv.bits2bang-osc~ 4 400 800 1200 1600;
+#X obj 50 572 ui.hgain~;
+#X obj 50 601 dac~;
+#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 656 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 649 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 659 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 647 1\.;
-#X text 170 647 int;
-#X obj 268 648 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 647 N: number of outlets. Type: int. Range: 1\...64;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 687 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 657 1\.;
+#X text 170 657 int;
+#X obj 268 658 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 657 N: number of outlets. Type: int. Range: 1\...64;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 697 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 690 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 700 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 688 @n;
-#X text 270 688 (initonly) Number of outlets. Type: int. Default value:
+#X msg 130 698 @n;
+#X text 270 698 (initonly) Number of outlets. Type: int. Default value:
 8\. Range: 1\...64\.;
-#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 730 @poly;
-#X text 270 730 Polyphonic mode for using with [clone] object.;
-#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 760 @rev;
-#X text 270 760 Reversed bit order. Type: bool. Default value: 0\.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 805 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 740 @poly;
+#X text 270 740 Polyphonic mode for using with [clone] object.;
+#X obj 250 770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 770 @rev;
+#X text 270 770 Reversed bit order. Type: bool. Default value: 0\.;
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 815 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 806 1\.;
-#X text 170 806 list:;
-#X text 270 806 input bit list.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 846 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 816 1\.;
+#X text 170 816 list:;
+#X text 270 816 input bit list.;
+#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 856 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 847 1\.;
-#X text 270 847 output.;
+#X text 130 857 1\.;
+#X text 270 857 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 897 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 900 library: ceammc v0.9.8;
-#N canvas 10 919 400 290 info 0;
+#X obj 1 907 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 910 library: ceammc v0.9.8;
+#N canvas 10 929 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 919 pd info;
+#X restore 10 929 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 12 0 16 0;

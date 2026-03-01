@@ -31,7 +31,7 @@
 #X obj 290 608 ui.dsp~;
 #X obj 50 637 dac~;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 692 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 20 692 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 727 Left-click;
 #X text 310 727 move view cursor under mouse pointer.;
@@ -53,207 +53,205 @@
 #X text 310 887 open object help.;
 #X text 130 907 Right-click + ⌥;
 #X text 310 907 open properties dialog.;
-#X text 65 907 [Правка];
+#X text 81 907 [Edit];
 #X text 130 927 Right-click + ⇧;
 #X text 310 927 open the object help.;
-#X text 65 927 [Правка];
+#X text 81 927 [Edit];
 #X text 130 947 Right-click;
 #X text 310 947 opens Pd popup menu.;
-#X text 65 947 [Правка];
+#X text 81 947 [Edit];
 #X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 982 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 982 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 985 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 985 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 983 @array;
-#X text 270 983 Array name. Тип: symbol.;
+#X text 270 983 Array name. Type: symbol.;
 #X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1013 @cursor_ms;
-#X text 270 1013 Cursor position in milliseconds. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 0\.;
+#X text 270 1013 Cursor position in milliseconds. Type: float. Units:
+'ms'. Default value: 0\.;
 #X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 @cursor_phase;
-#X text 270 1055 Cursor position in 0-1 range. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+#X text 270 1055 Cursor position in 0-1 range. Type: float. Default
+value: 0\. Range: 0\...1\.;
 #X obj 250 1097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1097 @cursor_samp;
-#X text 270 1097 Cursor position in samples. Тип: int. Единицы: 'samp'.
-Значение по умолчанию: 0\.;
+#X text 270 1097 Cursor position in samples. Type: int. Units: 'samp'.
+Default value: 0\.;
 #X obj 250 1139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1139 @cursor_sec;
-#X text 270 1139 Cursor position in seconds. Тип: float. Единицы: 'sec'.
-Значение по умолчанию: 0\.;
+#X text 270 1139 Cursor position in seconds. Type: float. Units: 'sec'.
+Default value: 0\.;
 #X obj 250 1181 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1181 @mouse_events;
 #X text 270 1181 Mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Тип: bool. Значение по умолчанию:
-1\.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
 #X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @receive;
-#X text 270 1238 Источник получения сообщений. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 270 1238 Источник получения сообщений. Type: symbol. Default
+value: (null).;
 #X obj 250 1280 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1280 @select_ms;
 #X text 270 1280 Selection range in milliseconds \, pair of values:
-begin \, end. Тип: list. Единицы: 'ms'.;
+begin \, end. Type: list. Units: 'ms'.;
 #X obj 250 1322 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1322 @select_phase;
 #X text 270 1322 Selection range noramlized to 0-1 range \, pair of
-values: begin \, end. Тип: list.;
+values: begin \, end. Type: list.;
 #X obj 250 1364 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1364 @select_samp;
 #X text 270 1364 Selection range in samples \, pair of values: begin
-\, end. Тип: list. Единицы: 'samp'.;
+\, end. Type: list. Units: 'samp'.;
 #X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 @select_sec;
 #X text 270 1406 Selection range in seconds \, pair of values: begin
-\, end. Тип: list. Единицы: 'sec'.;
+\, end. Type: list. Units: 'sec'.;
 #X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1448 @send;
-#X text 270 1448 Адрес отправки сообщений. Тип: symbol. Значение по
-умолчанию: (null).;
+#X text 270 1448 Адрес отправки сообщений. Type: symbol. Default value:
+(null).;
 #X obj 250 1490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1490 @show_rms;
-#X text 270 1490 Show RMS graph. Тип: bool. Значение по умолчанию:
-0\.;
+#X text 270 1490 Show RMS graph. Type: bool. Default value: 0\.;
 #X obj 250 1520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1520 @background_color;
 #X text 270 1520 Цвета фона у объекта (список из красного \, зеленого
-и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
+и синего значений в диапазоне [0\..1]). Type: list. Default value:
 0.93 0.93 0.93 1\.;
 #X obj 250 1577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1577 @border_color;
 #X text 270 1577 Цвет границы объекта (список из красного \, зеленого
-и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0.6 0.6 0.6 1\.;
+и синего цветов в [0\..1] диапазоне). Type: list. Default value: 0.6
+0.6 0.6 1\.;
 #X obj 250 1634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1634 @cursor_color;
 #X text 270 1634 Cursor color (list of red \, green \, blue values
-in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X obj 250 1676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1676 @selection_color;
 #X text 270 1676 Selection color (list of red \, green \, blue values
-in 0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
-#X obj 250 1733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1733 @wave_color;
-#X text 270 1733 Wave color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0.3 0.3 0.3 1\.;
-#X obj 250 1775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1775 @label_bottom;
-#X text 270 1775 Bottom right label if @show_labels is on. Тип: symbol.;
-#X obj 250 1805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1805 @label_top;
-#X text 270 1805 Top right label if @show_labels is on. Тип: symbol.;
-#X obj 250 1835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1835 @show_labels;
-#X text 270 1835 If show corner labels. Тип: bool. Значение по умолчанию:
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 1718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1718 @wave_color;
+#X text 270 1718 Wave color (list of red \, green \, blue values in
+0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
+#X obj 250 1760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1760 @label_bottom;
+#X text 270 1760 Bottom right label if @show_labels is on. Type: symbol.;
+#X obj 250 1790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1790 @label_top;
+#X text 270 1790 Top right label if @show_labels is on. Type: symbol.;
+#X obj 250 1820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1820 @show_labels;
+#X text 270 1820 If show corner labels. Type: bool. Default value:
 0\.;
-#X obj 250 1865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1865 @fontname;
-#X text 270 1865 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
-Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1922 @fontsize;
-#X text 270 1922 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
-#X obj 250 1964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1964 @fontslant;
-#X text 270 1964 Наклон шрифта. Тип: symbol. Значение по умолчанию:
-roman. Разрешённые значения: roman \, italic.;
-#X obj 250 2006 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2006 @fontweight;
-#X text 270 2006 Толщину шрифта. Тип: symbol. Значение по умолчанию:
-normal. Разрешённые значения: normal \, bold.;
-#X obj 250 2048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2048 @pinned;
-#X text 270 2048 Режим закрепления. Если 1 - помещает элемент на самый
-дальний уровень на холсте за другими элементам. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 2105 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2105 @size;
-#X text 270 2105 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
-по умолчанию: 300 100\.;
-#X obj 250 2147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2147 @size_ms?;
-#X text 270 2147 (только чтение) Array size in milliseconds. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 2204 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2204 @size_samp?;
-#X text 270 2204 (только чтение) Array size in samples. Тип: int. Единицы:
-'samp'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 2261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2261 @size_sec?;
-#X text 270 2261 (только чтение) Array size in seconds. Тип: float.
-Единицы: 'sec'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 2328 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2333 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1850 @fontname;
+#X text 270 1850 Имя шрифта. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1907 @fontsize;
+#X text 270 1907 Размер шрифта. Type: int. Default value: 11\. Range:
+4\...100\.;
+#X obj 250 1949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1949 @fontslant;
+#X text 270 1949 Наклон шрифта. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X obj 250 1991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1991 @fontweight;
+#X text 270 1991 Толщину шрифта. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X obj 250 2033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2033 @pinned;
+#X text 270 2033 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Type: bool. Default
+value: 0\.;
+#X obj 250 2090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2090 @size;
+#X text 270 2090 Размер объекта (пара: ШИРИНА ВЫСОТА). Type: list.
+Default value: 300 100\.;
+#X obj 250 2132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2132 @size_ms?;
+#X text 270 2132 (readonly) Array size in milliseconds. Type: float.
+Units: 'ms'. Default value: 0\. Min value: 0\.;
+#X obj 250 2174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2174 @size_samp?;
+#X text 270 2174 (readonly) Array size in samples. Type: int. Units:
+'samp'. Default value: 0\. Min value: 0\.;
+#X obj 250 2216 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2216 @size_sec?;
+#X text 270 2216 (readonly) Array size in seconds. Type: float. Units:
+'sec'. Default value: 0\. Min value: 0\.;
+#X obj 20 2268 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2273 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 2334 pos;
-#X text 270 2334 set UI element position. Аргументы:;
-#X obj 280 2357 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2357 X: top left x-coord. Тип: float.;
-#X obj 280 2380 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2380 Y: top right y-coord. Тип: float.;
-#X obj 250 2405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2405 select;
-#X text 270 2405 set selection. Аргументы:;
-#X obj 280 2428 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2428 BEGIN: selection start in samples. Тип: int.;
-#X obj 280 2451 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2451 END: selection end in samples. Тип: int.;
-#X obj 250 2476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2476 update;
-#X text 270 2476 redraws view.;
-#X obj 250 2504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2504 dump;
-#X text 270 2504 dumps all object info to Pd console window.;
-#X obj 20 2542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2547 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 2548 1\.;
-#X text 170 2548 bang:;
-#X text 270 2548 output current cursor positions: @cursor_samp \, @cursor_phase
+#X msg 130 2274 pos;
+#X text 270 2274 set UI element position. Arguments are:;
+#X obj 280 2297 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2297 X: top left x-coord. Type: float.;
+#X obj 280 2320 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2320 Y: top right y-coord. Type: float.;
+#X obj 250 2345 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2345 select;
+#X text 270 2345 set selection. Arguments are:;
+#X obj 280 2368 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2368 BEGIN: selection start in samples. Type: int.;
+#X obj 280 2391 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2391 END: selection end in samples. Type: int.;
+#X obj 250 2416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2416 update;
+#X text 270 2416 redraws view.;
+#X obj 250 2444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2444 dump;
+#X text 270 2444 dumps all object info to Pd console window.;
+#X obj 20 2482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2487 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 2488 1\.;
+#X text 170 2488 bang:;
+#X text 270 2488 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 170 2618 float:;
-#X text 270 2618 move cursor to specified sample position.;
-#X obj 20 2653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2658 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 2558 float:;
+#X text 270 2558 move cursor to specified sample position.;
+#X obj 20 2593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2598 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2659 1\.;
-#X text 270 2659 output.;
+#X text 130 2599 1\.;
+#X text 270 2599 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2709 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2712 библиотека: ceammc v0.9.8;
-#N canvas 10 2731 400 290 info 0;
+#X obj 1 2649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2652 library: ceammc v0.9.8;
+#N canvas 10 2671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 ui.aview;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 ui;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 ui \, array \, view;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2731 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 2671 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

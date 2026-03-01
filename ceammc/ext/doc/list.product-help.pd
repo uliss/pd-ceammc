@@ -5,27 +5,27 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.product 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 list.product;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: symbol values are treated as 0\. So if list contains
 at least one symbol \, product will be always equal to zero;
-#X msg 50 191 1 2 3 4 5 -6;
-#X msg 213 191 1 2 a b c;
-#X msg 78 220 1 2 3;
-#X obj 50 263 list.product;
-#X floatatom 50 292 5 0 0 0 - - -;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 329 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 50 201 1 2 3 4 5 -6;
+#X msg 213 201 1 2 a b c;
+#X msg 78 230 1 2 3;
+#X obj 50 273 list.product;
+#X floatatom 50 302 5 0 0 0 - - -;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 339 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 330 1\.;
-#X text 170 330 list:;
-#X text 270 330 input list.;
-#X text 170 355 data:mlist:;
-#X text 270 355 input mlist.;
-#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 395 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 340 1\.;
+#X text 170 340 list:;
+#X text 270 340 input list.;
+#X text 170 365 data:mlist:;
+#X text 270 365 input mlist.;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 405 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 396 1\.;
-#X text 270 396 float list product.;
+#X text 130 406 1\.;
+#X text 270 406 float list product.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

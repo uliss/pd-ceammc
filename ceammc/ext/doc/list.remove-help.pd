@@ -15,7 +15,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 290 1\.;
 #X text 170 290 list;
@@ -25,7 +25,7 @@ are also supported. Type: list.;
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 345 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 348 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 348 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 346 @indexes;
 #X text 270 346 Indexes to remove. Type: list.;

@@ -8,186 +8,186 @@
 [hoa.space] @url hoa.2d.space-help.pd;
 #X obj 650 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.2d.space] @url hoa.2d.space-help.pd;
-#X obj 230 78 cnv 1 535 74 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The graphical user interface that facilitates the control
 of processing in the plane wave domain.;
-#X obj 240 123 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 126 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.space-help.pd;
-#X obj 50 200 hoa.2d.space 8 {0:;
-#X obj 50 359 ui.dt;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 50 210 hoa.2d.space 8 {0:;
+#X obj 50 369 ui.dt;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 424 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 449 Mouse-drag;
-#X text 310 449 change the single amp value.;
-#X text 130 469 Mouse-drag + ⇧;
-#X text 310 469 change the all amp values.;
-#X text 130 489 Mouse-drag + ⌥;
-#X text 310 489 rotate all values.;
-#X text 130 509 Right-click;
-#X text 310 509 open popup menu.;
-#X text 130 529 Right-click + ⇧;
-#X text 310 529 open object help.;
-#X text 130 549 Right-click + ⌥;
-#X text 310 549 open properties dialog.;
-#X text 130 569 Mouse-drag + ⌘;
-#X text 310 569 change the single amp value.;
-#X text 81 569 [Edit];
-#X text 130 589 Right-click + ⇧;
-#X text 310 589 open object help.;
-#X text 81 589 [Edit];
-#X text 130 609 Right-click + ⌥;
-#X text 310 609 open properties dialog.;
-#X text 81 609 [Edit];
-#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 644 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 459 Mouse-drag;
+#X text 310 459 change the single amp value.;
+#X text 130 479 Mouse-drag + ⇧;
+#X text 310 479 change the all amp values.;
+#X text 130 499 Mouse-drag + ⌥;
+#X text 310 499 rotate all values.;
+#X text 130 519 Right-click;
+#X text 310 519 open popup menu.;
+#X text 130 539 Right-click + ⇧;
+#X text 310 539 open object help.;
+#X text 130 559 Right-click + ⌥;
+#X text 310 559 open properties dialog.;
+#X text 130 579 Mouse-drag + ⌘;
+#X text 310 579 change the single amp value.;
+#X text 81 579 [Edit];
+#X text 130 599 Right-click + ⇧;
+#X text 310 599 open object help.;
+#X text 81 599 [Edit];
+#X text 130 619 Right-click + ⌥;
+#X text 310 619 open properties dialog.;
+#X text 81 619 [Edit];
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 647 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 657 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 645 1\.;
-#X text 170 645 int;
-#X obj 268 646 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 645 N: number of planewave channels. Type: int. Min value:
+#X text 130 655 1\.;
+#X text 170 655 int;
+#X obj 268 656 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 655 N: number of planewave channels. Type: int. Min value:
 1;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 685 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 695 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 688 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 698 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 686 @max;
-#X text 270 686 Maximum amp value. Type: float. Default value: 1\.;
-#X obj 250 716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 716 @min;
-#X text 270 716 Minimum amp value. Type: float. Default value: 0\.;
-#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 746 @nch;
-#X text 270 746 Number of channels. Type: int. Default value: 4\. Range:
+#X msg 130 696 @max;
+#X text 270 696 Maximum amp value. Type: float. Default value: 1\.;
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @min;
+#X text 270 726 Minimum amp value. Type: float. Default value: 0\.;
+#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 756 @nch;
+#X text 270 756 Number of channels. Type: int. Default value: 4\. Range:
 1\...128\.;
-#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 788 @background_color;
-#X text 270 788 Element background color (list of red \, green \, blue
+#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 798 @background_color;
+#X text 270 798 Element background color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
-#X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 845 @border_color;
-#X text 270 845 Border color (list of red \, green \, blue values in
+#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 855 @border_color;
+#X text 270 855 Border color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 887 @label_color;
-#X text 270 887 Label color in RGB format within 0-1 range \, for example:
+#X obj 250 897 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 897 @label_color;
+#X text 270 897 Label color in RGB format within 0-1 range \, for example:
 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 929 @pt_color;
-#X text 270 929 Point color. Type: list. Default value: 0 0 0 1\.;
-#X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 959 @sp_color;
-#X text 270 959 Space color. Type: list. Default value: 0.27 0.43 0.54
+#X obj 250 939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 939 @pt_color;
+#X text 270 939 Point color. Type: list. Default value: 0 0 0 1\.;
+#X obj 250 969 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 969 @sp_color;
+#X text 270 969 Space color. Type: list. Default value: 0.27 0.43 0.54
 1\.;
-#X obj 250 989 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 989 @label;
-#X text 270 989 Label text. Type: symbol. Default value: (null).;
-#X obj 250 1019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1019 @label_align;
-#X text 270 1019 Label horizontal align. Type: symbol. Default value:
+#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 999 @label;
+#X text 270 999 Label text. Type: symbol. Default value: (null).;
+#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1029 @label_align;
+#X text 270 1029 Label horizontal align. Type: symbol. Default value:
 left. Allowed values: left \, center \, right.;
-#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1061 @label_inner;
-#X text 270 1061 Label position (1 - inner \, 0 - outer). Type: bool.
+#X obj 250 1071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1071 @label_inner;
+#X text 270 1071 Label position (1 - inner \, 0 - outer). Type: bool.
 Default value: 0\.;
-#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1103 @label_margins;
-#X text 270 1103 Label offset in pixels. Type: list. Default value:
+#X obj 250 1113 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1113 @label_margins;
+#X text 270 1113 Label offset in pixels. Type: list. Default value:
 0 0\.;
-#X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1133 @label_side;
-#X text 270 1133 Label snap side. Type: symbol. Default value: top.
+#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1143 @label_side;
+#X text 270 1143 Label snap side. Type: symbol. Default value: top.
 Allowed values: left \, top \, right \, bottom.;
-#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1175 @label_valign;
-#X text 270 1175 Label vertical align. Type: symbol. Default value:
+#X obj 250 1185 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1185 @label_valign;
+#X text 270 1185 Label vertical align. Type: symbol. Default value:
 top. Allowed values: top \, center \, bottom.;
-#X obj 250 1217 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1217 @fontname;
-#X text 270 1217 Fontname. Type: symbol. Default value: Helvetica.
+#X obj 250 1227 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1227 @fontname;
+#X text 270 1227 Fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1259 @fontsize;
-#X text 270 1259 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
-#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1289 @fontslant;
-#X text 270 1289 Font slant. Type: symbol. Default value: roman. Allowed
+#X obj 250 1269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1269 @fontsize;
+#X text 270 1269 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1299 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1299 @fontslant;
+#X text 270 1299 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 1331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1331 @fontweight;
-#X text 270 1331 Font weight. Type: symbol. Default value: normal.
+#X obj 250 1341 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1341 @fontweight;
+#X text 270 1341 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1373 @pinned;
-#X text 270 1373 Pin mode. if 1 - put element to the lowest level.
+#X obj 250 1383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1383 @pinned;
+#X text 270 1383 Pin mode. if 1 - put element to the lowest level.
 Type: bool. Default value: 0\.;
-#X obj 250 1415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1415 @presetname;
-#X text 270 1415 Preset name for using with [ui.preset]. Type: symbol.
+#X obj 250 1425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1425 @presetname;
+#X text 270 1425 Preset name for using with [ui.preset]. Type: symbol.
 Default value: (null).;
-#X obj 250 1457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1457 @receive;
-#X text 270 1457 Receive source. Type: symbol. Default value: (null).;
-#X obj 250 1487 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1487 @send;
-#X text 270 1487 Send destination. Type: symbol. Default value: (null).;
-#X obj 250 1517 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1517 @size;
-#X text 270 1517 Element size (width \, height pair). Type: list. Default
+#X obj 250 1467 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1467 @receive;
+#X text 270 1467 Receive source. Type: symbol. Default value: (null).;
+#X obj 250 1497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1497 @send;
+#X text 270 1497 Send destination. Type: symbol. Default value: (null).;
+#X obj 250 1527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1527 @size;
+#X text 270 1527 Element size (width \, height pair). Type: list. Default
 value: 120 120\.;
-#X obj 20 1569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1574 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1584 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1575 interp;
-#X text 270 1575 interplolates between presets. Arguments are:;
-#X obj 280 1598 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1598 IDX: preset fraction index. Type: float.;
-#X obj 250 1623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1623 pos;
-#X text 270 1623 set UI element position. Arguments are:;
-#X obj 280 1646 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1646 X: top left x-coord. Type: float.;
-#X obj 280 1669 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1669 Y: top right y-coord. Type: float.;
-#X obj 250 1694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1694 clear;
-#X text 270 1694 clears specified preset. Arguments are:;
-#X obj 280 1717 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1717 IDX: preset index. Type: int.;
-#X obj 250 1742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1742 load;
-#X text 270 1742 loads specified preset. Arguments are:;
-#X obj 280 1765 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1765 IDX: preset index. Type: int.;
-#X obj 250 1790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1790 store;
-#X text 270 1790 stores specified preset. Arguments are:;
-#X obj 280 1813 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1813 IDX: preset index. Type: int.;
-#X obj 250 1838 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1838 dump;
-#X text 270 1838 dumps all object info to Pd console window.;
-#X obj 20 1876 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1881 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1585 interp;
+#X text 270 1585 interplolates between presets. Arguments are:;
+#X obj 280 1608 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1608 IDX: preset fraction index. Type: float.;
+#X obj 250 1633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1633 pos;
+#X text 270 1633 set UI element position. Arguments are:;
+#X obj 280 1656 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1656 X: top left x-coord. Type: float.;
+#X obj 280 1679 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1679 Y: top right y-coord. Type: float.;
+#X obj 250 1704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1704 clear;
+#X text 270 1704 clears specified preset. Arguments are:;
+#X obj 280 1727 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1727 IDX: preset index. Type: int.;
+#X obj 250 1752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1752 load;
+#X text 270 1752 loads specified preset. Arguments are:;
+#X obj 280 1775 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1775 IDX: preset index. Type: int.;
+#X obj 250 1800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1800 store;
+#X text 270 1800 stores specified preset. Arguments are:;
+#X obj 280 1823 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1823 IDX: preset index. Type: int.;
+#X obj 250 1848 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1848 dump;
+#X text 270 1848 dumps all object info to Pd console window.;
+#X obj 20 1886 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1891 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1882 1\.;
-#X text 270 1882 list: amp values.;
-#X obj 20 1917 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1922 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1892 1\.;
+#X text 270 1892 list: amp values.;
+#X obj 20 1927 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1932 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1923 1\.;
-#X text 270 1923 list: amp values.;
+#X text 130 1933 1\.;
+#X text 270 1933 list: amp values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1973 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1976 library: ceammc v0.9.8;
-#N canvas 10 1995 400 290 info 0;
+#X obj 1 1983 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1986 library: ceammc v0.9.8;
+#N canvas 10 2005 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -212,5 +212,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1995 pd info;
+#X restore 10 2005 pd info;
 #X connect 8 0 9 0;

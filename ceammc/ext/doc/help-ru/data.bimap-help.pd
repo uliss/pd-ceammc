@@ -7,138 +7,140 @@
 #X obj 493 11 ceammc/bimap;
 #X obj 605 11 bimap;
 #X obj 667 11 data.bimap;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 NOTE: all object inlets are 'hot';
-#X listbox 50 161 20 0 0 0 - - -;
-#X listbox 309 161 20 0 0 0 - - -;
-#X floatatom 69 190 5 0 0 0 - - -;
-#X symbolatom 338 190 5 0 0 0 - - -;
-#X obj 50 219 data.bimap 0 C 1 D 2 E 3 F 4 G 5 A 6 B;
-#X obj 50 248 ui.dt;
-#X obj 309 248 ui.dt;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 303 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X listbox 50 171 20 0 0 0 - - -;
+#X listbox 309 171 20 0 0 0 - - -;
+#X floatatom 69 200 5 0 0 0 - - -;
+#X symbolatom 338 200 5 0 0 0 - - -;
+#X obj 50 229 data.bimap 0 C 1 D 2 E 3 F 4 G 5 A 6 B;
+#X obj 50 258 ui.dt;
+#X obj 309 258 ui.dt;
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 313 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 338 Left-click;
-#X text 310 338 open data editor.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 348 Left-click;
+#X text 310 348 open data editor.;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 383 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 386 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 374 1\.;
-#X text 170 374 list;
-#X obj 268 375 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 374 VALUE: initial value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
-LEFT_KEY2 RIGHT_KEY2 etc. Тип: list.;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 384 1\.;
+#X text 170 384 list;
+#X obj 268 385 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 384 VALUE: initial value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
+LEFT_KEY2 RIGHT_KEY2 etc. Type: list.;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 439 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 442 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 430 @value;
-#X text 270 430 Value \, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2
-RIGHT_KEY2 etc. Тип: list.;
-#X obj 250 472 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 472 @empty?;
-#X text 270 472 (только чтение) True if empty. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 514 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 514 @keys_left?;
-#X text 270 514 (только чтение) List of left map keys. Тип: list.;
-#X obj 250 544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 544 @keys_right?;
-#X text 270 544 (только чтение) List of right map keys. Тип: list.;
-#X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 574 @size?;
-#X text 270 574 (только чтение) Number of left-right pairs in map.
-Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 631 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 632 clear;
-#X text 270 632 clear bidirectional map content.;
-#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 660 insert;
-#X text 270 660 insert new left-right map entry. Аргументы:;
-#X obj 280 683 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 683 PAIR: list: LEFT_KEY RIGHT_KEY. Тип: list.;
-#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 708 read;
-#X text 270 708 read bimap from JSON file. Array of array pairs expected.
-Аргументы:;
-#X obj 280 746 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 746 FNAME: path to file \, absolute or relative. Тип: symbol.;
-#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 771 set;
-#X text 270 771 set bidirectional map content. Аргументы:;
-#X obj 280 794 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 794 DATA: new value list. Тип: list.;
-#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 819 write;
-#X text 270 819 write to JSON file \, to overwrite existing file use
-@force flag. Аргументы:;
-#X obj 280 857 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 857 FNAME: path to file \, absolute or relative. Тип: symbol.;
-#X obj 280 880 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 880 [@force]: force flag to overwrite existing files. Тип:
-symbol.;
-#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 935 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 936 1\.;
-#X text 170 936 atom:;
-#X text 270 936 try to find left key in the map and output the right
-value on success.;
-#X text 170 976 list:;
-#X text 270 976 try to find each left key of the list in the map and
-output the result list of right values.;
-#X text 130 1016 2\.;
-#X text 170 1016 atom:;
-#X text 270 1016 try to find right key in the map and output the left
-value on success.;
-#X text 170 1056 list:;
-#X text 270 1056 try to find each right key of the list in the map
-and output the result list of left values.;
-#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1111 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 440 @value;
+#X text 270 440 Value \, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2
+RIGHT_KEY2 etc. Type: list.;
+#X obj 250 482 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 482 @empty?;
+#X text 270 482 (readonly) True if empty. Type: bool. Default value:
+1\.;
+#X obj 250 512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 512 @keys_left?;
+#X text 270 512 (readonly) List of left map keys. Type: list.;
+#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 542 @keys_right?;
+#X text 270 542 (readonly) List of right map keys. Type: list.;
+#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 572 @size?;
+#X text 270 572 (readonly) Number of left-right pairs in map. Type:
+int. Default value: 0\.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 629 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1112 1\.;
-#X text 270 1112 atom or list: right value output.;
-#X text 130 1132 2\.;
-#X text 270 1132 atom or list: left value output.;
+#X msg 130 630 clear;
+#X text 270 630 clear bidirectional map content.;
+#X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 658 insert;
+#X text 270 658 insert new left-right map entry. Arguments are:;
+#X obj 280 681 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 681 PAIR: list: LEFT_KEY RIGHT_KEY. Type: list.;
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 706 read;
+#X text 270 706 read bimap from JSON file. Array of array pairs expected.
+Arguments are:;
+#X obj 280 744 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 744 FNAME: path to file \, absolute or relative. Type:
+symbol.;
+#X obj 250 769 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 769 set;
+#X text 270 769 set bidirectional map content. Arguments are:;
+#X obj 280 792 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 792 DATA: new value list. Type: list.;
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 817 write;
+#X text 270 817 write to JSON file \, to overwrite existing file use
+@force flag. Arguments are:;
+#X obj 280 855 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 855 FNAME: path to file \, absolute or relative. Type:
+symbol.;
+#X obj 280 878 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 878 [@force]: force flag to overwrite existing files. Type:
+symbol.;
+#X obj 20 928 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 933 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 130 934 1\.;
+#X text 170 934 atom:;
+#X text 270 934 try to find left key in the map and output the right
+value on success.;
+#X text 170 974 list:;
+#X text 270 974 try to find each left key of the list in the map and
+output the result list of right values.;
+#X text 130 1014 2\.;
+#X text 170 1014 atom:;
+#X text 270 1014 try to find right key in the map and output the left
+value on success.;
+#X text 170 1054 list:;
+#X text 270 1054 try to find each right key of the list in the map
+and output the result list of left values.;
+#X obj 20 1104 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1109 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1110 1\.;
+#X text 270 1110 atom or list: right value output.;
+#X text 130 1130 2\.;
+#X text 270 1130 atom or list: left value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1185 библиотека: ceammc v0.9.8;
-#N canvas 10 1204 400 290 info 0;
+#X obj 1 1180 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1183 library: ceammc v0.9.8;
+#N canvas 10 1202 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 data.bimap;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 data;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 data \, map \, container \, bidirectional;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1204 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1202 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 9 0 12 1;

@@ -28,457 +28,454 @@
 #X obj 414 406 ui.dsp~;
 #X obj 50 435 dac~;
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 490 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 493 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 491 @id;
-#X text 270 491 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/fx_tapiir/ИМЯ_СВОЙСТВА \, в противном случае к /fx_tapiir/ИМЯ_СВОЙСТВА.
-Тип: symbol.;
+#X text 270 491 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_tapiir/ИМЯ_СВОЙСТВА
+\, в противном случае к /fx_tapiir/ИМЯ_СВОЙСТВА. Type: symbol.;
 #X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 563 @osc;
-#X text 270 563 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X text 270 563 (initonly) Имя OSC сервера. Type: symbol.;
 #X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 593 @active;
-#X text 270 593 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
+#X text 270 593 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
 #X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @delays;
-#X text 270 635 List of all tap delays. Тип: list. Единицы: 'ms'. Значение
-по умолчанию: 0 0 0 0 0 0\.;
+#X text 270 635 List of all tap delays. Type: list. Units: 'ms'. Default
+value: 0 0 0 0 0 0\.;
 #X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @fbs0;
-#X text 270 677 List of all feedbacks to tap0\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 677 List of all feedbacks to tap0\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @fbs1;
-#X text 270 719 List of all feedbacks to tap1\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 719 List of all feedbacks to tap1\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @fbs2;
-#X text 270 761 List of all feedbacks to tap2\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 761 List of all feedbacks to tap2\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 803 @fbs3;
-#X text 270 803 List of all feedbacks to tap3\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 803 List of all feedbacks to tap3\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @fbs4;
-#X text 270 845 List of all feedbacks to tap4\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 845 List of all feedbacks to tap4\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @fbs5;
-#X text 270 887 List of all feedbacks to tap5\. Тип: list. Значение
-по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
+#X text 270 887 List of all feedbacks to tap5\. Type: list. Default
+value: 0 0 0 0 0 0\. Range: 0\...1\.;
 #X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 929 @gains;
-#X text 270 929 List of all tap gains. Тип: list. Единицы: 'db'. Значение
-по умолчанию: 0 0 0 0 0 0\.;
+#X text 270 929 List of all tap gains. Type: list. Units: 'db'. Default
+value: 0 0 0 0 0 0\.;
 #X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 971 @ins0;
-#X text 270 971 List of all taps left channel input levels. Тип: list.
-Значение по умолчанию: 1 1 1 1 1 1\. Диапазон: 0\...1\.;
-#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1028 @ins1;
-#X text 270 1028 List of all taps right channel input levels. Тип:
-list. Значение по умолчанию: 1 1 1 1 1 1\. Диапазон: 0\...1\.;
-#X obj 250 1085 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1085 @out0.gain;
-#X text 270 1085 Left channel output gain. Тип: float. Единицы: 'db'.
-Значение по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 1127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1127 @out0.in0;
-#X text 270 1127 Input left channel level to left output. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1169 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1169 @out0.in1;
-#X text 270 1169 Input right channel level to left output. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1211 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1211 @out0.tap0;
-#X text 270 1211 Tap 0 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1253 @out0.tap1;
-#X text 270 1253 Tap 1 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1295 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1295 @out0.tap2;
-#X text 270 1295 Tap 2 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1337 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1337 @out0.tap3;
-#X text 270 1337 Tap 3 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1379 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1379 @out0.tap4;
-#X text 270 1379 Tap 4 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1421 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1421 @out0.tap5;
-#X text 270 1421 Tap 5 output level to left channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1463 @out1.gain;
-#X text 270 1463 Right channel output gain. Тип: float. Единицы: 'db'.
-Значение по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 1505 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1505 @out1.in0;
-#X text 270 1505 Input left channel level to right output. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1547 @out1.in1;
-#X text 270 1547 Input right channel level to right output. Тип: float.
-Значение по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1589 @out1.tap0;
-#X text 270 1589 Tap 0 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1631 @out1.tap1;
-#X text 270 1631 Tap 1 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1673 @out1.tap2;
-#X text 270 1673 Tap 2 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1715 @out1.tap3;
-#X text 270 1715 Tap 3 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1757 @out1.tap4;
-#X text 270 1757 Tap 4 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1799 @out1.tap5;
-#X text 270 1799 Tap 5 output level to right channel. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
-#X obj 250 1841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1841 @outs0;
-#X text 270 1841 List of all tap output levels to left channel. Тип:
-list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
-#X obj 250 1898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1898 @outs1;
-#X text 270 1898 List of all tap output levels to right channel. Тип:
-list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон: 0\...1\.;
-#X obj 250 1955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1955 @tap0.delay;
-#X text 270 1955 Tap0 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 1997 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1997 @tap0.fb0;
-#X text 270 1997 Tap0 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2039 @tap0.fb1;
-#X text 270 2039 Tap1 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2081 @tap0.fb2;
-#X text 270 2081 Tap2 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2123 @tap0.fb3;
-#X text 270 2123 Tap3 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2165 @tap0.fb4;
-#X text 270 2165 Tap4 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2207 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2207 @tap0.fb5;
-#X text 270 2207 Tap5 feedback to tap0\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2249 @tap0.gain;
-#X text 270 2249 Tap0 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 2291 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2291 @tap0.in0;
-#X text 270 2291 Left input level to tap0\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 2333 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2333 @tap0.in1;
-#X text 270 2333 Right input level to tap0\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 2375 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2375 @tap1.delay;
-#X text 270 2375 Tap1 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 2417 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2417 @tap1.fb0;
-#X text 270 2417 Tap0 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2459 @tap1.fb1;
-#X text 270 2459 Tap1 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2501 @tap1.fb2;
-#X text 270 2501 Tap2 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2543 @tap1.fb3;
-#X text 270 2543 Tap3 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2585 @tap1.fb4;
-#X text 270 2585 Tap4 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2627 @tap1.fb5;
-#X text 270 2627 Tap5 feedback to tap1\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2669 @tap1.gain;
-#X text 270 2669 Tap1 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 2711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2711 @tap1.in0;
-#X text 270 2711 Left input level to tap1\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 2753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2753 @tap1.in1;
-#X text 270 2753 Right input level to tap1\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 2795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2795 @tap2.delay;
-#X text 270 2795 Tap2 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 2837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2837 @tap2.fb0;
-#X text 270 2837 Tap0 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2879 @tap2.fb1;
-#X text 270 2879 Tap1 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2921 @tap2.fb2;
-#X text 270 2921 Tap2 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 2963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2963 @tap2.fb3;
-#X text 270 2963 Tap3 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3005 @tap2.fb4;
-#X text 270 3005 Tap4 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3047 @tap2.fb5;
-#X text 270 3047 Tap5 feedback to tap2\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3089 @tap2.gain;
-#X text 270 3089 Tap2 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 3131 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3131 @tap2.in0;
-#X text 270 3131 Left input level to tap2\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 3173 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3173 @tap2.in1;
-#X text 270 3173 Right input level to tap2\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 3215 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3215 @tap3.delay;
-#X text 270 3215 Tap3 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 3257 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3257 @tap3.fb0;
-#X text 270 3257 Tap0 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3299 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3299 @tap3.fb1;
-#X text 270 3299 Tap1 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3341 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3341 @tap3.fb2;
-#X text 270 3341 Tap2 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3383 @tap3.fb3;
-#X text 270 3383 Tap3 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3425 @tap3.fb4;
-#X text 270 3425 Tap4 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3467 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3467 @tap3.fb5;
-#X text 270 3467 Tap5 feedback to tap3\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3509 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3509 @tap3.gain;
-#X text 270 3509 Tap3 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 3551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3551 @tap3.in0;
-#X text 270 3551 Left input level to tap3\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 3593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3593 @tap3.in1;
-#X text 270 3593 Right input level to tap3\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 3635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3635 @tap4.delay;
-#X text 270 3635 Tap4 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 3677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3677 @tap4.fb0;
-#X text 270 3677 Tap0 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3719 @tap4.fb1;
-#X text 270 3719 Tap1 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3761 @tap4.fb2;
-#X text 270 3761 Tap2 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3803 @tap4.fb3;
-#X text 270 3803 Tap3 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3845 @tap4.fb4;
-#X text 270 3845 Tap4 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3887 @tap4.fb5;
-#X text 270 3887 Tap5 feedback to tap4\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 3929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3929 @tap4.gain;
-#X text 270 3929 Tap4 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 3971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3971 @tap4.in0;
-#X text 270 3971 Left input level to tap4\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 4013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4013 @tap4.in1;
-#X text 270 4013 Right input level to tap4\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 4055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4055 @tap5.delay;
-#X text 270 4055 Tap5 delay time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...5000\.;
-#X obj 250 4097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4097 @tap5.fb0;
-#X text 270 4097 Tap0 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4139 @tap5.fb1;
-#X text 270 4139 Tap1 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4181 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4181 @tap5.fb2;
-#X text 270 4181 Tap2 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4223 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4223 @tap5.fb3;
-#X text 270 4223 Tap3 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4265 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4265 @tap5.fb4;
-#X text 270 4265 Tap4 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4307 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4307 @tap5.fb5;
-#X text 270 4307 Tap5 feedback to tap5\. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
-#X obj 250 4349 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4349 @tap5.gain;
-#X text 270 4349 Tap5 common level. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -60\...0\.;
-#X obj 250 4391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4391 @tap5.in0;
-#X text 270 4391 Left input level to tap5\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 4433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4433 @tap5.in1;
-#X text 270 4433 Right input level to tap5\. Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 20 4485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4490 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 270 971 List of all taps left channel input levels. Type: list.
+Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1013 @ins1;
+#X text 270 1013 List of all taps right channel input levels. Type:
+list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
+#X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1055 @out0.gain;
+#X text 270 1055 Left channel output gain. Type: float. Units: 'db'.
+Default value: 0\. Range: -60\...0\.;
+#X obj 250 1097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1097 @out0.in0;
+#X text 270 1097 Input left channel level to left output. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1139 @out0.in1;
+#X text 270 1139 Input right channel level to left output. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1181 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1181 @out0.tap0;
+#X text 270 1181 Tap 0 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1223 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1223 @out0.tap1;
+#X text 270 1223 Tap 1 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1265 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1265 @out0.tap2;
+#X text 270 1265 Tap 2 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1307 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1307 @out0.tap3;
+#X text 270 1307 Tap 3 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1349 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1349 @out0.tap4;
+#X text 270 1349 Tap 4 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1391 @out0.tap5;
+#X text 270 1391 Tap 5 output level to left channel. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X obj 250 1433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1433 @out1.gain;
+#X text 270 1433 Right channel output gain. Type: float. Units: 'db'.
+Default value: 0\. Range: -60\...0\.;
+#X obj 250 1475 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1475 @out1.in0;
+#X text 270 1475 Input left channel level to right output. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1517 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1517 @out1.in1;
+#X text 270 1517 Input right channel level to right output. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1559 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1559 @out1.tap0;
+#X text 270 1559 Tap 0 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1601 @out1.tap1;
+#X text 270 1601 Tap 1 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1643 @out1.tap2;
+#X text 270 1643 Tap 2 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1685 @out1.tap3;
+#X text 270 1685 Tap 3 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1727 @out1.tap4;
+#X text 270 1727 Tap 4 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1769 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1769 @out1.tap5;
+#X text 270 1769 Tap 5 output level to right channel. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X obj 250 1811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1811 @outs0;
+#X text 270 1811 List of all tap output levels to left channel. Type:
+list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 1853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1853 @outs1;
+#X text 270 1853 List of all tap output levels to right channel. Type:
+list. Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X obj 250 1895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1895 @tap0.delay;
+#X text 270 1895 Tap0 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 1937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1937 @tap0.fb0;
+#X text 270 1937 Tap0 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 1979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1979 @tap0.fb1;
+#X text 270 1979 Tap1 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2021 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2021 @tap0.fb2;
+#X text 270 2021 Tap2 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2063 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2063 @tap0.fb3;
+#X text 270 2063 Tap3 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2105 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2105 @tap0.fb4;
+#X text 270 2105 Tap4 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2147 @tap0.fb5;
+#X text 270 2147 Tap5 feedback to tap0\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2189 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2189 @tap0.gain;
+#X text 270 2189 Tap0 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 2231 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2231 @tap0.in0;
+#X text 270 2231 Left input level to tap0\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 2273 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2273 @tap0.in1;
+#X text 270 2273 Right input level to tap0\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 2315 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2315 @tap1.delay;
+#X text 270 2315 Tap1 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 2357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2357 @tap1.fb0;
+#X text 270 2357 Tap0 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2399 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2399 @tap1.fb1;
+#X text 270 2399 Tap1 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2441 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2441 @tap1.fb2;
+#X text 270 2441 Tap2 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2483 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2483 @tap1.fb3;
+#X text 270 2483 Tap3 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2525 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2525 @tap1.fb4;
+#X text 270 2525 Tap4 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2567 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2567 @tap1.fb5;
+#X text 270 2567 Tap5 feedback to tap1\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2609 @tap1.gain;
+#X text 270 2609 Tap1 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 2651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2651 @tap1.in0;
+#X text 270 2651 Left input level to tap1\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 2693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2693 @tap1.in1;
+#X text 270 2693 Right input level to tap1\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 2735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2735 @tap2.delay;
+#X text 270 2735 Tap2 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 2777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2777 @tap2.fb0;
+#X text 270 2777 Tap0 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2819 @tap2.fb1;
+#X text 270 2819 Tap1 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2861 @tap2.fb2;
+#X text 270 2861 Tap2 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2903 @tap2.fb3;
+#X text 270 2903 Tap3 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2945 @tap2.fb4;
+#X text 270 2945 Tap4 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 2987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2987 @tap2.fb5;
+#X text 270 2987 Tap5 feedback to tap2\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3029 @tap2.gain;
+#X text 270 3029 Tap2 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 3071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3071 @tap2.in0;
+#X text 270 3071 Left input level to tap2\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3113 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3113 @tap2.in1;
+#X text 270 3113 Right input level to tap2\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3155 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3155 @tap3.delay;
+#X text 270 3155 Tap3 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 3197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3197 @tap3.fb0;
+#X text 270 3197 Tap0 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3239 @tap3.fb1;
+#X text 270 3239 Tap1 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3281 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3281 @tap3.fb2;
+#X text 270 3281 Tap2 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3323 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3323 @tap3.fb3;
+#X text 270 3323 Tap3 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3365 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3365 @tap3.fb4;
+#X text 270 3365 Tap4 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3407 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3407 @tap3.fb5;
+#X text 270 3407 Tap5 feedback to tap3\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3449 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3449 @tap3.gain;
+#X text 270 3449 Tap3 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 3491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3491 @tap3.in0;
+#X text 270 3491 Left input level to tap3\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3533 @tap3.in1;
+#X text 270 3533 Right input level to tap3\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3575 @tap4.delay;
+#X text 270 3575 Tap4 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 3617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3617 @tap4.fb0;
+#X text 270 3617 Tap0 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3659 @tap4.fb1;
+#X text 270 3659 Tap1 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3701 @tap4.fb2;
+#X text 270 3701 Tap2 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3743 @tap4.fb3;
+#X text 270 3743 Tap3 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3785 @tap4.fb4;
+#X text 270 3785 Tap4 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3827 @tap4.fb5;
+#X text 270 3827 Tap5 feedback to tap4\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 3869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3869 @tap4.gain;
+#X text 270 3869 Tap4 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 3911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3911 @tap4.in0;
+#X text 270 3911 Left input level to tap4\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3953 @tap4.in1;
+#X text 270 3953 Right input level to tap4\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 3995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3995 @tap5.delay;
+#X text 270 3995 Tap5 delay time. Type: float. Units: 'ms'. Default
+value: 0\. Range: 0\...5000\.;
+#X obj 250 4037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4037 @tap5.fb0;
+#X text 270 4037 Tap0 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4079 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4079 @tap5.fb1;
+#X text 270 4079 Tap1 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4121 @tap5.fb2;
+#X text 270 4121 Tap2 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4163 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4163 @tap5.fb3;
+#X text 270 4163 Tap3 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4205 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4205 @tap5.fb4;
+#X text 270 4205 Tap4 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4247 @tap5.fb5;
+#X text 270 4247 Tap5 feedback to tap5\. Type: float. Default value:
+0\. Range: 0\...1\.;
+#X obj 250 4289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4289 @tap5.gain;
+#X text 270 4289 Tap5 common level. Type: float. Units: 'db'. Default
+value: 0\. Range: -60\...0\.;
+#X obj 250 4331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4331 @tap5.in0;
+#X text 270 4331 Left input level to tap5\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 250 4373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4373 @tap5.in1;
+#X text 270 4373 Right input level to tap5\. Type: float. Default value:
+1\. Range: 0\...1\.;
+#X obj 20 4425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4430 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 4491 pingpong;
-#X text 270 4491 set pingpong delay values. Аргументы:;
-#X obj 280 4514 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4514 DELAY: delay time. Тип: float. Единицы: 'ms'.;
-#X obj 280 4537 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4537 FB: feedback value. Тип: float. Диапазон: 0…1\.;
-#X obj 250 4562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4562 random;
-#X text 270 4562 randomize values. Аргументы:;
-#X obj 280 4585 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4585 TYPE: group name. If 'delays' - randomize @delays
-properties \, if 'fb' - randomize @fb* properties. Тип: symbol. Разрешённые
-значения: delays \, fb \, inputs \, outputs \, gains.;
-#X obj 280 4653 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4653 [MIN]: minimal value. Тип: float. Минимальное значение:
-0\.;
-#X obj 280 4676 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4676 [MAX]: maximum value. Тип: float. Минимальное значение:
-0\.;
-#X obj 250 4701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4701 reset;
-#X text 270 4701 reset to initial state.;
-#X obj 20 4739 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4744 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 4745 1\.;
-#X text 170 4745 ~;
-#X text 270 4745 left in channel.;
-#X text 130 4770 2\.;
-#X text 170 4770 ~;
-#X text 270 4770 right in channel.;
-#X obj 20 4805 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4810 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 4431 pingpong;
+#X text 270 4431 set pingpong delay values. Arguments are:;
+#X obj 280 4454 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4454 DELAY: delay time. Type: float. Units: 'ms'.;
+#X obj 280 4477 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4477 FB: feedback value. Type: float. Range: 0\...1\.;
+#X obj 250 4502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4502 random;
+#X text 270 4502 randomize values. Arguments are:;
+#X obj 280 4525 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4525 TYPE: group name. If 'delays' - randomize @delays
+properties \, if 'fb' - randomize @fb* properties. Type: symbol. Allowed
+values: delays \, fb \, inputs \, outputs \, gains.;
+#X obj 280 4578 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4578 [MIN]: minimal value. Type: float. Min value: 0\.;
+#X obj 280 4601 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 4601 [MAX]: maximum value. Type: float. Min value: 0\.;
+#X obj 250 4626 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4626 reset;
+#X text 270 4626 reset to initial state.;
+#X obj 20 4664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4669 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4811 1\.;
-#X text 170 4811 ~;
-#X text 270 4811 left out channel.;
-#X text 130 4831 2\.;
-#X text 170 4831 ~;
-#X text 270 4831 right out channel.;
+#X text 130 4670 1\.;
+#X text 170 4670 ~;
+#X text 270 4670 left in channel.;
+#X text 130 4695 2\.;
+#X text 170 4695 ~;
+#X text 270 4695 right in channel.;
+#X obj 20 4730 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4735 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 4736 1\.;
+#X text 170 4736 ~;
+#X text 270 4736 left out channel.;
+#X text 130 4756 2\.;
+#X text 170 4756 ~;
+#X text 270 4756 right out channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 4881 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4884 библиотека: ceammc v0.9.8;
-#N canvas 10 4903 400 290 info 0;
+#X obj 1 4806 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4809 library: ceammc v0.9.8;
+#N canvas 10 4828 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 fx.tapiir~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 fx;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Viacheslav Lotsmanov \, Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 fx \, delay \, tapiir;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 4903 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 4828 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;

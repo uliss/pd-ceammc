@@ -5,95 +5,95 @@
 #X obj 1 1 cnv 5 765 40 empty empty pan.cos~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 pan.cos~;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Two channel equal power panner. The center pan position
 is boosted by 3 dB compared to linear panning \, and the total power
 at every pan position is 0 dB.;
-#X obj 146 191 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
+#X obj 146 201 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
-#X obj 146 220 lin->lin 0 127 -1 1;
-#X obj 50 249 sig~ 1;
-#X floatatom 146 249 5 0 0 0 - - -;
-#X obj 50 278 pan.cos~;
-#X obj 50 307 env~;
-#X obj 136 307 env~;
-#X floatatom 50 335 5 0 0 0 - - -;
-#X floatatom 136 335 5 0 0 0 - - -;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 372 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 146 230 lin->lin 0 127 -1 1;
+#X obj 50 259 sig~ 1;
+#X floatatom 146 259 5 0 0 0 - - -;
+#X obj 50 288 pan.cos~;
+#X obj 50 317 env~;
+#X obj 136 317 env~;
+#X floatatom 50 345 5 0 0 0 - - -;
+#X floatatom 136 345 5 0 0 0 - - -;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 382 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 385 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 373 1\.;
-#X text 170 373 float;
-#X obj 268 374 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 373 POS: panning position. -1 means left \, 0 - center
-\, +1 - right. Тип: float. Диапазон: -1…1;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 428 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 383 1\.;
+#X text 170 383 float;
+#X obj 268 384 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 383 POS: panning position. -1 means left \, 0 - center
+\, +1 - right. Type: float. Range: -1\...1;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 438 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 429 @smooth;
-#X text 270 429 (при инициализации) Smooth control signal to avoid
-zipping-noise. Тип: int. Значение по умолчанию: 20\. Диапазон: 0\...100\.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @pos;
-#X text 270 486 Panning position. -1 means left \, 0 - center \, +1
-- right. Тип: float. Значение по умолчанию: 0\. Диапазон: -1\...1\.;
-#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 558 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 439 @smooth;
+#X text 270 439 (initonly) Smooth control signal to avoid zipping-noise.
+Type: int. Default value: 20\. Range: 0\...100\.;
+#X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 481 @pos;
+#X text 270 481 Panning position. -1 means left \, 0 - center \, +1
+- right. Type: float. Default value: 0\. Range: -1\...1\.;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 538 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 559 1\.;
-#X text 170 559 ~;
-#X text 270 559 input signal.;
-#X text 130 584 2\.;
-#X text 170 584 float:;
-#X text 270 584 pan position. Диапазон: -1…1\.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 624 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 625 1\.;
+#X text 130 539 1\.;
+#X text 170 539 ~;
+#X text 270 539 input signal.;
+#X text 130 564 2\.;
+#X text 170 564 float:;
+#X text 270 564 pan position. Range: -1\...1\.;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 604 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 605 1\.;
+#X text 170 605 ~;
+#X text 270 605 left output channel.;
+#X text 130 625 2\.;
 #X text 170 625 ~;
-#X text 270 625 left output channel.;
-#X text 130 645 2\.;
-#X text 170 645 ~;
-#X text 270 645 right output channel.;
+#X text 270 625 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 695 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 698 библиотека: ceammc v0.9.8;
-#X text 479 710 смотрите также:;
-#X obj 600 710 pan.lin~;
-#X obj 674 710 pan.sqrt~;
-#N canvas 10 717 400 290 info 0;
+#X obj 1 675 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 678 library: ceammc v0.9.8;
+#X text 525 690 see also:;
+#X obj 600 690 pan.lin~;
+#X obj 674 690 pan.sqrt~;
+#N canvas 10 697 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 pan.cos~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 spat;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.5;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 pan \, span;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 717 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 697 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

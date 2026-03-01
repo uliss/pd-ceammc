@@ -5,31 +5,31 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.display 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.display;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 At this moment supports only MacOSX;
-#X obj 50 161 ui.slider @size 120 12;
-#X msg 50 190 @brightness \$1;
-#X msg 213 190 @brightness?;
-#X obj 50 219 hw.display;
-#X obj 50 248 ui.d;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 303 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 171 ui.slider @size 120 12;
+#X msg 50 200 @brightness \$1;
+#X msg 213 200 @brightness?;
+#X obj 50 229 hw.display;
+#X obj 50 258 ui.d;
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 313 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 316 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 304 @brightness;
-#X text 270 304 Display brightness. Type: float. Default value: 0.313477\.
+#X msg 130 314 @brightness;
+#X text 270 314 Display brightness. Type: float. Default value: 0.313477\.
 Range: 0\...1\.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 361 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 371 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 362 1\.;
-#X text 270 362 input.;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 402 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 372 1\.;
+#X text 270 372 input.;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 412 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 403 1\.;
-#X text 270 403 properties output.;
+#X text 130 413 1\.;
+#X text 270 413 properties output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

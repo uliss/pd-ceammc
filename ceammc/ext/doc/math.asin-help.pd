@@ -5,29 +5,29 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.asin 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.asin;
-#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 165 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The asin() function computes the principal value of
 the arc sine of input value. The result is in the range [-pi/2 \, +pi/2].;
 #X text 240 138 Special values:;
 #X text 240 163 asin(+-0) returns +-0\.;
 #X text 240 188 asin(x) returns a NAN and raises the "invalid" floating-point
 exception for |x| > 1\.;
-#X floatatom 50 281 5 0 0 0 - - -;
-#X obj 50 310 math.asin;
-#X floatatom 50 339 5 0 0 0 - - -;
-#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 376 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X floatatom 50 291 5 0 0 0 - - -;
+#X obj 50 320 math.asin;
+#X floatatom 50 349 5 0 0 0 - - -;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 386 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 377 1\.;
-#X text 170 377 float:;
-#X text 270 377 input value.;
-#X text 170 402 list:;
-#X text 270 402 apply to all numeric values.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 442 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 387 1\.;
+#X text 170 387 float:;
+#X text 270 387 input value.;
+#X text 170 412 list:;
+#X text 270 412 apply to all numeric values.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 452 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 443 1\.;
-#X text 270 443 result value.;
+#X text 130 453 1\.;
+#X text 270 453 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

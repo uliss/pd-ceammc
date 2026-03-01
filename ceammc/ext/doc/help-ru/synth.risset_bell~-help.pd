@@ -17,58 +17,57 @@
 #X obj 194 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
 #X obj 268 377 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 FREQ(Hz): main frequency. Тип: float. Диапазон: 1…10000;
+#X text 270 376 FREQ(Hz): main frequency. Type: float. Range: 1\...10000;
 #X text 130 401 2\.;
 #X text 170 401 float;
 #X obj 268 402 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 401 DUR(ms): duration. Тип: float. Диапазон: 10…600000;
+#X text 270 401 DUR(ms): duration. Type: float. Range: 10\...600000;
 #X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 441 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 441 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 444 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 442 @id;
-#X text 270 442 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/synth_risset_bell/ИМЯ_СВОЙСТВА \, в противном случае
-к /synth_risset_bell/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X text 270 442 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_risset_bell/ИМЯ_СВОЙСТВА
+\, в противном случае к /synth_risset_bell/ИМЯ_СВОЙСТВА. Type: symbol.;
 #X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 529 @osc;
-#X text 270 529 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X text 270 529 (initonly) Имя OSC сервера. Type: symbol.;
 #X obj 250 559 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 559 @active;
-#X text 270 559 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
+#X text 270 559 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
 #X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 601 @dur;
-#X text 270 601 Duration. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-5000\. Диапазон: 10\...600000\.;
+#X text 270 601 Duration. Type: float. Units: 'ms'. Default value:
+5000\. Range: 10\...600000\.;
 #X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 643 @freq;
-#X text 270 643 Base frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 440\. Диапазон: 1\...10000\.;
+#X text 270 643 Base frequency. Type: float. Units: 'Hz'. Default value:
+440\. Range: 1\...10000\.;
 #X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 685 @gate;
-#X text 270 685 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+#X text 270 685 Play trigger - 1: on \, 0: off. Type: float. Default
+value: 0\. Range: 0\...1\.;
 #X obj 250 727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 727 @pfreq;
-#X text 270 727 Freq multiplication coefficient. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...10\.;
+#X text 270 727 Freq multiplication coefficient. Type: float. Default
+value: 1\. Range: 0\...10\.;
 #X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 784 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 784 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
 #X msg 130 785 reset;
 #X text 270 785 reset synth.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 828 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 828 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 130 829 1\.;
 #X text 170 829 bang:;
@@ -76,8 +75,8 @@
 #X text 170 854 float:;
 #X text 270 854 play with specified amp.;
 #X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 894 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 894 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
 #X text 130 895 1\.;
 #X text 170 895 ~;
 #X text 270 895 output signal.;
@@ -87,31 +86,31 @@
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 948 библиотека: ceammc v0.9.8;
+#X text 10 948 library: ceammc v0.9.8;
 #N canvas 10 967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 synth.risset_bell~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 synth;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 risset \, bell;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
+#X text 120 268 generated by pddoc;
 #X restore 10 967 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;

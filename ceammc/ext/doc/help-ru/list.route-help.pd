@@ -6,118 +6,118 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.route 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 list.route;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Outputs float \, symbol or list to matched outlet or
 to last outlet if no match;
-#X msg 50 176 100;
-#X msg 136 176 symbol A;
-#X msg 270 176 list A;
-#X msg 50 205 200;
-#X msg 136 205 symbol B;
-#X msg 270 205 list A B;
-#X msg 50 234 150;
-#X msg 136 234 1 2 3;
-#X msg 270 234 200 300;
-#X obj 50 277 list.route A B 100 200;
-#X obj 50 335 ui.dt;
-#X obj 155 335 ui.dt;
-#X obj 261 335 ui.dt;
-#X obj 366 335 ui.dt;
-#X obj 472 335 ui.dt;
-#X msg 50 378 100;
-#X msg 146 378 symbol A;
-#X msg 290 378 list A;
-#X msg 434 378 1 2 3;
-#X msg 50 407 200;
-#X msg 146 407 symbol B;
-#X msg 290 407 list A B;
-#X msg 434 407 100 300;
-#X obj 50 450 list.route A B 100 @trim;
-#X obj 50 507 ui.dt;
-#X obj 155 507 ui.dt;
-#X obj 261 507 ui.dt;
-#X obj 366 507 ui.dt;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 562 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 186 100;
+#X msg 136 186 symbol A;
+#X msg 270 186 list A;
+#X msg 50 215 200;
+#X msg 136 215 symbol B;
+#X msg 270 215 list A B;
+#X msg 50 244 150;
+#X msg 136 244 1 2 3;
+#X msg 270 244 200 300;
+#X obj 50 287 list.route A B 100 200;
+#X obj 50 345 ui.dt;
+#X obj 155 345 ui.dt;
+#X obj 261 345 ui.dt;
+#X obj 366 345 ui.dt;
+#X obj 472 345 ui.dt;
+#X msg 50 388 100;
+#X msg 146 388 symbol A;
+#X msg 290 388 list A;
+#X msg 434 388 1 2 3;
+#X msg 50 417 200;
+#X msg 146 417 symbol B;
+#X msg 290 417 list A B;
+#X msg 434 417 100 300;
+#X obj 50 460 list.route A B 100 @trim;
+#X obj 50 517 ui.dt;
+#X obj 155 517 ui.dt;
+#X obj 261 517 ui.dt;
+#X obj 366 517 ui.dt;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 572 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 565 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 575 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 563 1\.;
-#X text 170 563 list;
-#X obj 268 564 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 563 ARGS: list of matched atoms. Тип: list.;
-#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 603 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 573 1\.;
+#X text 170 573 list;
+#X obj 268 574 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 573 ARGS: list of matched atoms. Type: list.;
+#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 613 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 606 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 616 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 604 @args;
-#X text 270 604 (при инициализации) Matching atoms. Тип: list.;
-#X obj 250 634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 634 @as_any;
-#X text 270 634 Trim list or symbol selector on output. Значение по
-умолчанию: 0\.;
-#X obj 250 676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 676 @trim;
-#X text 270 676 Cut first element from list \, transform float or symbol
-to bang. Значение по умолчанию: 0\.;
-#X obj 250 718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 718 @simplify;
-#X text 270 718 One element list simplification - transform them to
-floats or symbols. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 775 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 614 @args;
+#X text 270 614 (initonly) Matching atoms. Type: list.;
+#X obj 250 644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 644 @as_any;
+#X text 270 644 Trim list or symbol selector on output. Default value:
+0\.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 674 @trim;
+#X text 270 674 Cut first element from list \, transform float or symbol
+to bang. Default value: 0\.;
+#X obj 250 716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 716 @simplify;
+#X text 270 716 One element list simplification - transform them to
+floats or symbols. Type: bool. Default value: 1\.;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 773 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 776 1\.;
-#X text 170 776 list:;
-#X text 270 776 input list.;
-#X text 170 801 data:mlist:;
-#X text 270 801 input mlist.;
-#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 842 0\.;
-#X text 270 842 first match.;
-#X text 130 862 1\.;
-#X text 270 862 second match.;
-#X text 130 882 ...;
-#X text 270 882 nth match.;
-#X text 130 902 n.;
-#X text 270 902 unmatched element (without changes).;
+#X text 130 774 1\.;
+#X text 170 774 list:;
+#X text 270 774 input list.;
+#X text 170 799 data:mlist:;
+#X text 270 799 input mlist.;
+#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 839 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 840 0\.;
+#X text 270 840 first match.;
+#X text 130 860 1\.;
+#X text 270 860 second match.;
+#X text 130 880 ...;
+#X text 270 880 nth match.;
+#X text 130 900 n.;
+#X text 270 900 unmatched element (without changes).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 952 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 955 библиотека: ceammc v0.9.8;
-#X text 583 967 смотрите также:;
-#X obj 704 967 route;
-#N canvas 10 974 400 290 info 0;
+#X obj 1 950 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 953 library: ceammc v0.9.8;
+#X text 629 965 see also:;
+#X obj 704 965 route;
+#N canvas 10 972 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 list.route;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 list;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.5;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 list \, route;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 974 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 972 pd info;
 #X connect 15 0 16 0;
 #X connect 15 1 17 0;
 #X connect 15 2 18 0;

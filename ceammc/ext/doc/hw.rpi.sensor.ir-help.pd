@@ -20,7 +20,7 @@ ceammc://img/conn_infrared.png;
 #X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 367 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 370 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 370 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 368 1\.;
 #X text 170 368 int;
@@ -30,7 +30,7 @@ ceammc://img/conn_infrared.png;
 #X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 423 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 426 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 424 @pin;
 #X text 270 424 (initonly) Connection GPIO pin. Type: int. Default

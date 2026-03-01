@@ -5,81 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty global.int 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 global.int;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Defines global scope integer variable \, accessed by
 ID name.;
-#X floatatom 50 161 5 0 0 0 - - -;
-#X msg 107 161 + 2 \, bang;
-#X msg 251 161 * 3 \, bang;
-#X msg 395 161 bang;
-#X msg 136 205 - 3 \, bang;
-#X msg 270 205 / 2 \, bang;
-#X msg 155 233 set 2;
-#X obj 50 262 global.int f1;
-#X obj 395 262 global.int f1;
-#X floatatom 50 291 5 0 0 0 - - -;
-#X floatatom 395 291 5 0 0 0 - - -;
-#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 328 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 50 171 5 0 0 0 - - -;
+#X msg 107 171 + 2 \, bang;
+#X msg 251 171 * 3 \, bang;
+#X msg 395 171 bang;
+#X msg 136 215 - 3 \, bang;
+#X msg 270 215 / 2 \, bang;
+#X msg 155 243 set 2;
+#X obj 50 272 global.int f1;
+#X obj 395 272 global.int f1;
+#X floatatom 50 301 5 0 0 0 - - -;
+#X floatatom 395 301 5 0 0 0 - - -;
+#X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 338 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 341 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 329 1\.;
-#X text 170 329 symbol;
-#X obj 268 330 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 329 ID: object ID. Type: symbol.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 369 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 339 1\.;
+#X text 170 339 symbol;
+#X obj 268 340 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 339 ID: object ID. Type: symbol.;
+#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 379 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 372 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 382 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 370 @id;
-#X text 270 370 (initonly) Global variable id. Type: symbol. Default
+#X msg 130 380 @id;
+#X text 270 380 (initonly) Global variable id. Type: symbol. Default
 value: default.;
-#X obj 250 412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 412 @value?;
-#X text 270 412 (readonly) Current value. Type: int. Default value:
+#X obj 250 422 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 422 @value?;
+#X text 270 422 (readonly) Current value. Type: int. Default value:
 0\.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 457 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 467 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 458 set;
-#X text 270 458 sets new value without output.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 *;
-#X text 270 486 multiply to \, no output.;
-#X obj 250 514 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 514 +;
-#X text 270 514 add to int \, no output.;
-#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 542 -;
-#X text 270 542 substruct from int \, no output.;
-#X obj 250 570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 570 /;
-#X text 270 570 divide by \, no output.;
-#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 613 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 468 set;
+#X text 270 468 sets new value without output.;
+#X obj 250 496 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 496 *;
+#X text 270 496 multiply to \, no output.;
+#X obj 250 524 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 524 +;
+#X text 270 524 add to int \, no output.;
+#X obj 250 552 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 552 -;
+#X text 270 552 substruct from int \, no output.;
+#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 580 /;
+#X text 270 580 divide by \, no output.;
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 623 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 614 1\.;
-#X text 170 614 bang:;
-#X text 270 614 outputs variable.;
-#X text 170 639 float:;
-#X text 270 639 set truncated integer and outputs.;
-#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 679 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 624 1\.;
+#X text 170 624 bang:;
+#X text 270 624 outputs variable.;
+#X text 170 649 float:;
+#X text 270 649 set truncated integer and outputs.;
+#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 689 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 680 1\.;
-#X text 270 680 int output.;
+#X text 130 690 1\.;
+#X text 270 690 int output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 730 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 733 library: ceammc v0.9.8;
-#X text 578 745 see also:;
-#X obj 653 745 global.float;
-#N canvas 10 752 400 290 info 0;
+#X obj 1 740 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 743 library: ceammc v0.9.8;
+#X text 578 755 see also:;
+#X obj 653 755 global.float;
+#N canvas 10 762 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 752 pd info;
+#X restore 10 762 pd info;
 #X connect 6 0 13 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 0;

@@ -5,164 +5,164 @@
 #X obj 1 1 cnv 5 765 40 empty empty dyn.expand2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 dyn.expand2~;
-#X obj 230 78 cnv 1 535 59 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 69 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 It uses a strength parameter instead of the traditional
 ratio;
-#X obj 240 108 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 111 ui.link @background_color 0.90196 0.90196 0.90196
 @title Dynamic range       compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
-#X obj 50 185 ui.hsl -60 0 @active_scale 1 @show_value 1;
-#X obj 174 185 ui.hsl -60 0 @active_scale 1 @show_value 1;
-#X obj 328 185 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 434 185 ui.hsl -60 0 @active_scale 1 @show_value 1;
-#X obj 606 185 ui.dsp~;
-#X obj 50 214 dbfs->amp;
-#X obj 174 214 dbfs->amp;
-#X msg 328 214 @link \$1;
-#X msg 434 214 @threshold \$1;
-#X obj 50 243 sig~;
-#X obj 174 243 sig~;
-#X obj 328 243 s exp2;
-#X obj 328 286 ui.knob 0 10 @label STRENGTH @show_value 1;
-#X obj 69 301 r exp2;
-#X obj 50 329 dyn.expand2~ 1 -40 10 100;
-#X obj 50 358 env~;
-#X obj 155 358 env~;
-#X obj 328 358 unpack f f;
-#X obj 50 387 - 100;
-#X obj 155 387 - 100;
-#X obj 328 387 ui.hsl -60 0 @active_scale 1 @show_value 1;
-#X floatatom 50 416 5 0 0 0 - - -;
-#X floatatom 155 416 5 0 0 0 - - -;
-#X obj 328 416 ui.hsl -60 0 @active_scale 1 @show_value 1;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 195 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 174 195 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 328 195 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 434 195 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 606 195 ui.dsp~;
+#X obj 50 224 dbfs->amp;
+#X obj 174 224 dbfs->amp;
+#X msg 328 224 @link \$1;
+#X msg 434 224 @threshold \$1;
+#X obj 50 253 sig~;
+#X obj 174 253 sig~;
+#X obj 328 253 s exp2;
+#X obj 328 296 ui.knob 0 10 @label STRENGTH @show_value 1;
+#X obj 69 311 r exp2;
+#X obj 50 339 dyn.expand2~ 1 -40 10 100;
+#X obj 50 368 env~;
+#X obj 155 368 env~;
+#X obj 328 368 unpack f f;
+#X obj 50 397 - 100;
+#X obj 155 397 - 100;
+#X obj 328 397 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X floatatom 50 426 5 0 0 0 - - -;
+#X floatatom 155 426 5 0 0 0 - - -;
+#X obj 328 426 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 481 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 484 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 472 1\.;
-#X text 170 472 float;
-#X obj 268 473 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 472 STRENGTH: expander strength (0: no expanding \, 10:
+#X text 130 482 1\.;
+#X text 170 482 float;
+#X obj 268 483 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 482 STRENGTH: expander strength (0: no expanding \, 10:
 almost gating). Type: float. Range: 0\...10;
-#X text 130 512 2\.;
-#X text 170 512 float;
-#X obj 268 513 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 512 THRESHOLD(db): level threshold below which expander
+#X text 130 522 2\.;
+#X text 170 522 float;
+#X obj 268 523 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 522 THRESHOLD(db): level threshold below which expander
 kicks in. Type: float. Range: -60\...0;
-#X text 130 552 3\.;
-#X text 170 552 float;
-#X obj 268 553 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 552 ATTACK(ms): attack time = time constant when expander
+#X text 130 562 3\.;
+#X text 170 562 float;
+#X obj 268 563 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 562 ATTACK(ms): attack time = time constant when expander
 is turning on. Type: float. Range: 0.1\...100;
-#X text 130 592 4\.;
-#X text 170 592 float;
-#X obj 268 593 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 592 RELEASE(ms): release time = time constant coming out
+#X text 130 602 4\.;
+#X text 170 602 float;
+#X obj 268 603 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 602 RELEASE(ms): release time = time constant coming out
 of expanding. Type: float. Range: 1\...500;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 647 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 657 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 660 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 648 @id;
-#X text 270 648 (initonly) OSC address id. If specified \, bind all
+#X msg 130 658 @id;
+#X text 270 658 (initonly) OSC address id. If specified \, bind all
 properties to /ID/dyn_expand2/PROP_NAME osc address \, if empty bind
 to /dyn_expand2/PROP_NAME. Type: symbol.;
-#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 705 @osc;
-#X text 270 705 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 735 @active;
-#X text 270 735 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 715 @osc;
+#X text 270 715 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 745 @active;
+#X text 270 745 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 765 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 765 @attack;
-#X text 270 765 Time constant when expander is turning on. Type: float.
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 775 @attack;
+#X text 270 775 Time constant when expander is turning on. Type: float.
 Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X obj 250 807 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 807 @bypass;
-#X text 270 807 Bypass flag. If true: bypass 'effected' signal. Type:
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 817 @bypass;
+#X text 270 817 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
-#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 849 @hold;
-#X text 270 849 Hold period. Type: float. Units: 'samp'. Default value:
+#X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 859 @hold;
+#X text 270 859 Hold period. Type: float. Units: 'samp'. Default value:
 128\. Range: 1\...255\.;
-#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 891 @knee;
-#X text 270 891 A gradual increase in gain reduction around the threshold:
+#X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 901 @knee;
+#X text 270 901 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Type: float. Units:
 'db'. Default value: 3\. Range: 0\...6\.;
-#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 994 @link;
-#X text 270 994 The amount of linkage between the channels: 0 = each
+#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1004 @link;
+#X text 270 1004 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
 gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
-#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1066 @range;
-#X text 270 1066 Max expand range. Type: float. Units: 'db'. Default
+#X obj 250 1076 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1076 @range;
+#X text 270 1076 Max expand range. Type: float. Units: 'db'. Default
 value: -120\. Range: -120\...0\.;
-#X obj 250 1108 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1108 @refresh;
-#X text 270 1108 Expander level output time interval. If 0 - no output.
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1118 @refresh;
+#X text 270 1118 Expander level output time interval. If 0 - no output.
 Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
-#X obj 250 1165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1165 @release;
-#X text 270 1165 Release time = time constant coming out of expanding.
+#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1175 @release;
+#X text 270 1175 Release time = time constant coming out of expanding.
 Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X obj 250 1222 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1222 @strength;
-#X text 270 1222 Expander strength (0: no expanding \, 1: increase
+#X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1232 @strength;
+#X text 270 1232 Expander strength (0: no expanding \, 1: increase
 level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
-#X obj 250 1279 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1279 @threshold;
-#X text 270 1279 Level threshold above which compression kicks in (100
+#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1289 @threshold;
+#X text 270 1289 Level threshold above which compression kicks in (100
 dB = max level). Type: float. Units: 'db'. Default value: -48\. Range:
 -60\...0\.;
-#X obj 250 1336 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1336 @level?;
-#X text 270 1336 (readonly) Current expander level. Type: float. Units:
+#X obj 250 1346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1346 @level?;
+#X text 270 1346 (readonly) Current expander level. Type: float. Units:
 'db'. Default value: 0\. Range: 0\...90\.;
-#X obj 20 1388 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1393 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1398 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1403 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1394 reset;
-#X text 270 1394 reset to initial state.;
-#X obj 20 1432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1437 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1404 reset;
+#X text 270 1404 reset to initial state.;
+#X obj 20 1442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1447 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1438 1\.;
-#X text 170 1438 ~;
-#X text 270 1438 left input signal.;
-#X text 130 1463 2\.;
-#X text 170 1463 ~;
-#X text 270 1463 right input signal.;
-#X text 130 1488 3\.;
-#X text 170 1488 float:;
-#X text 270 1488 set expander strength.;
-#X obj 20 1523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1528 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1448 1\.;
+#X text 170 1448 ~;
+#X text 270 1448 left input signal.;
+#X text 130 1473 2\.;
+#X text 170 1473 ~;
+#X text 270 1473 right input signal.;
+#X text 130 1498 3\.;
+#X text 170 1498 float:;
+#X text 270 1498 set expander strength.;
+#X obj 20 1533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1538 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1529 1\.;
-#X text 170 1529 ~;
-#X text 270 1529 left expanded signal.;
-#X text 130 1549 2\.;
-#X text 170 1549 ~;
-#X text 270 1549 right expanded signal.;
-#X text 130 1569 3\.;
-#X text 270 1569 list: output current expander level in db.;
+#X text 130 1539 1\.;
+#X text 170 1539 ~;
+#X text 270 1539 left expanded signal.;
+#X text 130 1559 2\.;
+#X text 170 1559 ~;
+#X text 270 1559 right expanded signal.;
+#X text 130 1579 3\.;
+#X text 270 1579 list: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1619 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1622 library: ceammc v0.9.8;
-#X text 584 1634 see also:;
-#X obj 659 1634 dyn.expand~;
-#N canvas 10 1641 400 290 info 0;
+#X obj 1 1629 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1632 library: ceammc v0.9.8;
+#X text 584 1644 see also:;
+#X obj 659 1644 dyn.expand~;
+#N canvas 10 1651 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -186,7 +186,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1641 pd info;
+#X restore 10 1651 pd info;
 #X connect 7 0 12 0;
 #X connect 8 0 13 0;
 #X connect 9 0 14 0;

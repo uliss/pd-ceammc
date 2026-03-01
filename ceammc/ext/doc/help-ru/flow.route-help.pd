@@ -5,92 +5,92 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.route 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flow.route;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 if no match occured - output original message to last
 outlet;
 #X text 240 108 if route starts with '*' - output with message selector;
-#X msg 50 186 list a b c;
-#X msg 50 215 a b c;
-#X msg 50 244 list d e f;
-#X msg 50 273 d e f;
-#X msg 50 302 100 200 300;
-#X msg 50 330 400 500 600;
-#X msg 222 330 unmatched;
-#X obj 50 359 flow.route a *d 100 *400, f 40;
-#X obj 50 388 ui.d @display_type 1;
-#X obj 270 388 ui.d @display_type 1;
-#X obj 117 417 ui.d @display_type 1;
-#X obj 376 417 ui.d @display_type 1;
-#X obj 184 446 ui.d @display_type 1;
-#X obj 50 474 flow.route-data;
-#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 529 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 196 list a b c;
+#X msg 50 225 a b c;
+#X msg 50 254 list d e f;
+#X msg 50 283 d e f;
+#X msg 50 312 100 200 300;
+#X msg 50 340 400 500 600;
+#X msg 222 340 unmatched;
+#X obj 50 369 flow.route a *d 100 *400, f 40;
+#X obj 50 398 ui.d @display_type 1;
+#X obj 270 398 ui.d @display_type 1;
+#X obj 117 427 ui.d @display_type 1;
+#X obj 376 427 ui.d @display_type 1;
+#X obj 184 456 ui.d @display_type 1;
+#X obj 50 484 flow.route-data;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 539 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 532 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 542 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 530 1\.;
-#X text 170 530 list;
-#X obj 268 531 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 530 MATCHES: list of route matches. Тип: list.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 570 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 540 1\.;
+#X text 170 540 list;
+#X obj 268 541 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 540 MATCHES: list of route matches. Type: list.;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 580 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 571 1\.;
-#X text 170 571 list:;
-#X text 270 571 match to first list element \, output to corresponding
+#X text 130 581 1\.;
+#X text 170 581 list:;
+#X text 270 581 match to first list element \, output to corresponding
 outlet. If route starts with * output list 'as is' \, otherwise output
 without first element.;
-#X text 170 626 any:;
-#X text 270 626 match to message selector \, output to corresponding
+#X text 170 636 any:;
+#X text 270 636 match to message selector \, output to corresponding
 outlet. On success outputs message arguments to corresponding outlet.;
-#X text 170 681 data:mlist:;
-#X text 270 681 same as list.;
-#X text 170 706 data:dict:;
-#X text 270 706 match dict keys. On success outputs dict values to
+#X text 170 691 data:mlist:;
+#X text 270 691 same as list.;
+#X text 170 716 data:dict:;
+#X text 270 716 match dict keys. On success outputs dict values to
 corresponding outlets \, if starts with * output with matched key.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 776 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 777 1\.;
-#X text 270 777 first pattern match output.;
-#X text 130 797 ...;
-#X text 270 797 ... pattern match output.;
-#X text 130 817 n.;
-#X text 270 817 n-th pattern match output.;
-#X text 130 837 n+1\.;
-#X text 270 837 unmatched output.;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 786 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 787 1\.;
+#X text 270 787 first pattern match output.;
+#X text 130 807 ...;
+#X text 270 807 ... pattern match output.;
+#X text 130 827 n.;
+#X text 270 827 n-th pattern match output.;
+#X text 130 847 n+1\.;
+#X text 270 847 unmatched output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 887 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 890 библиотека: ceammc v0.9.8;
-#N canvas 10 909 400 290 info 0;
+#X obj 1 897 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 900 library: ceammc v0.9.8;
+#N canvas 10 919 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 flow.route;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 flow;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 route;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 909 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 919 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
 #X connect 14 1 17 0;

@@ -6,93 +6,93 @@
 -4096 0;
 #X obj 562 11 preset.s;
 #X obj 645 11 preset.symbol;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Named symbol preset entry. Can store/load up to 256
 various symbol values;
-#X text 50 176 change the value;
-#X msg 242 191 store 0;
-#X msg 347 191 store 1;
-#X msg 155 220 load 0;
-#X msg 261 220 load 1;
-#X symbolatom 50 277 5 0 0 0 - - -;
-#X obj 155 277 preset.symbol f1;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X text 50 186 change the value;
+#X msg 242 201 store 0;
+#X msg 347 201 store 1;
+#X msg 155 230 load 0;
+#X msg 261 230 load 1;
+#X symbolatom 50 287 5 0 0 0 - - -;
+#X obj 155 287 preset.symbol f1;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 342 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 367 Left-click;
-#X text 310 367 open preset editor.;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 402 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 377 Left-click;
+#X text 310 377 open preset editor.;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 412 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 403 1\.;
-#X text 170 403 symbol;
-#X obj 268 404 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 403 ID: preset id (should be unique in most use cases).
+#X text 130 413 1\.;
+#X text 170 413 symbol;
+#X obj 268 414 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 413 ID: preset id (should be unique in most use cases).
 Type: symbol.;
-#X text 130 443 2\.;
-#X text 170 443 symbol;
-#X obj 268 444 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 443 INIT: preset initial value. Type: symbol.;
-#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 483 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 453 2\.;
+#X text 170 453 symbol;
+#X obj 268 454 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 453 INIT: preset initial value. Type: symbol.;
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 493 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 484 @global;
-#X text 270 484 Use global path like /ID. Default value: 0\.;
-#X obj 250 514 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 514 @id;
-#X text 270 514 (initonly) Preset id. Type: symbol.;
-#X obj 250 544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 544 @init;
-#X text 270 544 (initonly) Init symbol value. Type: symbol.;
-#X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 574 @subpatch;
-#X text 270 574 Include subpatch name to path. Default value: 0\.;
-#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 604 @path?;
-#X text 270 604 (readonly) Property OSC-like path that includes id
+#X msg 130 494 @global;
+#X text 270 494 Use global path like /ID. Default value: 0\.;
+#X obj 250 524 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 524 @id;
+#X text 270 524 (initonly) Preset id. Type: symbol.;
+#X obj 250 554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 554 @init;
+#X text 270 554 (initonly) Init symbol value. Type: symbol.;
+#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 584 @subpatch;
+#X text 270 584 Include subpatch name to path. Default value: 0\.;
+#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 614 @path?;
+#X text 270 614 (readonly) Property OSC-like path that includes id
 \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
-#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 676 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 686 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 677 clear;
-#X text 270 677 clear preset at specified index.;
-#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 705 interp;
-#X text 270 705 do nothing.;
-#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 733 load;
-#X text 270 733 load preset value by specified index and output it.;
-#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 761 store;
-#X text 270 761 stores preset value at specified index.;
-#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 804 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 687 clear;
+#X text 270 687 clear preset at specified index.;
+#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 715 interp;
+#X text 270 715 do nothing.;
+#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 743 load;
+#X text 270 743 load preset value by specified index and output it.;
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 771 store;
+#X text 270 771 stores preset value at specified index.;
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 814 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 805 1\.;
-#X text 170 805 symbol:;
-#X text 270 805 set preset value without output.;
-#X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 845 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 815 1\.;
+#X text 170 815 symbol:;
+#X text 270 815 set preset value without output.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 855 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 846 1\.;
-#X text 270 846 preset symbol value.;
+#X text 130 856 1\.;
+#X text 270 856 preset symbol value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
-#X obj 1 896 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 899 library: ceammc v0.9.8;
-#X text 366 911 see also:;
-#X obj 441 911 preset.storage;
-#X obj 558 911 preset.float;
-#X obj 660 911 preset.list;
-#N canvas 10 918 400 290 info 0;
+#X obj 1 906 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 909 library: ceammc v0.9.8;
+#X text 366 921 see also:;
+#X obj 441 921 preset.storage;
+#X obj 558 921 preset.float;
+#X obj 660 921 preset.list;
+#N canvas 10 928 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 918 pd info;
+#X restore 10 928 pd info;
 #X connect 10 0 13 0;
 #X connect 8 0 13 0;
 #X connect 11 0 13 0;

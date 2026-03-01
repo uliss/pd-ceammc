@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.expr 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.expr;
-#X obj 230 78 cnv 1 535 165 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Operators: + \, - \, * \, / \, % \, < \, <= \, >= \,
 > \, == \, !=;
 #X text 240 108 Functions: sin() \, cos() \, tan() \, atan() \, sqrt()
@@ -14,69 +14,69 @@
 #X text 240 163 Constants: $pi \, $e;
 #X text 240 188 Variables: $f \, $f0 \, $f1 ... $f9;
 #X text 240 213 Array access: array1[$f];
-#X floatatom 50 291 5 0 0 0 - - -;
-#X msg 174 291 \$f * 2;
-#X msg 261 291 \$f*\$pi/180;
-#X text 386 291 change expression;
-#X msg 69 320 @expr?;
-#X obj 174 320 list;
-#X obj 50 349 math.expr sin($f);
-#X obj 50 378 prop-> @expr;
-#X obj 107 407 ui.dt;
-#X floatatom 50 435 10 0 0 0 - - -;
-#X msg 50 478 14 2 1;
-#X msg 136 478 1 3 4;
-#X text 213 478 lists;
-#X obj 50 507 math.expr $f0^2 + $f0 * $f1 + $f2;
-#X floatatom 50 536 5 0 0 0 - - -;
-#X floatatom 50 565 5 0 0 0 - - -;
-#X floatatom 242 565 5 0 0 0 - - -;
-#X floatatom 443 565 5 0 0 0 - - -;
-#X obj 50 594 math.expr abs($f);
-#X obj 242 594 math.expr sign($f);
-#X obj 443 594 math.expr sqrt($f);
-#X floatatom 50 622 5 0 0 0 - - -;
-#X floatatom 242 622 5 0 0 0 - - -;
-#X floatatom 443 622 5 0 0 0 - - -;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 659 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 50 301 5 0 0 0 - - -;
+#X msg 174 301 \$f * 2;
+#X msg 261 301 \$f*\$pi/180;
+#X text 386 301 change expression;
+#X msg 69 330 @expr?;
+#X obj 174 330 list;
+#X obj 50 359 math.expr sin($f);
+#X obj 50 388 prop-> @expr;
+#X obj 107 417 ui.dt;
+#X floatatom 50 445 10 0 0 0 - - -;
+#X msg 50 488 14 2 1;
+#X msg 136 488 1 3 4;
+#X text 213 488 lists;
+#X obj 50 517 math.expr $f0^2 + $f0 * $f1 + $f2;
+#X floatatom 50 546 5 0 0 0 - - -;
+#X floatatom 50 575 5 0 0 0 - - -;
+#X floatatom 242 575 5 0 0 0 - - -;
+#X floatatom 443 575 5 0 0 0 - - -;
+#X obj 50 604 math.expr abs($f);
+#X obj 242 604 math.expr sign($f);
+#X obj 443 604 math.expr sqrt($f);
+#X floatatom 50 632 5 0 0 0 - - -;
+#X floatatom 242 632 5 0 0 0 - - -;
+#X floatatom 443 632 5 0 0 0 - - -;
+#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 669 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 662 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 672 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 660 1\.;
-#X text 170 660 list;
-#X obj 268 661 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 660 EXPR: expression. Type: list.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 700 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 670 1\.;
+#X text 170 670 list;
+#X obj 268 671 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 670 EXPR: expression. Type: list.;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 710 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 703 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 713 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 701 @expr;
-#X text 270 701 Expression. Type: list.;
-#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 746 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 711 @expr;
+#X text 270 711 Expression. Type: list.;
+#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 756 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 747 1\.;
-#X text 170 747 float:;
-#X text 270 747 input value (referenced as $f0 or $f in expression).;
-#X text 170 772 list:;
-#X text 270 772 input values (referenced as $f0 ... $f9 in expression).;
-#X text 130 797 2\.;
-#X text 270 797 change expression.;
-#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 837 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 757 1\.;
+#X text 170 757 float:;
+#X text 270 757 input value (referenced as $f0 or $f in expression).;
+#X text 170 782 list:;
+#X text 270 782 input values (referenced as $f0 ... $f9 in expression).;
+#X text 130 807 2\.;
+#X text 270 807 change expression.;
+#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 847 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 838 1\.;
-#X text 270 838 calculated expression.;
+#X text 130 848 1\.;
+#X text 270 848 calculated expression.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 888 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 891 library: ceammc v0.9.8;
-#N canvas 10 910 400 290 info 0;
+#X obj 1 898 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 901 library: ceammc v0.9.8;
+#N canvas 10 920 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 910 pd info;
+#X restore 10 920 pd info;
 #X connect 11 0 15 0;
 #X connect 12 0 15 0;
 #X connect 10 0 16 0;

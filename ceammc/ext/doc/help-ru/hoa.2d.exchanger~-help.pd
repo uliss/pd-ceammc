@@ -6,112 +6,112 @@
 -104026 -4096 0;
 #X obj 489 11 hoa.exchanger~;
 #X obj 616 11 hoa.2d.exchanger~;
-#X obj 230 93 cnv 1 535 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 The library default normalization is SN2D and the numbering
 is ACN (cf tutorials). The exchangers will always convert from or to
 the standard.;
-#X obj 240 153 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 156 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.exchanger~-help.pd;
-#X obj 50 230 hoa.2d.exchanger~;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 285 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 240 hoa.2d.exchanger~;
+#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 295 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 298 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 286 1\.;
-#X text 170 286 int;
-#X obj 268 287 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 286 ORDER: the order of decomposition. Тип: int. Диапазон:
-1…63;
-#X text 130 311 2\.;
-#X text 170 311 symbol;
-#X obj 268 312 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 NUM: numbering scheme. Разрешённые значения: ACN \,
-fromFurseMalham \, fromSID \, toFurseMalham \, toSID. Тип: symbol.;
-#X text 130 366 3\.;
-#X text 170 366 symbol;
-#X obj 268 367 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 366 NORM: normalization. Разрешённые значения: SN2D \,
-fromMaxN \, toMaxN. Тип: symbol.;
-#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 421 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 296 1\.;
+#X text 170 296 int;
+#X obj 268 297 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 296 ORDER: the order of decomposition. Type: int. Range:
+1\...63;
+#X text 130 321 2\.;
+#X text 170 321 symbol;
+#X obj 268 322 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 321 NUM: numbering scheme. Allowed values: ACN \, fromFurseMalham
+\, fromSID \, toFurseMalham \, toSID. Type: symbol.;
+#X text 130 361 3\.;
+#X text 170 361 symbol;
+#X obj 268 362 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 361 NORM: normalization. Allowed values: SN2D \, fromMaxN
+\, toMaxN. Type: symbol.;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 416 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 424 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 419 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 422 @order;
-#X text 270 422 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 250 464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 464 @fromB;
-#X text 270 464 Alias to @num fromFurseMalham and @norm fromMaxN.;
-#X obj 250 494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 494 @norm;
-#X text 270 494 Normalization. Тип: symbol. Значение по умолчанию:
-SN2D. Разрешённые значения: SN2D \, fromMaxN \, toMaxN.;
-#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 536 @num;
-#X text 270 536 Numbering scheme. Тип: symbol. Значение по умолчанию:
-ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
+#X msg 130 417 @order;
+#X text 270 417 (initonly) The order of decomposition. Type: int. Default
+value: 1\. Range: 1\...63\.;
+#X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 459 @fromB;
+#X text 270 459 Alias to @num fromFurseMalham and @norm fromMaxN.;
+#X obj 250 489 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 489 @norm;
+#X text 270 489 Normalization. Type: symbol. Default value: SN2D. Allowed
+values: SN2D \, fromMaxN \, toMaxN.;
+#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 531 @num;
+#X text 270 531 Numbering scheme. Type: symbol. Default value: ACN.
+Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
-#X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 593 @toB;
-#X text 270 593 Alias to @num toFurseMalham and @norm toMaxN.;
-#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 638 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 588 @toB;
+#X text 270 588 Alias to @num toFurseMalham and @norm toMaxN.;
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 633 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 639 1\.;
-#X text 170 639 ~;
-#X text 270 639 first input harmonic.;
-#X text 130 664 ...;
-#X text 170 664 ~;
-#X text 270 664 ... input harmonic.;
-#X text 130 689 n.;
-#X text 170 689 ~;
-#X text 270 689 n-th input harmonic.;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 729 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 730 1\.;
-#X text 170 730 ~;
-#X text 270 730 first loudspeaker output.;
-#X text 130 750 ...;
-#X text 170 750 ~;
-#X text 270 750 ... loudspeaker output.;
-#X text 130 770 n.;
-#X text 170 770 ~;
-#X text 270 770 n-th loudspeaker output.;
+#X text 130 634 1\.;
+#X text 170 634 ~;
+#X text 270 634 first input harmonic.;
+#X text 130 659 ...;
+#X text 170 659 ~;
+#X text 270 659 ... input harmonic.;
+#X text 130 684 n.;
+#X text 170 684 ~;
+#X text 270 684 n-th input harmonic.;
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 724 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 725 1\.;
+#X text 170 725 ~;
+#X text 270 725 first loudspeaker output.;
+#X text 130 745 ...;
+#X text 170 745 ~;
+#X text 270 745 ... loudspeaker output.;
+#X text 130 765 n.;
+#X text 170 765 ~;
+#X text 270 765 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 823 библиотека: ceammc v0.9.8;
-#X text 495 835 смотрите также:;
-#X obj 616 835 hoa.3d.exchanger~;
-#N canvas 10 842 400 290 info 0;
+#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 818 library: ceammc v0.9.8;
+#X text 541 830 see also:;
+#X obj 616 830 hoa.3d.exchanger~;
+#N canvas 10 837 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 hoa.2d.exchanger~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 spat;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
 Thomas Le Meur;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 hoa \, exchanger;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 842 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 837 pd info;

@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty net.mdns 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 net.mdns;
-#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Service '.local.' domain suffix is optional and can
 be omitted.;
 #X text 240 123 There are service aliases: #osc - instead of '_osc._udp.local'
@@ -15,131 +15,132 @@ services on the network.;
 any previously registered services.;
 #X text 240 218 Note: the #all service is the special case - it will
 output all available network service names with format [service SERVICE(;
-#X msg 50 326 subscribe _http._tcp;
-#X msg 338 326 subscribe #all;
-#X msg 69 355 unsubscribe #http;
-#X msg 338 355 unsubscribe #all;
-#X msg 50 384 subscribe _osc._udp;
-#X msg 69 413 unsubscribe #osc;
-#X msg 386 413 register #osc CEAM 9000 @prop 1 2 3;
-#X msg 107 442 unsubscribe #http;
-#X msg 405 442 unregister #osc CEAM;
-#X msg 126 470 resolve #osc CEAM;
-#X obj 107 513 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 386 513 net.mdns;
-#X msg 107 542 @fullname \$1;
-#X obj 50 571 net.mdns;
-#X obj 69 600 print;
-#X obj 50 629 route resolve;
-#X obj 50 657 msg.unpack 5;
-#X floatatom 98 686 5 0 0 0 - - -;
-#X symbolatom 194 686 16 0 0 0 - - -;
-#X obj 50 729 net.mdns-ifaces;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 784 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 50 336 subscribe _http._tcp;
+#X msg 338 336 subscribe #all;
+#X msg 69 365 unsubscribe #http;
+#X msg 338 365 unsubscribe #all;
+#X msg 50 394 subscribe _osc._udp;
+#X msg 69 423 unsubscribe #osc;
+#X msg 386 423 register #osc CEAM 9000 @prop 1 2 3;
+#X msg 107 452 unsubscribe #http;
+#X msg 405 452 unregister #osc CEAM;
+#X msg 126 480 resolve #osc CEAM;
+#X obj 107 523 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 386 523 net.mdns;
+#X msg 107 552 @fullname \$1;
+#X obj 50 581 net.mdns;
+#X obj 69 610 print;
+#X obj 50 639 route resolve;
+#X obj 50 667 msg.unpack 5;
+#X floatatom 98 696 5 0 0 0 - - -;
+#X symbolatom 194 696 16 0 0 0 - - -;
+#X obj 50 739 net.mdns-ifaces;
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 794 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 787 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 797 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 785 @fullname;
-#X text 270 785 If true: output full instance name (with service and
-domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 842 @ip;
-#X text 270 842 Restrict addresses by type. Тип: symbol. Значение по
-умолчанию: v4\. Разрешённые значения: v4 \, v6 \, any.;
-#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 899 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 900 ifaces;
-#X text 270 900 output available network interfaces and their info.;
-#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 928 register;
-#X text 270 928 register MDNS service instance. Instance will be available
-with DNS name NAME.local. Аргументы:;
-#X obj 280 966 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 966 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc. Тип: symbol.;
-#X obj 280 1004 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1004 NAME: instance name \, for example: MY_SUPER_SERVER.
-Тип: symbol.;
-#X obj 280 1042 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1042 PORT: instance port. Тип: int. Минимальное значение:
-0\.;
-#X obj 280 1065 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1065 [PROPS]: list of text props (TXT record) \, for example:
-@prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Тип:
-list.;
-#X obj 250 1120 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1120 resolve;
-#X text 270 1120 does mDNS name resolving: get service information:
-host \, ip \, port etc by SERVICE type and INSTANCE name. Аргументы:;
-#X obj 280 1173 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1173 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc or #http. Тип: symbol.;
-#X obj 280 1211 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1211 NAME: instance name \, for example: MY_SUPER_SERVER.
-Тип: symbol.;
-#X obj 250 1251 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1251 subscribe;
-#X text 270 1251 subscribe to service events: add \, remove and resolve.
-Аргументы:;
-#X obj 280 1289 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1289 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc or #all. Тип: symbol.;
-#X obj 280 1327 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1327 [ON=true]: if true: subscribe \, false: unsubscribe.
-Тип: bool.;
-#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1352 unregister;
-#X text 270 1352 manually unregister service instance. Аргументы:;
-#X obj 280 1375 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1375 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc. Тип: symbol.;
-#X obj 280 1413 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1413 NAME: instance name \, for example: MY_SUPER_SERVER.
-Тип: symbol.;
-#X obj 250 1453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1453 unsubscribe;
-#X text 270 1453 unsubscribe from specified service events. Аргументы:;
-#X obj 280 1476 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1476 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc or #all. Тип: symbol.;
-#X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1531 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1532 1\.;
-#X text 270 1532 input.;
-#X obj 20 1567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 795 @fullname;
+#X text 270 795 If true: output full instance name (with service and
+domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type: bool.
+Default value: 1\.;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 852 @ip;
+#X text 270 852 Restrict addresses by type. Type: symbol. Default value:
+v4\. Allowed values: v4 \, v6 \, any.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1573 1\.;
-#X text 270 1573 add SERVICE NAME \, remove SERVICE NAME \, service
+#X msg 130 910 ifaces;
+#X text 270 910 output available network interfaces and their info.;
+#X obj 250 938 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 938 register;
+#X text 270 938 register MDNS service instance. Instance will be available
+with DNS name NAME.local. Arguments are:;
+#X obj 280 976 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 976 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc. Type: symbol.;
+#X obj 280 1014 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1014 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X obj 280 1052 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1052 PORT: instance port. Type: int. Min value: 0\.;
+#X obj 280 1075 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1075 [PROPS]: list of text props (TXT record) \, for example:
+@prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Type:
+list.;
+#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1130 resolve;
+#X text 270 1130 does mDNS name resolving: get service information:
+host \, ip \, port etc by SERVICE type and INSTANCE name. Arguments
+are:;
+#X obj 280 1183 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1183 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc or #http. Type: symbol.;
+#X obj 280 1221 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1221 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X obj 250 1261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1261 subscribe;
+#X text 270 1261 subscribe to service events: add \, remove and resolve.
+Arguments are:;
+#X obj 280 1299 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1299 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc or #all. Type: symbol.;
+#X obj 280 1337 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1337 [ON=true]: if true: subscribe \, false: unsubscribe.
+Type: bool.;
+#X obj 250 1377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1377 unregister;
+#X text 270 1377 manually unregister service instance. Arguments are:;
+#X obj 280 1400 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1400 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc. Type: symbol.;
+#X obj 280 1438 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1438 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X obj 250 1478 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1478 unsubscribe;
+#X text 270 1478 unsubscribe from specified service events. Arguments
+are:;
+#X obj 280 1501 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1501 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc or #all. Type: symbol.;
+#X obj 20 1551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1556 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1557 1\.;
+#X text 270 1557 input.;
+#X obj 20 1592 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1597 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1598 1\.;
+#X text 270 1598 add SERVICE NAME \, remove SERVICE NAME \, service
 add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1656 библиотека: ceammc v0.9.8;
-#N canvas 10 1675 400 290 info 0;
+#X obj 1 1678 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1681 library: ceammc v0.9.8;
+#N canvas 10 1700 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 net.mdns;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 net;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.8;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 net \, zeroconf \, bonjour \, avahi \, mdns \, service
 \, discovery;
 #X text 10 186 website:;
@@ -147,8 +148,8 @@ add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1675 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1700 pd info;
 #X connect 19 0 21 0;
 #X connect 21 0 22 0;
 #X connect 22 0 23 0;

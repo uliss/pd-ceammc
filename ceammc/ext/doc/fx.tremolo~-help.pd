@@ -21,7 +21,7 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 347 1\.;
 #X text 170 347 float;
@@ -34,7 +34,7 @@
 #X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 412 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 413 @id;
 #X text 270 413 (initonly) OSC address id. If specified \, bind all

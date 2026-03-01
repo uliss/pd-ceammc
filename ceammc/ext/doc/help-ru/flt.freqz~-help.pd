@@ -5,82 +5,82 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.freqz~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 flt.freqz~;
-#X obj 230 78 cnv 1 535 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Given the M-order numerator b and N-order denominator
 a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ)
 = (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ);
-#X msg 50 206 bang;
-#X obj 50 235 plot.linspace~ 0 3.14159 @pi;
-#X msg 78 264 @b 0.5 -0.5;
-#X msg 213 264 @b 0.5 0 0.5;
-#X msg 357 264 @b 0.5 0 -0.5;
-#X obj 510 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 510 293 @db \$1;
-#X obj 50 322 flt.freqz~ @b 0.5 0.5;
-#X obj 50 365 ui.plot~ @ymin -2 @ymax 2 @yauto 1 @xlabels 1 @ylabels 1
+#X msg 50 216 bang;
+#X obj 50 245 plot.linspace~ 0 3.14159 @pi;
+#X msg 78 274 @b 0.5 -0.5;
+#X msg 213 274 @b 0.5 0 0.5;
+#X msg 357 274 @b 0.5 0 -0.5;
+#X obj 510 274 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 510 303 @db \$1;
+#X obj 50 332 flt.freqz~ @b 0.5 0.5;
+#X obj 50 375 ui.plot~ @ymin -2 @ymax 2 @yauto 1 @xlabels 1 @ylabels 1
 @size 450 260 @xmaj_ticks 0 @xmin_ticks 0 @xmin_grid 1 @ymaj_ticks 0
 @ymin_ticks 0 @n 2;
-#X obj 50 638 ui.dsp~;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 693 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 648 ui.dsp~;
+#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 703 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 696 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 706 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 694 @a;
-#X text 270 694 Denominator (poles) coefficients. 'a0' always implicitly
-set to 1 \, property value set a1\...an coefficients. Тип: list.;
-#X obj 250 751 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 751 @b;
-#X text 270 751 Numerator (zeros) coefficients. Тип: list. Значение
-по умолчанию: 1\.;
-#X obj 250 793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 793 @db;
-#X text 270 793 Output amp response in db scale. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 835 @sr;
-#X text 270 835 Normalize using current samplerate. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 892 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 704 @a;
+#X text 270 704 Denominator (poles) coefficients. 'a0' always implicitly
+set to 1 \, property value set a1\...an coefficients. Type: list.;
+#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 761 @b;
+#X text 270 761 Numerator (zeros) coefficients. Type: list. Default
+value: 1\.;
+#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 803 @db;
+#X text 270 803 Output amp response in db scale. Type: bool. Default
+value: 0\.;
+#X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 845 @sr;
+#X text 270 845 Normalize using current samplerate. Type: bool. Default
+value: 0\.;
+#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 902 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 893 1\.;
-#X text 170 893 ~;
-#X text 270 893 input frequency in radians [0 \, π] or in hertz [0
+#X text 130 903 1\.;
+#X text 170 903 ~;
+#X text 270 903 input frequency in radians [0 \, π] or in hertz [0
 sr/2] if @sr property is true.;
-#X obj 20 943 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 948 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 949 1\.;
-#X text 170 949 ~;
-#X text 270 949 amplitude frequency response signal.;
-#X text 130 969 2\.;
-#X text 170 969 ~;
-#X text 270 969 phase frequency response signal.;
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 958 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 959 1\.;
+#X text 170 959 ~;
+#X text 270 959 amplitude frequency response signal.;
+#X text 130 979 2\.;
+#X text 170 979 ~;
+#X text 270 979 phase frequency response signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1019 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1022 библиотека: ceammc v0.9.8;
-#N canvas 10 1041 400 290 info 0;
+#X obj 1 1029 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1032 library: ceammc v0.9.8;
+#N canvas 10 1051 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 flt.freqz~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 flt;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 filter \, calc \, bode \, frequence \, response \,
 phase \, plot;
 #X text 10 186 website:;
@@ -88,8 +88,8 @@ phase \, plot;
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1041 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1051 pd info;
 #X connect 6 0 7 0;
 #X connect 11 0 12 0;
 #X connect 7 0 13 0;

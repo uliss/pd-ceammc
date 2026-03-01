@@ -5,178 +5,178 @@
 #X obj 1 1 cnv 5 765 40 empty empty snd.play~ 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 snd.play~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Supports variable speed playing \, pausing \, seeking
 \, time-stretching and resampling;
-#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 205 openpanel;
-#X msg 59 234 open %CEAMMC%/guitar1.wav \, 1;
-#X msg 59 263 @name %CEAMMC%/sound/loop_breakbeat.flac \, 1;
-#X msg 88 292 @name %CEAMMC%/sound/vla-overtones-3.mp3 \, 1;
-#X obj 50 320 expand_env;
-#X obj 59 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 146 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 280 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 386 349 ui.hsl 0.25 4 @show_value 1;
-#X msg 78 378 stop;
-#X msg 146 378 pause \$1;
-#X msg 280 378 @loop \$1;
-#X msg 386 378 @speed \$1;
-#X msg 98 407 start;
-#X obj 50 436 snd.play~ 2 @loop 1;
-#X obj 280 464 ui.dt;
-#X obj 50 493 ui.hgain2~;
-#X obj 270 493 ui.dsp~;
-#X obj 50 522 dac~;
-#X obj 50 551 snd.play~-seek;
-#X obj 213 551 snd.play~-resamp;
-#X obj 395 551 snd.play~-err;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 606 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 215 openpanel;
+#X msg 59 244 open %CEAMMC%/guitar1.wav \, 1;
+#X msg 59 273 @name %CEAMMC%/sound/loop_breakbeat.flac \, 1;
+#X msg 88 302 @name %CEAMMC%/sound/vla-overtones-3.mp3 \, 1;
+#X obj 50 330 expand_env;
+#X obj 59 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 280 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 386 359 ui.hsl 0.25 4 @show_value 1;
+#X msg 78 388 stop;
+#X msg 146 388 pause \$1;
+#X msg 280 388 @loop \$1;
+#X msg 386 388 @speed \$1;
+#X msg 98 417 start;
+#X obj 50 446 snd.play~ 2 @loop 1;
+#X obj 280 474 ui.dt;
+#X obj 50 503 ui.hgain2~;
+#X obj 270 503 ui.dsp~;
+#X obj 50 532 dac~;
+#X obj 50 561 snd.play~-seek;
+#X obj 213 561 snd.play~-resamp;
+#X obj 395 561 snd.play~-err;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 616 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 619 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 607 1\.;
-#X text 170 607 int;
-#X obj 268 608 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 607 N: number of output channels. Type: int. Range: 1\...32;
-#X text 130 632 2\.;
-#X text 170 632 symbol;
-#X obj 268 633 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 632 NAME: absolute or relative to patch sound file name.
+#X text 130 617 1\.;
+#X text 170 617 int;
+#X obj 268 618 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 617 N: number of output channels. Type: int. Range: 1\...32;
+#X text 130 642 2\.;
+#X text 170 642 symbol;
+#X obj 268 643 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 642 NAME: absolute or relative to patch sound file name.
 Type: symbol.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 687 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 697 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 690 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 700 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 688 @n;
-#X text 270 688 (initonly) Number of output channels. Type: int. Default
+#X msg 130 698 @n;
+#X text 270 698 (initonly) Number of output channels. Type: int. Default
 value: 2\. Range: 1\...32\.;
-#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 730 @begin;
-#X text 270 730 Start playing position. Type: atom. Units: 'samp' \,
+#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 740 @begin;
+#X text 270 740 Start playing position. Type: atom. Units: 'samp' \,
 'sec' \, 'ms' \, 'smpte'. Default value: 0\.;
-#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 772 @end;
-#X text 270 772 End playing position. Type: atom. Units: 'samp' \,
+#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 782 @end;
+#X text 270 782 End playing position. Type: atom. Units: 'samp' \,
 'sec' \, 'ms' \, 'smpte'. Default value: -1\.;
-#X obj 250 814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 814 @loop;
-#X text 270 814 Play in the loop. Type: bool. Default value: 0\.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 @name;
-#X text 270 844 Absolute or relative to patch soundfile name. Type:
+#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 824 @loop;
+#X text 270 824 Play in the loop. Type: bool. Default value: 0\.;
+#X obj 250 854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 854 @name;
+#X text 270 854 Absolute or relative to patch soundfile name. Type:
 symbol.;
-#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 874 @on_err;
-#X text 270 874 The error send destination. For example \, if soundfile
+#X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 884 @on_err;
+#X text 270 884 The error send destination. For example \, if soundfile
 was not found \, the message [not_found( will be send to this global
 name. Type: symbol.;
-#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 931 @pitch;
-#X text 270 931 Pitch-shift correction. Used only if @stretch mode
+#X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 941 @pitch;
+#X text 270 941 Pitch-shift correction. Used only if @stretch mode
 enabled. Type: float. Default value: 1\. Range: 0.25\...4\.;
-#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 988 @speed;
-#X text 270 988 Playing speed. If @stretch mode is disabled (default):
+#X obj 250 998 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 998 @speed;
+#X text 270 998 Playing speed. If @stretch mode is disabled (default):
 changes playing speed (also with pitch change respectively) in real
 time. If @stretch mode is enabled: can only change speed (without pitch
 change) only on the next playing cycle. Type: float. Default value:
 1\. Range: 0.25\...4\.;
-#X obj 250 1091 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1091 @stretch;
-#X text 270 1091 Stretch mode. If true: use timestretch and pitch-shifting.
+#X obj 250 1101 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1101 @stretch;
+#X text 270 1101 Stretch mode. If true: use timestretch and pitch-shifting.
 Type: bool. Default value: 0\.;
-#X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1133 @sync;
-#X text 270 1133 Sync mode. 'now': immediately starts playing (abort
+#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1143 @sync;
+#X text 270 1143 Sync mode. 'now': immediately starts playing (abort
 previous) after receiving start message. 'defer': wait until previous
 playing will be done \, that starts new. 'wait': do not playing until
 previous playing will not finished. Type: symbol. Default value: now.
 Allowed values: now \, defer \, wait.;
-#X obj 20 1246 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1251 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1261 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1252 ff;
-#X text 270 1252 fast forward by specified amount of time. Arguments
+#X msg 130 1262 ff;
+#X text 270 1262 fast forward by specified amount of time. Arguments
 are:;
-#X obj 280 1275 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1275 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X obj 280 1285 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1285 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as samples. If argument is not specified: jump one second forward.
 Type: atom.;
-#X obj 250 1345 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1345 open;
-#X text 270 1345 sets @name property. Arguments are:;
-#X obj 280 1368 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1368 FILENAME: absolute or relative to patch soundfile
+#X obj 250 1355 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1355 open;
+#X text 270 1355 sets @name property. Arguments are:;
+#X obj 280 1378 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1378 FILENAME: absolute or relative to patch soundfile
 name. Type: symbol.;
-#X obj 250 1408 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1408 pause;
-#X text 270 1408 pause. Arguments are:;
-#X obj 280 1431 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1431 [FLAG]: pause/resume flag. If true or omitted: pause
+#X obj 250 1418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1418 pause;
+#X text 270 1418 pause. Arguments are:;
+#X obj 280 1441 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1441 [FLAG]: pause/resume flag. If true or omitted: pause
 \, if false: resume. Type: bool.;
-#X obj 250 1471 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1471 rewind;
-#X text 270 1471 move backwards by specified amount of time (relative
+#X obj 250 1481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1481 rewind;
+#X text 270 1481 move backwards by specified amount of time (relative
 value). Arguments are:;
-#X obj 280 1509 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1509 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X obj 280 1519 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1519 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: one second
 backward. Type: atom.;
-#X obj 250 1579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1579 seek;
-#X text 270 1579 move to specified time (absolute value). Arguments
+#X obj 250 1589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1589 seek;
+#X text 270 1589 move to specified time (absolute value). Arguments
 are:;
-#X obj 280 1602 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1602 [TIME]: Time position. Can't be in seconds \, milliseconds
+#X obj 280 1612 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1612 [TIME]: Time position. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: seek to
 the beginning. Type: atom.;
-#X obj 250 1672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1672 start;
-#X text 270 1672 start playing. Arguments are:;
-#X obj 280 1695 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1695 [FLAG]: start/stop flag. If true or omitted: start
+#X obj 250 1682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1682 start;
+#X text 270 1682 start playing. Arguments are:;
+#X obj 280 1705 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1705 [FLAG]: start/stop flag. If true or omitted: start
 \, if false: stop. Type: bool.;
-#X obj 250 1735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1735 stop;
-#X text 270 1735 stop playing. Arguments are:;
-#X obj 280 1758 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1758 [FLAG]: start/stop flag. If true or omitted: stop
+#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1745 stop;
+#X text 270 1745 stop playing. Arguments are:;
+#X obj 280 1768 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1768 [FLAG]: start/stop flag. If true or omitted: stop
 \, if false: start. Type: bool.;
-#X obj 20 1808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1813 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1823 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1814 1\.;
-#X text 170 1814 float:;
-#X text 270 1814 1: start playing \, 0: stop.;
-#X obj 20 1849 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1854 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1824 1\.;
+#X text 170 1824 float:;
+#X text 270 1824 1: start playing \, 0: stop.;
+#X obj 20 1859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1855 1\.;
-#X text 170 1855 ~;
-#X text 270 1855 first output channel.;
-#X text 130 1875 ...;
-#X text 170 1875 ~;
-#X text 270 1875 ... output channel.;
-#X text 130 1895 n.;
-#X text 170 1895 ~;
-#X text 270 1895 n-th output channel.;
-#X text 130 1915 n+1\.;
-#X text 270 1915 control output.;
+#X text 130 1865 1\.;
+#X text 170 1865 ~;
+#X text 270 1865 first output channel.;
+#X text 130 1885 ...;
+#X text 170 1885 ~;
+#X text 270 1885 ... output channel.;
+#X text 130 1905 n.;
+#X text 170 1905 ~;
+#X text 270 1905 n-th output channel.;
+#X text 130 1925 n+1\.;
+#X text 270 1925 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 1965 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1968 library: ceammc v0.9.8;
-#N canvas 10 1987 400 290 info 0;
+#X obj 1 1975 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1978 library: ceammc v0.9.8;
+#N canvas 10 1997 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -200,7 +200,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1987 pd info;
+#X restore 10 1997 pd info;
 #X connect 6 0 7 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;

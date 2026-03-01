@@ -6,86 +6,86 @@
 #X obj 1 1 cnv 5 765 40 empty empty sync 20 20 0 20 -104026 -4096 0;
 #X obj 606 11 ceammc/sync;
 #X obj 711 11 sync;
-#X obj 230 93 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 The value send to inlet repeated to all outlets except
 from the current one. This prevents infinite loops;
-#X text 50 191 simple example;
-#X floatatom 50 220 5 0 0 0 - - -;
-#X obj 136 220 sync;
-#X floatatom 232 220 5 0 0 0 - - -;
-#X text 50 249 more complex;
-#X floatatom 50 278 5 0 0 0 - - -;
-#X floatatom 126 278 5 0 0 0 - - -;
-#X floatatom 203 278 5 0 0 0 - - -;
-#X obj 50 307 sync 3, f 22;
-#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 362 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 50 201 simple example;
+#X floatatom 50 230 5 0 0 0 - - -;
+#X obj 136 230 sync;
+#X floatatom 232 230 5 0 0 0 - - -;
+#X text 50 259 more complex;
+#X floatatom 50 288 5 0 0 0 - - -;
+#X floatatom 126 288 5 0 0 0 - - -;
+#X floatatom 203 288 5 0 0 0 - - -;
+#X obj 50 317 sync 3, f 22;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 372 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 365 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 375 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 363 1\.;
-#X text 170 363 int;
-#X obj 268 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 363 N: number of synchronized values. Тип: int. Диапазон:
-2…8;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 373 1\.;
+#X text 170 373 int;
+#X obj 268 374 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 373 N: number of synchronized values. Type: int. Range:
+2\...8;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 404 @n;
-#X text 270 404 (при инициализации) Number of synced values. Тип: int.
-Значение по умолчанию: 2\. Диапазон: 2\...8\.;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 414 @n;
+#X text 270 414 (initonly) Number of synced values. Type: int. Default
+value: 2\. Range: 2\...8\.;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 462 1\.;
-#X text 270 462 first synchronized input.;
-#X text 130 487 ...;
-#X text 270 487 ... synchronized input.;
-#X text 130 512 n.;
-#X text 270 512 n-th synchronized input.;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 552 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 553 1\.;
-#X text 270 553 first synchronized output.;
-#X text 130 573 ...;
-#X text 270 573 ... synchronized output.;
-#X text 130 593 n.;
-#X text 270 593 n-th synchronized output.;
+#X text 130 472 1\.;
+#X text 270 472 first synchronized input.;
+#X text 130 497 ...;
+#X text 270 497 ... synchronized input.;
+#X text 130 522 n.;
+#X text 270 522 n-th synchronized input.;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 562 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 563 1\.;
+#X text 270 563 first synchronized output.;
+#X text 130 583 ...;
+#X text 270 583 ... synchronized output.;
+#X text 130 603 n.;
+#X text 270 603 n-th synchronized output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 643 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 646 библиотека: ceammc v0.9.8;
-#N canvas 10 665 400 290 info 0;
+#X obj 1 653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 656 library: ceammc v0.9.8;
+#N canvas 10 675 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 sync;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 base;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 sync;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 665 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 675 pd info;
 #X connect 12 0 15 0;
 #X connect 15 0 12 0;
 #X connect 13 0 15 1;

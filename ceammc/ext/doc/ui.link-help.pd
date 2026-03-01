@@ -6,102 +6,102 @@
 0;
 #X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.link] @url ui.link-help.pd;
-#X obj 230 78 cnv 1 535 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Link allows to open external URLs \, not only Pd patches
 but all kind of URL supported by your OS. If relative file path is
 given \, it searched in current directory \, then Pd doc directory
 and Pd external directories;
-#X text 50 206 [ui.link @url vu-help.pd @title VU-help];
-#X obj 50 235 ui.link @title VU-help @url vu-help.pd;
-#X text 50 264 [ui.link @url http://puredata.info @title puredata.info];
-#X obj 50 293 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 355 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X text 50 216 [ui.link @url vu-help.pd @title VU-help];
+#X obj 50 245 ui.link @title VU-help @url vu-help.pd;
+#X text 50 274 [ui.link @url http://puredata.info @title puredata.info];
+#X obj 50 303 ui.link @title puredata.info @url http://puredata.info;
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 365 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 390 Left-click;
-#X text 310 390 open link target.;
-#X text 130 410 Right-click + ⌥;
-#X text 310 410 open properties dialog.;
-#X text 130 430 Right-click + ⇧;
-#X text 310 430 open object help.;
-#X text 130 450 Right-click + ⌥;
-#X text 310 450 open properties dialog.;
-#X text 81 450 [Edit];
-#X text 130 470 Right-click + ⇧;
-#X text 310 470 open the object help.;
-#X text 81 470 [Edit];
-#X text 130 490 Right-click;
-#X text 310 490 opens Pd popup menu.;
-#X text 81 490 [Edit];
-#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 400 Left-click;
+#X text 310 400 open link target.;
+#X text 130 420 Right-click + ⌥;
+#X text 310 420 open properties dialog.;
+#X text 130 440 Right-click + ⇧;
+#X text 310 440 open object help.;
+#X text 130 460 Right-click + ⌥;
+#X text 310 460 open properties dialog.;
+#X text 81 460 [Edit];
+#X text 130 480 Right-click + ⇧;
+#X text 310 480 open the object help.;
+#X text 81 480 [Edit];
+#X text 130 500 Right-click;
+#X text 310 500 opens Pd popup menu.;
+#X text 81 500 [Edit];
+#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 535 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 538 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 526 1\.;
-#X text 170 526 symbol;
-#X obj 268 527 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 526 URL: @url property value. Type: symbol.;
-#X text 130 551 2\.;
-#X text 170 551 symbol;
-#X obj 268 552 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 551 TITLE: @title property value. Type: symbol.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 591 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 536 1\.;
+#X text 170 536 symbol;
+#X obj 268 537 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 536 URL: @url property value. Type: symbol.;
+#X text 130 561 2\.;
+#X text 170 561 symbol;
+#X obj 268 562 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 561 TITLE: @title property value. Type: symbol.;
+#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 601 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 604 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 592 @title;
-#X text 270 592 Link title. Type: symbol. Default value: <no title>.;
-#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 622 @url;
-#X text 270 622 Destination url. Type: symbol. Default value: <no url>.;
-#X obj 250 652 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 652 @hover_color;
-#X text 270 652 Color when mouse pointer is over element (list of red
+#X msg 130 602 @title;
+#X text 270 602 Link title. Type: symbol. Default value: <no title>.;
+#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 632 @url;
+#X text 270 632 Destination url. Type: symbol. Default value: <no url>.;
+#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 662 @hover_color;
+#X text 270 662 Color when mouse pointer is over element (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 1
 0 0.5 1\.;
-#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 709 @link_color;
-#X text 270 709 Link color (list of red \, green \, blue values in
+#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 719 @link_color;
+#X text 270 719 Link color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
-#X obj 250 751 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 751 @fontname;
-#X text 270 751 Font name. Type: symbol. Default value: Helvetica.
+#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 761 @fontname;
+#X text 270 761 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 793 @fontsize;
-#X text 270 793 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
-#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 823 @fontslant;
-#X text 270 823 Font slant. Type: symbol. Default value: roman. Allowed
+#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 803 @fontsize;
+#X text 270 803 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 833 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 833 @fontslant;
+#X text 270 833 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 865 @fontweight;
-#X text 270 865 Font weight. Type: symbol. Default value: normal. Allowed
+#X obj 250 875 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 875 @fontweight;
+#X text 270 875 Font weight. Type: symbol. Default value: normal. Allowed
 values: normal \, bold.;
-#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 907 @pinned;
-#X text 270 907 Pin mode. If set to 1 \, it places the element at the
+#X obj 250 917 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 917 @pinned;
+#X text 270 917 Pin mode. If set to 1 \, it places the element at the
 furthest level on the canvas behind other elements. Type: bool. Default
 value: 0\.;
-#X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 979 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 989 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 980 pos;
-#X text 270 980 set UI element position. Arguments are:;
-#X obj 280 1003 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1003 X: top left x-coord. Type: float.;
-#X obj 280 1026 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1026 Y: top right y-coord. Type: float.;
+#X msg 130 990 pos;
+#X text 270 990 set UI element position. Arguments are:;
+#X obj 280 1013 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1013 X: top left x-coord. Type: float.;
+#X obj 280 1036 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1036 Y: top right y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1081 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1084 library: ceammc v0.9.8;
-#N canvas 10 1103 400 290 info 0;
+#X obj 1 1091 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1094 library: ceammc v0.9.8;
+#N canvas 10 1113 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -125,4 +125,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1103 pd info;
+#X restore 10 1113 pd info;

@@ -7,71 +7,71 @@
 #X obj 392 11 ceammc/pole->biquad;
 #X obj 555 11 pole->biquad;
 #X obj 667 11 flt.c_pole;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Calculates coefficients for transfer function: H(z)=(b0
 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
-#X obj 50 176 ui.hsl;
-#X obj 366 176 ui.hsl;
-#X floatatom 50 205 5 0 0 0 - - -;
-#X floatatom 366 205 5 0 0 0 - - -;
-#X obj 50 234 math.* expr(sr/2);
-#X obj 366 234 math.* pi();
-#X obj 50 263 flt.c_pole @lpf;
-#X obj 366 263 flt.c_pole @rad @hpf;
-#X obj 50 292 ui.dt @float_width 5;
-#X obj 366 292 ui.dt @float_width 5;
-#X obj 50 363 flt.c_pole-plot;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 418 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 186 ui.hsl;
+#X obj 366 186 ui.hsl;
+#X floatatom 50 215 5 0 0 0 - - -;
+#X floatatom 366 215 5 0 0 0 - - -;
+#X obj 50 244 math.* expr(sr/2);
+#X obj 366 244 math.* pi();
+#X obj 50 273 flt.c_pole @lpf;
+#X obj 366 273 flt.c_pole @rad @hpf;
+#X obj 50 302 ui.dt @float_width 5;
+#X obj 366 302 ui.dt @float_width 5;
+#X obj 50 373 flt.c_pole-plot;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 428 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 431 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 419 1\.;
-#X text 170 419 float;
-#X obj 268 420 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 419 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 459 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 429 1\.;
+#X text 170 429 float;
+#X obj 268 430 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 429 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 469 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 472 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 460 @rad;
-#X text 270 460 Use angular frequency.;
-#X obj 250 490 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 490 @freq;
-#X text 270 490 Center frequency. Type: float. Units: 'Hz'. Default
+#X msg 130 470 @rad;
+#X text 270 470 Use angular frequency.;
+#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 500 @freq;
+#X text 270 500 Center frequency. Type: float. Units: 'Hz'. Default
 value: 1000\. Range: 0\...22050\.;
-#X obj 250 532 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 532 @hpf;
-#X text 270 532 Ti @mode hpf.;
-#X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 562 @lpf;
-#X text 270 562 To @mode lpf.;
-#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 592 @mode;
-#X text 270 592 Filter modey. Type: symbol. Default value: lpf. Allowed
+#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 542 @hpf;
+#X text 270 542 Ti @mode hpf.;
+#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 572 @lpf;
+#X text 270 572 To @mode lpf.;
+#X obj 250 602 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 602 @mode;
+#X text 270 602 Filter modey. Type: symbol. Default value: lpf. Allowed
 values: hpf \, lpf.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 649 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 659 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 650 1\.;
-#X text 170 650 float:;
-#X text 270 650 filter frequency.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 690 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 660 1\.;
+#X text 170 660 float:;
+#X text 270 660 filter frequency.;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 700 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 691 1\.;
-#X text 270 691 list: b0 b1 b2 a1 a2\.;
+#X text 130 701 1\.;
+#X text 270 701 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 744 library: ceammc v0.9.8;
-#X text 600 756 see also:;
-#X obj 675 756 flt.c_lpf;
-#N canvas 10 763 400 290 info 0;
+#X obj 1 751 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 754 library: ceammc v0.9.8;
+#X text 600 766 see also:;
+#X obj 675 766 flt.c_lpf;
+#N canvas 10 773 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 763 pd info;
+#X restore 10 773 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

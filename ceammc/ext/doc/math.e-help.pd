@@ -4,24 +4,24 @@
 #X text 365 50 mathematical constant \, base of the natural logarithm;
 #X obj 1 1 cnv 5 765 40 empty empty math.e 20 20 0 20 -104026 -4096 0;
 #X obj 695 11 math.e;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 It is approximately equal to 2.71828 \, and is the limit
 of (1 + 1/n)^n as n approaches infinity.;
-#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 205 math.e;
-#X floatatom 50 234 10 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 50 215 math.e;
+#X floatatom 50 244 10 0 0 0 - - -;
+#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 281 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 272 1\.;
-#X text 170 272 bang:;
-#X text 270 272 outputs value.;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 282 1\.;
+#X text 170 282 bang:;
+#X text 270 282 outputs value.;
+#X obj 20 317 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 322 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 313 1\.;
-#X text 270 313 output value.;
+#X text 130 323 1\.;
+#X text 270 323 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

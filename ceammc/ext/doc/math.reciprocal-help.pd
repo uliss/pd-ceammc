@@ -7,29 +7,29 @@
 #X obj 484 11 ceammc/1/x;
 #X obj 582 11 1/x;
 #X obj 630 11 math.reciprocal;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Symbols are ignored \, 0 gives NAN value;
-#X floatatom 50 161 5 0 0 0 - - -;
-#X msg 98 161 1 2 3 4 5;
-#X floatatom 261 161 5 0 0 0 - - -;
-#X obj 50 190 1/x;
-#X msg 261 190 1 \$1;
-#X obj 50 219 ui.dt;
-#X obj 261 219 /;
-#X floatatom 261 248 5 0 0 0 - - -;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X floatatom 50 171 5 0 0 0 - - -;
+#X msg 98 171 1 2 3 4 5;
+#X floatatom 261 171 5 0 0 0 - - -;
+#X obj 50 200 1/x;
+#X msg 261 200 1 \$1;
+#X obj 50 229 ui.dt;
+#X obj 261 229 /;
+#X floatatom 261 258 5 0 0 0 - - -;
+#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 295 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 286 1\.;
-#X text 170 286 float:;
-#X text 270 286 input value.;
-#X text 170 311 list:;
-#X text 270 311 on list input outputs a list of reciprocal values.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 351 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 296 1\.;
+#X text 170 296 float:;
+#X text 270 296 input value.;
+#X text 170 321 list:;
+#X text 270 321 on list input outputs a list of reciprocal values.;
+#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 361 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 352 1\.;
-#X text 270 352 result value.;
+#X text 130 362 1\.;
+#X text 270 362 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

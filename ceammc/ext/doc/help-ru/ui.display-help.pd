@@ -10,172 +10,172 @@
 [ui.dt] @url ui.display-help.pd;
 #X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.display] @url ui.display-help.pd;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 [ui.dt] is the alias for [ui.display @display_type 1];
-#X msg 50 161 list a b c;
-#X msg 174 161 1;
-#X msg 213 161 symbol X;
-#X msg 318 161 any msg;
-#X msg 414 161 bang;
-#X obj 50 219 ui.display;
-#X text 50 262 display message type;
-#X msg 50 291 list a b c;
-#X msg 174 291 1;
-#X msg 213 291 symbol X;
-#X msg 318 291 any msg;
-#X msg 414 291 bang;
-#X obj 50 348 ui.dt;
-#X obj 50 377 ui.display-spec;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 432 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X msg 50 171 list a b c;
+#X msg 174 171 1;
+#X msg 213 171 symbol X;
+#X msg 318 171 any msg;
+#X msg 414 171 bang;
+#X obj 50 229 ui.display;
+#X text 50 272 display message type;
+#X msg 50 301 list a b c;
+#X msg 174 301 1;
+#X msg 213 301 symbol X;
+#X msg 318 301 any msg;
+#X msg 414 301 bang;
+#X obj 50 358 ui.dt;
+#X obj 50 387 ui.display-spec;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 442 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 467 Left-click;
-#X text 310 467 copy the message value to the clipboard buffer.;
-#X text 130 487 Left-click + ⇧;
-#X text 310 487 copy the whole message value with selector to the clipboard
+#X text 130 477 Left-click;
+#X text 310 477 copy the message value to the clipboard buffer.;
+#X text 130 497 Left-click + ⇧;
+#X text 310 497 copy the whole message value with selector to the clipboard
 buffer.;
-#X text 130 522 Double-click;
-#X text 310 522 show/hide message type.;
-#X text 130 542 Right-click;
-#X text 310 542 open popup menu.;
-#X text 130 562 Right-click + ⇧;
-#X text 310 562 open object help.;
-#X text 130 582 Right-click + ⌥;
-#X text 310 582 open properties dialog.;
-#X text 130 602 Right-click + ⇧;
-#X text 310 602 open object help.;
-#X text 65 602 [Правка];
-#X text 130 622 Right-click + ⌥;
-#X text 310 622 open properties dialog.;
-#X text 65 622 [Правка];
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 532 Double-click;
+#X text 310 532 show/hide message type.;
+#X text 130 552 Right-click;
+#X text 310 552 open popup menu.;
+#X text 130 572 Right-click + ⇧;
+#X text 310 572 open object help.;
+#X text 130 592 Right-click + ⌥;
+#X text 310 592 open properties dialog.;
+#X text 130 612 Right-click + ⇧;
+#X text 310 612 open object help.;
+#X text 81 612 [Edit];
+#X text 130 632 Right-click + ⌥;
+#X text 310 632 open properties dialog.;
+#X text 81 632 [Edit];
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 667 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 660 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 670 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 658 @auto_size;
-#X text 270 658 Flag if automatically resize contents to feet incoming
-message. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 700 @display_events;
-#X text 270 700 Flag for blinking on incoming messages. Тип: bool.
-Значение по умолчанию: 1\.;
-#X obj 250 742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 742 @display_type;
-#X text 270 742 Flag for displaying incoming message type. Тип: bool.
-Значение по умолчанию: 0\.;
-#X obj 250 784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 784 @float_width;
-#X text 270 784 Number of digits after floating point. If -1: skip
-trailing zeroes \, if 0 - output as integers. Тип: int. Значение по
-умолчанию: -1\. Диапазон: -1\...17\.;
-#X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 841 @hex;
-#X text 270 841 Output integers in hex format. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 883 @hex_width;
-#X text 270 883 Hex output format width. Тип: int. Значение по умолчанию:
-2\. Диапазон: 0\...16\.;
-#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 925 @receive;
-#X text 270 925 Источник получения сообщений. Тип: symbol. Значение
-по умолчанию: (null).;
-#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 967 @active_color;
-#X text 270 967 Цвет активного элемента (список из красного \, зеленого
-и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0 0.75 1 1\.;
-#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1024 @background_color;
-#X text 270 1024 Element background color (list of red \, green \,
-blue values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93
-0.93 1\.;
-#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1081 @border_color;
-#X text 270 1081 Цвет границы объекта (список из красного \, зеленого
-и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0.6 0.6 0.6 1\.;
-#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1138 @text_color;
-#X text 270 1138 Text color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
-#X obj 250 1180 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1180 @fontname;
-#X text 270 1180 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
-Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1237 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1237 @fontsize;
-#X text 270 1237 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
-#X obj 250 1279 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1279 @fontslant;
-#X text 270 1279 Наклон шрифта. Тип: symbol. Значение по умолчанию:
-roman. Разрешённые значения: roman \, italic.;
-#X obj 250 1321 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1321 @fontweight;
-#X text 270 1321 Толщину шрифта. Тип: symbol. Значение по умолчанию:
-normal. Разрешённые значения: normal \, bold.;
-#X obj 250 1363 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1363 @pinned;
-#X text 270 1363 Режим закрепления. Если 1 - помещает элемент на самый
-дальний уровень на холсте за другими элементам. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 1420 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1420 @size;
-#X text 270 1420 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
-по умолчанию: 80 18\.;
-#X obj 20 1472 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1477 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 668 @auto_size;
+#X text 270 668 Flag if automatically resize contents to feet incoming
+message. Type: bool. Default value: 1\.;
+#X obj 250 710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 710 @display_events;
+#X text 270 710 Flag for blinking on incoming messages. Type: bool.
+Default value: 1\.;
+#X obj 250 752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 752 @display_type;
+#X text 270 752 Flag for displaying incoming message type. Type: bool.
+Default value: 0\.;
+#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 794 @float_width;
+#X text 270 794 Number of digits after floating point. If -1: skip
+trailing zeroes \, if 0 - output as integers. Type: int. Default value:
+-1\. Range: -1\...17\.;
+#X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 851 @hex;
+#X text 270 851 Output integers in hex format. Type: bool. Default
+value: 0\.;
+#X obj 250 881 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 881 @hex_width;
+#X text 270 881 Hex output format width. Type: int. Default value:
+2\. Range: 0\...16\.;
+#X obj 250 923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 923 @receive;
+#X text 270 923 Источник получения сообщений. Type: symbol. Default
+value: (null).;
+#X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 965 @active_color;
+#X text 270 965 Цвет активного элемента (список из красного \, зеленого
+и синего цвета в [0\..1] диапазоне). Type: list. Default value: 0 0.75
+1 1\.;
+#X obj 250 1022 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1022 @background_color;
+#X text 270 1022 Element background color (list of red \, green \,
+blue values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93
+1\.;
+#X obj 250 1079 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1079 @border_color;
+#X text 270 1079 Цвет границы объекта (список из красного \, зеленого
+и синего цветов в [0\..1] диапазоне). Type: list. Default value: 0.6
+0.6 0.6 1\.;
+#X obj 250 1136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1136 @text_color;
+#X text 270 1136 Text color (list of red \, green \, blue values in
+0-1 range). Type: list. Default value: 0 0 0 1\.;
+#X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1178 @fontname;
+#X text 270 1178 Имя шрифта. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1235 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1235 @fontsize;
+#X text 270 1235 Размер шрифта. Type: int. Default value: 11\. Range:
+4\...100\.;
+#X obj 250 1277 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1277 @fontslant;
+#X text 270 1277 Наклон шрифта. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1319 @fontweight;
+#X text 270 1319 Толщину шрифта. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X obj 250 1361 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1361 @pinned;
+#X text 270 1361 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Type: bool. Default
+value: 0\.;
+#X obj 250 1418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1418 @size;
+#X text 270 1418 Размер объекта (пара: ШИРИНА ВЫСОТА). Type: list.
+Default value: 80 18\.;
+#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1475 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1478 pos;
-#X text 270 1478 установить положение элемента UI. Аргументы:;
-#X obj 280 1501 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1501 X: верхняя левая X-координата. Тип: float.;
-#X obj 280 1524 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1524 Y: верхняя правая Y-coord. Тип: float.;
-#X obj 250 1549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1549 dump;
-#X text 270 1549 выводит всю информацию об объекте в окно консоли Pd.;
-#X obj 20 1587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1592 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1593 1\.;
-#X text 270 1593 accepts any messages and displays it.;
+#X msg 130 1476 pos;
+#X text 270 1476 установить положение элемента UI. Arguments are:;
+#X obj 280 1499 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1499 X: верхняя левая X-координата. Type: float.;
+#X obj 280 1522 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1522 Y: верхняя правая Y-coord. Type: float.;
+#X obj 250 1547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1547 dump;
+#X text 270 1547 выводит всю информацию об объекте в окно консоли Pd.;
+#X obj 20 1585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1590 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1591 1\.;
+#X text 270 1591 accepts any messages and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1648 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1651 библиотека: ceammc v0.9.8;
-#X text 597 1663 смотрите также:;
-#X obj 718 1663 msg;
-#N canvas 10 1670 400 290 info 0;
+#X obj 1 1646 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1649 library: ceammc v0.9.8;
+#X text 643 1661 see also:;
+#X obj 718 1661 msg;
+#N canvas 10 1668 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 ui.display;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 ui;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 display;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1670 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1668 pd info;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

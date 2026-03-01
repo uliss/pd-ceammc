@@ -5,105 +5,105 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.speaker~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 flt.speaker~;
-#X obj 230 78 cnv 1 535 115 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Low-frequency speaker model = +12 dB/octave slope breaking
 to flat near @f1\.;
 #X text 240 123 Implemented using two dc blockers in series.;
 #X text 240 148 High-frequency model = -24 dB/octave slope implemented
 using a fourth-order Butterworth lowpass.;
-#X listbox 50 241 20 0 0 0 - - -;
-#X msg 338 256 bang;
-#X text 434 256 plot response;
-#X msg 50 285 @f1 \$1 \, @f2 \$2;
-#X obj 338 285 click~;
-#X obj 50 313 flt.speaker~ 1000 4000;
-#X obj 50 342 plot.response~ @sr 1 @db 1;
-#X obj 50 371 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
+#X listbox 50 251 20 0 0 0 - - -;
+#X msg 338 266 bang;
+#X text 434 266 plot response;
+#X msg 50 295 @f1 \$1 \, @f2 \$2;
+#X obj 338 295 click~;
+#X obj 50 323 flt.speaker~ 1000 4000;
+#X obj 50 352 plot.response~ @sr 1 @db 1;
+#X obj 50 381 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
-#X obj 50 587 ui.dsp~;
-#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 642 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 597 ui.dsp~;
+#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 652 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 645 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 655 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 643 1\.;
-#X text 170 643 float;
-#X obj 268 644 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 643 F1(Hz): lower band frequency. Type: float. Range: 20\...1000;
-#X text 130 668 2\.;
-#X text 170 668 float;
-#X obj 268 669 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 668 F2(Hz): high band frequency. Type: float. Range: 1000\...20000;
-#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 723 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 653 1\.;
+#X text 170 653 float;
+#X obj 268 654 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 653 F1(Hz): lower band frequency. Type: float. Range: 20\...1000;
+#X text 130 678 2\.;
+#X text 170 678 float;
+#X obj 268 679 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 678 F2(Hz): high band frequency. Type: float. Range: 1000\...20000;
+#X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 733 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 726 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 736 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 724 @id;
-#X text 270 724 (initonly) OSC address id. If specified \, bind all
+#X msg 130 734 @id;
+#X text 270 734 (initonly) OSC address id. If specified \, bind all
 properties to /ID/flt_speaker/PROP_NAME osc address \, if empty bind
 to /flt_speaker/PROP_NAME. Type: symbol.;
-#X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 781 @osc;
-#X text 270 781 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 811 @active;
-#X text 270 811 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 791 @osc;
+#X text 270 791 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 821 @active;
+#X text 270 821 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 841 @bypass;
-#X text 270 841 Bypass flag. If true: bypass 'effected' signal. Type:
+#X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 851 @bypass;
+#X text 270 851 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
-#X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 883 @drywet;
-#X text 270 883 Proportion of mix between the original (dry) and 'effected'
+#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 893 @drywet;
+#X text 270 893 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
 1\. Range: 0\...1\.;
-#X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 940 @f1;
-#X text 270 940 Lower band frequency. Type: float. Units: 'Hz'. Default
+#X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 950 @f1;
+#X text 270 950 Lower band frequency. Type: float. Units: 'Hz'. Default
 value: 130\. Range: 20\...1000\.;
-#X obj 250 982 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 982 @f2;
-#X text 270 982 High band frequency. Type: float. Units: 'Hz'. Default
+#X obj 250 992 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 992 @f2;
+#X text 270 992 High band frequency. Type: float. Units: 'Hz'. Default
 value: 5000\. Range: 1000\...20000\.;
-#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1024 @gain;
-#X text 270 1024 Filter gain. Type: float. Units: 'db'. Default value:
+#X obj 250 1034 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1034 @gain;
+#X text 270 1034 Filter gain. Type: float. Units: 'db'. Default value:
 0\. Range: -30\...30\.;
-#X obj 20 1076 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1081 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1086 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1091 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1082 reset;
-#X text 270 1082 reset filter state.;
-#X obj 20 1120 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1125 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1092 reset;
+#X text 270 1092 reset filter state.;
+#X obj 20 1130 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1135 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1126 1\.;
-#X text 170 1126 ~;
-#X text 270 1126 input signal.;
-#X text 130 1151 2\.;
-#X text 170 1151 float:;
-#X text 270 1151 set @f1 property.;
-#X text 130 1176 3\.;
-#X text 170 1176 float:;
-#X text 270 1176 set @f2 property.;
-#X obj 20 1211 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1216 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1136 1\.;
+#X text 170 1136 ~;
+#X text 270 1136 input signal.;
+#X text 130 1161 2\.;
+#X text 170 1161 float:;
+#X text 270 1161 set @f1 property.;
+#X text 130 1186 3\.;
+#X text 170 1186 float:;
+#X text 270 1186 set @f2 property.;
+#X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1226 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1217 1\.;
-#X text 170 1217 ~;
-#X text 270 1217 filtered signal.;
+#X text 130 1227 1\.;
+#X text 170 1227 ~;
+#X text 270 1227 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1267 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1270 library: ceammc v0.9.8;
-#X text 591 1282 see also:;
-#X obj 666 1282 flt.bpf24~;
-#N canvas 10 1289 400 290 info 0;
+#X obj 1 1277 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1280 library: ceammc v0.9.8;
+#X text 591 1292 see also:;
+#X obj 666 1292 flt.bpf24~;
+#N canvas 10 1299 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,7 +127,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1289 pd info;
+#X restore 10 1299 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;

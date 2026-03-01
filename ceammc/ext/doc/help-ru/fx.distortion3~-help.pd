@@ -21,61 +21,60 @@
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 418 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 421 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 419 @id;
-#X text 270 419 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/fx_distortion3/ИМЯ_СВОЙСТВА \, в противном случае к
-/fx_distortion3/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X text 270 419 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_distortion3/ИМЯ_СВОЙСТВА
+\, в противном случае к /fx_distortion3/ИМЯ_СВОЙСТВА. Type: symbol.;
 #X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 506 @osc;
-#X text 270 506 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X text 270 506 (initonly) Имя OSC сервера. Type: symbol.;
 #X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 536 @active;
-#X text 270 536 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
+#X text 270 536 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
 #X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @bypass;
-#X text 270 578 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 578 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
 #X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 620 @drive;
-#X text 270 620 Distortion amount. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: 0\...1\.;
+#X text 270 620 Distortion amount. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
 #X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 662 @drywet;
 #X text 270 662 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+1\. Range: 0\...1\.;
 #X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @gain;
-#X text 270 719 Total effect gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -30\...10\.;
+#X text 270 719 Total effect gain. Type: float. Units: 'db'. Default
+value: 0\. Range: -30\...10\.;
 #X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @hp_freq;
-#X text 270 761 High pass frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 30\. Диапазон: 20\...2000\.;
+#X text 270 761 High pass frequency. Type: float. Units: 'Hz'. Default
+value: 30\. Range: 20\...2000\.;
 #X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 803 @lp_freq;
-#X text 270 803 Low pass frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 10000\. Диапазон: 1000\...20000\.;
+#X text 270 803 Low pass frequency. Type: float. Units: 'Hz'. Default
+value: 10000\. Range: 1000\...20000\.;
 #X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 860 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 860 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
 #X msg 130 861 reset;
 #X text 270 861 reset object.;
 #X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 904 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 904 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 130 905 1\.;
 #X text 170 905 ~;
 #X text 270 905 input signal.;
 #X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 945 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 945 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
 #X text 130 946 1\.;
 #X text 170 946 ~;
 #X text 270 946 output signal.;
@@ -85,35 +84,35 @@ bool. Значение по умолчанию: 0\.;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 996 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 999 библиотека: ceammc v0.9.8;
-#X text 267 1011 смотрите также:;
+#X text 10 999 library: ceammc v0.9.8;
+#X text 313 1011 see also:;
 #X obj 388 1011 fx.distortion~;
 #X obj 505 1011 fx.distortion1~;
 #X obj 630 1011 fx.distortion2~;
 #N canvas 10 1018 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 fx.distortion3~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 fx;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 fx \, distortion;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
+#X text 120 268 generated by pddoc;
 #X restore 10 1018 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;

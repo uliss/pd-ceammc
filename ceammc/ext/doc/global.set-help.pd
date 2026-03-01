@@ -5,103 +5,103 @@
 #X obj 1 1 cnv 5 765 40 empty empty global.set 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 global.set;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Defines global scope set variable \, accessed by ID
 name;
-#X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 107 161 1 2 3;
-#X floatatom 184 161 5 0 0 0 - - -;
-#X msg 222 161 clear;
-#X msg 328 161 bang;
-#X obj 50 219 global.set s1;
-#X obj 328 219 global.set s1;
-#X obj 50 248 ui.dt;
-#X obj 328 248 ui.dt;
-#X obj 50 277 global.set-abs;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X msg 107 171 1 2 3;
+#X floatatom 184 171 5 0 0 0 - - -;
+#X msg 222 171 clear;
+#X msg 328 171 bang;
+#X obj 50 229 global.set s1;
+#X obj 328 229 global.set s1;
+#X obj 50 258 ui.dt;
+#X obj 328 258 ui.dt;
+#X obj 50 287 global.set-abs;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 342 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 367 Left-click;
-#X text 310 367 open data editor.;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 402 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 377 Left-click;
+#X text 310 377 open data editor.;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 412 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 403 1\.;
-#X text 170 403 symbol;
-#X obj 268 404 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 403 ID: object ID. Type: symbol.;
-#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 443 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 413 1\.;
+#X text 170 413 symbol;
+#X obj 268 414 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 413 ID: object ID. Type: symbol.;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 453 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 446 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 456 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 444 @id;
-#X text 270 444 (initonly) Global variable id. Type: symbol. Default
+#X msg 130 454 @id;
+#X text 270 454 (initonly) Global variable id. Type: symbol. Default
 value: default.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @empty?;
-#X text 270 486 (readonly) 1 if list is empty \, otherwise 0\. Type:
+#X obj 250 496 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 496 @empty?;
+#X text 270 496 (readonly) 1 if list is empty \, otherwise 0\. Type:
 bool. Default value: 1\.;
-#X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 528 @size?;
-#X text 270 528 (readonly) Number of elements in list. Type: int. Default
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 538 @size?;
+#X text 270 538 (readonly) Number of elements in list. Type: int. Default
 value: 0\. Min value: 0\.;
-#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 585 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 595 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 586 add;
-#X text 270 586 add values to the set. Arguments are:;
-#X obj 280 609 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 609 VAL: added values. Type: list.;
-#X obj 250 634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 634 choose;
-#X text 270 634 choose random element and output it.;
-#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 662 clear;
-#X text 270 662 removes all set elements.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 remove;
-#X text 270 690 remove elements from the set. Arguments are:;
-#X obj 280 713 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 713 VAL: elements. Type: list.;
-#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 738 set;
-#X text 270 738 sets new set content without output. Arguments are:;
-#X obj 280 761 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 761 LIST: new set content. Type: list.;
-#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 801 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 596 add;
+#X text 270 596 add values to the set. Arguments are:;
+#X obj 280 619 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 619 VAL: added values. Type: list.;
+#X obj 250 644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 644 choose;
+#X text 270 644 choose random element and output it.;
+#X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 672 clear;
+#X text 270 672 removes all set elements.;
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 700 remove;
+#X text 270 700 remove elements from the set. Arguments are:;
+#X obj 280 723 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 723 VAL: elements. Type: list.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 748 set;
+#X text 270 748 sets new set content without output. Arguments are:;
+#X obj 280 771 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 771 LIST: new set content. Type: list.;
+#X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 811 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 802 1\.;
-#X text 170 802 bang:;
-#X text 270 802 output set content.;
-#X text 170 827 float:;
-#X text 270 827 adds new element to set \, no output.;
-#X text 170 852 symbol:;
-#X text 270 852 adds new element to set \, no output.;
-#X text 170 877 list:;
-#X text 270 877 adds new elements to set \, no output.;
-#X text 170 902 data:set:;
-#X text 270 902 set new set content and output.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 942 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 812 1\.;
+#X text 170 812 bang:;
+#X text 270 812 output set content.;
+#X text 170 837 float:;
+#X text 270 837 adds new element to set \, no output.;
+#X text 170 862 symbol:;
+#X text 270 862 adds new element to set \, no output.;
+#X text 170 887 list:;
+#X text 270 887 adds new elements to set \, no output.;
+#X text 170 912 data:set:;
+#X text 270 912 set new set content and output.;
+#X obj 20 947 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 952 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 943 1\.;
-#X text 270 943 set output.;
+#X text 130 953 1\.;
+#X text 270 953 set output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 996 library: ceammc v0.9.8;
-#X text 527 1008 see also:;
-#X obj 602 1008 data.set;
-#X obj 675 1008 local.set;
-#N canvas 10 1015 400 290 info 0;
+#X obj 1 1003 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1006 library: ceammc v0.9.8;
+#X text 527 1018 see also:;
+#X obj 602 1018 data.set;
+#X obj 675 1018 local.set;
+#N canvas 10 1025 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -125,7 +125,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1015 pd info;
+#X restore 10 1025 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;

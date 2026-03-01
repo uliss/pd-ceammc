@@ -6,148 +6,148 @@
 -4096 0;
 #X obj 571 11 noise.jong;
 #X obj 668 11 chaos.jong;
-#X obj 230 78 cnv 1 535 124 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 134 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 A non-interpolating generator based on the difference
 equations:;
 #X text 240 123 x[n+1] = sin(a * y[n]) - cos(b * x[n]);
 #X text 240 148 y[n+1] = sin(c * x[n]) - cos(d * y[n]);
-#X obj 240 173 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 176 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Peter de Jong Attractors @url
 http://paulbourke.net/fractals/peterdejong/;
-#X obj 50 250 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 309 250 r~ jong;
-#X obj 50 279 metro.random 100 400;
-#X obj 309 279 ui.scope~ @size 360 100;
-#X obj 50 308 chaos.jong;
-#X obj 50 337 l->l -2 2 1 2;
-#X obj 50 366 sig~;
-#X obj 136 366 l->l -2 2 -0.7 0.8;
-#X obj 50 394 lop~ 40;
-#X obj 203 394 l->l -2 2 -1 1;
-#X obj 50 423 osc.impulse~;
-#X obj 203 423 sig~;
-#X obj 50 452 *~ 20;
-#X obj 203 452 lop~ 5;
-#X obj 50 481 cpole~, f 23;
-#X obj 50 510 pan.spread~ @spread 0.4;
-#X obj 50 538 fx.pitchshift~ -24;
-#X obj 50 567 clip~ -1 1;
-#X obj 203 567 clip~ -1 1;
-#X obj 50 596 ui.hgain2~ @size 20 164;
-#X obj 299 596 s~ jong;
-#X obj 50 625 dac~, f 23;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 680 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 309 260 r~ jong;
+#X obj 50 289 metro.random 100 400;
+#X obj 309 289 ui.scope~ @size 360 100;
+#X obj 50 318 chaos.jong;
+#X obj 50 347 l->l -2 2 1 2;
+#X obj 50 376 sig~;
+#X obj 136 376 l->l -2 2 -0.7 0.8;
+#X obj 50 404 lop~ 40;
+#X obj 203 404 l->l -2 2 -1 1;
+#X obj 50 433 osc.impulse~;
+#X obj 203 433 sig~;
+#X obj 50 462 *~ 20;
+#X obj 203 462 lop~ 5;
+#X obj 50 491 cpole~, f 23;
+#X obj 50 520 pan.spread~ @spread 0.4;
+#X obj 50 548 fx.pitchshift~ -24;
+#X obj 50 577 clip~ -1 1;
+#X obj 203 577 clip~ -1 1;
+#X obj 50 606 ui.hgain2~ @size 20 164;
+#X obj 299 606 s~ jong;
+#X obj 50 635 dac~, f 23;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 690 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 683 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 693 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 681 1\.;
-#X text 170 681 float;
-#X obj 268 682 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 681 A: a-value (default 1.4). Тип: float.;
-#X text 130 706 2\.;
-#X text 170 706 float;
-#X obj 268 707 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 706 B: b-value (default -2.3). Тип: float.;
-#X text 130 731 3\.;
-#X text 170 731 float;
-#X obj 268 732 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 731 C: c-value (default 2.4). Тип: float.;
-#X text 130 756 4\.;
-#X text 170 756 float;
-#X obj 268 757 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 756 D: d-value (default -2.1). Тип: float.;
-#X text 130 781 5\.;
-#X text 170 781 float;
-#X obj 268 782 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 781 X: x init value (default 0). Тип: float.;
-#X text 130 806 6\.;
-#X text 170 806 float;
-#X obj 268 807 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 806 Y: y init value (default 0). Тип: float.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 846 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 847 a;
-#X text 270 847 set a-value \, does not not change init state value.;
-#X obj 250 875 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 875 b;
-#X text 270 875 set b-value \, does not not change init state value.;
-#X obj 250 903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 903 c;
-#X text 270 903 set c-value \, does not not change init state value.;
-#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 931 d;
-#X text 270 931 set d-value \, does not not change init state value.;
-#X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 959 om;
-#X text 270 959 turn on/off method output mode. If true (1) outputs
-new generated value after each a \, b \, d \, e \, x \, y method call
-\, if 0 - change values without output. Default is 0\. Аргументы:;
-#X obj 280 1027 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1027 BOOL: output mode. Тип: int.;
-#X obj 250 1052 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1052 reset;
-#X text 270 1052 set to initial state.;
-#X obj 250 1080 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1080 set;
-#X text 270 1080 set A B C D E X Y values. Also updates init state
-vars.;
-#X obj 250 1108 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1108 x;
-#X text 270 1108 set current x-value \, does not not change init state
-value.;
-#X obj 250 1136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1136 y;
-#X text 270 1136 set current y-value \, does not not change init state
-value.;
-#X obj 20 1174 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1179 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1180 1\.;
-#X text 170 1180 bang:;
-#X text 270 1180 generate and output new value.;
-#X obj 20 1215 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1220 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 691 1\.;
+#X text 170 691 float;
+#X obj 268 692 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 691 A: a-value (default 1.4). Type: float.;
+#X text 130 716 2\.;
+#X text 170 716 float;
+#X obj 268 717 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 716 B: b-value (default -2.3). Type: float.;
+#X text 130 741 3\.;
+#X text 170 741 float;
+#X obj 268 742 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 741 C: c-value (default 2.4). Type: float.;
+#X text 130 766 4\.;
+#X text 170 766 float;
+#X obj 268 767 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 766 D: d-value (default -2.1). Type: float.;
+#X text 130 791 5\.;
+#X text 170 791 float;
+#X obj 268 792 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 791 X: x init value (default 0). Type: float.;
+#X text 130 816 6\.;
+#X text 170 816 float;
+#X obj 268 817 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 816 Y: y init value (default 0). Type: float.;
+#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 856 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1221 1\.;
-#X text 270 1221 new generated x-value.;
-#X text 130 1241 2\.;
-#X text 270 1241 new generated y-value.;
+#X msg 130 857 a;
+#X text 270 857 set a-value \, does not not change init state value.;
+#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 885 b;
+#X text 270 885 set b-value \, does not not change init state value.;
+#X obj 250 913 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 913 c;
+#X text 270 913 set c-value \, does not not change init state value.;
+#X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 941 d;
+#X text 270 941 set d-value \, does not not change init state value.;
+#X obj 250 969 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 969 om;
+#X text 270 969 turn on/off method output mode. If true (1) outputs
+new generated value after each a \, b \, d \, e \, x \, y method call
+\, if 0 - change values without output. Default is 0\. Arguments are:;
+#X obj 280 1037 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1037 BOOL: output mode. Type: int.;
+#X obj 250 1062 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1062 reset;
+#X text 270 1062 set to initial state.;
+#X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1090 set;
+#X text 270 1090 set A B C D E X Y values. Also updates init state
+vars.;
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1118 x;
+#X text 270 1118 set current x-value \, does not not change init state
+value.;
+#X obj 250 1146 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1146 y;
+#X text 270 1146 set current y-value \, does not not change init state
+value.;
+#X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1189 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1190 1\.;
+#X text 170 1190 bang:;
+#X text 270 1190 generate and output new value.;
+#X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1231 1\.;
+#X text 270 1231 new generated x-value.;
+#X text 130 1251 2\.;
+#X text 270 1251 new generated y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1291 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1294 библиотека: ceammc v0.9.8;
-#X text 546 1306 смотрите также:;
-#X obj 667 1306 chaos.std0;
-#N canvas 10 1313 400 290 info 0;
+#X obj 1 1301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1304 library: ceammc v0.9.8;
+#X text 592 1316 see also:;
+#X obj 667 1316 chaos.std0;
+#N canvas 10 1323 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 chaos.jong;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 chaos;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 André Sier;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 chaos \, peter \, de \, jong;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1313 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1323 pd info;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

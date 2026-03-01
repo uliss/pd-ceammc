@@ -11,100 +11,98 @@
 #X obj 50 291 ui.hgain2~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
 #X obj 268 377 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 SPEED: maximum speed of whistles if @auto enabled.
-Тип: float. Диапазон: 120…480;
+Type: float. Range: 120\...480;
 #X text 130 416 2\.;
 #X text 170 416 float;
 #X obj 268 417 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 416 PROBABILITY(%): whistles probability if @auto enabled.
-Тип: float. Диапазон: 25…100;
+Type: float. Range: 25\...100;
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 471 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 474 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 472 @id;
-#X text 270 472 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/synth_birds/ИМЯ_СВОЙСТВА \, в противном случае к /synth_birds/ИМЯ_СВОЙСТВА.
-Тип: symbol.;
-#X obj 250 559 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 559 @osc;
-#X text 270 559 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 589 @active;
-#X text 270 589 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 631 @auto;
-#X text 270 631 Auto playing mode. Тип: bool. Значение по умолчанию:
-0\.;
-#X obj 250 661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 661 @gate;
-#X text 270 661 Play trigger. Starts playing on release. Тип: bool.
-Значение по умолчанию: 0\.;
-#X obj 250 703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 703 @probability;
-#X text 270 703 Whistles probability if @auto enabled. Тип: float.
-Единицы: '%'. Значение по умолчанию: 50\. Диапазон: 25\...100\.;
-#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 760 @speed;
-#X text 270 760 Maximum speed of whistles if @auto enabled. Тип: float.
-Значение по умолчанию: 240\. Диапазон: 120\...480\.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 817 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 472 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_birds/ИМЯ_СВОЙСТВА
+\, в противном случае к /synth_birds/ИМЯ_СВОЙСТВА. Type: symbol.;
+#X obj 250 544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 544 @osc;
+#X text 270 544 (initonly) Имя OSC сервера. Type: symbol.;
+#X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 574 @active;
+#X text 270 574 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
+#X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 616 @auto;
+#X text 270 616 Auto playing mode. Type: bool. Default value: 0\.;
+#X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 646 @gate;
+#X text 270 646 Play trigger. Starts playing on release. Type: bool.
+Default value: 0\.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 688 @probability;
+#X text 270 688 Whistles probability if @auto enabled. Type: float.
+Units: '%'. Default value: 50\. Range: 25\...100\.;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 730 @speed;
+#X text 270 730 Maximum speed of whistles if @auto enabled. Type: float.
+Default value: 240\. Range: 120\...480\.;
+#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 787 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 818 1\.;
-#X text 170 818 bang:;
-#X text 270 818 play.;
-#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 858 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 859 1\.;
-#X text 170 859 ~;
-#X text 270 859 synth left channel.;
-#X text 130 879 2\.;
-#X text 170 879 ~;
-#X text 270 879 synth right channel.;
+#X text 130 788 1\.;
+#X text 170 788 bang:;
+#X text 270 788 play.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 828 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 829 1\.;
+#X text 170 829 ~;
+#X text 270 829 synth left channel.;
+#X text 130 849 2\.;
+#X text 170 849 ~;
+#X text 270 849 synth right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 929 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 932 библиотека: ceammc v0.9.8;
-#N canvas 10 951 400 290 info 0;
+#X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 902 library: ceammc v0.9.8;
+#N canvas 10 921 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 synth.birds~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 synth;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Pierre Cochard \, Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 birds;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 951 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 921 pd info;
 #X connect 4 0 5 0;
 #X connect 4 1 5 1;
 #X connect 5 0 7 0;

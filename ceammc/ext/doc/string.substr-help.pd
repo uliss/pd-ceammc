@@ -12,7 +12,7 @@
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 234 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 232 1\.;
 #X text 170 232 int;
@@ -27,7 +27,7 @@ means 'till string end'. Type: int. Min value: -1;
 #X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 327 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 330 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 328 @from;
 #X text 270 328 Substring position. Can be negative - to address string

@@ -19,166 +19,164 @@
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 418 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 418 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 421 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 419 @id;
-#X text 270 419 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/fx_distortion1/ИМЯ_СВОЙСТВА \, в противном случае к
-/fx_distortion1/ИМЯ_СВОЙСТВА. Тип: symbol.;
+#X text 270 419 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_distortion1/ИМЯ_СВОЙСТВА
+\, в противном случае к /fx_distortion1/ИМЯ_СВОЙСТВА. Type: symbol.;
 #X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 506 @osc;
-#X text 270 506 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X text 270 506 (initonly) Имя OSC сервера. Type: symbol.;
 #X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 536 @active;
-#X text 270 536 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
+#X text 270 536 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
 #X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @drive;
-#X text 270 578 Distortion amount. Тип: float. Значение по умолчанию:
-0.64\. Диапазон: 0\...1\.;
+#X text 270 578 Distortion amount. Type: float. Default value: 0.64\.
+Range: 0\...1\.;
 #X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 620 @flt_on_off;
-#X text 270 620 Filter processing. Тип: bool. Значение по умолчанию:
-0\.;
+#X text 270 620 Filter processing. Type: bool. Default value: 0\.;
 #X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @gain;
-#X text 270 650 Total effect gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 2\. Диапазон: -10\...10\.;
+#X text 270 650 Total effect gain. Type: float. Units: 'db'. Default
+value: 2\. Range: -10\...10\.;
 #X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @high_drive;
-#X text 270 692 Distortion amount on high frequencies. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X text 270 692 Distortion amount on high frequencies. Type: float.
+Default value: 1\. Range: 0\...1\.;
 #X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @high_gain;
-#X text 270 734 Gain on high frequencies. Тип: float. Единицы: 'db'.
-Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X text 270 734 Gain on high frequencies. Type: float. Units: 'db'.
+Default value: 10\. Range: -10\...20\.;
 #X obj 250 776 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 776 @hp_freq;
-#X text 270 776 High pass frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 130\. Диапазон: 20\...7040\.;
+#X text 270 776 High pass frequency. Type: float. Units: 'Hz'. Default
+value: 130\. Range: 20\...7040\.;
 #X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 818 @level;
-#X text 270 818 Effect level. Тип: float. Значение по умолчанию: 0.01\.
-Диапазон: 0\...0.5\.;
+#X text 270 818 Effect level. Type: float. Default value: 0.01\. Range:
+0\...0.5\.;
 #X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @low_drive;
-#X text 270 860 Distortion amount on low frequencies. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...1\.;
+#X text 270 860 Distortion amount on low frequencies. Type: float.
+Default value: 1\. Range: 0\...1\.;
 #X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @low_gain;
-#X text 270 902 Gain on low frequencies. Тип: float. Единицы: 'db'.
-Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X text 270 902 Gain on low frequencies. Type: float. Units: 'db'.
+Default value: 10\. Range: -10\...20\.;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @lp_freq;
-#X text 270 944 Low pass frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 5000\. Диапазон: 20\...12000\.;
+#X text 270 944 Low pass frequency. Type: float. Units: 'Hz'. Default
+value: 5000\. Range: 20\...12000\.;
 #X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @middle_h_drive;
-#X text 270 986 Distortion amount on middle high frequencies. Тип:
-float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X text 270 986 Distortion amount on middle high frequencies. Type:
+float. Default value: 1\. Range: 0\...1\.;
 #X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @middle_h_gain;
-#X text 270 1028 Gain on middle high frequencies. Тип: float. Единицы:
-'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X text 270 1028 Gain on middle high frequencies. Type: float. Units:
+'db'. Default value: 10\. Range: -10\...20\.;
 #X obj 250 1070 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1070 @middle_l_drive;
-#X text 270 1070 Distortion amount on middle low frequencies. Тип:
-float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X text 270 1070 Distortion amount on middle low frequencies. Type:
+float. Default value: 1\. Range: 0\...1\.;
 #X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1112 @middle_l_gain;
-#X text 270 1112 Gain on middle low frequencies. Тип: float. Единицы:
-'db'. Значение по умолчанию: 10\. Диапазон: -10\...20\.;
+#X text 270 1112 Gain on middle low frequencies. Type: float. Units:
+'db'. Default value: 10\. Range: -10\...20\.;
 #X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1154 @res_on_off;
-#X text 270 1154 Resonator. Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 1154 Resonator. Type: bool. Default value: 0\.;
 #X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1184 @sp_high_freq;
-#X text 270 1184 Speaker emulation high frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 5000\. Диапазон: 1000\...12000\.;
-#X obj 250 1241 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1241 @sp_low_freq;
-#X text 270 1241 Speaker emulation low frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 130\. Диапазон: 20\...1000\.;
+#X text 270 1184 Speaker emulation high frequency. Type: float. Units:
+'Hz'. Default value: 5000\. Range: 1000\...12000\.;
+#X obj 250 1226 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1226 @sp_low_freq;
+#X text 270 1226 Speaker emulation low frequency. Type: float. Units:
+'Hz'. Default value: 130\. Range: 20\...1000\.;
+#X obj 250 1268 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1268 @sp_on_off;
+#X text 270 1268 Speaker emulation turn on/off. Type: bool. Default
+value: 0\.;
 #X obj 250 1298 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1298 @sp_on_off;
-#X text 270 1298 Speaker emulation turn on/off. Тип: bool. Значение
-по умолчанию: 0\.;
+#X msg 130 1298 @split_high_freq;
+#X text 270 1298 High split frequency. Type: float. Units: 'Hz'. Default
+value: 1250\. Range: 1250\...12000\.;
 #X obj 250 1340 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1340 @split_high_freq;
-#X text 270 1340 High split frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 1250\. Диапазон: 1250\...12000\.;
+#X msg 130 1340 @split_low_freq;
+#X text 270 1340 Low split frequency. Type: float. Units: 'Hz'. Default
+value: 250\. Range: 20\...600\.;
 #X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1382 @split_low_freq;
-#X text 270 1382 Low split frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 250\. Диапазон: 20\...600\.;
+#X msg 130 1382 @split_middle_freq;
+#X text 270 1382 Middle split frequency. Type: float. Units: 'Hz'.
+Default value: 650\. Range: 600\...1250\.;
 #X obj 250 1424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1424 @split_middle_freq;
-#X text 270 1424 Middle split frequency. Тип: float. Единицы: 'Hz'.
-Значение по умолчанию: 650\. Диапазон: 600\...1250\.;
+#X msg 130 1424 @trigger;
+#X text 270 1424 Resonator trigger. Type: float. Default value: 0.12\.
+Range: 0\...1\.;
 #X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1466 @trigger;
-#X text 270 1466 Resonator trigger. Тип: float. Значение по умолчанию:
-0.12\. Диапазон: 0\...1\.;
-#X obj 250 1508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1508 @vibrato;
-#X text 270 1508 Resonator vibration. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
-#X obj 20 1560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1565 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 1466 @vibrato;
+#X text 270 1466 Resonator vibration. Type: float. Default value: 1\.
+Range: 0\...1\.;
+#X obj 20 1518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1523 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1566 reset;
-#X text 270 1566 reset object.;
-#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1609 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1610 1\.;
-#X text 170 1610 ~;
-#X text 270 1610 input signal.;
-#X obj 20 1645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 1524 reset;
+#X text 270 1524 reset object.;
+#X obj 20 1562 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1567 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1651 1\.;
-#X text 170 1651 ~;
-#X text 270 1651 output signal.;
+#X text 130 1568 1\.;
+#X text 170 1568 ~;
+#X text 270 1568 input signal.;
+#X obj 20 1603 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1608 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1609 1\.;
+#X text 170 1609 ~;
+#X text 270 1609 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1701 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1704 библиотека: ceammc v0.9.8;
-#X text 267 1716 смотрите также:;
-#X obj 388 1716 fx.distortion~;
-#X obj 505 1716 fx.distortion2~;
-#X obj 630 1716 fx.distortion3~;
-#N canvas 10 1723 400 290 info 0;
+#X obj 1 1659 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1662 library: ceammc v0.9.8;
+#X text 313 1674 see also:;
+#X obj 388 1674 fx.distortion~;
+#X obj 505 1674 fx.distortion2~;
+#X obj 630 1674 fx.distortion3~;
+#N canvas 10 1681 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 fx.distortion1~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 fx;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 fx \, distortion;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1723 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1681 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

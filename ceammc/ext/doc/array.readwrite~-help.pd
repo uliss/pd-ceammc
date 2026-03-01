@@ -6,89 +6,89 @@
 -104026 -4096 0;
 #X obj 531 11 array.rw~;
 #X obj 623 11 array.readwrite~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Performes these array operations in order: read \, write
 \, output;
-#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 165 176 msg.onload symbol %CEAMMC%/guitar1.wav;
+#X obj 165 186 msg.onload symbol %CEAMMC%/guitar1.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array arw 100 float 0;
 #X coords 0 1 100 -1 200 140 1;
-#X restore 558 176 graph;
-#X obj 50 205 openpanel;
-#X obj 165 205 expand_env;
-#X msg 50 234 load \$1 to arw @resize @resample;
-#X obj 50 263 snd.file;
-#X obj 261 263 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 292 phasor~ 0.22;
-#X obj 261 292 metro.random 1000 1500;
-#X obj 50 320 expr~ $v1*120000;
-#X obj 261 320 t b b b;
-#X obj 69 349 r~ arw;
-#X obj 261 349 random.f;
-#X obj 366 349 random.i 400 1000;
-#X obj 261 378 pack f f;
-#X obj 261 407 vline~;
-#X obj 376 407 random.i 120000;
-#X msg 98 436 redraw;
-#X obj 261 436 *~;
-#X obj 50 464 array.rw~ arw;
-#X obj 69 493 s~ arw;
-#X obj 50 522 ui.hgain~;
-#X obj 50 551 dac~;
-#X obj 299 551 ui.dsp~;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 606 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 558 186 graph;
+#X obj 50 215 openpanel;
+#X obj 165 215 expand_env;
+#X msg 50 244 load \$1 to arw @resize @resample;
+#X obj 50 273 snd.file;
+#X obj 261 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 302 phasor~ 0.22;
+#X obj 261 302 metro.random 1000 1500;
+#X obj 50 330 expr~ $v1*120000;
+#X obj 261 330 t b b b;
+#X obj 69 359 r~ arw;
+#X obj 261 359 random.f;
+#X obj 366 359 random.i 400 1000;
+#X obj 261 388 pack f f;
+#X obj 261 417 vline~;
+#X obj 376 417 random.i 120000;
+#X msg 98 446 redraw;
+#X obj 261 446 *~;
+#X obj 50 474 array.rw~ arw;
+#X obj 69 503 s~ arw;
+#X obj 50 532 ui.hgain~;
+#X obj 50 561 dac~;
+#X obj 299 561 ui.dsp~;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 616 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 609 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 619 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 607 1\.;
-#X text 170 607 symbol;
-#X obj 268 608 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 607 ARRAY: array name. Type: symbol.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 647 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 617 1\.;
+#X text 170 617 symbol;
+#X obj 268 618 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 617 ARRAY: array name. Type: symbol.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 657 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 660 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 648 @array;
-#X text 270 648 Array name. Type: symbol.;
-#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 678 @mix;
-#X text 270 678 Mix amount between read signal and written. Type: float.
+#X msg 130 658 @array;
+#X text 270 658 Array name. Type: symbol.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 688 @mix;
+#X text 270 688 Mix amount between read signal and written. Type: float.
 Default value: 0\. Range: 0\...1\.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 735 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 740 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 745 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 736 redraw;
-#X text 270 736 redraw array.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 779 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 746 redraw;
+#X text 270 746 redraw array.;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 789 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 780 1\.;
-#X text 170 780 ~;
-#X text 270 780 reading index.;
-#X text 130 805 2\.;
-#X text 170 805 ~;
-#X text 270 805 signal to write.;
-#X text 130 830 3\.;
-#X text 170 830 ~;
-#X text 270 830 write index.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 870 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 790 1\.;
+#X text 170 790 ~;
+#X text 270 790 reading index.;
+#X text 130 815 2\.;
+#X text 170 815 ~;
+#X text 270 815 signal to write.;
+#X text 130 840 3\.;
+#X text 170 840 ~;
+#X text 270 840 write index.;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 880 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 871 1\.;
-#X text 170 871 ~;
-#X text 270 871 reading output.;
+#X text 130 881 1\.;
+#X text 170 881 ~;
+#X text 270 881 reading output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 924 library: ceammc v0.9.8;
-#N canvas 10 943 400 290 info 0;
+#X obj 1 931 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 934 library: ceammc v0.9.8;
+#N canvas 10 953 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 943 pd info;
+#X restore 10 953 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 10 0 12 0;

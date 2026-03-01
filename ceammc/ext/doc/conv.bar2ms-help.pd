@@ -7,75 +7,75 @@
 #X obj 458 11 ceammc/bar->ms;
 #X obj 584 11 bar->ms;
 #X obj 660 11 conv.bar2ms;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Example tempo values: 60 \, 120bpm \, 90|4bpm \, 80|3/8bpm;
 #X text 240 108 Example time signature values: |3/8| \, |1/4+3/16|;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X msg 290 186 symbol |7/8|;
-#X obj 69 215 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 50 196 5 0 0 0 - - -;
+#X msg 290 196 symbol |7/8|;
+#X obj 69 225 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 107 215 symbol 128|8.bpm;
-#X listbox 290 215 20 0 0 0 - - -;
-#X obj 50 244 bar->ms 60 |9/8|;
-#X obj 50 273 ui.dt;
-#X obj 184 302 ui.dt;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 107 225 symbol 128|8.bpm;
+#X listbox 290 225 20 0 0 0 - - -;
+#X obj 50 254 bar->ms 60 |9/8|;
+#X obj 50 283 ui.dt;
+#X obj 184 312 ui.dt;
+#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 367 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 370 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 358 1\.;
-#X text 170 358 atom;
-#X obj 268 359 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 BPM(bpm): initial tempo value. Type: atom.;
-#X text 130 383 2\.;
-#X text 170 383 symbol;
-#X obj 268 384 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 383 TSIG: initial time signature value. Type: symbol.;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 423 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 368 1\.;
+#X text 170 368 atom;
+#X obj 268 369 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 368 BPM(bpm): initial tempo value. Type: atom.;
+#X text 130 393 2\.;
+#X text 170 393 symbol;
+#X obj 268 394 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 393 TSIG: initial time signature value. Type: symbol.;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 433 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 426 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 436 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 424 @bpm;
-#X text 270 424 Tempo bpm value. Type: atom. Units: 'bpm'. Default
+#X msg 130 434 @bpm;
+#X text 270 434 Tempo bpm value. Type: atom. Units: 'bpm'. Default
 value: 60|4bpm.;
-#X obj 250 466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 466 @tsig;
-#X text 270 466 Time signature value. Type: symbol. Default value:
+#X obj 250 476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 476 @tsig;
+#X text 270 476 Time signature value. Type: symbol. Default value:
 |4/4|.;
-#X obj 20 506 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 511 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 521 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 512 1\.;
-#X text 170 512 bang:;
-#X text 270 512 output bar and beat duration.;
-#X text 170 537 float:;
-#X text 270 537 set tempo BPM (in quarters) and output.;
-#X text 170 562 symbol:;
-#X text 270 562 set tempo BPM (like "120|8bpm") and output.;
-#X text 170 587 list:;
-#X text 270 587 set tempo BPM and time signature \, then output.;
-#X text 130 612 2\.;
-#X text 170 612 symbol:;
-#X text 270 612 set time signature.;
-#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 652 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 522 1\.;
+#X text 170 522 bang:;
+#X text 270 522 output bar and beat duration.;
+#X text 170 547 float:;
+#X text 270 547 set tempo BPM (in quarters) and output.;
+#X text 170 572 symbol:;
+#X text 270 572 set tempo BPM (like "120|8bpm") and output.;
+#X text 170 597 list:;
+#X text 270 597 set tempo BPM and time signature \, then output.;
+#X text 130 622 2\.;
+#X text 170 622 symbol:;
+#X text 270 622 set time signature.;
+#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 662 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 653 1\.;
-#X text 270 653 bar period in milliseconds.;
-#X text 130 673 2\.;
-#X text 270 673 beat period in milliseconds.;
+#X text 130 663 1\.;
+#X text 270 663 bar period in milliseconds.;
+#X text 130 683 2\.;
+#X text 270 683 beat period in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 723 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 726 library: ceammc v0.9.8;
-#X text 585 738 see also:;
-#X obj 660 738 conv.bpm2ms;
-#N canvas 10 745 400 290 info 0;
+#X obj 1 733 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 736 library: ceammc v0.9.8;
+#X text 585 748 see also:;
+#X obj 660 748 conv.bpm2ms;
+#N canvas 10 755 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 745 pd info;
+#X restore 10 755 pd info;
 #X connect 10 0 13 0;
 #X connect 9 0 14 0;
 #X connect 11 0 14 0;

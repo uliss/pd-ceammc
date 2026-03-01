@@ -5,89 +5,89 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.@process 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hoa.@process;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 With [hoa.@process] you can get [hoa.process~] instance
 properties and get/set properties declared via [prop.declare];
-#X msg 50 191 open 0;
-#X msg 136 191 open 1;
-#X msg 222 191 open 2;
-#X msg 347 191 @*? \, @index? @order? @total? @hdegree? @horder?;
-#X msg 366 220 @freq? \, #1 @freq 1000 \, @freq?;
-#X msg 386 249 #0 @freq 740 \, #2 @freq 300;
-#X msg 405 278 #0 @freq 200 \, #1 @freq 600 \, #2 @freq 500;
-#X msg 482 307 3;
-#X obj 482 335 list.gen;
-#X obj 606 335 random.int 100 1000;
-#X text 261 364 click me;
-#X obj 482 364 list.do;
-#X msg 606 364 #\$2 @freq \$1;
-#X obj 50 393 hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq"
+#X msg 50 201 open 0;
+#X msg 136 201 open 1;
+#X msg 222 201 open 2;
+#X msg 347 201 @*? \, @index? @order? @total? @hdegree? @horder?;
+#X msg 366 230 @freq? \, #1 @freq 1000 \, @freq?;
+#X msg 386 259 #0 @freq 740 \, #2 @freq 300;
+#X msg 405 288 #0 @freq 200 \, #1 @freq 600 \, #2 @freq 500;
+#X msg 482 317 3;
+#X obj 482 345 list.gen;
+#X obj 606 345 random.int 100 1000;
+#X text 261 374 click me;
+#X obj 482 374 list.do;
+#X msg 606 374 #\$2 @freq \$1;
+#X obj 50 403 hoa.process~ 3 hoa/hoa_prop_example1 planewaves "@freq"
 250, f 60;
-#X obj 50 451 ui.hgain~;
-#X obj 184 451 ui.dsp~;
-#X obj 472 451 print;
-#X obj 50 479 dac~;
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 534 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 461 ui.hgain~;
+#X obj 184 461 ui.dsp~;
+#X obj 472 461 print;
+#X obj 50 489 dac~;
+#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 544 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 537 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 547 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 535 @hdegree?;
-#X text 270 535 (readonly) Current harmonic degree in hoa.process~
+#X msg 130 545 @hdegree?;
+#X text 270 545 (readonly) Current harmonic degree in hoa.process~
 instance (only in harmonics mode). Type: int. Default value: 0\.;
-#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 592 @horder?;
-#X text 270 592 (readonly) Current harmonic order in hoa.process~ instance
+#X obj 250 602 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 602 @horder?;
+#X text 270 602 (readonly) Current harmonic order in hoa.process~ instance
 (only in harmonics mode). Type: int. Default value: 0\.;
-#X obj 250 649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 649 @index?;
-#X text 270 649 (readonly) Current instance index starting from 0\.
+#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 659 @index?;
+#X text 270 659 (readonly) Current instance index starting from 0\.
 Type: int. Default value: 0\.;
-#X obj 250 691 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 691 @order?;
-#X text 270 691 (readonly) Order of parent hoa.process~. Type: int.
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @order?;
+#X text 270 701 (readonly) Order of parent hoa.process~. Type: int.
 Default value: 0\.;
-#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 733 @pmode?;
-#X text 270 733 (readonly) Amibisonic mode. Type: symbol. Allowed values:
+#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 743 @pmode?;
+#X text 270 743 (readonly) Amibisonic mode. Type: symbol. Allowed values:
 2d \, 3d.;
-#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 775 @ptype?;
-#X text 270 775 (readonly) Amibisonic type. Type: symbol. Allowed values:
+#X obj 250 785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 785 @ptype?;
+#X text 270 785 (readonly) Amibisonic type. Type: symbol. Allowed values:
 harmonics \, planewaves.;
-#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 817 @total?;
-#X text 270 817 (readonly) Total number of hoa.process~ instances.
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 827 @total?;
+#X text 270 827 (readonly) Total number of hoa.process~ instances.
 Type: int. Default value: 0\.;
-#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 874 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 879 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 884 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 875 1\.;
-#X text 270 875 set or request properties.;
-#X text 170 900 bang:;
-#X text 270 900 if harmonics mode output list: @order @hdegree @horder
+#X text 130 885 1\.;
+#X text 270 885 set or request properties.;
+#X text 170 910 bang:;
+#X text 270 910 if harmonics mode output list: @order @hdegree @horder
 \, in planewaves: @order @index @index.;
-#X text 170 940 float:;
-#X text 270 940 pass float message thru.;
-#X text 170 965 symbol:;
-#X text 270 965 pass symbol message thru.;
-#X text 170 990 list:;
-#X text 270 990 pass list message thru.;
-#X obj 20 1025 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1030 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 170 950 float:;
+#X text 270 950 pass float message thru.;
+#X text 170 975 symbol:;
+#X text 270 975 pass symbol message thru.;
+#X text 170 1000 list:;
+#X text 270 1000 pass list message thru.;
+#X obj 20 1035 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1040 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1031 1\.;
-#X text 270 1031 outputs properties.;
+#X text 130 1041 1\.;
+#X text 270 1041 outputs properties.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1081 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1084 library: ceammc v0.9.8;
-#X text 577 1096 see also:;
-#X obj 652 1096 hoa.process~;
-#N canvas 10 1103 400 290 info 0;
+#X obj 1 1091 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1094 library: ceammc v0.9.8;
+#X text 577 1106 see also:;
+#X obj 652 1106 hoa.process~;
+#N canvas 10 1113 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1103 pd info;
+#X restore 10 1113 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 17 0;
 #X connect 6 0 19 0;

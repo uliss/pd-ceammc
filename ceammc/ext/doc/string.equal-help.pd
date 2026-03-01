@@ -15,7 +15,7 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 symbol;
@@ -24,7 +24,7 @@
 #X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 286 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 284 @subj;
 #X text 270 284 String to compare. Type: symbol.;

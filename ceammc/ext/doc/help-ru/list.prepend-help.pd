@@ -5,94 +5,94 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.prepend 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 list.prepend;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Works with data atoms;
-#X obj 50 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 88 161 5 0 0 0 - - -;
-#X obj 136 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 88 171 5 0 0 0 - - -;
+#X obj 136 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 203 161 1 2 3 4 5;
-#X obj 318 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 203 171 1 2 3 4 5;
+#X obj 318 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 136 190 str test1;
-#X obj 318 190 str ANOTHER STRING;
-#X obj 50 233 list.prepend "@prop" ABC;
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 136 200 str test1;
+#X obj 318 200 str ANOTHER STRING;
+#X obj 50 243 list.prepend "@prop" ABC;
+#X obj 50 272 ui.dt;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 327 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 330 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 list;
-#X obj 268 319 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 VALUE: prepend values. Тип: list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 328 1\.;
+#X text 170 328 list;
+#X obj 268 329 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 328 VALUE: prepend values. Type: list.;
+#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 368 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 371 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @value;
-#X text 270 359 Prepend values. Тип: list.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 369 @value;
+#X text 270 369 Prepend values. Type: list.;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 414 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 405 1\.;
-#X text 170 405 bang:;
-#X text 270 405 treated as empty input list.;
-#X text 170 430 float:;
-#X text 270 430 input float.;
-#X text 170 455 symbol:;
-#X text 270 455 input symbol.;
-#X text 170 480 list:;
-#X text 270 480 input list.;
-#X text 170 505 data:mlist:;
-#X text 270 505 input mlist.;
-#X text 170 530 data:;
-#X text 270 530 input data.;
-#X text 130 555 2\.;
-#X text 170 555 list:;
-#X text 270 555 set prepended atom or list.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 595 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 596 1\.;
-#X text 270 596 output concatenated list.;
+#X text 130 415 1\.;
+#X text 170 415 bang:;
+#X text 270 415 treated as empty input list.;
+#X text 170 440 float:;
+#X text 270 440 input float.;
+#X text 170 465 symbol:;
+#X text 270 465 input symbol.;
+#X text 170 490 list:;
+#X text 270 490 input list.;
+#X text 170 515 data:mlist:;
+#X text 270 515 input mlist.;
+#X text 170 540 data:;
+#X text 270 540 input data.;
+#X text 130 565 2\.;
+#X text 170 565 list:;
+#X text 270 565 set prepended atom or list.;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 605 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 606 1\.;
+#X text 270 606 output concatenated list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 646 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 649 библиотека: ceammc v0.9.8;
-#X text 540 661 смотрите также:;
-#X obj 661 661 list.append;
-#N canvas 10 668 400 290 info 0;
+#X obj 1 656 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 659 library: ceammc v0.9.8;
+#X text 586 671 see also:;
+#X obj 661 671 list.append;
+#N canvas 10 678 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 list.prepend;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 list;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 list \, prepend;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 668 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 678 pd info;
 #X connect 8 0 11 0;
 #X connect 10 0 12 0;
 #X connect 6 0 13 0;

@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.3d.optim~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 hoa.3d.optim~;
-#X obj 230 78 cnv 1 535 249 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 259 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Weights the circular harmonics signals depending on
 the ambisonic optimization. It can be "basic" for no optimization \,
 "maxre" or "inphase".;
@@ -17,115 +17,115 @@ to the center of the circle.;
 all the circle.;
 #X text 240 258 NB: This is theoretical \, the best choice is to trust
 your ears.;
-#X obj 240 298 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 301 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.3d.optim~-help.pd;
-#X obj 50 375 hoa/hoa.soundrone;
-#X obj 280 375 phasor~ 0.15;
-#X obj 50 404 ui.gain~ @size 120 14;
-#X obj 280 404 phase->rad~;
-#X obj 414 404 ui.menu basic maxre inphase;
-#X obj 50 433 hoa.3d.encoder~ 3, f 30;
-#X msg 414 433 @mode \$2;
-#X obj 50 462 hoa.3d.optim~ 3 inphase, f 30;
-#X obj 88 491 hoa.3d.scope~ 3 @gain 4 @size 164 164;
-#X obj 50 663 hoa.3d.decoder~ 3 regular 16, f 30;
-#X obj 50 692 xdac~ 1:16, f 30;
-#X obj 50 721 ui.dsp~;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 776 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 385 hoa/hoa.soundrone;
+#X obj 280 385 phasor~ 0.15;
+#X obj 50 414 ui.gain~ @size 120 14;
+#X obj 280 414 phase->rad~;
+#X obj 414 414 ui.menu basic maxre inphase;
+#X obj 50 443 hoa.3d.encoder~ 3, f 30;
+#X msg 414 443 @mode \$2;
+#X obj 50 472 hoa.3d.optim~ 3 inphase, f 30;
+#X obj 88 501 hoa.3d.scope~ 3 @gain 4 @size 164 164;
+#X obj 50 673 hoa.3d.decoder~ 3 regular 16, f 30;
+#X obj 50 702 xdac~ 1:16, f 30;
+#X obj 50 731 ui.dsp~;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 786 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 779 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 789 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 777 1\.;
-#X text 170 777 int;
-#X obj 268 778 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 777 ORDER: the order of decomposition. Тип: int. Диапазон:
-1…10;
-#X text 130 802 2\.;
-#X text 170 802 symbol;
-#X obj 268 803 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 802 MODE: optimization mode. Разрешённые значения: basic
-\, maxre \, inphase. Тип: symbol.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 857 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 787 1\.;
+#X text 170 787 int;
+#X obj 268 788 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 787 ORDER: the order of decomposition. Type: int. Range:
+1\...10;
+#X text 130 812 2\.;
+#X text 170 812 symbol;
+#X obj 268 813 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 812 MODE: optimization mode. Allowed values: basic \, maxre
+\, inphase. Type: symbol.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 867 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 860 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 870 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 858 @order;
-#X text 270 858 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
-#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 900 @basic;
-#X text 270 900 Alias for @mode basic (no optimization).;
-#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 930 @inphase;
-#X text 270 930 Alias for @mode inphase.;
-#X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 960 @maxre;
-#X text 270 960 Alias for @mode maxre.;
-#X obj 250 990 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 990 @mode;
-#X text 270 990 Optimization mode. Тип: symbol. Значение по умолчанию:
-basic. Разрешённые значения: basic \, maxre \, inphase.;
-#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1047 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1048 1\.;
-#X text 170 1048 ~;
-#X text 270 1048 first input harmonic.;
-#X text 130 1073 ...;
-#X text 170 1073 ~;
-#X text 270 1073 ... input harmonic.;
-#X text 130 1098 n.;
-#X text 170 1098 ~;
-#X text 270 1098 n-th input harmonic.;
-#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1138 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 868 @order;
+#X text 270 868 (initonly) The order of decomposition. Type: int. Default
+value: 1\. Range: 1\...10\.;
+#X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 910 @basic;
+#X text 270 910 Alias for @mode basic (no optimization).;
+#X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 940 @inphase;
+#X text 270 940 Alias for @mode inphase.;
+#X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 970 @maxre;
+#X text 270 970 Alias for @mode maxre.;
+#X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1000 @mode;
+#X text 270 1000 Optimization mode. Type: symbol. Default value: basic.
+Allowed values: basic \, maxre \, inphase.;
+#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1057 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1139 1\.;
-#X text 170 1139 ~;
-#X text 270 1139 first harmonic output.;
-#X text 130 1159 ...;
-#X text 170 1159 ~;
-#X text 270 1159 ... harmonic output.;
-#X text 130 1179 n.;
-#X text 170 1179 ~;
-#X text 270 1179 n-th harmonic output.;
+#X text 130 1058 1\.;
+#X text 170 1058 ~;
+#X text 270 1058 first input harmonic.;
+#X text 130 1083 ...;
+#X text 170 1083 ~;
+#X text 270 1083 ... input harmonic.;
+#X text 130 1108 n.;
+#X text 170 1108 ~;
+#X text 270 1108 n-th input harmonic.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1148 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1149 1\.;
+#X text 170 1149 ~;
+#X text 270 1149 first harmonic output.;
+#X text 130 1169 ...;
+#X text 170 1169 ~;
+#X text 270 1169 ... harmonic output.;
+#X text 130 1189 n.;
+#X text 170 1189 ~;
+#X text 270 1189 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1229 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1232 библиотека: ceammc v0.9.8;
-#X text 509 1244 смотрите также:;
-#X obj 630 1244 hoa.3d.decoder~;
-#N canvas 10 1251 400 290 info 0;
+#X obj 1 1239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1242 library: ceammc v0.9.8;
+#X text 555 1254 see also:;
+#X obj 630 1254 hoa.3d.decoder~;
+#N canvas 10 1261 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 hoa.3d.optim~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 spat;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
 Thomas Le Meur;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 hoa \, optim \, 3d;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1251 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1261 pd info;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;
 #X connect 13 0 16 0;

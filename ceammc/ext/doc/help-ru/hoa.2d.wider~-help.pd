@@ -6,97 +6,97 @@
 -4096 0;
 #X obj 546 11 hoa.wider~;
 #X obj 645 11 hoa.2d.wider~;
-#X obj 230 78 cnv 1 535 104 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 114 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 hoa.2d.wider~ can be used to wide the diffusion of a
 localised sound. The order depending signals are weighted and appear
 in a logarithmic way to have linear changes.;
-#X obj 240 153 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 156 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.wider~-help.pd;
-#X obj 50 230 lfo.square~ 1;
-#X obj 50 259 ui.gain~ @size 120 14;
-#X obj 280 259 ui.knob;
-#X obj 50 288 hoa.encoder~ 5, f 24;
-#X obj 50 317 hoa.wider~ 5, f 24;
-#X obj 50 346 hoa.scope~ @order 5 @size 171 171;
-#X obj 50 533 ui.dsp~;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 588 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 240 lfo.square~ 1;
+#X obj 50 269 ui.gain~ @size 120 14;
+#X obj 280 269 ui.knob;
+#X obj 50 298 hoa.encoder~ 5, f 24;
+#X obj 50 327 hoa.wider~ 5, f 24;
+#X obj 50 356 hoa.scope~ @order 5 @size 171 171;
+#X obj 50 543 ui.dsp~;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 598 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 591 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 601 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 589 1\.;
-#X text 170 589 int;
-#X obj 268 590 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 589 ORDER: the order of decomposition. Тип: int. Диапазон:
-1…63;
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 629 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 599 1\.;
+#X text 170 599 int;
+#X obj 268 600 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 599 ORDER: the order of decomposition. Type: int. Range:
+1\...63;
+#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 639 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 632 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 642 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 630 @order;
-#X text 270 630 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 687 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 640 @order;
+#X text 270 640 (initonly) The order of decomposition. Type: int. Default
+value: 1\. Range: 1\...63\.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 697 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 688 1\.;
-#X text 170 688 ~;
-#X text 270 688 first input signal.;
-#X text 130 713 ...;
-#X text 170 713 ~;
-#X text 270 713 ... input signal.;
-#X text 130 738 n.;
-#X text 170 738 ~;
-#X text 270 738 n-th input signal.;
-#X text 130 763 n+1\.;
-#X text 170 763 ~;
-#X text 270 763 widening signal in [0-1] range.;
-#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 804 1\.;
-#X text 170 804 ~;
-#X text 270 804 first circular harmonics output.;
-#X text 130 824 ...;
-#X text 170 824 ~;
-#X text 270 824 ... circular harmonics output.;
-#X text 130 844 n.;
-#X text 170 844 ~;
-#X text 270 844 n-th circular harmonics output.;
+#X text 130 698 1\.;
+#X text 170 698 ~;
+#X text 270 698 first input signal.;
+#X text 130 723 ...;
+#X text 170 723 ~;
+#X text 270 723 ... input signal.;
+#X text 130 748 n.;
+#X text 170 748 ~;
+#X text 270 748 n-th input signal.;
+#X text 130 773 n+1\.;
+#X text 170 773 ~;
+#X text 270 773 widening signal in [0-1] range.;
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 813 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 814 1\.;
+#X text 170 814 ~;
+#X text 270 814 first circular harmonics output.;
+#X text 130 834 ...;
+#X text 170 834 ~;
+#X text 270 834 ... circular harmonics output.;
+#X text 130 854 n.;
+#X text 170 854 ~;
+#X text 270 854 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 894 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 897 библиотека: ceammc v0.9.8;
-#N canvas 10 916 400 290 info 0;
+#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 907 library: ceammc v0.9.8;
+#N canvas 10 926 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 hoa.2d.wider~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 spat;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.8;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
 Thomas Le Meur;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 hoa \, wider;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 916 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 926 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

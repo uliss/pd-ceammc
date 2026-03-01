@@ -6,85 +6,85 @@
 -4096 0;
 #X obj 532 11 array.histogram;
 #X obj 667 11 array.hist;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Values outside of range @min...@max are ignored;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ahist 512 float 0;
 #X coords 0 1 512 -1 330 100 1;
-#X restore 50 161 graph;
-#X obj 386 161 ui.sliders @size 40 100 @receive ahist-r @auto_count 1
+#X restore 50 171 graph;
+#X obj 386 171 ui.sliders @size 40 100 @receive ahist-r @auto_count 1
 @auto_range_mode max;
-#X obj 50 277 loadbang;
-#X msg 50 305 uniform -1 -0.2;
-#X msg 222 305 gauss 0.5 0.2;
-#X msg 376 305 sin 50 0.6;
-#X msg 501 305 fill 0;
-#X obj 50 363 array.fill ahist;
-#X obj 50 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 287 loadbang;
+#X msg 50 315 uniform -1 -0.2;
+#X msg 222 315 gauss 0.5 0.2;
+#X msg 376 315 sin 50 0.6;
+#X msg 501 315 fill 0;
+#X obj 50 373 array.fill ahist;
+#X obj 50 402 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 421 array.hist ahist 100;
-#X obj 50 449 list.reverse;
-#X obj 50 478 s ahist-r;
-#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 533 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 431 array.hist ahist 100;
+#X obj 50 459 list.reverse;
+#X obj 50 488 s ahist-r;
+#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 543 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 536 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 546 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 534 1\.;
-#X text 170 534 symbol;
-#X obj 268 535 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 534 ARRAY: array name. Type: symbol.;
-#X text 130 559 2\.;
-#X text 170 559 int;
-#X obj 268 560 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 559 BINS: number of bins. Type: int. Range: 2\...1000;
-#X text 130 584 3\.;
-#X text 170 584 float;
-#X obj 268 585 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 584 MIN: minimal value. Type: float.;
-#X text 130 609 4\.;
-#X text 170 609 float;
-#X obj 268 610 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 609 MAX: maximum value. Type: float.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 544 1\.;
+#X text 170 544 symbol;
+#X obj 268 545 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 544 ARRAY: array name. Type: symbol.;
+#X text 130 569 2\.;
+#X text 170 569 int;
+#X obj 268 570 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 569 BINS: number of bins. Type: int. Range: 2\...1000;
+#X text 130 594 3\.;
+#X text 170 594 float;
+#X obj 268 595 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 594 MIN: minimal value. Type: float.;
+#X text 130 619 4\.;
+#X text 170 619 float;
+#X obj 268 620 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 619 MAX: maximum value. Type: float.;
+#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 659 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 662 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 650 @array;
-#X text 270 650 Array name. Type: symbol.;
-#X obj 250 680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 680 @bins;
-#X text 270 680 Number of bins. Type: int. Default value: 100\. Range:
+#X msg 130 660 @array;
+#X text 270 660 Array name. Type: symbol.;
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 690 @bins;
+#X text 270 690 Number of bins. Type: int. Default value: 100\. Range:
 2\...1000\.;
-#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 722 @max;
-#X text 270 722 Maximum value. Type: float. Default value: 1\.;
-#X obj 250 752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 752 @min;
-#X text 270 752 Minimal value. Type: float. Default value: -1\.;
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 797 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 732 @max;
+#X text 270 732 Maximum value. Type: float. Default value: 1\.;
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 762 @min;
+#X text 270 762 Minimal value. Type: float. Default value: -1\.;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 798 1\.;
-#X text 170 798 bang:;
-#X text 270 798 calculates and outputs histogram.;
-#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 838 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 808 1\.;
+#X text 170 808 bang:;
+#X text 270 808 calculates and outputs histogram.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 839 1\.;
-#X text 170 839 list:;
-#X text 270 839 histogram values (length = number of @bins).;
+#X text 130 849 1\.;
+#X text 170 849 list:;
+#X text 270 849 histogram values (length = number of @bins).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 889 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 892 library: ceammc v0.9.8;
-#X text 563 904 see also:;
-#X obj 638 904 list.histogram;
-#N canvas 10 911 400 290 info 0;
+#X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 902 library: ceammc v0.9.8;
+#X text 563 914 see also:;
+#X obj 638 914 list.histogram;
+#N canvas 10 921 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 911 pd info;
+#X restore 10 921 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

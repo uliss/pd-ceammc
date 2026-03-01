@@ -5,28 +5,28 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.cbrt 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 math.cbrt;
-#X obj 230 78 cnv 1 535 110 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 120 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The cbrt() function computes the cube root of input
 value.;
 #X text 240 108 Special values:;
 #X text 240 133 cbrt(+-0) returns +-0\.;
 #X text 240 158 cbrt(+-infinity) returns +-infinity.;
-#X floatatom 50 236 5 0 0 0 - - -;
-#X obj 50 265 math.cbrt;
-#X floatatom 50 294 5 0 0 0 - - -;
-#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 331 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X floatatom 50 246 5 0 0 0 - - -;
+#X obj 50 275 math.cbrt;
+#X floatatom 50 304 5 0 0 0 - - -;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 341 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 332 1\.;
-#X text 170 332 float:;
-#X text 270 332 input value.;
-#X text 170 357 list:;
-#X text 270 357 apply to all numeric values.;
-#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 397 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 342 1\.;
+#X text 170 342 float:;
+#X text 270 342 input value.;
+#X text 170 367 list:;
+#X text 270 367 apply to all numeric values.;
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 407 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 398 1\.;
-#X text 270 398 result value.;
+#X text 130 408 1\.;
+#X text 270 408 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

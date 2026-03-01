@@ -21,95 +21,95 @@
 #X obj 50 406 *~;
 #X obj 50 435 dac~;
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 490 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 493 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 491 1\.;
 #X text 170 491 symbol;
 #X obj 268 492 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 491 FILENAME: initial MIDI filename. Тип: symbol.;
+#X text 270 491 FILENAME: initial MIDI filename. Type: symbol.;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 531 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 534 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 534 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 532 @filename;
-#X text 270 532 Current filename. Тип: symbol.;
+#X text 270 532 Current filename. Type: symbol.;
 #X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 562 @length_beat?;
-#X text 270 562 (только чтение) File length in quarters. Тип: float.
-Значение по умолчанию: 0\.;
+#X text 270 562 (readonly) File length in quarters. Type: float. Default
+value: 0\.;
 #X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 604 @length_sec?;
-#X text 270 604 (только чтение) File length. Тип: float. Единицы: 'sec'.
-Значение по умолчанию: 0\.;
+#X text 270 604 (readonly) File length. Type: float. Units: 'sec'.
+Default value: 0\.;
 #X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 646 @length_tick?;
-#X text 270 646 (только чтение) File length in ticks. Тип: int. Значение
-по умолчанию: 0\.;
+#X text 270 646 (readonly) File length in ticks. Type: int. Default
+value: 0\.;
 #X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 688 @tempo?;
-#X text 270 688 (только чтение) Midi tempo in ticks per quarter. Тип:
-int. Значение по умолчанию: 120\.;
+#X text 270 688 (readonly) Midi tempo in ticks per quarter. Type: int.
+Default value: 120\.;
 #X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @tracks?;
-#X text 270 730 (только чтение) Number of tracks. Тип: int. Значение
-по умолчанию: 1\.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 787 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 730 (readonly) Number of tracks. Type: int. Default value:
+1\.;
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 775 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 776 clear;
+#X text 270 776 removes all midi file content.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 804 read;
+#X text 270 804 read specified midi file. No output.;
+#X obj 250 832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 832 write;
+#X text 270 832 write to specified midi file.;
+#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 875 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 788 clear;
-#X text 270 788 removes all midi file content.;
-#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 816 read;
-#X text 270 816 read specified midi file. No output.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 write;
-#X text 270 844 write to specified midi file.;
-#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 887 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 888 1\.;
-#X text 170 888 bang:;
-#X text 270 888 output MidiFile data type.;
-#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 928 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 929 1\.;
-#X text 270 929 MidiStream data type.;
+#X text 130 876 1\.;
+#X text 170 876 bang:;
+#X text 270 876 output MidiFile data type.;
+#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 916 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 917 1\.;
+#X text 270 917 MidiStream data type.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 982 библиотека: ceammc v0.9.8;
-#N canvas 10 1001 400 290 info 0;
+#X obj 1 967 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 970 library: ceammc v0.9.8;
+#N canvas 10 989 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 midi.file;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 midi;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 midi \, file;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1001 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 989 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

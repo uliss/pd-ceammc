@@ -7,41 +7,41 @@
 #X obj 533 11 ceammc/pi~;
 #X obj 632 11 pi~;
 #X obj 680 11 math.pi~;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The number PI is a mathematical constant \, the ratio
 of a circle's circumference to its diameter \, commonly approximated
 as 3.14159\.;
-#X obj 50 191 ui.dsp~;
-#X obj 50 235 math.pi~;
-#X obj 203 235 math.pi~ 2;
-#X obj 50 263 ui.n~;
-#X obj 203 263 ui.n~;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 318 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 201 ui.dsp~;
+#X obj 50 245 math.pi~;
+#X obj 203 245 math.pi~ 2;
+#X obj 50 273 ui.n~;
+#X obj 203 273 ui.n~;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 328 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 321 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 331 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 319 1\.;
-#X text 170 319 float;
-#X obj 268 320 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 319 K: multiplier. default is 1\. Type: float.;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 359 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 329 1\.;
+#X text 170 329 float;
+#X obj 268 330 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 329 K: multiplier. default is 1\. Type: float.;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 369 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 362 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 372 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 360 @k;
-#X text 270 360 (initonly) Multiplier. Type: float. Default value:
+#X msg 130 370 @k;
+#X text 270 370 (initonly) Multiplier. Type: float. Default value:
 1\.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 405 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 415 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 441 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 432 1\.;
-#X text 170 432 ~;
-#X text 270 432 output value.;
+#X text 130 442 1\.;
+#X text 170 442 ~;
+#X text 270 442 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

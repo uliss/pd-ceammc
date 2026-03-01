@@ -17,7 +17,7 @@
 #X obj 50 234 ui.lcd @size 120 120 @nosave 1;
 #X text 50 334;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 20 371 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 406 Right-click + ⇧;
 #X text 310 406 open object help.;
@@ -25,228 +25,228 @@
 #X text 310 426 open properties dialog.;
 #X text 130 446 Right-click;
 #X text 310 446 opens Pd popup menu.;
-#X text 65 446 [Правка];
+#X text 81 446 [Edit];
 #X text 130 466 Right-click + ⇧;
 #X text 310 466 open the object help.;
-#X text 65 466 [Правка];
+#X text 81 466 [Edit];
 #X text 130 486 Right-click + ⌥;
 #X text 310 486 open properties dialog.;
-#X text 65 486 [Правка];
+#X text 81 486 [Edit];
 #X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 521 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 521 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 524 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 524 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 522 @cols;
-#X text 270 522 Number of columns. Тип: int. Значение по умолчанию:
-8\. Диапазон: 2\...128\.;
+#X text 270 522 Number of columns. Type: int. Default value: 8\. Range:
+2\...128\.;
 #X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 564 @receive;
-#X text 270 564 Источник получения сообщений. Тип: symbol. Значение
-по умолчанию: (null).;
+#X text 270 564 Источник получения сообщений. Type: symbol. Default
+value: (null).;
 #X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 606 @rows;
-#X text 270 606 Number of rows. Тип: int. Значение по умолчанию: 8\.
-Диапазон: 2\...128\.;
+#X text 270 606 Number of rows. Type: int. Default value: 8\. Range:
+2\...128\.;
 #X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 648 @send;
-#X text 270 648 Адрес отправки сообщений. Тип: symbol. Значение по
-умолчанию: (null).;
+#X text 270 648 Адрес отправки сообщений. Type: symbol. Default value:
+(null).;
 #X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 690 @background_color;
 #X text 270 690 Element background color (list of red \, green \, blue
-values in 0-1 range). Тип: list. Значение по умолчанию: 1 1 1 1\.;
-#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 747 @border_color;
-#X text 270 747 Цвет границы объекта (список из красного \, зеленого
-и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0.6 0.6 0.6 1\.;
-#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 804 @label;
-#X text 270 804 Текст ярлыка. Тип: symbol. Значение по умолчанию: (null).;
-#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 834 @label_align;
-#X text 270 834 Горизонтальное выравнивание ярлыка. Тип: symbol. Значение
-по умолчанию: left. Разрешённые значения: left \, center \, right.;
-#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 891 @label_inner;
-#X text 270 891 Положение ярлыка (1 - внутри \, 0 - снаружи объекта).
-Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 933 @label_margins;
-#X text 270 933 Отступы ярлыка в пикселях по осям X и Y. Тип: list.
-Значение по умолчанию: 0 0\.;
-#X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 975 @label_side;
-#X text 270 975 Сторона прикрепления ярлыка. Тип: symbol. Значение
-по умолчанию: top. Разрешённые значения: left \, top \, right \, bottom.;
-#X obj 250 1032 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1032 @label_valign;
-#X text 270 1032 Вертикальное выравнивание ярлыка. Тип: symbol. Значение
-по умолчанию: top. Разрешённые значения: top \, center \, bottom.;
-#X obj 250 1089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1089 @fontname;
-#X text 270 1089 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
-Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1146 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1146 @fontsize;
-#X text 270 1146 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
-#X obj 250 1188 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1188 @fontslant;
-#X text 270 1188 Наклон шрифта. Тип: symbol. Значение по умолчанию:
-roman. Разрешённые значения: roman \, italic.;
-#X obj 250 1230 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1230 @fontweight;
-#X text 270 1230 Толщину шрифта. Тип: symbol. Значение по умолчанию:
-normal. Разрешённые значения: normal \, bold.;
-#X obj 250 1272 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1272 @pinned;
-#X text 270 1272 Режим закрепления. Если 1 - помещает элемент на самый
-дальний уровень на холсте за другими элементам. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 1329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1329 @size;
-#X text 270 1329 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
-по умолчанию: 64 64\.;
-#X obj 250 1371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1371 @pixels?;
-#X text 270 1371 (только чтение) Number of pixels. Тип: int. Значение
-по умолчанию: 64\.;
-#X obj 20 1423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1428 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
+#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 732 @border_color;
+#X text 270 732 Цвет границы объекта (список из красного \, зеленого
+и синего цветов в [0\..1] диапазоне). Type: list. Default value: 0.6
+0.6 0.6 1\.;
+#X obj 250 789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 789 @label;
+#X text 270 789 Текст ярлыка. Type: symbol. Default value: (null).;
+#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 819 @label_align;
+#X text 270 819 Горизонтальное выравнивание ярлыка. Type: symbol. Default
+value: left. Allowed values: left \, center \, right.;
+#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 861 @label_inner;
+#X text 270 861 Положение ярлыка (1 - внутри \, 0 - снаружи объекта).
+Type: bool. Default value: 0\.;
+#X obj 250 903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 903 @label_margins;
+#X text 270 903 Отступы ярлыка в пикселях по осям X и Y. Type: list.
+Default value: 0 0\.;
+#X obj 250 945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 945 @label_side;
+#X text 270 945 Сторона прикрепления ярлыка. Type: symbol. Default
+value: top. Allowed values: left \, top \, right \, bottom.;
+#X obj 250 987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 987 @label_valign;
+#X text 270 987 Вертикальное выравнивание ярлыка. Type: symbol. Default
+value: top. Allowed values: top \, center \, bottom.;
+#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1029 @fontname;
+#X text 270 1029 Имя шрифта. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1086 @fontsize;
+#X text 270 1086 Размер шрифта. Type: int. Default value: 11\. Range:
+4\...100\.;
+#X obj 250 1128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1128 @fontslant;
+#X text 270 1128 Наклон шрифта. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X obj 250 1170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1170 @fontweight;
+#X text 270 1170 Толщину шрифта. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X obj 250 1212 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1212 @pinned;
+#X text 270 1212 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Type: bool. Default
+value: 0\.;
+#X obj 250 1269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1269 @size;
+#X text 270 1269 Размер объекта (пара: ШИРИНА ВЫСОТА). Type: list.
+Default value: 64 64\.;
+#X obj 250 1311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1311 @pixels?;
+#X text 270 1311 (readonly) Number of pixels. Type: int. Default value:
+64\.;
+#X obj 20 1351 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1356 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1429 clear;
-#X text 270 1429 clear display.;
-#X obj 250 1457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1457 draw down;
-#X text 270 1457 moves draw cursor down along y-asis ans draw single
-pixel. Аргументы:;
-#X obj 280 1495 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1495 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
-#X obj 250 1520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1520 draw left;
-#X text 270 1520 moves draw cursor left along x-asis ans draw single
-pixel. Аргументы:;
-#X obj 280 1558 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1558 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
-#X obj 250 1583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1583 draw right;
-#X text 270 1583 moves cursor right along x-asis ans draw single pixel.
-Аргументы:;
-#X obj 280 1621 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1621 [XOFF]: x-offset. If omitted: 1\. Тип: int.;
-#X obj 250 1646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1646 draw set;
-#X text 270 1646 set drawing value. Аргументы:;
-#X obj 280 1669 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1669 VALUE: draw pixel value (1: black \, 0: white). Тип:
+#X msg 130 1357 clear;
+#X text 270 1357 clear display.;
+#X obj 250 1385 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1385 draw down;
+#X text 270 1385 moves draw cursor down along y-asis ans draw single
+pixel. Arguments are:;
+#X obj 280 1423 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1423 [YOFF]: y-offset. If omitted: 1\. Type: int.;
+#X obj 250 1448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1448 draw left;
+#X text 270 1448 moves draw cursor left along x-asis ans draw single
+pixel. Arguments are:;
+#X obj 280 1486 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1486 [XOFF]: x-offset. If omitted: 1\. Type: int.;
+#X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1511 draw right;
+#X text 270 1511 moves cursor right along x-asis ans draw single pixel.
+Arguments are:;
+#X obj 280 1549 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1549 [XOFF]: x-offset. If omitted: 1\. Type: int.;
+#X obj 250 1574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1574 draw set;
+#X text 270 1574 set drawing value. Arguments are:;
+#X obj 280 1597 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1597 VALUE: draw pixel value (1: black \, 0: white). Type:
 bool.;
-#X obj 250 1694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1694 draw up;
-#X text 270 1694 moves draw cursor up along y-asis ans draw single
-pixel. Аргументы:;
-#X obj 280 1732 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1732 [YOFF]: y-offset. If omitted: 1\. Тип: int.;
-#X obj 250 1757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1757 invert;
-#X text 270 1757 invert display.;
-#X obj 250 1785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1785 pos;
-#X text 270 1785 set UI element position. Аргументы:;
-#X obj 280 1808 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1808 X: top left x-coord. Тип: float.;
-#X obj 280 1831 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1831 Y: top right y-coord. Тип: float.;
-#X obj 250 1856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1856 set;
-#X text 270 1856 set display content. Аргументы:;
-#X obj 280 1879 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1879 PIXELS: pixel values. Тип: list.;
-#X obj 250 1904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1904 set col;
-#X text 270 1904 set column content. Аргументы:;
-#X obj 280 1927 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1927 N: column index. Тип: int.;
-#X obj 280 1950 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1950 PIXELS: column pixel values. Тип: list.;
-#X obj 250 1975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1975 set cursor;
-#X text 270 1975 set draw cursor point. Аргументы:;
-#X obj 280 1998 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1998 X: X-position (from left). Тип: int.;
-#X obj 280 2021 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2021 Y: Y-position (from top). Тип: int.;
-#X obj 250 2046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2046 set matrix;
-#X text 270 2046 set matrix data. Аргументы:;
-#X obj 280 2069 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2069 NROWS: matrix row number. Тип: int.;
-#X obj 280 2092 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2092 NCOLS: matrix column numbers. Тип: int.;
-#X obj 280 2115 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2115 VALUES: pixel values. Тип: list.;
-#X obj 250 2140 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2140 set pixel;
-#X text 270 2140 set single pixel. Аргументы:;
-#X obj 280 2163 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2163 X: X-position (from left). Тип: int.;
-#X obj 280 2186 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2186 Y: Y-position (from top). Тип: int.;
-#X obj 280 2209 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2209 VALUE: pixel value. Тип: bool.;
-#X obj 250 2234 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2234 set row;
-#X text 270 2234 set row content. Аргументы:;
-#X obj 280 2257 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2257 N: row index. Тип: int.;
-#X obj 280 2280 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2280 PIXELS: row pixel values. Тип: list.;
-#X obj 250 2305 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2305 dump;
-#X text 270 2305 dumps all object info to Pd console window.;
-#X obj 20 2343 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2348 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 2349 1\.;
-#X text 270 2349 command input.;
-#X obj 20 2384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2389 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 250 1622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1622 draw up;
+#X text 270 1622 moves draw cursor up along y-asis ans draw single
+pixel. Arguments are:;
+#X obj 280 1660 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1660 [YOFF]: y-offset. If omitted: 1\. Type: int.;
+#X obj 250 1685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1685 invert;
+#X text 270 1685 invert display.;
+#X obj 250 1713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1713 pos;
+#X text 270 1713 set UI element position. Arguments are:;
+#X obj 280 1736 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1736 X: top left x-coord. Type: float.;
+#X obj 280 1759 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1759 Y: top right y-coord. Type: float.;
+#X obj 250 1784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1784 set;
+#X text 270 1784 set display content. Arguments are:;
+#X obj 280 1807 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1807 PIXELS: pixel values. Type: list.;
+#X obj 250 1832 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1832 set col;
+#X text 270 1832 set column content. Arguments are:;
+#X obj 280 1855 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1855 N: column index. Type: int.;
+#X obj 280 1878 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1878 PIXELS: column pixel values. Type: list.;
+#X obj 250 1903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1903 set cursor;
+#X text 270 1903 set draw cursor point. Arguments are:;
+#X obj 280 1926 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1926 X: X-position (from left). Type: int.;
+#X obj 280 1949 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1949 Y: Y-position (from top). Type: int.;
+#X obj 250 1974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1974 set matrix;
+#X text 270 1974 set matrix data. Arguments are:;
+#X obj 280 1997 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1997 NROWS: matrix row number. Type: int.;
+#X obj 280 2020 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2020 NCOLS: matrix column numbers. Type: int.;
+#X obj 280 2043 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2043 VALUES: pixel values. Type: list.;
+#X obj 250 2068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2068 set pixel;
+#X text 270 2068 set single pixel. Arguments are:;
+#X obj 280 2091 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2091 X: X-position (from left). Type: int.;
+#X obj 280 2114 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2114 Y: Y-position (from top). Type: int.;
+#X obj 280 2137 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2137 VALUE: pixel value. Type: bool.;
+#X obj 250 2162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2162 set row;
+#X text 270 2162 set row content. Arguments are:;
+#X obj 280 2185 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2185 N: row index. Type: int.;
+#X obj 280 2208 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2208 PIXELS: row pixel values. Type: list.;
+#X obj 250 2233 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2233 dump;
+#X text 270 2233 dumps all object info to Pd console window.;
+#X obj 20 2271 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2276 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2390 1\.;
-#X text 270 2390 ...;
+#X text 130 2277 1\.;
+#X text 270 2277 command input.;
+#X obj 20 2312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2317 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 2318 1\.;
+#X text 270 2318 ...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2440 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2443 библиотека: ceammc v0.9.8;
-#N canvas 10 2462 400 290 info 0;
+#X obj 1 2368 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2371 library: ceammc v0.9.8;
+#N canvas 10 2390 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 ui.lcd;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 ui;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.7;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 ui \, display;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2462 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 2390 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

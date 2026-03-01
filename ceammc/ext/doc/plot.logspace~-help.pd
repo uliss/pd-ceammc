@@ -5,100 +5,100 @@
 #X obj 1 1 cnv 5 765 40 empty empty plot.logspace~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 plot.logspace~;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 In linear space \, the sequence starts at base^start
 (base to the power of start) and ends with base^stop (see @endpoint).;
-#X obj 50 191 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 235 plot.logspace~ 1 4 @10;
-#X obj 50 263 ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid
+#X obj 50 245 plot.logspace~ 1 4 @10;
+#X obj 50 273 ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid
 1 @ymin_ticks 0 @xmin_ticks 0 @yauto 1;
-#X obj 50 422 ui.dsp~;
-#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 477 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 432 ui.dsp~;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 487 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 480 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 490 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 478 1\.;
-#X text 170 478 float;
-#X obj 268 479 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 478 START: @start property. Type: float.;
-#X text 130 503 2\.;
-#X text 170 503 float;
-#X obj 268 504 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 503 STOP: @stop property. Type: float.;
-#X text 130 528 3\.;
-#X text 170 528 atom;
-#X obj 268 529 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 528 BASE: @base property. Allowed values: 10 \, 2 \, e.
+#X text 130 488 1\.;
+#X text 170 488 float;
+#X obj 268 489 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 488 START: @start property. Type: float.;
+#X text 130 513 2\.;
+#X text 170 513 float;
+#X obj 268 514 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 513 STOP: @stop property. Type: float.;
+#X text 130 538 3\.;
+#X text 170 538 atom;
+#X obj 268 539 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 538 BASE: @base property. Allowed values: 10 \, 2 \, e.
 Type: atom.;
-#X text 130 553 4\.;
-#X text 170 553 int;
-#X obj 268 554 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 553 N: @n property. Type: int. Range: 4\...1024;
-#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 593 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 563 4\.;
+#X text 170 563 int;
+#X obj 268 564 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 563 N: @n property. Type: int. Range: 4\...1024;
+#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 603 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 596 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 606 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 594 @10;
-#X text 270 594 Alias to @base 10\. Type: atom.;
-#X obj 250 624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 624 @2;
-#X text 270 624 Alias to @base 2\. Type: atom.;
-#X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 654 @base;
-#X text 270 654 X-axis scale base. Type: atom. Default value: 10\.
+#X msg 130 604 @10;
+#X text 270 604 Alias to @base 10\. Type: atom.;
+#X obj 250 634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 634 @2;
+#X text 270 634 Alias to @base 2\. Type: atom.;
+#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 664 @base;
+#X text 270 664 X-axis scale base. Type: atom. Default value: 10\.
 Allowed values: 10 \, 2 \, e.;
-#X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 696 @e;
-#X text 270 696 Alias to @base e. Type: atom.;
-#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 726 @endpoint;
-#X text 270 726 Include @stop to interval. Type: bool. Default value:
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 706 @e;
+#X text 270 706 Alias to @base e. Type: atom.;
+#X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 736 @endpoint;
+#X text 270 736 Include @stop to interval. Type: bool. Default value:
 1\.;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 @n;
-#X text 270 756 Number of points. Type: int. Default value: 100\. Range:
+#X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 766 @n;
+#X text 270 766 Number of points. Type: int. Default value: 100\. Range:
 4\...1024\.;
-#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 798 @start;
-#X text 270 798 Starting value of the sequence: base^start. Type: float.
+#X obj 250 808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 808 @start;
+#X text 270 808 Starting value of the sequence: base^start. Type: float.
 Default value: 0\.;
-#X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 840 @stop;
-#X text 270 840 The final value (base^stop) of the sequence \, unless
+#X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 850 @stop;
+#X text 270 850 The final value (base^stop) of the sequence \, unless
 @endpoint is false. In that case \, @n + 1 values are spaced over the
 interval in log-space \, of which all but the last (a sequence of length
 @n) are returned. Type: float. Default value: 2\.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 942 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 947 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 952 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 943 1\.;
-#X text 170 943 bang:;
-#X text 270 943 starts output.;
-#X text 170 968 float:;
-#X text 270 968 output specified number of values \, change @n property
+#X text 130 953 1\.;
+#X text 170 953 bang:;
+#X text 270 953 starts output.;
+#X text 170 978 float:;
+#X text 270 978 output specified number of values \, change @n property
 valuue.;
-#X obj 20 1003 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1008 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1018 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1009 1\.;
-#X text 170 1009 ~;
-#X text 270 1009 signal output.;
-#X text 130 1029 2\.;
-#X text 270 1029 output to [array.plot~] or [ui.plot~].;
+#X text 130 1019 1\.;
+#X text 170 1019 ~;
+#X text 270 1019 signal output.;
+#X text 130 1039 2\.;
+#X text 270 1039 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1079 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1082 library: ceammc v0.9.8;
-#X text 438 1094 see also:;
-#X obj 513 1094 plot.linspace~;
-#X obj 630 1094 plot.geomspace~;
-#N canvas 10 1101 400 290 info 0;
+#X obj 1 1089 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1092 library: ceammc v0.9.8;
+#X text 438 1104 see also:;
+#X obj 513 1104 plot.linspace~;
+#X obj 630 1104 plot.geomspace~;
+#N canvas 10 1111 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -122,7 +122,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1101 pd info;
+#X restore 10 1111 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 7 1 8 1;

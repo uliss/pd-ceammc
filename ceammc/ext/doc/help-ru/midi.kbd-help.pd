@@ -5,108 +5,108 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.kdb 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 midi.kdb;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Default keyboard layout is QWERTY \, but you can specify
 custom one;
-#X obj 50 176 ui.tab qwerty names custom @size 200 15;
-#X floatatom 174 205 5 0 0 0 - - -;
-#X msg 366 205 custom zxcvbnmasdfghjklqwertyuiop;
-#X msg 50 234 @layout \$1;
-#X msg 174 234 @octave \$1;
-#X obj 366 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 263 midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\];
-#X obj 50 292 ui.hk;
-#X obj 69 363 print;
-#X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 186 ui.tab qwerty names custom @size 200 15;
+#X floatatom 174 215 5 0 0 0 - - -;
+#X msg 366 215 custom zxcvbnmasdfghjklqwertyuiop;
+#X msg 50 244 @layout \$1;
+#X msg 174 244 @octave \$1;
+#X obj 366 244 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 273 midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\];
+#X obj 50 302 ui.hk;
+#X obj 69 373 print;
+#X obj 50 402 ui.dt;
+#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 457 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 460 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 448 1\.;
-#X text 170 448 symbol;
-#X obj 268 449 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 LAYOUT: layout name. Разрешённые значения: qwerty \,
-names \, custom. Тип: symbol.;
-#X text 130 488 2\.;
-#X text 170 488 bool;
-#X obj 268 489 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 488 ON: init on/off state. Тип: bool.;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 528 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 458 1\.;
+#X text 170 458 symbol;
+#X obj 268 459 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 458 LAYOUT: layout name. Allowed values: qwerty \, names
+\, custom. Type: symbol.;
+#X text 130 498 2\.;
+#X text 170 498 bool;
+#X obj 268 499 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 498 ON: init on/off state. Type: bool.;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 538 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 529 @custom;
-#X text 270 529 Custom layout (Dict data type). Тип: atom. Значение
-по умолчанию: [].;
-#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 571 @layout;
-#X text 270 571 Current layout. Тип: symbol. Значение по умолчанию:
-qwerty. Разрешённые значения: qwerty \, names \, custom.;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @octave;
-#X text 270 613 Output octave. Тип: int. Значение по умолчанию: 4\.
-Диапазон: 0\...8\.;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @on;
-#X text 270 655 On/off state. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 685 @vel;
-#X text 270 685 Output velocity. Тип: float. Значение по умолчанию:
-100\. Диапазон: 0\...127\.;
-#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 742 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 539 @custom;
+#X text 270 539 Custom layout (Dict data type). Type: atom. Default
+value: [].;
+#X obj 250 581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 581 @layout;
+#X text 270 581 Current layout. Type: symbol. Default value: qwerty.
+Allowed values: qwerty \, names \, custom.;
+#X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 623 @octave;
+#X text 270 623 Output octave. Type: int. Default value: 4\. Range:
+0\...8\.;
+#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 653 @on;
+#X text 270 653 On/off state. Type: bool. Default value: 1\.;
+#X obj 250 683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 683 @vel;
+#X text 270 683 Output velocity. Type: float. Default value: 100\.
+Range: 0\...127\.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 740 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 741 custom;
+#X text 270 741 set custom. Arguments are:;
+#X obj 280 764 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 764 KEYSTR: key string. Type: symbol.;
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 743 custom;
-#X text 270 743 set custom. Аргументы:;
-#X obj 280 766 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 766 KEYSTR: key string. Тип: symbol.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 806 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 807 1\.;
-#X text 270 807 control input.;
-#X text 130 832 2\.;
-#X text 170 832 int:;
-#X text 270 832 1 or 0: turn on/off.;
-#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 872 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 873 1\.;
-#X text 270 873 MIDI output: NOTE VEL.;
+#X text 130 805 1\.;
+#X text 270 805 control input.;
+#X text 130 830 2\.;
+#X text 170 830 int:;
+#X text 270 830 1 or 0: turn on/off.;
+#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 870 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 871 1\.;
+#X text 270 871 MIDI output: NOTE VEL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 923 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 926 библиотека: ceammc v0.9.8;
-#N canvas 10 945 400 290 info 0;
+#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 924 library: ceammc v0.9.8;
+#N canvas 10 943 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 midi.kdb;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 midi;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.3;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 midi \, keyboard;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 945 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 943 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 12 0;

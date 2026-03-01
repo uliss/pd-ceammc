@@ -5,68 +5,68 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.sitar~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 synth.sitar~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Implements a sitar plucked string physical model based
 on the Karplus-Strong algorithm;
-#X obj 50 176 ui.keyboard;
-#X msg 50 248 note \$1 \$2;
-#X msg 174 248 dump;
-#X obj 50 277 synth.sitar~;
-#X obj 50 306 ui.gain~ @size 120 16;
-#X obj 290 306 ui.dsp~;
-#X obj 50 335 dac~;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 390 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 186 ui.keyboard;
+#X msg 50 258 note \$1 \$2;
+#X msg 174 258 dump;
+#X obj 50 287 synth.sitar~;
+#X obj 50 316 ui.gain~ @size 120 16;
+#X obj 290 316 ui.dsp~;
+#X obj 50 345 dac~;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 400 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 393 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 403 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 391 @freq;
-#X text 270 391 Maximum speed of whistles. Type: float. Units: 'Hz'.
+#X msg 130 401 @freq;
+#X text 270 401 Maximum speed of whistles. Type: float. Units: 'Hz'.
 Default value: 220\. Range: 0\...480\.;
-#X obj 250 433 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 433 @gate;
-#X text 270 433 Synth gate (>0 - play). Type: float. Default value:
+#X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 443 @gate;
+#X text 270 443 Synth gate (>0 - play). Type: float. Default value:
 0\. Range: 0\...1\.;
-#X obj 250 475 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 475 @pitch;
-#X text 270 475 Midi pitch. Type: float. Default value: 57\. Range:
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 485 @pitch;
+#X text 270 485 Midi pitch. Type: float. Default value: 57\. Range:
 36\...84\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 532 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 542 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 533 cc;
-#X text 270 533 control change message. Arguments are:;
-#X obj 280 556 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 556 CTL: control number. Type: int.;
-#X obj 280 579 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 579 VAL: value. Type: float.;
-#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 604 note;
-#X text 270 604 note on/off message. Arguments are:;
-#X obj 280 627 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 627 NOTE: midi note. Type: float.;
-#X obj 280 650 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 650 VEL: velocity. Type: float. Range: 0\...127\.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 690 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 543 cc;
+#X text 270 543 control change message. Arguments are:;
+#X obj 280 566 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 566 CTL: control number. Type: int.;
+#X obj 280 589 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 589 VAL: value. Type: float.;
+#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 614 note;
+#X text 270 614 note on/off message. Arguments are:;
+#X obj 280 637 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 637 NOTE: midi note. Type: float.;
+#X obj 280 660 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 660 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 691 1\.;
-#X text 170 691 list:;
-#X text 270 691 NOTE VEL.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 731 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 701 1\.;
+#X text 170 701 list:;
+#X text 270 701 NOTE VEL.;
+#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 741 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 732 1\.;
-#X text 170 732 ~;
-#X text 270 732 synth output.;
+#X text 130 742 1\.;
+#X text 170 742 ~;
+#X text 270 742 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 782 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 785 library: ceammc v0.9.8;
-#N canvas 10 804 400 290 info 0;
+#X obj 1 792 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 795 library: ceammc v0.9.8;
+#N canvas 10 814 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 804 pd info;
+#X restore 10 814 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

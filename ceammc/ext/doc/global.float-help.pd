@@ -5,109 +5,109 @@
 #X obj 1 1 cnv 5 765 40 empty empty global.float 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 global.float;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Defines global scope float variable \, accessed by ID
 name.;
-#X floatatom 50 161 5 0 0 0 - - -;
-#X msg 107 161 + 2 \, bang;
-#X msg 251 161 * 3 \, bang;
-#X msg 395 161 bang;
-#X msg 136 205 - 3 \, bang;
-#X msg 270 205 / 2 \, bang;
-#X msg 155 233 set 2;
-#X obj 50 262 global.float f1;
-#X obj 395 262 global.float f1;
-#X floatatom 50 291 5 0 0 0 - - -;
-#X floatatom 395 291 5 0 0 0 - - -;
-#X obj 50 320 loadmsg 12345;
-#X obj 50 348 global.float f2;
-#X text 50 377 get current;
-#X msg 50 406 get;
-#X text 107 406 get f1;
-#X msg 107 435 get f1;
-#X text 194 435 get f2;
-#X msg 194 464 get f2;
-#X msg 280 464 get f3;
-#X obj 50 492 global.float;
-#X text 299 492 default anonymouse global float;
-#X obj 50 521 ui.dt;
-#X text 50 550 global dispatch name binding;
-#X msg 50 579 123;
-#X obj 50 608 s f1;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 663 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 50 171 5 0 0 0 - - -;
+#X msg 107 171 + 2 \, bang;
+#X msg 251 171 * 3 \, bang;
+#X msg 395 171 bang;
+#X msg 136 215 - 3 \, bang;
+#X msg 270 215 / 2 \, bang;
+#X msg 155 243 set 2;
+#X obj 50 272 global.float f1;
+#X obj 395 272 global.float f1;
+#X floatatom 50 301 5 0 0 0 - - -;
+#X floatatom 395 301 5 0 0 0 - - -;
+#X obj 50 330 loadmsg 12345;
+#X obj 50 358 global.float f2;
+#X text 50 387 get current;
+#X msg 50 416 get;
+#X text 107 416 get f1;
+#X msg 107 445 get f1;
+#X text 194 445 get f2;
+#X msg 194 474 get f2;
+#X msg 280 474 get f3;
+#X obj 50 502 global.float;
+#X text 299 502 default anonymouse global float;
+#X obj 50 531 ui.dt;
+#X text 50 560 global dispatch name binding;
+#X msg 50 589 123;
+#X obj 50 618 s f1;
+#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 673 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 676 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 664 1\.;
-#X text 170 664 symbol;
-#X obj 268 665 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 664 ID: object ID. Type: symbol.;
-#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 704 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 674 1\.;
+#X text 170 674 symbol;
+#X obj 268 675 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 674 ID: object ID. Type: symbol.;
+#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 714 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 707 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 717 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 705 @id;
-#X text 270 705 (initonly) Global variable id. Type: symbol. Default
+#X msg 130 715 @id;
+#X text 270 715 (initonly) Global variable id. Type: symbol. Default
 value: default.;
-#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 747 @value?;
-#X text 270 747 (readonly) Current value. Type: float. Default value:
+#X obj 250 757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 757 @value?;
+#X text 270 757 (readonly) Current value. Type: float. Default value:
 0\.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 792 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 797 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 802 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 793 get;
-#X text 270 793 get the value of global float variable (not only for
+#X msg 130 803 get;
+#X text 270 803 get the value of global float variable (not only for
 connected object). Arguments are:;
-#X obj 280 831 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 831 [NAME]: requested variable name. If ommitted: request
+#X obj 280 841 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 841 [NAME]: requested variable name. If ommitted: request
 the value from the current connected object \, if specified: output
 value from found global variable. Type: symbol.;
-#X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 901 set;
-#X text 270 901 sets new value without output. Arguments are:;
-#X obj 280 924 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 924 VALUE: new value. Type: float.;
-#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 949 *;
-#X text 270 949 multiply to \, no output.;
-#X obj 250 977 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 977 +;
-#X text 270 977 add to float \, no output.;
-#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1005 -;
-#X text 270 1005 subtract from float \, no output.;
-#X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1033 /;
-#X text 270 1033 divide by \, no output. Arguments are:;
-#X obj 280 1056 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1056 [DIV]: divider value. Type: float.;
-#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1096 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 911 set;
+#X text 270 911 sets new value without output. Arguments are:;
+#X obj 280 934 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 934 VALUE: new value. Type: float.;
+#X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 959 *;
+#X text 270 959 multiply to \, no output.;
+#X obj 250 987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 987 +;
+#X text 270 987 add to float \, no output.;
+#X obj 250 1015 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1015 -;
+#X text 270 1015 subtract from float \, no output.;
+#X obj 250 1043 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1043 /;
+#X text 270 1043 divide by \, no output. Arguments are:;
+#X obj 280 1066 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1066 [DIV]: divider value. Type: float.;
+#X obj 20 1101 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1106 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1097 1\.;
-#X text 170 1097 bang:;
-#X text 270 1097 outputs variable.;
-#X text 170 1122 float:;
-#X text 270 1122 set variable to given float and outputs new value.;
-#X obj 20 1157 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1162 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1107 1\.;
+#X text 170 1107 bang:;
+#X text 270 1107 outputs variable.;
+#X text 170 1132 float:;
+#X text 270 1132 set variable to given float and outputs new value.;
+#X obj 20 1167 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1172 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1163 1\.;
-#X text 270 1163 float output.;
+#X text 130 1173 1\.;
+#X text 270 1173 float output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1213 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1216 library: ceammc v0.9.8;
-#X text 498 1228 see also:;
-#X obj 573 1228 local.float;
-#X obj 667 1228 global.int;
-#N canvas 10 1235 400 290 info 0;
+#X obj 1 1223 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1226 library: ceammc v0.9.8;
+#X text 498 1238 see also:;
+#X obj 573 1238 local.float;
+#X obj 667 1238 global.int;
+#N canvas 10 1245 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -131,7 +131,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1235 pd info;
+#X restore 10 1245 pd info;
 #X connect 6 0 13 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 0;

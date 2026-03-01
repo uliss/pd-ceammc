@@ -5,123 +5,122 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.fifo 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 data.fifo;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 If size argument specified - creates queue with fixed
 size. When count of values exceed this limit \, outputs and removes
 first value in queue.;
-#X floatatom 213 191 5 0 0 0 - - -;
-#X msg 88 220 pop;
-#X msg 155 220 1 2;
-#X msg 213 220 resize \$1;
-#X msg 338 235 @size?;
-#X msg 424 235 @free?;
-#X msg 510 235 @filled?;
-#X floatatom 50 249 5 0 0 0 - - -;
-#X obj 117 249 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 213 201 5 0 0 0 - - -;
+#X msg 88 230 pop;
+#X msg 155 230 1 2;
+#X msg 213 230 resize \$1;
+#X msg 338 245 @size?;
+#X msg 424 245 @free?;
+#X msg 510 245 @filled?;
+#X floatatom 50 259 5 0 0 0 - - -;
+#X obj 117 259 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 174 249 clear;
-#X msg 270 249 flush;
-#X obj 50 278 data.fifo 5;
-#X obj 50 307 ui.dt;
-#X obj 213 307 print;
-#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 362 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X msg 174 259 clear;
+#X msg 270 259 flush;
+#X obj 50 288 data.fifo 5;
+#X obj 50 317 ui.dt;
+#X obj 213 317 print;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 372 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 397 Left-click;
-#X text 310 397 open data editor.;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 432 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 407 Left-click;
+#X text 310 407 open data editor.;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 442 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 445 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 433 1\.;
-#X text 170 433 int;
-#X obj 268 434 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 433 SIZE: if specified \, creates fixed-size queue. See
-@size property. Тип: int. Диапазон: 1…1024;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 488 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 443 1\.;
+#X text 170 443 int;
+#X obj 268 444 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 443 SIZE: if specified \, creates fixed-size queue. See
+@size property. Type: int. Range: 1\...1024;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 498 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 491 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 501 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 489 @size;
-#X text 270 489 Size of queue. Тип: int. Значение по умолчанию: 32\.
-Диапазон: 1\...1024\.;
-#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 531 @empty?;
-#X text 270 531 (только чтение) If queue is empty. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @filled?;
-#X text 270 573 (только чтение) Current number of elements in queue.
-Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 630 @free?;
-#X text 270 630 (только чтение) Number of elements you can add to queue
-until it full. Тип: int. Значение по умолчанию: 32\. Минимальное значение:
-0\.;
-#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 702 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 499 @size;
+#X text 270 499 Size of queue. Type: int. Default value: 32\. Range:
+1\...1024\.;
+#X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 541 @empty?;
+#X text 270 541 (readonly) If queue is empty. Type: bool. Default value:
+1\.;
+#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 571 @filled?;
+#X text 270 571 (readonly) Current number of elements in queue. Type:
+int. Default value: 0\. Min value: 0\.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 613 @free?;
+#X text 270 613 (readonly) Number of elements you can add to queue
+until it full. Type: int. Default value: 32\. Min value: 0\.;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 685 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 686 clear;
+#X text 270 686 removes all queue values.;
+#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 714 flush;
+#X text 270 714 outputs and removes all queue values.;
+#X obj 250 742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 742 pop;
+#X text 270 742 outputs and removes first values in queue.;
+#X obj 250 770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 770 resize;
+#X text 270 770 Arguments are:;
+#X obj 280 793 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 793 [anonym]: changes queue size. All previous values (if
+any) are silently removed. Type: int. Min value: 0\.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 848 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 703 clear;
-#X text 270 703 removes all queue values.;
-#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 731 flush;
-#X text 270 731 outputs and removes all queue values.;
-#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 759 pop;
-#X text 270 759 outputs and removes first values in queue.;
-#X obj 250 787 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 787 resize;
-#X text 270 787 Аргументы:;
-#X obj 280 810 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 810 [anonym]: changes queue size. All previous values (if
-any) are silently removed. Тип: int. Минимальное значение: 0\.;
-#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 880 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 881 1\.;
-#X text 170 881 bang:;
-#X text 270 881 same as *flush* message.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 922 1\.;
-#X text 270 922 output value.;
+#X text 130 849 1\.;
+#X text 170 849 bang:;
+#X text 270 849 same as *flush* message.;
+#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 889 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 890 1\.;
+#X text 270 890 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 972 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 975 библиотека: ceammc v0.9.8;
-#X text 553 987 смотрите также:;
-#X obj 674 987 data.list;
-#N canvas 10 994 400 290 info 0;
+#X obj 1 940 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 943 library: ceammc v0.9.8;
+#X text 599 955 see also:;
+#X obj 674 955 data.list;
+#N canvas 10 962 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 data.fifo;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 data;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 data \, fifo;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 994 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 962 pd info;
 #X connect 6 0 9 0;
 #X connect 13 0 17 0;
 #X connect 7 0 17 0;

@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 563 11 str.match;
 #X obj 653 11 string.match;
-#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Используемый синтаксис: pcre. Некоторые символы не поддерживаются
 в Pd. Используйте ` вместо обратного слеша \, `` вместо ` \, (( вместо
 { \, )) вместо } \, .. вместо запятой \, `: вместо точки с запятой;
@@ -15,77 +15,77 @@
 быть экранирован \, как ``.;
 #X text 240 208 Например \, все цифры: `d+ \, два или три символа:
 [a-z]((2\..3)) и т.д.;
-#X msg 50 301 test.mp3;
-#X msg 155 301 test.mp4;
-#X msg 261 301 FILE.mp2;
-#X msg 366 301 ABC;
-#X msg 424 301 abc.mp5;
-#X msg 520 301 symbol .*`.mp2;
-#X obj 50 345 symbol;
-#X symbolatom 443 345 10 0 0 0 - - -;
-#X obj 50 373 str.match t.+`.mp\[34\];
-#X obj 50 402 ui.dt;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 457 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 311 test.mp3;
+#X msg 155 311 test.mp4;
+#X msg 261 311 FILE.mp2;
+#X msg 366 311 ABC;
+#X msg 424 311 abc.mp5;
+#X msg 520 311 symbol .*`.mp2;
+#X obj 50 355 symbol;
+#X symbolatom 443 355 10 0 0 0 - - -;
+#X obj 50 383 str.match t.+`.mp\[34\];
+#X obj 50 412 ui.dt;
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 467 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 460 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 470 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 458 1\.;
-#X text 170 458 list;
-#X obj 268 459 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 458 RE: регулярное выражение. Тип: list.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 498 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 468 1\.;
+#X text 170 468 list;
+#X obj 268 469 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 468 RE: регулярное выражение. Type: list.;
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 508 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 501 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 511 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 499 @re;
-#X text 270 499 Регулярное выражение. Тип: list.;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 544 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 509 @re;
+#X text 270 509 Регулярное выражение. Type: list.;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 554 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 545 1\.;
-#X text 270 545 входная строка или символ.;
-#X text 130 570 2\.;
-#X text 270 570 установка регулярного выражения.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 610 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 611 1\.;
-#X text 270 611 выводит 1 при успешном совпадении \, в противном случае
+#X text 130 555 1\.;
+#X text 270 555 входная строка или символ.;
+#X text 130 580 2\.;
+#X text 270 580 установка регулярного выражения.;
+#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 620 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 621 1\.;
+#X text 270 621 выводит 1 при успешном совпадении \, в противном случае
 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 664 библиотека: ceammc v0.9.8;
-#N canvas 10 683 400 290 info 0;
+#X obj 1 671 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 674 library: ceammc v0.9.8;
+#N canvas 10 693 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 string.match;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 string;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.7.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 match \, regex;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 683 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 693 pd info;
 #X connect 9 0 15 0;
 #X connect 10 0 15 0;
 #X connect 11 0 15 0;

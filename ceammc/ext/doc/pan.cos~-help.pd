@@ -5,71 +5,71 @@
 #X obj 1 1 cnv 5 765 40 empty empty pan.cos~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 pan.cos~;
-#X obj 230 78 cnv 1 535 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Two channel equal power panner. The center pan position
 is boosted by 3 dB compared to linear panning \, and the total power
 at every pan position is 0 dB.;
-#X obj 146 191 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
+#X obj 146 201 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
-#X obj 146 220 lin->lin 0 127 -1 1;
-#X obj 50 249 sig~ 1;
-#X floatatom 146 249 5 0 0 0 - - -;
-#X obj 50 278 pan.cos~;
-#X obj 50 307 env~;
-#X obj 136 307 env~;
-#X floatatom 50 335 5 0 0 0 - - -;
-#X floatatom 136 335 5 0 0 0 - - -;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 372 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 146 230 lin->lin 0 127 -1 1;
+#X obj 50 259 sig~ 1;
+#X floatatom 146 259 5 0 0 0 - - -;
+#X obj 50 288 pan.cos~;
+#X obj 50 317 env~;
+#X obj 136 317 env~;
+#X floatatom 50 345 5 0 0 0 - - -;
+#X floatatom 136 345 5 0 0 0 - - -;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 382 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 385 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 373 1\.;
-#X text 170 373 float;
-#X obj 268 374 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 373 POS: panning position. -1 means left \, 0 - center
+#X text 130 383 1\.;
+#X text 170 383 float;
+#X obj 268 384 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 383 POS: panning position. -1 means left \, 0 - center
 \, +1 - right. Type: float. Range: -1\...1;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 428 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 438 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 431 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 429 @smooth;
-#X text 270 429 (initonly) Smooth control signal to avoid zipping-noise.
+#X msg 130 439 @smooth;
+#X text 270 439 (initonly) Smooth control signal to avoid zipping-noise.
 Type: int. Default value: 20\. Range: 0\...100\.;
-#X obj 250 471 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 471 @pos;
-#X text 270 471 Panning position. -1 means left \, 0 - center \, +1
+#X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 481 @pos;
+#X text 270 481 Panning position. -1 means left \, 0 - center \, +1
 - right. Type: float. Default value: 0\. Range: -1\...1\.;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 528 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 538 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 529 1\.;
-#X text 170 529 ~;
-#X text 270 529 input signal.;
-#X text 130 554 2\.;
-#X text 170 554 float:;
-#X text 270 554 pan position. Range: -1\...1\.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 594 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 539 1\.;
+#X text 170 539 ~;
+#X text 270 539 input signal.;
+#X text 130 564 2\.;
+#X text 170 564 float:;
+#X text 270 564 pan position. Range: -1\...1\.;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 604 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 595 1\.;
-#X text 170 595 ~;
-#X text 270 595 left output channel.;
-#X text 130 615 2\.;
-#X text 170 615 ~;
-#X text 270 615 right output channel.;
+#X text 130 605 1\.;
+#X text 170 605 ~;
+#X text 270 605 left output channel.;
+#X text 130 625 2\.;
+#X text 170 625 ~;
+#X text 270 625 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 665 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 668 library: ceammc v0.9.8;
-#X text 525 680 see also:;
-#X obj 600 680 pan.lin~;
-#X obj 674 680 pan.sqrt~;
-#N canvas 10 687 400 290 info 0;
+#X obj 1 675 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 678 library: ceammc v0.9.8;
+#X text 525 690 see also:;
+#X obj 600 690 pan.lin~;
+#X obj 674 690 pan.sqrt~;
+#N canvas 10 697 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,7 +93,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 687 pd info;
+#X restore 10 697 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

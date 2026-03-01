@@ -6,60 +6,60 @@ chip for Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.vl53l0x 20 20 0 20
 -104026 -4096 0;
 #X obj 587 11 hw.rpi.sensor.vl53l0x;
-#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 It can measure absolute distances up to 2m;
-#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 205 poll \$1;
-#X obj 78 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 215 poll \$1;
+#X obj 78 244 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 263 hw.rpi.sensor.vl53l0x @i2c_bus default;
-#X obj 50 292 print;
-#X obj 50 335 ui.link @title Connection_Scheme @url
+#X obj 50 273 hw.rpi.sensor.vl53l0x @i2c_bus default;
+#X obj 50 302 print;
+#X obj 50 345 ui.link @title Connection_Scheme @url
 ceammc://img/conn_vl53l0x.png;
-#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 397 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 407 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 400 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 410 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 398 @i2c_addr;
-#X text 270 398 (initonly) I²C address. The value 'default' means default
+#X msg 130 408 @i2c_addr;
+#X text 270 408 (initonly) I²C address. The value 'default' means default
 device I²C address (0x29). Type: int. Default value: -1\. Range: -4\...119\.;
-#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 455 @i2c_bus;
-#X text 270 455 (initonly) I²C bus. Type: atom. Default value: none.
+#X obj 250 465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 465 @i2c_bus;
+#X text 270 465 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 512 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 522 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 513 address;
-#X text 270 513 set sensor i2c address. Note that the address resets
+#X msg 130 523 address;
+#X text 270 523 set sensor i2c address. Note that the address resets
 when the device is powered off. Arguments are:;
-#X obj 280 551 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 551 ADDR: new i2c address. Type: int. Range: 8\...119\.;
-#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 576 poll;
-#X text 270 576 turn the sensor polling on/off. Arguments are:;
-#X obj 280 599 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 599 STATE: poll state. Type: bool.;
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 639 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 280 561 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 561 ADDR: new i2c address. Type: int. Range: 8\...119\.;
+#X obj 250 586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 586 poll;
+#X text 270 586 turn the sensor polling on/off. Arguments are:;
+#X obj 280 609 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 609 STATE: poll state. Type: bool.;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 649 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 640 1\.;
-#X text 170 640 bang:;
-#X text 270 640 single distance measure.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 680 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 650 1\.;
+#X text 170 650 bang:;
+#X text 270 650 single distance measure.;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 690 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 681 1\.;
-#X text 270 681 float: distance in mm.;
+#X text 130 691 1\.;
+#X text 270 691 float: distance in mm.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 731 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 734 library: ceammc v0.9.8;
-#N canvas 10 753 400 290 info 0;
+#X obj 1 741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 744 library: ceammc v0.9.8;
+#N canvas 10 763 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -83,7 +83,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 753 pd info;
+#X restore 10 763 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 0;

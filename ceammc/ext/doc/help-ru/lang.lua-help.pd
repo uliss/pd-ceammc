@@ -5,121 +5,121 @@
 #X obj 1 1 cnv 5 765 40 empty empty lang.lua 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 lang.lua;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Lua code is executed in separated thread in async mode.;
 #X text 240 108 Each lang.lua object has own independent context.;
-#X obj 50 186 loadmsg load lua/basic.lua;
-#X obj 69 215 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 196 loadmsg load lua/basic.lua;
+#X obj 69 225 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 107 215 5 0 0 0 - - -;
-#X msg 155 215 1 2 3 4;
-#X symbolatom 251 215 5 0 0 0 - - -;
-#X msg 299 215 call fn ABC;
-#X obj 50 258 lang.lua @in 4 @out 3;
-#X obj 50 287 ui.dt;
-#X floatatom 146 287 5 0 0 0 - - -;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 342 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X floatatom 107 225 5 0 0 0 - - -;
+#X msg 155 225 1 2 3 4;
+#X symbolatom 251 225 5 0 0 0 - - -;
+#X msg 299 225 call fn ABC;
+#X obj 50 268 lang.lua @in 4 @out 3;
+#X obj 50 297 ui.dt;
+#X floatatom 146 297 5 0 0 0 - - -;
+#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 352 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 377 Left-click;
-#X text 310 377 open Lua code in the editor.;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 412 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 387 Left-click;
+#X text 310 387 open Lua code in the editor.;
+#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 422 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 415 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 425 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 413 1\.;
-#X text 170 413 int;
-#X obj 268 414 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 413 IN: number of inputs. Тип: int. Диапазон: 1…16;
-#X text 130 438 2\.;
-#X text 170 438 int;
-#X obj 268 439 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 438 OUT: number of outputs. Тип: int. Диапазон: 1…16;
-#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 478 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 423 1\.;
+#X text 170 423 int;
+#X obj 268 424 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 423 IN: number of inputs. Type: int. Range: 1\...16;
+#X text 130 448 2\.;
+#X text 170 448 int;
+#X obj 268 449 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 448 OUT: number of outputs. Type: int. Range: 1\...16;
+#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 488 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 481 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 491 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 479 @in;
-#X text 270 479 (при инициализации) Number of inputs. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...16\.;
-#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 521 @out;
-#X text 270 521 (при инициализации) Number of outputs. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...16\.;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 578 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 489 @in;
+#X text 270 489 (initonly) Number of inputs. Type: int. Default value:
+1\. Range: 1\...16\.;
+#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 531 @out;
+#X text 270 531 (initonly) Number of outputs. Type: int. Default value:
+1\. Range: 1\...16\.;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 588 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 589 call;
+#X text 270 589 call lua function. Arguments are:;
+#X obj 280 612 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 612 FN: function name. Type: symbol.;
+#X obj 280 635 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 635 [ARGS]: function arguments. Type: list.;
+#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 660 eval;
+#X text 270 660 eval lua code. Arguments are:;
+#X obj 280 683 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 683 CODE: lua code. Type: list.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 load;
+#X text 270 708 load lua file and eval it. Arguments are:;
+#X obj 280 731 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 731 PATH: path to lua file. Type: list.;
+#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 756 quit;
+#X text 270 756 abort lua script execution.;
+#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 799 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 579 call;
-#X text 270 579 call lua function. Аргументы:;
-#X obj 280 602 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 602 FN: function name. Тип: symbol.;
-#X obj 280 625 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 625 [ARGS]: function arguments. Тип: list.;
-#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 650 eval;
-#X text 270 650 eval lua code. Аргументы:;
-#X obj 280 673 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 673 CODE: lua code. Тип: list.;
-#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 698 load;
-#X text 270 698 load lua file and eval it. Аргументы:;
-#X obj 280 721 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 721 PATH: path to lua file. Тип: list.;
-#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 746 quit;
-#X text 270 746 abort lua script execution.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 789 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 790 1\.;
-#X text 270 790 first lua input.;
-#X text 130 815 ...;
-#X text 270 815 ... lua input.;
-#X text 130 840 n.;
-#X text 270 840 n-th lua input.;
-#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 880 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 881 1\.;
-#X text 270 881 first lua output.;
-#X text 130 901 ...;
-#X text 270 901 ... lua output.;
-#X text 130 921 n.;
-#X text 270 921 n-th lua output.;
+#X text 130 800 1\.;
+#X text 270 800 first lua input.;
+#X text 130 825 ...;
+#X text 270 825 ... lua input.;
+#X text 130 850 n.;
+#X text 270 850 n-th lua input.;
+#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 890 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 891 1\.;
+#X text 270 891 first lua output.;
+#X text 130 911 ...;
+#X text 270 911 ... lua output.;
+#X text 130 931 n.;
+#X text 270 931 n-th lua output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 971 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 974 библиотека: ceammc v0.9.8;
-#N canvas 10 993 400 290 info 0;
+#X obj 1 981 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 984 library: ceammc v0.9.8;
+#N canvas 10 1003 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 lang.lua;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 lang;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.5;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 lua \, jit;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 993 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1003 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 1;

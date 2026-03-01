@@ -8,92 +8,90 @@
 #X obj 469 11 ceammc/approx;
 #X obj 589 11 approx;
 #X obj 659 11 math.approx;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 checks if |x - pattern| <= |epsilon|;
-#X obj 50 161 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+#X obj 50 171 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
-#X msg 88 190 1.99 2 0.01;
-#X floatatom 50 219 5 0 0 0 - - -;
-#X obj 50 248 math.approx 50 10;
-#X text 242 248 40 <= x <= 60;
-#X floatatom 50 277 5 0 0 0 - - -;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 314 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 88 200 1.99 2 0.01;
+#X floatatom 50 229 5 0 0 0 - - -;
+#X obj 50 258 math.approx 50 10;
+#X text 242 258 40 <= x <= 60;
+#X floatatom 50 287 5 0 0 0 - - -;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 324 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 317 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 327 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 315 1\.;
-#X text 170 315 float;
-#X obj 268 316 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 315 VALUE: compare pattern. Тип: float.;
-#X text 130 340 2\.;
-#X text 170 340 float;
-#X obj 268 341 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 340 EPSILON: compare epsilon. Тип: float.;
-#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 380 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 325 1\.;
+#X text 170 325 float;
+#X obj 268 326 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 325 VALUE: compare pattern. Type: float.;
+#X text 130 350 2\.;
+#X text 170 350 float;
+#X obj 268 351 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 350 EPSILON: compare epsilon. Type: float.;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 390 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 383 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 393 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 381 @epsilon;
-#X text 270 381 Compare epsilon. Тип: float. Значение по умолчанию:
-0.01\.;
-#X obj 250 411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 411 @value;
-#X text 270 411 Compare pattern. Тип: float. Значение по умолчанию:
-0\.;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 456 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 391 @epsilon;
+#X text 270 391 Compare epsilon. Type: float. Default value: 0.01\.;
+#X obj 250 421 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 421 @value;
+#X text 270 421 Compare pattern. Type: float. Default value: 0\.;
+#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 466 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 457 1\.;
-#X text 170 457 float:;
-#X text 270 457 input value.;
-#X text 170 482 list:;
-#X text 270 482 list values are spreaded among three inlets.;
-#X text 130 507 2\.;
-#X text 170 507 float:;
-#X text 270 507 pattern value.;
-#X text 130 532 3\.;
-#X text 170 532 float:;
-#X text 270 532 epsilon.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 572 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 573 1\.;
-#X text 270 573 output 1 if input value is approximately equal to pattern
+#X text 130 467 1\.;
+#X text 170 467 float:;
+#X text 270 467 input value.;
+#X text 170 492 list:;
+#X text 270 492 list values are spreaded among three inlets.;
+#X text 130 517 2\.;
+#X text 170 517 float:;
+#X text 270 517 pattern value.;
+#X text 130 542 3\.;
+#X text 170 542 float:;
+#X text 270 542 epsilon.;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 582 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 583 1\.;
+#X text 270 583 output 1 if input value is approximately equal to pattern
 \, 0 0 otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 641 библиотека: ceammc v0.9.8;
-#N canvas 10 660 400 290 info 0;
+#X obj 1 648 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 651 library: ceammc v0.9.8;
+#N canvas 10 670 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 math.approx;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 math;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 equal \, compare \, approx;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 660 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 670 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 9 0 11 0;

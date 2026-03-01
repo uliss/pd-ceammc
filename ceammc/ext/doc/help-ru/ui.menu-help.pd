@@ -18,7 +18,7 @@
 #X obj 309 349 ui.dsp~;
 #X obj 50 378 dac~;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 20 433 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 130 468 Left-click;
 #X text 310 468 toggle the menu and choose the menu item.;
@@ -30,220 +30,219 @@
 #X text 310 528 open object help.;
 #X text 130 548 Right-click + ⌥;
 #X text 310 548 open properties dialog.;
-#X text 65 548 [Правка];
+#X text 81 548 [Edit];
 #X text 130 568 Right-click + ⇧;
 #X text 310 568 open the object help.;
-#X text 65 568 [Правка];
+#X text 81 568 [Edit];
 #X text 130 588 Right-click;
 #X text 310 588 open Pd popup menu.;
-#X text 65 588 [Правка];
+#X text 81 588 [Edit];
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 623 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 626 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 624 @index;
-#X text 270 624 Current menu item index. Тип: int. Значение по умолчанию:
+#X text 270 624 Current menu item index. Type: int. Default value:
 -1\.;
-#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 666 @items;
-#X text 270 666 List of menu items. Тип: list.;
-#X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 696 @max_length;
-#X text 270 696 Maximum displayed item character length. Тип: int.
-Значение по умолчанию: 100\. Диапазон: 10\...1024\.;
-#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 738 @open;
-#X text 270 738 Opened state. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 768 @receive;
-#X text 270 768 Источник получения сообщений. Тип: symbol. Значение
-по умолчанию: (null).;
-#X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 810 @send;
-#X text 270 810 Адрес отправки сообщений. Тип: symbol. Значение по
-умолчанию: (null).;
-#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 852 @value;
-#X text 270 852 Current menu item value. Тип: atom.;
-#X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 882 @active_color;
-#X text 270 882 Цвет активного элемента (список из красного \, зеленого
-и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0 0.75 1 1\.;
-#X obj 250 939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 939 @background_color;
-#X text 270 939 Цвета фона у объекта (список из красного \, зеленого
-и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
+#X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 654 @items;
+#X text 270 654 List of menu items. Type: list.;
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @max_length;
+#X text 270 684 Maximum displayed item character length. Type: int.
+Default value: 100\. Range: 10\...1024\.;
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @open;
+#X text 270 726 Opened state. Type: bool. Default value: 0\.;
+#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 756 @receive;
+#X text 270 756 Источник получения сообщений. Type: symbol. Default
+value: (null).;
+#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 798 @send;
+#X text 270 798 Адрес отправки сообщений. Type: symbol. Default value:
+(null).;
+#X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 840 @value;
+#X text 270 840 Current menu item value. Type: atom.;
+#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 870 @active_color;
+#X text 270 870 Цвет активного элемента (список из красного \, зеленого
+и синего цвета в [0\..1] диапазоне). Type: list. Default value: 0 0.75
+1 1\.;
+#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 927 @background_color;
+#X text 270 927 Цвета фона у объекта (список из красного \, зеленого
+и синего значений в диапазоне [0\..1]). Type: list. Default value:
 0.93 0.93 0.93 1\.;
-#X obj 250 996 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 996 @border_color;
-#X text 270 996 Цвет границы объекта (список из красного \, зеленого
-и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
-0.6 0.6 0.6 1\.;
-#X obj 250 1053 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1053 @text_color;
-#X text 270 1053 Text color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
-#X obj 250 1095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1095 @fontname;
-#X text 270 1095 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
-Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1152 @fontsize;
-#X text 270 1152 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
-#X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1194 @fontslant;
-#X text 270 1194 Наклон шрифта. Тип: symbol. Значение по умолчанию:
-roman. Разрешённые значения: roman \, italic.;
-#X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1236 @fontweight;
-#X text 270 1236 Толщину шрифта. Тип: symbol. Значение по умолчанию:
-normal. Разрешённые значения: normal \, bold.;
-#X obj 250 1278 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1278 @pinned;
-#X text 270 1278 Режим закрепления. Если 1 - помещает элемент на самый
-дальний уровень на холсте за другими элементам. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 1335 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1335 @presetname;
-#X text 270 1335 Имя пресета для использования с объектами [ui.preset]
-или [preset.storage]. Тип: symbol. Значение по умолчанию: (null).;
-#X obj 250 1392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1392 @size;
-#X text 270 1392 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
-по умолчанию: 100 16\.;
-#X obj 250 1434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1434 @count?;
-#X text 270 1434 (только чтение) Number of menu items. Тип: int. Значение
-по умолчанию: 0\.;
-#X obj 250 1476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1476 @title?;
-#X text 270 1476 (только чтение) Current element text. Тип: symbol.;
-#X obj 20 1516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1521 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 984 @border_color;
+#X text 270 984 Цвет границы объекта (список из красного \, зеленого
+и синего цветов в [0\..1] диапазоне). Type: list. Default value: 0.6
+0.6 0.6 1\.;
+#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1041 @text_color;
+#X text 270 1041 Text color (list of red \, green \, blue values in
+0-1 range). Type: list. Default value: 0 0 0 1\.;
+#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1083 @fontname;
+#X text 270 1083 Имя шрифта. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 1140 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1140 @fontsize;
+#X text 270 1140 Размер шрифта. Type: int. Default value: 11\. Range:
+4\...100\.;
+#X obj 250 1182 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1182 @fontslant;
+#X text 270 1182 Наклон шрифта. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X obj 250 1224 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1224 @fontweight;
+#X text 270 1224 Толщину шрифта. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X obj 250 1266 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1266 @pinned;
+#X text 270 1266 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Type: bool. Default
+value: 0\.;
+#X obj 250 1323 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1323 @presetname;
+#X text 270 1323 Имя пресета для использования с объектами [ui.preset]
+или [preset.storage]. Type: symbol. Default value: (null).;
+#X obj 250 1380 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1380 @size;
+#X text 270 1380 Размер объекта (пара: ШИРИНА ВЫСОТА). Type: list.
+Default value: 100 16\.;
+#X obj 250 1422 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1422 @count?;
+#X text 270 1422 (readonly) Number of menu items. Type: int. Default
+value: 0\.;
+#X obj 250 1464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1464 @title?;
+#X text 270 1464 (readonly) Current element text. Type: symbol.;
+#X obj 20 1504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1509 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1522 append;
-#X text 270 1522 appends new menu item. Аргументы:;
-#X obj 280 1545 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1545 ATOMS: item name. Тип: list.;
-#X obj 250 1570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1570 clear;
-#X text 270 1570 clears specified preset. Аргументы:;
-#X obj 280 1593 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1593 IDX: preset index. Тип: int.;
-#X obj 250 1618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1618 delete;
-#X text 270 1618 removes item from menu. Аргументы:;
-#X obj 280 1641 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1641 IDX: removed item index. Тип: int. Минимальное значение:
-0\.;
-#X obj 250 1666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1666 erase;
-#X text 270 1666 clears all items menu.;
-#X obj 250 1694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1694 file_glob;
-#X text 270 1694 fill menu with filenames. Аргументы:;
-#X obj 280 1717 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1717 PATTERN: filename pattern \, like * (all files) \,
-*.wav (all wav files) etc. Тип: symbol.;
-#X obj 280 1755 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1755 [DIR]: search directory. If omitted - search in patch
+#X msg 130 1510 append;
+#X text 270 1510 appends new menu item. Arguments are:;
+#X obj 280 1533 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1533 ATOMS: item name. Type: list.;
+#X obj 250 1558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1558 clear;
+#X text 270 1558 clears specified preset. Arguments are:;
+#X obj 280 1581 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1581 IDX: preset index. Type: int.;
+#X obj 250 1606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1606 delete;
+#X text 270 1606 removes item from menu. Arguments are:;
+#X obj 280 1629 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1629 IDX: removed item index. Type: int. Min value: 0\.;
+#X obj 250 1654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1654 erase;
+#X text 270 1654 clears all items menu.;
+#X obj 250 1682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1682 file_glob;
+#X text 270 1682 fill menu with filenames. Arguments are:;
+#X obj 280 1705 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1705 PATTERN: filename pattern \, like * (all files) \,
+*.wav (all wav files) etc. Type: symbol.;
+#X obj 280 1743 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1743 [DIR]: search directory. If omitted - search in patch
 directory. Performs tilde (~) expansion to home directory. To elide
-long filenames see @max_length property. Тип: symbol.;
-#X obj 250 1825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1825 insert;
-#X text 270 1825 inserts new menu item before specified position. Аргументы:;
-#X obj 280 1848 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1848 IDX: item position. Тип: int. Минимальное значение:
-0\.;
-#X obj 280 1871 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1871 ATOM: item name. Тип: atom.;
-#X obj 250 1896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1896 interp;
-#X text 270 1896 for this object acts as *load* \, no preset interpolation
+long filenames see @max_length property. Type: symbol.;
+#X obj 250 1813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1813 insert;
+#X text 270 1813 inserts new menu item before specified position. Arguments
+are:;
+#X obj 280 1851 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1851 IDX: item position. Type: int. Min value: 0\.;
+#X obj 280 1874 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1874 ATOM: item name. Type: atom.;
+#X obj 250 1899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1899 interp;
+#X text 270 1899 for this object acts as *load* \, no preset interpolation
 performed.;
-#X obj 250 1936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1936 load;
-#X text 270 1936 loads specified preset. Аргументы:;
-#X obj 280 1959 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1959 IDX: preset index. Тип: int.;
-#X obj 250 1984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1984 pos;
-#X text 270 1984 set UI element position. Аргументы:;
-#X obj 280 2007 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2007 X: top left x-coord. Тип: float.;
-#X obj 280 2030 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2030 Y: top right y-coord. Тип: float.;
-#X obj 250 2055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2055 set;
-#X text 270 2055 silently sets menu state. Аргументы:;
-#X obj 280 2078 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2078 IDX: item index. Тип: int. Минимальное значение: 0\.;
-#X obj 250 2103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2103 set_item;
-#X text 270 2103 renames menu item. Аргументы:;
-#X obj 280 2126 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2126 IDX: item index. Тип: int. Минимальное значение: 0\.;
-#X obj 280 2149 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2149 ATOM: item name. Тип: list.;
-#X obj 250 2174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2174 store;
-#X text 270 2174 stores specified preset. Аргументы:;
-#X obj 280 2197 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2197 IDX: preset index. Тип: int.;
-#X obj 20 2232 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2237 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 2238 1\.;
-#X text 170 2238 bang:;
-#X text 270 2238 outputs current menu state as list: INDEX ITEM_NAME.;
-#X text 170 2263 float:;
-#X text 270 2263 change menu state and output list: INDEX ITEM_NAME.;
-#X text 170 2288 any:;
-#X text 270 2288 selects item equal to given and output list: INDEX
-ITEM_NAME.;
-#X obj 20 2323 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2328 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 250 1939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1939 load;
+#X text 270 1939 loads specified preset. Arguments are:;
+#X obj 280 1962 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1962 IDX: preset index. Type: int.;
+#X obj 250 1987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1987 pos;
+#X text 270 1987 set UI element position. Arguments are:;
+#X obj 280 2010 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2010 X: top left x-coord. Type: float.;
+#X obj 280 2033 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2033 Y: top right y-coord. Type: float.;
+#X obj 250 2058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2058 set;
+#X text 270 2058 silently sets menu state. Arguments are:;
+#X obj 280 2081 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2081 IDX: item index. Type: int. Min value: 0\.;
+#X obj 250 2106 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2106 set_item;
+#X text 270 2106 renames menu item. Arguments are:;
+#X obj 280 2129 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2129 IDX: item index. Type: int. Min value: 0\.;
+#X obj 280 2152 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2152 ATOM: item name. Type: list.;
+#X obj 250 2177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2177 store;
+#X text 270 2177 stores specified preset. Arguments are:;
+#X obj 280 2200 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2200 IDX: preset index. Type: int.;
+#X obj 20 2235 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2240 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2329 1\.;
-#X text 270 2329 output.;
+#X text 130 2241 1\.;
+#X text 170 2241 bang:;
+#X text 270 2241 outputs current menu state as list: INDEX ITEM_NAME.;
+#X text 170 2266 float:;
+#X text 270 2266 change menu state and output list: INDEX ITEM_NAME.;
+#X text 170 2291 any:;
+#X text 270 2291 selects item equal to given and output list: INDEX
+ITEM_NAME.;
+#X obj 20 2326 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2331 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 2332 1\.;
+#X text 270 2332 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2379 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2382 библиотека: ceammc v0.9.8;
-#X text 558 2394 смотрите также:;
-#X obj 679 2397 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2382 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2385 library: ceammc v0.9.8;
+#X text 604 2397 see also:;
+#X obj 679 2400 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.radio] @url ui.radio-help.pd;
-#N canvas 10 2401 400 290 info 0;
+#N canvas 10 2404 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 ui.menu;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 ui;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Pierre Guillot \, Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 ui \, menu;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2401 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 2404 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

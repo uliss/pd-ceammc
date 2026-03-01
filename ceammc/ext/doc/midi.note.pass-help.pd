@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 548 11 note.pass;
 #X obj 638 11 midi.note.pass;
-#X obj 230 78 cnv 1 535 204 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 214 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Passes midi notes (list of PITCH VELOCITY DUR?) for
 which expression returns true.;
 #X text 240 123 Available variables: $N - MIDI note \, $V - MIDI velocity;
@@ -15,62 +15,62 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X text 240 188 Available math operations: + \, - \, * \, / \, % \,
 ^ \, == \, != \, > \, >= \, < \, <= \, && \, ||;
 #X text 240 228 see for more information:;
-#X obj 240 253 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 256 ui.link @background_color 0.90196 0.90196 0.90196
 @title        https://beltoforion.de/en/muparser/features.php#idDef1
 @url https://beltoforion.de/en/muparser/features.php#idDef1;
-#X obj 50 330 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 213 330 ui.keyboard;
-#X obj 50 359 metro 100;
-#X obj 50 388 random.i 40 80;
-#X obj 50 417 makenote 120 95;
-#X obj 50 446 pack f f;
-#X msg 165 446 dump;
-#X obj 50 474 note.pass white($N) && $N>=60;
-#X obj 50 503 msg note;
-#X obj 50 532 sfizz~ \#tri @volume 6;
-#X obj 309 532 ui.dsp~;
-#X obj 50 561 ui.hgain2~;
-#X obj 50 590 dac~;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 645 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 340 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 213 340 ui.keyboard;
+#X obj 50 369 metro 100;
+#X obj 50 398 random.i 40 80;
+#X obj 50 427 makenote 120 95;
+#X obj 50 456 pack f f;
+#X msg 165 456 dump;
+#X obj 50 484 note.pass white($N) && $N>=60;
+#X obj 50 513 msg note;
+#X obj 50 542 sfizz~ \#tri @volume 6;
+#X obj 309 542 ui.dsp~;
+#X obj 50 571 ui.hgain2~;
+#X obj 50 600 dac~;
+#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 655 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 648 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 658 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 646 1\.;
-#X text 170 646 list;
-#X obj 268 647 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 646 EXPR: init expression. Type: list.;
-#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 686 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 656 1\.;
+#X text 170 656 list;
+#X obj 268 657 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 656 EXPR: init expression. Type: list.;
+#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 696 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 689 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 699 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 687 @expr;
-#X text 270 687 Expression. Type: list.;
-#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 732 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 697 @expr;
+#X text 270 697 Expression. Type: list.;
+#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 742 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 733 1\.;
-#X text 170 733 list:;
-#X text 270 733 NOTE VELOCITY [DUR] list.;
-#X text 130 758 2\.;
-#X text 170 758 list:;
-#X text 270 758 set new expression.;
-#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 798 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 743 1\.;
+#X text 170 743 list:;
+#X text 270 743 NOTE VELOCITY [DUR] list.;
+#X text 130 768 2\.;
+#X text 170 768 list:;
+#X text 270 768 set new expression.;
+#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 808 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 799 1\.;
-#X text 270 799 passed NOTE VELOCITY [DUR] list.;
+#X text 130 809 1\.;
+#X text 270 809 passed NOTE VELOCITY [DUR] list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 849 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 852 library: ceammc v0.9.8;
-#X text 635 864 see also:;
-#X obj 710 864 expr;
-#N canvas 10 871 400 290 info 0;
+#X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 862 library: ceammc v0.9.8;
+#X text 635 874 see also:;
+#X obj 710 874 expr;
+#N canvas 10 881 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 871 pd info;
+#X restore 10 881 pd info;
 #X connect 12 0 14 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;

@@ -20,47 +20,46 @@
 #X obj 232 320 ui.dsp~;
 #X obj 50 349 dac~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
 #X obj 268 406 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 DRYWET: drywet mix. Тип: float. Диапазон: 0…1;
+#X text 270 405 DRYWET: drywet mix. Type: float. Range: 0\...1;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 446 @id;
-#X text 270 446 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/fx_satrev/ИМЯ_СВОЙСТВА \, в противном случае к /fx_satrev/ИМЯ_СВОЙСТВА.
-Тип: symbol.;
+#X text 270 446 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_satrev/ИМЯ_СВОЙСТВА
+\, в противном случае к /fx_satrev/ИМЯ_СВОЙСТВА. Type: symbol.;
 #X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 518 @osc;
-#X text 270 518 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X text 270 518 (initonly) Имя OSC сервера. Type: symbol.;
 #X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 548 @active;
-#X text 270 548 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
+#X text 270 548 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
 #X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 590 @bypass;
-#X text 270 590 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 590 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
 #X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @drywet;
 #X text 270 632 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.25\. Диапазон: 0\...1\.;
+(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+0.25\. Range: 0\...1\.;
 #X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 704 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 704 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
 #X msg 130 705 reset;
 #X text 270 705 reset to initial state.;
 #X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 748 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 748 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 130 749 1\.;
 #X text 170 749 ~;
@@ -69,8 +68,8 @@ bool. Значение по умолчанию: 0\.;
 #X text 170 774 float:;
 #X text 270 774 set drywet.;
 #X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 814 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
+#X obj 20 814 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
 #X text 130 815 1\.;
 #X text 170 815 ~;
 #X text 270 815 left output signal.;
@@ -83,31 +82,31 @@ bool. Значение по умолчанию: 0\.;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 885 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 888 библиотека: ceammc v0.9.8;
+#X text 10 888 library: ceammc v0.9.8;
 #N canvas 10 907 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 fx.satrev~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 fx;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 fx \, room \, reverb \, schroeder;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
+#X text 120 268 generated by pddoc;
 #X restore 10 907 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;

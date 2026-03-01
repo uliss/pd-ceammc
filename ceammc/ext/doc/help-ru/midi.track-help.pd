@@ -23,115 +23,114 @@
 #X obj 50 435 ui.hgain2~;
 #X obj 50 464 dac~;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 522 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 520 1\.;
 #X text 170 520 int;
 #X obj 268 521 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 520 TRACK: init track number. Тип: int. Минимальное значение:
-0\.;
+#X text 270 520 TRACK: init track number. Type: int. Min value: 0;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 563 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 561 @join;
-#X text 270 561 Join all tracks into one. Значение по умолчанию: 0\.;
+#X text 270 561 Join all tracks into one. Default value: 0\.;
 #X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 @speed;
-#X text 270 591 Play speed factor. Тип: float. Значение по умолчанию:
-1\. Минимальное значение: 0.01\.;
+#X text 270 591 Play speed factor. Type: float. Default value: 1\.
+Min value: 0.01\.;
 #X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 633 @track;
-#X text 270 633 Track number. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @current?;
-#X text 270 675 (только чтение) Current event tick index. Тип: int.
-Значение по умолчанию: 0\.;
-#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 717 @nevents?;
-#X text 270 717 (только чтение) Number of events in track. Тип: int.
-Значение по умолчанию: 0\.;
-#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 759 @state?;
-#X text 270 759 (только чтение) Current state. 0: stopped \, 1: playing
-\, 2: paused. Тип: int. Значение по умолчанию: 0\. Разрешённые значения:
-0 \, 1 \, 2\.;
-#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 816 @tempo?;
-#X text 270 816 (только чтение) Current tempo in TPQ. Тип: int. Значение
-по умолчанию: 120\.;
-#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 873 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 874 next;
-#X text 270 874 moves playing position to next event. No output.;
-#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 902 pause;
-#X text 270 902 pause playing.;
-#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 930 play;
-#X text 270 930 start playing.;
-#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 958 reset;
-#X text 270 958 set current event index to zero and send All Notes
-Off event.;
-#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 986 seek;
-#X text 270 986 seek to specified tick.;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 stop;
-#X text 270 1014 stop playing and send All Notes Off event.;
-#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1057 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1058 1\.;
-#X text 170 1058 bang:;
-#X text 270 1058 output current event.;
-#X text 170 1083 data:;
-#X text 270 1083 MidiStream object: set new mifi file.;
-#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1123 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 270 633 Track number. Type: int. Default value: 0\. Min value:
+0\.;
+#X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 663 @current?;
+#X text 270 663 (readonly) Current event tick index. Type: int. Default
+value: 0\.;
+#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 705 @nevents?;
+#X text 270 705 (readonly) Number of events in track. Type: int. Default
+value: 0\.;
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 747 @state?;
+#X text 270 747 (readonly) Current state. 0: stopped \, 1: playing
+\, 2: paused. Type: int. Default value: 0\. Allowed values: 0 \, 1
+\, 2\.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 804 @tempo?;
+#X text 270 804 (readonly) Current tempo in TPQ. Type: int. Default
+value: 120\.;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 861 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1124 1\.;
-#X text 270 1124 MidiEvent message.;
-#X text 130 1144 2\.;
-#X text 270 1144 time in milliseconds until next MIDI event.;
+#X msg 130 862 next;
+#X text 270 862 moves playing position to next event. No output.;
+#X obj 250 890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 890 pause;
+#X text 270 890 pause playing.;
+#X obj 250 918 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 918 play;
+#X text 270 918 start playing.;
+#X obj 250 946 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 946 reset;
+#X text 270 946 set current event index to zero and send All Notes
+Off event.;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 974 seek;
+#X text 270 974 seek to specified tick.;
+#X obj 250 1002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1002 stop;
+#X text 270 1002 stop playing and send All Notes Off event.;
+#X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1045 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1046 1\.;
+#X text 170 1046 bang:;
+#X text 270 1046 output current event.;
+#X text 170 1071 data:;
+#X text 270 1071 MidiStream object: set new mifi file.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1111 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1112 1\.;
+#X text 270 1112 MidiEvent message.;
+#X text 130 1132 2\.;
+#X text 270 1132 time in milliseconds until next MIDI event.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1194 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1197 библиотека: ceammc v0.9.8;
-#N canvas 10 1216 400 290 info 0;
+#X obj 1 1182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1185 library: ceammc v0.9.8;
+#N canvas 10 1204 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 midi.track;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 midi;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 midi \, track;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1216 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1204 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;

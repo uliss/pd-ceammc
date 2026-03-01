@@ -7,92 +7,92 @@
 #X obj 412 11 ceammc/rhvoice~;
 #X obj 547 11 rhvoice~;
 #X obj 630 11 speech.rhvoice~;
-#X obj 230 78 cnv 1 535 138 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 148 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: voices are not distributed with PureData-ceammc
 \, you have to install voice data manually;
 #X text 240 123 Download language and voice datafiles and put them
 into ~/Documents/Pd/rhvoice directory;
-#X obj 240 163 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 166 ui.link @background_color 0.90196 0.90196 0.90196
 @title https://github.com/RHVoice/Russian @url
 https://github.com/RHVoice/Russian;
-#X obj 240 187 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 190 ui.link @background_color 0.90196 0.90196 0.90196
 @title https://github.com/RHVoice/anna-rus @url
 https://github.com/RHVoice/anna-rus;
-#X obj 50 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 174 264 speech.rhvoice~-voices;
-#X text 405 264 <-- see here;
-#X obj 50 293 metro 1000;
-#X obj 50 322 flow.count;
-#X obj 174 322 ui.hsl -1 1 @show_value 1;
-#X obj 328 322 ui.hsl -1 1 @show_value 1;
-#X msg 174 351 @pitch \$1;
-#X msg 328 351 @rate \$1;
-#X listbox 242 380 20 0 0 0 - - -;
-#X obj 50 408 speech.rhvoice~;
-#X obj 155 437 print RHVOICE;
-#X obj 50 466 ui.gain~ @size 120 16;
-#X obj 299 466 ui.dsp~;
-#X obj 50 495 dac~;
-#X obj 50 524 speech.rhvoice~-extra;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 274 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 174 274 speech.rhvoice~-voices;
+#X text 405 274 <-- see here;
+#X obj 50 303 metro 1000;
+#X obj 50 332 flow.count;
+#X obj 174 332 ui.hsl -1 1 @show_value 1;
+#X obj 328 332 ui.hsl -1 1 @show_value 1;
+#X msg 174 361 @pitch \$1;
+#X msg 328 361 @rate \$1;
+#X listbox 242 390 20 0 0 0 - - -;
+#X obj 50 418 speech.rhvoice~;
+#X obj 155 447 print RHVOICE;
+#X obj 50 476 ui.gain~ @size 120 16;
+#X obj 299 476 ui.dsp~;
+#X obj 50 505 dac~;
+#X obj 50 534 speech.rhvoice~-extra;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 589 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 592 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 580 @pitch;
-#X text 270 580 Voice pitch. Type: float. Default value: 0\. Range:
+#X msg 130 590 @pitch;
+#X text 270 590 Voice pitch. Type: float. Default value: 0\. Range:
 -1\...1\.;
-#X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 610 @punct;
-#X text 270 610 Punctuation for pronunciation. If 'all' - pronounce
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 620 @punct;
+#X text 270 620 Punctuation for pronunciation. If 'all' - pronounce
 all \, otherwise pronounce only specified punctuation characters. Type:
 symbol.;
-#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 667 @rate;
-#X text 270 667 Speaking rate. Type: float. Default value: 0\. Range:
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 @rate;
+#X text 270 677 Speaking rate. Type: float. Default value: 0\. Range:
 -1\...1\.;
-#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 709 @voice;
-#X text 270 709 Voice. Type: symbol. Default value: Anna.;
-#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 739 @volume;
-#X text 270 739 Voice volume. Type: float. Default value: 1\. Range:
+#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 719 @voice;
+#X text 270 719 Voice. Type: symbol. Default value: Anna.;
+#X obj 250 749 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 749 @volume;
+#X text 270 749 Voice volume. Type: float. Default value: 1\. Range:
 0\...1\.;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 784 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 794 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 785 clear;
-#X text 270 785 clear TTS queue.;
-#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 813 read;
-#X text 270 813 read TTS file (text or SSML). Arguments are:;
-#X obj 280 836 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 836 FILE: absolute or relative path to the file. Type:
+#X msg 130 795 clear;
+#X text 270 795 clear TTS queue.;
+#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 823 read;
+#X text 270 823 read TTS file (text or SSML). Arguments are:;
+#X obj 280 846 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 846 FILE: absolute or relative path to the file. Type:
 symbol.;
-#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 861 ssml;
-#X text 270 861 speak SSML text markup.;
-#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 889 stop;
-#X text 270 889 stops speech and clear TTS queue.;
-#X obj 20 927 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 932 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 871 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 871 ssml;
+#X text 270 871 speak SSML text markup.;
+#X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 899 stop;
+#X text 270 899 stops speech and clear TTS queue.;
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 942 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 933 1\.;
-#X text 170 933 float:;
-#X text 270 933 speak number.;
-#X text 170 958 symbol:;
-#X text 270 958 speak symbol.;
-#X text 170 983 list:;
-#X text 270 983 speak list of symbols.;
-#X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 943 1\.;
+#X text 170 943 float:;
+#X text 270 943 speak number.;
+#X text 170 968 symbol:;
+#X text 270 968 speak symbol.;
+#X text 170 993 list:;
+#X text 270 993 speak list of symbols.;
+#X obj 20 1028 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1033 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1024 1\.;
-#X text 170 1024 ~;
-#X text 270 1024 TTS output.;
-#X text 130 1044 2\.;
-#X text 270 1044 bang on done \, [word 1( on word start \, [word 0(
+#X text 130 1034 1\.;
+#X text 170 1034 ~;
+#X text 270 1034 TTS output.;
+#X text 130 1054 2\.;
+#X text 270 1054 bang on done \, [word 1( on word start \, [word 0(
 on word end \, [sentence 1( on sentence start \, [sentence 0( on sentence
 end.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -100,11 +100,11 @@ end.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1124 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1127 library: ceammc v0.9.8;
-#X text 570 1139 see also:;
-#X obj 645 1139 speech.flite~;
-#N canvas 10 1146 400 290 info 0;
+#X obj 1 1134 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1137 library: ceammc v0.9.8;
+#X text 570 1149 see also:;
+#X obj 645 1149 speech.flite~;
+#N canvas 10 1156 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -128,7 +128,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1146 pd info;
+#X restore 10 1156 pd info;
 #X connect 11 0 14 0;
 #X connect 14 0 15 0;
 #X connect 16 0 18 0;

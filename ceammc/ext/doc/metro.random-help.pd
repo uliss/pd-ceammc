@@ -6,77 +6,77 @@ specified range;
 #X obj 1 1 cnv 5 765 40 empty empty metro.random 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 metro.random;
-#X obj 230 93 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Random distribution: uniform;
-#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 98 176 ui.rsl @min 50 @max 1000;
-#X obj 50 234 metro.random 100 140;
-#X obj 50 263 click~;
-#X obj 50 292 flt.resonbp~ 1000 20;
-#X obj 270 292 ui.dsp~;
-#X obj 50 320 ui.hgain~;
-#X obj 50 349 dac~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 98 186 ui.rsl @min 50 @max 1000;
+#X obj 50 244 metro.random 100 140;
+#X obj 50 273 click~;
+#X obj 50 302 flt.resonbp~ 1000 20;
+#X obj 270 302 ui.dsp~;
+#X obj 50 330 ui.hgain~;
+#X obj 50 359 dac~;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 414 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 417 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 int;
-#X obj 268 406 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 MIN(ms): minimal bang interval. Type: int. Min value:
+#X text 130 415 1\.;
+#X text 170 415 int;
+#X obj 268 416 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 415 MIN(ms): minimal bang interval. Type: int. Min value:
 1;
-#X text 130 430 2\.;
-#X text 170 430 int;
-#X obj 268 431 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 MAX(ms): maximum bang interval. Type: int. Min value:
+#X text 130 440 2\.;
+#X text 170 440 int;
+#X obj 268 441 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 440 MAX(ms): maximum bang interval. Type: int. Min value:
 1;
-#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 470 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 473 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 471 @max;
-#X text 270 471 Maximum bang interval. Type: int. Units: 'ms'. Default
+#X msg 130 481 @max;
+#X text 270 481 Maximum bang interval. Type: int. Units: 'ms'. Default
 value: 200\. Min value: 1\.;
-#X obj 250 513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 513 @min;
-#X text 270 513 Minimal bang interval. Type: int. Units: 'ms'. Default
+#X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 523 @min;
+#X text 270 523 Minimal bang interval. Type: int. Units: 'ms'. Default
 value: 100\. Min value: 1\.;
-#X obj 250 555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 555 @seed;
-#X text 270 555 Generator seed. Type: int. Default value: 0\. Min value:
+#X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 565 @seed;
+#X text 270 565 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 600 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 601 1\.;
-#X text 170 601 float:;
-#X text 270 601 starts (on > 0) or stops (on <= 0) metro.;
-#X text 130 626 2\.;
-#X text 170 626 float:;
-#X text 270 626 set @min property.;
-#X text 170 651 list:;
-#X text 270 651 set random range. min max pair expected.;
-#X text 130 676 3\.;
-#X text 170 676 float:;
-#X text 270 676 set @max property.;
-#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 716 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 611 1\.;
+#X text 170 611 float:;
+#X text 270 611 starts (on > 0) or stops (on <= 0) metro.;
+#X text 130 636 2\.;
+#X text 170 636 float:;
+#X text 270 636 set @min property.;
+#X text 170 661 list:;
+#X text 270 661 set random range. min max pair expected.;
+#X text 130 686 3\.;
+#X text 170 686 float:;
+#X text 270 686 set @max property.;
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 726 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 717 1\.;
-#X text 270 717 outputs *bang*.;
+#X text 130 727 1\.;
+#X text 270 727 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 767 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 770 library: ceammc v0.9.8;
-#X text 518 782 see also:;
-#X obj 593 782 metro;
-#X obj 645 782 metro.pattern;
-#N canvas 10 789 400 290 info 0;
+#X obj 1 777 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 780 library: ceammc v0.9.8;
+#X text 518 792 see also:;
+#X obj 593 792 metro;
+#X obj 645 792 metro.pattern;
+#N canvas 10 799 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 789 pd info;
+#X restore 10 799 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 1;
 #X connect 8 0 9 0;

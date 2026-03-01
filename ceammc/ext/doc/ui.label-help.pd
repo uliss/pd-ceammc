@@ -6,156 +6,156 @@
 0;
 #X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.label] @url ui.label-help.pd;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Label object with spaces \, text-align \, font customization
 and word-wrap;
-#X text 50 176 [ui.label test label];
-#X msg 50 205 hidden inlet;
-#X obj 50 234 ui.label test label @receive lbl1;
-#X obj 50 292 ui.label test label @align center @background_color 0.8
+#X text 50 186 [ui.label test label];
+#X msg 50 215 hidden inlet;
+#X obj 50 244 ui.label test label @receive lbl1;
+#X obj 50 302 ui.label test label @align center @background_color 0.8
 0.9 0.4 1 @receive lbl1;
-#X obj 50 349 ui.label test label @align right @receive lbl1
+#X obj 50 359 ui.label test label @align right @receive lbl1
 @background_color 0.4 0.9 0.8 1;
-#X msg 50 421 1;
-#X floatatom 88 421 5 0 0 0 - - -;
-#X msg 146 421 a b c;
-#X symbolatom 222 421 5 0 0 0 - - -;
-#X msg 299 421 append A;
-#X msg 414 421 prepend C;
-#X obj 50 464 s lbl1;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X msg 50 431 1;
+#X floatatom 88 431 5 0 0 0 - - -;
+#X msg 146 431 a b c;
+#X symbolatom 222 431 5 0 0 0 - - -;
+#X msg 299 431 append A;
+#X msg 414 431 prepend C;
+#X obj 50 474 s lbl1;
+#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 529 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 554 Right-click + ⇧;
-#X text 310 554 open object help.;
-#X text 130 574 Right-click + ⌥;
-#X text 310 574 open properties dialog.;
-#X text 130 594 Right-click;
-#X text 310 594 opens Pd popup menu.;
-#X text 81 594 [Edit];
-#X text 130 614 Right-click + ⇧;
-#X text 310 614 open the object help.;
-#X text 81 614 [Edit];
-#X text 130 634 Right-click + ⌥;
-#X text 310 634 open properties dialog.;
-#X text 81 634 [Edit];
-#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 669 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 564 Right-click + ⇧;
+#X text 310 564 open object help.;
+#X text 130 584 Right-click + ⌥;
+#X text 310 584 open properties dialog.;
+#X text 130 604 Right-click;
+#X text 310 604 opens Pd popup menu.;
+#X text 81 604 [Edit];
+#X text 130 624 Right-click + ⇧;
+#X text 310 624 open the object help.;
+#X text 81 624 [Edit];
+#X text 130 644 Right-click + ⌥;
+#X text 310 644 open properties dialog.;
+#X text 81 644 [Edit];
+#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 679 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 672 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 682 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 670 1\.;
-#X text 170 670 list;
-#X obj 268 671 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 670 TEXT: label text. Type: list.;
-#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 710 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 680 1\.;
+#X text 170 680 list;
+#X obj 268 681 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 680 TEXT: label text. Type: list.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 720 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 713 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 723 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 711 @align;
-#X text 270 711 Text align. Type: symbol. Default value: left. Allowed
+#X msg 130 721 @align;
+#X text 270 721 Text align. Type: symbol. Default value: left. Allowed
 values: left \, center \, right.;
-#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 753 @margin_bottom;
-#X text 270 753 Text bottom margin. Type: int. Default value: 5\.;
-#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 783 @margin_left;
-#X text 270 783 Text left margin. Type: int. Default value: 5\.;
-#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 813 @margin_right;
-#X text 270 813 Text right margin. Type: int. Default value: 5\.;
-#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 843 @margin_top;
-#X text 270 843 Text top margin. Type: int. Default value: 5\.;
-#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 873 @receive;
-#X text 270 873 Source of message receive. Type: symbol. Default value:
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 763 @margin_bottom;
+#X text 270 763 Text bottom margin. Type: int. Default value: 5\.;
+#X obj 250 793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 793 @margin_left;
+#X text 270 793 Text left margin. Type: int. Default value: 5\.;
+#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 823 @margin_right;
+#X text 270 823 Text right margin. Type: int. Default value: 5\.;
+#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 853 @margin_top;
+#X text 270 853 Text top margin. Type: int. Default value: 5\.;
+#X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 883 @receive;
+#X text 270 883 Source of message receive. Type: symbol. Default value:
 (null).;
-#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 915 @receive;
-#X text 270 915 Source of message receive. Type: symbol. Default value:
+#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 925 @receive;
+#X text 270 925 Source of message receive. Type: symbol. Default value:
 (null).;
-#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 957 @text;
-#X text 270 957 Label text. Type: list. Default value: Label.;
-#X obj 250 987 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 987 @background_color;
-#X text 270 987 Element background color (list of red \, green \, blue
+#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 967 @text;
+#X text 270 967 Label text. Type: list. Default value: Label.;
+#X obj 250 997 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 997 @background_color;
+#X text 270 997 Element background color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
-#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1029 @text_color;
-#X text 270 1029 Text color (list of red \, green \, blue values in
+#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1039 @text_color;
+#X text 270 1039 Text color (list of red \, green \, blue values in
 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X obj 250 1071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1071 @fontname;
-#X text 270 1071 Font name. Type: symbol. Default value: Helvetica.
+#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1081 @fontname;
+#X text 270 1081 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1113 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1113 @fontsize;
-#X text 270 1113 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
-#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1143 @fontsize;
-#X text 270 1143 Font size. Type: int. Default value: 32\. Range: 4\...100\.;
-#X obj 250 1173 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1173 @fontslant;
-#X text 270 1173 Font slant. Type: symbol. Default value: roman. Allowed
+#X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1123 @fontsize;
+#X text 270 1123 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X obj 250 1153 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1153 @fontsize;
+#X text 270 1153 Font size. Type: int. Default value: 32\. Range: 4\...100\.;
+#X obj 250 1183 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1183 @fontslant;
+#X text 270 1183 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 1215 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1215 @fontweight;
-#X text 270 1215 Font weight. Type: symbol. Default value: normal.
+#X obj 250 1225 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1225 @fontweight;
+#X text 270 1225 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X obj 250 1257 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1257 @pinned;
-#X text 270 1257 Pin mode. If set to 1 \, it places the element at
+#X obj 250 1267 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1267 @pinned;
+#X text 270 1267 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 1\.;
-#X obj 250 1314 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1314 @size;
-#X text 270 1314 Object size (width \, height pair). Type: list. Default
+#X obj 250 1324 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1324 @size;
+#X text 270 1324 Object size (width \, height pair). Type: list. Default
 value: 300 47\.;
-#X obj 20 1366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1371 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1376 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1381 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1372 append;
-#X text 270 1372 appends to @text end.;
-#X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1400 clear;
-#X text 270 1400 clear label text and clear @text property.;
-#X obj 250 1428 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1428 pos;
-#X text 270 1428 set UI element position. Arguments are:;
-#X obj 280 1451 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1451 X: top left x-coord. Type: float.;
-#X obj 280 1474 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1474 Y: top right y-coord. Type: float.;
-#X obj 250 1499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1499 prepend;
-#X text 270 1499 insert into beginning of @text.;
-#X obj 20 1537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1542 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1382 append;
+#X text 270 1382 appends to @text end.;
+#X obj 250 1410 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1410 clear;
+#X text 270 1410 clear label text and clear @text property.;
+#X obj 250 1438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1438 pos;
+#X text 270 1438 set UI element position. Arguments are:;
+#X obj 280 1461 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1461 X: top left x-coord. Type: float.;
+#X obj 280 1484 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1484 Y: top right y-coord. Type: float.;
+#X obj 250 1509 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1509 prepend;
+#X text 270 1509 insert into beginning of @text.;
+#X obj 20 1547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1552 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1543 1\.;
-#X text 170 1543 float:;
-#X text 270 1543 [hidden inlet] set the label text to the given float
+#X text 130 1553 1\.;
+#X text 170 1553 float:;
+#X text 270 1553 [hidden inlet] set the label text to the given float
 without changing @text property.;
-#X text 170 1583 symbol:;
-#X text 270 1583 [hidden inlet] set the label text without changing
+#X text 170 1593 symbol:;
+#X text 270 1593 [hidden inlet] set the label text without changing
 @text property.;
-#X text 170 1623 list:;
-#X text 270 1623 [hidden inlet] set the label text to the given list
+#X text 170 1633 list:;
+#X text 270 1633 [hidden inlet] set the label text to the given list
 separated by spaces without changing @text property.;
-#X text 170 1663 any:;
-#X text 270 1663 [hidden inlet] set the label text to the given message
+#X text 170 1673 any:;
+#X text 270 1673 [hidden inlet] set the label text to the given message
 separated by spaces without changing @text property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1733 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1736 library: ceammc v0.9.8;
-#N canvas 10 1755 400 290 info 0;
+#X obj 1 1743 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1746 library: ceammc v0.9.8;
+#N canvas 10 1765 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -179,7 +179,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1755 pd info;
+#X restore 10 1765 pd info;
 #X connect 7 0 8 0;
 #X connect 11 0 17 0;
 #X connect 12 0 17 0;

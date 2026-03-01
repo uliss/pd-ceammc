@@ -12,93 +12,92 @@
 #X floatatom 50 219 5 0 0 0 - - -;
 #X obj 136 219 ui.dt;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 277 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 275 1\.;
 #X text 170 275 symbol;
 #X obj 268 276 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 275 HOST: destination host. Тип: symbol.;
+#X text 270 275 HOST: destination host. Type: symbol.;
 #X text 130 300 2\.;
 #X text 170 300 int;
 #X obj 268 301 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 300 PORT: destination port. Тип: int. Диапазон: 1…32768;
+#X text 270 300 PORT: destination port. Type: int. Range: 1\...32768;
 #X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 340 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 340 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 343 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 343 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 341 @host;
-#X text 270 341 Destination host. Тип: symbol. Значение по умолчанию:
-localhost.;
-#X obj 250 383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 383 @pass;
-#X text 270 383 Basic Auth password. Тип: atom.;
-#X obj 250 413 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 413 @port;
-#X text 270 413 Destination port. Тип: int. Значение по умолчанию:
-80\. Диапазон: 1\...32768\.;
-#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 455 @timeout;
-#X text 270 455 TCP connection timeout. Тип: int. Единицы: 'sec'. Значение
-по умолчанию: 1\. Диапазон: 1\...10\.;
-#X obj 250 497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 497 @user;
-#X text 270 497 Basic Auth user name. Тип: symbol.;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 542 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 341 Destination host. Type: symbol. Default value: localhost.;
+#X obj 250 371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 371 @pass;
+#X text 270 371 Basic Auth password. Type: atom.;
+#X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 401 @port;
+#X text 270 401 Destination port. Type: int. Default value: 80\. Range:
+1\...32768\.;
+#X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 443 @timeout;
+#X text 270 443 TCP connection timeout. Type: int. Units: 'sec'. Default
+value: 1\. Range: 1\...10\.;
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 485 @user;
+#X text 270 485 Basic Auth user name. Type: symbol.;
+#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 530 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 531 get;
+#X text 270 531 send GET request. Arguments are:;
+#X obj 280 554 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 554 PATH: request path. Type: symbol.;
+#X obj 280 577 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 577 VALUES: list of query pairs. Type: list.;
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 617 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 543 get;
-#X text 270 543 send GET request. Аргументы:;
-#X obj 280 566 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 566 PATH: request path. Тип: symbol.;
-#X obj 280 589 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 589 VALUES: list of query pairs. Тип: list.;
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 629 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 630 1\.;
-#X text 270 630 input.;
-#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 670 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 671 1\.;
-#X text 270 671 int: HTTP status code.;
-#X text 130 691 2\.;
-#X text 270 691 data:String: HTTP body.;
+#X text 130 618 1\.;
+#X text 270 618 input.;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 658 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 659 1\.;
+#X text 270 659 int: HTTP status code.;
+#X text 130 679 2\.;
+#X text 270 679 data:String: HTTP body.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 744 библиотека: ceammc v0.9.8;
-#N canvas 10 763 400 290 info 0;
+#X obj 1 729 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 732 library: ceammc v0.9.8;
+#N canvas 10 751 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 net.http.send;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 net;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.5;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 net \, http;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 763 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 751 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;
 #X connect 6 1 9 0;

@@ -5,117 +5,117 @@
 #X obj 1 1 cnv 5 765 40 empty empty dyn.gate2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 dyn.gate2~;
-#X obj 230 78 cnv 1 535 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 NOTE: the input level measured as sum of two input signals;
-#X obj 50 161 osc~ 400;
-#X obj 194 161 ui.hsl -60 0 @show_value 1;
-#X obj 78 190 osc~ 900;
-#X obj 194 190 dbfs->amp;
-#X obj 50 219 gain~ 2;
-#X obj 194 219 ui.hsl -60 0 @show_value 1;
-#X msg 194 248 @threshold \$1;
-#X obj 50 277 dyn.gate2~ -10;
-#X obj 50 305 ui.hgain2~;
-#X obj 194 305 ui.dsp~;
-#X obj 50 334 dac~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 171 osc~ 400;
+#X obj 194 171 ui.hsl -60 0 @show_value 1;
+#X obj 78 200 osc~ 900;
+#X obj 194 200 dbfs->amp;
+#X obj 50 229 gain~ 2;
+#X obj 194 229 ui.hsl -60 0 @show_value 1;
+#X msg 194 258 @threshold \$1;
+#X obj 50 287 dyn.gate2~ -10;
+#X obj 50 315 ui.hgain2~;
+#X obj 194 315 ui.dsp~;
+#X obj 50 344 dac~;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 402 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 390 1\.;
-#X text 170 390 float;
-#X obj 268 391 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 THRESHOLD(db): dB level threshold above which gate
+#X text 130 400 1\.;
+#X text 170 400 float;
+#X obj 268 401 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 400 THRESHOLD(db): dB level threshold above which gate
 opens. Type: float. Range: -90\...0;
-#X text 130 430 2\.;
-#X text 170 430 float;
-#X obj 268 431 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 ATTACK(ms): attack time = time constant (ms) for gate
+#X text 130 440 2\.;
+#X text 170 440 float;
+#X obj 268 441 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 440 ATTACK(ms): attack time = time constant (ms) for gate
 to open. Type: float. Range: 0\...500;
-#X text 130 470 3\.;
-#X text 170 470 float;
-#X obj 268 471 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 470 HOLD(ms): hold time = time (ms) gate stays open after
+#X text 130 480 3\.;
+#X text 170 480 float;
+#X obj 268 481 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 480 HOLD(ms): hold time = time (ms) gate stays open after
 signal level < threshold. Type: float. Range: 1\...500;
-#X text 130 510 4\.;
-#X text 170 510 float;
-#X obj 268 511 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 510 RELEASE(ms): release time = time constant (ms) for
+#X text 130 520 4\.;
+#X text 170 520 float;
+#X obj 268 521 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 520 RELEASE(ms): release time = time constant (ms) for
 gate to close. Type: float. Range: 1\...500;
-#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 565 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 575 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 568 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 578 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 566 @id;
-#X text 270 566 (initonly) OSC address id. If specified \, bind all
+#X msg 130 576 @id;
+#X text 270 576 (initonly) OSC address id. If specified \, bind all
 properties to /ID/dyn_gate2/PROP_NAME osc address \, if empty bind
 to /dyn_gate2/PROP_NAME. Type: symbol.;
-#X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 623 @osc;
-#X text 270 623 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 653 @active;
-#X text 270 653 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 633 @osc;
+#X text 270 633 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 663 @active;
+#X text 270 663 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 683 @attack;
-#X text 270 683 Attack time = time constant (ms) for gate to open.
+#X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 693 @attack;
+#X text 270 693 Attack time = time constant (ms) for gate to open.
 Type: float. Units: 'ms'. Default value: 0.1\. Range: 0\...500\.;
-#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 740 @bypass;
-#X text 270 740 Bypass flag. If true: bypass 'effected' signal. Type:
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 750 @bypass;
+#X text 270 750 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
-#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 782 @hold;
-#X text 270 782 Hold time = time (ms) gate stays open after signal
+#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 792 @hold;
+#X text 270 792 Hold time = time (ms) gate stays open after signal
 level < threshold. Type: float. Units: 'ms'. Default value: 100\. Range:
 1\...500\.;
-#X obj 250 839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 839 @release;
-#X text 270 839 Release time = time constant (ms) for gate to close.
+#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 849 @release;
+#X text 270 849 Release time = time constant (ms) for gate to close.
 Type: float. Units: 'ms'. Default value: 20\. Range: 1\...500\.;
-#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 896 @threshold;
-#X text 270 896 DB level threshold above which gate opens. Type: float.
+#X obj 250 906 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 906 @threshold;
+#X text 270 906 DB level threshold above which gate opens. Type: float.
 Units: 'db'. Default value: -60\. Range: -90\...0\.;
-#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 953 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 963 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 954 reset;
-#X text 270 954 reset to initial state.;
-#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 997 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 998 1\.;
-#X text 170 998 ~;
-#X text 270 998 left input signal.;
-#X text 130 1023 2\.;
-#X text 170 1023 ~;
-#X text 270 1023 right input signal.;
-#X text 130 1048 3\.;
-#X text 170 1048 float:;
-#X text 270 1048 set threshold.;
-#X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1088 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 964 reset;
+#X text 270 964 reset to initial state.;
+#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1007 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1089 1\.;
-#X text 170 1089 ~;
-#X text 270 1089 left output signal.;
-#X text 130 1109 2\.;
-#X text 170 1109 ~;
-#X text 270 1109 right output signal.;
+#X text 130 1008 1\.;
+#X text 170 1008 ~;
+#X text 270 1008 left input signal.;
+#X text 130 1033 2\.;
+#X text 170 1033 ~;
+#X text 270 1033 right input signal.;
+#X text 130 1058 3\.;
+#X text 170 1058 float:;
+#X text 270 1058 set threshold.;
+#X obj 20 1093 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1098 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1099 1\.;
+#X text 170 1099 ~;
+#X text 270 1099 left output signal.;
+#X text 130 1119 2\.;
+#X text 170 1119 ~;
+#X text 270 1119 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1159 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1162 library: ceammc v0.9.8;
-#X text 598 1174 see also:;
-#X obj 673 1174 dyn.gate~;
-#N canvas 10 1181 400 290 info 0;
+#X obj 1 1169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1172 library: ceammc v0.9.8;
+#X text 598 1184 see also:;
+#X obj 673 1184 dyn.gate~;
+#N canvas 10 1191 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1181 pd info;
+#X restore 10 1191 pd info;
 #X connect 7 0 9 0;
 #X connect 6 0 10 0;
 #X connect 8 0 10 1;

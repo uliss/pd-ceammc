@@ -5,90 +5,89 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.crackle~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 noise.crackle~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Random impulses in the amplitude range -1 to 1 are generated
 at an average rate of @freq impulses per second;
-#X msg 50 176 @freq 3;
-#X msg 146 176 @freq 50;
-#X obj 50 205 noise.crackle~;
-#X obj 50 234 ui.gain~ @size 120 16;
-#X obj 50 263 dac~;
-#X obj 50 292 ui.dsp~;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 347 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 186 @freq 3;
+#X msg 146 186 @freq 50;
+#X obj 50 215 noise.crackle~;
+#X obj 50 244 ui.gain~ @size 120 16;
+#X obj 50 273 dac~;
+#X obj 50 302 ui.dsp~;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 360 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 348 1\.;
-#X text 170 348 float;
-#X obj 268 349 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 348 FREQ(Hz): average frequency of noise impulses per second.
-Тип: float. Диапазон: 0…100;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 403 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 358 1\.;
+#X text 170 358 float;
+#X obj 268 359 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 358 FREQ(Hz): average frequency of noise impulses per second.
+Type: float. Range: 0\...100;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 406 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 404 @id;
-#X text 270 404 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/noise_crackle/ИМЯ_СВОЙСТВА \, в противном случае к /noise_crackle/ИМЯ_СВОЙСТВА.
-Тип: symbol.;
-#X obj 250 491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 491 @osc;
-#X text 270 491 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 521 @active;
-#X text 270 521 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 563 @freq;
-#X text 270 563 Average frequency of noise impulses per second. Тип:
-float. Единицы: 'Hz'. Значение по умолчанию: 10\. Диапазон: 0\...100\.;
-#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 635 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 414 @id;
+#X text 270 414 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/noise_crackle/ИМЯ_СВОЙСТВА
+\, в противном случае к /noise_crackle/ИМЯ_СВОЙСТВА. Type: symbol.;
+#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 486 @osc;
+#X text 270 486 (initonly) Имя OSC сервера. Type: symbol.;
+#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 516 @active;
+#X text 270 516 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
+#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 558 @freq;
+#X text 270 558 Average frequency of noise impulses per second. Type:
+float. Units: 'Hz'. Default value: 10\. Range: 0\...100\.;
+#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 630 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 636 1\.;
-#X text 170 636 float:;
-#X text 270 636 set average frequency.;
-#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 676 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 677 1\.;
-#X text 170 677 ~;
-#X text 270 677 output signal.;
+#X text 130 631 1\.;
+#X text 170 631 float:;
+#X text 270 631 set average frequency.;
+#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 671 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 672 1\.;
+#X text 170 672 ~;
+#X text 270 672 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 727 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 730 библиотека: ceammc v0.9.8;
-#N canvas 10 749 400 290 info 0;
+#X obj 1 722 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 725 library: ceammc v0.9.8;
+#N canvas 10 744 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 noise.crackle~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 noise;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.6;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 noise \, crackle;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 749 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 744 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

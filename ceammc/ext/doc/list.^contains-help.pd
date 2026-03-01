@@ -6,82 +6,82 @@ element;
 #X obj 1 1 cnv 5 765 40 empty empty list.^contains 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 list.^contains;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Outputs 1 if contains \, otherwise 0;
 #X text 240 108 Different arguments order then in [list.^contains];
-#X floatatom 50 186 5 0 0 0 - - -;
-#X msg 98 186 2 3 4;
-#X msg 174 186 4 5 6;
-#X msg 251 186 symbol A;
-#X msg 357 186 list A B;
-#X msg 376 215 list A B C D;
-#X obj 50 244 list.^contains 1 2 3 4 5;
-#X obj 50 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 50 302 works with data;
-#X obj 242 302 loadbang;
-#X obj 50 330 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 50 196 5 0 0 0 - - -;
+#X msg 98 196 2 3 4;
+#X msg 174 196 4 5 6;
+#X msg 251 196 symbol A;
+#X msg 357 196 list A B;
+#X msg 376 225 list A B C D;
+#X obj 50 254 list.^contains 1 2 3 4 5;
+#X obj 50 283 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 50 312 works with data;
+#X obj 242 312 loadbang;
+#X obj 50 340 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 146 330 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 146 340 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 242 330 str ABC;
-#X obj 338 330 str DEF;
-#X obj 50 359 str ABC;
-#X obj 146 359 str ??;
-#X obj 242 359 list append;
-#X obj 50 388 list.^contains;
-#X obj 50 417 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 446 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 242 340 str ABC;
+#X obj 338 340 str DEF;
+#X obj 50 369 str ABC;
+#X obj 146 369 str ??;
+#X obj 242 369 list append;
+#X obj 50 398 list.^contains;
+#X obj 50 427 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 456 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 483 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 493 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 484 1\.;
-#X text 170 484 list;
-#X obj 268 485 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 484 VALUE: list contents. Type: list.;
-#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 524 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 494 1\.;
+#X text 170 494 list;
+#X obj 268 495 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 494 VALUE: list contents. Type: list.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 527 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 537 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 525 @value;
-#X text 270 525 List contents. Type: list.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 570 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 535 @value;
+#X text 270 535 List contents. Type: list.;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 580 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 571 1\.;
-#X text 170 571 float:;
-#X text 270 571 checks if given float is found the list.;
-#X text 170 596 symbol:;
-#X text 270 596 checks if given symbol is found the list.;
-#X text 170 621 list:;
-#X text 270 621 check is given list is subseqence of list.;
-#X text 170 646 data:mlist:;
-#X text 270 646 as list.;
-#X text 170 671 data:;
-#X text 270 671 checks if given data is found the list.;
-#X text 130 696 2\.;
-#X text 170 696 list:;
-#X text 270 696 set haystack list.;
-#X obj 20 731 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 736 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 581 1\.;
+#X text 170 581 float:;
+#X text 270 581 checks if given float is found the list.;
+#X text 170 606 symbol:;
+#X text 270 606 checks if given symbol is found the list.;
+#X text 170 631 list:;
+#X text 270 631 check is given list is subseqence of list.;
+#X text 170 656 data:mlist:;
+#X text 270 656 as list.;
+#X text 170 681 data:;
+#X text 270 681 checks if given data is found the list.;
+#X text 130 706 2\.;
+#X text 170 706 list:;
+#X text 270 706 set haystack list.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 746 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 737 1\.;
-#X text 270 737 1 on success \, otherwise 0\.;
+#X text 130 747 1\.;
+#X text 270 747 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 787 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 790 library: ceammc v0.9.8;
-#X text 374 802 see also:;
-#X obj 449 802 list.contains;
-#X obj 558 802 list.all_of;
-#X obj 653 802 list.none_of;
-#N canvas 10 809 400 290 info 0;
+#X obj 1 797 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 800 library: ceammc v0.9.8;
+#X text 374 812 see also:;
+#X obj 449 812 list.contains;
+#X obj 558 812 list.all_of;
+#X obj 653 812 list.none_of;
+#N canvas 10 819 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 809 pd info;
+#X restore 10 819 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;

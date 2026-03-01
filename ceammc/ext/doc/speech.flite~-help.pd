@@ -5,72 +5,72 @@
 #X obj 1 1 cnv 5 765 40 empty empty speech.flite~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 speech.flite~;
-#X obj 230 78 cnv 1 535 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Speaks floats \, symbols and list to wavetables using
 flite TTS engine.;
-#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 205 metro 1000;
-#X obj 184 205 ui.menu kal16 slt rms awb;
-#X obj 453 205 ui.knob @min 1 @max 4;
-#X obj 50 234 flow.count;
-#X msg 184 234 @voice \$2;
-#X floatatom 299 234 5 0 0 0 - - -;
-#X msg 299 263 @pitch \$1;
-#X msg 453 263 @speed \$1;
-#X obj 50 292 speech.flite~;
-#X obj 136 320 ui.dt;
-#X obj 50 349 ui.gain~ @size 120 16;
-#X obj 299 349 ui.dsp~;
-#X obj 50 378 dac~;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 215 metro 1000;
+#X obj 184 215 ui.menu kal16 slt rms awb;
+#X obj 453 215 ui.knob @min 1 @max 4;
+#X obj 50 244 flow.count;
+#X msg 184 244 @voice \$2;
+#X floatatom 299 244 5 0 0 0 - - -;
+#X msg 299 273 @pitch \$1;
+#X msg 453 273 @speed \$1;
+#X obj 50 302 speech.flite~;
+#X obj 136 330 ui.dt;
+#X obj 50 359 ui.gain~ @size 120 16;
+#X obj 299 359 ui.dsp~;
+#X obj 50 388 dac~;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 443 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 434 @pitch;
-#X text 270 434 Voice pitch (-1 - default value). Type: float. Default
+#X msg 130 444 @pitch;
+#X text 270 444 Voice pitch (-1 - default value). Type: float. Default
 value: -1\.;
-#X obj 250 476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 476 @speed;
-#X text 270 476 Speaking speed. Type: float. Default value: 1\. Range:
+#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 486 @speed;
+#X text 270 486 Speaking speed. Type: float. Default value: 1\. Range:
 0.5\...4\.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @voice;
-#X text 270 518 Default voice. Type: symbol. Default value: kal16\.
+#X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 528 @voice;
+#X text 270 528 Default voice. Type: symbol. Default value: kal16\.
 Allowed values: kal16 \, slt \, rms \, awb.;
-#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 575 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 585 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 576 stop;
-#X text 270 576 stops speech and clear speech queue.;
-#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 619 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 586 stop;
+#X text 270 586 stops speech and clear speech queue.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 629 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 620 1\.;
-#X text 170 620 float:;
-#X text 270 620 speak number.;
-#X text 170 645 symbol:;
-#X text 270 645 speak text.;
-#X text 170 670 list:;
-#X text 270 670 speak text.;
-#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 710 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 630 1\.;
+#X text 170 630 float:;
+#X text 270 630 speak number.;
+#X text 170 655 symbol:;
+#X text 270 655 speak text.;
+#X text 170 680 list:;
+#X text 270 680 speak text.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 720 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 711 1\.;
-#X text 170 711 ~;
-#X text 270 711 output signal.;
-#X text 130 731 2\.;
-#X text 270 731 float: number of sentences left to speak.;
+#X text 130 721 1\.;
+#X text 170 721 ~;
+#X text 270 721 output signal.;
+#X text 130 741 2\.;
+#X text 270 741 float: number of sentences left to speak.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 781 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 784 library: ceammc v0.9.8;
-#X text 578 796 see also:;
-#X obj 653 796 speech.flite;
-#N canvas 10 803 400 290 info 0;
+#X obj 1 791 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 794 library: ceammc v0.9.8;
+#X text 578 806 see also:;
+#X obj 653 806 speech.flite;
+#N canvas 10 813 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 803 pd info;
+#X restore 10 813 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;

@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 random.pw_const;
-#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Produces random floating-point numbers \, which are
 uniformly distributed within each of the several subintervals [b0 \,
 b1) \, each with its own weight;
@@ -14,97 +14,97 @@ b1) \, each with its own weight;
 #X text 240 178 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X obj 50 286 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 472 286 graph;
-#X obj 50 315 list.gen 1000;
-#X obj 203 315 random.pw_const 0 1 1 0 2 2 3;
-#X obj 50 344 list.histogram @bins 100;
-#X obj 50 373 list.normalize @range;
-#X obj 50 402 list.enumerate @append;
-#X obj 50 430 list.repack 2;
-#X obj 50 459 tabwrite array1;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 514 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 472 296 graph;
+#X obj 50 325 list.gen 1000;
+#X obj 203 325 random.pw_const 0 1 1 0 2 2 3;
+#X obj 50 354 list.histogram @bins 100;
+#X obj 50 383 list.normalize @range;
+#X obj 50 412 list.enumerate @append;
+#X obj 50 440 list.repack 2;
+#X obj 50 469 tabwrite array1;
+#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 524 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 527 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 515 1\.;
-#X text 170 515 list;
-#X obj 268 516 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 515 V: interleaved interval boundaries and boundary propabilities.
+#X text 130 525 1\.;
+#X text 170 525 list;
+#X obj 268 526 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 525 V: interleaved interval boundaries and boundary propabilities.
 Note: number of arguments should be odd and >=5\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
-Тип: list.;
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+Type: list.;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 601 @seed;
-#X text 270 601 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 643 @v;
-#X text 270 643 Interleaved interval boundaries and boundary propabilities.
-Тип: list.;
-#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 685 @bounds?;
-#X text 270 685 (только чтение) List of boundaries. Тип: list.;
-#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 715 @weights?;
-#X text 270 715 (только чтение) List of weights. Тип: list.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 760 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 611 @seed;
+#X text 270 611 Generator seed. Type: int. Default value: 0\. Min value:
+0\.;
+#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 641 @v;
+#X text 270 641 Interleaved interval boundaries and boundary propabilities.
+Type: list.;
+#X obj 250 683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 683 @bounds?;
+#X text 270 683 (readonly) List of boundaries. Type: list.;
+#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 713 @weights?;
+#X text 270 713 (readonly) List of weights. Type: list.;
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 758 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 761 1\.;
-#X text 170 761 bang:;
-#X text 270 761 generates random number.;
-#X text 170 786 list:;
-#X text 270 786 set new distribution values.;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 826 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 827 1\.;
-#X text 270 827 result value.;
+#X text 130 759 1\.;
+#X text 170 759 bang:;
+#X text 270 759 generates random number.;
+#X text 170 784 list:;
+#X text 270 784 set new distribution values.;
+#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 824 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 825 1\.;
+#X text 270 825 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 877 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 880 библиотека: ceammc v0.9.8;
-#X text 417 892 смотрите также:;
-#X obj 538 892 random.linear;
-#X obj 647 892 random.pw_lin;
-#N canvas 10 899 400 290 info 0;
+#X obj 1 875 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 878 library: ceammc v0.9.8;
+#X text 463 890 see also:;
+#X obj 538 890 random.linear;
+#X obj 647 890 random.pw_lin;
+#N canvas 10 897 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 random.pw_const;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 random;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.4;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 linear \, random \, piecewise \, const;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 899 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 897 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;

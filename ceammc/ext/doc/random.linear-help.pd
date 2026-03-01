@@ -5,74 +5,74 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.linear 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 random.linear;
-#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 115 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Generates random number in interval [@v0 \, @v1) with
 linear distribution [@p0 \, @p1);
 #X text 240 123 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
 initialized with current time.;
-#X obj 50 231 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 241 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 260 list.gen 100;
+#X obj 50 270 list.gen 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 280 260 graph;
-#X obj 50 289 random.linear;
-#X obj 50 318 * 100;
-#X obj 50 347 math.floor;
-#X obj 50 375 t f f;
-#X obj 98 404 tabread array1;
-#X obj 98 433 + 0.01;
-#X obj 50 462 swap;
-#X msg 280 462 const 0;
-#X msg 376 462 normalize;
-#X obj 50 491 tabwrite array1;
-#X obj 280 491 s array1;
-#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 546 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X restore 280 270 graph;
+#X obj 50 299 random.linear;
+#X obj 50 328 * 100;
+#X obj 50 357 math.floor;
+#X obj 50 385 t f f;
+#X obj 98 414 tabread array1;
+#X obj 98 443 + 0.01;
+#X obj 50 472 swap;
+#X msg 280 472 const 0;
+#X msg 376 472 normalize;
+#X obj 50 501 tabwrite array1;
+#X obj 280 501 s array1;
+#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 556 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 549 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 559 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 547 @p0;
-#X text 270 547 Probability at begin. Type: float. Default value: 1\.;
-#X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 577 @p1;
-#X text 270 577 Probability at end. Type: float. Default value: 0\.;
-#X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 607 @seed;
-#X text 270 607 Generator seed. Type: int. Default value: 0\. Min value:
+#X msg 130 557 @p0;
+#X text 270 557 Probability at begin. Type: float. Default value: 1\.;
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 587 @p1;
+#X text 270 587 Probability at end. Type: float. Default value: 0\.;
+#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 617 @seed;
+#X text 270 617 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 250 637 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 637 @v0;
-#X text 270 637 Begin of value interval. Type: float. Default value:
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 647 @v0;
+#X text 270 647 Begin of value interval. Type: float. Default value:
 0\.;
-#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 667 @v1;
-#X text 270 667 End of value interval. Type: float. Default value:
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 @v1;
+#X text 270 677 End of value interval. Type: float. Default value:
 1\.;
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 712 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 713 1\.;
-#X text 170 713 bang:;
-#X text 270 713 generates random number.;
-#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 753 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 723 1\.;
+#X text 170 723 bang:;
+#X text 270 723 generates random number.;
+#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 763 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 754 1\.;
-#X text 270 754 result value.;
+#X text 130 764 1\.;
+#X text 270 764 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 804 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 807 library: ceammc v0.9.8;
-#X text 493 819 see also:;
-#X obj 568 819 random.float;
-#X obj 669 819 random.int;
-#N canvas 10 826 400 290 info 0;
+#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 817 library: ceammc v0.9.8;
+#X text 493 829 see also:;
+#X obj 568 829 random.float;
+#X obj 669 829 random.int;
+#N canvas 10 836 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 826 pd info;
+#X restore 10 836 pd info;
 #X connect 7 0 8 0;
 #X connect 8 1 10 0;
 #X connect 10 0 11 0;

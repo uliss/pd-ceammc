@@ -5,72 +5,72 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.3d.encoder~ 20 20 0 20 -104026
 -4096 0;
 #X obj 630 11 hoa.3d.encoder~;
-#X obj 230 78 cnv 1 535 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Creates the circular harmonics of a signal depending
 of a given order \, position on a circle in radians (θ) and elevation;
-#X obj 240 138 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 240 141 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.3d.encoder~-help.pd;
-#X obj 50 215 lfo.square~ 1;
-#X obj 280 215 phasor~ 0.15;
-#X obj 424 215 phasor~ 0.07;
-#X obj 50 244 ui.gain~ @size 120 14;
-#X obj 280 244 phase->rad~;
-#X obj 424 244 phase->rad~;
-#X obj 50 273 hoa.3d.encoder~ 3, f 24;
-#X obj 50 489 ui.dsp~;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 544 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 225 lfo.square~ 1;
+#X obj 280 225 phasor~ 0.15;
+#X obj 424 225 phasor~ 0.07;
+#X obj 50 254 ui.gain~ @size 120 14;
+#X obj 280 254 phase->rad~;
+#X obj 424 254 phase->rad~;
+#X obj 50 283 hoa.3d.encoder~ 3, f 24;
+#X obj 50 499 ui.dsp~;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 547 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 557 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 545 1\.;
-#X text 170 545 int;
-#X obj 268 546 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 545 ORDER: the order of decomposition. Type: int. Range:
+#X text 130 555 1\.;
+#X text 170 555 int;
+#X obj 268 556 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 555 ORDER: the order of decomposition. Type: int. Range:
 1\...10;
-#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 585 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 595 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 588 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 598 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 586 @order;
-#X text 270 586 (initonly) The order of decomposition. Type: int. Default
+#X msg 130 596 @order;
+#X text 270 596 (initonly) The order of decomposition. Type: int. Default
 value: 1\. Range: 1\...10\.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 643 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 653 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 644 1\.;
-#X text 170 644 ~;
-#X text 270 644 input signal.;
-#X text 130 669 2\.;
-#X text 170 669 ~;
-#X text 270 669 position on a circle (azimuth) in radians.;
-#X text 130 694 3\.;
-#X text 170 694 ~;
-#X text 270 694 elevation in radians.;
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 734 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 654 1\.;
+#X text 170 654 ~;
+#X text 270 654 input signal.;
+#X text 130 679 2\.;
+#X text 170 679 ~;
+#X text 270 679 position on a circle (azimuth) in radians.;
+#X text 130 704 3\.;
+#X text 170 704 ~;
+#X text 270 704 elevation in radians.;
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 744 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 735 1\.;
-#X text 170 735 ~;
-#X text 270 735 first circular harmonics output.;
-#X text 130 755 ...;
-#X text 170 755 ~;
-#X text 270 755 ... circular harmonics output.;
-#X text 130 775 n.;
-#X text 170 775 ~;
-#X text 270 775 n-th circular harmonics output.;
+#X text 130 745 1\.;
+#X text 170 745 ~;
+#X text 270 745 first circular harmonics output.;
+#X text 130 765 ...;
+#X text 170 765 ~;
+#X text 270 765 ... circular harmonics output.;
+#X text 130 785 n.;
+#X text 170 785 ~;
+#X text 270 785 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 825 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 828 library: ceammc v0.9.8;
-#X text 430 840 see also:;
-#X obj 505 840 hoa.3d.decoder~;
-#X obj 630 840 hoa.2d.encoder~;
-#N canvas 10 847 400 290 info 0;
+#X obj 1 835 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 838 library: ceammc v0.9.8;
+#X text 430 850 see also:;
+#X obj 505 850 hoa.3d.decoder~;
+#X obj 630 850 hoa.2d.encoder~;
+#N canvas 10 857 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 847 pd info;
+#X restore 10 857 pd info;
 #X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;

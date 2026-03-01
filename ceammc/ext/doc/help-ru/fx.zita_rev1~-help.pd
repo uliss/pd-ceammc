@@ -33,144 +33,143 @@
 #X obj 50 507 ui.hgain2~;
 #X obj 50 536 dac~;
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 591 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 591 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 594 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 592 1\.;
 #X text 170 592 float;
 #X obj 268 593 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 592 DECAY_LOW(sec): time (in seconds) to decay 60dB in
-low-frequency band. Тип: float. Диапазон: 1…60;
+low-frequency band. Type: float. Range: 1\...60;
 #X text 130 632 2\.;
 #X text 170 632 float;
 #X obj 268 633 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 632 DECAY_MID(sec): time (in seconds) to decay 60dB in
-mid-frequency band. Тип: float. Диапазон: 1…60;
+mid-frequency band. Type: float. Range: 1\...60;
 #X text 130 672 3\.;
 #X text 170 672 float;
 #X obj 268 673 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 672 DRYWET: ratio between source signal (dry) and processed
-signal (wet). Тип: float. Диапазон: 0…1;
+signal (wet). Type: float. Range: 0\...1;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 727 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 727 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 730 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 730 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 728 @id;
-#X text 270 728 (при инициализации) Идентификатор для OSC адреса. Если
-установлен \, все свойства объекта привязываются к OSC адресам вида:
-/ИДЕНТИФИКАТОР/fx_zita_rev1/ИМЯ_СВОЙСТВА \, в противном случае к /fx_zita_rev1/ИМЯ_СВОЙСТВА.
-Тип: symbol.;
-#X obj 250 815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 815 @osc;
-#X text 270 815 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 845 @active;
-#X text 270 845 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 887 @bypass;
-#X text 270 887 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 929 @damp_hf;
-#X text 270 929 Frequency (Hz) at which the high-frequency T60 is half
-the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
-6000\. Диапазон: 1500\...47040\.;
-#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 986 @decay_low;
-#X text 270 986 Time (in seconds) to decay 60dB in low-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 3\. Диапазон: 1\...60\.;
-#X obj 250 1043 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1043 @decay_mid;
-#X text 270 1043 Time (in seconds) to decay 60dB in mid-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 2\. Диапазон: 1\...60\.;
-#X obj 250 1100 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1100 @drywet;
-#X text 270 1100 Ratio between source signal (dry) and processed signal
-(wet). Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
-#X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1157 @fr_ldecay;
-#X text 270 1157 Time (in seconds) to decay 60dB in low-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 40\. Диапазон: 0\...60\.;
-#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1214 @fr_mdecay;
-#X text 270 1214 Time (in seconds) to decay 60dB in mid-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 40\. Диапазон: 0\...60\.;
-#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1271 @fr_time;
-#X text 270 1271 Length of freeze tail. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
+#X text 270 728 (initonly) Идентификатор для OSC адреса. Если установлен
+\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_zita_rev1/ИМЯ_СВОЙСТВА
+\, в противном случае к /fx_zita_rev1/ИМЯ_СВОЙСТВА. Type: symbol.;
+#X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 800 @osc;
+#X text 270 800 (initonly) Имя OSC сервера. Type: symbol.;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 830 @active;
+#X text 270 830 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
+value: 1\.;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 872 @bypass;
+#X text 270 872 Bypass flag. If true: bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 914 @damp_hf;
+#X text 270 914 Frequency (Hz) at which the high-frequency T60 is half
+the middle-band's T60\. Type: float. Units: 'Hz'. Default value: 6000\.
+Range: 1500\...47040\.;
+#X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 971 @decay_low;
+#X text 270 971 Time (in seconds) to decay 60dB in low-frequency band.
+Type: float. Units: 'sec'. Default value: 3\. Range: 1\...60\.;
+#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1028 @decay_mid;
+#X text 270 1028 Time (in seconds) to decay 60dB in mid-frequency band.
+Type: float. Units: 'sec'. Default value: 2\. Range: 1\...60\.;
+#X obj 250 1085 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1085 @drywet;
+#X text 270 1085 Ratio between source signal (dry) and processed signal
+(wet). Type: float. Default value: 1\. Range: 0\...1\.;
+#X obj 250 1127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1127 @fr_ldecay;
+#X text 270 1127 Time (in seconds) to decay 60dB in low-frequency band.
+Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
+#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1184 @fr_mdecay;
+#X text 270 1184 Time (in seconds) to decay 60dB in mid-frequency band.
+Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
+#X obj 250 1241 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1241 @fr_time;
+#X text 270 1241 Length of freeze tail. Type: float. Units: 'ms'. Default
+value: 100\. Range: 0\...1000\.;
+#X obj 250 1283 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1283 @freeze;
+#X text 270 1283 Freeze reverberation tail. Type: bool. Default value:
+0\.;
 #X obj 250 1313 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1313 @freeze;
-#X text 270 1313 Freeze reverberation tail. Тип: bool. Значение по
-умолчанию: 0\.;
-#X obj 250 1355 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1355 @freq_low;
-#X text 270 1355 Crossover frequency (Hz) separating low and middle
-frequencies. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 200\.
-Диапазон: 50\...1000\.;
-#X obj 250 1412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1412 @predelay;
-#X text 270 1412 A delay operating on the 'wet' signal. Large values
-will provide the impression of a larger room. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 40\. Диапазон: 0\...100\.;
-#X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1499 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 1313 @freq_low;
+#X text 270 1313 Crossover frequency (Hz) separating low and middle
+frequencies. Type: float. Units: 'Hz'. Default value: 200\. Range:
+50\...1000\.;
+#X obj 250 1370 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1370 @predelay;
+#X text 270 1370 A delay operating on the 'wet' signal. Large values
+will provide the impression of a larger room. Type: float. Units: 'ms'.
+Default value: 40\. Range: 0\...100\.;
+#X obj 20 1437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1442 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1500 reset;
-#X text 270 1500 same as reset.;
-#X obj 20 1538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1543 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1544 1\.;
-#X text 170 1544 ~;
-#X text 270 1544 left channel.;
-#X text 130 1569 2\.;
-#X text 170 1569 ~;
-#X text 270 1569 right channel.;
-#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1609 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 1443 reset;
+#X text 270 1443 same as reset.;
+#X obj 20 1481 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1486 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1610 1\.;
-#X text 170 1610 ~;
-#X text 270 1610 output left.;
-#X text 130 1630 2\.;
-#X text 170 1630 ~;
-#X text 270 1630 output right.;
+#X text 130 1487 1\.;
+#X text 170 1487 ~;
+#X text 270 1487 left channel.;
+#X text 130 1512 2\.;
+#X text 170 1512 ~;
+#X text 270 1512 right channel.;
+#X obj 20 1547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1552 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1553 1\.;
+#X text 170 1553 ~;
+#X text 270 1553 output left.;
+#X text 130 1573 2\.;
+#X text 170 1573 ~;
+#X text 270 1573 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1680 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1683 библиотека: ceammc v0.9.8;
-#N canvas 10 1702 400 290 info 0;
+#X obj 1 1623 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1626 library: ceammc v0.9.8;
+#N canvas 10 1645 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 fx.zita_rev1~;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 fx;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.2;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 fx \, reverb;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1702 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1645 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
