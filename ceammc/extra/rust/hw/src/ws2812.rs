@@ -9,7 +9,7 @@ use lib_macro::PdMessage;
 use rgb::RGB8;
 
 use crate::{
-    hw_msg_cb, hw_msg_level, hw_notify_cb,
+    hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
     max7219::{hw_spi_bus, hw_spi_cs},
     MakePdMessage,
 };
@@ -17,19 +17,6 @@ use crate::{
 mod led_fx;
 #[cfg(target_os = "linux")]
 mod ws2812_impl;
-
-#[derive(Debug)]
-pub struct Slice {
-    first: i32,
-    last: i32,
-    step: usize,
-}
-
-#[derive(Debug)]
-pub struct Range {
-    first: i32,
-    length: usize,
-}
 
 #[derive(Debug)]
 #[repr(C)]
@@ -60,16 +47,14 @@ pub enum hw_led_fx {
 
 #[derive(Debug)]
 pub enum Request {
-    SetPixelColor(usize, RGB8),
-    SetSliceColor(Slice, RGB8),
-    SetRangeColor(Range, RGB8),
-    ApplyEffect(Range, hw_led_fx, f32, bool),
-    EffectNext,
-    Fill(RGB8),
-    SetBrightness(u8),
-    Flush,
+    SetPixelColor(hw_color_rgb8, usize),
+    SetSliceColor(hw_color_rgb8, Option<hw_slice>),
+    Rotate(i32, Option<hw_slice>),
     Clear,
-    Rotate(i32),
+    Flush,
+    SetBrightness(u8),
+    // ApplyEffect(Range, hw_led_fx, f32, bool),
+    // EffectNext,
     Quit(bool),
 }
 
@@ -110,6 +95,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
 }
 
 #[no_mangle]
+/// free ws21812 control struct
 pub extern "C" fn ceammc_hw_spi_ws2812_free(ws: *mut hw_spi_ws2812) {
     rpi_check!((), {
         if !ws.is_null() {
@@ -119,74 +105,62 @@ pub extern "C" fn ceammc_hw_spi_ws2812_free(ws: *mut hw_spi_ws2812) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_set_color(pwm: *const hw_spi_ws2812, idx: usize, r: u8, g: u8, b: u8) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(pwm, Request::SetPixelColor(idx, RGB8 { r, g, b })) });
+/// set pixel color
+/// @param ws - pointer to led strip handle
+/// @param idx - pixel index
+/// @param color - pixel color
+pub extern "C" fn ceammc_hw_spi_ws2812_set_pixel_color(
+    ws: *const hw_spi_ws2812,
+    idx: usize,
+    color: hw_color_rgb8,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetPixelColor(color, idx)) });
 }
 
 #[no_mangle]
+/// set total output brightness
+/// @param ws - pointer to led strip handle
+/// @param b - target brightness in 0..25 range
 pub extern "C" fn ceammc_hw_spi_ws2812_set_brightness(ws: *const hw_spi_ws2812, b: u8) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetBrightness(b)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_rotate(ws: *const hw_spi_ws2812, delta: i32) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Rotate(delta)) });
+/// rotate (shift) pixels
+/// @param ws - pointer to led strip handle
+/// @param delta - shift in steps
+/// @param slice - apply to given slice (if NULL: shift all leds)
+pub extern "C" fn ceammc_hw_spi_ws2812_rotate(ws: *const hw_spi_ws2812, delta: i32, slice: *const hw_slice) -> bool {
+    let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Rotate(delta, slice)) });
 }
 
 #[no_mangle]
+/// write internal buffer to strip
+/// @param ws - pointer to led strip handle
 pub extern "C" fn ceammc_hw_spi_ws2812_flush(ws: *const hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Flush) });
 }
 
 #[no_mangle]
+/// clear (turn off) the led strip
+/// @param ws - pointer to the led strip handle
 pub extern "C" fn ceammc_hw_spi_ws2812_clear(ws: *const hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Clear) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_fill(ws: *const hw_spi_ws2812, r: u8, g: u8, b: u8) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Fill(RGB8 { r, g, b })) });
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_set_range(
+/// set leds color
+/// @param ws - pointer to the led strip handle
+/// @param color - target color
+/// @param slice - apply to given slice (if NULL: set all leds)
+pub extern "C" fn ceammc_hw_spi_ws2812_set_slice_color(
     ws: *const hw_spi_ws2812,
-    start: i32,
-    len: usize,
-    r: u8,
-    g: u8,
-    b: u8,
+    color: hw_color_rgb8,
+    slice: *const hw_slice,
 ) -> bool {
-    rpi_check!({
-        hw_spi_ws2812::send_ptr(
-            ws,
-            Request::SetRangeColor(
-                Range {
-                    first: start,
-                    length: len,
-                },
-                RGB8 { r, g, b },
-            ),
-        )
-    });
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_set_slice(
-    ws: *const hw_spi_ws2812,
-    first: i32,
-    last: i32,
-    step: usize,
-    r: u8,
-    g: u8,
-    b: u8,
-) -> bool {
-    rpi_check!({
-        hw_spi_ws2812::send_ptr(
-            ws,
-            Request::SetSliceColor(Slice { first, last, step }, RGB8 { r, g, b }),
-        )
-    });
+    let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetSliceColor(color, slice),) });
 }
 
 /// process events

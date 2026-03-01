@@ -2,6 +2,7 @@
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "datatype_color.h"
 
 CEAMMC_DEFINE_HASH(bounce)
 CEAMMC_DEFINE_HASH(breathe)
@@ -15,6 +16,10 @@ CEAMMC_DEFINE_HASH(sparkle)
 CEAMMC_DEFINE_HASH(strobe)
 CEAMMC_DEFINE_HASH(twinkle)
 
+constexpr int DEF_PIXEL_COUNT = 16;
+constexpr int MIN_PIXEL_COUNT = 1;
+constexpr int MAX_PIXEL_COUNT = 4096;
+
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
 {
@@ -23,9 +28,9 @@ HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     spi_ = addSpiBusProperty();
     cs_ = addSpiCsProperty();
 
-    size_ = new IntProperty("@size", 16);
+    size_ = new IntProperty("@size", DEF_PIXEL_COUNT);
     size_->setInitOnly();
-    size_->checkClosedRange(1, 4096);
+    size_->checkClosedRange(MIN_PIXEL_COUNT, MAX_PIXEL_COUNT);
     addProperty(size_);
 
     clear_on_exit_ = new BoolProperty("@clear", true);
@@ -39,7 +44,7 @@ HwSpiWs2812::~HwSpiWs2812()
 
 void HwSpiWs2812::initDone()
 {
-    if (spi_->isNone())
+    if (spi_->isNone(false))
         return;
 
     ws_ = ceammc_hw_spi_ws2812_new( //
@@ -59,6 +64,9 @@ bool HwSpiWs2812::notify(int code)
 
 void HwSpiWs2812::onBang()
 {
+    if (is_null_device(true))
+        return;
+
     ceammc_hw_spi_ws2812_flush(ws_);
 }
 
@@ -67,6 +75,9 @@ void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("BRIGHT:b");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    if (is_null_device(true))
+        return;
 
     ceammc_hw_spi_ws2812_set_brightness(ws_, lv.intAt(0, 0));
 }
@@ -77,45 +88,138 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (is_null_device(true))
+        return;
+
     ceammc_hw_spi_ws2812_clear(ws_);
+
     if (lv.boolAt(0, true))
         ceammc_hw_spi_ws2812_flush(ws_);
 }
 
 void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("R:b G:b B:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    ceammc_hw_color_rgb8 color;
+    if (!parse_color_property(color, lv)) {
+        METHOD_ERR(s) << "@color property not found in list: " << lv;
+        return;
+    }
 
-    ceammc_hw_spi_ws2812_fill(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0));
+    if (is_null_device(true))
+        return;
+
+    ceammc_hw_spi_ws2812_set_slice_color(ws_, color, nullptr);
 }
 
 void HwSpiWs2812::m_set(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("IDX:i>=0 R:b G:b B:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    ceammc_hw_color_rgb8 color;
+    if (!parse_color_property(color, lv)) {
+        METHOD_ERR(s) << "@color property not found in list: " << lv;
+        return;
+    }
 
-    ceammc_hw_spi_ws2812_set_color(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0));
-}
+    size_t idx = 0;
+    if (!parse_pixel_index(idx, lv)) {
+        METHOD_ERR(s) << "valid pixel index not found in list: " << lv;
+        return;
+    }
 
-void HwSpiWs2812::m_set_range(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("START:i LEN:i>0 R:b G:b B:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    if (is_null_device(true))
+        return;
 
-    ceammc_hw_spi_ws2812_set_range(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.intAt(4, 0));
+    ceammc_hw_spi_ws2812_set_pixel_color(ws_, idx, color);
 }
 
 void HwSpiWs2812::m_set_slice(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("START:i END:i STEP:i>0 R:b G:b B:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    ceammc_hw_color_rgb8 color;
+    if (!parse_color_property(color, lv)) {
+        METHOD_ERR(s) << "@color property not found in list: " << lv;
+        return;
+    }
 
-    ceammc_hw_spi_ws2812_set_slice(ws_, lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0), lv.intAt(3, 0), lv.intAt(4, 0), lv.intAt(5, 0));
+    ceammc_hw_slice slice;
+    const ceammc_hw_slice* slice_ptr = &slice;
+    if (!parse_slice_property(slice, lv))
+        slice_ptr = nullptr;
+
+    if (is_null_device(true))
+        return;
+
+    ceammc_hw_spi_ws2812_set_slice_color(ws_, color, slice_ptr);
+}
+
+bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const
+{
+    AtomListView res;
+    DataTypeColor c;
+    if (lv.getProperty(gensym("@color"), res)
+        && DataTypeColor::parseFromList(res, c)) {
+
+        rgb.red = c.red8();
+        rgb.green = c.green8();
+        rgb.blue = c.blue8();
+
+        return true;
+    }
+
+    OBJ_ERR << "color property expected:"
+               "\n\t- @color R[0..1] G[0..1] B[0..1] or"
+               "\n\t- @color #RRGGBB or"
+               "\n\t- @color Color(...)";
+
+    return false;
+}
+
+bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListView& lv) const
+{
+    AtomListView res;
+
+    if (lv.getProperty(gensym("@rslice"), res)) {
+        static const args::ArgChecker rslice_chk("FIRST:i LAST:i? STEP:i>0?");
+        if (!rslice_chk.check(res, const_cast<HwSpiWs2812*>(this)))
+            return false;
+
+        slice.first = res.intAt(0, 0);
+        slice.last = res.intAt(1, -1);
+        slice.step = res.intAt(2, 1);
+
+        return true;
+    } else if (lv.getProperty(gensym("@lslice"), res)) {
+        static const args::ArgChecker lslice_chk("FIRST:i LENGTH:i>0? STEP:i>0?");
+        if (!lslice_chk.check(res, const_cast<HwSpiWs2812*>(this)))
+            return false;
+
+        slice.first = res.intAt(0, 0);
+        slice.last = slice.first + res.intAt(1, size_->value());
+        slice.step = res.intAt(2, 1);
+    }
+
+    return false;
+}
+
+bool HwSpiWs2812::parse_pixel_index(size_t& idx, const AtomListView& lv)
+{
+    if (lv.empty() || !lv[0].isIntGreaterEqual(0))
+        return false;
+
+    idx = lv[0].asInt();
+    return true;
+}
+
+bool HwSpiWs2812::is_null_device(bool print_err) const
+{
+    if (spi_->isNone(print_err))
+        return true;
+
+    if (!ws_) {
+        if (print_err)
+            OBJ_ERR << "device is not initialized";
+
+        return true;
+    } else
+        return false;
 }
 
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
@@ -129,6 +233,9 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
                                       " ARG:f[0,1]? START:i? LEN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    if (is_null_device(true))
+        return;
 
     ceammc_hw_led_fx fx {};
 
@@ -177,18 +284,25 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_apply_fx(ws_, start, len, fx, arg);
 }
 
-void HwSpiWs2812::m_fx_next(t_symbol *s, const AtomListView &lv)
+void HwSpiWs2812::m_fx_next(t_symbol* s, const AtomListView& lv)
 {
+    if (is_null_device(true))
+        return;
+
     ceammc_hw_spi_ws2812_fx_next(ws_);
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("i");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    ceammc_hw_slice slice;
+    const ceammc_hw_slice* slice_ptr = &slice;
+    if (!parse_slice_property(slice, lv))
+        slice_ptr = nullptr;
 
-    ceammc_hw_spi_ws2812_rotate(ws_, lv.intAt(0, 0));
+    if (is_null_device(true))
+        return;
+
+    ceammc_hw_spi_ws2812_rotate(ws_, lv.intAt(0, 1), slice_ptr);
 }
 
 void setup_hw_rpi_spi_ws2812()
@@ -202,6 +316,5 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("fx_next", &HwSpiWs2812::m_fx_next);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set", &HwSpiWs2812::m_set);
-    obj.addMethod("set_range", &HwSpiWs2812::m_set_range);
     obj.addMethod("set_slice", &HwSpiWs2812::m_set_slice);
 }

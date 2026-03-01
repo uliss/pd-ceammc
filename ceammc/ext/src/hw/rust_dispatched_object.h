@@ -18,9 +18,14 @@ public:
         checkClosedRange(static_cast<int>(ceammc_hw_spi_bus::NONE), static_cast<int>(ceammc_hw_spi_bus::SPI6));
     }
 
-    bool isNone() const
+    bool isNone(bool print_err) const
     {
-        return value() == static_cast<int>(ceammc_hw_spi_bus::NONE);
+        auto res = (value() == static_cast<int>(ceammc_hw_spi_bus::NONE));
+
+        if (!res && print_err)
+            LogPdObject(owner(), LOG_ERROR) << "spi bus is not set";
+
+        return res;
     }
 
     ceammc_hw_spi_bus bus() const

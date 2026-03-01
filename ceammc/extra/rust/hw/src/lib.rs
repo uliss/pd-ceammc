@@ -132,11 +132,7 @@ where
     R: MakePdMessage<R>,
 {
     error!("{msg}");
-    send_reply(
-        R::pd_error(CString::new(msg).unwrap_or_default()),
-        tx,
-        notify,
-    )
+    send_reply(R::pd_error(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
 #[allow(dead_code)]
@@ -145,11 +141,7 @@ where
     R: MakePdMessage<R>,
 {
     debug!("{msg}");
-    send_reply(
-        R::pd_debug(CString::new(msg).unwrap_or_default()),
-        tx,
-        notify,
-    )
+    send_reply(R::pd_debug(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
 #[allow(dead_code)]
@@ -158,11 +150,7 @@ where
     R: MakePdMessage<R>,
 {
     info!("{msg}");
-    send_reply(
-        R::pd_info(CString::new(msg).unwrap_or_default()),
-        tx,
-        notify,
-    )
+    send_reply(R::pd_info(CString::new(msg).unwrap_or_default()), tx, notify)
 }
 
 fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
@@ -233,13 +221,7 @@ where
     Request: Send,
     Reply: MakePdMessage<Reply>,
 {
-    pub fn new(
-        on_msg: hw_msg_cb,
-    ) -> (
-        Self,
-        std::sync::mpsc::Receiver<Request>,
-        std::sync::mpsc::Sender<Reply>,
-    ) {
+    pub fn new(on_msg: hw_msg_cb) -> (Self, std::sync::mpsc::Receiver<Request>, std::sync::mpsc::Sender<Reply>) {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
@@ -254,12 +236,7 @@ where
         )
     }
 
-    pub fn worker_error(
-        &self,
-        str: &str,
-        tx: &std::sync::mpsc::Sender<Reply>,
-        notify: hw_notify_cb,
-    ) {
+    pub fn worker_error(&self, str: &str, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) {
         error!("worker error {str}");
         process_err(format!("worker error: {str}"), tx, notify);
     }
@@ -288,8 +265,7 @@ where
 
     pub fn send_request(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
-            self.on_msg
-                .exec(hw_msg_level::Error, err.to_string().as_str());
+            self.on_msg.exec(hw_msg_level::Error, err.to_string().as_str());
             false
         } else {
             true
@@ -325,6 +301,24 @@ where
             x.process_reply(fx)
         }
     }
+}
+
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_color_rgb8 {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_slice {
+    first: i32,
+    last: i32,
+    step: u32,
 }
 
 pub mod printers;

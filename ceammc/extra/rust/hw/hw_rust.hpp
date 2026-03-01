@@ -464,6 +464,18 @@ struct ceammc_hw_sensor_vl53l0x_data_cb {
     void (*cb)(void*, uint16_t data);
 };
 
+struct ceammc_hw_slice {
+    int32_t first;
+    int32_t last;
+    uint32_t step;
+};
+
+struct ceammc_hw_color_rgb8 {
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+};
+
 
 extern "C" {
 
@@ -1095,12 +1107,15 @@ bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
                                    ceammc_hw_led_fx fx,
                                    float arg);
 
+/// clear (turn off) the led strip
+/// @param ws - pointer to the led strip handle
 bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
 
-bool ceammc_hw_spi_ws2812_fill(const ceammc_hw_spi_ws2812 *ws, uint8_t r, uint8_t g, uint8_t b);
-
+/// write internal buffer to strip
+/// @param ws - pointer to led strip handle
 bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
 
+/// free ws21812 control struct
 void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *ws);
 
 /// calc next fx
@@ -1116,30 +1131,34 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
 /// process events
 void ceammc_hw_spi_ws2812_process_reply(ceammc_hw_spi_ws2812 *ws);
 
-bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *ws, int32_t delta);
+/// rotate (shift) pixels
+/// @param ws - pointer to led strip handle
+/// @param delta - shift in steps
+/// @param slice - apply to given slice (if NULL: shift all leds)
+bool ceammc_hw_spi_ws2812_rotate(const ceammc_hw_spi_ws2812 *ws,
+                                 int32_t delta,
+                                 const ceammc_hw_slice *slice);
 
+/// set total output brightness
+/// @param ws - pointer to led strip handle
+/// @param b - target brightness in 0..25 range
 bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *ws, uint8_t b);
 
-bool ceammc_hw_spi_ws2812_set_color(const ceammc_hw_spi_ws2812 *pwm,
-                                    size_t idx,
-                                    uint8_t r,
-                                    uint8_t g,
-                                    uint8_t b);
+/// set pixel color
+/// @param ws - pointer to led strip handle
+/// @param idx - pixel index
+/// @param color - pixel color
+bool ceammc_hw_spi_ws2812_set_pixel_color(const ceammc_hw_spi_ws2812 *ws,
+                                          size_t idx,
+                                          ceammc_hw_color_rgb8 color);
 
-bool ceammc_hw_spi_ws2812_set_range(const ceammc_hw_spi_ws2812 *ws,
-                                    int32_t start,
-                                    size_t len,
-                                    uint8_t r,
-                                    uint8_t g,
-                                    uint8_t b);
-
-bool ceammc_hw_spi_ws2812_set_slice(const ceammc_hw_spi_ws2812 *ws,
-                                    int32_t first,
-                                    int32_t last,
-                                    size_t step,
-                                    uint8_t r,
-                                    uint8_t g,
-                                    uint8_t b);
+/// set leds color
+/// @param ws - pointer to the led strip handle
+/// @param color - target color
+/// @param slice - apply to given slice (if NULL: set all leds)
+bool ceammc_hw_spi_ws2812_set_slice_color(const ceammc_hw_spi_ws2812 *ws,
+                                          ceammc_hw_color_rgb8 color,
+                                          const ceammc_hw_slice *slice);
 
 }  // extern "C"
 

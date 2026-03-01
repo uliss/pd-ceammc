@@ -30,8 +30,15 @@ public:
     void m_fx_next(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
-    void m_set_range(t_symbol* s, const AtomListView& lv);
     void m_set_slice(t_symbol* s, const AtomListView& lv);
+
+    //
+    bool parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const;
+    bool parse_slice_property(ceammc_hw_slice& slice, const AtomListView& lv) const;
+    static bool parse_pixel_index(size_t& idx, const AtomListView& lv);
+
+private:
+    bool is_null_device(bool print_err) const;
 };
 
 void setup_hw_rpi_spi_ws2812();
