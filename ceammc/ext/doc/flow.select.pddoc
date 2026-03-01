@@ -24,10 +24,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Outputs either the bang or original message or the value of the
-        @msg property to the appropriate output when it matches the pattern.</tr>
-        <tr lang="ru">Выводит bang, оригинальное сообщение или значение свойства @msg
-        в соответствующий вывод при совпадении с шаблоном.</tr>
+        <tr lang="en">Outputs either the bang or original message or the value of the @msg property
+        to the appropriate output when it matches the pattern.</tr>
+        <tr lang="ru">Выводит bang, оригинальное сообщение или значение свойства @msg в
+        соответствующий вывод при совпадении с шаблоном.</tr>
       </par>
       <par>
         <tr lang="en">Pattern matching syntax:</tr>
@@ -43,11 +43,11 @@
       </par>
       <par>
         <tr lang="en">intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or
-        (FROM..TO] semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in
-        NUM±EPSILON range</tr>
-        <tr lang="ru">интервалы: FROM..TO, или [FROM..TO] - закрытый интервал,
-        [FROM..TO) или (FROM..TO] полуоткрытый интервал, (FROM..TO) – открытый интервал, ЧИСЛО~EPSILON
-        - значение в диапазоне ЧИСЛО±EPSILON</tr>
+        (FROM..TO] semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in NUM±EPSILON
+        range</tr>
+        <tr lang="ru">интервалы: FROM..TO, или [FROM..TO] - закрытый интервал, [FROM..TO) или
+        (FROM..TO] полуоткрытый интервал, (FROM..TO) – открытый интервал, ЧИСЛО~EPSILON - значение
+        в диапазоне ЧИСЛО±EPSILON</tr>
       </par>
       <par>
         <tr lang="en">set: A|B|C - match to A or B or C.</tr>
@@ -63,17 +63,20 @@
     <properties>
       <!-- @keep_value -->
       <property name="@keep_value" type="bool" default="0">
-        <tr lang="en">output mode when matching the pattern.
-        If false (default): behaves like a [select] object - bang on match and a message with no matches on the last output.
-        If true: always outputs the entire original message to the corresponding output.</tr>
+        <tr lang="en">output mode when matching the pattern. If false (default): behaves like a
+        [select] object - bang on match and a message with no matches on the last output. If true:
+        always outputs the entire original message to the corresponding output.</tr>
         <tr lang="ru">режим вывода при совпадении с шаблоном. Если false: (по умолчанию) действует
-        как объект [select] - bang при совпадении и сообщение для которого не найдено соответствий в последний выход.
-        Если true: всегда выводит полностью исходное сообщение в соответствующий выход</tr>
+        как объект [select] - bang при совпадении и сообщение для которого не найдено соответствий
+        в последний выход. Если true: всегда выводит полностью исходное сообщение в соответствующий
+        выход</tr>
       </property>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
-        <tr lang="en">if defined - sends this message if it matches the pattern instead of the (standard) bang</tr>
-        <tr lang="ru">если установлено - отправляет данное сообщение в случае совпадения с шаблоном вместо (стандартного) bang</tr>
+        <tr lang="en">if defined - sends this message if it matches the pattern instead of the
+        (standard) bang</tr>
+        <tr lang="ru">если установлено - отправляет данное сообщение в случае совпадения с шаблоном
+        вместо (стандартного) bang</tr>
       </property>
       <!-- @v -->
       <property name="@v" type="alias">
@@ -104,19 +107,22 @@
     <outlets dynamic="true">
       <outlet number="1">
         <out type="any">
-          <tr lang="en">when matching the first pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="en">when matching the first pattern: outputs bang, @msg, or the original
+          message</tr>
           <tr lang="ru">при совпадении с первым шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">when matching the ... pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="en">when matching the ... pattern: outputs bang, @msg, or the original
+          message</tr>
           <tr lang="ru">при совпадении с ... шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
-          <tr lang="en">when matching the n-th pattern: outputs bang, @msg, or the original message</tr>
+          <tr lang="en">when matching the n-th pattern: outputs bang, @msg, or the original
+          message</tr>
           <tr lang="ru">при совпадении с N-м шаблоном: bang, @msg или исходное сообщение</tr>
         </out>
       </outlet>

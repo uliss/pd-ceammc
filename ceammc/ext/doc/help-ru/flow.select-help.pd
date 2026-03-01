@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 577 11 flow.sel;
 #X obj 660 11 flow.select;
-#X obj 230 78 cnv 1 535 235 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 245 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Выводит bang \, оригинальное сообщение или значение
 свойства @msg в соответствующий вывод при совпадении с шаблоном.;
 #X text 240 138 Синтаксис совпадений с шаблоном:;
@@ -17,111 +17,111 @@
 \, [FROM..TO) или (FROM..TO] полуоткрытый интервал \, (FROM..TO) –
 открытый интервал \, ЧИСЛО~EPSILON - значение в диапазоне ЧИСЛО±EPSILON;
 #X text 240 283 множества: A|B|C - соответствие A или B или C.;
-#X msg 50 361 1 2 3;
-#X msg 194 361 list c 17;
-#X msg 50 390 10;
-#X msg 117 390 40;
-#X msg 194 390 b;
-#X floatatom 50 419 5 0 0 0 - - -;
-#X msg 117 419 30;
-#X msg 194 419 symbol c;
-#X msg 318 419 unmatched;
-#X obj 50 448 flow.sel 1..10 >20 a|b|c @v, f 32;
-#X obj 50 477 ui.dt;
-#X obj 117 505 ui.dt;
-#X obj 194 534 ui.dt;
-#X obj 270 563 ui.dt;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 618 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 371 1 2 3;
+#X msg 194 371 list c 17;
+#X msg 50 400 10;
+#X msg 117 400 40;
+#X msg 194 400 b;
+#X floatatom 50 429 5 0 0 0 - - -;
+#X msg 117 429 30;
+#X msg 194 429 symbol c;
+#X msg 318 429 unmatched;
+#X obj 50 458 flow.sel 1..10 >20 a|b|c @v, f 32;
+#X obj 50 487 ui.dt;
+#X obj 117 515 ui.dt;
+#X obj 194 544 ui.dt;
+#X obj 270 573 ui.dt;
+#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 628 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 621 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 631 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 619 1\.;
-#X text 170 619 list;
-#X obj 268 620 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 619 ARGS: список шаблонов соответствия для входного потока.
-Тип: list.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 674 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 629 1\.;
+#X text 170 629 list;
+#X obj 268 630 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 629 ARGS: список шаблонов соответствия для входного потока.
+Type: list.;
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 684 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 677 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 687 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 675 @keep_value;
-#X text 270 675 Режим вывода при совпадении с шаблоном. Если false:
+#X msg 130 685 @keep_value;
+#X text 270 685 Режим вывода при совпадении с шаблоном. Если false:
 (по умолчанию) действует как объект [select] - bang при совпадении
 и сообщение для которого не найдено соответствий в последний выход.
 Если true: всегда выводит полностью исходное сообщение в соответствующий
-выход. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 778 @msg;
-#X text 270 778 Если установлено - отправляет данное сообщение в случае
-совпадения с шаблоном вместо (стандартного) bang. Тип: list.;
-#X obj 250 835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 835 @v;
-#X text 270 835 Сокращение для @keep_value 1 1\.;
-#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 880 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+выход. Type: bool. Default value: 0\.;
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 788 @msg;
+#X text 270 788 Если установлено - отправляет данное сообщение в случае
+совпадения с шаблоном вместо (стандартного) bang. Type: list.;
+#X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 845 @v;
+#X text 270 845 Сокращение для @keep_value 1 1\.;
+#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 890 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 881 1\.;
-#X text 170 881 float:;
-#X text 270 881 проверяет соответствует ли входное число шаблонам.;
-#X text 170 906 symbol:;
-#X text 270 906 проверяет соответствие входного символа шаблонам.;
-#X text 170 931 list:;
-#X text 270 931 проверяет соответствие первого элемента в списке указанным
+#X text 130 891 1\.;
+#X text 170 891 float:;
+#X text 270 891 проверяет соответствует ли входное число шаблонам.;
+#X text 170 916 symbol:;
+#X text 270 916 проверяет соответствие входного символа шаблонам.;
+#X text 170 941 list:;
+#X text 270 941 проверяет соответствие первого элемента в списке указанным
 шаблонам.;
-#X text 170 971 any:;
-#X text 270 971 проверяет соответствие селектора сообщения указанным
+#X text 170 981 any:;
+#X text 270 981 проверяет соответствие селектора сообщения указанным
 шаблонам.;
-#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1026 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1036 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1027 1\.;
-#X text 270 1027 при совпадении с первым шаблоном: bang \, @msg или
+#X text 130 1037 1\.;
+#X text 270 1037 при совпадении с первым шаблоном: bang \, @msg или
 исходное сообщение.;
-#X text 130 1062 ...;
-#X text 270 1062 при совпадении с ... шаблоном: bang \, @msg или исходное
+#X text 130 1072 ...;
+#X text 270 1072 при совпадении с ... шаблоном: bang \, @msg или исходное
 сообщение.;
-#X text 130 1097 n.;
-#X text 270 1097 при совпадении с N-м шаблоном: bang \, @msg или исходное
+#X text 130 1107 n.;
+#X text 270 1107 при совпадении с N-м шаблоном: bang \, @msg или исходное
 сообщение.;
-#X text 130 1132 n+1\.;
-#X text 270 1132 оригинальное сообщение \, для которого не было найдено
+#X text 130 1142 n+1\.;
+#X text 270 1142 оригинальное сообщение \, для которого не было найдено
 совпадений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1197 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1200 библиотека: ceammc v0.9.8;
-#X text 546 1212 смотрите также:;
-#X obj 667 1212 flow.match;
-#N canvas 10 1219 400 290 info 0;
+#X obj 1 1207 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1210 library: ceammc v0.9.8;
+#X text 592 1222 see also:;
+#X obj 667 1222 flow.match;
+#N canvas 10 1229 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 flow.select;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 flow;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.1;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 select;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1219 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 1229 pd info;
 #X connect 14 0 17 0;
 #X connect 17 0 21 0;
 #X connect 18 0 21 0;

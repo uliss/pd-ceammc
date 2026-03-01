@@ -56,8 +56,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of three values: x-rotation, y-rotation, z-acceleration</tr>
-          <tr lang="ru">список из трех значений: x-вращение, y-вращение,
-          z-ускорение</tr>
+          <tr lang="ru">список из трех значений: x-вращение, y-вращение, z-ускорение</tr>
         </out>
       </outlet>
     </outlets>

@@ -19,14 +19,14 @@
     <info>
       <par>
         <tr lang="en">Both I²C and SPI connections are supported. I²C connection is not fast.</tr>
-        <tr lang="ru">Поддерживаются соединения I²C и SPI. Подключение через I²C не
-        является быстрым.</tr>
+        <tr lang="ru">Поддерживаются соединения I²C и SPI. Подключение через I²C не является
+        быстрым.</tr>
       </par>
       <par>
         <tr lang="en">Note: you should send [flush( message to transfer internal pixel buffer to
         the device</tr>
-        <tr lang="ru">Примечание: вы должны отправить сообщение [flush( для
-        передачи внутреннего буфера пикселей на устройство</tr>
+        <tr lang="ru">Примечание: вы должны отправить сообщение [flush( для передачи внутреннего
+        буфера пикселей на устройство</tr>
       </par>
     </info>
     <arguments>
@@ -100,16 +100,17 @@
         </info>
         <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">
           <tr lang="en">brightness level from 0 (lowest) to 4 (brightest). Normal level is 2.</tr>
-          <tr lang="ru">Уровень яркости от 0 (самый низкий) до 4 (самый яркий).
-          Нормальный уровень – 2.</tr>
+          <tr lang="ru">Уровень яркости от 0 (самый низкий) до 4 (самый яркий). Нормальный уровень
+          – 2.</tr>
         </param>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear the display contents and optionally send the internal buffer to the device</tr>
-          <tr lang="ru">очистить содержимое дисплея и опционально отправить внутренний
-          буфер на устройство</tr>
+          <tr lang="en">clear the display contents and optionally send the internal buffer to the
+          device</tr>
+          <tr lang="ru">очистить содержимое дисплея и опционально отправить внутренний буфер на
+          устройство</tr>
         </info>
         <param name="FLUSH" type="bool" default="0" required="false">
           <tr lang="en">if 1: send the internal buffer to the device</tr>
@@ -153,7 +154,7 @@
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">value</tr>
-          <tr lang="ru" >значение</tr>
+          <tr lang="ru">значение</tr>
         </param>
       </method>
       <!-- pixel -->
@@ -190,8 +191,7 @@
       <method name="switch_on">
         <info>
           <tr lang="en">turn on the display (required when connecting via SPI)</tr>
-          <tr lang="ru">включить дисплей (необходимо при подключении по
-          SPI)</tr>
+          <tr lang="ru">включить дисплей (необходимо при подключении по SPI)</tr>
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">value</tr>
@@ -245,14 +245,14 @@
         <info>
           <tr lang="en">write raw byte list to the display buffer and move internal cursor
           position</tr>
-          <tr lang="ru">записать список байтов в буфер дисплея и переместить
-          внутреннюю позицию курсора</tr>
+          <tr lang="ru">записать список байтов в буфер дисплея и переместить внутреннюю позицию
+          курсора</tr>
         </info>
         <param name="BYTES" type="list" required="true">
           <tr lang="en">list of bytes (integers in 0..255 range). Each byte describes a single
           column of 8 pixels in height</tr>
-          <tr lang="ru">список байтов (целые числа в диапазоне 0..255). Каждый байт
-          описывает один столбец высотой 8 пикселей.</tr>
+          <tr lang="ru">список байтов (целые числа в диапазоне 0..255). Каждый байт описывает один
+          столбец высотой 8 пикселей.</tr>
         </param>
       </method>
     </methods>

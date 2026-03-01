@@ -17,18 +17,21 @@
       <since>0.9.8</since>
     </meta>
     <info>
-      <par>
-        <tr lang="en">When using the object, you need to specify the number of the SPI bus being used, which this object takes into exclusive ownership.
-        This bus becomes unavailable to other objects.</tr>
-        <tr lang="ru">При использовании объекта нужно указать номер используемой шину SPI,
-        которую этот объект забирает в эксклюзивное владение.
-        Другим объектам эта шина становится недоступна.</tr>
+      <par style="important">
+        <tr lang="en">When using the object, you need to specify the number of the SPI bus being
+        used, which this object takes into exclusive ownership. As long as the object exists, this
+        bus becomes unavailable to other objects!</tr>
+        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI, которую
+        этот объект забирает в эксклюзивное владение. Пока объект существует – эта шина становится
+        недоступна для других объектов!</tr>
       </par>
       <par>
-        <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works by sending messages to the object.
-        After finishing work with the pixel buffer, it needs to be sent to the LED strip using a bang or the [flush( command.</tr>
-        <tr lang="ru">Объект использует внутренний буфер пикселей, с цветами которых работают при помощи отправки сообщений объекту.
-        После окончания работы с пискельным буфером его нужно передать на светодиодную ленту при помощи bang или команды [flush(</tr>
+        <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
+        by sending messages to the object. After finishing work with the pixel buffer, it needs to
+        be sent to the LED strip using a bang or the [flush( command.</tr>
+        <tr lang="ru">Объект использует внутренний буфер пикселей, с цветами которых работают при
+        помощи отправки сообщений объекту. После окончания работы с пискельным буфером его нужно
+        передать на светодиодную ленту при помощи bang или команды [flush(</tr>
       </par>
     </info>
     <properties>

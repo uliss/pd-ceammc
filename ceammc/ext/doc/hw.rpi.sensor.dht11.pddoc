@@ -29,9 +29,9 @@
         <tr lang="en">When using a 3.5V voltage supply cable length shall not be greater than 20cm.
         Otherwise, the line voltage drop will cause the sensor power supply shortage, caused by
         measurement error</tr>
-        <tr lang="ru">При использовании кабеля питания напряжением 3.5В его длина не
-        должна превышать 20см. В противном случае падение напряжения на линии приведет к недостаточному питанию
-        датчика и вызовет ошибки измерения.</tr>
+        <tr lang="ru">При использовании кабеля питания напряжением 3.5В его длина не должна
+        превышать 20см. В противном случае падение напряжения на линии приведет к недостаточному
+        питанию датчика и вызовет ошибки измерения.</tr>
       </par>
     </info>
     <arguments>

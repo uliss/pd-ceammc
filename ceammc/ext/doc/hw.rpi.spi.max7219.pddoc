@@ -21,27 +21,27 @@
         <tr lang="en">Handles communication with the MAX7219 chip for 7-segmented or 8x8 LED dot
         matrix displays. Each display can be connected in series with another and controlled via a
         single connection.</tr>
-        <tr lang="ru">Управляет связью с чипом MAX7219 для 7-сегментированных
-        или 8x8 светодиодных дисплеев. Каждый дисплей может быть соединен последовательно с другим
-        и управляться через одно соединение.</tr>
+        <tr lang="ru">Управляет связью с чипом MAX7219 для 7-сегментированных или 8x8 светодиодных
+        дисплеев. Каждый дисплей может быть соединен последовательно с другим и управляться через
+        одно соединение.</tr>
       </par>
       <par>
         <tr lang="en">Note: in case of LED dot matrix display only write_bits and write_reg
         commands will work as expected</tr>
-        <tr lang="ru">Примечание: в случае светодиодной матрицы
-        только команды write_bits и write_reg будут работать так, как ожидалось</tr>
+        <tr lang="ru">Примечание: в случае светодиодной матрицы только команды write_bits и
+        write_reg будут работать так, как ожидалось</tr>
       </par>
       <par>
         <tr lang="en">Note: 7-segment LED display supports only this charset:
         -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</tr>
-        <tr lang="ru">Примечание: 7-сегментный светодиодный дисплей поддерживает
-        только этот набор символов: -_0123456789ABCDEFGHIJHIJLOPSUbcdhnoqrtu</tr>
+        <tr lang="ru">Примечание: 7-сегментный светодиодный дисплей поддерживает только этот набор
+        символов: -_0123456789ABCDEFGHIJHIJLOPSUbcdhnoqrtu</tr>
       </par>
       <par>
         <tr lang="en">Note: if the device address argument is -1 or omitted, requested action is
         applied for all devices in a chain.</tr>
-        <tr lang="ru">Примечание: если адрес устройства равен -1 или не указан,
-        запрашиваемое действие применяется для всех устройств в цепи.</tr>
+        <tr lang="ru">Примечание: если адрес устройства равен -1 или не указан, запрашиваемое
+        действие применяется для всех устройств в цепи.</tr>
       </par>
     </info>
     <arguments>
@@ -152,8 +152,8 @@
       <method name="write float">
         <info>
           <tr lang="en">write float value into 7-segment display (no led matrix support!)</tr>
-          <tr lang="ru">вывести значение с плавающей точкой (только для
-          7-сегментного дисплея!)</tr>
+          <tr lang="ru">вывести значение с плавающей точкой (только для 7-сегментного
+          дисплея!)</tr>
         </info>
         <param name="VAL" type="float" required="true">
           <tr lang="en">value</tr>
@@ -165,16 +165,15 @@
         </param>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: write to all displays</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все
-          дисплеи</tr>
+          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все дисплеи</tr>
         </param>
       </method>
       <!-- write hex -->
       <method name="write hex">
         <info>
           <tr lang="en">write hex unsigned integer value (7-segment display only!)</tr>
-          <tr lang="ru">вывести шестнадцатеричное беззнаковое целое число (только для
-          7-сегментного дисплея!)</tr>
+          <tr lang="ru">вывести шестнадцатеричное беззнаковое целое число (только для 7-сегментного
+          дисплея!)</tr>
         </info>
         <param name="INT" type="int" minvalue="0" required="true">
           <tr lang="en">value</tr>
@@ -182,16 +181,14 @@
         </param>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: write to all displays</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все
-          дисплеи</tr>
-          </param>
+          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все дисплеи</tr>
+        </param>
       </method>
       <!-- write int -->
       <method name="write int">
         <info>
           <tr lang="en">write signed integer value (7-segment display only!)</tr>
-          <tr lang="ru">вывести знаковое целое значение (только для
-          7-сегментного дисплея!)</tr>
+          <tr lang="ru">вывести знаковое целое значение (только для 7-сегментного дисплея!)</tr>
         </info>
         <param name="INT" type="int" required="true">
           <tr lang="en">value</tr>
@@ -199,16 +196,14 @@
         </param>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: write to all displays</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все
-          дисплеи</tr>
+          <tr lang="ru">адрес дисплея в цепи. Если не указано или -1: выводит на все дисплеи</tr>
         </param>
       </method>
       <!-- write reg -->
       <method name="write reg">
         <info>
           <tr lang="en">write the max7219 register data. Lowest level of communication</tr>
-          <tr lang="ru">запись данных в регистры max7219. Самая низко-уровеневая
-          коммуникация</tr>
+          <tr lang="ru">запись данных в регистры max7219. Самая низко-уровеневая коммуникация</tr>
         </info>
         <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">max7219 register index</tr>
@@ -227,8 +222,7 @@
       <method name="write str">
         <info>
           <tr lang="en">write string (7-segment display only!)</tr>
-          <tr lang="ru">выводит строку (только для
-          7-сегментного дисплея!)</tr>
+          <tr lang="ru">выводит строку (только для 7-сегментного дисплея!)</tr>
         </info>
         <param name="STR" type="symbol" required="true">
           <tr lang="en">string. maxlength: 8 chars</tr>
@@ -236,8 +230,8 @@
         </param>
         <param name="DOTS" type="int" minvalue="0" maxvalue="255">
           <tr lang="en">dots as bit value. For ex.: 0b00000011 turn on a two leftmost dots</tr>
-          <tr lang="ru">точки в виде битового значения. Например: 0b00000011 включает
-          две самые левые точки</tr>
+          <tr lang="ru">точки в виде битового значения. Например: 0b00000011 включает две самые
+          левые точки</tr>
         </param>
         <param name="ALIGN" type="symbol" enum="left center right" default="right">
           <tr lang="en">string align</tr>

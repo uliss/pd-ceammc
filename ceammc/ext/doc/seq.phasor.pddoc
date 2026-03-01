@@ -25,8 +25,8 @@
         <tr lang="en">Note: control rate in PureData depends on block size and samplerate. Do not
         rely on strict timing for this object, especially at high frequencies!</tr>
         <tr lang="ru">Примечание: частота обновления управляющего сигнала в PureData зависит от
-        размера блока и частоты семплирования. Не полагайтесь на строгий тайминг для этого объекта, особенно на
-        высоких частотах!</tr>
+        размера блока и частоты семплирования. Не полагайтесь на строгий тайминг для этого объекта,
+        особенно на высоких частотах!</tr>
       </par>
     </info>
     <arguments>
@@ -44,8 +44,8 @@
       <!-- @invert -->
       <property name="@invert" type="bool" default="0">
         <tr lang="en">inversion sawtooth mode. If true: outputs descreasing waveform</tr>
-        <tr lang="ru">режим инверсии пилообразного сигнала. Если true: выводит убывающую
-        форму волны</tr>
+        <tr lang="ru">режим инверсии пилообразного сигнала. Если true: выводит убывающую форму
+        волны</tr>
       </property>
       <!-- @on -->
       <property name="@on" type="bool" default="0">
@@ -54,7 +54,8 @@
       </property>
       <!-- @open -->
       <property name="@open" type="bool" default="0">
-        <tr lang="en">output signal values in open [0..1) range, otherwise the output range is [0..1] (by default)</tr>
+        <tr lang="en">output signal values in open [0..1) range, otherwise the output range is
+        [0..1] (by default)</tr>
         <tr lang="ru">выходить значения сигнала в полуоткрытом диапазоне [0..1), в противном случае
         выходной диапазон составляет [0..1] (по умолчанию)</tr>
       </property>

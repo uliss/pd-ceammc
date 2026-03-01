@@ -54,29 +54,34 @@
     </arguments>
     <properties>
       <!-- @fsr -->
-      <property name="@fsr" type="symbol" default="6144mv" access="initonly" enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">
+      <property name="@fsr" type="symbol" default="6144mv" access="initonly"
+      enum="1024mv 2048mv 256mv 4096mv 512mv 6144mv">
         <tr lang="en">full-scale input range</tr>
         <tr lang="ru">полный входной диапазон</tr>
       </property>
       <!-- @i2c_addr -->
-      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4" maxvalue="119">
+      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+      maxvalue="119">
         <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x48) and 'alt'
         (for address 0x49)</tr>
         <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
         (для адреса 0x49)</tr>
       </property>
       <!-- @i2c_bus -->
-      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none" access="initonly">
+      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+      access="initonly">
         <tr lang="en">I²C bus</tr>
         <tr lang="ru">шина I²C</tr>
       </property>
       <!-- @in_max -->
-      <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0" access="readwrite">
+      <property name="@in_max" type="float" minvalue="0.0" maxvalue="6144.0" default="5000.0"
+      access="readwrite">
         <tr lang="en">input maximum value in millivolts</tr>
         <tr lang="ru">максимальное входное значение в милливольтах</tr>
       </property>
       <!-- @in_min -->
-      <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0" access="readwrite">
+      <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
+      access="readwrite">
         <tr lang="en">input minimal value in millivolts</tr>
         <tr lang="ru">минимальное входное значение в милливольтах</tr>
       </property>
@@ -105,7 +110,8 @@
         <tr lang="ru">выходное минимальное значение</tr>
       </property>
       <!-- @poll_time -->
-      <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0" units="millisecond" access="initonly">
+      <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
+      units="millisecond" access="initonly">
         <tr lang="en">polling measure time</tr>
         <tr lang="ru">время между измерениями</tr>
       </property>
@@ -118,7 +124,8 @@
           <tr lang="ru">запрос однкратного измерения</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="3">
-          <tr lang="en">the channel to measure. If omitted: perform measurements on all channels</tr>
+          <tr lang="en">the channel to measure. If omitted: perform measurements on all
+          channels</tr>
           <tr lang="ru">канал измерения. Если пропущено: выполнить измерения по всем каналам</tr>
         </param>
       </method>
@@ -137,7 +144,7 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en"/>
+          <tr lang="en" />
         </in>
       </inlet>
     </inlets>

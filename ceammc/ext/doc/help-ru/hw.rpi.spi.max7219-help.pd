@@ -6,7 +6,7 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.max7219 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 hw.rpi.spi.max7219;
-#X obj 230 78 cnv 1 535 245 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 230 78 cnv 1 535 255 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Управляет связью с чипом MAX7219 для 7-сегментированных
 или 8x8 светодиодных дисплеев. Каждый дисплей может быть соединен последовательно
 с другим и управляться через одно соединение.;
@@ -16,205 +16,202 @@ write_bits и write_reg будут работать так \, как ожида�
 только этот набор символов: -_0123456789ABCDEFGHIJHIJLOPSUbcdhnoqrtu;
 #X text 240 263 Примечание: если адрес устройства равен -1 или не указан
 \, запрашиваемое действие применяется для всех устройств в цепи.;
-#X text 50 371 #7-segment only;
-#X text 299 371 #both;
-#X msg 434 371 clear;
-#X msg 558 371 get matrix;
-#X floatatom 50 400 5 0 0 0 - - -;
-#X obj 299 400 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 434 400 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 558 400 ui.matrix 8 8;
-#X msg 50 429 write int \$1;
-#X msg 299 429 power \$1;
-#X msg 434 429 test \$1 0;
-#X msg 50 458 write float -10.25 3;
-#X msg 299 458 write reg 2 15 0;
-#X msg 50 487 write hex 355;
-#X msg 299 487 write bytes -1 255 0 255;
-#X msg 50 515 write str DSP 0 left;
-#X floatatom 347 515 5 0 15 0 - - -;
-#X obj 558 515 route matrix;
-#X msg 50 544 write str DSP 255 center;
-#X msg 347 544 intensity \$1;
-#X obj 558 544 msg write matrix;
-#X msg 50 573 write str DSP 1 right;
-#X text 347 573 matrix only;
-#X msg 347 602 font FONT_4x6 \, text 1 6 ЦЭАМ \, get matrix;
-#X obj 347 631 bitmap 32 8;
-#X obj 347 659 msg write;
-#X obj 50 717 hw.rpi.spi.max7219 4 @spi_bus 0;
-#X obj 50 789 hw.rpi.spi.max7219-spi;
-#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 844 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 50 381 #7-segment only;
+#X text 299 381 #both;
+#X msg 434 381 clear;
+#X msg 558 381 get matrix;
+#X floatatom 50 410 5 0 0 0 - - -;
+#X obj 299 410 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 434 410 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 558 410 ui.matrix 8 8;
+#X msg 50 439 write int \$1;
+#X msg 299 439 power \$1;
+#X msg 434 439 test \$1 0;
+#X msg 50 468 write float -10.25 3;
+#X msg 299 468 write reg 2 15 0;
+#X msg 50 497 write hex 355;
+#X msg 299 497 write bytes -1 255 0 255;
+#X msg 50 525 write str DSP 0 left;
+#X floatatom 347 525 5 0 15 0 - - -;
+#X obj 558 525 route matrix;
+#X msg 50 554 write str DSP 255 center;
+#X msg 347 554 intensity \$1;
+#X obj 558 554 msg write matrix;
+#X msg 50 583 write str DSP 1 right;
+#X text 347 583 matrix only;
+#X msg 347 612 font FONT_4x6 \, text 1 6 ЦЭАМ \, get matrix;
+#X obj 347 641 bitmap 32 8;
+#X obj 347 669 msg write;
+#X obj 50 727 hw.rpi.spi.max7219 4 @spi_bus 0;
+#X obj 50 799 hw.rpi.spi.max7219-spi;
+#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 854 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 847 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 857 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 845 1\.;
-#X text 170 845 int;
-#X obj 268 846 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 845 DISPLAYS: количество дисплеев \, подключенных по цепочке.
-Тип: int. Диапазон: 1…4;
-#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 900 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 855 1\.;
+#X text 170 855 int;
+#X obj 268 856 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 855 DISPLAYS: количество дисплеев \, подключенных по цепочке.
+Type: int. Range: 1\...4;
+#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 910 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 903 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 735 913 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 901 @displays;
-#X text 270 901 (при инициализации) Количество дисплеев \, подключенных
-по цепочке. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...4\.;
-#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 958 @spi_bus;
-#X text 270 958 (при инициализации) Номер шины SPI. Тип: int. Значение
-по умолчанию: -1\. Диапазон: -1\...6\.;
-#X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1000 @spi_cs;
-#X text 270 1000 (при инициализации) Индекс пина CS (ChipSelect \,
-SlaveSelect или ChipEnable). Тип: int. Значение по умолчанию: 0\. Диапазон:
-0\...3\.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1072 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X msg 130 911 @displays;
+#X text 270 911 (initonly) Количество дисплеев \, подключенных по цепочке.
+Type: int. Default value: 1\. Range: 1\...4\.;
+#X obj 250 953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 953 @spi_bus;
+#X text 270 953 (initonly) Номер шины SPI. Type: int. Default value:
+-1\. Range: -1\...6\.;
+#X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 995 @spi_cs;
+#X text 270 995 (initonly) Индекс пина CS (ChipSelect \, SlaveSelect
+или ChipEnable). Type: int. Default value: 0\. Range: 0\...3\.;
+#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1067 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1073 clear;
-#X text 270 1073 очистить дисплей. Аргументы:;
-#X obj 280 1096 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1096 [ADDR=0]: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 250 1121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1121 intensity;
-#X text 270 1121 уровень интенсивности дисплея. Аргументы:;
-#X obj 280 1144 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1144 LEVEL: уровень интенсивности. Тип: int. Диапазон:
-0…15\.;
-#X obj 280 1167 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1167 [ADDR=-1]: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 250 1192 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1192 power;
-#X text 270 1192 включить/выключить дисплей. Аргументы:;
-#X obj 280 1215 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1215 STATE: состояние. Тип: bool.;
-#X obj 250 1240 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1240 test;
-#X text 270 1240 проверка дисплея включением всех пикселов. Аргументы:;
-#X obj 280 1263 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1263 [ADDR=-1]: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 250 1288 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1288 write bits;
-#X text 270 1288 запись сырых битовых данных в дисплей. Аргументы:;
-#X obj 280 1311 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1311 ADDR=0: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 280 1334 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1334 BITS: список битов. Максимальная длина: 256\. Тип:
+#X msg 130 1068 clear;
+#X text 270 1068 очистить дисплей. Arguments are:;
+#X obj 280 1091 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1091 [ADDR=0]: адрес дисплея в цепи. Type: int. Range:
+-1\...7\.;
+#X obj 250 1116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1116 intensity;
+#X text 270 1116 уровень интенсивности дисплея. Arguments are:;
+#X obj 280 1139 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1139 LEVEL: уровень интенсивности. Type: int. Range: 0\...15\.;
+#X obj 280 1162 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1162 [ADDR=-1]: адрес дисплея в цепи. Type: int. Range:
+-1\...7\.;
+#X obj 250 1187 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1187 power;
+#X text 270 1187 включить/выключить дисплей. Arguments are:;
+#X obj 280 1210 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1210 STATE: состояние. Type: bool.;
+#X obj 250 1235 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1235 test;
+#X text 270 1235 проверка дисплея включением всех пикселов. Arguments
+are:;
+#X obj 280 1258 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1258 [ADDR=-1]: адрес дисплея в цепи. Type: int. Range:
+-1\...7\.;
+#X obj 250 1283 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1283 write bits;
+#X text 270 1283 запись сырых битовых данных в дисплей. Arguments are:;
+#X obj 280 1306 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1306 ADDR=0: адрес дисплея в цепи. Type: int. Range: -1\...7\.;
+#X obj 280 1329 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1329 BITS: список битов. Максимальная длина: 256\. Type:
 list.;
-#X obj 250 1359 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1359 write bytes;
-#X text 270 1359 записать сырые байты в дисплей. Аргументы:;
-#X obj 280 1382 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1382 ADDR=0: адрес целевого дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 280 1420 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1420 DATA: Список байтов. Максимальная длина: 8\. Тип:
+#X obj 250 1354 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1354 write bytes;
+#X text 270 1354 записать сырые байты в дисплей. Arguments are:;
+#X obj 280 1377 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1377 ADDR=0: адрес целевого дисплея в цепи. Type: int.
+Range: -1\...7\.;
+#X obj 280 1415 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1415 DATA: Список байтов. Максимальная длина: 8\. Type:
 list.;
-#X obj 250 1445 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1445 write float;
-#X text 270 1445 вывести значение с плавающей точкой (только для 7-сегментного
-дисплея!). Аргументы:;
-#X obj 280 1483 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1483 VAL: значение. Тип: float.;
-#X obj 280 1506 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1506 [PRECISION]: точность: знаков после запятой. Тип:
-int. Диапазон: 0…7\.;
-#X obj 280 1544 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1544 [ADDR]: адрес дисплея в цепи. Если не указано или
--1: выводит на все дисплеи. Тип: int. Диапазон: -1…7\.;
-#X obj 250 1584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1584 write hex;
-#X text 270 1584 вывести шестнадцатеричное беззнаковое целое число
-(только для 7-сегментного дисплея!). Аргументы:;
-#X obj 280 1622 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1622 INT: значение. Тип: int. Минимальное значение: 0\.;
-#X obj 280 1645 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1645 [ADDR]: адрес дисплея в цепи. Если не указано или
--1: выводит на все дисплеи. Тип: int. Диапазон: -1…7\.;
-#X obj 250 1685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1685 write int;
-#X text 270 1685 вывести знаковое целое значение (только для 7-сегментного
-дисплея!). Аргументы:;
-#X obj 280 1723 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1723 INT: значение. Тип: int.;
-#X obj 280 1746 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1746 [ADDR]: адрес дисплея в цепи. Если не указано или
--1: выводит на все дисплеи. Тип: int. Диапазон: -1…7\.;
-#X obj 250 1786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1786 write reg;
-#X text 270 1786 запись данных в регистры max7219\. Самая низко-уровеневая
-коммуникация. Аргументы:;
-#X obj 280 1824 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1824 REG: индекс регистра max7219\. Тип: int. Диапазон:
-0…15\.;
-#X obj 280 1847 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1847 DATA: значение регистра. Тип: int. Диапазон: 0…255\.;
-#X obj 280 1870 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1870 [ADDR=0]: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 250 1895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1895 write str;
-#X text 270 1895 выводит строку (только для 7-сегментного дисплея!).
-Аргументы:;
-#X obj 280 1933 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1933 STR: строка. Максимальная длина: 8 символов. Тип:
+#X obj 250 1440 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1440 write float;
+#X text 270 1440 вывести значение с плавающей точкой (только для 7-сегментного
+дисплея!). Arguments are:;
+#X obj 280 1478 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1478 VAL: значение. Type: float.;
+#X obj 280 1501 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1501 [PRECISION]: точность: знаков после запятой. Type:
+int. Range: 0\...7\.;
+#X obj 280 1539 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1539 [ADDR]: адрес дисплея в цепи. Если не указано или
+-1: выводит на все дисплеи. Type: int. Range: -1\...7\.;
+#X obj 250 1579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1579 write hex;
+#X text 270 1579 вывести шестнадцатеричное беззнаковое целое число
+(только для 7-сегментного дисплея!). Arguments are:;
+#X obj 280 1617 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1617 INT: значение. Type: int. Min value: 0\.;
+#X obj 280 1640 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1640 [ADDR]: адрес дисплея в цепи. Если не указано или
+-1: выводит на все дисплеи. Type: int. Range: -1\...7\.;
+#X obj 250 1680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1680 write int;
+#X text 270 1680 вывести знаковое целое значение (только для 7-сегментного
+дисплея!). Arguments are:;
+#X obj 280 1718 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1718 INT: значение. Type: int.;
+#X obj 280 1741 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1741 [ADDR]: адрес дисплея в цепи. Если не указано или
+-1: выводит на все дисплеи. Type: int. Range: -1\...7\.;
+#X obj 250 1781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1781 write reg;
+#X text 270 1781 запись данных в регистры max7219\. Самая низко-уровеневая
+коммуникация. Arguments are:;
+#X obj 280 1819 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1819 REG: индекс регистра max7219\. Type: int. Range: 0\...15\.;
+#X obj 280 1842 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1842 DATA: значение регистра. Type: int. Range: 0\...255\.;
+#X obj 280 1865 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1865 [ADDR=0]: адрес дисплея в цепи. Type: int. Range:
+-1\...7\.;
+#X obj 250 1890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1890 write str;
+#X text 270 1890 выводит строку (только для 7-сегментного дисплея!).
+Arguments are:;
+#X obj 280 1928 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1928 STR: строка. Максимальная длина: 8 символов. Type:
 symbol.;
-#X obj 280 1956 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1956 [DOTS]: точки в виде битового значения. Например:
-0b00000011 включает две самые левые точки. Тип: int. Диапазон: 0…255\.;
-#X obj 280 2009 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2009 [ALIGN=right]: выравнивание строки. Тип: symbol. Разрешённые
-значения: left \, center \, right.;
-#X obj 280 2047 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2047 [ADDR=0]: адрес дисплея в цепи. Тип: int. Диапазон:
--1…7\.;
-#X obj 20 2082 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2087 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 2088 1\.;
-#X text 270 2088 вход для управляющих сообщений.;
-#X obj 20 2123 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2128 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 280 1951 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 1951 [DOTS]: точки в виде битового значения. Например:
+0b00000011 включает две самые левые точки. Type: int. Range: 0\...255\.;
+#X obj 280 2004 cnv 1 101 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2004 [ALIGN=right]: выравнивание строки. Type: symbol.
+Allowed values: left \, center \, right.;
+#X obj 280 2042 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 2042 [ADDR=0]: адрес дисплея в цепи. Type: int. Range:
+-1\...7\.;
+#X obj 20 2077 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2082 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 2083 1\.;
+#X text 270 2083 вход для управляющих сообщений.;
+#X obj 20 2118 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2123 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2169 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2172 библиотека: ceammc v0.9.8;
-#N canvas 10 2191 400 290 info 0;
+#X obj 1 2164 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2167 library: ceammc v0.9.8;
+#N canvas 10 2186 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 библиотека:;
+#X text 10 10 library:;
 #X text 120 10 ceammc;
-#X text 10 32 версия:;
+#X text 10 32 version:;
 #X text 120 32 0.9.8;
-#X text 10 54 объект:;
+#X text 10 54 object:;
 #X text 120 54 hw.rpi.spi.max7219;
-#X text 10 76 категория:;
+#X text 10 76 category:;
 #X text 120 76 hw;
-#X text 10 98 с версии:;
+#X text 10 98 since:;
 #X text 120 98 0.9.8;
-#X text 10 120 авторы:;
+#X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 лицензия:;
+#X text 10 142 license:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 ключевые слова:;
+#X text 10 164 keywords:;
 #X text 120 164 led \, display \, max7219 \, spi \, rpi \, arduino;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2191 pd info;
+#X text 120 268 generated by pddoc;
+#X restore 10 2186 pd info;
 #X connect 12 0 16 0;
 #X connect 13 0 17 0;
 #X connect 14 0 18 0;

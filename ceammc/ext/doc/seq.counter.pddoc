@@ -39,8 +39,7 @@
       <!-- @from -->
       <property name="@from" type="int" default="0">
         <tr lang="en">the start value. Setting this property resets @i to 0</tr>
-        <tr lang="ru">начальное значение. Установка этого свойства сбрасывает @i до
-        0</tr>
+        <tr lang="ru">начальное значение. Установка этого свойства сбрасывает @i до 0</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" default="0">
@@ -54,12 +53,12 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
-        <tr lang="en">counter repeat mode.
-        If 'wrap': after reaching the final value, it starts a new count from the initial value.
-        If 'fold': after reaching the final value, it starts counting in the opposite direction.</tr>
+        <tr lang="en">counter repeat mode. If 'wrap': after reaching the final value, it starts a
+        new count from the initial value. If 'fold': after reaching the final value, it starts
+        counting in the opposite direction.</tr>
         <tr lang="ru">режим повтора счетчика. Если 'wrap': после достижения финального значения,
-        начинает новый счет с начального значения. Если 'fold': после достижения финального значения,
-        начинает счет в обратном направлении.</tr>
+        начинает новый счет с начального значения. Если 'fold': после достижения финального
+        значения, начинает счет в обратном направлении.</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
@@ -111,7 +110,8 @@
       <method name="reset">
         <info>
           <tr lang="en">reset the counter to the start value and reset a repeat counter to 0</tr>
-          <tr lang="ru">сбросить счётчик до начального значения и сбросить счётчик повторов на 0</tr>
+          <tr lang="ru">сбросить счётчик до начального значения и сбросить счётчик повторов на
+          0</tr>
         </info>
       </method>
     </methods>
@@ -142,7 +142,8 @@
           <tr lang="ru">число повторов полного цикла счетчика</tr>
         </out>
         <out type="any">
-          <tr lang="en">[done (after the last repetition (if there is a limited number of them)</tr>
+          <tr lang="en">[done (after the last repetition (if there is a limited number of
+          them)</tr>
           <tr lang="ru">[done( после последнего повтора (если их ограниченное количество)</tr>
         </out>
       </outlet>

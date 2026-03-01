@@ -38,15 +38,15 @@
       <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">
         <tr lang="en">tempo acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 - slow
         down</tr>
-        <tr lang="ru">ускорение темпа. 1 - без ускорения, &gt;1 - ускорение, &lt;1
-        - замедление</tr>
+        <tr lang="ru">ускорение темпа. 1 - без ускорения, &gt;1 - ускорение, &lt;1 -
+        замедление</tr>
       </property>
       <!-- @curve -->
       <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
         <tr lang="en">acceleration curve. Values &gt;&gt;0 - slow changes, then fast encrease.
         Values &lt;0 - fast changes, then slower</tr>
-        <tr lang="ru">кривая ускорения. Значения &gt;0 - сначла медленные изменения,
-        затем быстрое увеличение. Значения &lt;0 - сначла быстро меняется, затем становится медленнее</tr>
+        <tr lang="ru">кривая ускорения. Значения &gt;0 - сначла медленные изменения, затем быстрое
+        увеличение. Значения &lt;0 - сначла быстро меняется, затем становится медленнее</tr>
       </property>
       <!-- @div -->
       <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
@@ -57,8 +57,8 @@
       <property name="@dur" type="float" minvalue="0" default="0">
         <tr lang="en">sequence duration. Changing this property also changes @t interval between
         bangs.</tr>
-        <tr lang="ru">продолжительность последовательности. Изменение этого
-        свойства также изменяет интервал @t между bang-ами.</tr>
+        <tr lang="ru">продолжительность последовательности. Изменение этого свойства также изменяет
+        интервал @t между bang-ами.</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="0" default="0">
@@ -70,8 +70,8 @@
       units="millisecond">
         <tr lang="en">time interval between bangs. You could also use units values like 100ms or
         120bpm.</tr>
-        <tr lang="ru">временно́й интервал между bang-ами. Вы также можете
-        использовать значения единиц времени или темпа, такие как 100мс или 120bpm.</tr>
+        <tr lang="ru">временно́й интервал между bang-ами. Вы также можете использовать значения
+        единиц времени или темпа, такие как 100мс или 120bpm.</tr>
       </property>
     </properties>
     <methods>
@@ -110,8 +110,10 @@
       <!-- tick -->
       <method name="tick">
         <info>
-          <tr lang="en">manually output the current element of the sequence and proceed to the next one</tr>
-          <tr lang="ru">вручную вывести текущей элемент последовательности и перейти к следующему</tr>
+          <tr lang="en">manually output the current element of the sequence and proceed to the next
+          one</tr>
+          <tr lang="ru">вручную вывести текущей элемент последовательности и перейти к
+          следующему</tr>
         </info>
       </method>
     </methods>
@@ -123,13 +125,15 @@
         </in>
         <in on="float">
           <tr lang="en">sets the number of bangs in the sequence and starts playing it</tr>
-          <tr lang="ru">устанавливает количество bang-ов в последователности и начинает её воспроизведение</tr>
+          <tr lang="ru">устанавливает количество bang-ов в последователности и начинает её
+          воспроизведение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set the number of bangs in the sequence</tr>
-          <tr lang="ru">устанавливает количество bang-ов в последователности (без воспроизведения)</tr>
+          <tr lang="ru">устанавливает количество bang-ов в последователности (без
+          воспроизведения)</tr>
         </in>
       </inlet>
     </inlets>

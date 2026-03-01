@@ -24,8 +24,8 @@
       <par>
         <tr lang="en">The BCM283x SoC supports 2 hardware PWM channels. By default, the channels
         are mapped as follows:</tr>
-        <tr lang="ru">BCM283x SoC поддерживает 2 аппаратных канала ШИМ. По
-        умолчанию каналы отображаются следующим образом:</tr>
+        <tr lang="ru">BCM283x SoC поддерживает 2 аппаратных канала ШИМ. По умолчанию каналы
+        отображаются следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12/GPIO18</tr>
@@ -37,15 +37,14 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как
-        включить и настроить их.</tr>
+        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как включить и
+        настроить их.</tr>
       </par>
       <par>
         <tr lang="en">Note: the Raspberry Pi?s analog audio output uses both PWM channels. Playing
         audio and simultaneously accessing a PWM channel may cause issues.</tr>
-        <tr lang="ru">Аналоговый аудиовыход Raspberry Pi использует оба канала
-        ШИМ. Воспроизведение звука и одновременное обращение к каналу ШИМ может вызвать
-        проблемы.</tr>
+        <tr lang="ru">Аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ. Воспроизведение
+        звука и одновременное обращение к каналу ШИМ может вызвать проблемы.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>
@@ -58,8 +57,8 @@
       <par>
         <tr lang="en">The Raspberry Pi 5 support 4 hardware PWM channels. By default, the channels
         are mapped as follows:</tr>
-        <tr lang="ru">Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ. По
-        умолчанию каналы отображаются следующим образом:</tr>
+        <tr lang="ru">Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ. По умолчанию каналы
+        отображаются следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12</tr>
@@ -79,8 +78,8 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как
-        включить и настроить их.</tr>
+        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как включить и
+        настроить их.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>
@@ -90,9 +89,9 @@
         <tr lang="en">Some of the GPIO pins capable of supporting hardware PWM can also be
         configured for use with other peripherals. Be careful not to enable two peripherals on the
         same pin at the same time.</tr>
-        <tr lang="ru">Некоторые из контактов GPIO, способных поддерживать аппаратную
-        ШИМ, также могут быть настроены для использования с другими периферийными устройствами.
-        Будьте осторожны, чтобы не включить два периферийных устройства на одном и том же контакте
+        <tr lang="ru">Некоторые из контактов GPIO, способных поддерживать аппаратную ШИМ, также
+        могут быть настроены для использования с другими периферийными устройствами. Будьте
+        осторожны, чтобы не включить два периферийных устройства на одном и том же контакте
         одновременно.</tr>
       </par>
     </info>
@@ -176,8 +175,7 @@
       <method name="pwm">
         <info>
           <tr lang="en">set period and pulse width. Expected width&lt;=period.</tr>
-          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина
-          &lt;=период.</tr>
+          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина &lt;=период.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
@@ -192,8 +190,7 @@
       <method name="width">
         <info>
           <tr lang="en">set pulse width. Expected width&lt;=period.</tr>
-          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;=
-          период.</tr>
+          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;= период.</tr>
         </info>
         <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">pulse width</tr>

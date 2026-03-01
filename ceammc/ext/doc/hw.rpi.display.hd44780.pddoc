@@ -35,8 +35,8 @@
       maxvalue="119">
         <tr lang="en">I²C address. Values 'default' (for addr 0x27), 'alt' (for addr 0x3f) are also
         accepted</tr>
-        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для
-        адреса 0x27), 'alt' (для адреса 0x3f).</tr>
+        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для адреса 0x27), 'alt' (для
+        адреса 0x3f).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -66,8 +66,7 @@
       <method name="char">
         <info>
           <tr lang="en">write character to the display and move cursor to the next position</tr>
-          <tr lang="ru">записать символ в дисплей и переместить курсор в
-          следующую позицию</tr>
+          <tr lang="ru">записать символ в дисплей и переместить курсор в следующую позицию</tr>
         </info>
         <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">
           <tr lang="en">character code</tr>
@@ -145,20 +144,22 @@
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">relative cursor shift. Negative values move the cursor leftwards, positive
           values - rightwards</tr>
-          <tr lang="ru">относительный сдвиг курсора. Отрицательные значения
-          перемещают курсор влево, положительные — вправо</tr>
+          <tr lang="ru">относительный сдвиг курсора. Отрицательные значения перемещают курсор
+          влево, положительные — вправо</tr>
         </param>
       </method>
       <!-- move_display -->
       <method name="move_display">
         <info>
           <tr lang="en">move the display content horizontally (without changing its contents)</tr>
-          <tr lang="ru">переместить содержимое дисплея по-горизонтали (без именения его сожержимого)</tr>
+          <tr lang="ru">переместить содержимое дисплея по-горизонтали (без именения его
+          сожержимого)</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
-          <tr lang="en">relative shift. Negative values move the content to the left, positive values — to the right</tr>
-          <tr lang="ru">относительный сдвиг. Отрицательные значения
-          перемещают содержимое влево, положительные — вправо</tr>
+          <tr lang="en">relative shift. Negative values move the content to the left, positive
+          values — to the right</tr>
+          <tr lang="ru">относительный сдвиг. Отрицательные значения перемещают содержимое влево,
+          положительные — вправо</tr>
         </param>
       </method>
       <!-- write -->
@@ -166,8 +167,8 @@
         <info>
           <tr lang="en">write the message at the current cursor position and then move the cursor
           to the next position after last written character</tr>
-          <tr lang="ru">записывает сообщение в текущей позиции курсора, а затем
-          перемещает курсор в следующую позицию после последнего записанного символа.</tr>
+          <tr lang="ru">записывает сообщение в текущей позиции курсора, а затем перемещает курсор в
+          следующую позицию после последнего записанного символа.</tr>
         </info>
         <param name="MSG" type="list" required="true">
           <tr lang="en">value list</tr>

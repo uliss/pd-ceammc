@@ -21,16 +21,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Passes the incoming message unchanged and appends the specified message afterward
-        (possibly with a delay)</tr>
-        <tr lang="ru">Пропускает входное сообщение без изменений и выводит после него добавляемое сообщение
-        (возможно через задержку)</tr>
+        <tr lang="en">Passes the incoming message unchanged and appends the specified message
+        afterward (possibly with a delay)</tr>
+        <tr lang="ru">Пропускает входное сообщение без изменений и выводит после него добавляемое
+        сообщение (возможно через задержку)</tr>
       </par>
       <par>
         <tr lang="en">Note: if you want to specify property message in the init argument, you have
         to quote it with double-quotes</tr>
-        <tr lang="ru">Примечание: если вы хотите указать сообщение свойства в начальном
-        аргументе, вы должны заключить его в двойные кавычки.</tr>
+        <tr lang="ru">Примечание: если вы хотите указать сообщение свойства в начальном аргументе,
+        вы должны заключить его в двойные кавычки.</tr>
       </par>
     </info>
     <arguments>
@@ -42,14 +42,12 @@
     <properties>
       <!-- @delay -->
       <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
-        <tr lang="en">delay of the output of the added message.
-        If &lt;0: outputs immediately, at the same logical time.
-        If 0 - outputs after the next DSP block.
-        If &gt;0: outputs after the specified time.</tr>
-        <tr lang="ru">задержка вывода добавляемого сообщения.
-        Если &lt;0: выводит немедленно, в одно и то же логическое время.
-        Если: 0 - выводит после следующего блока DSP.
-        Если &gt;0: выводит спустя указанное время.</tr>
+        <tr lang="en">delay of the output of the added message. If &lt;0: outputs immediately, at
+        the same logical time. If 0 - outputs after the next DSP block. If &gt;0: outputs after the
+        specified time.</tr>
+        <tr lang="ru">задержка вывода добавляемого сообщения. Если &lt;0: выводит немедленно, в
+        одно и то же логическое время. Если: 0 - выводит после следующего блока DSP. Если &gt;0:
+        выводит спустя указанное время.</tr>
       </property>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
