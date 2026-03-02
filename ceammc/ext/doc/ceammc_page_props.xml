@@ -119,8 +119,12 @@
 [ui.dt]
 ]]>
     </pdascii>
-    <a href="ceammc.args-info.pd">More info about argument processing in ceammc</a>
-    <a href="ceammc.functions-info.pd">More info about initial arg functions in ceammc</a>
+    <a href="ceammc.args-info.pd">
+      <tr lang="en">More info about argument processing in ceammc</tr>
+    </a>
+    <a href="ceammc.functions-info.pd">
+      <tr lang="en">More info about initial arg functions in ceammc</tr>
+    </a>
     <par indent="3">
       <tr lang="en">You can request several properties at once in the single message:</tr>
     </par>

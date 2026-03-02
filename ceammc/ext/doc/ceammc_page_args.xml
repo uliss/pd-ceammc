@@ -80,7 +80,9 @@
       <item>reverse(LIST) - reverse list order</item>
       <item>...</item>
     </ul>
-    <a indent="3" href="ceammc.functions-info.pd">ceammc.functions-info.pd</a>
+    <a indent="3" href="ceammc.functions-info.pd">
+      <tr lang="en">ceammc.functions-info.pd</tr>
+    </a>
     <par indent="1">
       <tr lang="en">4. Data parsing. Ceammc library supports data structures that are stored in the
       single special data atom.</tr>
