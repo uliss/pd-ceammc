@@ -3,7 +3,8 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_color.h"
-#include "fmt/color.h"
+#include "fmt/core.h"
+#include "fmt/format.h"
 
 CEAMMC_DEFINE_HASH(bounce)
 CEAMMC_DEFINE_HASH(breathe)
@@ -16,6 +17,19 @@ CEAMMC_DEFINE_HASH(rainbow)
 CEAMMC_DEFINE_HASH(sparkle)
 CEAMMC_DEFINE_HASH(strobe)
 CEAMMC_DEFINE_HASH(twinkle)
+
+static const std::array<const char*, 10> FX_NAMES = {
+    str_bounce,
+    str_breathe,
+    str_collision,
+    str_cycle,
+    str_fire,
+    str_meteor,
+    str_rainbow,
+    str_sparkle,
+    str_strobe,
+    str_twinkle,
+};
 
 constexpr int DEF_PIXEL_COUNT = 16;
 constexpr int MIN_PIXEL_COUNT = 1;
@@ -268,7 +282,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         fx = ceammc_hw_led_fx::Strobe;
         break;
     default:
-        METHOD_ERR(s) << fmt::format("unknown fx name: '{}'", fx_name->s_name);
+        METHOD_ERR(s) << fmt::format("unknown effect name: '{}', allowed values are: {}", fx_name->s_name, fmt::join(FX_NAMES, ", "));
         return;
     }
 
