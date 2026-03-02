@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <page output="ceammc.args-info.pd">
-    <title>Object arguments in ceammc</title>
+    <title>
+        <tr lang="en">Object arguments in ceammc</tr>
+        <tr lang="ru">Аргументы при создании объектов в ceammc</tr>
+    </title>
     <sections>
         <par>Object arguments and properties in ceammc objects are **expanded** before(!) object
         creation and the object has no access to unexpanded arguments, it sees only expansion

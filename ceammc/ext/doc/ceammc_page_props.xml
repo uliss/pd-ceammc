@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <page output="ceammc.props-info.pd">
-    <title>Object properties</title>
+    <title>
+      <tr lang="en">Object properties</tr>
+      <tr lang="ru">Свойства объектов ceammc</tr>
+    </title>
     <sections>
         <par>CEAMMC library has a conception of properties: the way to access to the inner state of
         the object.</par>

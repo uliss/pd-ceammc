@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0" name="ceammc">
+  <meta>
+    <version>0.9.8</version>
+    <authors/>
+    <xi:include href="ceammc_meta.xml" parse="xml"/>
+  </meta>
+</library>
