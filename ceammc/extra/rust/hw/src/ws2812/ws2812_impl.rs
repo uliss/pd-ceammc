@@ -204,7 +204,11 @@ impl hw_spi_ws2812 {
 
             if clear_on_exit {
                 leds.fill(RGB8::default());
-                let _ = ws.write(leds.iter().cloned());
+                if let Err(err) = ws.write(leds.iter().cloned()) {
+                    error!("clear_on_exit error: {err:?}");
+                } else {
+                    debug!("clear on exit ...");
+                }
             }
 
             debug!("thread done");
