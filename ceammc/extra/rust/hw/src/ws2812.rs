@@ -167,7 +167,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
     rpi_check!((), { hw_spi_ws2812::process_ptr(ws) });
 }
 
-/// apply fx to specified slice
+/// apply fx to specified slice 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(ws: *mut hw_spi_ws2812, fx: hw_led_fx, slice: *const hw_slice) -> bool {
     let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };

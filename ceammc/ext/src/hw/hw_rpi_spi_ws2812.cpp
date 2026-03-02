@@ -3,6 +3,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_color.h"
+#include "fmt/color.h"
 
 CEAMMC_DEFINE_HASH(bounce)
 CEAMMC_DEFINE_HASH(breathe)
@@ -229,17 +230,10 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FX:s=rainbow|breathe|cycle|collision|bounce|cylon|fire|meteor|twinkle|strobe|sparkle"
-                                      " ARG:f[0,1]? START:i? LEN:i>=0?");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
-
-    if (is_null_device(true))
-        return;
-
+    auto fx_name = lv.symbolAt(0, &s_);
     ceammc_hw_led_fx fx {};
 
-    switch (crc32_hash(lv.symbolAt(0, &s_))) {
+    switch (crc32_hash(fx_name)) {
     case hash_rainbow:
         fx = ceammc_hw_led_fx::Rainbow;
         break;
@@ -274,13 +268,17 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         fx = ceammc_hw_led_fx::Strobe;
         break;
     default:
-        break;
+        METHOD_ERR(s) << fmt::format("unknown fx name: '{}'", fx_name->s_name);
+        return;
     }
 
     ceammc_hw_slice slice;
     const ceammc_hw_slice* slice_ptr = &slice;
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
+
+    if (is_null_device(true))
+        return;
 
     ceammc_hw_spi_ws2812_apply_fx(ws_, fx, slice_ptr);
 }
