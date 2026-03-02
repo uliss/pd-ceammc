@@ -1100,12 +1100,10 @@ bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
 
 bool ceammc_hw_sensor_vl53l0x_set_address(const ceammc_hw_sensor_vl53l0x *display, uint8_t addr);
 
-/// apply fx
+/// apply fx to specified slice
 bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
-                                   int32_t first,
-                                   size_t length,
                                    ceammc_hw_led_fx fx,
-                                   float arg);
+                                   const ceammc_hw_slice *slice);
 
 /// clear (turn off) the led strip
 /// @param ws - pointer to the led strip handle
@@ -1117,9 +1115,6 @@ bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
 
 /// free ws21812 control struct
 void ceammc_hw_spi_ws2812_free(ceammc_hw_spi_ws2812 *ws);
-
-/// calc next fx
-bool ceammc_hw_spi_ws2812_fx_next(ceammc_hw_spi_ws2812 *ws);
 
 ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,

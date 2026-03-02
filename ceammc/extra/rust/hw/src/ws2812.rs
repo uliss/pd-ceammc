@@ -3,10 +3,8 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use std::{ffi::CString, ptr::null_mut};
-
 use lib_macro::PdMessage;
-use rgb::RGB8;
+use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
     hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
@@ -53,7 +51,7 @@ pub enum Request {
     Clear,
     Flush,
     SetBrightness(u8),
-    // ApplyEffect(Range, hw_led_fx, f32, bool),
+    ApplyEffect(hw_led_fx, Option<hw_slice>),
     // EffectNext,
     Quit(bool),
 }
@@ -169,20 +167,9 @@ pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
     rpi_check!((), { hw_spi_ws2812::process_ptr(ws) });
 }
 
-/// apply fx
+/// apply fx to specified slice
 #[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(
-    ws: *mut hw_spi_ws2812,
-    first: i32,
-    length: usize,
-    fx: hw_led_fx,
-    arg: f32,
-) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(Range { first, length }, fx, arg, true),) });
-}
-
-/// calc next fx
-#[no_mangle]
-pub extern "C" fn ceammc_hw_spi_ws2812_fx_next(ws: *mut hw_spi_ws2812) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::EffectNext) });
+pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(ws: *mut hw_spi_ws2812, fx: hw_led_fx, slice: *const hw_slice) -> bool {
+    let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(fx, slice)) });
 }

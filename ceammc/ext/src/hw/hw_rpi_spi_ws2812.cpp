@@ -277,19 +277,12 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         break;
     }
 
-    auto arg = lv.floatAt(1, 0);
-    auto start = lv.intAt(2, 0);
-    auto len = lv.intAt(3, size_->value());
+    ceammc_hw_slice slice;
+    const ceammc_hw_slice* slice_ptr = &slice;
+    if (!parse_slice_property(slice, lv))
+        slice_ptr = nullptr;
 
-    ceammc_hw_spi_ws2812_apply_fx(ws_, start, len, fx, arg);
-}
-
-void HwSpiWs2812::m_fx_next(t_symbol* s, const AtomListView& lv)
-{
-    if (is_null_device(true))
-        return;
-
-    ceammc_hw_spi_ws2812_fx_next(ws_);
+    ceammc_hw_spi_ws2812_apply_fx(ws_, fx, slice_ptr);
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
@@ -313,7 +306,6 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);
-    obj.addMethod("fx_next", &HwSpiWs2812::m_fx_next);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set", &HwSpiWs2812::m_set);
     obj.addMethod("set_slice", &HwSpiWs2812::m_set_slice);

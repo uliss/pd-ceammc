@@ -312,6 +312,12 @@ pub struct hw_color_rgb8 {
     blue: u8,
 }
 
+impl hw_color_rgb8 {
+    pub fn into8(&self) -> rgb::RGB8 {
+        rgb::RGB8 { r: self.red, g: self.green, b: self.blue }
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
