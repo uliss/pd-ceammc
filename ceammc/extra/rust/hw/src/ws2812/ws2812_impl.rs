@@ -126,38 +126,19 @@ impl hw_spi_ws2812 {
                                 Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                             }
                         }
-                        Request::Rotate(delta, slice) => {
-                            let len = leds.len();
-                            // Request::EffectNext => match effect {
-                            //     Some(ref mut fx) => {
-                            //         if let Some(data) = fx.next() {
-                            //             let _ = ws.write(smart_leds::brightness(
-                            //                 data.iter().map(|c| Rgb {
-                            //                     r: c.red,
-                            //                     g: c.green,
-                            //                     b: c.blue,
-                            //                 }),
-                            //                 brightness,
-                            //             ));
-                            //         }
-                            //     }
-                            //     None => {
-                            //         Self::send_error(&rep_tx, notify, format!("effect is not set").as_str()).await;
-                            //     }
-                            // },
+                        Request::Rotate(delta, _slice) => {
                             if delta > 0 {
-                                leds.rotate_right((delta as usize).min(len));
+                                leds.rotate_right((delta as usize).min(size));
                             } else {
-                                leds.rotate_left((delta.abs() as usize).min(len));
+                                leds.rotate_left((delta.abs() as usize).min(size));
                             }
                         }
                         Request::Clear => {
                             leds.fill(RGB8::default());
                         }
                         Request::SetSliceColor(color, slice) => {
-                            let nleds = leds.len();
-                            let a = slice.map(|x| pos2index(x.first, nleds)).unwrap_or(0);
-                            let b = slice.map(|x| pos2index(x.last, nleds)).unwrap_or(nleds);
+                            let a = slice.map(|x| pos2index(x.first, size)).unwrap_or(0);
+                            let b = slice.map(|x| pos2index(x.last, size)).unwrap_or(size);
                             let step = slice.map(|x| x.step).unwrap_or(1);
 
                             for idx in (a..=b).step_by(step as usize) {
