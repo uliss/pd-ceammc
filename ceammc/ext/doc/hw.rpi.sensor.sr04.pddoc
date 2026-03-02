@@ -17,19 +17,20 @@
       <since>0.9.8</since>
     </meta>
     <info>
-      <par>
+      <par style="critical">
         <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
         Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
         <tr lang="ru">**Примечание:** Ультразвуковой датчик HC-SR04 требует питания 5В, но входы
         GPIO Raspberry Pi работают при 3.3В.</tr>
       </par>
-      <par>
+      <par style="critical" space-top="-15">
         <tr lang="en">Therefore, you need to use a level converter from 5V to 3.3V, otherwise you
         can damage the Raspberry Pi!</tr>
         <tr lang="ru">Поэтому нужно использовать преобразователь уровней c 5В на 3.3В, иначе можно
-        повредить Raspberry Pi!</tr>
+        повредить Raspberry Pi! Преобразователь уровней можно сделать
+        или на основе резистивного делителя, или на основе готовых модулей.</tr>
       </par>
-      <par>
+      <par style="important">
         <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @trig_pin
         и @echo_pin: использовать их в других объектах одновременно с этим *невозможно*.</tr>
         <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @trig_pin
