@@ -99,7 +99,7 @@ impl hw_spi_ws2812 {
             let mut fx_cylon = Cylon::new(size, Srgb::new(200u8, 100u8, 50u8), None, None);
             let mut fx_snow_sparkle = SnowSparkle::new(size, None, None, None, None);
 
-            let rt = tokio::runtime::Builder::new_multi_thread()
+            let rt = tokio::runtime::Builder::new_current_thread()
                 .build()
                 .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
 
@@ -126,38 +126,19 @@ impl hw_spi_ws2812 {
                                 Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
                             }
                         }
-                        Request::Rotate(delta, slice) => {
-                            let len = leds.len();
-                            // Request::EffectNext => match effect {
-                            //     Some(ref mut fx) => {
-                            //         if let Some(data) = fx.next() {
-                            //             let _ = ws.write(smart_leds::brightness(
-                            //                 data.iter().map(|c| Rgb {
-                            //                     r: c.red,
-                            //                     g: c.green,
-                            //                     b: c.blue,
-                            //                 }),
-                            //                 brightness,
-                            //             ));
-                            //         }
-                            //     }
-                            //     None => {
-                            //         Self::send_error(&rep_tx, notify, format!("effect is not set").as_str()).await;
-                            //     }
-                            // },
+                        Request::Rotate(delta, _slice) => {
                             if delta > 0 {
-                                leds.rotate_right((delta as usize).min(len));
+                                leds.rotate_right((delta as usize).min(size));
                             } else {
-                                leds.rotate_left((delta.abs() as usize).min(len));
+                                leds.rotate_left((delta.abs() as usize).min(size));
                             }
                         }
                         Request::Clear => {
                             leds.fill(RGB8::default());
                         }
                         Request::SetSliceColor(color, slice) => {
-                            let nleds = leds.len();
-                            let a = slice.map(|x| pos2index(x.first, nleds)).unwrap_or(0);
-                            let b = slice.map(|x| pos2index(x.last, nleds)).unwrap_or(nleds);
+                            let a = slice.map(|x| pos2index(x.first, size)).unwrap_or(0);
+                            let b = slice.map(|x| pos2index(x.last, size)).unwrap_or(size);
                             let step = slice.map(|x| x.step).unwrap_or(1);
 
                             for idx in (a..=b).step_by(step as usize) {
@@ -166,11 +147,7 @@ impl hw_spi_ws2812 {
                                 });
                             }
                         }
-                        Request::Quit(clear) => {
-                            if clear {
-                                leds.fill(RGB8::default());
-                                let _ = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness));
-                            }
+                        Request::Quit => {
                             break;
                         }
                         Request::ApplyEffect(fx, slice) => {
@@ -181,7 +158,7 @@ impl hw_spi_ws2812 {
                                     Some(slice) => {
                                         let a = pos2index(slice.first, size);
                                         let b = pos2index(slice.last, size);
-                                        let step = slice.step.min(1).try_into().ok()?;
+                                        let step = slice.step.max(1).try_into().ok()?;
 
                                         for idx in (a..=b).step_by(step) {
                                             let a = leds.get_mut(idx)?;
@@ -225,6 +202,15 @@ impl hw_spi_ws2812 {
                 debug!("tokio done");
             });
 
+            if clear_on_exit {
+                leds.fill(RGB8::default());
+                if let Err(err) = ws.write(leds.iter().cloned()) {
+                    error!("clear_on_exit error: {err:?}");
+                } else {
+                    debug!("clear on exit ...");
+                }
+            }
+
             debug!("thread done");
             Ok(())
         });
@@ -234,7 +220,6 @@ impl hw_spi_ws2812 {
             rx: rep_rx,
             on_msg,
             notify,
-            clear_on_exit,
         })
     }
 
@@ -291,7 +276,7 @@ impl hw_spi_ws2812 {
 
 impl Drop for hw_spi_ws2812 {
     fn drop(&mut self) {
-        self.send(Request::Quit(self.clear_on_exit));
+        self.send(Request::Quit);
         loop {
             match self.rx.try_recv() {
                 Ok(_) => {}
