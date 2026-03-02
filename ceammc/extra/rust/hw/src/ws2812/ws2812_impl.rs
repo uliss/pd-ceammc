@@ -166,11 +166,7 @@ impl hw_spi_ws2812 {
                                 });
                             }
                         }
-                        Request::Quit(clear) => {
-                            if clear {
-                                leds.fill(RGB8::default());
-                                let _ = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness));
-                            }
+                        Request::Quit => {
                             break;
                         }
                         Request::ApplyEffect(fx, slice) => {
@@ -225,6 +221,11 @@ impl hw_spi_ws2812 {
                 debug!("tokio done");
             });
 
+            if clear_on_exit {
+                leds.fill(RGB8::default());
+                let _ = ws.write(leds.iter().cloned());
+            }
+
             debug!("thread done");
             Ok(())
         });
@@ -234,7 +235,6 @@ impl hw_spi_ws2812 {
             rx: rep_rx,
             on_msg,
             notify,
-            clear_on_exit,
         })
     }
 
@@ -291,7 +291,7 @@ impl hw_spi_ws2812 {
 
 impl Drop for hw_spi_ws2812 {
     fn drop(&mut self) {
-        self.send(Request::Quit(self.clear_on_exit));
+        self.send(Request::Quit);
         loop {
             match self.rx.try_recv() {
                 Ok(_) => {}

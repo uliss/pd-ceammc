@@ -53,7 +53,7 @@ pub enum Request {
     SetBrightness(u8),
     ApplyEffect(hw_led_fx, Option<hw_slice>),
     // EffectNext,
-    Quit(bool),
+    Quit,
 }
 
 #[derive(Debug, PdMessage)]
@@ -67,7 +67,6 @@ pub struct hw_spi_ws2812 {
     rx: tokio::sync::mpsc::Receiver<Reply>,
     on_msg: hw_msg_cb,
     notify: hw_notify_cb,
-    clear_on_exit: bool,
 }
 
 #[no_mangle]
