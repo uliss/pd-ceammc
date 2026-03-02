@@ -2,7 +2,7 @@ use std::{ffi::CString, time::Duration};
 
 use log::{debug, error};
 use palette::Srgb;
-use rgb::{Rgb, RGB8};
+use rgb::RGB8;
 use smart_led_effects::strip::{
     Bounce, Breathe, Collision, Cycle, Cylon, EffectIterator, Fire, Meteor, Rainbow, SnowSparkle, Strobe, Twinkle,
 };
