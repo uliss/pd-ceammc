@@ -17,79 +17,79 @@
 -49933 0;
 #X msg 130 318 download;
 #X text 270 318 download file. Arguments are:;
-#X obj 280 341 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 341 URL: download URL. Type: symbol.;
-#X obj 280 364 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 364 [FILE]: save filename. If not specified \, use HTTP
+#X obj 300 343 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 343 URL: download URL. Type: symbol.;
+#X obj 300 366 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 366 [FILE]: save filename. If not specified \, use HTTP
 document filename. Type: symbol.;
-#X obj 280 402 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 402 [@PARAMS]: see get method parameters. Type: list.;
-#X obj 250 427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 427 get;
-#X text 270 427 send GET request. Arguments are:;
-#X obj 280 450 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 450 URL: request URL. Type: symbol.;
-#X obj 280 473 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 473 [@header]: additional http header: @header NAME VALUE.
+#X obj 300 404 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 404 [@PARAMS]: see get method parameters. Type: list.;
+#X obj 250 437 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 437 get;
+#X text 270 437 send GET request. Arguments are:;
+#X obj 300 462 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 462 URL: request URL. Type: symbol.;
+#X obj 300 485 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 485 [@header]: additional http header: @header NAME VALUE.
 Type: list.;
-#X obj 280 511 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 511 [@form]: form key-value pair: @form KEY VALUE. For
+#X obj 300 523 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 523 [@form]: form key-value pair: @form KEY VALUE. For
 application/x-www-form-urlencoded MIME type. Type: list.;
-#X obj 280 549 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 549 [@auth]: basic auth username/password: @auth USER PASS.
+#X obj 300 561 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 561 [@auth]: basic auth username/password: @auth USER PASS.
 Type: list.;
-#X obj 280 587 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 587 [@css]: apply CSS selector to the request body: @css
+#X obj 300 599 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 599 [@css]: apply CSS selector to the request body: @css
 SEL OUTPUT_TYPE \, where OUTPUT_TYPE is one of: 'html' \, 'inner' \,
 'text' \, 'href' \, 'none'. 'html' - returns selected elenent HTML
 content \, 'inner' - returns inner HTML content \, without element
 surrounding tags \, 'text' returns element text without tags \, 'href'
 - return href attribute of selected element \, 'none' - returns empty
 string. Type: list.;
-#X obj 280 716 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 716 [@strip_ws]: replace multiple whitespaces/newlines/tabs
+#X obj 300 728 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 728 [@strip_ws]: replace multiple whitespaces/newlines/tabs
 with single space. Type: symbol.;
-#X obj 280 754 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 754 [@json]: parse result as Json and output it as data:Dict().
+#X obj 300 766 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 766 [@json]: parse result as Json and output it as data:Dict().
 Type: symbol.;
-#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 794 post;
-#X text 270 794 send POST request. Arguments are:;
-#X obj 280 817 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 817 URL: request URL. Type: symbol.;
-#X obj 280 840 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 840 [@PARAMS]: see get method parameters. Type: list.;
-#X obj 250 865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 865 upload;
-#X text 270 865 updload file for the form. Arguments are:;
-#X obj 280 888 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 888 URL: upload URL. Type: symbol.;
-#X obj 280 911 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 911 FILE: upload file path in the filesystem. Type: symbol.;
-#X obj 280 934 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 934 FORM_KEY: form entry key. Type: symbol.;
-#X obj 280 957 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 957 [@PARAMS]: see get method parameters. Type: list.;
-#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 997 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 998 1\.;
-#X text 270 998 input.;
-#X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1038 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 250 814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 814 post;
+#X text 270 814 send POST request. Arguments are:;
+#X obj 300 839 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 839 URL: request URL. Type: symbol.;
+#X obj 300 862 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 862 [@PARAMS]: see get method parameters. Type: list.;
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 895 upload;
+#X text 270 895 updload file for the form. Arguments are:;
+#X obj 300 920 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 920 URL: upload URL. Type: symbol.;
+#X obj 300 943 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 943 FILE: upload file path in the filesystem. Type: symbol.;
+#X obj 300 966 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 966 FORM_KEY: form entry key. Type: symbol.;
+#X obj 300 989 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 989 [@PARAMS]: see get method parameters. Type: list.;
+#X obj 20 1032 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1037 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1039 1\.;
-#X text 270 1039 int: HTTP status code.;
-#X text 130 1059 2\.;
-#X text 270 1059 data:String: HTTP body or content of selected element.;
+#X text 130 1038 1\.;
+#X text 270 1038 input.;
+#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1078 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1079 1\.;
+#X text 270 1079 int: HTTP status code.;
+#X text 130 1099 2\.;
+#X text 270 1099 data:String: HTTP body or content of selected element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1109 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1112 library: ceammc v0.9.8;
-#N canvas 10 1131 400 290 info 0;
+#X obj 1 1149 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1152 library: ceammc v0.9.8;
+#N canvas 10 1171 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -113,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1131 pd info;
+#X restore 10 1171 pd info;
 #X connect 5 0 8 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

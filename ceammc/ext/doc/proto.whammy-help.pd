@@ -57,79 +57,79 @@ pedal). Type: symbol. Default value: classic. Allowed values: chords
 -49933 0;
 #X msg 130 592 next;
 #X text 270 592 select next preset. Arguments are:;
-#X obj 280 615 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 615 [N]: positive step or 'random'. Type: atom.;
-#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 640 prev;
-#X text 270 640 select previous preset. Arguments are:;
-#X obj 280 663 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 663 [N]: positive step or 'random'. Type: atom.;
-#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 688 random;
-#X text 270 688 choose random preset. Arguments are:;
-#X obj 280 711 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 711 MODE: if 'whammy' - select random preset from 'whammy'
+#X obj 300 617 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 617 [N]: positive step or 'random'. Type: atom.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 650 prev;
+#X text 270 650 select previous preset. Arguments are:;
+#X obj 300 675 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 675 [N]: positive step or 'random'. Type: atom.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 random;
+#X text 270 708 choose random preset. Arguments are:;
+#X obj 300 733 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 733 MODE: if 'whammy' - select random preset from 'whammy'
 modes (right pedal side) \, if 'harm' - select random preset from harmonizer
 modes (left pedal side) \, if 'detune' - select random detune mode.
 If not specified - select random mode from all categories. Type: symbol.
 Allowed values: whammy \, harm \, detune.;
-#X obj 280 810 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 810 [STATE]: pedal state (on/off). Type: int. Allowed values:
+#X obj 300 832 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 832 [STATE]: pedal state (on/off). Type: int. Allowed values:
 0 \, 1\.;
-#X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 850 reset;
-#X text 270 850 turn off pedal and select default preset.;
-#X obj 250 878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 878 set IDX;
-#X text 270 878 set preset by index. Arguments are:;
-#X obj 280 901 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 901 IDX: preset index. Type: int. Range: 0\...20\.;
-#X obj 280 924 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 924 [STATE]: pedal state (on/off). Type: int. Allowed values:
+#X obj 250 880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 880 reset;
+#X text 270 880 turn off pedal and select default preset.;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 set IDX;
+#X text 270 915 set preset by index. Arguments are:;
+#X obj 300 940 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 940 IDX: preset index. Type: int. Range: 0\...20\.;
+#X obj 300 963 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 963 [STATE]: pedal state (on/off). Type: int. Allowed values:
 0 \, 1\.;
-#X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 964 set NAME;
-#X text 270 964 set preset by name. Arguments are:;
-#X obj 280 987 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 987 NAME: preset name. Type: symbol. Range: 0\...20\. Allowed
-values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th \, -1oct
-\, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4 \, +4+5
-\, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
-#X obj 280 1055 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1055 [STATE]: pedal state (on/off). Type: int. Allowed
+#X obj 250 1011 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1011 set NAME;
+#X text 270 1011 set preset by name. Arguments are:;
+#X obj 300 1036 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1036 NAME: preset name. Type: symbol. Range: 0\...20\.
+Allowed values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th
+\, -1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4
+\, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
+#X obj 300 1104 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1104 [STATE]: pedal state (on/off). Type: int. Allowed
 values: 0 \, 1\.;
-#X obj 250 1095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1095 set UP DOWN;
-#X text 270 1095 set preset by transpose range. Arguments are:;
-#X obj 280 1118 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1118 UP: up range. Type: int.;
-#X obj 280 1141 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1141 DOWN: down range. Type: int.;
-#X obj 280 1164 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1164 [STATE]: pedal state (on/off). Type: int. Allowed
+#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1152 set UP DOWN;
+#X text 270 1152 set preset by transpose range. Arguments are:;
+#X obj 300 1177 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1177 UP: up range. Type: int.;
+#X obj 300 1200 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1200 DOWN: down range. Type: int.;
+#X obj 300 1223 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1223 [STATE]: pedal state (on/off). Type: int. Allowed
 values: 0 \, 1\.;
-#X obj 250 1204 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1204 toggle;
-#X text 270 1204 toggle pedal on/off.;
-#X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1247 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1271 toggle;
+#X text 270 1271 toggle pedal on/off.;
+#X obj 20 1316 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1321 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1248 1\.;
-#X text 170 1248 int:;
-#X text 270 1248 1: turn on \, 0: turn off pedal.;
-#X obj 20 1283 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1288 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1322 1\.;
+#X text 170 1322 int:;
+#X text 270 1322 1: turn on \, 0: turn off pedal.;
+#X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1362 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1289 1\.;
-#X text 270 1289 float stream: raw midi output.;
+#X text 130 1363 1\.;
+#X text 270 1363 float stream: raw midi output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1339 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1342 library: ceammc v0.9.8;
-#N canvas 10 1361 400 290 info 0;
+#X obj 1 1413 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1416 library: ceammc v0.9.8;
+#N canvas 10 1435 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -153,7 +153,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1361 pd info;
+#X restore 10 1435 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 8 0;
 #X connect 6 0 8 0;

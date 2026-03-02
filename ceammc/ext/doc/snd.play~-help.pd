@@ -102,81 +102,81 @@ Allowed values: now \, defer \, wait.;
 #X msg 130 1262 ff;
 #X text 270 1262 fast forward by specified amount of time. Arguments
 are:;
-#X obj 280 1285 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1285 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X obj 300 1287 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1287 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as samples. If argument is not specified: jump one second forward.
 Type: atom.;
-#X obj 250 1355 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1355 open;
-#X text 270 1355 sets @name property. Arguments are:;
-#X obj 280 1378 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1378 FILENAME: absolute or relative to patch soundfile
+#X obj 250 1365 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1365 open;
+#X text 270 1365 sets @name property. Arguments are:;
+#X obj 300 1390 cnv 1 67 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1390 FILENAME: absolute or relative to patch soundfile
 name. Type: symbol.;
-#X obj 250 1418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1418 pause;
-#X text 270 1418 pause. Arguments are:;
-#X obj 280 1441 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1441 [FLAG]: pause/resume flag. If true or omitted: pause
+#X obj 250 1438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1438 pause;
+#X text 270 1438 pause. Arguments are:;
+#X obj 300 1463 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1463 [FLAG]: pause/resume flag. If true or omitted: pause
 \, if false: resume. Type: bool.;
-#X obj 250 1481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1481 rewind;
-#X text 270 1481 move backwards by specified amount of time (relative
+#X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1511 rewind;
+#X text 270 1511 move backwards by specified amount of time (relative
 value). Arguments are:;
-#X obj 280 1519 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1519 [TIME]: time amount. Can't be in seconds \, milliseconds
+#X obj 300 1551 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1551 [TIME]: time amount. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: one second
 backward. Type: atom.;
-#X obj 250 1589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1589 seek;
-#X text 270 1589 move to specified time (absolute value). Arguments
+#X obj 250 1629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1629 seek;
+#X text 270 1629 move to specified time (absolute value). Arguments
 are:;
-#X obj 280 1612 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1612 [TIME]: Time position. Can't be in seconds \, milliseconds
+#X obj 300 1654 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1654 [TIME]: Time position. Can't be in seconds \, milliseconds
 \, samples \, SMPTE. If the time unit is not specified treat float
 values as milliseconds. If arguments is not specified jump: seek to
 the beginning. Type: atom.;
-#X obj 250 1682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1682 start;
-#X text 270 1682 start playing. Arguments are:;
-#X obj 280 1705 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1705 [FLAG]: start/stop flag. If true or omitted: start
+#X obj 250 1732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1732 start;
+#X text 270 1732 start playing. Arguments are:;
+#X obj 300 1757 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1757 [FLAG]: start/stop flag. If true or omitted: start
 \, if false: stop. Type: bool.;
-#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1745 stop;
-#X text 270 1745 stop playing. Arguments are:;
-#X obj 280 1768 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1768 [FLAG]: start/stop flag. If true or omitted: stop
+#X obj 250 1805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1805 stop;
+#X text 270 1805 stop playing. Arguments are:;
+#X obj 300 1830 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1830 [FLAG]: start/stop flag. If true or omitted: stop
 \, if false: start. Type: bool.;
-#X obj 20 1818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1823 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1888 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1893 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1824 1\.;
-#X text 170 1824 float:;
-#X text 270 1824 1: start playing \, 0: stop.;
-#X obj 20 1859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1894 1\.;
+#X text 170 1894 float:;
+#X text 270 1894 1: start playing \, 0: stop.;
+#X obj 20 1929 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1934 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1865 1\.;
-#X text 170 1865 ~;
-#X text 270 1865 first output channel.;
-#X text 130 1885 ...;
-#X text 170 1885 ~;
-#X text 270 1885 ... output channel.;
-#X text 130 1905 n.;
-#X text 170 1905 ~;
-#X text 270 1905 n-th output channel.;
-#X text 130 1925 n+1\.;
-#X text 270 1925 control output.;
+#X text 130 1935 1\.;
+#X text 170 1935 ~;
+#X text 270 1935 first output channel.;
+#X text 130 1955 ...;
+#X text 170 1955 ~;
+#X text 270 1955 ... output channel.;
+#X text 130 1975 n.;
+#X text 170 1975 ~;
+#X text 270 1975 n-th output channel.;
+#X text 130 1995 n+1\.;
+#X text 270 1995 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 1975 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1978 library: ceammc v0.9.8;
-#N canvas 10 1997 400 290 info 0;
+#X obj 1 2045 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2048 library: ceammc v0.9.8;
+#N canvas 10 2067 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -200,7 +200,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1997 pd info;
+#X restore 10 2067 pd info;
 #X connect 6 0 7 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 0;

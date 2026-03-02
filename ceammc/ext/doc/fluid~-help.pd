@@ -121,279 +121,279 @@ value: 2.3.2\.;
 -49933 0;
 #X msg 130 1357 aftertouch;
 #X text 270 1357 aftertouch channel pressure. Arguments are:;
-#X obj 280 1380 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1380 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
+#X obj 300 1382 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1382 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
-#X obj 280 1403 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1403 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 1428 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1428 bank;
-#X text 270 1428 select instrument bank number on a MIDI channel \,
+#X obj 300 1405 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1405 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
+#X obj 250 1438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1438 bank;
+#X text 270 1438 select instrument bank number on a MIDI channel \,
 but doesn't change instrument \, it should be done with after that
 with *prog* message. Arguments are:;
-#X obj 280 1481 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1481 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 300 1493 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1493 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1519 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1519 BANK: instrument bank number. Type: int. Range: 0\...16383\.;
-#X obj 250 1544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1544 bend;
-#X text 270 1544 pitchband change. Arguments are:;
-#X obj 280 1567 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1567 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 300 1531 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1531 BANK: instrument bank number. Type: int. Range: 0\...16383\.;
+#X obj 250 1564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1564 bend;
+#X text 270 1564 pitchband change. Arguments are:;
+#X obj 300 1589 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1589 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1605 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1605 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
+#X obj 300 1627 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1627 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
 Type: int. Range: 0\...16383\.;
-#X obj 250 1645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1645 bend:f;
-#X text 270 1645 pitchband change. Arguments are:;
-#X obj 280 1668 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1668 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 1675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1675 bend:f;
+#X text 270 1675 pitchband change. Arguments are:;
+#X obj 300 1700 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1700 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1706 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1706 VALUE: value in -1\..+1 range \, with 0 center. Type:
+#X obj 300 1738 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1738 VALUE: value in -1\..+1 range \, with 0 center. Type:
 float. Range: -1\...1\.;
-#X obj 250 1746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1746 bend:i;
-#X text 270 1746 pitchband change. Arguments are:;
-#X obj 280 1769 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1769 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 1786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1786 bend:i;
+#X text 270 1786 pitchband change. Arguments are:;
+#X obj 300 1811 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1811 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1807 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1807 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
+#X obj 300 1849 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1849 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
 Type: int. Range: -8192\...8191\.;
-#X obj 250 1847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1847 bendsens;
-#X text 270 1847 set pitchbend sensitivity. Arguments are:;
-#X obj 280 1870 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1870 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 1897 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1897 bendsens;
+#X text 270 1897 set pitchbend sensitivity. Arguments are:;
+#X obj 300 1922 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1922 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1908 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1908 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
+#X obj 300 1960 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1960 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
 Units: 'semitone'.;
-#X obj 250 1948 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1948 cc;
-#X text 270 1948 control change. Arguments are:;
-#X obj 280 1971 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1971 [CHAN=0]: MIDI channel \, if zero or omitted set on
+#X obj 250 2008 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2008 cc;
+#X text 270 2008 control change. Arguments are:;
+#X obj 300 2033 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2033 [CHAN=0]: MIDI channel \, if zero or omitted set on
 all channel. Type: int. Range: 0\...16\.;
-#X obj 280 2009 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2009 CC: MIDI control number. Type: int. Range: 0\...127\.;
-#X obj 280 2032 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2032 VAL: MIDI control value. Type: int. Range: 0\...127\.;
-#X obj 250 2057 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2057 gen;
-#X text 270 2057 set a SoundFont generator (effect) value on the MIDI
+#X obj 300 2071 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2071 CC: MIDI control number. Type: int. Range: 0\...127\.;
+#X obj 300 2094 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2094 VAL: MIDI control value. Type: int. Range: 0\...127\.;
+#X obj 250 2127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2127 gen;
+#X text 270 2127 set a SoundFont generator (effect) value on the MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE expected).;
-#X obj 250 2112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2112 hold;
-#X text 270 2112 hold (sustain \, right) pedal \, ignore note release
+#X obj 250 2192 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2192 hold;
+#X text 270 2192 hold (sustain \, right) pedal \, ignore note release
 when active \, release all notes when set to off. Arguments are:;
-#X obj 280 2165 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2165 CHAN=0: MIDI channel \, if zero or omitted sustain
+#X obj 300 2247 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2247 CHAN=0: MIDI channel \, if zero or omitted sustain
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2203 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2203 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 300 2285 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2285 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X obj 250 2228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2228 legato;
-#X text 270 2228 enable or disable legato/smooth transitions between
+#X obj 250 2318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2318 legato;
+#X text 270 2318 enable or disable legato/smooth transitions between
 consecutive notes. Arguments are:;
-#X obj 280 2266 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2266 CHAN: MIDI channel \, if zero or omitted apply to
+#X obj 300 2358 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2358 CHAN: MIDI channel \, if zero or omitted apply to
 all channels. Type: int. Range: 0\...15\.;
-#X obj 280 2304 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2304 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 300 2396 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2396 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X obj 250 2329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2329 midi;
-#X text 270 2329 send raw midi message to synth. Arguments are:;
-#X obj 280 2352 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2352 BYTES: list of bytes. Type: list.;
-#X obj 250 2377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2377 note;
-#X text 270 2377 play note. Arguments are:;
-#X obj 280 2400 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2400 [CHAN=0]: MIDI channel \, if zero or omitted play
+#X obj 250 2429 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2429 midi;
+#X text 270 2429 send raw midi message to synth. Arguments are:;
+#X obj 300 2454 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2454 BYTES: list of bytes. Type: list.;
+#X obj 250 2487 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2487 note;
+#X text 270 2487 play note. Arguments are:;
+#X obj 300 2512 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2512 [CHAN=0]: MIDI channel \, if zero or omitted play
 on first(!) channel. Type: int. Range: 0\...16\.;
-#X obj 280 2438 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2438 NOTE: MIDI note. Type: int. Range: 0\...127\.;
-#X obj 280 2461 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2461 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 2486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2486 notes_off;
-#X text 270 2486 turn off all notes on a MIDI channel (put them into
+#X obj 300 2550 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2550 NOTE: MIDI note. Type: int. Range: 0\...127\.;
+#X obj 300 2573 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2573 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
+#X obj 250 2606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2606 notes_off;
+#X text 270 2606 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 280 2524 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2524 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 300 2646 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2646 [CHAN=0]: MIDI channel \, if zero or not specified
 turn notes on all channels. Type: int. Range: 0\...16\.;
-#X obj 250 2564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2564 pan;
-#X text 270 2564 set channel panning. Arguments are:;
-#X obj 280 2587 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2587 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 2694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2694 pan;
+#X text 270 2694 set channel panning. Arguments are:;
+#X obj 300 2719 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2719 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2625 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2625 PAN: pan value \, 0: left \, 8192(0x2000): center
+#X obj 300 2757 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2757 PAN: pan value \, 0: left \, 8192(0x2000): center
 \, 16383(0x3fff): right. Type: float. Range: 0\...16383\.;
-#X obj 250 2665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2665 pan:f;
-#X text 270 2665 set channel panning. Arguments are:;
-#X obj 280 2688 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2688 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 2805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2805 pan:f;
+#X text 270 2805 set channel panning. Arguments are:;
+#X obj 300 2830 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2830 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2726 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2726 PAN: pan value \, -1: left \, 0: center \, 1): right.
+#X obj 300 2868 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2868 PAN: pan value \, -1: left \, 0: center \, 1): right.
 Type: float. Range: -1\...1\.;
-#X obj 250 2766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2766 pan:i;
-#X text 270 2766 set channel panning. Arguments are:;
-#X obj 280 2789 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2789 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 250 2916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2916 pan:i;
+#X text 270 2916 set channel panning. Arguments are:;
+#X obj 300 2941 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2941 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2827 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2827 PAN: pan value \, -8192(-0x2000): left \, 0: center
+#X obj 300 2979 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2979 PAN: pan value \, -8192(-0x2000): left \, 0: center
 \, 8191(0x1fff): right. Type: float. Range: -8192\...8191\.;
-#X obj 250 2867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2867 panic;
-#X text 270 2867 send MIDI system reset command (big red 'panic' button)
+#X obj 250 3027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3027 panic;
+#X text 270 3027 send MIDI system reset command (big red 'panic' button)
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
-#X obj 250 2922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2922 polytouch;
-#X text 270 2922 polytouch key pressure. Arguments are:;
-#X obj 280 2945 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2945 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
+#X obj 250 3092 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3092 polytouch;
+#X text 270 3092 polytouch key pressure. Arguments are:;
+#X obj 300 3117 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3117 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
 0\...16\.;
-#X obj 280 2968 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2968 NOTE: MIDI note. Type: int. Range: 0\...127\.;
-#X obj 280 2991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2991 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 3016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3016 prog;
-#X text 270 3016 program change. Arguments are:;
-#X obj 280 3039 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3039 [CHAN=0]: MIDI channel \, if zero or omitted set for
+#X obj 300 3140 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3140 NOTE: MIDI note. Type: int. Range: 0\...127\.;
+#X obj 300 3163 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3163 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
+#X obj 250 3196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3196 prog;
+#X text 270 3196 program change. Arguments are:;
+#X obj 300 3221 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3221 [CHAN=0]: MIDI channel \, if zero or omitted set for
 all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3077 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3077 PGM: program number. Type: int. Range: 0\...16383\.;
-#X obj 250 3102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3102 reset;
-#X text 270 3102 reset synth channels. Arguments are:;
-#X obj 280 3125 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3125 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 300 3259 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3259 PGM: program number. Type: int. Range: 0\...16383\.;
+#X obj 250 3292 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3292 reset;
+#X text 270 3292 reset synth channels. Arguments are:;
+#X obj 300 3317 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3317 [CHAN=0]: MIDI channel \, if zero or not specified
 reset all channels. Type: int. Range: 0\...16\.;
-#X obj 250 3165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3165 set_preset;
-#X text 270 3165 set soundfont preset for midi channel. Arguments are:;
-#X obj 280 3188 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3188 CHAN: MIDI channel. Type: int. Range: 1\...16\.;
-#X obj 280 3211 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3211 PRESET: preset name or index. Type: atom.;
-#X obj 280 3234 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3234 [SFONT]: soundfont index. See @soundfonts property.
+#X obj 250 3365 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3365 set_preset;
+#X text 270 3365 set soundfont preset for midi channel. Arguments are:;
+#X obj 300 3390 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3390 CHAN: MIDI channel. Type: int. Range: 1\...16\.;
+#X obj 300 3413 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3413 PRESET: preset name or index. Type: atom.;
+#X obj 300 3436 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3436 [SFONT]: soundfont index. See @soundfonts property.
 Type: int. Min value: 1\.;
-#X obj 250 3274 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3274 soft;
-#X text 270 3274 soft (left) pedal \, activate the soft strike effect.
+#X obj 250 3484 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3484 soft;
+#X text 270 3484 soft (left) pedal \, activate the soft strike effect.
 Arguments are:;
-#X obj 280 3312 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3312 CHAN: MIDI channel \, if zero or omitted apply to
+#X obj 300 3524 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3524 CHAN: MIDI channel \, if zero or omitted apply to
 all channels. Type: int. Range: 0\...15\.;
-#X obj 280 3350 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3350 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 300 3562 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3562 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X obj 250 3375 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3375 sostenuto;
-#X text 270 3375 sostenuto (middle) pedal \, hold notes pressed before
+#X obj 250 3595 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3595 sostenuto;
+#X text 270 3595 sostenuto (middle) pedal \, hold notes pressed before
 pedal activation \, new notes are passed untouched. Release holded
 notes when set to off. Arguments are:;
-#X obj 280 3428 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3428 CHAN: MIDI channel \, if zero or omitted apply to
+#X obj 300 3650 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3650 CHAN: MIDI channel \, if zero or omitted apply to
 all channels. Type: int. Range: 0\...15\.;
-#X obj 280 3466 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3466 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 300 3688 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3688 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X obj 250 3491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3491 sound_off;
-#X text 270 3491 immediately stop all notes (skips release phase).
+#X obj 250 3721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3721 sound_off;
+#X text 270 3721 immediately stop all notes (skips release phase).
 Arguments are:;
-#X obj 280 3529 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3529 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 300 3761 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3761 [CHAN=0]: MIDI channel \, if zero or not specified
 stop notes on all channels. Type: int. Range: 0\...16\.;
-#X obj 250 3569 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3569 sysex;
-#X text 270 3569 accept SYSEX message. Arguments are:;
-#X obj 280 3592 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3592 BYTES: list of bytes. Type: list.;
-#X obj 250 3617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3617 tune.;
-#X text 270 3617 set fine tuning in cents \, see tune:s.;
-#X obj 250 3645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3645 tune:12;
-#X text 270 3645 set and activate octave tuning program in cents deviations.
+#X obj 250 3809 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3809 sysex;
+#X text 270 3809 accept SYSEX message. Arguments are:;
+#X obj 300 3834 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3834 BYTES: list of bytes. Type: list.;
+#X obj 250 3867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3867 tune.;
+#X text 270 3867 set fine tuning in cents \, see tune:s.;
+#X obj 250 3902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3902 tune:12;
+#X text 270 3902 set and activate octave tuning program in cents deviations.
 Arguments are:;
-#X obj 280 3683 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3683 BANK: tuning bank (not related to MIDI instrument
+#X obj 300 3942 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3942 BANK: tuning bank (not related to MIDI instrument
 bank). Type: int. Range: 1\...256\.;
-#X obj 280 3721 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3721 PRESET: tuning preset (not related to MIDI instrument
+#X obj 300 3980 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3980 PRESET: tuning preset (not related to MIDI instrument
 program). Type: int. Range: 1\...256\.;
-#X obj 280 3759 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3759 TUNES: list of scale deviations from 12TET in cents.
+#X obj 300 4018 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4018 TUNES: list of scale deviations from 12TET in cents.
 Type: list.;
-#X obj 250 3799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3799 tune:c;
-#X text 270 3799 set fine tuning in cents. Arguments are:;
-#X obj 280 3822 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3822 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 250 4066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4066 tune:c;
+#X text 270 4066 set fine tuning in cents. Arguments are:;
+#X obj 300 4091 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4091 [CHAN=0]: MIDI channel \, if zero or not specified
 apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3860 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3860 CENTS: cents (float) tuning. Type: float. Range: -100\...100\.;
-#X obj 250 3900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3900 tune:s;
-#X text 270 3900 set tuning in semitones. Arguments are:;
-#X obj 280 3923 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3923 [CHAN=0]: MIDI channel \, if zero or not specified
+#X obj 300 4129 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4129 CENTS: cents (float) tuning. Type: float. Range: -100\...100\.;
+#X obj 250 4177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4177 tune:s;
+#X text 270 4177 set tuning in semitones. Arguments are:;
+#X obj 300 4202 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4202 [CHAN=0]: MIDI channel \, if zero or not specified
 apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3961 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3961 SEMI: semitones (float) tuning. Type: float. Range:
+#X obj 300 4240 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4240 SEMI: semitones (float) tuning. Type: float. Range:
 -64\...63\.;
-#X obj 250 4001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4001 tunesel;
-#X text 270 4001 select tuning bank and preset. Arguments are:;
-#X obj 280 4024 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4024 BANK: tuning bank (not related to MIDI instrument
+#X obj 250 4288 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4288 tunesel;
+#X text 270 4288 select tuning bank and preset. Arguments are:;
+#X obj 300 4313 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4313 BANK: tuning bank (not related to MIDI instrument
 bank). Type: int. Range: 1\...256\.;
-#X obj 280 4062 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4062 PRESET: tuning preset (not related to MIDI instrument
+#X obj 300 4351 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4351 PRESET: tuning preset (not related to MIDI instrument
 program). Type: int. Range: 1\...256\.;
-#X obj 20 4112 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4117 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 4409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4414 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4118 1\.;
-#X text 170 4118 symbol:;
-#X text 270 4118 load mod file.;
-#X obj 20 4153 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4158 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 4415 1\.;
+#X text 170 4415 symbol:;
+#X text 270 4415 load mod file.;
+#X obj 20 4450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4455 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4159 1\.;
-#X text 170 4159 ~;
-#X text 270 4159 left channel and property output.;
-#X text 130 4179 2\.;
-#X text 170 4179 ~;
-#X text 270 4179 right channel.;
-#X text 130 4199 3\.;
-#X text 270 4199 int: number of active voices (output only on change).;
+#X text 130 4456 1\.;
+#X text 170 4456 ~;
+#X text 270 4456 left channel and property output.;
+#X text 130 4476 2\.;
+#X text 170 4476 ~;
+#X text 270 4476 right channel.;
+#X text 130 4496 3\.;
+#X text 270 4496 int: number of active voices (output only on change).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 4249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4252 library: ceammc v0.9.8;
-#N canvas 10 4271 400 290 info 0;
+#X obj 1 4546 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4549 library: ceammc v0.9.8;
+#N canvas 10 4568 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -417,7 +417,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4271 pd info;
+#X restore 10 4568 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 1;
 #X connect 12 0 17 0;

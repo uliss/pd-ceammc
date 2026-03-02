@@ -1,97 +1,99 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 337 50 cnv 1 428 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 342 50 joins the list into a string with the element separator;
+#X obj 292 50 cnv 1 473 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 297 50 объединяет список в строку с указанным разделителем
+элементов;
 #X obj 1 1 cnv 5 765 40 empty empty string.join 20 20 0 20 -104026
 -4096 0;
 #X obj 577 11 str.join;
 #X obj 660 11 string.join;
-#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 To set a space as separator \, use either the escape
-character (\ ) or quotes (" ").;
-#X text 240 123 To set an empty string as separator \, use quotes ("");
-#X msg 50 211 list A B C 1 2 3;
-#X msg 203 240 symbol ":::";
-#X msg 347 240 symbol "";
-#X obj 50 269 string.join _;
-#X obj 50 298 ui.dt;
-#X msg 50 341 list A B C;
-#X obj 50 370 string.join " ";
-#X obj 50 398 ui.dt;
-#X msg 50 442 list A B C;
-#X obj 50 471 string.join "";
-#X obj 50 499 ui.dt;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Чтобы установить пробел как разделитель \, используйте
+или символ экранирования (\ ) или кавычки (" ").;
+#X text 240 123 Чтобы установить пустую строку как разделитель \, используйте
+кавычки ("").;
+#X msg 50 226 list A B C 1 2 3;
+#X msg 203 255 symbol ":::";
+#X msg 347 255 symbol "";
+#X obj 50 284 string.join _;
+#X obj 50 313 ui.dt;
+#X msg 50 356 list A B C;
+#X obj 50 385 string.join " ";
+#X obj 50 413 ui.dt;
+#X msg 50 457 list A B C;
+#X obj 50 486 string.join "";
+#X obj 50 514 ui.dt;
+#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 569 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 557 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 572 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 555 1\.;
-#X text 170 555 list;
-#X obj 268 556 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 555 SEP: separator. For space use quotes. Type: list.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 595 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 570 1\.;
+#X text 170 570 list;
+#X obj 268 571 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 570 SEP: разделитель. Тип: list.;
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 598 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 596 @sep;
-#X text 270 596 Separator. Type: list.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 641 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 611 @sep;
+#X text 270 611 Разделитель. Тип: list.;
+#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 656 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 642 1\.;
-#X text 170 642 symbol:;
-#X text 270 642 symbol passed untouched.;
-#X text 170 667 list:;
-#X text 270 667 a list of items to join into a string.;
-#X text 170 692 data:mlist:;
-#X text 270 692 a multilevel list of items to join into a string.;
-#X text 130 717 2\.;
-#X text 170 717 symbol:;
-#X text 270 717 sets the separator from symbol.;
-#X text 170 742 data:string:;
-#X text 270 742 sets the separator from string.;
-#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 782 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 783 1\.;
-#X text 170 783 data:string:;
-#X text 270 783 result String.;
+#X text 130 657 1\.;
+#X text 170 657 symbol:;
+#X text 270 657 символ пропускается без изменений.;
+#X text 170 682 list:;
+#X text 270 682 список элементов для объединения в строку.;
+#X text 170 707 data:mlist:;
+#X text 270 707 многоуровневый список элементов для объединения в строку.;
+#X text 130 732 2\.;
+#X text 170 732 symbol:;
+#X text 270 732 установить разделитель.;
+#X text 170 757 data:string:;
+#X text 270 757 установить разделитель.;
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 797 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 798 1\.;
+#X text 170 798 data:string:;
+#X text 270 798 строка результата.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 833 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 836 library: ceammc v0.9.8;
-#X text 578 848 see also:;
-#X obj 653 848 string.split;
-#N canvas 10 855 400 290 info 0;
+#X obj 1 848 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 851 библиотека: ceammc v0.9.8;
+#X text 532 863 смотрите также:;
+#X obj 653 863 string.split;
+#N canvas 10 870 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 string.join;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 string;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.3;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 join;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 855 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 870 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 1;
 #X connect 10 0 11 1;

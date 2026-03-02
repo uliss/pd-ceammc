@@ -74,113 +74,113 @@ array. Type: list.;
 #X msg 130 1005 load;
 #X text 270 1005 Loads sound file. Outputs info properties and number
 of loaded samples after load. Arguments are:;
-#X obj 280 1043 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1043 PATH: path to soundfile. Type: symbol.;
-#X obj 280 1066 cnv 1 106 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1066 to ARRAY_NAME: destination array names or pattern.
+#X obj 300 1045 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1045 PATH: path to soundfile. Type: symbol.;
+#X obj 300 1068 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1068 to ARRAY_NAME: destination array names or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
 and array_right. Type: symbol.;
-#X obj 280 1134 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1134 [@resize]: resize array to fit loaded samples. Type:
+#X obj 300 1136 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1136 [@resize]: resize array to fit loaded samples. Type:
 property.;
-#X obj 280 1172 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1172 [@channel N]: specify input channels. Spaces separated
+#X obj 300 1174 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1174 [@channel N]: specify input channels. Spaces separated
 list or range x-y. Type: property.;
-#X obj 280 1210 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1210 [@normalize]: normalize array after loading. Type:
+#X obj 300 1212 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1212 [@normalize]: normalize array after loading. Type:
 property.;
-#X obj 280 1233 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1233 [@gain V]: apply gain to loaded samples \, examples:
+#X obj 300 1235 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1235 [@gain V]: apply gain to loaded samples \, examples:
 +3.1db \, -6db \, 0.5 etc. Type: property.;
-#X obj 280 1271 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1271 [@begin X]: specify input file begin position \, by
+#X obj 300 1273 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1273 [@begin X]: specify input file begin position \, by
 default in samples \, but you can use other units: 1s \, 10ms \, 00:01.12
 (smpte). To specify value relative to file end you can use $-X syntax.
 Type: property.;
-#X obj 280 1339 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1339 [@end X]: specify input file end position \, by default
+#X obj 300 1341 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1341 [@end X]: specify input file end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
 To specify value relative to file end you can use $-X syntax. Type:
 property.;
-#X obj 280 1407 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1407 [@length X]: specify input length \, by default in
+#X obj 300 1409 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1409 [@length X]: specify input length \, by default in
 samples \, but you can use other units: 1s \, 10ms \, 00:00:02.00 (smpte).
 Type: property.;
-#X obj 280 1460 cnv 1 132 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1460 [@offset SAMPLES]: offset in samples from beginning
+#X obj 300 1462 cnv 1 132 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1462 [@offset SAMPLES]: offset in samples from beginning
 of file. Deprecated \, use @begin instead. Type: property.;
-#X obj 280 1498 cnv 1 109 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1498 [@resample R?]: if R is not specified - resample from
+#X obj 300 1500 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1500 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
 R as float value or integer fraction - 44100/48000\. Type: property.;
-#X obj 250 1568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1568 save;
-#X text 270 1568 Save arrays to specified file. Arguments are:;
-#X obj 280 1591 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1591 ARRAYS: list of arrays. Type: list.;
-#X obj 280 1614 cnv 1 76 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1614 @to FNAME: output filename. Type: symbol.;
-#X obj 280 1637 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1637 [@begin X]: specify input array begin position \,
+#X obj 250 1578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1578 save;
+#X text 270 1578 Save arrays to specified file. Arguments are:;
+#X obj 300 1603 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1603 ARRAYS: list of arrays. Type: list.;
+#X obj 300 1626 cnv 1 76 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1626 @to FNAME: output filename. Type: symbol.;
+#X obj 300 1649 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1649 [@begin X]: specify input array begin position \,
 by default in samples \, but you can use other units: 1s \, 10ms \,
 00:01.12 (smpte). To specify value relative to array end you can use
 $-X syntax. Type: property.;
-#X obj 280 1705 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1705 [@end X]: specify input array end position \, by default
+#X obj 300 1717 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1717 [@end X]: specify input array end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
 To specify value relative to array end you can use $-X syntax. Type:
 property.;
-#X obj 280 1773 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1773 [@gain V]: apply gain to saved arrays \, examples:
+#X obj 300 1785 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1785 [@gain V]: apply gain to saved arrays \, examples:
 +3.1db \, -6db \, 0.5 etc. Type: property.;
-#X obj 280 1811 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1811 [@in_sr SR]: array source samplerate \, if omitted
+#X obj 300 1823 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1823 [@in_sr SR]: array source samplerate \, if omitted
 using patch samplerate. Type: property.;
-#X obj 280 1849 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1849 [@out_sr SR]: output samplerate. Type: property.;
-#X obj 280 1872 cnv 1 109 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1872 [@norm[alize]]: normalize output. Type: property.;
-#X obj 280 1895 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1895 [@overwrite]: overwrite existing file flag. Type:
+#X obj 300 1861 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1861 [@out_sr SR]: output samplerate. Type: property.;
+#X obj 300 1884 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1884 [@norm[alize]]: normalize output. Type: property.;
+#X obj 300 1907 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1907 [@overwrite]: overwrite existing file flag. Type:
 property.;
-#X obj 280 1918 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1918 [@samp FMT]: output sample format. Supported values
+#X obj 300 1930 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1930 [@samp FMT]: output sample format. Supported values
 are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Type: property.;
-#X obj 280 1956 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1956 [@wav]: WAV output format. Type: property.;
-#X obj 280 1979 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1979 [@mp3]: MP3 output format. Type: property.;
-#X obj 280 2002 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2002 [@ogg]: Ogg/Vorbis output format. Type: property.;
-#X obj 280 2025 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2025 [@opus]: Opus output format. Type: property.;
-#X obj 280 2048 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2048 [@aiff]: AIFF output format. Type: property.;
-#X obj 280 2071 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2071 [@txt]: TXT output format. Type: property.;
-#X obj 280 2094 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2094 [@raw]: RAW output format. Type: property.;
-#X obj 280 2117 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2117 [@flac]: FLAC output format. Type: property.;
-#X obj 20 2152 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2157 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1968 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1968 [@wav]: WAV output format. Type: property.;
+#X obj 300 1991 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1991 [@mp3]: MP3 output format. Type: property.;
+#X obj 300 2014 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2014 [@ogg]: Ogg/Vorbis output format. Type: property.;
+#X obj 300 2037 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2037 [@opus]: Opus output format. Type: property.;
+#X obj 300 2060 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2060 [@aiff]: AIFF output format. Type: property.;
+#X obj 300 2083 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2083 [@txt]: TXT output format. Type: property.;
+#X obj 300 2106 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2106 [@raw]: RAW output format. Type: property.;
+#X obj 300 2129 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2129 [@flac]: FLAC output format. Type: property.;
+#X obj 20 2172 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2177 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2158 1\.;
-#X text 270 2158 input inlet.;
-#X obj 20 2193 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2198 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 2178 1\.;
+#X text 270 2178 input inlet.;
+#X obj 20 2213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2218 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2199 1\.;
-#X text 270 2199 number of loaded/saved samples or -1 on error.;
+#X text 130 2219 1\.;
+#X text 270 2219 number of loaded/saved samples or -1 on error.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 2249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2252 library: ceammc v0.9.8;
-#N canvas 10 2271 400 290 info 0;
+#X obj 1 2269 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2272 library: ceammc v0.9.8;
+#N canvas 10 2291 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -204,7 +204,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2271 pd info;
+#X restore 10 2291 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 10 0;
 #X connect 9 0 10 0;

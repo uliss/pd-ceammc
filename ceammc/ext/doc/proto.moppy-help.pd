@@ -39,74 +39,74 @@ Allowed values: 2 \, 1\.;
 -49933 0;
 #X msg 130 570 bend:f;
 #X text 270 570 note pitchbend. Arguments are:;
-#X obj 280 593 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 593 VAL: pitch bend. Type: float. Range: -1\...1\.;
-#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 618 freq;
-#X text 270 618 set floppy frequency. Note: moppy.v1 version only.
+#X obj 300 595 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 595 VAL: pitch bend. Type: float. Range: -1\...1\.;
+#X obj 250 628 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 628 freq;
+#X text 270 628 set floppy frequency. Note: moppy.v1 version only.
 Arguments are:;
-#X obj 280 656 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 656 [CHAN]: optional floppy id (overrides @floppy property).
+#X obj 300 668 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 668 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
-#X obj 280 694 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 694 FREQ: freq. Type: float. Units: 'Hz'.;
-#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 719 note;
-#X text 270 719 see noteon.;
-#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 747 noteoff;
-#X text 270 747 note off message. Arguments are:;
-#X obj 280 770 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 770 [CHAN]: optional floppy id (overrides @floppy property).
+#X obj 300 706 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 706 FREQ: freq. Type: float. Units: 'Hz'.;
+#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 739 note;
+#X text 270 739 see noteon.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 noteoff;
+#X text 270 774 note off message. Arguments are:;
+#X obj 300 799 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 799 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
-#X obj 280 808 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 808 NOTE: MIDI note. Type: int. Range: 24\...72\.;
-#X obj 250 833 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 833 noteon;
-#X text 270 833 play note. Arguments are:;
-#X obj 280 856 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 856 [CHAN]: optional floppy id (overrides @floppy property).
+#X obj 300 837 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 837 NOTE: MIDI note. Type: int. Range: 24\...72\.;
+#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 870 noteon;
+#X text 270 870 play note. Arguments are:;
+#X obj 300 895 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 895 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
-#X obj 280 894 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 894 NOTE: MIDI note. Type: int. Range: 24\...72\.;
-#X obj 280 917 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 917 VEL: note velocity (if 0 - turns note off \, otherwise
+#X obj 300 933 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 933 NOTE: MIDI note. Type: int. Range: 24\...72\.;
+#X obj 300 956 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 956 VEL: note velocity (if 0 - turns note off \, otherwise
 ignored). Type: int. Range: 0\...127\.;
-#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 957 period;
-#X text 270 957 directly set floppy drive period. Note: moppy.v1 version
+#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1004 period;
+#X text 270 1004 directly set floppy drive period. Note: moppy.v1 version
 only. Arguments are:;
-#X obj 280 995 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 995 [CHAN]: optional floppy id (overrides @floppy property).
+#X obj 300 1044 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1044 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
-#X obj 280 1033 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1033 TIME: period in microseconds. Type: int.;
-#X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1058 ping;
-#X text 270 1058 send ping request to all devices.;
-#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1086 reset;
-#X text 270 1086 reset moppy device. Arguments are:;
-#X obj 280 1109 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1109 [all]: reset all devices. Type: symbol.;
-#X obj 20 1144 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1149 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1082 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1082 TIME: period in microseconds. Type: int.;
+#X obj 250 1115 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1115 ping;
+#X text 270 1115 send ping request to all devices.;
+#X obj 250 1150 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1150 reset;
+#X text 270 1150 reset moppy device. Arguments are:;
+#X obj 300 1175 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1175 [all]: reset all devices. Type: symbol.;
+#X obj 20 1218 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1223 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1150 1\.;
-#X text 270 1150 commands.;
-#X obj 20 1185 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1190 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1224 1\.;
+#X text 270 1224 commands.;
+#X obj 20 1259 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1264 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1191 1\.;
-#X text 270 1191 list: output to moppy.;
+#X text 130 1265 1\.;
+#X text 270 1265 list: output to moppy.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1241 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1244 library: ceammc v0.9.8;
-#N canvas 10 1263 400 290 info 0;
+#X obj 1 1315 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1318 library: ceammc v0.9.8;
+#N canvas 10 1337 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -130,7 +130,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1263 pd info;
+#X restore 10 1337 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 10 0 11 0;

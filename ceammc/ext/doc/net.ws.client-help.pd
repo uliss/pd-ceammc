@@ -41,92 +41,92 @@ data \, fudi \, json \, sym.;
 -49933 0;
 #X msg 130 596 close;
 #X text 270 596 gracefully close connection (with websocket handshake).;
-#X obj 250 624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 624 connect;
-#X text 270 624 connect to websocket server. Arguments are:;
-#X obj 280 647 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 647 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
+#X obj 250 631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 631 connect;
+#X text 270 631 connect to websocket server. Arguments are:;
+#X obj 300 656 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 656 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
 Type: symbol.;
-#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 687 flush;
-#X text 270 687 flush output stream: sends all buffered messages.;
-#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 715 latency;
-#X text 270 715 measure rountrip latency. Outputs: latency TIME_MSEC.;
-#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 743 ping;
-#X text 270 743 send ping message to server (on server answer outputs:
+#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 704 flush;
+#X text 270 704 flush output stream: sends all buffered messages.;
+#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 739 latency;
+#X text 270 739 measure rountrip latency. Outputs: latency TIME_MSEC.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 ping;
+#X text 270 774 send ping message to server (on server answer outputs:
 pong DATA). Arguments are:;
-#X obj 280 781 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 781 [DATA]: list of integers in [0\..255] range. Type:
+#X obj 300 814 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 814 [DATA]: list of integers in [0\..255] range. Type:
 list.;
-#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 806 send;
-#X text 270 806 send as text message. Arguments are:;
-#X obj 280 829 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 829 [ARGS]: arguments. Type: list.;
-#X obj 250 854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 854 send_array;
-#X text 270 854 send as Pd array content as json array. Arguments are:;
-#X obj 280 877 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 877 ARR: array name. Type: symbol.;
-#X obj 280 900 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 900 [START=0]: array start index. Type: int. Min value:
+#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 847 send;
+#X text 270 847 send as text message. Arguments are:;
+#X obj 300 872 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 872 [ARGS]: arguments. Type: list.;
+#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 905 send_array;
+#X text 270 905 send as Pd array content as json array. Arguments are:;
+#X obj 300 930 cnv 1 31 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 930 ARR: array name. Type: symbol.;
+#X obj 300 953 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 953 [START=0]: array start index. Type: int. Min value:
 0\. Units: 'samp'.;
-#X obj 280 938 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 938 [LENGTH]: read length. If not specified - read until
+#X obj 300 991 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 991 [LENGTH]: read length. If not specified - read until
 array end. Type: int. Min value: 0\. Units: 'samp'.;
-#X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 978 send_binary;
-#X text 270 978 send as binary bytes. Arguments are:;
-#X obj 280 1001 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1001 [ARGS]: list of integers in [0\..255] range. Type:
+#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1039 send_binary;
+#X text 270 1039 send as binary bytes. Arguments are:;
+#X obj 300 1064 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1064 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
-#X obj 250 1026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1026 send_json;
-#X text 270 1026 send as encoded json. Arguments are:;
-#X obj 280 1049 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1049 [ARGS]: arguments. Type: list.;
-#X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1074 write;
-#X text 270 1074 write as text message to output buffer. You have to
+#X obj 250 1097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1097 send_json;
+#X text 270 1097 send as encoded json. Arguments are:;
+#X obj 300 1122 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1122 [ARGS]: arguments. Type: list.;
+#X obj 250 1155 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1155 write;
+#X text 270 1155 write as text message to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 280 1112 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1112 [ARGS]: arguments. Type: list.;
-#X obj 250 1137 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1137 write_binary;
-#X text 270 1137 write as binary bytes to output buffer. You have to
+#X obj 300 1195 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1195 [ARGS]: arguments. Type: list.;
+#X obj 250 1228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1228 write_binary;
+#X text 270 1228 write as binary bytes to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 280 1175 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1175 [ARGS]: list of integers in [0\..255] range. Type:
+#X obj 300 1268 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1268 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
-#X obj 250 1200 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1200 write_json;
-#X text 270 1200 write as encoded json to output buffer. You have to
+#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1301 write_json;
+#X text 270 1301 write as encoded json to output buffer. You have to
 call [flush( method for sending. Arguments are:;
-#X obj 280 1238 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1238 [ARGS]: arguments. Type: list.;
-#X obj 20 1273 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1278 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1341 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1341 [ARGS]: arguments. Type: list.;
+#X obj 20 1384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1389 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1279 1\.;
-#X text 270 1279 message input.;
-#X obj 20 1314 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1319 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1390 1\.;
+#X text 270 1390 message input.;
+#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1430 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1320 1\.;
-#X text 270 1320 output messages: latency \, ping \, text \, binary
+#X text 130 1431 1\.;
+#X text 270 1431 output messages: latency \, ping \, text \, binary
 \, closed \, connected \, disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1385 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1388 library: ceammc v0.9.8;
-#X text 570 1400 see also:;
-#X obj 645 1400 net.ws.server;
-#N canvas 10 1407 400 290 info 0;
+#X obj 1 1496 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1499 library: ceammc v0.9.8;
+#X text 570 1511 see also:;
+#X obj 645 1511 net.ws.server;
+#N canvas 10 1518 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -150,7 +150,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1407 pd info;
+#X restore 10 1518 pd info;
 #X connect 5 0 16 0;
 #X connect 13 0 16 0;
 #X connect 15 0 16 0;
