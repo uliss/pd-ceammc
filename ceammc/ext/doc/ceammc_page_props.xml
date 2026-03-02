@@ -5,7 +5,7 @@
     <tr lang="ru">Свойства объектов ceammc</tr>
   </title>
   <sections>
-    <par>
+    <par style="info">
       <tr lang="en">CEAMMC library has a conception of properties: the way to access to the inner
       state of the object.</tr>
       <tr lang="ru">Библиотека CEAMMC имеет концепцию свойств: способов доступа к
@@ -78,7 +78,7 @@
 [flt.c_lpf   1000]           [F]
 ]]>
     </pdascii>
-    <par indent="3">
+    <par indent="3" style="info">
       <tr lang="en">NOTE: for some objects, like in flow category, this is the single way to
       get/set properties, because by design flow objects should work with all dataflow values.</tr>
       <tr lang="ru">ПРИМЕЧАНИЕ: для некоторых объектов, например, в категории
