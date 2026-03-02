@@ -2,7 +2,7 @@
 <page output="ceammc.args-info.pd">
     <title>
         <tr lang="en">Object arguments in ceammc</tr>
-        <tr lang="ru">Аргументы при создании объектов в ceammc</tr>
+        <tr lang="ru">Аргументы инициалиции объектов в ceammc</tr>
     </title>
     <sections>
         <par>Object arguments and properties in ceammc objects are **expanded** before(!) object

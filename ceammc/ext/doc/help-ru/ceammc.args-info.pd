@@ -2,7 +2,7 @@
 #X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
 -104026 -4096 0;
 #X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 61 cnv 5 450 32 empty empty Аргументы\ при\ создании\
+#X obj 20 61 cnv 5 450 32 empty empty Аргументы\ инициалиции\
 объектов\ в\ ceammc 4 16 0 17 -262144 -104026 0;
 #X text 40 124 Object arguments and properties in ceammc objects are
 **expanded** before(!) object creation and the object has no access

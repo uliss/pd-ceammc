@@ -5,6 +5,8 @@ set(PDDOC_PAGES_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../ceammc_pages.xml")
 set(PDDOC_META_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../ceammc_meta.xml")
 set(PDDOC_HELP_INDEX "${CMAKE_CURRENT_SOURCE_DIR}/ceammc-help.pd")
 
+file(GLOB PDDOC_PAGES "${CMAKE_CURRENT_SOURCE_DIR}/../ceammc_page_*.xml")
+
 set(DOC_PD_FILES)
 set(DOC_XLET_DB_FILES)
 set(DOC_PDDOC_FILES)
@@ -30,7 +32,7 @@ endforeach()
 
 add_custom_command(
   OUTPUT ${PDDOC_LIB_RU_FILE}
-  DEPENDS ${DOC_PDDOC_FILES} ${PDDOC_PAGES_FILE} ${PDDOC_META_FILE}
+  DEPENDS ${PDDOC_PAGES_FILE} ${PDDOC_PAGES}
   COMMAND
     ${PD_MAKELIB} --library ceammc --version "${CEAMMC_LIB_VERSION}" --locale RU
     --search-path ${CMAKE_CURRENT_SOURCE_DIR}/.. --output ${PDDOC_LIB_RU_FILE}

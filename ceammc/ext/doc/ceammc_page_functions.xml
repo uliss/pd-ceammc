@@ -2,7 +2,7 @@
 <page output="ceammc.functions-info.pd">
     <title>
       <tr lang="en">Initial object arg functions</tr>
-      <tr lang="ru">Функции в начальных аргументах объектов ceammc</tr>
+      <tr lang="ru">Функции в аргументах инициализации</tr>
     </title>
     <sections>
         <par>Note: this functions are calculated only once just before(!) ceammc object
