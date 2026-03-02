@@ -5,12 +5,14 @@
       <tr lang="ru">Свойства объектов ceammc</tr>
     </title>
     <sections>
-        <par>CEAMMC library has a conception of properties: the way to access to the inner state of
-        the object.</par>
-        <par>A property name starts with '@' symbol.</par>
+        <par><tr lang="en">CEAMMC library has a conception of properties: the way to access to the inner state of
+        the object.</tr></par>
+        <par>
+          <tr lang="en">A property name starts with '@' symbol.</tr>
+        </par>
         <h2>Basic usage</h2>
-        <par>There are two ways do deal with properties:</par>
-        <par indent="1">1. Sending get/set request messages to the target object.</par>
+        <par><tr lang="en">There are two ways do deal with properties:</tr></par>
+        <par indent="1"><tr lang="en">1. Sending get/set request messages to the target object.</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [@freq?(       /*<- get property message (ended with '?')*/
@@ -22,10 +24,10 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par indent="3">On receiving @prop? message the object outputs its value as the message to
-        the first outlet: @prop VALUE</par>
-        <par indent="3">There are [prop.route] and [prop.route~] objects for splitting the main
-        object audio/control stream from the requested properties:</par>
+        <par indent="3"><tr lang="en">On receiving @prop? message the object outputs its value as the message to
+        the first outlet: @prop VALUE</tr></par>
+        <par indent="3"><tr lang="en">There are [prop.route] and [prop.route~] objects for splitting the main
+        object audio/control stream from the requested properties:</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [@freq?( [@q?(      [@freq?( [@q?(
@@ -37,8 +39,8 @@
     [F]    [F]            [F]     [F]
 ]]>
         </pdascii>
-        <par indent="1">2. Using [prop.get] and [prop.set] objects</par>
-        <par indent="3">The [prop.get] object get properties from the connected object:</par>
+        <par indent="1"><tr lang="en">2. Using [prop.get] and [prop.set] objects</tr></par>
+        <par indent="3"><tr lang="en">The [prop.get] object get properties from the connected object:</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [F]              [B]
@@ -48,13 +50,13 @@
 [flt.c_lpf   1000]           [F]
 ]]>
         </pdascii>
-        <par indent="3">NOTE: for some objects, like in flow category, this is the single way to
+        <par indent="3"><tr lang="en">NOTE: for some objects, like in flow category, this is the single way to
         get/set properties, because by design flow objects should work with all dataflow
-        values.</par>
-        <par>Some frequently used properties can be set with positional init arguments. This is the
-        same:</par>
+        values.</tr></par>
+        <par><tr lang="en">Some frequently used properties can be set with positional init arguments. This is the
+        same:</tr></par>
         <pdascii indent="10">[data.list 1 2 3] [data.list @value 1 2 3]</pdascii>
-        <par indent="3">Properties can be one of the following types:</par>
+        <par indent="3"><tr lang="en">Properties can be one of the following types:</tr></par>
         <ul indent="3">
             <item>readwrite - you can set it with initial arguments, with messages or
             [prop.get]/[prop.set] objects</item>
@@ -79,10 +81,10 @@
 ]]>
         </pdascii>
         <h2>Advanced usage</h2>
-        <par>On ceammc object creation it parses initial arguments, does unquotting and number
+        <par><tr lang="en">On ceammc object creation it parses initial arguments, does unquotting and number
         substitution, performs init function call and data parsing. After theese steps the property
         parsing stage is invoked. So quoting, bin and hex numbers, function calls can be used also
-        in initial object properties arguments.</par>
+        in initial object properties arguments.</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [B]
@@ -94,7 +96,7 @@
         </pdascii>
         <a href="ceammc.args-info.pd">More info about argument processing in ceammc</a>
         <a href="ceammc.functions-info.pd">More info about initial arg functions in ceammc</a>
-        <par indent="3">You can request several properties at once in the single message:</par>
+        <par indent="3"><tr lang="en">You can request several properties at once in the single message:</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [@freq? @q?(
@@ -104,7 +106,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par indent="3">You can use simple math and random for float properties:</par>
+        <par indent="3"><tr lang="en">You can use simple math and random for float properties:</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [@freq + 10, @freq?(   [@freq * 1.1, @freq? #a(
@@ -121,7 +123,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x]
 ]]>
         </pdascii>
-        <par indent="3">You can get the list all of object properties with message</par>
+        <par indent="3"><tr lang="en">You can get the list all of object properties with message</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [@*?(

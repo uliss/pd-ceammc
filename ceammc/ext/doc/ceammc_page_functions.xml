@@ -5,12 +5,12 @@
       <tr lang="ru">Функции в аргументах инициализации</tr>
     </title>
     <sections>
-        <par>Note: this functions are calculated only once just before(!) ceammc object
-        creation.</par>
-        <par>Function call can be nested.</par>
-        <par>If you want the symbol value pi() instead of numeric value - use double-quotes. In the
+        <par><tr lang="en">Note: this functions are calculated only once just before(!) ceammc object
+        creation.</tr></par>
+        <par><tr lang="en">Function call can be nested.</tr></par>
+        <par><tr lang="en">If you want the symbol value pi() instead of numeric value - use double-quotes. In the
         following example theren is a list with two elements: first is π=3.1415 value, second is
-        unexpanded symbol pi():</par>
+        unexpanded symbol pi():</tr></par>
         <pdascii indent="10">
 <![CDATA[
 [bang(
