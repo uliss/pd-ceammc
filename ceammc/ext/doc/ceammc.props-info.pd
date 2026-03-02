@@ -9,7 +9,7 @@ to access to the inner state of the object., f 80;
 #X text 40 169 A property name starts with '@' symbol., f 80;
 #X obj 20 199 cnv 5 400 28 empty empty Basic\ usage 4 14 0 16 -70738
 -262144 0;
-#X text 40 247 There are two ways do deal with properties:, f 80;
+#X text 40 247 There are two ways do deal with object properties:, f 80;
 #X text 50 277 1\. Sending get/set request messages to the target object., f 79;
 #X msg 140 307 @freq?;
 #X text 272 307 <- get property message (ended with '?');
@@ -51,57 +51,59 @@ init arguments. This is the same:, f 80;
 #X obj 140 868 data.list 1 2 3;
 #X obj 298 868 data.list @value 1 2 3;
 #X text 70 906 Properties can be one of the following types:, f 77;
-#X text 70 936 ◦ readwrite - you can set it with initial arguments
-\, with messages or [prop.get]/[prop.set] objects, f 67;
-#X text 70 971 ◦ initonly - you can set it with initial arguments and
+#X text 70 936 ◦ readwrite - you can set this property when creating
+an object \, by sending messages to the object \, or using connected
+objects [prop.get]/[prop.set], f 67;
+#X text 70 986 ◦ initonly - you can set it with initial arguments and
 after that only get its value, f 67;
-#X text 70 1006 ◦ readonly - you can only get its value, f 67;
-#X msg 140 1026 @size?;
-#X text 219 1026 <- readonly property @size;
-#X obj 140 1052 data.list 1 2 3 4;
-#X obj 140 1078 ui.dt;
-#X obj 140 1118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 70 1021 ◦ readonly - you can only get its value \, it cannot
+be set in any way, f 67;
+#X msg 140 1056 @size?;
+#X text 219 1056 <- readonly property @size;
+#X obj 140 1082 data.list 1 2 3 4;
+#X obj 140 1108 ui.dt;
+#X obj 140 1148 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 219 1118 <- initonly property @n;
-#X obj 140 1144 prop.get @n;
-#X obj 140 1171 route.cycle @n 5;
-#X floatatom 307 1171 5 0 0 0 - - -;
-#X obj 20 1209 cnv 5 400 28 empty empty Advanced\ usage 4 14 0 16
+#X text 219 1148 <- initonly property @n;
+#X obj 140 1174 prop.get @n;
+#X obj 140 1201 route.cycle @n 5;
+#X floatatom 307 1201 5 0 0 0 - - -;
+#X obj 20 1239 cnv 5 400 28 empty empty Advanced\ usage 4 14 0 16
 -70738 -262144 0;
-#X text 40 1257 On ceammc object creation it parses initial arguments
+#X text 40 1287 On ceammc object creation it parses initial arguments
 \, does unquotting and number substitution \, performs init function
 call and data parsing. After theese steps the property parsing stage
 is invoked. So quoting \, bin and hex numbers \, function calls can
 be used also in initial object properties arguments., f 80;
-#X obj 140 1347 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 140 1377 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 140 1373 data.list @value reverse(pi() e() sr() 0xFF 0b1111 "A
+#X obj 140 1403 data.list @value reverse(pi() e() sr() 0xFF 0b1111 "A
 B C");
-#X obj 140 1399 ui.dt;
-#X obj 40 1440 ui.link @title More info about argument processing in
+#X obj 140 1429 ui.dt;
+#X obj 40 1470 ui.link @title More info about argument processing in
 ceammc @url ceammc.args-info.pd;
-#X obj 40 1475 ui.link @title More info about initial arg functions in
+#X obj 40 1505 ui.link @title More info about initial arg functions in
 ceammc @url ceammc.functions-info.pd;
-#X text 70 1507 You can request several properties at once in the single
+#X text 70 1537 You can request several properties at once in the single
 message:, f 77;
-#X msg 140 1537 @freq? @q?;
-#X obj 140 1563 flt.c_lpf 1000;
-#X obj 140 1589 ui.dt;
-#X text 70 1627 You can use simple math and random for float properties:, f 77;
-#X msg 140 1657 @freq + 10 \, @freq?;
-#X msg 342 1657 @freq * 1.1 \, @freq?;
-#X msg 157 1683 @freq - 20 \, @freq?;
-#X msg 342 1683 @freq / 1.1 \, @freq?;
-#X msg 342 1709 @freq default \, @freq?;
-#X msg 342 1736 @freq random \, @freq?;
-#X obj 140 1762 flt.c_lpf 1000;
-#X obj 140 1789 ui.dt;
-#X text 70 1827 You can get the list all of object properties with
-message, f 77;
-#X msg 140 1857 @*?;
-#X obj 140 1883 flt.c_lpf 1000;
-#X obj 140 1909 ui.dt;
-#X obj 1 1967 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 140 1567 @freq? @q?;
+#X obj 140 1593 flt.c_lpf 1000;
+#X obj 140 1619 ui.dt;
+#X text 70 1657 You can use simple math and random for float properties:, f 77;
+#X msg 140 1687 @freq + 10 \, @freq?;
+#X msg 342 1687 @freq * 1.1 \, @freq?;
+#X msg 157 1713 @freq - 20 \, @freq?;
+#X msg 342 1713 @freq / 1.1 \, @freq?;
+#X msg 342 1739 @freq default \, @freq?;
+#X msg 342 1766 @freq random \, @freq?;
+#X obj 140 1792 flt.c_lpf 1000;
+#X obj 140 1819 ui.dt;
+#X text 70 1857 You can get the list all of object properties with
+message:, f 77;
+#X msg 140 1887 @*?;
+#X obj 140 1913 flt.c_lpf 1000;
+#X obj 140 1939 ui.dt;
+#X obj 1 1997 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;
