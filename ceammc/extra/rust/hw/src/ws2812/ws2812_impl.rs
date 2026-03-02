@@ -99,7 +99,7 @@ impl hw_spi_ws2812 {
             let mut fx_cylon = Cylon::new(size, Srgb::new(200u8, 100u8, 50u8), None, None);
             let mut fx_snow_sparkle = SnowSparkle::new(size, None, None, None, None);
 
-            let rt = tokio::runtime::Builder::new_multi_thread()
+            let rt = tokio::runtime::Builder::new_current_thread()
                 .build()
                 .map_err(|err| CString::new(err.to_string()).unwrap_or_default())?;
 
