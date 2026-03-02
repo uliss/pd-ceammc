@@ -22,99 +22,98 @@ expect too much from it \, if you need powerfull shell capabilities
 #X floatatom 50 385 5 0 0 0 - - -;
 #X obj 165 385 print EXEC;
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 440 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 440 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 443 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 441 1\.;
 #X text 170 441 list;
 #X obj 268 442 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 441 ARGS: execution program chain. Type: list.;
+#X text 270 441 ARGS: execution program chain. Тип: list.;
 #X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 481 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 484 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 482 @args;
-#X text 270 482 Execution program chain. Type: list.;
+#X text 270 482 Execution program chain. Тип: list.;
 #X obj 250 512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 512 @mode;
 #X text 270 512 Output processing mode. 'pd': output each output line
 as Pd atom list \, 'str': output whole as data:string \, 'lines': output
 each output line as data:string \, 'bytes': output as byte stream.
-Type: symbol. Default value: pd. Allowed values: pd \, str \, lines
-\, bytes.;
+Тип: symbol. Значение по умолчанию: pd. Разрешённые значения: pd \,
+str \, lines \, bytes.;
 #X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @pwd;
-#X text 270 599 Process working directory. Type: symbol.;
+#X text 270 599 Process working directory. Тип: symbol.;
 #X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 629 @stderr;
-#X text 270 629 Capture stderr. Type: bool. Default value: 1\.;
+#X text 270 629 Capture stderr. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 659 @stdout;
-#X text 270 659 Capture stdout. Type: bool. Default value: 1\.;
+#X text 270 659 Capture stdout. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 689 @t;
-#X text 270 689 Period to check program output. Type: int. Units: 'ms'.
-Default value: 100\. Range: 5\...500\.;
+#X text 270 689 Period to check program output. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 100\. Диапазон: 5\...500\.;
 #X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 746 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 747 stdin;
-#X text 270 747 run the program with given input values. Arguments
-are:;
-#X obj 280 770 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 770 [ARGS]: the input values. Type: list.;
-#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 795 terminate;
-#X text 270 795 terminate the running process.;
-#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 838 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 746 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 839 1\.;
-#X text 170 839 bang:;
-#X text 270 839 run the program.;
-#X text 170 864 any:;
-#X text 270 864 change @args property and then run the program.;
-#X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 904 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 905 1\.;
-#X text 270 905 int: output process exit code.;
-#X text 130 925 2\.;
-#X text 270 925 stdout output \, format depends from @mode.;
+#X msg 130 747 stdin;
+#X text 270 747 run the program with given input values. Аргументы:;
+#X obj 300 772 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 772 [ARGS]: the input values. Тип: list.;
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 805 terminate;
+#X text 270 805 terminate the running process.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 856 1\.;
+#X text 170 856 bang:;
+#X text 270 856 run the program.;
+#X text 170 881 any:;
+#X text 270 881 change @args property and then run the program.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 922 1\.;
+#X text 270 922 int: output process exit code.;
+#X text 130 942 2\.;
+#X text 270 942 stdout output \, format depends from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 975 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 978 library: ceammc v0.9.8;
-#N canvas 10 997 400 290 info 0;
+#X obj 1 992 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 995 библиотека: ceammc v0.9.8;
+#N canvas 10 1014 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 system.command;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 system;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 system \, execute \, pipe \, command \, shell;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 997 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1014 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 12 0 14 0;

@@ -16,94 +16,95 @@
 #X obj 290 262 ui.ssc~ @size 400 120;
 #X obj 50 349 dac~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 float;
 #X obj 268 406 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 270 405 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
 #X text 130 430 2\.;
 #X text 170 430 float;
 #X obj 268 431 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 Q: Quality factor. Type: float. Range: 0.1\...100;
+#X text 270 430 Q: Quality factor. Тип: float. Диапазон: 0.1…100;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 470 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 470 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 473 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 471 @id;
-#X text 270 471 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_resonlp/ИМЯ_СВОЙСТВА
-\, в противном случае к /flt_resonlp/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 543 @osc;
-#X text 270 543 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @active;
-#X text 270 573 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 615 @freq;
-#X text 270 615 Center frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
-#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 657 @q;
-#X text 270 657 Quality factor. Type: float. Default value: 40\. Range:
-0.1\...100\.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 714 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 471 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/flt_resonlp/ИМЯ_СВОЙСТВА \, в противном случае к /flt_resonlp/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 558 @osc;
+#X text 270 558 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 588 @active;
+#X text 270 588 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 630 @freq;
+#X text 270 630 Center frequency. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 1000\. Диапазон: 20\...20000\.;
+#X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 672 @q;
+#X text 270 672 Quality factor. Тип: float. Значение по умолчанию:
+40\. Диапазон: 0.1\...100\.;
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 729 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 715 1\.;
-#X text 170 715 ~;
-#X text 270 715 input signal.;
-#X text 130 740 2\.;
-#X text 170 740 float:;
-#X text 270 740 set frequency.;
-#X text 130 765 3\.;
-#X text 170 765 float:;
-#X text 270 765 set Q-factor.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 805 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 806 1\.;
-#X text 170 806 ~;
-#X text 270 806 filtered signal.;
+#X text 130 730 1\.;
+#X text 170 730 ~;
+#X text 270 730 input signal.;
+#X text 130 755 2\.;
+#X text 170 755 float:;
+#X text 270 755 set frequency.;
+#X text 130 780 3\.;
+#X text 170 780 float:;
+#X text 270 780 set Q-factor.;
+#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 821 1\.;
+#X text 170 821 ~;
+#X text 270 821 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 856 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 859 library: ceammc v0.9.8;
-#X text 577 871 see also:;
-#X obj 652 871 flt.resonbp~;
-#N canvas 10 878 400 290 info 0;
+#X obj 1 871 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 874 библиотека: ceammc v0.9.8;
+#X text 531 886 смотрите также:;
+#X obj 652 886 flt.resonbp~;
+#N canvas 10 893 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 flt.resonlp~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 flt;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.6;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 filter \, resonant \, lowpass;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 878 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 893 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 4 0 10 0;

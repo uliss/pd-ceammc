@@ -30,127 +30,129 @@ Pi;
 #X obj 50 431 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 493 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 493 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 494 @i2c_addr;
-#X text 270 494 (initonly) Адрес I²C. Также принимаются значения 'default'
-(для адреса 0x27) \, 'alt' (для адреса 0x3f). Type: int. Default value:
--1\. Range: -4\...119\.;
-#X obj 250 551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 551 @i2c_bus;
-#X text 270 551 (initonly) Шина I²C. Type: atom. Default value: none.
-Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 593 @rows;
-#X text 270 593 (initonly) Количество строк дисплея. Type: int. Default
-value: 1\. Allowed values: 1 \, 2 \, 4\.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 651 backlight;
-#X text 270 651 включить/выключить подсветку дисплея. Arguments are:;
-#X obj 280 674 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 674 STATE: новое состояние. Type: bool.;
-#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 699 char;
-#X text 270 699 записать символ в дисплей и переместить курсор в следующую
-позицию. Arguments are:;
-#X obj 280 737 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 737 CHAR: код символа. Type: int. Range: 0\...255\.;
-#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 762 clear;
-#X text 270 762 очистить дисплей и установить положение курсора в 0
+#X text 270 494 (при инициализации) Адрес I²C. Также принимаются значения
+'default' (для адреса 0x27) \, 'alt' (для адреса 0x3f). Тип: int. Значение
+по умолчанию: -1\. Диапазон: -4\...119\.;
+#X obj 250 566 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 566 @i2c_bus;
+#X text 270 566 (при инициализации) Шина I²C. Тип: atom. Значение по
+умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
+default \, none.;
+#X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 623 @rows;
+#X text 270 623 (при инициализации) Количество строк дисплея. Тип:
+int. Значение по умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4\.;
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 695 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 696 backlight;
+#X text 270 696 включить/выключить подсветку дисплея. Аргументы:;
+#X obj 300 721 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 721 STATE: новое состояние. Тип: bool.;
+#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 754 char;
+#X text 270 754 записать символ в дисплей и переместить курсор в следующую
+позицию. Аргументы:;
+#X obj 300 794 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 794 CHAR: код символа. Тип: int. Диапазон: 0…255\.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 827 clear;
+#X text 270 827 очистить дисплей и установить положение курсора в 0
 \, 0\.;
-#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 790 clear_line;
-#X text 270 790 очистить только указанную строку. Arguments are:;
-#X obj 280 813 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 813 LINE: индекс строки. Type: int. Range: 0\...3\.;
-#X obj 250 838 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 838 cursor_blink;
-#X text 270 838 включить/выключить мерцающий курсор. Arguments are:;
-#X obj 280 861 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 861 STATE: новое состояние. Type: bool.;
-#X obj 250 886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 886 cursor_on;
-#X text 270 886 включить/выключить курсор дисплея. Arguments are:;
-#X obj 280 909 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 909 STATE: новое состояние. Type: bool.;
-#X obj 250 934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 934 cursor_pos;
-#X text 270 934 установить позицию курсора. Arguments are:;
-#X obj 280 957 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 957 LINE: строка курсора. Type: int. Min value: 0\.;
-#X obj 280 980 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 980 COL: положение символа в строке. Type: int. Range:
-0\...20\.;
-#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1005 font;
-#X text 270 1005 выбор шрифта.;
-#X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1033 move_cursor;
-#X text 270 1033 переместить курсор по-горизонтали. Arguments are:;
-#X obj 280 1056 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1056 SHIFT: относительный сдвиг курсора. Отрицательные
-значения перемещают курсор влево \, положительные — вправо. Type: int.;
-#X obj 250 1111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1111 move_display;
-#X text 270 1111 переместить содержимое дисплея по-горизонтали (без
-именения его сожержимого). Arguments are:;
-#X obj 280 1149 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1149 SHIFT: относительный сдвиг. Отрицательные значения
-перемещают содержимое влево \, положительные — вправо. Type: int.;
-#X obj 250 1204 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1204 write;
-#X text 270 1204 записывает сообщение в текущей позиции курсора \,
+#X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 862 clear_line;
+#X text 270 862 очистить только указанную строку. Аргументы:;
+#X obj 300 887 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 887 LINE: индекс строки. Тип: int. Диапазон: 0…3\.;
+#X obj 250 920 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 920 cursor_blink;
+#X text 270 920 включить/выключить мерцающий курсор. Аргументы:;
+#X obj 300 945 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 945 STATE: новое состояние. Тип: bool.;
+#X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 978 cursor_on;
+#X text 270 978 включить/выключить курсор дисплея. Аргументы:;
+#X obj 300 1003 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1003 STATE: новое состояние. Тип: bool.;
+#X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1036 cursor_pos;
+#X text 270 1036 установить позицию курсора. Аргументы:;
+#X obj 300 1061 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1061 LINE: строка курсора. Тип: int. Минимальное значение:
+0\.;
+#X obj 300 1084 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1084 COL: положение символа в строке. Тип: int. Диапазон:
+0…20\.;
+#X obj 250 1117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1117 font;
+#X text 270 1117 выбор шрифта.;
+#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1152 move_cursor;
+#X text 270 1152 переместить курсор по-горизонтали. Аргументы:;
+#X obj 300 1177 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1177 SHIFT: относительный сдвиг курсора. Отрицательные
+значения перемещают курсор влево \, положительные — вправо. Тип: int.;
+#X obj 250 1240 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1240 move_display;
+#X text 270 1240 переместить содержимое дисплея по-горизонтали (без
+именения его сожержимого). Аргументы:;
+#X obj 300 1280 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1280 SHIFT: относительный сдвиг. Отрицательные значения
+перемещают содержимое влево \, положительные — вправо. Тип: int.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1343 write;
+#X text 270 1343 записывает сообщение в текущей позиции курсора \,
 а затем перемещает курсор в следующую позицию после последнего записанного
-символа. Arguments are:;
-#X obj 280 1257 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1257 MSG: список значений. Type: list.;
-#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1297 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+символа. Аргументы:;
+#X obj 300 1398 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1398 MSG: список значений. Тип: list.;
+#X obj 20 1441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1446 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1447 1\.;
+#X text 270 1447 контрольный вход.;
+#X obj 20 1482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1298 1\.;
-#X text 270 1298 контрольный вход.;
-#X obj 20 1333 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1338 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1339 1\.;
-#X text 270 1339 не выводит ничего.;
+#X text 130 1488 1\.;
+#X text 270 1488 не выводит ничего.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1389 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1392 library: ceammc v0.9.8;
-#N canvas 10 1411 400 290 info 0;
+#X obj 1 1538 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1541 библиотека: ceammc v0.9.8;
+#N canvas 10 1560 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 hw.rpi.display.hd44780;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 hw;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 display \, 1602 \, 2004 \, lcd \, i2c \, rpi;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1411 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1560 pd info;
 #X connect 7 0 9 0;
 #X connect 11 0 13 0;
 #X connect 15 0 17 0;

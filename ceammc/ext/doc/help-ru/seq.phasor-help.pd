@@ -27,109 +27,109 @@
 #X obj 50 415 ui.hgain2~ @size 16 143;
 #X obj 50 443 dac~;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 498 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 498 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 501 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 499 1\.;
 #X text 170 499 float;
 #X obj 268 500 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 499 FREQ(Hz): частота. Type: float. Range: 0\...100;
+#X text 270 499 FREQ(Hz): частота. Тип: float. Диапазон: 0…100;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 539 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 539 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 542 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 540 @freq;
-#X text 270 540 Частота. Type: float. Units: 'Hz'. Default value: 0\.
-Range: 0\...100\.;
+#X text 270 540 Частота. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+0\. Диапазон: 0\...100\.;
 #X obj 250 582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 582 @invert;
 #X text 270 582 Режим инверсии пилообразного сигнала. Если true: выводит
-убывающую форму волны. Type: bool. Default value: 0\.;
+убывающую форму волны. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 639 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 639 @on;
-#X text 270 639 Включение/выключение вывода сигнала. Type: bool. Default
-value: 0\.;
+#X text 270 639 Включение/выключение вывода сигнала. Тип: bool. Значение
+по умолчанию: 0\.;
 #X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 681 @open;
 #X text 270 681 Выходить значения сигнала в полуоткрытом диапазоне
 [0\..1) \, в противном случае выходной диапазон составляет [0\..1]
-(по умолчанию). Type: bool. Default value: 0\.;
-#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 738 @steps;
-#X text 270 738 Количество шагов. Type: int. Default value: 128\. Min
-value: 3\.;
-#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 795 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 796 phase;
-#X text 270 796 установить текущую фазу. Arguments are:;
-#X obj 280 819 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 819 [VALUE]: new phase value. Type: float.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 reset;
-#X text 270 844 сбросить фазу и остановить вывод.;
-#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 872 rewind;
-#X text 270 872 сброс фазы без остановки вывода.;
-#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 900 start;
-#X text 270 900 start from current position.;
-#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 928 stop;
-#X text 270 928 остановить вывод.;
-#X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 956 tick;
-#X text 270 956 вывести текущее значение и перейти к следующему.;
-#X obj 20 994 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 999 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+(по умолчанию). Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 753 @steps;
+#X text 270 753 Количество шагов. Тип: int. Значение по умолчанию:
+128\. Минимальное значение: 3\.;
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 810 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1000 1\.;
-#X text 170 1000 float:;
-#X text 270 1000 1: начало вывода \, 0: остановка.;
-#X text 130 1025 2\.;
-#X text 170 1025 any:;
-#X text 270 1025 сбросить фазу на 0\.;
-#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1065 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 811 phase;
+#X text 270 811 установить текущую фазу. Аргументы:;
+#X obj 300 836 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 836 [VALUE]: new phase value. Тип: float.;
+#X obj 250 869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 869 reset;
+#X text 270 869 сбросить фазу и остановить вывод.;
+#X obj 250 904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 904 rewind;
+#X text 270 904 сброс фазы без остановки вывода.;
+#X obj 250 939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 939 start;
+#X text 270 939 start from current position.;
+#X obj 250 974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 974 stop;
+#X text 270 974 остановить вывод.;
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1009 tick;
+#X text 270 1009 вывести текущее значение и перейти к следующему.;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1059 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1060 1\.;
+#X text 170 1060 float:;
+#X text 270 1060 1: начало вывода \, 0: остановка.;
+#X text 130 1085 2\.;
+#X text 170 1085 any:;
+#X text 270 1085 сбросить фазу на 0\.;
+#X obj 20 1120 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1125 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1066 1\.;
-#X text 270 1066 числовое значение в диапазоне 0\..1\.;
-#X text 130 1086 2\.;
-#X text 270 1086 bang: после завершения полного цикла.;
+#X text 130 1126 1\.;
+#X text 270 1126 числовое значение в диапазоне 0\..1\.;
+#X text 130 1146 2\.;
+#X text 270 1146 bang: после завершения полного цикла.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1136 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1139 library: ceammc v0.9.8;
-#N canvas 10 1158 400 290 info 0;
+#X obj 1 1196 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1199 библиотека: ceammc v0.9.8;
+#N canvas 10 1218 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 seq.phasor;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 seq;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 seq \, lfo \, phasor \, saw;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1158 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1218 pd info;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 14 0;

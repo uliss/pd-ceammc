@@ -30,121 +30,122 @@ Pi;
 #X obj 50 667 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ads1115.png;
 #X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 729 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 729 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 732 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 730 1\.;
 #X text 170 730 symbol;
 #X obj 268 731 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 730 MODE: См. @mode. Allowed values: diff \, single. Type:
-symbol.;
-#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 770 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 730 MODE: См. @mode. Разрешённые значения: diff \, single.
+Тип: symbol.;
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 785 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 773 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 788 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 771 @fsr;
-#X text 270 771 (initonly) Полный входной диапазон. Type: symbol. Default
-value: 6144mv. Allowed values: 1024mv \, 2048mv \, 256mv \, 4096mv
-\, 512mv \, 6144mv.;
-#X obj 250 828 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 828 @i2c_addr;
-#X text 270 828 (initonly) Адрес I²C. Также принимается значение «default»
-(для адреса 0x48) и «alt» (для адреса 0x49). Type: int. Default value:
--1\. Range: -4\...119\.;
-#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 885 @i2c_bus;
-#X text 270 885 (initonly) Шина I²C. Type: atom. Default value: none.
-Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 927 @mode;
-#X text 270 927 (initonly) Режим измерения. Если "single" - измеряет
-уровени между A0 \, A1 \, A2 \, A3 и GND. Если "diff" - измеряет разницу
-между А0 и А1 \, А0 и А3 \, А1 и А3 \, А2 и А3\. Type: symbol. Default
-value: single. Allowed values: diff \, single.;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 @poll_time;
-#X text 270 1014 (initonly) Время между измерениями. Type: float. Units:
-'ms'. Default value: 20.0\. Range: 5.0\...250.0\.;
-#X obj 250 1056 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1056 @in_max;
-#X text 270 1056 Максимальное входное значение в милливольтах. Type:
-float. Default value: 5000.0\. Range: 0.0\...6144.0\.;
-#X obj 250 1098 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1098 @in_min;
-#X text 270 1098 Минимальное входное значение в милливольтах. Type:
-float. Default value: 0.0\. Range: 0.0\...6144.0\.;
-#X obj 250 1140 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1140 @norm;
-#X text 270 1140 Нормализация. Если 1: нормализовать выходные значения
-в заданном свойствами @out_min @out_max диапазоне. Type: bool. Default
-value: 0\.;
-#X obj 250 1197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1197 @out_max;
-#X text 270 1197 Выходное максимальное значение. Type: float. Default
-value: 1.0\.;
-#X obj 250 1239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1239 @out_min;
-#X text 270 1239 Выходное минимальное значение. Type: float. Default
-value: 0.0\.;
-#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1296 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 786 @fsr;
+#X text 270 786 (при инициализации) Полный входной диапазон. Тип: symbol.
+Значение по умолчанию: 6144mv. Разрешённые значения: 1024mv \, 2048mv
+\, 256mv \, 4096mv \, 512mv \, 6144mv.;
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 843 @i2c_addr;
+#X text 270 843 (при инициализации) Адрес I²C. Также принимается значение
+«default» (для адреса 0x48) и «alt» (для адреса 0x49). Тип: int. Значение
+по умолчанию: -1\. Диапазон: -4\...119\.;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 @i2c_bus;
+#X text 270 915 (при инициализации) Шина I²C. Тип: atom. Значение по
+умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
+default \, none.;
+#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 972 @mode;
+#X text 270 972 (при инициализации) Режим измерения. Если "single"
+- измеряет уровени между A0 \, A1 \, A2 \, A3 и GND. Если "diff" -
+измеряет разницу между А0 и А1 \, А0 и А3 \, А1 и А3 \, А2 и А3\. Тип:
+symbol. Значение по умолчанию: single. Разрешённые значения: diff \,
+single.;
+#X obj 250 1059 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1059 @poll_time;
+#X text 270 1059 (при инициализации) Время между измерениями. Тип:
+float. Единицы: 'ms'. Значение по умолчанию: 20.0\. Диапазон: 5.0\...250.0\.;
+#X obj 250 1116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1116 @in_max;
+#X text 270 1116 Максимальное входное значение в милливольтах. Тип:
+float. Значение по умолчанию: 5000.0\. Диапазон: 0.0\...6144.0\.;
+#X obj 250 1173 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1173 @in_min;
+#X text 270 1173 Минимальное входное значение в милливольтах. Тип:
+float. Значение по умолчанию: 0.0\. Диапазон: 0.0\...6144.0\.;
+#X obj 250 1230 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1230 @norm;
+#X text 270 1230 Нормализация. Если 1: нормализовать выходные значения
+в заданном свойствами @out_min @out_max диапазоне. Тип: bool. Значение
+по умолчанию: 0\.;
+#X obj 250 1287 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1287 @out_max;
+#X text 270 1287 Выходное максимальное значение. Тип: float. Значение
+по умолчанию: 1.0\.;
+#X obj 250 1329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1329 @out_min;
+#X text 270 1329 Выходное минимальное значение. Тип: float. Значение
+по умолчанию: 0.0\.;
+#X obj 20 1381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1386 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1297 measure;
-#X text 270 1297 запрос однкратного измерения. Arguments are:;
-#X obj 280 1320 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1320 [CHAN]: канал измерения. Если пропущено: выполнить
-измерения по всем каналам. Type: int. Range: 0\...3\.;
-#X obj 250 1360 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1360 poll;
-#X text 270 1360 включить/выключить режим автоматического опроса. Arguments
-are:;
-#X obj 280 1398 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1398 STATE: режим опроса. Type: bool.;
-#X obj 20 1433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1438 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1387 measure;
+#X text 270 1387 запрос однкратного измерения. Аргументы:;
+#X obj 300 1412 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1412 [CHAN]: канал измерения. Если пропущено: выполнить
+измерения по всем каналам. Тип: int. Диапазон: 0…3\.;
+#X obj 250 1460 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1460 poll;
+#X text 270 1460 включить/выключить режим автоматического опроса. Аргументы:;
+#X obj 300 1485 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1485 STATE: режим опроса. Тип: bool.;
+#X obj 20 1528 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1533 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1534 1\.;
+#X text 170 1534 bang:;
+#X text 270 1534;
+#X obj 20 1569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1574 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1439 1\.;
-#X text 170 1439 bang:;
-#X text 270 1439;
-#X obj 20 1474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1479 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1480 1\.;
-#X text 270 1480 сообщения: [ch КАНАЛ ЗНАЧЕНИЕ(.;
+#X text 130 1575 1\.;
+#X text 270 1575 сообщения: [ch КАНАЛ ЗНАЧЕНИЕ(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1530 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1533 library: ceammc v0.9.8;
-#N canvas 10 1552 400 290 info 0;
+#X obj 1 1625 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1628 библиотека: ceammc v0.9.8;
+#N canvas 10 1647 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 hw.rpi.adc.ads1115;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 hw;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 display \, rpi \, ads1115 \, adc;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1552 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1647 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 16 0;
 #X connect 14 0 16 0;

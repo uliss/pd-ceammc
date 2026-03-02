@@ -16,7 +16,7 @@ and Pd external directories;
 #X text 50 274 [ui.link @url http://puredata.info @title puredata.info];
 #X obj 50 303 ui.link @title puredata.info @url http://puredata.info;
 #X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 365 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 20 365 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 400 Left-click;
 #X text 310 400 open link target.;
@@ -26,104 +26,106 @@ and Pd external directories;
 #X text 310 440 open object help.;
 #X text 130 460 Right-click + ⌥;
 #X text 310 460 open properties dialog.;
-#X text 81 460 [Edit];
+#X text 65 460 [Правка];
 #X text 130 480 Right-click + ⇧;
 #X text 310 480 open the object help.;
-#X text 81 480 [Edit];
+#X text 65 480 [Правка];
 #X text 130 500 Right-click;
 #X text 310 500 opens Pd popup menu.;
-#X text 81 500 [Edit];
+#X text 65 500 [Правка];
 #X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 535 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 535 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 538 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 536 1\.;
 #X text 170 536 symbol;
 #X obj 268 537 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 536 URL: @url property value. Type: symbol.;
+#X text 270 536 URL: @url property value. Тип: symbol.;
 #X text 130 561 2\.;
 #X text 170 561 symbol;
 #X obj 268 562 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 561 TITLE: @title property value. Type: symbol.;
+#X text 270 561 TITLE: @title property value. Тип: symbol.;
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 601 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 601 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 604 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 602 @title;
-#X text 270 602 Link title. Type: symbol. Default value: <no title>.;
+#X text 270 602 Link title. Тип: symbol. Значение по умолчанию: <no
+title>.;
 #X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @url;
-#X text 270 632 Destination url. Type: symbol. Default value: <no url>.;
-#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 662 @hover_color;
-#X text 270 662 Color when mouse pointer is over element (list of red
-\, green \, blue values in 0-1 range). Type: list. Default value: 1
-0 0.5 1\.;
-#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 719 @link_color;
-#X text 270 719 Link color (list of red \, green \, blue values in
-0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
-#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 761 @fontname;
-#X text 270 761 Имя шрифта. Type: symbol. Default value: Helvetica.
-Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 818 @fontsize;
-#X text 270 818 Размер шрифта. Type: int. Default value: 11\. Range:
-4\...100\.;
-#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 860 @fontslant;
-#X text 270 860 Наклон шрифта. Type: symbol. Default value: roman.
-Allowed values: roman \, italic.;
-#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 902 @fontweight;
-#X text 270 902 Толщину шрифта. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 944 @pinned;
-#X text 270 944 Режим закрепления. Если 1 - помещает элемент на самый
-дальний уровень на холсте за другими элементам. Type: bool. Default
-value: 0\.;
-#X obj 20 1011 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1016 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 632 Destination url. Тип: symbol. Значение по умолчанию:
+<no url>.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 674 @hover_color;
+#X text 270 674 Color when mouse pointer is over element (list of red
+\, green \, blue values in 0-1 range). Тип: list. Значение по умолчанию:
+1 0 0.5 1\.;
+#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 731 @link_color;
+#X text 270 731 Link color (list of red \, green \, blue values in
+0-1 range). Тип: list. Значение по умолчанию: 0 0.625 0.75 1\.;
+#X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 773 @fontname;
+#X text 270 773 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
+Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 830 @fontsize;
+#X text 270 830 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
+Диапазон: 4\...100\.;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 872 @fontslant;
+#X text 270 872 Наклон шрифта. Тип: symbol. Значение по умолчанию:
+roman. Разрешённые значения: roman \, italic.;
+#X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 914 @fontweight;
+#X text 270 914 Толщину шрифта. Тип: symbol. Значение по умолчанию:
+normal. Разрешённые значения: normal \, bold.;
+#X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 956 @pinned;
+#X text 270 956 Режим закрепления. Если 1 - помещает элемент на самый
+дальний уровень на холсте за другими элементам. Тип: bool. Значение
+по умолчанию: 0\.;
+#X obj 20 1023 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1028 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1017 pos;
-#X text 270 1017 set UI element position. Arguments are:;
-#X obj 280 1040 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1040 X: top left x-coord. Type: float.;
-#X obj 280 1063 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1063 Y: top right y-coord. Type: float.;
+#X msg 130 1029 pos;
+#X text 270 1029 set UI element position. Аргументы:;
+#X obj 300 1054 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1054 X: top left x-coord. Тип: float.;
+#X obj 300 1077 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1077 Y: top right y-coord. Тип: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1118 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1121 library: ceammc v0.9.8;
-#N canvas 10 1140 400 290 info 0;
+#X obj 1 1140 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1143 библиотека: ceammc v0.9.8;
+#N canvas 10 1162 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 ui.link;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 ui;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 ui \, link;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1140 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1162 pd info;

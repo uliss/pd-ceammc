@@ -20,85 +20,85 @@
 #X obj 50 330 list.^search 10 20 30 40 50 A B C;
 #X floatatom 50 359 5 0 0 0 - - -;
 #X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 396 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 396 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 399 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 397 1\.;
 #X text 170 397 list;
 #X obj 268 398 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 397 VALUE: list contents. Type: list.;
+#X text 270 397 VALUE: list contents. Тип: list.;
 #X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 437 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 437 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 440 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 438 @end;
-#X text 270 438 Search end index position (-1 means end of list). Type:
-int. Default value: -1\. Min value: -1\.;
-#X obj 250 480 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 480 @start;
-#X text 270 480 Search start index position. Type: int. Default value:
-0\. Min value: 0\.;
-#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 522 @value;
-#X text 270 522 List contents. Type: list.;
-#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 567 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 438 Search end index position (-1 means end of list). Тип:
+int. Значение по умолчанию: -1\. Минимальное значение: -1\.;
+#X obj 250 495 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 495 @start;
+#X text 270 495 Search start index position. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 537 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 537 @value;
+#X text 270 537 List contents. Тип: list.;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 582 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 568 1\.;
-#X text 170 568 float:;
-#X text 270 568 output float index in searched list.;
-#X text 170 593 symbol:;
-#X text 270 593 output symbol index in searched list.;
-#X text 170 618 list:;
-#X text 270 618 output position of given list in searched list.;
-#X text 170 643 data:;
-#X text 270 643 output data index in searched list.;
-#X text 130 668 2\.;
-#X text 170 668 list:;
-#X text 270 668 set searched list.;
-#X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 708 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 709 1\.;
-#X text 270 709 1 on success \, otherwise 0\.;
+#X text 130 583 1\.;
+#X text 170 583 float:;
+#X text 270 583 output float index in searched list.;
+#X text 170 608 symbol:;
+#X text 270 608 output symbol index in searched list.;
+#X text 170 633 list:;
+#X text 270 633 output position of given list in searched list.;
+#X text 170 658 data:;
+#X text 270 658 output data index in searched list.;
+#X text 130 683 2\.;
+#X text 170 683 list:;
+#X text 270 683 set searched list.;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 724 1\.;
+#X text 270 724 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 759 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 762 library: ceammc v0.9.8;
-#X text 361 774 see also:;
-#X obj 436 774 list.search;
-#X obj 530 774 list.contains;
-#X obj 639 774 list.^contains;
-#N canvas 10 781 400 290 info 0;
+#X obj 1 774 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 777 библиотека: ceammc v0.9.8;
+#X text 315 789 смотрите также:;
+#X obj 436 789 list.search;
+#X obj 530 789 list.contains;
+#X obj 639 789 list.^contains;
+#N canvas 10 796 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 list.^search;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 list;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.6;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 list \, search \, index \, find;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 781 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 796 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 6 0 15 0;

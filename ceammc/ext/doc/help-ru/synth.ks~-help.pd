@@ -28,110 +28,111 @@
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 462 @id;
-#X text 270 462 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_ks/ИМЯ_СВОЙСТВА
-\, в противном случае к /synth_ks/ИМЯ_СВОЙСТВА. Type: symbol.;
+#X text 270 462 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/synth_ks/ИМЯ_СВОЙСТВА \, в противном случае к /synth_ks/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X obj 250 534 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 534 @osc;
-#X text 270 534 (initonly) Имя OSC сервера. Type: symbol.;
+#X text 270 534 (при инициализации) Имя OSC сервера. Тип: symbol.;
 #X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 564 @active;
-#X text 270 564 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
+#X text 270 564 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
 #X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 606 @cutoff;
-#X text 270 606 Cutoff coefficent (for low pass filter). Type: float.
-Default value: 1\. Range: 0.1\...1\.;
+#X text 270 606 Cutoff coefficent (for low pass filter). Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0.1\...1\.;
 #X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 648 @freq;
-#X text 270 648 Frequency. Type: float. Units: 'Hz'. Default value:
+#X text 270 648 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 130.8128\.;
 #X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 690 @gain;
-#X text 270 690 Pluck gain. Type: float. Default value: 1\. Range:
-0\...1\.;
-#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 720 @gate;
-#X text 270 720 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 762 @mode;
-#X text 270 762 Excitation mode: 0 - impulse \, 1 - pluck \, 2 - strike.
-Type: int. Default value: 1\. Range: 0\...2\.;
-#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 804 @mute;
-#X text 270 804 Mute coefficient (0 for no mute and 1 for instant mute).
-Type: float. Default value: 0\. Range: 0\...1\.;
-#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 846 @pitch;
-#X text 270 846 Midi pitch. Type: float. Default value: 48\. Range:
-36\...84\.;
-#X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 888 @pos;
-#X text 270 888 Pluck position (1 is on the bridge). Type: float. Default
-value: 0.7\. Range: 0\...1\.;
-#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 930 @sharp;
-#X text 270 930 Pluck sharpness. Type: float. Default value: 0.25\.
-Range: 0.01\...1\.;
-#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 987 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 690 Pluck gain. Тип: float. Значение по умолчанию: 1\.
+Диапазон: 0\...1\.;
+#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 732 @gate;
+#X text 270 732 Play trigger - 1: on \, 0: off. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 @mode;
+#X text 270 774 Excitation mode: 0 - impulse \, 1 - pluck \, 2 - strike.
+Тип: int. Значение по умолчанию: 1\. Диапазон: 0\...2\.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 816 @mute;
+#X text 270 816 Mute coefficient (0 for no mute and 1 for instant mute).
+Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 873 @pitch;
+#X text 270 873 Midi pitch. Тип: float. Значение по умолчанию: 48\.
+Диапазон: 36\...84\.;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 @pos;
+#X text 270 915 Pluck position (1 is on the bridge). Тип: float. Значение
+по умолчанию: 0.7\. Диапазон: 0\...1\.;
+#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 957 @sharp;
+#X text 270 957 Pluck sharpness. Тип: float. Значение по умолчанию:
+0.25\. Диапазон: 0.01\...1\.;
+#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1014 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 988 note;
-#X text 270 988 note on/off message. Arguments are:;
-#X obj 280 1011 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1011 NOTE: midi note. Type: float.;
-#X obj 280 1034 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1034 VEL: velocity. Type: float. Range: 0\...127\.;
-#X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1074 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1015 note;
+#X text 270 1015 note on/off message. Аргументы:;
+#X obj 300 1040 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1040 NOTE: midi note. Тип: float.;
+#X obj 300 1063 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1063 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1111 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1112 1\.;
+#X text 170 1112 list:;
+#X text 270 1112 NOTE VEL.;
+#X obj 20 1147 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1152 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1075 1\.;
-#X text 170 1075 list:;
-#X text 270 1075 NOTE VEL.;
-#X obj 20 1110 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1115 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1116 1\.;
-#X text 170 1116 ~;
-#X text 270 1116 synth output.;
+#X text 130 1153 1\.;
+#X text 170 1153 ~;
+#X text 270 1153 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1166 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1169 library: ceammc v0.9.8;
-#N canvas 10 1188 400 290 info 0;
+#X obj 1 1203 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1206 библиотека: ceammc v0.9.8;
+#N canvas 10 1225 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 synth.ks~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 synth;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.6;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 karplus \, strong;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1188 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1225 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

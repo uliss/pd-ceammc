@@ -52,126 +52,127 @@ id>=2;
 #X obj 50 1129 dac~, f 45;
 #X obj 50 1158 ui.dsp~;
 #X obj 20 1208 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1213 cnv 5 115 25 empty empty mouse_events: 4 12 0 14
+#X obj 20 1213 cnv 5 115 25 empty empty события_мыши: 4 12 0 14
 -262144 -49933 0;
 #X text 130 1248 Left-click;
 #X text 310 1248 open process patch window.;
 #X obj 20 1278 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1283 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 1283 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 1286 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 1284 1\.;
 #X text 170 1284 int;
 #X obj 268 1285 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1284 N: the order of decomposition. Type: int. Min value:
-0;
-#X text 130 1309 2\.;
-#X text 170 1309 symbol;
-#X obj 268 1310 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1309 PATCH: patch name. Type: symbol.;
-#X text 130 1334 3\.;
-#X text 170 1334 symbol;
-#X obj 268 1335 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1334 DOMAIN: process domain: harmonics or planewaves. Allowed
-values: harmonics \, planewaves. Type: symbol.;
-#X text 130 1374 4\.;
-#X text 170 1374 list;
-#X obj 268 1375 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1374 ARGS: instance arguments. Type: list.;
-#X obj 20 1409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1414 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 1284 N: the order of decomposition. Тип: int. Минимальное
+значение: 0\.;
+#X text 130 1324 2\.;
+#X text 170 1324 symbol;
+#X obj 268 1325 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1324 PATCH: patch name. Тип: symbol.;
+#X text 130 1349 3\.;
+#X text 170 1349 symbol;
+#X obj 268 1350 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1349 DOMAIN: process domain: harmonics or planewaves. Разрешённые
+значения: harmonics \, planewaves. Тип: symbol.;
+#X text 130 1389 4\.;
+#X text 170 1389 list;
+#X obj 268 1390 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1389 ARGS: instance arguments. Тип: list.;
+#X obj 20 1424 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1429 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1417 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1432 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1415 @args;
-#X text 270 1415 (initonly) Arguments passed to instances. Type: list.;
-#X obj 250 1445 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1445 @domain;
-#X text 270 1445 (initonly) Process domain: harmonics or planewaves.
-Type: symbol. Default value: harmonics. Allowed values: harmonics \,
-planewaves.;
-#X obj 250 1502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1502 @n;
-#X text 270 1502 (initonly) The order of decomposition/number of planewaves.
-Type: int. Default value: 0\. Range: 0\...63\.;
-#X obj 250 1544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1544 @patch;
-#X text 270 1544 (initonly) Patch name. Type: symbol.;
-#X obj 20 1584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1589 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 1430 @args;
+#X text 270 1430 (при инициализации) Arguments passed to instances.
+Тип: list.;
+#X obj 250 1460 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1460 @domain;
+#X text 270 1460 (при инициализации) Process domain: harmonics or planewaves.
+Тип: symbol. Значение по умолчанию: harmonics. Разрешённые значения:
+harmonics \, planewaves.;
+#X obj 250 1517 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1517 @n;
+#X text 270 1517 (при инициализации) The order of decomposition/number
+of planewaves. Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...63\.;
+#X obj 250 1574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1574 @patch;
+#X text 270 1574 (при инициализации) Patch name. Тип: symbol.;
+#X obj 20 1614 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1619 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1590 on;
-#X text 270 1590 switch on/off DSP instance processing. Usage: on all
+#X msg 130 1620 on;
+#X text 270 1620 switch on/off DSP instance processing. Usage: on all
 0|1 - turn on/off all instances \, on IDX 0|1 - turn on/off specified
 instance.;
-#X obj 250 1645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1645 open;
-#X text 270 1645 open Pd window for specified instance. Arguments are:;
-#X obj 280 1668 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1668 IDX: instance index. Type: int.;
-#X obj 250 1693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1693 dump;
-#X text 270 1693 dumps all object info to Pd console window.;
-#X obj 20 1731 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1736 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1685 open;
+#X text 270 1685 open Pd window for specified instance. Аргументы:;
+#X obj 300 1710 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1710 IDX: instance index. Тип: int.;
+#X obj 250 1743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1743 dump;
+#X text 270 1743 dumps all object info to Pd console window.;
+#X obj 20 1788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1793 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1794 1\.;
+#X text 170 1794 ~;
+#X text 270 1794 first input harmonic/planewave.;
+#X text 130 1819 ...;
+#X text 170 1819 ~;
+#X text 270 1819 ... input harmonic/planewave.;
+#X text 130 1844 n.;
+#X text 170 1844 ~;
+#X text 270 1844 n-th input harmonic/planewave.;
+#X obj 20 1879 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1884 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1737 1\.;
-#X text 170 1737 ~;
-#X text 270 1737 first input harmonic/planewave.;
-#X text 130 1762 ...;
-#X text 170 1762 ~;
-#X text 270 1762 ... input harmonic/planewave.;
-#X text 130 1787 n.;
-#X text 170 1787 ~;
-#X text 270 1787 n-th input harmonic/planewave.;
-#X obj 20 1822 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1827 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1828 1\.;
-#X text 170 1828 ~;
-#X text 270 1828 first harmonic/planewave output.;
-#X text 130 1848 ...;
-#X text 170 1848 ~;
-#X text 270 1848 ... harmonic/planewave output.;
-#X text 130 1868 n.;
-#X text 170 1868 ~;
-#X text 270 1868 n-th harmonic/planewave output.;
+#X text 130 1885 1\.;
+#X text 170 1885 ~;
+#X text 270 1885 first harmonic/planewave output.;
+#X text 130 1905 ...;
+#X text 170 1905 ~;
+#X text 270 1905 ... harmonic/planewave output.;
+#X text 130 1925 n.;
+#X text 170 1925 ~;
+#X text 270 1925 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1921 library: ceammc v0.9.8;
-#X text 555 1933 see also:;
-#X obj 630 1933 hoa.2d.decoder~;
-#N canvas 10 1940 400 290 info 0;
+#X obj 1 1975 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1978 библиотека: ceammc v0.9.8;
+#X text 509 1990 смотрите также:;
+#X obj 630 1990 hoa.2d.decoder~;
+#N canvas 10 1997 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 hoa.process~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 spat;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
 Thomas Le Meur;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 hoa \, process \, 2d;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1940 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1997 pd info;
 #X connect 18 0 21 0;
 #X connect 19 0 22 0;
 #X connect 21 0 23 0;

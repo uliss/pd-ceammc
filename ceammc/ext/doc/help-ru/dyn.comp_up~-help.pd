@@ -25,7 +25,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 427 - 100;
 #X floatatom 50 456 5 0 0 0 - - -;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 493 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 493 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
@@ -33,138 +33,141 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 170 494 float;
 #X obj 268 495 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 494 STRENGTH: сила компрессии (0: без компрессии \, 1:
-повышение уровня на @range децибел). Type: float. Range: 0\...1;
+повышение уровня на @range децибел). Тип: float. Диапазон: 0…1;
 #X text 130 549 2\.;
 #X text 170 549 float;
 #X obj 268 550 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 549 THRESHOLD(db): пороговый уровень \, ниже которого начинается
-компрессия. Type: float. Range: -60\...0;
+компрессия. Тип: float. Диапазон: -60…0;
 #X text 130 589 3\.;
 #X text 170 589 float;
 #X obj 268 590 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 589 ATTACK(ms): attack time = time constant when level
-& compression going up. Type: float. Range: 0.1\...100;
+& compression going up. Тип: float. Диапазон: 0.1…100;
 #X text 130 629 4\.;
 #X text 170 629 float;
 #X obj 268 630 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 629 RELEASE(ms): время спада - время выхода из компрессии
-после превышения порогового уровня. Type: float. Range: 1\...500;
+после превышения порогового уровня. Тип: float. Диапазон: 1…500;
 #X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 699 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 699 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 702 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 700 @id;
-#X text 270 700 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/dyn_comp_up/ИМЯ_СВОЙСТВА
-\, в противном случае к /dyn_comp_up/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 772 @osc;
-#X text 270 772 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 802 @active;
-#X text 270 802 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 @attack;
-#X text 270 844 Time constant when level & compression going up. Type:
-float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 901 @bypass;
-#X text 270 901 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 943 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 943 @hold;
-#X text 270 943 Hold period. Type: float. Units: 'samp'. Default value:
-128\. Range: 1\...255\.;
-#X obj 250 985 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 985 @knee;
-#X text 270 985 A gradual increase in gain reduction around the threshold:
+#X text 270 700 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/dyn_comp_up/ИМЯ_СВОЙСТВА \, в противном случае к /dyn_comp_up/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 787 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 787 @osc;
+#X text 270 787 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 817 @active;
+#X text 270 817 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 859 @attack;
+#X text 270 859 Time constant when level & compression going up. Тип:
+float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 916 @bypass;
+#X text 270 916 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 958 @hold;
+#X text 270 958 Hold period. Тип: float. Единицы: 'samp'. Значение
+по умолчанию: 128\. Диапазон: 1\...255\.;
+#X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1000 @knee;
+#X text 270 1000 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
-there is a gradual increase in gain reduction. Type: float. Units:
-'db'. Default value: 3\. Range: 0\...6\.;
-#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1088 @range;
-#X text 270 1088 Max upward compression range. Type: float. Units:
-'db'. Default value: 32\. Range: 0\...32\.;
-#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1130 @refresh;
-#X text 270 1130 Compression level output time interval. If 0 - no
-output. Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
-#X obj 250 1187 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1187 @release;
-#X text 270 1187 Release time = time constant coming out of compression.
-Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X obj 250 1244 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1244 @strength;
-#X text 270 1244 Compression strength (0: no compression \, 1: increase
-level by @range db.). Type: float. Default value: 0\. Range: 0\...1\.;
-#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1301 @threshold;
-#X text 270 1301 Level threshold above which compression kicks in (100
-dB = max level). Type: float. Units: 'db'. Default value: -32\. Range:
--60\...0\.;
-#X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1358 @level?;
-#X text 270 1358 (readonly) Current level of compression. Type: float.
-Units: 'db'. Default value: 0\. Range: 0\...90\.;
-#X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1415 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+there is a gradual increase in gain reduction. Тип: float. Единицы:
+'db'. Значение по умолчанию: 3\. Диапазон: 0\...6\.;
+#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1103 @range;
+#X text 270 1103 Max upward compression range. Тип: float. Единицы:
+'db'. Значение по умолчанию: 32\. Диапазон: 0\...32\.;
+#X obj 250 1145 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1145 @refresh;
+#X text 270 1145 Compression level output time interval. If 0 - no
+output. Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон:
+0\...1000\.;
+#X obj 250 1202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1202 @release;
+#X text 270 1202 Release time = time constant coming out of compression.
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1259 @strength;
+#X text 270 1259 Compression strength (0: no compression \, 1: increase
+level by @range db.). Тип: float. Значение по умолчанию: 0\. Диапазон:
+0\...1\.;
+#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1316 @threshold;
+#X text 270 1316 Level threshold above which compression kicks in (100
+dB = max level). Тип: float. Единицы: 'db'. Значение по умолчанию:
+-32\. Диапазон: -60\...0\.;
+#X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1373 @level?;
+#X text 270 1373 (только чтение) Current level of compression. Тип:
+float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: 0\...90\.;
+#X obj 20 1440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1445 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1416 reset;
-#X text 270 1416 reset to initial state.;
-#X obj 20 1454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1459 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1446 reset;
+#X text 270 1446 reset to initial state.;
+#X obj 20 1491 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1496 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1497 1\.;
+#X text 170 1497 ~;
+#X text 270 1497 input signal.;
+#X text 130 1522 2\.;
+#X text 170 1522 float:;
+#X text 270 1522 set compression strength.;
+#X obj 20 1557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1562 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1460 1\.;
-#X text 170 1460 ~;
-#X text 270 1460 input signal.;
-#X text 130 1485 2\.;
-#X text 170 1485 float:;
-#X text 270 1485 set compression strength.;
-#X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1525 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1526 1\.;
-#X text 170 1526 ~;
-#X text 270 1526 output compressed signal.;
-#X text 130 1546 2\.;
-#X text 270 1546 float: output current compression level in [0\..1].;
+#X text 130 1563 1\.;
+#X text 170 1563 ~;
+#X text 270 1563 output compressed signal.;
+#X text 130 1583 2\.;
+#X text 270 1583 float: output current compression level in [0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1596 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1599 library: ceammc v0.9.8;
-#X text 562 1611 see also:;
-#X obj 637 1611 dyn.comp_peak~;
-#N canvas 10 1618 400 290 info 0;
+#X obj 1 1633 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1636 библиотека: ceammc v0.9.8;
+#X text 516 1648 смотрите также:;
+#X obj 637 1648 dyn.comp_peak~;
+#N canvas 10 1655 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 dyn.comp_up~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 dyn;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 compressor;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1618 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1655 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 12 0 13 0;

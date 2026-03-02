@@ -29,134 +29,135 @@
 #X obj 50 320 dac~;
 #X obj 50 349 sequencer-mlist;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 405 1\.;
 #X text 170 405 list;
 #X obj 268 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 V: sequence elements. Type: list.;
+#X text 270 405 V: sequence elements. Тип: list.;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 446 @div;
-#X text 270 446 Beat subdivision. Type: int. Default value: 1\. Range:
-1\...64\.;
+#X text 270 446 Beat subdivision. Тип: int. Значение по умолчанию:
+1\. Диапазон: 1\...64\.;
 #X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 488 @dur;
 #X text 270 488 Whole sequence duration. Changing this property also
-changes @t interval between bangs. Type: float. Default value: 0\.
-Min value: 0\.;
+changes @t interval between bangs. Тип: float. Значение по умолчанию:
+0\. Минимальное значение: 0\.;
 #X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @inf;
 #X text 270 545 Alias to @r -1\.;
 #X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @mode;
 #X text 270 575 Sequencer mode. 'inc': from first to last \, 'dec':
-from last to first \, 'tri': from first to last \, then back. Type:
-symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
+from last to first \, 'tri': from first to last \, then back. Тип:
+symbol. Значение по умолчанию: inc. Разрешённые значения: inc \, dec
+\, tri.;
 #X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 @once;
 #X text 270 647 Alias to @r 1\.;
 #X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @r;
 #X text 270 677 Number of whole sequence repeats. If -1: output infinitly.
-Type: int. Default value: 1\. Min value: -1\.;
-#X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 719 @t;
-#X text 270 719 Time interval between bangs. You could also use units
-values like 100ms or 120bpm. Type: float. Units: 'ms'. Default value:
-20\. Range: 1\...20000\.;
-#X obj 250 776 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 776 @upbeat;
-#X text 270 776 Wait specified number of beats before sequence start.
-Type: float. Default value: 0\. Min value: 0\.;
-#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 818 @v;
-#X text 270 818 Sequence elements. Type: list.;
+Тип: int. Значение по умолчанию: 1\. Минимальное значение: -1\.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 734 @t;
+#X text 270 734 Time interval between bangs. You could also use units
+values like 100ms or 120bpm. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 20\. Диапазон: 1\...20000\.;
+#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 791 @upbeat;
+#X text 270 791 Wait specified number of beats before sequence start.
+Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
 #X obj 250 848 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 848 @i?;
-#X text 270 848 (readonly) Current sequence iteration. Type: int. Default
-value: 0\.;
-#X obj 250 890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 890 @ri?;
-#X text 270 890 (readonly) Current repeat iteration. Type: int. Default
-value: 0\.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 947 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 848 @v;
+#X text 270 848 Sequence elements. Тип: list.;
+#X obj 250 878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 878 @i?;
+#X text 270 878 (только чтение) Current sequence iteration. Тип: int.
+Значение по умолчанию: 0\.;
+#X obj 250 920 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 920 @ri?;
+#X text 270 920 (только чтение) Current repeat iteration. Тип: int.
+Значение по умолчанию: 0\.;
+#X obj 20 972 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 977 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 978 reset;
+#X text 270 978 reset counters and stop.;
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1013 rewind;
+#X text 270 1013 reset all counters without stopping.;
+#X obj 250 1048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1048 start;
+#X text 270 1048 start/stop. Аргументы:;
+#X obj 300 1073 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1073 [on=1]: if true - starts sequencer \, otherwise stops.
+Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1121 stop;
+#X text 270 1121 stop output.;
+#X obj 250 1156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1156 tick;
+#X text 270 1156 manually output current element and move to next.;
+#X obj 20 1201 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1206 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1207 1\.;
+#X text 170 1207 bang:;
+#X text 270 1207 reset all counters and start.;
+#X text 170 1232 float:;
+#X text 270 1232 reset al counter and start (on 1) or stop(on 0).;
+#X text 130 1257 2\.;
+#X text 170 1257 list:;
+#X text 270 1257 set sequence.;
+#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 948 reset;
-#X text 270 948 reset counters and stop.;
-#X obj 250 976 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 976 rewind;
-#X text 270 976 reset all counters without stopping.;
-#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1004 start;
-#X text 270 1004 start/stop. Arguments are:;
-#X obj 280 1027 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1027 [on=1]: if true - starts sequencer \, otherwise stops.
-Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 1067 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1067 stop;
-#X text 270 1067 stop output.;
-#X obj 250 1095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1095 tick;
-#X text 270 1095 manually output current element and move to next.;
-#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1138 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1139 1\.;
-#X text 170 1139 bang:;
-#X text 270 1139 reset all counters and start.;
-#X text 170 1164 float:;
-#X text 270 1164 reset al counter and start (on 1) or stop(on 0).;
-#X text 130 1189 2\.;
-#X text 170 1189 list:;
-#X text 270 1189 set sequence.;
-#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1229 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1230 1\.;
-#X text 270 1230 sequence element output \, in case of Mlist args -
+#X text 130 1298 1\.;
+#X text 270 1298 sequence element output \, in case of Mlist args -
 outputs play lists.;
-#X text 130 1265 2\.;
-#X text 270 1265 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 130 1333 2\.;
+#X text 270 1333 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1330 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1333 library: ceammc v0.9.8;
-#N canvas 10 1352 400 290 info 0;
+#X obj 1 1398 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1401 библиотека: ceammc v0.9.8;
+#N canvas 10 1420 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 sequencer;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 seq;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 sequencer;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1352 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1420 pd info;
 #X connect 10 0 11 0;
 #X connect 7 0 12 0;
 #X connect 8 0 12 0;

@@ -15,85 +15,86 @@
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 347 @id;
-#X text 270 347 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_vocoder/ИМЯ_СВОЙСТВА
-\, в противном случае к /fx_vocoder/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 419 @osc;
-#X text 270 419 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 449 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 449 @active;
-#X text 270 449 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 491 @attack;
-#X text 270 491 Attack time. Type: float. Units: 'ms'. Default value:
-5\. Range: 0.1\...100\.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @bwratio;
-#X text 270 533 Coefficient to adjust the bandwidth of each band. Type:
-float. Default value: 0.5\. Range: 0.1\...2\.;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @release;
-#X text 270 575 Release time. Type: float. Units: 'ms'. Default value:
-5\. Range: 0.1\...100\.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 632 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 633 reset;
-#X text 270 633 reset object.;
-#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 676 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 347 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_vocoder/ИМЯ_СВОЙСТВА \, в противном случае к /fx_vocoder/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 434 @osc;
+#X text 270 434 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 464 @active;
+#X text 270 464 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 506 @attack;
+#X text 270 506 Attack time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 5\. Диапазон: 0.1\...100\.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 548 @bwratio;
+#X text 270 548 Coefficient to adjust the bandwidth of each band. Тип:
+float. Значение по умолчанию: 0.5\. Диапазон: 0.1\...2\.;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 605 @release;
+#X text 270 605 Release time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 5\. Диапазон: 0.1\...100\.;
+#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 662 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 677 1\.;
-#X text 170 677 ~;
-#X text 270 677 modulation signal.;
-#X text 130 702 2\.;
-#X text 170 702 ~;
-#X text 270 702 excitation/carrier signal.;
-#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 742 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 743 1\.;
-#X text 170 743 ~;
-#X text 270 743;
+#X msg 130 663 reset;
+#X text 270 663 reset object.;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 713 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 714 1\.;
+#X text 170 714 ~;
+#X text 270 714 modulation signal.;
+#X text 130 739 2\.;
+#X text 170 739 ~;
+#X text 270 739 excitation/carrier signal.;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 779 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 780 1\.;
+#X text 170 780 ~;
+#X text 270 780;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 793 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 796 library: ceammc v0.9.8;
-#N canvas 10 815 400 290 info 0;
+#X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 833 библиотека: ceammc v0.9.8;
+#N canvas 10 852 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fx.vocoder~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 fx;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 vocoder;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 815 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 852 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

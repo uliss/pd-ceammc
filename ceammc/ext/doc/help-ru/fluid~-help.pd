@@ -38,7 +38,7 @@
 #X obj 203 585 fluid~-soundoff;
 #X obj 376 585 fluid~-presets;
 #X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 640 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 20 640 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
 #X text 130 675 Left-click + ⇧;
 #X text 310 675 all sounds off.;
@@ -47,377 +47,381 @@
 #X text 130 715 Left-click + ⇧+⌥;
 #X text 310 715 panic (reset synth).;
 #X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 750 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 750 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 753 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 751 1\.;
 #X text 170 751 symbol;
 #X obj 268 752 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 751 SF: soundfont path. Type: symbol.;
+#X text 270 751 SF: soundfont path. Тип: symbol.;
 #X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 791 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 791 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 794 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 792 @gain;
-#X text 270 792 Output gain. Type: float. Default value: 0\. Range:
-0\...10\.;
-#X obj 250 822 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 822 @poly;
-#X text 270 822 Max number of voices. Type: float. Default value: 0\.
-Range: 1\...1024\.;
-#X obj 250 864 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 864 @reverb_damp;
-#X text 270 864 Reverberation damp. Type: float. Default value: 0\.;
-#X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 894 @reverb_level;
-#X text 270 894 Reverberation level. Type: float. Default value: 0\.;
-#X obj 250 924 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 924 @reverb_room;
-#X text 270 924 Reverberation room size. Type: float. Default value:
+#X text 270 792 Output gain. Тип: float. Значение по умолчанию: 0\.
+Диапазон: 0\...10\.;
+#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 834 @poly;
+#X text 270 834 Max number of voices. Тип: float. Значение по умолчанию:
+0\. Диапазон: 1\...1024\.;
+#X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 876 @reverb_damp;
+#X text 270 876 Reverberation damp. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 954 @reverb_width;
-#X text 270 954 Reverberation spread width. Type: float. Default value:
+#X obj 250 906 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 906 @reverb_level;
+#X text 270 906 Reverberation level. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 984 @sf;
-#X text 270 984 Soundfont path \, you can use **default** value to
-load default soundfont. Type: symbol. Default value: default.;
-#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1041 @volume;
-#X text 270 1041 Output volume (same as @gain but in db). Type: float.
-Units: 'db'. Default value: 0\. Range: -60\...20\.;
-#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1083 @avoices?;
-#X text 270 1083 (readonly) Number midi channels. Type: float. Default
-value: 0\.;
-#X obj 250 1125 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1125 @bufsize?;
-#X text 270 1125 (readonly) Internal buffer size. Type: float. Units:
-'samp'. Default value: 0\.;
-#X obj 250 1167 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1167 @cpuload?;
-#X text 270 1167 (readonly) Current cpu load. Type: float. Default
-value: 0\.;
-#X obj 250 1197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1197 @n?;
-#X text 270 1197 (readonly) Number of active voices. Type: int. Default
-value: 16\.;
-#X obj 250 1239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1239 @presets?;
-#X text 270 1239 (readonly) Presets name for current soundfont. Type:
-list.;
-#X obj 250 1269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1269 @version?;
-#X text 270 1269 (readonly) FluidSynth version. Type: symbol. Default
-value: 2.3.2\.;
-#X obj 250 1311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1311 @soundfonts?;
-#X text 270 1311 (readonly) List of found soundfonts. Type: list.;
-#X obj 20 1351 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1356 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 936 @reverb_room;
+#X text 270 936 Reverberation room size. Тип: float. Значение по умолчанию:
+0\.;
+#X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 978 @reverb_width;
+#X text 270 978 Reverberation spread width. Тип: float. Значение по
+умолчанию: 0\.;
+#X obj 250 1020 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1020 @sf;
+#X text 270 1020 Soundfont path \, you can use **default** value to
+load default soundfont. Тип: symbol. Значение по умолчанию: default.;
+#X obj 250 1077 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1077 @volume;
+#X text 270 1077 Output volume (same as @gain but in db). Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...20\.;
+#X obj 250 1134 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1134 @avoices?;
+#X text 270 1134 (только чтение) Number midi channels. Тип: float.
+Значение по умолчанию: 0\.;
+#X obj 250 1176 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1176 @bufsize?;
+#X text 270 1176 (только чтение) Internal buffer size. Тип: float.
+Единицы: 'samp'. Значение по умолчанию: 0\.;
+#X obj 250 1218 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1218 @cpuload?;
+#X text 270 1218 (только чтение) Current cpu load. Тип: float. Значение
+по умолчанию: 0\.;
+#X obj 250 1260 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1260 @n?;
+#X text 270 1260 (только чтение) Number of active voices. Тип: int.
+Значение по умолчанию: 16\.;
+#X obj 250 1302 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1302 @presets?;
+#X text 270 1302 (только чтение) Presets name for current soundfont.
+Тип: list.;
+#X obj 250 1344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1344 @version?;
+#X text 270 1344 (только чтение) FluidSynth version. Тип: symbol. Значение
+по умолчанию: 2.3.2\.;
+#X obj 250 1386 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1386 @soundfonts?;
+#X text 270 1386 (только чтение) List of found soundfonts. Тип: list.;
+#X obj 20 1426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1431 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1357 aftertouch;
-#X text 270 1357 aftertouch channel pressure. Arguments are:;
-#X obj 280 1380 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1380 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
-0\...16\.;
-#X obj 280 1403 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1403 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 1428 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1428 bank;
-#X text 270 1428 select instrument bank number on a MIDI channel \,
+#X msg 130 1432 aftertouch;
+#X text 270 1432 aftertouch channel pressure. Аргументы:;
+#X obj 300 1457 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1457 [CHAN=0]: MIDI channel \, ignored. Тип: int. Диапазон:
+0…16\.;
+#X obj 300 1480 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1480 VEL: MIDI velocity. Тип: int. Диапазон: 0…127\.;
+#X obj 250 1513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1513 bank;
+#X text 270 1513 select instrument bank number on a MIDI channel \,
 but doesn't change instrument \, it should be done with after that
-with *prog* message. Arguments are:;
-#X obj 280 1481 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1481 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1519 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1519 BANK: instrument bank number. Type: int. Range: 0\...16383\.;
-#X obj 250 1544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1544 bend;
-#X text 270 1544 pitchband change. Arguments are:;
-#X obj 280 1567 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1567 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1605 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1605 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
-Type: int. Range: 0\...16383\.;
-#X obj 250 1645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1645 bend:f;
-#X text 270 1645 pitchband change. Arguments are:;
-#X obj 280 1668 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1668 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1706 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1706 VALUE: value in -1\..+1 range \, with 0 center. Type:
-float. Range: -1\...1\.;
-#X obj 250 1746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1746 bend:i;
-#X text 270 1746 pitchband change. Arguments are:;
-#X obj 280 1769 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1769 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1807 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1807 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
-Type: int. Range: -8192\...8191\.;
-#X obj 250 1847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1847 bendsens;
-#X text 270 1847 set pitchbend sensitivity. Arguments are:;
-#X obj 280 1870 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1870 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 1908 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1908 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
-Units: 'semitone'.;
-#X obj 250 1948 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1948 cc;
-#X text 270 1948 control change. Arguments are:;
-#X obj 280 1971 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1971 [CHAN=0]: MIDI channel \, if zero or omitted set on
-all channel. Type: int. Range: 0\...16\.;
-#X obj 280 2009 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2009 CC: MIDI control number. Type: int. Range: 0\...127\.;
-#X obj 280 2032 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2032 VAL: MIDI control value. Type: int. Range: 0\...127\.;
-#X obj 250 2057 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2057 gen;
-#X text 270 2057 set a SoundFont generator (effect) value on the MIDI
+with *prog* message. Аргументы:;
+#X obj 300 1568 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1568 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 1606 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1606 BANK: instrument bank number. Тип: int. Диапазон:
+0…16383\.;
+#X obj 250 1639 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1639 bend;
+#X text 270 1639 pitchband change. Аргументы:;
+#X obj 300 1664 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1664 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 1702 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1702 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
+Тип: int. Диапазон: 0…16383\.;
+#X obj 250 1750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1750 bend:f;
+#X text 270 1750 pitchband change. Аргументы:;
+#X obj 300 1775 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1775 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 1813 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1813 VALUE: value in -1\..+1 range \, with 0 center. Тип:
+float. Диапазон: -1…1\.;
+#X obj 250 1861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1861 bend:i;
+#X text 270 1861 pitchband change. Аргументы:;
+#X obj 300 1886 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1886 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 1924 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1924 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
+Тип: int. Диапазон: -8192…8191\.;
+#X obj 250 1972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1972 bendsens;
+#X text 270 1972 set pitchbend sensitivity. Аргументы:;
+#X obj 300 1997 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1997 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2035 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2035 RANGE: semitones sensitivity. Тип: int. Диапазон:
+0…64\. Единицы: 'semitone'.;
+#X obj 250 2083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2083 cc;
+#X text 270 2083 control change. Аргументы:;
+#X obj 300 2108 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2108 [CHAN=0]: MIDI channel \, if zero or omitted set on
+all channel. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2146 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2146 CC: MIDI control number. Тип: int. Диапазон: 0…127\.;
+#X obj 300 2169 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2169 VAL: MIDI control value. Тип: int. Диапазон: 0…127\.;
+#X obj 250 2202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2202 gen;
+#X text 270 2202 set a SoundFont generator (effect) value on the MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE expected).;
-#X obj 250 2112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2112 hold;
-#X text 270 2112 hold (sustain \, right) pedal \, ignore note release
-when active \, release all notes when set to off. Arguments are:;
-#X obj 280 2165 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2165 CHAN=0: MIDI channel \, if zero or omitted sustain
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2203 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2203 VAL: pedal state. Type: int. Allowed values: 0 \,
-1\.;
-#X obj 250 2228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2228 legato;
-#X text 270 2228 enable or disable legato/smooth transitions between
-consecutive notes. Arguments are:;
-#X obj 280 2266 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2266 CHAN: MIDI channel \, if zero or omitted apply to
-all channels. Type: int. Range: 0\...15\.;
-#X obj 280 2304 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2304 VAL: pedal state. Type: int. Allowed values: 0 \,
-1\.;
-#X obj 250 2329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2329 midi;
-#X text 270 2329 send raw midi message to synth. Arguments are:;
-#X obj 280 2352 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2352 BYTES: list of bytes. Type: list.;
-#X obj 250 2377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2377 note;
-#X text 270 2377 play note. Arguments are:;
-#X obj 280 2400 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2400 [CHAN=0]: MIDI channel \, if zero or omitted play
-on first(!) channel. Type: int. Range: 0\...16\.;
-#X obj 280 2438 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2438 NOTE: MIDI note. Type: int. Range: 0\...127\.;
-#X obj 280 2461 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2461 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 2486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2486 notes_off;
-#X text 270 2486 turn off all notes on a MIDI channel (put them into
-release phase). Arguments are:;
-#X obj 280 2524 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2524 [CHAN=0]: MIDI channel \, if zero or not specified
-turn notes on all channels. Type: int. Range: 0\...16\.;
-#X obj 250 2564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2564 pan;
-#X text 270 2564 set channel panning. Arguments are:;
-#X obj 280 2587 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2587 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2625 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2625 PAN: pan value \, 0: left \, 8192(0x2000): center
-\, 16383(0x3fff): right. Type: float. Range: 0\...16383\.;
-#X obj 250 2665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2665 pan:f;
-#X text 270 2665 set channel panning. Arguments are:;
-#X obj 280 2688 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2688 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2726 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2726 PAN: pan value \, -1: left \, 0: center \, 1): right.
-Type: float. Range: -1\...1\.;
-#X obj 250 2766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2766 pan:i;
-#X text 270 2766 set channel panning. Arguments are:;
-#X obj 280 2789 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2789 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 2827 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2827 PAN: pan value \, -8192(-0x2000): left \, 0: center
-\, 8191(0x1fff): right. Type: float. Range: -8192\...8191\.;
-#X obj 250 2867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2867 panic;
-#X text 270 2867 send MIDI system reset command (big red 'panic' button)
+#X obj 250 2267 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2267 hold;
+#X text 270 2267 hold (sustain \, right) pedal \, ignore note release
+when active \, release all notes when set to off. Аргументы:;
+#X obj 300 2307 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2307 CHAN=0: MIDI channel \, if zero or omitted sustain
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2345 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2345 VAL: pedal state. Тип: int. Разрешённые значения:
+0 \, 1\.;
+#X obj 250 2378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2378 legato;
+#X text 270 2378 enable or disable legato/smooth transitions between
+consecutive notes. Аргументы:;
+#X obj 300 2418 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2418 CHAN: MIDI channel \, if zero or omitted apply to
+all channels. Тип: int. Диапазон: 0…15\.;
+#X obj 300 2456 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2456 VAL: pedal state. Тип: int. Разрешённые значения:
+0 \, 1\.;
+#X obj 250 2489 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2489 midi;
+#X text 270 2489 send raw midi message to synth. Аргументы:;
+#X obj 300 2514 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2514 BYTES: list of bytes. Тип: list.;
+#X obj 250 2547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2547 note;
+#X text 270 2547 play note. Аргументы:;
+#X obj 300 2572 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2572 [CHAN=0]: MIDI channel \, if zero or omitted play
+on first(!) channel. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2610 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2610 NOTE: MIDI note. Тип: int. Диапазон: 0…127\.;
+#X obj 300 2633 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2633 VEL: MIDI velocity. Тип: int. Диапазон: 0…127\.;
+#X obj 250 2666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2666 notes_off;
+#X text 270 2666 turn off all notes on a MIDI channel (put them into
+release phase). Аргументы:;
+#X obj 300 2706 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2706 [CHAN=0]: MIDI channel \, if zero or not specified
+turn notes on all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 250 2754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2754 pan;
+#X text 270 2754 set channel panning. Аргументы:;
+#X obj 300 2779 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2779 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2817 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2817 PAN: pan value \, 0: left \, 8192(0x2000): center
+\, 16383(0x3fff): right. Тип: float. Диапазон: 0…16383\.;
+#X obj 250 2865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2865 pan:f;
+#X text 270 2865 set channel panning. Аргументы:;
+#X obj 300 2890 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2890 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 2928 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2928 PAN: pan value \, -1: left \, 0: center \, 1): right.
+Тип: float. Диапазон: -1…1\.;
+#X obj 250 2976 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2976 pan:i;
+#X text 270 2976 set channel panning. Аргументы:;
+#X obj 300 3001 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3001 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 3039 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3039 PAN: pan value \, -8192(-0x2000): left \, 0: center
+\, 8191(0x1fff): right. Тип: float. Диапазон: -8192…8191\.;
+#X obj 250 3087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3087 panic;
+#X text 270 3087 send MIDI system reset command (big red 'panic' button)
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
-#X obj 250 2922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2922 polytouch;
-#X text 270 2922 polytouch key pressure. Arguments are:;
-#X obj 280 2945 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2945 [CHAN=0]: MIDI channel \, ignored. Type: int. Range:
-0\...16\.;
-#X obj 280 2968 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2968 NOTE: MIDI note. Type: int. Range: 0\...127\.;
-#X obj 280 2991 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2991 VEL: MIDI velocity. Type: int. Range: 0\...127\.;
-#X obj 250 3016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3016 prog;
-#X text 270 3016 program change. Arguments are:;
-#X obj 280 3039 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3039 [CHAN=0]: MIDI channel \, if zero or omitted set for
-all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3077 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3077 PGM: program number. Type: int. Range: 0\...16383\.;
-#X obj 250 3102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3102 reset;
-#X text 270 3102 reset synth channels. Arguments are:;
-#X obj 280 3125 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3125 [CHAN=0]: MIDI channel \, if zero or not specified
-reset all channels. Type: int. Range: 0\...16\.;
-#X obj 250 3165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3165 set_preset;
-#X text 270 3165 set soundfont preset for midi channel. Arguments are:;
-#X obj 280 3188 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3188 CHAN: MIDI channel. Type: int. Range: 1\...16\.;
-#X obj 280 3211 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3211 PRESET: preset name or index. Type: atom.;
-#X obj 280 3234 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3234 [SFONT]: soundfont index. See @soundfonts property.
-Type: int. Min value: 1\.;
-#X obj 250 3274 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3274 soft;
-#X text 270 3274 soft (left) pedal \, activate the soft strike effect.
-Arguments are:;
-#X obj 280 3312 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3312 CHAN: MIDI channel \, if zero or omitted apply to
-all channels. Type: int. Range: 0\...15\.;
-#X obj 280 3350 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3350 VAL: pedal state. Type: int. Allowed values: 0 \,
-1\.;
-#X obj 250 3375 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3375 sostenuto;
-#X text 270 3375 sostenuto (middle) pedal \, hold notes pressed before
+#X obj 250 3152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3152 polytouch;
+#X text 270 3152 polytouch key pressure. Аргументы:;
+#X obj 300 3177 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3177 [CHAN=0]: MIDI channel \, ignored. Тип: int. Диапазон:
+0…16\.;
+#X obj 300 3200 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3200 NOTE: MIDI note. Тип: int. Диапазон: 0…127\.;
+#X obj 300 3223 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3223 VEL: MIDI velocity. Тип: int. Диапазон: 0…127\.;
+#X obj 250 3256 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3256 prog;
+#X text 270 3256 program change. Аргументы:;
+#X obj 300 3281 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3281 [CHAN=0]: MIDI channel \, if zero or omitted set for
+all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 3319 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3319 PGM: program number. Тип: int. Диапазон: 0…16383\.;
+#X obj 250 3352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3352 reset;
+#X text 270 3352 reset synth channels. Аргументы:;
+#X obj 300 3377 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3377 [CHAN=0]: MIDI channel \, if zero or not specified
+reset all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 250 3425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3425 set_preset;
+#X text 270 3425 set soundfont preset for midi channel. Аргументы:;
+#X obj 300 3450 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3450 CHAN: MIDI channel. Тип: int. Диапазон: 1…16\.;
+#X obj 300 3473 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3473 PRESET: preset name or index. Тип: atom.;
+#X obj 300 3496 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3496 [SFONT]: soundfont index. See @soundfonts property.
+Тип: int. Минимальное значение: 1\.;
+#X obj 250 3544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3544 soft;
+#X text 270 3544 soft (left) pedal \, activate the soft strike effect.
+Аргументы:;
+#X obj 300 3584 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3584 CHAN: MIDI channel \, if zero or omitted apply to
+all channels. Тип: int. Диапазон: 0…15\.;
+#X obj 300 3622 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3622 VAL: pedal state. Тип: int. Разрешённые значения:
+0 \, 1\.;
+#X obj 250 3655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3655 sostenuto;
+#X text 270 3655 sostenuto (middle) pedal \, hold notes pressed before
 pedal activation \, new notes are passed untouched. Release holded
-notes when set to off. Arguments are:;
-#X obj 280 3428 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3428 CHAN: MIDI channel \, if zero or omitted apply to
-all channels. Type: int. Range: 0\...15\.;
-#X obj 280 3466 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3466 VAL: pedal state. Type: int. Allowed values: 0 \,
-1\.;
-#X obj 250 3491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3491 sound_off;
-#X text 270 3491 immediately stop all notes (skips release phase).
-Arguments are:;
-#X obj 280 3529 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3529 [CHAN=0]: MIDI channel \, if zero or not specified
-stop notes on all channels. Type: int. Range: 0\...16\.;
-#X obj 250 3569 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3569 sysex;
-#X text 270 3569 accept SYSEX message. Arguments are:;
-#X obj 280 3592 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3592 BYTES: list of bytes. Type: list.;
-#X obj 250 3617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3617 tune.;
-#X text 270 3617 set fine tuning in cents \, see tune:s.;
-#X obj 250 3645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3645 tune:12;
-#X text 270 3645 set and activate octave tuning program in cents deviations.
-Arguments are:;
-#X obj 280 3683 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3683 BANK: tuning bank (not related to MIDI instrument
-bank). Type: int. Range: 1\...256\.;
-#X obj 280 3721 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3721 PRESET: tuning preset (not related to MIDI instrument
-program). Type: int. Range: 1\...256\.;
-#X obj 280 3759 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3759 TUNES: list of scale deviations from 12TET in cents.
-Type: list.;
-#X obj 250 3799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3799 tune:c;
-#X text 270 3799 set fine tuning in cents. Arguments are:;
-#X obj 280 3822 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3822 [CHAN=0]: MIDI channel \, if zero or not specified
-apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3860 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3860 CENTS: cents (float) tuning. Type: float. Range: -100\...100\.;
-#X obj 250 3900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3900 tune:s;
-#X text 270 3900 set tuning in semitones. Arguments are:;
-#X obj 280 3923 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3923 [CHAN=0]: MIDI channel \, if zero or not specified
-apply tuning to all channels. Type: int. Range: 0\...16\.;
-#X obj 280 3961 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3961 SEMI: semitones (float) tuning. Type: float. Range:
--64\...63\.;
-#X obj 250 4001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4001 tunesel;
-#X text 270 4001 select tuning bank and preset. Arguments are:;
-#X obj 280 4024 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4024 BANK: tuning bank (not related to MIDI instrument
-bank). Type: int. Range: 1\...256\.;
-#X obj 280 4062 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 4062 PRESET: tuning preset (not related to MIDI instrument
-program). Type: int. Range: 1\...256\.;
-#X obj 20 4112 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4117 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+notes when set to off. Аргументы:;
+#X obj 300 3710 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3710 CHAN: MIDI channel \, if zero or omitted apply to
+all channels. Тип: int. Диапазон: 0…15\.;
+#X obj 300 3748 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3748 VAL: pedal state. Тип: int. Разрешённые значения:
+0 \, 1\.;
+#X obj 250 3781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3781 sound_off;
+#X text 270 3781 immediately stop all notes (skips release phase).
+Аргументы:;
+#X obj 300 3806 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3806 [CHAN=0]: MIDI channel \, if zero or not specified
+stop notes on all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 250 3854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3854 sysex;
+#X text 270 3854 accept SYSEX message. Аргументы:;
+#X obj 300 3879 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3879 BYTES: list of bytes. Тип: list.;
+#X obj 250 3912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3912 tune.;
+#X text 270 3912 set fine tuning in cents \, see tune:s.;
+#X obj 250 3947 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3947 tune:12;
+#X text 270 3947 set and activate octave tuning program in cents deviations.
+Аргументы:;
+#X obj 300 3987 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3987 BANK: tuning bank (not related to MIDI instrument
+bank). Тип: int. Диапазон: 1…256\.;
+#X obj 300 4025 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4025 PRESET: tuning preset (not related to MIDI instrument
+program). Тип: int. Диапазон: 1…256\.;
+#X obj 300 4063 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4063 TUNES: list of scale deviations from 12TET in cents.
+Тип: list.;
+#X obj 250 4111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4111 tune:c;
+#X text 270 4111 set fine tuning in cents. Аргументы:;
+#X obj 300 4136 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4136 [CHAN=0]: MIDI channel \, if zero or not specified
+apply tuning to all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 4174 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4174 CENTS: cents (float) tuning. Тип: float. Диапазон:
+-100…100\.;
+#X obj 250 4207 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4207 tune:s;
+#X text 270 4207 set tuning in semitones. Аргументы:;
+#X obj 300 4232 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4232 [CHAN=0]: MIDI channel \, if zero or not specified
+apply tuning to all channels. Тип: int. Диапазон: 0…16\.;
+#X obj 300 4270 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4270 SEMI: semitones (float) tuning. Тип: float. Диапазон:
+-64…63\.;
+#X obj 250 4318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4318 tunesel;
+#X text 270 4318 select tuning bank and preset. Аргументы:;
+#X obj 300 4343 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4343 BANK: tuning bank (not related to MIDI instrument
+bank). Тип: int. Диапазон: 1…256\.;
+#X obj 300 4381 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4381 PRESET: tuning preset (not related to MIDI instrument
+program). Тип: int. Диапазон: 1…256\.;
+#X obj 20 4439 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4444 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 4445 1\.;
+#X text 170 4445 symbol:;
+#X text 270 4445 load mod file.;
+#X obj 20 4480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4485 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4118 1\.;
-#X text 170 4118 symbol:;
-#X text 270 4118 load mod file.;
-#X obj 20 4153 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4158 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 4159 1\.;
-#X text 170 4159 ~;
-#X text 270 4159 left channel and property output.;
-#X text 130 4179 2\.;
-#X text 170 4179 ~;
-#X text 270 4179 right channel.;
-#X text 130 4199 3\.;
-#X text 270 4199 int: number of active voices (output only on change).;
+#X text 130 4486 1\.;
+#X text 170 4486 ~;
+#X text 270 4486 left channel and property output.;
+#X text 130 4506 2\.;
+#X text 170 4506 ~;
+#X text 270 4506 right channel.;
+#X text 130 4526 3\.;
+#X text 270 4526 int: number of active voices (output only on change).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 4249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4252 library: ceammc v0.9.8;
-#N canvas 10 4271 400 290 info 0;
+#X obj 1 4576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4579 библиотека: ceammc v0.9.8;
+#N canvas 10 4598 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fluid~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 misc;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.6;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 mod \, player \, midi \, soundfont \, fluid;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 4271 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 4598 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 1;
 #X connect 12 0 17 0;

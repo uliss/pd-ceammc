@@ -18,98 +18,99 @@
 #X obj 50 234 data.path Path(.);
 #X obj 50 277 ui.dt;
 #X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 332 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 335 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 333 1\.;
 #X text 170 333 atom;
 #X obj 268 334 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 PATH: See @path. Type: atom.;
+#X text 270 333 PATH: See @path. Тип: atom.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 376 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 374 @async;
-#X text 270 374 Use async operations. Type: bool. Default value: 1\.;
+#X text 270 374 Use async operations. Тип: bool. Значение по умолчанию:
+1\.;
 #X obj 250 404 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 404 @norm;
-#X text 270 404 Normalize path. Type: bool. Default value: 1\.;
+#X text 270 404 Normalize path. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 250 434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 434 @path;
-#X text 270 434 Current path value. Type: atom.;
+#X text 270 434 Current path value. Тип: atom.;
 #X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 479 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 479 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 480 exists;
 #X text 270 480 checks if path exists. Output [exists VALUE( message.;
-#X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 508 info;
-#X text 270 508 request path information. Output [info DICT(.;
-#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 536 permissions;
-#X text 270 536 request path permissions. Output [permissions VALUE(.;
-#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 564 size;
-#X text 270 564 request file size in bytes. Output [size BYTES(.;
-#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 592 type;
-#X text 270 592 request path type. Output [type TYPE( message \, where
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 515 info;
+#X text 270 515 request path information. Output [info DICT(.;
+#X obj 250 550 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 550 permissions;
+#X text 270 550 request path permissions. Output [permissions VALUE(.;
+#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 585 size;
+#X text 270 585 request file size in bytes. Output [size BYTES(.;
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 620 type;
+#X text 270 620 request path type. Output [type TYPE( message \, where
 type is one of: regular \, dir \, symlink \, char \, block \, fifo
 \, socket.;
-#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 662 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 663 1\.;
-#X text 170 663 bang:;
-#X text 270 663 output current path.;
-#X text 170 688 symbol:;
-#X text 270 688 set current path and output.;
-#X text 170 713 data:;
-#X text 270 713 set current path and output.;
-#X text 130 738 2\.;
-#X text 170 738 symbol:;
-#X text 270 738 set current path and without output.;
-#X text 170 763 data:;
-#X text 270 763 set current path and without output.;
-#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 803 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 804 1\.;
-#X text 270 804 data output.;
+#X text 130 701 1\.;
+#X text 170 701 bang:;
+#X text 270 701 output current path.;
+#X text 170 726 symbol:;
+#X text 270 726 set current path and output.;
+#X text 170 751 data:;
+#X text 270 751 set current path and output.;
+#X text 130 776 2\.;
+#X text 170 776 symbol:;
+#X text 270 776 set current path and without output.;
+#X text 170 801 data:;
+#X text 270 801 set current path and without output.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 842 1\.;
+#X text 270 842 data output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 854 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 857 library: ceammc v0.9.8;
-#N canvas 10 876 400 290 info 0;
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 библиотека: ceammc v0.9.8;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 data.path;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 data;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 data \, map \, container \, path \, file;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 876 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 914 pd info;
 #X connect 9 0 10 0;
 #X connect 4 0 12 0;
 #X connect 10 0 12 0;

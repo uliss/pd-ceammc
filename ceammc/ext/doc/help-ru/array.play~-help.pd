@@ -26,179 +26,181 @@
 #X obj 261 378 array.play~-clock;
 #X obj 50 406 array.play~-amp;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 462 1\.;
 #X text 170 462 symbol;
 #X obj 268 463 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 462 ARRAY: имя массива. Type: symbol.;
+#X text 270 462 ARRAY: имя массива. Тип: symbol.;
 #X text 130 487 2\.;
 #X text 170 487 float;
 #X obj 268 488 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 487 SPEED: скорость воспроизведения. Type: float.;
+#X text 270 487 SPEED: скорость воспроизведения. Тип: float.;
 #X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 527 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 527 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 530 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 528 @amp;
-#X text 270 528 Амплитуда воспроизведения. Type: float. Default value:
-1\. Min value: 0\.;
+#X text 270 528 Амплитуда воспроизведения. Тип: float. Значение по
+умолчанию: 1\. Минимальное значение: 0\.;
 #X obj 250 570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 570 @array;
-#X text 270 570 Имя массива. Type: symbol.;
+#X text 270 570 Имя массива. Тип: symbol.;
 #X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 600 @begin;
 #X text 270 600 Позиция начала воспроизведения. Отрицательное значение
-означает положение относительно конца массива. Type: float. Units:
-'samp'. Default value: 0\.;
+означает положение относительно конца массива. Тип: float. Единицы:
+'samp'. Значение по умолчанию: 0\.;
 #X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 657 @cfmt;
-#X text 270 657 Выходной формат времени. Type: symbol. Default value:
-sec. Allowed values: sec \, ms \, samp \, phase.;
+#X text 270 657 Выходной формат времени. Тип: symbol. Значение по умолчанию:
+sec. Разрешённые значения: sec \, ms \, samp \, phase.;
 #X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 699 @clock;
 #X text 270 699 Период вывода значения времени. Ноль означает: отсутствие
-вывода времени (по умолчанию). Type: float. Units: 'sec'. Default value:
-0\. Range: 0\...20\.;
+вывода времени (по умолчанию). Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 0\. Диапазон: 0\...20\.;
 #X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @cursor_ms;
-#X text 270 756 Текущая позиция воспроизведения. Type: float. Units:
-'ms'. Default value: 0\.;
+#X text 270 756 Текущая позиция воспроизведения. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 0\.;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @cursor_phase;
-#X text 270 798 Текущая позиция воспроизведения. Type: float. Default
-value: 0\.;
+#X text 270 798 Текущая позиция воспроизведения. Тип: float. Значение
+по умолчанию: 0\.;
 #X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 840 @cursor_samp;
-#X text 270 840 Текущая позиция воспроизведения. Type: float. Units:
-'samp'. Default value: 0\.;
+#X text 270 840 Текущая позиция воспроизведения. Тип: float. Единицы:
+'samp'. Значение по умолчанию: 0\.;
 #X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 882 @cursor_sec;
-#X text 270 882 Текущая позиция воспроизведения. Type: float. Units:
-'sec'. Default value: 0\.;
+#X text 270 882 Текущая позиция воспроизведения. Тип: float. Единицы:
+'sec'. Значение по умолчанию: 0\.;
 #X obj 250 924 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 924 @end;
 #X text 270 924 Позиция конца воспроизведения. Отрицательное значение
-означает положение относительно конца массива. Type: float. Units:
-'samp'. Default value: -1\.;
+означает положение относительно конца массива. Тип: float. Единицы:
+'samp'. Значение по умолчанию: -1\.;
 #X obj 250 981 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 981 @interp;
 #X text 270 981 Тип интерполяции. 0: без интерполяции 1: линейная \,
-3: кубическая. Type: int. Default value: 1\. Allowed values: 0 \, 1
-\, 3\.;
+3: кубическая. Тип: int. Значение по умолчанию: 1\. Разрешённые значения:
+0 \, 1 \, 3\.;
 #X obj 250 1038 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1038 @loop;
-#X text 270 1038 Samplewise loop playing mode. Type: bool. Default
-value: 0\.;
-#X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1068 @select_ms;
-#X text 270 1068 Диапазон выбора. Type: list. Units: 'ms'. Default
-value: 0 0\.;
-#X obj 250 1110 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1110 @select_phase;
-#X text 270 1110 Selection range in [0 \, 1] range. Type: list. Default
-value: 0 0\.;
-#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1152 @select_samp;
-#X text 270 1152 Диапазон выбора. Type: list. Units: 'samp'. Default
-value: 0 0\.;
-#X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1194 @select_sec;
-#X text 270 1194 Диапазон выбора. Type: list. Units: 'sec'. Default
-value: 0 0\.;
-#X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1236 @speed;
-#X text 270 1236 Скорость воспроизведения. Отрицательное значение означает
-обратное воспроизведение. Type: float. Default value: 1\.;
-#X obj 250 1293 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1293 @state?;
-#X text 270 1293 (readonly) Состояние воспроизведения. 0: остановка
-\, 1: воспроизведение \, 2: пауза. Type: int. Default value: 0\.;
-#X obj 20 1360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1365 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 1038 Samplewise loop playing mode. Тип: bool. Значение
+по умолчанию: 0\.;
+#X obj 250 1080 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1080 @select_ms;
+#X text 270 1080 Диапазон выбора. Тип: list. Единицы: 'ms'. Значение
+по умолчанию: 0 0\.;
+#X obj 250 1122 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1122 @select_phase;
+#X text 270 1122 Selection range in [0 \, 1] range. Тип: list. Значение
+по умолчанию: 0 0\.;
+#X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1164 @select_samp;
+#X text 270 1164 Диапазон выбора. Тип: list. Единицы: 'samp'. Значение
+по умолчанию: 0 0\.;
+#X obj 250 1206 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1206 @select_sec;
+#X text 270 1206 Диапазон выбора. Тип: list. Единицы: 'sec'. Значение
+по умолчанию: 0 0\.;
+#X obj 250 1248 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1248 @speed;
+#X text 270 1248 Скорость воспроизведения. Отрицательное значение означает
+обратное воспроизведение. Тип: float. Значение по умолчанию: 1\.;
+#X obj 250 1305 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1305 @state?;
+#X text 270 1305 (только чтение) Состояние воспроизведения. 0: остановка
+\, 1: воспроизведение \, 2: пауза. Тип: int. Значение по умолчанию:
+0\.;
+#X obj 20 1372 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1377 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1366 pause;
-#X text 270 1366 pause/resume playback. Arguments are:;
-#X obj 280 1389 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1389 [anonym=1]: если истинно: ставит на паузу \, иначе
-возобновляет воспроизведение. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 1444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1444 play;
-#X text 270 1444 начать воспроизведение с текущей позиции.;
-#X obj 250 1472 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1472 range;
-#X text 270 1472 set @begin and @end property. Arguments are:;
-#X obj 280 1495 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1495 BEGIN: начальная позиция. Если дано числовое значение:
+#X msg 130 1378 pause;
+#X text 270 1378 pause/resume playback. Аргументы:;
+#X obj 300 1403 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1403 [anonym=1]: если истинно: ставит на паузу \, иначе
+возобновляет воспроизведение. Тип: int. Разрешённые значения: 0 \,
+1\.;
+#X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1466 play;
+#X text 270 1466 начать воспроизведение с текущей позиции.;
+#X obj 250 1501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1501 range;
+#X text 270 1501 set @begin and @end property. Аргументы:;
+#X obj 300 1526 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1526 BEGIN: начальная позиция. Если дано числовое значение:
 интерпретировать как фазу в [0\..1] диапазоне. В противном случае ожидается
 значение с единицами времени. Примеры: 10ms \, 5% \, 4sec \, 20samp
-и т.д. Type: atom.;
-#X obj 280 1563 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1563 END: конечная позиция. Тип значения \, аналогичный
-первому аргументу. Type: atom.;
-#X obj 250 1603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1603 stop;
-#X text 270 1603 остановить воспроизведение и сбросить текущую позицию.;
-#X obj 20 1641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1646 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1647 1\.;
-#X text 170 1647 bang:;
-#X text 270 1647 сбрасывает текущую позицию в начало и начинает воспроизведение.;
-#X text 170 1687 float:;
-#X text 270 1687 начинает воспроизведение с указанного семпла. Также
+и т.д. Тип: atom.;
+#X obj 300 1594 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1594 END: конечная позиция. Тип значения \, аналогичный
+первому аргументу. Тип: atom.;
+#X obj 250 1642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1642 stop;
+#X text 270 1642 остановить воспроизведение и сбросить текущую позицию.;
+#X obj 20 1687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1692 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1693 1\.;
+#X text 170 1693 bang:;
+#X text 270 1693 сбрасывает текущую позицию в начало и начинает воспроизведение.;
+#X text 170 1733 float:;
+#X text 270 1733 начинает воспроизведение с указанного семпла. Также
 поддерживаются отрицательные смещения: -10 означает воспроизвести последние
 10 семплов массива до конца.;
-#X obj 20 1752 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1757 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1758 1\.;
-#X text 170 1758 ~;
-#X text 270 1758 воспроизводимый сигнал.;
-#X text 130 1778 2\.;
-#X text 170 1778 float:;
-#X text 270 1778 выводит текущую позицию воспроизведения согласно свойству
+#X text 130 1804 1\.;
+#X text 170 1804 ~;
+#X text 270 1804 воспроизводимый сигнал.;
+#X text 130 1824 2\.;
+#X text 170 1824 float:;
+#X text 270 1824 выводит текущую позицию воспроизведения согласно свойству
 @cfmt. По умолчанию выводит секунды.;
-#X text 130 1813 3\.;
-#X text 170 1813 bang:;
-#X text 270 1813 после завершения воспроизведения.;
+#X text 130 1859 3\.;
+#X text 170 1859 bang:;
+#X text 270 1859 после завершения воспроизведения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1863 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1866 library: ceammc v0.9.8;
-#X text 606 1878 see also:;
-#X obj 681 1878 tabplay~;
-#N canvas 10 1885 400 290 info 0;
+#X obj 1 1909 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1912 библиотека: ceammc v0.9.8;
+#X text 560 1924 смотрите также:;
+#X obj 681 1924 tabplay~;
+#N canvas 10 1931 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 array.play~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 array;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 array \, play;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1885 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1931 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

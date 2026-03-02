@@ -18,102 +18,101 @@
 #X obj 50 277 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_rotenc.png;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 339 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 339 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 342 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 340 @btn;
-#X text 270 340 (initonly) Пин BTN GPIO. Type: int. Default value:
--1\. Range: -1\...127\.;
+#X text 270 340 (при инициализации) Пин BTN GPIO. Тип: int. Значение
+по умолчанию: -1\. Диапазон: -1\...127\.;
 #X obj 250 382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 382 @clk;
-#X text 270 382 (initonly) Пин CLK GPIO. Type: int. Default value:
--1\. Range: -1\...127\.;
+#X text 270 382 (при инициализации) Пин CLK GPIO. Тип: int. Значение
+по умолчанию: -1\. Диапазон: -1\...127\.;
 #X obj 250 424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 424 @dt;
-#X text 270 424 (initonly) Пин DT GPIO. Type: int. Default value: -1\.
-Range: -1\...127\.;
+#X text 270 424 (при инициализации) Пин DT GPIO. Тип: int. Значение
+по умолчанию: -1\. Диапазон: -1\...127\.;
 #X obj 250 466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 466 @init;
-#X text 270 466 (initonly) Начальное значение энкодера. Type: float.
-Default value: 0\.;
+#X text 270 466 (при инициализации) Начальное значение энкодера. Тип:
+float. Значение по умолчанию: 0\.;
 #X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 508 @max;
-#X text 270 508 Максимальное значение энкодера. Type: float. Default
-value: 100\.;
+#X text 270 508 Максимальное значение энкодера. Тип: float. Значение
+по умолчанию: 100\.;
 #X obj 250 550 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 550 @min;
-#X text 270 550 Минимальное значение энкодера. Type: float. Default
-value: -100\.;
+#X text 270 550 Минимальное значение энкодера. Тип: float. Значение
+по умолчанию: -100\.;
 #X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 592 @step;
-#X text 270 592 Шаг энкодера. Type: float. Default value: 1\.;
+#X text 270 592 Шаг энкодера. Тип: float. Значение по умолчанию: 1\.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 637 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 637 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 638 get;
 #X text 270 638 запросить текущее значение.;
-#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 666 reset;
-#X text 270 666 сброс текущего значения на @init.;
-#X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 694 set;
-#X text 270 694 установить новое текущее значение без его вывода. Arguments
-are:;
-#X obj 280 732 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 732 VAL: новое значение. Type: float.;
-#X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 772 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 673 reset;
+#X text 270 673 сброс текущего значения на @init.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 set;
+#X text 270 708 установить новое текущее значение без его вывода. Аргументы:;
+#X obj 300 733 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 733 VAL: новое значение. Тип: float.;
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 781 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 773 1\.;
-#X text 170 773 bang:;
-#X text 270 773 вывести текущее значение.;
-#X text 170 798 float:;
-#X text 270 798 установить новое текущее значение и вывести его.;
-#X text 130 823 2\.;
-#X text 170 823 bang:;
-#X text 270 823 сбросить текущее значение на @init.;
-#X text 170 848 float:;
-#X text 270 848 установить новое текущее значение без его вывода.;
-#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 888 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 889 1\.;
-#X text 270 889 float: текущее значение энкодера.;
-#X text 130 909 2\.;
-#X text 270 909 сообщения: [dir -1|1( или [btn 1|0(.;
+#X text 130 782 1\.;
+#X text 170 782 bang:;
+#X text 270 782 вывести текущее значение.;
+#X text 170 807 float:;
+#X text 270 807 установить новое текущее значение и вывести его.;
+#X text 130 832 2\.;
+#X text 170 832 bang:;
+#X text 270 832 сбросить текущее значение на @init.;
+#X text 170 857 float:;
+#X text 270 857 установить новое текущее значение без его вывода.;
+#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 897 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 898 1\.;
+#X text 270 898 float: текущее значение энкодера.;
+#X text 130 918 2\.;
+#X text 270 918 сообщения: [dir -1|1( или [btn 1|0(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 959 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 962 library: ceammc v0.9.8;
-#N canvas 10 981 400 290 info 0;
+#X obj 1 968 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 971 библиотека: ceammc v0.9.8;
+#N canvas 10 990 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 hw.rpi.rotenc;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 hw;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 display \, gpio \, raspberry \, rotary \, encoder;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 981 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 990 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;

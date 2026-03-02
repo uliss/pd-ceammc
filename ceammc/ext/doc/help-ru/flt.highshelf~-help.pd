@@ -15,91 +15,92 @@
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 float;
 #X obj 268 319 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 FREQ(Hz): starting frequency for the shelf. Type: float.
-Range: 20\...20000;
+#X text 270 318 FREQ(Hz): starting frequency for the shelf. Тип: float.
+Диапазон: 20…20000;
 #X text 130 358 2\.;
 #X text 170 358 float;
 #X obj 268 359 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 358 GAIN(db): amount of boost or cut apply to the signal.
-Type: float. Range: -15\...15;
+Тип: float. Диапазон: -15…15;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 414 @id;
-#X text 270 414 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_highshelf/ИМЯ_СВОЙСТВА
-\, в противном случае к /flt_highshelf/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @osc;
-#X text 270 486 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 516 @active;
-#X text 270 516 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 558 @freq;
-#X text 270 558 Starting frequency for the shelf. Type: float. Units:
-'Hz'. Default value: 10000\. Range: 20\...20000\.;
-#X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 600 @gain;
-#X text 270 600 Amount of boost or cut apply to the signal. Type: float.
-Units: 'db'. Default value: 0\. Range: -15\...15\.;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 657 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 414 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/flt_highshelf/ИМЯ_СВОЙСТВА \, в противном случае к /flt_highshelf/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 501 @osc;
+#X text 270 501 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 531 @active;
+#X text 270 531 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 573 @freq;
+#X text 270 573 Starting frequency for the shelf. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 10000\. Диапазон: 20\...20000\.;
+#X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 630 @gain;
+#X text 270 630 Amount of boost or cut apply to the signal. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -15\...15\.;
+#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 702 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 658 1\.;
-#X text 170 658 ~;
-#X text 270 658 input signal.;
-#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 698 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 699 1\.;
-#X text 170 699 ~;
-#X text 270 699 filtered signal.;
+#X text 130 703 1\.;
+#X text 170 703 ~;
+#X text 270 703 input signal.;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 743 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 744 1\.;
+#X text 170 744 ~;
+#X text 270 744 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 749 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 752 library: ceammc v0.9.8;
-#X text 438 764 see also:;
-#X obj 513 764 flt.lowshelf~;
-#X obj 623 764 flt.c_highshelf~;
-#N canvas 10 771 400 290 info 0;
+#X obj 1 794 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 797 библиотека: ceammc v0.9.8;
+#X text 392 809 смотрите также:;
+#X obj 513 809 flt.lowshelf~;
+#X obj 623 809 flt.c_highshelf~;
+#N canvas 10 816 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 flt.highshelf~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 flt;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 filter \, highshelf;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 771 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 816 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 9 0;

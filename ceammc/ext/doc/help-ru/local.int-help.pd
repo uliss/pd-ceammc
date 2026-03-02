@@ -21,93 +21,93 @@ accessible even from subpatch.;
 #X floatatom 50 331 5 0 0 0 - - -;
 #X floatatom 395 331 5 0 0 0 - - -;
 #X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 368 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 368 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 371 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 369 1\.;
 #X text 170 369 symbol;
 #X obj 268 370 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 369 ID: object ID. Type: symbol.;
+#X text 270 369 ID: object ID. Тип: symbol.;
 #X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 409 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 409 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 412 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 410 @id;
-#X text 270 410 (initonly) Local variable id. Type: symbol. Default
-value: default.;
+#X text 270 410 (при инициализации) Local variable id. Тип: symbol.
+Значение по умолчанию: default.;
 #X obj 250 452 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 452 @value?;
-#X text 270 452 (readonly) Current value. Type: int. Default value:
-0\.;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 497 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 498 set;
-#X text 270 498 sets new value without output.;
-#X obj 250 526 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 526 *;
-#X text 270 526 multiply to \, no output.;
-#X obj 250 554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 554 +;
-#X text 270 554 add to int \, no output.;
-#X obj 250 582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 582 -;
-#X text 270 582 substruct from int \, no output.;
-#X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 610 /;
-#X text 270 610 divide by \, no output.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 653 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 452 (только чтение) Current value. Тип: int. Значение по
+умолчанию: 0\.;
+#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 509 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 654 1\.;
-#X text 170 654 bang:;
-#X text 270 654 output value.;
-#X text 170 679 float:;
-#X text 270 679 sets new value and outputs it ONLY at current object
+#X msg 130 510 set;
+#X text 270 510 sets new value without output.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 545 *;
+#X text 270 545 multiply to \, no output.;
+#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 580 +;
+#X text 270 580 add to int \, no output.;
+#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 615 -;
+#X text 270 615 substruct from int \, no output.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 650 /;
+#X text 270 650 divide by \, no output.;
+#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 701 1\.;
+#X text 170 701 bang:;
+#X text 270 701 output value.;
+#X text 170 726 float:;
+#X text 270 726 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 719 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 720 1\.;
-#X text 270 720 integer output.;
+#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 766 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 767 1\.;
+#X text 270 767 integer output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 773 library: ceammc v0.9.8;
-#X text 411 785 see also:;
-#X obj 486 785 local.float;
-#X obj 580 785 local.list;
-#X obj 667 785 global.int;
-#N canvas 10 792 400 290 info 0;
+#X obj 1 817 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 820 библиотека: ceammc v0.9.8;
+#X text 365 832 смотрите также:;
+#X obj 486 832 local.float;
+#X obj 580 832 local.list;
+#X obj 667 832 global.int;
+#N canvas 10 839 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 local.int;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 local;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 int \, local;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 792 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 839 pd info;
 #X connect 6 0 13 0;
 #X connect 7 0 13 0;
 #X connect 10 0 13 0;

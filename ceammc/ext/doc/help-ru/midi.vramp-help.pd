@@ -14,94 +14,96 @@
 #X obj 213 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 int;
 #X obj 268 391 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 FROM: start value. Type: int. Range: 0\...127;
+#X text 270 390 FROM: start value. Тип: int. Диапазон: 0…127;
 #X text 130 415 2\.;
 #X text 170 415 int;
 #X obj 268 416 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 415 TO: end value. Type: int. Range: 0\...127;
+#X text 270 415 TO: end value. Тип: int. Диапазон: 0…127;
 #X text 130 440 3\.;
 #X text 170 440 int;
 #X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 N: number of steps. Type: int. Min value: 0;
+#X text 270 440 N: number of steps. Тип: int. Минимальное значение:
+0\.;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 480 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 481 @auto;
 #X text 270 481 Auto reset mode. If true: reset to @start value after
-ramp is finished. Type: bool. Default value: 0\.;
+ramp is finished. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @from;
-#X text 270 523 Start value. Type: int. Default value: 127\. Range:
-0\...127\.;
+#X text 270 523 Start value. Тип: int. Значение по умолчанию: 127\.
+Диапазон: 0\...127\.;
 #X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 565 @n;
-#X text 270 565 Number of steps. Type: int. Default value: 0\. Min
-value: 0\.;
-#X obj 250 595 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 595 @to;
-#X text 270 595 End value. Type: int. Default value: 127\. Range: 0\...127\.;
-#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 640 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 641 reset;
-#X text 270 641 reset to start value.;
-#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 684 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 565 Number of steps. Тип: int. Значение по умолчанию: 0\.
+Минимальное значение: 0\.;
+#X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 607 @to;
+#X text 270 607 End value. Тип: int. Значение по умолчанию: 127\. Диапазон:
+0\...127\.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 664 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 685 1\.;
-#X text 170 685 float:;
-#X text 270 685 if VALUE >0 \, treat as (VALUE 127) list \, otherwise
+#X msg 130 665 reset;
+#X text 270 665 reset to start value.;
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 715 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 716 1\.;
+#X text 170 716 float:;
+#X text 270 716 if VALUE >0 \, treat as (VALUE 127) list \, otherwise
 as (-VALUE \, 0).;
-#X text 170 725 list:;
-#X text 270 725 NOTE [VELOCITY] list expected.;
-#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 765 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 766 1\.;
-#X text 270 766 outputs NOTE VELOCITY pair.;
-#X text 130 786 2\.;
-#X text 270 786 bang when destination value is reached.;
+#X text 170 756 list:;
+#X text 270 756 NOTE [VELOCITY] list expected.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 797 1\.;
+#X text 270 797 outputs NOTE VELOCITY pair.;
+#X text 130 817 2\.;
+#X text 270 817 bang when destination value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 836 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 839 library: ceammc v0.9.8;
-#N canvas 10 858 400 290 info 0;
+#X obj 1 867 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 870 библиотека: ceammc v0.9.8;
+#N canvas 10 889 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 midi.vramp;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 midi;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 midi \, ramp \, crescendo \, diminuendo;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 858 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 889 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

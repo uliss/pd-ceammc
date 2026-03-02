@@ -20,136 +20,137 @@
 #X floatatom 50 262 5 0 0 0 - - -;
 #X obj 194 262 ui.dt;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 318 1\.;
 #X text 170 318 int;
 #X obj 268 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 FROM: начальное значение. Type: int.;
+#X text 270 318 FROM: начальное значение. Тип: int.;
 #X text 130 343 2\.;
 #X text 170 343 int;
 #X obj 268 344 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 343 TO: конечное значение. Type: int.;
+#X text 270 343 TO: конечное значение. Тип: int.;
 #X text 130 368 3\.;
 #X text 170 368 int;
 #X obj 268 369 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 368 R: количество повторений. Type: int. Min value: -1;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 408 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 368 R: количество повторений. Тип: int. Минимальное значение:
+-1\.;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 423 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 411 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 409 @fold;
-#X text 270 409 Сокращение: @mode fold.;
-#X obj 250 439 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 439 @from;
-#X text 270 439 Начальное значение. Установка этого свойства сбрасывает
-@i до 0\. Type: int. Default value: 0\.;
-#X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 481 @i;
-#X text 270 481 Индекс текущей итерации внутри цикла. Type: int. Default
-value: 0\.;
-#X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 523 @inf;
-#X text 270 523 Сокращение: @r -1 \, повторять бесконечно.;
-#X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 553 @mode;
-#X text 270 553 Режим повтора счетчика. Если 'wrap': после достижения
+#X msg 130 424 @fold;
+#X text 270 424 Сокращение: @mode fold.;
+#X obj 250 454 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 454 @from;
+#X text 270 454 Начальное значение. Установка этого свойства сбрасывает
+@i до 0\. Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 496 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 496 @i;
+#X text 270 496 Индекс текущей итерации внутри цикла. Тип: int. Значение
+по умолчанию: 0\.;
+#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 538 @inf;
+#X text 270 538 Сокращение: @r -1 \, повторять бесконечно.;
+#X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 568 @mode;
+#X text 270 568 Режим повтора счетчика. Если 'wrap': после достижения
 финального значения \, начинает новый счет с начального значения. Если
 'fold': после достижения финального значения \, начинает счет в обратном
-направлении. Type: symbol. Default value: wrap. Allowed values: wrap
-\, fold.;
-#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 640 @once;
-#X text 270 640 Сокращение: @r 1 \, один проход без повторов.;
-#X obj 250 670 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 670 @r;
-#X text 270 670 Количество повторений. Если -1: повторять бесконечно.
-Type: int. Default value: -1\. Min value: -1\.;
-#X obj 250 712 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 712 @to;
-#X text 270 712 Конечное значение (включительно). Type: int. Default
-value: 0\.;
-#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 754 @wrap;
-#X text 270 754 Сокращение: @mode wrap.;
-#X obj 250 784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 784 @ri?;
-#X text 270 784 (readonly) Номер повтора всего цикла. Type: int. Default
-value: 0\.;
-#X obj 250 826 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 826 @value?;
-#X text 270 826 (readonly) Текущее значение счетчика. Type: int. Default
-value: 0\.;
-#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 883 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 884 next;
-#X text 270 884 сначала увеличивает счетчик \, потом выводит полученное
+направлении. Тип: symbol. Значение по умолчанию: wrap. Разрешённые
+значения: wrap \, fold.;
+#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 671 @once;
+#X text 270 671 Сокращение: @r 1 \, один проход без повторов.;
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @r;
+#X text 270 701 Количество повторений. Если -1: повторять бесконечно.
+Тип: int. Значение по умолчанию: -1\. Минимальное значение: -1\.;
+#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 758 @to;
+#X text 270 758 Конечное значение (включительно). Тип: int. Значение
+по умолчанию: 0\.;
+#X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 800 @wrap;
+#X text 270 800 Сокращение: @mode wrap.;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 830 @ri?;
+#X text 270 830 (только чтение) Номер повтора всего цикла. Тип: int.
+Значение по умолчанию: 0\.;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 872 @value?;
+#X text 270 872 (только чтение) Текущее значение счетчика. Тип: int.
+Значение по умолчанию: 0\.;
+#X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 929 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 930 next;
+#X text 270 930 сначала увеличивает счетчик \, потом выводит полученное
 новое значение.;
-#X obj 250 924 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 924 prev;
-#X text 270 924 сначала уменьшает счётчик \, затем выводит полученное
+#X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 980 prev;
+#X text 270 980 сначала уменьшает счётчик \, затем выводит полученное
 новое значение.;
-#X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 964 reset;
-#X text 270 964 сбросить счётчик до начального значения и сбросить
+#X obj 250 1030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1030 reset;
+#X text 270 1030 сбросить счётчик до начального значения и сбросить
 счётчик повторов на 0\.;
-#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1019 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1020 1\.;
-#X text 170 1020 bang:;
-#X text 270 1020 сначала выводит текущее значение \, затем увеличивает
+#X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1095 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1096 1\.;
+#X text 170 1096 bang:;
+#X text 270 1096 сначала выводит текущее значение \, затем увеличивает
 счетчик.;
-#X text 130 1045 2\.;
-#X text 170 1045 bang:;
-#X text 270 1045 сбросить счетчик на начальное значение.;
-#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1085 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1121 2\.;
+#X text 170 1121 bang:;
+#X text 270 1121 сбросить счетчик на начальное значение.;
+#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1161 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1086 1\.;
-#X text 170 1086 int:;
-#X text 270 1086 значение счетчика.;
-#X text 130 1106 2\.;
-#X text 170 1106 int:;
-#X text 270 1106 число повторов полного цикла счетчика.;
-#X text 270 1131 [done( после последнего повтора (если их ограниченное
+#X text 130 1162 1\.;
+#X text 170 1162 int:;
+#X text 270 1162 значение счетчика.;
+#X text 130 1182 2\.;
+#X text 170 1182 int:;
+#X text 270 1182 число повторов полного цикла счетчика.;
+#X text 270 1207 [done( после последнего повтора (если их ограниченное
 количество).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1196 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1199 library: ceammc v0.9.8;
-#N canvas 10 1218 400 290 info 0;
+#X obj 1 1272 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1275 библиотека: ceammc v0.9.8;
+#N canvas 10 1294 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 seq.counter;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 seq;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 counter \, modulo;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1218 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1294 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 6 0 7 0;

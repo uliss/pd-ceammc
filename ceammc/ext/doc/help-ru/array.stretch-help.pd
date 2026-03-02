@@ -45,53 +45,54 @@
 #X obj 309 606 ui.dsp~;
 #X obj 50 634 dac~;
 #X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 689 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 689 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 692 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 690 1\.;
 #X text 170 690 symbol;
 #X obj 268 691 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 690 SRC: исходный массив. Type: symbol.;
+#X text 270 690 SRC: исходный массив. Тип: symbol.;
 #X text 130 715 2\.;
 #X text 170 715 symbol;
 #X obj 268 716 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 715 DEST: массив результата. Type: symbol.;
+#X text 270 715 DEST: массив результата. Тип: symbol.;
 #X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 755 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 755 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 758 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 756 @aalength;
-#X text 270 756 Длина фильтра для борьбы со сверткой спектра. Type:
-int. Default value: 64\. Range: 8\...128\.;
+#X text 270 756 Длина фильтра для борьбы со сверткой спектра. Тип:
+int. Значение по умолчанию: 64\. Диапазон: 8\...128\.;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @antialias;
 #X text 270 798 Использовать фильтр для борьбы со сверткой спектра.
 Этот фильтр используется для предотвращения сворачивания высоких частот
-при транспозиции частоты семплирования с интерполяцией. Type: bool.
-Default value: 0\.;
+при транспозиции частоты семплирования с интерполяцией. Тип: bool.
+Значение по умолчанию: 0\.;
 #X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 870 @dest;
-#X text 270 870 Массив назначения. Type: symbol.;
+#X text 270 870 Массив назначения. Тип: symbol.;
 #X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 900 @overlap;
 #X text 270 900 Длительность перекрытия. Когда отдельные небольшие
 куски звуковых последовательностей смешиваются вместе \, образуя непрерывный
 звуковой поток \, этот параметр определяет \, в течение какого периода
 два последовательных фрейма могут перекрывать друг друга. Увеличение
-этого значения увеличивает вычислительную нагрузку и наоборот. Type:
-int. Units: 'ms'. Default value: 8\. Range: 0\...100\.;
+этого значения увеличивает вычислительную нагрузку и наоборот. Тип:
+int. Единицы: 'ms'. Значение по умолчанию: 8\. Диапазон: 0\...100\.;
 #X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1033 @pitch;
 #X text 270 1033 Относительное изменение высоты звука при сохранении
-первоначального темпа. Type: float. Units: 'semitone'. Default value:
-0\.;
+первоначального темпа. Тип: float. Единицы: 'semitone'. Значение по
+умолчанию: 0\.;
 #X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1090 @rate;
 #X text 270 1090 Скорость воспроизведения - изменяет как темп \, так
 и высоту звука вместе \, как если бы виниловый диск воспроизводился
-с разной скоростью RPM. Type: float. Default value: 1\. Range: 0.1\...2\.;
+с разной скоростью RPM. Тип: float. Значение по умолчанию: 1\. Диапазон:
+0.1\...2\.;
 #X obj 250 1162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1162 @seekwindow;
 #X text 270 1162 Поиск длины окна по умолчанию для алгоритма \, который
@@ -106,8 +107,8 @@ int. Units: 'ms'. Default value: 8\. Range: 0\...100\.;
 эту настройку. Увеличение этого значения увеличивает вычислительную
 нагрузку и наоборот. Указывая значение *0* для длины окна поиска устанавливает
 автоматическое значение параметра в соответствии с настройкой темпа
-(рекомендуется). Type: int. Units: 'ms'. Default value: 0\. Range:
-0\...100\.;
+(рекомендуется). Тип: int. Единицы: 'ms'. Значение по умолчанию: 0\.
+Диапазон: 0\...100\.;
 #X obj 250 1430 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1430 @sequence;
 #X text 270 1430 Длина по умолчанию последовательности обработки в
@@ -118,26 +119,28 @@ int. Units: 'ms'. Default value: 8\. Range: 0\...100\.;
 увеличении темпа и наоборот. Увеличение этого значения снижает вычислительную
 нагрузку и наоборот. Указывая значение *0* для длины последовательности
 устанавливает автоматическое значение параметра в соответствии с настройками
-темпа (рекомендуется). Type: int. Units: 'ms'. Default value: 0\. Range:
-0\...100\.;
+темпа (рекомендуется). Тип: int. Единицы: 'ms'. Значение по умолчанию:
+0\. Диапазон: 0\...100\.;
 #X obj 250 1623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1623 @speech;
-#X text 270 1623 Оптимизация для речи. Type: bool. Default value: 0\.;
+#X text 270 1623 Оптимизация для речи. Тип: bool. Значение по умолчанию:
+0\.;
 #X obj 250 1653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1653 @src;
-#X text 270 1653 Исходный массив. Type: symbol.;
+#X text 270 1653 Исходный массив. Тип: symbol.;
 #X obj 250 1683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1683 @tempo;
 #X text 270 1683 Относительное изменение темпа без влияния на высоту
-звука. Type: float. Units: '%'. Default value: 0\. Range: -50\...100\.;
+звука. Тип: float. Единицы: '%'. Значение по умолчанию: 0\. Диапазон:
+-50\...100\.;
 #X obj 20 1750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1755 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
+#X obj 20 1755 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
 #X text 130 1756 1\.;
 #X text 170 1756 bang:;
 #X text 270 1756 начинает вычисления.;
 #X obj 20 1791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1796 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1797 1\.;
 #X text 170 1797 int:;
@@ -148,31 +151,31 @@ int. Units: 'ms'. Default value: 8\. Range: 0\...100\.;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1850 library: ceammc v0.9.8;
+#X text 10 1850 библиотека: ceammc v0.9.8;
 #N canvas 10 1869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 array.stretch;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 array;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Olli Parviainen \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 array \, stretch;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
+#X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 1869 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 11 0;

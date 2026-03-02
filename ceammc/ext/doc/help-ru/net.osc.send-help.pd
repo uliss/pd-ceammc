@@ -29,7 +29,7 @@
 #X msg 462 406 send_string /s with spaces;
 #X obj 50 449 net.osc.send osc.udp://localhost:9000;
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 504 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 507 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
@@ -37,170 +37,169 @@
 #X text 170 505 atom;
 #X obj 268 506 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 505 URL: OSC server url (like osc.udp://localhost:12345).
-Type: atom.;
+Тип: atom.;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 563 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 561 @url;
-#X text 270 561 Destination url. Type: atom.;
+#X text 270 561 Destination url. Тип: atom.;
 #X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 @host?;
-#X text 270 591 (readonly) Destination host. Type: symbol.;
+#X text 270 591 (только чтение) Destination host. Тип: symbol.;
 #X obj 250 621 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 621 @path?;
-#X text 270 621 (readonly) Socket filesystem path (if using unix proto).
-Type: symbol.;
+#X text 270 621 (только чтение) Socket filesystem path (if using unix
+proto). Тип: symbol.;
 #X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 663 @port?;
-#X text 270 663 (readonly) Destination port. Type: int. Default value:
-0\.;
-#X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 693 @proto?;
-#X text 270 693 (readonly) Sending protocol. Type: symbol. Default
-value: udp.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 750 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 751 send;
-#X text 270 751 send input values (autotyped). Arguments are:;
-#X obj 280 774 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 774 PATH: OSC path. Type: symbol.;
-#X obj 280 797 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 797 VALUES: values. Type: list.;
-#X obj 250 822 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 822 send_blob;
-#X text 270 822 send character. Arguments are:;
-#X obj 280 845 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 845 PATH: OSC path. Type: symbol.;
-#X obj 280 868 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 868 VAL: list of bytes. Type: list.;
-#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 893 send_bool;
-#X text 270 893 send boolean value. Arguments are:;
-#X obj 280 916 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 916 PATH: OSC path. Type: symbol.;
-#X obj 280 939 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 939 VAL: value. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 964 send_char;
-#X text 270 964 send character. Arguments are:;
-#X obj 280 987 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 987 PATH: OSC path. Type: symbol.;
-#X obj 280 1010 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1010 VAL: ASCII code in 0-127 range or single symbol. Type:
+#X text 270 663 (только чтение) Destination port. Тип: int. Значение
+по умолчанию: 0\.;
+#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 705 @proto?;
+#X text 270 705 (только чтение) Sending protocol. Тип: symbol. Значение
+по умолчанию: udp.;
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 762 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 763 send;
+#X text 270 763 send input values (autotyped). Аргументы:;
+#X obj 300 788 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 788 PATH: OSC path. Тип: symbol.;
+#X obj 300 811 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 811 VALUES: values. Тип: list.;
+#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 844 send_blob;
+#X text 270 844 send character. Аргументы:;
+#X obj 300 869 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 869 PATH: OSC path. Тип: symbol.;
+#X obj 300 892 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 892 VAL: list of bytes. Тип: list.;
+#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 925 send_bool;
+#X text 270 925 send boolean value. Аргументы:;
+#X obj 300 950 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 950 PATH: OSC path. Тип: symbol.;
+#X obj 300 973 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 973 VAL: value. Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1006 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1006 send_char;
+#X text 270 1006 send character. Аргументы:;
+#X obj 300 1031 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1031 PATH: OSC path. Тип: symbol.;
+#X obj 300 1054 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1054 VAL: ASCII code in 0-127 range or single symbol. Тип:
 atom.;
-#X obj 250 1035 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1035 send_double;
-#X text 270 1035 send double value. Arguments are:;
-#X obj 280 1058 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1058 PATH: OSC path. Type: symbol.;
-#X obj 280 1081 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1081 VAL: value. Type: float.;
-#X obj 250 1106 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1106 send_float;
-#X text 270 1106 send float value. Arguments are:;
-#X obj 280 1129 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1129 PATH: OSC path. Type: symbol.;
-#X obj 280 1152 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1152 VAL: value. Type: float.;
-#X obj 250 1177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1177 send_i32;
-#X text 270 1177 send int32 value. Arguments are:;
-#X obj 280 1200 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1200 PATH: OSC path. Type: symbol.;
-#X obj 280 1223 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1223 VAL: value. Type: int.;
-#X obj 250 1248 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1248 send_i64;
-#X text 270 1248 send int64 value. Arguments are:;
-#X obj 280 1271 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1271 PATH: OSC path. Type: symbol.;
-#X obj 280 1294 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1294 VAL: value. Type: int.;
-#X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1319 send_inf;
-#X text 270 1319 send inf value. Arguments are:;
-#X obj 280 1342 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1342 PATH: OSC path. Type: symbol.;
-#X obj 250 1367 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1367 send_midi;
-#X text 270 1367 send midi message (4 bytes). Arguments are:;
-#X obj 280 1390 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1390 PATH: OSC path. Type: symbol.;
-#X obj 280 1413 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1413 VAL: hex symbol (0xAAFF1122) or list of 4 bytes. Type:
+#X obj 250 1087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1087 send_double;
+#X text 270 1087 send double value. Аргументы:;
+#X obj 300 1112 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1112 PATH: OSC path. Тип: symbol.;
+#X obj 300 1135 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1135 VAL: value. Тип: float.;
+#X obj 250 1168 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1168 send_float;
+#X text 270 1168 send float value. Аргументы:;
+#X obj 300 1193 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1193 PATH: OSC path. Тип: symbol.;
+#X obj 300 1216 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1216 VAL: value. Тип: float.;
+#X obj 250 1249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1249 send_i32;
+#X text 270 1249 send int32 value. Аргументы:;
+#X obj 300 1274 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1274 PATH: OSC path. Тип: symbol.;
+#X obj 300 1297 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1297 VAL: value. Тип: int.;
+#X obj 250 1330 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1330 send_i64;
+#X text 270 1330 send int64 value. Аргументы:;
+#X obj 300 1355 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1355 PATH: OSC path. Тип: symbol.;
+#X obj 300 1378 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1378 VAL: value. Тип: int.;
+#X obj 250 1411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1411 send_inf;
+#X text 270 1411 send inf value. Аргументы:;
+#X obj 300 1436 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1436 PATH: OSC path. Тип: symbol.;
+#X obj 250 1469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1469 send_midi;
+#X text 270 1469 send midi message (4 bytes). Аргументы:;
+#X obj 300 1494 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1494 PATH: OSC path. Тип: symbol.;
+#X obj 300 1517 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1517 VAL: hex symbol (0xAAFF1122) or list of 4 bytes. Тип:
 list.;
-#X obj 250 1438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1438 send_null;
-#X text 270 1438 send null value. Arguments are:;
-#X obj 280 1461 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1461 PATH: OSC path. Type: symbol.;
-#X obj 250 1486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1486 send_string;
-#X text 270 1486 send string value. Arguments are:;
-#X obj 280 1509 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1509 PATH: OSC path. Type: symbol.;
-#X obj 280 1532 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1532 VAL: value. Type: list.;
-#X obj 250 1557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1557 send_typed;
-#X text 270 1557 send list of typed values. Arguments are:;
-#X obj 280 1580 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1580 PATH: OSC path. Type: symbol.;
-#X obj 280 1603 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1603 TYPES: type string \, 'i': int32 \, 'f': 32-bit float
+#X obj 250 1550 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1550 send_null;
+#X text 270 1550 send null value. Аргументы:;
+#X obj 300 1575 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1575 PATH: OSC path. Тип: symbol.;
+#X obj 250 1608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1608 send_string;
+#X text 270 1608 send string value. Аргументы:;
+#X obj 300 1633 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1633 PATH: OSC path. Тип: symbol.;
+#X obj 300 1656 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1656 VAL: value. Тип: list.;
+#X obj 250 1689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1689 send_typed;
+#X text 270 1689 send list of typed values. Аргументы:;
+#X obj 300 1714 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1714 PATH: OSC path. Тип: symbol.;
+#X obj 300 1737 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1737 TYPES: type string \, 'i': int32 \, 'f': 32-bit float
 \, 's': string \, 'h': int64 \, 'd': 64-bit float \, 'T': #true value
-\, 'F': #false value \, 'N': #null value \, 'I': #inf value. Type:
-symbol.;
-#X obj 280 1671 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1671 VAL: values. Type: list.;
-#X obj 20 1706 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1711 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+\, 'F': #false value \, 'N': #null value \, 'I': #inf value. Тип: symbol.;
+#X obj 300 1805 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1805 VAL: values. Тип: list.;
+#X obj 20 1848 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1853 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1854 1\.;
+#X text 270 1854 message input.;
+#X obj 20 1889 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1894 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1712 1\.;
-#X text 270 1712 message input.;
-#X obj 20 1747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1752 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1753 1\.;
-#X text 270 1753 none.;
+#X text 130 1895 1\.;
+#X text 270 1895 none.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1803 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1806 library: ceammc v0.9.8;
-#X text 439 1818 see also:;
-#X obj 514 1818 net.osc.server;
-#X obj 631 1818 net.osc.receive;
-#N canvas 10 1825 400 290 info 0;
+#X obj 1 1945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1948 библиотека: ceammc v0.9.8;
+#X text 393 1960 смотрите также:;
+#X obj 514 1960 net.osc.server;
+#X obj 631 1960 net.osc.receive;
+#N canvas 10 1967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 net.osc.send;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 net;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.5;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 osc \, net \, send;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1825 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1967 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 13 0 16 0;

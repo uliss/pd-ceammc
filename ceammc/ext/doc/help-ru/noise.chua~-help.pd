@@ -10,101 +10,102 @@
 #X obj 213 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 389 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 390 @id;
-#X text 270 390 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/noise_chua/ИМЯ_СВОЙСТВА
-\, в противном случае к /noise_chua/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 462 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 462 @osc;
-#X text 270 462 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 492 @C1;
-#X text 270 492 C1 capacity in nF. Type: float. Default value: 5.5\.
-Range: 5.2\...6\.;
-#X obj 250 534 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 534 @C2;
-#X text 270 534 C2 capacity in nF. Type: float. Default value: 49.5\.
-Range: 40\...60\.;
-#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 576 @L;
-#X text 270 576 L in mH. Type: float. Default value: 7.07\. Range:
-6.5\...7.3\.;
-#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 618 @R;
-#X text 270 618 R resistance in kOhm. Type: float. Default value: 1.6\.
-Range: 1.252\...1.7\.;
-#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 660 @active;
-#X text 270 660 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 702 @gate;
-#X text 270 702 Play trigger >0: on \, 0: off. To set output gain to
-0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
-0\...1\.;
-#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 774 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 775 reset;
-#X text 270 775 reset generator.;
-#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 803 start;
-#X text 270 803 start generator.;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 846 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 390 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/noise_chua/ИМЯ_СВОЙСТВА \, в противном случае к /noise_chua/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 477 @osc;
+#X text 270 477 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 507 @C1;
+#X text 270 507 C1 capacity in nF. Тип: float. Значение по умолчанию:
+5.5\. Диапазон: 5.2\...6\.;
+#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 549 @C2;
+#X text 270 549 C2 capacity in nF. Тип: float. Значение по умолчанию:
+49.5\. Диапазон: 40\...60\.;
+#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 591 @L;
+#X text 270 591 L in mH. Тип: float. Значение по умолчанию: 7.07\.
+Диапазон: 6.5\...7.3\.;
+#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 633 @R;
+#X text 270 633 R resistance in kOhm. Тип: float. Значение по умолчанию:
+1.6\. Диапазон: 1.252\...1.7\.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 675 @active;
+#X text 270 675 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 717 @gate;
+#X text 270 717 Play trigger >0: on \, 0: off. To set output gain to
+0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 789 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 847 1\.;
-#X text 170 847 bang:;
-#X text 270 847 play with default duration and full gain.;
-#X text 170 872 float:;
-#X text 270 872 play with default duration and specified gain.;
-#X text 170 897 list:;
-#X text 270 897 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 937 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 938 1\.;
-#X text 170 938 ~;
-#X text 270 938 X output (C1 Vout).;
-#X text 130 958 2\.;
-#X text 170 958 ~;
-#X text 270 958 Y output (C2 Vout).;
+#X msg 130 790 reset;
+#X text 270 790 reset generator.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 825 start;
+#X text 270 825 start generator.;
+#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 875 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 876 1\.;
+#X text 170 876 bang:;
+#X text 270 876 play with default duration and full gain.;
+#X text 170 901 float:;
+#X text 270 901 play with default duration and specified gain.;
+#X text 170 926 list:;
+#X text 270 926 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 966 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 967 1\.;
+#X text 170 967 ~;
+#X text 270 967 X output (C1 Vout).;
+#X text 130 987 2\.;
+#X text 170 987 ~;
+#X text 270 987 Y output (C2 Vout).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1008 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1011 library: ceammc v0.9.8;
-#N canvas 10 1030 400 290 info 0;
+#X obj 1 1037 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1040 библиотека: ceammc v0.9.8;
+#N canvas 10 1059 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 noise.chua~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 noise;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.6;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 noise \, chua \, chaos;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1030 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1059 pd info;
 #X connect 4 0 5 0;
 #X connect 4 1 5 1;
 #X connect 5 0 7 0;

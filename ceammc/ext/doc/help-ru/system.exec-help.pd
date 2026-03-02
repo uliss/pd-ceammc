@@ -16,7 +16,7 @@
 #X floatatom 50 234 5 0 0 0 - - -;
 #X obj 165 234 print EXEC;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 289 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
@@ -25,77 +25,78 @@
 #X obj 250 320 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 320 @priority;
 #X text 270 320 Subprocess priority (not all platforms are supported).
-Type: symbol. Default value: normal. Allowed values: normal \, low.;
+Тип: symbol. Значение по умолчанию: normal. Разрешённые значения: normal
+\, low.;
 #X obj 250 377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 377 @is_running?;
-#X text 270 377 (readonly) Is process is running. Type: bool. Default
-value: 0\.;
+#X text 270 377 (только чтение) Is process is running. Тип: bool. Значение
+по умолчанию: 0\.;
 #X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 419 @state?;
-#X text 270 419 (readonly) Running process state: -1 (no process) \,
-0 (not started) \, 1 (running) \, 2 (finished). Type: int. Default
-value: -1\.;
+#X text 270 419 (только чтение) Running process state: -1 (no process)
+\, 0 (not started) \, 1 (running) \, 2 (finished). Тип: int. Значение
+по умолчанию: -1\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 491 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 492 eof;
 #X text 270 492 send EOF to running processes.;
-#X obj 250 520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 520 stop;
-#X text 270 520 stop running process.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 terminate;
-#X text 270 548 terminate running process.;
-#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 576 write;
-#X text 270 576 write data to process stdin.;
-#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 619 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 527 stop;
+#X text 270 527 stop running process.;
+#X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 562 terminate;
+#X text 270 562 terminate running process.;
+#X obj 250 597 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 597 write;
+#X text 270 597 write data to process stdin.;
+#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 620 1\.;
-#X text 170 620 symbol:;
-#X text 270 620 run specified program.;
-#X text 170 645 any:;
-#X text 270 645 run specified program with arguments.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 685 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 686 1\.;
-#X text 270 686 output process exit code.;
-#X text 130 706 2\.;
-#X text 270 706 output list of strings.;
+#X text 130 648 1\.;
+#X text 170 648 symbol:;
+#X text 270 648 run specified program.;
+#X text 170 673 any:;
+#X text 270 673 run specified program with arguments.;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 714 1\.;
+#X text 270 714 output process exit code.;
+#X text 130 734 2\.;
+#X text 270 734 output list of strings.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 756 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 759 library: ceammc v0.9.8;
-#N canvas 10 778 400 290 info 0;
+#X obj 1 784 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 787 библиотека: ceammc v0.9.8;
+#N canvas 10 806 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 system.exec;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 system;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 system \, execute;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 778 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 806 pd info;
 #X connect 4 0 9 0;
 #X connect 5 0 9 0;
 #X connect 7 0 9 0;

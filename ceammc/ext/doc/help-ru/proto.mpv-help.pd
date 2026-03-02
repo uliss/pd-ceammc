@@ -30,138 +30,137 @@
 #X obj 50 455 proto.mpv /tmp/mpvsocket;
 #X obj 50 483 print;
 #X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 538 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 539 1\.;
 #X text 170 539 symbol;
 #X obj 268 540 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 539 IPC: path to IPC local socket. Type: symbol.;
+#X text 270 539 IPC: path to IPC local socket. Тип: symbol.;
 #X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 579 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 580 @ipc;
-#X text 270 580 Path to IPC local socket. Type: symbol.;
+#X text 270 580 Path to IPC local socket. Тип: symbol.;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 625 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 625 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 626 fullscreen;
-#X text 270 626 set MPV fullscreen mode. Arguments are:;
-#X obj 280 649 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 649 [ON]: 1: switch to fullscreen mode \, 0: switch to
-window mode. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 689 load;
-#X text 270 689 load file. Arguments are:;
-#X obj 280 712 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 712 PATH: path to media file. Type: symbol.;
-#X obj 250 737 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 737 next;
-#X text 270 737 go to the next entry on the playlist. Arguments are:;
-#X obj 280 760 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 760 [FORCE]: 0: if the last file on the playlist is currently
+#X text 270 626 set MPV fullscreen mode. Аргументы:;
+#X obj 300 651 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 651 [ON]: 1: switch to fullscreen mode \, 0: switch to
+window mode. Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 699 load;
+#X text 270 699 load file. Аргументы:;
+#X obj 300 724 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 724 PATH: path to media file. Тип: symbol.;
+#X obj 250 757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 757 next;
+#X text 270 757 go to the next entry on the playlist. Аргументы:;
+#X obj 300 782 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 782 [FORCE]: 0: if the last file on the playlist is currently
 played \, do nothing. 1: terminate playback if there are no more files
-on the playlist. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 830 pause;
-#X text 270 830 resume/stop playing. Arguments are:;
-#X obj 280 853 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 853 [PAUSE]: 1: stop playing \, 0: resume playing. Type:
-int. Allowed values: 0 \, 1\.;
-#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 893 play;
-#X text 270 893 start play current file.;
-#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 921 playlist;
-#X text 270 921 load playlist. Arguments are:;
-#X obj 280 944 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 944 PATH: path to playlist file. Type: symbol.;
-#X obj 280 967 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 967 [MODE]: replace: stop playback and replace the internal
+on the playlist. Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 860 pause;
+#X text 270 860 resume/stop playing. Аргументы:;
+#X obj 300 885 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 885 [PAUSE]: 1: stop playing \, 0: resume playing. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 933 play;
+#X text 270 933 start play current file.;
+#X obj 250 968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 968 playlist;
+#X text 270 968 load playlist. Аргументы:;
+#X obj 300 993 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 993 PATH: path to playlist file. Тип: symbol.;
+#X obj 300 1016 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1016 [MODE]: replace: stop playback and replace the internal
 playlist with the new one (default). append: append the new playlist
-at the end of the current internal playlist. Type: symbol. Allowed
-values: replace \, append.;
-#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1037 prev;
-#X text 270 1037 go to the previous entry on the playlist. Arguments
-are:;
-#X obj 280 1060 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1060 [FORCE]: 0: if the first file on the playlist is currently
+at the end of the current internal playlist. Тип: symbol. Разрешённые
+значения: replace \, append.;
+#X obj 250 1109 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1109 prev;
+#X text 270 1109 go to the previous entry on the playlist. Аргументы:;
+#X obj 300 1134 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1134 [FORCE]: 0: if the first file on the playlist is currently
 played \, do nothing. 1: terminate playback if the first file is being
-played. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1130 quit;
-#X text 270 1130 exit the player.;
-#X obj 250 1158 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1158 seek;
-#X text 270 1158 change the playback position. By default \, seeks
-by a relative amount of seconds. Arguments are:;
-#X obj 280 1196 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1196 [time]: *rel*: relative (default) \, seek relative
+played. Тип: int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1212 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1212 quit;
+#X text 270 1212 exit the player.;
+#X obj 250 1247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1247 seek;
+#X text 270 1247 change the playback position. By default \, seeks
+by a relative amount of seconds. Аргументы:;
+#X obj 300 1287 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1287 [time]: *rel*: relative (default) \, seek relative
 to current position (a negative value seeks backwards). *abs*: absolute
 \, seek to a given time (a negative value starts from the end of the
-file). *perc*: seek to a given percent position. Type: symbol. Allowed
-values: rel \, abs \, perc.;
-#X obj 250 1297 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1297 stop;
-#X text 270 1297 stop playback and clear playlist. With default settings
+file). *perc*: seek to a given percent position. Тип: symbol. Разрешённые
+значения: rel \, abs \, perc.;
+#X obj 250 1396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1396 stop;
+#X text 270 1396 stop playback and clear playlist. With default settings
 \, this is essentially like quit. Useful for the client API: playback
-can be stopped without terminating the player. Arguments are:;
-#X obj 280 1365 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1365 [KEEP_PLIST]: if 1 - do not clear the playlist. Type:
-int. Allowed values: 0 \, 1\.;
-#X obj 250 1405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1405 text;
-#X text 270 1405 show OSD (on screen dispaly) text. Arguments are:;
-#X obj 280 1428 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1428 DUR: show time in milliseconds. Type: int.;
-#X obj 280 1451 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1451 TXT: text. Type: list.;
-#X obj 20 1486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1491 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+can be stopped without terminating the player. Аргументы:;
+#X obj 300 1466 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1466 [KEEP_PLIST]: if 1 - do not clear the playlist. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1514 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1514 text;
+#X text 270 1514 show OSD (on screen dispaly) text. Аргументы:;
+#X obj 300 1539 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1539 DUR: show time in milliseconds. Тип: int.;
+#X obj 300 1562 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1562 TXT: text. Тип: list.;
+#X obj 20 1605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1610 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1611 1\.;
+#X text 270 1611 commands.;
+#X obj 20 1646 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1651 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1492 1\.;
-#X text 270 1492 commands.;
-#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1532 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1533 1\.;
-#X text 270 1533 mpv output.;
+#X text 130 1652 1\.;
+#X text 270 1652 mpv output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1586 library: ceammc v0.9.8;
-#N canvas 10 1605 400 290 info 0;
+#X obj 1 1702 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1705 библиотека: ceammc v0.9.8;
+#N canvas 10 1724 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 proto.mpv;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 proto;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.3;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 mpv \, mplayer;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1605 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1724 pd info;
 #X connect 8 0 9 0;
 #X connect 11 0 12 0;
 #X connect 12 0 16 0;

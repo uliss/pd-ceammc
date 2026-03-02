@@ -21,109 +21,111 @@
 #X obj 184 417 ui.dsp~;
 #X obj 50 446 dac~;
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 501 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 501 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 504 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 502 1\.;
 #X text 170 502 float;
 #X obj 268 503 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 502 FREQ(Hz): main frequency. Type: float. Min value: 0;
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 542 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 502 FREQ(Hz): main frequency. Тип: float. Минимальное значение:
+0\.;
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 557 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 545 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 560 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 543 @adsr;
-#X text 270 543 ADSR 2 & 4 Target. Type: int. Default value: 0\. Range:
+#X msg 130 558 @adsr;
+#X text 270 558 ADSR 2 & 4 Target. Тип: int. Значение по умолчанию:
+0\. Диапазон: 0\...127\.;
+#X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 600 @freq;
+#X text 270 600 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+220\. Диапазон: 0\...10000\.;
+#X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 642 @gate;
+#X text 270 642 Play trigger - 1: on \, 0: off. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @lfo_depth;
+#X text 270 684 LFO delth. Тип: int. Значение по умолчанию: 0\. Диапазон:
 0\...127\.;
-#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 585 @freq;
-#X text 270 585 Frequency. Type: float. Units: 'Hz'. Default value:
-220\. Range: 0\...10000\.;
-#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 627 @gate;
-#X text 270 627 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 669 @lfo_depth;
-#X text 270 669 LFO delth. Type: int. Default value: 0\. Range: 0\...127\.;
-#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 699 @lfo_speed;
-#X text 270 699 LFO speed in Hz. Type: int. Default value: 0\. Range:
-0\...127\.;
-#X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 741 @mod;
-#X text 270 741 Modulator index one. Type: int. Default value: 0\.
-Range: 0\...127\.;
-#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 783 @pitch;
-#X text 270 783 Midi pitch. Type: float. Default value: 57\. Range:
-36\...84\.;
-#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 825 @xfade;
-#X text 270 825 Crossfade of outputs. Type: int. Default value: 0\.
-Range: 0\...127\.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 882 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @lfo_speed;
+#X text 270 726 LFO speed in Hz. Тип: int. Значение по умолчанию: 0\.
+Диапазон: 0\...127\.;
+#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 768 @mod;
+#X text 270 768 Modulator index one. Тип: int. Значение по умолчанию:
+0\. Диапазон: 0\...127\.;
+#X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 810 @pitch;
+#X text 270 810 Midi pitch. Тип: float. Значение по умолчанию: 57\.
+Диапазон: 36\...84\.;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 852 @xfade;
+#X text 270 852 Crossfade of outputs. Тип: int. Значение по умолчанию:
+0\. Диапазон: 0\...127\.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 910 cc;
+#X text 270 910 control change message. Аргументы:;
+#X obj 300 935 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 935 CTL: control number. Тип: int.;
+#X obj 300 958 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 958 VAL: value. Тип: float.;
+#X obj 250 991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 991 note;
+#X text 270 991 note on/off message. Аргументы:;
+#X obj 300 1016 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1016 NOTE: midi note. Тип: float.;
+#X obj 300 1039 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1039 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1087 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1088 1\.;
+#X text 170 1088 list:;
+#X text 270 1088 NOTE VEL.;
+#X obj 20 1123 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1128 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 883 cc;
-#X text 270 883 control change message. Arguments are:;
-#X obj 280 906 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 906 CTL: control number. Type: int.;
-#X obj 280 929 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 929 VAL: value. Type: float.;
-#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 954 note;
-#X text 270 954 note on/off message. Arguments are:;
-#X obj 280 977 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 977 NOTE: midi note. Type: float.;
-#X obj 280 1000 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1000 VEL: velocity. Type: float. Range: 0\...127\.;
-#X obj 20 1035 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1040 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1041 1\.;
-#X text 170 1041 list:;
-#X text 270 1041 NOTE VEL.;
-#X obj 20 1076 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1081 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1082 1\.;
-#X text 170 1082 ~;
-#X text 270 1082 synth output.;
+#X text 130 1129 1\.;
+#X text 170 1129 ~;
+#X text 270 1129 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1132 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1135 library: ceammc v0.9.8;
-#N canvas 10 1154 400 290 info 0;
+#X obj 1 1179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1182 библиотека: ceammc v0.9.8;
+#N canvas 10 1201 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 synth.tube_bell~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 synth;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 tubular \, stk \, bell;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1154 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1201 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 10 0 12 0;

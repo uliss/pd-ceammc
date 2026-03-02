@@ -27,84 +27,84 @@
 #X obj 270 637 flow.record-qlist;
 #X obj 50 666 flow.record-sync;
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 721 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 721 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 724 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 722 @auto;
-#X text 270 722 Autostart record on first input atom. Type: bool. Default
-value: 0\.;
+#X text 270 722 Autostart record on first input atom. Тип: bool. Значение
+по умолчанию: 0\.;
 #X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 764 @max;
 #X text 270 764 Max number of events \, if 0: no max size check. If
-@auto is set - starts playback when max size reached. Type: int. Default
-value: 256\. Range: 0\...65536\.;
-#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 821 @r;
-#X text 270 821 Number of repeats in play mode. If -1: repeat infinitely.
-Type: int. Default value: 1\. Min value: -1\.;
-#X obj 250 863 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 863 @speed;
-#X text 270 863 Play speed. Type: float. Default value: 1\. Range:
-0.0156\...64\.;
-#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 905 @sync;
-#X text 270 905 Use external bang pulse to sync recorded events with.
-Type: bool. Default value: 0\.;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 962 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+@auto is set - starts playback when max size reached. Тип: int. Значение
+по умолчанию: 256\. Диапазон: 0\...65536\.;
+#X obj 250 836 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 836 @r;
+#X text 270 836 Number of repeats in play mode. If -1: repeat infinitely.
+Тип: int. Значение по умолчанию: 1\. Минимальное значение: -1\.;
+#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 893 @speed;
+#X text 270 893 Play speed. Тип: float. Значение по умолчанию: 1\.
+Диапазон: 0.0156\...64\.;
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 935 @sync;
+#X text 270 935 Use external bang pulse to sync recorded events with.
+Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 992 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 963 1\.;
-#X text 170 963 any:;
-#X text 270 963 input message.;
-#X text 130 988 2\.;
-#X text 170 988 bang:;
-#X text 270 988 sync tick (when @sync 1).;
-#X text 270 1013 [rec (1|0)?( - start (stop) flow record.;
-#X text 270 1038 [play (1|0)?( - play (stop) recorded flow.;
-#X text 270 1063 [stop (1|0)?( - stop (play) recording.;
-#X text 270 1088 [clear( - remove all recorded messages.;
-#X text 270 1113 [flush( - output and remove all recorded messages.;
-#X text 270 1138 [qlist( - output to qlist object.;
-#X text 270 1163 [length FLOAT|time( - resize recorded messages (remove
+#X text 130 993 1\.;
+#X text 170 993 any:;
+#X text 270 993 input message.;
+#X text 130 1018 2\.;
+#X text 170 1018 bang:;
+#X text 270 1018 sync tick (when @sync 1).;
+#X text 270 1043 [rec (1|0)?( - start (stop) flow record.;
+#X text 270 1068 [play (1|0)?( - play (stop) recorded flow.;
+#X text 270 1093 [stop (1|0)?( - stop (play) recording.;
+#X text 270 1118 [clear( - remove all recorded messages.;
+#X text 270 1143 [flush( - output and remove all recorded messages.;
+#X text 270 1168 [qlist( - output to qlist object.;
+#X text 270 1193 [length FLOAT|time( - resize recorded messages (remove
 after specified length).;
-#X obj 20 1213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1218 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1243 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1248 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1219 1\.;
-#X text 270 1219 output message.;
+#X text 130 1249 1\.;
+#X text 270 1249 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1269 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1272 library: ceammc v0.9.8;
-#N canvas 10 1291 400 290 info 0;
+#X obj 1 1299 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1302 библиотека: ceammc v0.9.8;
+#N canvas 10 1321 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 flow.record;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 flow;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 flow \, record;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1291 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1321 pd info;
 #X connect 5 0 9 0;
 #X connect 6 0 9 1;
 #X connect 7 0 9 1;

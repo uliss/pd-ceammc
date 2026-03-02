@@ -14,49 +14,49 @@
 #X obj 338 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 243 1\.;
 #X text 170 243 float;
 #X obj 268 244 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 VALUE: target value. Type: float.;
+#X text 270 243 VALUE: target value. Тип: float.;
 #X text 130 268 2\.;
 #X text 170 268 float;
 #X obj 268 269 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 268 TIME(ms): time to reach the target value. Type: float.
-Range: 50\...5000;
+#X text 270 268 TIME(ms): time to reach the target value. Тип: float.
+Диапазон: 50…5000;
 #X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 323 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 323 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 326 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 324 @accel;
 #X text 270 324 Acceleration factor \, 0: means linear motion (no acceleration)
 \, >0: begin fast \, then slow down \, <0: begin slow \, then speed
-up. Type: float. Default value: 0\. Range: -5\...5\.;
+up. Тип: float. Значение по умолчанию: 0\. Диапазон: -5\...5\.;
 #X obj 250 396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 396 @mouse_down;
-#X text 270 396 Internal state. Type: bool. Default value: 0\.;
+#X text 270 396 Internal state. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 426 @mouse_drag;
-#X text 270 426 Internal state. Type: bool. Default value: 0\.;
+#X text 270 426 Internal state. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 456 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 456 @mouse_move;
-#X text 270 456 Internal state. Type: bool. Default value: 0\.;
+#X text 270 456 Internal state. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 486 @mouse_up;
-#X text 270 486 Internal state. Type: bool. Default value: 0\.;
+#X text 270 486 Internal state. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 516 @time;
-#X text 270 516 Time to reach target value. Type: float. Units: 'ms'.
-Default value: 500\. Range: 50\...5000\.;
+#X text 270 516 Time to reach target value. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 500\. Диапазон: 50\...5000\.;
 #X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 558 @value;
-#X text 270 558 Target value. Type: float. Default value: 0\.;
+#X text 270 558 Target value. Тип: float. Значение по умолчанию: 0\.;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 603 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 603 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 604 1\.;
 #X text 170 604 float:;
@@ -65,8 +65,8 @@ Default value: 500\. Range: 50\...5000\.;
 #X text 170 629 float:;
 #X text 270 629 set @value.;
 #X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 669 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
+#X obj 20 669 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
 #X text 130 670 1\.;
 #X text 270 670 float: value.;
 #X text 130 690 2\.;
@@ -77,31 +77,31 @@ Default value: 500\. Range: 50\...5000\.;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 740 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 743 library: ceammc v0.9.8;
+#X text 10 743 библиотека: ceammc v0.9.8;
 #N canvas 10 762 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 spring;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 base;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 spring \, float;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
+#X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 762 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;

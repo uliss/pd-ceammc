@@ -23,58 +23,59 @@
 #X floatatom 50 345 5 0 0 0 - - -;
 #X floatatom 117 345 5 0 0 0 - - -;
 #X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 382 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 382 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 385 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 383 1\.;
 #X text 170 383 int;
 #X obj 268 384 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 383 FRAMESIZE(samp): размер окна. Allowed values: 128 \,
-256 \, 512 \, 1024 \, 2048\. Type: int.;
+#X text 270 383 FRAMESIZE(samp): размер окна. Разрешённые значения:
+128 \, 256 \, 512 \, 1024 \, 2048\. Тип: int.;
 #X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 438 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 438 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 439 @bias;
 #X text 270 439 Насколько предпочитать небольшие задержки по сравнению
 с большими при обнаружении периода \, тем самым избегая скачков на
-октаву вниз. Type: float. Default value: 0.2\. Range: 0\...1\.;
+октаву вниз. Тип: float. Значение по умолчанию: 0.2\. Диапазон: 0\...1\.;
 #X obj 250 511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 511 @fidthr;
 #X text 270 511 Минимальный порог качества \, чтобы сообщить об определенной
-высоте. Type: float. Default value: 0.95\. Range: 0\...1\.;
+высоте. Тип: float. Значение по умолчанию: 0.95\. Диапазон: 0\...1\.;
 #X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 568 @framesize;
-#X text 270 568 Размер окна. Type: int. Units: 'samp'. Default value:
-1024\. Allowed values: 128 \, 256 \, 512 \, 1024 \, 2048\.;
-#X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 610 @maxfreq;
-#X text 270 610 Максимальная отслеживаемая частота. Type: float. Units:
-'Hz'. Default value: 1500\. Range: 10\...10000\.;
-#X obj 250 652 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 652 @overlap;
-#X text 270 652 Перекрытие окон при анализе. Type: int. Default value:
-1\. Allowed values: 1 \, 2 \, 4 \, 8\.;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 709 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 568 Размер окна. Тип: int. Единицы: 'samp'. Значение по
+умолчанию: 1024\. Разрешённые значения: 128 \, 256 \, 512 \, 1024 \,
+2048\.;
+#X obj 250 625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 625 @maxfreq;
+#X text 270 625 Максимальная отслеживаемая частота. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 1500\. Диапазон: 10\...10000\.;
+#X obj 250 682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 682 @overlap;
+#X text 270 682 Перекрытие окон при анализе. Тип: int. Значение по
+умолчанию: 1\. Разрешённые значения: 1 \, 2 \, 4 \, 8\.;
+#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 739 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 710 1\.;
-#X text 170 710 ~;
-#X text 270 710 входной сигнал.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 750 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 751 1\.;
-#X text 170 751 ~;
-#X text 270 751 выходной сигнал.;
-#X text 130 771 2\.;
-#X text 170 771 float(Hz):;
-#X text 270 771 выходная частота.;
-#X text 130 791 3\.;
-#X text 170 791 float:;
-#X text 270 791 точность распознования: значение от 0 до 1 \, указывающее
+#X text 130 740 1\.;
+#X text 170 740 ~;
+#X text 270 740 входной сигнал.;
+#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 780 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 781 1\.;
+#X text 170 781 ~;
+#X text 270 781 выходной сигнал.;
+#X text 130 801 2\.;
+#X text 170 801 float(Hz):;
+#X text 270 801 выходная частота.;
+#X text 130 821 3\.;
+#X text 170 821 float:;
+#X text 270 821 точность распознования: значение от 0 до 1 \, указывающее
 \, в какой степени входной сигнал является периодическим. Точность
 около 0.95 можно считать признаком периодического сигнала.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -82,36 +83,36 @@
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 886 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 889 library: ceammc v0.9.8;
-#X text 539 901 see also:;
-#X obj 614 901 sigmund~;
-#X obj 688 901 fiddle~;
-#N canvas 10 908 400 290 info 0;
+#X obj 1 916 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 919 библиотека: ceammc v0.9.8;
+#X text 493 931 смотрите также:;
+#X obj 614 931 sigmund~;
+#X obj 688 931 fiddle~;
+#N canvas 10 938 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 an.pitchtrack~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 an;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Katja Vetter \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 pitchtrack;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 908 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 938 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 1;
 #X connect 11 0 13 0;

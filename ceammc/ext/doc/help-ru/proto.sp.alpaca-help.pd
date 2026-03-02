@@ -31,125 +31,124 @@
 #X floatatom 232 406 5 0 0 0 - - -;
 #X floatatom 290 406 5 0 0 0 - - -;
 #X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 443 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 443 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 444 brightness;
-#X text 270 444 set LED brightness. Arguments are:;
-#X obj 280 467 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 467 VAL: value. Type: float. Range: 0\...1\.;
-#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 492 char;
-#X text 270 492 draw char at specified position. Arguments are:;
-#X obj 280 515 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 515 CH: char symbol or int value from 0 to 9\. Type: atom.;
-#X obj 280 538 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 538 [XOFF]: horizontal character offset. Type: int. Range:
-0\...7\.;
-#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 578 clear;
-#X text 270 578 clear LED display.;
-#X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 606 col;
-#X text 270 606 draw column pixels. Arguments are:;
-#X obj 280 629 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 629 N: column index. Type: int. Range: 0\...7\.;
-#X obj 280 652 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 652 BITS: list of 0 and 1\. Type: list.;
-#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 677 fill;
-#X text 270 677 fill LED display.;
-#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 705 invert;
-#X text 270 705 invert LED display.;
-#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 733 mode;
-#X text 270 733 set device jack mode. Arguments are:;
-#X obj 280 756 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 756 IDX: left (0) or right (1) device side. Type: int.
-Allowed values: 0 \, 1\.;
-#X obj 280 794 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 794 MODE: output mode: none - no output \, digital1 - send
+#X text 270 444 set LED brightness. Аргументы:;
+#X obj 300 469 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 469 VAL: value. Тип: float. Диапазон: 0…1\.;
+#X obj 250 502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 502 char;
+#X text 270 502 draw char at specified position. Аргументы:;
+#X obj 300 527 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 527 CH: char symbol or int value from 0 to 9\. Тип: atom.;
+#X obj 300 550 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 550 [XOFF]: horizontal character offset. Тип: int. Диапазон:
+0…7\.;
+#X obj 250 598 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 598 clear;
+#X text 270 598 clear LED display.;
+#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 633 col;
+#X text 270 633 draw column pixels. Аргументы:;
+#X obj 300 658 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 658 N: column index. Тип: int. Диапазон: 0…7\.;
+#X obj 300 681 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 681 BITS: list of 0 and 1\. Тип: list.;
+#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 714 fill;
+#X text 270 714 fill LED display.;
+#X obj 250 749 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 749 invert;
+#X text 270 749 invert LED display.;
+#X obj 250 784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 784 mode;
+#X text 270 784 set device jack mode. Аргументы:;
+#X obj 300 809 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 809 IDX: left (0) or right (1) device side. Тип: int. Разрешённые
+значения: 0 \, 1\.;
+#X obj 300 847 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 847 MODE: output mode: none - no output \, digital1 - send
 only first button press \, digital2 - send only second button press
 \, digital - send both buttons press \, analog - send analog value
-(from pedal) \, analog_row - send raw analog values (pair). Type: symbol.
-Allowed values: digital1 \, digital2 \, digital \, analog \, analog_raw
-\, none.;
-#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 895 pixel;
-#X text 270 895 draw/clear pixel on display matrix (6x8). Arguments
-are:;
-#X obj 280 918 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 918 X: x-pixel coordinate. Type: int. Range: 0\...7\.;
-#X obj 280 941 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 941 Y: y-pixel coordinate. Type: int. Range: 0\...5\.;
-#X obj 280 964 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 964 ON/OFF: draw (1) or clear (0). Type: int. Allowed values:
-0 \, 1\.;
-#X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1004 row;
-#X text 270 1004 draw row pixels. Arguments are:;
-#X obj 280 1027 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1027 N: row index. Type: int. Range: 0\...5\.;
-#X obj 280 1050 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1050 BITS: list of 0 and 1\. Type: list.;
+(from pedal) \, analog_row - send raw analog values (pair). Тип: symbol.
+Разрешённые значения: digital1 \, digital2 \, digital \, analog \,
+analog_raw \, none.;
+#X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 956 pixel;
+#X text 270 956 draw/clear pixel on display matrix (6x8). Аргументы:;
+#X obj 300 981 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 981 X: x-pixel coordinate. Тип: int. Диапазон: 0…7\.;
+#X obj 300 1004 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1004 Y: y-pixel coordinate. Тип: int. Диапазон: 0…5\.;
+#X obj 300 1027 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1027 ON/OFF: draw (1) or clear (0). Тип: int. Разрешённые
+значения: 0 \, 1\.;
 #X obj 250 1075 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1075 str;
-#X text 270 1075 draw string. Arguments are:;
-#X obj 280 1098 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1098 STR: string or int value from -9 to 99\. Type: atom.;
-#X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1123 sync;
-#X text 270 1123 force device to send it's button and mode state.;
-#X obj 250 1151 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1151 version?;
-#X text 270 1151 outputs device protocol version as message: [version
+#X msg 130 1075 row;
+#X text 270 1075 draw row pixels. Аргументы:;
+#X obj 300 1100 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1100 N: row index. Тип: int. Диапазон: 0…5\.;
+#X obj 300 1123 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1123 BITS: list of 0 and 1\. Тип: list.;
+#X obj 250 1156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1156 str;
+#X text 270 1156 draw string. Аргументы:;
+#X obj 300 1181 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1181 STR: string or int value from -9 to 99\. Тип: atom.;
+#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1214 sync;
+#X text 270 1214 force device to send it's button and mode state.;
+#X obj 250 1249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1249 version?;
+#X text 270 1249 outputs device protocol version as message: [version
 N].;
-#X obj 250 1179 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1179 dump;
-#X text 270 1179 dumps all object info to Pd console window.;
-#X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1222 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1284 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1284 dump;
+#X text 270 1284 dumps all object info to Pd console window.;
+#X obj 20 1329 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1334 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1335 1\.;
+#X text 170 1335 float:;
+#X text 270 1335 input byte value from arduino.;
+#X obj 20 1370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1375 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1223 1\.;
-#X text 170 1223 float:;
-#X text 270 1223 input byte value from arduino.;
-#X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1263 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1264 1\.;
-#X text 270 1264 output parsed messages from device.;
+#X text 130 1376 1\.;
+#X text 270 1376 output parsed messages from device.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1314 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1317 library: ceammc v0.9.8;
-#N canvas 10 1336 400 290 info 0;
+#X obj 1 1426 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1429 библиотека: ceammc v0.9.8;
+#N canvas 10 1448 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 proto.sp.alpaca;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 proto;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.8;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 protocol \, diy \, alpaca \, footswitch;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1336 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1448 pd info;
 #X connect 4 0 11 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

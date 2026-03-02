@@ -25,232 +25,233 @@
 #X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 20;
 #X obj 347 349 ui.dsp~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 404 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 405 @id;
-#X text 270 405 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/spat_zita6x8/ИМЯ_СВОЙСТВА
-\, в противном случае к /spat_zita6x8/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 477 @osc;
-#X text 270 477 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 507 @a0;
-#X text 270 507 1st source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 549 @a1;
-#X text 270 549 2nd source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 591 @a2;
-#X text 270 591 3rd source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 633 @a3;
-#X text 270 633 4th source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @a4;
-#X text 270 675 5th source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 717 @a5;
-#X text 270 717 6th source panning position. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 759 @active;
-#X text 270 759 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 801 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 801 @dry0;
-#X text 270 801 1st source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 843 @dry1;
-#X text 270 843 2nd source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 885 @dry2;
-#X text 270 885 3rd source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 927 @dry3;
-#X text 270 927 4th source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 969 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 969 @dry4;
-#X text 270 969 5th source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 1011 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1011 @dry5;
-#X text 270 1011 6th source direct sound level. Type: float. Units:
-'db'. Default value: -3\. Range: -60\...0\.;
-#X obj 250 1053 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1053 @r0;
-#X text 270 1053 1st source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1095 @r1;
-#X text 270 1095 2nd source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1137 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1137 @r2;
-#X text 270 1137 3rd source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1179 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1179 @r3;
-#X text 270 1179 4th source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1221 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1221 @r4;
-#X text 270 1221 5th source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1263 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1263 @r5;
-#X text 270 1263 6th source distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X obj 250 1305 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1305 @t0;
-#X text 270 1305 1st source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1362 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1362 @t1;
-#X text 270 1362 2nd source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1419 @t2;
-#X text 270 1419 3rd source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1476 @t3;
-#X text 270 1476 4th source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1533 @t4;
-#X text 270 1533 5th source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1590 @t5;
-#X text 270 1590 6th source reverb time (in seconds) to decay 60dB
-in low and mid-frequency band. Type: float. Units: 'sec'. Default value:
-2\. Range: 0\...90\.;
-#X obj 250 1647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1647 @wet0;
-#X text 270 1647 1st source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 250 1689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1689 @wet1;
-#X text 270 1689 2nd source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 250 1731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1731 @wet2;
-#X text 270 1731 3rd source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 250 1773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1773 @wet3;
-#X text 270 1773 4th source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 250 1815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1815 @wet4;
-#X text 270 1815 5th source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 250 1857 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1857 @wet5;
-#X text 270 1857 6th source reverb sound level. Type: float. Units:
-'db'. Default value: -8\. Range: -60\...0\.;
-#X obj 20 1909 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1914 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 405 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/spat_zita6x8/ИМЯ_СВОЙСТВА \, в противном случае к /spat_zita6x8/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 492 @osc;
+#X text 270 492 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 522 @a0;
+#X text 270 522 1st source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 564 @a1;
+#X text 270 564 2nd source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 606 @a2;
+#X text 270 606 3rd source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 648 @a3;
+#X text 270 648 4th source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 690 @a4;
+#X text 270 690 5th source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 732 @a5;
+#X text 270 732 6th source panning position. Тип: float. Значение по
+умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 @active;
+#X text 270 774 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 816 @dry0;
+#X text 270 816 1st source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 858 @dry1;
+#X text 270 858 2nd source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 900 @dry2;
+#X text 270 900 3rd source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 942 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 942 @dry3;
+#X text 270 942 4th source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 984 @dry4;
+#X text 270 984 5th source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 1026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1026 @dry5;
+#X text 270 1026 6th source direct sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+#X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1068 @r0;
+#X text 270 1068 1st source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1110 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1110 @r1;
+#X text 270 1110 2nd source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1152 @r2;
+#X text 270 1152 3rd source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1194 @r3;
+#X text 270 1194 4th source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1236 @r4;
+#X text 270 1236 5th source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1278 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1278 @r5;
+#X text 270 1278 6th source distance from circle center. Тип: float.
+Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1320 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1320 @t0;
+#X text 270 1320 1st source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1377 @t1;
+#X text 270 1377 2nd source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1434 @t2;
+#X text 270 1434 3rd source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1491 @t3;
+#X text 270 1491 4th source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1548 @t4;
+#X text 270 1548 5th source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1605 @t5;
+#X text 270 1605 6th source reverb time (in seconds) to decay 60dB
+in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
+по умолчанию: 2\. Диапазон: 0\...90\.;
+#X obj 250 1662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1662 @wet0;
+#X text 270 1662 1st source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 250 1704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1704 @wet1;
+#X text 270 1704 2nd source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 250 1746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1746 @wet2;
+#X text 270 1746 3rd source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 250 1788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1788 @wet3;
+#X text 270 1788 4th source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 250 1830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1830 @wet4;
+#X text 270 1830 5th source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 250 1872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1872 @wet5;
+#X text 270 1872 6th source reverb sound level. Тип: float. Единицы:
+'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+#X obj 20 1924 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1929 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1915 reset;
-#X text 270 1915 reset reverb.;
-#X obj 20 1953 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1958 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1930 reset;
+#X text 270 1930 reset reverb.;
+#X obj 20 1975 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1980 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1981 1\.;
+#X text 170 1981 ~;
+#X text 270 1981 1st source input.;
+#X text 130 2006 2\.;
+#X text 170 2006 ~;
+#X text 270 2006 2nd source input.;
+#X text 130 2031 3\.;
+#X text 170 2031 ~;
+#X text 270 2031 3rd source input.;
+#X text 130 2056 4\.;
+#X text 170 2056 ~;
+#X text 270 2056 4th source input.;
+#X text 130 2081 5\.;
+#X text 170 2081 ~;
+#X text 270 2081 5th source input.;
+#X text 130 2106 6\.;
+#X text 170 2106 ~;
+#X text 270 2106 6th source input.;
+#X obj 20 2141 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2146 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1959 1\.;
-#X text 170 1959 ~;
-#X text 270 1959 1st source input.;
-#X text 130 1984 2\.;
-#X text 170 1984 ~;
-#X text 270 1984 2nd source input.;
-#X text 130 2009 3\.;
-#X text 170 2009 ~;
-#X text 270 2009 3rd source input.;
-#X text 130 2034 4\.;
-#X text 170 2034 ~;
-#X text 270 2034 4th source input.;
-#X text 130 2059 5\.;
-#X text 170 2059 ~;
-#X text 270 2059 5th source input.;
-#X text 130 2084 6\.;
-#X text 170 2084 ~;
-#X text 270 2084 6th source input.;
-#X obj 20 2119 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2124 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 2125 1\.;
-#X text 170 2125 ~;
-#X text 270 2125 1st output.;
-#X text 130 2145 2\.;
-#X text 170 2145 ~;
-#X text 270 2145 2dn output.;
-#X text 130 2165 3\.;
-#X text 170 2165 ~;
-#X text 270 2165 3rd output.;
-#X text 130 2185 4\.;
-#X text 170 2185 ~;
-#X text 270 2185 4th output.;
-#X text 130 2205 5\.;
-#X text 170 2205 ~;
-#X text 270 2205 5th output.;
-#X text 130 2225 6\.;
-#X text 170 2225 ~;
-#X text 270 2225 6th output.;
-#X text 130 2245 7\.;
-#X text 170 2245 ~;
-#X text 270 2245 7th output.;
-#X text 130 2265 8\.;
-#X text 170 2265 ~;
-#X text 270 2265 8th output.;
+#X text 130 2147 1\.;
+#X text 170 2147 ~;
+#X text 270 2147 1st output.;
+#X text 130 2167 2\.;
+#X text 170 2167 ~;
+#X text 270 2167 2dn output.;
+#X text 130 2187 3\.;
+#X text 170 2187 ~;
+#X text 270 2187 3rd output.;
+#X text 130 2207 4\.;
+#X text 170 2207 ~;
+#X text 270 2207 4th output.;
+#X text 130 2227 5\.;
+#X text 170 2227 ~;
+#X text 270 2227 5th output.;
+#X text 130 2247 6\.;
+#X text 170 2247 ~;
+#X text 270 2247 6th output.;
+#X text 130 2267 7\.;
+#X text 170 2267 ~;
+#X text 270 2267 7th output.;
+#X text 130 2287 8\.;
+#X text 170 2287 ~;
+#X text 270 2287 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2315 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2318 library: ceammc v0.9.8;
-#N canvas 10 2337 400 290 info 0;
+#X obj 1 2337 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2340 библиотека: ceammc v0.9.8;
+#N canvas 10 2359 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 spat.zita6x8~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 spat;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 fx \, spat \, zita;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 2337 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2359 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;

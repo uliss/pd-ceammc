@@ -64,86 +64,86 @@ leave the interval [0 \, 1] and diverge.;
 #X obj 405 1057 ui.dsp~;
 #X obj 50 1086 dac~;
 #X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1141 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 1141 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 1144 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 1142 1\.;
 #X text 170 1142 float;
 #X obj 268 1143 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1142 INIT: x init value (default 0.777). Type: float.;
+#X text 270 1142 INIT: x init value (default 0.777). Тип: float.;
 #X text 130 1167 2\.;
 #X text 170 1167 float;
 #X obj 268 1168 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1167 LAMBDA: lambda value (default 3.9). Type: float.;
+#X text 270 1167 LAMBDA: lambda value (default 3.9). Тип: float.;
 #X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1207 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1207 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1208 lambda;
 #X text 270 1208 set lambda value.;
-#X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1236 om;
-#X text 270 1236 set output mode. Arguments are:;
-#X obj 280 1259 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1259 BOOL: output mode. If 1: outputs new generated value
+#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1243 om;
+#X text 270 1243 set output mode. Аргументы:;
+#X obj 300 1268 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1268 BOOL: output mode. If 1: outputs new generated value
 after lambda or seed method call \, if 0 - change values without output.
-Default is 0\. Type: int.;
-#X obj 250 1314 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1314 reset;
-#X text 270 1314 set to initial state.;
-#X obj 250 1342 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1342 seed;
-#X text 270 1342 set init value \, updates init value.;
-#X obj 250 1370 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1370 set;
-#X text 270 1370 set init value and lambda value and updates init value.;
-#X obj 20 1408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1413 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+Default is 0\. Тип: int.;
+#X obj 250 1331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1331 reset;
+#X text 270 1331 set to initial state.;
+#X obj 250 1366 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1366 seed;
+#X text 270 1366 set init value \, updates init value.;
+#X obj 250 1401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1401 set;
+#X text 270 1401 set init value and lambda value and updates init value.;
+#X obj 20 1446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1452 1\.;
+#X text 170 1452 bang:;
+#X text 270 1452 generate and output new value.;
+#X text 170 1477 float:;
+#X text 270 1477 set x-value and if output mode is 1 outputs new value.;
+#X obj 20 1512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1517 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1414 1\.;
-#X text 170 1414 bang:;
-#X text 270 1414 generate and output new value.;
-#X text 170 1439 float:;
-#X text 270 1439 set x-value and if output mode is 1 outputs new value.;
-#X obj 20 1474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1479 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1480 1\.;
-#X text 270 1480 new generated x-value.;
+#X text 130 1518 1\.;
+#X text 270 1518 new generated x-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1530 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1533 library: ceammc v0.9.8;
-#X text 592 1545 see also:;
-#X obj 667 1545 chaos.std0;
-#N canvas 10 1552 400 290 info 0;
+#X obj 1 1568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1571 библиотека: ceammc v0.9.8;
+#X text 546 1583 смотрите также:;
+#X obj 667 1583 chaos.std0;
+#N canvas 10 1590 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 chaos.logistic;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 chaos;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 André Sier;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 chaos \, logistic;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1552 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1590 pd info;
 #X connect 19 0 21 0;
 #X connect 20 0 23 0;
 #X connect 21 0 24 0;

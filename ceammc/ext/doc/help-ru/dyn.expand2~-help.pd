@@ -36,7 +36,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X floatatom 155 426 5 0 0 0 - - -;
 #X obj 328 426 ui.hsl -60 0 @active_scale 1 @show_value 1;
 #X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 481 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 481 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 484 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
@@ -44,149 +44,151 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 170 482 float;
 #X obj 268 483 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 482 STRENGTH: сила экспандера (0: без расширения \, 10:
-практически гейт). Type: float. Range: 0\...10;
+практически гейт). Тип: float. Диапазон: 0…10;
 #X text 130 522 2\.;
 #X text 170 522 float;
 #X obj 268 523 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 522 THRESHOLD(db): пороговый уровень \, ниже которого срабатывает
-экспандер. Type: float. Range: -60\...0;
+экспандер. Тип: float. Диапазон: -60…0;
 #X text 130 562 3\.;
 #X text 170 562 float;
 #X obj 268 563 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 562 ATTACK(ms): время атаки - время включения экспандера.
-Type: float. Range: 0.1\...100;
+Тип: float. Диапазон: 0.1…100;
 #X text 130 602 4\.;
 #X text 170 602 float;
 #X obj 268 603 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 602 RELEASE(ms): время спада - время выключения экспандера.
-Type: float. Range: 1\...500;
+Тип: float. Диапазон: 1…500;
 #X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 657 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 660 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 658 @id;
-#X text 270 658 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/dyn_expand2/ИМЯ_СВОЙСТВА
-\, в противном случае к /dyn_expand2/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 730 @osc;
-#X text 270 730 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 760 @active;
-#X text 270 760 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 802 @attack;
-#X text 270 802 Time constant when expander is turning on. Type: float.
-Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 @bypass;
-#X text 270 844 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 886 @hold;
-#X text 270 886 Hold period. Type: float. Units: 'samp'. Default value:
-128\. Range: 1\...255\.;
-#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 928 @knee;
-#X text 270 928 A gradual increase in gain reduction around the threshold:
+#X text 270 658 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/dyn_expand2/ИМЯ_СВОЙСТВА \, в противном случае к /dyn_expand2/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 745 @osc;
+#X text 270 745 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 775 @active;
+#X text 270 775 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 817 @attack;
+#X text 270 817 Time constant when expander is turning on. Тип: float.
+Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 874 @bypass;
+#X text 270 874 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 916 @hold;
+#X text 270 916 Hold period. Тип: float. Единицы: 'samp'. Значение
+по умолчанию: 128\. Диапазон: 1\...255\.;
+#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 958 @knee;
+#X text 270 958 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
-there is a gradual increase in gain reduction. Type: float. Units:
-'db'. Default value: 3\. Range: 0\...6\.;
-#X obj 250 1031 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1031 @link;
-#X text 270 1031 The amount of linkage between the channels: 0 = each
+there is a gradual increase in gain reduction. Тип: float. Единицы:
+'db'. Значение по умолчанию: 3\. Диапазон: 0\...6\.;
+#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1061 @link;
+#X text 270 1061 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
-gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
-#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1103 @range;
-#X text 270 1103 Max expand range. Type: float. Units: 'db'. Default
-value: -120\. Range: -120\...0\.;
-#X obj 250 1145 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1145 @refresh;
-#X text 270 1145 Expander level output time interval. If 0 - no output.
-Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
-#X obj 250 1202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1202 @release;
-#X text 270 1202 Release time = time constant coming out of expanding.
-Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
-#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1259 @strength;
-#X text 270 1259 Expander strength (0: no expanding \, 1: increase
-level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
-#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1316 @threshold;
-#X text 270 1316 Level threshold above which compression kicks in (100
-dB = max level). Type: float. Units: 'db'. Default value: -48\. Range:
--60\...0\.;
-#X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1373 @level?;
-#X text 270 1373 (readonly) Current expander level. Type: float. Units:
-'db'. Default value: 0\. Range: 0\...90\.;
-#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1430 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+gain reduction. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+#X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1133 @range;
+#X text 270 1133 Max expand range. Тип: float. Единицы: 'db'. Значение
+по умолчанию: -120\. Диапазон: -120\...0\.;
+#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1175 @refresh;
+#X text 270 1175 Expander level output time interval. If 0 - no output.
+Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
+#X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1232 @release;
+#X text 270 1232 Release time = time constant coming out of expanding.
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1289 @strength;
+#X text 270 1289 Expander strength (0: no expanding \, 1: increase
+level by @range db.). Тип: float. Значение по умолчанию: 0\. Диапазон:
+0\...10\.;
+#X obj 250 1346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1346 @threshold;
+#X text 270 1346 Level threshold above which compression kicks in (100
+dB = max level). Тип: float. Единицы: 'db'. Значение по умолчанию:
+-48\. Диапазон: -60\...0\.;
+#X obj 250 1403 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1403 @level?;
+#X text 270 1403 (только чтение) Current expander level. Тип: float.
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: 0\...90\.;
+#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1475 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1431 reset;
-#X text 270 1431 reset to initial state.;
-#X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1474 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1476 reset;
+#X text 270 1476 reset to initial state.;
+#X obj 20 1521 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1526 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1527 1\.;
+#X text 170 1527 ~;
+#X text 270 1527 left input signal.;
+#X text 130 1552 2\.;
+#X text 170 1552 ~;
+#X text 270 1552 right input signal.;
+#X text 130 1577 3\.;
+#X text 170 1577 float:;
+#X text 270 1577 set expander strength.;
+#X obj 20 1612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1617 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1475 1\.;
-#X text 170 1475 ~;
-#X text 270 1475 left input signal.;
-#X text 130 1500 2\.;
-#X text 170 1500 ~;
-#X text 270 1500 right input signal.;
-#X text 130 1525 3\.;
-#X text 170 1525 float:;
-#X text 270 1525 set expander strength.;
-#X obj 20 1560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1565 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1566 1\.;
-#X text 170 1566 ~;
-#X text 270 1566 left expanded signal.;
-#X text 130 1586 2\.;
-#X text 170 1586 ~;
-#X text 270 1586 right expanded signal.;
-#X text 130 1606 3\.;
-#X text 270 1606 list: output current expander level in db.;
+#X text 130 1618 1\.;
+#X text 170 1618 ~;
+#X text 270 1618 left expanded signal.;
+#X text 130 1638 2\.;
+#X text 170 1638 ~;
+#X text 270 1638 right expanded signal.;
+#X text 130 1658 3\.;
+#X text 270 1658 list: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1656 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1659 library: ceammc v0.9.8;
-#X text 584 1671 see also:;
-#X obj 659 1671 dyn.expand~;
-#N canvas 10 1678 400 290 info 0;
+#X obj 1 1708 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1711 библиотека: ceammc v0.9.8;
+#X text 538 1723 смотрите также:;
+#X obj 659 1723 dyn.expand~;
+#N canvas 10 1730 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 dyn.expand2~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 dyn;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 expander \, mono;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1678 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1730 pd info;
 #X connect 7 0 12 0;
 #X connect 8 0 13 0;
 #X connect 9 0 14 0;

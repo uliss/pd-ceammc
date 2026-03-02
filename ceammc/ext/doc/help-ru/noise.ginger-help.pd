@@ -33,91 +33,91 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 50 549 ui.display;
 #X obj 270 549 ui.display;
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 604 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 604 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 607 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 605 1\.;
 #X text 170 605 float;
 #X obj 268 606 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 605 SEED: seed value \, default 0.82\. Type: float.;
+#X text 270 605 SEED: seed value \, default 0.82\. Тип: float.;
 #X text 130 630 2\.;
 #X text 170 630 float;
 #X obj 268 631 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 630 X: initial x value \, default 0.7\. Type: float.;
+#X text 270 630 X: initial x value \, default 0.7\. Тип: float.;
 #X text 130 655 3\.;
 #X text 170 655 float;
 #X obj 268 656 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 655 Y: initial y value \, default 1.2\. Type: float.;
+#X text 270 655 Y: initial y value \, default 1.2\. Тип: float.;
 #X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 695 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 695 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 698 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 721 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 721 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 722 reset;
 #X text 270 722 reset seed \, x and y values to defaults.;
-#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 750 seed;
-#X text 270 750 set seed value and update default.;
-#X obj 250 778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 778 set;
-#X text 270 778 set seed \, x and y values \, updates defaults.;
-#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 806 x;
-#X text 270 806 set x value and update default.;
-#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 834 y;
-#X text 270 834 set y value and update default.;
-#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 877 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 757 seed;
+#X text 270 757 set seed value and update default.;
+#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 792 set;
+#X text 270 792 set seed \, x and y values \, updates defaults.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 827 x;
+#X text 270 827 set x value and update default.;
+#X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 862 y;
+#X text 270 862 set y value and update default.;
+#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 912 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 878 1\.;
-#X text 170 878 bang:;
-#X text 270 878 outputs current x/y values and generates new one.;
-#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 918 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 919 1\.;
-#X text 270 919 outputs x-value.;
-#X text 130 939 2\.;
-#X text 270 939 outputs y-value.;
+#X text 130 913 1\.;
+#X text 170 913 bang:;
+#X text 270 913 outputs current x/y values and generates new one.;
+#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 953 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 954 1\.;
+#X text 270 954 outputs x-value.;
+#X text 130 974 2\.;
+#X text 270 974 outputs y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 989 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 992 library: ceammc v0.9.8;
-#X text 578 1004 see also:;
-#X obj 653 1004 chaos.gbman0;
-#N canvas 10 1011 400 290 info 0;
+#X obj 1 1024 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1027 библиотека: ceammc v0.9.8;
+#X text 532 1039 смотрите также:;
+#X obj 653 1039 chaos.gbman0;
+#N canvas 10 1046 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 noise.ginger;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 noise;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 André Sier;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 chaos \, generator \, gingerbreadman;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1011 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1046 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

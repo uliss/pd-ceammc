@@ -31,99 +31,100 @@
 #X obj 299 435 ui.dsp~;
 #X obj 50 464 dac~;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 519 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 522 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 520 @id;
-#X text 270 520 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_flanger/ИМЯ_СВОЙСТВА
-\, в противном случае к /fx_flanger/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 592 @osc;
-#X text 270 592 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 622 @active;
-#X text 270 622 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 664 @bypass;
-#X text 270 664 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 706 @delay;
-#X text 270 706 Flange delay. Type: float. Units: 'ms'. Default value:
-10\. Range: 0\...20\.;
-#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 748 @drywet;
-#X text 270 748 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
-#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 805 @feedback;
-#X text 270 805 Feedback gain. Type: float. Default value: 0\. Range:
-0\...1\.;
-#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 847 @invert;
-#X text 270 847 0 for normal \, 1 to invert sign of flanging sum. Type:
-bool. Default value: 0\.;
-#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 889 @offset;
-#X text 270 889 Flange delay offset. Type: float. Units: 'ms'. Default
-value: 1\. Range: 0\...20\.;
-#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 931 @speed;
-#X text 270 931 Flanger frequency. Type: float. Units: 'Hz'. Default
-value: 0.5\. Range: 0\...10\.;
-#X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 988 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 520 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_flanger/ИМЯ_СВОЙСТВА \, в противном случае к /fx_flanger/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 607 @osc;
+#X text 270 607 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 637 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 637 @active;
+#X text 270 637 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 679 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 679 @bypass;
+#X text 270 679 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 721 @delay;
+#X text 270 721 Flange delay. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 10\. Диапазон: 0\...20\.;
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 763 @drywet;
+#X text 270 763 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0\...1\.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 820 @feedback;
+#X text 270 820 Feedback gain. Тип: float. Значение по умолчанию: 0\.
+Диапазон: 0\...1\.;
+#X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 862 @invert;
+#X text 270 862 0 for normal \, 1 to invert sign of flanging sum. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 904 @offset;
+#X text 270 904 Flange delay offset. Тип: float. Единицы: 'ms'. Значение
+по умолчанию: 1\. Диапазон: 0\...20\.;
+#X obj 250 946 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 946 @speed;
+#X text 270 946 Flanger frequency. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 0.5\. Диапазон: 0\...10\.;
+#X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1003 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 989 reset;
-#X text 270 989 reset object.;
-#X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1032 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1004 reset;
+#X text 270 1004 reset object.;
+#X obj 20 1049 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1054 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1055 1\.;
+#X text 170 1055 ~;
+#X text 270 1055 input signal.;
+#X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1095 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1033 1\.;
-#X text 170 1033 ~;
-#X text 270 1033 input signal.;
-#X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1073 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1074 1\.;
-#X text 170 1074 ~;
-#X text 270 1074 output signal.;
+#X text 130 1096 1\.;
+#X text 170 1096 ~;
+#X text 270 1096 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1124 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1127 library: ceammc v0.9.8;
-#N canvas 10 1146 400 290 info 0;
+#X obj 1 1146 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1149 библиотека: ceammc v0.9.8;
+#N canvas 10 1168 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fx.flanger~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 fx;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.2;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 fx \, flanger;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1146 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1168 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

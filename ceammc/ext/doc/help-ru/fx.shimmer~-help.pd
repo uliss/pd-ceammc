@@ -18,7 +18,7 @@
 #X obj 213 320 ui.dsp~;
 #X obj 50 349 dac~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
@@ -26,139 +26,140 @@
 #X text 170 405 float;
 #X obj 268 406 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 DECAY_LOW(sec): time to decay 60dB in low-frequency
-band. Type: float. Range: 1\...8;
+band. Тип: float. Диапазон: 1…8;
 #X text 130 445 2\.;
 #X text 170 445 float;
 #X obj 268 446 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 445 DECAY_MID(sec): time to decay 60dB in mid-frequency
-band. Type: float. Range: 1\...8;
+band. Тип: float. Диапазон: 1…8;
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 500 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 500 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 503 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 501 @id;
-#X text 270 501 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_shimmer/ИМЯ_СВОЙСТВА
-\, в противном случае к /fx_shimmer/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @osc;
-#X text 270 573 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 603 @active;
-#X text 270 603 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @bypass;
-#X text 270 645 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 687 @control;
-#X text 270 687 Envelope follower to pitch shifter influence coefficient.
-Type: float. Default value: 0.5\. Range: 0\...1\.;
-#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 729 @damp_hf;
-#X text 270 729 Frequency (Hz) at which the high-frequency T60 is half
-the middle-band's T60\. Type: float. Units: 'Hz'. Default value: 6000\.
-Range: 1500\...47040\.;
-#X obj 250 786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 786 @decay_low;
-#X text 270 786 Time (in seconds) to decay 60dB in low-frequency band.
-Type: float. Units: 'sec'. Default value: 3\. Range: 1\...8\.;
-#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 843 @decay_mid;
-#X text 270 843 Time (in seconds) to decay 60dB in mid-frequency band.
-Type: float. Units: 'sec'. Default value: 2\. Range: 1\...8\.;
-#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 900 @depth;
-#X text 270 900 Pitchshift modulation amplitude. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X obj 250 942 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 942 @drywet;
-#X text 270 942 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.5\. Range: 0\...1\.;
-#X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 999 @envelope;
-#X text 270 999 Amplitude-envelope time-constant going down. Type:
-float. Units: 'sec'. Default value: 1\. Range: 0.1\...3\.;
-#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1041 @freq_low;
-#X text 270 1041 Crossover frequency (Hz) separating low and middle
-frequencies. Type: float. Units: 'Hz'. Default value: 200\. Range:
-50\...1000\.;
-#X obj 250 1098 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1098 @mode;
-#X text 270 1098 Correlation between pitchshift. Type: int. Default
-value: 0\. Range: -3\...3\.;
-#X obj 250 1140 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1140 @ps_drywet;
-#X text 270 1140 Proportion of mix between original and pitchshift
-signal in shimmer feedback. Type: float. Default value: 0.5\. Range:
-0\...1\.;
-#X obj 250 1197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1197 @shift;
-#X text 270 1197 Frequency shifting. Type: float. Units: 'semitone'.
-Default value: 12\. Range: -12\...12\.;
-#X obj 250 1239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1239 @speed;
-#X text 270 1239 Pitchshift modulation frequency. Type: float. Units:
-'Hz'. Default value: 0.1\. Range: 0.1\...10\.;
-#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1296 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 501 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_shimmer/ИМЯ_СВОЙСТВА \, в противном случае к /fx_shimmer/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 588 @osc;
+#X text 270 588 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 618 @active;
+#X text 270 618 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 660 @bypass;
+#X text 270 660 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 702 @control;
+#X text 270 702 Envelope follower to pitch shifter influence coefficient.
+Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
+#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 759 @damp_hf;
+#X text 270 759 Frequency (Hz) at which the high-frequency T60 is half
+the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+6000\. Диапазон: 1500\...47040\.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 816 @decay_low;
+#X text 270 816 Time (in seconds) to decay 60dB in low-frequency band.
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 3\. Диапазон: 1\...8\.;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 873 @decay_mid;
+#X text 270 873 Time (in seconds) to decay 60dB in mid-frequency band.
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 2\. Диапазон: 1\...8\.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 930 @depth;
+#X text 270 930 Pitchshift modulation amplitude. Тип: float. Значение
+по умолчанию: 0\. Диапазон: 0\...1\.;
+#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 972 @drywet;
+#X text 270 972 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+0.5\. Диапазон: 0\...1\.;
+#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1029 @envelope;
+#X text 270 1029 Amplitude-envelope time-constant going down. Тип:
+float. Единицы: 'sec'. Значение по умолчанию: 1\. Диапазон: 0.1\...3\.;
+#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1086 @freq_low;
+#X text 270 1086 Crossover frequency (Hz) separating low and middle
+frequencies. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 200\.
+Диапазон: 50\...1000\.;
+#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1143 @mode;
+#X text 270 1143 Correlation between pitchshift. Тип: int. Значение
+по умолчанию: 0\. Диапазон: -3\...3\.;
+#X obj 250 1185 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1185 @ps_drywet;
+#X text 270 1185 Proportion of mix between original and pitchshift
+signal in shimmer feedback. Тип: float. Значение по умолчанию: 0.5\.
+Диапазон: 0\...1\.;
+#X obj 250 1242 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1242 @shift;
+#X text 270 1242 Frequency shifting. Тип: float. Единицы: 'semitone'.
+Значение по умолчанию: 12\. Диапазон: -12\...12\.;
+#X obj 250 1284 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1284 @speed;
+#X text 270 1284 Pitchshift modulation frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 0.1\. Диапазон: 0.1\...10\.;
+#X obj 20 1351 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1356 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1297 reset;
-#X text 270 1297 reset to initial state.;
-#X obj 20 1335 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1340 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1357 reset;
+#X text 270 1357 reset to initial state.;
+#X obj 20 1402 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1407 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1408 1\.;
+#X text 170 1408 ~;
+#X text 270 1408 input signal.;
+#X text 130 1433 2\.;
+#X text 170 1433 ~;
+#X text 270 1433 input signal.;
+#X obj 20 1468 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1473 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1341 1\.;
-#X text 170 1341 ~;
-#X text 270 1341 input signal.;
-#X text 130 1366 2\.;
-#X text 170 1366 ~;
-#X text 270 1366 input signal.;
-#X obj 20 1401 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1406 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1407 1\.;
-#X text 170 1407 ~;
-#X text 270 1407 output signal.;
-#X text 130 1427 2\.;
-#X text 170 1427 ~;
-#X text 270 1427 output signal.;
+#X text 130 1474 1\.;
+#X text 170 1474 ~;
+#X text 270 1474 output signal.;
+#X text 130 1494 2\.;
+#X text 170 1494 ~;
+#X text 270 1494 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1477 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1480 library: ceammc v0.9.8;
-#N canvas 10 1499 400 290 info 0;
+#X obj 1 1544 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1547 библиотека: ceammc v0.9.8;
+#N canvas 10 1566 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fx.shimmer~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 fx;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 thedrgreenthumb \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 fx \, echo \, shimmer \, reverb;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1499 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1566 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

@@ -17,97 +17,98 @@
 #X obj 203 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 318 @id;
-#X text 270 318 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/synth_kick/ИМЯ_СВОЙСТВА
-\, в противном случае к /synth_kick/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 390 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 390 @osc;
-#X text 270 390 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 420 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 420 @active;
-#X text 270 420 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 462 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 462 @attack;
-#X text 270 462 Attack time. Type: float. Units: 'ms'. Default value:
-10\. Range: 1\...50\.;
-#X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 504 @envwait;
-#X text 270 504 Ignore new notes until previous note is not finished
-release time. Type: bool. Default value: 0\.;
-#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 546 @freq;
-#X text 270 546 Start frequency. Type: float. Units: 'Hz'. Default
-value: 50\. Range: 10\...5000\.;
-#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 588 @gate;
-#X text 270 588 Play trigger >0: on \, 0: off. To set output gain to
-0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
-0\...1\.;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @release;
-#X text 270 645 Release time. Type: float. Units: 'ms'. Default value:
-1000\. Range: 10\...8000\.;
-#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 702 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 703 reset;
-#X text 270 703 reset synth.;
-#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 746 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 318 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/synth_kick/ИМЯ_СВОЙСТВА \, в противном случае к /synth_kick/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 405 @osc;
+#X text 270 405 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 435 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 435 @active;
+#X text 270 435 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 477 @attack;
+#X text 270 477 Attack time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 10\. Диапазон: 1\...50\.;
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 519 @envwait;
+#X text 270 519 Ignore new notes until previous note is not finished
+release time. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 561 @freq;
+#X text 270 561 Start frequency. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 50\. Диапазон: 10\...5000\.;
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 603 @gate;
+#X text 270 603 Play trigger >0: on \, 0: off. To set output gain to
+0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 660 @release;
+#X text 270 660 Release time. Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 1000\. Диапазон: 10\...8000\.;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 717 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 747 1\.;
-#X text 170 747 bang:;
-#X text 270 747 play with default duration and full gain.;
-#X text 170 772 float:;
-#X text 270 772 play with default duration and specified gain.;
-#X text 170 797 list:;
-#X text 270 797 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 832 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 837 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 838 1\.;
-#X text 170 838 ~;
-#X text 270 838 synth output.;
-#X text 130 858 2\.;
-#X text 270 858 bang after release finished.;
+#X msg 130 718 reset;
+#X text 270 718 reset synth.;
+#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 768 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 769 1\.;
+#X text 170 769 bang:;
+#X text 270 769 play with default duration and full gain.;
+#X text 170 794 float:;
+#X text 270 794 play with default duration and specified gain.;
+#X text 170 819 list:;
+#X text 270 819 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 859 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 860 1\.;
+#X text 170 860 ~;
+#X text 270 860 synth output.;
+#X text 130 880 2\.;
+#X text 270 880 bang after release finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 908 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 911 library: ceammc v0.9.8;
-#N canvas 10 930 400 290 info 0;
+#X obj 1 930 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 933 библиотека: ceammc v0.9.8;
+#N canvas 10 952 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 synth.kick~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 synth;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 synth \, kick;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 930 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 952 pd info;
 #X connect 4 0 7 0;
 #X connect 7 0 8 0;
 #X connect 5 0 9 0;

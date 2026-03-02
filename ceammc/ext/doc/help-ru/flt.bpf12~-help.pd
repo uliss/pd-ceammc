@@ -33,99 +33,100 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
 #X obj 50 640 ui.dsp~;
 #X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 695 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 695 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 698 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 696 1\.;
 #X text 170 696 float;
 #X obj 268 697 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 696 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 270 696 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
 #X text 130 721 2\.;
 #X text 170 721 float;
 #X obj 268 722 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 721 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
-0.01\...100;
+#X text 270 721 Q: quality factory: @freq/BANDWIDTH. Тип: float. Диапазон:
+0.01…100;
 #X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 776 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 776 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 779 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 777 @id;
-#X text 270 777 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/flt_bpf12/ИМЯ_СВОЙСТВА
-\, в противном случае к /flt_bpf12/ИМЯ_СВОЙСТВА. Type: symbol.;
+#X text 270 777 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/flt_bpf12/ИМЯ_СВОЙСТВА \, в противном случае к /flt_bpf12/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
 #X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 849 @osc;
-#X text 270 849 (initonly) Имя OSC сервера. Type: symbol.;
+#X text 270 849 (при инициализации) Имя OSC сервера. Тип: symbol.;
 #X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @active;
-#X text 270 879 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
+#X text 270 879 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
 #X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 @freq;
-#X text 270 921 Center frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
+#X text 270 921 Center frequency. Тип: float. Единицы: 'Hz'. Значение
+по умолчанию: 1000\. Диапазон: 20\...20000\.;
 #X obj 250 963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 963 @q;
-#X text 270 963 Quality factor: @freq/BANDWIDTH. Type: float. Default
-value: 2\. Range: 0.01\...100\.;
+#X text 270 963 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
+по умолчанию: 2\. Диапазон: 0.01\...100\.;
 #X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1020 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1020 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1021 reset;
 #X text 270 1021 reset filter state.;
-#X obj 20 1059 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1064 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1066 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1071 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1072 1\.;
+#X text 170 1072 ~;
+#X text 270 1072 input signal.;
+#X text 130 1097 2\.;
+#X text 270 1097 set frequency.;
+#X text 130 1122 3\.;
+#X text 270 1122 set Q-factor.;
+#X obj 20 1157 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1162 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1065 1\.;
-#X text 170 1065 ~;
-#X text 270 1065 input signal.;
-#X text 130 1090 2\.;
-#X text 270 1090 set frequency.;
-#X text 130 1115 3\.;
-#X text 270 1115 set Q-factor.;
-#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1155 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1156 1\.;
-#X text 170 1156 ~;
-#X text 270 1156 filtered signal.;
+#X text 130 1163 1\.;
+#X text 170 1163 ~;
+#X text 270 1163 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1206 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1209 library: ceammc v0.9.8;
-#X text 502 1221 see also:;
-#X obj 577 1221 flt.bpf24~;
-#X obj 666 1221 flt.c_bpf~;
-#N canvas 10 1228 400 290 info 0;
+#X obj 1 1213 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1216 библиотека: ceammc v0.9.8;
+#X text 456 1228 смотрите также:;
+#X obj 577 1228 flt.bpf24~;
+#X obj 666 1228 flt.c_bpf~;
+#N canvas 10 1235 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 flt.bpf12~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 flt;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 filter \, biquad \, bpf;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1228 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1235 pd info;
 #X connect 8 0 15 0;
 #X connect 9 0 15 0;
 #X connect 10 0 15 0;

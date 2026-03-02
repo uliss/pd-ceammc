@@ -21,22 +21,22 @@ list:;
 #X obj 50 268 list.zip 3 @min;
 #X obj 50 297 ui.dt;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 352 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 352 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 355 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 353 1\.;
 #X text 170 353 int;
 #X obj 268 354 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 353 N: number of inputs. Type: int. Range: 2\...20;
+#X text 270 353 N: number of inputs. Тип: int. Диапазон: 2…20;
 #X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 393 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 393 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 396 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 394 @n;
-#X text 270 394 (initonly) Number of inputs. Type: int. Default value:
-2\. Range: 2\...20\.;
+#X text 270 394 (при инициализации) Number of inputs. Тип: int. Значение
+по умолчанию: 2\. Диапазон: 2\...20\.;
 #X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 436 @clip;
 #X text 270 436 Alias for "@oversize clip" property. Pad shortest list
@@ -48,69 +48,70 @@ with repeated values from the end to the beginning \, then back and
 so on.;
 #X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 535 @method;
-#X text 270 535 Behavior \, if list have different sizes. Type: symbol.
-Default value: min. Allowed values: min \, pad \, clip \, wrap \, fold.;
+#X text 270 535 Behavior \, if list have different sizes. Тип: symbol.
+Значение по умолчанию: min. Разрешённые значения: min \, pad \, clip
+\, wrap \, fold.;
 #X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 592 @min;
 #X text 270 592 Alias for "@oversize min" property. Truncates lists
 to minimal common size.;
 #X obj 250 634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 634 @pad;
-#X text 270 634 Pad value for pad method of resizing. Type: atom. Default
-value: 0\.;
+#X text 270 634 Pad value for pad method of resizing. Тип: atom. Значение
+по умолчанию: 0\.;
 #X obj 250 676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 676 @wrap;
 #X text 270 676 Alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
 #X obj 250 718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 718 @lists?;
-#X text 270 718 (readonly) Input data list: list of data:mlist. Type:
-list.;
-#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 763 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 718 (только чтение) Input data list: list of data:mlist.
+Тип: list.;
+#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 775 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 764 1\.;
-#X text 170 764 list:;
-#X text 270 764 input list.;
-#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 804 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 805 1\.;
-#X text 270 805 interleaved list.;
+#X text 130 776 1\.;
+#X text 170 776 list:;
+#X text 270 776 input list.;
+#X obj 20 811 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 816 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 817 1\.;
+#X text 270 817 interleaved list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 855 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 858 library: ceammc v0.9.8;
-#X text 592 870 see also:;
-#X obj 667 870 list.unzip;
-#N canvas 10 877 400 290 info 0;
+#X obj 1 867 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 870 библиотека: ceammc v0.9.8;
+#X text 546 882 смотрите также:;
+#X obj 667 882 list.unzip;
+#N canvas 10 889 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 list.zip;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 list;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Alex Nadzharov \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 list \, functional;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 877 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 889 pd info;
 #X connect 8 0 15 0;
 #X connect 11 0 15 0;
 #X connect 9 0 15 1;

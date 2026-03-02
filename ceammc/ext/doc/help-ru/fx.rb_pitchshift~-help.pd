@@ -18,17 +18,17 @@
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 float;
 #X obj 268 377 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 TRANSPOSE(semitone): transposition in semitones. Type:
-float. Range: -24\...24;
+#X text 270 376 TRANSPOSE(semitone): transposition in semitones. Тип:
+float. Диапазон: -24…24;
 #X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 431 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 434 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
@@ -38,52 +38,52 @@ a general-purpose transient detector which is likely to be good for
 most situations. 'precussive' detect percussive transients. 'piano'
 use an onset detector with less of a bias toward percussive transients.
 This may give better results with certain material (e.g. relatively
-monophonic piano music). Type: symbol. Default value: compound. Allowed
-values: compound \, percussive \, soft.;
-#X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 565 @formant;
-#X text 270 565 Control the handling of formant shape (spectral envelope)
+monophonic piano music). Тип: symbol. Значение по умолчанию: compound.
+Разрешённые значения: compound \, percussive \, soft.;
+#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 580 @formant;
+#X text 270 580 Control the handling of formant shape (spectral envelope)
 when pitch-shifting. If 'true' preserve the spectral envelope of the
 unshifted signal. This permits shifting the note frequency without
 so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
-envelope will be pitch shifted as normal. Type: bool. Default value:
+envelope will be pitch shifted as normal. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 698 @phase;
-#X text 270 698 Control the adjustment of component frequency phases
+#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 713 @phase;
+#X text 270 713 Control the adjustment of component frequency phases
 from one analysis window to the next during non-transient segments.
 'False' adjust the phase in each frequency bin independently from its
 neighbours. This usually results in a slightly softer \, phasier sound.
 'True' adjust phases when stretching in such a way as to try to retain
 the continuity of phase relationships between adjacent frequency bins
-whose phases are behaving in similar ways. Type: bool. Default value:
+whose phases are behaving in similar ways. Тип: bool. Значение по умолчанию:
 1\.;
-#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 846 @quality;
-#X text 270 846 Method used for pitch shifting. 'speed' may sound less
+#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 861 @quality;
+#X text 270 861 Method used for pitch shifting. 'speed' may sound less
 clear than 'quality' \, especially for large pitch shifts. 'quality'
 method has a CPU cost approximately proportional to the required frequency
 shift. 'consistency' gives greatest consistency when used to create
 small variations in pitch around the 1.0-ratio level. Unlike the previous
 two options \, this avoids discontinuities when moving across the 1.0
 pitch scale in real-time. It also consumes more CPU than the others
-in the case where the pitch scale is exactly 1.0\. Type: symbol. Default
-value: speed. Allowed values: speed \, quality \, consistency.;
-#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1039 @scale;
-#X text 270 1039 Transposition as ratio. Type: float. Default value:
-1\. Range: 0.25\...4\.;
-#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1081 @smooth;
-#X text 270 1081 Control the use of window-presum FFT and time-domain
+in the case where the pitch scale is exactly 1.0\. Тип: symbol. Значение
+по умолчанию: speed. Разрешённые значения: speed \, quality \, consistency.;
+#X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1054 @scale;
+#X text 270 1054 Transposition as ratio. Тип: float. Значение по умолчанию:
+1\. Диапазон: 0.25\...4\.;
+#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1096 @smooth;
+#X text 270 1096 Control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
-of some instruments and can mix well with @window short. Type: bool.
-Default value: 0\.;
-#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1184 @trans;
-#X text 270 1184 Control the component frequency phase-reset mechanism
+of some instruments and can mix well with @window short. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1199 @trans;
+#X text 270 1199 Control the component frequency phase-reset mechanism
 that may be used at transient points to provide clarity and realism
 to percussion and other significant transient sounds. 'crisp' reset
 component phases at the peak of each transient (the start of a significant
@@ -98,70 +98,70 @@ but with a "phasier" sound. The balance may sound very good for certain
 types of music and fairly bad for others. 'smooth' do not reset component
 phases at any point. The results will be smoother and more regular
 but may be less clear than with either of the other @trans settings.
-Type: symbol. Default value: crisp. Allowed values: crisp \, mixed
-\, smooth.;
-#X obj 250 1498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1498 @transpose;
-#X text 270 1498 Transposition in semitones. Type: float. Units: 'semitone'.
-Default value: 0\. Range: -24\...24\.;
-#X obj 250 1540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1540 @window;
-#X text 270 1540 The window size. 'standard' is expected to produce
+Тип: symbol. Значение по умолчанию: crisp. Разрешённые значения: crisp
+\, mixed \, smooth.;
+#X obj 250 1513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1513 @transpose;
+#X text 270 1513 Transposition in semitones. Тип: float. Единицы: 'semitone'.
+Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+#X obj 250 1555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1555 @window;
+#X text 270 1555 The window size. 'standard' is expected to produce
 better results than the other window options in most situations. 'short'
 may result in crisper sound for audio that depends strongly on its
 timing qualities. 'long' is likely to result in a smoother sound at
-the expense of clarity and timing. Type: symbol. Default value: standard.
-Allowed values: standard \, short \, long.;
-#X obj 250 1658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1658 @latency?;
-#X text 270 1658 (readonly) Object latency. Type: float. Units: 'samp'.
-Default value: 1024\.;
-#X obj 20 1710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1715 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+the expense of clarity and timing. Тип: symbol. Значение по умолчанию:
+standard. Разрешённые значения: standard \, short \, long.;
+#X obj 250 1673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1673 @latency?;
+#X text 270 1673 (только чтение) Object latency. Тип: float. Единицы:
+'samp'. Значение по умолчанию: 1024\.;
+#X obj 20 1725 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1730 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1731 1\.;
+#X text 170 1731 ~;
+#X text 270 1731 input signal.;
+#X text 130 1756 2\.;
+#X text 270 1756 pitch shift in semitones.;
+#X obj 20 1791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1796 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1716 1\.;
-#X text 170 1716 ~;
-#X text 270 1716 input signal.;
-#X text 130 1741 2\.;
-#X text 270 1741 pitch shift in semitones.;
-#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1781 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1782 1\.;
-#X text 170 1782 ~;
-#X text 270 1782 output signal.;
+#X text 130 1797 1\.;
+#X text 170 1797 ~;
+#X text 270 1797 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1835 library: ceammc v0.9.8;
-#N canvas 10 1854 400 290 info 0;
+#X obj 1 1847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1850 библиотека: ceammc v0.9.8;
+#N canvas 10 1869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fx.rb_pitchshift~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 fx;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.4;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 fx \, pitchshift \, rubberband;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1854 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1869 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;

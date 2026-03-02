@@ -16,131 +16,131 @@
 #X obj 165 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 318 @path;
-#X text 270 318 File path. Type: symbol.;
+#X text 270 318 File path. Тип: symbol.;
 #X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 363 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 363 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 364 close;
 #X text 270 364 close file.;
-#X obj 250 392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 392 open;
-#X text 270 392 open file \, updates @path property. Arguments are:;
-#X obj 280 415 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 415 FNAME: file path: absolute or relative. Type: symbol.;
-#X obj 280 438 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 438 [MODE]: open mode \, 'r': open text file for reading
+#X obj 250 399 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 399 open;
+#X text 270 399 open file \, updates @path property. Аргументы:;
+#X obj 300 424 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 424 FNAME: file path: absolute or relative. Тип: symbol.;
+#X obj 300 447 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 447 [MODE]: open mode \, 'r': open text file for reading
 only. 'w': truncate to 0 length \, if existent \, or create text file
 for writing only. 'a': append \, open or create text file only for
 writing at end of file. 'r+': open text file for reading and writing.
 'w+': truncate to 0 length \, if existent \, or create text file for
 reading and writing. 'a+': append \, open or create text file for reading
-and writing \, writing at end of file. Type: symbol. Allowed values:
+and writing \, writing at end of file. Тип: symbol. Разрешённые значения:
 r \, w \, a \, r+ \, w+ \, a+.;
-#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 584 read_bytes;
-#X text 270 584 read bytes from file \, output as list of integers.
-Arguments are:;
-#X obj 280 622 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 622 [N]: number of bytes to read \, if omitted read all
-content. Type: int.;
-#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 662 read_line;
-#X text 270 662 read line from file \, output as list as atoms.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 remove;
-#X text 270 690 remove file. Arguments are:;
-#X obj 280 713 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 713 NAME: file path. Type: symbol.;
-#X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 738 rename;
-#X text 270 738 rename file. Arguments are:;
-#X obj 280 761 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 761 PATH: old file path. Type: symbol.;
-#X obj 280 784 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 784 NEW_PATH: new file path. Type: symbol.;
-#X obj 250 809 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 809 seek_read;
-#X text 270 809 change reading position. Arguments are:;
-#X obj 280 832 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 832 POS: offset position. Type: int.;
-#X obj 280 855 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 855 [ORIG]: offset origin \, if omitted offset from the
-beginning. Type: symbol. Allowed values: beg|cur|end.;
-#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 895 seek_write;
-#X text 270 895 change writing position. Arguments are:;
-#X obj 280 918 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 918 POS: offset position. Type: int.;
-#X obj 280 941 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 941 [ORIG]: offset origin \, if omitted offset from the
-beginning. Type: symbol. Allowed values: beg|cur|end.;
-#X obj 250 981 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 981 write;
-#X text 270 981 write space separated atoms to file \, no newline added.
-Arguments are:;
-#X obj 280 1019 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1019 ARGS: atoms to write. Type: list.;
-#X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1044 write_bytes;
-#X text 270 1044 write given bytes to file. Arguments are:;
-#X obj 280 1067 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1067 ARGS: list of bytes: integers in 0-255 or symbols
-with '0x' prefix: 0x11 \, 0xFF etc.. Type: list.;
-#X obj 250 1107 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1107 write_line;
-#X text 270 1107 write space separated atoms to file \, newline added.
-Arguments are:;
-#X obj 280 1145 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1145 ARGS: atoms to write. Type: list.;
-#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1185 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 601 read_bytes;
+#X text 270 601 read bytes from file \, output as list of integers.
+Аргументы:;
+#X obj 300 626 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 626 [N]: number of bytes to read \, if omitted read all
+content. Тип: int.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 674 read_line;
+#X text 270 674 read line from file \, output as list as atoms.;
+#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 709 remove;
+#X text 270 709 remove file. Аргументы:;
+#X obj 300 734 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 734 NAME: file path. Тип: symbol.;
+#X obj 250 767 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 767 rename;
+#X text 270 767 rename file. Аргументы:;
+#X obj 300 792 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 792 PATH: old file path. Тип: symbol.;
+#X obj 300 815 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 815 NEW_PATH: new file path. Тип: symbol.;
+#X obj 250 848 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 848 seek_read;
+#X text 270 848 change reading position. Аргументы:;
+#X obj 300 873 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 873 POS: offset position. Тип: int.;
+#X obj 300 896 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 896 [ORIG]: offset origin \, if omitted offset from the
+beginning. Тип: symbol. Разрешённые значения: beg|cur|end.;
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 944 seek_write;
+#X text 270 944 change writing position. Аргументы:;
+#X obj 300 969 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 969 POS: offset position. Тип: int.;
+#X obj 300 992 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 992 [ORIG]: offset origin \, if omitted offset from the
+beginning. Тип: symbol. Разрешённые значения: beg|cur|end.;
+#X obj 250 1040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1040 write;
+#X text 270 1040 write space separated atoms to file \, no newline
+added. Аргументы:;
+#X obj 300 1080 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1080 ARGS: atoms to write. Тип: list.;
+#X obj 250 1113 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1113 write_bytes;
+#X text 270 1113 write given bytes to file. Аргументы:;
+#X obj 300 1138 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1138 ARGS: list of bytes: integers in 0-255 or symbols
+with '0x' prefix: 0x11 \, 0xFF etc.. Тип: list.;
+#X obj 250 1186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1186 write_line;
+#X text 270 1186 write space separated atoms to file \, newline added.
+Аргументы:;
+#X obj 300 1226 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1226 ARGS: atoms to write. Тип: list.;
+#X obj 20 1269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1274 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1275 1\.;
+#X text 270 1275 ...;
+#X obj 20 1310 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1315 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1186 1\.;
-#X text 270 1186 ...;
-#X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1226 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 1227 1\.;
-#X text 270 1227 list: read output.;
-#X text 130 1247 2\.;
-#X text 270 1247 bang on EOF reached.;
+#X text 130 1316 1\.;
+#X text 270 1316 list: read output.;
+#X text 130 1336 2\.;
+#X text 270 1336 bang on EOF reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 1297 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1300 library: ceammc v0.9.8;
-#N canvas 10 1319 400 290 info 0;
+#X obj 1 1386 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1389 библиотека: ceammc v0.9.8;
+#N canvas 10 1408 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 path.file;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 path;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.5;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 path \, file;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1319 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1408 pd info;
 #X connect 4 0 10 0;
 #X connect 5 0 10 0;
 #X connect 6 0 10 0;

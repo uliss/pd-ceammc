@@ -38,173 +38,173 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 50 633 snd.file-pattern;
 #X obj 242 633 snd.file-pos;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 688 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 688 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 691 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 689 @verbose;
-#X text 270 689 (initonly) Verbose output to Pd window. Type: bool.
-Default value: 0\.;
+#X text 270 689 (при инициализации) Verbose output to Pd window. Тип:
+bool. Значение по умолчанию: 0\.;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @smpte_fr;
-#X text 270 731 SMPTE framerate for SMPTE offset calculations. Type:
-float. Default value: 30\. Range: 1\...99\.;
+#X text 270 731 SMPTE framerate for SMPTE offset calculations. Тип:
+float. Значение по умолчанию: 30\. Диапазон: 1\...99\.;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @channels?;
-#X text 270 773 (readonly) List of loaded channels into each array.
-Type: list.;
+#X text 270 773 (только чтение) List of loaded channels into each array.
+Тип: list.;
 #X obj 250 815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 815 @filename?;
-#X text 270 815 (readonly) Filename. Type: list.;
+#X text 270 815 (только чтение) Filename. Тип: list.;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @formats?;
-#X text 270 845 (readonly) List of supported formats. Type: list. Default
-value: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5
-MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI.;
+#X text 270 845 (только чтение) List of supported formats. Тип: list.
+Значение по умолчанию: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1
+MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64
+WAV WAVEX WVE XI.;
 #X obj 250 917 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 917 @samples?;
-#X text 270 917 (readonly) List of number of loaded samples into each
-array. Type: list.;
+#X text 270 917 (только чтение) List of number of loaded samples into
+each array. Тип: list.;
 #X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 959 @sr?;
-#X text 270 959 (readonly) Source file samplerate. Type: list.;
+#X text 270 959 (только чтение) Source file samplerate. Тип: list.;
 #X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1004 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1004 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1005 load;
 #X text 270 1005 Loads sound file. Outputs info properties and number
-of loaded samples after load. Arguments are:;
-#X obj 280 1043 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1043 PATH: path to soundfile. Type: symbol.;
-#X obj 280 1066 cnv 1 106 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1066 to ARRAY_NAME: destination array names or pattern.
+of loaded samples after load. Аргументы:;
+#X obj 300 1045 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1045 PATH: path to soundfile. Тип: symbol.;
+#X obj 300 1068 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1068 to ARRAY_NAME: destination array names or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
-and array_right. Type: symbol.;
-#X obj 280 1134 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1134 [@resize]: resize array to fit loaded samples. Type:
+and array_right. Тип: symbol.;
+#X obj 300 1136 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1136 [@resize]: resize array to fit loaded samples. Тип:
 property.;
-#X obj 280 1172 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1172 [@channel N]: specify input channels. Spaces separated
-list or range x-y. Type: property.;
-#X obj 280 1210 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1210 [@normalize]: normalize array after loading. Type:
+#X obj 300 1159 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1159 [@channel N]: specify input channels. Spaces separated
+list or range x-y. Тип: property.;
+#X obj 300 1197 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1197 [@normalize]: normalize array after loading. Тип:
 property.;
-#X obj 280 1233 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1233 [@gain V]: apply gain to loaded samples \, examples:
-+3.1db \, -6db \, 0.5 etc. Type: property.;
-#X obj 280 1271 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1271 [@begin X]: specify input file begin position \, by
+#X obj 300 1220 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1220 [@gain V]: apply gain to loaded samples \, examples:
++3.1db \, -6db \, 0.5 etc. Тип: property.;
+#X obj 300 1258 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1258 [@begin X]: specify input file begin position \, by
 default in samples \, but you can use other units: 1s \, 10ms \, 00:01.12
 (smpte). To specify value relative to file end you can use $-X syntax.
-Type: property.;
-#X obj 280 1339 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1339 [@end X]: specify input file end position \, by default
+Тип: property.;
+#X obj 300 1326 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1326 [@end X]: specify input file end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
-To specify value relative to file end you can use $-X syntax. Type:
+To specify value relative to file end you can use $-X syntax. Тип:
 property.;
-#X obj 280 1407 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1407 [@length X]: specify input length \, by default in
+#X obj 300 1394 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1394 [@length X]: specify input length \, by default in
 samples \, but you can use other units: 1s \, 10ms \, 00:00:02.00 (smpte).
-Type: property.;
-#X obj 280 1460 cnv 1 132 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1460 [@offset SAMPLES]: offset in samples from beginning
-of file. Deprecated \, use @begin instead. Type: property.;
-#X obj 280 1498 cnv 1 109 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1498 [@resample R?]: if R is not specified - resample from
+Тип: property.;
+#X obj 300 1447 cnv 1 132 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1447 [@offset SAMPLES]: offset in samples from beginning
+of file. Deprecated \, use @begin instead. Тип: property.;
+#X obj 300 1485 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1485 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
-R as float value or integer fraction - 44100/48000\. Type: property.;
-#X obj 250 1568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1568 save;
-#X text 270 1568 Save arrays to specified file. Arguments are:;
-#X obj 280 1591 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1591 ARRAYS: list of arrays. Type: list.;
-#X obj 280 1614 cnv 1 76 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1614 @to FNAME: output filename. Type: symbol.;
-#X obj 280 1637 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1637 [@begin X]: specify input array begin position \,
+R as float value or integer fraction - 44100/48000\. Тип: property.;
+#X obj 250 1563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1563 save;
+#X text 270 1563 Save arrays to specified file. Аргументы:;
+#X obj 300 1588 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1588 ARRAYS: list of arrays. Тип: list.;
+#X obj 300 1611 cnv 1 76 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1611 @to FNAME: output filename. Тип: symbol.;
+#X obj 300 1634 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1634 [@begin X]: specify input array begin position \,
 by default in samples \, but you can use other units: 1s \, 10ms \,
 00:01.12 (smpte). To specify value relative to array end you can use
-$-X syntax. Type: property.;
-#X obj 280 1705 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1705 [@end X]: specify input array end position \, by default
+$-X syntax. Тип: property.;
+#X obj 300 1702 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1702 [@end X]: specify input array end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
-To specify value relative to array end you can use $-X syntax. Type:
+To specify value relative to array end you can use $-X syntax. Тип:
 property.;
-#X obj 280 1773 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1773 [@gain V]: apply gain to saved arrays \, examples:
-+3.1db \, -6db \, 0.5 etc. Type: property.;
-#X obj 280 1811 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1811 [@in_sr SR]: array source samplerate \, if omitted
-using patch samplerate. Type: property.;
-#X obj 280 1849 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1849 [@out_sr SR]: output samplerate. Type: property.;
-#X obj 280 1872 cnv 1 109 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1872 [@norm[alize]]: normalize output. Type: property.;
-#X obj 280 1895 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1895 [@overwrite]: overwrite existing file flag. Type:
-property.;
-#X obj 280 1918 cnv 1 86 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1918 [@samp FMT]: output sample format. Supported values
-are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Type: property.;
-#X obj 280 1956 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1956 [@wav]: WAV output format. Type: property.;
-#X obj 280 1979 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 1979 [@mp3]: MP3 output format. Type: property.;
-#X obj 280 2002 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2002 [@ogg]: Ogg/Vorbis output format. Type: property.;
-#X obj 280 2025 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2025 [@opus]: Opus output format. Type: property.;
-#X obj 280 2048 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2048 [@aiff]: AIFF output format. Type: property.;
-#X obj 280 2071 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2071 [@txt]: TXT output format. Type: property.;
-#X obj 280 2094 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2094 [@raw]: RAW output format. Type: property.;
-#X obj 280 2117 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 2117 [@flac]: FLAC output format. Type: property.;
-#X obj 20 2152 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2157 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1770 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1770 [@gain V]: apply gain to saved arrays \, examples:
++3.1db \, -6db \, 0.5 etc. Тип: property.;
+#X obj 300 1808 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1808 [@in_sr SR]: array source samplerate \, if omitted
+using patch samplerate. Тип: property.;
+#X obj 300 1846 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1846 [@out_sr SR]: output samplerate. Тип: property.;
+#X obj 300 1869 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1869 [@norm[alize]]: normalize output. Тип: property.;
+#X obj 300 1892 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1892 [@overwrite]: overwrite existing file flag. Тип: property.;
+#X obj 300 1915 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1915 [@samp FMT]: output sample format. Supported values
+are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Тип: property.;
+#X obj 300 1953 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1953 [@wav]: WAV output format. Тип: property.;
+#X obj 300 1976 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1976 [@mp3]: MP3 output format. Тип: property.;
+#X obj 300 1999 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1999 [@ogg]: Ogg/Vorbis output format. Тип: property.;
+#X obj 300 2022 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2022 [@opus]: Opus output format. Тип: property.;
+#X obj 300 2045 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2045 [@aiff]: AIFF output format. Тип: property.;
+#X obj 300 2068 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2068 [@txt]: TXT output format. Тип: property.;
+#X obj 300 2091 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2091 [@raw]: RAW output format. Тип: property.;
+#X obj 300 2114 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2114 [@flac]: FLAC output format. Тип: property.;
+#X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2162 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 2163 1\.;
+#X text 270 2163 input inlet.;
+#X obj 20 2198 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2203 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2158 1\.;
-#X text 270 2158 input inlet.;
-#X obj 20 2193 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2198 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 2199 1\.;
-#X text 270 2199 number of loaded/saved samples or -1 on error.;
+#X text 130 2204 1\.;
+#X text 270 2204 number of loaded/saved samples or -1 on error.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 2249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2252 library: ceammc v0.9.8;
-#N canvas 10 2271 400 290 info 0;
+#X obj 1 2254 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2257 библиотека: ceammc v0.9.8;
+#N canvas 10 2276 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 snd.file;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 snd;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 soundfiler;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 2271 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 2276 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 10 0;
 #X connect 9 0 10 0;

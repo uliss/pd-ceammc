@@ -19,108 +19,109 @@
 #X obj 280 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 390 1\.;
 #X text 170 390 float;
 #X obj 268 391 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 DRYWET: dry/wet ratio. Type: float. Range: 0\...1;
+#X text 270 390 DRYWET: dry/wet ratio. Тип: float. Диапазон: 0…1;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 431 @id;
-#X text 270 431 (initonly) Идентификатор для OSC адреса. Если установлен
-\, все свойства объекта привязываются к OSC адресам вида: /ИДЕНТИФИКАТОР/fx_ringmod/ИМЯ_СВОЙСТВА
-\, в противном случае к /fx_ringmod/ИМЯ_СВОЙСТВА. Type: symbol.;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @osc;
-#X text 270 503 (initonly) Имя OSC сервера. Type: symbol.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @active;
-#X text 270 533 Вкл/выкл. обработку сигнала объектом. Type: bool. Default
-value: 1\.;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @bypass;
-#X text 270 575 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 617 @drive;
-#X text 270 617 Overdrive effect after modulator. Type: float. Default
-value: 1\. Range: 1\...10\.;
-#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 659 @drywet;
-#X text 270 659 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.5\. Range: 0\...1\.;
-#X obj 250 716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 716 @freq;
-#X text 270 716 Internal modulator frequency. Type: float. Units: 'Hz'.
-Default value: 150\. Range: 0.5\...22050\.;
-#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 758 @offset;
-#X text 270 758 Modulator offset. Type: float. Default value: 0\. Range:
-0\...1\.;
-#X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 800 @src;
-#X text 270 800 Modulator source. 0: modulator from second inlet \,
-1: internal sinusoid oscilallator \, 2: internal low freq noise. Type:
-int. Default value: 0\. Range: 0\...2\.;
-#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 872 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 873 reset;
-#X text 270 873 reset object.;
-#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 916 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 270 431 (при инициализации) Идентификатор для OSC адреса. Если
+установлен \, все свойства объекта привязываются к OSC адресам вида:
+/ИДЕНТИФИКАТОР/fx_ringmod/ИМЯ_СВОЙСТВА \, в противном случае к /fx_ringmod/ИМЯ_СВОЙСТВА.
+Тип: symbol.;
+#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 518 @osc;
+#X text 270 518 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 548 @active;
+#X text 270 548 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 590 @bypass;
+#X text 270 590 Bypass flag. If true: bypass 'effected' signal. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 632 @drive;
+#X text 270 632 Overdrive effect after modulator. Тип: float. Значение
+по умолчанию: 1\. Диапазон: 1\...10\.;
+#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 674 @drywet;
+#X text 270 674 Proportion of mix between the original (dry) and 'effected'
+(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+0.5\. Диапазон: 0\...1\.;
+#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 731 @freq;
+#X text 270 731 Internal modulator frequency. Тип: float. Единицы:
+'Hz'. Значение по умолчанию: 150\. Диапазон: 0.5\...22050\.;
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 788 @offset;
+#X text 270 788 Modulator offset. Тип: float. Значение по умолчанию:
+0\. Диапазон: 0\...1\.;
+#X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 830 @src;
+#X text 270 830 Modulator source. 0: modulator from second inlet \,
+1: internal sinusoid oscilallator \, 2: internal low freq noise. Тип:
+int. Значение по умолчанию: 0\. Диапазон: 0\...2\.;
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 917 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 917 1\.;
-#X text 170 917 ~;
-#X text 270 917 carrier.;
-#X text 130 942 2\.;
-#X text 170 942 ~;
-#X text 270 942 modulator.;
-#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 982 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 918 reset;
+#X text 270 918 reset object.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 968 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 969 1\.;
+#X text 170 969 ~;
+#X text 270 969 carrier.;
+#X text 130 994 2\.;
+#X text 170 994 ~;
+#X text 270 994 modulator.;
+#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1034 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 983 1\.;
-#X text 170 983 ~;
-#X text 270 983 output.;
+#X text 130 1035 1\.;
+#X text 170 1035 ~;
+#X text 270 1035 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1033 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1036 library: ceammc v0.9.8;
-#N canvas 10 1055 400 290 info 0;
+#X obj 1 1085 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1088 библиотека: ceammc v0.9.8;
+#N canvas 10 1107 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 fx.ringmod~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 fx;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.7;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 fx \, ring \, carrier \, modulate;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1055 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1107 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;

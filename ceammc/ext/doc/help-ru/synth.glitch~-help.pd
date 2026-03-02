@@ -30,88 +30,88 @@ https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7
 #X obj 299 498 ui.dsp~;
 #X obj 50 527 dac~;
 #X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 582 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 582 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 585 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 583 1\.;
 #X text 170 583 list;
 #X obj 268 584 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 583 EXPR: Glitch expression. Type: list.;
+#X text 270 583 EXPR: Glitch expression. Тип: list.;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 623 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 626 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 624 @clip;
 #X text 270 624 Clip output to -1\..+1 range. Use false value only
-when you are know what are you doing and at your own risk!. Type: bool.
-Default value: 1\.;
+when you are know what are you doing and at your own risk!. Тип: bool.
+Значение по умолчанию: 1\.;
 #X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 681 @expr;
-#X text 270 681 Expression. Type: list.;
+#X text 270 681 Expression. Тип: list.;
 #X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 726 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
+#X obj 20 726 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
 #X msg 130 727 byte;
 #X text 270 727 set expression wrapper to byte() glitch function.;
-#X obj 250 755 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 755 read;
-#X text 270 755 read glitch synth file. Arguments are:;
-#X obj 280 778 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 778 PATH: path to file. Type: atom.;
-#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 803 reset;
-#X text 270 803 reset synth.;
-#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 831 speed;
-#X text 270 831 set global playing speed for all synth.glitch~ objects.
-Arguments are:;
-#X obj 280 869 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 869 SPEED: speed. Type: float.;
-#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 909 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 762 read;
+#X text 270 762 read glitch synth file. Аргументы:;
+#X obj 300 787 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 787 PATH: path to file. Тип: atom.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 820 reset;
+#X text 270 820 reset synth.;
+#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 855 speed;
+#X text 270 855 set global playing speed for all synth.glitch~ objects.
+Аргументы:;
+#X obj 300 895 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 895 SPEED: speed. Тип: float.;
+#X obj 20 938 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 943 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 910 1\.;
-#X text 270 910 ...;
-#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 950 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
--49933 0;
-#X text 130 951 1\.;
-#X text 170 951 ~;
-#X text 270 951 synth output.;
+#X text 130 944 1\.;
+#X text 270 944 ...;
+#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 984 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 985 1\.;
+#X text 170 985 ~;
+#X text 270 985 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1001 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1004 library: ceammc v0.9.8;
-#N canvas 10 1023 400 290 info 0;
+#X obj 1 1035 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1038 библиотека: ceammc v0.9.8;
+#N canvas 10 1057 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 synth.glitch~;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 synth;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.1;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 naivesound \, Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 glitch;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1023 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1057 pd info;
 #X connect 8 0 10 0;
 #X connect 12 0 14 0;
 #X connect 18 0 20 0;

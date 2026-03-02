@@ -13,47 +13,48 @@
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
 #X text 130 376 1\.;
 #X text 170 376 atom;
 #X obj 268 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 ROOT: root key. Allowed values: A \, A# \, A## \, Ab
-\, Abb \, B \, B# \, B## \, Bb \, Bbb \, C \, C# \, C## \, Cb \, Cbb
-\, D \, D# \, D## \, Db \, Dbb \, E \, E# \, E## \, Eb \, Ebb \, F
-\, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. Type: atom.;
+#X text 270 376 ROOT: root key. Разрешённые значения: A \, A# \, A##
+\, Ab \, Abb \, B \, B# \, B## \, Bb \, Bbb \, C \, C# \, C## \, Cb
+\, Cbb \, D \, D# \, D## \, Db \, Dbb \, E \, E# \, E## \, Eb \, Ebb
+\, F \, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. Тип:
+atom.;
 #X text 130 446 2\.;
 #X text 170 446 symbol;
 #X obj 268 447 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 446 SCALE: modus scale. Type: symbol.;
+#X text 270 446 SCALE: modus scale. Тип: symbol.;
 #X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 486 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 486 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 489 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 487 @mode;
-#X text 270 487 Snap or skip incoming pitches. Type: symbol. Default
-value: snap. Allowed values: snap \, skip.;
+#X text 270 487 Snap or skip incoming pitches. Тип: symbol. Значение
+по умолчанию: snap. Разрешённые значения: snap \, skip.;
 #X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 529 @root;
-#X text 270 529 Root key. Type: atom. Default value: C. Allowed values:
-Cbb \, Cb \, C \, C# \, C## \, Dbb \, Db \, D \, D# \, D## \, Ebb \,
-Eb \, E \, E# \, E## \, Fbb \, Fb \, F \, F# \, F## \, Gbb \, Gb \,
-G \, G# \, G## \, Abb \, Ab \, A \, A# \, A## \, Bbb \, Bb \, B \,
-B# \, B##.;
+#X text 270 529 Root key. Тип: atom. Значение по умолчанию: C. Разрешённые
+значения: Cbb \, Cb \, C \, C# \, C## \, Dbb \, Db \, D \, D# \, D##
+\, Ebb \, Eb \, E \, E# \, E## \, Fbb \, Fb \, F \, F# \, F## \, Gbb
+\, Gb \, G \, G# \, G## \, Abb \, Ab \, A \, A# \, A## \, Bbb \, Bb
+\, B \, B# \, B##.;
 #X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 601 @scale;
-#X text 270 601 Modus scale. Type: symbol. Default value: chromatic.
-Allowed values: ahirbhairav \, indian \, kurd \, diminished2 \, partch_u6
-\, gong \, partch_o4 \, rast_desc \, nairuz \, hirajoshi \, hex_major6
-\, farahfaza \, minor \, pelog \, partch_o3 \, partch_u1 \, partch_u3
-\, yakah \, kumoi \, nikriz \, yakah_desc \, lydian \, whole \, ritusen
-\, jiharkah \, major_melodic \, augmented2 \, locrian \, mustar \,
-mixolydian \, nahawand \, partch_o1 \, ionian \, partch_u5 \, hex_dorian
-\, nawa_athar \, hex_aeolian \, minor_harmonic \, minor_melodic \,
-yu \, minor_melodic_desc \, minor_lydian \, zhi \, dorian \, sikah_desc
+#X text 270 601 Modus scale. Тип: symbol. Значение по умолчанию: chromatic.
+Разрешённые значения: ahirbhairav \, indian \, kurd \, diminished2
+\, partch_u6 \, gong \, partch_o4 \, rast_desc \, nairuz \, hirajoshi
+\, hex_major6 \, farahfaza \, minor \, pelog \, partch_o3 \, partch_u1
+\, partch_u3 \, yakah \, kumoi \, nikriz \, yakah_desc \, lydian \,
+whole \, ritusen \, jiharkah \, major_melodic \, augmented2 \, locrian
+\, mustar \, mixolydian \, nahawand \, partch_o1 \, ionian \, partch_u5
+\, hex_dorian \, nawa_athar \, hex_aeolian \, minor_harmonic \, minor_melodic
+\, yu \, minor_melodic_desc \, minor_lydian \, zhi \, dorian \, sikah_desc
 \, marva \, hijaz \, partch_o6 \, major_pentatonic \, partch_u4 \,
 diminished \, shang \, partch_o5 \, whole_leading \, iraq \, major_harmonic
 \, bartok \, zamzam \, super_locrian \, chromatic24 \, ajam \, prometheus
@@ -66,53 +67,53 @@ suznak \, hijaz_kar \, saba \, kijaz_kar_kurd \, husseini \, huzam
 \, chromatic \, aeolian \, enigmatic \, hindu \, phrygian \, zanjaran
 \, karjighar \, spanish \, purvi \, minor_neapolitan \, bhairav \,
 hijaz_desc \, todi \, hex_major7\.;
-#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 960 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 975 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 961 1\.;
-#X text 170 961 float:;
-#X text 270 961 note value.;
-#X text 170 986 list:;
-#X text 270 986 NOTE VELOCITY [DUR] list.;
-#X obj 20 1021 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1026 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 976 1\.;
+#X text 170 976 float:;
+#X text 270 976 note value.;
+#X text 170 1001 list:;
+#X text 270 1001 NOTE VELOCITY [DUR] list.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1041 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1027 1\.;
-#X text 270 1027 accepted note or NOTE VELOCITY [DUR] list.;
-#X text 130 1047 2\.;
-#X text 270 1047 discarded message.;
+#X text 130 1042 1\.;
+#X text 270 1042 accepted note or NOTE VELOCITY [DUR] list.;
+#X text 130 1062 2\.;
+#X text 270 1062 discarded message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1097 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1100 library: ceammc v0.9.8;
-#N canvas 10 1119 400 290 info 0;
+#X obj 1 1112 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1115 библиотека: ceammc v0.9.8;
+#N canvas 10 1134 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
-#X text 10 10 library:;
+#X text 10 10 библиотека:;
 #X text 120 10 ceammc;
-#X text 10 32 version:;
+#X text 10 32 версия:;
 #X text 120 32 0.9.8;
-#X text 10 54 object:;
+#X text 10 54 объект:;
 #X text 120 54 midi.modus;
-#X text 10 76 category:;
+#X text 10 76 категория:;
 #X text 120 76 midi;
-#X text 10 98 since:;
+#X text 10 98 с версии:;
 #X text 120 98 0.9.5;
-#X text 10 120 authors:;
+#X text 10 120 авторы:;
 #X text 120 120 Serge Poltavsky;
-#X text 10 142 license:;
+#X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
-#X text 10 164 keywords:;
+#X text 10 164 ключевые слова:;
 #X text 120 164 midi \, modus \, tonality \, pitch;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X text 120 268 generated by pddoc;
-#X restore 10 1119 pd info;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1134 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
