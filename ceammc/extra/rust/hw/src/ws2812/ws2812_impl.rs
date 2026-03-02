@@ -107,7 +107,7 @@ impl hw_spi_ws2812 {
             let mut fx_snow_sparkle =
                 SnowSparkle::new(size, None, None, None, None);
 
-            let rt = tokio::runtime::Builder::new_current_thread()
+            let rt = tokio::runtime::Builder::new_multi_thread().worker_threads(1)
                 .build()
                 .map_err(|err| {
                     CString::new(err.to_string()).unwrap_or_default()
