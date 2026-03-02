@@ -147,11 +147,11 @@
           <tr lang="en">effect name</tr>
           <tr lang="ru">название эффекта</tr>
         </param>
-        <param name="@slice FIRST LAST? STEP?" type="list">
+        <param name="@slice FIRST LAST? STEP?" type="list" verbose="true">
           <tr lang="en">range slice of pixels</tr>
           <tr lang="ru">дипазонный срез пикселей</tr>
         </param>
-        <param name="@lslice FIRST LENGTH? STEP?" type="list">
+        <param name="@lslice FIRST LENGTH? STEP?" type="list" verbose="true">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
         </param>
