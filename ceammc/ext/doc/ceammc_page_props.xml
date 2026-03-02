@@ -8,18 +8,24 @@
     <par>
       <tr lang="en">CEAMMC library has a conception of properties: the way to access to the inner
       state of the object.</tr>
+      <tr lang="ru" finished="false">Библиотека CEAMMC имеет концепцию свойств: способ доступа к
+      внутреннему состоянию объекта.</tr>
     </par>
     <par>
       <tr lang="en">A property name starts with '@' symbol.</tr>
+      <tr lang="ru" finished="false">Имя начинается с символа «@».</tr>
     </par>
     <h2>
       <tr lang="en">Basic usage</tr>
+      <tr lang="ru" finished="false">Базовое использование</tr>
     </h2>
     <par>
       <tr lang="en">There are two ways do deal with properties:</tr>
+      <tr lang="ru" finished="false">Есть два способа справиться со свойствами:</tr>
     </par>
     <par indent="1">
       <tr lang="en">1. Sending get/set request messages to the target object.</tr>
+      <tr lang="ru" finished="false">1 1 Отправка сообщений get/set запроса целевому объекту.</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -35,10 +41,14 @@
     <par indent="3">
       <tr lang="en">On receiving @prop? message the object outputs its value as the message to the
       first outlet: @prop VALUE</tr>
+      <tr lang="ru" finished="false">При получении сообщения @prop? объект выводит его значение в
+      качестве сообщения в первую точку: @prop VALUE</tr>
     </par>
     <par indent="3">
       <tr lang="en">There are [prop.route] and [prop.route~] objects for splitting the main object
       audio/control stream from the requested properties:</tr>
+      <tr lang="ru" finished="false">Существуют объекты [prop.route] и [prop.route~] для разделения
+      основного потока аудио/контроля объекта от запрашиваемых свойств:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -53,9 +63,11 @@
     </pdascii>
     <par indent="1">
       <tr lang="en">2. Using [prop.get] and [prop.set] objects</tr>
+      <tr lang="ru" finished="false">2 2 Использование [prop.get] и [prop.set] объектов</tr>
     </par>
     <par indent="3">
       <tr lang="en">The [prop.get] object get properties from the connected object:</tr>
+      <tr lang="ru" finished="false">Объект получает свойства от связанного объекта:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -69,26 +81,37 @@
     <par indent="3">
       <tr lang="en">NOTE: for some objects, like in flow category, this is the single way to
       get/set properties, because by design flow objects should work with all dataflow values.</tr>
+      <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: для некоторых объектов, например, в категории
+      потока, это единственный способ получить / установить свойства, потому что по дизайну объекты
+      потока должны работать со всеми значениями потока данных.</tr>
     </par>
     <par>
       <tr lang="en">Some frequently used properties can be set with positional init arguments. This
       is the same:</tr>
+      <tr lang="ru" finished="false">Некоторые часто используемые свойства могут быть установлены с
+      аргументами позиционного начала. Это то же самое:</tr>
     </par>
     <pdascii indent="10">[data.list 1 2 3] [data.list @value 1 2 3]</pdascii>
     <par indent="3">
       <tr lang="en">Properties can be one of the following types:</tr>
+      <tr lang="ru" finished="false">Свойства могут быть одного из следующих типов:</tr>
     </par>
     <ul indent="3">
       <item>
         <tr lang="en">readwrite - you can set it with initial arguments, with messages or
         [prop.get]/[prop.set] objects</tr>
+        <tr lang="ru" finished="false">Readwrite - вы можете установить его с начальными
+        аргументами, с сообщениями или объектами [prop.get] / [prop.set]</tr>
       </item>
       <item>
         <tr lang="en">initonly - you can set it with initial arguments and after that only get its
         value</tr>
+        <tr lang="ru" finished="false">Инитонально - можно поставить его с начальными аргументами и
+        после этого только получить его значение</tr>
       </item>
       <item>
         <tr lang="en">readonly - you can only get its value</tr>
+        <tr lang="ru" finished="false">Readonly - Вы можете получить только его стоимость</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -109,12 +132,18 @@
     </pdascii>
     <h2>
       <tr lang="en">Advanced usage</tr>
+      <tr lang="ru" finished="false">Расширенное использование</tr>
     </h2>
     <par>
       <tr lang="en">On ceammc object creation it parses initial arguments, does unquotting and
       number substitution, performs init function call and data parsing. After theese steps the
       property parsing stage is invoked. So quoting, bin and hex numbers, function calls can be
       used also in initial object properties arguments.</tr>
+      <tr lang="ru" finished="false">При создании объектов ceammc он анализирует исходные
+      аргументы, делает нецитирование и замену чисел, выполняет вызов функции init и анализ данных.
+      После этих шагов используется этап разбора имущества. Таким образом, цитирование, двоичные и
+      шестнадцатеричные числа, вызовы функций могут использоваться также в аргументах начальных
+      свойств объекта.</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -133,6 +162,8 @@
     </a>
     <par indent="3">
       <tr lang="en">You can request several properties at once in the single message:</tr>
+      <tr lang="ru" finished="false">Вы можете запросить сразу несколько свойств в одном
+      сообщении:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -145,6 +176,8 @@
     </pdascii>
     <par indent="3">
       <tr lang="en">You can use simple math and random for float properties:</tr>
+      <tr lang="ru" finished="false">Вы можете использовать простую математику и случайный для
+      поплавковых свойств:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -164,6 +197,8 @@
     </pdascii>
     <par indent="3">
       <tr lang="en">You can get the list all of object properties with message</tr>
+      <tr lang="ru" finished="false">Вы можете получить список всех свойств объекта с помощью
+      сообщения.</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[

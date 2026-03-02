@@ -8,14 +8,20 @@
     <par>
       <tr lang="en">Note: this functions are calculated only once just before(!) ceammc object
       creation.</tr>
+      <tr lang="ru" finished="false">Примечание: эти функции рассчитываются только один раз перед
+      (!) созданием объекта.</tr>
     </par>
     <par>
       <tr lang="en">Function call can be nested.</tr>
+      <tr lang="ru" finished="false">Функциональный вызов может быть вложен.</tr>
     </par>
     <par>
       <tr lang="en">If you want the symbol value pi() instead of numeric value - use double-quotes.
       In the following example theren is a list with two elements: first is π=3.1415 value, second
       is unexpanded symbol pi():</tr>
+      <tr lang="ru" finished="false">Если вам нужно значение символа pi() вместо числового значения
+      - используйте двойные цитаты. В следующем примере ячмень представляет собой список с двумя
+      элементами: первый - значение π=3,1415, второй - нерасширенный символ pi():</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -28,12 +34,15 @@
     </pdascii>
     <h2>
       <tr lang="en">list functions</tr>
+      <tr lang="ru" finished="false">Перечень функций</tr>
     </h2>
     <!--        seq-->
     <ul indent="3">
       <item>
         <tr lang="en">seq(FROM TO STEP?) - sequence generator. The TO value is included into the
         output range. STEP can be omitted.</tr>
+        <tr lang="ru" finished="false">seq (FROM TO STEP?) — генератор последовательностей.
+        Значение TO включено в диапазон выхода. Шаг можно опустить.</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -49,6 +58,7 @@
     <ul indent="3">
       <item>
         <tr lang="en">reverse(ARGS+) - reverse given arguments</tr>
+        <tr lang="ru" finished="false">Reverse (ARGS+) — обратный аргумент</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -64,6 +74,7 @@
     <ul indent="3">
       <item>
         <tr lang="en">sort(ARGS+) - sort given arguments</tr>
+        <tr lang="ru" finished="false">сорт (ARGS+) - сортировка приведенных аргументов</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -80,6 +91,8 @@
       <item>
         <tr lang="en">rotate(INT ARGS+) - rotates list (positive values rotates
         counter-clockwise)</tr>
+        <tr lang="ru" finished="false">ротация (INT ARGS+) - список поворотов (положительные
+        значения вращаются против часовой стрелки)</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -95,6 +108,8 @@
     <ul indent="3">
       <item>
         <tr lang="en">repeat(INT ARGS+) - generate list with repeated pattern</tr>
+        <tr lang="ru" finished="false">Repeat (INT ARGS+) - сгенерировать список с повторяющимся
+        шаблоном</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -110,6 +125,8 @@
     <ul indent="3">
       <item>
         <tr lang="en">ones(INT) - generates list filled with ones of specified length</tr>
+        <tr lang="ru" finished="false">Ones (INT) - генерирует список, заполненный списками
+        определенной длины</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -125,6 +142,8 @@
     <ul indent="3">
       <item>
         <tr lang="en">zeros(INT) - generates list filled with zeros of specified length</tr>
+        <tr lang="ru" finished="false">Нули (INT) - генерирует список, заполненный нулями заданной
+        длины</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -138,37 +157,49 @@
     </pdascii>
     <h2>
       <tr lang="en">math functions</tr>
+      <tr lang="ru" finished="false">математические функции</tr>
     </h2>
     <ul indent="3">
       <item>
         <tr lang="en">pi() - replaced with π value</tr>
+        <tr lang="ru" finished="false">π() - заменяется значением π</tr>
       </item>
       <item>
         <tr lang="en">e() - replaced with e value</tr>
+        <tr lang="ru" finished="false">e() - заменено значением e</tr>
       </item>
       <item>
         <tr lang="en">bs() - replaced with DSP blocksize value</tr>
+        <tr lang="ru" finished="false">bs() - заменяется значением блокировки DSP</tr>
       </item>
       <item>
         <tr lang="en">sr() - replaced with DSP samplerate value</tr>
+        <tr lang="ru" finished="false">sr() - заменено значением выборки DSP</tr>
       </item>
       <item>
         <tr lang="en">amp2db(FLOAT) - convert linear amplitude values to dbfs scale</tr>
+        <tr lang="ru" finished="false">amp2db (FLOAT) - преобразование значений линейной амплитуды
+        в шкалу dbfs</tr>
       </item>
       <item>
         <tr lang="en">db2amp(FLOAT) - convert dbfs scale values to linear amplitudes</tr>
+        <tr lang="ru" finished="false">db2amp (FLOAT) - преобразование значений шкалы dbfs в
+        линейные амплитуды</tr>
       </item>
       <item>
         <tr lang="en">mtof(FLOAT) - convert MIDI pitch info frequency in Hz</tr>
+        <tr lang="ru" finished="false">mtof (FLOAT) - преобразует MIDI-частоту информации в Hz</tr>
       </item>
       <item>
         <tr lang="en">ftom(FLOAT) - convert frequency in Hz into MIDI pitch</tr>
+        <tr lang="ru" finished="false">ftom (FLOAT) - преобразовывать частоту в Hz в MIDI</tr>
       </item>
     </ul>
     <!--        expr -->
     <ul indent="3">
       <item>
         <tr lang="en">expr(SYMBOL) - calculates math expression</tr>
+        <tr lang="ru" finished="false">expr (SYMBOL) - вычисление математического выражения</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -182,11 +213,13 @@
     </pdascii>
     <h2>
       <tr lang="en">misc functions</tr>
+      <tr lang="ru" finished="false">функции misc</tr>
     </h2>
     <!--        hexbeat -->
     <ul indent="3">
       <item>
         <tr lang="en">hexbeat(SYMBOL) - generates hexbeat rhythm pattern</tr>
+        <tr lang="ru" finished="false">hexbeat (SYMBOL) - генерирует ритмический паттерн</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -202,6 +235,8 @@
     <ul indent="3">
       <item>
         <tr lang="en">euclid(BEATS LEN? ROTATION?) - generates euclid rhythm pattern</tr>
+        <tr lang="ru" finished="false">Эвклид (Битс Лен) ROTATION?) - генерирует евклидный
+        ритм</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -217,6 +252,8 @@
     <ul indent="3">
       <item>
         <tr lang="en">rtree(DUR_MS MLIST) - generates nested complex rhythm tree pattern</tr>
+        <tr lang="ru" finished="false">rtree (DUR_MS MLIST) - генерирует вложенный сложный
+        ритм</tr>
       </item>
     </ul>
     <pdascii indent="10">
