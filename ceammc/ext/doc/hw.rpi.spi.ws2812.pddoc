@@ -41,28 +41,33 @@
         вида диапазонов:</tr>
       </par>
       <par>
-        <tr lang="en">@slice FROM: Selects all pixels starting from FROM.
-        If FROM is a negative value, it indicates the position of the pixel from the end.
-        For example: @slice -2 will select the last two pixels.</tr>
-        <tr lang="ru">@slice FROM: Выбирает все пиксели начиная с FROM. Если FROM - отрицательное значение,
-        оно обозначает положение пикселя с конца. Например: @slice -2 выберет два последних пикселя.</tr>
+        <tr lang="en">@slice FROM: Selects all pixels starting from FROM. If FROM is a negative
+        value, it indicates the position of the pixel from the end. For example: @slice -2 will
+        select the last two pixels.</tr>
+        <tr lang="ru">@slice FROM: Выбирает все пиксели начиная с FROM. Если FROM - отрицательное
+        значение, оно обозначает положение пикселя с конца. Например: @slice -2 выберет два
+        последних пикселя.</tr>
       </par>
       <par>
-        <tr lang="en">@slice FROM TO: Selects all pixels starting from FROM and up to and including TO.
-        If FROM or TO are negative values, they indicate the position of the pixel from the end.</tr>
-        <tr lang="ru">@slice FROM TO: Выбирает все пиксели начиная с FROM и до TO включительно. Если FROM или TO
-        - отрицательные значения, они обозначает положение пикселя с конца.</tr>
+        <tr lang="en">@slice FROM TO: Selects all pixels starting from FROM and up to and including
+        TO. If FROM or TO are negative values, they indicate the position of the pixel from the
+        end.</tr>
+        <tr lang="ru">@slice FROM TO: Выбирает все пиксели начиная с FROM и до TO включительно.
+        Если FROM или TO - отрицательные значения, они обозначает положение пикселя с конца.</tr>
       </par>
       <par>
-        <tr lang="en">@slice FROM TO STEP: Selects all pixels starting from FROM up to and including TO with the specified STEP.
-        For example, if STEP is 3, it selects every third pixel in the specified range.</tr>
-        <tr lang="ru">@slice FROM TO STEP: Выбирает все пиксели начиная с FROM и до TO включительно через указанный шаг (STEP).
-        Например, если STEP равно 3, выбирает каждый третий пиксель в указанном диапазоне.</tr>
+        <tr lang="en">@slice FROM TO STEP: Selects all pixels starting from FROM up to and
+        including TO with the specified STEP. For example, if STEP is 3, it selects every third
+        pixel in the specified range.</tr>
+        <tr lang="ru">@slice FROM TO STEP: Выбирает все пиксели начиная с FROM и до TO включительно
+        через указанный шаг (STEP). Например, если STEP равно 3, выбирает каждый третий пиксель в
+        указанном диапазоне.</tr>
       </par>
       <par>
-        <tr lang="en">The second type of slices: @lslice.
-        It differs in that the second parameter represents the LENGTH of the range, instead of the last element.</tr>
-        <tr lang="ru">Второй вид срезов: @lslice. Отличается тем, что второй параметр обозначает ДЛИНУ диапазона, вместо последнего элемента.</tr>
+        <tr lang="en">The second type of slices: @lslice. It differs in that the second parameter
+        represents the LENGTH of the range, instead of the last element.</tr>
+        <tr lang="ru">Второй вид срезов: @lslice. Отличается тем, что второй параметр обозначает
+        ДЛИНУ диапазона, вместо последнего элемента.</tr>
       </par>
     </info>
     <properties>
@@ -80,8 +85,10 @@
       <!-- @spi_bus -->
       <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
       access="initonly">
-        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform any actions.</tr>
-        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не производит никаких действий.</tr>
+        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform
+        any actions.</tr>
+        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не производит никаких
+        действий.</tr>
       </property>
       <!-- @spi_cs -->
       <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">
@@ -142,7 +149,8 @@
           <tr lang="en">apply color effect function</tr>
           <tr lang="ru">применить функцию цветового эффекта</tr>
         </info>
-        <param name="NAME" type="symbol" enum="bounce breathe collision cycle fire meteor rainbow sparkle strobe twinkle"
+        <param name="NAME" type="symbol"
+        enum="bounce breathe collision cycle fire meteor rainbow sparkle strobe twinkle"
         required="true">
           <tr lang="en">effect name</tr>
           <tr lang="ru">название эффекта</tr>
