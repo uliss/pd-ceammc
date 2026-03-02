@@ -12,7 +12,7 @@ use crate::{
     MakePdMessage,
 };
 
-mod led_fx;
+// mod led_fx;
 #[cfg(target_os = "linux")]
 mod ws2812_impl;
 
