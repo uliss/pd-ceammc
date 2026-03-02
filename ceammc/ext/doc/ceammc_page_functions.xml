@@ -31,8 +31,10 @@
     </h2>
     <!--        seq-->
     <ul indent="3">
-      <item>seq(FROM TO STEP?) - sequence generator. The TO value is included into the output
-      range. STEP can be omitted.</item>
+      <item>
+        <tr lang="en">seq(FROM TO STEP?) - sequence generator. The TO value is included into the
+        output range. STEP can be omitted.</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -45,7 +47,9 @@
     </pdascii>
     <!--        reverse-->
     <ul indent="3">
-      <item>reverse(ARGS+) - reverse given arguments</item>
+      <item>
+        <tr lang="en">reverse(ARGS+) - reverse given arguments</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -58,7 +62,9 @@
     </pdascii>
     <!--        sort-->
     <ul indent="3">
-      <item>sort(ARGS+) - sort given arguments</item>
+      <item>
+        <tr lang="en">sort(ARGS+) - sort given arguments</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -71,7 +77,10 @@
     </pdascii>
     <!--        rotate -->
     <ul indent="3">
-      <item>rotate(INT ARGS+) - rotates list (positive values rotates counter-clockwise)</item>
+      <item>
+        <tr lang="en">rotate(INT ARGS+) - rotates list (positive values rotates
+        counter-clockwise)</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -84,7 +93,9 @@
     </pdascii>
     <!--        repeat -->
     <ul indent="3">
-      <item>repeat(INT ARGS+) - generate list with repeated pattern</item>
+      <item>
+        <tr lang="en">repeat(INT ARGS+) - generate list with repeated pattern</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -97,7 +108,9 @@
     </pdascii>
     <!--        ones -->
     <ul indent="3">
-      <item>ones(INT) - generates list filled with ones of specified length</item>
+      <item>
+        <tr lang="en">ones(INT) - generates list filled with ones of specified length</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -110,7 +123,9 @@
     </pdascii>
     <!--        zeroes -->
     <ul indent="3">
-      <item>zeros(INT) - generates list filled with zeros of specified length</item>
+      <item>
+        <tr lang="en">zeros(INT) - generates list filled with zeros of specified length</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -125,18 +140,36 @@
       <tr lang="en">math functions</tr>
     </h2>
     <ul indent="3">
-      <item>pi() - replaced with π value</item>
-      <item>e() - replaced with e value</item>
-      <item>bs() - replaced with DSP blocksize value</item>
-      <item>sr() - replaced with DSP samplerate value</item>
-      <item>amp2db(FLOAT) - convert linear amplitude values to dbfs scale</item>
-      <item>db2amp(FLOAT) - convert dbfs scale values to linear amplitudes</item>
-      <item>mtof(FLOAT) - convert MIDI pitch info frequency in Hz</item>
-      <item>ftom(FLOAT) - convert frequency in Hz into MIDI pitch</item>
+      <item>
+        <tr lang="en">pi() - replaced with π value</tr>
+      </item>
+      <item>
+        <tr lang="en">e() - replaced with e value</tr>
+      </item>
+      <item>
+        <tr lang="en">bs() - replaced with DSP blocksize value</tr>
+      </item>
+      <item>
+        <tr lang="en">sr() - replaced with DSP samplerate value</tr>
+      </item>
+      <item>
+        <tr lang="en">amp2db(FLOAT) - convert linear amplitude values to dbfs scale</tr>
+      </item>
+      <item>
+        <tr lang="en">db2amp(FLOAT) - convert dbfs scale values to linear amplitudes</tr>
+      </item>
+      <item>
+        <tr lang="en">mtof(FLOAT) - convert MIDI pitch info frequency in Hz</tr>
+      </item>
+      <item>
+        <tr lang="en">ftom(FLOAT) - convert frequency in Hz into MIDI pitch</tr>
+      </item>
     </ul>
     <!--        expr -->
     <ul indent="3">
-      <item>expr(SYMBOL) - calculates math expression</item>
+      <item>
+        <tr lang="en">expr(SYMBOL) - calculates math expression</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -152,7 +185,9 @@
     </h2>
     <!--        hexbeat -->
     <ul indent="3">
-      <item>hexbeat(SYMBOL) - generates hexbeat rhythm pattern</item>
+      <item>
+        <tr lang="en">hexbeat(SYMBOL) - generates hexbeat rhythm pattern</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -165,7 +200,9 @@
     </pdascii>
     <!--        euclid -->
     <ul indent="3">
-      <item>euclid(BEATS LEN? ROTATION?) - generates euclid rhythm pattern</item>
+      <item>
+        <tr lang="en">euclid(BEATS LEN? ROTATION?) - generates euclid rhythm pattern</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
@@ -178,7 +215,9 @@
     </pdascii>
     <!--        rtree -->
     <ul indent="3">
-      <item>rtree(DUR_MS MLIST) - generates nested complex rhythm tree pattern</item>
+      <item>
+        <tr lang="en">rtree(DUR_MS MLIST) - generates nested complex rhythm tree pattern</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[

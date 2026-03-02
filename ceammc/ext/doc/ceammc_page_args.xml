@@ -74,11 +74,21 @@
       <tr lang="en">the following functions are available:</tr>
     </par>
     <ul indent="3">
-      <item>pi() - replaced with π number</item>
-      <item>e() - replaced with e number</item>
-      <item>sort(LIST) - sort list arguments in ascending order</item>
-      <item>reverse(LIST) - reverse list order</item>
-      <item>...</item>
+      <item>
+        <tr lang="en">pi() - replaced with π number</tr>
+      </item>
+      <item>
+        <tr lang="en">e() - replaced with e number</tr>
+      </item>
+      <item>
+        <tr lang="en">sort(LIST) - sort list arguments in ascending order</tr>
+      </item>
+      <item>
+        <tr lang="en">reverse(LIST) - reverse list order</tr>
+      </item>
+      <item>
+        <tr lang="en">...</tr>
+      </item>
     </ul>
     <a indent="3" href="ceammc.functions-info.pd">
       <tr lang="en">ceammc.functions-info.pd</tr>

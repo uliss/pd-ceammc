@@ -79,11 +79,17 @@
       <tr lang="en">Properties can be one of the following types:</tr>
     </par>
     <ul indent="3">
-      <item>readwrite - you can set it with initial arguments, with messages or
-      [prop.get]/[prop.set] objects</item>
-      <item>initonly - you can set it with initial arguments and after that only get its
-      value</item>
-      <item>readonly - you can only get its value</item>
+      <item>
+        <tr lang="en">readwrite - you can set it with initial arguments, with messages or
+        [prop.get]/[prop.set] objects</tr>
+      </item>
+      <item>
+        <tr lang="en">initonly - you can set it with initial arguments and after that only get its
+        value</tr>
+      </item>
+      <item>
+        <tr lang="en">readonly - you can only get its value</tr>
+      </item>
     </ul>
     <pdascii indent="10">
 <![CDATA[
