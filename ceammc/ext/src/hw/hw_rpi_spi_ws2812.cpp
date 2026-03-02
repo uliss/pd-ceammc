@@ -166,9 +166,9 @@ bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomList
     }
 
     OBJ_ERR << "color property expected:"
-               "\n\t- @color R[0..1] G[0..1] B[0..1] or"
-               "\n\t- @color #RRGGBB or"
-               "\n\t- @color Color(...)";
+               "\n  - @color R[0..1] G[0..1] B[0..1] or"
+               "\n  - @color #RRGGBB or name"
+               "\n. - @color Color(...)";
 
     return false;
 }
@@ -177,7 +177,7 @@ bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListVie
 {
     AtomListView res;
 
-    if (lv.getProperty(gensym("@rslice"), res)) {
+    if (lv.getProperty(gensym("@slice"), res) || lv.getProperty(gensym("@rslice"), res)) {
         static const args::ArgChecker rslice_chk("FIRST:i LAST:i? STEP:i>0?");
         if (!rslice_chk.check(res, const_cast<HwSpiWs2812*>(this)))
             return false;
