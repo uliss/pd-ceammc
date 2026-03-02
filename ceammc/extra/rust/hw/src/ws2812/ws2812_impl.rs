@@ -181,7 +181,7 @@ impl hw_spi_ws2812 {
                                     Some(slice) => {
                                         let a = pos2index(slice.first, size);
                                         let b = pos2index(slice.last, size);
-                                        let step = slice.step.min(1).try_into().ok()?;
+                                        let step = slice.step.max(1).try_into().ok()?;
 
                                         for idx in (a..=b).step_by(step) {
                                             let a = leds.get_mut(idx)?;
