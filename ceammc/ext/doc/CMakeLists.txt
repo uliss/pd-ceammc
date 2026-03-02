@@ -17,6 +17,7 @@ endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd    ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about_ru.pd ${CMAKE_CURRENT_BINARY_DIR}/help-ru/about.pd @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/create_page.sh ${CMAKE_BINARY_DIR}/scripts/create_page.sh @ONLY)
 
 
 # doc file list
