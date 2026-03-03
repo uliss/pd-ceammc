@@ -33,7 +33,6 @@ namespace ui {
         explicit NUIHelpBox(const PdArgs& args);
 
         void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
-        void onMouseUp(const Point& pt, uint32_t mod) override;
     };
 
 } // namespace ui

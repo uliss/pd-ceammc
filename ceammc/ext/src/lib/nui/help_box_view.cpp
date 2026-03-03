@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "help_box_view.h"
+#include "ceammc_log.h"
 #include "nui_help_box_tcl.h"
 
 namespace ceammc {
@@ -99,6 +100,9 @@ namespace ui {
             data().setIsOpen(!data().isOpen());
             redraw();
             notifyOthers();
+
+            LIB_DBG << "state: " << data().isOpen();
+
             return { nullptr, EVENT_STATUS_ACCEPT };
         // case EVENT_MOUSE_LEAVE:
         //     data().setState(false);

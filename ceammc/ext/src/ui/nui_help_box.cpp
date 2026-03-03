@@ -32,19 +32,8 @@ void NUIHelpBox::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
     EventContext ctx;
     ctx.modifiers = mod;
 
-    if (boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, ctx).isAccepted()) {
-        OBJ_DBG << "click";
-        // model_.data().setIsOpen()
-    }
-}
-
-void NUIHelpBox::onMouseUp(const Point& pt, uint32_t mod)
-{
-    EventContext ctx;
-    ctx.modifiers = mod;
-
-    if (boxView().acceptEvent(EVENT_MOUSE_UP, pt, ctx).isAccepted())
-        onBang();
+    modelView()->acceptEvent(EVENT_MOUSE_DOWN, pt, ctx);
+    // boxView().acceptEvent(EVENT_MOUSE_DOWN, pt, ctx).isAccepted();
 }
 
 } // namespace ceammc
