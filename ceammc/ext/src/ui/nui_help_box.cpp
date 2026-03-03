@@ -14,7 +14,7 @@ NUIHelpBox::NUIHelpBox(const PdArgs& args)
     : ui::SimpleTclWidget<NUIHelpBoxBase>(args)
 {
     using sc = StyleCollection;
-    auto sz = sc::size(0, "help_box:size"_hash, Size(20, 16));
+    auto sz = sc::size(0, "help_box:size"_hash, Size(26, 16));
 
     ViewPtr view(new HelpboxView(&model_, HelpboxView::ViewImplPtr(new TclHelpboxImpl()), {}));
     view->setSize(sz);

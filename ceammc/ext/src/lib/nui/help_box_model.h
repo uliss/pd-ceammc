@@ -30,7 +30,7 @@ public:
     };
 public:
     HelpboxData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 16), 10526880, 10526880, colors::st_text, 12, "?", 0, false, {}, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, "?", 0, false, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {
@@ -78,10 +78,10 @@ public:
     // style
     void loadStyle(int st) {
         using sc = StyleCollection;
-        setSize(sc::size(st, "helpbox:size"_hash, Size(20, 16)));
+        setSize(sc::size(st, "helpbox:size"_hash, Size(20, 30)));
         setBorderColor(sc::color(st, "helpbox:border_color"_hash, 10526880));
         setFillColor(sc::color(st, "helpbox:fill_color"_hash, 10526880));
-        setTitleColor(sc::color(st, "helpbox:title_color"_hash, colors::st_text));
+        setTitleColor(sc::color(st, "helpbox:title_color"_hash, 16777215));
     }
 };
 

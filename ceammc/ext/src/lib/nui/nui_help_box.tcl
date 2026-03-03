@@ -9,7 +9,8 @@ namespace eval ::nui {
             set title_x [expr {$x + 4}]
             set title_y [expr {$h * 0.5}]
 
-            $c create text $title_x $title_y -text $title -fill $title_color -anchor w -width $text_width -tags $t
+            $c create text $title_x $title_y -text "▶ ${title}" -fill $title_color \
+                -anchor w -width $text_width -tags $t
         }
 
         proc update {cnv model id x y w h title title_color text_width is_open lines} {
@@ -18,8 +19,14 @@ namespace eval ::nui {
 
             set title_x [expr {$x + 4}]
             set title_y [expr {$h * 0.5}]
-
             $c coords $t $title_x $title_y
+
+            if {$is_open} {
+                set title "▼ ${title}"
+            } else {
+                set title "▶ ${title}"
+            }
+
             $c itemconfigure $t -text $title -fill $title_color -width $text_width -tags $t
         }
 

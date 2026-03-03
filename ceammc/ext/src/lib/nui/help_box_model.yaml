@@ -2,7 +2,7 @@ name: HelpBox
 data:
 - name: size
   type: Size
-  init: Size(20, 16)
+  init: Size(20, 30)
   style: size
 - name: border color
   type: HexColor
@@ -14,7 +14,7 @@ data:
   style: color
 - name: title color
   type: HexColor
-  init: colors::st_text
+  init: 0xFFFFFF
   style: color
 - name: title font size
   type: int
