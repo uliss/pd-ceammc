@@ -30,7 +30,10 @@ namespace ui {
 
     AtomList SizeProperty::get() const
     {
-        return { (t_float)size_.width(), (t_float)size_.height() };
+        return {
+            static_cast<t_float>(size_.width()),
+            static_cast<t_float>(size_.height()),
+        };
     }
 
     bool SizeProperty::setList(const AtomListView& lv)
@@ -46,7 +49,7 @@ namespace ui {
 
     bool SizeProperty::getList(AtomList& l) const
     {
-        l = AtomList((t_float)size_.width(), (t_float)size_.height());
+        l = AtomList(static_cast<t_float>(size_.width()), static_cast<t_float>(size_.height()));
         return true;
     }
 
@@ -55,5 +58,5 @@ namespace ui {
         size_ = sz;
         return true;
     }
-}
-}
+} // namespace ui
+} // namespace ceammc

@@ -50,5 +50,5 @@ namespace ui {
             y += v->size().height();
         }
     }
-}
-}
+} // namespace ui
+} // namespace ceammc
