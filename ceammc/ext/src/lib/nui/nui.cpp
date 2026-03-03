@@ -180,5 +180,5 @@ namespace ui {
         styles_.push_back(st);
         return styles_.size();
     }
-}
-}
+} // namespace ui
+} // namespace ceammc

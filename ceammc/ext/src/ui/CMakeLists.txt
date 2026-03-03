@@ -14,6 +14,7 @@ set(NUI_SOURCES
     nui_button.h
     nui_combobox.cpp
     nui_combobox.h
+    nui_help_box.cpp
     nui_toggle.cpp
 )
 

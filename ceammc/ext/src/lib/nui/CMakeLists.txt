@@ -28,6 +28,7 @@ endfunction()
 
 nui_add_view(button)
 nui_add_view(combobox)
+nui_add_view(help_box)
 nui_add_view(label)
 nui_add_view(nentry)
 nui_add_view(slider)

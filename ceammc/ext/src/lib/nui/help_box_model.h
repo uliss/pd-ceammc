@@ -14,18 +14,19 @@ namespace ceammc {
 namespace ui {
 
 class HelpboxData
-    : public std::tuple<std::string, Size, int, bool, int> {
+    : public std::tuple<Size, std::string, int, bool, std::vector<std::string>, int> {
 public:
     enum Fields {
-        TEXT,
         SIZE,
+        TITLE,
         TEXT_WIDTH,
         IS_OPEN,
+        TEXT_LINES,
         STYLE_IDX,
     };
 public:
     HelpboxData()
-        : std::tuple<std::string, Size, int, bool, int>(std::string(), Size(20, 16), 0, False, 0) { }
+        : std::tuple<Size, std::string, int, bool, std::vector<std::string>, int>(Size(20, 16), "?", 0, false, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {
@@ -35,24 +36,27 @@ public:
 
 
     // getters
-    std::string const& text() const noexcept { return std::get<TEXT>(*this); }
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    std::string const& title() const noexcept { return std::get<TITLE>(*this); }
     int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
     bool const& isOpen() const noexcept { return std::get<IS_OPEN>(*this); }
+    std::vector<std::string> const& textLines() const noexcept { return std::get<TEXT_LINES>(*this); }
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
-    void setText(std::string v) { std::get<TEXT>(*this) = v; }
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
+    void setTitle(std::string v) { std::get<TITLE>(*this) = v; }
     void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
     void setIsOpen(bool v) { std::get<IS_OPEN>(*this) = v; }
+    void setTextLines(std::vector<std::string> v) { std::get<TEXT_LINES>(*this) = v; }
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
     // refs
-    std::string& textRef() { return std::get<TEXT>(*this); }
     Size& sizeRef() { return std::get<SIZE>(*this); }
+    std::string& titleRef() { return std::get<TITLE>(*this); }
     int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }
     bool& isOpenRef() { return std::get<IS_OPEN>(*this); }
+    std::vector<std::string>& textLinesRef() { return std::get<TEXT_LINES>(*this); }
     int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style
