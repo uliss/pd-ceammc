@@ -37,7 +37,7 @@ namespace ui {
 
     void tcl_button_init();
 
-}
-}
+} // namespace ui
+} // namespace ceammc
 
 #endif // BUTTON_VIEW_H
