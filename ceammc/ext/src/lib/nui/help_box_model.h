@@ -30,7 +30,7 @@ public:
     };
 public:
     HelpboxData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, "?", 0, false, {}, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, {}, 0, false, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {

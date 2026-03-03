@@ -21,7 +21,7 @@ data:
   init: 12
 - name: title
   type: std::string
-  init: "\"?\""
+  init: "{}"
 - name: text width
   type: int
   init: 0

@@ -28,6 +28,8 @@ namespace ui {
 
     class NUIHelpBox : public SimpleTclWidget<NUIHelpBoxBase> {
         HelpboxModel model_;
+        ListProperty* lines_;
+        SymbolProperty* title_;
 
     public:
         explicit NUIHelpBox(const PdArgs& args);

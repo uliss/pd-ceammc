@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "help_box_view.h"
 #include "ceammc_log.h"
+#include "fmt/core.h"
 #include "nui_help_box_tcl.h"
 
 namespace ceammc {
@@ -40,15 +41,11 @@ namespace ui {
         sys_vgui("nui::help_box::create %lx %lx %lx"
                  " %d %d %d %d"
                  " %s #%6.6x"
-                 " %d"
-                 " %d"
-                 " {%s}\n",
+                 " %d\n",
             winId(), widgetId(), this,
             pt.x(), pt.y(), rect.width(), rect.height(),
             data.title().c_str(), data.titleColor(),
-            data.textWidth(),
-            data.isOpen(),
-            "line1\nline2");
+            data.textWidth());
     }
 
     void TclHelpboxImpl::erase()
@@ -61,18 +58,23 @@ namespace ui {
         Rect rect = transform(bbox);
         auto pt = rect.pt0();
 
+        std::string items;
+        for (auto& s : data.textLines()) {
+            items += fmt::format(" {{{0}}}", s);
+        }
+
         sys_vgui("nui::help_box::update %lx %lx %lx"
                  " %d %d %d %d"
                  " %s #%6.6x"
                  " %d"
                  " %d"
-                 " {%s}\n",
+                 " [list %s]\n",
             winId(), widgetId(), this,
             pt.x(), pt.y(), rect.width(), rect.height(),
             data.title().c_str(), data.titleColor(),
             data.textWidth(),
             data.isOpen(),
-            "content\ncontent");
+            items.c_str());
     }
 
     void TclHelpboxImpl::updateCoords(const RectF& bbox)
