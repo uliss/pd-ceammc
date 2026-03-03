@@ -14,15 +14,13 @@ proc ::ceammc::colorpanel::parse_zenity {str} {
 proc ::ceammc::colorpanel::do_open {objectid initialcolor} {
     set color {}
 
-    if {[catch {tk windowingsystem} ws]} {
-        set color [tk_chooseColor -initialcolor $initialcolor]
-    }
-
-    switch $ws {
+    switch $::windowingsystem {
         "x11" {
-            set result [exec zenity --color-selection \
-                                    --title="'[_ 'Choose color']'" \
-                                    --color="$initial_color"]
+            set cmd "exec zenity --color-selection --title=Color --color=$initialcolor"
+            ::pdwindow::error "$cmd\n"
+            if {[catch $cmd result]} {
+                return
+            }
 
             set color [::ceammc::colorpanel::parse_zenity $result]
         }
