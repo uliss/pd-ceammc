@@ -8,8 +8,8 @@
     <par style="info">
       <tr lang="en">CEAMMC library has a conception of properties: the way to access to the inner
       state of the object.</tr>
-      <tr lang="ru">Библиотека CEAMMC имеет концепцию свойств: способов доступа к
-      внутреннему состоянию объекта.</tr>
+      <tr lang="ru">Библиотека CEAMMC имеет концепцию свойств: способов доступа к внутреннему
+      состоянию объекта.</tr>
     </par>
     <par>
       <tr lang="en">A property name starts with '@' symbol.</tr>
@@ -47,8 +47,8 @@
     <par indent="3">
       <tr lang="en">There are [prop.route] and [prop.route~] objects for splitting the main object
       audio/control stream from the requested properties:</tr>
-      <tr lang="ru">Существуют объекты [prop.route] и [prop.route~] для отделения сообщений свойств от
-      основного (звукового или управляющего) потока объекта:</tr>
+      <tr lang="ru">Существуют объекты [prop.route] и [prop.route~] для отделения сообщений свойств
+      от основного (звукового или управляющего) потока объекта:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -81,9 +81,10 @@
     <par indent="3" style="info">
       <tr lang="en">NOTE: for some objects, like in flow category, this is the single way to
       get/set properties, because by design flow objects should work with all dataflow values.</tr>
-      <tr lang="ru">ПРИМЕЧАНИЕ: для некоторых объектов, например, в категории
-      работы с потоками данных (объекты flow. и др.), это единственный способ получить или установить их свойства,
-      потому что по своему предназначению объекты обработки потоков должны работать со любыми входящими сообщениями.</tr>
+      <tr lang="ru">ПРИМЕЧАНИЕ: для некоторых объектов, например, в категории работы с потоками
+      данных (объекты flow. и др.), это единственный способ получить или установить их свойства,
+      потому что по своему предназначению объекты обработки потоков должны работать со любыми
+      входящими сообщениями.</tr>
     </par>
     <par>
       <tr lang="en">Some frequently used properties can be set with positional init arguments. This
@@ -98,20 +99,21 @@
     </par>
     <ul indent="3">
       <item>
-        <tr lang="en">readwrite - you can set this property when creating an object,
-        by sending messages to the object, or using connected objects [prop.get]/[prop.set]</tr>
-        <tr lang="ru">readwrite (чтение и запись) - вы можете установить это свойство при создании объекта,
-        отправкой сообщений объекту или при помощи объектов [prop.get]/[prop.set]</tr>
+        <tr lang="en">readwrite - you can set this property when creating an object, by sending
+        messages to the object, or using connected objects [prop.get]/[prop.set]</tr>
+        <tr lang="ru">readwrite (чтение и запись) - вы можете установить это свойство при создании
+        объекта, отправкой сообщений объекту или при помощи объектов [prop.get]/[prop.set]</tr>
       </item>
       <item>
         <tr lang="en">initonly - you can set it with initial arguments and after that only get its
         value</tr>
-        <tr lang="ru">initonly (только при инициализации) - можно установить его при создании объекта, а
-        после этого только читать его значение</tr>
+        <tr lang="ru">initonly (только при инициализации) - можно установить его при создании
+        объекта, а после этого только читать его значение</tr>
       </item>
       <item>
         <tr lang="en">readonly - you can only get its value, it cannot be set in any way</tr>
-        <tr lang="ru">readonly - вы можете только получить его значение, установить его невозможно никаким образом</tr>
+        <tr lang="ru">readonly - вы можете только получить его значение, установить его невозможно
+        никаким образом</tr>
       </item>
     </ul>
     <pdascii indent="10">
@@ -139,12 +141,11 @@
       number substitution, performs init function call and data parsing. After theese steps the
       property parsing stage is invoked. So quoting, bin and hex numbers, function calls can be
       used also in initial object properties arguments.</tr>
-      <tr lang="ru">При создании объектов ceammc
-      аргументы инициализации разбираются парсером,
-      производит раскрытие кавычек и подстановка числовых значений, выполняется вызовы функций инициализации
-      и разбор типов данных парсером.
-      После этих шагов начинается этап разбора свойств объекта. Таким образом, заключение в кавычки, двоичные и
-      шестнадцатеричные числа, вызовы функций могут использоваться в свойствах инициализации объекта.</tr>
+      <tr lang="ru">При создании объектов ceammc аргументы инициализации разбираются парсером,
+      производит раскрытие кавычек и подстановка числовых значений, выполняется вызовы функций
+      инициализации и разбор типов данных парсером. После этих шагов начинается этап разбора
+      свойств объекта. Таким образом, заключение в кавычки, двоичные и шестнадцатеричные числа,
+      вызовы функций могут использоваться в свойствах инициализации объекта.</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -178,7 +179,8 @@
     </pdascii>
     <par indent="3">
       <tr lang="en">You can use simple math and random for float properties:</tr>
-      <tr lang="ru">Можно использовать простую математику и случайные числа для рациональных свойств:</tr>
+      <tr lang="ru">Можно использовать простую математику и случайные числа для рациональных
+      свойств:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[
@@ -198,8 +200,7 @@
     </pdascii>
     <par indent="3">
       <tr lang="en">You can get the list all of object properties with message:</tr>
-      <tr lang="ru">Вы можете получить список всех свойств объекта с помощью
-      сообщения:</tr>
+      <tr lang="ru">Вы можете получить список всех свойств объекта с помощью сообщения:</tr>
     </par>
     <pdascii indent="10">
 <![CDATA[

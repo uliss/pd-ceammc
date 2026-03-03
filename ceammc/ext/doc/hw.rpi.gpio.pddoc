@@ -16,6 +16,24 @@
       <keywords>display gpio raspberry</keywords>
       <since>0.9.8</since>
     </meta>
+    <info>
+      <par style="important">
+        <tr lang="en">GPIO pins are taken into exclusive ownership: only one entity can read or set
+        the value of a pin. Send the message [release( to relinquish ownership of the pin.</tr>
+        <tr lang="ru">Контакты GPIO забираются в эксклюзивное владение: только один объект может
+        читать или выводить значение на контакт. Оправляйте сообщение [release( чтобы отказаться от
+        владения контактом. То есть вы можете создавать любое количество объектов
+        [hw.rpi.gpio]</tr>
+      </par>
+      <par style="info">
+        <tr lang="en">That is, you can create any number of objects [hw.rpi.gpio], but access to a
+        specific pin will be available only to one of these objects (the first one that captured
+        this pin)</tr>
+        <tr lang="ru">То есть вы можете создавать любое количество объектов [hw.rpi.gpio], но
+        доступ к определенному контакту будет только у одного из этих объектов (перовому, который
+        этот контакт захватил)</tr>
+      </par>
+    </info>
     <methods>
       <!-- clear_pwm -->
       <method name="clear_pwm">
@@ -209,9 +227,13 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">messages: [pin PIN STATE(, [pins PIN PIN...(</tr>
-          <tr lang="ru">сообщения: [pin КОНТАКТ СОСТОЯНИЕ(, [pins КОНТАКТ КОНТАКТ...(</tr>
+        <out name="pin" type="any">
+          <tr lang="en">pin state: [pin PIN STATE(</tr>
+          <tr lang="ru">состояние контакта: [pin КОНТАКТ СОСТОЯНИЕ(</tr>
+        </out>
+        <out name="pins" type="any">
+          <tr lang="en">pin list: [pins PIN PIN...(</tr>
+          <tr lang="ru">список контактов: [pins КОНТАКТ КОНТАКТ...(</tr>
         </out>
       </outlet>
     </outlets>
