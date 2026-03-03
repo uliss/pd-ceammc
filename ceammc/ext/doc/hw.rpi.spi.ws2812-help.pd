@@ -37,7 +37,7 @@ of the last element.;
 #X msg 270 651 set_range 4 4 255 0 0 \, bang;
 #X obj 50 680 system.colorpanel @i;
 #X msg 270 680 set_slice 1 15 3 0 127 255 \, bang;
-#X obj 50 709 msg fill;
+#X obj 50 709 msg fill @color;
 #X msg 270 709 fx rainbow 0.5 \, fx_next;
 #X obj 50 738 msg.after 0 bang;
 #X floatatom 270 738 5 0 0 0 - - -;

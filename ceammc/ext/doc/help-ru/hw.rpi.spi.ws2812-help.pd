@@ -34,7 +34,7 @@ STEP равно 3 \, выбирает каждый третий пиксель �
 #X msg 270 591 set_range 4 4 255 0 0 \, bang;
 #X obj 50 620 system.colorpanel @i;
 #X msg 270 620 set_slice 1 15 3 0 127 255 \, bang;
-#X obj 50 649 msg fill;
+#X obj 50 649 msg fill @color;
 #X msg 270 649 fx rainbow 0.5 \, fx_next;
 #X obj 50 678 msg.after 0 bang;
 #X floatatom 270 678 5 0 0 0 - - -;

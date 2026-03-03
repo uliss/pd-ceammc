@@ -242,7 +242,7 @@
 |
 [system.colorpanel @i] [set_slice 1 15 3 0 127 255, bang #c(
 |
-[msg fill]             [fx rainbow 0.5, fx_next #d(
+[msg fill @color]      [fx rainbow 0.5, fx_next #d(
 |
 [msg.after 0 bang #a]  [F]
                        |
