@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc-pages version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+<pddoc-pages xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
   <xi:include href="ceammc_page_args.xml" parse="xml" />
   <xi:include href="ceammc_page_props.xml" parse="xml" />
   <xi:include href="ceammc_page_functions.xml" parse="xml" />
+  <xi:include href="ceammc_page_rpi_objects.xml" parser="xml" />
+  <xi:include href="ceammc_page_rpi_objects.xml" parser="xml" />
+  <xi:include href="ceammc_page_rpi_objects.xml" parser="xml" />
 </pddoc-pages>

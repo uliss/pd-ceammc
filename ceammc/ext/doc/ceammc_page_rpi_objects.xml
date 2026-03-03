@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page output="ceammc_rpi_objects-info.pd">
+  <title>
+    <tr lang="en">Objects for Raspberry Pi</tr>
+    <tr lang="ru">Объекты для Raspberry Pi</tr>
+  </title>
+  <sections>
+    <par indent="1" style="info">
+      <tr lang="en">At the moment, the following objects are available for working with Raspberry
+      Pi:</tr>
+      <tr lang="ru">На данный момент доступны следующие объекты для работы в Raspberry Pi:</tr>
+    </par>
+    <info object="hw.rpi.gpio">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа с GPIO (General Purpose Input/Output). С помощью этого объекта можно
+      управлять светодиодами, реле, соленоидами, сервомоторами, шаговыми двигателями, а также
+      считывать цифровые значения с кнопок и пороговых датчиков.</tr>
+    </info>
+    <a href="ceammc://hw.rpi.gpio-example.pd" indent="19">
+      <tr lang="en"></tr>
+      <tr lang="ru">Управление GPIO</tr>
+    </a>
+    <info object="hw.rpi.pwm">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа с ШИМ (PWM) - широтно-импульсной модуляцией (pulse width modulation)
+      при помощи аппаратных генераторов Raspberry Pi, которые обеспечивают большую стабильность
+      параметров модуляции.</tr>
+    </info>
+    <info object="hw.rpi.pwm.pca9685">
+      <tr lang="en"></tr>
+      <tr lang="ru">- драйвер для 16-канального ШИМ на микросхеме PCA9685 для работы с
+      сервоприводами, светодиодами и др., подключаемый к шине I2C.</tr>
+    </info>
+    <info object="hw.rpi.rotenc">
+      <tr lang="en"></tr>
+      <tr lang="ru">- считывание сигналов и работа с поворотными энкодерами.</tr>
+    </info>
+    <info object="hw.rpi.sensor.sr04">
+      <tr lang="en"></tr>
+      <tr lang="ru">- ультразвуковой датчик растояния.</tr>
+    </info>
+    <info object="hw.rpi.sensor.vl53l0x">
+      <tr lang="en"></tr>
+      <tr lang="ru">- лазерный датчик растояния.</tr>
+    </info>
+    <info object="hw.rpi.sensor.dht11">
+      <tr lang="en"></tr>
+      <tr lang="ru">- датчик температуры и влажности.</tr>
+    </info>
+    <info object="hw.rpi.sensor.ir">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа с ИК-пультами управления.</tr>
+    </info>
+    <info object="hw.rpi.sensor.mpu6050">
+      <tr lang="en"></tr>
+      <tr lang="ru">- датчик ускорения и гироскоп.</tr>
+    </info>
+    <info object="hw.rpi.spi.ws2812">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа с управляемой адресной светодиодной лентой на базе микросхемы WS2812
+      (Neopixel и др.).</tr>
+    </info>
+    <info object="hw.rpi.spi.max7219">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа со светодиодными матрицами и индикаторами на основе микросхемы
+      MAX2712.</tr>
+    </info>
+    <info object="hw.rpi.display.hd44780">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа со жидкокристаллическими дисплеями на базе микросхемы HD44780, часто
+      известными как 1602 или 2004</tr>
+    </info>
+    <info object="hw.rpi.display.ssd1306">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа со OLED дисплеями на базе микросхемы ssd1306</tr>
+    </info>
+    <info object="hw.rpi.adc.ads1115">
+      <tr lang="en"></tr>
+      <tr lang="ru">- работа с 4-х канальным АЦП на базе микросхемы ADS1115. Считывание уровней
+      напряжения с переменных резисторов, аналоговых датчиков и т.д.</tr>
+    </info>
+  </sections>
+</page>

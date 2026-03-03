@@ -1,0 +1,64 @@
+#N canvas 0 0 700 500 12;
+#X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
+-104026 -4096 0;
+#X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 61 cnv 5 450 32 empty empty Объекты\ для\ Raspberry\ Pi 4 16
+0 17 -262144 -104026 0;
+#X text 50 124 На данный момент доступны следующие объекты для работы
+в Raspberry Pi:, f 79;
+#X obj 40 124 cnv 1 2 25 empty empty empty 17 7 0 10 -158925 -1 0;
+#X obj 40 157 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
+#X text 230 154 - работа с GPIO (General Purpose Input/Output). С помощью
+этого объекта можно управлять светодиодами \, реле \, соленоидами \,
+сервомоторами \, шаговыми двигателями \, а также считывать цифровые
+значения с кнопок и пороговых датчиков.;
+#X obj 230 247 ui.link @title Управление GPIO @url
+ceammc://hw.rpi.gpio-example.pd;
+#X obj 40 282 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
+#X text 230 279 - работа с ШИМ (PWM) - широтно-импульсной модуляцией
+(pulse width modulation) при помощи аппаратных генераторов Raspberry
+Pi \, которые обеспечивают большую стабильность параметров модуляции.;
+#X obj 40 352 ui.link @title [hw.rpi.pwm.pca9685] @url
+hw.rpi.pwm.pca9685-help.pd;
+#X text 230 349 - драйвер для 16-канального ШИМ на микросхеме PCA9685
+для работы с сервоприводами \, светодиодами и др. \, подключаемый к
+шине I2C.;
+#X obj 40 407 ui.link @title [hw.rpi.rotenc] @url
+hw.rpi.rotenc-help.pd;
+#X text 230 404 - считывание сигналов и работа с поворотными энкодерами.;
+#X obj 40 442 ui.link @title [hw.rpi.sensor.sr04] @url
+hw.rpi.sensor.sr04-help.pd;
+#X text 230 439 - ультразвуковой датчик растояния.;
+#X obj 40 477 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+hw.rpi.sensor.vl53l0x-help.pd;
+#X text 230 474 - лазерный датчик растояния.;
+#X obj 40 512 ui.link @title [hw.rpi.sensor.dht11] @url
+hw.rpi.sensor.dht11-help.pd;
+#X text 230 509 - датчик температуры и влажности.;
+#X obj 40 547 ui.link @title [hw.rpi.sensor.ir] @url
+hw.rpi.sensor.ir-help.pd;
+#X text 230 544 - работа с ИК-пультами управления.;
+#X obj 40 582 ui.link @title [hw.rpi.sensor.mpu6050] @url
+hw.rpi.sensor.mpu6050-help.pd;
+#X text 230 579 - датчик ускорения и гироскоп.;
+#X obj 40 617 ui.link @title [hw.rpi.spi.ws2812] @url
+hw.rpi.spi.ws2812-help.pd;
+#X text 230 614 - работа с управляемой адресной светодиодной лентой
+на базе микросхемы WS2812 (Neopixel и др.).;
+#X obj 40 657 ui.link @title [hw.rpi.spi.max7219] @url
+hw.rpi.spi.max7219-help.pd;
+#X text 230 654 - работа со светодиодными матрицами и индикаторами
+на основе микросхемы MAX2712\.;
+#X obj 40 697 ui.link @title [hw.rpi.display.hd44780] @url
+hw.rpi.display.hd44780-help.pd;
+#X text 230 694 - работа со жидкокристаллическими дисплеями на базе
+микросхемы HD44780 \, часто известными как 1602 или 2004;
+#X obj 40 737 ui.link @title [hw.rpi.display.ssd1306] @url
+hw.rpi.display.ssd1306-help.pd;
+#X text 230 734 - работа со OLED дисплеями на базе микросхемы ssd1306;
+#X obj 40 772 ui.link @title [hw.rpi.adc.ads1115] @url
+hw.rpi.adc.ads1115-help.pd;
+#X text 230 769 - работа с 4-х канальным АЦП на базе микросхемы ADS1115\.
+Считывание уровней напряжения с переменных резисторов \, аналоговых
+датчиков и т.д.;
+#X obj 1 844 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
