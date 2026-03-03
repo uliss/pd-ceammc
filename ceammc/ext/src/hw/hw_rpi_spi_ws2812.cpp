@@ -183,9 +183,11 @@ bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListVie
 {
     AtomListView res;
 
+    auto this_ = const_cast<HwSpiWs2812*>(this);
+
     if (lv.getProperty(gensym("@slice"), res)) {
         static const args::ArgChecker rslice_chk("FIRST:i LAST:i? STEP:i>0?");
-        if (!rslice_chk.check(res, const_cast<HwSpiWs2812*>(this)))
+        if (!rslice_chk.check(res, this_, gensym("@slice")))
             return false;
 
         slice.first = res.intAt(0, 0);
@@ -195,12 +197,14 @@ bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListVie
         return true;
     } else if (lv.getProperty(gensym("@lslice"), res)) {
         static const args::ArgChecker lslice_chk("FIRST:i LENGTH:i>0? STEP:i>0?");
-        if (!lslice_chk.check(res, const_cast<HwSpiWs2812*>(this)))
+        if (!lslice_chk.check(res, this_, gensym("@lslice")))
             return false;
 
         slice.first = res.intAt(0, 0);
         slice.last = slice.first + res.intAt(1, size_->value());
         slice.step = res.intAt(2, 1);
+
+        return true;
     }
 
     return false;
