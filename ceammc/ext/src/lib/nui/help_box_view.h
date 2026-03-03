@@ -19,7 +19,13 @@
 
 namespace ceammc {
 namespace ui {
-    using HelpboxView = ModelView<HelpboxData>;
+
+    class HelpboxView : public ModelView<HelpboxData> {
+    public:
+        HelpboxView(ModelBase<HelpboxData>* model, ViewImplPtr&& impl, const PointF& pos);
+
+        EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+    };
 
     class TclHelpboxImpl : public ViewImpl<HelpboxData> {
     public:

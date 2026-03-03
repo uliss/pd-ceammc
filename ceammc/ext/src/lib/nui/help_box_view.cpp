@@ -86,5 +86,29 @@ namespace ui {
     {
         nui_help_box_tcl_output();
     }
+
+    HelpboxView::HelpboxView(ModelBase<HelpboxData>* model, ViewImplPtr&& impl, const PointF& pos)
+        : ModelView<HelpboxData>(model, std::move(impl), pos)
+    {
+    }
+
+    EventAcceptStatus HelpboxView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    {
+        switch (t) {
+        case EVENT_MOUSE_DOWN:
+            data().setIsOpen(!data().isOpen());
+            redraw();
+            notifyOthers();
+            return { nullptr, EVENT_STATUS_ACCEPT };
+        // case EVENT_MOUSE_LEAVE:
+        //     data().setState(false);
+        //     redraw();
+        //     notifyOthers();
+        //     return { nullptr, EVENT_STATUS_ACCEPT };
+        default:
+            return { nullptr, EVENT_STATUS_IGNORE };
+        }
+    }
+
 }
 }
