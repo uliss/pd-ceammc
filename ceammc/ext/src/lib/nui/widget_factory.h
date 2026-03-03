@@ -24,8 +24,8 @@ namespace ui {
     template <typename T>
     class WidgetFactory : public UIFactory<ObjectFactory, T> {
     public:
-        explicit WidgetFactory(const char* name)
-            : UIFactory<ObjectFactory, T>(name)
+        explicit WidgetFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+            : UIFactory<ObjectFactory, T>(name, flags)
         {
             this->useMouseDown();
             this->useMouseEnter();

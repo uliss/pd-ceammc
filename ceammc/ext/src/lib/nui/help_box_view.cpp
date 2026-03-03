@@ -37,13 +37,13 @@ namespace ui {
         auto pt = rect.pt0();
 
         sys_vgui("nui::help_box::create %lx %lx %lx"
-                 " %d %d"
+                 " %d %d %d %d"
                  " %s"
                  " %d"
                  " %d"
                  " {%s}\n",
             winId(), widgetId(), this,
-            pt.x(), pt.y(),
+            pt.x(), pt.y(), rect.width(), rect.height(),
             data.title().c_str(),
             data.textWidth(),
             data.isOpen(),
@@ -61,13 +61,13 @@ namespace ui {
         auto pt = rect.pt0();
 
         sys_vgui("nui::help_box::update %lx %lx %lx"
-                 " %d %d"
+                 " %d %d %d %d"
                  " %s"
                  " %d"
                  " %d"
                  " {%s}\n",
             winId(), widgetId(), this,
-            pt.x(), pt.y(),
+            pt.x(), pt.y(), rect.width(), rect.height(),
             data.title().c_str(),
             data.textWidth(),
             data.isOpen(),

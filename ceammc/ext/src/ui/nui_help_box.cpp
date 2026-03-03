@@ -8,7 +8,6 @@ using namespace ceammc::ui;
 NUIHelpBoxBase::NUIHelpBoxBase(const PdArgs& args)
     : BaseObject(args)
 {
-    // createOutlet();
 }
 
 NUIHelpBox::NUIHelpBox(const PdArgs& args)
@@ -49,5 +48,5 @@ void setup_nui_help_box()
 {
     using namespace ceammc::ui;
 
-    WidgetFactory<NUIHelpBox> obj("nui.helpbox");
+    WidgetFactory<NUIHelpBox> obj("nui.helpbox", ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);
 }
