@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
     <tr lang="en">font weight</tr>
-    <tr lang="ru">толщину шрифта</tr>
+    <tr lang="ru">толщина шрифта</tr>
 </property>
 
