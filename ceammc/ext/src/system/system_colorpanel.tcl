@@ -20,11 +20,11 @@ proc ::ceammc::colorpanel::do_open {objectid initialcolor} {
 
     switch $ws {
         "x11" {
-            if {[catch {exec zenity --color-selection --show-palette} result]} {
-                set color [tk_chooseColor -initialcolor $initialcolor]
-            } else {
-                set color [::ceammc::colorpanel::parse_zenity $result]
-            }
+            set result [exec zenity --color-selection \
+                                    --title="'[_ 'Choose color']'" \
+                                    --color="$initial_color"]
+
+            set color [::ceammc::colorpanel::parse_zenity $result]
         }
         default {
             set color [tk_chooseColor -initialcolor $initialcolor]
