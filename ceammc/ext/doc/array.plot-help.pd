@@ -28,63 +28,63 @@
 #X text 130 368 2\.;
 #X text 170 368 float;
 #X obj 268 369 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 368 YMIN: minimal y-axis value. Type: float. Range: -2048\...2048;
-#X text 130 393 3\.;
-#X text 170 393 float;
-#X obj 268 394 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 393 YMAX: maximum y-axis value. Type: float. Range: -2048\...2048;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 368 YMIN: minimal y-axis value. Type: float. Range: [-2048\..2048];
+#X text 130 408 3\.;
+#X text 170 408 float;
+#X obj 268 409 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 408 YMAX: maximum y-axis value. Type: float. Range: [-2048\..2048];
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 463 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 436 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 466 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 434 @array;
-#X text 270 434 Array name. Type: symbol.;
-#X obj 250 464 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 464 @nan;
-#X text 270 464 Value to replace NaN on plot. Type: float. Default
+#X msg 130 464 @array;
+#X text 270 464 Array name. Type: symbol.;
+#X obj 250 494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 494 @nan;
+#X text 270 494 Value to replace NaN on plot. Type: float. Default
 value: +inf.;
-#X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 506 @yauto;
-#X text 270 506 Calculate y-axis range automatically. Type: bool. Default
+#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 536 @yauto;
+#X text 270 536 Calculate y-axis range automatically. Type: bool. Default
 value: 1\.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @ymax;
-#X text 270 548 Maximum y-axis value. Type: float. Default value: 1\.
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 578 @ymax;
+#X text 270 578 Maximum y-axis value. Type: float. Default value: 1\.
 Range: [-2048\..2048].;
-#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 590 @ymin;
-#X text 270 590 Minimal y-axis value. Type: float. Default value: -1\.
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 620 @ymin;
+#X text 270 620 Minimal y-axis value. Type: float. Default value: -1\.
 Range: [-2048\..2048].;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 647 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 677 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 648 1\.;
-#X text 170 648 float:;
-#X text 270 648 single input sample.;
-#X text 170 673 list:;
-#X text 270 673 resizes array to list size and plot all list values.;
-#X text 130 698 2\.;
-#X text 170 698 bang:;
-#X text 270 698 plot all samples fitted to specified array.;
-#X text 170 723 float:;
-#X text 270 723 plot specified number of samples \, resizes array.;
-#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 763 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 678 1\.;
+#X text 170 678 float:;
+#X text 270 678 single input sample.;
+#X text 170 703 list:;
+#X text 270 703 resizes array to list size and plot all list values.;
+#X text 130 728 2\.;
+#X text 170 728 bang:;
+#X text 270 728 plot all samples fitted to specified array.;
+#X text 170 753 float:;
+#X text 270 753 plot specified number of samples \, resizes array.;
+#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 793 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 764 1\.;
-#X text 270 764 bang on done.;
+#X text 130 794 1\.;
+#X text 270 794 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 817 library: ceammc v0.9.8;
-#X text 582 829 see also:;
-#X obj 657 832 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 844 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 847 library: ceammc v0.9.8;
+#X text 582 859 see also:;
+#X obj 657 862 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.plot~] @url array.plot~-help.pd;
-#N canvas 10 836 400 290 info 0;
+#N canvas 10 866 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 836 pd info;
+#X restore 10 866 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 6 0 8 0;

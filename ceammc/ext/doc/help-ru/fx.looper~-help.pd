@@ -26,7 +26,7 @@
 #X text 170 318 float;
 #X obj 268 319 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 318 CAPACITY(sec): max loop time. Тип: float. Диапазон:
-0…120;
+[0\..120];
 #X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -40,7 +40,7 @@
 #X text 130 617 1\.;
 #X text 170 617 int;
 #X obj 268 618 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 617 N: number of output channels. Тип: int. Диапазон: 1…32;
+#X text 270 617 N: number of output channels. Тип: int. Диапазон: [1\..32];
 #X text 130 642 2\.;
 #X text 170 642 symbol;
 #X obj 268 643 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

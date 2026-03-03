@@ -22,11 +22,11 @@
 #X text 170 405 float;
 #X obj 268 406 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 FREQ(Hz): initial frequency. Тип: float. Диапазон:
-0…1000;
+[0\..1000];
 #X text 130 430 2\.;
 #X text 170 430 float;
 #X obj 268 431 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 DUTY: duty cycle. Тип: float. Диапазон: 0…1;
+#X text 270 430 DUTY: duty cycle. Тип: float. Диапазон: [0\..1];
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 470 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

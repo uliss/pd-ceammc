@@ -18,7 +18,7 @@
 #X text 130 325 1\.;
 #X text 170 325 float:;
 #X text 270 325 sets current keyboards light level (no output). Диапазон:
-0…1\.;
+[0\..1].;
 #X text 170 365 bang:;
 #X text 270 365 outputs current keyboard light level.;
 #X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;

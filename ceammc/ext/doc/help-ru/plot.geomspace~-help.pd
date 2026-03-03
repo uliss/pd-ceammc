@@ -30,7 +30,7 @@
 #X text 130 455 3\.;
 #X text 170 455 int;
 #X obj 268 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 455 N: @n property. Тип: int. Диапазон: 4…1024;
+#X text 270 455 N: @n property. Тип: int. Диапазон: [4\..1024];
 #X text 130 480 4\.;
 #X text 170 480 atom;
 #X obj 268 481 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;

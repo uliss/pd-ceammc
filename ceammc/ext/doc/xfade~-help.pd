@@ -35,7 +35,7 @@ first and second signals \, [1-2) between second and third etc.;
 #X text 130 430 1\.;
 #X text 170 430 int;
 #X obj 268 431 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 N: number of inputs. Type: int. Range: 2\...16;
+#X text 270 430 N: number of inputs. Type: int. Range: [2\..16];
 #X text 130 455 2\.;
 #X text 170 455 float;
 #X obj 268 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;

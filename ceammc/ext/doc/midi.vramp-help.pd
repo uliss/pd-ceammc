@@ -21,11 +21,11 @@
 #X text 130 390 1\.;
 #X text 170 390 int;
 #X obj 268 391 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 FROM: start value. Type: int. Range: 0\...127;
+#X text 270 390 FROM: start value. Type: int. Range: [0\..127];
 #X text 130 415 2\.;
 #X text 170 415 int;
 #X obj 268 416 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 415 TO: end value. Type: int. Range: 0\...127;
+#X text 270 415 TO: end value. Type: int. Range: [0\..127];
 #X text 130 440 3\.;
 #X text 170 440 int;
 #X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;

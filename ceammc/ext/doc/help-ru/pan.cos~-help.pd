@@ -28,7 +28,7 @@ at every pan position is 0 dB.;
 #X text 170 383 float;
 #X obj 268 384 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 383 POS: panning position. -1 means left \, 0 - center
-\, +1 - right. Тип: float. Диапазон: -1…1;
+\, +1 - right. Тип: float. Диапазон: [-1\..1];
 #X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 438 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -49,7 +49,7 @@ zipping-noise. Тип: int. Значение по умолчанию: 20\. Ди�
 #X text 270 569 input signal.;
 #X text 130 594 2\.;
 #X text 170 594 float:;
-#X text 270 594 pan position. Диапазон: -1…1\.;
+#X text 270 594 pan position. Диапазон: [-1\..1].;
 #X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 634 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;

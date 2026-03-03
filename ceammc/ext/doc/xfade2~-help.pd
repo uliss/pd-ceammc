@@ -29,7 +29,7 @@ first and second signals \, [1-2) between second and third etc.;
 #X text 170 430 int;
 #X obj 268 431 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 430 N: number of signal inputs stereo pairs. Type: int.
-Range: 2\...16;
+Range: [2\..16];
 #X text 130 470 2\.;
 #X text 170 470 float;
 #X obj 268 471 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;

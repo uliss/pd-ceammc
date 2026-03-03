@@ -32,22 +32,22 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 170 464 float;
 #X obj 268 465 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 464 STRENGTH: сила экспандера (0: без расширения \, 10:
-практически гейт). Тип: float. Диапазон: 0…10;
+практически гейт). Тип: float. Диапазон: [0\..10];
 #X text 130 504 2\.;
 #X text 170 504 float;
 #X obj 268 505 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 504 THRESHOLD(db): пороговый уровень \, ниже которого срабатывает
-экспандер. Тип: float. Диапазон: -60…0;
+экспандер. Тип: float. Диапазон: [-60\..0];
 #X text 130 544 3\.;
 #X text 170 544 float;
 #X obj 268 545 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 544 ATTACK(ms): время атаки - время включения экспандера.
-Тип: float. Диапазон: 0.1…100;
+Тип: float. Диапазон: [0.1\..100];
 #X text 130 584 4\.;
 #X text 170 584 float;
 #X obj 268 585 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 584 RELEASE(ms): время спада - время выключения экспандера.
-Тип: float. Диапазон: 1…500;
+Тип: float. Диапазон: [1\..500];
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 639 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

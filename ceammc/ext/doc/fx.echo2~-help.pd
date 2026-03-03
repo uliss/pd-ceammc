@@ -22,88 +22,88 @@
 #X text 130 347 1\.;
 #X text 170 347 float;
 #X obj 268 348 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 DELAY(ms): echo time. Type: float. Range: 10\...5000;
+#X text 270 347 DELAY(ms): echo time. Type: float. Range: [10\..5000];
 #X text 130 372 2\.;
 #X text 170 372 float;
 #X obj 268 373 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 FEEDBACK: feedback coefficient. Type: float. Range:
-0\...0.99;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 412 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+[0\..0.99];
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 430 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 413 @id;
-#X text 270 413 (initonly) OSC address id. If specified \, bind all
+#X msg 130 428 @id;
+#X text 270 428 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_echo2/PROP_NAME osc address \, if empty bind to
 /fx_echo2/PROP_NAME. Type: symbol.;
-#X obj 250 470 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 470 @osc;
-#X text 270 470 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 500 @active;
-#X text 270 500 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 485 @osc;
+#X text 270 485 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 515 @active;
+#X text 270 515 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 530 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 530 @bypass;
-#X text 270 530 Bypass flag. If true: bypass 'effected' signal. Type:
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 545 @bypass;
+#X text 270 545 Bypass flag. If true: bypass 'effected' signal. Type:
 bool. Default value: 0\.;
-#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 572 @delay;
-#X text 270 572 Echo time. Type: float. Units: 'ms'. Default value:
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 587 @delay;
+#X text 270 587 Echo time. Type: float. Units: 'ms'. Default value:
 500\. Range: [10\..5000].;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @drywet;
-#X text 270 614 Proportion of mix between the original (dry) and 'effected'
+#X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 629 @drywet;
+#X text 270 629 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
 1\. Range: [0\..1].;
-#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 671 @feedback;
-#X text 270 671 Feedback coefficient. Type: float. Default value: 0.3\.
+#X obj 250 686 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 686 @feedback;
+#X text 270 686 Feedback coefficient. Type: float. Default value: 0.3\.
 Range: [0\..0.99].;
-#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 713 @stereo;
-#X text 270 713 The stereo parameter controls the amount of stereo
+#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 728 @stereo;
+#X text 270 728 The stereo parameter controls the amount of stereo
 spread. For stereo=0 you get a plain delay \, without crosstalk between
 the channels. For stereo=1 you get a pure ping-pong delay where the
 echos from the left first appear on the right channel and vice versa.
 Type: float. Default value: 1\. Range: [0\..1].;
-#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 831 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 846 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 832 reset;
-#X text 270 832 reset to initial state.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 882 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 847 reset;
+#X text 270 847 reset to initial state.;
+#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 897 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 883 1\.;
-#X text 170 883 ~;
-#X text 270 883 left input signal.;
-#X text 130 908 2\.;
-#X text 170 908 ~;
-#X text 270 908 right input signal.;
-#X obj 20 943 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 948 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 898 1\.;
+#X text 170 898 ~;
+#X text 270 898 left input signal.;
+#X text 130 923 2\.;
+#X text 170 923 ~;
+#X text 270 923 right input signal.;
+#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 949 1\.;
-#X text 170 949 ~;
-#X text 270 949 left output signal.;
-#X text 130 969 2\.;
-#X text 170 969 ~;
-#X text 270 969 right output signal.;
+#X text 130 964 1\.;
+#X text 170 964 ~;
+#X text 270 964 left output signal.;
+#X text 130 984 2\.;
+#X text 170 984 ~;
+#X text 270 984 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1019 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1022 library: ceammc v0.9.8;
-#X text 507 1034 see also:;
-#X obj 582 1037 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1037 library: ceammc v0.9.8;
+#X text 507 1049 see also:;
+#X obj 582 1052 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.echo2~] @url fx.echo2~-help.pd;
-#X obj 665 1037 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 1052 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.sdelay~] @url fx.sdelay~-help.pd;
-#N canvas 10 1041 400 290 info 0;
+#N canvas 10 1056 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,7 +127,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1041 pd info;
+#X restore 10 1056 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 8 0;

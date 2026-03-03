@@ -26,7 +26,7 @@
 #X text 170 405 int;
 #X obj 268 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 N: number of outlets. See @n property. Тип: int. Диапазон:
-2…64;
+[2\..64];
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 460 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -30,12 +30,12 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X text 130 641 1\.;
 #X text 170 641 float;
 #X obj 268 642 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 641 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 270 641 FREQ(Hz): center frequency. Type: float. Range: [20\..20000];
 #X text 130 666 2\.;
 #X text 170 666 float;
 #X obj 268 667 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 666 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
-0.25\...32;
+[0.25\..32];
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 721 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

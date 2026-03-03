@@ -24,7 +24,7 @@
 #X text 130 318 1\.;
 #X text 170 318 int;
 #X obj 268 319 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 N: number of inputs/outputs. Type: int. Range: 1\...12;
+#X text 270 318 N: number of inputs/outputs. Type: int. Range: [1\..12];
 #X text 130 343 2\.;
 #X text 170 343 list;
 #X obj 268 344 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;

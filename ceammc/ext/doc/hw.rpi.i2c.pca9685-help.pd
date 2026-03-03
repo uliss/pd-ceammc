@@ -67,12 +67,12 @@ Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
 #X text 270 999 set channel constant value. Arguments are:;
 #X obj 300 1024 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1024 CHAN: device PWM channel. If equals to 16 means all
-channels. Type: int. Range: 0\...16\.;
+channels. Type: int. Range: [0\..16].;
 #X obj 300 1062 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1062 VALUE: value. Type: bool.;
 #X obj 300 1085 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1085 [DELAY]: the setting is delayed by the given phase
-value. Type: float. Range: 0\...1\.;
+value. Type: float. Range: [0\..1].;
 #X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1133 disable_prog_addr;
 #X text 270 1133 disable of using programmable address. Arguments are:;
@@ -84,11 +84,11 @@ value. Type: float. Range: 0\...1\.;
 #X text 270 1206 set channel PWM duty cycle. Arguments are:;
 #X obj 300 1231 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1231 CHAN: device PWM channel. If equals to 16 means all
-channels. Type: int. Range: 0\...16\.;
+channels. Type: int. Range: [0\..16].;
 #X obj 300 1269 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1269 DUTY: duty cycle value. Type: float. Range: -1\...1\.;
+#X text 300 1269 DUTY: duty cycle value. Type: float. Range: [-1\..1].;
 #X obj 300 1292 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1292 [PHASE]: phase offset. Type: float. Range: -1\...1\.;
+#X text 300 1292 [PHASE]: phase offset. Type: float. Range: [-1\..1].;
 #X obj 250 1325 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1325 enable;
 #X text 270 1325 enable/disable the device. The disabled state is equal
@@ -104,13 +104,13 @@ register contents in preparation for a future restart.;
 #X msg 130 1478 freq;
 #X text 270 1478 set PWM frequency. Arguments are:;
 #X obj 300 1503 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1503 FREQ: new frequency. Type: float. Range: 24\...2048\.
+#X text 300 1503 FREQ: new frequency. Type: float. Range: [24\..2048].
 Units: 'Hz'.;
 #X obj 250 1551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1551 period;
 #X text 270 1551 set PWM period. Arguments are:;
 #X obj 300 1576 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1576 PERIOD: new period. Type: float. Range: 0.5\...40\.
+#X text 300 1576 PERIOD: new period. Type: float. Range: [0.5\..40].
 Units: 'ms'.;
 #X obj 250 1624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1624 polarity;
@@ -124,12 +124,12 @@ Type: bool.;
 #X text 270 1712 set channel PWM pulse width. Arguments are:;
 #X obj 300 1737 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1737 CHAN: device PWM channel. If equals to 16 means all
-channels. Type: int. Range: 0\...16\.;
+channels. Type: int. Range: [0\..16].;
 #X obj 300 1775 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1775 WIDTH: pulse width. Type: float. Range: 0.5\...40\.
+#X text 300 1775 WIDTH: pulse width. Type: float. Range: [0.5\..40].
 Units: 'ms'.;
 #X obj 300 1813 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1813 [PHASE]: phase offset. Type: float. Range: 0\...1\.;
+#X text 300 1813 [PHASE]: phase offset. Type: float. Range: [0\..1].;
 #X obj 250 1846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1846 restart;
 #X text 270 1846 re-enable the controller after a sleep with restart
@@ -139,11 +139,11 @@ enabled so that previously active PWM channels are restarted.;
 #X text 270 1911 set channel raw PWM value. Arguments are:;
 #X obj 300 1936 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1936 CHAN: device PWM channel. If equals to 16 means all
-channels. Type: int. Range: 0\...16\.;
+channels. Type: int. Range: [0\..16].;
 #X obj 300 1974 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1974 ON: ON counter time value. Type: int. Range: 0\...4095\.;
+#X text 300 1974 ON: ON counter time value. Type: int. Range: [0\..4095].;
 #X obj 300 1997 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1997 OFF: OFF counter time value. Type: int. Range: 0\...4095\.;
+#X text 300 1997 OFF: OFF counter time value. Type: int. Range: [0\..4095].;
 #X obj 250 2030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2030 use_prog_addr;
 #X text 270 2030 set and use programmable address. Arguments are:;
@@ -151,7 +151,7 @@ channels. Type: int. Range: 0\...16\.;
 #X text 300 2055 TYPE: prog address type. Type: atom. Allowed values:
 1 \, 2 \, 3 \, all.;
 #X obj 300 2093 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2093 I2C_ADDR: new I²C address. Type: int. Range: 7\...119\.;
+#X text 300 2093 I2C_ADDR: new I²C address. Type: int. Range: [7\..119].;
 #X obj 20 2136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2141 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

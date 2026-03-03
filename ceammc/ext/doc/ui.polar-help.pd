@@ -131,9 +131,9 @@ value: 100 100\.;
 #X text 270 1515 sets slider position in cartesian coords and output.
 Arguments are:;
 #X obj 300 1555 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1555 X: x-coord. Type: float. Range: -1\...1\.;
+#X text 300 1555 X: x-coord. Type: float. Range: [-1\..1].;
 #X obj 300 1578 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1578 Y: y-coord. Type: float. Range: -1\...1\.;
+#X text 300 1578 Y: y-coord. Type: float. Range: [-1\..1].;
 #X obj 250 1611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1611 clear;
 #X text 270 1611 clears specified preset. Arguments are:;
@@ -154,7 +154,7 @@ Arguments are:;
 #X text 270 1785 sets slider position in polar coords and output. Arguments
 are:;
 #X obj 300 1825 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1825 RAD: radius. Type: float. Range: 0\...1\.;
+#X text 300 1825 RAD: radius. Type: float. Range: [0\..1].;
 #X obj 300 1848 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1848 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
@@ -178,7 +178,7 @@ property). Type: float.;
 #X msg 130 2085 set;
 #X text 270 2085 sets slider position without output. Arguments are:;
 #X obj 300 2110 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2110 RAD: radius. Type: float. Range: 0\...1\.;
+#X text 300 2110 RAD: radius. Type: float. Range: [0\..1].;
 #X obj 300 2133 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2133 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;

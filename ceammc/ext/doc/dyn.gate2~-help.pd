@@ -27,22 +27,22 @@
 #X text 170 400 float;
 #X obj 268 401 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 400 THRESHOLD(db): dB level threshold above which gate
-opens. Type: float. Range: -90\...0;
+opens. Type: float. Range: [-90\..0];
 #X text 130 440 2\.;
 #X text 170 440 float;
 #X obj 268 441 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 440 ATTACK(ms): attack time = time constant (ms) for gate
-to open. Type: float. Range: 0\...500;
+to open. Type: float. Range: [0\..500];
 #X text 130 480 3\.;
 #X text 170 480 float;
 #X obj 268 481 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 480 HOLD(ms): hold time = time (ms) gate stays open after
-signal level < threshold. Type: float. Range: 1\...500;
+signal level < threshold. Type: float. Range: [1\..500];
 #X text 130 520 4\.;
 #X text 170 520 float;
 #X obj 268 521 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 520 RELEASE(ms): release time = time constant (ms) for
-gate to close. Type: float. Range: 1\...500;
+gate to close. Type: float. Range: [1\..500];
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 575 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

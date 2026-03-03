@@ -91,7 +91,7 @@ value: 50\. Min value: 1\.;
 are:;
 #X obj 300 1407 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1407 [N]: number of finished grains to wait before calling.
-If not specified \, treat as 1\. Type: int. Range: 1\...255\.;
+If not specified \, treat as 1\. Type: int. Range: [1\..255].;
 #X obj 300 1460 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1460 METHOD: method name. Type: symbol.;
 #X obj 300 1483 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -138,7 +138,7 @@ tag. Type: atom.;
 are:;
 #X obj 300 1970 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1970 [N]: number of permutations. If N>0 results N-th next
-permutation \, N<0 - N-th previous permutation. Type: int. Range: -16\...16\.;
+permutation \, N<0 - N-th previous permutation. Type: int. Range: [-16\..16].;
 #X obj 300 2023 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2023 [TAG]: if '*' or omitted: permutates all grains \,
 if '.': permutate positions of finished grains only \, otherwise permutates
@@ -173,7 +173,7 @@ corresponding tag. Type: symbol.;
 #X text 270 2403 slice specified duration to specified number of grains
 and add them. Arguments are:;
 #X obj 300 2443 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2443 N: desired number of grains. Type: int. Range: 1\...64\.;
+#X text 300 2443 N: desired number of grains. Type: int. Range: [1\..64].;
 #X obj 300 2466 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2466 [DUR]: duration to slice. Positive time value expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as

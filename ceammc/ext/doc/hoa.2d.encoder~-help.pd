@@ -29,7 +29,7 @@ of a given order and a position on a circle given in radians (θ).;
 #X text 170 555 int;
 #X obj 268 556 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 555 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+[1\..63];
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 595 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

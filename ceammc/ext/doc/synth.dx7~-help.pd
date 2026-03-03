@@ -401,14 +401,14 @@ value: 1.0\. Range: [0.0\..8.0].;
 #X text 270 4318 load the preset from a previously loaded sysex file.
 Arguments are:;
 #X obj 300 4358 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4358 [IDX]: preset index. Type: int. Range: 0\...31\.;
+#X text 300 4358 [IDX]: preset index. Type: int. Range: [0\..31].;
 #X obj 250 4391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4391 note;
 #X text 270 4391 note on/off message. Arguments are:;
 #X obj 300 4416 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 4416 NOTE: midi note. Type: float.;
 #X obj 300 4439 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4439 VEL: velocity. Type: float. Range: 0\...127\.;
+#X text 300 4439 VEL: velocity. Type: float. Range: [0\..127].;
 #X obj 250 4472 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4472 read;
 #X text 270 4472 reads the DX7 sysex preset file. Arguments are:;

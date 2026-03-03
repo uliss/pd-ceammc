@@ -19,12 +19,12 @@
 #X text 170 376 float;
 #X obj 268 377 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 376 SPEED: maximum speed of whistles if @auto enabled.
-Type: float. Range: 120\...480;
+Type: float. Range: [120\..480];
 #X text 130 416 2\.;
 #X text 170 416 float;
 #X obj 268 417 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 416 PROBABILITY(%): whistles probability if @auto enabled.
-Type: float. Range: 25\...100;
+Type: float. Range: [25\..100];
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 471 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -40,7 +40,7 @@ your ears.;
 #X text 170 787 int;
 #X obj 268 788 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 787 ORDER: the order of decomposition. Type: int. Range:
-1\...10;
+[1\..10];
 #X text 130 812 2\.;
 #X text 170 812 symbol;
 #X obj 268 813 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

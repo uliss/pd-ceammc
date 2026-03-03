@@ -411,7 +411,7 @@ value: 0\. Range: [-60\..0].;
 #X obj 300 4429 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 4429 DELAY: delay time. Type: float. Units: 'ms'.;
 #X obj 300 4452 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4452 FB: feedback value. Type: float. Range: 0\...1\.;
+#X text 300 4452 FB: feedback value. Type: float. Range: [0\..1].;
 #X obj 250 4485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4485 random;
 #X text 270 4485 randomize values. Arguments are:;

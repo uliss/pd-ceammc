@@ -35,7 +35,7 @@ So various mapping and filtering are possible.;
 #X text 130 518 1\.;
 #X text 170 518 int;
 #X obj 268 519 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 518 STEP: see @step property. Тип: int. Диапазон: 1…1024;
+#X text 270 518 STEP: see @step property. Тип: int. Диапазон: [1\..1024];
 #X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 558 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -31,51 +31,51 @@
 #X text 130 429 1\.;
 #X text 170 429 float;
 #X obj 268 430 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 429 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…22050;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 270 429 FREQ(Hz): center frequency. Тип: float. Диапазон: [20\..22050];
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 472 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 470 @rad;
-#X text 270 470 Use angular frequency.;
-#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 500 @freq;
-#X text 270 500 Center frequency. Тип: float. Единицы: 'Hz'. Значение
+#X msg 130 485 @rad;
+#X text 270 485 Use angular frequency.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 515 @freq;
+#X text 270 515 Center frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: [20\..22050].;
-#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 542 @q;
-#X text 270 542 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 557 @q;
+#X text 270 557 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
 по умолчанию: 0.7071\. Диапазон: [0.01\..100].;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 599 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 614 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 600 bw;
-#X text 270 600 set bandwidth in octaves. Аргументы:;
-#X obj 300 625 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 625 OCT: bandwidth. Тип: float.;
-#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 673 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 615 bw;
+#X text 270 615 set bandwidth in octaves. Аргументы:;
+#X obj 300 640 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 640 OCT: bandwidth. Тип: float.;
+#X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 688 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 674 1\.;
-#X text 170 674 float:;
-#X text 270 674 filter frequency.;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 714 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 689 1\.;
+#X text 170 689 float:;
+#X text 270 689 filter frequency.;
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 729 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 715 1\.;
-#X text 270 715 list: b0 b1 b2 a1 a2\.;
+#X text 130 730 1\.;
+#X text 270 730 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 765 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 768 библиотека: ceammc v0.9.8;
-#X text 551 780 смотрите также:;
-#X obj 672 783 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 780 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 783 библиотека: ceammc v0.9.8;
+#X text 551 795 смотрите также:;
+#X obj 672 798 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flt.c_lpf] @url flt.c_lpf-help.pd;
-#N canvas 10 787 400 290 info 0;
+#N canvas 10 802 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 787 pd info;
+#X restore 10 802 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

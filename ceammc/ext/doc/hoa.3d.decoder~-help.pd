@@ -28,7 +28,7 @@ configuration or for headphones.;
 #X text 170 410 int;
 #X obj 268 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 410 ORDER: the order of decomposition. Type: int. Range:
-1\...10;
+[1\..10];
 #X text 130 435 2\.;
 #X text 170 435 symbol;
 #X obj 268 436 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

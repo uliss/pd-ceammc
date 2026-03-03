@@ -17,7 +17,7 @@ size;
 #X text 130 246 1\.;
 #X text 170 246 int;
 #X obj 268 247 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 246 SIZE: output list size. Type: int. Range: 1\...1024;
+#X text 270 246 SIZE: output list size. Type: int. Range: [1\..1024];
 #X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 286 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

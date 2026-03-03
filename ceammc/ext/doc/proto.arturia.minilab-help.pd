@@ -30,19 +30,19 @@
 #X msg 130 374 channel;
 #X text 270 374 set device MIDI channel. Arguments are:;
 #X obj 300 399 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 399 CH: MIDI channel. Type: int. Range: 0\...15\.;
+#X text 300 399 CH: MIDI channel. Type: int. Range: [0\..15].;
 #X obj 250 432 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 432 knob;
 #X text 270 432 set knob value. Arguments are:;
 #X obj 300 457 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 457 N: knob index. Type: int. Range: 0\...17\.;
+#X text 300 457 N: knob index. Type: int. Range: [0\..17].;
 #X obj 300 480 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 480 VAL: knob value. Type: float. Range: 0\...1\.;
+#X text 300 480 VAL: knob value. Type: float. Range: [0\..1].;
 #X obj 250 513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 513 knob?;
 #X text 270 513 request knob value. Arguments are:;
 #X obj 300 538 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 538 N: knob index. Type: int. Range: 0\...17\.;
+#X text 300 538 N: knob index. Type: int. Range: [0\..17].;
 #X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 571 knobs?;
 #X text 270 571 request all knob values.;
@@ -51,7 +51,7 @@
 #X text 270 606 set pad color. Arguments are:;
 #X obj 300 631 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 631 [N]: pad index. If not specified set color to all pads.
-Type: int. Range: 0\...15\.;
+Type: int. Range: [0\..15].;
 #X obj 300 669 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 669 COLOR: color. Type: atom. Allowed values: 0 \, 1 \,
 2 \, 3 \, 4 \, 5 \, 6 \, 7 \, black \, red \, green \, yellow \, blue

@@ -27,7 +27,7 @@ state;
 #X text 170 268 float;
 #X obj 268 269 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 268 TIME(ms): time to reach the target value. Type: float.
-Range: 50\...5000;
+Range: [50\..5000];
 #X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 323 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

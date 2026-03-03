@@ -30,7 +30,7 @@
 #X text 170 390 float;
 #X obj 268 391 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 PITCH: pitch shift in semitones. Type: float. Range:
--38\...60;
+[-38\..60];
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -81,7 +81,7 @@ value: 200\. Range: [10\..2000].;
 #X text 270 855 input signal.;
 #X text 130 880 2\.;
 #X text 170 880 float:;
-#X text 270 880 pitch shift in semitones. Range: -38\...60\.;
+#X text 270 880 pitch shift in semitones. Range: [-38\..60].;
 #X obj 20 915 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 920 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

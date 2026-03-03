@@ -59,7 +59,7 @@ value: 1\. Allowed values: 1 \, 2 \, 4\.;
 #X text 270 694 write character to the display and move cursor to the
 next position. Arguments are:;
 #X obj 300 734 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 734 CHAR: character code. Type: int. Range: 0\...255\.;
+#X text 300 734 CHAR: character code. Type: int. Range: [0\..255].;
 #X obj 250 767 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 767 clear;
 #X text 270 767 clear all display data and set cursor position to 0
@@ -68,7 +68,7 @@ next position. Arguments are:;
 #X msg 130 802 clear_line;
 #X text 270 802 clear only specified line. Arguments are:;
 #X obj 300 827 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 827 LINE: line index. Type: int. Range: 0\...3\.;
+#X text 300 827 LINE: line index. Type: int. Range: [0\..3].;
 #X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 cursor_blink;
 #X text 270 860 turn on/off cursor blinking. Arguments are:;
@@ -86,7 +86,7 @@ next position. Arguments are:;
 #X text 300 1001 LINE: cursor line. Type: int. Min value: 0\.;
 #X obj 300 1024 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1024 COL: position of the character in the line. Type:
-int. Range: 0\...20\.;
+int. Range: [0\..20].;
 #X obj 250 1072 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1072 font;
 #X text 270 1072 choose font.;

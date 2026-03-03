@@ -38,7 +38,7 @@
 0;
 #X text 130 432 1\.;
 #X text 170 432 float:;
-#X text 270 432 calculate color mix and output. Диапазон: 0…1\.;
+#X text 270 432 calculate color mix and output. Диапазон: [0\..1].;
 #X text 130 457 2\.;
 #X text 170 457 data:color:;
 #X text 270 457 set color and output.;

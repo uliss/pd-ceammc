@@ -28,111 +28,111 @@ only delayed repeats.;
 #X text 130 401 1\.;
 #X text 170 401 float;
 #X obj 268 402 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 401 DELAY(ms): echo time. Тип: float. Диапазон: 10…10000;
+#X text 270 401 DELAY(ms): echo time. Тип: float. Диапазон: [10\..10000];
 #X text 130 426 2\.;
 #X text 170 426 float;
 #X obj 268 427 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 426 FEEDBACK: feedback coefficient. Тип: float. Диапазон:
-0…0.99;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 466 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+[0\..0.99];
+#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 469 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 484 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 467 @id;
-#X text 270 467 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 482 @id;
+#X text 270 482 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_echo/ИМЯ_СВОЙСТВА \, в противном случае к /fx_echo/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 539 @osc;
-#X text 270 539 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 569 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 569 @active;
-#X text 270 569 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 554 @osc;
+#X text 270 554 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 584 @active;
+#X text 270 584 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 611 @bypass;
-#X text 270 611 Bypass flag. If true: bypass 'effected' signal. Тип:
+#X obj 250 626 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 626 @bypass;
+#X text 270 626 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
-#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 653 @c_attack;
-#X text 270 653 Feedback compression attack time. Тип: float. Единицы:
+#X obj 250 668 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 668 @c_attack;
+#X text 270 668 Feedback compression attack time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
-#X obj 250 710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 710 @c_release;
-#X text 270 710 Feedback compression release time. Тип: float. Единицы:
+#X obj 250 725 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 725 @c_release;
+#X text 270 725 Feedback compression release time. Тип: float. Единицы:
 'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
-#X obj 250 767 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 767 @c_thresh;
-#X text 270 767 Feedback compression threshold level. Тип: float. Единицы:
+#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 782 @c_thresh;
+#X text 270 782 Feedback compression threshold level. Тип: float. Единицы:
 'db'. Значение по умолчанию: 0\. Диапазон: [-60\..0].;
-#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 824 @compress;
-#X text 270 824 Feedback compression factor. 0: means no compression
+#X obj 250 839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 839 @compress;
+#X text 270 839 Feedback compression factor. 0: means no compression
 \, 1: limit feedback level. Тип: float. Значение по умолчанию: 0.5\.
 Диапазон: [0\..1].;
-#X obj 250 881 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 881 @delay;
-#X text 270 881 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
+#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 896 @delay;
+#X text 270 896 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 500\. Диапазон: [10\..10000].;
-#X obj 250 923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 923 @drywet;
-#X text 270 923 Proportion of mix between the original (dry) and 'effected'
+#X obj 250 938 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 938 @drywet;
+#X text 270 938 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
 1\. Диапазон: [0\..1].;
-#X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 980 @f_hpf;
-#X text 270 980 Feedback high-pass filter cutoff frequency. Тип: float.
+#X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 995 @f_hpf;
+#X text 270 995 Feedback high-pass filter cutoff frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 300\. Диапазон: [20\..20000].;
-#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1037 @f_lpf;
-#X text 270 1037 Feedback low-pass filter cutoff frequency. Тип: float.
+#X obj 250 1052 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1052 @f_lpf;
+#X text 270 1052 Feedback low-pass filter cutoff frequency. Тип: float.
 Единицы: 'Hz'. Значение по умолчанию: 9000\. Диапазон: [20\..20000].;
-#X obj 250 1094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1094 @feedback;
-#X text 270 1094 Feedback coefficient. Тип: float. Значение по умолчанию:
+#X obj 250 1109 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1109 @feedback;
+#X text 270 1109 Feedback coefficient. Тип: float. Значение по умолчанию:
 0.3\. Диапазон: [0\..0.99].;
-#X obj 250 1136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1136 @filter;
-#X text 270 1136 If true - apply filter to feedback signal. Тип: bool.
+#X obj 250 1151 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1151 @filter;
+#X text 270 1151 If true - apply filter to feedback signal. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1178 @smooth;
-#X text 270 1178 Interpolation time on delay time change \, that prevents
+#X obj 250 1193 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1193 @smooth;
+#X text 270 1193 Interpolation time on delay time change \, that prevents
 click and transpose \, if equal to 0 produces artifacts on delay change.
 Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [0\..500].;
-#X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1265 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1275 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1280 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1266 reset;
-#X text 270 1266 reset to initial state.;
-#X obj 20 1311 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1316 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1281 reset;
+#X text 270 1281 reset to initial state.;
+#X obj 20 1326 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1331 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1317 1\.;
-#X text 170 1317 ~;
-#X text 270 1317 input signal.;
-#X text 130 1342 2\.;
-#X text 170 1342 float:;
-#X text 270 1342 set delay time.;
-#X obj 20 1377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1382 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1332 1\.;
+#X text 170 1332 ~;
+#X text 270 1332 input signal.;
+#X text 130 1357 2\.;
+#X text 170 1357 float:;
+#X text 270 1357 set delay time.;
+#X obj 20 1392 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1397 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1383 1\.;
-#X text 170 1383 ~;
-#X text 270 1383 output signal.;
+#X text 130 1398 1\.;
+#X text 170 1398 ~;
+#X text 270 1398 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1433 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1436 библиотека: ceammc v0.9.8;
-#X text 544 1448 смотрите также:;
-#X obj 665 1451 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1448 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1451 библиотека: ceammc v0.9.8;
+#X text 544 1463 смотрите также:;
+#X obj 665 1466 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.sdelay~] @url fx.sdelay~-help.pd;
-#N canvas 10 1455 400 290 info 0;
+#N canvas 10 1470 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -156,7 +156,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1455 pd info;
+#X restore 10 1470 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

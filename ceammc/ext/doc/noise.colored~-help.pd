@@ -28,7 +28,7 @@ for different values of alpha.;
 #X obj 268 548 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 547 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
-noise \, and 1 violet/azure noise. Type: float. Range: -1\...1;
+noise \, and 1 violet/azure noise. Type: float. Range: [-1\..1];
 #X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 632 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

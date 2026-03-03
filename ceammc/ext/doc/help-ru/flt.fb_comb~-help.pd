@@ -38,59 +38,59 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X text 170 711 float;
 #X obj 268 712 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 711 A: scaling factor of delayed sum. Тип: float. Диапазон:
--1…1;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 751 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+[-1\..1];
+#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 766 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 754 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 769 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 752 @id;
-#X text 270 752 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 767 @id;
+#X text 270 767 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_fb_comb/ИМЯ_СВОЙСТВА \, в противном случае к /flt_fb_comb/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 839 @osc;
-#X text 270 839 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 869 @a;
-#X text 270 869 Scaling factor of delayed signal sum. Тип: float. Значение
+#X obj 250 854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 854 @osc;
+#X text 270 854 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 884 @a;
+#X text 270 884 Scaling factor of delayed signal sum. Тип: float. Значение
 по умолчанию: 0.75\. Диапазон: [-1\..1].;
-#X obj 250 911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 911 @active;
-#X text 270 911 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 926 @active;
+#X text 270 926 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 968 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 983 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 969 reset;
-#X text 270 969 reset filter state.;
-#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1019 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 984 reset;
+#X text 270 984 reset filter state.;
+#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1034 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1020 1\.;
-#X text 170 1020 ~;
-#X text 270 1020 input signal.;
-#X text 130 1045 2\.;
-#X text 170 1045 ~;
-#X text 270 1045 filter notch frequency.;
-#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1085 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1035 1\.;
+#X text 170 1035 ~;
+#X text 270 1035 input signal.;
+#X text 130 1060 2\.;
+#X text 170 1060 ~;
+#X text 270 1060 filter notch frequency.;
+#X obj 20 1095 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1100 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1086 1\.;
-#X text 170 1086 ~;
-#X text 270 1086 filtered signal.;
+#X text 130 1101 1\.;
+#X text 170 1101 ~;
+#X text 270 1101 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1136 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1139 библиотека: ceammc v0.9.8;
-#X text 529 1151 смотрите также:;
-#X obj 650 1154 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1151 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1154 библиотека: ceammc v0.9.8;
+#X text 529 1166 смотрите также:;
+#X obj 650 1169 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flt.ff_comb~] @url flt.ff_comb~-help.pd;
-#N canvas 10 1158 400 290 info 0;
+#N canvas 10 1173 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -114,7 +114,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1158 pd info;
+#X restore 10 1173 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 12 0 13 0;

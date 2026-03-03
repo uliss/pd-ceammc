@@ -49,7 +49,7 @@ Default value: 0\.;
 #X msg 130 563 polltime;
 #X text 270 563 sets global cursor polling time. Arguments are:;
 #X obj 300 588 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 588 T: polling time. Type: float. Range: 10\...1000\. Units:
+#X text 300 588 T: polling time. Type: float. Range: [10\..1000]. Units:
 'ms'.;
 #X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 651 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933

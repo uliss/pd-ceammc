@@ -39,7 +39,7 @@ multichannel configuration.;
 #X text 170 595 int;
 #X obj 268 596 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 595 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+[1\..63];
 #X text 130 620 2\.;
 #X text 170 620 symbol;
 #X obj 268 621 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

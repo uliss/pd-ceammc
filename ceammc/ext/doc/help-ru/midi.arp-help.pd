@@ -45,64 +45,64 @@ one (no repeats);
 #X text 170 748 float;
 #X obj 268 749 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 748 T(ms): time between arpeggio. Тип: float. Диапазон:
-1…1000;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 788 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+[1\..1000];
+#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 803 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 791 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 806 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 789 @external;
-#X text 270 789 Use external clock. Тип: bool. Значение по умолчанию:
+#X msg 130 804 @external;
+#X text 270 804 Use external clock. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 819 @min_notes;
-#X text 270 819 Number of minimal notes to perform arpeggio. Тип: int.
+#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 834 @min_notes;
+#X text 270 834 Number of minimal notes to perform arpeggio. Тип: int.
 Значение по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 861 @mode;
-#X text 270 861 Argpeggiator mode. Тип: symbol. Значение по умолчанию:
+#X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 876 @mode;
+#X text 270 876 Argpeggiator mode. Тип: symbol. Значение по умолчанию:
 up. Разрешённые значения: up \, down \, tri \, up1 \, down1 \, tri1
 \, random \, random1\.;
-#X obj 250 918 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 918 @on;
-#X text 270 918 Arpeggiator state: on/off. Тип: bool. Значение по умолчанию:
+#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 933 @on;
+#X text 270 933 Arpeggiator state: on/off. Тип: bool. Значение по умолчанию:
 1\.;
-#X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 960 @pass;
-#X text 270 960 Bypass arpeggiator. Тип: bool. Значение по умолчанию:
+#X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 975 @pass;
+#X text 270 975 Bypass arpeggiator. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 990 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 990 @seed;
-#X text 270 990 Random seed value (to get reproducible random series).
+#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1005 @seed;
+#X text 270 1005 Random seed value (to get reproducible random series).
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1047 @t;
-#X text 270 1047 Time between arpeggio. Тип: float. Единицы: 'ms'.
+#X obj 250 1062 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1062 @t;
+#X text 270 1062 Time between arpeggio. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 100\. Диапазон: [1\..1000].;
-#X obj 20 1099 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1104 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1119 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1105 1\.;
-#X text 170 1105 list:;
-#X text 270 1105 NOTE VELOCITY.;
-#X text 130 1130 2\.;
-#X text 170 1130 bang:;
-#X text 270 1130 play next note in chord \, if @external = 1\.;
-#X obj 20 1165 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1170 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1120 1\.;
+#X text 170 1120 list:;
+#X text 270 1120 NOTE VELOCITY.;
+#X text 130 1145 2\.;
+#X text 170 1145 bang:;
+#X text 270 1145 play next note in chord \, if @external = 1\.;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1185 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1171 1\.;
-#X text 270 1171 list: NOTE VELOCITY.;
-#X text 130 1191 2\.;
-#X text 270 1191 int: note index in chord.;
+#X text 130 1186 1\.;
+#X text 270 1186 list: NOTE VELOCITY.;
+#X text 130 1206 2\.;
+#X text 270 1206 int: note index in chord.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 1241 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1244 библиотека: ceammc v0.9.8;
-#N canvas 10 1263 400 290 info 0;
+#X obj 1 1256 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1259 библиотека: ceammc v0.9.8;
+#N canvas 10 1278 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -126,7 +126,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1263 pd info;
+#X restore 10 1278 pd info;
 #X connect 13 0 15 0;
 #X connect 13 1 15 1;
 #X connect 15 0 16 0;

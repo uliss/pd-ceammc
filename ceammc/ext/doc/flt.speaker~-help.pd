@@ -29,11 +29,11 @@ using a fourth-order Butterworth lowpass.;
 #X text 130 653 1\.;
 #X text 170 653 float;
 #X obj 268 654 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 653 F1(Hz): lower band frequency. Type: float. Range: 20\...1000;
+#X text 270 653 F1(Hz): lower band frequency. Type: float. Range: [20\..1000];
 #X text 130 678 2\.;
 #X text 170 678 float;
 #X obj 268 679 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 678 F2(Hz): high band frequency. Type: float. Range: 1000\...20000;
+#X text 270 678 F2(Hz): high band frequency. Type: float. Range: [1000\..20000];
 #X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 733 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

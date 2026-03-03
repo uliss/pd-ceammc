@@ -75,7 +75,7 @@ bool. Default value: 1\.;
 #X msg 130 1174 brightness;
 #X text 270 1174 set pixel brightness. Arguments are:;
 #X obj 300 1199 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1199 LEVEL: brightness level. Type: int. Range: 0\...255\.;
+#X text 300 1199 LEVEL: brightness level. Type: int. Range: [0\..255].;
 #X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1232 clear;
 #X text 270 1232 turn off all pixels.;
@@ -84,7 +84,7 @@ bool. Default value: 1\.;
 #X text 270 1267 fill pixels with the RGB color. Arguments are:;
 #X obj 300 1292 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1292 [@color R G B]: list of R G B color components. Type:
-float. Range: 0\...1\.;
+float. Range: [0\..1].;
 #X obj 300 1330 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1330 [@color #RRGGBB]: hex RGB color. Type: property.;
 #X obj 300 1353 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -94,7 +94,7 @@ values: black \, white \, red \, green \, blue \, cyan \, magenta.;
 #X text 300 1391 [@color Color(red)]: color data type. Type: data:color.;
 #X obj 300 1414 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1414 [@color8 R G B]: list of R G B color components. Type:
-int. Range: 0\...255\.;
+int. Range: [0\..255].;
 #X obj 300 1452 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1452 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
@@ -131,7 +131,7 @@ list.;
 #X text 270 1765 set single pixel color. Arguments are:;
 #X obj 300 1790 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1790 [@color R G B]: list of R G B color components. Type:
-float. Range: 0\...1\.;
+float. Range: [0\..1].;
 #X obj 300 1828 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1828 [@color #RRGGBB]: hex RGB color. Type: property.;
 #X obj 300 1851 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -141,7 +141,7 @@ values: black \, white \, red \, green \, blue \, cyan \, magenta.;
 #X text 300 1889 [@color Color(red)]: color data type. Type: data:color.;
 #X obj 300 1912 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1912 [@color8 R G B]: list of R G B color components. Type:
-int. Range: 0\...255\.;
+int. Range: [0\..255].;
 #X obj 20 1970 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1975 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

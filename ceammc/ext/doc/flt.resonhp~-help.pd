@@ -27,11 +27,11 @@
 #X text 130 491 1\.;
 #X text 170 491 float;
 #X obj 268 492 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 491 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 270 491 FREQ(Hz): center frequency. Type: float. Range: [20\..20000];
 #X text 130 516 2\.;
 #X text 170 516 float;
 #X obj 268 517 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 516 Q: Quality factor. Type: float. Range: 0.1\...100;
+#X text 270 516 Q: Quality factor. Type: float. Range: [0.1\..100];
 #X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 556 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -30,7 +30,7 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 #X text 170 543 int;
 #X obj 268 544 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 543 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+[1\..63];
 #X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 583 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

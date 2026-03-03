@@ -36,7 +36,7 @@
 #X msg 130 444 brightness;
 #X text 270 444 set LED brightness. Аргументы:;
 #X obj 300 469 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 469 VAL: value. Тип: float. Диапазон: 0…1\.;
+#X text 300 469 VAL: value. Тип: float. Диапазон: [0\..1].;
 #X obj 250 502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 502 char;
 #X text 270 502 draw char at specified position. Аргументы:;
@@ -44,7 +44,7 @@
 #X text 300 527 CH: char symbol or int value from 0 to 9\. Тип: atom.;
 #X obj 300 550 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 550 [XOFF]: horizontal character offset. Тип: int. Диапазон:
-0…7\.;
+[0\..7].;
 #X obj 250 598 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 598 clear;
 #X text 270 598 clear LED display.;
@@ -52,7 +52,7 @@
 #X msg 130 633 col;
 #X text 270 633 draw column pixels. Аргументы:;
 #X obj 300 658 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 658 N: column index. Тип: int. Диапазон: 0…7\.;
+#X text 300 658 N: column index. Тип: int. Диапазон: [0\..7].;
 #X obj 300 681 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 681 BITS: list of 0 and 1\. Тип: list.;
 #X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -78,9 +78,9 @@ analog_raw \, none.;
 #X msg 130 956 pixel;
 #X text 270 956 draw/clear pixel on display matrix (6x8). Аргументы:;
 #X obj 300 981 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 981 X: x-pixel coordinate. Тип: int. Диапазон: 0…7\.;
+#X text 300 981 X: x-pixel coordinate. Тип: int. Диапазон: [0\..7].;
 #X obj 300 1004 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1004 Y: y-pixel coordinate. Тип: int. Диапазон: 0…5\.;
+#X text 300 1004 Y: y-pixel coordinate. Тип: int. Диапазон: [0\..5].;
 #X obj 300 1027 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1027 ON/OFF: draw (1) or clear (0). Тип: int. Разрешённые
 значения: 0 \, 1\.;
@@ -88,7 +88,7 @@ analog_raw \, none.;
 #X msg 130 1075 row;
 #X text 270 1075 draw row pixels. Аргументы:;
 #X obj 300 1100 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1100 N: row index. Тип: int. Диапазон: 0…5\.;
+#X text 300 1100 N: row index. Тип: int. Диапазон: [0\..5].;
 #X obj 300 1123 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1123 BITS: list of 0 and 1\. Тип: list.;
 #X obj 250 1156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;

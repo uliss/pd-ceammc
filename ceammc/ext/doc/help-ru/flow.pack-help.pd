@@ -25,7 +25,7 @@
 #X text 130 333 1\.;
 #X text 170 333 int;
 #X obj 268 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 N: number of inputs. Тип: int. Диапазон: 1…255;
+#X text 270 333 N: number of inputs. Тип: int. Диапазон: [1\..255];
 #X text 130 358 2\.;
 #X text 170 358 list;
 #X obj 268 359 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;

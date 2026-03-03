@@ -29,50 +29,50 @@ in a logarithmic way to have linear changes.;
 #X text 170 599 int;
 #X obj 268 600 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 599 ORDER: the order of decomposition. Тип: int. Диапазон:
-1…63;
-#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 639 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+[1\..63];
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 642 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 657 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 640 @order;
-#X text 270 640 (при инициализации) The order of decomposition. Тип:
+#X msg 130 655 @order;
+#X text 270 655 (при инициализации) The order of decomposition. Тип:
 int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 697 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 712 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 698 1\.;
-#X text 170 698 ~;
-#X text 270 698 first input signal.;
-#X text 130 723 ...;
-#X text 170 723 ~;
-#X text 270 723 ... input signal.;
-#X text 130 748 n.;
-#X text 170 748 ~;
-#X text 270 748 n-th input signal.;
-#X text 130 773 n+1\.;
-#X text 170 773 ~;
-#X text 270 773 widening signal in [0-1] range.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 813 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 713 1\.;
+#X text 170 713 ~;
+#X text 270 713 first input signal.;
+#X text 130 738 ...;
+#X text 170 738 ~;
+#X text 270 738 ... input signal.;
+#X text 130 763 n.;
+#X text 170 763 ~;
+#X text 270 763 n-th input signal.;
+#X text 130 788 n+1\.;
+#X text 170 788 ~;
+#X text 270 788 widening signal in [0-1] range.;
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 828 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 814 1\.;
-#X text 170 814 ~;
-#X text 270 814 first circular harmonics output.;
-#X text 130 834 ...;
-#X text 170 834 ~;
-#X text 270 834 ... circular harmonics output.;
-#X text 130 854 n.;
-#X text 170 854 ~;
-#X text 270 854 n-th circular harmonics output.;
+#X text 130 829 1\.;
+#X text 170 829 ~;
+#X text 270 829 first circular harmonics output.;
+#X text 130 849 ...;
+#X text 170 849 ~;
+#X text 270 849 ... circular harmonics output.;
+#X text 130 869 n.;
+#X text 170 869 ~;
+#X text 270 869 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 907 библиотека: ceammc v0.9.8;
-#N canvas 10 926 400 290 info 0;
+#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 922 библиотека: ceammc v0.9.8;
+#N canvas 10 941 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 926 pd info;
+#X restore 10 941 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

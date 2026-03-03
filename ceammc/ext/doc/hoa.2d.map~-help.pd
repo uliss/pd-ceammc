@@ -51,7 +51,7 @@ values;
 #X text 170 1051 int;
 #X obj 268 1052 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 1051 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+[1\..63];
 #X text 130 1076 2\.;
 #X text 170 1076 int;
 #X obj 268 1077 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -119,9 +119,9 @@ are:;
 #X text 300 1639 IDX: source index. 1-based. Type: int. Min value:
 1\.;
 #X obj 300 1662 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1662 RAD: radius. Type: float. Range: 0\...1\.;
+#X text 300 1662 RAD: radius. Type: float. Range: [0\..1].;
 #X obj 300 1685 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1685 ANG: rotation angle. Type: float. Range: 0\...2π.
+#X text 300 1685 ANG: rotation angle. Type: float. Range: [0\..2π].
 Units: 'rad'.;
 #X obj 20 1743 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1748 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144

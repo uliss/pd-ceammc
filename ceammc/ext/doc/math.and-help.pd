@@ -31,7 +31,7 @@
 #X text 130 329 1\.;
 #X text 170 329 int;
 #X obj 268 330 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 329 N: number of arguments. Type: int. Range: 3\...16;
+#X text 270 329 N: number of arguments. Type: int. Range: [3\..16];
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 369 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

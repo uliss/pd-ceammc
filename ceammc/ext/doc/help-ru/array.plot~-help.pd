@@ -31,12 +31,12 @@
 #X text 170 386 float;
 #X obj 268 387 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 386 YMIN: минимальное значение y-оси. Тип: float. Диапазон:
--1024…1024;
+[-1024\..1024];
 #X text 130 426 3\.;
 #X text 170 426 float;
 #X obj 268 427 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 426 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
--1024…1024;
+[-1024\..1024];
 #X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 481 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

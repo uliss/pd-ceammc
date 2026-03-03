@@ -38,7 +38,7 @@
 #X text 170 372 int;
 #X obj 268 373 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 N: number of output stereo-pairs. Type: int. Range:
-2\...16;
+[2\..16];
 #X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 412 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

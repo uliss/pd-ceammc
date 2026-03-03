@@ -92,7 +92,7 @@ int. Минимальное значение: 0\.;
 #X text 300 1113 CHAN: guitar channel (zero-based). Тип: int. Минимальное
 значение: 0\.;
 #X obj 300 1151 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1151 DB: value in decibel. Тип: float. Диапазон: 0…60\.
+#X text 300 1151 DB: value in decibel. Тип: float. Диапазон: [0\..60].
 Единицы: 'db'.;
 #X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1199 guitar_name;
@@ -166,7 +166,7 @@ int. Минимальное значение: 0\.;
 #X msg 130 2030 main_gain;
 #X text 270 2030 set main output gain. Аргументы:;
 #X obj 300 2055 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2055 DB: value in decibel. Тип: float. Диапазон: -127…0\.
+#X text 300 2055 DB: value in decibel. Тип: float. Диапазон: [-127\..0].
 Единицы: 'db'.;
 #X obj 250 2103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2103 mic->comp;
@@ -211,7 +211,7 @@ int. Минимальное значение: 0\.;
 #X text 300 2575 CHAN: mic channel (zero-based). Тип: int. Минимальное
 значение: 0\.;
 #X obj 300 2613 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2613 DB: value in decibel. Тип: float. Диапазон: 0…60\.
+#X text 300 2613 DB: value in decibel. Тип: float. Диапазон: [0\..60].
 Единицы: 'db'.;
 #X obj 250 2661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2661 mic_name;
@@ -258,7 +258,7 @@ int. Минимальное значение: 0\.;
 #X msg 130 3126 phones_gain;
 #X text 270 3126 set phones output gain. Аргументы:;
 #X obj 300 3151 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3151 DB: value in decibel. Тип: float. Диапазон: -127…0\.
+#X text 300 3151 DB: value in decibel. Тип: float. Диапазон: [-127\..0].
 Единицы: 'db'.;
 #X obj 20 3209 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 3214 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933

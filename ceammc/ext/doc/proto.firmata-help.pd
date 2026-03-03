@@ -97,7 +97,7 @@ i2c data is reported to the client. The default for the arduino implementation
 is 19ms. This means that every 19ms analog data will be reported and
 any i2c devices with read continuous mode will be read. Arguments are:;
 #X obj 300 1530 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1530 TIME: time. Type: int. Range: 10\...10000\. Units:
+#X text 300 1530 TIME: time. Type: int. Range: [10\..10000]. Units:
 'ms'.;
 #X obj 250 1563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1563 version?;
@@ -119,7 +119,7 @@ pin. Arguments are:;
 #X obj 300 1749 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1749 PIN#: pin number. Type: int.;
 #X obj 300 1772 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1772 VALUE: pin value. Type: int. Range: 0\...256\.;
+#X text 300 1772 VALUE: pin value. Type: int. Range: [0\..256].;
 #X obj 20 1815 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1820 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

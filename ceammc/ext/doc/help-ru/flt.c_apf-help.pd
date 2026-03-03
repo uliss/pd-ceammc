@@ -43,7 +43,7 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X text 130 593 1\.;
 #X text 170 593 float;
 #X obj 268 594 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 593 FREQ(Hz): center frequency. Тип: float. Диапазон: 0…22050;
+#X text 270 593 FREQ(Hz): center frequency. Тип: float. Диапазон: [0\..22050];
 #X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 633 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -53,7 +53,7 @@ and write_reg commands will work as expected;
 #X text 170 825 int;
 #X obj 268 826 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 825 DISPLAYS: the number of displays connected in a daisy
-chain. Type: int. Range: 1\...4;
+chain. Type: int. Range: [1\..4];
 #X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 880 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -77,15 +77,15 @@ index. Type: int. Default value: 0\. Range: [0\..3].;
 #X text 270 1023 clear display. Arguments are:;
 #X obj 300 1048 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1048 [ADDR=0]: display address in chain. Type: int. Range:
--1\...7\.;
+[-1\..7].;
 #X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1096 intensity;
 #X text 270 1096 set intensity level on the display. Arguments are:;
 #X obj 300 1121 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1121 LEVEL: intensity level. Type: int. Range: 0\...15\.;
+#X text 300 1121 LEVEL: intensity level. Type: int. Range: [0\..15].;
 #X obj 300 1144 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1144 [ADDR=-1]: target display address in the chain. Type:
-int. Range: -1\...7\.;
+int. Range: [-1\..7].;
 #X obj 250 1192 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1192 power;
 #X text 270 1192 power on/off display. Arguments are:;
@@ -96,13 +96,13 @@ int. Range: -1\...7\.;
 #X text 270 1250 test display by turning all led on. Arguments are:;
 #X obj 300 1275 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1275 [ADDR=-1]: target display address in the chain. Type:
-int. Range: -1\...7\.;
+int. Range: [-1\..7].;
 #X obj 250 1323 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1323 write bits;
 #X text 270 1323 write raw bits into the display. Arguments are:;
 #X obj 300 1348 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1348 ADDR=0: target display address in the chain. Type:
-int. Range: -1\...7\.;
+int. Range: [-1\..7].;
 #X obj 300 1386 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1386 BITS: list of bits. Max length: 256\. Type: list.;
 #X obj 250 1419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -110,7 +110,7 @@ int. Range: -1\...7\.;
 #X text 270 1419 write raw bytes into the display. Arguments are:;
 #X obj 300 1444 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1444 ADDR=0: target display address in the chain. Type:
-int. Range: -1\...7\.;
+int. Range: [-1\..7].;
 #X obj 300 1482 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1482 DATA: list of bytes. Max length: 8\. Type: list.;
 #X obj 250 1515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -121,10 +121,10 @@ support!). Arguments are:;
 #X text 300 1555 VAL: value. Type: float.;
 #X obj 300 1578 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1578 [PRECISION]: precision after the dot. Type: int. Range:
-0\...7\.;
+[0\..7].;
 #X obj 300 1616 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1616 [ADDR]: display address in the chain. If omitted or
--1: write to all displays. Type: int. Range: -1\...7\.;
+-1: write to all displays. Type: int. Range: [-1\..7].;
 #X obj 250 1664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1664 write hex;
 #X text 270 1664 write hex unsigned integer value (7-segment display
@@ -133,7 +133,7 @@ only!). Arguments are:;
 #X text 300 1704 INT: value. Type: int. Min value: 0\.;
 #X obj 300 1727 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1727 [ADDR]: display address in the chain. If omitted or
--1: write to all displays. Type: int. Range: -1\...7\.;
+-1: write to all displays. Type: int. Range: [-1\..7].;
 #X obj 250 1775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1775 write int;
 #X text 270 1775 write signed integer value (7-segment display only!).
@@ -142,18 +142,18 @@ Arguments are:;
 #X text 300 1815 INT: value. Type: int.;
 #X obj 300 1838 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1838 [ADDR]: display address in the chain. If omitted or
--1: write to all displays. Type: int. Range: -1\...7\.;
+-1: write to all displays. Type: int. Range: [-1\..7].;
 #X obj 250 1886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1886 write reg;
 #X text 270 1886 write the max7219 register data. Lowest level of communication.
 Arguments are:;
 #X obj 300 1926 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1926 REG: max7219 register index. Type: int. Range: 0\...15\.;
+#X text 300 1926 REG: max7219 register index. Type: int. Range: [0\..15].;
 #X obj 300 1949 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1949 DATA: the register value. Type: int. Range: 0\...255\.;
+#X text 300 1949 DATA: the register value. Type: int. Range: [0\..255].;
 #X obj 300 1972 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1972 [ADDR=0]: target display address in the chain. Type:
-int. Range: -1\...7\.;
+int. Range: [-1\..7].;
 #X obj 250 2020 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2020 write str;
 #X text 270 2020 write string (7-segment display only!). Arguments
@@ -162,13 +162,13 @@ are:;
 #X text 300 2045 STR: string. maxlength: 8 chars. Type: symbol.;
 #X obj 300 2068 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2068 [DOTS]: dots as bit value. For ex.: 0b00000011 turn
-on a two leftmost dots. Type: int. Range: 0\...255\.;
+on a two leftmost dots. Type: int. Range: [0\..255].;
 #X obj 300 2106 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2106 [ALIGN=right]: string align. Type: symbol. Allowed
 values: left \, center \, right.;
 #X obj 300 2144 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2144 [ADDR=0]: display address in the chain. Type: int.
-Range: -1\...7\.;
+Range: [-1\..7].;
 #X obj 20 2202 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2207 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

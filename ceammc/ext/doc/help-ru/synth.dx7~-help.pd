@@ -402,14 +402,14 @@
 #X text 270 4345 load the preset from a previously loaded sysex file.
 Аргументы:;
 #X obj 300 4385 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4385 [IDX]: preset index. Тип: int. Диапазон: 0…31\.;
+#X text 300 4385 [IDX]: preset index. Тип: int. Диапазон: [0\..31].;
 #X obj 250 4418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4418 note;
 #X text 270 4418 note on/off message. Аргументы:;
 #X obj 300 4443 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 4443 NOTE: midi note. Тип: float.;
 #X obj 300 4466 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4466 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X text 300 4466 VEL: velocity. Тип: float. Диапазон: [0\..127].;
 #X obj 250 4499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4499 read;
 #X text 270 4499 reads the DX7 sysex preset file. Аргументы:;

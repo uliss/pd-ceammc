@@ -62,7 +62,7 @@ mode.;
 #X text 130 574 1\.;
 #X text 170 574 float;
 #X obj 268 575 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 574 NCELLS: number of cells. Type: float. Range: 2\...128;
+#X text 270 574 NCELLS: number of cells. Type: float. Range: [2\..128];
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 614 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -47,7 +47,7 @@ ceammc://hw.rpi.gpio-example.pd;
 #X text 270 738 send a single pulse of the specified duration. Arguments
 are:;
 #X obj 300 763 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 763 LENGTH: pulse length. Type: int. Range: 0.001\...100\.
+#X text 300 763 LENGTH: pulse length. Type: int. Range: [0.001\..100].
 Units: 'ms'.;
 #X obj 250 811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 811 input;
@@ -93,7 +93,7 @@ are:;
 #X text 270 1250 reset the GPIO pin(s) to their initial state. Arguments
 are:;
 #X obj 300 1275 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1275 PIN: GPIO pin number. Type: list. Range: 1\...16\.;
+#X text 300 1275 PIN: GPIO pin number. Type: list. Range: [1\..16].;
 #X obj 250 1308 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1308 soft_pwm;
 #X text 270 1308 set the GPIO pin to software PWM mode. Arguments are:;
@@ -115,7 +115,7 @@ are:;
 #X text 300 1490 FREQ: frequency. Type: float. Min value: 0\. Units:
 'Hz'.;
 #X obj 300 1513 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1513 DUTY: duty cycle length. Type: float. Range: 0\...1\.;
+#X text 300 1513 DUTY: duty cycle length. Type: float. Range: [0\..1].;
 #X obj 250 1546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1546 toggle;
 #X text 270 1546 toggle the GPIO pin output value. Arguments are:;

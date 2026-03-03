@@ -35,7 +35,7 @@ Type: atom.;
 #X text 130 563 4\.;
 #X text 170 563 int;
 #X obj 268 564 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 563 N: @n property. Type: int. Range: 4\...1024;
+#X text 270 563 N: @n property. Type: int. Range: [4\..1024];
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 603 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

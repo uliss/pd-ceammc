@@ -36,25 +36,25 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 170 512 float;
 #X obj 268 513 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 512 STRENGTH: compression strength (0: no compression \,
-1: hard limiting \, >1: overcompression). Type: float. Range: 0\...2;
+1: hard limiting \, >1: overcompression). Type: float. Range: [0\..2];
 #X text 130 567 2\.;
 #X text 170 567 float;
 #X obj 268 568 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 567 THRESHOLD(db): level threshold above which compression
-kicks in. Type: float. Range: -60\...0;
+kicks in. Type: float. Range: [-60\..0];
 #X text 130 607 3\.;
 #X text 170 607 float;
 #X obj 268 608 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 607 ATTACK(ms): attack time - the time that elapses between
 exceeding the threshold and when the compression ratio is reached.
-Type: float. Range: 0.1\...100;
+Type: float. Range: [0.1\..100];
 #X text 130 662 4\.;
 #X text 170 662 float;
 #X obj 268 663 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 662 RELEASE(ms): release time - the time of decay that
 elapses between when the input signal level drops below the threshold
 and when the compressor stops attenuating the signal. Type: float.
-Range: 1\...500;
+Range: [1\..500];
 #X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 747 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

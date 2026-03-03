@@ -18,29 +18,29 @@
 #X msg 130 296 mbal:f;
 #X text 270 296 set device master balance. Arguments are:;
 #X obj 300 321 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 321 PAN: balance. Type: float. Range: -1\...1\.;
+#X text 300 321 PAN: balance. Type: float. Range: [-1\..1].;
 #X obj 250 354 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 354 mtune;
 #X text 270 354 set device master tuning in float semitones (combination
 of coarse and fine tune). Arguments are:;
 #X obj 300 394 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 394 V: tuning. Type: float. Range: -64\...63\. Units: 'semitone'.;
+#X text 300 394 V: tuning. Type: float. Range: [-64\..63]. Units: 'semitone'.;
 #X obj 250 427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 427 mtune.;
 #X text 270 427 set device master fine tuning in cents. Arguments are:;
 #X obj 300 452 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 452 V: tuning. Type: int. Range: -100\...100\. Units: 'cent'.;
+#X text 300 452 V: tuning. Type: int. Range: [-100\..100]. Units: 'cent'.;
 #X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 mtune~;
 #X text 270 485 set device master coarse tuning in semitones. Arguments
 are:;
 #X obj 300 510 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 510 V: tuning. Type: int. Range: -64\...63\. Units: 'semitone'.;
+#X text 300 510 V: tuning. Type: int. Range: [-64\..63]. Units: 'semitone'.;
 #X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 mvolume;
 #X text 270 543 set device master volume. Arguments are:;
 #X obj 300 568 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 568 LEVEL: volume level. Type: float. Range: 0\...1\.;
+#X text 300 568 LEVEL: volume level. Type: float. Range: [0\..1].;
 #X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 616 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

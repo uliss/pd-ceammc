@@ -32,7 +32,7 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X text 130 468 1\.;
 #X text 170 468 int;
 #X obj 268 469 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 468 SIZE: output bit-length. Type: int. Range: 1\...32;
+#X text 270 468 SIZE: output bit-length. Type: int. Range: [1\..32];
 #X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 508 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

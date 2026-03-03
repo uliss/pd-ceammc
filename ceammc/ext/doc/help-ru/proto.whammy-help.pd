@@ -83,7 +83,7 @@ If not specified - select random mode from all categories. Тип: symbol.
 #X msg 130 927 set IDX;
 #X text 270 927 set preset by index. Аргументы:;
 #X obj 300 952 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 952 IDX: preset index. Тип: int. Диапазон: 0…20\.;
+#X text 300 952 IDX: preset index. Тип: int. Диапазон: [0\..20].;
 #X obj 300 975 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 975 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;
@@ -91,10 +91,10 @@ If not specified - select random mode from all categories. Тип: symbol.
 #X msg 130 1023 set NAME;
 #X text 270 1023 set preset by name. Аргументы:;
 #X obj 300 1048 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1048 NAME: preset name. Тип: symbol. Диапазон: 0…20\. Разрешённые
-значения: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th \,
--1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4
-\, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
+#X text 300 1048 NAME: preset name. Тип: symbol. Диапазон: [0\..20].
+Разрешённые значения: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th
+\, -5th \, -1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3
+\, +3+4 \, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
 #X obj 300 1116 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1116 [STATE]: pedal state (on/off). Тип: int. Разрешённые
 значения: 0 \, 1\.;

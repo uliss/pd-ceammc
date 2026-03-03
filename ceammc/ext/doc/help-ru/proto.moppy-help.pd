@@ -40,7 +40,7 @@ https://github.com/Sammy1Am/Moppy2;
 #X msg 130 570 bend:f;
 #X text 270 570 note pitchbend. Аргументы:;
 #X obj 300 595 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 595 VAL: pitch bend. Тип: float. Диапазон: -1…1\.;
+#X text 300 595 VAL: pitch bend. Тип: float. Диапазон: [-1\..1].;
 #X obj 250 628 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 628 freq;
 #X text 270 628 set floppy frequency. Note: moppy.v1 version only.
@@ -60,7 +60,7 @@ https://github.com/Sammy1Am/Moppy2;
 #X text 300 784 [CHAN]: optional floppy id (overrides @floppy property).
 Тип: int.;
 #X obj 300 822 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 822 NOTE: MIDI note. Тип: int. Диапазон: 24…72\.;
+#X text 300 822 NOTE: MIDI note. Тип: int. Диапазон: [24\..72].;
 #X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 855 noteon;
 #X text 270 855 play note. Аргументы:;
@@ -68,10 +68,10 @@ https://github.com/Sammy1Am/Moppy2;
 #X text 300 880 [CHAN]: optional floppy id (overrides @floppy property).
 Тип: int.;
 #X obj 300 918 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 918 NOTE: MIDI note. Тип: int. Диапазон: 24…72\.;
+#X text 300 918 NOTE: MIDI note. Тип: int. Диапазон: [24\..72].;
 #X obj 300 941 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 941 VEL: note velocity (if 0 - turns note off \, otherwise
-ignored). Тип: int. Диапазон: 0…127\.;
+ignored). Тип: int. Диапазон: [0\..127].;
 #X obj 250 989 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 989 period;
 #X text 270 989 directly set floppy drive period. Note: moppy.v1 version

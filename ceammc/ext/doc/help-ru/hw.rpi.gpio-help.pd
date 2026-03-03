@@ -48,7 +48,7 @@ ceammc://hw.rpi.gpio-example.pd;
 #X text 270 768 отправить одиночный импульс указанной длительности.
 Аргументы:;
 #X obj 300 808 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 808 LENGTH: длина импульса. Тип: int. Диапазон: 0.001…100\.
+#X text 300 808 LENGTH: длина импульса. Тип: int. Диапазон: [0.001\..100].
 Единицы: 'ms'.;
 #X obj 250 856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 856 input;
@@ -93,7 +93,7 @@ ceammc://hw.rpi.gpio-example.pd;
 #X msg 130 1325 reset;
 #X text 270 1325 сбросить контакт(ы) GPIO в начальное состояние. Аргументы:;
 #X obj 300 1350 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1350 PIN: номер контакта GPIO. Тип: list. Диапазон: 1…16\.;
+#X text 300 1350 PIN: номер контакта GPIO. Тип: list. Диапазон: [1\..16].;
 #X obj 250 1383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1383 soft_pwm;
 #X text 270 1383 установить контакт GPIO в режим программной ШИМ. Аргументы:;
@@ -116,7 +116,7 @@ ceammc://hw.rpi.gpio-example.pd;
 Единицы: 'Hz'.;
 #X obj 300 1618 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1618 DUTY: продолжительность рабочего цикла. Тип: float.
-Диапазон: 0…1\.;
+Диапазон: [0\..1].;
 #X obj 250 1666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1666 toggle;
 #X text 270 1666 переключить выходное значение контакта GPIO. Аргументы:;

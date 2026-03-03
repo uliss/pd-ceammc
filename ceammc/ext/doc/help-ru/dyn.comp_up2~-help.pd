@@ -46,22 +46,22 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 170 512 float;
 #X obj 268 513 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 512 STRENGTH: сила компрессии (0: без компрессии \, 1:
-повышение уровня на @range децибел). Тип: float. Диапазон: 0…1;
+повышение уровня на @range децибел). Тип: float. Диапазон: [0\..1];
 #X text 130 567 2\.;
 #X text 170 567 float;
 #X obj 268 568 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 567 THRESHOLD(db): пороговый уровень \, ниже которого начинается
-компрессия. Тип: float. Диапазон: -60…0;
+компрессия. Тип: float. Диапазон: [-60\..0];
 #X text 130 607 3\.;
 #X text 170 607 float;
 #X obj 268 608 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 607 ATTACK(ms): attack time = time constant when level
-& compression going up. Тип: float. Диапазон: 0.1…100;
+& compression going up. Тип: float. Диапазон: [0.1\..100];
 #X text 130 647 4\.;
 #X text 170 647 float;
 #X obj 268 648 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 647 RELEASE(ms): время спада - время выхода из компрессии
-после превышения порогового уровня. Тип: float. Диапазон: 1…500;
+после превышения порогового уровня. Тип: float. Диапазон: [1\..500];
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 717 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

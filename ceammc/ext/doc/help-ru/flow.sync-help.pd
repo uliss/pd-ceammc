@@ -29,7 +29,7 @@ stored values from all inlets from rightmost to leftmost;
 #X text 130 445 1\.;
 #X text 170 445 int;
 #X obj 268 446 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 N: Number of input/outputs. Тип: int. Диапазон: 2…16;
+#X text 270 445 N: Number of input/outputs. Тип: int. Диапазон: [2\..16];
 #X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 485 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

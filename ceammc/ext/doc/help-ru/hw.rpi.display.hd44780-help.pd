@@ -61,7 +61,7 @@ int. Значение по умолчанию: 1\. Разрешённые зна
 #X text 270 754 записать символ в дисплей и переместить курсор в следующую
 позицию. Аргументы:;
 #X obj 300 794 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 794 CHAR: код символа. Тип: int. Диапазон: 0…255\.;
+#X text 300 794 CHAR: код символа. Тип: int. Диапазон: [0\..255].;
 #X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 827 clear;
 #X text 270 827 очистить дисплей и установить положение курсора в 0
@@ -70,7 +70,7 @@ int. Значение по умолчанию: 1\. Разрешённые зна
 #X msg 130 862 clear_line;
 #X text 270 862 очистить только указанную строку. Аргументы:;
 #X obj 300 887 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 887 LINE: индекс строки. Тип: int. Диапазон: 0…3\.;
+#X text 300 887 LINE: индекс строки. Тип: int. Диапазон: [0\..3].;
 #X obj 250 920 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 920 cursor_blink;
 #X text 270 920 включить/выключить мерцающий курсор. Аргументы:;
@@ -89,48 +89,48 @@ int. Значение по умолчанию: 1\. Разрешённые зна
 0\.;
 #X obj 300 1084 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1084 COL: положение символа в строке. Тип: int. Диапазон:
-0…20\.;
-#X obj 250 1117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1117 font;
-#X text 270 1117 выбор шрифта.;
-#X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1152 move_cursor;
-#X text 270 1152 переместить курсор по-горизонтали. Аргументы:;
-#X obj 300 1177 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1177 SHIFT: относительный сдвиг курсора. Отрицательные
+[0\..20].;
+#X obj 250 1132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1132 font;
+#X text 270 1132 выбор шрифта.;
+#X obj 250 1167 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1167 move_cursor;
+#X text 270 1167 переместить курсор по-горизонтали. Аргументы:;
+#X obj 300 1192 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1192 SHIFT: относительный сдвиг курсора. Отрицательные
 значения перемещают курсор влево \, положительные — вправо. Тип: int.;
-#X obj 250 1240 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1240 move_display;
-#X text 270 1240 переместить содержимое дисплея по-горизонтали (без
+#X obj 250 1255 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1255 move_display;
+#X text 270 1255 переместить содержимое дисплея по-горизонтали (без
 именения его сожержимого). Аргументы:;
-#X obj 300 1280 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1280 SHIFT: относительный сдвиг. Отрицательные значения
+#X obj 300 1295 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1295 SHIFT: относительный сдвиг. Отрицательные значения
 перемещают содержимое влево \, положительные — вправо. Тип: int.;
-#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1343 write;
-#X text 270 1343 записывает сообщение в текущей позиции курсора \,
+#X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1358 write;
+#X text 270 1358 записывает сообщение в текущей позиции курсора \,
 а затем перемещает курсор в следующую позицию после последнего записанного
 символа. Аргументы:;
-#X obj 300 1398 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1398 MSG: список значений. Тип: list.;
-#X obj 20 1441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1446 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1413 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1413 MSG: список значений. Тип: list.;
+#X obj 20 1456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1447 1\.;
-#X text 270 1447 контрольный вход.;
-#X obj 20 1482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1462 1\.;
+#X text 270 1462 контрольный вход.;
+#X obj 20 1497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1502 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1488 1\.;
-#X text 270 1488 не выводит ничего.;
+#X text 130 1503 1\.;
+#X text 270 1503 не выводит ничего.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1538 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1541 библиотека: ceammc v0.9.8;
-#N canvas 10 1560 400 290 info 0;
+#X obj 1 1553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1556 библиотека: ceammc v0.9.8;
+#N canvas 10 1575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -154,7 +154,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1560 pd info;
+#X restore 10 1575 pd info;
 #X connect 7 0 9 0;
 #X connect 11 0 13 0;
 #X connect 15 0 17 0;

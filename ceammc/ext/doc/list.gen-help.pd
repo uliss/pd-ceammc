@@ -27,7 +27,7 @@ generator;
 #X text 170 386 int;
 #X obj 268 387 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 386 COUNT: length of generated list. Type: int. Range:
-1\...1024;
+[1\..1024];
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 426 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -49,7 +49,7 @@ generator;
 #X text 270 536 starts list generation.;
 #X text 170 561 int:;
 #X text 270 561 changes length of generated list and starts generation.
-Range: 0\...1024\.;
+Range: [0\..1024].;
 #X text 130 601 2\.;
 #X text 170 601 any:;
 #X text 270 601 input for generated values.;

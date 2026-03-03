@@ -33,7 +33,7 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X text 130 654 1\.;
 #X text 170 654 float;
 #X obj 268 655 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 654 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
+#X text 270 654 FREQ(Hz): cutoff frequency. Type: float. Range: [20\..20000];
 #X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 694 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -26,11 +26,11 @@
 #X text 170 400 int;
 #X obj 268 401 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 400 BEATS: number of beats inside the sequence. Тип: int.
-Диапазон: 0…8192;
+Диапазон: [0\..8192];
 #X text 130 440 2\.;
 #X text 170 440 int;
 #X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 N: the whole sequence length. Тип: int. Диапазон: 1…8192;
+#X text 270 440 N: the whole sequence length. Тип: int. Диапазон: [1\..8192];
 #X text 130 465 3\.;
 #X text 170 465 int;
 #X obj 268 466 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;

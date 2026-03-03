@@ -26,7 +26,7 @@ suppression. 4nd order interpolation.;
 #X text 130 502 1\.;
 #X text 170 502 float;
 #X obj 268 503 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 502 FREQ(Hz): See @freq. Тип: float. Диапазон: 0.0…22050;
+#X text 270 502 FREQ(Hz): See @freq. Тип: float. Диапазон: [0.0\..22050];
 #X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 542 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

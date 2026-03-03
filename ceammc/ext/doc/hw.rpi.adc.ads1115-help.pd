@@ -93,7 +93,7 @@ by @out_min @out_max properties range. Type: bool. Default value: 0\.;
 #X text 270 1273 single measurement request. Arguments are:;
 #X obj 300 1298 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1298 [CHAN]: the channel to measure. If omitted: perform
-measurements on all channels. Type: int. Range: 0\...3\.;
+measurements on all channels. Type: int. Range: [0\..3].;
 #X obj 250 1346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1346 poll;
 #X text 270 1346 turn on/off automatic polling mode. Arguments are:;

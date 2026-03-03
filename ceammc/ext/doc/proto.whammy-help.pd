@@ -83,7 +83,7 @@ Allowed values: whammy \, harm \, detune.;
 #X msg 130 915 set IDX;
 #X text 270 915 set preset by index. Arguments are:;
 #X obj 300 940 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 940 IDX: preset index. Type: int. Range: 0\...20\.;
+#X text 300 940 IDX: preset index. Type: int. Range: [0\..20].;
 #X obj 300 963 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 963 [STATE]: pedal state (on/off). Type: int. Allowed values:
 0 \, 1\.;
@@ -91,7 +91,7 @@ Allowed values: whammy \, harm \, detune.;
 #X msg 130 1011 set NAME;
 #X text 270 1011 set preset by name. Arguments are:;
 #X obj 300 1036 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1036 NAME: preset name. Type: symbol. Range: 0\...20\.
+#X text 300 1036 NAME: preset name. Type: symbol. Range: [0\..20].
 Allowed values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th
 \, -1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4
 \, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;

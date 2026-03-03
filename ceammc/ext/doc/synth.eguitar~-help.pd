@@ -69,7 +69,7 @@ value: 0.5\. Range: [0\..1].;
 #X obj 300 860 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 860 NOTE: midi note. Type: float.;
 #X obj 300 883 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 883 VEL: velocity. Type: float. Range: 0\...127\.;
+#X text 300 883 VEL: velocity. Type: float. Range: [0\..127].;
 #X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 931 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

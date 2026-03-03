@@ -26,80 +26,80 @@
 #X text 130 458 1\.;
 #X text 170 458 float;
 #X obj 268 459 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 458 FREQ(Hz): center frequency. Тип: float. Диапазон: 20…20000;
-#X text 130 483 2\.;
-#X text 170 483 float;
-#X obj 268 484 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 483 GAIN(db): filter gain. Тип: float. Диапазон: -15…+15;
-#X text 130 508 3\.;
-#X text 170 508 float;
-#X obj 268 509 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 508 Q: quality factory. Тип: float. Диапазон: 0.01…100;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 548 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 270 458 FREQ(Hz): center frequency. Тип: float. Диапазон: [20\..20000];
+#X text 130 498 2\.;
+#X text 170 498 float;
+#X obj 268 499 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 498 GAIN(db): filter gain. Тип: float. Диапазон: [-15\..+15];
+#X text 130 523 3\.;
+#X text 170 523 float;
+#X obj 268 524 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 523 Q: quality factory. Тип: float. Диапазон: [0.01\..100];
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 563 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 551 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 566 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 549 @id;
-#X text 270 549 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 564 @id;
+#X text 270 564 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_c_peak/ИМЯ_СВОЙСТВА \, в противном случае к /flt_c_peak/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 636 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 636 @osc;
-#X text 270 636 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 666 @active;
-#X text 270 666 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 651 @osc;
+#X text 270 651 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 681 @active;
+#X text 270 681 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 708 @freq;
-#X text 270 708 Center frequency. Тип: float. Единицы: 'Hz'. Значение
+#X obj 250 723 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 723 @freq;
+#X text 270 723 Center frequency. Тип: float. Единицы: 'Hz'. Значение
 по умолчанию: 1000\. Диапазон: [20\..20000].;
-#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 750 @gain;
-#X text 270 750 Filter gain. Тип: float. Единицы: 'db'. Значение по
+#X obj 250 765 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 765 @gain;
+#X text 270 765 Filter gain. Тип: float. Единицы: 'db'. Значение по
 умолчанию: 0\. Диапазон: [-15\..15].;
-#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 792 @q;
-#X text 270 792 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
+#X obj 250 807 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 807 @q;
+#X text 270 807 Quality factor: @freq/BANDWIDTH. Тип: float. Значение
 по умолчанию: 1\. Диапазон: [0.01\..100].;
-#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 849 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 864 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 850 1\.;
-#X text 270 850 control signal.;
-#X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 890 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 865 1\.;
+#X text 270 865 control signal.;
+#X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 905 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 891 1\.;
-#X text 170 891 ~;
-#X text 270 891 b0\.;
-#X text 130 911 2\.;
-#X text 170 911 ~;
-#X text 270 911 b1\.;
-#X text 130 931 3\.;
-#X text 170 931 ~;
-#X text 270 931 b2\.;
-#X text 130 951 4\.;
-#X text 170 951 ~;
-#X text 270 951 a1\.;
-#X text 130 971 5\.;
-#X text 170 971 ~;
-#X text 270 971 a2\.;
+#X text 130 906 1\.;
+#X text 170 906 ~;
+#X text 270 906 b0\.;
+#X text 130 926 2\.;
+#X text 170 926 ~;
+#X text 270 926 b1\.;
+#X text 130 946 3\.;
+#X text 170 946 ~;
+#X text 270 946 b2\.;
+#X text 130 966 4\.;
+#X text 170 966 ~;
+#X text 270 966 a1\.;
+#X text 130 986 5\.;
+#X text 170 986 ~;
+#X text 270 986 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1021 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1024 библиотека: ceammc v0.9.8;
-#X text 431 1036 смотрите также:;
-#X obj 552 1039 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1036 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1039 библиотека: ceammc v0.9.8;
+#X text 431 1051 смотрите также:;
+#X obj 552 1054 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flt.eq_peak~] @url flt.eq_peak~-help.pd;
-#X obj 657 1039 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 1054 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flt.biquad~] @url flt.biquad~-help.pd;
-#N canvas 10 1043 400 290 info 0;
+#N canvas 10 1058 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -123,7 +123,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1043 pd info;
+#X restore 10 1058 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

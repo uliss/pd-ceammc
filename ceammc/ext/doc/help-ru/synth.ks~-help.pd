@@ -88,7 +88,7 @@
 #X obj 300 1040 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1040 NOTE: midi note. Тип: float.;
 #X obj 300 1063 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1063 VEL: velocity. Тип: float. Диапазон: 0…127\.;
+#X text 300 1063 VEL: velocity. Тип: float. Диапазон: [0\..127].;
 #X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1111 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

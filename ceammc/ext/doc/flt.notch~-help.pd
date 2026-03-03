@@ -26,12 +26,12 @@ opposite of a band-pass filter.;
 #X text 130 459 1\.;
 #X text 170 459 float;
 #X obj 268 460 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 459 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 270 459 FREQ(Hz): center frequency. Type: float. Range: [20\..20000];
 #X text 130 484 2\.;
 #X text 170 484 float;
 #X obj 268 485 cnv 1 79 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 484 WIDTH(Hz): band width (approximate). Type: float. Range:
-1\...10000;
+[1\..10000];
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 539 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

@@ -78,7 +78,7 @@ list \, if =last play last inactive note in chord list \, if =all play
 all inactive notes. Type: symbol. Allowed values: first \, last \,
 all \, random.;
 #X obj 300 1013 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1013 [VEL=127]: note velocity. Type: float. Range: 1\...127\.;
+#X text 300 1013 [VEL=127]: note velocity. Type: float. Range: [1\..127].;
 #X obj 300 1036 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1036 [NUM=1]: number of notes to turn on. Type: int. Min
 value: 1\.;

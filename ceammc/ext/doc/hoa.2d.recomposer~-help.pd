@@ -33,12 +33,12 @@ harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 #X text 170 714 int;
 #X obj 268 715 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 714 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
+[1\..63];
 #X text 130 739 2\.;
 #X text 170 739 int;
 #X obj 268 740 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 739 N: number of channels. '0' means auto-calculation.
-Type: int. Range: 0\...128;
+Type: int. Range: [0\..128];
 #X text 130 779 3\.;
 #X text 170 779 symbol;
 #X obj 268 780 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

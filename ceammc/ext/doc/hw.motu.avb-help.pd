@@ -91,7 +91,7 @@ values: 0 \, 1\.;
 #X text 300 1086 CHAN: guitar channel (zero-based). Type: int. Min
 value: 0\.;
 #X obj 300 1109 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1109 DB: value in decibel. Type: float. Range: 0\...60\.
+#X text 300 1109 DB: value in decibel. Type: float. Range: [0\..60].
 Units: 'db'.;
 #X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1157 guitar_name;
@@ -167,7 +167,7 @@ values: 0 \, 1\.;
 #X msg 130 1928 main_gain;
 #X text 270 1928 set main output gain. Arguments are:;
 #X obj 300 1953 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1953 DB: value in decibel. Type: float. Range: -127\...0\.
+#X text 300 1953 DB: value in decibel. Type: float. Range: [-127\..0].
 Units: 'db'.;
 #X obj 250 2001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2001 mic->comp;
@@ -214,7 +214,7 @@ values: 0 \, 1\.;
 #X text 300 2473 CHAN: mic channel (zero-based). Type: int. Min value:
 0\.;
 #X obj 300 2496 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2496 DB: value in decibel. Type: float. Range: 0\...60\.
+#X text 300 2496 DB: value in decibel. Type: float. Range: [0\..60].
 Units: 'db'.;
 #X obj 250 2544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2544 mic_name;
@@ -260,7 +260,7 @@ Units: 'db'.;
 #X msg 130 2949 phones_gain;
 #X text 270 2949 set phones output gain. Arguments are:;
 #X obj 300 2974 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2974 DB: value in decibel. Type: float. Range: -127\...0\.
+#X text 300 2974 DB: value in decibel. Type: float. Range: [-127\..0].
 Units: 'db'.;
 #X obj 20 3032 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 3037 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144

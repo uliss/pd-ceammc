@@ -30,7 +30,7 @@
 #X text 130 520 1\.;
 #X text 170 520 int;
 #X obj 268 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 520 N: number of input channels. Type: int. Range: 2\...16;
+#X text 270 520 N: number of input channels. Type: int. Range: [2\..16];
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

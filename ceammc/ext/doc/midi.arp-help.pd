@@ -44,7 +44,7 @@ one (no repeats);
 #X text 130 748 1\.;
 #X text 170 748 float;
 #X obj 268 749 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 748 T(ms): time between arpeggio. Type: float. Range: 1\...1000;
+#X text 270 748 T(ms): time between arpeggio. Type: float. Range: [1\..1000];
 #X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 788 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

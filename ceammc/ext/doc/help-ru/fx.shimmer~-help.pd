@@ -26,12 +26,12 @@
 #X text 170 405 float;
 #X obj 268 406 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 405 DECAY_LOW(sec): time to decay 60dB in low-frequency
-band. Тип: float. Диапазон: 1…8;
+band. Тип: float. Диапазон: [1\..8];
 #X text 130 445 2\.;
 #X text 170 445 float;
 #X obj 268 446 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 445 DECAY_MID(sec): time to decay 60dB in mid-frequency
-band. Тип: float. Диапазон: 1…8;
+band. Тип: float. Диапазон: [1\..8];
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 500 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

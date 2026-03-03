@@ -53,7 +53,7 @@ ceammc://img/conn_pwm.png;
 #X text 130 1047 1\.;
 #X text 170 1047 int;
 #X obj 268 1048 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1047 PWM_CH: канал ШИМ. См. @ch. Тип: int. Диапазон: -1…3;
+#X text 270 1047 PWM_CH: канал ШИМ. См. @ch. Тип: int. Диапазон: [-1\..3];
 #X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1087 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -69,7 +69,7 @@ ceammc://img/conn_pwm.png;
 #X msg 130 1161 duty;
 #X text 270 1161 установить рабочий цикл. Аргументы:;
 #X obj 300 1186 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1186 DUTY: рабочий цикл. Тип: float. Диапазон: 0…1\.;
+#X text 300 1186 DUTY: рабочий цикл. Тип: float. Диапазон: [0\..1].;
 #X obj 250 1219 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1219 enable;
 #X text 270 1219 Включить ШИМ. По умолчанию он отключен. Аргументы:;
@@ -82,7 +82,7 @@ ceammc://img/conn_pwm.png;
 #X text 300 1302 FREQ: частота. Тип: float. Минимальное значение: 0\.
 Единицы: 'Hz'.;
 #X obj 300 1340 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1340 DUTY: рабочий цикл. Тип: float. Диапазон: 0…1\.;
+#X text 300 1340 DUTY: рабочий цикл. Тип: float. Диапазон: [0\..1].;
 #X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1373 period;
 #X text 270 1373 установить период цикла ШИМ. Ожидаемая ширина ШИМ

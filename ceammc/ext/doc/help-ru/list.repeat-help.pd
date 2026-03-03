@@ -24,7 +24,7 @@
 #X text 130 290 1\.;
 #X text 170 290 int;
 #X obj 268 291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 290 N: repeat times. Тип: int. Диапазон: 0…10000;
+#X text 270 290 N: repeat times. Тип: int. Диапазон: [0\..10000];
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 330 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
@@ -53,7 +53,7 @@ x n times.;
 1 2 3 ...).;
 #X text 130 559 2\.;
 #X text 170 559 int:;
-#X text 270 559 repeat count. Диапазон: 0…10000\.;
+#X text 270 559 repeat count. Диапазон: [0\..10000].;
 #X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 599 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;

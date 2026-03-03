@@ -24,7 +24,7 @@
 #X msg 130 384 input;
 #X text 270 384 select HDMI input. Аргументы:;
 #X obj 300 409 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 409 N: input index. Тип: int. Диапазон: 0…3\.;
+#X text 300 409 N: input index. Тип: int. Диапазон: [0\..3].;
 #X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 457 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

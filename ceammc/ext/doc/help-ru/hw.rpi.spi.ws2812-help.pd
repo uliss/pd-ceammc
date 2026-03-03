@@ -73,7 +73,7 @@ ceammc://img/conn_ws2812.png;
 #X msg 130 1144 brightness;
 #X text 270 1144 установить якрость пикселей. Аргументы:;
 #X obj 300 1169 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1169 LEVEL: уровень яркости. Тип: int. Диапазон: 0…255\.;
+#X text 300 1169 LEVEL: уровень яркости. Тип: int. Диапазон: [0\..255].;
 #X obj 250 1202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1202 clear;
 #X text 270 1202 выключить все пиксели.;
@@ -82,7 +82,7 @@ ceammc://img/conn_ws2812.png;
 #X text 270 1237 заполнить пиксели цветом RGB. Аргументы:;
 #X obj 300 1262 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1262 [@color R G B]: список R G B цветовых компонент. Тип:
-float. Диапазон: 0…1\.;
+float. Диапазон: [0\..1].;
 #X obj 300 1300 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1300 [@color #RRGGBB]: шестнадцатеричный RGB цвет. Тип:
 property.;
@@ -93,7 +93,7 @@ property.;
 #X text 300 1376 [@color Color(red)]: цветовой тип данных. Тип: data:color.;
 #X obj 300 1399 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1399 [@color8 R G B]: список R G B цветовых компонент.
-Тип: int. Диапазон: 0…255\.;
+Тип: int. Диапазон: [0\..255].;
 #X obj 300 1437 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1437 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
 Тип: list.;
@@ -130,7 +130,7 @@ bounce \, breathe \, collision \, cycle \, fire \, meteor \, rainbow
 #X text 270 1780 установить цвет отдельного пикселя. Аргументы:;
 #X obj 300 1805 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1805 [@color R G B]: список R G B цветовых компонент. Тип:
-float. Диапазон: 0…1\.;
+float. Диапазон: [0\..1].;
 #X obj 300 1843 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1843 [@color #RRGGBB]: шестнадцатеричный RGB цвет. Тип:
 property.;
@@ -141,7 +141,7 @@ property.;
 #X text 300 1919 [@color Color(red)]: цветовой тип данных. Тип: data:color.;
 #X obj 300 1942 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1942 [@color8 R G B]: список R G B цветовых компонент.
-Тип: int. Диапазон: 0…255\.;
+Тип: int. Диапазон: [0\..255].;
 #X obj 20 2000 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2005 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

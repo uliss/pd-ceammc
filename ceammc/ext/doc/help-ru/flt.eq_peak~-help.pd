@@ -23,17 +23,17 @@
 #X text 130 390 1\.;
 #X text 170 390 float;
 #X obj 268 391 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 FREQ(Hz): peak frequency. Тип: float. Диапазон: 20…20000;
+#X text 270 390 FREQ(Hz): peak frequency. Тип: float. Диапазон: [20\..20000];
 #X text 130 415 2\.;
 #X text 170 415 float;
 #X obj 268 416 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 415 GAIN(db): level at fx (boost if >0 or cut if <0). Тип:
-float. Диапазон: -15…15;
+float. Диапазон: [-15\..15];
 #X text 130 455 3\.;
 #X text 170 455 float;
 #X obj 268 456 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 455 BANDWIDTH(Hz): bandwidth of peak. Тип: float. Диапазон:
-1…5000;
+[1\..5000];
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 510 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

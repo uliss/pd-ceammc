@@ -137,9 +137,9 @@ normal. Разрешённые значения: normal \, bold.;
 #X text 270 1653 sets slider position in cartesian coords and output.
 Аргументы:;
 #X obj 300 1693 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1693 X: x-coord. Тип: float. Диапазон: -1…1\.;
+#X text 300 1693 X: x-coord. Тип: float. Диапазон: [-1\..1].;
 #X obj 300 1716 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1716 Y: y-coord. Тип: float. Диапазон: -1…1\.;
+#X text 300 1716 Y: y-coord. Тип: float. Диапазон: [-1\..1].;
 #X obj 250 1749 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1749 clear;
 #X text 270 1749 clears specified preset. Аргументы:;
@@ -159,7 +159,7 @@ normal. Разрешённые значения: normal \, bold.;
 #X msg 130 1923 polar;
 #X text 270 1923 sets slider position in polar coords and output. Аргументы:;
 #X obj 300 1948 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1948 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X text 300 1948 RAD: radius. Тип: float. Диапазон: [0\..1].;
 #X obj 300 1971 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1971 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;
@@ -183,7 +183,7 @@ property). Тип: float.;
 #X msg 130 2208 set;
 #X text 270 2208 sets slider position without output. Аргументы:;
 #X obj 300 2233 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2233 RAD: radius. Тип: float. Диапазон: 0…1\.;
+#X text 300 2233 RAD: radius. Тип: float. Диапазон: [0\..1].;
 #X obj 300 2256 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2256 ANG: angle in degrees or radians (depends on @use_degrees
 property). Тип: float.;

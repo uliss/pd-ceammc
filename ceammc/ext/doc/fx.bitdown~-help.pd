@@ -24,12 +24,12 @@
 #X text 130 347 1\.;
 #X text 170 347 int;
 #X obj 268 348 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 BITS: number of bits. Type: int. Range: 1\...16;
+#X text 270 347 BITS: number of bits. Type: int. Range: [1\..16];
 #X text 130 372 2\.;
 #X text 170 372 int;
 #X obj 268 373 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 372 DOWNSAMP(samp): number of samples to skip. Type: int.
-Range: 1\...200;
+Range: [1\..200];
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

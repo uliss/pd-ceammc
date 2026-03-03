@@ -34,7 +34,7 @@
 #X text 130 499 1\.;
 #X text 170 499 float;
 #X obj 268 500 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 499 FREQ(Hz): частота. Тип: float. Диапазон: 0…100;
+#X text 270 499 FREQ(Hz): частота. Тип: float. Диапазон: [0\..100];
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 539 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

@@ -412,7 +412,7 @@ list. Значение по умолчанию: 0 0 0 0 0 0\. Диапазон �
 #X obj 300 4516 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 4516 DELAY: delay time. Тип: float. Единицы: 'ms'.;
 #X obj 300 4539 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4539 FB: feedback value. Тип: float. Диапазон: 0…1\.;
+#X text 300 4539 FB: feedback value. Тип: float. Диапазон: [0\..1].;
 #X obj 250 4572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 4572 random;
 #X text 270 4572 randomize values. Аргументы:;

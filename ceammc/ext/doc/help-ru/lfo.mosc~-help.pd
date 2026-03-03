@@ -25,7 +25,7 @@
 #X text 130 429 1\.;
 #X text 170 429 float;
 #X obj 268 430 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 429 FREQ(Hz): frequency. Тип: float. Диапазон: 0…1000;
+#X text 270 429 FREQ(Hz): frequency. Тип: float. Диапазон: [0\..1000];
 #X text 130 454 2\.;
 #X text 170 454 symbol;
 #X obj 268 455 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;

@@ -51,7 +51,7 @@ Default value: color. Allowed values: color \, hex \, rgb.;
 0;
 #X text 130 609 1\.;
 #X text 170 609 float:;
-#X text 270 609 calculate color scale hue and output. Range: 0\...1\.;
+#X text 270 609 calculate color scale hue and output. Range: [0\..1].;
 #X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 649 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

@@ -81,7 +81,7 @@ Range: [0\..1].;
 #X obj 300 1030 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1030 NOTE: midi note. Type: float.;
 #X obj 300 1053 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1053 VEL: velocity. Type: float. Range: 0\...127\.;
+#X text 300 1053 VEL: velocity. Type: float. Range: [0\..127].;
 #X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1086 reset;
 #X text 270 1086 reset synth.;

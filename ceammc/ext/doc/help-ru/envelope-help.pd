@@ -137,7 +137,7 @@ float.;
 #X text 300 1602 DECAY: decay time. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
 #X obj 300 1640 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1640 SUSTAIN: sustain level. Тип: float. Диапазон: 0…100\.
+#X text 300 1640 SUSTAIN: sustain level. Тип: float. Диапазон: [0\..100].
 Единицы: '%'.;
 #X obj 300 1678 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1678 RELEASE: release time. Тип: float. Минимальное значение:
@@ -178,7 +178,7 @@ float.;
 #X obj 300 2122 cnv 1 91 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2122 DECAY_CURVE: decay segment curve. Тип: float.;
 #X obj 300 2145 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2145 SUSTAIN: sustain level. Тип: float. Диапазон: 0…100\.
+#X text 300 2145 SUSTAIN: sustain level. Тип: float. Диапазон: [0\..100].
 Единицы: '%'.;
 #X obj 300 2183 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2183 RELEASE: release time. Тип: float. Минимальное значение:

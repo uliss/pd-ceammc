@@ -39,11 +39,11 @@
 #X text 130 793 1\.;
 #X text 170 793 int;
 #X obj 268 794 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 793 MAX_SIZE: max queue lane size. Type: int. Range: 1\...1024;
+#X text 270 793 MAX_SIZE: max queue lane size. Type: int. Range: [1\..1024];
 #X text 130 818 2\.;
 #X text 170 818 int;
 #X obj 268 819 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 818 N: number of lanes. Type: int. Range: 1\...32;
+#X text 270 818 N: number of lanes. Type: int. Range: [1\..32];
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 858 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

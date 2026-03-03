@@ -19,7 +19,7 @@
 #X text 130 261 1\.;
 #X text 170 261 int;
 #X obj 268 262 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 CC: controller number. Тип: int. Диапазон: 0…127;
+#X text 270 261 CC: controller number. Тип: int. Диапазон: [0\..127];
 #X text 130 286 2\.;
 #X text 170 286 float;
 #X obj 268 287 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;

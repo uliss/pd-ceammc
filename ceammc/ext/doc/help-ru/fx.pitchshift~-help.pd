@@ -30,73 +30,73 @@
 #X text 170 390 float;
 #X obj 268 391 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 390 PITCH: pitch shift in semitones. Тип: float. Диапазон:
--38…60;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+[-38\..60];
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 431 @id;
-#X text 270 431 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 446 @id;
+#X text 270 446 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_pitchshift/ИМЯ_СВОЙСТВА \, в противном случае к /fx_pitchshift/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @osc;
-#X text 270 518 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @active;
-#X text 270 548 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 533 @osc;
+#X text 270 533 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 563 @active;
+#X text 270 563 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 590 @bypass;
-#X text 270 590 Bypass flag. If true: bypass 'effected' signal. Тип:
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 605 @bypass;
+#X text 270 605 Bypass flag. If true: bypass 'effected' signal. Тип:
 bool. Значение по умолчанию: 0\.;
-#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 632 @drywet;
-#X text 270 632 Proportion of mix between the original (dry) and 'effected'
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 647 @drywet;
+#X text 270 647 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
 1\. Диапазон: [0\..1].;
-#X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 689 @fade;
-#X text 270 689 Crossfade duration. Тип: float. Единицы: 'ms'. Значение
+#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 704 @fade;
+#X text 270 704 Crossfade duration. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 100\. Диапазон: [0\..1000].;
-#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 731 @pitch;
-#X text 270 731 Pitchshift in semitones. Тип: float. Значение по умолчанию:
+#X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 746 @pitch;
+#X text 270 746 Pitchshift in semitones. Тип: float. Значение по умолчанию:
 0\. Диапазон: [-38\..60].;
-#X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 773 @window;
-#X text 270 773 The window size. Тип: float. Единицы: 'ms'. Значение
+#X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 788 @window;
+#X text 270 788 The window size. Тип: float. Единицы: 'ms'. Значение
 по умолчанию: 200\. Диапазон: [10\..2000].;
-#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 830 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 845 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 831 reset;
-#X text 270 831 reset object state.;
-#X obj 20 876 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 881 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 846 reset;
+#X text 270 846 reset object state.;
+#X obj 20 891 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 896 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 882 1\.;
-#X text 170 882 ~;
-#X text 270 882 input signal.;
-#X text 130 907 2\.;
-#X text 170 907 float:;
-#X text 270 907 pitch shift in semitones. Диапазон: -38…60\.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 947 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 897 1\.;
+#X text 170 897 ~;
+#X text 270 897 input signal.;
+#X text 130 922 2\.;
+#X text 170 922 float:;
+#X text 270 922 pitch shift in semitones. Диапазон: [-38\..60].;
+#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 962 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 948 1\.;
-#X text 170 948 ~;
-#X text 270 948 output signal.;
+#X text 130 963 1\.;
+#X text 170 963 ~;
+#X text 270 963 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 998 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1001 библиотека: ceammc v0.9.8;
-#N canvas 10 1020 400 290 info 0;
+#X obj 1 1013 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1016 библиотека: ceammc v0.9.8;
+#N canvas 10 1035 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1020 pd info;
+#X restore 10 1035 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 9 0;
 #X connect 6 0 10 0;

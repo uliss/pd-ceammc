@@ -28,12 +28,12 @@
 #X text 130 419 1\.;
 #X text 170 419 float;
 #X obj 268 420 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 419 DRIVE: distortion amount. Тип: float. Диапазон: 0…1;
+#X text 270 419 DRIVE: distortion amount. Тип: float. Диапазон: [0\..1];
 #X text 130 444 2\.;
 #X text 170 444 float;
 #X obj 268 445 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 444 OFFSET: constant added before nonlinearity to give
-even harmonics. Тип: float. Диапазон: 0…0.5;
+even harmonics. Тип: float. Диапазон: [0\..0.5];
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;

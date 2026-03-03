@@ -49,8 +49,8 @@ to the root window \, otherwise output screen coordinates. Тип: bool.
 #X msg 130 578 polltime;
 #X text 270 578 sets global cursor polling time. Аргументы:;
 #X obj 300 603 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 603 T: polling time. Тип: float. Диапазон: 10…1000\. Единицы:
-'ms'.;
+#X text 300 603 T: polling time. Тип: float. Диапазон: [10\..1000].
+Единицы: 'ms'.;
 #X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 666 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

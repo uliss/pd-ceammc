@@ -49,13 +49,13 @@ values: int \, float.;
 #X text 170 539 bang:;
 #X text 270 539 output current value.;
 #X text 170 564 float:;
-#X text 270 564 set color Hue and output. Range: 0\...360\.;
+#X text 270 564 set color Hue and output. Range: [0\..360].;
 #X text 130 589 2\.;
 #X text 170 589 float:;
-#X text 270 589 set color saturation without output. Range: 0\...1\.;
+#X text 270 589 set color saturation without output. Range: [0\..1].;
 #X text 130 614 3\.;
 #X text 170 614 float:;
-#X text 270 614 set color lightness without output. Range: 0\...1\.;
+#X text 270 614 set color lightness without output. Range: [0\..1].;
 #X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 654 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
