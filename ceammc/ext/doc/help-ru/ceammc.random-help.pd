@@ -4,25 +4,29 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 536 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 541 50 генераторы случайных чисел;
-#X obj 30 117 random.atom;
-#X text 200 117 случайный взвешенный выбор атомов из указанного списка;
-#X obj 30 145 random.discrete;
-#X text 200 145 генерирует случайные взвешенные целые числа на интервале
+#X obj 30 120 ui.link @title [random.atom] @url random.atom-help.pd;
+#X text 220 117 случайный взвешенный выбор атомов из указанного списка;
+#X obj 30 145 ui.link @title [random.discrete] @url
+random.discrete-help.pd;
+#X text 220 142 генерирует случайные взвешенные целые числа на интервале
 [0 \, n);
-#X obj 30 185 random.float;
-#X text 200 185 равномерный генератор случайных чисел с плавающей точкой
+#X obj 30 185 ui.link @title [random.float] @url random.float-help.pd;
+#X text 220 182 равномерный генератор случайных чисел с плавающей точкой
 в заданном диапазоне;
-#X obj 30 225 random.gauss;
-#X text 200 225 гауссово случайное распределение;
-#X obj 30 253 random.int;
-#X text 200 253 равномерный генератор случайных целых чисел в заданном
+#X obj 30 225 ui.link @title [random.gauss] @url random.gauss-help.pd;
+#X text 220 222 гауссово случайное распределение;
+#X obj 30 250 ui.link @title [random.int] @url random.int-help.pd;
+#X text 220 247 равномерный генератор случайных целых чисел в заданном
 диапазоне;
-#X obj 30 293 random.linear;
-#X text 200 293 случайное линейное распределение;
-#X obj 30 321 random.pw_const;
-#X text 200 321 кусочно-постоянное случайное распределение;
-#X obj 30 349 random.pw_lin;
-#X text 200 349 кусочно-линейное случайное распределение;
+#X obj 30 290 ui.link @title [random.linear] @url
+random.linear-help.pd;
+#X text 220 287 случайное линейное распределение;
+#X obj 30 315 ui.link @title [random.pw_const] @url
+random.pw_const-help.pd;
+#X text 220 312 кусочно-постоянное случайное распределение;
+#X obj 30 340 ui.link @title [random.pw_lin] @url
+random.pw_lin-help.pd;
+#X text 220 337 кусочно-линейное случайное распределение;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::random 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

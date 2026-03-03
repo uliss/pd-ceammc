@@ -4,52 +4,56 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 550 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 555 50 работа с MIDI протоколом;
-#X obj 30 117 midi.arp;
-#X text 200 117 MIDI арпеджиатор;
-#X obj 30 145 midi.cc;
-#X text 200 145 усовершенствованная версия [ctlin];
-#X obj 30 173 midi.clock;
-#X text 200 173 MIDI-clock;
-#X obj 30 201 midi.ctl2str;
-#X text 200 201 преобразует номер стандартного MIDI контроллера в имя;
-#X obj 30 229 midi.event2ctl;
-#X text 200 229 конвертирует сообщение MidiEvent в пару канал/значение;
-#X obj 30 257 midi.event2note;
-#X text 200 257 конвертирует сообщение MidiEvent в пару нота/сила нажатия;
-#X obj 30 285 midi.event2prg;
-#X text 200 285 конвертирует сообщение MidiEvent в MIDI: изменение
+#X obj 30 120 ui.link @title [midi.arp] @url midi.arp-help.pd;
+#X text 220 117 MIDI арпеджиатор;
+#X obj 30 145 ui.link @title [midi.cc] @url midi.cc-help.pd;
+#X text 220 142 усовершенствованная версия [ctlin];
+#X obj 30 170 ui.link @title [midi.clock] @url midi.clock-help.pd;
+#X text 220 167 MIDI-clock;
+#X obj 30 195 ui.link @title [midi.ctl2str] @url midi.ctl2str-help.pd;
+#X text 220 192 преобразует номер стандартного MIDI контроллера в имя;
+#X obj 30 220 ui.link @title [midi.event2ctl] @url
+midi.event2ctl-help.pd;
+#X text 220 217 конвертирует сообщение MidiEvent в пару канал/значение;
+#X obj 30 245 ui.link @title [midi.event2note] @url
+midi.event2note-help.pd;
+#X text 220 242 конвертирует сообщение MidiEvent в пару нота/сила нажатия;
+#X obj 30 270 ui.link @title [midi.event2prg] @url
+midi.event2prg-help.pd;
+#X text 220 267 конвертирует сообщение MidiEvent в MIDI: изменение
 программы;
-#X obj 30 313 midi.file;
-#X text 200 313 чтение и запись стандартных MIDI файлов (SMF);
-#X obj 30 341 midi.kbd;
-#X text 200 341 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
-#X obj 30 369 midi.key2str;
-#X text 200 369 преобразует номер MIDI-клавиши в имя ноты в формате
+#X obj 30 295 ui.link @title [midi.file] @url midi.file-help.pd;
+#X text 220 292 чтение и запись стандартных MIDI файлов (SMF);
+#X obj 30 320 ui.link @title [midi.kbd] @url midi.kbd-help.pd;
+#X text 220 317 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
+#X obj 30 345 ui.link @title [midi.key2str] @url midi.key2str-help.pd;
+#X text 220 342 преобразует номер MIDI-клавиши в имя ноты в формате
 SPN;
-#X obj 30 397 midi.modus;
-#X text 200 397 приводит или удаляет MIDI-ноты согласно указанному
+#X obj 30 370 ui.link @title [midi.modus] @url midi.modus-help.pd;
+#X text 220 367 приводит или удаляет MIDI-ноты согласно указанному
 ладу;
-#X obj 30 425 midi.note.pass;
-#X text 200 425 пропускает MIDI-ноты согласно вычисляемому выражению;
-#X obj 30 453 midi.oct;
-#X text 200 453 октавная MIDI транспозиция;
-#X obj 30 481 midi.prg2str;
-#X text 200 481 преобразует номер инструмента GeneralMidi в его имя;
-#X obj 30 509 midi.split;
-#X text 200 509 разбивает MIDI ноты на диапазоны;
-#X obj 30 537 midi.sustain;
-#X text 200 537 эмуляция педали сустейна;
-#X obj 30 565 midi.sysex;
-#X text 200 565 выводит входные sysex сообщения в виде списка;
-#X obj 30 593 midi.track;
-#X text 200 593 извлекает трек из сообщения MidiFile;
-#X obj 30 621 midi.tuning;
-#X text 200 621 применяет настройку для нотного потока;
-#X obj 30 649 midi.vramp;
-#X text 200 649 применяет crescendo или diminuendo для потока нот;
-#X obj 30 677 midi.vrand;
-#X text 200 677 рандомизатор силы нажатия MIDI;
+#X obj 30 395 ui.link @title [midi.note.pass] @url
+midi.note.pass-help.pd;
+#X text 220 392 пропускает MIDI-ноты согласно вычисляемому выражению;
+#X obj 30 420 ui.link @title [midi.oct] @url midi.oct-help.pd;
+#X text 220 417 октавная MIDI транспозиция;
+#X obj 30 445 ui.link @title [midi.prg2str] @url midi.prg2str-help.pd;
+#X text 220 442 преобразует номер инструмента GeneralMidi в его имя;
+#X obj 30 470 ui.link @title [midi.split] @url midi.split-help.pd;
+#X text 220 467 разбивает MIDI ноты на диапазоны;
+#X obj 30 495 ui.link @title [midi.sustain] @url midi.sustain-help.pd;
+#X text 220 492 эмуляция педали сустейна;
+#X obj 30 520 ui.link @title [midi.sysex] @url midi.sysex-help.pd;
+#X text 220 517 выводит входные sysex сообщения в виде списка;
+#X obj 30 545 ui.link @title [midi.track] @url midi.track-help.pd;
+#X text 220 542 извлекает трек из сообщения MidiFile;
+#X obj 30 570 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
+#X text 220 567 применяет настройку для нотного потока;
+#X obj 30 595 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
+#X text 220 592 применяет crescendo или diminuendo для потока нот;
+#X obj 30 620 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
+#X text 220 617 рандомизатор силы нажатия MIDI;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;
-#X obj 1 705 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 715 library: ceammc;
+#X obj 1 642 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 652 library: ceammc;

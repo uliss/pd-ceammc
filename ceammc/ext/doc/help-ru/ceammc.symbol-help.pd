@@ -4,17 +4,20 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 601 50 работа с символами;
-#X obj 30 117 symbol.equal;
-#X text 200 117 проверка символов на равенство;
-#X obj 30 145 symbol.length;
-#X text 200 145 выводит число символов в символьном типе (с поддержкой
+#X obj 30 120 ui.link @title [symbol.equal] @url symbol.equal-help.pd;
+#X text 220 117 проверка символов на равенство;
+#X obj 30 145 ui.link @title [symbol.length] @url
+symbol.length-help.pd;
+#X text 220 142 выводит число символов в символьном типе (с поддержкой
 Unicode);
-#X obj 30 185 symbol.num_compare;
-#X text 200 185 цифровое сравнение символов;
-#X obj 30 213 symbol2any;
-#X text 200 213 преобразует символ или строку в сообщение;
-#X obj 30 241 symbol2intlist;
-#X text 200 241 преобразует символьный тип в список кодов составляющих
+#X obj 30 185 ui.link @title [symbol.num_compare] @url
+symbol.num_compare-help.pd;
+#X text 220 182 цифровое сравнение символов;
+#X obj 30 210 ui.link @title [symbol2any] @url symbol2any-help.pd;
+#X text 220 207 преобразует символ или строку в сообщение;
+#X obj 30 235 ui.link @title [symbol2intlist] @url
+symbol2intlist-help.pd;
+#X text 220 232 преобразует символьный тип в список кодов составляющих
 его символов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;

@@ -4,97 +4,109 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 680 50 cnv 1 60 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 685 50 фильтры;
-#X obj 30 117 flt.a-weight;
-#X text 200 117 вычисляет А-взвешенное значение для данной частоты;
-#X obj 30 145 flt.biquad~;
-#X text 200 145 БИХ фильтр второго порядка;
-#X obj 30 173 flt.bpf12~;
-#X text 200 173 двухполюсный полосовой фильтр Баттерворта;
-#X obj 30 201 flt.bpf24~;
-#X text 200 201 четырехполюсный полосовой фильтр Баттерворта;
-#X obj 30 229 flt.bpf36e~;
-#X text 200 229 эллиптический полосовой фильтр с -36db спадом;
-#X obj 30 257 flt.bpf72e~;
-#X text 200 257 эллиптический полосовой фильтр с -72db спадом;
-#X obj 30 285 flt.c_apf;
-#X text 200 285 калькулятор коэффициентов всепропускающего фильтра
+#X obj 30 120 ui.link @title [flt.a-weight] @url flt.a-weight-help.pd;
+#X text 220 117 вычисляет А-взвешенное значение для данной частоты;
+#X obj 30 145 ui.link @title [flt.biquad~] @url flt.biquad~-help.pd;
+#X text 220 142 БИХ фильтр второго порядка;
+#X obj 30 170 ui.link @title [flt.bpf12~] @url flt.bpf12~-help.pd;
+#X text 220 167 двухполюсный полосовой фильтр Баттерворта;
+#X obj 30 195 ui.link @title [flt.bpf24~] @url flt.bpf24~-help.pd;
+#X text 220 192 четырехполюсный полосовой фильтр Баттерворта;
+#X obj 30 220 ui.link @title [flt.bpf36e~] @url flt.bpf36e~-help.pd;
+#X text 220 217 эллиптический полосовой фильтр с -36db спадом;
+#X obj 30 245 ui.link @title [flt.bpf72e~] @url flt.bpf72e~-help.pd;
+#X text 220 242 эллиптический полосовой фильтр с -72db спадом;
+#X obj 30 270 ui.link @title [flt.c_apf] @url flt.c_apf-help.pd;
+#X text 220 267 калькулятор коэффициентов всепропускающего фильтра
 для объекта [flt.biquad~];
-#X obj 30 325 flt.c_bpf~;
-#X text 200 325 калькулятор коэффициентов полосового фильтра для [flt.biquad~];
-#X obj 30 365 flt.c_highshelf~;
-#X text 200 365 калькулятор коэффициентов полочного фильтра высоких
+#X obj 30 310 ui.link @title [flt.c_bpf~] @url flt.c_bpf~-help.pd;
+#X text 220 307 калькулятор коэффициентов полосового фильтра для [flt.biquad~];
+#X obj 30 350 ui.link @title [flt.c_highshelf~] @url
+flt.c_highshelf~-help.pd;
+#X text 220 347 калькулятор коэффициентов полочного фильтра высоких
 частот для [flt.biquad~];
-#X obj 30 405 flt.c_hpf;
-#X text 200 405 калькулятор коэффициентов ФВЧ частот для [flt.biquad~];
-#X obj 30 433 flt.c_hpf~;
-#X text 200 433 калькулятор коэффициентов ФВЧ частот для [flt.biquad~];
-#X obj 30 461 flt.c_lowshelf~;
-#X text 200 461 калькулятор коэффициентов полочного фильтра низких
+#X obj 30 390 ui.link @title [flt.c_hpf] @url flt.c_hpf-help.pd;
+#X text 220 387 калькулятор коэффициентов ФВЧ частот для [flt.biquad~];
+#X obj 30 415 ui.link @title [flt.c_hpf~] @url flt.c_hpf~-help.pd;
+#X text 220 412 калькулятор коэффициентов ФВЧ частот для [flt.biquad~];
+#X obj 30 440 ui.link @title [flt.c_lowshelf~] @url
+flt.c_lowshelf~-help.pd;
+#X text 220 437 калькулятор коэффициентов полочного фильтра низких
 частот для [flt.biquad~];
-#X obj 30 501 flt.c_lpf;
-#X text 200 501 калькулятор коэффициентов ФНЧ для [flt.biquad~];
-#X obj 30 529 flt.c_lpf~;
-#X text 200 529 калькулятор коэффициентов ФНЧ для [flt.biquad~];
-#X obj 30 557 flt.c_notch;
-#X text 200 557 калькулятор коэффициентов режекторного фильтра для
+#X obj 30 480 ui.link @title [flt.c_lpf] @url flt.c_lpf-help.pd;
+#X text 220 477 калькулятор коэффициентов ФНЧ для [flt.biquad~];
+#X obj 30 505 ui.link @title [flt.c_lpf~] @url flt.c_lpf~-help.pd;
+#X text 220 502 калькулятор коэффициентов ФНЧ для [flt.biquad~];
+#X obj 30 530 ui.link @title [flt.c_notch] @url flt.c_notch-help.pd;
+#X text 220 527 калькулятор коэффициентов режекторного фильтра для
 [flt.biquad~];
-#X obj 30 597 flt.c_notch~;
-#X text 200 597 калькулятор коэффициентов режекторного фильтра для
+#X obj 30 570 ui.link @title [flt.c_notch~] @url flt.c_notch~-help.pd;
+#X text 220 567 калькулятор коэффициентов режекторного фильтра для
 [flt.biquad~];
-#X obj 30 637 flt.c_peak~;
-#X text 200 637 калькулятор пикового фильтра для [flt.biquad~];
-#X obj 30 665 flt.c_pole;
-#X text 200 665 калькулятор однополюсного фильтра для [flt.biquad~];
-#X obj 30 693 flt.dcblock2~;
-#X text 200 693 двухканальный фильтр \, блокирующий постоянную составляющую
+#X obj 30 610 ui.link @title [flt.c_peak~] @url flt.c_peak~-help.pd;
+#X text 220 607 калькулятор пикового фильтра для [flt.biquad~];
+#X obj 30 635 ui.link @title [flt.c_pole] @url flt.c_pole-help.pd;
+#X text 220 632 калькулятор однополюсного фильтра для [flt.biquad~];
+#X obj 30 660 ui.link @title [flt.dcblock2~] @url
+flt.dcblock2~-help.pd;
+#X text 220 657 двухканальный фильтр \, блокирующий постоянную составляющую
 сигнала;
-#X obj 30 733 flt.dcblock~;
-#X text 200 733 одноканальный фильтр \, блокирующий постоянную составляющую
+#X obj 30 700 ui.link @title [flt.dcblock~] @url flt.dcblock~-help.pd;
+#X text 220 697 одноканальный фильтр \, блокирующий постоянную составляющую
 сигнала;
-#X obj 30 773 flt.eq10~;
-#X text 200 773 графический 10-полосный эквалайзер;
-#X obj 30 801 flt.eq_peak_cq~;
-#X text 200 801 секция эквалайзера: пиковый фильтр второго порядка
+#X obj 30 740 ui.link @title [flt.eq10~] @url flt.eq10~-help.pd;
+#X text 220 737 графический 10-полосный эквалайзер;
+#X obj 30 765 ui.link @title [flt.eq_peak_cq~] @url
+flt.eq_peak_cq~-help.pd;
+#X text 220 762 секция эквалайзера: пиковый фильтр второго порядка
 c constant-Q;
-#X obj 30 841 flt.eq_peak~;
-#X text 200 841 секция эквалайзера: пиковый фильтр второго порядка;
-#X obj 30 869 flt.fb_comb~;
-#X text 200 869 гребенчатый фильтр с обратной связью (БИХ);
-#X obj 30 897 flt.fbank5x1~;
-#X text 200 897 5-полосный банк однооктавных фильтров Баттерворта;
-#X obj 30 925 flt.ff_comb~;
-#X text 200 925 гребенчатый фильтр (КИХ);
-#X obj 30 953 flt.freqz;
-#X text 200 953 вычисляет частотный отклик цифрового фильтра;
-#X obj 30 981 flt.freqz~;
-#X text 200 981 вычисляет частотный отклик цифрового фильтра;
-#X obj 30 1009 flt.highshelf~;
-#X text 200 1009 усиление или ослабление частот выше указанной;
-#X obj 30 1037 flt.hpf12~;
-#X text 200 1037 ФВЧ Баттерворта второго порядка;
-#X obj 30 1065 flt.hpf24~;
-#X text 200 1065 ФВЧ Баттерворта четвертого порядка;
-#X obj 30 1093 flt.lowshelf~;
-#X text 200 1093 усиление или ослабление частот ниже указанной;
-#X obj 30 1121 flt.lpf12~;
-#X text 200 1121 ФНЧ Баттерворта второго порядка;
-#X obj 30 1149 flt.lpf24~;
-#X text 200 1149 ФНЧ Баттерворта четвертого порядка;
-#X obj 30 1177 flt.median;
-#X text 200 1177 медианный фильтр для контрольного потока;
-#X obj 30 1205 flt.moog_vcf~;
-#X text 200 1205 управляемый напряжением фильтр Муга;
-#X obj 30 1233 flt.notch~;
-#X text 200 1233 режекторный фильтр;
-#X obj 30 1261 flt.resonbp~;
-#X text 200 1261 простой резонансный полосовой фильтр;
-#X obj 30 1289 flt.resonhp~;
-#X text 200 1289 простой резонансный ФВЧ;
-#X obj 30 1317 flt.resonlp~;
-#X text 200 1317 простой резонансный ФНЧ;
-#X obj 30 1345 flt.speaker~;
-#X text 200 1345 полосовой фильтр-эмуляция динамика;
+#X obj 30 805 ui.link @title [flt.eq_peak~] @url flt.eq_peak~-help.pd;
+#X text 220 802 секция эквалайзера: пиковый фильтр второго порядка;
+#X obj 30 830 ui.link @title [flt.fb_comb~] @url flt.fb_comb~-help.pd;
+#X text 220 827 гребенчатый фильтр с обратной связью (БИХ);
+#X obj 30 855 ui.link @title [flt.fbank5x1~] @url
+flt.fbank5x1~-help.pd;
+#X text 220 852 5-полосный банк однооктавных фильтров Баттерворта;
+#X obj 30 880 ui.link @title [flt.ff_comb~] @url flt.ff_comb~-help.pd;
+#X text 220 877 гребенчатый фильтр (КИХ);
+#X obj 30 905 ui.link @title [flt.freqz] @url flt.freqz-help.pd;
+#X text 220 902 вычисляет частотный отклик цифрового фильтра;
+#X obj 30 930 ui.link @title [flt.freqz~] @url flt.freqz~-help.pd;
+#X text 220 927 вычисляет частотный отклик цифрового фильтра;
+#X obj 30 955 ui.link @title [flt.highshelf~] @url
+flt.highshelf~-help.pd;
+#X text 220 952 усиление или ослабление частот выше указанной;
+#X obj 30 980 ui.link @title [flt.hpf12~] @url flt.hpf12~-help.pd;
+#X text 220 977 ФВЧ Баттерворта второго порядка;
+#X obj 30 1005 ui.link @title [flt.hpf24~] @url flt.hpf24~-help.pd;
+#X text 220 1002 ФВЧ Баттерворта четвертого порядка;
+#X obj 30 1030 ui.link @title [flt.lowshelf~] @url
+flt.lowshelf~-help.pd;
+#X text 220 1027 усиление или ослабление частот ниже указанной;
+#X obj 30 1055 ui.link @title [flt.lpf12~] @url flt.lpf12~-help.pd;
+#X text 220 1052 ФНЧ Баттерворта второго порядка;
+#X obj 30 1080 ui.link @title [flt.lpf24~] @url flt.lpf24~-help.pd;
+#X text 220 1077 ФНЧ Баттерворта четвертого порядка;
+#X obj 30 1105 ui.link @title [flt.median] @url flt.median-help.pd;
+#X text 220 1102 медианный фильтр для контрольного потока;
+#X obj 30 1130 ui.link @title [flt.moog_vcf~] @url
+flt.moog_vcf~-help.pd;
+#X text 220 1127 управляемый напряжением фильтр Муга;
+#X obj 30 1155 ui.link @title [flt.notch~] @url flt.notch~-help.pd;
+#X text 220 1152 режекторный фильтр;
+#X obj 30 1180 ui.link @title [flt.resonbp~] @url
+flt.resonbp~-help.pd;
+#X text 220 1177 простой резонансный полосовой фильтр;
+#X obj 30 1205 ui.link @title [flt.resonhp~] @url
+flt.resonhp~-help.pd;
+#X text 220 1202 простой резонансный ФВЧ;
+#X obj 30 1230 ui.link @title [flt.resonlp~] @url
+flt.resonlp~-help.pd;
+#X text 220 1227 простой резонансный ФНЧ;
+#X obj 30 1255 ui.link @title [flt.speaker~] @url
+flt.speaker~-help.pd;
+#X text 220 1252 полосовой фильтр-эмуляция динамика;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1373 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1383 library: ceammc;
+#X obj 1 1277 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1287 library: ceammc;

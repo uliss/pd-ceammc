@@ -4,43 +4,54 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 335 50 cnv 1 405 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 340 50 working with various data protocols and data formats;
-#X obj 30 117 proto.arturia.minilab;
-#X text 200 117 simple SysEx control for Arturia MiniLab;
-#X obj 30 145 proto.feelworld;
-#X text 200 145 controlling the FeelWorld LivePro L1 HDMI mixer;
-#X obj 30 173 proto.firmata;
-#X text 200 173 Firmata Arduino protocol support;
-#X obj 30 201 proto.inscore;
-#X text 200 201 creation of messages for the INScore program;
-#X obj 30 229 proto.ltc.in~;
-#X text 200 229 LTC decoder;
-#X obj 30 257 proto.ltc.out~;
-#X text 200 257 LTC encoder;
-#X obj 30 285 proto.midi;
-#X text 200 285 raw midi encoder/parser;
-#X obj 30 313 proto.midi.casio;
-#X text 200 313 Casio Privia MIDI control;
-#X obj 30 341 proto.midi.cc;
-#X text 200 341 raw midi CC encoder/parser;
-#X obj 30 369 proto.midi.sysex;
-#X text 200 369 raw midi SYSex encoder/parser;
-#X obj 30 397 proto.moppy;
-#X text 200 397 protocol for Musical flOPPY controller;
-#X obj 30 425 proto.morse;
-#X text 200 425 Morse encoder;
-#X obj 30 453 proto.mpv;
-#X text 200 453 MPV video player control;
-#X obj 30 481 proto.obs;
-#X text 200 481 WebSocket client to control OBS studio;
-#X obj 30 509 proto.sp.alpaca;
-#X text 200 509 protocol parser for Arduino-based CEAMMC footswitch;
-#X obj 30 537 proto.vlc;
-#X text 200 537 VLC video player control over HTTP;
-#X obj 30 565 proto.whammy;
-#X text 200 565 control for Digitech Whammy pedal;
-#X obj 30 593 proto.xtouch_ext;
-#X text 200 593 Behringer XTouch Extender XMidi protocol;
+#X obj 30 120 ui.link @title [proto.arturia.minilab] @url
+proto.arturia.minilab-help.pd;
+#X text 220 117 simple SysEx control for Arturia MiniLab;
+#X obj 30 145 ui.link @title [proto.feelworld] @url
+proto.feelworld-help.pd;
+#X text 220 142 controlling the FeelWorld LivePro L1 HDMI mixer;
+#X obj 30 170 ui.link @title [proto.firmata] @url
+proto.firmata-help.pd;
+#X text 220 167 Firmata Arduino protocol support;
+#X obj 30 195 ui.link @title [proto.inscore] @url
+proto.inscore-help.pd;
+#X text 220 192 creation of messages for the INScore program;
+#X obj 30 220 ui.link @title [proto.ltc.in~] @url
+proto.ltc.in~-help.pd;
+#X text 220 217 LTC decoder;
+#X obj 30 245 ui.link @title [proto.ltc.out~] @url
+proto.ltc.out~-help.pd;
+#X text 220 242 LTC encoder;
+#X obj 30 270 ui.link @title [proto.midi] @url proto.midi-help.pd;
+#X text 220 267 raw midi encoder/parser;
+#X obj 30 295 ui.link @title [proto.midi.casio] @url
+proto.midi.casio-help.pd;
+#X text 220 292 Casio Privia MIDI control;
+#X obj 30 320 ui.link @title [proto.midi.cc] @url
+proto.midi.cc-help.pd;
+#X text 220 317 raw midi CC encoder/parser;
+#X obj 30 345 ui.link @title [proto.midi.sysex] @url
+proto.midi.sysex-help.pd;
+#X text 220 342 raw midi SYSex encoder/parser;
+#X obj 30 370 ui.link @title [proto.moppy] @url proto.moppy-help.pd;
+#X text 220 367 protocol for Musical flOPPY controller;
+#X obj 30 395 ui.link @title [proto.morse] @url proto.morse-help.pd;
+#X text 220 392 Morse encoder;
+#X obj 30 420 ui.link @title [proto.mpv] @url proto.mpv-help.pd;
+#X text 220 417 MPV video player control;
+#X obj 30 445 ui.link @title [proto.obs] @url proto.obs-help.pd;
+#X text 220 442 WebSocket client to control OBS studio;
+#X obj 30 470 ui.link @title [proto.sp.alpaca] @url
+proto.sp.alpaca-help.pd;
+#X text 220 467 protocol parser for Arduino-based CEAMMC footswitch;
+#X obj 30 495 ui.link @title [proto.vlc] @url proto.vlc-help.pd;
+#X text 220 492 VLC video player control over HTTP;
+#X obj 30 520 ui.link @title [proto.whammy] @url proto.whammy-help.pd;
+#X text 220 517 control for Digitech Whammy pedal;
+#X obj 30 545 ui.link @title [proto.xtouch_ext] @url
+proto.xtouch_ext-help.pd;
+#X text 220 542 Behringer XTouch Extender XMidi protocol;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::proto 20 20 0 20 -104026
 -4096 0;
-#X obj 1 621 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 631 library: ceammc;
+#X obj 1 567 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 577 library: ceammc;

@@ -4,63 +4,75 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 397 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 402 50 работа с различными аппаратными устройствами;
-#X obj 30 117 hw.apple_smc;
-#X text 200 117 запросы к системе SMC в Apple;
-#X obj 30 145 hw.apple_sms;
-#X text 200 145 опрос датчика внезапного движения в Apple;
-#X obj 30 173 hw.arduino;
-#X text 200 173 устройство Arduino;
-#X obj 30 201 hw.display;
-#X text 200 201 получение/установка свойств дисплея;
-#X obj 30 229 hw.gamepad;
-#X text 200 229 геймпад контроллеры;
-#X obj 30 257 hw.kbd_light;
-#X text 200 257 управление подсветкой клавиатуры на некоторых устройствах;
-#X obj 30 285 hw.motu.avb;
-#X text 200 285 управление устройствами Motu AVB по HTTP;
-#X obj 30 313 hw.printer;
-#X text 200 313 базовая поддержка печати документов;
-#X obj 30 341 hw.rpi.adc.ads1115;
-#X text 200 341 драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
+#X obj 30 120 ui.link @title [hw.apple_smc] @url hw.apple_smc-help.pd;
+#X text 220 117 запросы к системе SMC в Apple;
+#X obj 30 145 ui.link @title [hw.apple_sms] @url hw.apple_sms-help.pd;
+#X text 220 142 опрос датчика внезапного движения в Apple;
+#X obj 30 170 ui.link @title [hw.arduino] @url hw.arduino-help.pd;
+#X text 220 167 устройство Arduino;
+#X obj 30 195 ui.link @title [hw.display] @url hw.display-help.pd;
+#X text 220 192 получение/установка свойств дисплея;
+#X obj 30 220 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
+#X text 220 217 геймпад контроллеры;
+#X obj 30 245 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
+#X text 220 242 управление подсветкой клавиатуры на некоторых устройствах;
+#X obj 30 270 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
+#X text 220 267 управление устройствами Motu AVB по HTTP;
+#X obj 30 295 ui.link @title [hw.printer] @url hw.printer-help.pd;
+#X text 220 292 базовая поддержка печати документов;
+#X obj 30 320 ui.link @title [hw.rpi.adc.ads1115] @url
+hw.rpi.adc.ads1115-help.pd;
+#X text 220 317 драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
 Pi;
-#X obj 30 369 hw.rpi.display.hd44780;
-#X text 200 369 драйвер для ЖКИ дисплея (1602 или 2004 модуль) для
+#X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
+hw.rpi.display.hd44780-help.pd;
+#X text 220 342 драйвер для ЖКИ дисплея (1602 или 2004 модуль) для
 Raspberry Pi;
-#X obj 30 409 hw.rpi.display.ssd1306;
-#X text 200 409 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
+#X obj 30 385 ui.link @title [hw.rpi.display.ssd1306] @url
+hw.rpi.display.ssd1306-help.pd;
+#X text 220 382 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
 Pi;
-#X obj 30 437 hw.rpi.gpio;
-#X text 200 437 управление GPIO на Raspberry Pi;
-#X obj 30 465 hw.rpi.i2c.pca9685;
-#X text 200 465 драйвер для 16-канального 12-битного ШИМ модуля на
+#X obj 30 410 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
+#X text 220 407 управление GPIO на Raspberry Pi;
+#X obj 30 435 ui.link @title [hw.rpi.i2c.pca9685] @url
+hw.rpi.i2c.pca9685-help.pd;
+#X text 220 432 драйвер для 16-канального 12-битного ШИМ модуля на
 чипе PCA9685 для Raspberry Pi;
-#X obj 30 505 hw.rpi.pwm;
-#X text 200 505 аппаратный ШИМ (PWM) для Raspberry Pi;
-#X obj 30 533 hw.rpi.rotenc;
-#X text 200 533 поворотный энкодер для Raspberry Pi;
-#X obj 30 561 hw.rpi.sensor.dht11;
-#X text 200 561 цифровой датчик влажности и температуры (DHT11) для
+#X obj 30 475 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
+#X text 220 472 аппаратный ШИМ (PWM) для Raspberry Pi;
+#X obj 30 500 ui.link @title [hw.rpi.rotenc] @url
+hw.rpi.rotenc-help.pd;
+#X text 220 497 поворотный энкодер для Raspberry Pi;
+#X obj 30 525 ui.link @title [hw.rpi.sensor.dht11] @url
+hw.rpi.sensor.dht11-help.pd;
+#X text 220 522 цифровой датчик влажности и температуры (DHT11) для
 Raspberry Pi;
-#X obj 30 601 hw.rpi.sensor.ir;
-#X text 200 601 ИК (инфракрасные) датчики и протоколы для Raspberry
+#X obj 30 565 ui.link @title [hw.rpi.sensor.ir] @url
+hw.rpi.sensor.ir-help.pd;
+#X text 220 562 ИК (инфракрасные) датчики и протоколы для Raspberry
 Pi;
-#X obj 30 629 hw.rpi.sensor.mpu6050;
-#X text 200 629 MPU-6050 гироскоп и датчик ускорения для Raspberry
+#X obj 30 590 ui.link @title [hw.rpi.sensor.mpu6050] @url
+hw.rpi.sensor.mpu6050-help.pd;
+#X text 220 587 MPU-6050 гироскоп и датчик ускорения для Raspberry
 Pi;
-#X obj 30 657 hw.rpi.sensor.sr04;
-#X text 200 657 HC-SR04 ультразвуковой датчик расстояния для Raspberry
+#X obj 30 615 ui.link @title [hw.rpi.sensor.sr04] @url
+hw.rpi.sensor.sr04-help.pd;
+#X text 220 612 HC-SR04 ультразвуковой датчик расстояния для Raspberry
 Pi;
-#X obj 30 685 hw.rpi.sensor.vl53l0x;
-#X text 200 685 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
-#X obj 30 713 hw.rpi.spi.max7219;
-#X text 200 713 драйвер для LED матрицы на чипе max7219 для Raspberry
+#X obj 30 640 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+hw.rpi.sensor.vl53l0x-help.pd;
+#X text 220 637 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
+#X obj 30 665 ui.link @title [hw.rpi.spi.max7219] @url
+hw.rpi.spi.max7219-help.pd;
+#X text 220 662 драйвер для LED матрицы на чипе max7219 для Raspberry
 Pi;
-#X obj 30 741 hw.rpi.spi.ws2812;
-#X text 200 741 драйвер для светодиодной ленты ws2812 для Raspberry
+#X obj 30 690 ui.link @title [hw.rpi.spi.ws2812] @url
+hw.rpi.spi.ws2812-help.pd;
+#X text 220 687 драйвер для светодиодной ленты ws2812 для Raspberry
 Pi;
-#X obj 30 769 hw.serial;
-#X text 200 769 серийный порт устройства;
+#X obj 30 715 ui.link @title [hw.serial] @url hw.serial-help.pd;
+#X text 220 712 серийный порт устройства;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 797 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 807 library: ceammc;
+#X obj 1 737 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 747 library: ceammc;

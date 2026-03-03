@@ -4,25 +4,27 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 612 50 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 617 50 работа с патчами;
-#X obj 30 117 canvas.active;
-#X text 200 117 проверяет \, активно ли окно холста объекта и расположено
+#X obj 30 120 ui.link @title [canvas.active] @url
+canvas.active-help.pd;
+#X text 220 117 проверяет \, активно ли окно холста объекта и расположено
 ли оно поверх других;
-#X obj 30 157 canvas.current;
-#X text 200 157 получение информации о текущем холста объекта;
-#X obj 30 185 canvas.dir;
-#X text 200 185 выводит директорию холста у объекта и его уровень вложенности;
-#X obj 30 213 canvas.name;
-#X text 200 213 выводит имя текущего холста у объекта;
-#X obj 30 241 canvas.path;
-#X text 200 241 выводит полный путь холста в файловой системе у объекта;
-#X obj 30 269 canvas.top;
-#X text 200 269 подробная информация о холсте верхнего уровня у объекта;
-#X obj 30 297 patch.args;
-#X text 200 297 получить начальные аргументы для патча или субпатча;
-#X obj 30 325 patch.deps;
-#X text 200 325 выводит зависимости патча: используемые объекты и абстракции;
-#X obj 30 353 patch.tree;
-#X text 200 353 выводит дерево объектов патча;
+#X obj 30 160 ui.link @title [canvas.current] @url
+canvas.current-help.pd;
+#X text 220 157 получение информации о текущем холста объекта;
+#X obj 30 185 ui.link @title [canvas.dir] @url canvas.dir-help.pd;
+#X text 220 182 выводит директорию холста у объекта и его уровень вложенности;
+#X obj 30 210 ui.link @title [canvas.name] @url canvas.name-help.pd;
+#X text 220 207 выводит имя текущего холста у объекта;
+#X obj 30 235 ui.link @title [canvas.path] @url canvas.path-help.pd;
+#X text 220 232 выводит полный путь холста в файловой системе у объекта;
+#X obj 30 260 ui.link @title [canvas.top] @url canvas.top-help.pd;
+#X text 220 257 подробная информация о холсте верхнего уровня у объекта;
+#X obj 30 285 ui.link @title [patch.args] @url patch.args-help.pd;
+#X text 220 282 получить начальные аргументы для патча или субпатча;
+#X obj 30 310 ui.link @title [patch.deps] @url patch.deps-help.pd;
+#X text 220 307 выводит зависимости патча: используемые объекты и абстракции;
+#X obj 30 335 ui.link @title [patch.tree] @url patch.tree-help.pd;
+#X text 220 332 выводит дерево объектов патча;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::patch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -3,11 +3,11 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 120 ui.link @title [lang.faust~] @url lang.faust~-help.pd;
-#X text 200 117 real-time compilation of Faust DSP Language code;
-#X obj 30 142 lang.lua;
-#X text 200 142 Lua JIT language bindings;
-#X obj 30 173 ui.link @title [ui.faust~] @url ui.faust~-help.pd;
-#X text 200 170 Faust DSP programming language widget;
+#X text 220 117 real-time compilation of Faust DSP Language code;
+#X obj 30 145 ui.link @title [lang.lua] @url lang.lua-help.pd;
+#X text 220 142 Lua JIT language bindings;
+#X obj 30 170 ui.link @title [ui.faust~] @url ui.faust~-help.pd;
+#X text 220 167 Faust DSP programming language widget;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::lang 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

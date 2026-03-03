@@ -4,56 +4,68 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 612 50 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 617 50 noise generators;
-#X obj 30 117 noise.baker;
-#X text 200 117 Baker map chaos generator;
-#X obj 30 145 noise.chua~;
-#X text 200 145 Chua's diode circuit;
-#X obj 30 173 noise.clifford;
-#X text 200 173 Clifford attractor;
-#X obj 30 201 noise.collatz;
-#X text 200 201 collatz conjecture output;
-#X obj 30 229 noise.colored~;
-#X text 200 229 colored noise generator with an arbitrary spectral
+#X obj 30 120 ui.link @title [noise.baker] @url noise.baker-help.pd;
+#X text 220 117 Baker map chaos generator;
+#X obj 30 145 ui.link @title [noise.chua~] @url noise.chua~-help.pd;
+#X text 220 142 Chua's diode circuit;
+#X obj 30 170 ui.link @title [noise.clifford] @url
+noise.clifford-help.pd;
+#X text 220 167 Clifford attractor;
+#X obj 30 195 ui.link @title [noise.collatz] @url
+noise.collatz-help.pd;
+#X text 220 192 collatz conjecture output;
+#X obj 30 220 ui.link @title [noise.colored~] @url
+noise.colored~-help.pd;
+#X text 220 217 colored noise generator with an arbitrary spectral
 roll;
-#X obj 30 257 noise.crackle~;
-#X text 200 257 sparse noise generator;
-#X obj 30 285 noise.duffing;
-#X text 200 285 chaotic generator based on a Duffing oscillator;
-#X obj 30 313 noise.ginger;
-#X text 200 313 Gingerbreadman map chaotic generator;
-#X obj 30 341 noise.henon;
-#X text 200 341 Henon map chaos attractor;
-#X obj 30 369 noise.henon_heilles;
-#X text 200 369 Hénon–Heiles_system;
-#X obj 30 397 noise.henon_phase;
-#X text 200 397 henon phase diagrams;
-#X obj 30 425 noise.henonf;
-#X text 200 425 Henon phase;
-#X obj 30 453 noise.ikeda;
-#X text 200 453 Ikeda attractor;
-#X obj 30 481 noise.lfreq0~;
-#X text 200 481 sampled/held noise (piecewise constant);
-#X obj 30 509 noise.lfreq~;
-#X text 200 509 [noise.lfreq0~] smoothed with no overshoot;
-#X obj 30 537 noise.lorenz;
-#X text 200 537 Lorenz chaos attractor;
-#X obj 30 565 noise.lyapunov;
-#X text 200 565 lyapunov random attractor;
-#X obj 30 593 noise.navier_stokes;
-#X text 200 593 Navier-Stokes differential equations;
-#X obj 30 621 noise.pink~;
-#X text 200 621 pink noise generator;
-#X obj 30 649 noise.rossler;
-#X text 200 649 Rössler attractor;
-#X obj 30 677 noise.stein;
-#X text 200 677 Stein distribution;
-#X obj 30 705 noise.torus;
-#X text 200 705 torus attractor;
-#X obj 30 733 noise.verhulst;
-#X text 200 733 Verhulst distribution;
-#X obj 30 761 noise.white~;
-#X text 200 761 white noise generator;
+#X obj 30 245 ui.link @title [noise.crackle~] @url
+noise.crackle~-help.pd;
+#X text 220 242 sparse noise generator;
+#X obj 30 270 ui.link @title [noise.duffing] @url
+noise.duffing-help.pd;
+#X text 220 267 chaotic generator based on a Duffing oscillator;
+#X obj 30 295 ui.link @title [noise.ginger] @url noise.ginger-help.pd;
+#X text 220 292 Gingerbreadman map chaotic generator;
+#X obj 30 320 ui.link @title [noise.henon] @url noise.henon-help.pd;
+#X text 220 317 Henon map chaos attractor;
+#X obj 30 345 ui.link @title [noise.henon_heilles] @url
+noise.henon_heilles-help.pd;
+#X text 220 342 Hénon–Heiles_system;
+#X obj 30 370 ui.link @title [noise.henon_phase] @url
+noise.henon_phase-help.pd;
+#X text 220 367 henon phase diagrams;
+#X obj 30 395 ui.link @title [noise.henonf] @url noise.henonf-help.pd;
+#X text 220 392 Henon phase;
+#X obj 30 420 ui.link @title [noise.ikeda] @url noise.ikeda-help.pd;
+#X text 220 417 Ikeda attractor;
+#X obj 30 445 ui.link @title [noise.lfreq0~] @url
+noise.lfreq0~-help.pd;
+#X text 220 442 sampled/held noise (piecewise constant);
+#X obj 30 470 ui.link @title [noise.lfreq~] @url noise.lfreq~-help.pd;
+#X text 220 467 [noise.lfreq0~] smoothed with no overshoot;
+#X obj 30 495 ui.link @title [noise.lorenz] @url noise.lorenz-help.pd;
+#X text 220 492 Lorenz chaos attractor;
+#X obj 30 520 ui.link @title [noise.lyapunov] @url
+noise.lyapunov-help.pd;
+#X text 220 517 lyapunov random attractor;
+#X obj 30 545 ui.link @title [noise.navier_stokes] @url
+noise.navier_stokes-help.pd;
+#X text 220 542 Navier-Stokes differential equations;
+#X obj 30 570 ui.link @title [noise.pink~] @url noise.pink~-help.pd;
+#X text 220 567 pink noise generator;
+#X obj 30 595 ui.link @title [noise.rossler] @url
+noise.rossler-help.pd;
+#X text 220 592 Rössler attractor;
+#X obj 30 620 ui.link @title [noise.stein] @url noise.stein-help.pd;
+#X text 220 617 Stein distribution;
+#X obj 30 645 ui.link @title [noise.torus] @url noise.torus-help.pd;
+#X text 220 642 torus attractor;
+#X obj 30 670 ui.link @title [noise.verhulst] @url
+noise.verhulst-help.pd;
+#X text 220 667 Verhulst distribution;
+#X obj 30 695 ui.link @title [noise.white~] @url noise.white~-help.pd;
+#X text 220 692 white noise generator;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::noise 20 20 0 20 -104026
 -4096 0;
-#X obj 1 789 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 799 library: ceammc;
+#X obj 1 717 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 727 library: ceammc;

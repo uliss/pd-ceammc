@@ -5,18 +5,18 @@
 #X obj 268 50 cnv 1 472 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 273 50 глобальные именованные объекты \, доступные отовсюду
 в PureData;
-#X obj 30 117 global.dict;
-#X text 200 117 глобальный именованный словарь;
-#X obj 30 145 global.float;
-#X text 200 145 глобальной именованное число с плавающей точкой;
-#X obj 30 173 global.int;
-#X text 200 173 глобальной именованное целое число;
-#X obj 30 201 global.list;
-#X text 200 201 глобальный именованный список;
-#X obj 30 229 global.mlist;
-#X text 200 229 глобальный именованный многоуровневый список (MList);
-#X obj 30 257 global.set;
-#X text 200 257 глобальное именованное множество;
+#X obj 30 120 ui.link @title [global.dict] @url global.dict-help.pd;
+#X text 220 117 глобальный именованный словарь;
+#X obj 30 145 ui.link @title [global.float] @url global.float-help.pd;
+#X text 220 142 глобальной именованное число с плавающей точкой;
+#X obj 30 170 ui.link @title [global.int] @url global.int-help.pd;
+#X text 220 167 глобальной именованное целое число;
+#X obj 30 195 ui.link @title [global.list] @url global.list-help.pd;
+#X text 220 192 глобальный именованный список;
+#X obj 30 220 ui.link @title [global.mlist] @url global.mlist-help.pd;
+#X text 220 217 глобальный именованный многоуровневый список (MList);
+#X obj 30 245 ui.link @title [global.set] @url global.set-help.pd;
+#X text 220 242 глобальное именованное множество;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::global 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

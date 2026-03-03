@@ -4,14 +4,16 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 601 50 работа с пресетами;
-#X obj 30 117 preset.float;
-#X text 200 117 загружает или сохраняет числовое значение в пресете;
-#X obj 30 145 preset.list;
-#X text 200 145 загружает или сохраняет список в пресете;
-#X obj 30 173 preset.storage;
-#X text 200 173 управление пресетами;
-#X obj 30 201 preset.symbol;
-#X text 200 201 загружает или сохраняет символ в пресет;
+#X obj 30 120 ui.link @title [preset.float] @url preset.float-help.pd;
+#X text 220 117 загружает или сохраняет числовое значение в пресете;
+#X obj 30 145 ui.link @title [preset.list] @url preset.list-help.pd;
+#X text 220 142 загружает или сохраняет список в пресете;
+#X obj 30 170 ui.link @title [preset.storage] @url
+preset.storage-help.pd;
+#X text 220 167 управление пресетами;
+#X obj 30 195 ui.link @title [preset.symbol] @url
+preset.symbol-help.pd;
+#X text 220 192 загружает или сохраняет символ в пресет;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::preset 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -4,79 +4,92 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 504 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 509 50 working with arrays and tables;
-#X obj 30 117 array.bpm;
-#X text 200 117 BPM calculator;
-#X obj 30 145 array.circular;
-#X text 200 145 read/write to the array as circular buffer;
-#X obj 30 173 array.circular~;
-#X text 200 173 read/write the signal into the array like in a circular
+#X obj 30 120 ui.link @title [array.bpm] @url array.bpm-help.pd;
+#X text 220 117 BPM calculator;
+#X obj 30 145 ui.link @title [array.circular] @url
+array.circular-help.pd;
+#X text 220 142 read/write to the array as circular buffer;
+#X obj 30 170 ui.link @title [array.circular~] @url
+array.circular~-help.pd;
+#X text 220 167 read/write the signal into the array like in a circular
 buffer;
-#X obj 30 213 array.convolve;
-#X text 200 213 FFT convolution of the array;
-#X obj 30 241 array.copy;
-#X text 200 241 copy samples from the one array to another;
-#X obj 30 269 array.do;
-#X text 200 269 iterate and modify the array content via the side-chain;
-#X obj 30 297 array.each;
-#X text 200 297 process each array elements via side-chain;
-#X obj 30 325 array.fill;
-#X text 200 325 fill the array with the single value \, pattern or
+#X obj 30 210 ui.link @title [array.convolve] @url
+array.convolve-help.pd;
+#X text 220 207 FFT convolution of the array;
+#X obj 30 235 ui.link @title [array.copy] @url array.copy-help.pd;
+#X text 220 232 copy samples from the one array to another;
+#X obj 30 260 ui.link @title [array.do] @url array.do-help.pd;
+#X text 220 257 iterate and modify the array content via the side-chain;
+#X obj 30 285 ui.link @title [array.each] @url array.each-help.pd;
+#X text 220 282 process each array elements via side-chain;
+#X obj 30 310 ui.link @title [array.fill] @url array.fill-help.pd;
+#X text 220 307 fill the array with the single value \, pattern or
 function;
-#X obj 30 353 array.grainer~;
-#X text 200 353 array granulator;
-#X obj 30 381 array.hist;
-#X text 200 381 calculate the array histogram;
-#X obj 30 409 array.ltcplay~;
-#X text 200 409 array player controlled by LTC;
-#X obj 30 437 array.mean;
-#X text 200 437 calculates the array arithmetic mean value;
-#X obj 30 465 array.minmax;
-#X text 200 465 find minimal and max values in the array;
-#X obj 30 493 array.play~;
-#X text 200 493 array player with variable speed and amplitude;
-#X obj 30 521 array.plot;
-#X text 200 521 array data plotter;
-#X obj 30 549 array.plot~;
-#X text 200 549 plot the signal on the specified array;
-#X obj 30 577 array.readwrite~;
-#X text 200 577 simultaneous read/write signals to the array;
-#X obj 30 605 array.resample;
-#X text 200 605 resampling the array;
-#X obj 30 633 array.rms;
-#X text 200 633 calculates the root-mean-square value for the array;
-#X obj 30 661 array.set;
-#X text 200 661 set the array content from the list data;
-#X obj 30 689 array.stddev;
-#X text 200 689 calculates standard deviation for array values;
-#X obj 30 717 array.stretch;
-#X text 200 717 the array time-stretch \, pitch-shift or rate-change;
-#X obj 30 745 array.sum;
-#X text 200 745 calculates sum of array elements;
-#X obj 30 773 array.sum2;
-#X text 200 773 calculates sum of squares of array elements;
-#X obj 30 801 array.tramp~;
-#X text 200 801 triggered ramp index generator for the array;
-#X obj 30 829 array.variance;
-#X text 200 829 calculates variance of array values;
-#X obj 30 857 array.vplay;
-#X text 200 857 simple array player for using with the [vline~] object;
-#X obj 30 885 array.window;
-#X text 200 885 fills the array with the window function;
-#X obj 30 913 plot.geomspace~;
-#X text 200 913 generates a sequence of numbers that are evenly distributed
+#X obj 30 335 ui.link @title [array.grainer~] @url
+array.grainer~-help.pd;
+#X text 220 332 array granulator;
+#X obj 30 360 ui.link @title [array.hist] @url array.hist-help.pd;
+#X text 220 357 calculate the array histogram;
+#X obj 30 385 ui.link @title [array.ltcplay~] @url
+array.ltcplay~-help.pd;
+#X text 220 382 array player controlled by LTC;
+#X obj 30 410 ui.link @title [array.mean] @url array.mean-help.pd;
+#X text 220 407 calculates the array arithmetic mean value;
+#X obj 30 435 ui.link @title [array.minmax] @url array.minmax-help.pd;
+#X text 220 432 find minimal and max values in the array;
+#X obj 30 460 ui.link @title [array.play~] @url array.play~-help.pd;
+#X text 220 457 array player with variable speed and amplitude;
+#X obj 30 485 ui.link @title [array.plot] @url array.plot-help.pd;
+#X text 220 482 array data plotter;
+#X obj 30 510 ui.link @title [array.plot~] @url array.plot~-help.pd;
+#X text 220 507 plot the signal on the specified array;
+#X obj 30 535 ui.link @title [array.readwrite~] @url
+array.readwrite~-help.pd;
+#X text 220 532 simultaneous read/write signals to the array;
+#X obj 30 560 ui.link @title [array.resample] @url
+array.resample-help.pd;
+#X text 220 557 resampling the array;
+#X obj 30 585 ui.link @title [array.rms] @url array.rms-help.pd;
+#X text 220 582 calculates the root-mean-square value for the array;
+#X obj 30 610 ui.link @title [array.set] @url array.set-help.pd;
+#X text 220 607 set the array content from the list data;
+#X obj 30 635 ui.link @title [array.stddev] @url array.stddev-help.pd;
+#X text 220 632 calculates standard deviation for array values;
+#X obj 30 660 ui.link @title [array.stretch] @url
+array.stretch-help.pd;
+#X text 220 657 the array time-stretch \, pitch-shift or rate-change;
+#X obj 30 685 ui.link @title [array.sum] @url array.sum-help.pd;
+#X text 220 682 calculates sum of array elements;
+#X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
+#X text 220 707 calculates sum of squares of array elements;
+#X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
+#X text 220 732 triggered ramp index generator for the array;
+#X obj 30 760 ui.link @title [array.variance] @url
+array.variance-help.pd;
+#X text 220 757 calculates variance of array values;
+#X obj 30 785 ui.link @title [array.vplay] @url array.vplay-help.pd;
+#X text 220 782 simple array player for using with the [vline~] object;
+#X obj 30 810 ui.link @title [array.window] @url array.window-help.pd;
+#X text 220 807 fills the array with the window function;
+#X obj 30 835 ui.link @title [plot.geomspace~] @url
+plot.geomspace~-help.pd;
+#X text 220 832 generates a sequence of numbers that are evenly distributed
 on a logarithmic scale (geometric progression);
-#X obj 30 953 plot.hist~;
-#X text 200 953 calculates and displays the histogram of the input
+#X obj 30 875 ui.link @title [plot.hist~] @url plot.hist~-help.pd;
+#X text 220 872 calculates and displays the histogram of the input
 signal;
-#X obj 30 981 plot.linspace~;
-#X text 200 981 generates a sequence of numbers that are uniformly
+#X obj 30 900 ui.link @title [plot.linspace~] @url
+plot.linspace~-help.pd;
+#X text 220 897 generates a sequence of numbers that are uniformly
 distributed within the specified interval;
-#X obj 30 1021 plot.logspace~;
-#X text 200 1021 outputs numbers spaced evenly on a log scale;
-#X obj 30 1049 plot.response~;
-#X text 200 1049 produces the amplitude \, phase \, and frequency responses
+#X obj 30 940 ui.link @title [plot.logspace~] @url
+plot.logspace~-help.pd;
+#X text 220 937 outputs numbers spaced evenly on a log scale;
+#X obj 30 965 ui.link @title [plot.response~] @url
+plot.response~-help.pd;
+#X text 220 962 produces the amplitude \, phase \, and frequency responses
 to the input signal;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1089 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1099 library: ceammc;
+#X obj 1 1002 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1012 library: ceammc;

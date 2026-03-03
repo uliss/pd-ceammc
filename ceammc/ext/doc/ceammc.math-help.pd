@@ -4,212 +4,235 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 374 50 cnv 1 366 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 379 50 math objects that can operate with number lists;
-#X obj 30 117 math.abs;
-#X text 200 117 absolute value function;
-#X obj 30 145 math.abs~;
-#X text 200 145 absolute value function for signals;
-#X obj 30 173 math.acos;
-#X text 200 173 arc cosine function;
-#X obj 30 201 math.acosh;
-#X text 200 201 inverse hyperbolic cosine function;
-#X obj 30 229 math.acosh~;
-#X text 200 229 hyperbolic arc cosine for signals;
-#X obj 30 257 math.acos~;
-#X text 200 257 arc cosine function for signals;
-#X obj 30 285 math.and;
-#X text 200 285 operation AND for multiple arguments;
-#X obj 30 313 math.approx;
-#X text 200 313 checks if the input value is approximately equal to
+#X obj 30 120 ui.link @title [math.abs] @url math.abs-help.pd;
+#X text 220 117 absolute value function;
+#X obj 30 145 ui.link @title [math.abs~] @url math.abs~-help.pd;
+#X text 220 142 absolute value function for signals;
+#X obj 30 170 ui.link @title [math.acos] @url math.acos-help.pd;
+#X text 220 167 arc cosine function;
+#X obj 30 195 ui.link @title [math.acosh] @url math.acosh-help.pd;
+#X text 220 192 inverse hyperbolic cosine function;
+#X obj 30 220 ui.link @title [math.acosh~] @url math.acosh~-help.pd;
+#X text 220 217 hyperbolic arc cosine for signals;
+#X obj 30 245 ui.link @title [math.acos~] @url math.acos~-help.pd;
+#X text 220 242 arc cosine function for signals;
+#X obj 30 270 ui.link @title [math.and] @url math.and-help.pd;
+#X text 220 267 operation AND for multiple arguments;
+#X obj 30 295 ui.link @title [math.approx] @url math.approx-help.pd;
+#X text 220 292 checks if the input value is approximately equal to
 the pattern;
-#X obj 30 353 math.asin;
-#X text 200 353 arc sine function;
-#X obj 30 381 math.asinh;
-#X text 200 381 inverse hyperbolic sine function;
-#X obj 30 409 math.asinh~;
-#X text 200 409 hyperbolic arc sine for signals;
-#X obj 30 437 math.asin~;
-#X text 200 437 arc sine for signals;
-#X obj 30 465 math.atan;
-#X text 200 465 arc tangent function;
-#X obj 30 493 math.atanh;
-#X text 200 493 inverse hyperbolic tangent function;
-#X obj 30 521 math.atanh~;
-#X text 200 521 hyperbolic arc tangent for signals;
-#X obj 30 549 math.atan~;
-#X text 200 549 arc tangent for signals;
-#X obj 30 577 math.binomial;
-#X text 200 577 binomial coefficient calculator;
-#X obj 30 605 math.cabs~;
-#X text 200 605 magnitude of a complex signals;
-#X obj 30 633 math.carg~;
-#X text 200 633 phase angle of a complex signals;
-#X obj 30 661 math.cbrt;
-#X text 200 661 cube root function;
-#X obj 30 689 math.cbrt~;
-#X text 200 689 cube root function for signals;
-#X obj 30 717 math.cdiv~;
-#X text 200 717 division of complex signals;
-#X obj 30 745 math.ceil;
-#X text 200 745 round to the smallest integral value not less than
+#X obj 30 335 ui.link @title [math.asin] @url math.asin-help.pd;
+#X text 220 332 arc sine function;
+#X obj 30 360 ui.link @title [math.asinh] @url math.asinh-help.pd;
+#X text 220 357 inverse hyperbolic sine function;
+#X obj 30 385 ui.link @title [math.asinh~] @url math.asinh~-help.pd;
+#X text 220 382 hyperbolic arc sine for signals;
+#X obj 30 410 ui.link @title [math.asin~] @url math.asin~-help.pd;
+#X text 220 407 arc sine for signals;
+#X obj 30 435 ui.link @title [math.atan] @url math.atan-help.pd;
+#X text 220 432 arc tangent function;
+#X obj 30 460 ui.link @title [math.atanh] @url math.atanh-help.pd;
+#X text 220 457 inverse hyperbolic tangent function;
+#X obj 30 485 ui.link @title [math.atanh~] @url math.atanh~-help.pd;
+#X text 220 482 hyperbolic arc tangent for signals;
+#X obj 30 510 ui.link @title [math.atan~] @url math.atan~-help.pd;
+#X text 220 507 arc tangent for signals;
+#X obj 30 535 ui.link @title [math.binomial] @url
+math.binomial-help.pd;
+#X text 220 532 binomial coefficient calculator;
+#X obj 30 560 ui.link @title [math.cabs~] @url math.cabs~-help.pd;
+#X text 220 557 magnitude of a complex signals;
+#X obj 30 585 ui.link @title [math.carg~] @url math.carg~-help.pd;
+#X text 220 582 phase angle of a complex signals;
+#X obj 30 610 ui.link @title [math.cbrt] @url math.cbrt-help.pd;
+#X text 220 607 cube root function;
+#X obj 30 635 ui.link @title [math.cbrt~] @url math.cbrt~-help.pd;
+#X text 220 632 cube root function for signals;
+#X obj 30 660 ui.link @title [math.cdiv~] @url math.cdiv~-help.pd;
+#X text 220 657 division of complex signals;
+#X obj 30 685 ui.link @title [math.ceil] @url math.ceil-help.pd;
+#X text 220 682 round to the smallest integral value not less than
 input value;
-#X obj 30 785 math.ceil~;
-#X text 200 785 round to the smallest integral value not less than
+#X obj 30 725 ui.link @title [math.ceil~] @url math.ceil~-help.pd;
+#X text 220 722 round to the smallest integral value not less than
 input value;
-#X obj 30 825 math.cexp~;
-#X text 200 825 exponent of a complex signals;
-#X obj 30 853 math.cmul~;
-#X text 200 853 multiplication of complex signals;
-#X obj 30 881 math.cos;
-#X text 200 881 cosine function;
-#X obj 30 909 math.cosh;
-#X text 200 909 hyperbolic cosine function;
-#X obj 30 937 math.cosh~;
-#X text 200 937 hyperbolic cosine for signals;
-#X obj 30 965 math.cos~;
-#X text 200 965 cosine function;
-#X obj 30 993 math.div;
-#X text 200 993 division;
-#X obj 30 1021 math.e;
-#X text 200 1021 mathematical constant \, base of the natural logarithm;
-#X obj 30 1049 math.erf;
-#X text 200 1049 error function;
-#X obj 30 1077 math.erf~;
-#X text 200 1077 error function for signals;
-#X obj 30 1105 math.exp;
-#X text 200 1105 base-e exponential function;
-#X obj 30 1133 math.exp2;
-#X text 200 1133 base-2 exponential function;
-#X obj 30 1161 math.exp2~;
-#X text 200 1161 base-2 exponential for signal;
-#X obj 30 1189 math.expr;
-#X text 200 1189 dynamic version of [expr] object;
-#X obj 30 1217 math.exp~;
-#X text 200 1217 base-e exponential function for signals;
-#X obj 30 1245 math.floor;
-#X text 200 1245 round to the largest integral value not greater than
+#X obj 30 765 ui.link @title [math.cexp~] @url math.cexp~-help.pd;
+#X text 220 762 exponent of a complex signals;
+#X obj 30 790 ui.link @title [math.cmul~] @url math.cmul~-help.pd;
+#X text 220 787 multiplication of complex signals;
+#X obj 30 815 ui.link @title [math.cos] @url math.cos-help.pd;
+#X text 220 812 cosine function;
+#X obj 30 840 ui.link @title [math.cosh] @url math.cosh-help.pd;
+#X text 220 837 hyperbolic cosine function;
+#X obj 30 865 ui.link @title [math.cosh~] @url math.cosh~-help.pd;
+#X text 220 862 hyperbolic cosine for signals;
+#X obj 30 890 ui.link @title [math.cos~] @url math.cos~-help.pd;
+#X text 220 887 cosine function;
+#X obj 30 915 ui.link @title [math.div] @url math.div-help.pd;
+#X text 220 912 division;
+#X obj 30 940 ui.link @title [math.e] @url math.e-help.pd;
+#X text 220 937 mathematical constant \, base of the natural logarithm;
+#X obj 30 965 ui.link @title [math.erf] @url math.erf-help.pd;
+#X text 220 962 error function;
+#X obj 30 990 ui.link @title [math.erf~] @url math.erf~-help.pd;
+#X text 220 987 error function for signals;
+#X obj 30 1015 ui.link @title [math.exp] @url math.exp-help.pd;
+#X text 220 1012 base-e exponential function;
+#X obj 30 1040 ui.link @title [math.exp2] @url math.exp2-help.pd;
+#X text 220 1037 base-2 exponential function;
+#X obj 30 1065 ui.link @title [math.exp2~] @url math.exp2~-help.pd;
+#X text 220 1062 base-2 exponential for signal;
+#X obj 30 1090 ui.link @title [math.expr] @url math.expr-help.pd;
+#X text 220 1087 dynamic version of [expr] object;
+#X obj 30 1115 ui.link @title [math.exp~] @url math.exp~-help.pd;
+#X text 220 1112 base-e exponential function for signals;
+#X obj 30 1140 ui.link @title [math.floor] @url math.floor-help.pd;
+#X text 220 1137 round to the largest integral value not greater than
 input value;
-#X obj 30 1285 math.floor~;
-#X text 200 1285 round to the largest integral value not greater than
+#X obj 30 1180 ui.link @title [math.floor~] @url math.floor~-help.pd;
+#X text 220 1177 round to the largest integral value not greater than
 input value;
-#X obj 30 1325 math.gamma;
-#X text 200 1325 gamma function;
-#X obj 30 1353 math.gamma~;
-#X text 200 1353 gamma function for signals;
-#X obj 30 1381 math.gcd;
-#X text 200 1381 calculate the greatest common divisor;
-#X obj 30 1409 math.inf;
-#X text 200 1409 output infinity value in the IEEE 754 standard;
-#X obj 30 1437 math.inf~;
-#X text 200 1437 output infinity value in the IEEE 754 standard;
-#X obj 30 1465 math.lcm;
-#X text 200 1465 calculates the least common multiple;
-#X obj 30 1493 math.lgamma;
-#X text 200 1493 natural logarithm of the absolute value of the gamma
+#X obj 30 1220 ui.link @title [math.gamma] @url math.gamma-help.pd;
+#X text 220 1217 gamma function;
+#X obj 30 1245 ui.link @title [math.gamma~] @url math.gamma~-help.pd;
+#X text 220 1242 gamma function for signals;
+#X obj 30 1270 ui.link @title [math.gcd] @url math.gcd-help.pd;
+#X text 220 1267 calculate the greatest common divisor;
+#X obj 30 1295 ui.link @title [math.inf] @url math.inf-help.pd;
+#X text 220 1292 output infinity value in the IEEE 754 standard;
+#X obj 30 1320 ui.link @title [math.inf~] @url math.inf~-help.pd;
+#X text 220 1317 output infinity value in the IEEE 754 standard;
+#X obj 30 1345 ui.link @title [math.lcm] @url math.lcm-help.pd;
+#X text 220 1342 calculates the least common multiple;
+#X obj 30 1370 ui.link @title [math.lgamma] @url math.lgamma-help.pd;
+#X text 220 1367 natural logarithm of the absolute value of the gamma
 function;
-#X obj 30 1521 math.lgamma~;
-#X text 200 1521 natural logarithm of the absolute value of the gamma
+#X obj 30 1395 ui.link @title [math.lgamma~] @url
+math.lgamma~-help.pd;
+#X text 220 1392 natural logarithm of the absolute value of the gamma
 function for signals;
-#X obj 30 1561 math.log;
-#X text 200 1561 natural logarithm;
-#X obj 30 1589 math.log10;
-#X text 200 1589 base-10 logarithm;
-#X obj 30 1617 math.log10~;
-#X text 200 1617 base-10 logarithm;
-#X obj 30 1645 math.log2;
-#X text 200 1645 base-2 logarithm;
-#X obj 30 1673 math.log2~;
-#X text 200 1673 base-2 logarithm for signals;
-#X obj 30 1701 math.log~;
-#X text 200 1701 natural logarithm for signals;
-#X obj 30 1729 math.mul;
-#X text 200 1729 multiplication;
-#X obj 30 1757 math.nan;
-#X text 200 1757 Not a Number \, unrepresentable value;
-#X obj 30 1785 math.nan~;
-#X text 200 1785 NaN signal;
-#X obj 30 1813 math.neg;
-#X text 200 1813 negate function;
-#X obj 30 1841 math.or;
-#X text 200 1841 operation OR for multiple arguments;
-#X obj 30 1869 math.pi;
-#X text 200 1869 mathematical constant π;
-#X obj 30 1897 math.pi~;
-#X text 200 1897 mathematical constant π;
-#X obj 30 1925 math.polyeval;
-#X text 200 1925 evaluates the polynomial described by the coefficients
+#X obj 30 1435 ui.link @title [math.log] @url math.log-help.pd;
+#X text 220 1432 natural logarithm;
+#X obj 30 1460 ui.link @title [math.log10] @url math.log10-help.pd;
+#X text 220 1457 base-10 logarithm;
+#X obj 30 1485 ui.link @title [math.log10~] @url math.log10~-help.pd;
+#X text 220 1482 base-10 logarithm;
+#X obj 30 1510 ui.link @title [math.log2] @url math.log2-help.pd;
+#X text 220 1507 base-2 logarithm;
+#X obj 30 1535 ui.link @title [math.log2~] @url math.log2~-help.pd;
+#X text 220 1532 base-2 logarithm for signals;
+#X obj 30 1560 ui.link @title [math.log~] @url math.log~-help.pd;
+#X text 220 1557 natural logarithm for signals;
+#X obj 30 1585 ui.link @title [math.mul] @url math.mul-help.pd;
+#X text 220 1582 multiplication;
+#X obj 30 1610 ui.link @title [math.nan] @url math.nan-help.pd;
+#X text 220 1607 Not a Number \, unrepresentable value;
+#X obj 30 1635 ui.link @title [math.nan~] @url math.nan~-help.pd;
+#X text 220 1632 NaN signal;
+#X obj 30 1660 ui.link @title [math.neg] @url math.neg-help.pd;
+#X text 220 1657 negate function;
+#X obj 30 1685 ui.link @title [math.or] @url math.or-help.pd;
+#X text 220 1682 operation OR for multiple arguments;
+#X obj 30 1710 ui.link @title [math.pi] @url math.pi-help.pd;
+#X text 220 1707 mathematical constant π;
+#X obj 30 1735 ui.link @title [math.pi~] @url math.pi~-help.pd;
+#X text 220 1732 mathematical constant π;
+#X obj 30 1760 ui.link @title [math.polyeval] @url
+math.polyeval-help.pd;
+#X text 220 1757 evaluates the polynomial described by the coefficients
 list;
-#X obj 30 1953 math.reciprocal;
-#X text 200 1953 calculate reciprocal number;
-#X obj 30 1981 math.reciprocal~;
-#X text 200 1981 calculate reciprocal number for signals;
-#X obj 30 2009 math.round;
-#X text 200 2009 round to integral value \, regardless of rounding
+#X obj 30 1785 ui.link @title [math.reciprocal] @url
+math.reciprocal-help.pd;
+#X text 220 1782 calculate reciprocal number;
+#X obj 30 1810 ui.link @title [math.reciprocal~] @url
+math.reciprocal~-help.pd;
+#X text 220 1807 calculate reciprocal number for signals;
+#X obj 30 1835 ui.link @title [math.round] @url math.round-help.pd;
+#X text 220 1832 round to integral value \, regardless of rounding
 direction;
-#X obj 30 2037 math.round~;
-#X text 200 2037 signal round;
-#X obj 30 2065 math.sign;
-#X text 200 2065 sign function;
-#X obj 30 2093 math.sin;
-#X text 200 2093 sine function;
-#X obj 30 2121 math.sinh;
-#X text 200 2121 hyperbolic sine function;
-#X obj 30 2149 math.sinh~;
-#X text 200 2149 hyperbolic sine for signals;
-#X obj 30 2177 math.sin~;
-#X text 200 2177 sine function;
-#X obj 30 2205 math.sqrt;
-#X text 200 2205 square root function;
-#X obj 30 2233 math.sqrt~;
-#X text 200 2233 square root for signal;
-#X obj 30 2261 math.squared;
-#X text 200 2261 value square;
-#X obj 30 2289 math.squared~;
-#X text 200 2289 signal value square;
-#X obj 30 2317 math.sync_add;
-#X text 200 2317 sync addition;
-#X obj 30 2345 math.sync_and;
-#X text 200 2345 sync logical AND operation;
-#X obj 30 2373 math.sync_div;
-#X text 200 2373 sync division;
-#X obj 30 2401 math.sync_eq;
-#X text 200 2401 sync equal numbers check;
-#X obj 30 2429 math.sync_ge;
-#X text 200 2429 sync greater equal numbers compare;
-#X obj 30 2457 math.sync_gt;
-#X text 200 2457 sync greater than numbers compare;
-#X obj 30 2485 math.sync_le;
-#X text 200 2485 sync less equal numbers compare;
-#X obj 30 2513 math.sync_lshift;
-#X text 200 2513 sync signed bit left shift;
-#X obj 30 2541 math.sync_lt;
-#X text 200 2541 sync less than numbers compare;
-#X obj 30 2569 math.sync_mod;
-#X text 200 2569 sync remainder of modulo division (float or integer);
-#X obj 30 2597 math.sync_mul;
-#X text 200 2597 sync multiplication;
-#X obj 30 2625 math.sync_ne;
-#X text 200 2625 sync numbers for not equality;
-#X obj 30 2653 math.sync_or;
-#X text 200 2653 sync logical OR operation;
-#X obj 30 2681 math.sync_rshift;
-#X text 200 2681 sync signed bit right shift;
-#X obj 30 2709 math.sync_sub;
-#X text 200 2709 sync subtraction;
-#X obj 30 2737 math.sync_xor;
-#X text 200 2737 sync logical XOR operation;
-#X obj 30 2765 math.tan;
-#X text 200 2765 tangent function;
-#X obj 30 2793 math.tanh;
-#X text 200 2793 hyperbolic tangent function;
-#X obj 30 2821 math.tanh~;
-#X text 200 2821 hyperbolic tangent for signals;
-#X obj 30 2849 math.tan~;
-#X text 200 2849 tangent function;
-#X obj 30 2877 math.trunc;
-#X text 200 2877 truncate to integer value;
-#X obj 30 2905 math.trunc~;
-#X text 200 2905 truncate to integer value;
+#X obj 30 1860 ui.link @title [math.round~] @url math.round~-help.pd;
+#X text 220 1857 signal round;
+#X obj 30 1885 ui.link @title [math.sign] @url math.sign-help.pd;
+#X text 220 1882 sign function;
+#X obj 30 1910 ui.link @title [math.sin] @url math.sin-help.pd;
+#X text 220 1907 sine function;
+#X obj 30 1935 ui.link @title [math.sinh] @url math.sinh-help.pd;
+#X text 220 1932 hyperbolic sine function;
+#X obj 30 1960 ui.link @title [math.sinh~] @url math.sinh~-help.pd;
+#X text 220 1957 hyperbolic sine for signals;
+#X obj 30 1985 ui.link @title [math.sin~] @url math.sin~-help.pd;
+#X text 220 1982 sine function;
+#X obj 30 2010 ui.link @title [math.sqrt] @url math.sqrt-help.pd;
+#X text 220 2007 square root function;
+#X obj 30 2035 ui.link @title [math.sqrt~] @url math.sqrt~-help.pd;
+#X text 220 2032 square root for signal;
+#X obj 30 2060 ui.link @title [math.squared] @url
+math.squared-help.pd;
+#X text 220 2057 value square;
+#X obj 30 2085 ui.link @title [math.squared~] @url
+math.squared~-help.pd;
+#X text 220 2082 signal value square;
+#X obj 30 2110 ui.link @title [math.sync_add] @url
+math.sync_add-help.pd;
+#X text 220 2107 sync addition;
+#X obj 30 2135 ui.link @title [math.sync_and] @url
+math.sync_and-help.pd;
+#X text 220 2132 sync logical AND operation;
+#X obj 30 2160 ui.link @title [math.sync_div] @url
+math.sync_div-help.pd;
+#X text 220 2157 sync division;
+#X obj 30 2185 ui.link @title [math.sync_eq] @url
+math.sync_eq-help.pd;
+#X text 220 2182 sync equal numbers check;
+#X obj 30 2210 ui.link @title [math.sync_ge] @url
+math.sync_ge-help.pd;
+#X text 220 2207 sync greater equal numbers compare;
+#X obj 30 2235 ui.link @title [math.sync_gt] @url
+math.sync_gt-help.pd;
+#X text 220 2232 sync greater than numbers compare;
+#X obj 30 2260 ui.link @title [math.sync_le] @url
+math.sync_le-help.pd;
+#X text 220 2257 sync less equal numbers compare;
+#X obj 30 2285 ui.link @title [math.sync_lshift] @url
+math.sync_lshift-help.pd;
+#X text 220 2282 sync signed bit left shift;
+#X obj 30 2310 ui.link @title [math.sync_lt] @url
+math.sync_lt-help.pd;
+#X text 220 2307 sync less than numbers compare;
+#X obj 30 2335 ui.link @title [math.sync_mod] @url
+math.sync_mod-help.pd;
+#X text 220 2332 sync remainder of modulo division (float or integer);
+#X obj 30 2360 ui.link @title [math.sync_mul] @url
+math.sync_mul-help.pd;
+#X text 220 2357 sync multiplication;
+#X obj 30 2385 ui.link @title [math.sync_ne] @url
+math.sync_ne-help.pd;
+#X text 220 2382 sync numbers for not equality;
+#X obj 30 2410 ui.link @title [math.sync_or] @url
+math.sync_or-help.pd;
+#X text 220 2407 sync logical OR operation;
+#X obj 30 2435 ui.link @title [math.sync_rshift] @url
+math.sync_rshift-help.pd;
+#X text 220 2432 sync signed bit right shift;
+#X obj 30 2460 ui.link @title [math.sync_sub] @url
+math.sync_sub-help.pd;
+#X text 220 2457 sync subtraction;
+#X obj 30 2485 ui.link @title [math.sync_xor] @url
+math.sync_xor-help.pd;
+#X text 220 2482 sync logical XOR operation;
+#X obj 30 2510 ui.link @title [math.tan] @url math.tan-help.pd;
+#X text 220 2507 tangent function;
+#X obj 30 2535 ui.link @title [math.tanh] @url math.tanh-help.pd;
+#X text 220 2532 hyperbolic tangent function;
+#X obj 30 2560 ui.link @title [math.tanh~] @url math.tanh~-help.pd;
+#X text 220 2557 hyperbolic tangent for signals;
+#X obj 30 2585 ui.link @title [math.tan~] @url math.tan~-help.pd;
+#X text 220 2582 tangent function;
+#X obj 30 2610 ui.link @title [math.trunc] @url math.trunc-help.pd;
+#X text 220 2607 truncate to integer value;
+#X obj 30 2635 ui.link @title [math.trunc~] @url math.trunc~-help.pd;
+#X text 220 2632 truncate to integer value;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::math 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2933 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2943 library: ceammc;
+#X obj 1 2657 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2667 library: ceammc;

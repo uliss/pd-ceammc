@@ -4,128 +4,144 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 534 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 539 50 управление потоками данных;
-#X obj 30 117 expand_env;
-#X text 200 117 подставляет значения переменных среды в поток данных;
-#X obj 30 145 flow.append;
-#X text 200 145 добавляет сообщение в поток;
-#X obj 30 173 flow.change;
-#X text 200 173 удаляет повторяющиеся сообщения;
-#X obj 30 201 flow.count;
-#X text 200 201 счетчик числа сообщений в управляющем потоке;
-#X obj 30 229 flow.delay;
-#X text 200 229 усовершенствованная версия объекта [delay];
-#X obj 30 257 flow.demultiplex;
-#X text 200 257 демультиплексор управляющего потока;
-#X obj 30 285 flow.demultiplex2~;
-#X text 200 285 демультиплексор стерео аудиопотока;
-#X obj 30 313 flow.demultiplex~;
-#X text 200 313 демультиплексор аудиопотока;
-#X obj 30 341 flow.dollar;
-#X text 200 341 подставляет $-значения;
-#X obj 30 369 flow.dup;
-#X text 200 369 дупликатор сообщений;
-#X obj 30 397 flow.float;
-#X text 200 397 pass floats;
-#X obj 30 425 flow.gate;
-#X text 200 425 шлюз для потока сообщений. аналог объекта [spigot];
-#X obj 30 453 flow.greater;
-#X text 200 453 маршрутизатор числового потока по условию 'больше';
-#X obj 30 481 flow.greater_eq;
-#X text 200 481 маршрутизатор числового потока по условию 'больше или
+#X obj 30 120 ui.link @title [expand_env] @url expand_env-help.pd;
+#X text 220 117 подставляет значения переменных среды в поток данных;
+#X obj 30 145 ui.link @title [flow.append] @url flow.append-help.pd;
+#X text 220 142 добавляет сообщение в поток;
+#X obj 30 170 ui.link @title [flow.change] @url flow.change-help.pd;
+#X text 220 167 удаляет повторяющиеся сообщения;
+#X obj 30 195 ui.link @title [flow.count] @url flow.count-help.pd;
+#X text 220 192 счетчик числа сообщений в управляющем потоке;
+#X obj 30 220 ui.link @title [flow.delay] @url flow.delay-help.pd;
+#X text 220 217 усовершенствованная версия объекта [delay];
+#X obj 30 245 ui.link @title [flow.demultiplex] @url
+flow.demultiplex-help.pd;
+#X text 220 242 демультиплексор управляющего потока;
+#X obj 30 270 ui.link @title [flow.demultiplex2~] @url
+flow.demultiplex2~-help.pd;
+#X text 220 267 демультиплексор стерео аудиопотока;
+#X obj 30 295 ui.link @title [flow.demultiplex~] @url
+flow.demultiplex~-help.pd;
+#X text 220 292 демультиплексор аудиопотока;
+#X obj 30 320 ui.link @title [flow.dollar] @url flow.dollar-help.pd;
+#X text 220 317 подставляет $-значения;
+#X obj 30 345 ui.link @title [flow.dup] @url flow.dup-help.pd;
+#X text 220 342 дупликатор сообщений;
+#X obj 30 370 ui.link @title [flow.float] @url flow.float-help.pd;
+#X text 220 367 pass floats;
+#X obj 30 395 ui.link @title [flow.gate] @url flow.gate-help.pd;
+#X text 220 392 шлюз для потока сообщений. аналог объекта [spigot];
+#X obj 30 420 ui.link @title [flow.greater] @url flow.greater-help.pd;
+#X text 220 417 маршрутизатор числового потока по условию 'больше';
+#X obj 30 445 ui.link @title [flow.greater_eq] @url
+flow.greater_eq-help.pd;
+#X text 220 442 маршрутизатор числового потока по условию 'больше или
 равно';
-#X obj 30 509 flow.group;
-#X text 200 509 группирует входные атомы в списки указанного размера;
-#X obj 30 537 flow.histogram;
-#X text 200 537 гистограмма для числового потока управления;
-#X obj 30 565 flow.interval;
-#X text 200 565 измерение времени между сообщениями;
-#X obj 30 593 flow.less;
-#X text 200 593 маршрутизатор числового потока по условию 'меньше';
-#X obj 30 621 flow.less_eq;
-#X text 200 621 маршрутизатор числового потока по условию 'меньше или
+#X obj 30 470 ui.link @title [flow.group] @url flow.group-help.pd;
+#X text 220 467 группирует входные атомы в списки указанного размера;
+#X obj 30 495 ui.link @title [flow.histogram] @url
+flow.histogram-help.pd;
+#X text 220 492 гистограмма для числового потока управления;
+#X obj 30 520 ui.link @title [flow.interval] @url
+flow.interval-help.pd;
+#X text 220 517 измерение времени между сообщениями;
+#X obj 30 545 ui.link @title [flow.less] @url flow.less-help.pd;
+#X text 220 542 маршрутизатор числового потока по условию 'меньше';
+#X obj 30 570 ui.link @title [flow.less_eq] @url flow.less_eq-help.pd;
+#X text 220 567 маршрутизатор числового потока по условию 'меньше или
 равно';
-#X obj 30 649 flow.list2many;
-#X text 200 649 маршрутизирует элемент списка с соответствующим сообщением;
-#X obj 30 677 flow.match;
-#X text 200 677 маршрутизатор управляющего потока с помощью совпадений
+#X obj 30 595 ui.link @title [flow.list2many] @url
+flow.list2many-help.pd;
+#X text 220 592 маршрутизирует элемент списка с соответствующим сообщением;
+#X obj 30 620 ui.link @title [flow.match] @url flow.match-help.pd;
+#X text 220 617 маршрутизатор управляющего потока с помощью совпадений
 с регулярным выражением;
-#X obj 30 717 flow.mem;
-#X text 200 717 сохраняет в памяти или выводит сообщения потока управления;
-#X obj 30 745 flow.multiplex;
-#X text 200 745 мультиплексор управляющего потока;
-#X obj 30 773 flow.multiplex2~;
-#X text 200 773 мультиплексор стерео аудиопотока;
-#X obj 30 801 flow.multiplex~;
-#X text 200 801 мультиплексор аудиопотока;
-#X obj 30 829 flow.once;
-#X text 200 829 пропускает единственное сообщение;
-#X obj 30 857 flow.pack;
-#X text 200 857 упаковка атомов из нескольких потоков в один;
-#X obj 30 885 flow.pass;
-#X text 200 885 пропускает указанные значения;
-#X obj 30 913 flow.pass_if;
-#X text 200 913 пропускает значение \, принятое предикатом боковой
+#X obj 30 660 ui.link @title [flow.mem] @url flow.mem-help.pd;
+#X text 220 657 сохраняет в памяти или выводит сообщения потока управления;
+#X obj 30 685 ui.link @title [flow.multiplex] @url
+flow.multiplex-help.pd;
+#X text 220 682 мультиплексор управляющего потока;
+#X obj 30 710 ui.link @title [flow.multiplex2~] @url
+flow.multiplex2~-help.pd;
+#X text 220 707 мультиплексор стерео аудиопотока;
+#X obj 30 735 ui.link @title [flow.multiplex~] @url
+flow.multiplex~-help.pd;
+#X text 220 732 мультиплексор аудиопотока;
+#X obj 30 760 ui.link @title [flow.once] @url flow.once-help.pd;
+#X text 220 757 пропускает единственное сообщение;
+#X obj 30 785 ui.link @title [flow.pack] @url flow.pack-help.pd;
+#X text 220 782 упаковка атомов из нескольких потоков в один;
+#X obj 30 810 ui.link @title [flow.pass] @url flow.pass-help.pd;
+#X text 220 807 пропускает указанные значения;
+#X obj 30 835 ui.link @title [flow.pass_if] @url flow.pass_if-help.pd;
+#X text 220 832 пропускает значение \, принятое предикатом боковой
 цепи обработки;
-#X obj 30 953 flow.pipe;
-#X text 200 953 усовершенствованная версия объекта [pipe];
-#X obj 30 981 flow.prepend;
-#X text 200 981 вставляет сообщение перед текущим;
-#X obj 30 1009 flow.queue;
-#X text 200 1009 многоканальная очередь сообщений с возможностью синхронизации;
-#X obj 30 1037 flow.record;
-#X text 200 1037 запись/воспроизведение управляющего потока;
-#X obj 30 1065 flow.reject;
-#X text 200 1065 не пропускает указанные значения;
-#X obj 30 1093 flow.reject_if;
-#X text 200 1093 не пропускает значение \, принятое предикатом боковой
+#X obj 30 875 ui.link @title [flow.pipe] @url flow.pipe-help.pd;
+#X text 220 872 усовершенствованная версия объекта [pipe];
+#X obj 30 900 ui.link @title [flow.prepend] @url flow.prepend-help.pd;
+#X text 220 897 вставляет сообщение перед текущим;
+#X obj 30 925 ui.link @title [flow.queue] @url flow.queue-help.pd;
+#X text 220 922 многоканальная очередь сообщений с возможностью синхронизации;
+#X obj 30 950 ui.link @title [flow.record] @url flow.record-help.pd;
+#X text 220 947 запись/воспроизведение управляющего потока;
+#X obj 30 975 ui.link @title [flow.reject] @url flow.reject-help.pd;
+#X text 220 972 не пропускает указанные значения;
+#X obj 30 1000 ui.link @title [flow.reject_if] @url
+flow.reject_if-help.pd;
+#X text 220 997 не пропускает значение \, принятое предикатом боковой
 цепи обработки;
-#X obj 30 1133 flow.ring;
-#X text 200 1133 маршрутизатор в виде очереди для управляющего потока;
-#X obj 30 1161 flow.route;
-#X text 200 1161 улучшенный маршрутизатор сообщений;
-#X obj 30 1189 flow.select;
-#X text 200 1189 улучшенный селектор сообщений;
-#X obj 30 1217 flow.seqdelay;
-#X text 200 1217 последовательный маршрутизатор с задержками для входного
+#X obj 30 1040 ui.link @title [flow.ring] @url flow.ring-help.pd;
+#X text 220 1037 маршрутизатор в виде очереди для управляющего потока;
+#X obj 30 1065 ui.link @title [flow.route] @url flow.route-help.pd;
+#X text 220 1062 улучшенный маршрутизатор сообщений;
+#X obj 30 1090 ui.link @title [flow.select] @url flow.select-help.pd;
+#X text 220 1087 улучшенный селектор сообщений;
+#X obj 30 1115 ui.link @title [flow.seqdelay] @url
+flow.seqdelay-help.pd;
+#X text 220 1112 последовательный маршрутизатор с задержками для входного
 потока;
-#X obj 30 1257 flow.space;
-#X text 200 1257 распределить во времени сообщения \, полученные одновременно;
-#X obj 30 1285 flow.speedlim;
-#X text 200 1285 ограничитель скорости потока;
-#X obj 30 1313 flow.split;
-#X text 200 1313 разделят управляющий поток внешним предикатом боковой
+#X obj 30 1155 ui.link @title [flow.space] @url flow.space-help.pd;
+#X text 220 1152 распределить во времени сообщения \, полученные одновременно;
+#X obj 30 1180 ui.link @title [flow.speedlim] @url
+flow.speedlim-help.pd;
+#X text 220 1177 ограничитель скорости потока;
+#X obj 30 1205 ui.link @title [flow.split] @url flow.split-help.pd;
+#X text 220 1202 разделят управляющий поток внешним предикатом боковой
 цепи;
-#X obj 30 1341 flow.stack;
-#X text 200 1341 стек сообщений;
-#X obj 30 1369 flow.sync;
-#X text 200 1369 синхронная многоканальная шина;
-#X obj 30 1397 flow.sync_pack;
-#X text 200 1397 [flow.pack] со всеми "горячими" входами;
-#X obj 30 1425 flow.tee~;
-#X text 200 1425 извлекает управляющие сообщения из аудиосоединений;
-#X obj 30 1453 replace;
-#X text 200 1453 замена атомов в потоке данных;
-#X obj 30 1481 route.any;
-#X text 200 1481 отделяет сообщения общего вида от пустых событий (bang)
+#X obj 30 1230 ui.link @title [flow.stack] @url flow.stack-help.pd;
+#X text 220 1227 стек сообщений;
+#X obj 30 1255 ui.link @title [flow.sync] @url flow.sync-help.pd;
+#X text 220 1252 синхронная многоканальная шина;
+#X obj 30 1280 ui.link @title [flow.sync_pack] @url
+flow.sync_pack-help.pd;
+#X text 220 1277 [flow.pack] со всеми "горячими" входами;
+#X obj 30 1305 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
+#X text 220 1302 извлекает управляющие сообщения из аудиосоединений;
+#X obj 30 1330 ui.link @title [replace] @url replace-help.pd;
+#X text 220 1327 замена атомов в потоке данных;
+#X obj 30 1355 ui.link @title [route.any] @url route.any-help.pd;
+#X text 220 1352 отделяет сообщения общего вида от пустых событий (bang)
 \, числовых значений \, символов и списков;
-#X obj 30 1521 route.bang;
-#X text 200 1521 отделяет пустые события (bangs) от сообщений других
+#X obj 30 1395 ui.link @title [route.bang] @url route.bang-help.pd;
+#X text 220 1392 отделяет пустые события (bangs) от сообщений других
 типов;
-#X obj 30 1549 route.cycle;
-#X text 200 1549 циклический маршрутизатор сообщений;
-#X obj 30 1577 route.data;
-#X text 200 1577 отделяет сообщения с данными от других;
-#X obj 30 1605 route.float;
-#X text 200 1605 отделяет числовые сообщения от других типов;
-#X obj 30 1633 route.list;
-#X text 200 1633 отделяет списки от сообщений других типов;
-#X obj 30 1661 route.prop;
-#X text 200 1661 отделяет сообщения со свойствами от других типов;
-#X obj 30 1689 route.random;
-#X text 200 1689 направляет входное сообщение в случайный выход;
-#X obj 30 1717 route.symbol;
-#X text 200 1717 отделяет символьные сообщения от других типов;
+#X obj 30 1420 ui.link @title [route.cycle] @url route.cycle-help.pd;
+#X text 220 1417 циклический маршрутизатор сообщений;
+#X obj 30 1445 ui.link @title [route.data] @url route.data-help.pd;
+#X text 220 1442 отделяет сообщения с данными от других;
+#X obj 30 1470 ui.link @title [route.float] @url route.float-help.pd;
+#X text 220 1467 отделяет числовые сообщения от других типов;
+#X obj 30 1495 ui.link @title [route.list] @url route.list-help.pd;
+#X text 220 1492 отделяет списки от сообщений других типов;
+#X obj 30 1520 ui.link @title [route.prop] @url route.prop-help.pd;
+#X text 220 1517 отделяет сообщения со свойствами от других типов;
+#X obj 30 1545 ui.link @title [route.random] @url
+route.random-help.pd;
+#X text 220 1542 направляет входное сообщение в случайный выход;
+#X obj 30 1570 ui.link @title [route.symbol] @url
+route.symbol-help.pd;
+#X text 220 1567 отделяет символьные сообщения от других типов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1745 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1755 library: ceammc;
+#X obj 1 1592 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1602 library: ceammc;

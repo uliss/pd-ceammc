@@ -4,30 +4,39 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 588 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 593 50 objects for network;
-#X obj 30 117 net.artnet.send;
-#X text 200 117 ArtNet DMX message sender;
-#X obj 30 145 net.freesound;
-#X text 200 145 Freesound API v2 client;
-#X obj 30 173 net.host2ip;
-#X text 200 173 outputs IP address by DNS name;
-#X obj 30 201 net.http.client;
-#X text 200 201 HTTP client;
-#X obj 30 229 net.http.send;
-#X text 200 229 HTTP request sender;
-#X obj 30 257 net.mdns;
-#X text 200 257 MDNS service discovery;
-#X obj 30 285 net.mqtt.client;
-#X text 200 285 MQTT client;
-#X obj 30 313 net.osc.receive;
-#X text 200 313 receiving messages from the OSC protocol;
-#X obj 30 341 net.osc.send;
-#X text 200 341 sending messages via the OSC protocol;
-#X obj 30 369 net.osc.server;
-#X text 200 369 OSC server control;
-#X obj 30 397 net.ws.client;
-#X text 200 397 WebSocket client;
-#X obj 30 425 net.ws.server;
-#X text 200 425 WebSocket server;
+#X obj 30 120 ui.link @title [net.artnet.send] @url
+net.artnet.send-help.pd;
+#X text 220 117 ArtNet DMX message sender;
+#X obj 30 145 ui.link @title [net.freesound] @url
+net.freesound-help.pd;
+#X text 220 142 Freesound API v2 client;
+#X obj 30 170 ui.link @title [net.host2ip] @url net.host2ip-help.pd;
+#X text 220 167 outputs IP address by DNS name;
+#X obj 30 195 ui.link @title [net.http.client] @url
+net.http.client-help.pd;
+#X text 220 192 HTTP client;
+#X obj 30 220 ui.link @title [net.http.send] @url
+net.http.send-help.pd;
+#X text 220 217 HTTP request sender;
+#X obj 30 245 ui.link @title [net.mdns] @url net.mdns-help.pd;
+#X text 220 242 MDNS service discovery;
+#X obj 30 270 ui.link @title [net.mqtt.client] @url
+net.mqtt.client-help.pd;
+#X text 220 267 MQTT client;
+#X obj 30 295 ui.link @title [net.osc.receive] @url
+net.osc.receive-help.pd;
+#X text 220 292 receiving messages from the OSC protocol;
+#X obj 30 320 ui.link @title [net.osc.send] @url net.osc.send-help.pd;
+#X text 220 317 sending messages via the OSC protocol;
+#X obj 30 345 ui.link @title [net.osc.server] @url
+net.osc.server-help.pd;
+#X text 220 342 OSC server control;
+#X obj 30 370 ui.link @title [net.ws.client] @url
+net.ws.client-help.pd;
+#X text 220 367 WebSocket client;
+#X obj 30 395 ui.link @title [net.ws.server] @url
+net.ws.server-help.pd;
+#X text 220 392 WebSocket server;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

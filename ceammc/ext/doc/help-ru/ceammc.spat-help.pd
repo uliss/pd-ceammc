@@ -4,93 +4,107 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 488 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 493 50 работа с пространственным звуком;
-#X obj 30 117 hoa.2d.decoder~;
-#X text 200 117 двумерный декодер амбисоников высоких порядков;
-#X obj 30 145 hoa.2d.encoder~;
-#X text 200 145 двумерный кодировщик амбисоников высоких порядков;
-#X obj 30 173 hoa.2d.exchanger~;
-#X text 200 173 перенумерование и нормализация каналов в двумерных
+#X obj 30 120 ui.link @title [hoa.2d.decoder~] @url
+hoa.2d.decoder~-help.pd;
+#X text 220 117 двумерный декодер амбисоников высоких порядков;
+#X obj 30 145 ui.link @title [hoa.2d.encoder~] @url
+hoa.2d.encoder~-help.pd;
+#X text 220 142 двумерный кодировщик амбисоников высоких порядков;
+#X obj 30 170 ui.link @title [hoa.2d.exchanger~] @url
+hoa.2d.exchanger~-help.pd;
+#X text 220 167 перенумерование и нормализация каналов в двумерных
 амбисониках;
-#X obj 30 213 hoa.2d.map~;
-#X text 200 213 многоканальное управление пространственными источниками
+#X obj 30 210 ui.link @title [hoa.2d.map~] @url hoa.2d.map~-help.pd;
+#X text 220 207 многоканальное управление пространственными источниками
 в двумерных амбисониках;
-#X obj 30 253 hoa.2d.optim~;
-#X text 200 253 оптимизация двумерных амбисоников;
-#X obj 30 281 hoa.2d.projector~;
-#X text 200 281 декомпозиция из сферических гармоник в плоские волны;
-#X obj 30 309 hoa.2d.recomposer~;
-#X text 200 309 декомпозиция плоских двумерных волн в сферические гармоники;
-#X obj 30 337 hoa.2d.rotate~;
-#X text 200 337 вращение двумерного амбисонического звукового поля;
-#X obj 30 368 ui.link @title [hoa.2d.space] @url hoa.2d.space-help.pd;
-#X text 200 365 контроль амплитуды двумерных плоских волн;
-#X obj 30 390 hoa.2d.wider~;
-#X text 200 390 двумерная симуляция дробного амбисонического порядка;
-#X obj 30 418 hoa.3d.decoder~;
-#X text 200 418 трехмерный декодер амбисоников высоких порядков;
-#X obj 30 446 hoa.3d.encoder~;
-#X text 200 446 3D кодировщик амбисоников высоких порядков;
-#X obj 30 474 hoa.3d.exchanger~;
-#X text 200 474 перенумерование и нормализация каналов;
-#X obj 30 502 hoa.3d.map~;
-#X text 200 502 многоканальное управление пространственными источниками
+#X obj 30 250 ui.link @title [hoa.2d.optim~] @url
+hoa.2d.optim~-help.pd;
+#X text 220 247 оптимизация двумерных амбисоников;
+#X obj 30 275 ui.link @title [hoa.2d.projector~] @url
+hoa.2d.projector~-help.pd;
+#X text 220 272 декомпозиция из сферических гармоник в плоские волны;
+#X obj 30 300 ui.link @title [hoa.2d.recomposer~] @url
+hoa.2d.recomposer~-help.pd;
+#X text 220 297 декомпозиция плоских двумерных волн в сферические гармоники;
+#X obj 30 325 ui.link @title [hoa.2d.rotate~] @url
+hoa.2d.rotate~-help.pd;
+#X text 220 322 вращение двумерного амбисонического звукового поля;
+#X obj 30 350 ui.link @title [hoa.2d.space] @url hoa.2d.space-help.pd;
+#X text 220 347 контроль амплитуды двумерных плоских волн;
+#X obj 30 375 ui.link @title [hoa.2d.wider~] @url
+hoa.2d.wider~-help.pd;
+#X text 220 372 двумерная симуляция дробного амбисонического порядка;
+#X obj 30 400 ui.link @title [hoa.3d.decoder~] @url
+hoa.3d.decoder~-help.pd;
+#X text 220 397 трехмерный декодер амбисоников высоких порядков;
+#X obj 30 425 ui.link @title [hoa.3d.encoder~] @url
+hoa.3d.encoder~-help.pd;
+#X text 220 422 3D кодировщик амбисоников высоких порядков;
+#X obj 30 450 ui.link @title [hoa.3d.exchanger~] @url
+hoa.3d.exchanger~-help.pd;
+#X text 220 447 перенумерование и нормализация каналов;
+#X obj 30 475 ui.link @title [hoa.3d.map~] @url hoa.3d.map~-help.pd;
+#X text 220 472 многоканальное управление пространственными источниками
 для трехмерных амбисоников;
-#X obj 30 545 ui.link @title [hoa.3d.meter~] @url
+#X obj 30 515 ui.link @title [hoa.3d.meter~] @url
 hoa.3d.meter~-help.pd;
-#X text 200 542 трехмерный измеритель уровня звукового поля;
-#X obj 30 567 hoa.3d.optim~;
-#X text 200 567 оптимизация трехмерных амбисоников высоких порядков;
-#X obj 30 598 ui.link @title [hoa.3d.scope~] @url
+#X text 220 512 трехмерный измеритель уровня звукового поля;
+#X obj 30 540 ui.link @title [hoa.3d.optim~] @url
+hoa.3d.optim~-help.pd;
+#X text 220 537 оптимизация трехмерных амбисоников высоких порядков;
+#X obj 30 565 ui.link @title [hoa.3d.scope~] @url
 hoa.3d.scope~-help.pd;
-#X text 200 595 отображение сферических гармоник в трехмерном амбисоническом
+#X text 220 562 отображение сферических гармоник в трехмерном амбисоническом
 поле;
-#X obj 30 635 hoa.3d.wider~;
-#X text 200 635 трехмерная симуляция дробного амбисонического порядка;
-#X obj 30 663 hoa.@process;
-#X text 200 663 управление свойствами объекта [hoa.process~];
-#X obj 30 691 hoa.in;
-#X text 200 691 контрольный вход для патча \, загружаемого объектом
+#X obj 30 605 ui.link @title [hoa.3d.wider~] @url
+hoa.3d.wider~-help.pd;
+#X text 220 602 трехмерная симуляция дробного амбисонического порядка;
+#X obj 30 630 ui.link @title [hoa.@process] @url hoa.@process-help.pd;
+#X text 220 627 управление свойствами объекта [hoa.process~];
+#X obj 30 655 ui.link @title [hoa.in] @url hoa.in-help.pd;
+#X text 220 652 контрольный вход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 731 hoa.in~;
-#X text 200 731 сигнальный вход для патча \, загружаемого объектом
+#X obj 30 695 ui.link @title [hoa.in~] @url hoa.in~-help.pd;
+#X text 220 692 сигнальный вход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 774 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
-#X text 200 771 GUI для пространственного размещения источников;
-#X obj 30 796 hoa.out;
-#X text 200 796 контрольный выход для патча \, загружаемого объектом
+#X obj 30 735 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
+#X text 220 732 GUI для пространственного размещения источников;
+#X obj 30 760 ui.link @title [hoa.out] @url hoa.out-help.pd;
+#X text 220 757 контрольный выход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 836 hoa.out~;
-#X text 200 836 сигнальный выход для патча \, загружаемого объектом
+#X obj 30 800 ui.link @title [hoa.out~] @url hoa.out~-help.pd;
+#X text 220 797 сигнальный выход для патча \, загружаемого объектом
 [hoa.process~];
-#X obj 30 876 hoa.process~;
-#X text 200 876 загрузчик патчей для многоканальной обработки;
-#X obj 30 907 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
-#X text 200 904 отображение сферических гармоник в двумерном амбисоническом
+#X obj 30 840 ui.link @title [hoa.process~] @url hoa.process~-help.pd;
+#X text 220 837 загрузчик патчей для многоканальной обработки;
+#X obj 30 865 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
+#X text 220 862 отображение сферических гармоник в двумерном амбисоническом
 поле;
-#X obj 30 944 pan.cos~;
-#X text 200 944 двухканальное косинусное панорамирование равной мощности;
-#X obj 30 972 pan.linsig~;
-#X text 200 972 двухканальное линейное панорамирование управляемое
+#X obj 30 905 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
+#X text 220 902 двухканальное косинусное панорамирование равной мощности;
+#X obj 30 930 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
+#X text 220 927 двухканальное линейное панорамирование управляемое
 сигналом;
-#X obj 30 1000 pan.lin~;
-#X text 200 1000 двухканальное линейное панорамирование;
-#X obj 30 1028 pan.spread~;
-#X text 200 1028 распределяет входные каналы по стереополю;
-#X obj 30 1056 pan.sqrt~;
-#X text 200 1056 двухканальное квадратичное панорамирование равной
+#X obj 30 955 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
+#X text 220 952 двухканальное линейное панорамирование;
+#X obj 30 980 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
+#X text 220 977 распределяет входные каналы по стереополю;
+#X obj 30 1005 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
+#X text 220 1002 двухканальное квадратичное панорамирование равной
 мощности;
-#X obj 30 1084 spat.pan4~;
-#X text 200 1084 GMEM SPAT: управление 4-х канальным пространственным
+#X obj 30 1030 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
+#X text 220 1027 GMEM SPAT: управление 4-х канальным пространственным
 звуком;
-#X obj 30 1112 spat.pan8~;
-#X text 200 1112 GMEM SPAT: управление 8 канальным пространственным
+#X obj 30 1055 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
+#X text 220 1052 GMEM SPAT: управление 8 канальным пространственным
 звуком;
-#X obj 30 1140 spat.zita6x8~;
-#X text 200 1140 управление пространственным звуком с 6 входными источниками
+#X obj 30 1080 ui.link @title [spat.zita6x8~] @url
+spat.zita6x8~-help.pd;
+#X text 220 1077 управление пространственным звуком с 6 входными источниками
 на 8 выходных каналов;
-#X obj 30 1180 spat.zita8~;
-#X text 200 1180 8-канальная пространственная реверберация;
+#X obj 30 1120 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
+#X text 220 1117 8-канальная пространственная реверберация;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1208 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1218 library: ceammc;
+#X obj 1 1142 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1152 library: ceammc;

@@ -4,32 +4,36 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 488 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 493 50 working with sound dynamic range;
-#X obj 30 117 dyn.comp2~;
-#X text 200 117 stereo dynamic range compressor;
-#X obj 30 145 dyn.comp_peak2~;
-#X text 200 145 stereo peak feed forward compressor with channel linking;
-#X obj 30 173 dyn.comp_peak~;
-#X text 200 173 mono dynamic range peak feed forward compressor;
-#X obj 30 201 dyn.comp_up2~;
-#X text 200 201 stereo upward compressor with channel linking;
-#X obj 30 229 dyn.comp_up~;
-#X text 200 229 mono upward compressor;
-#X obj 30 257 dyn.comp~;
-#X text 200 257 mono dynamic range compressors;
-#X obj 30 285 dyn.expand2~;
-#X text 200 285 stereo dynamic range expander with channel linking;
-#X obj 30 313 dyn.expand~;
-#X text 200 313 mono dynamic range expander;
-#X obj 30 341 dyn.gate2~;
-#X text 200 341 stereo signal gate;
-#X obj 30 369 dyn.gate~;
-#X text 200 369 mono signal gate;
-#X obj 30 397 dyn.limit2~;
-#X text 200 397 stereo 1176LN Peak Limiter;
-#X obj 30 425 dyn.limit~;
-#X text 200 425 mono 1176LN Peak Limiter;
-#X obj 30 453 dyn.softclip~;
-#X text 200 453 soft signal clip;
+#X obj 30 120 ui.link @title [dyn.comp2~] @url dyn.comp2~-help.pd;
+#X text 220 117 stereo dynamic range compressor;
+#X obj 30 145 ui.link @title [dyn.comp_peak2~] @url
+dyn.comp_peak2~-help.pd;
+#X text 220 142 stereo peak feed forward compressor with channel linking;
+#X obj 30 170 ui.link @title [dyn.comp_peak~] @url
+dyn.comp_peak~-help.pd;
+#X text 220 167 mono dynamic range peak feed forward compressor;
+#X obj 30 195 ui.link @title [dyn.comp_up2~] @url
+dyn.comp_up2~-help.pd;
+#X text 220 192 stereo upward compressor with channel linking;
+#X obj 30 220 ui.link @title [dyn.comp_up~] @url dyn.comp_up~-help.pd;
+#X text 220 217 mono upward compressor;
+#X obj 30 245 ui.link @title [dyn.comp~] @url dyn.comp~-help.pd;
+#X text 220 242 mono dynamic range compressors;
+#X obj 30 270 ui.link @title [dyn.expand2~] @url dyn.expand2~-help.pd;
+#X text 220 267 stereo dynamic range expander with channel linking;
+#X obj 30 295 ui.link @title [dyn.expand~] @url dyn.expand~-help.pd;
+#X text 220 292 mono dynamic range expander;
+#X obj 30 320 ui.link @title [dyn.gate2~] @url dyn.gate2~-help.pd;
+#X text 220 317 stereo signal gate;
+#X obj 30 345 ui.link @title [dyn.gate~] @url dyn.gate~-help.pd;
+#X text 220 342 mono signal gate;
+#X obj 30 370 ui.link @title [dyn.limit2~] @url dyn.limit2~-help.pd;
+#X text 220 367 stereo 1176LN Peak Limiter;
+#X obj 30 395 ui.link @title [dyn.limit~] @url dyn.limit~-help.pd;
+#X text 220 392 mono 1176LN Peak Limiter;
+#X obj 30 420 ui.link @title [dyn.softclip~] @url
+dyn.softclip~-help.pd;
+#X text 220 417 soft signal clip;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::dyn 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -4,17 +4,20 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 580 50 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 585 50 working with symbols;
-#X obj 30 117 symbol.equal;
-#X text 200 117 check symbols for equality;
-#X obj 30 145 symbol.length;
-#X text 200 145 outputs the number of characters in a symbol (Unicode
+#X obj 30 120 ui.link @title [symbol.equal] @url symbol.equal-help.pd;
+#X text 220 117 check symbols for equality;
+#X obj 30 145 ui.link @title [symbol.length] @url
+symbol.length-help.pd;
+#X text 220 142 outputs the number of characters in a symbol (Unicode
 supported);
-#X obj 30 185 symbol.num_compare;
-#X text 200 185 numeric symbol compare;
-#X obj 30 213 symbol2any;
-#X text 200 213 converts symbol or string into a message;
-#X obj 30 241 symbol2intlist;
-#X text 200 241 converts the symbol into a list of character codes;
+#X obj 30 185 ui.link @title [symbol.num_compare] @url
+symbol.num_compare-help.pd;
+#X text 220 182 numeric symbol compare;
+#X obj 30 210 ui.link @title [symbol2any] @url symbol2any-help.pd;
+#X text 220 207 converts symbol or string into a message;
+#X obj 30 235 ui.link @title [symbol2intlist] @url
+symbol2intlist-help.pd;
+#X text 220 232 converts the symbol into a list of character codes;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

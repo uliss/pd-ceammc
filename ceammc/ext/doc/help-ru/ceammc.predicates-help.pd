@@ -5,32 +5,32 @@
 #X obj 307 50 cnv 1 433 38 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 312 50 объекты предикатов. Проверка типов сообщений или данных
 \, возвращают 1 или 0\.;
-#X obj 30 117 is_any;
-#X text 200 117 проверяет \, является ли входное сообщение сообщением
+#X obj 30 120 ui.link @title [is_any] @url is_any-help.pd;
+#X text 220 117 проверяет \, является ли входное сообщение сообщением
 общего типа;
-#X obj 30 157 is_bang;
-#X text 200 157 проверяет \, является ли входное сообщение *bang*;
-#X obj 30 185 is_data;
-#X text 200 185 проверяет \, является ли входное сообщение типом данных;
-#X obj 30 213 is_dict;
-#X text 200 213 проверяет \, является ли входное сообщение словарём;
-#X obj 30 241 is_even;
-#X text 200 241 проверка входного числа на чётность;
-#X obj 30 269 is_file;
-#X text 200 269 проверка существования и доступности файла;
-#X obj 30 297 is_float;
-#X text 200 297 проверка \, является ли входное сообщение числом с
+#X obj 30 160 ui.link @title [is_bang] @url is_bang-help.pd;
+#X text 220 157 проверяет \, является ли входное сообщение *bang*;
+#X obj 30 185 ui.link @title [is_data] @url is_data-help.pd;
+#X text 220 182 проверяет \, является ли входное сообщение типом данных;
+#X obj 30 210 ui.link @title [is_dict] @url is_dict-help.pd;
+#X text 220 207 проверяет \, является ли входное сообщение словарём;
+#X obj 30 235 ui.link @title [is_even] @url is_even-help.pd;
+#X text 220 232 проверка входного числа на чётность;
+#X obj 30 260 ui.link @title [is_file] @url is_file-help.pd;
+#X text 220 257 проверка существования и доступности файла;
+#X obj 30 285 ui.link @title [is_float] @url is_float-help.pd;
+#X text 220 282 проверка \, является ли входное сообщение числом с
 плавающей точкой;
-#X obj 30 337 is_list;
-#X text 200 337 проверка \, является ли входное сообщение списком;
-#X obj 30 365 is_odd;
-#X text 200 365 проверка входного числа на нечётность;
-#X obj 30 393 is_pointer;
-#X text 200 393 проверка \, является ли входное сообщение указателем;
-#X obj 30 421 is_prop;
-#X text 200 421 проверка \, является ли входное сообщение *свойством*;
-#X obj 30 449 is_symbol;
-#X text 200 449 проверка \, является ли входное сообщение *символом*;
+#X obj 30 325 ui.link @title [is_list] @url is_list-help.pd;
+#X text 220 322 проверка \, является ли входное сообщение списком;
+#X obj 30 350 ui.link @title [is_odd] @url is_odd-help.pd;
+#X text 220 347 проверка входного числа на нечётность;
+#X obj 30 375 ui.link @title [is_pointer] @url is_pointer-help.pd;
+#X text 220 372 проверка \, является ли входное сообщение указателем;
+#X obj 30 400 ui.link @title [is_prop] @url is_prop-help.pd;
+#X text 220 397 проверка \, является ли входное сообщение *свойством*;
+#X obj 30 425 ui.link @title [is_symbol] @url is_symbol-help.pd;
+#X text 220 422 проверка \, является ли входное сообщение *символом*;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::predicates 20 20 0 20
 -104026 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

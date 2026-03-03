@@ -4,19 +4,20 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 481 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 486 50 объекты для анализа свойств звука;
-#X obj 30 117 an.onset;
-#X text 200 117 детектор атаки для массивов;
-#X obj 30 145 an.onset~;
-#X text 200 145 детектор атаки сигнала;
-#X obj 30 173 an.pitchtrack~;
-#X text 200 173 отслеживает высоту сигнала;
-#X obj 30 201 an.rms~;
-#X text 200 201 среднее квадратичное сигнала с алгоритмом скользящего
+#X obj 30 120 ui.link @title [an.onset] @url an.onset-help.pd;
+#X text 220 117 детектор атаки для массивов;
+#X obj 30 145 ui.link @title [an.onset~] @url an.onset~-help.pd;
+#X text 220 142 детектор атаки сигнала;
+#X obj 30 170 ui.link @title [an.pitchtrack~] @url
+an.pitchtrack~-help.pd;
+#X text 220 167 отслеживает высоту сигнала;
+#X obj 30 195 ui.link @title [an.rms~] @url an.rms~-help.pd;
+#X text 220 192 среднее квадратичное сигнала с алгоритмом скользящего
 среднего;
-#X obj 30 241 an.tempo~;
-#X text 200 241 детектор темпа сигнала;
-#X obj 30 269 an.zero~;
-#X text 200 269 вычисление частоты/скорости/числа пересечения сигналом
+#X obj 30 235 ui.link @title [an.tempo~] @url an.tempo~-help.pd;
+#X text 220 232 детектор темпа сигнала;
+#X obj 30 260 ui.link @title [an.zero~] @url an.zero~-help.pd;
+#X text 220 257 вычисление частоты/скорости/числа пересечения сигналом
 нулевого значения;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::an 20 20 0 20 -104026
 -4096 0;

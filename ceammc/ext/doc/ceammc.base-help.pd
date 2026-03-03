@@ -4,71 +4,76 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 336 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 341 50 basic general-purpose objects for working with sound;
-#X obj 30 117 bitmap;
-#X text 200 117 binary image (2D bit matrix);
-#X obj 30 145 ceammc.search;
-#X text 200 145 search in the [ceammc] library;
-#X obj 30 173 chrono.datetime;
-#X text 200 173 outputs the current date and time;
-#X obj 30 201 convolve~;
-#X text 200 201 real-time FFT convolution;
-#X obj 30 232 ui.link @title [function] @url function-help.pd;
-#X text 200 229 the named function;
-#X obj 30 254 function.call;
-#X text 200 254 calls the named function;
-#X obj 30 282 gain~;
-#X text 200 282 multichannel signal gain;
-#X obj 30 310 gate~;
-#X text 200 310 multichannel signal gate;
-#X obj 30 338 logger;
-#X text 200 338 advanced data logger for Pd window;
-#X obj 30 366 matrix~;
-#X text 200 366 signal routing matrix;
-#X obj 30 394 merge~;
-#X text 200 394 merge audio signals;
-#X obj 30 422 metro.choice;
-#X text 200 422 a metronome that randomly selects a period for each
+#X obj 30 120 ui.link @title [bitmap] @url bitmap-help.pd;
+#X text 220 117 binary image (2D bit matrix);
+#X obj 30 145 ui.link @title [ceammc.search] @url
+ceammc.search-help.pd;
+#X text 220 142 search in the [ceammc] library;
+#X obj 30 170 ui.link @title [chrono.datetime] @url
+chrono.datetime-help.pd;
+#X text 220 167 outputs the current date and time;
+#X obj 30 195 ui.link @title [convolve~] @url convolve~-help.pd;
+#X text 220 192 real-time FFT convolution;
+#X obj 30 220 ui.link @title [function] @url function-help.pd;
+#X text 220 217 the named function;
+#X obj 30 245 ui.link @title [function.call] @url
+function.call-help.pd;
+#X text 220 242 calls the named function;
+#X obj 30 270 ui.link @title [gain~] @url gain~-help.pd;
+#X text 220 267 multichannel signal gain;
+#X obj 30 295 ui.link @title [gate~] @url gate~-help.pd;
+#X text 220 292 multichannel signal gate;
+#X obj 30 320 ui.link @title [logger] @url logger-help.pd;
+#X text 220 317 advanced data logger for Pd window;
+#X obj 30 345 ui.link @title [matrix~] @url matrix~-help.pd;
+#X text 220 342 signal routing matrix;
+#X obj 30 370 ui.link @title [merge~] @url merge~-help.pd;
+#X text 220 367 merge audio signals;
+#X obj 30 395 ui.link @title [metro.choice] @url metro.choice-help.pd;
+#X text 220 392 a metronome that randomly selects a period for each
 beat from a given set;
-#X obj 30 462 metro.pattern;
-#X text 200 462 metronome with rhythmic patterns;
-#X obj 30 490 metro.random;
-#X text 200 490 a metronome with a random period selection within a
+#X obj 30 435 ui.link @title [metro.pattern] @url
+metro.pattern-help.pd;
+#X text 220 432 metronome with rhythmic patterns;
+#X obj 30 460 ui.link @title [metro.random] @url metro.random-help.pd;
+#X text 220 457 a metronome with a random period selection within a
 specified range;
-#X obj 30 530 metro.seq;
-#X text 200 530 a metronome that changes its period with each beat
+#X obj 30 500 ui.link @title [metro.seq] @url metro.seq-help.pd;
+#X text 220 497 a metronome that changes its period with each beat
 in the specified sequence;
-#X obj 30 570 metro.wchoice;
-#X text 200 570 a metronome with a random selection of period at each
+#X obj 30 540 ui.link @title [metro.wchoice] @url
+metro.wchoice-help.pd;
+#X text 220 537 a metronome with a random selection of period at each
 beat from a specified list with weighted coefficients;
-#X obj 30 610 mix~;
-#X text 200 610 multichannel signal mixer;
-#X obj 30 638 nsig~;
-#X text 200 638 multichannel converter from the control signals to
+#X obj 30 580 ui.link @title [mix~] @url mix~-help.pd;
+#X text 220 577 multichannel signal mixer;
+#X obj 30 605 ui.link @title [nsig~] @url nsig~-help.pd;
+#X text 220 602 multichannel converter from the control signals to
 audio;
-#X obj 30 666 obj.props;
-#X text 200 666 Extract object properties from the connected object;
-#X obj 30 694 radio;
-#X text 200 694 upon receiving the index \, the state of individual
+#X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
+#X text 220 627 Extract object properties from the connected object;
+#X obj 30 655 ui.link @title [radio] @url radio-help.pd;
+#X text 220 652 upon receiving the index \, the state of individual
 outputs is established as a radio switch;
-#X obj 30 734 split~;
-#X text 200 734 parametrized multichannel signal splitter;
-#X obj 30 762 spring;
-#X text 200 762 behaves like a spring \, bouncing back to its original
+#X obj 30 695 ui.link @title [split~] @url split~-help.pd;
+#X text 220 692 parametrized multichannel signal splitter;
+#X obj 30 720 ui.link @title [spring] @url spring-help.pd;
+#X text 220 717 behaves like a spring \, bouncing back to its original
 state;
-#X obj 30 790 sync;
-#X text 200 790 synchronization of multiple values without overflowing
+#X obj 30 745 ui.link @title [sync] @url sync-help.pd;
+#X text 220 742 synchronization of multiple values without overflowing
 stack loops;
-#X obj 30 830 window;
-#X text 200 830 returns the value of the window function;
-#X obj 30 858 xdac~;
-#X text 200 858 [dac~] with channel ranges;
-#X obj 30 886 xfade2~;
-#X text 200 886 multichannel cross-fade for stereo signals;
-#X obj 30 914 xfade~;
-#X text 200 914 multichannel cross-fade;
-#X obj 30 942 z~;
-#X text 200 942 integer sample delay;
+#X obj 30 785 ui.link @title [window] @url window-help.pd;
+#X text 220 782 returns the value of the window function;
+#X obj 30 810 ui.link @title [xdac~] @url xdac~-help.pd;
+#X text 220 807 [dac~] with channel ranges;
+#X obj 30 835 ui.link @title [xfade2~] @url xfade2~-help.pd;
+#X text 220 832 multichannel cross-fade for stereo signals;
+#X obj 30 860 ui.link @title [xfade~] @url xfade~-help.pd;
+#X text 220 857 multichannel cross-fade;
+#X obj 30 885 ui.link @title [z~] @url z~-help.pd;
+#X text 220 882 integer sample delay;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
-#X obj 1 970 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 980 library: ceammc;
+#X obj 1 907 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 917 library: ceammc;

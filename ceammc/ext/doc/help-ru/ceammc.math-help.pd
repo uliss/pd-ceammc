@@ -5,212 +5,235 @@
 #X obj 289 50 cnv 1 451 38 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 294 50 математические объекты \, которые могут работать со
 списками чисел;
-#X obj 30 117 math.abs;
-#X text 200 117 абсолютное значение;
-#X obj 30 145 math.abs~;
-#X text 200 145 функция абсолютного значения для сигналов;
-#X obj 30 173 math.acos;
-#X text 200 173 арккосинус;
-#X obj 30 201 math.acosh;
-#X text 200 201 обратный гиперболический косинус;
-#X obj 30 229 math.acosh~;
-#X text 200 229 обратный гиперболический косинус для сигналов;
-#X obj 30 257 math.acos~;
-#X text 200 257 арккосинус для сигналов;
-#X obj 30 285 math.and;
-#X text 200 285 операция И для множества аргументов;
-#X obj 30 313 math.approx;
-#X text 200 313 проверить \, если входное значение приблизительно равно
+#X obj 30 120 ui.link @title [math.abs] @url math.abs-help.pd;
+#X text 220 117 абсолютное значение;
+#X obj 30 145 ui.link @title [math.abs~] @url math.abs~-help.pd;
+#X text 220 142 функция абсолютного значения для сигналов;
+#X obj 30 170 ui.link @title [math.acos] @url math.acos-help.pd;
+#X text 220 167 арккосинус;
+#X obj 30 195 ui.link @title [math.acosh] @url math.acosh-help.pd;
+#X text 220 192 обратный гиперболический косинус;
+#X obj 30 220 ui.link @title [math.acosh~] @url math.acosh~-help.pd;
+#X text 220 217 обратный гиперболический косинус для сигналов;
+#X obj 30 245 ui.link @title [math.acos~] @url math.acos~-help.pd;
+#X text 220 242 арккосинус для сигналов;
+#X obj 30 270 ui.link @title [math.and] @url math.and-help.pd;
+#X text 220 267 операция И для множества аргументов;
+#X obj 30 295 ui.link @title [math.approx] @url math.approx-help.pd;
+#X text 220 292 проверить \, если входное значение приблизительно равно
 образцу;
-#X obj 30 341 math.asin;
-#X text 200 341 арксинус;
-#X obj 30 369 math.asinh;
-#X text 200 369 обратный гиперболический синус;
-#X obj 30 397 math.asinh~;
-#X text 200 397 обратный гиперболической синус для сигналов;
-#X obj 30 425 math.asin~;
-#X text 200 425 арксинус для сигналов;
-#X obj 30 453 math.atan;
-#X text 200 453 арктангенс;
-#X obj 30 481 math.atanh;
-#X text 200 481 обратный гиперболический тангенс;
-#X obj 30 509 math.atanh~;
-#X text 200 509 обратный гиперболический тангенс для сигналов;
-#X obj 30 537 math.atan~;
-#X text 200 537 арктангенс для сигналов;
-#X obj 30 565 math.binomial;
-#X text 200 565 калькулятор биномиальных коэффициентов;
-#X obj 30 593 math.cabs~;
-#X text 200 593 абсолютное значение комплексного сигнала;
-#X obj 30 621 math.carg~;
-#X text 200 621 фазовый угол комплексных сигналов;
-#X obj 30 649 math.cbrt;
-#X text 200 649 кубический корень;
-#X obj 30 677 math.cbrt~;
-#X text 200 677 кубический корень для сигналов;
-#X obj 30 705 math.cdiv~;
-#X text 200 705 деление комплексных сигналов;
-#X obj 30 733 math.ceil;
-#X text 200 733 округление до наименьшего целого значения \, которое
+#X obj 30 320 ui.link @title [math.asin] @url math.asin-help.pd;
+#X text 220 317 арксинус;
+#X obj 30 345 ui.link @title [math.asinh] @url math.asinh-help.pd;
+#X text 220 342 обратный гиперболический синус;
+#X obj 30 370 ui.link @title [math.asinh~] @url math.asinh~-help.pd;
+#X text 220 367 обратный гиперболической синус для сигналов;
+#X obj 30 395 ui.link @title [math.asin~] @url math.asin~-help.pd;
+#X text 220 392 арксинус для сигналов;
+#X obj 30 420 ui.link @title [math.atan] @url math.atan-help.pd;
+#X text 220 417 арктангенс;
+#X obj 30 445 ui.link @title [math.atanh] @url math.atanh-help.pd;
+#X text 220 442 обратный гиперболический тангенс;
+#X obj 30 470 ui.link @title [math.atanh~] @url math.atanh~-help.pd;
+#X text 220 467 обратный гиперболический тангенс для сигналов;
+#X obj 30 495 ui.link @title [math.atan~] @url math.atan~-help.pd;
+#X text 220 492 арктангенс для сигналов;
+#X obj 30 520 ui.link @title [math.binomial] @url
+math.binomial-help.pd;
+#X text 220 517 калькулятор биномиальных коэффициентов;
+#X obj 30 545 ui.link @title [math.cabs~] @url math.cabs~-help.pd;
+#X text 220 542 абсолютное значение комплексного сигнала;
+#X obj 30 570 ui.link @title [math.carg~] @url math.carg~-help.pd;
+#X text 220 567 фазовый угол комплексных сигналов;
+#X obj 30 595 ui.link @title [math.cbrt] @url math.cbrt-help.pd;
+#X text 220 592 кубический корень;
+#X obj 30 620 ui.link @title [math.cbrt~] @url math.cbrt~-help.pd;
+#X text 220 617 кубический корень для сигналов;
+#X obj 30 645 ui.link @title [math.cdiv~] @url math.cdiv~-help.pd;
+#X text 220 642 деление комплексных сигналов;
+#X obj 30 670 ui.link @title [math.ceil] @url math.ceil-help.pd;
+#X text 220 667 округление до наименьшего целого значения \, которое
 не меньше входного;
-#X obj 30 773 math.ceil~;
-#X text 200 773 округление до наименьшего целого значения \, которое
+#X obj 30 710 ui.link @title [math.ceil~] @url math.ceil~-help.pd;
+#X text 220 707 округление до наименьшего целого значения \, которое
 не менее входного;
-#X obj 30 813 math.cexp~;
-#X text 200 813 комплексная экспонента для сигналов;
-#X obj 30 841 math.cmul~;
-#X text 200 841 умножение комплексных сигналов;
-#X obj 30 869 math.cos;
-#X text 200 869 функция косинуса;
-#X obj 30 897 math.cosh;
-#X text 200 897 гиперболический косинус;
-#X obj 30 925 math.cosh~;
-#X text 200 925 гиперболический косинус для сигналов;
-#X obj 30 953 math.cos~;
-#X text 200 953 функция косинуса;
-#X obj 30 981 math.div;
-#X text 200 981 деление;
-#X obj 30 1009 math.e;
-#X text 200 1009 математическая константа \, основание натурального
+#X obj 30 750 ui.link @title [math.cexp~] @url math.cexp~-help.pd;
+#X text 220 747 комплексная экспонента для сигналов;
+#X obj 30 775 ui.link @title [math.cmul~] @url math.cmul~-help.pd;
+#X text 220 772 умножение комплексных сигналов;
+#X obj 30 800 ui.link @title [math.cos] @url math.cos-help.pd;
+#X text 220 797 функция косинуса;
+#X obj 30 825 ui.link @title [math.cosh] @url math.cosh-help.pd;
+#X text 220 822 гиперболический косинус;
+#X obj 30 850 ui.link @title [math.cosh~] @url math.cosh~-help.pd;
+#X text 220 847 гиперболический косинус для сигналов;
+#X obj 30 875 ui.link @title [math.cos~] @url math.cos~-help.pd;
+#X text 220 872 функция косинуса;
+#X obj 30 900 ui.link @title [math.div] @url math.div-help.pd;
+#X text 220 897 деление;
+#X obj 30 925 ui.link @title [math.e] @url math.e-help.pd;
+#X text 220 922 математическая константа \, основание натурального
 логарифма;
-#X obj 30 1037 math.erf;
-#X text 200 1037 функция ошибок;
-#X obj 30 1065 math.erf~;
-#X text 200 1065 функция ошибок для сигналов;
-#X obj 30 1093 math.exp;
-#X text 200 1093 экспоненциальная функция на основе числа e;
-#X obj 30 1121 math.exp2;
-#X text 200 1121 экспоненциальная функция на основе 2;
-#X obj 30 1149 math.exp2~;
-#X text 200 1149 экспоненциальная функция на основе 2 для сигналов;
-#X obj 30 1177 math.expr;
-#X text 200 1177 динамическая версия объекта [expr];
-#X obj 30 1205 math.exp~;
-#X text 200 1205 экспоненциальная функция для сигналов на основе числа
+#X obj 30 950 ui.link @title [math.erf] @url math.erf-help.pd;
+#X text 220 947 функция ошибок;
+#X obj 30 975 ui.link @title [math.erf~] @url math.erf~-help.pd;
+#X text 220 972 функция ошибок для сигналов;
+#X obj 30 1000 ui.link @title [math.exp] @url math.exp-help.pd;
+#X text 220 997 экспоненциальная функция на основе числа e;
+#X obj 30 1025 ui.link @title [math.exp2] @url math.exp2-help.pd;
+#X text 220 1022 экспоненциальная функция на основе 2;
+#X obj 30 1050 ui.link @title [math.exp2~] @url math.exp2~-help.pd;
+#X text 220 1047 экспоненциальная функция на основе 2 для сигналов;
+#X obj 30 1075 ui.link @title [math.expr] @url math.expr-help.pd;
+#X text 220 1072 динамическая версия объекта [expr];
+#X obj 30 1100 ui.link @title [math.exp~] @url math.exp~-help.pd;
+#X text 220 1097 экспоненциальная функция для сигналов на основе числа
 e;
-#X obj 30 1233 math.floor;
-#X text 200 1233 округление до наибольшего целого значения \, не превышающего
+#X obj 30 1125 ui.link @title [math.floor] @url math.floor-help.pd;
+#X text 220 1122 округление до наибольшего целого значения \, не превышающего
 входное значение;
-#X obj 30 1273 math.floor~;
-#X text 200 1273 округление до наибольшего целого значения \, не превышающего
+#X obj 30 1165 ui.link @title [math.floor~] @url math.floor~-help.pd;
+#X text 220 1162 округление до наибольшего целого значения \, не превышающего
 входного значения;
-#X obj 30 1313 math.gamma;
-#X text 200 1313 гамма-функция;
-#X obj 30 1341 math.gamma~;
-#X text 200 1341 гамма-функция для сигналов;
-#X obj 30 1369 math.gcd;
-#X text 200 1369 вычисляет наибольший общий делитель;
-#X obj 30 1397 math.inf;
-#X text 200 1397 выводит бесконечное значение в стандарте IEEE 754;
-#X obj 30 1425 math.inf~;
-#X text 200 1425 выводит бесконечное значение в стандарте IEEE 754;
-#X obj 30 1453 math.lcm;
-#X text 200 1453 вычисляет наименьшее общее кратное;
-#X obj 30 1481 math.lgamma;
-#X text 200 1481 натуральный логарифм абсолютного значения гамма-функции;
-#X obj 30 1509 math.lgamma~;
-#X text 200 1509 натуральный логарифм абсолютного значения гамма-функции
+#X obj 30 1205 ui.link @title [math.gamma] @url math.gamma-help.pd;
+#X text 220 1202 гамма-функция;
+#X obj 30 1230 ui.link @title [math.gamma~] @url math.gamma~-help.pd;
+#X text 220 1227 гамма-функция для сигналов;
+#X obj 30 1255 ui.link @title [math.gcd] @url math.gcd-help.pd;
+#X text 220 1252 вычисляет наибольший общий делитель;
+#X obj 30 1280 ui.link @title [math.inf] @url math.inf-help.pd;
+#X text 220 1277 выводит бесконечное значение в стандарте IEEE 754;
+#X obj 30 1305 ui.link @title [math.inf~] @url math.inf~-help.pd;
+#X text 220 1302 выводит бесконечное значение в стандарте IEEE 754;
+#X obj 30 1330 ui.link @title [math.lcm] @url math.lcm-help.pd;
+#X text 220 1327 вычисляет наименьшее общее кратное;
+#X obj 30 1355 ui.link @title [math.lgamma] @url math.lgamma-help.pd;
+#X text 220 1352 натуральный логарифм абсолютного значения гамма-функции;
+#X obj 30 1380 ui.link @title [math.lgamma~] @url
+math.lgamma~-help.pd;
+#X text 220 1377 натуральный логарифм абсолютного значения гамма-функции
 для сигналов;
-#X obj 30 1549 math.log;
-#X text 200 1549 натуральный логарифм;
-#X obj 30 1577 math.log10;
-#X text 200 1577 логарифм по основанию 10;
-#X obj 30 1605 math.log10~;
-#X text 200 1605 логарифм по основанию 10;
-#X obj 30 1633 math.log2;
-#X text 200 1633 логарифм по основанию 2;
-#X obj 30 1661 math.log2~;
-#X text 200 1661 логарифм по основанию 2 для сигналов;
-#X obj 30 1689 math.log~;
-#X text 200 1689 натуральный логарифм для сигналов;
-#X obj 30 1717 math.mul;
-#X text 200 1717 умножение;
-#X obj 30 1745 math.nan;
-#X text 200 1745 Не число \, непредставимое значение;
-#X obj 30 1773 math.nan~;
-#X text 200 1773 сигнал NaN;
-#X obj 30 1801 math.neg;
-#X text 200 1801 отрицательная функция;
-#X obj 30 1829 math.or;
-#X text 200 1829 операция ИЛИ для множества аргументов;
-#X obj 30 1857 math.pi;
-#X text 200 1857 математическая константа π;
-#X obj 30 1885 math.pi~;
-#X text 200 1885 математическая константа π;
-#X obj 30 1913 math.polyeval;
-#X text 200 1913 вычисляет многочлен \, описанный списком коэффициентов;
-#X obj 30 1941 math.reciprocal;
-#X text 200 1941 вычислить обратное значение;
-#X obj 30 1969 math.reciprocal~;
-#X text 200 1969 вычислить обратное значение для сигналов;
-#X obj 30 1997 math.round;
-#X text 200 1997 округление до ближайшего целого значения;
-#X obj 30 2025 math.round~;
-#X text 200 2025 округление сигнала до ближайшего целого значения;
-#X obj 30 2053 math.sign;
-#X text 200 2053 знаковая функция;
-#X obj 30 2081 math.sin;
-#X text 200 2081 функция синуса;
-#X obj 30 2109 math.sinh;
-#X text 200 2109 гиперболическая функция синуса;
-#X obj 30 2137 math.sinh~;
-#X text 200 2137 гиперболический синус для сигналов;
-#X obj 30 2165 math.sin~;
-#X text 200 2165 функция синуса;
-#X obj 30 2193 math.sqrt;
-#X text 200 2193 функция квадратного корня;
-#X obj 30 2221 math.sqrt~;
-#X text 200 2221 квадратный корень для сигнала;
-#X obj 30 2249 math.squared;
-#X text 200 2249 возведение в квадрат;
-#X obj 30 2277 math.squared~;
-#X text 200 2277 возведение в квадрат;
-#X obj 30 2305 math.sync_add;
-#X text 200 2305 синхронное сложение;
-#X obj 30 2333 math.sync_and;
-#X text 200 2333 синхронное логическое И;
-#X obj 30 2361 math.sync_div;
-#X text 200 2361 синхронное деление;
-#X obj 30 2389 math.sync_eq;
-#X text 200 2389 синхронная проверка на равенство;
-#X obj 30 2417 math.sync_ge;
-#X text 200 2417 синхронная проверка на больше или равно;
-#X obj 30 2445 math.sync_gt;
-#X text 200 2445 синхронная проверка на большее значение;
-#X obj 30 2473 math.sync_le;
-#X text 200 2473 синхронная проверка на меньше или равно;
-#X obj 30 2501 math.sync_lshift;
-#X text 200 2501 синхронный битовый сдвиг налево;
-#X obj 30 2529 math.sync_lt;
-#X text 200 2529 синхронная проверка на меньшее значение;
-#X obj 30 2557 math.sync_mod;
-#X text 200 2557 синхронный остаток от деления по модулю (с плавающей
+#X obj 30 1420 ui.link @title [math.log] @url math.log-help.pd;
+#X text 220 1417 натуральный логарифм;
+#X obj 30 1445 ui.link @title [math.log10] @url math.log10-help.pd;
+#X text 220 1442 логарифм по основанию 10;
+#X obj 30 1470 ui.link @title [math.log10~] @url math.log10~-help.pd;
+#X text 220 1467 логарифм по основанию 10;
+#X obj 30 1495 ui.link @title [math.log2] @url math.log2-help.pd;
+#X text 220 1492 логарифм по основанию 2;
+#X obj 30 1520 ui.link @title [math.log2~] @url math.log2~-help.pd;
+#X text 220 1517 логарифм по основанию 2 для сигналов;
+#X obj 30 1545 ui.link @title [math.log~] @url math.log~-help.pd;
+#X text 220 1542 натуральный логарифм для сигналов;
+#X obj 30 1570 ui.link @title [math.mul] @url math.mul-help.pd;
+#X text 220 1567 умножение;
+#X obj 30 1595 ui.link @title [math.nan] @url math.nan-help.pd;
+#X text 220 1592 Не число \, непредставимое значение;
+#X obj 30 1620 ui.link @title [math.nan~] @url math.nan~-help.pd;
+#X text 220 1617 сигнал NaN;
+#X obj 30 1645 ui.link @title [math.neg] @url math.neg-help.pd;
+#X text 220 1642 отрицательная функция;
+#X obj 30 1670 ui.link @title [math.or] @url math.or-help.pd;
+#X text 220 1667 операция ИЛИ для множества аргументов;
+#X obj 30 1695 ui.link @title [math.pi] @url math.pi-help.pd;
+#X text 220 1692 математическая константа π;
+#X obj 30 1720 ui.link @title [math.pi~] @url math.pi~-help.pd;
+#X text 220 1717 математическая константа π;
+#X obj 30 1745 ui.link @title [math.polyeval] @url
+math.polyeval-help.pd;
+#X text 220 1742 вычисляет многочлен \, описанный списком коэффициентов;
+#X obj 30 1770 ui.link @title [math.reciprocal] @url
+math.reciprocal-help.pd;
+#X text 220 1767 вычислить обратное значение;
+#X obj 30 1795 ui.link @title [math.reciprocal~] @url
+math.reciprocal~-help.pd;
+#X text 220 1792 вычислить обратное значение для сигналов;
+#X obj 30 1820 ui.link @title [math.round] @url math.round-help.pd;
+#X text 220 1817 округление до ближайшего целого значения;
+#X obj 30 1845 ui.link @title [math.round~] @url math.round~-help.pd;
+#X text 220 1842 округление сигнала до ближайшего целого значения;
+#X obj 30 1870 ui.link @title [math.sign] @url math.sign-help.pd;
+#X text 220 1867 знаковая функция;
+#X obj 30 1895 ui.link @title [math.sin] @url math.sin-help.pd;
+#X text 220 1892 функция синуса;
+#X obj 30 1920 ui.link @title [math.sinh] @url math.sinh-help.pd;
+#X text 220 1917 гиперболическая функция синуса;
+#X obj 30 1945 ui.link @title [math.sinh~] @url math.sinh~-help.pd;
+#X text 220 1942 гиперболический синус для сигналов;
+#X obj 30 1970 ui.link @title [math.sin~] @url math.sin~-help.pd;
+#X text 220 1967 функция синуса;
+#X obj 30 1995 ui.link @title [math.sqrt] @url math.sqrt-help.pd;
+#X text 220 1992 функция квадратного корня;
+#X obj 30 2020 ui.link @title [math.sqrt~] @url math.sqrt~-help.pd;
+#X text 220 2017 квадратный корень для сигнала;
+#X obj 30 2045 ui.link @title [math.squared] @url
+math.squared-help.pd;
+#X text 220 2042 возведение в квадрат;
+#X obj 30 2070 ui.link @title [math.squared~] @url
+math.squared~-help.pd;
+#X text 220 2067 возведение в квадрат;
+#X obj 30 2095 ui.link @title [math.sync_add] @url
+math.sync_add-help.pd;
+#X text 220 2092 синхронное сложение;
+#X obj 30 2120 ui.link @title [math.sync_and] @url
+math.sync_and-help.pd;
+#X text 220 2117 синхронное логическое И;
+#X obj 30 2145 ui.link @title [math.sync_div] @url
+math.sync_div-help.pd;
+#X text 220 2142 синхронное деление;
+#X obj 30 2170 ui.link @title [math.sync_eq] @url
+math.sync_eq-help.pd;
+#X text 220 2167 синхронная проверка на равенство;
+#X obj 30 2195 ui.link @title [math.sync_ge] @url
+math.sync_ge-help.pd;
+#X text 220 2192 синхронная проверка на больше или равно;
+#X obj 30 2220 ui.link @title [math.sync_gt] @url
+math.sync_gt-help.pd;
+#X text 220 2217 синхронная проверка на большее значение;
+#X obj 30 2245 ui.link @title [math.sync_le] @url
+math.sync_le-help.pd;
+#X text 220 2242 синхронная проверка на меньше или равно;
+#X obj 30 2270 ui.link @title [math.sync_lshift] @url
+math.sync_lshift-help.pd;
+#X text 220 2267 синхронный битовый сдвиг налево;
+#X obj 30 2295 ui.link @title [math.sync_lt] @url
+math.sync_lt-help.pd;
+#X text 220 2292 синхронная проверка на меньшее значение;
+#X obj 30 2320 ui.link @title [math.sync_mod] @url
+math.sync_mod-help.pd;
+#X text 220 2317 синхронный остаток от деления по модулю (с плавающей
 точкой или целое);
-#X obj 30 2597 math.sync_mul;
-#X text 200 2597 синхронное умножение;
-#X obj 30 2625 math.sync_ne;
-#X text 200 2625 синхронная проверка на неравенство;
-#X obj 30 2653 math.sync_or;
-#X text 200 2653 синхронная логическая операция И;
-#X obj 30 2681 math.sync_rshift;
-#X text 200 2681 синхронный битовый сдвиг вправо;
-#X obj 30 2709 math.sync_sub;
-#X text 200 2709 синхронное вычитание;
-#X obj 30 2737 math.sync_xor;
-#X text 200 2737 логическая операция исключающее ИЛИ;
-#X obj 30 2765 math.tan;
-#X text 200 2765 тангенс;
-#X obj 30 2793 math.tanh;
-#X text 200 2793 гиперболический тангенс;
-#X obj 30 2821 math.tanh~;
-#X text 200 2821 гиперболический тангенс для сигналов;
-#X obj 30 2849 math.tan~;
-#X text 200 2849 тангенс;
-#X obj 30 2877 math.trunc;
-#X text 200 2877 усечение до целочисленного значения;
-#X obj 30 2905 math.trunc~;
-#X text 200 2905 усечение до целочисленного значения;
+#X obj 30 2360 ui.link @title [math.sync_mul] @url
+math.sync_mul-help.pd;
+#X text 220 2357 синхронное умножение;
+#X obj 30 2385 ui.link @title [math.sync_ne] @url
+math.sync_ne-help.pd;
+#X text 220 2382 синхронная проверка на неравенство;
+#X obj 30 2410 ui.link @title [math.sync_or] @url
+math.sync_or-help.pd;
+#X text 220 2407 синхронная логическая операция И;
+#X obj 30 2435 ui.link @title [math.sync_rshift] @url
+math.sync_rshift-help.pd;
+#X text 220 2432 синхронный битовый сдвиг вправо;
+#X obj 30 2460 ui.link @title [math.sync_sub] @url
+math.sync_sub-help.pd;
+#X text 220 2457 синхронное вычитание;
+#X obj 30 2485 ui.link @title [math.sync_xor] @url
+math.sync_xor-help.pd;
+#X text 220 2482 логическая операция исключающее ИЛИ;
+#X obj 30 2510 ui.link @title [math.tan] @url math.tan-help.pd;
+#X text 220 2507 тангенс;
+#X obj 30 2535 ui.link @title [math.tanh] @url math.tanh-help.pd;
+#X text 220 2532 гиперболический тангенс;
+#X obj 30 2560 ui.link @title [math.tanh~] @url math.tanh~-help.pd;
+#X text 220 2557 гиперболический тангенс для сигналов;
+#X obj 30 2585 ui.link @title [math.tan~] @url math.tan~-help.pd;
+#X text 220 2582 тангенс;
+#X obj 30 2610 ui.link @title [math.trunc] @url math.trunc-help.pd;
+#X text 220 2607 усечение до целочисленного значения;
+#X obj 30 2635 ui.link @title [math.trunc~] @url math.trunc~-help.pd;
+#X text 220 2632 усечение до целочисленного значения;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::math 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2933 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2943 library: ceammc;
+#X obj 1 2657 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2667 library: ceammc;

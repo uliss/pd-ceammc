@@ -2,13 +2,16 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 117 rhythm.euclid;
-#X text 200 117 генератор эвклидовых паттернов;
-#X obj 30 145 rhythm.hexbeat;
-#X text 200 145 генератор ритмического паттерна по шестнадцатиричным
+#X obj 30 120 ui.link @title [rhythm.euclid] @url
+rhythm.euclid-help.pd;
+#X text 220 117 генератор эвклидовых паттернов;
+#X obj 30 145 ui.link @title [rhythm.hexbeat] @url
+rhythm.hexbeat-help.pd;
+#X text 220 142 генератор ритмического паттерна по шестнадцатиричным
 значениям;
-#X obj 30 185 rhythm.lsystem;
-#X text 200 185 генератор ритмического рисунка на основе L-систем;
+#X obj 30 185 ui.link @title [rhythm.lsystem] @url
+rhythm.lsystem-help.pd;
+#X text 220 182 генератор ритмического рисунка на основе L-систем;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::music 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

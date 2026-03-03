@@ -4,84 +4,90 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 481 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 486 50 работа с различными типами данных;
-#X obj 30 117 color.mix;
-#X text 200 117 смешивание цветов;
-#X obj 30 145 color.scale;
-#X text 200 145 создание цветовой шкалы;
-#X obj 30 173 data.bimap;
-#X text 200 173 двунаправленное отображение;
-#X obj 30 201 data.color;
-#X text 200 201 цветовой тип данных;
-#X obj 30 229 data.copy;
-#X text 200 229 делает копии любых типов данных: MList \, Set и т.д.;
-#X obj 30 257 data.dict;
-#X text 200 257 контейнер словаря: хранит пары ключ-значение;
-#X obj 30 285 data.fifo;
-#X text 200 285 FIFO First In First Out) - контейнер данных "очередь";
-#X obj 30 313 data.float;
-#X text 200 313 многофункциональный объект числа с плавающей точкой;
-#X obj 30 341 data.int;
-#X text 200 341 многофункциональный объект целого числа;
-#X obj 30 369 data.list;
-#X text 200 369 cписок;
-#X obj 30 397 data.mlist;
-#X text 200 397 многомерный список;
-#X obj 30 425 data.path;
-#X text 200 425 тип данных: путь в файловой системе;
-#X obj 30 453 data.set;
-#X text 200 453 множество: контейнер \, в котором хранятся только уникальные
+#X obj 30 120 ui.link @title [color.mix] @url color.mix-help.pd;
+#X text 220 117 смешивание цветов;
+#X obj 30 145 ui.link @title [color.scale] @url color.scale-help.pd;
+#X text 220 142 создание цветовой шкалы;
+#X obj 30 170 ui.link @title [data.bimap] @url data.bimap-help.pd;
+#X text 220 167 двунаправленное отображение;
+#X obj 30 195 ui.link @title [data.color] @url data.color-help.pd;
+#X text 220 192 цветовой тип данных;
+#X obj 30 220 ui.link @title [data.copy] @url data.copy-help.pd;
+#X text 220 217 делает копии любых типов данных: MList \, Set и т.д.;
+#X obj 30 245 ui.link @title [data.dict] @url data.dict-help.pd;
+#X text 220 242 контейнер словаря: хранит пары ключ-значение;
+#X obj 30 270 ui.link @title [data.fifo] @url data.fifo-help.pd;
+#X text 220 267 FIFO First In First Out) - контейнер данных "очередь";
+#X obj 30 295 ui.link @title [data.float] @url data.float-help.pd;
+#X text 220 292 многофункциональный объект числа с плавающей точкой;
+#X obj 30 320 ui.link @title [data.int] @url data.int-help.pd;
+#X text 220 317 многофункциональный объект целого числа;
+#X obj 30 345 ui.link @title [data.list] @url data.list-help.pd;
+#X text 220 342 cписок;
+#X obj 30 370 ui.link @title [data.mlist] @url data.mlist-help.pd;
+#X text 220 367 многомерный список;
+#X obj 30 395 ui.link @title [data.path] @url data.path-help.pd;
+#X text 220 392 тип данных: путь в файловой системе;
+#X obj 30 420 ui.link @title [data.set] @url data.set-help.pd;
+#X text 220 417 множество: контейнер \, в котором хранятся только уникальные
 элементы;
-#X obj 30 493 data.set2list;
-#X text 200 493 преобразует множество в список;
-#X obj 30 521 dict.contains;
-#X text 200 521 проверка \, содержит ли словарь указанный ключ;
-#X obj 30 549 dict.each;
-#X text 200 549 отображение каждого значения в словаре с помощью боковой
+#X obj 30 460 ui.link @title [data.set2list] @url
+data.set2list-help.pd;
+#X text 220 457 преобразует множество в список;
+#X obj 30 485 ui.link @title [dict.contains] @url
+dict.contains-help.pd;
+#X text 220 482 проверка \, содержит ли словарь указанный ключ;
+#X obj 30 510 ui.link @title [dict.each] @url dict.each-help.pd;
+#X text 220 507 отображение каждого значения в словаре с помощью боковой
 цепи обработки;
-#X obj 30 589 dict.from_list;
-#X text 200 589 создает словарь из списка;
-#X obj 30 617 dict.get;
-#X text 200 617 выводит значения словаря по предварительно заданному
+#X obj 30 550 ui.link @title [dict.from_list] @url
+dict.from_list-help.pd;
+#X text 220 547 создает словарь из списка;
+#X obj 30 575 ui.link @title [dict.get] @url dict.get-help.pd;
+#X text 220 572 выводит значения словаря по предварительно заданному
 списку ключей;
-#X obj 30 657 dict.keys;
-#X text 200 657 выводит список ключей словаря;
-#X obj 30 685 dict.pass;
-#X text 200 685 пропускает (фильтрует) только указанные ключи в словаре;
-#X obj 30 713 dict.reject;
-#X text 200 713 удаляет указанные ключи из словаря;
-#X obj 30 741 dict.size;
-#X text 200 741 выводит размер словаря (число пар ключ/значение);
-#X obj 30 769 dict.to_list;
-#X text 200 769 конвертирует словарь в простой одномерный список;
-#X obj 30 797 dict.values;
-#X text 200 797 выводит значения словаря в виде многоуровневого списка
+#X obj 30 615 ui.link @title [dict.keys] @url dict.keys-help.pd;
+#X text 220 612 выводит список ключей словаря;
+#X obj 30 640 ui.link @title [dict.pass] @url dict.pass-help.pd;
+#X text 220 637 пропускает (фильтрует) только указанные ключи в словаре;
+#X obj 30 665 ui.link @title [dict.reject] @url dict.reject-help.pd;
+#X text 220 662 удаляет указанные ключи из словаря;
+#X obj 30 690 ui.link @title [dict.size] @url dict.size-help.pd;
+#X text 220 687 выводит размер словаря (число пар ключ/значение);
+#X obj 30 715 ui.link @title [dict.to_list] @url dict.to_list-help.pd;
+#X text 220 712 конвертирует словарь в простой одномерный список;
+#X obj 30 740 ui.link @title [dict.values] @url dict.values-help.pd;
+#X text 220 737 выводит значения словаря в виде многоуровневого списка
 (MList);
-#X obj 30 837 global.bimap;
-#X text 200 837 глобальное двунаправленное отображение;
-#X obj 30 865 local.bimap;
-#X text 200 865 локальный для патча контейнер двунаправленного отображения;
-#X obj 30 893 mlist.flatten;
-#X text 200 893 преобразует многоуровневый список в одноуровневый;
-#X obj 30 921 rtree.to_list;
-#X text 200 921 преобразует OpenMusic-подобное ритмическое дерево в
+#X obj 30 780 ui.link @title [global.bimap] @url global.bimap-help.pd;
+#X text 220 777 глобальное двунаправленное отображение;
+#X obj 30 805 ui.link @title [local.bimap] @url local.bimap-help.pd;
+#X text 220 802 локальный для патча контейнер двунаправленного отображения;
+#X obj 30 830 ui.link @title [mlist.flatten] @url
+mlist.flatten-help.pd;
+#X text 220 827 преобразует многоуровневый список в одноуровневый;
+#X obj 30 855 ui.link @title [rtree.to_list] @url
+rtree.to_list-help.pd;
+#X text 220 852 преобразует OpenMusic-подобное ритмическое дерево в
 список дробей;
-#X obj 30 961 set.contains;
-#X text 200 961 проверяет \, присутстует ли предварительно заданный
+#X obj 30 895 ui.link @title [set.contains] @url set.contains-help.pd;
+#X text 220 892 проверяет \, присутстует ли предварительно заданный
 элемент во входном множестве;
-#X obj 30 1001 set.diff;
-#X text 200 1001 разность между множествами;
-#X obj 30 1029 set.equal;
-#X text 200 1029 проверяет \, равны ли два множества (содержат одинаковые
+#X obj 30 935 ui.link @title [set.diff] @url set.diff-help.pd;
+#X text 220 932 разность между множествами;
+#X obj 30 960 ui.link @title [set.equal] @url set.equal-help.pd;
+#X text 220 957 проверяет \, равны ли два множества (содержат одинаковые
 элементы);
-#X obj 30 1069 set.intersect;
-#X text 200 1069 пересечение множеств;
-#X obj 30 1097 set.size;
-#X text 200 1097 выводит количество элементов в множестве;
-#X obj 30 1125 set.symdiff;
-#X text 200 1125 симметрическая разность между двумя множествами;
-#X obj 30 1153 set.union;
-#X text 200 1153 объединение множеств;
+#X obj 30 1000 ui.link @title [set.intersect] @url
+set.intersect-help.pd;
+#X text 220 997 пересечение множеств;
+#X obj 30 1025 ui.link @title [set.size] @url set.size-help.pd;
+#X text 220 1022 выводит количество элементов в множестве;
+#X obj 30 1050 ui.link @title [set.symdiff] @url set.symdiff-help.pd;
+#X text 220 1047 симметрическая разность между двумя множествами;
+#X obj 30 1075 ui.link @title [set.union] @url set.union-help.pd;
+#X text 220 1072 объединение множеств;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1181 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1191 library: ceammc;
+#X obj 1 1097 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1107 library: ceammc;

@@ -2,20 +2,22 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 117 chaos.gbman0;
-#X text 200 117 хаотический генератор на основе отображения Пряничного
+#X obj 30 120 ui.link @title [chaos.gbman0] @url chaos.gbman0-help.pd;
+#X text 220 117 хаотический генератор на основе отображения Пряничного
 человечка;
-#X obj 30 157 chaos.gbman0~;
-#X text 200 157 хаотический генератор на основе отображения Пряничного
+#X obj 30 160 ui.link @title [chaos.gbman0~] @url
+chaos.gbman0~-help.pd;
+#X text 220 157 хаотический генератор на основе отображения Пряничного
 человечка;
-#X obj 30 197 chaos.jong;
-#X text 200 197 аттрактор Питера де Йонга;
-#X obj 30 225 chaos.logistic;
-#X text 200 225 хаотический генератор на основе логистического отображения;
-#X obj 30 253 chaos.std0;
-#X text 200 253 хаотический генератор на основе стандартного отображения;
-#X obj 30 281 chaos.std0~;
-#X text 200 281 хаотический генератор на основе стандартного отображения;
+#X obj 30 200 ui.link @title [chaos.jong] @url chaos.jong-help.pd;
+#X text 220 197 аттрактор Питера де Йонга;
+#X obj 30 225 ui.link @title [chaos.logistic] @url
+chaos.logistic-help.pd;
+#X text 220 222 хаотический генератор на основе логистического отображения;
+#X obj 30 250 ui.link @title [chaos.std0] @url chaos.std0-help.pd;
+#X text 220 247 хаотический генератор на основе стандартного отображения;
+#X obj 30 275 ui.link @title [chaos.std0~] @url chaos.std0~-help.pd;
+#X text 220 272 хаотический генератор на основе стандартного отображения;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::chaos 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

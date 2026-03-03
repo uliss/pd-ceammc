@@ -4,123 +4,161 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 596 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 601 50 various converters;
-#X obj 30 117 array.p2s;
-#X text 200 117 converting the array phase [0\..1] to the sample index;
-#X obj 30 145 array.s2p;
-#X text 200 145 convert the sample index to the phase range [0\..1];
-#X obj 30 173 conv.amp2dbfs;
-#X text 200 173 convert from the amplitude to a decibel full scale;
-#X obj 30 201 conv.amp2dbfs~;
-#X text 200 201 convert from the amplitude to a decibel full scale;
-#X obj 30 229 conv.bar2ms;
-#X text 200 229 calculates bar and beat duration;
-#X obj 30 257 conv.bits2bang;
-#X text 200 257 convert list of bits to bang events;
-#X obj 30 285 conv.bits2int;
-#X text 200 285 convert list of bits to integer;
-#X obj 30 313 conv.bits2note;
-#X text 200 313 convert list of bits into note \, velocity pairs;
-#X obj 30 341 conv.bits2pos;
-#X text 200 341 converts the list of bits into the list of checked
+#X obj 30 120 ui.link @title [array.p2s] @url array.p2s-help.pd;
+#X text 220 117 converting the array phase [0\..1] to the sample index;
+#X obj 30 145 ui.link @title [array.s2p] @url array.s2p-help.pd;
+#X text 220 142 convert the sample index to the phase range [0\..1];
+#X obj 30 170 ui.link @title [conv.amp2dbfs] @url
+conv.amp2dbfs-help.pd;
+#X text 220 167 convert from the amplitude to a decibel full scale;
+#X obj 30 195 ui.link @title [conv.amp2dbfs~] @url
+conv.amp2dbfs~-help.pd;
+#X text 220 192 convert from the amplitude to a decibel full scale;
+#X obj 30 220 ui.link @title [conv.bar2ms] @url conv.bar2ms-help.pd;
+#X text 220 217 calculates bar and beat duration;
+#X obj 30 245 ui.link @title [conv.bits2bang] @url
+conv.bits2bang-help.pd;
+#X text 220 242 convert list of bits to bang events;
+#X obj 30 270 ui.link @title [conv.bits2int] @url
+conv.bits2int-help.pd;
+#X text 220 267 convert list of bits to integer;
+#X obj 30 295 ui.link @title [conv.bits2note] @url
+conv.bits2note-help.pd;
+#X text 220 292 convert list of bits into note \, velocity pairs;
+#X obj 30 320 ui.link @title [conv.bits2pos] @url
+conv.bits2pos-help.pd;
+#X text 220 317 converts the list of bits into the list of checked
 bit position;
-#X obj 30 381 conv.bpm2hz;
-#X text 200 381 converts BPM tempo into a frequency in hertz;
-#X obj 30 409 conv.bpm2ms;
-#X text 200 409 converts the BPM tempo into a beat period in milliseconds;
-#X obj 30 437 conv.bpm2sec;
-#X text 200 437 converts the BPM tempo into a period in seconds;
-#X obj 30 465 conv.car2pol;
-#X text 200 465 converts cartesian coords to polar;
-#X obj 30 493 conv.cc2amp;
-#X text 200 493 converts from MIDI Control Change range;
-#X obj 30 521 conv.char2morse;
-#X text 200 521 converts the single character into the Morse code;
-#X obj 30 549 conv.color2rgba;
-#X text 200 549 converts the named or hex color into separate RGBA
+#X obj 30 360 ui.link @title [conv.bpm2hz] @url conv.bpm2hz-help.pd;
+#X text 220 357 converts BPM tempo into a frequency in hertz;
+#X obj 30 385 ui.link @title [conv.bpm2ms] @url conv.bpm2ms-help.pd;
+#X text 220 382 converts the BPM tempo into a beat period in milliseconds;
+#X obj 30 410 ui.link @title [conv.bpm2sec] @url conv.bpm2sec-help.pd;
+#X text 220 407 converts the BPM tempo into a period in seconds;
+#X obj 30 435 ui.link @title [conv.car2pol] @url conv.car2pol-help.pd;
+#X text 220 432 converts cartesian coords to polar;
+#X obj 30 460 ui.link @title [conv.cc2amp] @url conv.cc2amp-help.pd;
+#X text 220 457 converts from MIDI Control Change range;
+#X obj 30 485 ui.link @title [conv.char2morse] @url
+conv.char2morse-help.pd;
+#X text 220 482 converts the single character into the Morse code;
+#X obj 30 510 ui.link @title [conv.color2rgba] @url
+conv.color2rgba-help.pd;
+#X text 220 507 converts the named or hex color into separate RGBA
 values;
-#X obj 30 577 conv.dbfs2amp;
-#X text 200 577 convert decibel full scale to amplitude;
-#X obj 30 605 conv.dbfs2amp~;
-#X text 200 605 convert decibel full scale to amplitude;
-#X obj 30 633 conv.degree2key;
-#X text 200 633 converts the scale degree into a key number;
-#X obj 30 661 conv.edge2bang;
-#X text 200 661 edge detector for numeric stream;
-#X obj 30 689 conv.guido2note;
-#X text 200 689 convert the Guido notation into a MIDI pitch and duration;
-#X obj 30 717 conv.hex2int;
-#X text 200 717 converts hex symbol into an integer value;
-#X obj 30 745 conv.hsl2rgb;
-#X text 200 745 convert HSL color values to RGB;
-#X obj 30 773 conv.int2bits;
-#X text 200 773 convert integer to list of bits;
-#X obj 30 801 conv.lab2rgb;
-#X text 200 801 convert LAB color values to RGB;
-#X obj 30 829 conv.lin2curve;
-#X text 200 829 map linear to exponential range with 0 allowed;
-#X obj 30 857 conv.lin2exp;
-#X text 200 857 maps linear range to exponential range;
-#X obj 30 885 conv.lin2lin;
-#X text 200 885 converts from the one linear range into another;
-#X obj 30 913 conv.lin2lin~;
-#X text 200 913 converts from the one linear range to another for signals;
-#X obj 30 941 conv.list2props;
-#X text 200 941 converts list to series of property messages;
-#X obj 30 969 conv.midi2freq;
-#X text 200 969 advanced MIDI pitch conversion to a frequency;
-#X obj 30 997 conv.ms2bpm;
-#X text 200 997 converts period in milliseconds to BPM tempo;
-#X obj 30 1025 conv.ms2samp;
-#X text 200 1025 convert time in milliseconds to number of samples
-according to current sample rate;
-#X obj 30 1065 conv.ms2samp~;
-#X text 200 1065 convert time in milliseconds to number of samples
-according to current sample rate;
-#X obj 30 1105 conv.ms2str;
-#X text 200 1105 formats time in milliseconds to symbol or string;
-#X obj 30 1133 conv.note2guido;
-#X text 200 1133 converts MIDI note number to Guido notation;
-#X obj 30 1161 conv.phase2rad;
-#X text 200 1161 converts phase value [0-1] to radians [0-2π];
-#X obj 30 1189 conv.phase2rad~;
-#X text 200 1189 convert phase value [0-1] to radians [0-2π];
-#X obj 30 1217 conv.pitch2midi;
-#X text 200 1217 converts SPN pitch to MIDI note number;
-#X obj 30 1245 conv.pol2car;
-#X text 200 1245 convert from polar coordinates to cartesian;
-#X obj 30 1273 conv.rad2phase;
-#X text 200 1273 convert radians value to phase [0-1);
-#X obj 30 1301 conv.rad2phase~;
-#X text 200 1301 convert radians value to phase [0-1);
-#X obj 30 1329 conv.rgb2hex;
-#X text 200 1329 convert separate RGB values to hex color;
-#X obj 30 1357 conv.samp2ms;
-#X text 200 1357 converts samples to millisecond according sample rate;
-#X obj 30 1385 conv.samp2ms~;
-#X text 200 1385 converts samples to milliseconds according to sample
-rate;
-#X obj 30 1413 conv.samp2sec;
-#X text 200 1413 convert samples to seconds according to sample rate;
-#X obj 30 1441 conv.sec2bpm;
-#X text 200 1441 converts period in seconds to frequency in BPM;
-#X obj 30 1469 conv.sec2samp;
-#X text 200 1469 converts time in seconds to number of samples according
+#X obj 30 535 ui.link @title [conv.dbfs2amp] @url
+conv.dbfs2amp-help.pd;
+#X text 220 532 convert decibel full scale to amplitude;
+#X obj 30 560 ui.link @title [conv.dbfs2amp~] @url
+conv.dbfs2amp~-help.pd;
+#X text 220 557 convert decibel full scale to amplitude;
+#X obj 30 585 ui.link @title [conv.degree2key] @url
+conv.degree2key-help.pd;
+#X text 220 582 converts the scale degree into a key number;
+#X obj 30 610 ui.link @title [conv.edge2bang] @url
+conv.edge2bang-help.pd;
+#X text 220 607 edge detector for numeric stream;
+#X obj 30 635 ui.link @title [conv.guido2note] @url
+conv.guido2note-help.pd;
+#X text 220 632 convert the Guido notation into a MIDI pitch and duration;
+#X obj 30 660 ui.link @title [conv.hex2int] @url conv.hex2int-help.pd;
+#X text 220 657 converts hex symbol into an integer value;
+#X obj 30 685 ui.link @title [conv.hsl2rgb] @url conv.hsl2rgb-help.pd;
+#X text 220 682 convert HSL color values to RGB;
+#X obj 30 710 ui.link @title [conv.int2bits] @url
+conv.int2bits-help.pd;
+#X text 220 707 convert integer to list of bits;
+#X obj 30 735 ui.link @title [conv.lab2rgb] @url conv.lab2rgb-help.pd;
+#X text 220 732 convert LAB color values to RGB;
+#X obj 30 760 ui.link @title [conv.lin2curve] @url
+conv.lin2curve-help.pd;
+#X text 220 757 map linear to exponential range with 0 allowed;
+#X obj 30 785 ui.link @title [conv.lin2exp] @url conv.lin2exp-help.pd;
+#X text 220 782 maps linear range to exponential range;
+#X obj 30 810 ui.link @title [conv.lin2lin] @url conv.lin2lin-help.pd;
+#X text 220 807 converts from the one linear range into another;
+#X obj 30 835 ui.link @title [conv.lin2lin~] @url
+conv.lin2lin~-help.pd;
+#X text 220 832 converts from the one linear range to another for signals;
+#X obj 30 860 ui.link @title [conv.list2props] @url
+conv.list2props-help.pd;
+#X text 220 857 converts list to series of property messages;
+#X obj 30 885 ui.link @title [conv.midi2freq] @url
+conv.midi2freq-help.pd;
+#X text 220 882 advanced MIDI pitch conversion to a frequency;
+#X obj 30 910 ui.link @title [conv.ms2bpm] @url conv.ms2bpm-help.pd;
+#X text 220 907 converts period in milliseconds to BPM tempo;
+#X obj 30 935 ui.link @title [conv.ms2samp] @url conv.ms2samp-help.pd;
+#X text 220 932 convert time in milliseconds to number of samples according
 to current sample rate;
-#X obj 30 1509 conv.sec2str;
-#X text 200 1509 formats time in seconds to symbol or string;
-#X obj 30 1537 conv.semi2ratio;
-#X text 200 1537 converts interval in semitones to frequency ratio
+#X obj 30 975 ui.link @title [conv.ms2samp~] @url
+conv.ms2samp~-help.pd;
+#X text 220 972 convert time in milliseconds to number of samples according
+to current sample rate;
+#X obj 30 1015 ui.link @title [conv.ms2str] @url conv.ms2str-help.pd;
+#X text 220 1012 formats time in milliseconds to symbol or string;
+#X obj 30 1040 ui.link @title [conv.note2guido] @url
+conv.note2guido-help.pd;
+#X text 220 1037 converts MIDI note number to Guido notation;
+#X obj 30 1065 ui.link @title [conv.phase2rad] @url
+conv.phase2rad-help.pd;
+#X text 220 1062 converts phase value [0-1] to radians [0-2π];
+#X obj 30 1090 ui.link @title [conv.phase2rad~] @url
+conv.phase2rad~-help.pd;
+#X text 220 1087 convert phase value [0-1] to radians [0-2π];
+#X obj 30 1115 ui.link @title [conv.pitch2midi] @url
+conv.pitch2midi-help.pd;
+#X text 220 1112 converts SPN pitch to MIDI note number;
+#X obj 30 1140 ui.link @title [conv.pol2car] @url
+conv.pol2car-help.pd;
+#X text 220 1137 convert from polar coordinates to cartesian;
+#X obj 30 1165 ui.link @title [conv.rad2phase] @url
+conv.rad2phase-help.pd;
+#X text 220 1162 convert radians value to phase [0-1);
+#X obj 30 1190 ui.link @title [conv.rad2phase~] @url
+conv.rad2phase~-help.pd;
+#X text 220 1187 convert radians value to phase [0-1);
+#X obj 30 1215 ui.link @title [conv.rgb2hex] @url
+conv.rgb2hex-help.pd;
+#X text 220 1212 convert separate RGB values to hex color;
+#X obj 30 1240 ui.link @title [conv.samp2ms] @url
+conv.samp2ms-help.pd;
+#X text 220 1237 converts samples to millisecond according sample rate;
+#X obj 30 1265 ui.link @title [conv.samp2ms~] @url
+conv.samp2ms~-help.pd;
+#X text 220 1262 converts samples to milliseconds according to sample
+rate;
+#X obj 30 1290 ui.link @title [conv.samp2sec] @url
+conv.samp2sec-help.pd;
+#X text 220 1287 convert samples to seconds according to sample rate;
+#X obj 30 1315 ui.link @title [conv.sec2bpm] @url
+conv.sec2bpm-help.pd;
+#X text 220 1312 converts period in seconds to frequency in BPM;
+#X obj 30 1340 ui.link @title [conv.sec2samp] @url
+conv.sec2samp-help.pd;
+#X text 220 1337 converts time in seconds to number of samples according
+to current sample rate;
+#X obj 30 1380 ui.link @title [conv.sec2str] @url
+conv.sec2str-help.pd;
+#X text 220 1377 formats time in seconds to symbol or string;
+#X obj 30 1405 ui.link @title [conv.semi2ratio] @url
+conv.semi2ratio-help.pd;
+#X text 220 1402 converts interval in semitones to frequency ratio
 in 12-ET;
-#X obj 30 1565 conv.sig2float~;
-#X text 200 1565 converts audio signal to control numeric stream;
-#X obj 30 1593 conv.str2sec;
-#X text 200 1593 converts the formatted time to a float value in seconds;
-#X obj 30 1621 music.dur2time;
-#X text 200 1621 transforms the list of musical durations into a list
+#X obj 30 1430 ui.link @title [conv.sig2float~] @url
+conv.sig2float~-help.pd;
+#X text 220 1427 converts audio signal to control numeric stream;
+#X obj 30 1455 ui.link @title [conv.str2sec] @url
+conv.str2sec-help.pd;
+#X text 220 1452 converts the formatted time to a float value in seconds;
+#X obj 30 1480 ui.link @title [music.dur2time] @url
+music.dur2time-help.pd;
+#X text 220 1477 transforms the list of musical durations into a list
 of time periods;
-#X obj 30 1661 music.voice2midi;
-#X text 200 1661 convert single voice music to list of MIDI pitches;
+#X obj 30 1520 ui.link @title [music.voice2midi] @url
+music.voice2midi-help.pd;
+#X text 220 1517 convert single voice music to list of MIDI pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1689 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1699 library: ceammc;
+#X obj 1 1542 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1552 library: ceammc;

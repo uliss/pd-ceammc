@@ -4,81 +4,94 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 420 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 425 50 работа со звуковыми массивами и таблицами;
-#X obj 30 117 array.bpm;
-#X text 200 117 вычисление BPM;
-#X obj 30 145 array.circular;
-#X text 200 145 чтение/запись в массив \, как в кольцевой буфер;
-#X obj 30 173 array.circular~;
-#X text 200 173 чтение/запись сигнала в массив \, как в кольцевой буфер;
-#X obj 30 201 array.convolve;
-#X text 200 201 FFT свертка массива;
-#X obj 30 229 array.copy;
-#X text 200 229 копирование семплов из одного массива в другой;
-#X obj 30 257 array.do;
-#X text 200 257 обход и модификация содержимого массива через боковую
+#X obj 30 120 ui.link @title [array.bpm] @url array.bpm-help.pd;
+#X text 220 117 вычисление BPM;
+#X obj 30 145 ui.link @title [array.circular] @url
+array.circular-help.pd;
+#X text 220 142 чтение/запись в массив \, как в кольцевой буфер;
+#X obj 30 170 ui.link @title [array.circular~] @url
+array.circular~-help.pd;
+#X text 220 167 чтение/запись сигнала в массив \, как в кольцевой буфер;
+#X obj 30 195 ui.link @title [array.convolve] @url
+array.convolve-help.pd;
+#X text 220 192 FFT свертка массива;
+#X obj 30 220 ui.link @title [array.copy] @url array.copy-help.pd;
+#X text 220 217 копирование семплов из одного массива в другой;
+#X obj 30 245 ui.link @title [array.do] @url array.do-help.pd;
+#X text 220 242 обход и модификация содержимого массива через боковую
 цепь;
-#X obj 30 285 array.each;
-#X text 200 285 обработка каждого элемента массива через боковую цепь;
-#X obj 30 313 array.fill;
-#X text 200 313 заполнение массива одним значением \, шаблоном или
+#X obj 30 270 ui.link @title [array.each] @url array.each-help.pd;
+#X text 220 267 обработка каждого элемента массива через боковую цепь;
+#X obj 30 295 ui.link @title [array.fill] @url array.fill-help.pd;
+#X text 220 292 заполнение массива одним значением \, шаблоном или
 функцией;
-#X obj 30 341 array.grainer~;
-#X text 200 341 гранулятор звуковой таблицы;
-#X obj 30 369 array.hist;
-#X text 200 369 вычисление гистограммы массива;
-#X obj 30 397 array.ltcplay~;
-#X text 200 397 проигрывание звуковой таблицы \, с управлением по LTC;
-#X obj 30 425 array.mean;
-#X text 200 425 вычисляет среднее арифметическое значение массива;
-#X obj 30 453 array.minmax;
-#X text 200 453 поиск минимального и максимального значения в массиве;
-#X obj 30 481 array.play~;
-#X text 200 481 проигрывание массива с изменяемой скоростью и амплитудой;
-#X obj 30 509 array.plot;
-#X text 200 509 построение числовых графиков данных на массиве;
-#X obj 30 537 array.plot~;
-#X text 200 537 построение графика сигнала на заданном массиве;
-#X obj 30 565 array.readwrite~;
-#X text 200 565 одновременное чтение/запись сигналов в массив;
-#X obj 30 593 array.resample;
-#X text 200 593 пересемплирование массива;
-#X obj 30 621 array.rms;
-#X text 200 621 вычисляет среднее квадратичное значение для массива;
-#X obj 30 649 array.set;
-#X text 200 649 устанавливает содержание массива данными из списка;
-#X obj 30 677 array.stddev;
-#X text 200 677 вычисляет стандартное отклонение для значений массива;
-#X obj 30 705 array.stretch;
-#X text 200 705 растяжение во времени \, изменение высоты тона или
+#X obj 30 320 ui.link @title [array.grainer~] @url
+array.grainer~-help.pd;
+#X text 220 317 гранулятор звуковой таблицы;
+#X obj 30 345 ui.link @title [array.hist] @url array.hist-help.pd;
+#X text 220 342 вычисление гистограммы массива;
+#X obj 30 370 ui.link @title [array.ltcplay~] @url
+array.ltcplay~-help.pd;
+#X text 220 367 проигрывание звуковой таблицы \, с управлением по LTC;
+#X obj 30 395 ui.link @title [array.mean] @url array.mean-help.pd;
+#X text 220 392 вычисляет среднее арифметическое значение массива;
+#X obj 30 420 ui.link @title [array.minmax] @url array.minmax-help.pd;
+#X text 220 417 поиск минимального и максимального значения в массиве;
+#X obj 30 445 ui.link @title [array.play~] @url array.play~-help.pd;
+#X text 220 442 проигрывание массива с изменяемой скоростью и амплитудой;
+#X obj 30 470 ui.link @title [array.plot] @url array.plot-help.pd;
+#X text 220 467 построение числовых графиков данных на массиве;
+#X obj 30 495 ui.link @title [array.plot~] @url array.plot~-help.pd;
+#X text 220 492 построение графика сигнала на заданном массиве;
+#X obj 30 520 ui.link @title [array.readwrite~] @url
+array.readwrite~-help.pd;
+#X text 220 517 одновременное чтение/запись сигналов в массив;
+#X obj 30 545 ui.link @title [array.resample] @url
+array.resample-help.pd;
+#X text 220 542 пересемплирование массива;
+#X obj 30 570 ui.link @title [array.rms] @url array.rms-help.pd;
+#X text 220 567 вычисляет среднее квадратичное значение для массива;
+#X obj 30 595 ui.link @title [array.set] @url array.set-help.pd;
+#X text 220 592 устанавливает содержание массива данными из списка;
+#X obj 30 620 ui.link @title [array.stddev] @url array.stddev-help.pd;
+#X text 220 617 вычисляет стандартное отклонение для значений массива;
+#X obj 30 645 ui.link @title [array.stretch] @url
+array.stretch-help.pd;
+#X text 220 642 растяжение во времени \, изменение высоты тона или
 скорости у массива;
-#X obj 30 745 array.sum;
-#X text 200 745 вычисляет сумму элементов массива;
-#X obj 30 773 array.sum2;
-#X text 200 773 вычисляет сумму квадратов элементов массива;
-#X obj 30 801 array.tramp~;
-#X text 200 801 запускаемый генератор линейного индекса для массива;
-#X obj 30 829 array.variance;
-#X text 200 829 вычисляет дисперсию значений массива;
-#X obj 30 857 array.vplay;
-#X text 200 857 простой плеер массивов для использования с объектом
+#X obj 30 685 ui.link @title [array.sum] @url array.sum-help.pd;
+#X text 220 682 вычисляет сумму элементов массива;
+#X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
+#X text 220 707 вычисляет сумму квадратов элементов массива;
+#X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
+#X text 220 732 запускаемый генератор линейного индекса для массива;
+#X obj 30 760 ui.link @title [array.variance] @url
+array.variance-help.pd;
+#X text 220 757 вычисляет дисперсию значений массива;
+#X obj 30 785 ui.link @title [array.vplay] @url array.vplay-help.pd;
+#X text 220 782 простой плеер массивов для использования с объектом
 [vline~];
-#X obj 30 885 array.window;
-#X text 200 885 заполнение массива оконной функцией;
-#X obj 30 913 plot.geomspace~;
-#X text 200 913 выводит последовательность равномерно распределенных
+#X obj 30 810 ui.link @title [array.window] @url array.window-help.pd;
+#X text 220 807 заполнение массива оконной функцией;
+#X obj 30 835 ui.link @title [plot.geomspace~] @url
+plot.geomspace~-help.pd;
+#X text 220 832 выводит последовательность равномерно распределенных
 по логарифмической шкале чисел (геометрическая прогрессия);
-#X obj 30 968 plot.hist~;
-#X text 200 968 вычисляет и выводит гистограмму входного сигнала;
-#X obj 30 996 plot.linspace~;
-#X text 200 996 выводит последовательность равномерно распределенных
+#X obj 30 890 ui.link @title [plot.hist~] @url plot.hist~-help.pd;
+#X text 220 887 вычисляет и выводит гистограмму входного сигнала;
+#X obj 30 915 ui.link @title [plot.linspace~] @url
+plot.linspace~-help.pd;
+#X text 220 912 выводит последовательность равномерно распределенных
 в заданном интервале числе;
-#X obj 30 1036 plot.logspace~;
-#X text 200 1036 выводит последовательность равномерно распределенных
+#X obj 30 955 ui.link @title [plot.logspace~] @url
+plot.logspace~-help.pd;
+#X text 220 952 выводит последовательность равномерно распределенных
 по логарифмической шкале чисел;
-#X obj 30 1076 plot.response~;
-#X text 200 1076 выводит амплитудный \, фазовый и частотный отклики
+#X obj 30 995 ui.link @title [plot.response~] @url
+plot.response~-help.pd;
+#X text 220 992 выводит амплитудный \, фазовый и частотный отклики
 на входной сигнал;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1116 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1126 library: ceammc;
+#X obj 1 1032 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1042 library: ceammc;

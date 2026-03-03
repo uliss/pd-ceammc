@@ -4,25 +4,29 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 552 50 cnv 1 188 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 557 50 random number generation;
-#X obj 30 117 random.atom;
-#X text 200 117 weighed choosing of the random atom from the specified
+#X obj 30 120 ui.link @title [random.atom] @url random.atom-help.pd;
+#X text 220 117 weighed choosing of the random atom from the specified
 list;
-#X obj 30 145 random.discrete;
-#X text 200 145 generate random weighted integers on the interval [0
+#X obj 30 145 ui.link @title [random.discrete] @url
+random.discrete-help.pd;
+#X text 220 142 generate random weighted integers on the interval [0
 \, n);
-#X obj 30 173 random.float;
-#X text 200 173 uniform random generator of floats in the specified
+#X obj 30 170 ui.link @title [random.float] @url random.float-help.pd;
+#X text 220 167 uniform random generator of floats in the specified
 range;
-#X obj 30 201 random.gauss;
-#X text 200 201 gaussian random distribution;
-#X obj 30 229 random.int;
-#X text 200 229 uniform random integer generator in the specified range;
-#X obj 30 257 random.linear;
-#X text 200 257 random linear distribution;
-#X obj 30 285 random.pw_const;
-#X text 200 285 piecewise constant random distribution;
-#X obj 30 313 random.pw_lin;
-#X text 200 313 piecewise linear random distribution;
+#X obj 30 195 ui.link @title [random.gauss] @url random.gauss-help.pd;
+#X text 220 192 gaussian random distribution;
+#X obj 30 220 ui.link @title [random.int] @url random.int-help.pd;
+#X text 220 217 uniform random integer generator in the specified range;
+#X obj 30 245 ui.link @title [random.linear] @url
+random.linear-help.pd;
+#X text 220 242 random linear distribution;
+#X obj 30 270 ui.link @title [random.pw_const] @url
+random.pw_const-help.pd;
+#X text 220 267 piecewise constant random distribution;
+#X obj 30 295 ui.link @title [random.pw_lin] @url
+random.pw_lin-help.pd;
+#X text 220 292 piecewise linear random distribution;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::random 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -4,83 +4,105 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 619 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 624 50 звуковой синтез;
-#X obj 30 117 synth.bee3~;
-#X text 200 117 FM-синтезатор в духе органа Хэммонда;
-#X obj 30 145 synth.birds~;
-#X text 200 145 генератор пения птиц;
-#X obj 30 173 synth.church_bell~;
-#X text 200 173 модовая модель церковного колокола;
-#X obj 30 201 synth.clap~;
-#X text 200 201 синтезатор хлопка ладонями на основе библиотеки языка
+#X obj 30 120 ui.link @title [synth.bee3~] @url synth.bee3~-help.pd;
+#X text 220 117 FM-синтезатор в духе органа Хэммонда;
+#X obj 30 145 ui.link @title [synth.birds~] @url synth.birds~-help.pd;
+#X text 220 142 генератор пения птиц;
+#X obj 30 170 ui.link @title [synth.church_bell~] @url
+synth.church_bell~-help.pd;
+#X text 220 167 модовая модель церковного колокола;
+#X obj 30 195 ui.link @title [synth.clap~] @url synth.clap~-help.pd;
+#X text 220 192 синтезатор хлопка ладонями на основе библиотеки языка
 Faust;
-#X obj 30 229 synth.dubdub~;
-#X text 200 229 простой синтезатор на основе пилообразной волны \,
+#X obj 30 220 ui.link @title [synth.dubdub~] @url
+synth.dubdub~-help.pd;
+#X text 220 217 простой синтезатор на основе пилообразной волны \,
 фильтруемой резонансным фильтром нижних частот;
-#X obj 30 269 synth.dx7~;
-#X text 200 269 реализация синтезатора DX7 из библиотеки Faust;
-#X obj 30 297 synth.eguitar~;
-#X text 200 297 простая модель электрогитары со стальными струнами;
-#X obj 30 325 synth.english_bell~;
-#X text 200 325 модовый синтез модели английского церковного колокола;
-#X obj 30 353 synth.fgrain~;
-#X text 200 353 файловый гранулятор из библиотеки STK;
-#X obj 30 381 synth.french_bell~;
-#X text 200 381 модовый синтез модели французского церковного колокола;
-#X obj 30 409 synth.german_bell~;
-#X text 200 409 модовый синтез немецкой модели колокола;
-#X obj 30 437 synth.glass_harm~;
-#X text 200 437 нелинейная волноводная модель стеклянной гармоники;
-#X obj 30 465 synth.glitch~;
-#X text 200 465 глитч-синтезатор от naivesound;
-#X obj 30 493 synth.harpsichord~;
-#X text 200 493 синтезатор клавесина на основе техники волноводного
+#X obj 30 260 ui.link @title [synth.dx7~] @url synth.dx7~-help.pd;
+#X text 220 257 реализация синтезатора DX7 из библиотеки Faust;
+#X obj 30 285 ui.link @title [synth.eguitar~] @url
+synth.eguitar~-help.pd;
+#X text 220 282 простая модель электрогитары со стальными струнами;
+#X obj 30 310 ui.link @title [synth.english_bell~] @url
+synth.english_bell~-help.pd;
+#X text 220 307 модовый синтез модели английского церковного колокола;
+#X obj 30 335 ui.link @title [synth.fgrain~] @url
+synth.fgrain~-help.pd;
+#X text 220 332 файловый гранулятор из библиотеки STK;
+#X obj 30 360 ui.link @title [synth.french_bell~] @url
+synth.french_bell~-help.pd;
+#X text 220 357 модовый синтез модели французского церковного колокола;
+#X obj 30 385 ui.link @title [synth.german_bell~] @url
+synth.german_bell~-help.pd;
+#X text 220 382 модовый синтез немецкой модели колокола;
+#X obj 30 410 ui.link @title [synth.glass_harm~] @url
+synth.glass_harm~-help.pd;
+#X text 220 407 нелинейная волноводная модель стеклянной гармоники;
+#X obj 30 435 ui.link @title [synth.glitch~] @url
+synth.glitch~-help.pd;
+#X text 220 432 глитч-синтезатор от naivesound;
+#X obj 30 460 ui.link @title [synth.harpsichord~] @url
+synth.harpsichord~-help.pd;
+#X text 220 457 синтезатор клавесина на основе техники волноводного
 синтеза;
-#X obj 30 521 synth.hat~;
-#X text 200 521 синтезатор хай-хэта из библиотеки Faust;
-#X obj 30 549 synth.kick2~;
-#X text 200 549 синтезатор бочки из библиотеки Faust;
-#X obj 30 577 synth.kick~;
-#X text 200 577 синтезатор бочки из проекта Guitarix;
-#X obj 30 605 synth.ks~;
-#X text 200 605 синтезатор колебаний струны по алгоритму Каплуса-Стронга;
-#X obj 30 633 synth.marimba~;
-#X text 200 633 простая физическая модель маримбы \, реализующая звуковой
+#X obj 30 485 ui.link @title [synth.hat~] @url synth.hat~-help.pd;
+#X text 220 482 синтезатор хай-хэта из библиотеки Faust;
+#X obj 30 510 ui.link @title [synth.kick2~] @url synth.kick2~-help.pd;
+#X text 220 507 синтезатор бочки из библиотеки Faust;
+#X obj 30 535 ui.link @title [synth.kick~] @url synth.kick~-help.pd;
+#X text 220 532 синтезатор бочки из проекта Guitarix;
+#X obj 30 560 ui.link @title [synth.ks~] @url synth.ks~-help.pd;
+#X text 220 557 синтезатор колебаний струны по алгоритму Каплуса-Стронга;
+#X obj 30 585 ui.link @title [synth.marimba~] @url
+synth.marimba~-help.pd;
+#X text 220 582 простая физическая модель маримбы \, реализующая звуковой
 брусок \, соединенный с трубой;
-#X obj 30 673 synth.metro~;
-#X text 200 673 готовый к использованию синтезатор метронома;
-#X obj 30 701 synth.piano~;
-#X text 200 701 фортепиано на основе техники связанного волноводного
+#X obj 30 625 ui.link @title [synth.metro~] @url synth.metro~-help.pd;
+#X text 220 622 готовый к использованию синтезатор метронома;
+#X obj 30 650 ui.link @title [synth.piano~] @url synth.piano~-help.pd;
+#X text 220 647 фортепиано на основе техники связанного волноводного
 синтеза;
-#X obj 30 729 synth.rhodey~;
-#X text 200 729 FM-синтезатор в стиле Fender Rhodes piano из библиотеки
+#X obj 30 675 ui.link @title [synth.rhodey~] @url
+synth.rhodey~-help.pd;
+#X text 220 672 FM-синтезатор в стиле Fender Rhodes piano из библиотеки
 STK;
-#X obj 30 757 synth.risset_arp~;
-#X text 200 757 эффект арпеджио Жан-Клода Риссе;
-#X obj 30 785 synth.risset_bell~;
-#X text 200 785 колокол Жан-Клода Риссе;
-#X obj 30 813 synth.risset_tone~;
-#X text 200 813 бесконечное глиссандо Жан-Клода Риссе;
-#X obj 30 841 synth.russian_bell~;
-#X text 200 841 модовый синтез модели русского церковного колокола;
-#X obj 30 869 synth.shakers~;
-#X text 200 869 различные перкуссионные звуки из библиотеки STK;
-#X obj 30 897 synth.sitar~;
-#X text 200 897 синтезатор ситара из библиотеки STK;
-#X obj 30 925 synth.snare~;
-#X text 200 925 синтезатор малого барабана из проекта Guitarix;
-#X obj 30 953 synth.standard_bell~;
-#X text 200 953 модовый синтез стандартной модели колокола;
-#X obj 30 981 synth.tube_bell~;
-#X text 200 981 FM-синтезатор оркестрового колокола из библиотеки STK;
-#X obj 30 1009 synth.voice_fofc~;
-#X text 200 1009 простой формантный/вокальный синтезатор с банком фильтров
+#X obj 30 700 ui.link @title [synth.risset_arp~] @url
+synth.risset_arp~-help.pd;
+#X text 220 697 эффект арпеджио Жан-Клода Риссе;
+#X obj 30 725 ui.link @title [synth.risset_bell~] @url
+synth.risset_bell~-help.pd;
+#X text 220 722 колокол Жан-Клода Риссе;
+#X obj 30 750 ui.link @title [synth.risset_tone~] @url
+synth.risset_tone~-help.pd;
+#X text 220 747 бесконечное глиссандо Жан-Клода Риссе;
+#X obj 30 775 ui.link @title [synth.russian_bell~] @url
+synth.russian_bell~-help.pd;
+#X text 220 772 модовый синтез модели русского церковного колокола;
+#X obj 30 800 ui.link @title [synth.shakers~] @url
+synth.shakers~-help.pd;
+#X text 220 797 различные перкуссионные звуки из библиотеки STK;
+#X obj 30 825 ui.link @title [synth.sitar~] @url synth.sitar~-help.pd;
+#X text 220 822 синтезатор ситара из библиотеки STK;
+#X obj 30 850 ui.link @title [synth.snare~] @url synth.snare~-help.pd;
+#X text 220 847 синтезатор малого барабана из проекта Guitarix;
+#X obj 30 875 ui.link @title [synth.standard_bell~] @url
+synth.standard_bell~-help.pd;
+#X text 220 872 модовый синтез стандартной модели колокола;
+#X obj 30 900 ui.link @title [synth.tube_bell~] @url
+synth.tube_bell~-help.pd;
+#X text 220 897 FM-синтезатор оркестрового колокола из библиотеки STK;
+#X obj 30 925 ui.link @title [synth.voice_fofc~] @url
+synth.voice_fofc~-help.pd;
+#X text 220 922 простой формантный/вокальный синтезатор с банком фильтров
 FOF-цикла.;
-#X obj 30 1049 synth.voice_fofs~;
-#X text 200 1049 простой формантный/вокальный синтезатор со сглаженным
+#X obj 30 965 ui.link @title [synth.voice_fofs~] @url
+synth.voice_fofs~-help.pd;
+#X text 220 962 простой формантный/вокальный синтезатор со сглаженным
 банком фильтров FOF;
-#X obj 30 1089 synth.wurley~;
-#X text 200 1089 FM-синтезатор электро-фортепиано в стиле Wurlitzer;
+#X obj 30 1005 ui.link @title [synth.wurley~] @url
+synth.wurley~-help.pd;
+#X text 220 1002 FM-синтезатор электро-фортепиано в стиле Wurlitzer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1117 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1127 library: ceammc;
+#X obj 1 1027 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1037 library: ceammc;

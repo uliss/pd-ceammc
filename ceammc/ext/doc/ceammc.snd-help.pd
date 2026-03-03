@@ -2,10 +2,10 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 117 snd.file;
-#X text 200 117 sound file loader with additional features;
-#X obj 30 145 snd.play~;
-#X text 200 145 sound file player with additional capabilities;
+#X obj 30 120 ui.link @title [snd.file] @url snd.file-help.pd;
+#X text 220 117 sound file loader with additional features;
+#X obj 30 145 ui.link @title [snd.play~] @url snd.play~-help.pd;
+#X text 220 142 sound file player with additional capabilities;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::snd 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

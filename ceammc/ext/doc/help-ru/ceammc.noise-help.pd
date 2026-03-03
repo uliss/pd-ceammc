@@ -4,56 +4,68 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 620 50 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 625 50 генераторы шума;
-#X obj 30 117 noise.baker;
-#X text 200 117 хаотический генератор на основе преобразования Пекаря;
-#X obj 30 145 noise.chua~;
-#X text 200 145 диодная схема цепи Чуа;
-#X obj 30 173 noise.clifford;
-#X text 200 173 аттрактор Клиффорда;
-#X obj 30 201 noise.collatz;
-#X text 200 201 выводит число последовательности Коллаца;
-#X obj 30 229 noise.colored~;
-#X text 200 229 генератор цветного шума с произвольным наклоном спектра;
-#X obj 30 257 noise.crackle~;
-#X text 200 257 генератор разреженного шума;
-#X obj 30 285 noise.duffing;
-#X text 200 285 хаотический генератор на основе осциллятора Дуффинга;
-#X obj 30 313 noise.ginger;
-#X text 200 313 хаотический генератор на основе отображения Пряничного
+#X obj 30 120 ui.link @title [noise.baker] @url noise.baker-help.pd;
+#X text 220 117 хаотический генератор на основе преобразования Пекаря;
+#X obj 30 145 ui.link @title [noise.chua~] @url noise.chua~-help.pd;
+#X text 220 142 диодная схема цепи Чуа;
+#X obj 30 170 ui.link @title [noise.clifford] @url
+noise.clifford-help.pd;
+#X text 220 167 аттрактор Клиффорда;
+#X obj 30 195 ui.link @title [noise.collatz] @url
+noise.collatz-help.pd;
+#X text 220 192 выводит число последовательности Коллаца;
+#X obj 30 220 ui.link @title [noise.colored~] @url
+noise.colored~-help.pd;
+#X text 220 217 генератор цветного шума с произвольным наклоном спектра;
+#X obj 30 245 ui.link @title [noise.crackle~] @url
+noise.crackle~-help.pd;
+#X text 220 242 генератор разреженного шума;
+#X obj 30 270 ui.link @title [noise.duffing] @url
+noise.duffing-help.pd;
+#X text 220 267 хаотический генератор на основе осциллятора Дуффинга;
+#X obj 30 295 ui.link @title [noise.ginger] @url noise.ginger-help.pd;
+#X text 220 292 хаотический генератор на основе отображения Пряничного
 человечка;
-#X obj 30 353 noise.henon;
-#X text 200 353 хаотический генератор на основе отображения Эно;
-#X obj 30 381 noise.henon_heilles;
-#X text 200 381 Hénon–Heiles_system;
-#X obj 30 409 noise.henon_phase;
-#X text 200 409 фазовые диаграммы Эно;
-#X obj 30 437 noise.henonf;
-#X text 200 437 Henon phase;
-#X obj 30 465 noise.ikeda;
-#X text 200 465 генератор хаоса на основе отображения Икеды;
-#X obj 30 493 noise.lfreq0~;
-#X text 200 493 семплированный/удержанный шум (кусочно постоянный);
-#X obj 30 521 noise.lfreq~;
-#X text 200 521 сглаженный шум объекта [noise.lfreq0~];
-#X obj 30 549 noise.lorenz;
-#X text 200 549 хаотический атрактор Лоренца;
-#X obj 30 577 noise.lyapunov;
-#X text 200 577 случайный аттрактор Ляпунова;
-#X obj 30 605 noise.navier_stokes;
-#X text 200 605 дифференциальные уравнения Навье-Стокса;
-#X obj 30 633 noise.pink~;
-#X text 200 633 генератор розового шума;
-#X obj 30 661 noise.rossler;
-#X text 200 661 аттрактор Рёсслера;
-#X obj 30 689 noise.stein;
-#X text 200 689 распределение Штейна;
-#X obj 30 717 noise.torus;
-#X text 200 717 аттрактор в виде тора;
-#X obj 30 745 noise.verhulst;
-#X text 200 745 распределение Ферхюльста;
-#X obj 30 773 noise.white~;
-#X text 200 773 генератор белого шума;
+#X obj 30 335 ui.link @title [noise.henon] @url noise.henon-help.pd;
+#X text 220 332 хаотический генератор на основе отображения Эно;
+#X obj 30 360 ui.link @title [noise.henon_heilles] @url
+noise.henon_heilles-help.pd;
+#X text 220 357 Hénon–Heiles_system;
+#X obj 30 385 ui.link @title [noise.henon_phase] @url
+noise.henon_phase-help.pd;
+#X text 220 382 фазовые диаграммы Эно;
+#X obj 30 410 ui.link @title [noise.henonf] @url noise.henonf-help.pd;
+#X text 220 407 Henon phase;
+#X obj 30 435 ui.link @title [noise.ikeda] @url noise.ikeda-help.pd;
+#X text 220 432 генератор хаоса на основе отображения Икеды;
+#X obj 30 460 ui.link @title [noise.lfreq0~] @url
+noise.lfreq0~-help.pd;
+#X text 220 457 семплированный/удержанный шум (кусочно постоянный);
+#X obj 30 485 ui.link @title [noise.lfreq~] @url noise.lfreq~-help.pd;
+#X text 220 482 сглаженный шум объекта [noise.lfreq0~];
+#X obj 30 510 ui.link @title [noise.lorenz] @url noise.lorenz-help.pd;
+#X text 220 507 хаотический атрактор Лоренца;
+#X obj 30 535 ui.link @title [noise.lyapunov] @url
+noise.lyapunov-help.pd;
+#X text 220 532 случайный аттрактор Ляпунова;
+#X obj 30 560 ui.link @title [noise.navier_stokes] @url
+noise.navier_stokes-help.pd;
+#X text 220 557 дифференциальные уравнения Навье-Стокса;
+#X obj 30 585 ui.link @title [noise.pink~] @url noise.pink~-help.pd;
+#X text 220 582 генератор розового шума;
+#X obj 30 610 ui.link @title [noise.rossler] @url
+noise.rossler-help.pd;
+#X text 220 607 аттрактор Рёсслера;
+#X obj 30 635 ui.link @title [noise.stein] @url noise.stein-help.pd;
+#X text 220 632 распределение Штейна;
+#X obj 30 660 ui.link @title [noise.torus] @url noise.torus-help.pd;
+#X text 220 657 аттрактор в виде тора;
+#X obj 30 685 ui.link @title [noise.verhulst] @url
+noise.verhulst-help.pd;
+#X text 220 682 распределение Ферхюльста;
+#X obj 30 710 ui.link @title [noise.white~] @url noise.white~-help.pd;
+#X text 220 707 генератор белого шума;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::noise 20 20 0 20 -104026
 -4096 0;
-#X obj 1 801 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 811 library: ceammc;
+#X obj 1 732 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 742 library: ceammc;

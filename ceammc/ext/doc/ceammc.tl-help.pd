@@ -4,16 +4,16 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 572 50 cnv 1 168 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 577 50 working with timeline;
-#X obj 30 117 tl.bang;
-#X text 200 117 outputs a timeline bang;
-#X obj 30 148 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 145 defines the timeline section;
-#X obj 30 170 tl.timeline;
-#X text 200 170 timeline event scheduler;
-#X obj 30 198 tl.toggle;
-#X text 200 198 timeline toggle;
-#X obj 30 226 tl.transport;
-#X text 200 226 timeline transport control;
+#X obj 30 120 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 220 117 outputs a timeline bang;
+#X obj 30 145 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 220 142 defines the timeline section;
+#X obj 30 170 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
+#X text 220 167 timeline event scheduler;
+#X obj 30 195 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
+#X text 220 192 timeline toggle;
+#X obj 30 220 ui.link @title [tl.transport] @url tl.transport-help.pd;
+#X text 220 217 timeline transport control;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::tl 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

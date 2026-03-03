@@ -4,28 +4,30 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 580 50 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 585 50 working with patches;
-#X obj 30 117 canvas.active;
-#X text 200 117 checks if the canvas of the object is on the top and
+#X obj 30 120 ui.link @title [canvas.active] @url
+canvas.active-help.pd;
+#X text 220 117 checks if the canvas of the object is on the top and
 active;
-#X obj 30 145 canvas.current;
-#X text 200 145 get the information about the current canvas of the
+#X obj 30 145 ui.link @title [canvas.current] @url
+canvas.current-help.pd;
+#X text 220 142 get the information about the current canvas of the
 object;
-#X obj 30 173 canvas.dir;
-#X text 200 173 outputs the current canvas directory of the object
+#X obj 30 170 ui.link @title [canvas.dir] @url canvas.dir-help.pd;
+#X text 220 167 outputs the current canvas directory of the object
 and nesting level;
-#X obj 30 213 canvas.name;
-#X text 200 213 output the current canvas name of the object;
-#X obj 30 241 canvas.path;
-#X text 200 241 output the current canvas file system full path of
+#X obj 30 210 ui.link @title [canvas.name] @url canvas.name-help.pd;
+#X text 220 207 output the current canvas name of the object;
+#X obj 30 235 ui.link @title [canvas.path] @url canvas.path-help.pd;
+#X text 220 232 output the current canvas file system full path of
 the object;
-#X obj 30 269 canvas.top;
-#X text 200 269 verbose information about top-level canvas of the object;
-#X obj 30 297 patch.args;
-#X text 200 297 get patch or subpatch initial arguments;
-#X obj 30 325 patch.deps;
-#X text 200 325 output the patch dependencies: used objects and abstractions;
-#X obj 30 353 patch.tree;
-#X text 200 353 output the object tree of the patch;
+#X obj 30 260 ui.link @title [canvas.top] @url canvas.top-help.pd;
+#X text 220 257 verbose information about top-level canvas of the object;
+#X obj 30 285 ui.link @title [patch.args] @url patch.args-help.pd;
+#X text 220 282 get patch or subpatch initial arguments;
+#X obj 30 310 ui.link @title [patch.deps] @url patch.deps-help.pd;
+#X text 220 307 output the patch dependencies: used objects and abstractions;
+#X obj 30 335 ui.link @title [patch.tree] @url patch.tree-help.pd;
+#X text 220 332 output the object tree of the patch;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::patch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

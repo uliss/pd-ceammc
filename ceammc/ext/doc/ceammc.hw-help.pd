@@ -4,60 +4,72 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 511 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 516 50 working with various hardware;
-#X obj 30 117 hw.apple_smc;
-#X text 200 117 query Apple system management control;
-#X obj 30 145 hw.apple_sms;
-#X text 200 145 query the sudden motion sensor in Apples;
-#X obj 30 173 hw.arduino;
-#X text 200 173 Arduino device;
-#X obj 30 201 hw.display;
-#X text 200 201 get/set display properties;
-#X obj 30 229 hw.gamepad;
-#X text 200 229 gamepad controller;
-#X obj 30 257 hw.kbd_light;
-#X text 200 257 controlling the keyboard backlight on some devices;
-#X obj 30 285 hw.motu.avb;
-#X text 200 285 controls Motu AVB devices over HTTP requests;
-#X obj 30 313 hw.printer;
-#X text 200 313 basic document printing support;
-#X obj 30 341 hw.rpi.adc.ads1115;
-#X text 200 341 driver for 16-bit ADC on ads1115 chip for Raspberry
+#X obj 30 120 ui.link @title [hw.apple_smc] @url hw.apple_smc-help.pd;
+#X text 220 117 query Apple system management control;
+#X obj 30 145 ui.link @title [hw.apple_sms] @url hw.apple_sms-help.pd;
+#X text 220 142 query the sudden motion sensor in Apples;
+#X obj 30 170 ui.link @title [hw.arduino] @url hw.arduino-help.pd;
+#X text 220 167 Arduino device;
+#X obj 30 195 ui.link @title [hw.display] @url hw.display-help.pd;
+#X text 220 192 get/set display properties;
+#X obj 30 220 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
+#X text 220 217 gamepad controller;
+#X obj 30 245 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
+#X text 220 242 controlling the keyboard backlight on some devices;
+#X obj 30 270 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
+#X text 220 267 controls Motu AVB devices over HTTP requests;
+#X obj 30 295 ui.link @title [hw.printer] @url hw.printer-help.pd;
+#X text 220 292 basic document printing support;
+#X obj 30 320 ui.link @title [hw.rpi.adc.ads1115] @url
+hw.rpi.adc.ads1115-help.pd;
+#X text 220 317 driver for 16-bit ADC on ads1115 chip for Raspberry
 Pi;
-#X obj 30 369 hw.rpi.display.hd44780;
-#X text 200 369 LCD display driver for Raspberry Pi (1602 or 2004 module);
-#X obj 30 397 hw.rpi.display.ssd1306;
-#X text 200 397 driver for OLED display on ssd1306 chip for Raspberry
+#X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
+hw.rpi.display.hd44780-help.pd;
+#X text 220 342 LCD display driver for Raspberry Pi (1602 or 2004 module);
+#X obj 30 370 ui.link @title [hw.rpi.display.ssd1306] @url
+hw.rpi.display.ssd1306-help.pd;
+#X text 220 367 driver for OLED display on ssd1306 chip for Raspberry
 Pi;
-#X obj 30 425 hw.rpi.gpio;
-#X text 200 425 GPIO control for Raspberry Pi;
-#X obj 30 453 hw.rpi.i2c.pca9685;
-#X text 200 453 driver for 16-channel 12-bit PWM module on PCA9685
+#X obj 30 395 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
+#X text 220 392 GPIO control for Raspberry Pi;
+#X obj 30 420 ui.link @title [hw.rpi.i2c.pca9685] @url
+hw.rpi.i2c.pca9685-help.pd;
+#X text 220 417 driver for 16-channel 12-bit PWM module on PCA9685
 chip for Raspberry Pi;
-#X obj 30 493 hw.rpi.pwm;
-#X text 200 493 hardware PWM output for Raspberry Pi;
-#X obj 30 521 hw.rpi.rotenc;
-#X text 200 521 rotary encoder for Raspberry Pi;
-#X obj 30 549 hw.rpi.sensor.dht11;
-#X text 200 549 digital humidity and temperature sensor (DHT11) for
+#X obj 30 460 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
+#X text 220 457 hardware PWM output for Raspberry Pi;
+#X obj 30 485 ui.link @title [hw.rpi.rotenc] @url
+hw.rpi.rotenc-help.pd;
+#X text 220 482 rotary encoder for Raspberry Pi;
+#X obj 30 510 ui.link @title [hw.rpi.sensor.dht11] @url
+hw.rpi.sensor.dht11-help.pd;
+#X text 220 507 digital humidity and temperature sensor (DHT11) for
 Raspberry Pi;
-#X obj 30 589 hw.rpi.sensor.ir;
-#X text 200 589 IR (infrared) sensors and protocols for Raspberry Pi;
-#X obj 30 617 hw.rpi.sensor.mpu6050;
-#X text 200 617 MPU-6050 gyroscope and accelerometer for Raspberry
+#X obj 30 550 ui.link @title [hw.rpi.sensor.ir] @url
+hw.rpi.sensor.ir-help.pd;
+#X text 220 547 IR (infrared) sensors and protocols for Raspberry Pi;
+#X obj 30 575 ui.link @title [hw.rpi.sensor.mpu6050] @url
+hw.rpi.sensor.mpu6050-help.pd;
+#X text 220 572 MPU-6050 gyroscope and accelerometer for Raspberry
 Pi;
-#X obj 30 645 hw.rpi.sensor.sr04;
-#X text 200 645 HC-SR04 ultrasonic ranging module for Raspberry Pi;
-#X obj 30 673 hw.rpi.sensor.vl53l0x;
-#X text 200 673 time-of-flight (ToF) laser-ranging sensor on VL53L0X
+#X obj 30 600 ui.link @title [hw.rpi.sensor.sr04] @url
+hw.rpi.sensor.sr04-help.pd;
+#X text 220 597 HC-SR04 ultrasonic ranging module for Raspberry Pi;
+#X obj 30 625 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+hw.rpi.sensor.vl53l0x-help.pd;
+#X text 220 622 time-of-flight (ToF) laser-ranging sensor on VL53L0X
 chip for Raspberry Pi;
-#X obj 30 713 hw.rpi.spi.max7219;
-#X text 200 713 LED matrix driver based on max7219 chip for Raspberry
+#X obj 30 665 ui.link @title [hw.rpi.spi.max7219] @url
+hw.rpi.spi.max7219-help.pd;
+#X text 220 662 LED matrix driver based on max7219 chip for Raspberry
 Pi;
-#X obj 30 741 hw.rpi.spi.ws2812;
-#X text 200 741 ws2812 LED strip driver for Raspberry Pi;
-#X obj 30 769 hw.serial;
-#X text 200 769 serial port device;
+#X obj 30 690 ui.link @title [hw.rpi.spi.ws2812] @url
+hw.rpi.spi.ws2812-help.pd;
+#X text 220 687 ws2812 LED strip driver for Raspberry Pi;
+#X obj 30 715 ui.link @title [hw.serial] @url hw.serial-help.pd;
+#X text 220 712 serial port device;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 797 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 807 library: ceammc;
+#X obj 1 737 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 747 library: ceammc;

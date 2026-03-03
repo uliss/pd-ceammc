@@ -4,35 +4,44 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 520 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 525 50 работа с типом данных String;
-#X obj 30 117 string;
-#X text 200 117 создание строки;
-#X obj 30 145 string.contains;
-#X text 200 145 проверяет \, содержит ли строка указанную подстроку;
-#X obj 30 173 string.ends_with;
-#X text 200 173 проверяет \, заканчивается ли строка указанной подстрокой;
-#X obj 30 201 string.equal;
-#X text 200 201 проверка строк или символов на равенство;
-#X obj 30 229 string.format;
-#X text 200 229 форматирует строку в стиле функции printf;
-#X obj 30 257 string.join;
-#X text 200 257 объединяет список в строку с указанным разделителем
+#X obj 30 120 ui.link @title [string] @url string-help.pd;
+#X text 220 117 создание строки;
+#X obj 30 145 ui.link @title [string.contains] @url
+string.contains-help.pd;
+#X text 220 142 проверяет \, содержит ли строка указанную подстроку;
+#X obj 30 170 ui.link @title [string.ends_with] @url
+string.ends_with-help.pd;
+#X text 220 167 проверяет \, заканчивается ли строка указанной подстрокой;
+#X obj 30 195 ui.link @title [string.equal] @url string.equal-help.pd;
+#X text 220 192 проверка строк или символов на равенство;
+#X obj 30 220 ui.link @title [string.format] @url
+string.format-help.pd;
+#X text 220 217 форматирует строку в стиле функции printf;
+#X obj 30 245 ui.link @title [string.join] @url string.join-help.pd;
+#X text 220 242 объединяет список в строку с указанным разделителем
 элементов;
-#X obj 30 285 string.length;
-#X text 200 285 количество символов в строке (с поддержкой Unicode);
-#X obj 30 313 string.match;
-#X text 200 313 проверка соответствия строки регулярному выражению;
-#X obj 30 341 string.remove;
-#X text 200 341 удаляет подстроку из входной строки;
-#X obj 30 369 string.replace;
-#X text 200 369 замена одной строки на другую во входной строке;
-#X obj 30 397 string.split;
-#X text 200 397 разбивает строку или символ в список по разделителю;
-#X obj 30 425 string.starts_with;
-#X text 200 425 проверка \, начинается ли строка с определенной подстроки;
-#X obj 30 453 string.substr;
-#X text 200 453 извлечение подстроки из входной строки;
-#X obj 30 481 string2symbol;
-#X text 200 481 преобразует строку в символ;
+#X obj 30 270 ui.link @title [string.length] @url
+string.length-help.pd;
+#X text 220 267 количество символов в строке (с поддержкой Unicode);
+#X obj 30 295 ui.link @title [string.match] @url string.match-help.pd;
+#X text 220 292 проверка соответствия строки регулярному выражению;
+#X obj 30 320 ui.link @title [string.remove] @url
+string.remove-help.pd;
+#X text 220 317 удаляет подстроку из входной строки;
+#X obj 30 345 ui.link @title [string.replace] @url
+string.replace-help.pd;
+#X text 220 342 замена одной строки на другую во входной строке;
+#X obj 30 370 ui.link @title [string.split] @url string.split-help.pd;
+#X text 220 367 разбивает строку или символ в список по разделителю;
+#X obj 30 395 ui.link @title [string.starts_with] @url
+string.starts_with-help.pd;
+#X text 220 392 проверка \, начинается ли строка с определенной подстроки;
+#X obj 30 420 ui.link @title [string.substr] @url
+string.substr-help.pd;
+#X text 220 417 извлечение подстроки из входной строки;
+#X obj 30 445 ui.link @title [string2symbol] @url
+string2symbol-help.pd;
+#X text 220 442 преобразует строку в символ;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::string 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
