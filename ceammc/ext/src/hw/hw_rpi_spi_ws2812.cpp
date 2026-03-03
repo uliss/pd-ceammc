@@ -112,21 +112,7 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
         ceammc_hw_spi_ws2812_flush(ws_);
 }
 
-void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
-{
-    ceammc_hw_color_rgb8 color;
-    if (!parse_color_property(color, lv)) {
-        METHOD_ERR(s) << "@color property not found in list: " << lv;
-        return;
-    }
-
-    if (is_null_device(true))
-        return;
-
-    ceammc_hw_spi_ws2812_set_slice_color(ws_, color, nullptr);
-}
-
-void HwSpiWs2812::m_set(t_symbol* s, const AtomListView& lv)
+void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_color_rgb8 color;
     if (!parse_color_property(color, lv)) {
@@ -146,7 +132,7 @@ void HwSpiWs2812::m_set(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_set_pixel_color(ws_, idx, color);
 }
 
-void HwSpiWs2812::m_set_slice(t_symbol* s, const AtomListView& lv)
+void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
 {
     ceammc_hw_color_rgb8 color;
     if (!parse_color_property(color, lv)) {
@@ -162,7 +148,7 @@ void HwSpiWs2812::m_set_slice(t_symbol* s, const AtomListView& lv)
     if (is_null_device(true))
         return;
 
-    ceammc_hw_spi_ws2812_set_slice_color(ws_, color, slice_ptr);
+    ceammc_hw_spi_ws2812_fill_slice(ws_, color, slice_ptr);
 }
 
 bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const
@@ -325,6 +311,5 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
-    obj.addMethod("set", &HwSpiWs2812::m_set);
-    obj.addMethod("set_slice", &HwSpiWs2812::m_set_slice);
+    obj.addMethod("set_pixel", &HwSpiWs2812::m_set_pixel);
 }

@@ -24,12 +24,11 @@ public:
 
     void m_brightness(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
-    void m_fill(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
     void m_fx(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
-    void m_set(t_symbol* s, const AtomListView& lv);
-    void m_set_slice(t_symbol* s, const AtomListView& lv);
+    void m_set_pixel(t_symbol* s, const AtomListView& lv);
+    void m_fill(t_symbol* s, const AtomListView& lv);
 
     //
     bool parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const;

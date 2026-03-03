@@ -146,12 +146,12 @@ pub extern "C" fn ceammc_hw_spi_ws2812_clear(ws: *const hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Clear) });
 }
 
-#[no_mangle]
-/// set leds color
+#[no_mangle] 
+/// fill leds slice with color
 /// @param ws - pointer to the led strip handle
-/// @param color - target color
+/// @param color - fill color
 /// @param slice - apply to given slice (if NULL: set all leds)
-pub extern "C" fn ceammc_hw_spi_ws2812_set_slice_color(
+pub extern "C" fn ceammc_hw_spi_ws2812_fill_slice(
     ws: *const hw_spi_ws2812,
     color: hw_color_rgb8,
     slice: *const hw_slice,

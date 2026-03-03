@@ -1109,6 +1109,14 @@ bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
 /// @param ws - pointer to the led strip handle
 bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
 
+/// fill leds slice with color
+/// @param ws - pointer to the led strip handle
+/// @param color - fill color
+/// @param slice - apply to given slice (if NULL: set all leds)
+bool ceammc_hw_spi_ws2812_fill_slice(const ceammc_hw_spi_ws2812 *ws,
+                                     ceammc_hw_color_rgb8 color,
+                                     const ceammc_hw_slice *slice);
+
 /// write internal buffer to strip
 /// @param ws - pointer to led strip handle
 bool ceammc_hw_spi_ws2812_flush(const ceammc_hw_spi_ws2812 *ws);
@@ -1146,14 +1154,6 @@ bool ceammc_hw_spi_ws2812_set_brightness(const ceammc_hw_spi_ws2812 *ws, uint8_t
 bool ceammc_hw_spi_ws2812_set_pixel_color(const ceammc_hw_spi_ws2812 *ws,
                                           size_t idx,
                                           ceammc_hw_color_rgb8 color);
-
-/// set leds color
-/// @param ws - pointer to the led strip handle
-/// @param color - target color
-/// @param slice - apply to given slice (if NULL: set all leds)
-bool ceammc_hw_spi_ws2812_set_slice_color(const ceammc_hw_spi_ws2812 *ws,
-                                          ceammc_hw_color_rgb8 color,
-                                          const ceammc_hw_slice *slice);
 
 }  // extern "C"
 
