@@ -14,10 +14,14 @@ namespace ceammc {
 namespace ui {
 
 class HelpboxData
-    : public std::tuple<Size, std::string, int, bool, std::vector<std::string>, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int> {
 public:
     enum Fields {
         SIZE,
+        BORDER_COLOR,
+        FILL_COLOR,
+        TITLE_COLOR,
+        TITLE_FONT_SIZE,
         TITLE,
         TEXT_WIDTH,
         IS_OPEN,
@@ -26,7 +30,7 @@ public:
     };
 public:
     HelpboxData()
-        : std::tuple<Size, std::string, int, bool, std::vector<std::string>, int>(Size(20, 16), "?", 0, false, {}, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 16), 10526880, 10526880, colors::st_text, 12, "?", 0, false, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {
@@ -37,6 +41,10 @@ public:
 
     // getters
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    HexColor const& titleColor() const noexcept { return std::get<TITLE_COLOR>(*this); }
+    int const& titleFontSize() const noexcept { return std::get<TITLE_FONT_SIZE>(*this); }
     std::string const& title() const noexcept { return std::get<TITLE>(*this); }
     int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
     bool const& isOpen() const noexcept { return std::get<IS_OPEN>(*this); }
@@ -45,6 +53,10 @@ public:
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
+    void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
+    void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
+    void setTitleColor(HexColor v) { std::get<TITLE_COLOR>(*this) = v; }
+    void setTitleFontSize(int v) { std::get<TITLE_FONT_SIZE>(*this) = v; }
     void setTitle(std::string v) { std::get<TITLE>(*this) = v; }
     void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
     void setIsOpen(bool v) { std::get<IS_OPEN>(*this) = v; }
@@ -53,6 +65,10 @@ public:
 
     // refs
     Size& sizeRef() { return std::get<SIZE>(*this); }
+    HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
+    HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
+    HexColor& titleColorRef() { return std::get<TITLE_COLOR>(*this); }
+    int& titleFontSizeRef() { return std::get<TITLE_FONT_SIZE>(*this); }
     std::string& titleRef() { return std::get<TITLE>(*this); }
     int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }
     bool& isOpenRef() { return std::get<IS_OPEN>(*this); }
@@ -63,6 +79,9 @@ public:
     void loadStyle(int st) {
         using sc = StyleCollection;
         setSize(sc::size(st, "helpbox:size"_hash, Size(20, 16)));
+        setBorderColor(sc::color(st, "helpbox:border_color"_hash, 10526880));
+        setFillColor(sc::color(st, "helpbox:fill_color"_hash, 10526880));
+        setTitleColor(sc::color(st, "helpbox:title_color"_hash, colors::st_text));
     }
 };
 

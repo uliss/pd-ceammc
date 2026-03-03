@@ -2,17 +2,17 @@ namespace eval ::nui {
     namespace eval help_box {
         proc tag {id} {return "#hb${id}"}
 
-        proc create {cnv model id x y _w h title text_width is_open lines} {
+        proc create {cnv model id x y _w h title title_color text_width is_open lines} {
             set c [::nui::widget_canvas $cnv $model]
             set t [tag $id]
 
             set title_x [expr {$x + 4}]
             set title_y [expr {$h * 0.5}]
 
-            $c create text $title_x $title_y -text $title -anchor w -width $text_width -tags $t
+            $c create text $title_x $title_y -text $title -fill $title_color -anchor w -width $text_width -tags $t
         }
 
-        proc update {cnv model id x y w h title text_width is_open lines} {
+        proc update {cnv model id x y w h title title_color text_width is_open lines} {
             set c [::nui::widget_canvas $cnv $model]
             set t [tag $id]
 
@@ -20,7 +20,7 @@ namespace eval ::nui {
             set title_y [expr {$h * 0.5}]
 
             $c coords $t $title_x $title_y
-            $c itemconfigure $t -text $title -width $text_width -tags $t
+            $c itemconfigure $t -text $title -fill $title_color -width $text_width -tags $t
         }
 
         proc erase {cnv model id} {

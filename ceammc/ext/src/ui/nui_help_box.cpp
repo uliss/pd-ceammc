@@ -20,6 +20,9 @@ NUIHelpBox::NUIHelpBox(const PdArgs& args)
     view->setSize(sz);
     setModelView(std::move(view));
 
+    boxView().model()->data().setBorderColor(model_.data().borderColor());
+    boxView().model()->data().setFillColor(model_.data().fillColor());
+
     setSize(sz);
     setResizeMode(RESIZE_WIDTH);
 }

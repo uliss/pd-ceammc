@@ -38,13 +38,13 @@ namespace ui {
 
         sys_vgui("nui::help_box::create %lx %lx %lx"
                  " %d %d %d %d"
-                 " %s"
+                 " %s #%6.6x"
                  " %d"
                  " %d"
                  " {%s}\n",
             winId(), widgetId(), this,
             pt.x(), pt.y(), rect.width(), rect.height(),
-            data.title().c_str(),
+            data.title().c_str(), data.titleColor(),
             data.textWidth(),
             data.isOpen(),
             "line1\nline2");
@@ -62,13 +62,13 @@ namespace ui {
 
         sys_vgui("nui::help_box::update %lx %lx %lx"
                  " %d %d %d %d"
-                 " %s"
+                 " %s #%6.6x"
                  " %d"
                  " %d"
                  " {%s}\n",
             winId(), widgetId(), this,
             pt.x(), pt.y(), rect.width(), rect.height(),
-            data.title().c_str(),
+            data.title().c_str(), data.titleColor(),
             data.textWidth(),
             data.isOpen(),
             "content\ncontent");

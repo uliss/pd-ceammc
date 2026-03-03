@@ -4,6 +4,21 @@ data:
   type: Size
   init: Size(20, 16)
   style: size
+- name: border color
+  type: HexColor
+  init: 0xA0A0A0
+  style: color
+- name: fill color
+  type: HexColor
+  init: 0xA0A0A0
+  style: color
+- name: title color
+  type: HexColor
+  init: colors::st_text
+  style: color
+- name: title font size
+  type: int
+  init: 12
 - name: title
   type: std::string
   init: "\"?\""
