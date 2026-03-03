@@ -120,20 +120,36 @@
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fill all pixels with the RGB color</tr>
-          <tr lang="ru">заполнить все пиксели цветом RGB</tr>
+          <tr lang="en">fill pixels with the RGB color</tr>
+          <tr lang="ru">заполнить пиксели цветом RGB</tr>
         </info>
-        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">red color component</tr>
-          <tr lang="ru">красная компонента цвета</tr>
+        <param name="@color R G B" type="float" minvalue="0" maxvalue="1" >
+          <tr lang="en">list of R G B color components</tr>
+          <tr lang="ru">список R G B цветовых компонент</tr>
         </param>
-        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">green color component</tr>
-          <tr lang="ru">зеленая компонента цвета</tr>
+        <param name="@color #RRGGBB" type="property">
+          <tr lang="en">hex RGB color</tr>
+          <tr lang="ru">шестнадцатеричный RGB цвет</tr>
         </param>
-        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">blue color component</tr>
-          <tr lang="ru">синяя компонента цвета</tr>
+        <param name="@color name" type="property" enum="black white red green blue cyan magenta">
+          <tr lang="en">named color</tr>
+          <tr lang="ru">именованый цвет</tr>
+        </param>
+        <param name="@color Color(red)" type="data:color">
+          <tr lang="en">color data type</tr>
+          <tr lang="ru">цветовой тип данных</tr>
+        </param>
+        <param name="@color8 R G B" type="int" minvalue="0" maxvalue="255" >
+          <tr lang="en">list of R G B color components</tr>
+          <tr lang="ru">список R G B цветовых компонент</tr>
+        </param>
+        <param name="@slice FIRST LAST? STEP?" type="list" verbose="true">
+          <tr lang="en">range slice of pixels</tr>
+          <tr lang="ru">дипазонный срез пикселей</tr>
+        </param>
+        <param name="@lslice FIRST LENGTH? STEP?" type="list" verbose="true">
+          <tr lang="en">slice of pixels</tr>
+          <tr lang="ru">срез пикселей по длине</tr>
         </param>
       </method>
       <!-- flush -->

@@ -81,94 +81,109 @@ bool. Default value: 1\.;
 #X text 270 1232 turn off all pixels.;
 #X obj 250 1267 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1267 fill;
-#X text 270 1267 fill all pixels with the RGB color. Arguments are:;
-#X obj 300 1292 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1292 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 300 1315 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1315 G: green color component. Type: int. Range: 0\...255\.;
-#X obj 300 1338 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1338 B: blue color component. Type: int. Range: 0\...255\.;
-#X obj 250 1371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1371 flush;
-#X text 270 1371 flush all pixels to the strip.;
-#X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1406 fx;
-#X text 270 1406 apply color effect function. Arguments are:;
-#X obj 300 1431 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1431 NAME: effect name. Type: symbol. Allowed values: bounce
+#X text 270 1267 fill pixels with the RGB color. Arguments are:;
+#X obj 300 1292 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1292 [@color R G B]: list of R G B color components. Type:
+float. Range: 0\...1\.;
+#X obj 300 1330 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1330 [@color #RRGGBB]: hex RGB color. Type: property.;
+#X obj 300 1353 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1353 [@color name]: named color. Type: property. Allowed
+values: black \, white \, red \, green \, blue \, cyan \, magenta.;
+#X obj 300 1391 cnv 1 147 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1391 [@color Color(red)]: color data type. Type: data:color.;
+#X obj 300 1414 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1414 [@color8 R G B]: list of R G B color components. Type:
+int. Range: 0\...255\.;
+#X obj 300 1452 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1452 [@slice FIRST LAST? STEP?]: range slice of pixels.
+Type: list.;
+#X obj 270 1455 ui.link @title [?] @url [?];
+#X obj 300 1490 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1490 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
+list.;
+#X obj 270 1493 ui.link @title [?] @url [?];
+#X obj 250 1523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1523 flush;
+#X text 270 1523 flush all pixels to the strip.;
+#X obj 250 1558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1558 fx;
+#X text 270 1558 apply color effect function. Arguments are:;
+#X obj 300 1583 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1583 NAME: effect name. Type: symbol. Allowed values: bounce
 \, breathe \, collision \, cycle \, fire \, meteor \, rainbow \, sparkle
 \, strobe \, twinkle.;
-#X obj 300 1484 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1484 [@slice FIRST LAST? STEP?]: range slice of pixels.
+#X obj 300 1636 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1636 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
-#X obj 270 1487 ui.link @title [?] @url [?];
-#X obj 300 1522 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1522 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
+#X obj 270 1639 ui.link @title [?] @url [?];
+#X obj 300 1674 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1674 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
 list.;
-#X obj 270 1525 ui.link @title [?] @url [?];
-#X obj 250 1555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1555 rotate;
-#X text 270 1555 shift all pixel by specified step. Arguments are:;
-#X obj 300 1580 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1580 SHIFT: shift amount. Type: int.;
-#X obj 250 1613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1613 set;
-#X text 270 1613 set single pixel color. Arguments are:;
-#X obj 300 1638 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1638 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 300 1661 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1661 G: green color component. Type: int. Range: 0\...255\.;
-#X obj 300 1684 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1684 B: blue color component. Type: int. Range: 0\...255\.;
-#X obj 250 1717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1717 set_range;
-#X text 270 1717 set pixel range to the specified color. Arguments
+#X obj 270 1677 ui.link @title [?] @url [?];
+#X obj 250 1707 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1707 rotate;
+#X text 270 1707 shift all pixel by specified step. Arguments are:;
+#X obj 300 1732 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1732 SHIFT: shift amount. Type: int.;
+#X obj 250 1765 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1765 set;
+#X text 270 1765 set single pixel color. Arguments are:;
+#X obj 300 1790 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1790 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 300 1813 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1813 G: green color component. Type: int. Range: 0\...255\.;
+#X obj 300 1836 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1836 B: blue color component. Type: int. Range: 0\...255\.;
+#X obj 250 1869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1869 set_range;
+#X text 270 1869 set pixel range to the specified color. Arguments
 are:;
-#X obj 300 1742 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1742 BEGIN: range start. Type: int. Min value: 0\.;
-#X obj 300 1765 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1765 LENGTH: range length. Type: int. Min value: 1\.;
-#X obj 300 1788 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1788 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 300 1811 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1811 G: green color component. Type: int. Range: 0\...255\.;
-#X obj 300 1834 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1834 B: blue color component. Type: int. Range: 0\...255\.;
-#X obj 250 1867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1867 set_slice;
-#X text 270 1867 set pixel slice to the specified color. Arguments
+#X obj 300 1894 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1894 BEGIN: range start. Type: int. Min value: 0\.;
+#X obj 300 1917 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1917 LENGTH: range length. Type: int. Min value: 1\.;
+#X obj 300 1940 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1940 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 300 1963 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1963 G: green color component. Type: int. Range: 0\...255\.;
+#X obj 300 1986 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1986 B: blue color component. Type: int. Range: 0\...255\.;
+#X obj 250 2019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2019 set_slice;
+#X text 270 2019 set pixel slice to the specified color. Arguments
 are:;
-#X obj 300 1892 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1892 BEGIN: range start. Type: int. Min value: 0\.;
-#X obj 300 1915 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1915 END: range end. Type: int. Min value: 0\.;
-#X obj 300 1938 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1938 STEP: slice step. Type: int. Min value: 1\.;
-#X obj 300 1961 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1961 R: red color component. Type: int. Range: 0\...255\.;
-#X obj 300 1984 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1984 G: green color component. Type: int. Range: 0\...255\.;
-#X obj 300 2007 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2007 B: blue color component. Type: int. Range: 0\...255\.;
-#X obj 20 2050 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2055 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 2044 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2044 BEGIN: range start. Type: int. Min value: 0\.;
+#X obj 300 2067 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2067 END: range end. Type: int. Min value: 0\.;
+#X obj 300 2090 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2090 STEP: slice step. Type: int. Min value: 1\.;
+#X obj 300 2113 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2113 R: red color component. Type: int. Range: 0\...255\.;
+#X obj 300 2136 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2136 G: green color component. Type: int. Range: 0\...255\.;
+#X obj 300 2159 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2159 B: blue color component. Type: int. Range: 0\...255\.;
+#X obj 20 2202 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2207 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2056 1\.;
-#X text 170 2056 bang:;
-#X text 270 2056 flush pixels to the strip.;
-#X obj 20 2091 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2096 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 2208 1\.;
+#X text 170 2208 bang:;
+#X text 270 2208 flush pixels to the strip.;
+#X obj 20 2243 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2248 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2097 1\.;
-#X text 270 2097 no output.;
+#X text 130 2249 1\.;
+#X text 270 2249 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2147 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2150 library: ceammc v0.9.8;
-#N canvas 10 2169 400 290 info 0;
+#X obj 1 2299 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2302 library: ceammc v0.9.8;
+#N canvas 10 2321 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -192,7 +207,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2169 pd info;
+#X restore 10 2321 pd info;
 #X connect 14 0 16 0;
 #X connect 16 0 18 0;
 #X connect 18 0 20 0;
