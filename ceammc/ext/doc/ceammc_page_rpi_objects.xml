@@ -11,71 +11,78 @@
       <tr lang="ru">На данный момент доступны следующие объекты для работы в Raspberry Pi:</tr>
     </par>
     <info object="hw.rpi.gpio">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with GPIO (General Purpose Input/Output). With this object, you can
+      control LEDs, relays, solenoids, servomotors, stepper motors, as well as read digital values
+      from buttons and threshold sensors.</tr>
       <tr lang="ru">- работа с GPIO (General Purpose Input/Output). С помощью этого объекта можно
       управлять светодиодами, реле, соленоидами, сервомоторами, шаговыми двигателями, а также
       считывать цифровые значения с кнопок и пороговых датчиков.</tr>
     </info>
     <a href="ceammc://hw.rpi.gpio-example.pd" indent="19">
-      <tr lang="en"></tr>
+      <tr lang="en">GPIO Control</tr>
       <tr lang="ru">Управление GPIO</tr>
     </a>
     <info object="hw.rpi.pwm">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with PWM (pulse width modulation) using the hardware generators of
+      the Raspberry Pi, which provide greater stability of modulation parameters.</tr>
       <tr lang="ru">- работа с ШИМ (PWM) - широтно-импульсной модуляцией (pulse width modulation)
       при помощи аппаратных генераторов Raspberry Pi, которые обеспечивают большую стабильность
       параметров модуляции.</tr>
     </info>
     <info object="hw.rpi.pwm.pca9685">
-      <tr lang="en"></tr>
+      <tr lang="en">- driver for a 16-channel PWM on the PCA9685 chip for working with servos,
+      LEDs, etc., connected to the I2C bus.</tr>
       <tr lang="ru">- драйвер для 16-канального ШИМ на микросхеме PCA9685 для работы с
       сервоприводами, светодиодами и др., подключаемый к шине I2C.</tr>
     </info>
     <info object="hw.rpi.rotenc">
-      <tr lang="en"></tr>
+      <tr lang="en">- reading signals and working with rotary encoders.</tr>
       <tr lang="ru">- считывание сигналов и работа с поворотными энкодерами.</tr>
     </info>
     <info object="hw.rpi.sensor.sr04">
-      <tr lang="en"></tr>
+      <tr lang="en">- ultrasonic distance sensor.</tr>
       <tr lang="ru">- ультразвуковой датчик растояния.</tr>
     </info>
     <info object="hw.rpi.sensor.vl53l0x">
-      <tr lang="en"></tr>
+      <tr lang="en">- laser distance sensor.</tr>
       <tr lang="ru">- лазерный датчик растояния.</tr>
     </info>
     <info object="hw.rpi.sensor.dht11">
-      <tr lang="en"></tr>
+      <tr lang="en">- temperature and humidity sensor.</tr>
       <tr lang="ru">- датчик температуры и влажности.</tr>
     </info>
     <info object="hw.rpi.sensor.ir">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with IR remote controls.</tr>
       <tr lang="ru">- работа с ИК-пультами управления.</tr>
     </info>
     <info object="hw.rpi.sensor.mpu6050">
-      <tr lang="en"></tr>
+      <tr lang="en">- accelerometer and gyroscope.</tr>
       <tr lang="ru">- датчик ускорения и гироскоп.</tr>
     </info>
     <info object="hw.rpi.spi.ws2812">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with an addressable LED strip based on the WS2812 chip (Neopixel,
+      etc.).</tr>
       <tr lang="ru">- работа с управляемой адресной светодиодной лентой на базе микросхемы WS2812
       (Neopixel и др.).</tr>
     </info>
     <info object="hw.rpi.spi.max7219">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with LED matrices and indicators based on the MAX2712 chip.</tr>
       <tr lang="ru">- работа со светодиодными матрицами и индикаторами на основе микросхемы
       MAX2712.</tr>
     </info>
     <info object="hw.rpi.display.hd44780">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with liquid crystal displays based on the HD44780 chipset, often
+      known as 1602 or 2004</tr>
       <tr lang="ru">- работа со жидкокристаллическими дисплеями на базе микросхемы HD44780, часто
       известными как 1602 или 2004</tr>
     </info>
     <info object="hw.rpi.display.ssd1306">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with OLED displays based on the ssd1306 chip</tr>
       <tr lang="ru">- работа со OLED дисплеями на базе микросхемы ssd1306</tr>
     </info>
     <info object="hw.rpi.adc.ads1115">
-      <tr lang="en"></tr>
+      <tr lang="en">- working with a 4-channel ADC based on the ADS1115 chip. Reading voltage
+      levels from variable resistors, analog sensors, etc.</tr>
       <tr lang="ru">- работа с 4-х канальным АЦП на базе микросхемы ADS1115. Считывание уровней
       напряжения с переменных резисторов, аналоговых датчиков и т.д.</tr>
     </info>
