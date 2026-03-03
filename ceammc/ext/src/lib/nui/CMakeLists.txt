@@ -50,6 +50,7 @@ add_custom_target(nui_model_gen
     COMMAND ${GEN_MODEL} frame_model.yaml       > frame_model.h
     COMMAND ${GEN_MODEL} label_model.yaml       > label_model.h
     COMMAND ${GEN_MODEL} nentry_model.yaml      > nentry_model.h
+    COMMAND ${GEN_MODEL} help_box_model.yaml    > help_box_model.h
     COMMAND ${GEN_MODEL} slider_model.yaml      > slider_model.h
     COMMAND ${GEN_MODEL} toggle_model.yaml      > toggle_model.h
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
