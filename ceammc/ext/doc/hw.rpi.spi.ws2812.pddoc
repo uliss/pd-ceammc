@@ -218,64 +218,6 @@
           <tr lang="ru">список R G B цветовых компонент</tr>
         </param>
       </method>
-      <!-- set_range -->
-      <method name="set_range">
-        <info>
-          <tr lang="en">set pixel range to the specified color</tr>
-          <tr lang="ru">установить диапазон пикселей в указанный цвет</tr>
-        </info>
-        <param name="BEGIN" type="int" minvalue="0" required="true">
-          <tr lang="en">range start</tr>
-          <tr lang="ru">начало диапазона</tr>
-        </param>
-        <param name="LENGTH" type="int" minvalue="1" required="true">
-          <tr lang="en">range length</tr>
-          <tr lang="ru">длина диапазона</tr>
-        </param>
-        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">red color component</tr>
-          <tr lang="ru">красная компонента цвета</tr>
-        </param>
-        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">green color component</tr>
-          <tr lang="ru">зеленая компонента цвета</tr>
-        </param>
-        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">blue color component</tr>
-          <tr lang="ru">синяя компонента цвета</tr>
-        </param>
-      </method>
-      <!-- set_slice -->
-      <method name="set_slice">
-        <info>
-          <tr lang="en">set pixel slice to the specified color</tr>
-          <tr lang="ru">установить срез пикселей в указанный цвет</tr>
-        </info>
-        <param name="BEGIN" type="int" minvalue="0" required="true">
-          <tr lang="en">range start</tr>
-          <tr lang="ru">начало диапазона</tr>
-        </param>
-        <param name="END" type="int" minvalue="0" required="true">
-          <tr lang="en">range end</tr>
-          <tr lang="ru">конец диапазона</tr>
-        </param>
-        <param name="STEP" type="int" minvalue="1" required="true">
-          <tr lang="en">slice step</tr>
-          <tr lang="ru">шаг среза</tr>
-        </param>
-        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">red color component</tr>
-          <tr lang="ru">красная компонента цвета</tr>
-        </param>
-        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">green color component</tr>
-          <tr lang="ru">зеленая компонента цвета</tr>
-        </param>
-        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">blue color component</tr>
-          <tr lang="ru">синяя компонента цвета</tr>
-        </param>
-      </method>
     </methods>
     <inlets>
       <inlet>
