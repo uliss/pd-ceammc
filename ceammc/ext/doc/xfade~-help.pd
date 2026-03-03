@@ -48,7 +48,7 @@ See @x property. Type: float.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 511 @n;
 #X text 270 511 (initonly) Number of xfade inputs. Type: int. Default
-value: 2\. Range: 2\...16\.;
+value: 2\. Range: [2\..16].;
 #X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 553 @lin;
 #X text 270 553 Alias to @type lin.;

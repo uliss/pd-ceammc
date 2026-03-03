@@ -62,7 +62,7 @@ of processing in the plane wave domain.;
 #X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @nch;
 #X text 270 756 Number of channels. Type: int. Default value: 4\. Range:
-1\...128\.;
+[1\..128].;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @background_color;
 #X text 270 798 Element background color (list of red \, green \, blue
@@ -111,7 +111,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1269 @fontsize;
-#X text 270 1269 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1269 Fontsize. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1299 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1299 @fontslant;
 #X text 270 1299 Font slant. Type: symbol. Default value: roman. Allowed

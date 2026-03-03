@@ -26,7 +26,7 @@ outputed;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 426 @size;
 #X text 270 426 Filter windows size. Тип: int. Единицы: 'samp'. Значение
-по умолчанию: 9\. Диапазон: 1\...128\.;
+по умолчанию: 9\. Диапазон: [1\..128].;
 #X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 483 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

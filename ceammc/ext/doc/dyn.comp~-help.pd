@@ -69,7 +69,7 @@ properties to /ID/dyn_comp/PROP_NAME osc address \, if empty bind to
 #X obj 250 777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 777 @attack;
 #X text 270 777 Time constant when level & compression going up. Type:
-float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+float. Units: 'ms'. Default value: 10\. Range: [0.1\..100].;
 #X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 834 @bypass;
 #X text 270 834 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -77,28 +77,28 @@ bool. Default value: 0\.;
 #X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 876 @gain;
 #X text 270 876 Make up gain: applied to the signal after the compression
-takes place. Type: float. Units: 'db'. Default value: 0\. Range: -18\...18\.;
+takes place. Type: float. Units: 'db'. Default value: 0\. Range: [-18\..18].;
 #X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 933 @ratio;
 #X text 270 933 Compression ratio (1 = no compression \, >1 means compression).
-Type: float. Default value: 1\. Range: 1\...16\.;
+Type: float. Default value: 1\. Range: [1\..16].;
 #X obj 250 990 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 990 @refresh;
 #X text 270 990 Compression level output time interval. If 0 - no output.
-Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+Type: int. Units: 'ms'. Default value: 100\. Range: [0\..1000].;
 #X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @release;
 #X text 270 1047 Release time = time constant coming out of compression.
-Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+Type: float. Units: 'ms'. Default value: 50\. Range: [1\..500].;
 #X obj 250 1104 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1104 @threshold;
 #X text 270 1104 Level threshold above which compression kicks in (100
 dB = max level). Type: float. Units: 'db'. Default value: -10\. Range:
--90\...0\.;
+[-90\..0].;
 #X obj 250 1161 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1161 @level?;
 #X text 270 1161 (readonly) Current level of compression. Type: float.
-Default value: 0\. Range: 0\...1\.;
+Default value: 0\. Range: [0\..1].;
 #X obj 20 1213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1218 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

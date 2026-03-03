@@ -51,7 +51,7 @@ i2c \, spi. Type: symbol.;
 #X msg 130 676 @i2c_addr;
 #X text 270 676 (initonly) I²C address. Also 'default' value is accepted
 (for addr 0x3c) and 'alt' (for addr 0x3d). Type: int. Default value:
--1\. Range: -4\...119\.;
+-1\. Range: [-4\..119].;
 #X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 733 @i2c_bus;
 #X text 270 733 (initonly) I²C bus. Type: atom. Default value: none.
@@ -63,23 +63,23 @@ value: i2c. Allowed values: i2c \, spi.;
 #X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 817 @spi_bus;
 #X text 270 817 (initonly) SPI bus. Type: int. Default value: -1\.
-Range: -1\...6\.;
+Range: [-1\..6].;
 #X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 859 @spi_cs;
 #X text 270 859 (initonly) CS (chip select) GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+value: -1\. Range: [-1\..127].;
 #X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 901 @spi_dc;
 #X text 270 901 (initonly) DC (data/command) GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+value: -1\. Range: [-1\..127].;
 #X obj 250 943 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 943 @spi_freq;
 #X text 270 943 (initonly) SPI frequency. Type: int. Units: 'Hz'. Default
-value: 1000000\. Range: 100000\...10000000\.;
+value: 1000000\. Range: [100000\..10000000].;
 #X obj 250 985 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 985 @spi_rs;
 #X text 270 985 (initonly) RS (reset) GPIO pin. Type: int. Default
-value: -1\. Range: -1\...127\.;
+value: -1\. Range: [-1\..127].;
 #X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1027 @size;
 #X text 270 1027 (initonly) Display size. Type: list. Default value:

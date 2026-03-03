@@ -33,8 +33,8 @@
 #X obj 250 472 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 472 @float;
 #X text 270 472 Текущее цветовое значение в формате списка RGB. Тип:
-list. Значение по умолчанию: 1 1 1\. Item type: float. Item range:
-[0\..1].;
+list. Значение по умолчанию: 1 1 1\. Тип элемента: float. Диапазон
+элемента: [0\..1].;
 #X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 529 @h;
 #X text 270 529 Сокращение для: @mode hex. Устанавливает режим вывода
@@ -50,36 +50,36 @@ list. Значение по умолчанию: 1 1 1\. Item type: float. Item r
 #X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 655 @int;
 #X text 270 655 Текущее цветовое значение в формате списка RGB. Тип:
-list. Значение по умолчанию: 255 255 255\. Item count: 3\. Item type:
-int. Item range: [0\..255].;
-#X obj 250 712 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 712 @mode;
-#X text 270 712 Режим вывода цвета. Тип: symbol. Значение по умолчанию:
+list. Значение по умолчанию: 255 255 255\. Число элементов: 3\. Тип
+элемента: int. Диапазон элемента: [0\..255].;
+#X obj 250 727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 727 @mode;
+#X text 270 727 Режим вывода цвета. Тип: symbol. Значение по умолчанию:
 float. Разрешённые значения: float \, int \, hex \, data.;
-#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 754 @color;
-#X text 270 754 Текущий цвет. Тип: atom.;
-#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 799 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 769 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 769 @color;
+#X text 270 769 Текущий цвет. Тип: atom.;
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 814 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 800 1\.;
-#X text 170 800 bang:;
-#X text 270 800 открывает диалог выбора цвета.;
-#X text 170 825 symbol:;
-#X text 270 825 открывает диалог выбора цвета с указанным цветом по
+#X text 130 815 1\.;
+#X text 170 815 bang:;
+#X text 270 815 открывает диалог выбора цвета.;
+#X text 170 840 symbol:;
+#X text 270 840 открывает диалог выбора цвета с указанным цветом по
 умолчанию. Ожидается шестнадцатиричный формат #RRGGBB.;
-#X text 170 865 list:;
-#X text 270 865 открывает диалог выбора цвета с указанным цветом по
+#X text 170 880 list:;
+#X text 270 880 открывает диалог выбора цвета с указанным цветом по
 умолчанию. Цветовой список значений RGB \, в диапазоне [0\..1] или
 [0\..255] \, в зависимости от свойства @mode.;
-#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 935 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 950 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 936 1\.;
-#X text 170 936 symbol:;
-#X text 270 936 цвет в шестнадцатиричном формате #RRGGBB.;
-#X text 170 961 list:;
-#X text 270 961 список из трех цетовых компонент RGB в рациональном
+#X text 130 951 1\.;
+#X text 170 951 symbol:;
+#X text 270 951 цвет в шестнадцатиричном формате #RRGGBB.;
+#X text 170 976 list:;
+#X text 270 976 список из трех цетовых компонент RGB в рациональном
 [0\..1] или в целочисленном [0\..255] диапазоне в зависимости от значения
 свойства @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -87,9 +87,9 @@ float. Разрешённые значения: float \, int \, hex \, data.;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 1041 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1044 библиотека: ceammc v0.9.8;
-#N canvas 10 1063 400 290 info 0;
+#X obj 1 1056 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1059 библиотека: ceammc v0.9.8;
+#N canvas 10 1078 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,7 +113,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1063 pd info;
+#X restore 10 1078 pd info;
 #X connect 5 0 7 0;
 #X connect 4 0 10 0;
 #X connect 6 0 10 0;

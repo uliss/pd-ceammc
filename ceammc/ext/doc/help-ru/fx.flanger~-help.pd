@@ -54,16 +54,16 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 721 @delay;
 #X text 270 721 Flange delay. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 10\. Диапазон: 0\...20\.;
+умолчанию: 10\. Диапазон: [0\..20].;
 #X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 763 @drywet;
 #X text 270 763 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @feedback;
 #X text 270 820 Feedback gain. Тип: float. Значение по умолчанию: 0\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 862 @invert;
 #X text 270 862 0 for normal \, 1 to invert sign of flanging sum. Тип:
@@ -71,11 +71,11 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 904 @offset;
 #X text 270 904 Flange delay offset. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 1\. Диапазон: 0\...20\.;
+по умолчанию: 1\. Диапазон: [0\..20].;
 #X obj 250 946 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 946 @speed;
 #X text 270 946 Flanger frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 0.5\. Диапазон: 0\...10\.;
+по умолчанию: 0.5\. Диапазон: [0\..10].;
 #X obj 20 998 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1003 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

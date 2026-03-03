@@ -51,7 +51,7 @@ flite TTS engine.;
 #X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 697 @speed;
 #X text 270 697 Speaking speed. Тип: float. Значение по умолчанию:
-1\. Диапазон: 1\...4\.;
+1\. Диапазон: [1\..4].;
 #X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 739 @voice;
 #X text 270 739 Default voice. Тип: symbol. Значение по умолчанию:

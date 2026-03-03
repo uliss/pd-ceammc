@@ -55,7 +55,7 @@
 #X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 704 @refresh;
 #X text 270 704 Approximate refresh rate. Type: int. Units: 'ms'. Default
-value: 100\. Range: 20\...1000\.;
+value: 100\. Range: [20\..1000].;
 #X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @active_color;
 #X text 270 746 Element active color (list of red \, green \, blue
@@ -82,7 +82,7 @@ values within [0\..1] range). Type: list. Default value: 0 0 0 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @fontsize;
-#X text 270 1028 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1028 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @fontslant;
 #X text 270 1058 Font slant. Type: symbol. Default value: roman. Allowed

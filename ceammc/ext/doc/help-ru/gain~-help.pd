@@ -37,7 +37,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 457 @db;
 #X text 270 457 Gain decibel (dbfs) values. Тип: list. Значение по
-умолчанию: -144\. Минимальное значение: -144\.;
+умолчанию: -144\. Минимальное значение элемента: -144\.;
 #X obj 250 499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 499 @smooth_time;
 #X text 270 499 Gain change smooth time. Тип: float. Единицы: 'ms'.
@@ -45,7 +45,7 @@
 #X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 541 @value;
 #X text 270 541 Gain amplitude values. Тип: list. Значение по умолчанию:
-0\. Минимальное значение: 0\.;
+0\. Минимальное значение элемента: 0\.;
 #X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 598 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

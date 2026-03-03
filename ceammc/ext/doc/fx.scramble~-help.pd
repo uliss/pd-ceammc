@@ -50,28 +50,28 @@ bool. Default value: 0\.;
 #X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 573 @dev;
 #X text 270 573 Scramble freq deviation. Type: float. Default value:
-0.25\. Range: 0\...1\.;
+0.25\. Range: [0\..1].;
 #X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 615 @drywet;
 #X text 270 615 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.5\. Range: 0\...1\.;
+0.5\. Range: [0\..1].;
 #X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 672 @feedback;
 #X text 270 672 Feedback coefficient. Type: float. Default value: 0.25\.
-Range: 0\...0.99\.;
+Range: [0\..0.99].;
 #X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 714 @freq1;
 #X text 270 714 Left channel scramble frequency. Type: float. Units:
-'Hz'. Default value: 7\. Range: 0.25\...50\.;
+'Hz'. Default value: 7\. Range: [0.25\..50].;
 #X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @freq2;
 #X text 270 756 Right channel scramble frequency. Type: float. Units:
-'Hz'. Default value: 5\. Range: 0.25\...50\.;
+'Hz'. Default value: 5\. Range: [0.25\..50].;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @range;
 #X text 270 798 Scramble delay amount. Type: float. Default value:
-0.5\. Range: 0\...1\.;
+0.5\. Range: [0\..1].;
 #X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 855 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

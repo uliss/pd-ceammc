@@ -36,7 +36,7 @@
 #X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 477 @attack;
 #X text 270 477 Attack time. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 10\. Диапазон: 1\...50\.;
+умолчанию: 10\. Диапазон: [1\..50].;
 #X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @envwait;
 #X text 270 519 Ignore new notes until previous note is not finished
@@ -44,16 +44,16 @@ release time. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 561 @freq;
 #X text 270 561 Start frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 50\. Диапазон: 10\...5000\.;
+по умолчанию: 50\. Диапазон: [10\..5000].;
 #X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 603 @gate;
 #X text 270 603 Play trigger >0: on \, 0: off. To set output gain to
 0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 660 @release;
 #X text 270 660 Release time. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 1000\. Диапазон: 10\...8000\.;
+умолчанию: 1000\. Диапазон: [10\..8000].;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 717 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

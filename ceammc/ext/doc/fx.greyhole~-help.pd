@@ -44,40 +44,40 @@ bool. Default value: 0\.;
 #X msg 130 660 @damping;
 #X text 270 660 Controls damping of high-frequencies as the delay decays.
 0 is no damping \, 1 is very strong damping. Type: float. Default value:
-0\. Range: 0\...0.99\.;
+0\. Range: [0\..0.99].;
 #X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 717 @delaytime;
 #X text 270 717 Approximate delay time in seconds. Type: float. Units:
-'sec'. Default value: 0.2\. Range: 0.001\...1.45\.;
+'sec'. Default value: 0.2\. Range: [0.001\..1.45].;
 #X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 759 @diffusion;
 #X text 270 759 Shape of the diffusion unit. Values greater than 0.707
 produce smooth exponential decay. Lower values produce a slower build-up
-of echoes. Type: float. Default value: 0.5\. Range: 0\...0.99\.;
+of echoes. Type: float. Default value: 0.5\. Range: [0\..0.99].;
 #X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 831 @drywet;
 #X text 270 831 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 888 @feedback;
 #X text 270 888 Amount of feedback for the delay line. Type: float.
-Default value: 0.9\. Range: 0\...1\.;
+Default value: 0.9\. Range: [0\..1].;
 #X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 930 @moddepth;
 #X text 270 930 Depth of delay-line modulation. Use in combination
 with *@modfreq* to set amount of chorusing within the structure. Type:
-float. Default value: 0.1\. Range: 0\...1\.;
+float. Default value: 0.1\. Range: [0\..1].;
 #X obj 250 1002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1002 @modfreq;
 #X text 270 1002 Frequency of delay-line modulation. Use in combination
 with *@moddepth* to set amount of chorusing within the structure. Type:
-float. Default value: 2\. Range: 0\...10\.;
+float. Default value: 2\. Range: [0\..10].;
 #X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1074 @size;
 #X text 270 1074 Size of delay-lines within the diffusion unit \, producing
 the impression of a larger or smaller space. Values below 1 can sound
-quite metallic. Type: float. Default value: 1\. Range: 0.5\...3\.;
+quite metallic. Type: float. Default value: 1\. Range: [0.5\..3].;
 #X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1161 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

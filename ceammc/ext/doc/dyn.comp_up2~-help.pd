@@ -81,7 +81,7 @@ to /dyn_comp_up2/PROP_NAME. Type: symbol.;
 #X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @attack;
 #X text 270 820 Time constant when level & compression going up. Type:
-float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+float. Units: 'ms'. Default value: 10\. Range: [0.1\..100].;
 #X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 877 @bypass;
 #X text 270 877 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -89,44 +89,44 @@ bool. Default value: 0\.;
 #X obj 250 919 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 919 @hold;
 #X text 270 919 Hold period. Type: float. Units: 'samp'. Default value:
-128\. Range: 1\...255\.;
+128\. Range: [1\..255].;
 #X obj 250 961 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 961 @knee;
 #X text 270 961 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Type: float. Units:
-'db'. Default value: 3\. Range: 0\...24\.;
+'db'. Default value: 3\. Range: [0\..24].;
 #X obj 250 1064 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1064 @link;
 #X text 270 1064 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
-gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
+gain reduction. Type: float. Default value: 1\. Range: [0\..1].;
 #X obj 250 1136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1136 @range;
 #X text 270 1136 Max upward compression range. Type: float. Units:
-'db'. Default value: 12\. Range: 0\...32\.;
+'db'. Default value: 12\. Range: [0\..32].;
 #X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1178 @refresh;
 #X text 270 1178 Compression level output time interval. If 0 - no
-output. Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+output. Type: int. Units: 'ms'. Default value: 100\. Range: [0\..1000].;
 #X obj 250 1235 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1235 @release;
 #X text 270 1235 Release time = time constant coming out of compression.
-Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+Type: float. Units: 'ms'. Default value: 50\. Range: [1\..500].;
 #X obj 250 1292 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1292 @strength;
 #X text 270 1292 Compression strength (0: no compression \, 1: increase
-level by @range db.). Type: float. Default value: 0\. Range: 0\...1\.;
+level by @range db.). Type: float. Default value: 0\. Range: [0\..1].;
 #X obj 250 1349 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1349 @threshold;
 #X text 270 1349 Level threshold above which compression kicks in (100
 dB = max level). Type: float. Units: 'db'. Default value: -32\. Range:
--60\...0\.;
+[-60\..0].;
 #X obj 250 1406 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1406 @level?;
 #X text 270 1406 (readonly) Current level of compression. Type: float.
-Units: 'db'. Default value: 0\. Range: 0\...90\.;
+Units: 'db'. Default value: 0\. Range: [0\..90].;
 #X obj 20 1458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1463 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

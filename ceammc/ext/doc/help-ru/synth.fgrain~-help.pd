@@ -53,7 +53,7 @@ between enveloped grain segments. Тип: int. Единицы: 'ms'. Значе�
 \, a linear envelope will be applied to each grain. If @gramp = 100
 \, the resultant grain "window" is triangular while @gramp = 50 produces
 a trapezoidal window. Тип: int. Единицы: '%'. Значение по умолчанию:
-50\. Диапазон: 1\...100\.;
+50\. Диапазон: [1\..100].;
 #X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 763 @random;
 #X text 270 763 Factor used when setting individual grain parameters.
@@ -62,7 +62,7 @@ If set to 0.0 \, no randomness occurs. When @random=0.5 \, a grain
 segment of length duration will be randomly augmented by up to +-duration
 seconds (i.e. \, a 30 millisecond length will be augmented by an extra
 length of up to +15 or -15 milliseconds). Тип: float. Значение по умолчанию:
-0.1\. Диапазон: 0\...0.97\.;
+0.1\. Диапазон: [0\..0.97].;
 #X obj 250 911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 911 @stretch;
 #X text 270 911 Stretch factor used for grain playback (1 - 1000).
@@ -70,11 +70,11 @@ Granular synthesis allows for time-stetching without affecting the
 original pitch of a sound. A stretch factor of 4 will produce a resulting
 sound of length 4 times the orignal sound. The default parameter of
 1 produces no stretching. Тип: int. Значение по умолчанию: 1\. Диапазон:
-1\...1000\.;
+[1\..1000].;
 #X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1029 @voices;
 #X text 270 1029 Number of simultaneous grain "voices" to use. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 0\...200\.;
+int. Значение по умолчанию: 1\. Диапазон: [0\..200].;
 #X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1086 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

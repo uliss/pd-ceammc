@@ -44,7 +44,7 @@ pythagorean rameau valotti zarlino;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 489 @a;
 #X text 270 489 A pitch frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 440\. Диапазон: 200\...600\.;
+по умолчанию: 440\. Диапазон: [200\..600].;
 #X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 531 @t;
 #X text 270 531 Temperament. Тип: symbol. Значение по умолчанию: eq.

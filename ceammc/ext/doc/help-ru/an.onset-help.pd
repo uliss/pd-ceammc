@@ -131,7 +131,7 @@ kl \, complex \, default \, specdiff \, wphase \, rolloff \, spread
 #X obj 250 1400 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1400 @silence;
 #X text 270 1400 Порог тишины для обнаружения атаки. Тип: float. Единицы:
-'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
+'db'. Значение по умолчанию: -70\. Диапазон: [-80\..0].;
 #X obj 250 1457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1457 @specdiff;
 #X text 270 1457 Сокращение для @method specdiff. Метод спектральной

@@ -49,7 +49,7 @@ value: 0\. Min value: 1\.;
 #X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 558 @order;
 #X text 270 558 (initonly) The order of decomposition. Type: int. Default
-value: 1\. Range: 1\...10\.;
+value: 1\. Range: [1\..10].;
 #X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 600 @angles;
 #X text 270 600 Angles of loudspeakers. Type: list. Units: 'deg'. Default
@@ -77,19 +77,19 @@ Default value: 4\. Min value: 1\.;
 #X text 270 843 (readonly) List of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Type: list. Units: 'rad'. Default
-value: 0.0 -0.0 -0.8165 0.8165\. Range: -1\...1\.;
+value: 0.0 -0.0 -0.8165 0.8165\. Item range: [-1\..1].;
 #X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 930 @pw_y?;
 #X text 270 930 (readonly) List of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Type: list. Units: 'rad'. Default
-value: -0.0 0.9428 -0.4714 -0.4714\. Range: -1\...1\.;
+value: -0.0 0.9428 -0.4714 -0.4714\. Item range: [-1\..1].;
 #X obj 250 1017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1017 @pw_z?;
 #X text 270 1017 (readonly) List of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
 and 1 is the top of the soundfield. Type: list. Units: 'rad'. Default
-value: 1 -0.3333 -0.3333 -0.3333\. Range: -1\...1\.;
+value: 1 -0.3333 -0.3333 -0.3333\. Item range: [-1\..1].;
 #X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1119 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

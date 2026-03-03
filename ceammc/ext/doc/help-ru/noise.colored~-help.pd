@@ -51,7 +51,7 @@ noise \, and 1 violet/azure noise. Тип: float. Диапазон: -1…1;
 #X text 270 792 Slope of roll-off \, between -1 and 1\. -1 corresponds
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
 noise \, and 1 violet/azure noise. Тип: float. Значение по умолчанию:
-0\. Диапазон: -1\...1\.;
+0\. Диапазон: [-1\..1].;
 #X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 879 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

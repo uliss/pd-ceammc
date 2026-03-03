@@ -40,7 +40,7 @@ number of bins;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 456 @bins;
 #X text 270 456 Number of histogram bins. Тип: int. Значение по умолчанию:
-100\. Диапазон: 2\...1024\.;
+100\. Диапазон: [2\..1024].;
 #X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 513 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

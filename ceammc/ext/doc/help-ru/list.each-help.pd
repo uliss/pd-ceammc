@@ -43,7 +43,7 @@ So various mapping and filtering are possible.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 559 @step;
 #X text 270 559 Number of elements outputted to rightmost outlet on
-each iteration. Тип: int. Значение по умолчанию: 1\. Диапазон: 1\...1024\.;
+each iteration. Тип: int. Значение по умолчанию: 1\. Диапазон: [1\..1024].;
 #X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 631 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

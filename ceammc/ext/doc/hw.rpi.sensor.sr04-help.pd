@@ -47,16 +47,16 @@ not to use the GPIO pin. Type: int. Range: -1\...255;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 628 @echo_pin;
 #X text 270 628 (initonly) An echo pin GPIO number. A value of -1 means
-not to use the GPIO pin. Type: int. Default value: -1\. Range: -1\...255\.;
+not to use the GPIO pin. Type: int. Default value: -1\. Range: [-1\..255].;
 #X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 685 @trig_pin;
 #X text 270 685 (initonly) A trigger pin GPIO number. A value of -1
 means not to use the GPIO pin. Type: int. Default value: -1\. Range:
--1\...255\.;
+[-1\..255].;
 #X obj 250 742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 742 @poll_interval;
 #X text 270 742 Poll interval. Type: int. Units: 'ms'. Default value:
-20\. Range: 10\...1000\.;
+20\. Range: [10\..1000].;
 #X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 799 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

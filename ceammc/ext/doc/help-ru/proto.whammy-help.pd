@@ -36,7 +36,7 @@ on pedal). Разрешённые значения: chords \, classic. Тип: s
 #X obj 250 387 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 387 @chan;
 #X text 270 387 Output Midi channel. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...15\.;
+0\. Диапазон: [0\..15].;
 #X obj 250 429 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 429 @chords;
 #X text 270 429 Alias for @mode chords.;

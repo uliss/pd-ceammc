@@ -44,11 +44,11 @@ field;
 #X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 623 @order;
 #X text 270 623 The order of decomposition. Type: int. Default value:
-1\. Range: 1\...63\.;
+1\. Range: [1\..63].;
 #X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 665 @refresh;
 #X text 270 665 Redraw time. Type: int. Units: 'ms'. Default value:
-100\. Range: 20\...1000\.;
+100\. Range: [20\..1000].;
 #X obj 250 707 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 707 @view;
 #X text 270 707 View rotation. Type: list. Default value: 0 0 0\.;
@@ -101,7 +101,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1232 @fontsize;
-#X text 270 1232 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1232 Fontsize. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1262 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1262 @fontslant;
 #X text 270 1262 Font slant. Type: symbol. Default value: roman. Allowed

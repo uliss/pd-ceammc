@@ -30,11 +30,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 477 @freq;
 #X text 270 477 Filter frequency. Type: float. Default value: 1000\.
-Range: 0\...20000\.;
+Range: [0\..20000].;
 #X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @gain;
 #X text 270 519 Gain (for low/highshelf/peak filters). Type: float.
-Units: 'db'. Default value: 0\. Range: -24\...24\.;
+Units: 'db'. Default value: 0\. Range: [-24\..24].;
 #X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 561 @mouse_events;
 #X text 270 561 Mouse events output mode. If on outputs @mouse_down
@@ -42,7 +42,7 @@ Units: 'db'. Default value: 0\. Range: -24\...24\.;
 #X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 618 @q;
 #X text 270 618 Quality factor. Type: float. Default value: 0.7071\.
-Range: 0.0156\...64\.;
+Range: [0.0156\..64].;
 #X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 660 @receive;
 #X text 270 660 Source of message receive. Type: symbol. Default value:
@@ -111,7 +111,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1359 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1359 @fontsize;
-#X text 270 1359 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1359 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1389 @fontslant;
 #X text 270 1389 Font slant. Type: symbol. Default value: roman. Allowed

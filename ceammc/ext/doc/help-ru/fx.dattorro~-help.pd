@@ -62,7 +62,7 @@ and 'effected' (wet) signals. Тип: float. Диапазон: 0…1;
 #X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 781 @bw;
 #X text 270 781 Band-width filter (pre filtering). Тип: float. Значение
-по умолчанию: 0.9995\. Диапазон: 0\...1\.;
+по умолчанию: 0.9995\. Диапазон: [0\..1].;
 #X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 823 @bypass;
 #X text 270 823 Bypass flag. If true: bypass 'effected' signal. Тип:
@@ -70,37 +70,37 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 865 @damp;
 #X text 270 865 High-frequency damping. No damping = 0.0\. Тип: float.
-Значение по умолчанию: 0.0005\. Диапазон: 0\...1\.;
+Значение по умолчанию: 0.0005\. Диапазон: [0\..1].;
 #X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 907 @ddiff1;
 #X text 270 907 Decay diffusion factor 1\. Тип: float. Значение по
-умолчанию: 0.5\. Диапазон: 0\...1\.;
+умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 949 @ddiff2;
 #X text 270 949 Decay diffusion factor 2\. Тип: float. Значение по
-умолчанию: 0.7\. Диапазон: 0\...1\.;
+умолчанию: 0.7\. Диапазон: [0\..1].;
 #X obj 250 991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 991 @decay;
 #X text 270 991 Decay rate. Infinite decay = 1.0\. Тип: float. Значение
-по умолчанию: 0.5\. Диапазон: 0\...1\.;
+по умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1033 @drywet;
 #X text 270 1033 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.33\. Диапазон: 0\...1\.;
+0.33\. Диапазон: [0\..1].;
 #X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1090 @idiff1;
 #X text 270 1090 Input diffusion factor 1\. Тип: float. Значение по
-умолчанию: 0.625\. Диапазон: 0\...1\.;
+умолчанию: 0.625\. Диапазон: [0\..1].;
 #X obj 250 1132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1132 @idiff2;
 #X text 270 1132 Input diffusion factor 2\. Тип: float. Значение по
-умолчанию: 0.75\. Диапазон: 0\...1\.;
+умолчанию: 0.75\. Диапазон: [0\..1].;
 #X obj 250 1174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1174 @predelay;
 #X text 270 1174 A delay operating on the 'wet' signal. Large values
 will provide the impression of a larger room. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 40\. Диапазон: 0\...100\.;
+'ms'. Значение по умолчанию: 40\. Диапазон: [0\..100].;
 #X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1261 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

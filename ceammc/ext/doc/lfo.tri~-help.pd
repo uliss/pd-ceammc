@@ -41,7 +41,7 @@ properties to /ID/lfo_tri/PROP_NAME osc address \, if empty bind to
 #X obj 250 476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 476 @freq;
 #X text 270 476 Initial frequency. Type: float. Units: 'Hz'. Default
-value: 0\. Range: 0\...1000\.;
+value: 0\. Range: [0\..1000].;
 #X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 518 @pause;
 #X text 270 518 Pause oscillator at current value. Type: bool. Default
@@ -49,7 +49,7 @@ value: 0\.;
 #X obj 250 560 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 560 @phase;
 #X text 270 560 Initial phase. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 617 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

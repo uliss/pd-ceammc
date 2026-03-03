@@ -69,7 +69,7 @@ xy. Разрешённые значения: xy \, xz \, yz.;
 #X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 914 @zoom;
 #X text 270 914 Zoom factor. Тип: float. Значение по умолчанию: 0.35\.
-Диапазон: 0.01\...1\.;
+Диапазон: [0.01\..1].;
 #X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 956 @background_color;
 #X text 270 956 Element background color (list of red \, green \, blue
@@ -117,7 +117,7 @@ top. Разрешённые значения: top \, center \, bottom.;
 #X obj 250 1481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1481 @fontsize;
 #X text 270 1481 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
-4\...100\.;
+[4\..100].;
 #X obj 250 1523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1523 @fontslant;
 #X text 270 1523 Font slant. Тип: symbol. Значение по умолчанию: roman.

@@ -74,11 +74,11 @@ follows mouse pointer.;
 #X obj 250 886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 886 @max;
 #X text 270 886 Maximum gain value. Тип: int. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -12\...12\.;
+по умолчанию: 0\. Диапазон: [-12\..12].;
 #X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 928 @min;
 #X text 270 928 Minimal gain value. Тип: int. Единицы: 'db'. Значение
-по умолчанию: -60\. Диапазон: -90\...-15\.;
+по умолчанию: -60\. Диапазон: [-90\..-15].;
 #X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 970 @mouse_events;
 #X text 270 970 Mouse events output mode. If on outputs @mouse_down
@@ -109,12 +109,12 @@ on click. Тип: bool. Значение по умолчанию: 1\.;
 #X text 270 1225 Привязанный канал MIDI. Если установлен в 0 - привязка
 ко всем каналам. Значения в диапазоне [1\..16] привязываются к каналам
 первого Pd MIDI устройства \, [17\..32] - к каналам второго и т.д.
-Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
+Тип: int. Значение по умолчанию: 0\. Диапазон: [0\..255].;
 #X obj 250 1312 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1312 @midi_control;
 #X text 270 1312 Binded MIDI controller number. -1 means not binded
 to any controller. Тип: int. Значение по умолчанию: -1\. Диапазон:
--1\...127\.;
+[-1\..127].;
 #X obj 250 1369 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1369 @midi_pickup;
 #X text 270 1369 Pickup current value. If slider is binded to value
@@ -142,7 +142,7 @@ from sudden value change on first control change. Тип: bool. Значение
 #X obj 250 1654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1654 @fontsize;
 #X text 270 1654 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1696 @fontslant;
 #X text 270 1696 Наклон шрифта. Тип: symbol. Значение по умолчанию:

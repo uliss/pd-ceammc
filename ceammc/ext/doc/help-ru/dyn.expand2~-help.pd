@@ -80,7 +80,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 817 @attack;
 #X text 270 817 Time constant when expander is turning on. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
 #X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @bypass;
 #X text 270 874 Bypass flag. If true: bypass 'effected' signal. Тип:
@@ -88,45 +88,45 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 916 @hold;
 #X text 270 916 Hold period. Тип: float. Единицы: 'samp'. Значение
-по умолчанию: 128\. Диапазон: 1\...255\.;
+по умолчанию: 128\. Диапазон: [1\..255].;
 #X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 @knee;
 #X text 270 958 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Тип: float. Единицы:
-'db'. Значение по умолчанию: 3\. Диапазон: 0\...6\.;
+'db'. Значение по умолчанию: 3\. Диапазон: [0\..6].;
 #X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1061 @link;
 #X text 270 1061 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
-gain reduction. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+gain reduction. Тип: float. Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1133 @range;
 #X text 270 1133 Max expand range. Тип: float. Единицы: 'db'. Значение
-по умолчанию: -120\. Диапазон: -120\...0\.;
+по умолчанию: -120\. Диапазон: [-120\..0].;
 #X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1175 @refresh;
 #X text 270 1175 Expander level output time interval. If 0 - no output.
-Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
+Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: [0\..1000].;
 #X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1232 @release;
 #X text 270 1232 Release time = time constant coming out of expanding.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
 #X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1289 @strength;
 #X text 270 1289 Expander strength (0: no expanding \, 1: increase
 level by @range db.). Тип: float. Значение по умолчанию: 0\. Диапазон:
-0\...10\.;
+[0\..10].;
 #X obj 250 1346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1346 @threshold;
 #X text 270 1346 Level threshold above which compression kicks in (100
 dB = max level). Тип: float. Единицы: 'db'. Значение по умолчанию:
--48\. Диапазон: -60\...0\.;
+-48\. Диапазон: [-60\..0].;
 #X obj 250 1403 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1403 @level?;
 #X text 270 1403 (только чтение) Current expander level. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: 0\...90\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [0\..90].;
 #X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1475 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

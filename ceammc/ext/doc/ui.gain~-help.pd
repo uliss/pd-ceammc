@@ -74,11 +74,11 @@ value: -60\.;
 #X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 874 @max;
 #X text 270 874 Maximum gain value. Type: int. Units: 'db'. Default
-value: 0\. Range: -12\...12\.;
+value: 0\. Range: [-12\..12].;
 #X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 916 @min;
 #X text 270 916 Minimal gain value. Type: int. Units: 'db'. Default
-value: -60\. Range: -90\...-15\.;
+value: -60\. Range: [-90\..-15].;
 #X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 @mouse_events;
 #X text 270 958 Mouse events output mode. If on outputs @mouse_down
@@ -107,11 +107,11 @@ value: (null).;
 #X text 270 1213 MIDI channel binding. If set to 0 \, it binds to all
 channels. The values in the range [1\..16] are mapped to the channels
 of the first Pd MIDI device \, [17\..32] to the channels of the second
-\, and so on. Type: int. Default value: 0\. Range: 0\...255\.;
+\, and so on. Type: int. Default value: 0\. Range: [0\..255].;
 #X obj 250 1300 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1300 @midi_control;
 #X text 270 1300 Binded MIDI controller number. -1 means not binded
-to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
+to any controller. Type: int. Default value: -1\. Range: [-1\..127].;
 #X obj 250 1357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1357 @midi_pickup;
 #X text 270 1357 Pickup current value. If slider is binded to value
@@ -137,7 +137,7 @@ in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1612 @fontsize;
-#X text 270 1612 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1612 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1642 @fontslant;
 #X text 270 1642 Font slant. Type: symbol. Default value: roman. Allowed

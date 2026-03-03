@@ -114,7 +114,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1582 @fontsize;
-#X text 270 1582 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1582 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1612 @fontslant;
 #X text 270 1612 Font slant. Type: symbol. Default value: roman. Allowed

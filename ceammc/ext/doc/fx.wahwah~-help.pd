@@ -46,7 +46,7 @@ to /fx_wahwah/PROP_NAME. Type: symbol.;
 #X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @angle;
 #X text 270 545 Pedal angle. Type: float. Default value: 0.6\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 587 @bypass;
 #X text 270 587 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -55,11 +55,11 @@ bool. Default value: 0\.;
 #X msg 130 629 @drywet;
 #X text 270 629 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 686 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 686 @speed;
 #X text 270 686 Automatisation speed. Type: float. Units: 'bpm'. Default
-value: 540\. Range: 360\...780\.;
+value: 540\. Range: [360\..780].;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 743 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -39,35 +39,35 @@ bind to /synth_church_bell/PROP_NAME. Type: symbol.;
 #X obj 250 886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 886 @cutoff;
 #X text 270 886 Cutoff coefficent. Type: float. Units: 'Hz'. Default
-value: 6500\. Range: 20\...20000\.;
+value: 6500\. Range: [20\..20000].;
 #X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 928 @decay_ratio;
 #X text 270 928 Decay ratio. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 @decay_slope;
 #X text 270 958 Decay slope. Type: float. Default value: 2.5\. Range:
-0\...10\.;
+[0\..10].;
 #X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1000 @gain;
 #X text 270 1000 Pluck gain. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1030 @gate;
 #X text 270 1030 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 1072 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1072 @pos;
 #X text 270 1072 Strike position (0 is on the bottom). Type: int. Default
-value: 0\. Range: 0\...6\.;
+value: 0\. Range: [0\..6].;
 #X obj 250 1114 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1114 @sharp;
 #X text 270 1114 Strike sharpness. Type: float. Default value: 0.5\.
-Range: 0.01\...5\.;
+Range: [0.01\..5].;
 #X obj 250 1156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1156 @t60;
 #X text 270 1156 Time to decay to -60db level. Type: float. Units:
-'sec'. Default value: 20\. Range: 0.1\...30\.;
+'sec'. Default value: 20\. Range: [0.1\..30].;
 #X obj 20 1208 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1213 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

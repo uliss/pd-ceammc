@@ -59,11 +59,11 @@ value: -1\.;
 #X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 850 @refresh;
 #X text 270 850 Approximate refresh rate. Type: int. Units: 'ms'. Default
-value: 40\. Range: 10\...1000\.;
+value: 40\. Range: [10\..1000].;
 #X obj 250 892 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 892 @window;
 #X text 270 892 Window size. Type: int. Default value: 2048\. Range:
-512\...4096\.;
+[512\..4096].;
 #X obj 250 934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 934 @active_color;
 #X text 270 934 Element active color (list of red \, green \, blue
@@ -82,7 +82,7 @@ in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1117 @fontsize;
-#X text 270 1117 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1117 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1147 @fontslant;
 #X text 270 1147 Font slant. Type: symbol. Default value: roman. Allowed

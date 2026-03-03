@@ -42,7 +42,7 @@ at high frequencies!;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 525 @freq;
 #X text 270 525 Frequency. Type: float. Units: 'Hz'. Default value:
-0\. Range: 0\...100\.;
+0\. Range: [0\..100].;
 #X obj 250 567 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 567 @invert;
 #X text 270 567 Inversion sawtooth mode. If true: outputs descreasing

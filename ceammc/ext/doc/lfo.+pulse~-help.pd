@@ -46,11 +46,11 @@ to /lfo_+pulse/PROP_NAME. Type: symbol.;
 #X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 516 @duty;
 #X text 270 516 Duty cycle. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 546 @freq;
 #X text 270 546 Frequency. Type: float. Units: 'Hz'. Default value:
-0.0\. Range: 0.0\...1000.0\.;
+0.0\. Range: [0.0\..1000.0].;
 #X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 588 @pause;
 #X text 270 588 Pause oscillator at current value. Type: bool. Default
@@ -58,7 +58,7 @@ value: 0\.;
 #X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 630 @phase;
 #X text 270 630 Initial phase. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 687 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

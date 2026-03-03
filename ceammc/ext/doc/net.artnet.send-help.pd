@@ -47,15 +47,15 @@ first available interface. Type: symbol.;
 #X obj 250 612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 612 @offset;
 #X text 270 612 DMX channel offset. Type: int. Default value: 0\. Range:
-0\...511\.;
+[0\..511].;
 #X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 654 @rate;
 #X text 270 654 Send framerate. Type: float. Units: 'Hz'. Default value:
-44\. Range: 1\...100\.;
+44\. Range: [1\..100].;
 #X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 696 @subnet;
 #X text 270 696 ArtNet subnet. Type: int. Default value: 0\. Range:
-0\...15\.;
+[0\..15].;
 #X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 726 @sync;
 #X text 270 726 Send mode. If true: send frame only when bang is received
@@ -64,7 +64,7 @@ bool. Default value: 0\.;
 #X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 783 @universe;
 #X text 270 783 ArtNet universe. Type: int. Default value: 0\. Range:
-0\...15\.;
+[0\..15].;
 #X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 840 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

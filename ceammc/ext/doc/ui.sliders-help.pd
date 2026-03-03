@@ -84,7 +84,7 @@ max.;
 #X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 908 @count;
 #X text 270 908 Number of sliders. Type: int. Default value: 8\. Range:
-1\...1024\.;
+[1\..1024].;
 #X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 950 @max;
 #X text 270 950 Maximum value. Type: float. Default value: 1\.;
@@ -156,7 +156,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1664 @fontsize;
-#X text 270 1664 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1664 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1694 @fontslant;
 #X text 270 1694 Font slant. Type: symbol. Default value: roman. Allowed

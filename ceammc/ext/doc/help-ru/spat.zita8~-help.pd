@@ -51,34 +51,34 @@
 #X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 630 @angle;
 #X text 270 630 Source panning position. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 672 @decay_low;
 #X text 270 672 Time (in seconds) to decay 60dB in low-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 3\. Диапазон: 1\...60\.;
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 3\. Диапазон: [1\..60].;
 #X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 729 @decay_mid;
 #X text 270 729 Time (in seconds) to decay 60dB in mid-frequency band.
-Тип: float. Единицы: 'sec'. Значение по умолчанию: 2\. Диапазон: 1\...60\.;
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 2\. Диапазон: [1\..60].;
 #X obj 250 786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 786 @delay;
 #X text 270 786 A delay of 20 to 100 ms operating on the 'wet' signal.
 Large values will provide the impression of a larger room. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 60\. Диапазон: 20\...100\.;
+Единицы: 'ms'. Значение по умолчанию: 60\. Диапазон: [20\..100].;
 #X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 858 @dump_hf;
 #X text 270 858 Frequency (Hz) at which the high-frequency T60 is half
 the middle-band's T60\. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
-6000\. Диапазон: 1500\...47040\.;
+6000\. Диапазон: [1500\..47040].;
 #X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 915 @freq_low;
 #X text 270 915 Crossover frequency (Hz) separating low and middle
 frequencies. Тип: float. Единицы: 'Hz'. Значение по умолчанию: 200\.
-Диапазон: 50\...1000\.;
+Диапазон: [50\..1000].;
 #X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 972 @radius;
 #X text 270 972 Source distance from circle center. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 0\...1\.;
+по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1029 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

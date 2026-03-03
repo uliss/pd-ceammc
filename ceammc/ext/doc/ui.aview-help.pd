@@ -74,7 +74,7 @@
 #X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 @cursor_phase;
 #X text 270 1055 Cursor position in 0-1 range. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 1097 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1097 @cursor_samp;
 #X text 270 1097 Cursor position in samples. Type: int. Units: 'samp'.
@@ -151,7 +151,7 @@ in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1877 @fontsize;
-#X text 270 1877 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1877 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1907 @fontslant;
 #X text 270 1907 Font slant. Type: symbol. Default value: roman. Allowed

@@ -76,7 +76,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 804 @attack;
 #X text 270 804 Time constant when level & compression going up. Тип:
-float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
 #X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 861 @bypass;
 #X text 270 861 Bypass flag. If true: bypass 'effected' signal. Тип:
@@ -85,28 +85,28 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 903 @gain;
 #X text 270 903 Make up gain: applied to the signal after the compression
 takes place. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\.
-Диапазон: -18\...18\.;
+Диапазон: [-18\..18].;
 #X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 960 @ratio;
 #X text 270 960 Compression ratio (1 = no compression \, >1 means compression).
-Тип: float. Значение по умолчанию: 1\. Диапазон: 1\...16\.;
+Тип: float. Значение по умолчанию: 1\. Диапазон: [1\..16].;
 #X obj 250 1017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1017 @refresh;
 #X text 270 1017 Compression level output time interval. If 0 - no
 output. Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон:
-0\...1000\.;
+[0\..1000].;
 #X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1074 @release;
 #X text 270 1074 Release time = time constant coming out of compression.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
 #X obj 250 1131 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1131 @threshold;
 #X text 270 1131 Level threshold above which compression kicks in.
-Тип: float. Единицы: 'db'. Значение по умолчанию: -10\. Диапазон: -90\...0\.;
+Тип: float. Единицы: 'db'. Значение по умолчанию: -10\. Диапазон: [-90\..0].;
 #X obj 250 1188 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1188 @level?;
 #X text 270 1188 (только чтение) Current level of compression. Тип:
-float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1245 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

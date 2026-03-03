@@ -69,11 +69,11 @@ Allowed values: 0 \, 1\.;
 #X text 270 733 MIDI channel binding. If set to 0 \, it binds to all
 channels. The values in the range [1\..16] are mapped to the channels
 of the first Pd MIDI device \, [17\..32] to the channels of the second
-\, and so on. Type: int. Default value: 0\. Range: 0\...255\.;
+\, and so on. Type: int. Default value: 0\. Range: [0\..255].;
 #X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @midi_control;
 #X text 270 820 Binded MIDI controller number. -1 means not binded
-to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
+to any controller. Type: int. Default value: -1\. Range: [-1\..127].;
 #X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 877 @active_color;
 #X text 270 877 Element active color (list of red \, green \, blue
@@ -92,7 +92,7 @@ values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1060 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1060 @fontsize;
-#X text 270 1060 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1060 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1090 @fontslant;
 #X text 270 1090 Font slant. Type: symbol. Default value: roman. Allowed

@@ -52,11 +52,11 @@ symbol.;
 #X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 669 @duty;
 #X text 270 669 Duty cycle for pulse waveform. Тип: float. Значение
-по умолчанию: 0.5\. Диапазон: 0\...1\.;
+по умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 711 @freq;
 #X text 270 711 Initial frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 0\. Диапазон: 0\...1000\.;
+по умолчанию: 0\. Диапазон: [0\..1000].;
 #X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 @pause;
 #X text 270 753 Pause oscillator at current value. Тип: bool. Значение
@@ -64,7 +64,7 @@ symbol.;
 #X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @phase;
 #X text 270 795 Initial phase. Тип: float. Значение по умолчанию: 0\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @wave;
 #X text 270 837 Wave type. Тип: symbol. Значение по умолчанию: sin.
@@ -74,7 +74,7 @@ symbol.;
 #X msg 130 894 @windex;
 #X text 270 894 Waveform index (counting from 0): sin \, saw \, tri
 \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \, +pulse. Тип: int.
-Значение по умолчанию: 0\. Диапазон: 0\...9\.;
+Значение по умолчанию: 0\. Диапазон: [0\..9].;
 #X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 966 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

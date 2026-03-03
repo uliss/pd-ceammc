@@ -38,11 +38,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 561 @n;
 #X text 270 561 (initonly) Number of input channels. Type: int. Default
-value: 2\. Range: 2\...16\.;
+value: 2\. Range: [2\..16].;
 #X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 603 @center;
 #X text 270 603 Shift the centre of the distribution. Type: float.
-Default value: 0\. Range: -0.5\...0.5\.;
+Default value: 0\. Range: [-0.5\..0.5].;
 #X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 645 @compensate;
 #X text 270 645 Compensate output level: divide amplitude to number
@@ -51,7 +51,7 @@ of input channels. Type: bool. Default value: 0\.;
 #X msg 130 687 @spread;
 #X text 270 687 For @spread = 0 \, all channels are in the centre \,
 for 1 \, they have maximum distribution. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 744 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 744 @coeffs?;
 #X text 270 744 (readonly) List of gain pairs. Type: list.;

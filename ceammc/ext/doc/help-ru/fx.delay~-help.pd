@@ -59,41 +59,41 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 681 @c_attack;
 #X text 270 681 Feedback compression attack time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
 #X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 @c_release;
 #X text 270 738 Feedback compression release time. Тип: float. Единицы:
-'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
 #X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @c_thresh;
 #X text 270 795 Feedback compression threshold level. Тип: float. Единицы:
-'db'. Значение по умолчанию: 0\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: 0\. Диапазон: [-60\..0].;
 #X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @compress;
 #X text 270 852 Feedback compression factor. 0: means no compression
 \, 1: limit feedback level. Тип: float. Значение по умолчанию: 0.5\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 909 @delay;
 #X text 270 909 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-1\. Диапазон: 0\...6000\.;
+1\. Диапазон: [0\..6000].;
 #X obj 250 951 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 951 @drywet;
 #X text 270 951 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 1008 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1008 @f_hpf;
 #X text 270 1008 Feedback high-pass filter cutoff frequency. Тип: float.
-Единицы: 'Hz'. Значение по умолчанию: 300\. Диапазон: 20\...20000\.;
+Единицы: 'Hz'. Значение по умолчанию: 300\. Диапазон: [20\..20000].;
 #X obj 250 1065 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1065 @f_lpf;
 #X text 270 1065 Feedback low-pass filter cutoff frequency. Тип: float.
-Единицы: 'Hz'. Значение по умолчанию: 9000\. Диапазон: 20\...20000\.;
+Единицы: 'Hz'. Значение по умолчанию: 9000\. Диапазон: [20\..20000].;
 #X obj 250 1122 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1122 @feedback;
 #X text 270 1122 Feedback coefficient. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1164 @filter;
 #X text 270 1164 If true - apply filter to feedback signal. Тип: bool.
@@ -102,7 +102,7 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 1206 @smooth;
 #X text 270 1206 Interpolation time on delay time change \, that prevents
 click and transpose \, if equal to 0 produces artifacts on delay change.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 0\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [0\..500].;
 #X obj 20 1288 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1293 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

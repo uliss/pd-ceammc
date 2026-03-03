@@ -47,14 +47,14 @@ Allowed values: qwerty \, names \, custom.;
 #X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 623 @octave;
 #X text 270 623 Output octave. Type: int. Default value: 4\. Range:
-0\...8\.;
+[0\..8].;
 #X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 653 @on;
 #X text 270 653 On/off state. Type: bool. Default value: 1\.;
 #X obj 250 683 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 683 @vel;
 #X text 270 683 Output velocity. Type: float. Default value: 100\.
-Range: 0\...127\.;
+Range: [0\..127].;
 #X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 740 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

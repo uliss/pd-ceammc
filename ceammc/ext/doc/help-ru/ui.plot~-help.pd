@@ -50,7 +50,7 @@
 #X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @n;
 #X text 270 746 Number of inputs. Тип: int. Значение по умолчанию:
-1\. Диапазон: 1\...4\.;
+1\. Диапазон: [1\..4].;
 #X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @receive;
 #X text 270 788 Источник получения сообщений. Тип: symbol. Значение
@@ -86,11 +86,11 @@
 #X obj 250 1124 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1124 @ymax;
 #X text 270 1124 Minimal y-axis value. Тип: float. Значение по умолчанию:
-1\. Диапазон: -1024\...1024\.;
+1\. Диапазон: [-1024\..1024].;
 #X obj 250 1166 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1166 @ymin;
 #X text 270 1166 Minimal y-axis value. Тип: float. Значение по умолчанию:
--1\. Диапазон: -1024\...1024\.;
+-1\. Диапазон: [-1024\..1024].;
 #X obj 250 1208 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1208 @ymin_grid;
 #X text 270 1208 Draw minor grid lines on y-axis. Тип: bool. Значение
@@ -148,7 +148,7 @@ in 0-1 range). Тип: list. Значение по умолчанию: 1 0.75 0 
 #X obj 250 1766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1766 @fontsize;
 #X text 270 1766 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1808 @fontslant;
 #X text 270 1808 Наклон шрифта. Тип: symbol. Значение по умолчанию:

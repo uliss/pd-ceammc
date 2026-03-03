@@ -92,7 +92,7 @@ value: 0\.;
 #X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1005 @phase?;
 #X text 270 1005 (readonly) Current phase in [0-1) range. Type: float.
-Default value: 0\. Range: 0\...1\.;
+Default value: 0\. Range: [0\..1].;
 #X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @size?;
 #X text 270 1047 (readonly) Number of events in timeline. Type: int.

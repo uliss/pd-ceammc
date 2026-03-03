@@ -39,7 +39,7 @@ It computes and displays the energy and velocity vectors.;
 #X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 542 @channels;
 #X text 270 542 Number of input channels. Тип: int. Значение по умолчанию:
-4\. Диапазон: 1\...64\.;
+4\. Диапазон: [1\..64].;
 #X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 584 @clockwise;
 #X text 270 584 Clockwise channel numbering mode. Тип: bool. Значение
@@ -47,7 +47,7 @@ It computes and displays the energy and velocity vectors.;
 #X obj 250 626 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 626 @interval;
 #X text 270 626 Refresh interval. Тип: int. Единицы: 'ms'. Значение
-по умолчанию: 50\. Диапазон: 20\...1000\.;
+по умолчанию: 50\. Диапазон: [20\..1000].;
 #X obj 250 668 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 668 @offset;
 #X text 270 668 Channel numbering offset for each axes. Тип: list.
@@ -139,7 +139,7 @@ top. Разрешённые значения: top \, center \, bottom.;
 #X obj 250 1646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1646 @fontsize;
 #X text 270 1646 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
-4\...100\.;
+[4\..100].;
 #X obj 250 1688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1688 @fontslant;
 #X text 270 1688 Font slant. Тип: symbol. Значение по умолчанию: roman.

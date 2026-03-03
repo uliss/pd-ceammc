@@ -30,7 +30,7 @@ outputs is established as a radio switch;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 313 @n;
 #X text 270 313 (initonly) Number of outlets. Type: int. Default value:
-2\. Range: 2\...24\.;
+2\. Range: [2\..24].;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 370 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

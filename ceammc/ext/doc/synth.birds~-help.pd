@@ -51,11 +51,11 @@ Default value: 0\.;
 #X obj 250 661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 661 @probability;
 #X text 270 661 Whistles probability if @auto enabled. Type: float.
-Units: '%'. Default value: 50\. Range: 25\...100\.;
+Units: '%'. Default value: 50\. Range: [25\..100].;
 #X obj 250 703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 703 @speed;
 #X text 270 703 Maximum speed of whistles if @auto enabled. Type: float.
-Default value: 240\. Range: 120\...480\.;
+Default value: 240\. Range: [120\..480].;
 #X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 760 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

@@ -37,35 +37,35 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 558 @adsr;
 #X text 270 558 ADSR 2 & 4 Target. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 600 @freq;
 #X text 270 600 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
-220\. Диапазон: 0\...10000\.;
+220\. Диапазон: [0\..10000].;
 #X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 642 @gate;
 #X text 270 642 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 684 @lfo_depth;
 #X text 270 684 LFO delth. Тип: int. Значение по умолчанию: 0\. Диапазон:
-0\...127\.;
+[0\..127].;
 #X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 726 @lfo_speed;
 #X text 270 726 LFO speed in Hz. Тип: int. Значение по умолчанию: 0\.
-Диапазон: 0\...127\.;
+Диапазон: [0\..127].;
 #X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 768 @mod;
 #X text 270 768 Modulator index one. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 810 @pitch;
 #X text 270 810 Midi pitch. Тип: float. Значение по умолчанию: 57\.
-Диапазон: 36\...84\.;
+Диапазон: [36\..84].;
 #X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @xfade;
 #X text 270 852 Crossfade of outputs. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 909 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

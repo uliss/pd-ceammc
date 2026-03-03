@@ -67,24 +67,24 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @damp;
 #X text 270 816 Damping of the lowpass comb filter. Тип: float. Значение
-по умолчанию: 0.5\. Диапазон: 0\...1\.;
+по умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 858 @drywet;
 #X text 270 858 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.33\. Диапазон: 0\...1\.;
+0.33\. Диапазон: [0\..1].;
 #X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 915 @fr_damp;
 #X text 270 915 Freeze room damp. Тип: float. Значение по умолчанию:
-0.0001\. Диапазон: 0\...1\.;
+0.0001\. Диапазон: [0\..1].;
 #X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 957 @fr_room;
 #X text 270 957 Freeze room size. Тип: float. Значение по умолчанию:
-0.999\. Диапазон: 0\...1\.;
+0.999\. Диапазон: [0\..1].;
 #X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 999 @fr_time;
 #X text 270 999 Length of freeze tail. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 100\. Диапазон: 0\...1000\.;
+по умолчанию: 100\. Диапазон: [0\..1000].;
 #X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1041 @freeze;
 #X text 270 1041 Freeze reverberation tail. Тип: bool. Значение по
@@ -92,7 +92,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1083 @room;
 #X text 270 1083 Room size. Тип: float. Значение по умолчанию: 0.5\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1140 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

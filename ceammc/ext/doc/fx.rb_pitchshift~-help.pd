@@ -73,7 +73,7 @@ value: speed. Allowed values: speed \, quality \, consistency.;
 #X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1039 @scale;
 #X text 270 1039 Transposition as ratio. Type: float. Default value:
-1\. Range: 0.25\...4\.;
+1\. Range: [0.25\..4].;
 #X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1081 @smooth;
 #X text 270 1081 Control the use of window-presum FFT and time-domain
@@ -103,7 +103,7 @@ Type: symbol. Default value: crisp. Allowed values: crisp \, mixed
 #X obj 250 1498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1498 @transpose;
 #X text 270 1498 Transposition in semitones. Type: float. Units: 'semitone'.
-Default value: 0\. Range: -24\...24\.;
+Default value: 0\. Range: [-24\..24].;
 #X obj 250 1540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1540 @window;
 #X text 270 1540 The window size. 'standard' is expected to produce

@@ -64,24 +64,24 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @damp;
 #X text 270 845 Damping of the lowpass comb filter. Тип: float. Значение
-по умолчанию: 0.5\. Диапазон: 0\...1\.;
+по умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @drywet;
 #X text 270 887 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.33\. Диапазон: 0\...1\.;
+0.33\. Диапазон: [0\..1].;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @fr_damp;
 #X text 270 944 Freeze room damp. Тип: float. Значение по умолчанию:
-0.0001\. Диапазон: 0\...1\.;
+0.0001\. Диапазон: [0\..1].;
 #X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @fr_room;
 #X text 270 986 Freeze room size. Тип: float. Значение по умолчанию:
-0.999\. Диапазон: 0\...1\.;
+0.999\. Диапазон: [0\..1].;
 #X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @fr_time;
 #X text 270 1028 Length of freeze tail. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 100\. Диапазон: 0\...1000\.;
+Значение по умолчанию: 100\. Диапазон: [0\..1000].;
 #X obj 250 1070 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1070 @freeze;
 #X text 270 1070 Freeze reverberation tail. Тип: bool. Значение по
@@ -89,11 +89,11 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1112 @room;
 #X text 270 1112 Room size. Тип: float. Значение по умолчанию: 0.5\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1154 @spread;
 #X text 270 1154 Spatial spread between 0 and 1 with 1 for maximum
-spread. Тип: float. Значение по умолчанию: 0.5\. Диапазон: 0\...1\.;
+spread. Тип: float. Значение по умолчанию: 0.5\. Диапазон: [0\..1].;
 #X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1226 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

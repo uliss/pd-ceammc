@@ -32,7 +32,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 359 @maxsize;
 #X text 270 359 (initonly) Max stutter period. Type: float. Units:
-'ms'. Default value: 1000\. Range: 1\...10000\.;
+'ms'. Default value: 1000\. Range: [1\..10000].;
 #X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 401 @env;
 #X text 270 401 Stutter envelope. Type: atom.;
@@ -45,11 +45,11 @@ fwd \, back \, tri.;
 #X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 503 @speed;
 #X text 270 503 Loop fragment playing speed. Type: float. Default value:
-1\. Range: 0.25\...4\.;
+1\. Range: [0.25\..4].;
 #X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @t;
 #X text 270 545 Stutter period. Type: float. Units: 'ms'. Default value:
-50\. Range: 1\...1000\.;
+50\. Range: [1\..1000].;
 #X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 602 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

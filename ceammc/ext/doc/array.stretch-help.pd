@@ -63,7 +63,7 @@ source to destination array;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 726 @aalength;
 #X text 270 726 Pitch transposer anti-alias filter length. Type: int.
-Default value: 64\. Range: 8\...128\.;
+Default value: 64\. Range: [8\..128].;
 #X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 768 @antialias;
 #X text 270 768 Use of anti-alias filter. Anti-alias filter is used
@@ -79,7 +79,7 @@ mixed back together \, to form a continuous sound stream \, this parameter
 defines over how long period the two consecutive sequences are let
 to overlap each other. Increasing this value increases computational
 burden & vice versa. Type: int. Units: 'ms'. Default value: 8\. Range:
-0\...100\.;
+[0\..100].;
 #X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 988 @pitch;
 #X text 270 988 Relative pitch change while keeping the original tempo.
@@ -88,7 +88,7 @@ Type: float. Units: 'semitone'. Default value: 0\.;
 #X msg 130 1030 @rate;
 #X text 270 1030 Playback rate - changes both tempo and pitch together
 as if a vinyl disc was played at different RPM rate. Type: float. Default
-value: 1\. Range: 0.1\...2\.;
+value: 1\. Range: [0.1\..2].;
 #X obj 250 1087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1087 @seekwindow;
 #X text 270 1087 Seeking window default length for algorithm that finds
@@ -103,7 +103,7 @@ frequency was drifting around \, try reducing this setting. Increasing
 this value increases computational burden & vice versa. Giving *0*
 value for the seek window length sets automatic parameter value according
 to tempo setting (recommended). Type: int. Units: 'ms'. Default value:
-0\. Range: 0\...100\.;
+0\. Range: [0\..100].;
 #X obj 250 1340 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1340 @sequence;
 #X text 270 1340 Default length of a single processing sequence \,
@@ -114,7 +114,7 @@ value sounds better when slowing down tempo \, but worse when increasing
 tempo and vice versa. Increasing this value reduces computational burden
 & vice versa. Giving *0* value for the sequence length sets automatic
 parameter value according to tempo setting (recommended). Type: int.
-Units: 'ms'. Default value: 0\. Range: 0\...100\.;
+Units: 'ms'. Default value: 0\. Range: [0\..100].;
 #X obj 250 1518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1518 @speech;
 #X text 270 1518 Optimize for speech sound source. Type: bool. Default
@@ -125,7 +125,7 @@ value: 0\.;
 #X obj 250 1590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1590 @tempo;
 #X text 270 1590 Relative tempo change without affecting the sound
-pitch. Type: float. Units: '%'. Default value: 0\. Range: -50\...100\.;
+pitch. Type: float. Units: '%'. Default value: 0\. Range: [-50\..100].;
 #X obj 20 1657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1662 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

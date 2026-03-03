@@ -67,7 +67,7 @@ to /dyn_expand/PROP_NAME. Type: symbol.;
 #X obj 250 757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 757 @attack;
 #X text 270 757 Time constant when expander is turning on. Type: float.
-Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
+Units: 'ms'. Default value: 10\. Range: [0.1\..100].;
 #X obj 250 799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 799 @bypass;
 #X text 270 799 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -75,39 +75,39 @@ bool. Default value: 0\.;
 #X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 841 @hold;
 #X text 270 841 Hold period. Type: float. Units: 'samp'. Default value:
-128\. Range: 1\...255\.;
+128\. Range: [1\..255].;
 #X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 883 @knee;
 #X text 270 883 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Type: float. Units:
-'db'. Default value: 3\. Range: 0\...6\.;
+'db'. Default value: 3\. Range: [0\..6].;
 #X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @range;
 #X text 270 986 Max expand range. Type: float. Units: 'db'. Default
-value: -120\. Range: -120\...0\.;
+value: -120\. Range: [-120\..0].;
 #X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @refresh;
 #X text 270 1028 Expander level output time interval. If 0 - no output.
-Type: int. Units: 'ms'. Default value: 100\. Range: 0\...1000\.;
+Type: int. Units: 'ms'. Default value: 100\. Range: [0\..1000].;
 #X obj 250 1085 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1085 @release;
 #X text 270 1085 Release time = time constant coming out of expanding.
-Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
+Type: float. Units: 'ms'. Default value: 50\. Range: [1\..500].;
 #X obj 250 1142 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1142 @strength;
 #X text 270 1142 Expander strength (0: no expanding \, 1: increase
-level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
+level by @range db.). Type: float. Default value: 0\. Range: [0\..10].;
 #X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1199 @threshold;
 #X text 270 1199 Level threshold above which compression kicks in (100
 dB = max level). Type: float. Units: 'db'. Default value: -48\. Range:
--60\...0\.;
+[-60\..0].;
 #X obj 250 1256 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1256 @level?;
 #X text 270 1256 (readonly) Current expander level. Type: float. Units:
-'db'. Default value: 0\. Range: 0\...90\.;
+'db'. Default value: 0\. Range: [0\..90].;
 #X obj 20 1308 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1313 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

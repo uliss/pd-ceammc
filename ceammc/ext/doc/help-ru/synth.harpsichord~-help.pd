@@ -38,12 +38,12 @@
 #X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @gate;
 #X text 270 635 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @modfreq;
 #X text 270 677 Frequency of the sine wave for the modulation of theta
 (works if @modetype=3). Тип: float. Единицы: 'Hz'. Значение по умолчанию:
-220\. Диапазон: 20\...1000\.;
+220\. Диапазон: [20\..1000].;
 #X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @modtype;
 #X text 270 734 Modulation type. 0=theta is modulated by the incoming
@@ -51,31 +51,31 @@ signal. 1=theta is modulated by the averaged incoming signal. 2=theta
 is modulated by the squared incoming signal. 3=theta is modulated by
 a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave
 of frequency @freq. Тип: int. Значение по умолчанию: 0\. Диапазон:
-0\...4\.;
+[0\..4].;
 #X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @nonlin;
 #X text 270 852 Nonlinearity factor. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 894 @pan;
 #X text 270 894 Pan angle. Тип: float. Значение по умолчанию: 0.6\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 936 @pitch;
 #X text 270 936 Midi pitch. Тип: float. Значение по умолчанию: 48\.
-Диапазон: 12\...96\.;
+Диапазон: [12\..96].;
 #X obj 250 978 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 978 @reverb_gain;
 #X text 270 978 Reverb gain. Тип: float. Значение по умолчанию: 0.137\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 1020 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1020 @room_size;
 #X text 270 1020 Reverb room size. Тип: float. Значение по умолчанию:
-0.36\. Диапазон: 0.005\...1\.;
+0.36\. Диапазон: [0.005\..1].;
 #X obj 250 1062 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1062 @width;
 #X text 270 1062 Spatialization width. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: 0\...1\.;
+0.5\. Диапазон: [0\..1].;
 #X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1119 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

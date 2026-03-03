@@ -55,16 +55,16 @@ ceammc://img/conn_ws2812.png;
 #X msg 130 945 @spi_bus;
 #X text 270 945 (initonly) SPI bus number. If not specified or equal
 to -1: the object does not perform any actions. Type: int. Default
-value: -1\. Range: -1\...6\.;
+value: -1\. Range: [-1\..6].;
 #X obj 250 1002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1002 @spi_cs;
 #X text 270 1002 (initonly) SPI CS (chip select/enable). In most cases
 you don't need to set this property \, because LED strips are not using
-CS pin. Type: int. Default value: 0\. Range: 0\...3\.;
+CS pin. Type: int. Default value: 0\. Range: [0\..3].;
 #X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1074 @size;
 #X text 270 1074 (initonly) Number of leds in the strip. Type: int.
-Default value: 16\. Range: 1\...4096\.;
+Default value: 16\. Range: [1\..4096].;
 #X obj 250 1116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1116 @clear;
 #X text 270 1116 Turn off all pixels when an object is removed. Type:

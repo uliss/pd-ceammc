@@ -37,7 +37,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 457 @db;
 #X text 270 457 Gain decibel (dbfs) values. Type: list. Default value:
--144\. Min value: -144\.;
+-144\. Item min value: -144\.;
 #X obj 250 499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 499 @smooth_time;
 #X text 270 499 Gain change smooth time. Type: float. Units: 'ms'.
@@ -45,7 +45,7 @@ Default value: 20\. Min value: 1\.;
 #X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 541 @value;
 #X text 270 541 Gain amplitude values. Type: list. Default value: 0\.
-Min value: 0\.;
+Item min value: 0\.;
 #X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 598 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

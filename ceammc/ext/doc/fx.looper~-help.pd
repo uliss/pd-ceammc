@@ -37,7 +37,7 @@ buffer. Type: symbol.;
 #X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 401 @capacity;
 #X text 270 401 Max loop time. Type: float. Units: 'sec'. Default value:
-5\. Range: 0\...120\.;
+5\. Range: [0\..120].;
 #X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @dub_to_play_time;
 #X text 270 443 Record fadeout time while transition from overdub to
@@ -85,7 +85,7 @@ float. Units: 'ms'. Default value: 10\. Min value: 0\.;
 #X obj 250 953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 953 @play_phase?;
 #X text 270 953 (readonly) Current playing phase position. Type: float.
-Default value: 0\. Range: 0\...1\.;
+Default value: 0\. Range: [0\..1].;
 #X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 995 @play_pos?;
 #X text 270 995 (readonly) Current playing position. Type: float. Units:

@@ -43,15 +43,15 @@ to /synth_kick2/PROP_NAME. Type: symbol.;
 #X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 493 @attack;
 #X text 270 493 Attack time. Type: float. Units: 'ms'. Default value:
-20\. Range: 5\...400\.;
+20\. Range: [5\..400].;
 #X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 535 @click;
 #X text 270 535 Speed of the pitch envelope. Type: float. Units: 'ms'.
-Default value: 20\. Range: 5\...1000\.;
+Default value: 20\. Range: [5\..1000].;
 #X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 577 @drive;
 #X text 270 577 Gain multiplier going into the saturator. Type: float.
-Default value: 2.5\. Range: 1\...10\.;
+Default value: 2.5\. Range: [1\..10].;
 #X obj 250 619 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 619 @envwait;
 #X text 270 619 Ignore new notes until previous note is not finished
@@ -59,16 +59,16 @@ release time. Type: bool. Default value: 0\.;
 #X obj 250 661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 661 @freq;
 #X text 270 661 Base frequency. Type: float. Units: 'Hz'. Default value:
-44\. Range: 10\...5000\.;
+44\. Range: [10\..5000].;
 #X obj 250 703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 703 @gate;
 #X text 270 703 Play trigger >0: on \, 0: off. To set output gain to
 0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 760 @release;
 #X text 270 760 Release time. Type: float. Units: 'ms'. Default value:
-100\. Range: 5\...4000\.;
+100\. Range: [5\..4000].;
 #X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 817 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

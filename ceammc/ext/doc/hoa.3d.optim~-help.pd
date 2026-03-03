@@ -53,7 +53,7 @@ your ears.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 868 @order;
 #X text 270 868 (initonly) The order of decomposition. Type: int. Default
-value: 1\. Range: 1\...10\.;
+value: 1\. Range: [1\..10].;
 #X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 910 @basic;
 #X text 270 910 Alias for @mode basic (no optimization).;

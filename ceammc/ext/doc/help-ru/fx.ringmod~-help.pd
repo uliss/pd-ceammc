@@ -51,25 +51,25 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @drive;
 #X text 270 632 Overdrive effect after modulator. Тип: float. Значение
-по умолчанию: 1\. Диапазон: 1\...10\.;
+по умолчанию: 1\. Диапазон: [1\..10].;
 #X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 674 @drywet;
 #X text 270 674 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: 0\...1\.;
+0.5\. Диапазон: [0\..1].;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @freq;
 #X text 270 731 Internal modulator frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 150\. Диапазон: 0.5\...22050\.;
+'Hz'. Значение по умолчанию: 150\. Диапазон: [0.5\..22050].;
 #X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @offset;
 #X text 270 788 Modulator offset. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @src;
 #X text 270 830 Modulator source. 0: modulator from second inlet \,
 1: internal sinusoid oscilallator \, 2: internal low freq noise. Тип:
-int. Значение по умолчанию: 0\. Диапазон: 0\...2\.;
+int. Значение по умолчанию: 0\. Диапазон: [0\..2].;
 #X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 917 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

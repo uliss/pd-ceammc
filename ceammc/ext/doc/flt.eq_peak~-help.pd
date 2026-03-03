@@ -53,15 +53,15 @@ to /flt_eq_peak/PROP_NAME. Type: symbol.;
 #X obj 250 628 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 628 @bandwidth;
 #X text 270 628 Bandwidth of peak. Type: float. Units: 'Hz'. Default
-value: 100\. Range: 1\...5000\.;
+value: 100\. Range: [1\..5000].;
 #X obj 250 670 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 670 @freq;
 #X text 270 670 Peak frequency. Type: float. Units: 'Hz'. Default value:
-1000\. Range: 20\...20000\.;
+1000\. Range: [20\..20000].;
 #X obj 250 712 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 712 @gain;
 #X text 270 712 Level at fx (boost if >0 or cut if <0). Type: float.
-Units: 'db'. Default value: 0\. Range: -15\...15\.;
+Units: 'db'. Default value: 0\. Range: [-15\..15].;
 #X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 769 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

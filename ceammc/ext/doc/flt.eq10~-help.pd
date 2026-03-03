@@ -39,43 +39,43 @@ properties to /ID/flt_eq10/PROP_NAME osc address \, if empty bind to
 #X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 @f1000;
 #X text 270 647 Gain at 1000Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 689 @f125;
 #X text 270 689 Gain at 125Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @f16000;
 #X text 270 731 Gain at 16000Hz. Type: float. Units: 'db'. Default
-value: 0\. Range: -70\...10\.;
+value: 0\. Range: [-70\..10].;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @f2000;
 #X text 270 773 Gain at 2000Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 815 @f250;
 #X text 270 815 Gain at 250Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 857 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 857 @f31;
 #X text 270 857 Gain at 31.25Hz. Type: float. Units: 'db'. Default
-value: 0\. Range: -70\...10\.;
+value: 0\. Range: [-70\..10].;
 #X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 899 @f4000;
 #X text 270 899 Gain at 4000Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 941 @f500;
 #X text 270 941 Gain at 500Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 983 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 983 @f62;
 #X text 270 983 Gain at 62.5Hz. Type: float. Units: 'db'. Default value:
-0\. Range: -70\...10\.;
+0\. Range: [-70\..10].;
 #X obj 250 1025 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1025 @f8000;
 #X text 270 1025 Gain at 8000Hz. Type: float. Units: 'db'. Default
-value: 0\. Range: -70\...10\.;
+value: 0\. Range: [-70\..10].;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1082 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

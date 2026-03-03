@@ -63,11 +63,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 792 @gain;
 #X text 270 792 Output gain. Тип: float. Значение по умолчанию: 0\.
-Диапазон: 0\...10\.;
+Диапазон: [0\..10].;
 #X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 834 @poly;
 #X text 270 834 Max number of voices. Тип: float. Значение по умолчанию:
-0\. Диапазон: 1\...1024\.;
+0\. Диапазон: [1\..1024].;
 #X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 876 @reverb_damp;
 #X text 270 876 Reverberation damp. Тип: float. Значение по умолчанию:
@@ -91,7 +91,7 @@ load default soundfont. Тип: symbol. Значение по умолчанию
 #X obj 250 1077 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1077 @volume;
 #X text 270 1077 Output volume (same as @gain but in db). Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -60\...20\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-60\..20].;
 #X obj 250 1134 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1134 @avoices?;
 #X text 270 1134 (только чтение) Number midi channels. Тип: float.

@@ -48,7 +48,7 @@ Default value: 0\.;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @smpte_fr;
 #X text 270 731 SMPTE framerate for SMPTE offset calculations. Type:
-float. Default value: 30\. Range: 1\...99\.;
+float. Default value: 30\. Range: [1\..99].;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @channels?;
 #X text 270 773 (readonly) List of loaded channels into each array.

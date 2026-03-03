@@ -44,7 +44,7 @@
 #X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 580 @n;
 #X text 270 580 Number of points. Тип: int. Значение по умолчанию:
-256\. Диапазон: 4\...1024\.;
+256\. Диапазон: [4\..1024].;
 #X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @pi;
 #X text 270 622 Alias to @base pi. Тип: atom.;

@@ -47,15 +47,15 @@
 #X obj 250 612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 612 @offset;
 #X text 270 612 DMX channel offset. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...511\.;
+0\. Диапазон: [0\..511].;
 #X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 654 @rate;
 #X text 270 654 Send framerate. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 44\. Диапазон: 1\...100\.;
+по умолчанию: 44\. Диапазон: [1\..100].;
 #X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 696 @subnet;
 #X text 270 696 ArtNet subnet. Тип: int. Значение по умолчанию: 0\.
-Диапазон: 0\...15\.;
+Диапазон: [0\..15].;
 #X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 @sync;
 #X text 270 738 Send mode. If true: send frame only when bang is received
@@ -64,7 +64,7 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @universe;
 #X text 270 795 ArtNet universe. Тип: int. Значение по умолчанию: 0\.
-Диапазон: 0\...15\.;
+Диапазон: [0\..15].;
 #X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 852 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

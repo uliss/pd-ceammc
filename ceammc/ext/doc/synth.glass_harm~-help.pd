@@ -36,62 +36,62 @@ bind to /synth_glass_harm/PROP_NAME. Type: symbol.;
 #X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 580 @bow_press;
 #X text 270 580 Bow pressure on the instrument. Type: float. Default
-value: 0.2\. Range: 0\...1\.;
+value: 0.2\. Range: [0\..1].;
 #X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 622 @freq;
 #X text 270 622 Frequency. Type: float. Units: 'Hz'. Default value:
 130.8128\.;
 #X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 @gain;
-#X text 270 664 Base gain. Type: float. Default value: 1\. Range: 0\...1\.;
+#X text 270 664 Base gain. Type: float. Default value: 1\. Range: [0\..1].;
 #X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 694 @gate;
 #X text 270 694 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 736 @integration;
 #X text 270 736 Integration constant. Type: float. Default value: 0\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 778 @modfreq;
 #X text 270 778 Frequency of the sine wave for the modulation of theta
 (works if @modetype=3). Type: float. Units: 'Hz'. Default value: 220\.
-Range: 20\...1000\.;
+Range: [20\..1000].;
 #X obj 250 835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 835 @modtype;
 #X text 270 835 Modulation type. 0=theta is modulated by the incoming
 signal. 1=theta is modulated by the averaged incoming signal. 2=theta
 is modulated by the squared incoming signal. 3=theta is modulated by
 a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave
-of frequency @freq. Type: int. Default value: 0\. Range: 0\...4\.;
+of frequency @freq. Type: int. Default value: 0\. Range: [0\..4].;
 #X obj 250 938 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 938 @nonlin;
 #X text 270 938 Nonlinearity factor. Type: float. Default value: 0\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 980 @pan;
 #X text 270 980 Pan angle. Type: float. Default value: 0.6\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1010 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1010 @pitch;
 #X text 270 1010 Midi pitch. Type: float. Default value: 48\. Range:
-24\...96\.;
+[24\..96].;
 #X obj 250 1052 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1052 @reverb_gain;
 #X text 270 1052 Reverb gain. Type: float. Default value: 0.137\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1094 @room_size;
 #X text 270 1094 Reverb room size. Type: float. Default value: 0.36\.
-Range: 0.005\...1\.;
+Range: [0.005\..1].;
 #X obj 250 1136 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1136 @strike;
 #X text 270 1136 Strike or bow. Type: int. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1166 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1166 @width;
 #X text 270 1166 Spatialization width. Type: float. Default value:
-0.5\. Range: 0\...1\.;
+0.5\. Range: [0\..1].;
 #X obj 20 1218 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1223 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

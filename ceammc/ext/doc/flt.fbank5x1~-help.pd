@@ -71,23 +71,23 @@ to /flt_fbank5x1/PROP_NAME. Type: symbol.;
 #X obj 250 1002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1002 @f1000;
 #X text 270 1002 Third filter (bandpass) gain at 1000Hz. Type: float.
-Units: 'db'. Default value: 0\. Range: -6\...6\.;
+Units: 'db'. Default value: 0\. Range: [-6\..6].;
 #X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1044 @f2000;
 #X text 270 1044 Fourth filter (bandpass) gain at 2000Hz. Type: float.
-Units: 'db'. Default value: 0\. Range: -6\...6\.;
+Units: 'db'. Default value: 0\. Range: [-6\..6].;
 #X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1086 @f250;
 #X text 270 1086 First filter (lowpass) gain at 250Hz. Type: float.
-Units: 'db'. Default value: 0\. Range: -6\...6\.;
+Units: 'db'. Default value: 0\. Range: [-6\..6].;
 #X obj 250 1128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1128 @f4000;
 #X text 270 1128 Fifth filter (highpass) gain at 4000Hz. Type: float.
-Units: 'db'. Default value: 0\. Range: -6\...6\.;
+Units: 'db'. Default value: 0\. Range: [-6\..6].;
 #X obj 250 1170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1170 @f500;
 #X text 270 1170 Second filter (bandpass) gain at 500Hz. Type: float.
-Units: 'db'. Default value: 0\. Range: -6\...6\.;
+Units: 'db'. Default value: 0\. Range: [-6\..6].;
 #X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1227 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

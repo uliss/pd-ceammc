@@ -28,7 +28,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 359 @ratio;
 #X text 270 359 Resample ratio (src/dest). Тип: float. Значение по
-умолчанию: 1\. Диапазон: 0\...100\.;
+умолчанию: 1\. Диапазон: [0\..100].;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 416 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

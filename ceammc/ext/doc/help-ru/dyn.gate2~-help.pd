@@ -64,7 +64,7 @@
 #X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 735 @attack;
 #X text 270 735 Attack time = time constant (ms) for gate to open.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 0.1\. Диапазон: 0\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 0.1\. Диапазон: [0\..500].;
 #X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 792 @bypass;
 #X text 270 792 Bypass flag. If true: bypass 'effected' signal. Тип:
@@ -73,15 +73,15 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 834 @hold;
 #X text 270 834 Hold time = time (ms) gate stays open after signal
 level < threshold. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-100\. Диапазон: 1\...500\.;
+100\. Диапазон: [1\..500].;
 #X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 891 @release;
 #X text 270 891 Release time = time constant (ms) for gate to close.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 20\. Диапазон: 1\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 20\. Диапазон: [1\..500].;
 #X obj 250 948 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 948 @threshold;
 #X text 270 948 DB level threshold above which gate opens. Тип: float.
-Единицы: 'db'. Значение по умолчанию: -60\. Диапазон: -90\...0\.;
+Единицы: 'db'. Значение по умолчанию: -60\. Диапазон: [-90\..0].;
 #X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1020 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

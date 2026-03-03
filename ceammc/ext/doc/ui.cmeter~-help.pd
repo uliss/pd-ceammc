@@ -62,11 +62,11 @@ are cold.;
 #X obj 250 776 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 776 @nch;
 #X text 270 776 Number of channels. Type: int. Default value: 2\. Range:
-1\...64\.;
+[1\..64].;
 #X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 818 @offset;
 #X text 270 818 Channel numbering offset. Type: int. Default value:
-0\. Range: -63\...63\.;
+0\. Range: [-63\..63].;
 #X obj 250 860 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 860 @receive;
 #X text 270 860 Source of message receive. Type: symbol. Default value:
@@ -74,7 +74,7 @@ are cold.;
 #X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @rotation;
 #X text 270 902 Source channels rotation (anticlockwise). Type: float.
-Units: 'deg'. Default value: 0\. Range: -360\...360\.;
+Units: 'deg'. Default value: 0\. Range: [-360\..360].;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @send;
 #X text 270 944 Address for sending messages. Type: symbol. Default
@@ -117,7 +117,7 @@ green \, blue values in 0-1 range). Type: list. Default value: 1 0
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1412 @fontsize;
-#X text 270 1412 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1412 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1442 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1442 @fontslant;
 #X text 270 1442 Font slant. Type: symbol. Default value: roman. Allowed

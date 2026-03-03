@@ -65,11 +65,11 @@ to /flt_bpf12/PROP_NAME. Type: symbol.;
 #X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 894 @freq;
 #X text 270 894 Center frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
+value: 1000\. Range: [20\..20000].;
 #X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 936 @q;
 #X text 270 936 Quality factor: @freq/BANDWIDTH. Type: float. Default
-value: 2\. Range: 0.01\...100\.;
+value: 2\. Range: [0.01\..100].;
 #X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 993 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

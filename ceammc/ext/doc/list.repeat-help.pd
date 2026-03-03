@@ -33,7 +33,7 @@ list;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 331 @n;
 #X text 270 331 Repeat times. Type: int. Default value: 1\. Range:
-0\...10000\.;
+[0\..10000].;
 #X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 388 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

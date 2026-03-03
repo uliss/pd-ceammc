@@ -48,11 +48,11 @@ value: 440\.;
 #X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 607 @gain;
 #X text 270 607 Output gain (same as @value but in amp units). Type:
-float. Default value: 0.429\. Range: 0\...16\.;
+float. Default value: 0.429\. Range: [0\..16].;
 #X obj 250 649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 649 @poly;
 #X text 270 649 Max number of voices. Type: int. Default value: 64\.
-Range: 1\...256\.;
+Range: [1\..256].;
 #X obj 250 691 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 691 @sf;
 #X text 270 691 Soundfont path or builtin waveform name: #sine \, #tri
@@ -60,7 +60,7 @@ Range: 1\...256\.;
 #X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 733 @volume;
 #X text 270 733 Output volume (same as @gain but in db). Type: float.
-Units: 'db'. Default value: -7.35\. Range: -60\...10\.;
+Units: 'db'. Default value: -7.35\. Range: [-60\..10].;
 #X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 775 @avoices?;
 #X text 270 775 (readonly) Number midi channels. Type: int. Default

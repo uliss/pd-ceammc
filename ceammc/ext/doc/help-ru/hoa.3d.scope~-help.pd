@@ -46,11 +46,11 @@ field;
 #X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @order;
 #X text 270 650 The order of decomposition. Тип: int. Значение по умолчанию:
-1\. Диапазон: 1\...63\.;
+1\. Диапазон: [1\..63].;
 #X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @refresh;
 #X text 270 692 Redraw time. Тип: int. Единицы: 'ms'. Значение по умолчанию:
-100\. Диапазон: 20\...1000\.;
+100\. Диапазон: [20\..1000].;
 #X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 734 @view;
 #X text 270 734 View rotation. Тип: list. Значение по умолчанию: 0
@@ -106,7 +106,7 @@ top. Разрешённые значения: top \, center \, bottom.;
 #X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1316 @fontsize;
 #X text 270 1316 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
-4\...100\.;
+[4\..100].;
 #X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1358 @fontslant;
 #X text 270 1358 Font slant. Тип: symbol. Значение по умолчанию: roman.

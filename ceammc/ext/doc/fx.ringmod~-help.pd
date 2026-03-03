@@ -50,25 +50,25 @@ bool. Default value: 0\.;
 #X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 590 @drive;
 #X text 270 590 Overdrive effect after modulator. Type: float. Default
-value: 1\. Range: 1\...10\.;
+value: 1\. Range: [1\..10].;
 #X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @drywet;
 #X text 270 632 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.5\. Range: 0\...1\.;
+0.5\. Range: [0\..1].;
 #X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 689 @freq;
 #X text 270 689 Internal modulator frequency. Type: float. Units: 'Hz'.
-Default value: 150\. Range: 0.5\...22050\.;
+Default value: 150\. Range: [0.5\..22050].;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @offset;
 #X text 270 731 Modulator offset. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @src;
 #X text 270 773 Modulator source. 0: modulator from second inlet \,
 1: internal sinusoid oscilallator \, 2: internal low freq noise. Type:
-int. Default value: 0\. Range: 0\...2\.;
+int. Default value: 0\. Range: [0\..2].;
 #X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 845 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -72,23 +72,23 @@ an "allpass-complementary filter bank";
 #X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1044 @f1000;
 #X text 270 1044 Third filter (bandpass) gain at 1000Hz. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -6\...6\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-6\..6].;
 #X obj 250 1101 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1101 @f2000;
 #X text 270 1101 Fourth filter (bandpass) gain at 2000Hz. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -6\...6\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-6\..6].;
 #X obj 250 1158 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1158 @f250;
 #X text 270 1158 First filter (lowpass) gain at 250Hz. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -6\...6\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-6\..6].;
 #X obj 250 1215 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1215 @f4000;
 #X text 270 1215 Fifth filter (highpass) gain at 4000Hz. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -6\...6\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-6\..6].;
 #X obj 250 1272 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1272 @f500;
 #X text 270 1272 Second filter (bandpass) gain at 500Hz. Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -6\...6\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-6\..6].;
 #X obj 20 1339 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1344 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

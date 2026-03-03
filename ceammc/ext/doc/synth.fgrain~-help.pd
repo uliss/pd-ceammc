@@ -53,7 +53,7 @@ between enveloped grain segments. Type: int. Units: 'ms'. Default value:
 \, a linear envelope will be applied to each grain. If @gramp = 100
 \, the resultant grain "window" is triangular while @gramp = 50 produces
 a trapezoidal window. Type: int. Units: '%'. Default value: 50\. Range:
-1\...100\.;
+[1\..100].;
 #X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 747 @random;
 #X text 270 747 Factor used when setting individual grain parameters.
@@ -62,18 +62,18 @@ If set to 0.0 \, no randomness occurs. When @random=0.5 \, a grain
 segment of length duration will be randomly augmented by up to +-duration
 seconds (i.e. \, a 30 millisecond length will be augmented by an extra
 length of up to +15 or -15 milliseconds). Type: float. Default value:
-0.1\. Range: 0\...0.97\.;
+0.1\. Range: [0\..0.97].;
 #X obj 250 880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 880 @stretch;
 #X text 270 880 Stretch factor used for grain playback (1 - 1000).
 Granular synthesis allows for time-stetching without affecting the
 original pitch of a sound. A stretch factor of 4 will produce a resulting
 sound of length 4 times the orignal sound. The default parameter of
-1 produces no stretching. Type: int. Default value: 1\. Range: 1\...1000\.;
+1 produces no stretching. Type: int. Default value: 1\. Range: [1\..1000].;
 #X obj 250 998 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 998 @voices;
 #X text 270 998 Number of simultaneous grain "voices" to use. Type:
-int. Default value: 1\. Range: 0\...200\.;
+int. Default value: 1\. Range: [0\..200].;
 #X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1055 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

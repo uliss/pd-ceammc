@@ -93,7 +93,7 @@ values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 973 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 973 @fontsize;
-#X text 270 973 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 973 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1003 @fontslant;
 #X text 270 1003 Font slant. Type: symbol. Default value: roman. Allowed

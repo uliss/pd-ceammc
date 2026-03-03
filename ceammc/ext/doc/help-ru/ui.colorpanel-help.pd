@@ -42,14 +42,14 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 533 @hue;
 #X text 270 533 First hue. Тип: float. Значение по умолчанию: 0\. Диапазон:
-0\...1\.;
+[0\..1].;
 #X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @index;
 #X text 270 575 Color position in panel. Тип: list.;
 #X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @lightness;
 #X text 270 605 First lightness. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 @matrix;
 #X text 270 647 Matrix size. Тип: list. Значение по умолчанию: 24 13\.;
@@ -64,7 +64,7 @@
 #X obj 250 749 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 749 @saturation;
 #X text 270 749 Saturation. Тип: float. Значение по умолчанию: 1\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 791 @send;
 #X text 270 791 Адрес отправки сообщений. Тип: symbol. Значение по
@@ -86,7 +86,7 @@
 #X obj 250 1004 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1004 @fontsize;
 #X text 270 1004 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1046 @fontslant;
 #X text 270 1046 Наклон шрифта. Тип: symbol. Значение по умолчанию:

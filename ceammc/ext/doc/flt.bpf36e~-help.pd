@@ -43,7 +43,7 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 722 @freq;
 #X text 270 722 (initonly) Cutoff frequency. Type: float. Units: 'Hz'.
-Default value: 1000\. Range: 20\...20000\.;
+Default value: 1000\. Range: [20\..20000].;
 #X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 764 @id;
 #X text 270 764 (initonly) OSC address id. If specified \, bind all
@@ -55,7 +55,7 @@ to /flt_bpf36e/PROP_NAME. Type: symbol.;
 #X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 851 @q;
 #X text 270 851 (initonly) Quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 2\. Range: 0.25\...32\.;
+Default value: 2\. Range: [0.25\..32].;
 #X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 893 @active;
 #X text 270 893 On/off object dsp processing. Type: bool. Default value:

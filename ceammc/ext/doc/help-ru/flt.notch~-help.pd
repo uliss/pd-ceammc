@@ -52,11 +52,11 @@ opposite of a band-pass filter.;
 #X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 684 @freq;
 #X text 270 684 Center frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 1000\. Диапазон: 20\...20000\.;
+по умолчанию: 1000\. Диапазон: [20\..20000].;
 #X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 726 @width;
 #X text 270 726 Band width (approximate). Тип: float. Единицы: 'Hz'.
-Значение по умолчанию: 50\. Диапазон: 1\...10000\.;
+Значение по умолчанию: 50\. Диапазон: [1\..10000].;
 #X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 783 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

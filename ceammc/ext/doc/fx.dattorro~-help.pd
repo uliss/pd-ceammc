@@ -61,7 +61,7 @@ to /fx_dattorro/PROP_NAME. Type: symbol.;
 #X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 739 @bw;
 #X text 270 739 Band-width filter (pre filtering). Type: float. Default
-value: 0.9995\. Range: 0\...1\.;
+value: 0.9995\. Range: [0\..1].;
 #X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 781 @bypass;
 #X text 270 781 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -69,37 +69,37 @@ bool. Default value: 0\.;
 #X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 823 @damp;
 #X text 270 823 High-frequency damping. No damping = 0.0\. Type: float.
-Default value: 0.0005\. Range: 0\...1\.;
+Default value: 0.0005\. Range: [0\..1].;
 #X obj 250 865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 865 @ddiff1;
 #X text 270 865 Decay diffusion factor 1\. Type: float. Default value:
-0.5\. Range: 0\...1\.;
+0.5\. Range: [0\..1].;
 #X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 907 @ddiff2;
 #X text 270 907 Decay diffusion factor 2\. Type: float. Default value:
-0.7\. Range: 0\...1\.;
+0.7\. Range: [0\..1].;
 #X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 949 @decay;
 #X text 270 949 Decay rate. Infinite decay = 1.0\. Type: float. Default
-value: 0.5\. Range: 0\...1\.;
+value: 0.5\. Range: [0\..1].;
 #X obj 250 991 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 991 @drywet;
 #X text 270 991 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.33\. Range: 0\...1\.;
+0.33\. Range: [0\..1].;
 #X obj 250 1048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1048 @idiff1;
 #X text 270 1048 Input diffusion factor 1\. Type: float. Default value:
-0.625\. Range: 0\...1\.;
+0.625\. Range: [0\..1].;
 #X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1090 @idiff2;
 #X text 270 1090 Input diffusion factor 2\. Type: float. Default value:
-0.75\. Range: 0\...1\.;
+0.75\. Range: [0\..1].;
 #X obj 250 1132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1132 @predelay;
 #X text 270 1132 A delay operating on the 'wet' signal. Large values
 will provide the impression of a larger room. Type: float. Units: 'ms'.
-Default value: 40\. Range: 0\...100\.;
+Default value: 40\. Range: [0\..100].;
 #X obj 20 1199 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1204 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

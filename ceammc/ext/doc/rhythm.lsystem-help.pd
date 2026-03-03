@@ -46,7 +46,7 @@
 #X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 533 @max;
 #X text 270 533 Max generated pattern length. Type: int. Default value:
-256\. Range: 1\...32768\.;
+256\. Range: [1\..32768].;
 #X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 575 @rule;
 #X text 270 575 Generation rule dict. Type: atom.;

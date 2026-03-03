@@ -46,7 +46,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 413 @n;
 #X text 270 413 (initonly) Number of output stereo channels. Type:
-int. Default value: 2\. Range: 2\...16\.;
+int. Default value: 2\. Range: [2\..16].;
 #X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 455 @value;
 #X text 270 455 Gain coefficients per each output. Type: list.;

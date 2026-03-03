@@ -26,7 +26,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 534 @bs;
 #X text 270 534 (initonly) Buffer size. Type: int. Units: 'samp'. Default
-value: 1024\. Range: 1\...65536\.;
+value: 1024\. Range: [1\..65536].;
 #X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 576 @clock;
 #X text 270 576 (initonly) Alias for @mode count @bs 1\. Outputs impulse

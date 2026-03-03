@@ -39,47 +39,47 @@
 #X obj 250 506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 506 @detune;
 #X text 270 506 Detune percent. Тип: float. Значение по умолчанию:
-5\. Диапазон: 0\...1000\.;
+5\. Диапазон: [0\..1000].;
 #X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 548 @freq;
 #X text 270 548 Base frequency. Тип: float. Значение по умолчанию:
-100\. Диапазон: 40\...500\.;
+100\. Диапазон: [40\..500].;
 #X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 590 @harmonic1;
 #X text 270 590 1st harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 632 @harmonic2;
 #X text 270 632 2nd harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 674 @harmonic3;
 #X text 270 674 3rd harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 716 @harmonic4;
 #X text 270 716 4th harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @harmonic5;
 #X text 270 758 5th harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 800 @harmonic6;
 #X text 270 800 6th harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 842 @harmonic7;
 #X text 270 842 7th harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 884 @harmonic8;
 #X text 270 884 8th harmonic amplitude. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 926 @spread;
 #X text 270 926 Stereo spread. Тип: float. Значение по умолчанию: 1\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 983 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

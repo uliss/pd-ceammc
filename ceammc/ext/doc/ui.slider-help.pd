@@ -120,17 +120,17 @@ Allowed values: left \, center \, right.;
 #X obj 250 1254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1254 @value_precision;
 #X text 270 1254 Number of digits shown after decimal point. Type:
-int. Default value: 2\. Range: 0\...7\.;
+int. Default value: 2\. Range: [0\..7].;
 #X obj 250 1296 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1296 @midi_channel;
 #X text 270 1296 MIDI channel binding. If set to 0 \, it binds to all
 channels. The values in the range [1\..16] are mapped to the channels
 of the first Pd MIDI device \, [17\..32] to the channels of the second
-\, and so on. Type: int. Default value: 0\. Range: 0\...255\.;
+\, and so on. Type: int. Default value: 0\. Range: [0\..255].;
 #X obj 250 1383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1383 @midi_control;
 #X text 270 1383 Binded MIDI controller number. -1 means not binded
-to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
+to any controller. Type: int. Default value: -1\. Range: [-1\..127].;
 #X obj 250 1440 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1440 @midi_pickup;
 #X text 270 1440 Pickup current value. If slider is binded to value
@@ -183,7 +183,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1965 @fontsize;
-#X text 270 1965 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1965 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1995 @fontslant;
 #X text 270 1995 Font slant. Type: symbol. Default value: roman. Allowed

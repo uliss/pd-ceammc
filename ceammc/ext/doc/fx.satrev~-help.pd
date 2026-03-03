@@ -52,7 +52,7 @@ bool. Default value: 0\.;
 #X msg 130 605 @drywet;
 #X text 270 605 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.25\. Range: 0\...1\.;
+0.25\. Range: [0\..1].;
 #X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 677 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

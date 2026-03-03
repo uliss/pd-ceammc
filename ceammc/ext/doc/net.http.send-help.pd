@@ -38,11 +38,11 @@
 #X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 401 @port;
 #X text 270 401 Destination port. Type: int. Default value: 80\. Range:
-1\...32768\.;
+[1\..32768].;
 #X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @timeout;
 #X text 270 443 TCP connection timeout. Type: int. Units: 'sec'. Default
-value: 1\. Range: 1\...10\.;
+value: 1\. Range: [1\..10].;
 #X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @user;
 #X text 270 485 Basic Auth user name. Type: symbol.;

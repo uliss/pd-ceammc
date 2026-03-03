@@ -47,11 +47,11 @@ ignore them. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 @nbins;
 #X text 270 591 Number of histogram bins. Тип: int. Значение по умолчанию:
-63\. Диапазон: 8\...512\.;
+63\. Диапазон: [8\..512].;
 #X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 633 @nsamp;
 #X text 270 633 Max number of input samples. Тип: int. Значение по
-умолчанию: 512\. Диапазон: 8\...32768\.;
+умолчанию: 512\. Диапазон: [8\..32768].;
 #X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 690 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

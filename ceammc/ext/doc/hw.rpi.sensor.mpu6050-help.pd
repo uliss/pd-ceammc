@@ -30,7 +30,7 @@ ceammc://img/conn_mpu6050.png;
 #X msg 130 552 @i2c_addr;
 #X text 270 552 (initonly) I²C address. The value 'default' means default
 device I²C address (0x68) \, value 'alt': alternative I2C address (0x69
-\, when pin AD0 pull high). Type: int. Default value: -1\. Range: -4\...119\.;
+\, when pin AD0 pull high). Type: int. Default value: -1\. Range: [-4\..119].;
 #X obj 250 624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 624 @i2c_bus;
 #X text 270 624 (initonly) I²C bus. Type: atom. Default value: none.

@@ -62,7 +62,7 @@ to /dyn_gate2/PROP_NAME. Type: symbol.;
 #X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 693 @attack;
 #X text 270 693 Attack time = time constant (ms) for gate to open.
-Type: float. Units: 'ms'. Default value: 0.1\. Range: 0\...500\.;
+Type: float. Units: 'ms'. Default value: 0.1\. Range: [0\..500].;
 #X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 750 @bypass;
 #X text 270 750 Bypass flag. If true: bypass 'effected' signal. Type:
@@ -71,15 +71,15 @@ bool. Default value: 0\.;
 #X msg 130 792 @hold;
 #X text 270 792 Hold time = time (ms) gate stays open after signal
 level < threshold. Type: float. Units: 'ms'. Default value: 100\. Range:
-1\...500\.;
+[1\..500].;
 #X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 849 @release;
 #X text 270 849 Release time = time constant (ms) for gate to close.
-Type: float. Units: 'ms'. Default value: 20\. Range: 1\...500\.;
+Type: float. Units: 'ms'. Default value: 20\. Range: [1\..500].;
 #X obj 250 906 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 906 @threshold;
 #X text 270 906 DB level threshold above which gate opens. Type: float.
-Units: 'db'. Default value: -60\. Range: -90\...0\.;
+Units: 'db'. Default value: -60\. Range: [-90\..0].;
 #X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 963 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

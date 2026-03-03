@@ -47,7 +47,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 446 @div;
 #X text 270 446 Beat subdivision. Тип: int. Значение по умолчанию:
-1\. Диапазон: 1\...64\.;
+1\. Диапазон: [1\..64].;
 #X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 488 @dur;
 #X text 270 488 Whole sequence duration. Changing this property also
@@ -73,7 +73,7 @@ symbol. Значение по умолчанию: inc. Разрешённые з
 #X msg 130 734 @t;
 #X text 270 734 Time interval between bangs. You could also use units
 values like 100ms or 120bpm. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 20\. Диапазон: 1\...20000\.;
+умолчанию: 20\. Диапазон: [1\..20000].;
 #X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 791 @upbeat;
 #X text 270 791 Wait specified number of beats before sequence start.

@@ -39,7 +39,7 @@ fromMaxN \, fromN3D \, toMaxN \, toN3D. Тип: symbol.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 417 @order;
 #X text 270 417 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..10].;
 #X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 459 @fromB;
 #X text 270 459 Alias to @num fromFurseMalham and @norm fromMaxN.;

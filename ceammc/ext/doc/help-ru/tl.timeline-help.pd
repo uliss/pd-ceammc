@@ -93,7 +93,7 @@ order. Тип: list. Значение по умолчанию: end.;
 #X obj 250 1035 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1035 @phase?;
 #X text 270 1035 (только чтение) Current phase in [0-1) range. Тип:
-float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 1077 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1077 @size?;
 #X text 270 1077 (только чтение) Number of events in timeline. Тип:

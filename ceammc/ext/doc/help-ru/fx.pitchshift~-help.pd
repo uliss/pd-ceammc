@@ -56,19 +56,19 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 632 @drywet;
 #X text 270 632 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 689 @fade;
 #X text 270 689 Crossfade duration. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 100\. Диапазон: 0\...1000\.;
+по умолчанию: 100\. Диапазон: [0\..1000].;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @pitch;
 #X text 270 731 Pitchshift in semitones. Тип: float. Значение по умолчанию:
-0\. Диапазон: -38\...60\.;
+0\. Диапазон: [-38\..60].;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @window;
 #X text 270 773 The window size. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 200\. Диапазон: 10\...2000\.;
+по умолчанию: 200\. Диапазон: [10\..2000].;
 #X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 830 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

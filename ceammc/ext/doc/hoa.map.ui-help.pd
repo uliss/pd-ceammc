@@ -67,7 +67,7 @@ values: xy \, xz \, yz.;
 #X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 914 @zoom;
 #X text 270 914 Zoom factor. Type: float. Default value: 0.35\. Range:
-0.01\...1\.;
+[0.01\..1].;
 #X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 956 @background_color;
 #X text 270 956 Element background color (list of red \, green \, blue
@@ -113,7 +113,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1409 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1409 @fontsize;
-#X text 270 1409 Fontsize. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1409 Fontsize. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1439 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1439 @fontslant;
 #X text 270 1439 Font slant. Type: symbol. Default value: roman. Allowed

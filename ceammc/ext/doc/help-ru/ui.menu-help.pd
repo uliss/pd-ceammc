@@ -51,7 +51,7 @@
 #X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 696 @max_length;
 #X text 270 696 Maximum displayed item character length. Тип: int.
-Значение по умолчанию: 100\. Диапазон: 10\...1024\.;
+Значение по умолчанию: 100\. Диапазон: [10\..1024].;
 #X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 @open;
 #X text 270 738 Opened state. Тип: bool. Значение по умолчанию: 0\.;
@@ -92,7 +92,7 @@
 #X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1152 @fontsize;
 #X text 270 1152 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1194 @fontslant;
 #X text 270 1194 Наклон шрифта. Тип: symbol. Значение по умолчанию:

@@ -39,7 +39,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 522 @cols;
 #X text 270 522 Number of columns. Type: int. Default value: 8\. Range:
-2\...128\.;
+[2\..128].;
 #X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 564 @receive;
 #X text 270 564 Source of message receive. Type: symbol. Default value:
@@ -47,7 +47,7 @@
 #X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 606 @rows;
 #X text 270 606 Number of rows. Type: int. Default value: 8\. Range:
-2\...128\.;
+[2\..128].;
 #X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 648 @send;
 #X text 270 648 Address for sending messages. Type: symbol. Default
@@ -89,7 +89,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1044 @fontsize;
-#X text 270 1044 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1044 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1074 @fontslant;
 #X text 270 1074 Font slant. Type: symbol. Default value: roman. Allowed

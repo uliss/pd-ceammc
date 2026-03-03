@@ -49,7 +49,7 @@ configuration or for headphones.;
 #X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 558 @order;
 #X text 270 558 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..10].;
 #X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 600 @angles;
 #X text 270 600 Angles of loudspeakers. Тип: list. Единицы: 'deg'.
@@ -78,56 +78,56 @@ int. Значение по умолчанию: 4\. Минимальное зна
 #X text 270 858 (только чтение) List of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Тип: list. Единицы: 'rad'. Значение
-по умолчанию: 0.0 -0.0 -0.8165 0.8165\. Диапазон: -1\...1\.;
+по умолчанию: 0.0 -0.0 -0.8165 0.8165\. Диапазон элемента: [-1\..1].;
 #X obj 250 945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 945 @pw_y?;
 #X text 270 945 (только чтение) List of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Тип: list. Единицы: 'rad'. Значение
-по умолчанию: -0.0 0.9428 -0.4714 -0.4714\. Диапазон: -1\...1\.;
-#X obj 250 1032 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1032 @pw_z?;
-#X text 270 1032 (только чтение) List of plain wave z-coordinates (heights).
+по умолчанию: -0.0 0.9428 -0.4714 -0.4714\. Диапазон элемента: [-1\..1].;
+#X obj 250 1048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1048 @pw_z?;
+#X text 270 1048 (только чтение) List of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
 and 1 is the top of the soundfield. Тип: list. Единицы: 'rad'. Значение
-по умолчанию: 1 -0.3333 -0.3333 -0.3333\. Диапазон: -1\...1\.;
-#X obj 20 1129 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1134 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+по умолчанию: 1 -0.3333 -0.3333 -0.3333\. Диапазон элемента: [-1\..1].;
+#X obj 20 1145 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1150 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1135 1\.;
-#X text 170 1135 ~;
-#X text 270 1135 first input harmonic.;
-#X text 130 1160 ...;
-#X text 170 1160 ~;
-#X text 270 1160 ... input harmonic.;
-#X text 130 1185 n.;
-#X text 170 1185 ~;
-#X text 270 1185 n-th input harmonic.;
-#X obj 20 1220 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1225 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1151 1\.;
+#X text 170 1151 ~;
+#X text 270 1151 first input harmonic.;
+#X text 130 1176 ...;
+#X text 170 1176 ~;
+#X text 270 1176 ... input harmonic.;
+#X text 130 1201 n.;
+#X text 170 1201 ~;
+#X text 270 1201 n-th input harmonic.;
+#X obj 20 1236 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1241 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1226 1\.;
-#X text 170 1226 ~;
-#X text 270 1226 first loudspeaker output.;
-#X text 130 1246 ...;
-#X text 170 1246 ~;
-#X text 270 1246 ... loudspeaker output.;
-#X text 130 1266 n.;
-#X text 170 1266 ~;
-#X text 270 1266 n-th loudspeaker output.;
+#X text 130 1242 1\.;
+#X text 170 1242 ~;
+#X text 270 1242 first loudspeaker output.;
+#X text 130 1262 ...;
+#X text 170 1262 ~;
+#X text 270 1262 ... loudspeaker output.;
+#X text 130 1282 n.;
+#X text 170 1282 ~;
+#X text 270 1282 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1316 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1319 библиотека: ceammc v0.9.8;
-#X text 380 1331 смотрите также:;
-#X obj 501 1334 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1332 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1335 библиотека: ceammc v0.9.8;
+#X text 380 1347 смотрите также:;
+#X obj 501 1350 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.3d.encoder~] @url hoa.3d.encoder~-help.pd;
-#X obj 628 1334 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 628 1350 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.2d.decoder~] @url hoa.2d.decoder~-help.pd;
-#N canvas 10 1338 400 290 info 0;
+#N canvas 10 1354 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -152,7 +152,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1338 pd info;
+#X restore 10 1354 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

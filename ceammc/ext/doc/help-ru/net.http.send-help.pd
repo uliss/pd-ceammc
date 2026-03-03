@@ -39,11 +39,11 @@ localhost.;
 #X obj 250 413 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 413 @port;
 #X text 270 413 Destination port. Тип: int. Значение по умолчанию:
-80\. Диапазон: 1\...32768\.;
+80\. Диапазон: [1\..32768].;
 #X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 455 @timeout;
 #X text 270 455 TCP connection timeout. Тип: int. Единицы: 'sec'. Значение
-по умолчанию: 1\. Диапазон: 1\...10\.;
+по умолчанию: 1\. Диапазон: [1\..10].;
 #X obj 250 497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 497 @user;
 #X text 270 497 Basic Auth user name. Тип: symbol.;

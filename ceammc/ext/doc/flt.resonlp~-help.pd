@@ -47,11 +47,11 @@ to /flt_resonlp/PROP_NAME. Type: symbol.;
 #X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 588 @freq;
 #X text 270 588 Center frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
+value: 1000\. Range: [20\..20000].;
 #X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 630 @q;
 #X text 270 630 Quality factor. Type: float. Default value: 40\. Range:
-0.1\...100\.;
+[0.1\..100].;
 #X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 687 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

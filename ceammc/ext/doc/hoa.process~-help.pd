@@ -96,7 +96,7 @@ planewaves.;
 #X obj 250 1502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1502 @n;
 #X text 270 1502 (initonly) The order of decomposition/number of planewaves.
-Type: int. Default value: 0\. Range: 0\...63\.;
+Type: int. Default value: 0\. Range: [0\..63].;
 #X obj 250 1544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1544 @patch;
 #X text 270 1544 (initonly) Patch name. Type: symbol.;

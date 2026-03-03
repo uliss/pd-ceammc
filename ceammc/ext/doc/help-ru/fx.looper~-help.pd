@@ -38,7 +38,7 @@ buffer. Тип: symbol.;
 #X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 401 @capacity;
 #X text 270 401 Max loop time. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 5\. Диапазон: 0\...120\.;
+по умолчанию: 5\. Диапазон: [0\..120].;
 #X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @dub_to_play_time;
 #X text 270 443 Record fadeout time while transition from overdub to
@@ -90,7 +90,7 @@ float. Единицы: 'ms'. Значение по умолчанию: 10\. Ми
 #X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1013 @play_phase?;
 #X text 270 1013 (только чтение) Current playing phase position. Тип:
-float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1055 @play_pos?;
 #X text 270 1055 (только чтение) Current playing position. Тип: float.

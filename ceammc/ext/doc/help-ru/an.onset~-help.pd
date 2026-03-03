@@ -106,7 +106,7 @@ function.;
 #X obj 250 1196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1196 @silence;
 #X text 270 1196 Onset detection silence threshold. Тип: float. Единицы:
-'db'. Значение по умолчанию: -70\. Диапазон: -80\...0\.;
+'db'. Значение по умолчанию: -70\. Диапазон: [-80\..0].;
 #X obj 250 1253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1253 @specdiff;
 #X text 270 1253 Alias to @method specdiff. Spectral difference method

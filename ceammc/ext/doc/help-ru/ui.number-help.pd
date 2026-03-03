@@ -59,7 +59,7 @@ input \, BACKSPACE removes last character.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 726 @digits;
 #X text 270 726 Number of digits. If -1 - no fixed digits used. Тип:
-int. Значение по умолчанию: -1\. Диапазон: -1\...9\.;
+int. Значение по умолчанию: -1\. Диапазон: [-1\..9].;
 #X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 768 @display_only;
 #X text 270 768 Interaction mode. If true: react only to received Pd
@@ -108,7 +108,7 @@ to all supported events. Тип: bool. Значение по умолчанию:
 #X obj 250 1284 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1284 @fontsize;
 #X text 270 1284 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1326 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1326 @fontslant;
 #X text 270 1326 Наклон шрифта. Тип: symbol. Значение по умолчанию:

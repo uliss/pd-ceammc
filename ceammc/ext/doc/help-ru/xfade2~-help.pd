@@ -42,7 +42,7 @@ See @x property. Тип: float.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 526 @n;
 #X text 270 526 (при инициализации) Number of xfade inputs stereo pairs.
-Тип: int. Значение по умолчанию: 2\. Диапазон: 2\...16\.;
+Тип: int. Значение по умолчанию: 2\. Диапазон: [2\..16].;
 #X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 583 @lin;
 #X text 270 583 Alias to @type lin.;

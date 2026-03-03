@@ -35,7 +35,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 431 @db;
 #X text 270 431 Amplitude values in decibels. Type: list. Units: 'db'.
-Default value: -144 -144\. Min value: -144\.;
+Default value: -144 -144\. Item min value: -144\.;
 #X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 473 @mute;
 #X text 270 473 Mute channel list \, allowed values: 0 \, 1\. Type:
@@ -47,7 +47,7 @@ list. Default value: 0 0\.;
 #X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 557 @value;
 #X text 270 557 Linear amplitude values. Type: list. Default value:
-0 0\. Min value: 0\.;
+0 0\. Item min value: 0\.;
 #X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @xfade_time;
 #X text 270 599 Smooth time. Type: float. Units: 'ms'. Default value:

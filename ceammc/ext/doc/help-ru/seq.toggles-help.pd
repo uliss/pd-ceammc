@@ -60,7 +60,7 @@ For event value '1' \, event duration is 100ms \, event length is 60
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 690 @div;
 #X text 270 690 Beat subdivision. Тип: int. Значение по умолчанию:
-1\. Диапазон: 1\...64\.;
+1\. Диапазон: [1\..64].;
 #X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 732 @dur;
 #X text 270 732 Whole sequence duration. (Recalculates @t property
@@ -96,7 +96,7 @@ symbol. Значение по умолчанию: inc. Разрешённые з
 #X msg 130 1126 @t;
 #X text 270 1126 Time between beats. Unit values like 100ms \, 240bpm
 or 60|4bpm also can be used. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 100\. Диапазон: 1\...20000\.;
+умолчанию: 100\. Диапазон: [1\..20000].;
 #X obj 250 1183 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1183 @upbeat;
 #X text 270 1183 Wait specified number of beats before sequence start.

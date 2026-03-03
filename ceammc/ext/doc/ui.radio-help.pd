@@ -78,7 +78,7 @@ and @mouse_drag events. Type: bool. Default value: 0\.;
 #X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 699 @nitems;
 #X text 270 699 Number of items. Type: int. Default value: 8\. Range:
-2\...128\.;
+[2\..128].;
 #X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 741 @receive;
 #X text 270 741 Source of message receive. Type: symbol. Default value:
@@ -108,7 +108,7 @@ values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1038 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1038 @fontsize;
-#X text 270 1038 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1038 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1068 @fontslant;
 #X text 270 1068 Font slant. Type: symbol. Default value: roman. Allowed

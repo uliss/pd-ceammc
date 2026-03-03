@@ -46,7 +46,7 @@ first value in queue.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 499 @size;
 #X text 270 499 Size of queue. Тип: int. Значение по умолчанию: 32\.
-Диапазон: 1\...1024\.;
+Диапазон: [1\..1024].;
 #X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 541 @empty?;
 #X text 270 541 (только чтение) If queue is empty. Тип: bool. Значение

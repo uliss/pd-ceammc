@@ -42,11 +42,11 @@ Normalized AutoCorrelation function (SNAC);
 #X msg 130 424 @bias;
 #X text 270 424 Bias which favours small lags over large lags in the
 period detection \, thereby avoiding low-octave jumps. Type: float.
-Default value: 0.2\. Range: 0\...1\.;
+Default value: 0.2\. Range: [0\..1].;
 #X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 481 @fidthr;
 #X text 270 481 Minimal fidelity threshold to report the pitch. Type:
-float. Default value: 0.95\. Range: 0\...1\.;
+float. Default value: 0.95\. Range: [0\..1].;
 #X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @framesize;
 #X text 270 523 Frame size. Type: int. Units: 'samp'. Default value:
@@ -54,7 +54,7 @@ float. Default value: 0.95\. Range: 0\...1\.;
 #X obj 250 565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 565 @maxfreq;
 #X text 270 565 Max tracked frequency. Type: float. Units: 'Hz'. Default
-value: 1500\. Range: 10\...10000\.;
+value: 1500\. Range: [10\..10000].;
 #X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 607 @overlap;
 #X text 270 607 Overlap of analysis frames. Type: int. Default value:

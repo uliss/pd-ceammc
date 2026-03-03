@@ -45,11 +45,11 @@ to /osc_pulse/PROP_NAME. Type: symbol.;
 #X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 583 @duty;
 #X text 270 583 Duty cycle. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 613 @freq;
 #X text 270 613 Frequency. Type: float. Units: 'Hz'. Default value:
-0\. Range: 0\...22050\.;
+0\. Range: [0\..22050].;
 #X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 670 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

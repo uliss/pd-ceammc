@@ -37,7 +37,7 @@ of a given order and a position on a circle given in radians (θ).;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 596 @order;
 #X text 270 596 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
 #X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 653 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

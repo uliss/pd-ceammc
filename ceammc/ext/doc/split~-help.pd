@@ -32,7 +32,7 @@ used in dynamic pathing;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 399 @n;
 #X text 270 399 (initonly) Number of outputs. Type: int. Default value:
-2\. Range: 2\...64\.;
+2\. Range: [2\..64].;
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 456 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

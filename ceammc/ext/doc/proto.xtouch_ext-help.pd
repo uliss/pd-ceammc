@@ -38,7 +38,7 @@ mcu \, xmidi. Type: symbol.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 427 @n;
 #X text 270 427 (initonly) Number of scenes. Type: int. Default value:
-2\. Range: 1\...32\.;
+2\. Range: [1\..32].;
 #X obj 250 469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 469 @proto;
 #X text 270 469 Connection protocol. Type: symbol. Default value: xmidi.

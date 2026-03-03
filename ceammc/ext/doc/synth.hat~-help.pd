@@ -43,7 +43,7 @@ to /synth_hat/PROP_NAME. Type: symbol.;
 #X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 493 @attack;
 #X text 270 493 Attack time. Type: float. Units: 'ms'. Default value:
-20\. Range: 5\...400\.;
+20\. Range: [5\..400].;
 #X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 535 @envwait;
 #X text 270 535 Ignore new notes until previous note is not finished
@@ -51,20 +51,20 @@ release time. Type: bool. Default value: 0\.;
 #X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 577 @freq;
 #X text 270 577 Base frequency. Type: float. Units: 'Hz'. Default value:
-317\. Range: 300\...4000\.;
+317\. Range: [300\..4000].;
 #X obj 250 619 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 619 @gate;
 #X text 270 619 Play trigger >0: on \, 0: off. To set output gain to
 0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 676 @release;
 #X text 270 676 Release time. Type: float. Units: 'ms'. Default value:
-100\. Range: 5\...4000\.;
+100\. Range: [5\..4000].;
 #X obj 250 718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 718 @tone;
 #X text 270 718 Bandpass filter cutoff frequency. Type: float. Units:
-'Hz'. Default value: 6400\. Range: 800\...18000\.;
+'Hz'. Default value: 6400\. Range: [800\..18000].;
 #X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 775 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

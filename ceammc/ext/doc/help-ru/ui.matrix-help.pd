@@ -67,7 +67,7 @@ VALUE(;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 811 @cols;
 #X text 270 811 Number of matrix columns. Тип: int. Значение по умолчанию:
-8\. Диапазон: 1\...64\.;
+8\. Диапазон: [1\..64].;
 #X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 853 @current_col;
 #X text 270 853 Current column index. -1 if not specified. This property
@@ -85,7 +85,7 @@ is not saved in patch. Тип: int. Значение по умолчанию: -1
 #X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1009 @rows;
 #X text 270 1009 Number of matrix rows. Тип: int. Значение по умолчанию:
-4\. Диапазон: 1\...64\.;
+4\. Диапазон: [1\..64].;
 #X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1051 @send;
 #X text 270 1051 Адрес отправки сообщений. Тип: symbol. Значение по
@@ -116,7 +116,7 @@ values in 0-1 range). Тип: list. Значение по умолчанию: 1 
 #X obj 250 1378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1378 @fontsize;
 #X text 270 1378 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1420 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1420 @fontslant;
 #X text 270 1420 Наклон шрифта. Тип: symbol. Значение по умолчанию:

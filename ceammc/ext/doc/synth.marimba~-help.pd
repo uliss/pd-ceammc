@@ -42,7 +42,7 @@ to /synth_marimba/PROP_NAME. Type: symbol.;
 #X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 608 @cutoff;
 #X text 270 608 Cuttoff frequency of the strike generator. Type: float.
-Default value: 7000\. Range: 1000\...10000\.;
+Default value: 7000\. Range: [1000\..10000].;
 #X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 650 @freq;
 #X text 270 650 Frequency. Type: float. Units: 'Hz'. Default value:
@@ -50,23 +50,23 @@ Default value: 7000\. Range: 1000\...10000\.;
 #X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 @gain;
 #X text 270 692 Strike gain. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 722 @gate;
 #X text 270 722 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 764 @pitch;
 #X text 270 764 Midi pitch. Type: float. Default value: 48\. Range:
-36\...84\.;
+[36\..84].;
 #X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 806 @pos;
 #X text 270 806 Excitation position. Type: float. Default value: 0\.
-Range: 0\...4\.;
+Range: [0\..4].;
 #X obj 250 848 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 848 @sharp;
 #X text 270 848 Sharpness of the strike. Type: float. Default value:
-0.25\. Range: 0.01\...1\.;
+0.25\. Range: [0.01\..1].;
 #X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 905 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

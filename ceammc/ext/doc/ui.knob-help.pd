@@ -107,11 +107,11 @@ value: (null).;
 #X text 270 1067 MIDI channel binding. If set to 0 \, it binds to all
 channels. The values in the range [1\..16] are mapped to the channels
 of the first Pd MIDI device \, [17\..32] to the channels of the second
-\, and so on. Type: int. Default value: 0\. Range: 0\...255\.;
+\, and so on. Type: int. Default value: 0\. Range: [0\..255].;
 #X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1154 @midi_control;
 #X text 270 1154 Binded MIDI controller number. -1 means not binded
-to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
+to any controller. Type: int. Default value: -1\. Range: [-1\..127].;
 #X obj 250 1211 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1211 @midi_pickup;
 #X text 270 1211 Pickup current value. If slider is binded to value
@@ -164,7 +164,7 @@ top. Allowed values: top \, center \, bottom.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1736 @fontsize;
-#X text 270 1736 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1736 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1766 @fontslant;
 #X text 270 1766 Font slant. Type: symbol. Default value: roman. Allowed

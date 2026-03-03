@@ -22,35 +22,35 @@ also referred to as algorithm 8 of the TX81Z;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 401 @adsr;
 #X text 270 401 ADSR 2 & 4 Target. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @freq;
 #X text 270 443 Maximum speed of whistles. Тип: float. Единицы: 'Hz'.
-Значение по умолчанию: 220\. Диапазон: 0\...480\.;
+Значение по умолчанию: 220\. Диапазон: [0\..480].;
 #X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @gate;
 #X text 270 485 Synth gate (>0 - play). Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 527 @lfo_depth;
 #X text 270 527 LFO Speed (cc1). Тип: int. Значение по умолчанию: 0\.
-Диапазон: 0\...127\.;
+Диапазон: [0\..127].;
 #X obj 250 569 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 569 @lfo_speed;
 #X text 270 569 LFO Speed (cc11). Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 611 @op3;
 #X text 270 611 Operator 3 gain (cc4). Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 653 @op4;
 #X text 270 653 Operator 4 (feedback) gain (cc2). Тип: int. Значение
-по умолчанию: 0\. Диапазон: 0\...127\.;
+по умолчанию: 0\. Диапазон: [0\..127].;
 #X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 695 @pitch;
 #X text 270 695 Midi pitch. Тип: float. Значение по умолчанию: 57\.
-Диапазон: 36\...84\.;
+Диапазон: [36\..84].;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

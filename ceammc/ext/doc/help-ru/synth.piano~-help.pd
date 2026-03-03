@@ -34,11 +34,11 @@
 #X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 593 @brightness;
 #X text 270 593 Brightness. Тип: float. Значение по умолчанию: 0\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @detuning;
 #X text 270 635 Detuning factor. Тип: float. Значение по умолчанию:
-0.1\. Диапазон: 0\...1\.;
+0.1\. Диапазон: [0\..1].;
 #X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @freq;
 #X text 270 677 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
@@ -46,35 +46,35 @@
 #X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @gate;
 #X text 270 719 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @hammer_hardness;
 #X text 270 761 Hammer hardness. Тип: float. Значение по умолчанию:
-0.1\. Диапазон: 0\...1\.;
+0.1\. Диапазон: [0\..1].;
 #X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 803 @pan;
 #X text 270 803 Pan angle. Тип: float. Значение по умолчанию: 0.6\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @pitch;
 #X text 270 845 Midi pitch. Тип: float. Значение по умолчанию: 48\.
-Диапазон: 21\...108\.;
+Диапазон: [21\..108].;
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @reverb_gain;
 #X text 270 887 Reverb gain. Тип: float. Значение по умолчанию: 0.137\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 929 @room_size;
 #X text 270 929 Reverb room size. Тип: float. Значение по умолчанию:
-0.36\. Диапазон: 0.005\...1\.;
+0.36\. Диапазон: [0.005\..1].;
 #X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 971 @stiffness;
 #X text 270 971 Stiffness factor. Тип: float. Значение по умолчанию:
-0.28\. Диапазон: 0\...1\.;
+0.28\. Диапазон: [0\..1].;
 #X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1013 @width;
 #X text 270 1013 Spatialization width. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: 0\...1\.;
+0.5\. Диапазон: [0\..1].;
 #X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1070 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

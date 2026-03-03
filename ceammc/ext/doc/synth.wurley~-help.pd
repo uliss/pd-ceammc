@@ -21,35 +21,35 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 401 @adsr;
 #X text 270 401 ADSR 2 & 4 Target. Type: int. Default value: 0\. Range:
-0\...127\.;
+[0\..127].;
 #X obj 250 443 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 443 @freq;
 #X text 270 443 Maximum speed of whistles. Type: float. Units: 'Hz'.
-Default value: 220\. Range: 0\...480\.;
+Default value: 220\. Range: [0\..480].;
 #X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 485 @gate;
 #X text 270 485 Synth gate (>0 - play). Type: float. Default value:
-0\. Range: 0\...1\.;
+0\. Range: [0\..1].;
 #X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 527 @lfo_depth;
 #X text 270 527 LFO Speed (cc1). Type: int. Default value: 0\. Range:
-0\...127\.;
+[0\..127].;
 #X obj 250 569 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 569 @lfo_speed;
 #X text 270 569 LFO Speed (cc11). Type: int. Default value: 0\. Range:
-0\...127\.;
+[0\..127].;
 #X obj 250 611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 611 @mod;
 #X text 270 611 Modulator index one (cc2). Type: int. Default value:
-0\. Range: 0\...127\.;
+0\. Range: [0\..127].;
 #X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 653 @pitch;
 #X text 270 653 Midi pitch. Type: float. Default value: 57\. Range:
-36\...84\.;
+[36\..84].;
 #X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 695 @xfade;
 #X text 270 695 Crossfade of outputs (cc4). Type: int. Default value:
-0\. Range: 0\...127\.;
+0\. Range: [0\..127].;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

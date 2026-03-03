@@ -61,15 +61,15 @@ chain. Type: int. Range: 1\...4;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 881 @displays;
 #X text 270 881 (initonly) The number of displays connected in a daisy
-chain. Type: int. Default value: 1\. Range: 1\...4\.;
+chain. Type: int. Default value: 1\. Range: [1\..4].;
 #X obj 250 923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 923 @spi_bus;
 #X text 270 923 (initonly) SPI bus number. Type: int. Default value:
--1\. Range: -1\...6\.;
+-1\. Range: [-1\..6].;
 #X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 965 @spi_cs;
 #X text 270 965 (initonly) CS (ChipSelect \, SlaveSelect or ChipEnable)
-index. Type: int. Default value: 0\. Range: 0\...3\.;
+index. Type: int. Default value: 0\. Range: [0\..3].;
 #X obj 20 1017 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1022 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

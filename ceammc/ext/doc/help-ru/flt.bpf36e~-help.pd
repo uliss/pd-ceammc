@@ -43,7 +43,7 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 722 @freq;
 #X text 270 722 (при инициализации) Cutoff frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 1000\. Диапазон: 20\...20000\.;
+'Hz'. Значение по умолчанию: 1000\. Диапазон: [20\..20000].;
 #X obj 250 779 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 779 @id;
 #X text 270 779 (при инициализации) Идентификатор для OSC адреса. Если
@@ -56,7 +56,7 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 896 @q;
 #X text 270 896 (при инициализации) Quality factor: @freq/BANDWIDTH.
-Тип: float. Значение по умолчанию: 2\. Диапазон: 0.25\...32\.;
+Тип: float. Значение по умолчанию: 2\. Диапазон: [0.25\..32].;
 #X obj 250 953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 953 @active;
 #X text 270 953 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение

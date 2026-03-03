@@ -30,7 +30,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 388 @dot;
 #X text 270 388 Dot length. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 100\. Диапазон: 5\...1000\.;
+умолчанию: 100\. Диапазон: [5\..1000].;
 #X obj 250 430 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 430 @external;
 #X text 270 430 Use external clock. Тип: bool. Значение по умолчанию:
@@ -38,11 +38,11 @@
 #X obj 250 460 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 460 @letter;
 #X text 270 460 Space between letters in dot units. Тип: int. Значение
-по умолчанию: 3\. Диапазон: 2\...20\.;
+по умолчанию: 3\. Диапазон: [2\..20].;
 #X obj 250 502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 502 @word;
 #X text 270 502 Space between words in dot units. Тип: int. Значение
-по умолчанию: 5\. Диапазон: 2\...20\.;
+по умолчанию: 5\. Диапазон: [2\..20].;
 #X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 559 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

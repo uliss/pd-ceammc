@@ -37,7 +37,7 @@ in a logarithmic way to have linear changes.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 640 @order;
 #X text 270 640 (initonly) The order of decomposition. Type: int. Default
-value: 1\. Range: 1\...63\.;
+value: 1\. Range: [1\..63].;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 697 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

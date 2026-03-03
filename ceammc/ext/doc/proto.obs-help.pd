@@ -35,7 +35,7 @@ localhost.;
 #X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 436 @port;
 #X text 270 436 OBS studio control port. Type: int. Default value:
-4455\. Range: 1\...32767\.;
+4455\. Range: [1\..32767].;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 493 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

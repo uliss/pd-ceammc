@@ -35,7 +35,7 @@ generator;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 427 @count;
 #X text 270 427 Length of generated list. Type: int. Default value:
-1\. Range: 1\...1024\.;
+1\. Range: [1\..1024].;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 484 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

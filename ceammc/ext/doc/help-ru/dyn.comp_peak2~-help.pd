@@ -75,7 +75,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 907 @attack;
 #X text 270 907 Time constant when level & compression going up. Тип:
-float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: 0.1\...100\.;
+float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
 #X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 964 @bypass;
 #X text 270 964 Bypass flag. If true: bypass 'effected' signal. Тип:
@@ -84,46 +84,46 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 1006 @gain;
 #X text 270 1006 Make up gain: applied to the signal after the compression
 takes place. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\.
-Диапазон: -18\...18\.;
+Диапазон: [-18\..18].;
 #X obj 250 1063 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1063 @knee;
 #X text 270 1063 A gradual increase in gain reduction around the threshold:
 below thresh-(knee/2) there is no gain reduction \, above thresh+(knee/2)
 there is the same gain reduction as without a knee \, and in between
 there is a gradual increase in gain reduction. Тип: float. Единицы:
-'db'. Значение по умолчанию: 3\. Диапазон: 0\...6\.;
+'db'. Значение по умолчанию: 3\. Диапазон: [0\..6].;
 #X obj 250 1166 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1166 @link;
 #X text 270 1166 The amount of linkage between the channels: 0 = each
 channel is independent \, 1 = all channels have the same amount of
-gain reduction. Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+gain reduction. Тип: float. Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @refresh;
 #X text 270 1238 Compression level output time interval. If 0 - no
 output. Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон:
-0\...1000\.;
+[0\..1000].;
 #X obj 250 1295 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1295 @release;
 #X text 270 1295 Release time = time constant coming out of compression.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: 1\...500\.;
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
 #X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1352 @strength;
 #X text 270 1352 Strength of the compression (0 = no compression \,
 1 means hard limiting \, >1 means over-compression). Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...2\.;
+по умолчанию: 0\. Диапазон: [0\..2].;
 #X obj 250 1409 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1409 @threshold;
 #X text 270 1409 Level threshold above which compression kicks in (100
 dB = max level). Тип: float. Единицы: 'db'. Значение по умолчанию:
--10\. Диапазон: -60\...0\.;
+-10\. Диапазон: [-60\..0].;
 #X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1466 @level0?;
 #X text 270 1466 (только чтение) Current level of compression of first
-channel. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+channel. Тип: float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 1523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1523 @level1?;
 #X text 270 1523 (только чтение) Current level of compression of second
-channel. Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+channel. Тип: float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 20 1590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1595 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

@@ -22,7 +22,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 318 @maxsize;
 #X text 270 318 Max impulse response size. Type: int. Units: 'samp'.
-Default value: 50000\. Range: 0\...300000\.;
+Default value: 50000\. Range: [0\..300000].;
 #X obj 250 360 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 360 @norm;
 #X text 270 360 Normalize impulse response. Type: bool. Default value:

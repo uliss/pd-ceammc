@@ -40,27 +40,27 @@
 #X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 522 @a0;
 #X text 270 522 1st source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 564 @a1;
 #X text 270 564 2nd source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 606 @a2;
 #X text 270 606 3rd source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 648 @a3;
 #X text 270 648 4th source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 690 @a4;
 #X text 270 690 5th source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 732 @a5;
 #X text 270 732 6th source panning position. Тип: float. Значение по
-умолчанию: 0\. Диапазон: 0\...1\.;
+умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 774 @active;
 #X text 270 774 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
@@ -68,105 +68,105 @@
 #X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @dry0;
 #X text 270 816 1st source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 858 @dry1;
 #X text 270 858 2nd source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 900 @dry2;
 #X text 270 900 3rd source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 942 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 942 @dry3;
 #X text 270 942 4th source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 984 @dry4;
 #X text 270 984 5th source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 1026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1026 @dry5;
 #X text 270 1026 6th source direct sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -3\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -3\. Диапазон: [-60\..0].;
 #X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1068 @r0;
 #X text 270 1068 1st source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1110 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1110 @r1;
 #X text 270 1110 2nd source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1152 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1152 @r2;
 #X text 270 1152 3rd source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1194 @r3;
 #X text 270 1194 4th source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1236 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1236 @r4;
 #X text 270 1236 5th source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1278 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1278 @r5;
 #X text 270 1278 6th source distance from circle center. Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 250 1320 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1320 @t0;
 #X text 270 1320 1st source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1377 @t1;
 #X text 270 1377 2nd source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1434 @t2;
 #X text 270 1434 3rd source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1491 @t3;
 #X text 270 1491 4th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1548 @t4;
 #X text 270 1548 5th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1605 @t5;
 #X text 270 1605 6th source reverb time (in seconds) to decay 60dB
 in low and mid-frequency band. Тип: float. Единицы: 'sec'. Значение
-по умолчанию: 2\. Диапазон: 0\...90\.;
+по умолчанию: 2\. Диапазон: [0\..90].;
 #X obj 250 1662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1662 @wet0;
 #X text 270 1662 1st source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 250 1704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1704 @wet1;
 #X text 270 1704 2nd source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 250 1746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1746 @wet2;
 #X text 270 1746 3rd source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 250 1788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1788 @wet3;
 #X text 270 1788 4th source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 250 1830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1830 @wet4;
 #X text 270 1830 5th source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 250 1872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1872 @wet5;
 #X text 270 1872 6th source reverb sound level. Тип: float. Единицы:
-'db'. Значение по умолчанию: -8\. Диапазон: -60\...0\.;
+'db'. Значение по умолчанию: -8\. Диапазон: [-60\..0].;
 #X obj 20 1924 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1929 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

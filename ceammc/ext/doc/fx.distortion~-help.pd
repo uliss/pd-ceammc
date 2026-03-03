@@ -57,16 +57,16 @@ bool. Default value: 0\.;
 #X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 659 @drive;
 #X text 270 659 Distortion amount. Type: float. Default value: 0.5\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 701 @drywet;
 #X text 270 701 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @offset;
 #X text 270 758 Constant added before nonlinearity to give even harmonics.
-Type: float. Default value: 0\. Range: 0\...0.5\.;
+Type: float. Default value: 0\. Range: [0\..0.5].;
 #X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 815 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

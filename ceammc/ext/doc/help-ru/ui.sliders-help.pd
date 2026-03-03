@@ -84,7 +84,7 @@ min \, max.;
 #X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 908 @count;
 #X text 270 908 Number of sliders. Тип: int. Значение по умолчанию:
-8\. Диапазон: 1\...1024\.;
+8\. Диапазон: [1\..1024].;
 #X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 950 @max;
 #X text 270 950 Maximum value. Тип: float. Значение по умолчанию: 1\.;
@@ -161,7 +161,7 @@ in 0-1 range). Тип: list. Значение по умолчанию: 0.75 0.75
 #X obj 250 1793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1793 @fontsize;
 #X text 270 1793 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1835 @fontslant;
 #X text 270 1835 Наклон шрифта. Тип: symbol. Значение по умолчанию:

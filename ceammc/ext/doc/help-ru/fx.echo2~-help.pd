@@ -52,23 +52,23 @@ bool. Значение по умолчанию: 0\.;
 #X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 599 @delay;
 #X text 270 599 Echo time. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-500\. Диапазон: 10\...5000\.;
+500\. Диапазон: [10\..5000].;
 #X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 641 @drywet;
 #X text 270 641 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 698 @feedback;
 #X text 270 698 Feedback coefficient. Тип: float. Значение по умолчанию:
-0.3\. Диапазон: 0\...0.99\.;
+0.3\. Диапазон: [0\..0.99].;
 #X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 740 @stereo;
 #X text 270 740 The stereo parameter controls the amount of stereo
 spread. For stereo=0 you get a plain delay \, without crosstalk between
 the channels. For stereo=1 you get a pure ping-pong delay where the
 echos from the left first appear on the right channel and vice versa.
-Тип: float. Значение по умолчанию: 1\. Диапазон: 0\...1\.;
+Тип: float. Значение по умолчанию: 1\. Диапазон: [0\..1].;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 858 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

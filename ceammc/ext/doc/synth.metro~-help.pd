@@ -54,55 +54,55 @@ to /synth_metro/PROP_NAME. Type: symbol.;
 #X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @down.freq;
 #X text 270 501 Downbeat frequency. Type: float. Units: 'Hz'. Default
-value: 1500\. Range: 100\...5000\.;
+value: 1500\. Range: [100\..5000].;
 #X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @down.gain;
 #X text 270 543 Downbeat gain. Type: float. Units: 'db'. Default value:
-6\. Range: -12\...12\.;
+6\. Range: [-12\..12].;
 #X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 585 @down.reson;
 #X text 270 585 Downbeat resonance value (Q). Type: float. Default
-value: 50\. Range: 5\...100\.;
+value: 50\. Range: [5\..100].;
 #X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 627 @gain;
 #X text 270 627 Common synth gain. Type: float. Units: 'db'. Default
-value: 0\. Range: -12\...12\.;
+value: 0\. Range: [-12\..12].;
 #X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 669 @mark.freq;
 #X text 270 669 Mark sound frequency. Type: float. Units: 'Hz'. Default
-value: 2000\. Range: 100\...5000\.;
+value: 2000\. Range: [100\..5000].;
 #X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 711 @mark.gain;
 #X text 270 711 Mark sound gain. Type: float. Units: 'db'. Default
-value: 6\. Range: -12\...12\.;
+value: 6\. Range: [-12\..12].;
 #X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 @mark.reson;
 #X text 270 753 Mark sound resonance value (Q). Type: float. Default
-value: 500\. Range: 5\...500\.;
+value: 500\. Range: [5\..500].;
 #X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @off.freq;
 #X text 270 795 Off-beat frequency. Type: float. Units: 'Hz'. Default
-value: 500\. Range: 100\...5000\.;
+value: 500\. Range: [100\..5000].;
 #X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @off.gain;
 #X text 270 837 Off-beat gain. Type: float. Units: 'db'. Default value:
-6\. Range: -12\...12\.;
+6\. Range: [-12\..12].;
 #X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @off.reson;
 #X text 270 879 Off-beat resonance value (Q). Type: float. Default
-value: 10\. Range: 5\...100\.;
+value: 10\. Range: [5\..100].;
 #X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 @on.freq;
 #X text 270 921 On-beat frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 100\...5000\.;
+value: 1000\. Range: [100\..5000].;
 #X obj 250 963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 963 @on.gain;
 #X text 270 963 On-beat gain. Type: float. Units: 'db'. Default value:
-6\. Range: -12\...12\.;
+6\. Range: [-12\..12].;
 #X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1005 @on.reson;
 #X text 270 1005 On-beat resonance value (Q). Type: float. Default
-value: 30\. Range: 5\...100\.;
+value: 30\. Range: [5\..100].;
 #X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @tempo;
 #X text 270 1047 Tempo. If beat division is ommitted \, using 1/4\.

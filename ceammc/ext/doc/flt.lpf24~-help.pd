@@ -53,7 +53,7 @@ to /flt_lpf24/PROP_NAME. Type: symbol.;
 #X obj 250 812 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 812 @freq;
 #X text 270 812 Cutoff frequency. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 20\...20000\.;
+value: 1000\. Range: [20\..20000].;
 #X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 869 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

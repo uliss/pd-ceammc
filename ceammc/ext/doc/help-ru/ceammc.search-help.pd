@@ -19,7 +19,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 261 @max;
 #X text 270 261 Maximum number of result. Тип: int. Значение по умолчанию:
-10\. Диапазон: 1\...50\.;
+10\. Диапазон: [1\..50].;
 #X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 318 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

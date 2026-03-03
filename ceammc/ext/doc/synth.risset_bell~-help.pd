@@ -48,19 +48,19 @@ bind to /synth_risset_bell/PROP_NAME. Type: symbol.;
 #X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 574 @dur;
 #X text 270 574 Duration. Type: float. Units: 'ms'. Default value:
-5000\. Range: 10\...600000\.;
+5000\. Range: [10\..600000].;
 #X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 616 @freq;
 #X text 270 616 Base frequency. Type: float. Units: 'Hz'. Default value:
-440\. Range: 1\...10000\.;
+440\. Range: [1\..10000].;
 #X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 658 @gate;
 #X text 270 658 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 700 @pfreq;
 #X text 270 700 Freq multiplication coefficient. Type: float. Default
-value: 1\. Range: 0\...10\.;
+value: 1\. Range: [0\..10].;
 #X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 757 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

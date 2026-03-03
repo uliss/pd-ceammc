@@ -30,11 +30,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 477 @freq;
 #X text 270 477 Filter frequency. Тип: float. Значение по умолчанию:
-1000\. Диапазон: 0\...20000\.;
+1000\. Диапазон: [0\..20000].;
 #X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 519 @gain;
 #X text 270 519 Gain (for low/highshelf/peak filters). Тип: float.
-Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+Единицы: 'db'. Значение по умолчанию: 0\. Диапазон: [-24\..24].;
 #X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 576 @mouse_events;
 #X text 270 576 Mouse events output mode. If on outputs @mouse_down
@@ -43,7 +43,7 @@
 #X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 633 @q;
 #X text 270 633 Quality factor. Тип: float. Значение по умолчанию:
-0.7071\. Диапазон: 0.0156\...64\.;
+0.7071\. Диапазон: [0.0156\..64].;
 #X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 675 @receive;
 #X text 270 675 Источник получения сообщений. Тип: symbol. Значение
@@ -119,7 +119,7 @@ example: 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0
 #X obj 250 1461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1461 @fontsize;
 #X text 270 1461 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1503 @fontslant;
 #X text 270 1503 Наклон шрифта. Тип: symbol. Значение по умолчанию:

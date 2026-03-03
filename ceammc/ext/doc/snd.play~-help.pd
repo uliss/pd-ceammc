@@ -53,7 +53,7 @@ Type: symbol.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 698 @n;
 #X text 270 698 (initonly) Number of output channels. Type: int. Default
-value: 2\. Range: 1\...32\.;
+value: 2\. Range: [1\..32].;
 #X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 740 @begin;
 #X text 270 740 Start playing position. Type: atom. Units: 'samp' \,
@@ -77,14 +77,14 @@ name. Type: symbol.;
 #X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 941 @pitch;
 #X text 270 941 Pitch-shift correction. Used only if @stretch mode
-enabled. Type: float. Default value: 1\. Range: 0.25\...4\.;
+enabled. Type: float. Default value: 1\. Range: [0.25\..4].;
 #X obj 250 998 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 998 @speed;
 #X text 270 998 Playing speed. If @stretch mode is disabled (default):
 changes playing speed (also with pitch change respectively) in real
 time. If @stretch mode is enabled: can only change speed (without pitch
 change) only on the next playing cycle. Type: float. Default value:
-1\. Range: 0.25\...4\.;
+1\. Range: [0.25\..4].;
 #X obj 250 1101 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1101 @stretch;
 #X text 270 1101 Stretch mode. If true: use timestretch and pitch-shifting.

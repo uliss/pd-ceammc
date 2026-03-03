@@ -47,7 +47,7 @@
 #X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 606 @cutoff;
 #X text 270 606 Cutoff coefficent (for low pass filter). Тип: float.
-Значение по умолчанию: 1\. Диапазон: 0.1\...1\.;
+Значение по умолчанию: 1\. Диапазон: [0.1\..1].;
 #X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 648 @freq;
 #X text 270 648 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
@@ -55,31 +55,31 @@
 #X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 690 @gain;
 #X text 270 690 Pluck gain. Тип: float. Значение по умолчанию: 1\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 732 @gate;
 #X text 270 732 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 774 @mode;
 #X text 270 774 Excitation mode: 0 - impulse \, 1 - pluck \, 2 - strike.
-Тип: int. Значение по умолчанию: 1\. Диапазон: 0\...2\.;
+Тип: int. Значение по умолчанию: 1\. Диапазон: [0\..2].;
 #X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @mute;
 #X text 270 816 Mute coefficient (0 for no mute and 1 for instant mute).
-Тип: float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
+Тип: float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 873 @pitch;
 #X text 270 873 Midi pitch. Тип: float. Значение по умолчанию: 48\.
-Диапазон: 36\...84\.;
+Диапазон: [36\..84].;
 #X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 915 @pos;
 #X text 270 915 Pluck position (1 is on the bridge). Тип: float. Значение
-по умолчанию: 0.7\. Диапазон: 0\...1\.;
+по умолчанию: 0.7\. Диапазон: [0\..1].;
 #X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 957 @sharp;
 #X text 270 957 Pluck sharpness. Тип: float. Значение по умолчанию:
-0.25\. Диапазон: 0.01\...1\.;
+0.25\. Диапазон: [0.01\..1].;
 #X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1014 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

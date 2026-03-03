@@ -41,7 +41,7 @@ to /noise_lfreq/PROP_NAME. Type: symbol.;
 #X obj 250 592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 592 @freq;
 #X text 270 592 Noise generation freq. Type: float. Units: 'Hz'. Default
-value: 1000\. Range: 5\...22050\.;
+value: 1000\. Range: [5\..22050].;
 #X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 649 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

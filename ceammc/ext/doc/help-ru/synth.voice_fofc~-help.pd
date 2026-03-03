@@ -70,16 +70,16 @@ o \, u. Тип: symbol.;
 #X obj 250 952 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 952 @attack;
 #X text 270 952 Attack time. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 30\. Диапазон: 0\...1000\.;
+умолчанию: 30\. Диапазон: [0\..1000].;
 #X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 994 @freq;
 #X text 270 994 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
-440\. Диапазон: 20\...20000.0\.;
+440\. Диапазон: [20\..20000.0].;
 #X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1036 @fvowel;
 #X text 270 1036 Vowel index: 0=a \, 1=e \, 2=i \, 3=o \, 4=u. Float
 values can be interpoltaed. Тип: float. Значение по умолчанию: 0\.
-Диапазон: 0\...4\.;
+Диапазон: [0\..4].;
 #X obj 250 1093 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1093 @gate;
 #X text 270 1093 Synth gate (>0 - play). Тип: bool. Значение по умолчанию:
@@ -87,19 +87,19 @@ values can be interpoltaed. Тип: float. Значение по умолчан�
 #X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1123 @portamento;
 #X text 270 1123 Portamento time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 0\. Диапазон: 0\...4000\.;
+по умолчанию: 0\. Диапазон: [0\..4000].;
 #X obj 250 1165 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1165 @release;
 #X text 270 1165 Release time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 50\. Диапазон: 0\...1000\.;
+по умолчанию: 50\. Диапазон: [0\..1000].;
 #X obj 250 1207 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1207 @vibr_freq;
 #X text 270 1207 Vibrato frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 6\. Диапазон: 1\...10\.;
+по умолчанию: 6\. Диапазон: [1\..10].;
 #X obj 250 1249 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1249 @vibr_gain;
 #X text 270 1249 Vibrato frequency. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: 0\...1\.;
+0.5\. Диапазон: [0\..1].;
 #X obj 250 1291 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1291 @voice;
 #X text 270 1291 Voice type. Note: can be set by corresponding index.
@@ -113,7 +113,7 @@ values can be interpoltaed. Тип: float. Значение по умолчан�
 #X obj 250 1405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1405 @wsmooth;
 #X text 270 1405 Vowel smoothing time. Тип: float. Единицы: 'ms'. Значение
-по умолчанию: 10\. Диапазон: 0\...1000\.;
+по умолчанию: 10\. Диапазон: [0\..1000].;
 #X obj 20 1457 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1462 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

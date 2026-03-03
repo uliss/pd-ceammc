@@ -55,7 +55,7 @@ ceammc://img/info_pca9685.jpg;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 884 @i2c_addr;
 #X text 270 884 (initonly) I²C address. Also 'default' value is accepted
-(for addr 0x40). Type: int. Default value: -1\. Range: -4\...119\.;
+(for addr 0x40). Type: int. Default value: -1\. Range: [-4\..119].;
 #X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 941 @i2c_bus;
 #X text 270 941 (initonly) I²C bus. Type: atom. Default value: none.

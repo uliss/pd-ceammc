@@ -53,16 +53,16 @@ bool. Default value: 0\.;
 #X obj 250 679 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 679 @delay;
 #X text 270 679 Flange delay. Type: float. Units: 'ms'. Default value:
-10\. Range: 0\...20\.;
+10\. Range: [0\..20].;
 #X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 721 @drywet;
 #X text 270 721 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 778 @feedback;
 #X text 270 778 Feedback gain. Type: float. Default value: 0\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 820 @invert;
 #X text 270 820 0 for normal \, 1 to invert sign of flanging sum. Type:
@@ -70,11 +70,11 @@ bool. Default value: 0\.;
 #X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 862 @offset;
 #X text 270 862 Flange delay offset. Type: float. Units: 'ms'. Default
-value: 1\. Range: 0\...20\.;
+value: 1\. Range: [0\..20].;
 #X obj 250 904 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 904 @speed;
 #X text 270 904 Flanger frequency. Type: float. Units: 'Hz'. Default
-value: 0.5\. Range: 0\...10\.;
+value: 0.5\. Range: [0\..10].;
 #X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 961 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

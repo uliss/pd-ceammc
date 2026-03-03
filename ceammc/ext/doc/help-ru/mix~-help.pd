@@ -35,7 +35,7 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 431 @db;
 #X text 270 431 Amplitude values in decibels. Тип: list. Единицы: 'db'.
-Значение по умолчанию: -144 -144\. Минимальное значение: -144\.;
+Значение по умолчанию: -144 -144\. Минимальное значение элемента: -144\.;
 #X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 488 @mute;
 #X text 270 488 Mute channel list \, allowed values: 0 \, 1\. Тип:
@@ -47,7 +47,7 @@ list. Значение по умолчанию: 0 0\.;
 #X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 572 @value;
 #X text 270 572 Linear amplitude values. Тип: list. Значение по умолчанию:
-0 0\. Минимальное значение: 0\.;
+0 0\. Минимальное значение элемента: 0\.;
 #X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 614 @xfade_time;
 #X text 270 614 Smooth time. Тип: float. Единицы: 'ms'. Значение по

@@ -25,19 +25,19 @@
 #X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 507 @C1;
 #X text 270 507 C1 capacity in nF. Тип: float. Значение по умолчанию:
-5.5\. Диапазон: 5.2\...6\.;
+5.5\. Диапазон: [5.2\..6].;
 #X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 549 @C2;
 #X text 270 549 C2 capacity in nF. Тип: float. Значение по умолчанию:
-49.5\. Диапазон: 40\...60\.;
+49.5\. Диапазон: [40\..60].;
 #X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 @L;
 #X text 270 591 L in mH. Тип: float. Значение по умолчанию: 7.07\.
-Диапазон: 6.5\...7.3\.;
+Диапазон: [6.5\..7.3].;
 #X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 633 @R;
 #X text 270 633 R resistance in kOhm. Тип: float. Значение по умолчанию:
-1.6\. Диапазон: 1.252\...1.7\.;
+1.6\. Диапазон: [1.252\..1.7].;
 #X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 675 @active;
 #X text 270 675 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
@@ -46,7 +46,7 @@
 #X msg 130 717 @gate;
 #X text 270 717 Play trigger >0: on \, 0: off. To set output gain to
 0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
-0\. Диапазон: 0\...1\.;
+0\. Диапазон: [0\..1].;
 #X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 789 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

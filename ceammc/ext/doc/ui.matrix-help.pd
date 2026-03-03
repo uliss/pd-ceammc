@@ -67,7 +67,7 @@ VALUE(;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 811 @cols;
 #X text 270 811 Number of matrix columns. Type: int. Default value:
-8\. Range: 1\...64\.;
+8\. Range: [1\..64].;
 #X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 853 @current_col;
 #X text 270 853 Current column index. -1 if not specified. This property
@@ -83,7 +83,7 @@ is not saved in patch. Type: int. Default value: -1\. Min value: -1\.;
 #X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1009 @rows;
 #X text 270 1009 Number of matrix rows. Type: int. Default value: 4\.
-Range: 1\...64\.;
+Range: [1\..64].;
 #X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1051 @send;
 #X text 270 1051 Address for sending messages. Type: symbol. Default
@@ -111,7 +111,7 @@ values in 0-1 range). Type: list. Default value: 1 0.75 0 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1318 @fontsize;
-#X text 270 1318 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1318 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1348 @fontslant;
 #X text 270 1348 Font slant. Type: symbol. Default value: roman. Allowed

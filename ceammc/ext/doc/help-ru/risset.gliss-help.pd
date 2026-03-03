@@ -42,7 +42,7 @@
 #X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 503 @base;
 #X text 270 503 Base pitch. Тип: float. Единицы: 'semitone'. Значение
-по умолчанию: 60\. Диапазон: 10\...100\.;
+по умолчанию: 60\. Диапазон: [10\..100].;
 #X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 545 @interval;
 #X text 270 545 Interval between bands. Тип: float. Единицы: 'semitone'.

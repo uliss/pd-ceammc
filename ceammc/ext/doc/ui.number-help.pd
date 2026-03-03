@@ -59,7 +59,7 @@ input \, BACKSPACE removes last character.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 726 @digits;
 #X text 270 726 Number of digits. If -1 - no fixed digits used. Type:
-int. Default value: -1\. Range: -1\...9\.;
+int. Default value: -1\. Range: [-1\..9].;
 #X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 768 @display_only;
 #X text 270 768 Interaction mode. If true: react only to received Pd
@@ -105,7 +105,7 @@ in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1239 @fontsize;
-#X text 270 1239 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1239 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1269 @fontslant;
 #X text 270 1269 Font slant. Type: symbol. Default value: roman. Allowed

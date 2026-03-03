@@ -73,7 +73,7 @@ in the case where the pitch scale is exactly 1.0\. Тип: symbol. Значен�
 #X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1054 @scale;
 #X text 270 1054 Transposition as ratio. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0.25\...4\.;
+1\. Диапазон: [0.25\..4].;
 #X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1096 @smooth;
 #X text 270 1096 Control the use of window-presum FFT and time-domain
@@ -103,7 +103,7 @@ but may be less clear than with either of the other @trans settings.
 #X obj 250 1513 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1513 @transpose;
 #X text 270 1513 Transposition in semitones. Тип: float. Единицы: 'semitone'.
-Значение по умолчанию: 0\. Диапазон: -24\...24\.;
+Значение по умолчанию: 0\. Диапазон: [-24\..24].;
 #X obj 250 1555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1555 @window;
 #X text 270 1555 The window size. 'standard' is expected to produce

@@ -56,7 +56,7 @@ Type: symbol. Default value: pd. Allowed values: pd \, str \, lines
 #X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 674 @t;
 #X text 270 674 Period to check program output. Type: int. Units: 'ms'.
-Default value: 100\. Range: 5\...500\.;
+Default value: 100\. Range: [5\..500].;
 #X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 731 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -41,7 +41,7 @@ default values given it sets to 0\. Тип: list.;
 #X obj 250 444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 444 @n;
 #X text 270 444 (при инициализации) Number of inlets. Тип: int. Значение
-по умолчанию: 1\. Диапазон: 1\...255\.;
+по умолчанию: 1\. Диапазон: [1\..255].;
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 501 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

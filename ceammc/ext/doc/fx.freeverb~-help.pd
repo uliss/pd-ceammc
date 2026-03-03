@@ -65,24 +65,24 @@ bool. Default value: 0\.;
 #X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 774 @damp;
 #X text 270 774 Damping of the lowpass comb filter. Type: float. Default
-value: 0.5\. Range: 0\...1\.;
+value: 0.5\. Range: [0\..1].;
 #X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 816 @drywet;
 #X text 270 816 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.33\. Range: 0\...1\.;
+0.33\. Range: [0\..1].;
 #X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 873 @fr_damp;
 #X text 270 873 Freeze room damp. Type: float. Default value: 0.0001\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 915 @fr_room;
 #X text 270 915 Freeze room size. Type: float. Default value: 0.999\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 957 @fr_time;
 #X text 270 957 Length of freeze tail. Type: float. Units: 'ms'. Default
-value: 100\. Range: 0\...1000\.;
+value: 100\. Range: [0\..1000].;
 #X obj 250 999 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 999 @freeze;
 #X text 270 999 Freeze reverberation tail. Type: bool. Default value:
@@ -90,7 +90,7 @@ value: 100\. Range: 0\...1000\.;
 #X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1029 @room;
 #X text 270 1029 Room size. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1074 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

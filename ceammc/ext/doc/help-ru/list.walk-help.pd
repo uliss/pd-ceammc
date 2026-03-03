@@ -57,7 +57,7 @@ with folding.;
 #X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 699 @index;
 #X text 270 699 Current position. Тип: list. Значение по умолчанию:
-0\. Минимальное значение: 0\.;
+0\. Минимальное значение элемента: 0\.;
 #X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 741 @length;
 #X text 270 741 Output list length. Тип: int. Значение по умолчанию:

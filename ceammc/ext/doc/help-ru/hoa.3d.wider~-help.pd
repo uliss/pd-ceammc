@@ -35,7 +35,7 @@ in a logarithmic way to have linear changes.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 640 @order;
 #X text 270 640 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...10\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..10].;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 697 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

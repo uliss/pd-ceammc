@@ -104,7 +104,7 @@ function.;
 #X obj 250 1260 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1260 @silence;
 #X text 270 1260 Onset detection silence threshold. Type: float. Units:
-'db'. Default value: -90\. Range: -90\...0\.;
+'db'. Default value: -90\. Range: [-90\..0].;
 #X obj 250 1302 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1302 @specdiff;
 #X text 270 1302 Alias to @method specdiff. Spectral difference method

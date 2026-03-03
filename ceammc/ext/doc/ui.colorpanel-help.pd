@@ -41,14 +41,14 @@
 #X obj 735 535 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 533 @hue;
-#X text 270 533 First hue. Type: float. Default value: 0\. Range: 0\...1\.;
+#X text 270 533 First hue. Type: float. Default value: 0\. Range: [0\..1].;
 #X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 563 @index;
 #X text 270 563 Color position in panel. Type: list.;
 #X obj 250 593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 593 @lightness;
 #X text 270 593 First lightness. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 635 @matrix;
 #X text 270 635 Matrix size. Type: list. Default value: 24 13\.;
@@ -62,7 +62,7 @@
 #X obj 250 737 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 737 @saturation;
 #X text 270 737 Saturation. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 767 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 767 @send;
 #X text 270 767 Address for sending messages. Type: symbol. Default
@@ -81,7 +81,7 @@ values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 950 @fontsize;
-#X text 270 950 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 950 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 980 @fontslant;
 #X text 270 980 Font slant. Type: symbol. Default value: roman. Allowed

@@ -50,7 +50,7 @@ values: lines \, bars.;
 #X obj 250 746 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 746 @n;
 #X text 270 746 Number of inputs. Type: int. Default value: 1\. Range:
-1\...4\.;
+[1\..4].;
 #X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @receive;
 #X text 270 788 Source of message receive. Type: symbol. Default value:
@@ -86,11 +86,11 @@ value: 1\.;
 #X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1088 @ymax;
 #X text 270 1088 Minimal y-axis value. Type: float. Default value:
-1\. Range: -1024\...1024\.;
+1\. Range: [-1024\..1024].;
 #X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1130 @ymin;
 #X text 270 1130 Minimal y-axis value. Type: float. Default value:
--1\. Range: -1024\...1024\.;
+-1\. Range: [-1024\..1024].;
 #X obj 250 1172 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1172 @ymin_grid;
 #X text 270 1172 Draw minor grid lines on y-axis. Type: bool. Default
@@ -146,7 +146,7 @@ in 0-1 range). Type: list. Default value: 1 0.75 0 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1673 @fontsize;
-#X text 270 1673 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1673 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1703 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1703 @fontslant;
 #X text 270 1703 Font slant. Type: symbol. Default value: roman. Allowed

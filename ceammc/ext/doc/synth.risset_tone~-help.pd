@@ -48,15 +48,15 @@ bind to /synth_risset_tone/PROP_NAME. Type: symbol.;
 #X obj 250 589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 589 @centroid;
 #X text 270 589 Main frequency. Units: MIDI note. Type: float. Default
-value: 60\. Range: 20\...120\.;
+value: 60\. Range: [20\..120].;
 #X obj 250 631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 631 @range;
 #X text 270 631 Glissando range in MIDI note units. Type: float. Default
-value: 120\. Range: 1\...120\.;
+value: 120\. Range: [1\..120].;
 #X obj 250 673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 673 @rate;
 #X text 270 673 Glissanso speed. Type: float. Default value: 0.01\.
-Range: -2\...2\.;
+Range: [-2\..2].;
 #X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 730 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

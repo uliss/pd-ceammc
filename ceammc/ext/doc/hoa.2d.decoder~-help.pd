@@ -61,7 +61,7 @@ value: 0\. Min value: 1\.;
 #X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @order;
 #X text 270 758 (initonly) The order of decomposition. Type: int. Default
-value: 1\. Range: 1\...63\.;
+value: 1\. Range: [1\..63].;
 #X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 800 @angles;
 #X text 270 800 Angles of loudspeakers. Only available for @irregular
@@ -72,7 +72,7 @@ mode. Type: list. Units: 'deg'. Default value: 0 90 180 270\.;
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @crop;
 #X text 270 887 Crop HRIR response. Only for @binaural mode. Type:
-int. Units: 'samp'. Default value: 16\. Range: 0\...512\.;
+int. Units: 'samp'. Default value: 16\. Range: [0\..512].;
 #X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 929 @irregular;
 #X text 270 929 Alias for @mode irregular.;
@@ -96,13 +96,13 @@ Default value: 3\. Min value: 1\.;
 #X text 270 1130 (readonly) List of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Type: list. Units: 'rad'. Default
-value: 0 -1 0 1\. Range: -1\...1\.;
+value: 0 -1 0 1\. Item range: [-1\..1].;
 #X obj 250 1217 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1217 @pw_y?;
 #X text 270 1217 (readonly) List of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Type: list. Units: 'rad'. Default
-value: 1 0 -1 0\. Range: -1\...1\.;
+value: 1 0 -1 0\. Item range: [-1\..1].;
 #X obj 20 1314 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1319 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;

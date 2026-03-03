@@ -66,7 +66,7 @@ symbol. Default value: localhost.;
 #X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 810 @port;
 #X text 270 810 Network port number for VLC's HTTP control interface.
-Type: int. Default value: 8080\. Range: 1\...32768\.;
+Type: int. Default value: 8080\. Range: [1\..32768].;
 #X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 867 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

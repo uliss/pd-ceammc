@@ -74,11 +74,11 @@ free. Allowed values: fixe \, fisheye \, free.;
 #X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1164 @n;
 #X text 270 1164 (initonly) Number of channels (planewaves). '0' means
-auto-calculation. Type: int. Default value: 0\. Range: 0\...128\.;
+auto-calculation. Type: int. Default value: 0\. Range: [0\..128].;
 #X obj 250 1221 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1221 @order;
 #X text 270 1221 (initonly) The order of decomposition. Type: int.
-Default value: 1\. Range: 1\...63\.;
+Default value: 1\. Range: [1\..63].;
 #X obj 250 1263 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1263 @ramp;
 #X text 270 1263 Ramp time. Type: float. Default value: 100\. Min value:

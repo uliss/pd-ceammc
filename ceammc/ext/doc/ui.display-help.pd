@@ -68,7 +68,7 @@ Default value: 0\.;
 #X msg 130 794 @float_width;
 #X text 270 794 Number of digits after floating point. If -1: skip
 trailing zeroes \, if 0 - output as integers. Type: int. Default value:
--1\. Range: -1\...17\.;
+-1\. Range: [-1\..17].;
 #X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 851 @hex;
 #X text 270 851 Output integers in hex format. Type: bool. Default
@@ -76,7 +76,7 @@ value: 0\.;
 #X obj 250 881 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 881 @hex_width;
 #X text 270 881 Hex output format width. Type: int. Default value:
-2\. Range: 0\...16\.;
+2\. Range: [0\..16].;
 #X obj 250 923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 923 @receive;
 #X text 270 923 Source of message receive. Type: symbol. Default value:
@@ -104,7 +104,7 @@ in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 1190 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1190 @fontsize;
-#X text 270 1190 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 1190 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 1220 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1220 @fontslant;
 #X text 270 1220 Font slant. Type: symbol. Default value: roman. Allowed

@@ -103,7 +103,7 @@ green \, blue values in 0-1 range). Тип: list. Значение по умол
 #X obj 250 1275 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1275 @fontsize;
 #X text 270 1275 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1317 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1317 @fontslant;
 #X text 270 1317 Наклон шрифта. Тип: symbol. Значение по умолчанию:

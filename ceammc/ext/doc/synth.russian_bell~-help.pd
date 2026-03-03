@@ -40,35 +40,35 @@ bind to /synth_russian_bell/PROP_NAME. Type: symbol.;
 #X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 916 @cutoff;
 #X text 270 916 Strike cutoff frequency. Type: float. Units: 'Hz'.
-Default value: 4000\. Range: 20\...20000\.;
+Default value: 4000\. Range: [20\..20000].;
 #X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 958 @decay_ratio;
 #X text 270 958 Decay ratio. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 988 @decay_slope;
 #X text 270 988 Decay slope. Type: float. Default value: 3\. Range:
-0\...10\.;
+[0\..10].;
 #X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1018 @gain;
 #X text 270 1018 Strike gain. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1048 @gate;
 #X text 270 1048 Play trigger - 1: on \, 0: off. Type: float. Default
-value: 0\. Range: 0\...1\.;
+value: 0\. Range: [0\..1].;
 #X obj 250 1090 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1090 @pos;
 #X text 270 1090 Strike position (0 is on the bottom). Type: int. Default
-value: 0\. Range: 0\...6\.;
+value: 0\. Range: [0\..6].;
 #X obj 250 1132 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1132 @sharp;
 #X text 270 1132 Strike sharpness. Type: float. Default value: 0.25\.
-Range: 0.01\...5\.;
+Range: [0.01\..5].;
 #X obj 250 1174 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1174 @t60;
 #X text 270 1174 Time to decay to -60db level. Type: float. Units:
-'sec'. Default value: 20\. Range: 0.1\...30\.;
+'sec'. Default value: 20\. Range: [0.1\..30].;
 #X obj 20 1226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1231 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

@@ -74,11 +74,11 @@ and the widening value for each channels. Тип: symbol. Значение по
 #X msg 130 1149 @n;
 #X text 270 1149 (при инициализации) Number of channels (planewaves).
 '0' means auto-calculation. Тип: int. Значение по умолчанию: 0\. Диапазон:
-0\...128\.;
+[0\..128].;
 #X obj 250 1206 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1206 @order;
 #X text 270 1206 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
 #X obj 250 1248 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1248 @ramp;
 #X text 270 1248 Ramp time. Тип: float. Значение по умолчанию: 100\.

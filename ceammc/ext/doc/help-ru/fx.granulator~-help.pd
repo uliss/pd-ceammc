@@ -52,51 +52,51 @@
 #X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 714 @delay;
 #X text 270 714 Grain delay. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 3000\. Диапазон: 500\...3000\.;
+умолчанию: 3000\. Диапазон: [500\..3000].;
 #X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @density;
 #X text 270 756 Number of grains. Тип: float. Значение по умолчанию:
-1.0\. Диапазон: 1.0\...16.0\.;
+1.0\. Диапазон: [1.0\..16.0].;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @gainAL;
 #X text 270 798 A-channel left output gain. Тип: float. Значение по
-умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+умолчанию: 0.75\. Диапазон: [0.0\..1.0].;
 #X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 840 @gainAR;
 #X text 270 840 A-channel right ouptut gain. Тип: float. Значение по
-умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+умолчанию: 0.25\. Диапазон: [0.0\..1.0].;
 #X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 882 @gainBL;
 #X text 270 882 B-channel left output gain. Тип: float. Значение по
-умолчанию: 0.25\. Диапазон: 0.0\...1.0\.;
+умолчанию: 0.25\. Диапазон: [0.0\..1.0].;
 #X obj 250 924 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 924 @gainBR;
 #X text 270 924 B-channel right output gain. Тип: float. Значение по
-умолчанию: 0.75\. Диапазон: 0.0\...1.0\.;
+умолчанию: 0.75\. Диапазон: [0.0\..1.0].;
 #X obj 250 966 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 966 @hpfA;
 #X text 270 966 A-channel HPF corner frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 100.0\. Диапазон: 50.0\...10000.0\.;
+'Hz'. Значение по умолчанию: 100.0\. Диапазон: [50.0\..10000.0].;
 #X obj 250 1023 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1023 @hpfB;
 #X text 270 1023 B-channel HPF corner frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 100.0\. Диапазон: 50.0\...10000.0\.;
+'Hz'. Значение по умолчанию: 100.0\. Диапазон: [50.0\..10000.0].;
 #X obj 250 1080 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1080 @pitchA;
 #X text 270 1080 A-channel pitch shift. Тип: float. Значение по умолчанию:
-1.0\. Диапазон: -4.0\...4.0\.;
+1.0\. Диапазон: [-4.0\..4.0].;
 #X obj 250 1122 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1122 @pitchB;
 #X text 270 1122 B-channel pitchshift. Тип: float. Значение по умолчанию:
-1.0\. Диапазон: -4.0\...4.0\.;
+1.0\. Диапазон: [-4.0\..4.0].;
 #X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1164 @spread;
 #X text 270 1164 Grain spread in the input buffer. Тип: float. Значение
-по умолчанию: 0.5\. Диапазон: 0.05\...1.0\.;
+по умолчанию: 0.5\. Диапазон: [0.05\..1.0].;
 #X obj 250 1206 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1206 @size;
 #X text 270 1206 Grain size for both lines. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 100\. Диапазон: 10\...1000\.;
+Значение по умолчанию: 100\. Диапазон: [10\..1000].;
 #X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1263 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

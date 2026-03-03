@@ -43,24 +43,24 @@ bool. Default value: 0\.;
 #X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 578 @drive;
 #X text 270 578 Distortion amount. Type: float. Default value: 0.5\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 620 @drywet;
 #X text 270 620 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 677 @gain;
 #X text 270 677 Total effect gain. Type: float. Units: 'db'. Default
-value: 0\. Range: -30\...10\.;
+value: 0\. Range: [-30\..10].;
 #X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @hp_freq;
 #X text 270 719 High pass frequency. Type: float. Units: 'Hz'. Default
-value: 30\. Range: 20\...2000\.;
+value: 30\. Range: [20\..2000].;
 #X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @lp_freq;
 #X text 270 761 Low pass frequency. Type: float. Units: 'Hz'. Default
-value: 10000\. Range: 1000\...20000\.;
+value: 10000\. Range: [1000\..20000].;
 #X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 818 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

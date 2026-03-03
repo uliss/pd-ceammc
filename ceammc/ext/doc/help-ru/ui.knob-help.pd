@@ -112,12 +112,12 @@
 #X text 270 1094 Привязанный канал MIDI. Если установлен в 0 - привязка
 ко всем каналам. Значения в диапазоне [1\..16] привязываются к каналам
 первого Pd MIDI устройства \, [17\..32] - к каналам второго и т.д.
-Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
+Тип: int. Значение по умолчанию: 0\. Диапазон: [0\..255].;
 #X obj 250 1181 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1181 @midi_control;
 #X text 270 1181 Binded MIDI controller number. -1 means not binded
 to any controller. Тип: int. Значение по умолчанию: -1\. Диапазон:
--1\...127\.;
+[-1\..127].;
 #X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1238 @midi_pickup;
 #X text 270 1238 Pickup current value. If slider is binded to value
@@ -173,7 +173,7 @@ from sudden value change on first control change. Тип: bool. Значение
 #X obj 250 1850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1850 @fontsize;
 #X text 270 1850 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1892 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1892 @fontslant;
 #X text 270 1892 Наклон шрифта. Тип: symbol. Значение по умолчанию:

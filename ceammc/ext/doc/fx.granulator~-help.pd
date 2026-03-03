@@ -51,51 +51,51 @@ to /fx_granulator/PROP_NAME. Type: symbol.;
 #X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 672 @delay;
 #X text 270 672 Grain delay. Type: float. Units: 'ms'. Default value:
-3000\. Range: 500\...3000\.;
+3000\. Range: [500\..3000].;
 #X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 714 @density;
 #X text 270 714 Number of grains. Type: float. Default value: 1.0\.
-Range: 1.0\...16.0\.;
+Range: [1.0\..16.0].;
 #X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 756 @gainAL;
 #X text 270 756 A-channel left output gain. Type: float. Default value:
-0.75\. Range: 0.0\...1.0\.;
+0.75\. Range: [0.0\..1.0].;
 #X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 798 @gainAR;
 #X text 270 798 A-channel right ouptut gain. Type: float. Default value:
-0.25\. Range: 0.0\...1.0\.;
+0.25\. Range: [0.0\..1.0].;
 #X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 840 @gainBL;
 #X text 270 840 B-channel left output gain. Type: float. Default value:
-0.25\. Range: 0.0\...1.0\.;
+0.25\. Range: [0.0\..1.0].;
 #X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 882 @gainBR;
 #X text 270 882 B-channel right output gain. Type: float. Default value:
-0.75\. Range: 0.0\...1.0\.;
+0.75\. Range: [0.0\..1.0].;
 #X obj 250 924 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 924 @hpfA;
 #X text 270 924 A-channel HPF corner frequency. Type: float. Units:
-'Hz'. Default value: 100.0\. Range: 50.0\...10000.0\.;
+'Hz'. Default value: 100.0\. Range: [50.0\..10000.0].;
 #X obj 250 966 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 966 @hpfB;
 #X text 270 966 B-channel HPF corner frequency. Type: float. Units:
-'Hz'. Default value: 100.0\. Range: 50.0\...10000.0\.;
+'Hz'. Default value: 100.0\. Range: [50.0\..10000.0].;
 #X obj 250 1008 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1008 @pitchA;
 #X text 270 1008 A-channel pitch shift. Type: float. Default value:
-1.0\. Range: -4.0\...4.0\.;
+1.0\. Range: [-4.0\..4.0].;
 #X obj 250 1050 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1050 @pitchB;
 #X text 270 1050 B-channel pitchshift. Type: float. Default value:
-1.0\. Range: -4.0\...4.0\.;
+1.0\. Range: [-4.0\..4.0].;
 #X obj 250 1092 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1092 @spread;
 #X text 270 1092 Grain spread in the input buffer. Type: float. Default
-value: 0.5\. Range: 0.05\...1.0\.;
+value: 0.5\. Range: [0.05\..1.0].;
 #X obj 250 1134 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1134 @size;
 #X text 270 1134 Grain size for both lines. Type: float. Units: 'ms'.
-Default value: 100\. Range: 10\...1000\.;
+Default value: 100\. Range: [10\..1000].;
 #X obj 20 1186 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1191 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

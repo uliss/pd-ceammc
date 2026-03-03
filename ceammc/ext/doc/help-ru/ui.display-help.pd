@@ -68,7 +68,7 @@ message. Тип: bool. Значение по умолчанию: 1\.;
 #X msg 130 794 @float_width;
 #X text 270 794 Number of digits after floating point. If -1: skip
 trailing zeroes \, if 0 - output as integers. Тип: int. Значение по
-умолчанию: -1\. Диапазон: -1\...17\.;
+умолчанию: -1\. Диапазон: [-1\..17].;
 #X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 851 @hex;
 #X text 270 851 Output integers in hex format. Тип: bool. Значение
@@ -76,7 +76,7 @@ trailing zeroes \, if 0 - output as integers. Тип: int. Значение по
 #X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 893 @hex_width;
 #X text 270 893 Hex output format width. Тип: int. Значение по умолчанию:
-2\. Диапазон: 0\...16\.;
+2\. Диапазон: [0\..16].;
 #X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 935 @receive;
 #X text 270 935 Источник получения сообщений. Тип: symbol. Значение
@@ -107,7 +107,7 @@ blue values in 0-1 range). Тип: list. Значение по умолчани�
 #X obj 250 1247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1247 @fontsize;
 #X text 270 1247 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1289 @fontslant;
 #X text 270 1289 Наклон шрифта. Тип: symbol. Значение по умолчанию:

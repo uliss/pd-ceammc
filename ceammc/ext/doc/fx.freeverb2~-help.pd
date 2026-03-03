@@ -63,24 +63,24 @@ bool. Default value: 0\.;
 #X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 803 @damp;
 #X text 270 803 Damping of the lowpass comb filter. Type: float. Default
-value: 0.5\. Range: 0\...1\.;
+value: 0.5\. Range: [0\..1].;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @drywet;
 #X text 270 845 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.33\. Range: 0\...1\.;
+0.33\. Range: [0\..1].;
 #X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 902 @fr_damp;
 #X text 270 902 Freeze room damp. Type: float. Default value: 0.0001\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @fr_room;
 #X text 270 944 Freeze room size. Type: float. Default value: 0.999\.
-Range: 0\...1\.;
+Range: [0\..1].;
 #X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 986 @fr_time;
 #X text 270 986 Length of freeze tail. Type: float. Units: 'ms'. Default
-value: 100\. Range: 0\...1000\.;
+value: 100\. Range: [0\..1000].;
 #X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1028 @freeze;
 #X text 270 1028 Freeze reverberation tail. Type: bool. Default value:
@@ -88,11 +88,11 @@ value: 100\. Range: 0\...1000\.;
 #X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @room;
 #X text 270 1058 Room size. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1088 @spread;
 #X text 270 1088 Spatial spread between 0 and 1 with 1 for maximum
-spread. Type: float. Default value: 0.5\. Range: 0\...1\.;
+spread. Type: float. Default value: 0.5\. Range: [0\..1].;
 #X obj 20 1140 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1145 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

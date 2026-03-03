@@ -58,41 +58,41 @@ bool. Default value: 0\.;
 #X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 654 @c_attack;
 #X text 270 654 Feedback compression attack time. Type: float. Units:
-'ms'. Default value: 10\. Range: 0.1\...100\.;
+'ms'. Default value: 10\. Range: [0.1\..100].;
 #X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 696 @c_release;
 #X text 270 696 Feedback compression release time. Type: float. Units:
-'ms'. Default value: 50\. Range: 1\...500\.;
+'ms'. Default value: 50\. Range: [1\..500].;
 #X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 738 @c_thresh;
 #X text 270 738 Feedback compression threshold level. Type: float.
-Units: 'db'. Default value: 0\. Range: -60\...0\.;
+Units: 'db'. Default value: 0\. Range: [-60\..0].;
 #X obj 250 780 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 780 @compress;
 #X text 270 780 Feedback compression factor. 0: means no compression
 \, 1: limit feedback level. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @delay;
 #X text 270 837 Echo time. Type: float. Units: 'ms'. Default value:
-1\. Range: 0\...6000\.;
+1\. Range: [0\..6000].;
 #X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @drywet;
 #X text 270 879 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 936 @f_hpf;
 #X text 270 936 Feedback high-pass filter cutoff frequency. Type: float.
-Units: 'Hz'. Default value: 300\. Range: 20\...20000\.;
+Units: 'Hz'. Default value: 300\. Range: [20\..20000].;
 #X obj 250 993 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 993 @f_lpf;
 #X text 270 993 Feedback low-pass filter cutoff frequency. Type: float.
-Units: 'Hz'. Default value: 9000\. Range: 20\...20000\.;
+Units: 'Hz'. Default value: 9000\. Range: [20\..20000].;
 #X obj 250 1050 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1050 @feedback;
 #X text 270 1050 Feedback coefficient. Type: float. Default value:
-0\. Range: 0\...1\.;
+0\. Range: [0\..1].;
 #X obj 250 1092 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1092 @filter;
 #X text 270 1092 If true - apply filter to feedback signal. Type: bool.
@@ -101,7 +101,7 @@ Default value: 0\.;
 #X msg 130 1134 @smooth;
 #X text 270 1134 Interpolation time on delay time change \, that prevents
 click and transpose \, if equal to 0 produces artifacts on delay change.
-Type: float. Units: 'ms'. Default value: 50\. Range: 0\...500\.;
+Type: float. Units: 'ms'. Default value: 50\. Range: [0\..500].;
 #X obj 20 1216 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1221 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

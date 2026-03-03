@@ -124,18 +124,18 @@ center. Разрешённые значения: left \, center \, right.;
 #X obj 250 1281 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1281 @value_precision;
 #X text 270 1281 Number of digits shown after decimal point. Тип: int.
-Значение по умолчанию: 2\. Диапазон: 0\...7\.;
+Значение по умолчанию: 2\. Диапазон: [0\..7].;
 #X obj 250 1323 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1323 @midi_channel;
 #X text 270 1323 Привязанный канал MIDI. Если установлен в 0 - привязка
 ко всем каналам. Значения в диапазоне [1\..16] привязываются к каналам
 первого Pd MIDI устройства \, [17\..32] - к каналам второго и т.д.
-Тип: int. Значение по умолчанию: 0\. Диапазон: 0\...255\.;
+Тип: int. Значение по умолчанию: 0\. Диапазон: [0\..255].;
 #X obj 250 1410 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1410 @midi_control;
 #X text 270 1410 Binded MIDI controller number. -1 means not binded
 to any controller. Тип: int. Значение по умолчанию: -1\. Диапазон:
--1\...127\.;
+[-1\..127].;
 #X obj 250 1467 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1467 @midi_pickup;
 #X text 270 1467 Pickup current value. If slider is binded to value
@@ -191,7 +191,7 @@ in 0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.
 #X obj 250 2079 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2079 @fontsize;
 #X text 270 2079 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 2121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2121 @fontslant;
 #X text 270 2121 Наклон шрифта. Тип: symbol. Значение по умолчанию:

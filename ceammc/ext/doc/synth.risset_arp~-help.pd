@@ -38,47 +38,47 @@ bind to /synth_risset_arp/PROP_NAME. Type: symbol.;
 #X obj 250 479 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 479 @detune;
 #X text 270 479 Detune percent. Type: float. Default value: 5\. Range:
-0\...1000\.;
+[0\..1000].;
 #X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 521 @freq;
 #X text 270 521 Base frequency. Type: float. Default value: 100\. Range:
-40\...500\.;
+[40\..500].;
 #X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 563 @harmonic1;
 #X text 270 563 1st harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @harmonic2;
 #X text 270 605 2nd harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 647 @harmonic3;
 #X text 270 647 3rd harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 689 @harmonic4;
 #X text 270 689 4th harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 @harmonic5;
 #X text 270 731 5th harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 773 @harmonic6;
 #X text 270 773 6th harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 815 @harmonic7;
 #X text 270 815 7th harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 857 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 857 @harmonic8;
 #X text 270 857 8th harmonic amplitude. Type: float. Default value:
-1\. Range: 0\...1\.;
+1\. Range: [0\..1].;
 #X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 899 @spread;
 #X text 270 899 Stereo spread. Type: float. Default value: 1\. Range:
-0\...1\.;
+[0\..1].;
 #X obj 20 951 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 956 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

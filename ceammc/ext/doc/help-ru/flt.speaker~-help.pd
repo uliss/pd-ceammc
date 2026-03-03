@@ -61,19 +61,19 @@ bool. Значение по умолчанию: 0\.;
 #X msg 130 920 @drywet;
 #X text 270 920 Proportion of mix between the original (dry) and 'effected'
 (wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: 0\...1\.;
+1\. Диапазон: [0\..1].;
 #X obj 250 977 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 977 @f1;
 #X text 270 977 Lower band frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 130\. Диапазон: 20\...1000\.;
+по умолчанию: 130\. Диапазон: [20\..1000].;
 #X obj 250 1019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1019 @f2;
 #X text 270 1019 High band frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 5000\. Диапазон: 1000\...20000\.;
+по умолчанию: 5000\. Диапазон: [1000\..20000].;
 #X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1061 @gain;
 #X text 270 1061 Filter gain. Тип: float. Единицы: 'db'. Значение по
-умолчанию: 0\. Диапазон: -30\...30\.;
+умолчанию: 0\. Диапазон: [-30\..30].;
 #X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1118 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;

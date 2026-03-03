@@ -44,7 +44,7 @@ values: 0 \, pi.;
 #X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 568 @n;
 #X text 270 568 Number of points. Type: int. Default value: 256\. Range:
-4\...1024\.;
+[4\..1024].;
 #X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 610 @pi;
 #X text 270 610 Alias to @base pi. Type: atom.;

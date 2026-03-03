@@ -35,11 +35,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 352 @cc;
 #X text 270 352 Controller number. Тип: int. Значение по умолчанию:
-0\. Диапазон: 0\...127\.;
+0\. Диапазон: [0\..127].;
 #X obj 250 394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 394 @ch;
 #X text 270 394 MIDI channel. Тип: int. Значение по умолчанию: 0\.
-Диапазон: 0\...16\.;
+Диапазон: [0\..16].;
 #X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 436 @curve;
 #X text 270 436 Output curve. If @curve<0: fast begin \, slow end \,

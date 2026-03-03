@@ -62,11 +62,11 @@ are cold.;
 #X obj 250 788 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 788 @nch;
 #X text 270 788 Number of channels. Тип: int. Значение по умолчанию:
-2\. Диапазон: 1\...64\.;
+2\. Диапазон: [1\..64].;
 #X obj 250 830 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 830 @offset;
 #X text 270 830 Channel numbering offset. Тип: int. Значение по умолчанию:
-0\. Диапазон: -63\...63\.;
+0\. Диапазон: [-63\..63].;
 #X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 872 @receive;
 #X text 270 872 Источник получения сообщений. Тип: symbol. Значение
@@ -74,7 +74,7 @@ are cold.;
 #X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 914 @rotation;
 #X text 270 914 Source channels rotation (anticlockwise). Тип: float.
-Единицы: 'deg'. Значение по умолчанию: 0\. Диапазон: -360\...360\.;
+Единицы: 'deg'. Значение по умолчанию: 0\. Диапазон: [-360\..360].;
 #X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 971 @send;
 #X text 270 971 Адрес отправки сообщений. Тип: symbol. Значение по
@@ -121,7 +121,7 @@ green \, blue values in 0-1 range). Тип: list. Значение по умол
 #X obj 250 1469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1469 @fontsize;
 #X text 270 1469 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
-Диапазон: 4\...100\.;
+Диапазон: [4\..100].;
 #X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1511 @fontslant;
 #X text 270 1511 Наклон шрифта. Тип: symbol. Значение по умолчанию:

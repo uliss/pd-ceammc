@@ -47,14 +47,14 @@ qwerty. Разрешённые значения: qwerty \, names \, custom.;
 #X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 623 @octave;
 #X text 270 623 Output octave. Тип: int. Значение по умолчанию: 4\.
-Диапазон: 0\...8\.;
+Диапазон: [0\..8].;
 #X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 665 @on;
 #X text 270 665 On/off state. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 695 @vel;
 #X text 270 695 Output velocity. Тип: float. Значение по умолчанию:
-100\. Диапазон: 0\...127\.;
+100\. Диапазон: [0\..127].;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

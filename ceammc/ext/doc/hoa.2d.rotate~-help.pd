@@ -38,7 +38,7 @@ CICM documentation @url hoa/hoa.2d.rotate~-help.pd;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 584 @order;
 #X text 270 584 (initonly) The order of decomposition. Type: int. Default
-value: 1\. Range: 1\...63\.;
+value: 1\. Range: [1\..63].;
 #X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 641 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

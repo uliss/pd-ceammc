@@ -61,7 +61,7 @@ list.;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 690 @div;
 #X text 270 690 Beat subdivision. Type: int. Default value: 1\. Range:
-1\...64\.;
+[1\..64].;
 #X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 732 @dur;
 #X text 270 732 Whole sequence duration. (Recalculates @t property
@@ -96,7 +96,7 @@ Type: int. Default value: 1\. Min value: -1\.;
 #X msg 130 1111 @t;
 #X text 270 1111 Time between beats. Unit values like 100ms \, 240bpm
 or 60|4bpm also can be used. Type: float. Units: 'ms'. Default value:
-100\. Range: 1\...20000\.;
+100\. Range: [1\..20000].;
 #X obj 250 1168 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1168 @upbeat;
 #X text 270 1168 Wait specified number of beats before sequence start.

@@ -61,7 +61,7 @@ ambisonic mode). Тип: int.;
 #X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 758 @order;
 #X text 270 758 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
+int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
 #X obj 250 800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 800 @angles;
 #X text 270 800 Angles of loudspeakers. Only available for @irregular
@@ -72,7 +72,7 @@ mode. Тип: list. Единицы: 'deg'. Значение по умолчан�
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @crop;
 #X text 270 887 Crop HRIR response. Only for @binaural mode. Тип: int.
-Единицы: 'samp'. Значение по умолчанию: 16\. Диапазон: 0\...512\.;
+Единицы: 'samp'. Значение по умолчанию: 16\. Диапазон: [0\..512].;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @irregular;
 #X text 270 944 Alias for @mode irregular.;
@@ -97,13 +97,13 @@ int. Значение по умолчанию: 3\. Минимальное зна
 #X text 270 1160 (только чтение) List of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Тип: list. Единицы: 'rad'. Значение
-по умолчанию: 0 -1 0 1\. Диапазон: -1\...1\.;
+по умолчанию: 0 -1 0 1\. Диапазон элемента: [-1\..1].;
 #X obj 250 1247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1247 @pw_y?;
 #X text 270 1247 (только чтение) List of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Тип: list. Единицы: 'rad'. Значение
-по умолчанию: 1 0 -1 0\. Диапазон: -1\...1\.;
+по умолчанию: 1 0 -1 0\. Диапазон элемента: [-1\..1].;
 #X obj 20 1344 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1349 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

@@ -60,7 +60,7 @@ the new one. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 912 @t;
 #X text 270 912 Delay time list. Тип: list. Единицы: 'ms'. Минимальное
-значение: 0\.;
+значение элемента: 0\.;
 #X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 969 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

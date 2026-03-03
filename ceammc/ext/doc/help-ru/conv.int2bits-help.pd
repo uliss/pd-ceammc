@@ -44,7 +44,7 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X obj 250 539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 539 @size;
 #X text 270 539 Output bit-length. Тип: int. Значение по умолчанию:
-32\. Диапазон: 1\...32\.;
+32\. Диапазон: [1\..32].;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 596 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

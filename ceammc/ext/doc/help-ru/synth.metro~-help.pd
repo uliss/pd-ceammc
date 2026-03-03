@@ -55,55 +55,55 @@
 #X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 543 @down.freq;
 #X text 270 543 Downbeat frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 1500\. Диапазон: 100\...5000\.;
+по умолчанию: 1500\. Диапазон: [100\..5000].;
 #X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 585 @down.gain;
 #X text 270 585 Downbeat gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 6\. Диапазон: -12\...12\.;
+по умолчанию: 6\. Диапазон: [-12\..12].;
 #X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 627 @down.reson;
 #X text 270 627 Downbeat resonance value (Q). Тип: float. Значение
-по умолчанию: 50\. Диапазон: 5\...100\.;
+по умолчанию: 50\. Диапазон: [5\..100].;
 #X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 669 @gain;
 #X text 270 669 Common synth gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 0\. Диапазон: -12\...12\.;
+по умолчанию: 0\. Диапазон: [-12\..12].;
 #X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 711 @mark.freq;
 #X text 270 711 Mark sound frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 2000\. Диапазон: 100\...5000\.;
+по умолчанию: 2000\. Диапазон: [100\..5000].;
 #X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 753 @mark.gain;
 #X text 270 753 Mark sound gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 6\. Диапазон: -12\...12\.;
+по умолчанию: 6\. Диапазон: [-12\..12].;
 #X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 795 @mark.reson;
 #X text 270 795 Mark sound resonance value (Q). Тип: float. Значение
-по умолчанию: 500\. Диапазон: 5\...500\.;
+по умолчанию: 500\. Диапазон: [5\..500].;
 #X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 837 @off.freq;
 #X text 270 837 Off-beat frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 500\. Диапазон: 100\...5000\.;
+по умолчанию: 500\. Диапазон: [100\..5000].;
 #X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 879 @off.gain;
 #X text 270 879 Off-beat gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 6\. Диапазон: -12\...12\.;
+по умолчанию: 6\. Диапазон: [-12\..12].;
 #X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 921 @off.reson;
 #X text 270 921 Off-beat resonance value (Q). Тип: float. Значение
-по умолчанию: 10\. Диапазон: 5\...100\.;
+по умолчанию: 10\. Диапазон: [5\..100].;
 #X obj 250 963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 963 @on.freq;
 #X text 270 963 On-beat frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 1000\. Диапазон: 100\...5000\.;
+по умолчанию: 1000\. Диапазон: [100\..5000].;
 #X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1005 @on.gain;
 #X text 270 1005 On-beat gain. Тип: float. Единицы: 'db'. Значение
-по умолчанию: 6\. Диапазон: -12\...12\.;
+по умолчанию: 6\. Диапазон: [-12\..12].;
 #X obj 250 1047 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1047 @on.reson;
 #X text 270 1047 On-beat resonance value (Q). Тип: float. Значение
-по умолчанию: 30\. Диапазон: 5\...100\.;
+по умолчанию: 30\. Диапазон: [5\..100].;
 #X obj 250 1089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1089 @tempo;
 #X text 270 1089 Tempo. If beat division is ommitted \, using 1/4\.

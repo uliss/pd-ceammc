@@ -36,11 +36,11 @@
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 421 @interval;
 #X text 270 421 Refresh interval. Type: int. Units: 'ms'. Default value:
-50\. Range: 20\...1000\.;
+50\. Range: [20\..1000].;
 #X obj 250 463 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 463 @precision;
 #X text 270 463 Float precision. Type: int. Default value: 6\. Range:
-0\...16\.;
+[0\..16].;
 #X obj 250 505 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 505 @active_color;
 #X text 270 505 Element active color (list of red \, green \, blue
@@ -63,7 +63,7 @@ values in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @fontsize;
-#X text 270 730 Font size. Type: int. Default value: 11\. Range: 4\...100\.;
+#X text 270 730 Font size. Type: int. Default value: 11\. Range: [4\..100].;
 #X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 760 @fontslant;
 #X text 270 760 Font slant. Type: symbol. Default value: roman. Allowed

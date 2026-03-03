@@ -41,35 +41,35 @@ from the bottom to the top of the bell;
 #X obj 250 943 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 943 @cutoff;
 #X text 270 943 Strike cutoff frequency. Тип: float. Единицы: 'Hz'.
-Значение по умолчанию: 4000\. Диапазон: 20\...20000\.;
+Значение по умолчанию: 4000\. Диапазон: [20\..20000].;
 #X obj 250 985 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 985 @decay_ratio;
 #X text 270 985 Decay ratio. Тип: float. Значение по умолчанию: 1\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1027 @decay_slope;
 #X text 270 1027 Decay slope. Тип: float. Значение по умолчанию: 3\.
-Диапазон: 0\...10\.;
+Диапазон: [0\..10].;
 #X obj 250 1069 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1069 @gain;
 #X text 270 1069 Strike gain. Тип: float. Значение по умолчанию: 1\.
-Диапазон: 0\...1\.;
+Диапазон: [0\..1].;
 #X obj 250 1111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1111 @gate;
 #X text 270 1111 Play trigger - 1: on \, 0: off. Тип: float. Значение
-по умолчанию: 0\. Диапазон: 0\...1\.;
+по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 250 1153 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1153 @pos;
 #X text 270 1153 Strike position (0 is on the bottom). Тип: int. Значение
-по умолчанию: 0\. Диапазон: 0\...6\.;
+по умолчанию: 0\. Диапазон: [0\..6].;
 #X obj 250 1195 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1195 @sharp;
 #X text 270 1195 Strike sharpness. Тип: float. Значение по умолчанию:
-0.25\. Диапазон: 0.01\...5\.;
+0.25\. Диапазон: [0.01\..5].;
 #X obj 250 1237 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1237 @t60;
 #X text 270 1237 Time to decay to -60db level. Тип: float. Единицы:
-'sec'. Значение по умолчанию: 20\. Диапазон: 0.1\...30\.;
+'sec'. Значение по умолчанию: 20\. Диапазон: [0.1\..30].;
 #X obj 20 1289 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1294 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
