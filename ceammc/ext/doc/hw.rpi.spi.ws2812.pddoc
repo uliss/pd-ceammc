@@ -191,23 +191,31 @@
           <tr lang="ru">значение шага</tr>
         </param>
       </method>
-      <!-- set -->
-      <method name="set">
+      <!-- set_pixel -->
+      <method name="set_pixel">
         <info>
           <tr lang="en">set single pixel color</tr>
           <tr lang="ru">установить цвет отдельного пикселя</tr>
         </info>
-        <param name="R" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">red color component</tr>
-          <tr lang="ru">красная компонента цвета</tr>
+        <param name="@color R G B" type="float" minvalue="0" maxvalue="1" >
+          <tr lang="en">list of R G B color components</tr>
+          <tr lang="ru">список R G B цветовых компонент</tr>
         </param>
-        <param name="G" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">green color component</tr>
-          <tr lang="ru">зеленая компонента цвета</tr>
+        <param name="@color #RRGGBB" type="property">
+          <tr lang="en">hex RGB color</tr>
+          <tr lang="ru">шестнадцатеричный RGB цвет</tr>
         </param>
-        <param name="B" type="int" minvalue="0" maxvalue="255" required="true">
-          <tr lang="en">blue color component</tr>
-          <tr lang="ru">синяя компонента цвета</tr>
+        <param name="@color name" type="property" enum="black white red green blue cyan magenta">
+          <tr lang="en">named color</tr>
+          <tr lang="ru">именованый цвет</tr>
+        </param>
+        <param name="@color Color(red)" type="data:color">
+          <tr lang="en">color data type</tr>
+          <tr lang="ru">цветовой тип данных</tr>
+        </param>
+        <param name="@color8 R G B" type="int" minvalue="0" maxvalue="255" >
+          <tr lang="en">list of R G B color components</tr>
+          <tr lang="ru">список R G B цветовых компонент</tr>
         </param>
       </method>
       <!-- set_range -->
@@ -296,7 +304,7 @@
 |
 [msg.after 0 bang #a]  [F]
                        |
- [brightness #e(       [set $1 0 0 255, bang #f(
+ [brightness #e(       [set_pixel $1 @color8 0 0 255, bang #f(
 
 
  [clear(
