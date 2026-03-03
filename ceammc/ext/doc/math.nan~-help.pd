@@ -57,9 +57,11 @@ Default value: quiet. Allowed values: quiet \, signal.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 773 library: ceammc v0.9.8;
-#X text 524 785 see also:;
-#X obj 599 785 math.nan;
-#X obj 673 785 math.inf~;
+#X text 521 785 see also:;
+#X obj 596 788 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.nan] @url math.nan-help.pd;
+#X obj 672 788 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.inf~] @url math.inf~-help.pd;
 #N canvas 10 792 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

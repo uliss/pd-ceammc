@@ -4,8 +4,9 @@
 #X text 588 50 Peter de Jong attractor;
 #X obj 1 1 cnv 5 765 40 empty empty chaos.jong 20 20 0 20 -104026
 -4096 0;
-#X obj 571 11 noise.jong;
-#X obj 668 11 chaos.jong;
+#X obj 568 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[noise.jong] @url chaos.jong-help.pd;
+#X obj 668 8 chaos.jong;
 #X obj 230 78 cnv 1 535 134 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 A non-interpolating generator based on the difference
 equations:;
@@ -121,8 +122,9 @@ value.;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
 #X obj 1 1367 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1370 library: ceammc v0.9.8;
-#X text 592 1382 see also:;
-#X obj 667 1382 chaos.std0;
+#X text 590 1382 see also:;
+#X obj 665 1385 ui.link @background_color 0.78431 0.78431 0.78431
+@title [chaos.std0] @url chaos.std0-help.pd;
 #N canvas 10 1389 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

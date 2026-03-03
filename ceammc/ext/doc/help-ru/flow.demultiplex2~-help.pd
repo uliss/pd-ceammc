@@ -5,9 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.demultiplex2~ 20 20 0 20
 -104026 -4096 0;
 #N canvas 512 11 250 400 aliases 0;
-#X obj 30 40 flow.demux2~;
-#X obj 30 78 ceammc/demux2~;
-#X obj 30 116 demux2~;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.demux2~] @url flow.demultiplex2~-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/demux2~] @url flow.demultiplex2~-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[demux2~] @url flow.demultiplex2~-help.pd;
 #X restore 512 11 pd aliases;
 #X obj 609 11 flow.demultiplex2~;
 #X obj 50 118 sig~ 1;
@@ -86,9 +89,11 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 757 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 760 библиотека: ceammc v0.9.8;
-#X text 363 772 смотрите также:;
-#X obj 484 772 flow.demultiplex~;
-#X obj 623 772 flow.demultiplex;
+#X text 359 772 смотрите также:;
+#X obj 480 775 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.demultiplex~] @url flow.demultiplex~-help.pd;
+#X obj 621 775 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.demultiplex] @url flow.demultiplex-help.pd;
 #N canvas 10 779 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,8 +4,9 @@
 #X text 342 50 joins the list into a string with the element separator;
 #X obj 1 1 cnv 5 765 40 empty empty string.join 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 str.join;
-#X obj 660 11 string.join;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.join] @url string.join-help.pd;
+#X obj 660 8 string.join;
 #X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 To set a space as separator \, use either the escape
 character (\ ) or quotes (" ").;
@@ -65,8 +66,9 @@ character (\ ) or quotes (" ").;
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 833 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 836 library: ceammc v0.9.8;
-#X text 578 848 see also:;
-#X obj 653 848 string.split;
+#X text 575 848 see also:;
+#X obj 650 851 ui.link @background_color 0.78431 0.78431 0.78431
+@title [string.split] @url string.split-help.pd;
 #N canvas 10 855 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

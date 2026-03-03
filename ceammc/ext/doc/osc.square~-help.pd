@@ -65,10 +65,13 @@ to /osc_square/PROP_NAME. Type: symbol.;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 732 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 735 library: ceammc v0.9.8;
-#X text 437 747 see also:;
-#X obj 512 747 osc.saw~;
-#X obj 586 747 osc.tri~;
-#X obj 660 747 lfo.square~;
+#X text 430 747 see also:;
+#X obj 505 750 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.saw~] @url osc.saw~-help.pd;
+#X obj 581 750 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.tri~] @url osc.tri~-help.pd;
+#X obj 657 750 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.square~] @url lfo.square~-help.pd;
 #N canvas 10 754 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,8 +4,9 @@
 #X text 473 50 выводит пустое событие временной шкалы;
 #X obj 1 1 cnv 5 765 40 empty empty tl.bang 20 20 0 20 -104026 -4096
 0;
-#X obj 634 11 tl.b;
-#X obj 689 11 tl.bang;
+#X obj 632 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[tl.b] @url tl.bang-help.pd;
+#X obj 689 8 tl.bang;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Bang only when nearest left tl.cue was activated. If
 other cue is activated and bang was scheduled by @delay property -
@@ -60,8 +61,9 @@ it canceled;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 597 библиотека: ceammc v0.9.8;
-#X text 492 609 смотрите также:;
-#X obj 613 609 tl.toggle;
+#X text 490 609 смотрите также:;
+#X obj 611 612 ui.link @background_color 0.78431 0.78431 0.78431
+@title [tl.toggle] @url tl.toggle-help.pd;
 #X obj 694 612 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
 #N canvas 10 616 400 290 info 0;

@@ -40,9 +40,11 @@ the magnitude of x is too large.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 593 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 596 библиотека: ceammc v0.9.8;
-#X text 479 608 смотрите также:;
-#X obj 600 608 math.log;
-#X obj 674 608 math.exp2;
+#X text 475 608 смотрите также:;
+#X obj 596 611 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.log] @url math.log-help.pd;
+#X obj 672 611 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.exp2] @url math.exp2-help.pd;
 #N canvas 10 615 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

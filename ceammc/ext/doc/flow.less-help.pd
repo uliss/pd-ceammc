@@ -4,8 +4,9 @@
 #X text 450 50 numeric stream router by 'less' condition;
 #X obj 1 1 cnv 5 765 40 empty empty flow.less 20 20 0 20 -104026 -4096
 0;
-#X obj 606 11 flow.<;
-#X obj 675 11 flow.less;
+#X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.<] @url flow.less-help.pd;
+#X obj 675 8 flow.less;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Numbers thar are *less* then N-th argument are passed
 to N-th inlet;
@@ -58,9 +59,11 @@ order. Type: list.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 579 library: ceammc v0.9.8;
-#X text 475 591 see also:;
-#X obj 550 591 flow.greater;
-#X obj 653 591 flow.less_eq;
+#X text 470 591 see also:;
+#X obj 545 594 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.greater] @url flow.greater-help.pd;
+#X obj 650 594 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.less_eq] @url flow.less_eq-help.pd;
 #N canvas 10 598 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

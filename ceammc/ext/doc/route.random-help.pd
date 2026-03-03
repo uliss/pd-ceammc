@@ -4,8 +4,9 @@
 #X text 406 50 routes the input message into the random outlet;
 #X obj 1 1 cnv 5 765 40 empty empty route.random 20 20 0 20 -104026
 -4096 0;
-#X obj 578 11 route.r;
-#X obj 653 11 route.random;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[route.r] @url route.random-help.pd;
+#X obj 653 8 route.random;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 78 147 1 2 3;
 #X msg 107 176 bang;

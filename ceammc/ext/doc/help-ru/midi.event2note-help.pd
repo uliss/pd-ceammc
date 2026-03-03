@@ -4,8 +4,9 @@
 #X text 329 50 конвертирует сообщение MidiEvent в пару нота/сила нажатия;
 #X obj 1 1 cnv 5 765 40 empty empty midi.event2note 20 20 0 20 -104026
 -4096 0;
-#X obj 510 11 midi.ev->note;
-#X obj 630 11 midi.event2note;
+#X obj 508 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.ev->note] @url midi.event2note-help.pd;
+#X obj 630 8 midi.event2note;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 openpanel;

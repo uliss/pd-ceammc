@@ -72,9 +72,11 @@ Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 722 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 725 library: ceammc v0.9.8;
-#X text 438 737 see also:;
-#X obj 513 737 flt.highshelf~;
-#X obj 630 737 flt.c_lowshelf~;
+#X text 434 737 see also:;
+#X obj 509 740 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.highshelf~] @url flt.highshelf~-help.pd;
+#X obj 628 740 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_lowshelf~] @url flt.c_lowshelf~-help.pd;
 #N canvas 10 744 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

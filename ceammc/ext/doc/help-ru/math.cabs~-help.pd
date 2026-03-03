@@ -4,9 +4,11 @@
 #X text 458 50 абсолютное значение комплексного сигнала;
 #X obj 1 1 cnv 5 765 40 empty empty math.cabs~ 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 ceammc/cabs~;
-#X obj 604 11 cabs~;
-#X obj 666 11 math.cabs~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/cabs~] @url math.cabs~-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[cabs~] @url math.cabs~-help.pd;
+#X obj 666 8 math.cabs~;
 #X obj 50 118 ui.slider2d @show_grid 1 @size 100 100;
 #X obj 50 234 unpack f f;
 #X obj 50 262 sig~;
@@ -36,8 +38,9 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 545 520 смотрите также:;
-#X obj 666 520 math.carg~;
+#X text 544 520 смотрите также:;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.carg~] @url math.carg~-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -141,9 +141,11 @@ last element). Тип: int.;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
 #X obj 1 1583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1586 библиотека: ceammc v0.9.8;
-#X text 459 1598 смотрите также:;
-#X obj 580 1598 data.mlist;
-#X obj 668 1598 local.list;
+#X text 454 1598 смотрите также:;
+#X obj 575 1601 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.mlist] @url data.mlist-help.pd;
+#X obj 665 1601 ui.link @background_color 0.78431 0.78431 0.78431
+@title [local.list] @url local.list-help.pd;
 #N canvas 10 1605 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

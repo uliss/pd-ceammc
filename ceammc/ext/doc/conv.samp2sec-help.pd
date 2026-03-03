@@ -4,9 +4,11 @@
 #X text 373 50 convert samples to seconds according to sample rate;
 #X obj 1 1 cnv 5 765 40 empty empty conv.samp2sec 20 20 0 20 -104026
 -4096 0;
-#X obj 415 11 ceammc/samp->sec;
-#X obj 556 11 samp->sec;
-#X obj 646 11 conv.samp2sec;
+#X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/samp->sec] @url conv.samp2sec-help.pd;
+#X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[samp->sec] @url conv.samp2sec-help.pd;
+#X obj 646 8 conv.samp2sec;
 #X msg 50 118 44100;
 #X msg 136 118 20 1000 5000 20000;
 #X obj 50 147 samp->sec;
@@ -31,8 +33,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 570 520 see also:;
-#X obj 645 520 conv.sec2samp;
+#X text 568 520 see also:;
+#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.sec2samp] @url conv.sec2samp-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

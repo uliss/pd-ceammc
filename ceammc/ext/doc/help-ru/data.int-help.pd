@@ -4,9 +4,11 @@
 #X text 465 50 многофункциональный объект целого числа;
 #X obj 1 1 cnv 5 765 40 empty empty data.int 20 20 0 20 -104026 -4096
 0;
-#X obj 587 11 .int;
-#X obj 640 11 .i;
-#X obj 682 11 data.int;
+#X obj 582 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[.int] @url data.int-help.pd;
+#X obj 639 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[.i] @url data.int-help.pd;
+#X obj 682 8 data.int;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 69 147 + 1 \, bang;
 #X msg 203 147 - 10 \, bang;
@@ -72,8 +74,9 @@
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 731 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 734 библиотека: ceammc v0.9.8;
-#X text 546 746 смотрите также:;
-#X obj 667 746 data.float;
+#X text 544 746 смотрите также:;
+#X obj 665 749 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.float] @url data.float-help.pd;
 #N canvas 10 753 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

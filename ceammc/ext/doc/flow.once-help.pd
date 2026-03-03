@@ -4,9 +4,11 @@
 #X text 603 50 pass the only message;
 #X obj 1 1 cnv 5 765 40 empty empty flow.once 20 20 0 20 -104026 -4096
 0;
-#X obj 514 11 ceammc/once;
-#X obj 619 11 once;
-#X obj 674 11 flow.once;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/once] @url flow.once-help.pd;
+#X obj 617 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[once] @url flow.once-help.pd;
+#X obj 674 8 flow.once;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 146 118 bang;
 #X obj 50 147 flow.once;
@@ -48,8 +50,9 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 599 520 see also:;
-#X obj 674 520 flow.gate;
+#X text 597 520 see also:;
+#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.gate] @url flow.gate-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

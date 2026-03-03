@@ -4,9 +4,11 @@
 #X text 374 50 преобразование фазы массива [0\..1] в индекс семпла;
 #X obj 1 1 cnv 5 765 40 empty empty array.p2s 20 20 0 20 -104026 -4096
 0;
-#X obj 413 11 array.p->s;
-#X obj 511 11 array.phase->sample;
-#X obj 674 11 array.p2s;
+#X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.p->s] @url array.p2s-help.pd;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.phase->sample] @url array.p2s-help.pd;
+#X obj 674 8 array.p2s;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 позволяет получить относительный доступ к массиву;
 #X obj 50 171 hslider 128 15 0.0 1.0 0 0 empty empty empty 17 7 0 10
@@ -63,8 +65,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 675 библиотека: ceammc v0.9.8;
-#X text 553 687 смотрите также:;
-#X obj 674 687 array.s2p;
+#X text 551 687 смотрите также:;
+#X obj 672 690 ui.link @background_color 0.78431 0.78431 0.78431
+@title [array.s2p] @url array.s2p-help.pd;
 #N canvas 10 694 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,8 +4,9 @@
 #X text 335 50 проигрывание массива с изменяемой скоростью и амплитудой;
 #X obj 1 1 cnv 5 765 40 empty empty array.play~ 20 20 0 20 -104026
 -4096 0;
-#X obj 575 11 array.p~;
-#X obj 659 11 array.play~;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.p~] @url array.play~-help.pd;
+#X obj 659 8 array.play~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array APLAY 100 float 0;
@@ -174,8 +175,9 @@ sec. Разрешённые значения: sec \, ms \, samp \, phase.;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1909 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1912 библиотека: ceammc v0.9.8;
-#X text 560 1924 смотрите также:;
-#X obj 681 1924 tabplay~;
+#X text 558 1924 смотрите также:;
+#X obj 679 1927 ui.link @background_color 0.78431 0.78431 0.78431
+@title [tabplay~] @url tabplay~-help.pd;
 #N canvas 10 1931 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

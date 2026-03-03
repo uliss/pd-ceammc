@@ -71,8 +71,9 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
 #X obj 1 689 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 692 library: ceammc v0.9.8;
-#X text 578 704 see also:;
-#X obj 653 704 chaos.gbman0;
+#X text 575 704 see also:;
+#X obj 650 707 ui.link @background_color 0.78431 0.78431 0.78431
+@title [chaos.gbman0] @url chaos.gbman0-help.pd;
 #N canvas 10 711 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

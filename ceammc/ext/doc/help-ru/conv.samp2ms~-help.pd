@@ -5,9 +5,11 @@
 со скоростью семплирования;
 #X obj 1 1 cnv 5 765 40 empty empty conv.samp2ms~ 20 20 0 20 -104026
 -4096 0;
-#X obj 412 11 ceammc/samp->ms~;
-#X obj 554 11 samp->ms~;
-#X obj 645 11 conv.samp2ms~;
+#X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/samp->ms~] @url conv.samp2ms~-help.pd;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[samp->ms~] @url conv.samp2ms~-help.pd;
+#X obj 645 8 conv.samp2ms~;
 #X msg 50 118 bang;
 #X obj 50 147 plot.linspace~ 0 sr();
 #X obj 50 176 samp->ms~;
@@ -33,8 +35,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 556 библиотека: ceammc v0.9.8;
-#X text 524 568 смотрите также:;
-#X obj 645 568 conv.samp2ms~;
+#X text 522 568 смотрите также:;
+#X obj 643 571 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.samp2ms~] @url conv.samp2ms~-help.pd;
 #N canvas 10 575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

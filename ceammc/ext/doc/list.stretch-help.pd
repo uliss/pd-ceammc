@@ -51,8 +51,9 @@ to the new size with linear interpolation. Type: int. Min value: 0;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 720 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 723 library: ceammc v0.9.8;
-#X text 593 735 see also:;
-#X obj 668 735 list.shift;
+#X text 590 735 see also:;
+#X obj 665 738 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.shift] @url list.shift-help.pd;
 #N canvas 10 742 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

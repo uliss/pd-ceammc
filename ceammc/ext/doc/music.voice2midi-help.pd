@@ -4,8 +4,9 @@
 #X text 382 50 convert single voice music to list of MIDI pitches;
 #X obj 1 1 cnv 5 765 40 empty empty music.voice2midi 20 20 0 20
 -104026 -4096 0;
-#X obj 524 11 music.v->m;
-#X obj 623 11 music.voice2midi;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[music.v->m] @url music.voice2midi-help.pd;
+#X obj 623 8 music.voice2midi;
 #X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Basic syntax:;
 #X text 240 108 - pitch: C \, D \, E \, F \, G \, A \, B;

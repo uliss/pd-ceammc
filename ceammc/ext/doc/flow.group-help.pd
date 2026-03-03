@@ -4,9 +4,11 @@
 #X text 427 50 group input atoms in lists of specified size;
 #X obj 1 1 cnv 5 765 40 empty empty flow.group 20 20 0 20 -104026
 -4096 0;
-#X obj 493 11 ceammc/group;
-#X obj 605 11 group;
-#X obj 667 11 flow.group;
+#X obj 488 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/group] @url flow.group-help.pd;
+#X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[group] @url flow.group-help.pd;
+#X obj 667 8 flow.group;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 1 2 3;
 #X obj 50 162 flow.group @by 5;

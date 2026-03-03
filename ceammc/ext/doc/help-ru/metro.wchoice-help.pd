@@ -71,9 +71,11 @@ list. Значение по умолчанию: 1\.;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 717 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 720 библиотека: ceammc v0.9.8;
-#X text 428 732 смотрите также:;
-#X obj 549 732 metro.choice;
-#X obj 652 732 metro.random;
+#X text 424 732 смотрите также:;
+#X obj 545 735 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro.choice] @url metro.choice-help.pd;
+#X obj 650 735 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro.random] @url metro.random-help.pd;
 #N canvas 10 739 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

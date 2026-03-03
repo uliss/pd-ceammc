@@ -4,8 +4,9 @@
 #X text 449 50 inject properties into the main data flow;
 #X obj 1 1 cnv 5 765 40 empty empty prop.join 20 20 0 20 -104026 -4096
 0;
-#X obj 606 11 prop<-;
-#X obj 675 11 prop.join;
+#X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[prop<-] @url prop.join-help.pd;
+#X obj 675 8 prop.join;
 #X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Injects properties into data stream. Values from first
 inlet are passed unchanged and named property values added to stream.
@@ -43,8 +44,9 @@ value on inlet it immediately outputs it.;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 572 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 575 library: ceammc v0.9.8;
-#X text 621 587 see also:;
-#X obj 696 587 prop->;
+#X text 619 587 see also:;
+#X obj 694 590 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop->] @url prop->-help.pd;
 #N canvas 10 594 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

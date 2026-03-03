@@ -4,8 +4,9 @@
 #X text 457 50 загружает или сохраняет список в пресете;
 #X obj 1 1 cnv 5 765 40 empty empty preset.list 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 preset.l;
-#X obj 660 11 preset.list;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[preset.l] @url preset.list-help.pd;
+#X obj 660 8 preset.list;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Named list preset entry. Can store/load up to 256 various
 lists;
@@ -91,10 +92,13 @@ id \, abstraction name and may be subpatch name separated by slashes.
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
 #X obj 1 1006 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1009 библиотека: ceammc v0.9.8;
-#X text 305 1021 смотрите также:;
-#X obj 426 1021 preset.storage;
-#X obj 543 1021 preset.float;
-#X obj 645 1021 preset.symbol;
+#X text 298 1021 смотрите также:;
+#X obj 419 1024 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.storage] @url preset.storage-help.pd;
+#X obj 538 1024 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.float] @url preset.float-help.pd;
+#X obj 643 1024 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.symbol] @url preset.symbol-help.pd;
 #N canvas 10 1028 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

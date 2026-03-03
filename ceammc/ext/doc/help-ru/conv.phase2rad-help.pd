@@ -4,9 +4,11 @@
 #X text 399 50 преобразует значение фазы [0-1] в радианы [0-2π];
 #X obj 1 1 cnv 5 765 40 empty empty conv.phase2rad 20 20 0 20 -104026
 -4096 0;
-#X obj 393 11 ceammc/phase->rad;
-#X obj 541 11 phase->rad;
-#X obj 639 11 conv.phase2rad;
+#X obj 388 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/phase->rad] @url conv.phase2rad-help.pd;
+#X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[phase->rad] @url conv.phase2rad-help.pd;
+#X obj 639 8 conv.phase2rad;
 #X obj 50 118 ui.knob;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 50 205 phase->rad;
@@ -33,8 +35,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 517 520 смотрите также:;
-#X obj 638 520 conv.rad2phase;
+#X text 515 520 смотрите также:;
+#X obj 636 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.rad2phase] @url conv.rad2phase-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

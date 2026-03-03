@@ -106,10 +106,13 @@
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1246 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1249 библиотека: ceammc v0.9.8;
-#X text 267 1261 смотрите также:;
-#X obj 388 1261 fx.distortion~;
-#X obj 505 1261 fx.distortion1~;
-#X obj 630 1261 fx.distortion3~;
+#X text 261 1261 смотрите также:;
+#X obj 382 1264 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion~] @url fx.distortion~-help.pd;
+#X obj 501 1264 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion1~] @url fx.distortion1~-help.pd;
+#X obj 628 1264 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion3~] @url fx.distortion3~-help.pd;
 #N canvas 10 1268 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

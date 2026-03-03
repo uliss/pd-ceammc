@@ -38,8 +38,9 @@
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 570 520 see also:;
-#X obj 645 520 path.basename;
+#X text 568 520 see also:;
+#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [path.basename] @url path.basename-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

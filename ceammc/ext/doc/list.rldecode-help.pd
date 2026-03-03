@@ -4,8 +4,9 @@
 #X text 574 50 run-length decoding lists;
 #X obj 1 1 cnv 5 765 40 empty empty list.rldecode 20 20 0 20 -104026
 -4096 0;
-#X obj 541 11 list.unwrap;
-#X obj 646 11 list.rldecode;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.unwrap] @url list.rldecode-help.pd;
+#X obj 646 8 list.rldecode;
 #X msg 50 118 1 2 1 3;
 #X msg 174 118 1 2 3 4;
 #X obj 50 147 list.rldecode 4 3 2 1;
@@ -48,8 +49,9 @@ values in second list.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 571 520 see also:;
-#X obj 646 520 list.rlencode;
+#X text 568 520 see also:;
+#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.rlencode] @url list.rlencode-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

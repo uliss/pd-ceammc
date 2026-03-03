@@ -34,10 +34,13 @@ sine of the real argument;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 430 520 see also:;
-#X obj 505 520 math.acosh;
-#X obj 593 520 math.atanh;
-#X obj 681 520 math.exp;
+#X text 424 520 see also:;
+#X obj 499 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.acosh] @url math.acosh-help.pd;
+#X obj 589 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.atanh] @url math.atanh-help.pd;
+#X obj 679 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.exp] @url math.exp-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

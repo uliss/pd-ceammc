@@ -3,8 +3,9 @@
 #X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 580 50 multichannel signal gain;
 #X obj 1 1 cnv 5 765 40 empty empty gain~ 20 20 0 20 -104026 -4096 0;
-#X obj 589 11 ceammc/gain~;
-#X obj 702 11 gain~;
+#X obj 587 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/gain~] @url gain~-help.pd;
+#X obj 702 8 gain~;
 #X obj 50 118 ui.sliders @count 4;
 #X obj 299 118 ui.dsp~;
 #X obj 69 234 sig~ 1;

@@ -4,10 +4,13 @@
 #X text 611 50 возведение в квадрат;
 #X obj 1 1 cnv 5 765 40 empty empty math.squared 20 20 0 20 -104026
 -4096 0;
-#X obj 445 11 math.^2;
-#X obj 521 11 ceammc/^2;
-#X obj 611 11 ^2;
-#X obj 653 11 math.squared;
+#X obj 438 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.^2] @url math.squared-help.pd;
+#X obj 517 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/^2] @url math.squared-help.pd;
+#X obj 610 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[^2] @url math.squared-help.pd;
+#X obj 653 8 math.squared;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 -2 -1 0 1 2;
 #X obj 50 147 math.squared;

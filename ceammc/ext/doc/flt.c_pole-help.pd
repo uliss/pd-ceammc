@@ -4,9 +4,11 @@
 #X text 391 50 оne-pole coefficient calculator for [flt.biquad~];
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_pole 20 20 0 20 -104026
 -4096 0;
-#X obj 392 11 ceammc/pole->biquad;
-#X obj 555 11 pole->biquad;
-#X obj 667 11 flt.c_pole;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/pole->biquad] @url flt.c_pole-help.pd;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[pole->biquad] @url flt.c_pole-help.pd;
+#X obj 667 8 flt.c_pole;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Calculates coefficients for transfer function: H(z)=(b0
 + b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
@@ -69,8 +71,9 @@ values: hpf \, lpf.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 751 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 754 library: ceammc v0.9.8;
-#X text 600 766 see also:;
-#X obj 675 766 flt.c_lpf;
+#X text 597 766 see also:;
+#X obj 672 769 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_lpf] @url flt.c_lpf-help.pd;
 #N canvas 10 773 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

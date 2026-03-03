@@ -41,9 +41,11 @@ are ignored.;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 498 520 see also:;
-#X obj 573 520 data.set;
-#X obj 646 520 set.intersect;
+#X text 492 520 see also:;
+#X obj 567 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
+#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [set.intersect] @url set.intersect-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,8 +4,9 @@
 #X text 565 50 восходящий моно-компрессор;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp_up~ 20 20 0 20 -104026
 -4096 0;
-#X obj 568 11 comp.up~;
-#X obj 652 11 dyn.comp_up~;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[comp.up~] @url dyn.comp_up~-help.pd;
+#X obj 652 8 dyn.comp_up~;
 #X obj 230 78 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
@@ -141,8 +142,9 @@ float. Единицы: 'db'. Значение по умолчанию: 0\. Ди�
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1633 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1636 библиотека: ceammc v0.9.8;
-#X text 516 1648 смотрите также:;
-#X obj 637 1648 dyn.comp_peak~;
+#X text 515 1648 смотрите также:;
+#X obj 636 1651 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp_peak~] @url dyn.comp_peak~-help.pd;
 #N canvas 10 1655 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

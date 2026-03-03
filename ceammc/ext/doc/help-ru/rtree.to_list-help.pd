@@ -5,9 +5,11 @@
 список дробей;
 #X obj 1 1 cnv 5 765 40 empty empty rtree.to_list 20 20 0 20 -104026
 -4096 0;
-#X obj 388 11 ceammc/rtree->list;
-#X obj 543 11 rtree->list;
-#X obj 647 11 rtree.to_list;
+#X obj 381 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/rtree->list] @url rtree.to_list-help.pd;
+#X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[rtree->list] @url rtree.to_list-help.pd;
+#X obj 647 8 rtree.to_list;
 #X obj 230 93 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 rhythm tree is structure to define complex rhythmic
 patterns;

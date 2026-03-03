@@ -5,9 +5,11 @@
 цвет;
 #X obj 1 1 cnv 5 765 40 empty empty conv.rgb2hex 20 20 0 20 -104026
 -4096 0;
-#X obj 435 11 ceammc/rgb->hex;
-#X obj 569 11 rgb->hex;
-#X obj 652 11 conv.rgb2hex;
+#X obj 429 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/rgb->hex] @url conv.rgb2hex-help.pd;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[rgb->hex] @url conv.rgb2hex-help.pd;
+#X obj 652 8 conv.rgb2hex;
 #X obj 50 118 ui.hsl @show_value 1;
 #X obj 126 147 ui.hsl @show_value 1;
 #X obj 194 176 ui.hsl @show_value 1;

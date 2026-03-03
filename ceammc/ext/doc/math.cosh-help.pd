@@ -34,10 +34,13 @@ of input value.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 437 520 see also:;
-#X obj 512 520 math.acos;
-#X obj 593 520 math.asin;
-#X obj 674 520 math.atan;
+#X text 431 520 see also:;
+#X obj 506 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.acos] @url math.acos-help.pd;
+#X obj 589 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.asin] @url math.asin-help.pd;
+#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.atan] @url math.atan-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,8 +4,9 @@
 #X text 589 50 list directory contents;
 #X obj 1 1 cnv 5 765 40 empty empty path.lsdir 20 20 0 20 -104026
 -4096 0;
-#X obj 591 11 path.ls;
-#X obj 667 11 path.lsdir;
+#X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[path.ls] @url path.lsdir-help.pd;
+#X obj 667 8 path.lsdir;
 #X msg 50 118 bang;
 #X msg 155 118 symbol /;
 #X obj 299 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1

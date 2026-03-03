@@ -148,10 +148,13 @@ Range: 0\...1\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1624 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1627 library: ceammc v0.9.8;
-#X text 313 1639 see also:;
-#X obj 388 1639 fx.distortion~;
-#X obj 505 1639 fx.distortion2~;
-#X obj 630 1639 fx.distortion3~;
+#X text 307 1639 see also:;
+#X obj 382 1642 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion~] @url fx.distortion~-help.pd;
+#X obj 501 1642 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion2~] @url fx.distortion2~-help.pd;
+#X obj 628 1642 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion3~] @url fx.distortion3~-help.pd;
 #N canvas 10 1646 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

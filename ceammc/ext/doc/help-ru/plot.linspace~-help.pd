@@ -82,9 +82,11 @@ valuue.;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 933 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 936 библиотека: ceammc v0.9.8;
-#X text 392 948 смотрите также:;
-#X obj 513 948 plot.geomspace~;
-#X obj 638 948 plot.logspace~;
+#X text 388 948 смотрите также:;
+#X obj 509 951 ui.link @background_color 0.78431 0.78431 0.78431
+@title [plot.geomspace~] @url plot.geomspace~-help.pd;
+#X obj 636 951 ui.link @background_color 0.78431 0.78431 0.78431
+@title [plot.logspace~] @url plot.logspace~-help.pd;
 #N canvas 10 955 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

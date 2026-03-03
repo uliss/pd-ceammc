@@ -4,9 +4,11 @@
 #X text 488 50 operation AND for multiple arguments;
 #X obj 1 1 cnv 5 765 40 empty empty math.and 20 20 0 20 -104026 -4096
 0;
-#X obj 537 11 ceammc/and;
-#X obj 634 11 and;
-#X obj 681 11 math.and;
+#X obj 531 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/and] @url math.and-help.pd;
+#X obj 631 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[and] @url math.and-help.pd;
+#X obj 681 8 math.and;
 #X obj 50 118 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X obj 50 147 > 50;
@@ -74,8 +76,9 @@ Type: list.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 692 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 695 library: ceammc v0.9.8;
-#X text 613 707 see also:;
-#X obj 688 707 math.or;
+#X text 611 707 see also:;
+#X obj 686 710 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.or] @url math.or-help.pd;
 #N canvas 10 714 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

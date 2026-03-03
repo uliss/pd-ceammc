@@ -4,8 +4,9 @@
 #X text 680 50 HTTP client;
 #X obj 1 1 cnv 5 765 40 empty empty net.http.client 20 20 0 20 -104026
 -4096 0;
-#X obj 526 11 http.client;
-#X obj 631 11 net.http.client;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[http.client] @url net.http.client-help.pd;
+#X obj 631 8 net.http.client;
 #X msg 50 118 get http://puredata.info/ @css title text @strip_ws;
 #X msg 69 147 get https://github.com/uliss/pd-ceammc/releases @css a[href\$=".dmg"] href;
 #X msg 88 205 get http://ip.jsontest.com/ @json;

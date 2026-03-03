@@ -4,9 +4,11 @@
 #X text 359 50 конвертер из Guido-нотации в MIDI ноту и длительность;
 #X obj 1 1 cnv 5 765 40 empty empty conv.guido2note 20 20 0 20 -104026
 -4096 0;
-#X obj 369 11 ceammc/guido->note;
-#X obj 525 11 guido->note;
-#X obj 631 11 conv.guido2note;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/guido->note] @url conv.guido2note-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[guido->note] @url conv.guido2note-help.pd;
+#X obj 631 8 conv.guido2note;
 #X obj 230 78 cnv 1 535 44 empty empty empty 17 7 0 10 -237178 -1 0;
 #X obj 240 86 ui.link @background_color 0.90196 0.90196 0.90196 @title
 GUIDO music notation @url
@@ -76,8 +78,9 @@ a1/16 g1/16 f/4;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 918 библиотека: ceammc v0.9.8;
-#X text 510 930 смотрите также:;
-#X obj 631 930 conv.note2guido;
+#X text 507 930 смотрите также:;
+#X obj 628 933 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.note2guido] @url conv.note2guido-help.pd;
 #N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

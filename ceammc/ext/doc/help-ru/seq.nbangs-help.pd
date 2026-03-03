@@ -4,8 +4,9 @@
 #X text 351 50 выводит заданное число bang-ов через интервалы времени;
 #X obj 1 1 cnv 5 765 40 empty empty seq.nbangs 20 20 0 20 -104026
 -4096 0;
-#X obj 599 11 seq.nb;
-#X obj 668 11 seq.nbangs;
+#X obj 597 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[seq.nb] @url seq.nbangs-help.pd;
+#X obj 668 8 seq.nbangs;
 #X msg 50 118 10;
 #X msg 98 118 15;
 #X msg 146 118 2;
@@ -121,9 +122,11 @@ bang-ов.;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
 #X obj 1 1324 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1327 библиотека: ceammc v0.9.8;
-#X text 459 1339 смотрите также:;
-#X obj 580 1339 seq.bangs;
-#X obj 660 1339 seq.toggles;
+#X text 453 1339 смотрите также:;
+#X obj 574 1342 ui.link @background_color 0.78431 0.78431 0.78431
+@title [seq.bangs] @url seq.bangs-help.pd;
+#X obj 657 1342 ui.link @background_color 0.78431 0.78431 0.78431
+@title [seq.toggles] @url seq.toggles-help.pd;
 #N canvas 10 1346 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

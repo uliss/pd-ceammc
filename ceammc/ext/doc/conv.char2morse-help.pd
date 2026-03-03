@@ -4,9 +4,11 @@
 #X text 389 50 converts the single character into the Morse code;
 #X obj 1 1 cnv 5 765 40 empty empty conv.char2morse 20 20 0 20 -104026
 -4096 0;
-#X obj 370 11 ceammc/char->morse;
-#X obj 526 11 char->morse;
-#X obj 631 11 conv.char2morse;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/char->morse] @url conv.char2morse-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[char->morse] @url conv.char2morse-help.pd;
+#X obj 631 8 conv.char2morse;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: cyrillic utf-8 characters are also supported.;
 #X symbolatom 50 171 5 0 0 0 - - -;
@@ -41,8 +43,9 @@ dashes \, otherwise as list of 0 and 1\. Type: bool. Default value:
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 585 520 see also:;
-#X obj 660 520 proto.morse;
+#X text 582 520 see also:;
+#X obj 657 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [proto.morse] @url proto.morse-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

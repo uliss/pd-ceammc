@@ -4,8 +4,9 @@
 #X text 474 50 калькулятор биномиальных коэффициентов;
 #X obj 1 1 cnv 5 765 40 empty empty math.binomial 20 20 0 20 -104026
 -4096 0;
-#X obj 561 11 math.nck;
-#X obj 645 11 math.binomial;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.nck] @url math.binomial-help.pd;
+#X obj 645 8 math.binomial;
 #X obj 230 78 cnv 1 535 44 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 86 Wiki:;
 #X obj 280 88 ui.link @background_color 0.90196 0.90196 0.90196 @title

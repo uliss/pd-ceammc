@@ -73,9 +73,11 @@
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 794 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 797 библиотека: ceammc v0.9.8;
-#X text 392 809 смотрите также:;
-#X obj 513 809 flt.lowshelf~;
-#X obj 623 809 flt.c_highshelf~;
+#X text 388 809 смотрите также:;
+#X obj 509 812 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.lowshelf~] @url flt.lowshelf~-help.pd;
+#X obj 621 812 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_highshelf~] @url flt.c_highshelf~-help.pd;
 #N canvas 10 816 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

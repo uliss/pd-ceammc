@@ -5,9 +5,11 @@
 цепи обработки;
 #X obj 1 1 cnv 5 765 40 empty empty flow.reject_if 20 20 0 20 -104026
 -4096 0;
-#X obj 408 11 ceammc/reject_if;
-#X obj 549 11 reject_if;
-#X obj 638 11 flow.reject_if;
+#X obj 401 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/reject_if] @url flow.reject_if-help.pd;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[reject_if] @url flow.reject_if-help.pd;
+#X obj 638 8 flow.reject_if;
 #X obj 230 93 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 conditional value reject according to *predicate* object.
 *predicate* should accept value and ouput 0 or 1 \, for value passing.;
@@ -39,10 +41,13 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 371 520 смотрите также:;
-#X obj 492 520 flow.pass_if;
-#X obj 594 520 flow.reject;
-#X obj 689 520 is_even;
+#X text 362 520 смотрите также:;
+#X obj 483 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pass_if] @url flow.pass_if-help.pd;
+#X obj 588 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.reject] @url flow.reject-help.pd;
+#X obj 686 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [is_even] @url is_even-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

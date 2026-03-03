@@ -81,9 +81,11 @@ value: 100\. Range: 20\...20000\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 918 library: ceammc v0.9.8;
-#X text 474 930 see also:;
-#X obj 549 930 flt.resonbp~;
-#X obj 652 930 flt.resonlp~;
+#X text 470 930 see also:;
+#X obj 545 933 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.resonbp~] @url flt.resonbp~-help.pd;
+#X obj 650 933 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.resonlp~] @url flt.resonlp~-help.pd;
 #N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

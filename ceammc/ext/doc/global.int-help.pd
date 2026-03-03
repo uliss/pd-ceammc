@@ -77,8 +77,9 @@ value: default.;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
 #X obj 1 775 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 778 library: ceammc v0.9.8;
-#X text 578 790 see also:;
-#X obj 653 790 global.float;
+#X text 575 790 see also:;
+#X obj 650 793 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.float] @url global.float-help.pd;
 #N canvas 10 797 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

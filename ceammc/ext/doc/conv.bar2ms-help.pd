@@ -4,9 +4,11 @@
 #X text 519 50 calculates bar and beat duration;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bar2ms 20 20 0 20 -104026
 -4096 0;
-#X obj 458 11 ceammc/bar->ms;
-#X obj 584 11 bar->ms;
-#X obj 660 11 conv.bar2ms;
+#X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bar->ms] @url conv.bar2ms-help.pd;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bar->ms] @url conv.bar2ms-help.pd;
+#X obj 660 8 conv.bar2ms;
 #X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Example tempo values: 60 \, 120bpm \, 90|4bpm \, 80|3/8bpm;
 #X text 240 108 Example time signature values: |3/8| \, |1/4+3/16|;
@@ -73,8 +75,9 @@ value: 60|4bpm.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 733 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 736 library: ceammc v0.9.8;
-#X text 585 748 see also:;
-#X obj 660 748 conv.bpm2ms;
+#X text 582 748 see also:;
+#X obj 657 751 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.bpm2ms] @url conv.bpm2ms-help.pd;
 #N canvas 10 755 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

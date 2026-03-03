@@ -4,8 +4,9 @@
 #X text 420 50 отделяет символьные сообщения от других типов;
 #X obj 1 1 cnv 5 765 40 empty empty route.symbol 20 20 0 20 -104026
 -4096 0;
-#X obj 579 11 route.s;
-#X obj 654 11 route.symbol;
+#X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[route.s] @url route.symbol-help.pd;
+#X obj 654 8 route.symbol;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 bang;
 #X msg 165 118 symbol ABC;
@@ -43,9 +44,11 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 561 библиотека: ceammc v0.9.8;
-#X text 438 573 смотрите также:;
-#X obj 559 573 route.float;
-#X obj 653 573 route.random;
+#X text 431 573 смотрите также:;
+#X obj 552 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.float] @url route.float-help.pd;
+#X obj 650 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.random] @url route.random-help.pd;
 #N canvas 10 580 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

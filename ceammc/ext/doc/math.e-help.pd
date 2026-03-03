@@ -29,8 +29,9 @@ of (1 + 1/n)^n as n approaches infinity.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 613 520 see also:;
-#X obj 688 520 math.pi;
+#X text 611 520 see also:;
+#X obj 686 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.pi] @url math.pi-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

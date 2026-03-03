@@ -4,9 +4,11 @@
 #X text 319 50 маршрутизирует элемент списка с соответствующим сообщением;
 #X obj 1 1 cnv 5 765 40 empty empty flow.list2many 20 20 0 20 -104026
 -4096 0;
-#X obj 391 11 ceammc/list->many;
-#X obj 540 11 list->many;
-#X obj 638 11 flow.list2many;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/list->many] @url flow.list2many-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list->many] @url flow.list2many-help.pd;
+#X obj 638 8 flow.list2many;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 On incoming list (l⁰ l¹ ...) outputs to corresponding
 outlet message: [s⁰ l⁰( \, [s¹ l¹( etc...;

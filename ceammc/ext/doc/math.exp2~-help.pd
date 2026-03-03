@@ -38,8 +38,9 @@ of x.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 736 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 739 library: ceammc v0.9.8;
-#X text 591 751 see also:;
-#X obj 666 751 math.log2~;
+#X text 590 751 see also:;
+#X obj 665 754 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.log2~] @url math.log2~-help.pd;
 #N canvas 10 758 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

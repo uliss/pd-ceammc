@@ -4,8 +4,9 @@
 #X text 351 50 случайный взвешенный выбор атомов из указанного списка;
 #X obj 1 1 cnv 5 765 40 empty empty random.atom 20 20 0 20 -104026
 -4096 0;
-#X obj 579 11 random.a;
-#X obj 661 11 random.atom;
+#X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[random.a] @url random.atom-help.pd;
+#X obj 661 8 random.atom;
 #X obj 230 78 cnv 1 535 195 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Choose random atom from specified list (with weights)
 and output it.;
@@ -78,9 +79,11 @@ weights.;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 940 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 943 библиотека: ceammc v0.9.8;
-#X text 432 955 смотрите также:;
-#X obj 553 955 random.float;
-#X obj 654 955 random.gauss;
+#X text 424 955 смотрите также:;
+#X obj 545 958 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.float] @url random.float-help.pd;
+#X obj 650 958 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.gauss] @url random.gauss-help.pd;
 #N canvas 10 962 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

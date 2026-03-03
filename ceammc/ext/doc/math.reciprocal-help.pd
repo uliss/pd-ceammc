@@ -4,9 +4,11 @@
 #X text 557 50 calculate reciprocal number;
 #X obj 1 1 cnv 5 765 40 empty empty math.reciprocal 20 20 0 20 -104026
 -4096 0;
-#X obj 484 11 ceammc/1/x;
-#X obj 582 11 1/x;
-#X obj 630 11 math.reciprocal;
+#X obj 480 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/1/x] @url math.reciprocal-help.pd;
+#X obj 580 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[1/x] @url math.reciprocal-help.pd;
+#X obj 630 8 math.reciprocal;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Symbols are ignored \, 0 gives NAN value;
 #X floatatom 50 171 5 0 0 0 - - -;

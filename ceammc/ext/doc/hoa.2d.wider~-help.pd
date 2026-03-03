@@ -4,8 +4,9 @@
 #X text 449 50 a 2D fractional ambisonic order simulator;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.wider~ 20 20 0 20 -104026
 -4096 0;
-#X obj 546 11 hoa.wider~;
-#X obj 645 11 hoa.2d.wider~;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.wider~] @url hoa.2d.wider~-help.pd;
+#X obj 645 8 hoa.2d.wider~;
 #X obj 230 78 cnv 1 535 114 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 hoa.2d.wider~ can be used to wide the diffusion of a
 localised sound. The order depending signals are weighted and appear

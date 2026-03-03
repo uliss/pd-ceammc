@@ -69,9 +69,11 @@ N is number of weights.;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 751 library: ceammc v0.9.8;
-#X text 448 763 see also:;
-#X obj 523 763 random.linear;
-#X obj 632 763 random.pw_const;
+#X text 441 763 see also:;
+#X obj 516 766 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.linear] @url random.linear-help.pd;
+#X obj 628 766 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.pw_const] @url random.pw_const-help.pd;
 #N canvas 10 770 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

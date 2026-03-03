@@ -4,9 +4,11 @@
 #X text 420 50 конвертирует из диапазона MIDI Control Change;
 #X obj 1 1 cnv 5 765 40 empty empty conv.cc2amp 20 20 0 20 -104026
 -4096 0;
-#X obj 457 11 ceammc/cc->amp;
-#X obj 584 11 cc->amp;
-#X obj 660 11 conv.cc2amp;
+#X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/cc->amp] @url conv.cc2amp-help.pd;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[cc->amp] @url conv.cc2amp-help.pd;
+#X obj 660 8 conv.cc2amp;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 By default converts from [0\..127] to [0\..1];
 #X floatatom 50 171 5 0 127 0 - - -;
@@ -60,9 +62,11 @@ float.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 556 библиотека: ceammc v0.9.8;
-#X text 473 568 смотрите также:;
-#X obj 594 568 lin->lin;
-#X obj 667 568 lin->curve;
+#X text 468 568 смотрите также:;
+#X obj 589 571 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lin->lin] @url lin->lin-help.pd;
+#X obj 665 571 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lin->curve] @url lin->curve-help.pd;
 #N canvas 10 575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,9 +4,11 @@
 #X text 526 50 convert HSL color values to RGB;
 #X obj 1 1 cnv 5 765 40 empty empty conv.hsl2rgb 20 20 0 20 -104026
 -4096 0;
-#X obj 436 11 ceammc/hsl->rgb;
-#X obj 570 11 hsl->rgb;
-#X obj 653 11 conv.hsl2rgb;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/hsl->rgb] @url conv.hsl2rgb-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hsl->rgb] @url conv.hsl2rgb-help.pd;
+#X obj 653 8 conv.hsl2rgb;
 #X obj 50 118 ui.hsl 0 360 @label HUE @label_inner 1 @show_value 1
 @label_color 0.1 0.25 1;
 #X obj 136 147 ui.hsl @label SAT @label_inner 1 @show_value 1

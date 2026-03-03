@@ -5,8 +5,9 @@
 PCA9685 для Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.i2c.pca9685 20 20 0 20
 -104026 -4096 0;
-#X obj 455 11 hw.rpi.pwm.pca9685;
-#X obj 610 11 hw.rpi.i2c.pca9685;
+#X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hw.rpi.pwm.pca9685] @url hw.rpi.i2c.pca9685-help.pd;
+#X obj 610 8 hw.rpi.i2c.pca9685;
 #X obj 230 93 cnv 1 535 412 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Примечание: частота ШИМ по умолчанию 50 Гц;
 #X text 240 123 *Управление сервоприводами*;

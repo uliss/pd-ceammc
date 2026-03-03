@@ -4,8 +4,9 @@
 #X text 541 50 замена атомов в потоке данных;
 #X obj 1 1 cnv 5 765 40 empty empty replace 20 20 0 20 -104026 -4096
 0;
-#X obj 563 11 ceammc/replace;
-#X obj 690 11 replace;
+#X obj 561 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/replace] @url replace-help.pd;
+#X obj 690 8 replace;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 From/to values can be specified both as @from/@to properties
 or first and second arguments.;
@@ -62,8 +63,9 @@ None.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 672 библиотека: ceammc v0.9.8;
-#X text 554 684 смотрите также:;
-#X obj 675 684 flow.pass;
+#X text 551 684 смотрите также:;
+#X obj 672 687 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pass] @url flow.pass-help.pd;
 #N canvas 10 691 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

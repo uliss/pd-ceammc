@@ -4,8 +4,9 @@
 #X text 388 50 проверяет \, является ли входное сообщение словарём;
 #X obj 1 1 cnv 5 765 40 empty empty is_dict 20 20 0 20 -104026 -4096
 0;
-#X obj 563 11 ceammc/is_dict;
-#X obj 689 11 is_dict;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/is_dict] @url is_dict-help.pd;
+#X obj 689 8 is_dict;
 #X msg 50 118 [a: b] [@prop: val] [1: 100] \, bang;
 #X obj 50 147 data.dict;
 #X msg 165 147 list 1 2 3;
@@ -33,8 +34,9 @@
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 553 520 смотрите также:;
-#X obj 674 520 data.dict;
+#X text 551 520 смотрите также:;
+#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.dict] @url data.dict-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

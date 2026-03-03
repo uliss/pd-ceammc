@@ -4,9 +4,11 @@
 #X text 604 50 pass specified values;
 #X obj 1 1 cnv 5 765 40 empty empty flow.pass 20 20 0 20 -104026 -4096
 0;
-#X obj 516 11 ceammc/pass;
-#X obj 621 11 pass;
-#X obj 675 11 flow.pass;
+#X obj 510 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/pass] @url flow.pass-help.pd;
+#X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[pass] @url flow.pass-help.pd;
+#X obj 675 8 flow.pass;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X symbolatom 117 118 5 0 0 0 - - -;
 #X msg 184 118 list 1 2 9 10;
@@ -60,9 +62,11 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 578 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 581 library: ceammc v0.9.8;
-#X text 483 593 see also:;
-#X obj 558 593 flow.pass_if;
-#X obj 660 593 flow.reject;
+#X text 477 593 see also:;
+#X obj 552 596 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pass_if] @url flow.pass_if-help.pd;
+#X obj 657 596 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.reject] @url flow.reject-help.pd;
 #N canvas 10 600 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

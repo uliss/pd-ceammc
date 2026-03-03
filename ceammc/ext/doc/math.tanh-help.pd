@@ -39,10 +39,13 @@ of x.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 540 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 543 library: ceammc v0.9.8;
-#X text 437 555 see also:;
-#X obj 512 555 math.acos;
-#X obj 593 555 math.asin;
-#X obj 674 555 math.atan;
+#X text 431 555 see also:;
+#X obj 506 558 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.acos] @url math.acos-help.pd;
+#X obj 589 558 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.asin] @url math.asin-help.pd;
+#X obj 672 558 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.atan] @url math.atan-help.pd;
 #N canvas 10 562 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

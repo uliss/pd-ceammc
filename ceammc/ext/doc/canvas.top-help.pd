@@ -85,9 +85,11 @@ with the extension .ps is used. Type: symbol.;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 863 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 866 library: ceammc v0.9.8;
-#X text 477 878 see also:;
-#X obj 552 878 patch.args;
-#X obj 639 878 canvas.current;
+#X text 471 878 see also:;
+#X obj 546 881 ui.link @background_color 0.78431 0.78431 0.78431
+@title [patch.args] @url patch.args-help.pd;
+#X obj 636 881 ui.link @background_color 0.78431 0.78431 0.78431
+@title [canvas.current] @url canvas.current-help.pd;
 #N canvas 10 885 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,8 +4,9 @@
 #X text 320 50 хаотический генератор на основе логистического отображения;
 #X obj 1 1 cnv 5 765 40 empty empty chaos.logistic 20 20 0 20 -104026
 -4096 0;
-#X obj 513 11 noise.logistic;
-#X obj 639 11 chaos.logistic;
+#X obj 510 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[noise.logistic] @url chaos.logistic-help.pd;
+#X obj 639 8 chaos.logistic;
 #X obj 230 78 cnv 1 535 614 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 A non-interpolating generator based on the difference
 equations:;
@@ -117,8 +118,9 @@ Default is 0\. Тип: int.;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
 #X obj 1 1568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1571 библиотека: ceammc v0.9.8;
-#X text 546 1583 смотрите также:;
-#X obj 667 1583 chaos.std0;
+#X text 544 1583 смотрите также:;
+#X obj 665 1586 ui.link @background_color 0.78431 0.78431 0.78431
+@title [chaos.std0] @url chaos.std0-help.pd;
 #N canvas 10 1590 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

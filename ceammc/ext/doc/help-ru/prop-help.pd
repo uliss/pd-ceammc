@@ -4,8 +4,9 @@
 #X text 359 50 получить/установить именованное значение свойства для
 субпатча или абстракции;
 #X obj 1 1 cnv 5 765 40 empty empty prop 20 20 0 20 -104026 -4096 0;
-#X obj 605 11 ceammc/prop;
-#X obj 710 11 prop;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/prop] @url prop-help.pd;
+#X obj 710 8 prop;
 #X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 The property should be declared with [prop.declare].
 Min/max limits can be set to the property;
@@ -53,9 +54,11 @@ Min/max limits can be set to the property;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 652 библиотека: ceammc v0.9.8;
-#X text 437 664 смотрите также:;
-#X obj 558 664 prop.declare;
-#X obj 660 664 patch.props;
+#X text 431 664 смотрите также:;
+#X obj 552 667 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop.declare] @url prop.declare-help.pd;
+#X obj 657 667 ui.link @background_color 0.78431 0.78431 0.78431
+@title [patch.props] @url patch.props-help.pd;
 #N canvas 10 671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

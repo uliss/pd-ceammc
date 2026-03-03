@@ -75,9 +75,11 @@ beat. Тип: list.;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 852 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 855 библиотека: ceammc v0.9.8;
-#X text 472 867 смотрите также:;
-#X obj 593 867 metro;
-#X obj 645 867 metro.pattern;
+#X text 468 867 смотрите также:;
+#X obj 589 870 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro] @url metro-help.pd;
+#X obj 643 870 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro.pattern] @url metro.pattern-help.pd;
 #N canvas 10 874 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

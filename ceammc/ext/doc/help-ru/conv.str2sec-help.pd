@@ -5,9 +5,11 @@
 в секундах;
 #X obj 1 1 cnv 5 765 40 empty empty conv.str2sec 20 20 0 20 -104026
 -4096 0;
-#X obj 436 11 ceammc/str->sec;
-#X obj 570 11 str->sec;
-#X obj 653 11 conv.str2sec;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/str->sec] @url conv.str2sec-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str->sec] @url conv.str2sec-help.pd;
+#X obj 653 8 conv.str2sec;
 #X msg 50 118 0:59;
 #X msg 126 118 2:01;
 #X msg 194 118 0:01.5;
@@ -46,8 +48,9 @@ float. Значение по умолчанию: -1\.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 531 520 смотрите также:;
-#X obj 652 520 conv.sec2str;
+#X text 529 520 смотрите также:;
+#X obj 650 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.sec2str] @url conv.sec2str-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

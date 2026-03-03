@@ -4,9 +4,11 @@
 #X text 550 50 выводит текущую дату и время;
 #X obj 1 1 cnv 5 765 40 empty empty chrono.datetime 20 20 0 20 -104026
 -4096 0;
-#X obj 413 11 ceammc/datetime;
-#X obj 547 11 datetime;
-#X obj 631 11 chrono.datetime;
+#X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/datetime] @url chrono.datetime-help.pd;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[datetime] @url chrono.datetime-help.pd;
+#X obj 631 8 chrono.datetime;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 184 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 1000;

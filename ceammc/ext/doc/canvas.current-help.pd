@@ -89,9 +89,11 @@ list. Default value: 600 400\.;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 933 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 936 library: ceammc v0.9.8;
-#X text 505 948 see also:;
-#X obj 580 948 patch.args;
-#X obj 667 948 canvas.top;
+#X text 500 948 see also:;
+#X obj 575 951 ui.link @background_color 0.78431 0.78431 0.78431
+@title [patch.args] @url patch.args-help.pd;
+#X obj 665 951 ui.link @background_color 0.78431 0.78431 0.78431
+@title [canvas.top] @url canvas.top-help.pd;
 #N canvas 10 955 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

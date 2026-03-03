@@ -150,8 +150,9 @@ from starting of measuring. You can reset start time with 'reset' message.;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
 #X obj 1 1563 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1566 library: ceammc v0.9.8;
-#X text 607 1578 see also:;
-#X obj 682 1578 an.onset;
+#X text 604 1578 see also:;
+#X obj 679 1581 ui.link @background_color 0.78431 0.78431 0.78431
+@title [an.onset] @url an.onset-help.pd;
 #N canvas 10 1585 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

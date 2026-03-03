@@ -4,9 +4,11 @@
 #X text 496 50 планировщик событий временной шкалы;
 #X obj 1 1 cnv 5 765 40 empty empty tl.timeline 20 20 0 20 -104026
 -4096 0;
-#X obj 441 11 ceammc/timeline;
-#X obj 575 11 timeline;
-#X obj 659 11 tl.timeline;
+#X obj 436 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/timeline] @url tl.timeline-help.pd;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[timeline] @url tl.timeline-help.pd;
+#X obj 659 8 tl.timeline;
 #X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 With timeline you can schedule your events and start/pause/stop/move
 time;

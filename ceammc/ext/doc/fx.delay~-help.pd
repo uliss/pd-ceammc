@@ -4,8 +4,9 @@
 #X text 488 50 smooth delay with a feedback control;
 #X obj 1 1 cnv 5 765 40 empty empty fx.delay~ 20 20 0 20 -104026 -4096
 0;
-#X obj 575 11 fx.sdelay~;
-#X obj 674 11 fx.delay~;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[fx.sdelay~] @url fx.delay~-help.pd;
+#X obj 674 8 fx.delay~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 delay that doesn't click and doesn't transpose when
 the delay time is changed;
@@ -128,8 +129,9 @@ Type: float. Units: 'ms'. Default value: 50\. Range: 0\...500\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1389 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1392 library: ceammc v0.9.8;
-#X text 606 1404 see also:;
-#X obj 681 1404 fx.echo~;
+#X text 604 1404 see also:;
+#X obj 679 1407 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.echo~] @url fx.echo~-help.pd;
 #N canvas 10 1411 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

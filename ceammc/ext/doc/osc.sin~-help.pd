@@ -63,11 +63,15 @@ properties to /ID/osc_sin/PROP_NAME osc address \, if empty bind to
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 646 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 649 library: ceammc v0.9.8;
-#X text 333 661 see also:;
-#X obj 408 661 osc.saw~;
-#X obj 482 661 osc.tri~;
-#X obj 556 661 osc.square~;
-#X obj 652 661 lfo.impulse~;
+#X text 325 661 see also:;
+#X obj 400 664 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.saw~] @url osc.saw~-help.pd;
+#X obj 476 664 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.tri~] @url osc.tri~-help.pd;
+#X obj 552 664 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.square~] @url osc.square~-help.pd;
+#X obj 650 664 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.impulse~] @url lfo.impulse~-help.pd;
 #N canvas 10 668 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

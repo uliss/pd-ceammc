@@ -3,10 +3,13 @@
 #X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 649 50 создание строки;
 #X obj 1 1 cnv 5 765 40 empty empty string 20 20 0 20 -104026 -4096 0;
-#X obj 433 11 ceammc/string;
-#X obj 552 11 ceammc/str;
-#X obj 650 11 str;
-#X obj 697 11 string;
+#X obj 425 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/string] @url string-help.pd;
+#X obj 547 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/str] @url string-help.pd;
+#X obj 647 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str] @url string-help.pd;
+#X obj 697 8 string;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 88 118 5 0 0 0 - - -;

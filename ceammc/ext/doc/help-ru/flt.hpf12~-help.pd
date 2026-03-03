@@ -81,10 +81,13 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 1049 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1052 библиотека: ceammc v0.9.8;
-#X text 367 1064 смотрите также:;
-#X obj 488 1064 flt.hpf24~;
-#X obj 577 1064 flt.lpf12~;
-#X obj 666 1064 flt.c_hpf~;
+#X text 364 1064 смотрите также:;
+#X obj 485 1067 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.hpf24~] @url flt.hpf24~-help.pd;
+#X obj 575 1067 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.lpf12~] @url flt.lpf12~-help.pd;
+#X obj 665 1067 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_hpf~] @url flt.c_hpf~-help.pd;
 #N canvas 10 1071 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

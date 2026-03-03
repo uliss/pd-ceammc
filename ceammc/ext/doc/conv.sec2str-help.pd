@@ -4,9 +4,11 @@
 #X text 435 50 formats time in seconds to symbol or string;
 #X obj 1 1 cnv 5 765 40 empty empty conv.sec2str 20 20 0 20 -104026
 -4096 0;
-#X obj 434 11 ceammc/sec->str;
-#X obj 568 11 sec->str;
-#X obj 652 11 conv.sec2str;
+#X obj 429 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/sec->str] @url conv.sec2str-help.pd;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[sec->str] @url conv.sec2str-help.pd;
+#X obj 652 8 conv.sec2str;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 261 118 5 0 0 0 - - -;
 #X obj 50 147 metro 1000;
@@ -47,8 +49,9 @@ as string. Default value: 0\.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 578 520 see also:;
-#X obj 653 520 conv.str2sec;
+#X text 575 520 see also:;
+#X obj 650 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.str2sec] @url conv.str2sec-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

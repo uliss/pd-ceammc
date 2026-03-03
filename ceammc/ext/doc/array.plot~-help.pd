@@ -75,10 +75,11 @@ Range: -1024\...1024\.;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 755 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 758 library: ceammc v0.9.8;
-#X text 516 770 see also:;
-#X obj 591 773 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 514 770 see also:;
+#X obj 589 773 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.plot~] @url ui.plot~-help.pd;
-#X obj 667 770 array.plot;
+#X obj 665 773 ui.link @background_color 0.78431 0.78431 0.78431
+@title [array.plot] @url array.plot-help.pd;
 #N canvas 10 777 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

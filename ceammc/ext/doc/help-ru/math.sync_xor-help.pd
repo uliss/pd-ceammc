@@ -4,10 +4,13 @@
 #X text 495 50 логическая операция исключающее ИЛИ;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_xor 20 20 0 20 -104026
 -4096 0;
-#X obj 439 11 math.^';
-#X obj 514 11 ceammc/^';
-#X obj 603 11 ^';
-#X obj 645 11 math.sync_xor;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.^'] @url math.sync_xor-help.pd;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/^'] @url math.sync_xor-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[^'] @url math.sync_xor-help.pd;
+#X obj 645 8 math.sync_xor;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Only 1 and 0 values are accepted. Any other number treat
 as 1 \, but print error to console.;
@@ -53,8 +56,9 @@ output result.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 526 библиотека: ceammc v0.9.8;
-#X text 562 538 смотрите также:;
-#X obj 683 538 math.||';
+#X text 558 538 смотрите также:;
+#X obj 679 541 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.||'] @url math.||'-help.pd;
 #N canvas 10 545 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

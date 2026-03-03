@@ -5,9 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty vline2env 20 20 0 20 -104026 -4096
 0;
 #N canvas 577 11 250 400 aliases 0;
-#X obj 30 40 ceammc/vline2env;
-#X obj 30 78 ceammc/vline->env;
-#X obj 30 116 vline->env;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/vline2env] @url vline2env-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/vline->env] @url vline2env-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[vline->env] @url vline2env-help.pd;
 #X restore 577 11 pd aliases;
 #X obj 674 11 vline2env;
 #X msg 50 118 0 \, 1 200;
@@ -36,9 +39,11 @@
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 457 520 смотрите также:;
-#X obj 578 520 env->vline;
-#X obj 666 520 env->array;
+#X text 454 520 смотрите также:;
+#X obj 575 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [env->vline] @url env->vline-help.pd;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [env->array] @url env->array-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

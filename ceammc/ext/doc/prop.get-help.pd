@@ -5,8 +5,9 @@
 or abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop.get 20 20 0 20 -104026 -4096
 0;
-#X obj 621 11 p.get;
-#X obj 682 11 prop.get;
+#X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[p.get] @url prop.get-help.pd;
+#X obj 682 8 prop.get;
 #X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Get properties from connected object/subpatch/abstraction;
 #X msg 50 186 bang;
@@ -54,8 +55,9 @@ or abstraction;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 616 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 619 library: ceammc v0.9.8;
-#X text 621 631 see also:;
-#X obj 696 631 prop<-;
+#X text 619 631 see also:;
+#X obj 694 634 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop<-] @url prop<--help.pd;
 #N canvas 10 638 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

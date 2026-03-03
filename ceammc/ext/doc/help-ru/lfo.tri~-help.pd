@@ -79,10 +79,13 @@
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
 #X obj 1 812 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 815 библиотека: ceammc v0.9.8;
-#X text 355 827 смотрите также:;
-#X obj 476 827 lfo.+tri~;
-#X obj 557 827 lfo.square~;
-#X obj 652 827 lfo.impulse~;
+#X text 348 827 смотрите также:;
+#X obj 469 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.+tri~] @url lfo.+tri~-help.pd;
+#X obj 552 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.square~] @url lfo.square~-help.pd;
+#X obj 650 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.impulse~] @url lfo.impulse~-help.pd;
 #N canvas 10 834 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,8 +4,9 @@
 #X text 679 50 MQTT клиент;
 #X obj 1 1 cnv 5 765 40 empty empty net.mqtt.client 20 20 0 20 -104026
 -4096 0;
-#X obj 526 11 mqtt.client;
-#X obj 631 11 net.mqtt.client;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[mqtt.client] @url net.mqtt.client-help.pd;
+#X obj 631 8 net.mqtt.client;
 #X text 50 118 you can start testing mqtt server with command: 'nanomq
 -start';
 #X msg 69 162 connect tcp://test.mosquitto.org:1883;

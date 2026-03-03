@@ -4,9 +4,11 @@
 #X text 518 50 GMEM SPAT: 8-outputs spatializer;
 #X obj 1 1 cnv 5 765 40 empty empty spat.pan8~ 20 20 0 20 -104026
 -4096 0;
-#X obj 492 11 ceammc/pan8~;
-#X obj 605 11 pan8~;
-#X obj 667 11 spat.pan8~;
+#X obj 488 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/pan8~] @url spat.pan8~-help.pd;
+#X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[pan8~] @url spat.pan8~-help.pd;
+#X obj 667 8 spat.pan8~;
 #X obj 50 118 osc~ 1000;
 #X obj 165 118 ui.knob;
 #X obj 299 118 ui.knob;
@@ -103,8 +105,9 @@ Default value: 0\. Range: 0\...2π.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1016 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1019 library: ceammc v0.9.8;
-#X text 628 1031 see also:;
-#X obj 703 1031 pan4~;
+#X text 626 1031 see also:;
+#X obj 701 1034 ui.link @background_color 0.78431 0.78431 0.78431
+@title [pan4~] @url pan4~-help.pd;
 #N canvas 10 1038 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

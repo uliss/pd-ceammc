@@ -58,8 +58,9 @@ Default value: count. Allowed values: count \, rate \, freq.;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
 #X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 861 library: ceammc v0.9.8;
-#X text 562 873 see also:;
-#X obj 637 873 an.pitchtrack~;
+#X text 561 873 see also:;
+#X obj 636 876 ui.link @background_color 0.78431 0.78431 0.78431
+@title [an.pitchtrack~] @url an.pitchtrack~-help.pd;
 #N canvas 10 880 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

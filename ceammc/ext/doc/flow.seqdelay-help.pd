@@ -4,8 +4,9 @@
 #X text 427 50 sequential delay/router for the input stream;
 #X obj 1 1 cnv 5 765 40 empty empty flow.seqdelay 20 20 0 20 -104026
 -4096 0;
-#X obj 540 11 flow.seqdel;
-#X obj 645 11 flow.seqdelay;
+#X obj 537 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.seqdel] @url flow.seqdelay-help.pd;
+#X obj 645 8 flow.seqdelay;
 #X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Delay any route incoming message by specified relative
 time list. If @block=0 if new message has arrived while delay time
@@ -93,8 +94,9 @@ info to Pd window.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1190 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1193 library: ceammc v0.9.8;
-#X text 592 1205 see also:;
-#X obj 667 1205 flow.delay;
+#X text 590 1205 see also:;
+#X obj 665 1208 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.delay] @url flow.delay-help.pd;
 #N canvas 10 1212 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

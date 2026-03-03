@@ -67,10 +67,13 @@ Range: 0\...1024\.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 712 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 715 library: ceammc v0.9.8;
-#X text 410 727 see also:;
-#X obj 485 727 list.seq;
-#X obj 558 727 list.shuffle;
-#X obj 660 727 list.choice;
+#X text 401 727 see also:;
+#X obj 476 730 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.seq] @url list.seq-help.pd;
+#X obj 552 730 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.shuffle] @url list.shuffle-help.pd;
+#X obj 657 730 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.choice] @url list.choice-help.pd;
 #N canvas 10 734 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

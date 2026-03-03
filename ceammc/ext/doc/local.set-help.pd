@@ -96,9 +96,11 @@ value: 0\. Min value: 0\.;
 #X obj 133 48 ui.link @title local @url ceammc.local-help.pd;
 #X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1021 library: ceammc v0.9.8;
-#X text 519 1033 see also:;
-#X obj 594 1033 data.set;
-#X obj 667 1033 global.set;
+#X text 514 1033 see also:;
+#X obj 589 1036 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
+#X obj 665 1036 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.set] @url global.set-help.pd;
 #N canvas 10 1040 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

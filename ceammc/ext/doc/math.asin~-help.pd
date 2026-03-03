@@ -34,9 +34,11 @@ signal. The result is in the range [-pi/2 \, +pi/2];
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 636 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 639 library: ceammc v0.9.8;
-#X text 510 651 see also:;
-#X obj 585 651 math.asin;
-#X obj 666 651 math.acos~;
+#X text 507 651 see also:;
+#X obj 582 654 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.asin] @url math.asin-help.pd;
+#X obj 665 654 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.acos~] @url math.acos~-help.pd;
 #N canvas 10 658 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

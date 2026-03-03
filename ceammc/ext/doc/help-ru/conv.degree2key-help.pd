@@ -4,9 +4,11 @@
 #X text 412 50 преобразует номер ступени лада в номер клавиши;
 #X obj 1 1 cnv 5 765 40 empty empty conv.degree2key 20 20 0 20 -104026
 -4096 0;
-#X obj 369 11 ceammc/degree->key;
-#X obj 525 11 degree->key;
-#X obj 631 11 conv.degree2key;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/degree->key] @url conv.degree2key-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[degree->key] @url conv.degree2key-help.pd;
+#X obj 631 8 conv.degree2key;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: some scales are not for eq12 temperament;
 #X msg 50 171 bang;

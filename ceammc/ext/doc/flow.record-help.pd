@@ -4,8 +4,9 @@
 #X text 580 50 control flow record/play;
 #X obj 1 1 cnv 5 765 40 empty empty flow.record 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 flow.rec;
-#X obj 660 11 flow.record;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.rec] @url flow.record-help.pd;
+#X obj 660 8 flow.record;
 #X obj 50 118 ui.keyboard 24;
 #X msg 107 190 stop;
 #X msg 174 190 play;

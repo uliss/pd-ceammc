@@ -49,9 +49,11 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 581 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 584 библиотека: ceammc v0.9.8;
-#X text 456 596 смотрите также:;
-#X obj 577 596 dyn.limit2~;
-#X obj 673 596 dyn.comp~;
+#X text 453 596 смотрите также:;
+#X obj 574 599 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.limit2~] @url dyn.limit2~-help.pd;
+#X obj 672 599 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp~] @url dyn.comp~-help.pd;
 #N canvas 10 603 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

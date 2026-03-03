@@ -4,8 +4,9 @@
 #X text 481 50 formats a string like printf function;
 #X obj 1 1 cnv 5 765 40 empty empty string.format 20 20 0 20 -104026
 -4096 0;
-#X obj 549 11 str.format;
-#X obj 646 11 string.format;
+#X obj 546 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.format] @url string.format-help.pd;
+#X obj 646 8 string.format;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 This format modifiers are supported: %d \, %u \, %i
 \, %o \, %x \, %X \, %s \, %e \, %E.;

@@ -4,8 +4,9 @@
 #X text 336 50 checks if the string starts with the specified substring;
 #X obj 1 1 cnv 5 765 40 empty empty string.starts_with 20 20 0 20
 -104026 -4096 0;
-#X obj 476 11 str.starts_with;
-#X obj 610 11 string.starts_with;
+#X obj 473 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.starts_with] @url string.starts_with-help.pd;
+#X obj 610 8 string.starts_with;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 string CSound;
@@ -48,8 +49,9 @@
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 571 520 see also:;
-#X obj 646 520 str.ends_with;
+#X text 568 520 see also:;
+#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [str.ends_with] @url str.ends_with-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

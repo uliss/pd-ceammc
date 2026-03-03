@@ -150,9 +150,11 @@ indexes are supported.;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
 #X obj 1 1632 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1635 library: ceammc v0.9.8;
-#X text 490 1647 see also:;
-#X obj 565 1647 global.float;
-#X obj 667 1647 global.int;
+#X text 485 1647 see also:;
+#X obj 560 1650 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.float] @url global.float-help.pd;
+#X obj 665 1650 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.int] @url global.int-help.pd;
 #N canvas 10 1654 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

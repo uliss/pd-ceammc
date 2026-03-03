@@ -4,8 +4,9 @@
 #X text 571 50 ArtNet DMX message sender;
 #X obj 1 1 cnv 5 765 40 empty empty net.artnet.send 20 20 0 20 -104026
 -4096 0;
-#X obj 526 11 artnet.send;
-#X obj 631 11 net.artnet.send;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[artnet.send] @url net.artnet.send-help.pd;
+#X obj 631 8 net.artnet.send;
 #X obj 50 118 ui.hrd 4;
 #X floatatom 222 118 5 0 0 0 - - -;
 #X msg 50 147 @universe \$1;

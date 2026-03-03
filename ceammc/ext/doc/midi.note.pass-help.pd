@@ -4,8 +4,9 @@
 #X text 335 50 passes MIDI notes according to the calculated expression;
 #X obj 1 1 cnv 5 765 40 empty empty midi.note.pass 20 20 0 20 -104026
 -4096 0;
-#X obj 548 11 note.pass;
-#X obj 638 11 midi.note.pass;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[note.pass] @url midi.note.pass-help.pd;
+#X obj 638 8 midi.note.pass;
 #X obj 230 78 cnv 1 535 214 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Passes midi notes (list of PITCH VELOCITY DUR?) for
 which expression returns true.;
@@ -68,8 +69,9 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
 #X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 862 library: ceammc v0.9.8;
-#X text 635 874 see also:;
-#X obj 710 874 expr;
+#X text 633 874 see also:;
+#X obj 708 877 ui.link @background_color 0.78431 0.78431 0.78431
+@title [expr] @url expr-help.pd;
 #N canvas 10 881 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

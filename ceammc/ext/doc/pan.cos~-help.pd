@@ -66,9 +66,11 @@ Type: int. Default value: 20\. Range: 0\...100\.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 675 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 678 library: ceammc v0.9.8;
-#X text 525 690 see also:;
-#X obj 600 690 pan.lin~;
-#X obj 674 690 pan.sqrt~;
+#X text 521 690 see also:;
+#X obj 596 693 ui.link @background_color 0.78431 0.78431 0.78431
+@title [pan.lin~] @url pan.lin~-help.pd;
+#X obj 672 693 ui.link @background_color 0.78431 0.78431 0.78431
+@title [pan.sqrt~] @url pan.sqrt~-help.pd;
 #N canvas 10 697 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -72,10 +72,13 @@ property value as sublist \, otherwise 0\. Тип: list.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 800 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 803 библиотека: ceammc v0.9.8;
-#X text 321 815 смотрите также:;
-#X obj 442 815 list.^contains;
-#X obj 558 815 list.all_of;
-#X obj 653 815 list.none_of;
+#X text 312 815 смотрите также:;
+#X obj 433 818 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.^contains] @url list.^contains-help.pd;
+#X obj 552 818 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.all_of] @url list.all_of-help.pd;
+#X obj 650 818 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.none_of] @url list.none_of-help.pd;
 #N canvas 10 822 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

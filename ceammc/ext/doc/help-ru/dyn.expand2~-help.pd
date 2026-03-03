@@ -162,8 +162,9 @@ dB = max level). Тип: float. Единицы: 'db'. Значение по ум
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1708 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1711 библиотека: ceammc v0.9.8;
-#X text 538 1723 смотрите также:;
-#X obj 659 1723 dyn.expand~;
+#X text 536 1723 смотрите также:;
+#X obj 657 1726 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.expand~] @url dyn.expand~-help.pd;
 #N canvas 10 1730 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

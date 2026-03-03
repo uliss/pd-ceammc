@@ -82,10 +82,13 @@ float. Диапазон: -15…15;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 921 библиотека: ceammc v0.9.8;
-#X text 282 933 смотрите также:;
-#X obj 403 933 flt.eq_peak_cq~;
-#X obj 528 933 flt.lowshelf~;
-#X obj 638 933 flt.highshelf~;
+#X text 276 933 смотрите также:;
+#X obj 397 936 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.eq_peak_cq~] @url flt.eq_peak_cq~-help.pd;
+#X obj 524 936 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.lowshelf~] @url flt.lowshelf~-help.pd;
+#X obj 636 936 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.highshelf~] @url flt.highshelf~-help.pd;
 #N canvas 10 940 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

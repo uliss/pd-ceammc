@@ -51,8 +51,9 @@ second output is the size of input list - this value. Тип: int. Минима�
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 526 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 529 библиотека: ceammc v0.9.8;
-#X text 569 541 смотрите также:;
-#X obj 690 541 list.at;
+#X text 565 541 смотрите также:;
+#X obj 686 544 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.at] @url list.at-help.pd;
 #N canvas 10 548 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

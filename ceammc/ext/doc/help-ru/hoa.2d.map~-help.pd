@@ -5,8 +5,9 @@
 в двумерных амбисониках;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.map~ 20 20 0 20 -104026
 -4096 0;
-#X obj 575 11 hoa.map~;
-#X obj 659 11 hoa.2d.map~;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.map~] @url hoa.2d.map~-help.pd;
+#X obj 659 8 hoa.2d.map~;
 #X obj 230 93 cnv 1 535 134 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Encodes several sources in the circular harmonics domain
 with distance compensation and muting system;

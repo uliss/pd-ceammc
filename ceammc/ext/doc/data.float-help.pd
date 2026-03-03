@@ -4,9 +4,11 @@
 #X text 527 50 a multi-functional float object;
 #X obj 1 1 cnv 5 765 40 empty empty data.float 20 20 0 20 -104026
 -4096 0;
-#X obj 558 11 .float;
-#X obj 625 11 .f;
-#X obj 667 11 data.float;
+#X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[.float] @url data.float-help.pd;
+#X obj 624 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[.f] @url data.float-help.pd;
+#X obj 667 8 data.float;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 69 147 + 1.1 \, bang;
 #X msg 203 147 10 \, bang;
@@ -72,8 +74,9 @@
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 719 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 722 library: ceammc v0.9.8;
-#X text 607 734 see also:;
-#X obj 682 734 data.int;
+#X text 604 734 see also:;
+#X obj 679 737 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.int] @url data.int-help.pd;
 #N canvas 10 741 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

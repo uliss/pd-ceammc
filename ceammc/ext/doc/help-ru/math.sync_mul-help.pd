@@ -4,10 +4,13 @@
 #X text 611 50 синхронное умножение;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_mul 20 20 0 20 -104026
 -4096 0;
-#X obj 439 11 math.*';
-#X obj 514 11 ceammc/*';
-#X obj 603 11 *';
-#X obj 645 11 math.sync_mul;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.*'] @url math.sync_mul-help.pd;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/*'] @url math.sync_mul-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[*'] @url math.sync_mul-help.pd;
+#X obj 645 8 math.sync_mul;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 107 118 5 0 0 0 - - -;
 #X text 165 118 same as:;

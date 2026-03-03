@@ -104,9 +104,11 @@ value from found global variable. Type: symbol.;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
 #X obj 1 1274 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1277 library: ceammc v0.9.8;
-#X text 498 1289 see also:;
-#X obj 573 1289 local.float;
-#X obj 667 1289 global.int;
+#X text 492 1289 see also:;
+#X obj 567 1292 ui.link @background_color 0.78431 0.78431 0.78431
+@title [local.float] @url local.float-help.pd;
+#X obj 665 1292 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.int] @url global.int-help.pd;
 #N canvas 10 1296 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

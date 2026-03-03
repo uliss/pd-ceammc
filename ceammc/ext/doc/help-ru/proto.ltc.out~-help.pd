@@ -4,8 +4,9 @@
 #X text 680 50 LTC энкодер;
 #X obj 1 1 cnv 5 765 40 empty empty proto.ltc.out~ 20 20 0 20 -104026
 -4096 0;
-#X obj 554 11 ltc.out~;
-#X obj 638 11 proto.ltc.out~;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ltc.out~] @url proto.ltc.out~-help.pd;
+#X obj 638 8 proto.ltc.out~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 107 118 date 83 1 11;
 #X obj 270 118 ui.hsl 0.5 4 @show_value 1;
@@ -98,8 +99,9 @@ atom.;
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
 #X obj 1 1102 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1105 библиотека: ceammc v0.9.8;
-#X text 567 1117 смотрите также:;
-#X obj 688 1117 ltc.in~;
+#X text 565 1117 смотрите также:;
+#X obj 686 1120 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ltc.in~] @url ltc.in~-help.pd;
 #N canvas 10 1124 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

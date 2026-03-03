@@ -99,8 +99,9 @@ Range: 0\...0.99\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1021 library: ceammc v0.9.8;
-#X text 599 1033 see also:;
-#X obj 674 1033 fx.delay~;
+#X text 597 1033 see also:;
+#X obj 672 1036 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.delay~] @url fx.delay~-help.pd;
 #N canvas 10 1040 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

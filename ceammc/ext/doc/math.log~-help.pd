@@ -36,9 +36,11 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 696 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 699 library: ceammc v0.9.8;
-#X text 517 711 see also:;
-#X obj 592 711 math.exp~;
-#X obj 674 711 math.log2;
+#X text 514 711 see also:;
+#X obj 589 714 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.exp~] @url math.exp~-help.pd;
+#X obj 672 714 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.log2] @url math.log2-help.pd;
 #N canvas 10 718 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

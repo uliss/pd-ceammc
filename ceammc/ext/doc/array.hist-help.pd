@@ -4,8 +4,9 @@
 #X text 542 50 calculate the array histogram;
 #X obj 1 1 cnv 5 765 40 empty empty array.hist 20 20 0 20 -104026
 -4096 0;
-#X obj 532 11 array.histogram;
-#X obj 667 11 array.hist;
+#X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.histogram] @url array.hist-help.pd;
+#X obj 667 8 array.hist;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Values outside of range @min...@max are ignored;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -82,8 +83,9 @@
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 902 library: ceammc v0.9.8;
-#X text 563 914 see also:;
-#X obj 638 914 list.histogram;
+#X text 561 914 see also:;
+#X obj 636 917 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.histogram] @url list.histogram-help.pd;
 #N canvas 10 921 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

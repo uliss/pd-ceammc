@@ -4,8 +4,9 @@
 #X text 305 50 upon receiving the index \, the state of individual
 outputs is established as a radio switch;
 #X obj 1 1 cnv 5 765 40 empty empty radio 20 20 0 20 -104026 -4096 0;
-#X obj 592 11 ceammc/radio;
-#X obj 704 11 radio;
+#X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/radio] @url radio-help.pd;
+#X obj 704 8 radio;
 #X obj 50 118 ui.radio @nitems 4;
 #X msg 78 176 reset;
 #X obj 50 205 radio 4;
@@ -55,9 +56,9 @@ outputs is established as a radio switch;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 536 library: ceammc v0.9.8;
-#X text 621 548 see also:;
-#X obj 696 548 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
--1 0;
+#X text 619 548 see also:;
+#X obj 694 551 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hradio] @url hradio-help.pd;
 #N canvas 10 555 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

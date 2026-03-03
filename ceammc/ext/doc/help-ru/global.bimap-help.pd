@@ -116,9 +116,11 @@ and output the result list of left values.;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 1323 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1326 библиотека: ceammc v0.9.8;
-#X text 451 1338 смотрите также:;
-#X obj 572 1338 data.bimap;
-#X obj 660 1338 local.bimap;
+#X text 446 1338 смотрите также:;
+#X obj 567 1341 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.bimap] @url data.bimap-help.pd;
+#X obj 657 1341 ui.link @background_color 0.78431 0.78431 0.78431
+@title [local.bimap] @url local.bimap-help.pd;
 #N canvas 10 1345 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,9 +4,11 @@
 #X text 480 50 преобразует MIDI ноту в Guido-нотацию;
 #X obj 1 1 cnv 5 765 40 empty empty conv.note2guido 20 20 0 20 -104026
 -4096 0;
-#X obj 370 11 ceammc/note->guido;
-#X obj 526 11 note->guido;
-#X obj 631 11 conv.note2guido;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/note->guido] @url conv.note2guido-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[note->guido] @url conv.note2guido-help.pd;
+#X obj 631 8 conv.note2guido;
 #X obj 50 118 ui.keyboard;
 #X msg 50 190 \$1;
 #X msg 98 190 60 61 62;
@@ -45,8 +47,9 @@ int.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 560 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 563 библиотека: ceammc v0.9.8;
-#X text 524 575 смотрите также:;
-#X obj 645 575 proto.inscore;
+#X text 522 575 смотрите также:;
+#X obj 643 578 ui.link @background_color 0.78431 0.78431 0.78431
+@title [proto.inscore] @url proto.inscore-help.pd;
 #N canvas 10 582 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

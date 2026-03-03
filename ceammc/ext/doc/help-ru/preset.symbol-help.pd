@@ -4,8 +4,9 @@
 #X text 466 50 загружает или сохраняет символ в пресет;
 #X obj 1 1 cnv 5 765 40 empty empty preset.symbol 20 20 0 20 -104026
 -4096 0;
-#X obj 562 11 preset.s;
-#X obj 645 11 preset.symbol;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[preset.s] @url preset.symbol-help.pd;
+#X obj 645 8 preset.symbol;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Named symbol preset entry. Can store/load up to 256
 various symbol values;
@@ -89,10 +90,13 @@ id \, abstraction name and may be subpatch name separated by slashes.
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
 #X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 937 библиотека: ceammc v0.9.8;
-#X text 320 949 смотрите также:;
-#X obj 441 949 preset.storage;
-#X obj 558 949 preset.float;
-#X obj 660 949 preset.list;
+#X text 312 949 смотрите также:;
+#X obj 433 952 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.storage] @url preset.storage-help.pd;
+#X obj 552 952 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.float] @url preset.float-help.pd;
+#X obj 657 952 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.list] @url preset.list-help.pd;
 #N canvas 10 956 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

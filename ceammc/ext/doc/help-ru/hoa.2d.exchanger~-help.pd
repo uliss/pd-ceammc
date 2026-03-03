@@ -4,8 +4,9 @@
 #X text 381 50 перенумерование и нормализация каналов в двумерных амбисониках;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.exchanger~ 20 20 0 20
 -104026 -4096 0;
-#X obj 489 11 hoa.exchanger~;
-#X obj 616 11 hoa.2d.exchanger~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.exchanger~] @url hoa.2d.exchanger~-help.pd;
+#X obj 616 8 hoa.2d.exchanger~;
 #X obj 230 93 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 The library default normalization is SN2D and the numbering
 is ACN (cf tutorials). The exchangers will always convert from or to
@@ -87,8 +88,9 @@ ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID 
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 833 библиотека: ceammc v0.9.8;
-#X text 495 845 смотрите также:;
-#X obj 616 845 hoa.3d.exchanger~;
+#X text 493 845 смотрите также:;
+#X obj 614 848 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.3d.exchanger~] @url hoa.3d.exchanger~-help.pd;
 #N canvas 10 852 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

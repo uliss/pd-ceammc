@@ -4,8 +4,9 @@
 #X text 472 50 отделяет сообщения с данными от других;
 #X obj 1 1 cnv 5 765 40 empty empty route.data 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 route.d;
-#X obj 668 11 route.data;
+#X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[route.d] @url route.data-help.pd;
+#X obj 668 8 route.data;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 299 118 route.data-datatype;
@@ -63,11 +64,15 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 699 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 702 библиотека: ceammc v0.9.8;
-#X text 272 714 смотрите также:;
-#X obj 393 714 route.float;
-#X obj 487 714 route.list;
-#X obj 573 714 route.random;
-#X obj 675 714 route.any;
+#X text 258 714 смотрите также:;
+#X obj 379 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.float] @url route.float-help.pd;
+#X obj 477 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.list] @url route.list-help.pd;
+#X obj 567 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.random] @url route.random-help.pd;
+#X obj 672 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.any] @url route.any-help.pd;
 #N canvas 10 721 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

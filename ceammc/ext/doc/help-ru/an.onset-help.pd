@@ -171,8 +171,9 @@ kl \, complex \, default \, specdiff \, wphase \, rolloff \, spread
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
 #X obj 1 1777 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1780 библиотека: ceammc v0.9.8;
-#X text 552 1792 смотрите также:;
-#X obj 673 1792 an.onset~;
+#X text 551 1792 смотрите также:;
+#X obj 672 1795 ui.link @background_color 0.78431 0.78431 0.78431
+@title [an.onset~] @url an.onset~-help.pd;
 #N canvas 10 1799 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

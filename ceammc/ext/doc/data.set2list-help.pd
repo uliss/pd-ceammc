@@ -4,9 +4,11 @@
 #X text 550 50 converts the set to the list;
 #X obj 1 1 cnv 5 765 40 empty empty data.set2list 20 20 0 20 -104026
 -4096 0;
-#X obj 414 11 ceammc/set->list;
-#X obj 555 11 set->list;
-#X obj 645 11 data.set2list;
+#X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/set->list] @url data.set2list-help.pd;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[set->list] @url data.set2list-help.pd;
+#X obj 645 8 data.set2list;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: output list is not sorted by default. You can
 use @sort flag to get sorted output;
@@ -44,8 +46,9 @@ use @sort flag to get sorted output;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 526 library: ceammc v0.9.8;
-#X text 607 538 see also:;
-#X obj 682 538 data.set;
+#X text 604 538 see also:;
+#X obj 679 541 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
 #N canvas 10 545 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

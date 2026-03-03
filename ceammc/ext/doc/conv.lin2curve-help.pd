@@ -4,9 +4,11 @@
 #X text 412 50 map linear to exponential range with 0 allowed;
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2curve 20 20 0 20 -104026
 -4096 0;
-#X obj 391 11 ceammc/lin->curve;
-#X obj 540 11 lin->curve;
-#X obj 638 11 conv.lin2curve;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/lin->curve] @url conv.lin2curve-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[lin->curve] @url conv.lin2curve-help.pd;
+#X obj 638 8 conv.lin2curve;
 #X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 map the receiver from an assumed linear input range
 to an exponential curve output range. Unlike with [conv.lin2exp] \,
@@ -109,8 +111,9 @@ noclip \, min \, max \, minmax.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 1072 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1075 library: ceammc v0.9.8;
-#X text 578 1087 see also:;
-#X obj 653 1087 conv.lin2exp;
+#X text 575 1087 see also:;
+#X obj 650 1090 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.lin2exp] @url conv.lin2exp-help.pd;
 #N canvas 10 1094 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

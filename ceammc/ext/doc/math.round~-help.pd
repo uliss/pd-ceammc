@@ -4,9 +4,11 @@
 #X text 673 50 signal round;
 #X obj 1 1 cnv 5 765 40 empty empty math.round~ 20 20 0 20 -104026
 -4096 0;
-#X obj 470 11 round~;
-#X obj 539 11 ceammc/round~;
-#X obj 659 11 math.round~;
+#X obj 466 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[round~] @url math.round~-help.pd;
+#X obj 537 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/round~] @url math.round~-help.pd;
+#X obj 659 8 math.round~;
 #X obj 50 118 osc~ 440;
 #X obj 50 147 *~ 8;
 #X obj 50 176 math.round~;
@@ -33,8 +35,9 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 592 520 see also:;
-#X obj 667 520 math.round;
+#X text 590 520 see also:;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.round] @url math.round-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

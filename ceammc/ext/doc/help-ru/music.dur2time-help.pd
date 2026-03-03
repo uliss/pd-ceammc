@@ -5,8 +5,9 @@
 временных периодов;
 #X obj 1 1 cnv 5 765 40 empty empty music.dur2time 20 20 0 20 -104026
 -4096 0;
-#X obj 540 11 music.d->t;
-#X obj 638 11 music.dur2time;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[music.d->t] @url music.dur2time-help.pd;
+#X obj 638 8 music.dur2time;
 #X obj 230 93 cnv 1 535 150 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 duration can be specified;
 #X text 240 123 - by denominator: 1 (whole) \, 2_. (dotted half) \,

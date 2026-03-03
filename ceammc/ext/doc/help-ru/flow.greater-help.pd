@@ -4,8 +4,9 @@
 #X text 383 50 маршрутизатор числового потока по условию 'больше';
 #X obj 1 1 cnv 5 765 40 empty empty flow.greater 20 20 0 20 -104026
 -4096 0;
-#X obj 583 11 flow.>;
-#X obj 652 11 flow.greater;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.>] @url flow.greater-help.pd;
+#X obj 652 8 flow.greater;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Числа \, которые *меньше или равны* последнему аргументу
 выводятся на выход N+1\.;
@@ -61,8 +62,9 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 579 библиотека: ceammc v0.9.8;
-#X text 554 591 смотрите также:;
-#X obj 675 591 flow.less;
+#X text 551 591 смотрите также:;
+#X obj 672 594 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.less] @url flow.less-help.pd;
 #N canvas 10 598 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

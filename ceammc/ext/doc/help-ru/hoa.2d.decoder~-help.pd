@@ -4,8 +4,9 @@
 #X text 412 50 двумерный декодер амбисоников высоких порядков;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.decoder~ 20 20 0 20 -104026
 -4096 0;
-#X obj 517 11 hoa.decoder~;
-#X obj 630 11 hoa.2d.decoder~;
+#X obj 515 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.decoder~] @url hoa.2d.decoder~-help.pd;
+#X obj 630 8 hoa.2d.decoder~;
 #X obj 230 78 cnv 1 535 269 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Decodes an ambisonics soundfield for several loudspeakers
 configuration or for headphones.;
@@ -134,8 +135,9 @@ and 1 is the front of the soundfield. Тип: list. Единицы: 'rad'. Зн�
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1531 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1534 библиотека: ceammc v0.9.8;
-#X text 531 1546 смотрите также:;
-#X obj 652 1546 hoa.encoder~;
+#X text 529 1546 смотрите также:;
+#X obj 650 1549 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.encoder~] @url hoa.encoder~-help.pd;
 #N canvas 10 1553 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

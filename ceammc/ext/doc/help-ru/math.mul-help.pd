@@ -4,8 +4,9 @@
 #X text 694 50 умножение;
 #X obj 1 1 cnv 5 765 40 empty empty math.mul 20 20 0 20 -104026 -4096
 0;
-#X obj 611 11 math.*;
-#X obj 681 11 math.mul;
+#X obj 610 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.*] @url math.mul-help.pd;
+#X obj 681 8 math.mul;
 #X msg 50 118 1 2 3 A B C;
 #X floatatom 184 118 5 0 0 0 - - -;
 #X floatatom 232 118 5 0 0 0 - - -;

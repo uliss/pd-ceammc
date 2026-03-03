@@ -4,8 +4,9 @@
 #X text 587 50 global named dictionary;
 #X obj 1 1 cnv 5 765 40 empty empty global.dict 20 20 0 20 -104026
 -4096 0;
-#X obj 555 11 global.json;
-#X obj 660 11 global.dict;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[global.json] @url global.dict-help.pd;
+#X obj 660 8 global.dict;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Defines global scope dict variable \, accessed by ID
 name and available from everywhere;
@@ -121,9 +122,11 @@ do nothing. Arguments are:;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
 #X obj 1 1377 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1380 library: ceammc v0.9.8;
-#X text 504 1392 see also:;
-#X obj 579 1392 data.dict;
-#X obj 660 1392 global.dict;
+#X text 499 1392 see also:;
+#X obj 574 1395 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.dict] @url data.dict-help.pd;
+#X obj 657 1395 ui.link @background_color 0.78431 0.78431 0.78431
+@title [global.dict] @url global.dict-help.pd;
 #N canvas 10 1399 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

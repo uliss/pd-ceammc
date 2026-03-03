@@ -4,9 +4,11 @@
 #X text 376 50 convert the sample index to the phase range [0\..1];
 #X obj 1 1 cnv 5 765 40 empty empty array.s2p 20 20 0 20 -104026 -4096
 0;
-#X obj 413 11 array.s->p;
-#X obj 511 11 array.sample->phase;
-#X obj 674 11 array.s2p;
+#X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.s->p] @url array.s2p-help.pd;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.sample->phase] @url array.s2p-help.pd;
+#X obj 674 8 array.s2p;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 with this object you can get relative position in array;
 #X obj 50 171 hslider 128 15 0.0 100.0 0 0 empty empty empty 17 7 0 10
@@ -56,8 +58,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 556 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 559 library: ceammc v0.9.8;
-#X text 599 571 see also:;
-#X obj 674 571 array.p2s;
+#X text 597 571 see also:;
+#X obj 672 574 ui.link @background_color 0.78431 0.78431 0.78431
+@title [array.p2s] @url array.p2s-help.pd;
 #N canvas 10 578 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

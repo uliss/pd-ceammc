@@ -4,8 +4,9 @@
 #X text 588 50 outputs a timeline bang;
 #X obj 1 1 cnv 5 765 40 empty empty tl.bang 20 20 0 20 -104026 -4096
 0;
-#X obj 634 11 tl.b;
-#X obj 689 11 tl.bang;
+#X obj 632 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[tl.b] @url tl.bang-help.pd;
+#X obj 689 8 tl.bang;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Bang only when nearest left tl.cue was activated. If
 other cue is activated and bang was scheduled by @delay property -
@@ -60,8 +61,9 @@ it canceled;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 564 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 567 library: ceammc v0.9.8;
-#X text 538 579 see also:;
-#X obj 613 579 tl.toggle;
+#X text 536 579 see also:;
+#X obj 611 582 ui.link @background_color 0.78431 0.78431 0.78431
+@title [tl.toggle] @url tl.toggle-help.pd;
 #X obj 694 582 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
 #N canvas 10 586 400 290 info 0;

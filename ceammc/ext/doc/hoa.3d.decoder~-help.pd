@@ -121,9 +121,11 @@ value: 1 -0.3333 -0.3333 -0.3333\. Range: -1\...1\.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1304 library: ceammc v0.9.8;
-#X text 430 1316 see also:;
-#X obj 505 1316 hoa.3d.encoder~;
-#X obj 630 1316 hoa.2d.decoder~;
+#X text 426 1316 see also:;
+#X obj 501 1319 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.3d.encoder~] @url hoa.3d.encoder~-help.pd;
+#X obj 628 1319 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.2d.decoder~] @url hoa.2d.decoder~-help.pd;
 #N canvas 10 1323 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

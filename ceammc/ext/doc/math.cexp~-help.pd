@@ -4,9 +4,11 @@
 #X text 542 50 exponent of a complex signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.cexp~ 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 ceammc/cexp~;
-#X obj 604 11 cexp~;
-#X obj 666 11 math.cexp~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/cexp~] @url math.cexp~-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[cexp~] @url math.cexp~-help.pd;
+#X obj 666 8 math.cexp~;
 #X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Base-e exponential of complex signal \, that is e (Euler's
 number \, 2.7182818) raised to the complex signal power;
@@ -52,8 +54,9 @@ complex plane and has no branch cuts;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 862 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 865 library: ceammc v0.9.8;
-#X text 591 877 see also:;
-#X obj 666 877 math.carg~;
+#X text 590 877 see also:;
+#X obj 665 880 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.carg~] @url math.carg~-help.pd;
 #N canvas 10 884 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

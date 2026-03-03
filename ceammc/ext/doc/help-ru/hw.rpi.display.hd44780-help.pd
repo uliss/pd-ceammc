@@ -6,8 +6,10 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.hd44780 20 20 0 20
 -104026 -4096 0;
 #N canvas 483 11 250 400 aliases 0;
-#X obj 30 40 hw.rpi.display.lcd1602;
-#X obj 30 78 hw.rpi.display.lcd2004;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hw.rpi.display.lcd1602] @url hw.rpi.display.hd44780-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hw.rpi.display.lcd2004] @url hw.rpi.display.hd44780-help.pd;
 #X restore 483 11 pd aliases;
 #X obj 580 11 hw.rpi.display.hd44780;
 #X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;

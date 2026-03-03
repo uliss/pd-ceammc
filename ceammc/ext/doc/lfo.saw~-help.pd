@@ -83,10 +83,13 @@ value: 0\.;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
 #X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 930 library: ceammc v0.9.8;
-#X text 401 942 see also:;
-#X obj 476 942 lfo.+saw~;
-#X obj 557 942 lfo.square~;
-#X obj 652 942 lfo.impulse~;
+#X text 394 942 see also:;
+#X obj 469 945 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.+saw~] @url lfo.+saw~-help.pd;
+#X obj 552 945 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.square~] @url lfo.square~-help.pd;
+#X obj 650 945 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.impulse~] @url lfo.impulse~-help.pd;
 #N canvas 10 949 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

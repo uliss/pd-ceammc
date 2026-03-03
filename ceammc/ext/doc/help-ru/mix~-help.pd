@@ -3,8 +3,9 @@
 #X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 534 50 многоканальный микшер сигналов;
 #X obj 1 1 cnv 5 765 40 empty empty mix~ 20 20 0 20 -104026 -4096 0;
-#X obj 603 11 ceammc/mix~;
-#X obj 709 11 mix~;
+#X obj 601 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/mix~] @url mix~-help.pd;
+#X obj 709 8 mix~;
 #X obj 50 118 ui.sliders @count 4;
 #X obj 299 118 ui.dsp~;
 #X obj 462 205 ui.radio @nitems 4 @mode 1;

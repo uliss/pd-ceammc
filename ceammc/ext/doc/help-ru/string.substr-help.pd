@@ -4,8 +4,9 @@
 #X text 473 50 извлечение подстроки из входной строки;
 #X obj 1 1 cnv 5 765 40 empty empty string.substr 20 20 0 20 -104026
 -4096 0;
-#X obj 547 11 str.substr;
-#X obj 645 11 string.substr;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.substr] @url string.substr-help.pd;
+#X obj 645 8 string.substr;
 #X msg 50 118 symbol PureData;
 #X obj 50 147 str.substr 4;
 #X obj 50 176 ui.dt;
@@ -58,8 +59,9 @@ end of string. Тип: int. Значение по умолчанию: -1\. Ми�
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 599 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 602 библиотека: ceammc v0.9.8;
-#X text 532 614 смотрите также:;
-#X obj 653 614 string.split;
+#X text 529 614 смотрите также:;
+#X obj 650 617 ui.link @background_color 0.78431 0.78431 0.78431
+@title [string.split] @url string.split-help.pd;
 #N canvas 10 621 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

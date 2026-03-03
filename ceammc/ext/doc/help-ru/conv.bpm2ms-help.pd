@@ -5,9 +5,11 @@
 в миллисекундах;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bpm2ms 20 20 0 20 -104026
 -4096 0;
-#X obj 458 11 ceammc/bpm->ms;
-#X obj 584 11 bpm->ms;
-#X obj 660 11 conv.bpm2ms;
+#X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bpm->ms] @url conv.bpm2ms-help.pd;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bpm->ms] @url conv.bpm2ms-help.pd;
+#X obj 660 8 conv.bpm2ms;
 #X obj 230 93 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Converts frequency from BPM (beats per minute) to period
 in ms. It is simple as (60 / f) * 1000 \, but more readable.;
@@ -42,9 +44,11 @@ in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 597 библиотека: ceammc v0.9.8;
-#X text 437 609 смотрите также:;
-#X obj 558 609 conv.bpm2sec;
-#X obj 660 609 conv.bpm2hz;
+#X text 431 609 смотрите также:;
+#X obj 552 612 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.bpm2sec] @url conv.bpm2sec-help.pd;
+#X obj 657 612 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.bpm2hz] @url conv.bpm2hz-help.pd;
 #N canvas 10 616 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

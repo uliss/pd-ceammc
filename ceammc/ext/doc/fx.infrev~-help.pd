@@ -95,9 +95,11 @@ Range: 0\...1\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 936 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 939 library: ceammc v0.9.8;
-#X text 467 951 see also:;
-#X obj 542 951 fx.freeverb~;
-#X obj 645 951 fx.zita_rev1~;
+#X text 463 951 see also:;
+#X obj 538 954 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.freeverb~] @url fx.freeverb~-help.pd;
+#X obj 643 954 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.zita_rev1~] @url fx.zita_rev1~-help.pd;
 #N canvas 10 958 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

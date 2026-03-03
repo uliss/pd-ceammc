@@ -68,8 +68,9 @@ kal16\. Разрешённые значения: kal16 \, slt \, rms \, awb.;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
 #X obj 1 798 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 801 библиотека: ceammc v0.9.8;
-#X text 532 813 смотрите также:;
-#X obj 653 813 speech.flite;
+#X text 529 813 смотрите также:;
+#X obj 650 816 ui.link @background_color 0.78431 0.78431 0.78431
+@title [speech.flite] @url speech.flite-help.pd;
 #N canvas 10 820 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

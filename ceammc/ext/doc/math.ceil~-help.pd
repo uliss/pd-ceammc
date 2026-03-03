@@ -36,10 +36,13 @@ https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 692 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 695 library: ceammc v0.9.8;
-#X text 407 707 see also:;
-#X obj 482 707 math.ceil;
-#X obj 563 707 math.round~;
-#X obj 659 707 math.floor~;
+#X text 401 707 see also:;
+#X obj 476 710 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.ceil] @url math.ceil-help.pd;
+#X obj 559 710 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.round~] @url math.round~-help.pd;
+#X obj 657 710 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.floor~] @url math.floor~-help.pd;
 #N canvas 10 714 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

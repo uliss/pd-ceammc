@@ -66,10 +66,13 @@
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 759 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 762 библиотека: ceammc v0.9.8;
-#X text 390 774 смотрите также:;
-#X obj 511 774 osc.saw~;
-#X obj 585 774 osc.square~;
-#X obj 681 774 lfo.tri~;
+#X text 384 774 смотрите также:;
+#X obj 505 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.saw~] @url osc.saw~-help.pd;
+#X obj 581 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.square~] @url osc.square~-help.pd;
+#X obj 679 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.tri~] @url lfo.tri~-help.pd;
 #N canvas 10 781 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

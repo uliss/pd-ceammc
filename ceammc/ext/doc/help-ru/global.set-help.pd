@@ -98,9 +98,11 @@ name;
 #X obj 133 48 ui.link @title global @url ceammc.global-help.pd;
 #X obj 1 1047 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1050 библиотека: ceammc v0.9.8;
-#X text 481 1062 смотрите также:;
-#X obj 602 1062 data.set;
-#X obj 675 1062 local.set;
+#X text 475 1062 смотрите также:;
+#X obj 596 1065 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
+#X obj 672 1065 ui.link @background_color 0.78431 0.78431 0.78431
+@title [local.set] @url local.set-help.pd;
 #N canvas 10 1069 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

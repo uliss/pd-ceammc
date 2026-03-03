@@ -42,9 +42,11 @@ are ignored.;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 516 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 519 library: ceammc v0.9.8;
-#X text 534 531 see also:;
-#X obj 609 531 data.set;
-#X obj 682 531 set.diff;
+#X text 528 531 see also:;
+#X obj 603 534 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
+#X obj 679 534 ui.link @background_color 0.78431 0.78431 0.78431
+@title [set.diff] @url set.diff-help.pd;
 #N canvas 10 538 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,8 +4,9 @@
 #X text 604 50 convolution for lists;
 #X obj 1 1 cnv 5 765 40 empty empty list.convolve 20 20 0 20 -104026
 -4096 0;
-#X obj 555 11 list.conv;
-#X obj 646 11 list.convolve;
+#X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.conv] @url list.convolve-help.pd;
+#X obj 646 8 list.convolve;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: may perform slowly in large lists because it does
 not use the FFT to compute the convolution;

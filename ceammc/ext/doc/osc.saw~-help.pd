@@ -69,11 +69,15 @@ properties to /ID/osc_saw/PROP_NAME osc address \, if empty bind to
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 805 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 808 library: ceammc v0.9.8;
-#X text 354 820 see also:;
-#X obj 429 820 osc.saw4~;
-#X obj 511 820 osc.tri~;
-#X obj 585 820 osc.square~;
-#X obj 681 820 lfo.tri~;
+#X text 347 820 see also:;
+#X obj 422 823 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.saw4~] @url osc.saw4~-help.pd;
+#X obj 505 823 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.tri~] @url osc.tri~-help.pd;
+#X obj 581 823 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.square~] @url osc.square~-help.pd;
+#X obj 679 823 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.tri~] @url lfo.tri~-help.pd;
 #N canvas 10 827 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

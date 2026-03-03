@@ -170,8 +170,9 @@ client \, [binary( on binary message.;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
 #X obj 1 2163 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 2166 library: ceammc v0.9.8;
-#X text 571 2178 see also:;
-#X obj 646 2178 net.ws.client;
+#X text 568 2178 see also:;
+#X obj 643 2181 ui.link @background_color 0.78431 0.78431 0.78431
+@title [net.ws.client] @url net.ws.client-help.pd;
 #N canvas 10 2185 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

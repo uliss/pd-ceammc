@@ -31,9 +31,11 @@ function for signals;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 539 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 542 library: ceammc v0.9.8;
-#X text 489 554 see also:;
-#X obj 564 554 math.lgamma;
-#X obj 659 554 math.gamma~;
+#X text 484 554 see also:;
+#X obj 559 557 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.lgamma] @url math.lgamma-help.pd;
+#X obj 657 557 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.gamma~] @url math.gamma~-help.pd;
 #N canvas 10 561 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

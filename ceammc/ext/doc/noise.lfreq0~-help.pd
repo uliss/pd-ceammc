@@ -63,8 +63,9 @@ Type: float. Units: 'Hz'. Default value: 1000\. Range: 0.5\...22050\.;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
 #X obj 1 809 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 812 library: ceammc v0.9.8;
-#X text 577 824 see also:;
-#X obj 652 824 noise.lfreq~;
+#X text 575 824 see also:;
+#X obj 650 827 ui.link @background_color 0.78431 0.78431 0.78431
+@title [noise.lfreq~] @url noise.lfreq~-help.pd;
 #N canvas 10 831 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

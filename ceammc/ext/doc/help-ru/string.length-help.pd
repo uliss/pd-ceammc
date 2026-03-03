@@ -4,8 +4,9 @@
 #X text 376 50 количество символов в строке (с поддержкой Unicode);
 #X obj 1 1 cnv 5 765 40 empty empty string.length 20 20 0 20 -104026
 -4096 0;
-#X obj 549 11 str.length;
-#X obj 646 11 string.length;
+#X obj 546 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.length] @url string.length-help.pd;
+#X obj 646 8 string.length;
 #X msg 50 118 list May 2017;
 #X msg 213 118 list Июнь 2017;
 #X obj 50 147 string;

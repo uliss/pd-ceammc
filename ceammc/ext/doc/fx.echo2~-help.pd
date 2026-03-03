@@ -98,9 +98,11 @@ Type: float. Default value: 1\. Range: 0\...1\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1019 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1022 library: ceammc v0.9.8;
-#X text 510 1034 see also:;
-#X obj 585 1034 fx.echo2~;
-#X obj 666 1034 fx.sdelay~;
+#X text 507 1034 see also:;
+#X obj 582 1037 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.echo2~] @url fx.echo2~-help.pd;
+#X obj 665 1037 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.sdelay~] @url fx.sdelay~-help.pd;
 #N canvas 10 1041 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,9 +4,11 @@
 #X text 588 50 синтезатор речи RHVoice;
 #X obj 1 1 cnv 5 765 40 empty empty speech.rhvoice~ 20 20 0 20 -104026
 -4096 0;
-#X obj 412 11 ceammc/rhvoice~;
-#X obj 547 11 rhvoice~;
-#X obj 630 11 speech.rhvoice~;
+#X obj 407 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/rhvoice~] @url speech.rhvoice~-help.pd;
+#X obj 544 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[rhvoice~] @url speech.rhvoice~-help.pd;
+#X obj 630 8 speech.rhvoice~;
 #X obj 230 78 cnv 1 535 148 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: voices are not distributed with PureData-ceammc
 \, you have to install voice data manually;
@@ -101,8 +103,9 @@ end.;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
 #X obj 1 1189 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1192 библиотека: ceammc v0.9.8;
-#X text 524 1204 смотрите также:;
-#X obj 645 1204 speech.flite~;
+#X text 522 1204 смотрите также:;
+#X obj 643 1207 ui.link @background_color 0.78431 0.78431 0.78431
+@title [speech.flite~] @url speech.flite~-help.pd;
 #N canvas 10 1211 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

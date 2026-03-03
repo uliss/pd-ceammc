@@ -4,8 +4,9 @@
 #X text 444 50 усовершенствованная версия объекта [delay];
 #X obj 1 1 cnv 5 765 40 empty empty flow.delay 20 20 0 20 -104026
 -4096 0;
-#X obj 584 11 flow.del;
-#X obj 667 11 flow.delay;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.del] @url flow.delay-help.pd;
+#X obj 667 8 flow.delay;
 #X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Delay any incoming message by specified time. If @block=0
 acts like vanilla [delay] if new message has arrived while delay time
@@ -87,8 +88,9 @@ the new one. Otherwise acts like vanilla [del] object. Тип: bool. Значе�
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1139 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1142 библиотека: ceammc v0.9.8;
-#X text 582 1154 смотрите также:;
-#X obj 703 1154 delay;
+#X text 580 1154 смотрите также:;
+#X obj 701 1157 ui.link @background_color 0.78431 0.78431 0.78431
+@title [delay] @url delay-help.pd;
 #N canvas 10 1161 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

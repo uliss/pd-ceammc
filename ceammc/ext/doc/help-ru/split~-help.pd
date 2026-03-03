@@ -3,8 +3,9 @@
 #X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 382 50 параметризованный многоканальный сплиттер сигналов;
 #X obj 1 1 cnv 5 765 40 empty empty split~ 20 20 0 20 -104026 -4096 0;
-#X obj 575 11 ceammc/split~;
-#X obj 695 11 split~;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/split~] @url split~-help.pd;
+#X obj 695 8 split~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 mostly syntax sugar for clear schemes \, but can be
 used in dynamic pathing;
@@ -57,8 +58,9 @@ used in dynamic pathing;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 588 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 591 библиотека: ceammc v0.9.8;
-#X text 574 603 смотрите также:;
-#X obj 695 603 merge~;
+#X text 573 603 смотрите также:;
+#X obj 694 606 ui.link @background_color 0.78431 0.78431 0.78431
+@title [merge~] @url merge~-help.pd;
 #N canvas 10 610 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

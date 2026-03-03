@@ -64,9 +64,11 @@
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 654 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 657 библиотека: ceammc v0.9.8;
-#X text 501 669 смотрите также:;
-#X obj 622 669 metro;
-#X obj 674 669 metro.seq;
+#X text 497 669 смотрите также:;
+#X obj 618 672 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro] @url metro-help.pd;
+#X obj 672 672 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro.seq] @url metro.seq-help.pd;
 #N canvas 10 676 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

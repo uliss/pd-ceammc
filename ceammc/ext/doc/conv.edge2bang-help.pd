@@ -4,9 +4,11 @@
 #X text 518 50 edge detector for numeric stream;
 #X obj 1 1 cnv 5 765 40 empty empty conv.edge2bang 20 20 0 20 -104026
 -4096 0;
-#X obj 393 11 ceammc/edge->bang;
-#X obj 541 11 edge->bang;
-#X obj 639 11 conv.edge2bang;
+#X obj 388 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/edge->bang] @url conv.edge2bang-help.pd;
+#X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[edge->bang] @url conv.edge2bang-help.pd;
+#X obj 639 8 conv.edge2bang;
 #X obj 50 118 phasor~ 0.5;
 #X obj 232 118 phasor~ 0.5;
 #X obj 405 118 lfo.tri~ 0.5;

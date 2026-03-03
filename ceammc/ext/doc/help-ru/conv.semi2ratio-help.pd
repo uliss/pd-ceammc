@@ -5,9 +5,11 @@
 в 12-ET;
 #X obj 1 1 cnv 5 765 40 empty empty conv.semi2ratio 20 20 0 20 -104026
 -4096 0;
-#X obj 370 11 ceammc/semi->ratio;
-#X obj 526 11 semi->ratio;
-#X obj 631 11 conv.semi2ratio;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/semi->ratio] @url conv.semi2ratio-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[semi->ratio] @url conv.semi2ratio-help.pd;
+#X obj 631 8 conv.semi2ratio;
 #X msg 50 118 12;
 #X msg 98 118 0;
 #X msg 136 118 1;

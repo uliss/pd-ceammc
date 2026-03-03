@@ -78,9 +78,11 @@ list.;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 902 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 905 библиотека: ceammc v0.9.8;
-#X text 402 917 смотрите также:;
-#X obj 523 917 random.linear;
-#X obj 632 917 random.pw_const;
+#X text 395 917 смотрите также:;
+#X obj 516 920 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.linear] @url random.linear-help.pd;
+#X obj 628 920 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.pw_const] @url random.pw_const-help.pd;
 #N canvas 10 924 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

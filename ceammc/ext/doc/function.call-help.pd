@@ -4,8 +4,9 @@
 #X text 581 50 calls the named function;
 #X obj 1 1 cnv 5 765 40 empty empty function.call 20 20 0 20 -104026
 -4096 0;
-#X obj 554 11 func.call;
-#X obj 645 11 function.call;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[func.call] @url function.call-help.pd;
+#X obj 645 8 function.call;
 #X obj 50 118 function f1;
 #X obj 184 118 sin;
 #X obj 50 147 function f2;

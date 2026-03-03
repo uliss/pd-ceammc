@@ -4,9 +4,11 @@
 #X text 404 50 преобразование децибел полной шкалы в амплитуду;
 #X obj 1 1 cnv 5 765 40 empty empty conv.dbfs2amp 20 20 0 20 -104026
 -4096 0;
-#X obj 413 11 ceammc/dbfs->amp;
-#X obj 554 11 dbfs->amp;
-#X obj 645 11 conv.dbfs2amp;
+#X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/dbfs->amp] @url conv.dbfs2amp-help.pd;
+#X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[dbfs->amp] @url conv.dbfs2amp-help.pd;
+#X obj 645 8 conv.dbfs2amp;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: db values <= -144 are converted to 0;
 #X obj 50 171 ui.hsl @min -144 @max 6;
@@ -35,8 +37,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 553 520 смотрите также:;
-#X obj 674 520 amp->dbfs;
+#X text 551 520 смотрите также:;
+#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [amp->dbfs] @url amp->dbfs-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,9 +4,11 @@
 #X text 451 50 конвертировать целое число в список битов;
 #X obj 1 1 cnv 5 765 40 empty empty conv.int2bits 20 20 0 20 -104026
 -4096 0;
-#X obj 415 11 ceammc/int->bits;
-#X obj 556 11 int->bits;
-#X obj 646 11 conv.int2bits;
+#X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/int->bits] @url conv.int2bits-help.pd;
+#X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[int->bits] @url conv.int2bits-help.pd;
+#X obj 646 8 conv.int2bits;
 #X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 126 Wiki:;
 #X text 240 83 Note: negative numbers converted using machine architecture
@@ -61,8 +63,9 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 691 библиотека: ceammc v0.9.8;
-#X text 525 703 смотрите также:;
-#X obj 646 703 conv.bits2int;
+#X text 522 703 смотрите также:;
+#X obj 643 706 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.bits2int] @url conv.bits2int-help.pd;
 #N canvas 10 710 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

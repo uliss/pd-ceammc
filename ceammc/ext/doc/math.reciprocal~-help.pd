@@ -4,9 +4,11 @@
 #X text 466 50 calculate reciprocal number for signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.reciprocal~ 20 20 0 20
 -104026 -4096 0;
-#X obj 462 11 ceammc/1/x~;
-#X obj 568 11 1/x~;
-#X obj 623 11 math.reciprocal~;
+#X obj 458 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/1/x~] @url math.reciprocal~-help.pd;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[1/x~] @url math.reciprocal~-help.pd;
+#X obj 623 8 math.reciprocal~;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 plot.linspace~ -5 5 256;

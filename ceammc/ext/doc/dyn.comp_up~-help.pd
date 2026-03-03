@@ -4,8 +4,9 @@
 #X text 595 50 mono upward compressor;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp_up~ 20 20 0 20 -104026
 -4096 0;
-#X obj 568 11 comp.up~;
-#X obj 652 11 dyn.comp_up~;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[comp.up~] @url dyn.comp_up~-help.pd;
+#X obj 652 8 dyn.comp_up~;
 #X obj 230 78 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
@@ -138,8 +139,9 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1561 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1564 library: ceammc v0.9.8;
-#X text 562 1576 see also:;
-#X obj 637 1576 dyn.comp_peak~;
+#X text 561 1576 see also:;
+#X obj 636 1579 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp_peak~] @url dyn.comp_peak~-help.pd;
 #N canvas 10 1583 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

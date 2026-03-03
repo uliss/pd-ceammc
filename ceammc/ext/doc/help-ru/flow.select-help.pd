@@ -4,8 +4,9 @@
 #X text 542 50 улучшенный селектор сообщений;
 #X obj 1 1 cnv 5 765 40 empty empty flow.select 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 flow.sel;
-#X obj 660 11 flow.select;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.sel] @url flow.select-help.pd;
+#X obj 660 8 flow.select;
 #X obj 230 78 cnv 1 535 245 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Выводит bang \, оригинальное сообщение или значение
 свойства @msg в соответствующий вывод при совпадении с шаблоном.;
@@ -95,8 +96,9 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1207 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1210 библиотека: ceammc v0.9.8;
-#X text 546 1222 смотрите также:;
-#X obj 667 1222 flow.match;
+#X text 544 1222 смотрите также:;
+#X obj 665 1225 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.match] @url flow.match-help.pd;
 #N canvas 10 1229 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

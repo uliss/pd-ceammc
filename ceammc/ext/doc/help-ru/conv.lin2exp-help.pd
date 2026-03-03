@@ -4,9 +4,11 @@
 #X text 404 50 отображает линейный диапазон в экспоненциальный;
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2exp 20 20 0 20 -104026
 -4096 0;
-#X obj 436 11 ceammc/lin->exp;
-#X obj 570 11 lin->exp;
-#X obj 653 11 conv.lin2exp;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/lin->exp] @url conv.lin2exp-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[lin->exp] @url conv.lin2exp-help.pd;
+#X obj 653 8 conv.lin2exp;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The output range must not include zero. If the input
 exceeds the input range \, by default clip is applied.;
@@ -98,9 +100,11 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 958 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 961 библиотека: ceammc v0.9.8;
-#X text 415 973 смотрите также:;
-#X obj 536 973 conv.lin2lin;
-#X obj 638 973 conv.lin2curve;
+#X text 410 973 смотрите также:;
+#X obj 531 976 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.lin2lin] @url conv.lin2lin-help.pd;
+#X obj 636 976 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.lin2curve] @url conv.lin2curve-help.pd;
 #N canvas 10 980 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

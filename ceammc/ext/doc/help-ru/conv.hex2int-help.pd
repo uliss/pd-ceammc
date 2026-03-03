@@ -5,9 +5,11 @@
 значение;
 #X obj 1 1 cnv 5 765 40 empty empty conv.hex2int 20 20 0 20 -104026
 -4096 0;
-#X obj 436 11 ceammc/hex->int;
-#X obj 570 11 hex->int;
-#X obj 653 11 conv.hex2int;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/hex->int] @url conv.hex2int-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hex->int] @url conv.hex2int-help.pd;
+#X obj 653 8 conv.hex2int;
 #X msg 50 118 symbol 0xFF;
 #X obj 50 147 hex->int;
 #X floatatom 50 176 5 0 0 0 - - -;

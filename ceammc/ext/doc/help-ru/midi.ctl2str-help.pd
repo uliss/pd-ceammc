@@ -4,8 +4,9 @@
 #X text 359 50 преобразует номер стандартного MIDI контроллера в имя;
 #X obj 1 1 cnv 5 765 40 empty empty midi.ctl2str 20 20 0 20 -104026
 -4096 0;
-#X obj 532 11 midi.ctl->str;
-#X obj 652 11 midi.ctl2str;
+#X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.ctl->str] @url midi.ctl2str-help.pd;
+#X obj 652 8 midi.ctl2str;
 #X msg 50 118 0;
 #X msg 88 118 4;
 #X msg 126 118 7;

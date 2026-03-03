@@ -5,9 +5,11 @@
 нажатия;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2note 20 20 0 20 -104026
 -4096 0;
-#X obj 391 11 ceammc/bits->note;
-#X obj 540 11 bits->note;
-#X obj 638 11 conv.bits2note;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bits->note] @url conv.bits2note-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bits->note] @url conv.bits2note-help.pd;
+#X obj 638 8 conv.bits2note;
 #X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 In default mode: output NOTE VEL pair to corresponding
 bit index outlet. If bit is on: velocity is @vel \, otherwise 0;

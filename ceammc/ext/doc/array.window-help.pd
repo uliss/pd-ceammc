@@ -107,7 +107,8 @@ values: tri \, welch \, hann \, sine \, rect \, hamming \, blackman
 #X obj 1 1146 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1149 library: ceammc v0.9.8;
 #X text 619 1161 see also:;
-#X obj 694 1161 window;
+#X obj 694 1164 ui.link @background_color 0.78431 0.78431 0.78431
+@title [window] @url window-help.pd;
 #N canvas 10 1168 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

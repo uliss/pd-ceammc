@@ -5,9 +5,11 @@
 0;
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2curve 20 20 0 20 -104026
 -4096 0;
-#X obj 391 11 ceammc/lin->curve;
-#X obj 540 11 lin->curve;
-#X obj 638 11 conv.lin2curve;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/lin->curve] @url conv.lin2curve-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[lin->curve] @url conv.lin2curve-help.pd;
+#X obj 638 8 conv.lin2curve;
 #X obj 230 93 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 map the receiver from an assumed linear input range
 to an exponential curve output range. Unlike with [conv.lin2exp] \,
@@ -113,8 +115,9 @@ minmax (clip both). Тип: symbol. Значение по умолчанию: mi
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 1117 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1120 библиотека: ceammc v0.9.8;
-#X text 532 1132 смотрите также:;
-#X obj 653 1132 conv.lin2exp;
+#X text 529 1132 смотрите также:;
+#X obj 650 1135 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.lin2exp] @url conv.lin2exp-help.pd;
 #N canvas 10 1139 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

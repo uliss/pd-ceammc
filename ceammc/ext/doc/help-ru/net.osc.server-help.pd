@@ -4,8 +4,9 @@
 #X text 588 50 управление сервером OSC;
 #X obj 1 1 cnv 5 765 40 empty empty net.osc.server 20 20 0 20 -104026
 -4096 0;
-#X obj 562 11 net.osc;
-#X obj 638 11 net.osc.server;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[net.osc] @url net.osc.server-help.pd;
+#X obj 638 8 net.osc.server;
 #X text 50 118 default OSC server: osc.udp://:9000;
 #X obj 50 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 176 @dump \$1;
@@ -97,9 +98,11 @@ symbol. Значение по умолчанию: udp.;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
 #X obj 1 1054 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1057 библиотека: ceammc v0.9.8;
-#X text 408 1069 смотрите также:;
-#X obj 529 1069 net.osc.send;
-#X obj 631 1069 net.osc.receive;
+#X text 402 1069 смотрите также:;
+#X obj 523 1072 ui.link @background_color 0.78431 0.78431 0.78431
+@title [net.osc.send] @url net.osc.send-help.pd;
+#X obj 628 1072 ui.link @background_color 0.78431 0.78431 0.78431
+@title [net.osc.receive] @url net.osc.receive-help.pd;
 #N canvas 10 1076 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

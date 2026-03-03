@@ -4,9 +4,11 @@
 #X text 557 50 bidirectional map container;
 #X obj 1 1 cnv 5 765 40 empty empty data.bimap 20 20 0 20 -104026
 -4096 0;
-#X obj 493 11 ceammc/bimap;
-#X obj 605 11 bimap;
-#X obj 667 11 data.bimap;
+#X obj 488 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bimap] @url data.bimap-help.pd;
+#X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bimap] @url data.bimap-help.pd;
+#X obj 667 8 data.bimap;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 NOTE: all object inlets are 'hot';
 #X listbox 50 171 20 0 0 0 - - -;

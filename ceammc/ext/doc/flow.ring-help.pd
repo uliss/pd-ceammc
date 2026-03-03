@@ -4,8 +4,9 @@
 #X text 541 50 queue router for control flow;
 #X obj 1 1 cnv 5 765 40 empty empty flow.ring 20 20 0 20 -104026 -4096
 0;
-#X obj 599 11 flow.>>;
-#X obj 675 11 flow.ring;
+#X obj 596 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.>>] @url flow.ring-help.pd;
+#X obj 675 8 flow.ring;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 357 118 flow.ring-sound;

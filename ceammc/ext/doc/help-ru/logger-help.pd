@@ -4,13 +4,20 @@
 #X text 535 50 продвинутый логгер для окна Pd;
 #X obj 1 1 cnv 5 765 40 empty empty logger 20 20 0 20 -104026 -4096 0;
 #N canvas 599 11 250 400 aliases 0;
-#X obj 30 40 ceammc/logger;
-#X obj 30 78 log.error;
-#X obj 30 116 log.post;
-#X obj 30 154 log.debug;
-#X obj 30 192 log.verbose;
-#X obj 30 230 log.stdout;
-#X obj 30 268 log.stderr;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/logger] @url logger-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.error] @url logger-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.post] @url logger-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.debug] @url logger-help.pd;
+#X obj 30 176 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.verbose] @url logger-help.pd;
+#X obj 30 210 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.stdout] @url logger-help.pd;
+#X obj 30 244 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[log.stderr] @url logger-help.pd;
 #X restore 599 11 pd aliases;
 #X obj 696 11 logger;
 #X floatatom 50 118 5 0 0 0 - - -;

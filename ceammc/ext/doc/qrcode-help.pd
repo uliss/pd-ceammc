@@ -3,8 +3,9 @@
 #X obj 628 50 cnv 1 137 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 633 50 QR code generator;
 #X obj 1 1 cnv 5 765 40 empty empty qrcode 20 20 0 20 -104026 -4096 0;
-#X obj 576 11 ceammc/qrcode;
-#X obj 696 11 qrcode;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/qrcode] @url qrcode-help.pd;
+#X obj 696 8 qrcode;
 #X symbolatom 50 118 15 0 0 0 - - -;
 #X msg 50 147 symbol https://github.com/uliss/pure-data/releases;
 #X obj 50 176 qrcode;

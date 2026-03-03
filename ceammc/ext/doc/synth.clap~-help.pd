@@ -89,9 +89,11 @@ release time. Type: bool. Default value: 0\.;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 946 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 949 library: ceammc v0.9.8;
-#X text 489 961 see also:;
-#X obj 564 961 synth.kick2~;
-#X obj 667 961 synth.hat~;
+#X text 485 961 see also:;
+#X obj 560 964 ui.link @background_color 0.78431 0.78431 0.78431
+@title [synth.kick2~] @url synth.kick2~-help.pd;
+#X obj 665 964 ui.link @background_color 0.78431 0.78431 0.78431
+@title [synth.hat~] @url synth.hat~-help.pd;
 #N canvas 10 968 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

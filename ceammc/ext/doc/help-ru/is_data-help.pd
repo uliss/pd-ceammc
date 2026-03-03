@@ -4,8 +4,9 @@
 #X text 358 50 проверяет \, является ли входное сообщение типом данных;
 #X obj 1 1 cnv 5 765 40 empty empty is_data 20 20 0 20 -104026 -4096
 0;
-#X obj 563 11 ceammc/is_data;
-#X obj 689 11 is_data;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/is_data] @url is_data-help.pd;
+#X obj 689 8 is_data;
 #X msg 50 118 bang;
 #X obj 50 147 str string data;
 #X obj 69 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -48,10 +49,13 @@
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 415 520 смотрите также:;
-#X obj 536 520 is_float;
-#X obj 609 520 is_symbol;
-#X obj 689 520 is_list;
+#X text 406 520 смотрите также:;
+#X obj 527 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [is_float] @url is_float-help.pd;
+#X obj 603 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [is_symbol] @url is_symbol-help.pd;
+#X obj 686 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [is_list] @url is_list-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

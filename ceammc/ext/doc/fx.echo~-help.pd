@@ -4,8 +4,9 @@
 #X text 611 50 enhanced echo effect;
 #X obj 1 1 cnv 5 765 40 empty empty fx.echo~ 20 20 0 20 -104026 -4096
 0;
-#X obj 590 11 fx.secho~;
-#X obj 681 11 fx.echo~;
+#X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[fx.secho~] @url fx.echo~-help.pd;
+#X obj 681 8 fx.echo~;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: difference between fx.echo~ and fx.delay~ is that
 echo passes original signal with delayed repeats \, but fx.delay~ passes
@@ -127,8 +128,9 @@ Type: float. Units: 'ms'. Default value: 50\. Range: 0\...500\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1361 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1364 library: ceammc v0.9.8;
-#X text 591 1376 see also:;
-#X obj 666 1376 fx.sdelay~;
+#X text 590 1376 see also:;
+#X obj 665 1379 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.sdelay~] @url fx.sdelay~-help.pd;
 #N canvas 10 1383 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

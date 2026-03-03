@@ -4,8 +4,9 @@
 #X text 365 50 декомпозиция из сферических гармоник в плоские волны;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.projector~ 20 20 0 20
 -104026 -4096 0;
-#X obj 489 11 hoa.projector~;
-#X obj 616 11 hoa.2d.projector~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.projector~] @url hoa.2d.projector~-help.pd;
+#X obj 616 8 hoa.2d.projector~;
 #X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Discretizes the ambisonic sound field into the plane
 waves domain.;
@@ -81,8 +82,9 @@ int. Значение по умолчанию: 1\. Диапазон: 1\...63\.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 901 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 904 библиотека: ceammc v0.9.8;
-#X text 488 916 смотрите также:;
-#X obj 609 916 hoa.2d.recomposer~;
+#X text 486 916 смотрите также:;
+#X obj 607 919 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.2d.recomposer~] @url hoa.2d.recomposer~-help.pd;
 #N canvas 10 923 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

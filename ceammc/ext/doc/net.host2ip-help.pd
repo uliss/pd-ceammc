@@ -4,8 +4,9 @@
 #X text 534 50 outputs IP address by DNS name;
 #X obj 1 1 cnv 5 765 40 empty empty net.host2ip 20 20 0 20 -104026
 -4096 0;
-#X obj 548 11 net.host->ip;
-#X obj 660 11 net.host2ip;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[net.host->ip] @url net.host2ip-help.pd;
+#X obj 660 8 net.host2ip;
 #X msg 50 118 localhost;
 #X msg 69 147 bbc.com;
 #X obj 50 176 symbol;

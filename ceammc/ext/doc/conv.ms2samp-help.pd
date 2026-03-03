@@ -5,9 +5,11 @@
 to current sample rate;
 #X obj 1 1 cnv 5 765 40 empty empty conv.ms2samp 20 20 0 20 -104026
 -4096 0;
-#X obj 435 11 ceammc/ms->samp;
-#X obj 569 11 ms->samp;
-#X obj 653 11 conv.ms2samp;
+#X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/ms->samp] @url conv.ms2samp-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ms->samp] @url conv.ms2samp-help.pd;
+#X obj 653 8 conv.ms2samp;
 #X floatatom 50 118 10 0 0 0 - - -;
 #X obj 50 147 ms->samp;
 #X floatatom 50 176 10 0 0 0 - - -;
@@ -31,8 +33,9 @@ to current sample rate;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 578 520 see also:;
-#X obj 653 520 conv.samp2ms;
+#X text 575 520 see also:;
+#X obj 650 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.samp2ms] @url conv.samp2ms-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

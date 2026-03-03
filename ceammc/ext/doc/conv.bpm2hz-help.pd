@@ -4,9 +4,11 @@
 #X text 427 50 converts BPM tempo into a frequency in hertz;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bpm2hz 20 20 0 20 -104026
 -4096 0;
-#X obj 458 11 ceammc/bpm->hz;
-#X obj 584 11 bpm->hz;
-#X obj 660 11 conv.bpm2hz;
+#X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bpm->hz] @url conv.bpm2hz-help.pd;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bpm->hz] @url conv.bpm2hz-help.pd;
+#X obj 660 8 conv.bpm2hz;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Converts frequency from BPM (beats per minute) to hertz.
 It's simple as /60 \, but more readable;
@@ -38,8 +40,9 @@ It's simple as /60 \, but more readable;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 535 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 538 library: ceammc v0.9.8;
-#X text 585 550 see also:;
-#X obj 660 550 conv.bpm2ms;
+#X text 582 550 see also:;
+#X obj 657 553 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.bpm2ms] @url conv.bpm2ms-help.pd;
 #N canvas 10 557 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

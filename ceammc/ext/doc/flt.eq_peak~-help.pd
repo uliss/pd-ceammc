@@ -81,10 +81,13 @@ Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 861 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 864 library: ceammc v0.9.8;
-#X text 328 876 see also:;
-#X obj 403 876 flt.eq_peak_cq~;
-#X obj 528 876 flt.lowshelf~;
-#X obj 638 876 flt.highshelf~;
+#X text 322 876 see also:;
+#X obj 397 879 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.eq_peak_cq~] @url flt.eq_peak_cq~-help.pd;
+#X obj 524 879 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.lowshelf~] @url flt.lowshelf~-help.pd;
+#X obj 636 879 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.highshelf~] @url flt.highshelf~-help.pd;
 #N canvas 10 883 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

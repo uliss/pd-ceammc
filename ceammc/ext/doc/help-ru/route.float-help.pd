@@ -4,8 +4,9 @@
 #X text 435 50 отделяет числовые сообщения от других типов;
 #X obj 1 1 cnv 5 765 40 empty empty route.float 20 20 0 20 -104026
 -4096 0;
-#X obj 586 11 route.f;
-#X obj 661 11 route.float;
+#X obj 582 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[route.f] @url route.float-help.pd;
+#X obj 661 8 route.float;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 to get properties use *prop.get* object \, cause all
 messages (including property requests) are passed thru;

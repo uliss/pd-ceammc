@@ -4,8 +4,9 @@
 #X text 519 50 отправка сообщений протокола OSC;
 #X obj 1 1 cnv 5 765 40 empty empty net.osc.send 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 net.osc.s;
-#X obj 653 11 net.osc.send;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[net.osc.s] @url net.osc.send-help.pd;
+#X obj 653 8 net.osc.send;
 #X text 50 118 default receive OSC server: osc.udp://:9000;
 #X obj 50 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 176 @dump \$1;
@@ -172,9 +173,11 @@ list.;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
 #X obj 1 1945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1948 библиотека: ceammc v0.9.8;
-#X text 393 1960 смотрите также:;
-#X obj 514 1960 net.osc.server;
-#X obj 631 1960 net.osc.receive;
+#X text 388 1960 смотрите также:;
+#X obj 509 1963 ui.link @background_color 0.78431 0.78431 0.78431
+@title [net.osc.server] @url net.osc.server-help.pd;
+#X obj 628 1963 ui.link @background_color 0.78431 0.78431 0.78431
+@title [net.osc.receive] @url net.osc.receive-help.pd;
 #N canvas 10 1967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

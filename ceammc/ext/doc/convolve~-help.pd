@@ -4,8 +4,9 @@
 #X text 574 50 real-time FFT convolution;
 #X obj 1 1 cnv 5 765 40 empty empty convolve~ 20 20 0 20 -104026 -4096
 0;
-#X obj 532 11 ceammc/convolve~;
-#X obj 674 11 convolve~;
+#X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/convolve~] @url convolve~-help.pd;
+#X obj 674 8 convolve~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 50 176 readsf~;

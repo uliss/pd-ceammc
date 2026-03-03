@@ -29,9 +29,11 @@
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 451 520 смотрите также:;
-#X obj 572 520 canvas.name;
-#X obj 667 520 canvas.dir;
+#X text 446 520 смотрите также:;
+#X obj 567 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [canvas.name] @url canvas.name-help.pd;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [canvas.dir] @url canvas.dir-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -4,8 +4,9 @@
 #X text 680 50 LTC decoder;
 #X obj 1 1 cnv 5 765 40 empty empty proto.ltc.in~ 20 20 0 20 -104026
 -4096 0;
-#X obj 568 11 ltc.in~;
-#X obj 645 11 proto.ltc.in~;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ltc.in~] @url proto.ltc.in~-help.pd;
+#X obj 645 8 proto.ltc.in~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 88 118 date 83 1 11;
 #X obj 251 118 ui.hsl 0.5 4;
@@ -54,8 +55,9 @@
 #X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
 #X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 579 library: ceammc v0.9.8;
-#X text 606 591 see also:;
-#X obj 681 591 ltc.out~;
+#X text 604 591 see also:;
+#X obj 679 594 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ltc.out~] @url ltc.out~-help.pd;
 #N canvas 10 598 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

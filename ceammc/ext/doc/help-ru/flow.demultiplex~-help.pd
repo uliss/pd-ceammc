@@ -4,10 +4,13 @@
 #X text 557 50 демультиплексор аудиопотока;
 #X obj 1 1 cnv 5 765 40 empty empty flow.demultiplex~ 20 20 0 20
 -104026 -4096 0;
-#X obj 320 11 flow.demux~;
-#X obj 426 11 ceammc/demux~;
-#X obj 546 11 demux~;
-#X obj 616 11 flow.demultiplex~;
+#X obj 315 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.demux~] @url flow.demultiplex~-help.pd;
+#X obj 423 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/demux~] @url flow.demultiplex~-help.pd;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[demux~] @url flow.demultiplex~-help.pd;
+#X obj 616 8 flow.demultiplex~;
 #X obj 50 118 osc~ 440;
 #X obj 184 118 ui.radio @nitems 4;
 #X obj 386 118 ui.dsp~;
@@ -70,9 +73,11 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 614 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 617 библиотека: ceammc v0.9.8;
-#X text 356 629 смотрите также:;
-#X obj 477 629 flow.demultiplex2~;
-#X obj 623 629 flow.demultiplex;
+#X text 352 629 смотрите также:;
+#X obj 473 632 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.demultiplex2~] @url flow.demultiplex2~-help.pd;
+#X obj 621 632 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.demultiplex] @url flow.demultiplex-help.pd;
 #N canvas 10 636 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

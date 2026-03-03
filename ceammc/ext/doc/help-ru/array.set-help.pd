@@ -4,9 +4,11 @@
 #X text 381 50 устанавливает содержание массива данными из списка;
 #X obj 1 1 cnv 5 765 40 empty empty array.set 20 20 0 20 -104026 -4096
 0;
-#X obj 413 11 ceammc/list->array;
-#X obj 569 11 list->array;
-#X obj 674 11 array.set;
+#X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/list->array] @url array.set-help.pd;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list->array] @url array.set-help.pd;
+#X obj 674 8 array.set;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array aset 100 float 0;
 #X coords 0 1 100 0 450 100 1;
@@ -56,8 +58,9 @@
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 572 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 575 библиотека: ceammc v0.9.8;
-#X text 546 587 смотрите также:;
-#X obj 667 587 array.each;
+#X text 544 587 смотрите также:;
+#X obj 665 590 ui.link @background_color 0.78431 0.78431 0.78431
+@title [array.each] @url array.each-help.pd;
 #N canvas 10 594 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

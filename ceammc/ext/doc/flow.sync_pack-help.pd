@@ -4,8 +4,9 @@
 #X text 514 50 [flow.pack] with all "hot" inlets;
 #X obj 1 1 cnv 5 765 40 empty empty flow.sync_pack 20 20 0 20 -104026
 -4096 0;
-#X obj 542 11 flow.pack';
-#X obj 638 11 flow.sync_pack;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.pack'] @url flow.sync_pack-help.pd;
+#X obj 638 8 flow.sync_pack;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 98 118 5 0 0 0 - - -;
@@ -84,9 +85,11 @@ default values given it sets to 0\. Type: list.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 806 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 809 library: ceammc v0.9.8;
-#X text 554 821 see also:;
-#X obj 629 821 pack;
-#X obj 674 821 flow.pack;
+#X text 550 821 see also:;
+#X obj 625 824 ui.link @background_color 0.78431 0.78431 0.78431
+@title [pack] @url pack-help.pd;
+#X obj 672 824 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pack] @url flow.pack-help.pd;
 #N canvas 10 828 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

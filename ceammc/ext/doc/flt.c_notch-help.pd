@@ -5,8 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_notch 20 20 0 20 -104026
 -4096 0;
 #N canvas 563 11 250 400 aliases 0;
-#X obj 30 40 ceammc/notch->biquad;
-#X obj 30 78 notch->biquad;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/notch->biquad] @url flt.c_notch-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[notch->biquad] @url flt.c_notch-help.pd;
 #X restore 563 11 pd aliases;
 #X obj 660 11 flt.c_notch;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
@@ -72,8 +74,9 @@ value: 0.7071\. Range: 0.01\...100\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 765 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 768 library: ceammc v0.9.8;
-#X text 600 780 see also:;
-#X obj 675 780 flt.c_lpf;
+#X text 597 780 see also:;
+#X obj 672 783 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_lpf] @url flt.c_lpf-help.pd;
 #N canvas 10 787 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

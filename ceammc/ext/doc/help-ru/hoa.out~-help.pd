@@ -50,10 +50,13 @@ signal outlet.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 561 библиотека: ceammc v0.9.8;
-#X text 442 573 смотрите также:;
-#X obj 563 573 hoa.out;
-#X obj 629 573 hoa.in;
-#X obj 688 573 hoa.in~;
+#X text 435 573 смотрите также:;
+#X obj 556 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.out] @url hoa.out-help.pd;
+#X obj 625 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.in] @url hoa.in-help.pd;
+#X obj 686 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.in~] @url hoa.in~-help.pd;
 #N canvas 10 580 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

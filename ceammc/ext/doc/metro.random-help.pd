@@ -73,9 +73,11 @@ value: 100\. Min value: 1\.;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 777 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 780 library: ceammc v0.9.8;
-#X text 518 792 see also:;
-#X obj 593 792 metro;
-#X obj 645 792 metro.pattern;
+#X text 514 792 see also:;
+#X obj 589 795 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro] @url metro-help.pd;
+#X obj 643 795 ui.link @background_color 0.78431 0.78431 0.78431
+@title [metro.pattern] @url metro.pattern-help.pd;
 #N canvas 10 799 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

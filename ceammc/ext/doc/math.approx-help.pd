@@ -5,9 +5,11 @@
 the pattern;
 #X obj 1 1 cnv 5 765 40 empty empty math.approx 20 20 0 20 -104026
 -4096 0;
-#X obj 469 11 ceammc/approx;
-#X obj 589 11 approx;
-#X obj 659 11 math.approx;
+#X obj 466 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/approx] @url math.approx-help.pd;
+#X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[approx] @url math.approx-help.pd;
+#X obj 659 8 math.approx;
 #X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 checks if |x - pattern| <= |epsilon|;
 #X obj 50 186 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10

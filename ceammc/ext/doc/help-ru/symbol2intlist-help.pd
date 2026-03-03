@@ -6,9 +6,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty symbol2intlist 20 20 0 20 -104026
 -4096 0;
 #N canvas 542 11 250 400 aliases 0;
-#X obj 30 40 ceammc/symbol2intlist;
-#X obj 30 78 ceammc/sym->ilist;
-#X obj 30 116 sym->ilist;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/symbol2intlist] @url symbol2intlist-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/sym->ilist] @url symbol2intlist-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[sym->ilist] @url symbol2intlist-help.pd;
 #X restore 542 11 pd aliases;
 #X obj 639 11 symbol2intlist;
 #X msg 50 118 A;

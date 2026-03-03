@@ -4,9 +4,11 @@
 #X text 511 50 фазовый угол комплексных сигналов;
 #X obj 1 1 cnv 5 765 40 empty empty math.carg~ 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 ceammc/carg~;
-#X obj 604 11 carg~;
-#X obj 666 11 math.carg~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/carg~] @url math.carg~-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[carg~] @url math.carg~-help.pd;
+#X obj 666 8 math.carg~;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 outputs the phase angle in the interval [−π π];
 #X obj 50 171 ui.slider2d @show_grid 1 @size 100 100;
@@ -38,8 +40,9 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 545 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 548 библиотека: ceammc v0.9.8;
-#X text 545 560 смотрите также:;
-#X obj 666 560 math.cabs~;
+#X text 544 560 смотрите также:;
+#X obj 665 563 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.cabs~] @url math.cabs~-help.pd;
 #N canvas 10 567 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

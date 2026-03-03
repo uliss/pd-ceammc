@@ -36,10 +36,13 @@ less than or equal to x.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 506 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 509 библиотека: ceammc v0.9.8;
-#X text 377 521 смотрите также:;
-#X obj 498 521 math.ceil;
-#X obj 579 521 math.round;
-#X obj 667 521 math.trunc;
+#X text 371 521 смотрите также:;
+#X obj 492 524 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.ceil] @url math.ceil-help.pd;
+#X obj 575 524 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.round] @url math.round-help.pd;
+#X obj 665 524 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.trunc] @url math.trunc-help.pd;
 #N canvas 10 528 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

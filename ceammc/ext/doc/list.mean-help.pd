@@ -4,8 +4,9 @@
 #X text 473 50 calculates the average value in a list;
 #X obj 1 1 cnv 5 765 40 empty empty list.mean 20 20 0 20 -104026 -4096
 0;
-#X obj 563 11 list.average;
-#X obj 675 11 list.mean;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.average] @url list.mean-help.pd;
+#X obj 675 8 list.mean;
 #X msg 50 118 1 2 3 4 5;
 #X msg 165 118 1 2 a b c;
 #X obj 50 162 list.mean;
@@ -31,8 +32,9 @@ No output if no floats in list.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 563 520 see also:;
-#X obj 638 520 list.normalize;
+#X text 561 520 see also:;
+#X obj 636 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.normalize] @url list.normalize-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

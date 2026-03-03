@@ -4,8 +4,9 @@
 #X text 612 50 resampling the array;
 #X obj 1 1 cnv 5 765 40 empty empty array.resample 20 20 0 20 -104026
 -4096 0;
-#X obj 561 11 array.r;
-#X obj 638 11 array.resample;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[array.r] @url array.resample-help.pd;
+#X obj 638 8 array.resample;
 #X obj 50 118 msg.onload;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ARS1 7 float 2;

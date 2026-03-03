@@ -4,9 +4,11 @@
 #X text 397 50 преобразует ноту в формате SPN в номер ноты MIDI;
 #X obj 1 1 cnv 5 765 40 empty empty conv.pitch2midi 20 20 0 20 -104026
 -4096 0;
-#X obj 370 11 ceammc/pitch->midi;
-#X obj 526 11 pitch->midi;
-#X obj 631 11 conv.pitch2midi;
+#X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/pitch->midi] @url conv.pitch2midi-help.pd;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[pitch->midi] @url conv.pitch2midi-help.pd;
+#X obj 631 8 conv.pitch2midi;
 #X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Convert Scientific Pitch Notation to MIDI note numbers.
 SPN consist of pitch class (C \, C# \, D \, Eb etc.) and octave (0-9).

@@ -32,9 +32,11 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 606 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 609 библиотека: ceammc v0.9.8;
-#X text 479 621 смотрите также:;
-#X obj 600 621 math.cos;
-#X obj 673 621 math.sin~;
+#X text 475 621 смотрите также:;
+#X obj 596 624 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.cos] @url math.cos-help.pd;
+#X obj 672 624 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.sin~] @url math.sin~-help.pd;
 #N canvas 10 628 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

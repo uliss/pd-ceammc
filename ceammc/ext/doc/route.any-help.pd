@@ -44,11 +44,15 @@ lists;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 561 library: ceammc v0.9.8;
-#X text 311 573 see also:;
-#X obj 386 573 route.float;
-#X obj 480 573 route.list;
-#X obj 566 573 route.random;
-#X obj 668 573 route.prop;
+#X text 297 573 see also:;
+#X obj 372 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.float] @url route.float-help.pd;
+#X obj 470 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.list] @url route.list-help.pd;
+#X obj 560 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.random] @url route.random-help.pd;
+#X obj 665 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.prop] @url route.prop-help.pd;
 #N canvas 10 580 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

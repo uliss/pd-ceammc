@@ -32,9 +32,11 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 621 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 624 библиотека: ceammc v0.9.8;
-#X text 442 636 смотрите также:;
-#X obj 563 636 math.squared~;
-#X obj 674 636 math.sqrt;
+#X text 439 636 смотрите также:;
+#X obj 560 639 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.squared~] @url math.squared~-help.pd;
+#X obj 672 639 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.sqrt] @url math.sqrt-help.pd;
 #N canvas 10 643 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

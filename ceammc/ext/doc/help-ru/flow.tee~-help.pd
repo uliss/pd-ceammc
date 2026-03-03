@@ -5,10 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.tee~ 20 20 0 20 -104026 -4096
 0;
 #N canvas 577 11 250 400 aliases 0;
-#X obj 30 40 ceammc/tee~;
-#X obj 30 78 tee~;
-#X obj 30 116 ceammc/~->;
-#X obj 30 154 ~->;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/tee~] @url flow.tee~-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[tee~] @url flow.tee~-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/~->] @url flow.tee~-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[~->] @url flow.tee~-help.pd;
 #X restore 577 11 pd aliases;
 #X obj 674 11 flow.tee~;
 #X obj 50 118 osc~ 440;

@@ -5,8 +5,9 @@
 or abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop.set 20 20 0 20 -104026 -4096
 0;
-#X obj 621 11 p.set;
-#X obj 682 11 prop.set;
+#X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[p.set] @url prop.set-help.pd;
+#X obj 682 8 prop.set;
 #X obj 230 93 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 The object adds ability to change properties of flow
 objects that should accept any incoming messages. The object should
@@ -61,8 +62,9 @@ props \, but using internal pd method calls;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 837 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 840 library: ceammc v0.9.8;
-#X text 607 852 see also:;
-#X obj 682 852 prop.get;
+#X text 604 852 see also:;
+#X obj 679 855 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop.get] @url prop.get-help.pd;
 #N canvas 10 859 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

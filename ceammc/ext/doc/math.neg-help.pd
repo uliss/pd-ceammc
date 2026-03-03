@@ -4,9 +4,11 @@
 #X text 649 50 negate function;
 #X obj 1 1 cnv 5 765 40 empty empty math.neg 20 20 0 20 -104026 -4096
 0;
-#X obj 548 11 ceammc/-x;
-#X obj 639 11 -x;
-#X obj 681 11 math.neg;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/-x] @url math.neg-help.pd;
+#X obj 638 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[-x] @url math.neg-help.pd;
+#X obj 681 8 math.neg;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Returns value with opposite sign;
 #X floatatom 50 171 5 0 0 0 - - -;

@@ -4,9 +4,11 @@
 #X text 389 50 the dictionary container: stores key-values pairs;
 #X obj 1 1 cnv 5 765 40 empty empty data.dict 20 20 0 20 -104026 -4096
 0;
-#X obj 515 11 ceammc/dict;
-#X obj 620 11 dict;
-#X obj 674 11 data.dict;
+#X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/dict] @url data.dict-help.pd;
+#X obj 617 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[dict] @url data.dict-help.pd;
+#X obj 674 8 data.dict;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Syntax: [key1: value key2 : "with space"]. Nested dictionaries
 are supported: [a: [A:1 B:2]]).;
@@ -116,9 +118,11 @@ nothing. Arguments are:;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 1351 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1354 library: ceammc v0.9.8;
-#X text 519 1366 see also:;
-#X obj 594 1366 data.set;
-#X obj 667 1366 data.mlist;
+#X text 514 1366 see also:;
+#X obj 589 1369 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.set] @url data.set-help.pd;
+#X obj 665 1369 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.mlist] @url data.mlist-help.pd;
 #N canvas 10 1373 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

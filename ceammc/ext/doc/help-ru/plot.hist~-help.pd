@@ -4,9 +4,11 @@
 #X text 397 50 вычисляет и выводит гистограмму входного сигнала;
 #X obj 1 1 cnv 5 765 40 empty empty plot.hist~ 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 ceammc/hist~;
-#X obj 604 11 hist~;
-#X obj 666 11 plot.hist~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/hist~] @url plot.hist~-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hist~] @url plot.hist~-help.pd;
+#X obj 666 8 plot.hist~;
 #X obj 50 118 noise.white~;
 #X obj 194 118 osc~ 40;
 #X obj 194 147 ui.hrd @nitems 2;
@@ -71,10 +73,13 @@ ignore them. Тип: bool. Значение по умолчанию: 1\.;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 802 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 805 библиотека: ceammc v0.9.8;
-#X text 275 817 смотрите также:;
-#X obj 396 817 plot.linspace~;
-#X obj 513 817 plot.geomspace~;
-#X obj 638 817 plot.response~;
+#X text 269 817 смотрите также:;
+#X obj 390 820 ui.link @background_color 0.78431 0.78431 0.78431
+@title [plot.linspace~] @url plot.linspace~-help.pd;
+#X obj 509 820 ui.link @background_color 0.78431 0.78431 0.78431
+@title [plot.geomspace~] @url plot.geomspace~-help.pd;
+#X obj 636 820 ui.link @background_color 0.78431 0.78431 0.78431
+@title [plot.response~] @url plot.response~-help.pd;
 #N canvas 10 824 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

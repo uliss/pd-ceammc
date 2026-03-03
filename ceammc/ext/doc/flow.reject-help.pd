@@ -4,10 +4,13 @@
 #X text 589 50 reject specified values;
 #X obj 1 1 cnv 5 765 40 empty empty flow.reject 20 20 0 20 -104026
 -4096 0;
-#X obj 406 11 ceammc/reject;
-#X obj 525 11 reject;
-#X obj 593 11 flow.!;
-#X obj 660 11 flow.reject;
+#X obj 396 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/reject] @url flow.reject-help.pd;
+#X obj 518 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[reject] @url flow.reject-help.pd;
+#X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.!] @url flow.reject-help.pd;
+#X obj 660 8 flow.reject;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 flow.reject 0;
 #X obj 50 176 1/x;
@@ -57,9 +60,11 @@
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 546 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 549 library: ceammc v0.9.8;
-#X text 483 561 see also:;
-#X obj 558 561 flow.reject_if;
-#X obj 675 561 flow.pass;
+#X text 478 561 see also:;
+#X obj 553 564 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.reject_if] @url flow.reject_if-help.pd;
+#X obj 672 564 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pass] @url flow.pass-help.pd;
 #N canvas 10 568 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

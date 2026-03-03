@@ -102,9 +102,11 @@ Default value: 0\. Range: 0\...9\.;
 #X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
 #X obj 1 1117 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1120 library: ceammc v0.9.8;
-#X text 511 1132 see also:;
-#X obj 586 1132 lfo.square~;
-#X obj 681 1132 lfo.saw~;
+#X text 506 1132 see also:;
+#X obj 581 1135 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.square~] @url lfo.square~-help.pd;
+#X obj 679 1135 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.saw~] @url lfo.saw~-help.pd;
 #N canvas 10 1139 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

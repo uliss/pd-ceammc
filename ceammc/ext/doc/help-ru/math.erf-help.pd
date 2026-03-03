@@ -39,8 +39,9 @@ in the range [−x \, x];
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 535 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 538 библиотека: ceammc v0.9.8;
-#X text 552 550 смотрите также:;
-#X obj 673 550 math.erf~;
+#X text 551 550 смотрите также:;
+#X obj 672 553 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.erf~] @url math.erf~-help.pd;
 #N canvas 10 557 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

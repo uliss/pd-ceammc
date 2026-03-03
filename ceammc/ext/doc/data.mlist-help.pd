@@ -5,10 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.mlist 20 20 0 20 -104026
 -4096 0;
 #N canvas 570 11 250 400 aliases 0;
-#X obj 30 40 ceammc/mlist;
-#X obj 30 78 mlist;
-#X obj 30 116 ceammc/ml;
-#X obj 30 154 ml;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/mlist] @url data.mlist-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[mlist] @url data.mlist-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/ml] @url data.mlist-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ml] @url data.mlist-help.pd;
 #X restore 570 11 pd aliases;
 #X obj 667 11 data.mlist;
 #X obj 230 78 cnv 1 535 110 empty empty empty 17 7 0 10 -237178 -1 0;
@@ -144,8 +148,9 @@ are:;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 1615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1618 library: ceammc v0.9.8;
-#X text 599 1630 see also:;
-#X obj 674 1630 data.list;
+#X text 597 1630 see also:;
+#X obj 672 1633 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.list] @url data.list-help.pd;
 #N canvas 10 1637 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

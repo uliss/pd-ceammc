@@ -4,9 +4,11 @@
 #X text 519 50 creates dictionary from the list;
 #X obj 1 1 cnv 5 765 40 empty empty dict.from_list 20 20 0 20 -104026
 -4096 0;
-#X obj 393 11 ceammc/list->dict;
-#X obj 541 11 list->dict;
-#X obj 638 11 dict.from_list;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/list->dict] @url dict.from_list-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list->dict] @url dict.from_list-help.pd;
+#X obj 638 8 dict.from_list;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Convertion depends on property @step \, which means
 a length of key/value pair. First element of the pair becames a key
@@ -51,8 +53,9 @@ value: 2\. Min value: 2\.;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 534 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 537 library: ceammc v0.9.8;
-#X text 599 549 see also:;
-#X obj 674 549 data.dict;
+#X text 597 549 see also:;
+#X obj 672 552 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.dict] @url data.dict-help.pd;
 #N canvas 10 556 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

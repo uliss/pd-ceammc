@@ -4,10 +4,13 @@
 #X text 626 50 envelope data type;
 #X obj 1 1 cnv 5 765 40 empty empty envelope 20 20 0 20 -104026 -4096
 0;
-#X obj 401 11 ceammc/envelope;
-#X obj 535 11 ceammc/env;
-#X obj 633 11 env;
-#X obj 681 11 envelope;
+#X obj 394 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/envelope] @url envelope-help.pd;
+#X obj 531 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/env] @url envelope-help.pd;
+#X obj 631 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[env] @url envelope-help.pd;
+#X obj 681 8 envelope;
 #X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Data type for sound envelope. Contains points specified
 by time and value. Points could have stop property - to execute oly
@@ -383,9 +386,11 @@ Arguments are:;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
 #X obj 1 4210 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 4213 library: ceammc v0.9.8;
-#X text 503 4225 see also:;
-#X obj 578 4225 env->array;
-#X obj 667 4225 env->vline;
+#X text 500 4225 see also:;
+#X obj 575 4228 ui.link @background_color 0.78431 0.78431 0.78431
+@title [env->array] @url env->array-help.pd;
+#X obj 665 4228 ui.link @background_color 0.78431 0.78431 0.78431
+@title [env->vline] @url env->vline-help.pd;
 #N canvas 10 4232 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

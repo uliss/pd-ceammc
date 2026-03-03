@@ -4,9 +4,11 @@
 #X text 373 50 преобразование из амплитуды в децибелы полной шкалы;
 #X obj 1 1 cnv 5 765 40 empty empty conv.amp2dbfs~ 20 20 0 20 -104026
 -4096 0;
-#X obj 390 11 ceammc/amp->dbfs~;
-#X obj 539 11 amp->dbfs~;
-#X obj 638 11 conv.amp2dbfs~;
+#X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/amp->dbfs~] @url conv.amp2dbfs~-help.pd;
+#X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[amp->dbfs~] @url conv.amp2dbfs~-help.pd;
+#X obj 638 8 conv.amp2dbfs~;
 #X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 formulae: 20 * log10(amp);
 #X text 240 108 Note: amplitude value <=0 is converted to -144 db (24-bit
@@ -36,8 +38,9 @@ range);
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 618 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 621 библиотека: ceammc v0.9.8;
-#X text 545 633 смотрите также:;
-#X obj 666 633 dbfs->amp~;
+#X text 544 633 смотрите также:;
+#X obj 665 636 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dbfs->amp~] @url dbfs->amp~-help.pd;
 #N canvas 10 640 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

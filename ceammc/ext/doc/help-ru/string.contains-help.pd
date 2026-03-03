@@ -4,8 +4,9 @@
 #X text 388 50 проверяет \, содержит ли строка указанную подстроку;
 #X obj 1 1 cnv 5 765 40 empty empty string.contains 20 20 0 20 -104026
 -4096 0;
-#X obj 520 11 str.contains;
-#X obj 632 11 string.contains;
+#X obj 517 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.contains] @url string.contains-help.pd;
+#X obj 632 8 string.contains;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 string test;
@@ -56,8 +57,9 @@
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 540 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 543 библиотека: ceammc v0.9.8;
-#X text 525 555 смотрите также:;
-#X obj 646 555 str.ends_with;
+#X text 522 555 смотрите также:;
+#X obj 643 558 ui.link @background_color 0.78431 0.78431 0.78431
+@title [str.ends_with] @url str.ends_with-help.pd;
 #N canvas 10 562 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

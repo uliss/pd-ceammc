@@ -71,10 +71,13 @@ object's message outlet.;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 773 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 776 библиотека: ceammc v0.9.8;
-#X text 434 788 смотрите также:;
-#X obj 555 788 hoa.out~;
-#X obj 629 788 hoa.in;
-#X obj 688 788 hoa.in~;
+#X text 428 788 смотрите также:;
+#X obj 549 791 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.out~] @url hoa.out~-help.pd;
+#X obj 625 791 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.in] @url hoa.in-help.pd;
+#X obj 686 791 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hoa.in~] @url hoa.in~-help.pd;
 #N canvas 10 795 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

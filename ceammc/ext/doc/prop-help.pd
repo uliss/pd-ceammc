@@ -3,8 +3,9 @@
 #X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 304 50 get/set the named property value for subpatch or abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop 20 20 0 20 -104026 -4096 0;
-#X obj 605 11 ceammc/prop;
-#X obj 710 11 prop;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/prop] @url prop-help.pd;
+#X obj 710 8 prop;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The property should be declared with [prop.declare].
 Min/max limits can be set to the property;
@@ -52,9 +53,11 @@ Min/max limits can be set to the property;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 634 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 637 library: ceammc v0.9.8;
-#X text 483 649 see also:;
-#X obj 558 649 prop.declare;
-#X obj 660 649 patch.props;
+#X text 477 649 see also:;
+#X obj 552 652 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop.declare] @url prop.declare-help.pd;
+#X obj 657 652 ui.link @background_color 0.78431 0.78431 0.78431
+@title [patch.props] @url patch.props-help.pd;
 #N canvas 10 656 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

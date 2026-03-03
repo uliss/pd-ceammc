@@ -86,8 +86,9 @@ by Boris Chirikov in 1969;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
 #X obj 1 1010 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1013 library: ceammc v0.9.8;
-#X text 584 1025 see also:;
-#X obj 659 1025 chaos.std0~;
+#X text 582 1025 see also:;
+#X obj 657 1028 ui.link @background_color 0.78431 0.78431 0.78431
+@title [chaos.std0~] @url chaos.std0~-help.pd;
 #N canvas 10 1032 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

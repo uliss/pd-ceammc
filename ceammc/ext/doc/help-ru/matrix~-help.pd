@@ -4,8 +4,9 @@
 #X text 534 50 матрица маршрутизации сигналов;
 #X obj 1 1 cnv 5 765 40 empty empty matrix~ 20 20 0 20 -104026 -4096
 0;
-#X obj 561 11 ceammc/matrix~;
-#X obj 688 11 matrix~;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/matrix~] @url matrix~-help.pd;
+#X obj 688 8 matrix~;
 #X obj 50 118 sig~ 0.25;
 #X obj 165 118 sig~ 0.5;
 #X obj 290 118 ui.matrix @size 37 69 @cols 2 @rows 4;

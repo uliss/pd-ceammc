@@ -4,8 +4,9 @@
 #X text 458 50 плавный дилей с контролем обратной связи;
 #X obj 1 1 cnv 5 765 40 empty empty fx.delay~ 20 20 0 20 -104026 -4096
 0;
-#X obj 575 11 fx.sdelay~;
-#X obj 674 11 fx.delay~;
+#X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[fx.sdelay~] @url fx.delay~-help.pd;
+#X obj 674 8 fx.delay~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 delay that doesn't click and doesn't transpose when
 the delay time is changed;
@@ -129,8 +130,9 @@ click and transpose \, if equal to 0 produces artifacts on delay change.
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1461 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1464 библиотека: ceammc v0.9.8;
-#X text 560 1476 смотрите также:;
-#X obj 681 1476 fx.echo~;
+#X text 558 1476 смотрите также:;
+#X obj 679 1479 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.echo~] @url fx.echo~-help.pd;
 #N canvas 10 1483 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

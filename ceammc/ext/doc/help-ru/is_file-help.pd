@@ -4,8 +4,9 @@
 #X text 443 50 проверка существования и доступности файла;
 #X obj 1 1 cnv 5 765 40 empty empty is_file 20 20 0 20 -104026 -4096
 0;
-#X obj 562 11 ceammc/is_file;
-#X obj 689 11 is_file;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/is_file] @url is_file-help.pd;
+#X obj 689 8 is_file;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 If relative path is given file searched under patch
 directory;

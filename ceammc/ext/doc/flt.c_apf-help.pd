@@ -5,9 +5,11 @@
 object;
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_apf 20 20 0 20 -104026 -4096
 0;
-#X obj 415 11 ceammc/apf->biquad;
-#X obj 570 11 apf->biquad;
-#X obj 675 11 flt.c_apf;
+#X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/apf->biquad] @url flt.c_apf-help.pd;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[apf->biquad] @url flt.c_apf-help.pd;
+#X obj 675 8 flt.c_apf;
 #X obj 230 93 cnv 1 535 209 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 266 Wiki:;
 #X text 240 98 Allpass filter is a signal processing filter that passes
@@ -82,9 +84,11 @@ value: 0.7071\. Range: 0.01\...100\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 929 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 932 library: ceammc v0.9.8;
-#X text 526 944 see also:;
-#X obj 601 944 flt.c_lpf;
-#X obj 681 944 hilbert~;
+#X text 521 944 see also:;
+#X obj 596 947 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.c_lpf] @url flt.c_lpf-help.pd;
+#X obj 679 947 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hilbert~] @url hilbert~-help.pd;
 #N canvas 10 951 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

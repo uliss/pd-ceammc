@@ -3,8 +3,9 @@
 #X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 542 50 FluidSynth SoundFont 2 player;
 #X obj 1 1 cnv 5 765 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
-#X obj 575 11 ceammc/fluid~;
-#X obj 695 11 fluid~;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/fluid~] @url fluid~-help.pd;
+#X obj 695 8 fluid~;
 #X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 If no soundfont specified: default soundfont is loaded;
 #X text 240 108 It is WaveSine.sf2 \, simple sine synth;

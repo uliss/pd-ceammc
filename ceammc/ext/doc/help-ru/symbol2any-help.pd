@@ -5,13 +5,20 @@
 #X obj 1 1 cnv 5 765 40 empty empty symbol2any 20 20 0 20 -104026
 -4096 0;
 #N canvas 570 11 250 400 aliases 0;
-#X obj 30 40 ceammc/symbol2any;
-#X obj 30 78 ceammc/sym->any;
-#X obj 30 116 ceammc/str->any;
-#X obj 30 154 ceammc/string2any;
-#X obj 30 192 sym->any;
-#X obj 30 230 str->any;
-#X obj 30 268 string2any;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/symbol2any] @url symbol2any-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/sym->any] @url symbol2any-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/str->any] @url symbol2any-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/string2any] @url symbol2any-help.pd;
+#X obj 30 176 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[sym->any] @url symbol2any-help.pd;
+#X obj 30 210 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str->any] @url symbol2any-help.pd;
+#X obj 30 244 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[string2any] @url symbol2any-help.pd;
 #X restore 570 11 pd aliases;
 #X obj 667 11 symbol2any;
 #X text 50 118 enter some words separated by spaces;

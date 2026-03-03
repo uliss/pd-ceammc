@@ -4,8 +4,9 @@
 #X text 519 50 переключатель на временной шкале;
 #X obj 1 1 cnv 5 765 40 empty empty tl.toggle 20 20 0 20 -104026 -4096
 0;
-#X obj 620 11 tl.t;
-#X obj 674 11 tl.toggle;
+#X obj 617 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[tl.t] @url tl.toggle-help.pd;
+#X obj 674 8 tl.toggle;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Output 1 when cue section activated \, 0 when switched
 to other cue section;
@@ -43,8 +44,9 @@ to other cue section;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 507 520 смотрите также:;
-#X obj 628 520 tl.bang;
+#X text 504 520 смотрите также:;
+#X obj 625 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [tl.bang] @url tl.bang-help.pd;
 #X obj 694 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
 #N canvas 10 527 400 290 info 0;

@@ -3,8 +3,9 @@
 #X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 534 50 целочисленная задержка сэмплов;
 #X obj 1 1 cnv 5 765 40 empty empty z~ 20 20 0 20 -104026 -4096 0;
-#X obj 632 11 ceammc/z~;
-#X obj 723 11 z~;
+#X obj 630 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/z~] @url z~-help.pd;
+#X obj 723 8 z~;
 #X msg 50 118 bang;
 #X obj 50 147 click~;
 #X obj 146 176 z~ 1;

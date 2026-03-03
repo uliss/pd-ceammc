@@ -4,8 +4,9 @@
 #X text 604 50 sync multichannel bus;
 #X obj 1 1 cnv 5 765 40 empty empty flow.sync 20 20 0 20 -104026 -4096
 0;
-#X obj 608 11 flow.';
-#X obj 675 11 flow.sync;
+#X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.'] @url flow.sync-help.pd;
+#X obj 675 8 flow.sync;
 #X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Sync data flow. All inlets are 'hot'. When float \,
 symbol or list arrives to inlet \, it's value stored. Then output all
@@ -62,8 +63,9 @@ value: 2\. Range: 2\...16\.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 725 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 728 library: ceammc v0.9.8;
-#X text 594 740 see also:;
-#X obj 669 740 flow.pack';
+#X text 590 740 see also:;
+#X obj 665 743 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pack'] @url flow.pack'-help.pd;
 #N canvas 10 747 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

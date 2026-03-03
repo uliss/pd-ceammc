@@ -4,8 +4,9 @@
 #X text 351 50 конвертирует сообщение MidiEvent в пару канал/значение;
 #X obj 1 1 cnv 5 765 40 empty empty midi.event2ctl 20 20 0 20 -104026
 -4096 0;
-#X obj 525 11 midi.ev->ctl;
-#X obj 638 11 midi.event2ctl;
+#X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.ev->ctl] @url midi.event2ctl-help.pd;
+#X obj 638 8 midi.event2ctl;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 openpanel;

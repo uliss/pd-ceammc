@@ -117,8 +117,9 @@ bool. Значение по умолчанию: 0\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1283 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1286 библиотека: ceammc v0.9.8;
-#X text 524 1298 смотрите также:;
-#X obj 645 1298 fx.freeverb2~;
+#X text 522 1298 смотрите также:;
+#X obj 643 1301 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.freeverb2~] @url fx.freeverb2~-help.pd;
 #N canvas 10 1305 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

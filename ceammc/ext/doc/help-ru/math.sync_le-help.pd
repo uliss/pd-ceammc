@@ -4,10 +4,13 @@
 #X text 465 50 синхронная проверка на меньше или равно;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_le 20 20 0 20 -104026
 -4096 0;
-#X obj 428 11 math.<=';
-#X obj 510 11 ceammc/<=';
-#X obj 606 11 <=';
-#X obj 652 11 math.sync_le;
+#X obj 416 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[math.<='] @url math.sync_le-help.pd;
+#X obj 502 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/<='] @url math.sync_le-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[<='] @url math.sync_le-help.pd;
+#X obj 652 8 math.sync_le;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 107 118 5 0 0 0 - - -;
 #X text 165 118 same as:;
@@ -52,8 +55,9 @@ output result.;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 библиотека: ceammc v0.9.8;
-#X text 562 520 смотрите также:;
-#X obj 683 520 math.>=';
+#X text 558 520 смотрите также:;
+#X obj 679 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.>='] @url math.>='-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -5,8 +5,9 @@
 и Windows;
 #X obj 1 1 cnv 5 765 40 empty empty system.command 20 20 0 20 -104026
 -4096 0;
-#X obj 542 11 system.cmd;
-#X obj 639 11 system.command;
+#X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[system.cmd] @url system.command-help.pd;
+#X obj 639 8 system.command;
 #X obj 230 93 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Note: this is simplest unix shell simulation \, do not
 expect too much from it \, if you need powerfull shell capabilities

@@ -4,8 +4,9 @@
 #X text 458 50 проверка строк или символов на равенство;
 #X obj 1 1 cnv 5 765 40 empty empty string.equal 20 20 0 20 -104026
 -4096 0;
-#X obj 562 11 str.equal;
-#X obj 653 11 string.equal;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.equal] @url string.equal-help.pd;
+#X obj 653 8 string.equal;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 string Chuck;
@@ -56,8 +57,9 @@
 #X obj 133 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 511 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 514 библиотека: ceammc v0.9.8;
-#X text 576 526 смотрите также:;
-#X obj 697 526 string;
+#X text 573 526 смотрите также:;
+#X obj 694 529 ui.link @background_color 0.78431 0.78431 0.78431
+@title [string] @url string-help.pd;
 #N canvas 10 533 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

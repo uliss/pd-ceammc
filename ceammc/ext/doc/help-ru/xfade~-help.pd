@@ -3,8 +3,9 @@
 #X obj 574 50 cnv 1 191 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 579 50 многоканальный кроссфейд;
 #X obj 1 1 cnv 5 765 40 empty empty xfade~ 20 20 0 20 -104026 -4096 0;
-#X obj 575 11 ceammc/xfade~;
-#X obj 695 11 xfade~;
+#X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/xfade~] @url xfade~-help.pd;
+#X obj 695 8 xfade~;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 control float value in range [0-1) controls xfade between
 first and second signals \, [1-2) between second and third etc.;

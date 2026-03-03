@@ -134,8 +134,9 @@ float. Значение по умолчанию: 0\. Диапазон: 0\...1\.;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1481 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1484 библиотека: ceammc v0.9.8;
-#X text 545 1496 смотрите также:;
-#X obj 666 1496 dyn.comp2~;
+#X text 544 1496 смотрите также:;
+#X obj 665 1499 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp2~] @url dyn.comp2~-help.pd;
 #N canvas 10 1503 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

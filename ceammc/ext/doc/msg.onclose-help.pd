@@ -32,8 +32,9 @@ Type: list.;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 592 520 see also:;
-#X obj 667 520 msg.onload;
+#X text 590 520 see also:;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [msg.onload] @url msg.onload-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

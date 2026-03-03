@@ -5,10 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty conv.lin2lin~ 20 20 0 20 -104026
 -4096 0;
 #N canvas 548 11 250 400 aliases 0;
-#X obj 30 40 ceammc/lin->lin~;
-#X obj 30 78 lin->lin~;
-#X obj 30 116 ceammc/l->l~;
-#X obj 30 154 l->l~;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/lin->lin~] @url conv.lin2lin~-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[lin->lin~] @url conv.lin2lin~-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/l->l~] @url conv.lin2lin~-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[l->l~] @url conv.lin2lin~-help.pd;
 #X restore 548 11 pd aliases;
 #X obj 645 11 conv.lin2lin~;
 #X obj 50 118 osc.tri~ 0.05;
@@ -90,8 +94,9 @@ noclip \, min \, max \, minmax.;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 781 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 784 library: ceammc v0.9.8;
-#X text 578 796 see also:;
-#X obj 653 796 conv.lin2lin;
+#X text 575 796 see also:;
+#X obj 650 799 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.lin2lin] @url conv.lin2lin-help.pd;
 #N canvas 10 803 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

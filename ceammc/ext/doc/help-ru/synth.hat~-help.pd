@@ -96,8 +96,9 @@ release time. Тип: bool. Значение по умолчанию: 0\.;
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 1030 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1033 библиотека: ceammc v0.9.8;
-#X text 531 1045 смотрите также:;
-#X obj 652 1045 synth.kick2~;
+#X text 529 1045 смотрите также:;
+#X obj 650 1048 ui.link @background_color 0.78431 0.78431 0.78431
+@title [synth.kick2~] @url synth.kick2~-help.pd;
 #N canvas 10 1052 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

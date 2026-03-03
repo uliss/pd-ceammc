@@ -3,8 +3,9 @@
 #X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 335 50 multichannel converter from the control signals to audio;
 #X obj 1 1 cnv 5 765 40 empty empty nsig~ 20 20 0 20 -104026 -4096 0;
-#X obj 590 11 ceammc/nsig~;
-#X obj 703 11 nsig~;
+#X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/nsig~] @url nsig~-help.pd;
+#X obj 703 8 nsig~;
 #X msg 50 118 3 2 1;
 #X msg 155 118 0.5 0.5;
 #X floatatom 50 147 5 0 0 0 - - -;
@@ -72,8 +73,9 @@ value: 1\. Range: 1\...12\.;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 678 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 681 library: ceammc v0.9.8;
-#X text 635 693 see also:;
-#X obj 710 693 sig~;
+#X text 633 693 see also:;
+#X obj 708 696 ui.link @background_color 0.78431 0.78431 0.78431
+@title [sig~] @url sig~-help.pd;
 #N canvas 10 700 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

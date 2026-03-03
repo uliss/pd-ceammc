@@ -5,8 +5,9 @@
 SPN;
 #X obj 1 1 cnv 5 765 40 empty empty midi.key2str 20 20 0 20 -104026
 -4096 0;
-#X obj 532 11 midi.key->str;
-#X obj 652 11 midi.key2str;
+#X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.key->str] @url midi.key2str-help.pd;
+#X obj 652 8 midi.key2str;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 @tonality F minor;
 #X msg 290 118 @tonality E;

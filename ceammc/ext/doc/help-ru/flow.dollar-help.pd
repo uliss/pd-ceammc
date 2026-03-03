@@ -4,8 +4,9 @@
 #X text 596 50 подставляет $-значения;
 #X obj 1 1 cnv 5 765 40 empty empty flow.dollar 20 20 0 20 -104026
 -4096 0;
-#X obj 584 11 flow.$$;
-#X obj 660 11 flow.dollar;
+#X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.$$] @url flow.dollar-help.pd;
+#X obj 660 8 flow.dollar;
 #X msg 50 118 load file to \\\$0-array @resize;
 #X obj 50 147 flow.dollar;
 #X obj 50 176 ui.dt;

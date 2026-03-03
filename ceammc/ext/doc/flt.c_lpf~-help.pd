@@ -87,9 +87,11 @@ value: 1\. Range: 0.01\...100\.;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 915 library: ceammc v0.9.8;
-#X text 495 927 see also:;
-#X obj 570 927 flt.biquad~;
-#X obj 666 927 flt.lpf12~;
+#X text 492 927 see also:;
+#X obj 567 930 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.biquad~] @url flt.biquad~-help.pd;
+#X obj 665 930 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flt.lpf12~] @url flt.lpf12~-help.pd;
 #N canvas 10 934 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

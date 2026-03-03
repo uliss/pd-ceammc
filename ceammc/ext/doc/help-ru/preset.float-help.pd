@@ -4,8 +4,9 @@
 #X text 373 50 загружает или сохраняет числовое значение в пресете;
 #X obj 1 1 cnv 5 765 40 empty empty preset.float 20 20 0 20 -104026
 -4096 0;
-#X obj 570 11 preset.f;
-#X obj 653 11 preset.float;
+#X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[preset.f] @url preset.float-help.pd;
+#X obj 653 8 preset.float;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Named float preset entry. Can store/load up to 256 various
 float values;
@@ -94,10 +95,13 @@ id \, abstraction name and may be subpatch name separated by slashes.
 #X obj 133 48 ui.link @title preset @url ceammc.preset-help.pd;
 #X obj 1 1085 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1088 библиотека: ceammc v0.9.8;
-#X text 312 1100 смотрите также:;
-#X obj 433 1100 preset.storage;
-#X obj 550 1100 preset.symbol;
-#X obj 660 1100 preset.list;
+#X text 305 1100 смотрите также:;
+#X obj 426 1103 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.storage] @url preset.storage-help.pd;
+#X obj 545 1103 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.symbol] @url preset.symbol-help.pd;
+#X obj 657 1103 ui.link @background_color 0.78431 0.78431 0.78431
+@title [preset.list] @url preset.list-help.pd;
 #N canvas 10 1107 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

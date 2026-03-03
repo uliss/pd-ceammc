@@ -85,10 +85,13 @@ value: 10000\. Range: 1000\...20000\.;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 961 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 964 library: ceammc v0.9.8;
-#X text 313 976 see also:;
-#X obj 388 976 fx.distortion~;
-#X obj 505 976 fx.distortion1~;
-#X obj 630 976 fx.distortion2~;
+#X text 307 976 see also:;
+#X obj 382 979 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion~] @url fx.distortion~-help.pd;
+#X obj 501 979 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion1~] @url fx.distortion1~-help.pd;
+#X obj 628 979 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.distortion2~] @url fx.distortion2~-help.pd;
 #N canvas 10 983 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

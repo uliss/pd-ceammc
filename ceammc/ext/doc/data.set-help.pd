@@ -86,9 +86,11 @@ value: 0\. Min value: 0\.;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 923 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 926 library: ceammc v0.9.8;
-#X text 519 938 see also:;
-#X obj 594 938 set->list;
-#X obj 674 938 data.list;
+#X text 514 938 see also:;
+#X obj 589 941 ui.link @background_color 0.78431 0.78431 0.78431
+@title [set->list] @url set->list-help.pd;
+#X obj 672 941 ui.link @background_color 0.78431 0.78431 0.78431
+@title [data.list] @url data.list-help.pd;
 #N canvas 10 945 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

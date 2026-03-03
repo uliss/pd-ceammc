@@ -4,8 +4,9 @@
 #X text 420 50 stereo upward compressor with channel linking;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp_up2~ 20 20 0 20 -104026
 -4096 0;
-#X obj 553 11 comp.up2~;
-#X obj 644 11 dyn.comp_up2~;
+#X obj 551 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[comp.up2~] @url dyn.comp_up2~-help.pd;
+#X obj 644 8 dyn.comp_up2~;
 #X obj 230 78 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
@@ -161,9 +162,11 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1696 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1699 library: ceammc v0.9.8;
-#X text 452 1711 see also:;
-#X obj 527 1711 dyn.comp_up~;
-#X obj 630 1711 dyn.comp_peak2~;
+#X text 448 1711 see also:;
+#X obj 523 1714 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp_up~] @url dyn.comp_up~-help.pd;
+#X obj 628 1714 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp_peak2~] @url dyn.comp_peak2~-help.pd;
 #N canvas 10 1718 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

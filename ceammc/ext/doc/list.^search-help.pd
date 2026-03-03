@@ -70,10 +70,13 @@ int. Default value: -1\. Min value: -1\.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 759 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 762 library: ceammc v0.9.8;
-#X text 361 774 see also:;
-#X obj 436 774 list.search;
-#X obj 530 774 list.contains;
-#X obj 639 774 list.^contains;
+#X text 351 774 see also:;
+#X obj 426 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.search] @url list.search-help.pd;
+#X obj 524 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.contains] @url list.contains-help.pd;
+#X obj 636 777 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.^contains] @url list.^contains-help.pd;
 #N canvas 10 781 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

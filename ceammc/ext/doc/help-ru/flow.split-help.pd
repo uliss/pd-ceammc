@@ -5,9 +5,11 @@
 цепи;
 #X obj 1 1 cnv 5 765 40 empty empty flow.split 20 20 0 20 -104026
 -4096 0;
-#X obj 495 11 ceammc/split;
-#X obj 607 11 split;
-#X obj 668 11 flow.split;
+#X obj 489 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/split] @url flow.split-help.pd;
+#X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[split] @url flow.split-help.pd;
+#X obj 668 8 flow.split;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Predicate side chain should accept value and return
 1 (true) or 0 (false). If true \, input value is outputed to first
@@ -50,9 +52,11 @@ for first outlet. If 0 - to second.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 515 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 518 библиотека: ceammc v0.9.8;
-#X text 459 530 смотрите также:;
-#X obj 580 530 flow.pass;
-#X obj 660 530 flow.reject;
+#X text 453 530 смотрите также:;
+#X obj 574 533 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.pass] @url flow.pass-help.pd;
+#X obj 657 533 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.reject] @url flow.reject-help.pd;
 #N canvas 10 537 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

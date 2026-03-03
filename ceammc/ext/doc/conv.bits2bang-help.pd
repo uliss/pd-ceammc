@@ -4,9 +4,11 @@
 #X text 496 50 convert list of bits to bang events;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2bang 20 20 0 20 -104026
 -4096 0;
-#X obj 394 11 ceammc/bits->bang;
-#X obj 542 11 bits->bang;
-#X obj 639 11 conv.bits2bang;
+#X obj 388 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/bits->bang] @url conv.bits2bang-help.pd;
+#X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[bits->bang] @url conv.bits2bang-help.pd;
+#X obj 639 8 conv.bits2bang;
 #X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 in default mode if bit is on - sends bang to corresponding
 outlet;

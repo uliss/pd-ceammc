@@ -4,8 +4,9 @@
 #X text 641 50 toggle sequencer;
 #X obj 1 1 cnv 5 765 40 empty empty seq.toggles 20 20 0 20 -104026
 -4096 0;
-#X obj 599 11 seq.t;
-#X obj 660 11 seq.toggles;
+#X obj 596 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[seq.t] @url seq.toggles-help.pd;
+#X obj 660 8 seq.toggles;
 #X obj 230 78 cnv 1 535 280 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Output 1 on event start and 0 on event end;
 #X text 240 108 The event length is controlled via @length property.

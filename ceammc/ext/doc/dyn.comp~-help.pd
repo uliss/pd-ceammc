@@ -131,8 +131,9 @@ Default value: 0\. Range: 0\...1\.;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1454 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1457 library: ceammc v0.9.8;
-#X text 591 1469 see also:;
-#X obj 666 1469 dyn.comp2~;
+#X text 590 1469 see also:;
+#X obj 665 1472 ui.link @background_color 0.78431 0.78431 0.78431
+@title [dyn.comp2~] @url dyn.comp2~-help.pd;
 #N canvas 10 1476 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

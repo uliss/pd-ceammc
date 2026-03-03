@@ -4,8 +4,9 @@
 #X text 466 50 separates the bang messages from others;
 #X obj 1 1 cnv 5 765 40 empty empty route.bang 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 route.b;
-#X obj 668 11 route.bang;
+#X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[route.b] @url route.bang-help.pd;
+#X obj 668 8 route.bang;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 to get properties use *prop.get* object \, cause all
 messages (including property requests) are passed thru;
@@ -57,9 +58,11 @@ info.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 699 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 702 library: ceammc v0.9.8;
-#X text 484 714 see also:;
-#X obj 559 714 route.float;
-#X obj 653 714 route.random;
+#X text 477 714 see also:;
+#X obj 552 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.float] @url route.float-help.pd;
+#X obj 650 717 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.random] @url route.random-help.pd;
 #N canvas 10 721 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

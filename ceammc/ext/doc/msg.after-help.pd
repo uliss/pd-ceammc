@@ -50,8 +50,9 @@ is not send \, the delayed message is resetted;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
 #X obj 1 583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 586 library: ceammc v0.9.8;
-#X text 643 598 see also:;
-#X obj 718 598 msg;
+#X text 640 598 see also:;
+#X obj 715 601 ui.link @background_color 0.78431 0.78431 0.78431
+@title [msg] @url msg-help.pd;
 #N canvas 10 605 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -4,10 +4,13 @@
 #X text 526 50 audio stream stereo multiplexer;
 #X obj 1 1 cnv 5 765 40 empty empty flow.multiplex2~ 20 20 0 20
 -104026 -4096 0;
-#X obj 348 11 flow.mux2~;
-#X obj 447 11 ceammc/mux2~;
-#X obj 560 11 mux2~;
-#X obj 623 11 flow.multiplex2~;
+#X obj 344 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[flow.mux2~] @url flow.multiplex2~-help.pd;
+#X obj 444 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/mux2~] @url flow.multiplex2~-help.pd;
+#X obj 559 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[mux2~] @url flow.multiplex2~-help.pd;
+#X obj 623 8 flow.multiplex2~;
 #X obj 50 118 osc~ 440;
 #X obj 270 118 ui.radio @nitems 2;
 #X obj 472 118 ui.dsp~;
@@ -74,9 +77,11 @@ value: 1 0\.;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 721 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 724 library: ceammc v0.9.8;
-#X text 438 736 see also:;
-#X obj 513 736 flow.multiplex~;
-#X obj 638 736 flow.multiplex;
+#X text 434 736 see also:;
+#X obj 509 739 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.multiplex~] @url flow.multiplex~-help.pd;
+#X obj 636 739 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.multiplex] @url flow.multiplex-help.pd;
 #N canvas 10 743 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

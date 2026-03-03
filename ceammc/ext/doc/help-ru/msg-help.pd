@@ -4,11 +4,16 @@
 #X text 604 50 конструктор сообщений;
 #X obj 1 1 cnv 5 765 40 empty empty msg 20 20 0 20 -104026 -4096 0;
 #N canvas 621 11 250 400 aliases 0;
-#X obj 30 40 ceammc/msg;
-#X obj 30 78 ceammc/m;
-#X obj 30 116 m;
-#X obj 30 154 ceammc/prepend;
-#X obj 30 192 prepend;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/msg] @url msg-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/m] @url msg-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[m] @url msg-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/prepend] @url msg-help.pd;
+#X obj 30 176 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[prepend] @url msg-help.pd;
 #X restore 621 11 pd aliases;
 #X obj 718 11 msg;
 #X floatatom 50 118 5 0 0 0 - - -;

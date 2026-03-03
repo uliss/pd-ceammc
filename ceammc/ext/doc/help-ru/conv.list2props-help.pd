@@ -5,10 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty conv.list2props 20 20 0 20 -104026
 -4096 0;
 #N canvas 534 11 250 400 aliases 0;
-#X obj 30 40 ceammc/list->props;
-#X obj 30 78 list->props;
-#X obj 30 116 ceammc/any->props;
-#X obj 30 154 any->props;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/list->props] @url conv.list2props-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list->props] @url conv.list2props-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/any->props] @url conv.list2props-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[any->props] @url conv.list2props-help.pd;
 #X restore 534 11 pd aliases;
 #X obj 631 11 conv.list2props;
 #X msg 50 118 list 1 2 3 @prop1 100 @prop2 A B C @prop3;

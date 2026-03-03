@@ -4,9 +4,11 @@
 #X text 649 50 color data type;
 #X obj 1 1 cnv 5 765 40 empty empty data.color 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 color;
-#X obj 553 11 ceammc/color;
-#X obj 666 11 data.color;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[color] @url data.color-help.pd;
+#X obj 551 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/color] @url data.color-help.pd;
+#X obj 666 8 data.color;
 #X msg 50 118 hex #AA0055;
 #X msg 222 118 darken 0.1;
 #X msg 376 118 brighten 0.1;

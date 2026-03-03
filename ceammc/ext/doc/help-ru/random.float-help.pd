@@ -5,8 +5,9 @@
 в заданном диапазоне;
 #X obj 1 1 cnv 5 765 40 empty empty random.float 20 20 0 20 -104026
 -4096 0;
-#X obj 572 11 random.f;
-#X obj 654 11 random.float;
+#X obj 568 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[random.f] @url random.float-help.pd;
+#X obj 654 8 random.float;
 #X obj 230 93 cnv 1 535 179 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 generates a random floating-point value uniformly distributed
 in the range [min..max);
@@ -82,9 +83,11 @@ arg: @min=0 \, @max=ARG[0]. Тип: list.;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 891 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 894 библиотека: ceammc v0.9.8;
-#X text 447 906 смотрите также:;
-#X obj 568 906 random.int;
-#X obj 654 906 random.gauss;
+#X text 439 906 смотрите также:;
+#X obj 560 909 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.int] @url random.int-help.pd;
+#X obj 650 909 ui.link @background_color 0.78431 0.78431 0.78431
+@title [random.gauss] @url random.gauss-help.pd;
 #N canvas 10 913 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

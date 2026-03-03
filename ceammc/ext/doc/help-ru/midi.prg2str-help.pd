@@ -4,8 +4,9 @@
 #X text 374 50 преобразует номер инструмента GeneralMidi в его имя;
 #X obj 1 1 cnv 5 765 40 empty empty midi.prg2str 20 20 0 20 -104026
 -4096 0;
-#X obj 532 11 midi.prg->str;
-#X obj 652 11 midi.prg2str;
+#X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.prg->str] @url midi.prg2str-help.pd;
+#X obj 652 8 midi.prg2str;
 #X msg 50 118 1;
 #X msg 98 118 9;
 #X floatatom 50 147 5 0 0 0 - - -;

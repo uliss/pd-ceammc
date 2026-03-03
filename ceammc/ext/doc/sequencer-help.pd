@@ -4,10 +4,13 @@
 #X text 603 50 basic sequence player;
 #X obj 1 1 cnv 5 765 40 empty empty sequencer 20 20 0 20 -104026 -4096
 0;
-#X obj 388 11 ceammc/sequencer;
-#X obj 529 11 ceammc/seq;
-#X obj 627 11 seq;
-#X obj 674 11 sequencer;
+#X obj 380 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/sequencer] @url sequencer-help.pd;
+#X obj 524 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/seq] @url sequencer-help.pd;
+#X obj 624 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[seq] @url sequencer-help.pd;
+#X obj 674 8 sequencer;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 88 118 @dur 500;
 #X msg 194 118 @dur 1000;

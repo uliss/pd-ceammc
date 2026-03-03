@@ -39,10 +39,13 @@ value. The result is in the range [-π/2 \, +π/2].;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 555 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 558 библиотека: ceammc v0.9.8;
-#X text 399 570 смотрите также:;
-#X obj 520 570 math.acos;
-#X obj 601 570 math.asin;
-#X obj 682 570 math.cos;
+#X text 392 570 смотрите также:;
+#X obj 513 573 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.acos] @url math.acos-help.pd;
+#X obj 596 573 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.asin] @url math.asin-help.pd;
+#X obj 679 573 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.cos] @url math.cos-help.pd;
 #N canvas 10 577 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

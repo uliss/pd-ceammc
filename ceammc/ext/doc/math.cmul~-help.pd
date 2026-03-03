@@ -4,9 +4,11 @@
 #X text 511 50 multiplication of complex signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.cmul~ 20 20 0 20 -104026
 -4096 0;
-#X obj 491 11 ceammc/cmul~;
-#X obj 604 11 cmul~;
-#X obj 666 11 math.cmul~;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/cmul~] @url math.cmul~-help.pd;
+#X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[cmul~] @url math.cmul~-help.pd;
+#X obj 666 8 math.cmul~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Calculates for signals (a + bi) * (c + di) = (ac - bd)
 + (ad + bc)i;
@@ -53,8 +55,9 @@
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 544 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 547 library: ceammc v0.9.8;
-#X text 591 559 see also:;
-#X obj 666 559 math.cdiv~;
+#X text 590 559 see also:;
+#X obj 665 562 ui.link @background_color 0.78431 0.78431 0.78431
+@title [math.cdiv~] @url math.cdiv~-help.pd;
 #N canvas 10 566 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

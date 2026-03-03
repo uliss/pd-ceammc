@@ -5,8 +5,9 @@
 длины;
 #X obj 1 1 cnv 5 765 40 empty empty list.resample 20 20 0 20 -104026
 -4096 0;
-#X obj 577 11 list.r;
-#X obj 646 11 list.resample;
+#X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.r] @url list.resample-help.pd;
+#X obj 646 8 list.resample;
 #X obj 50 118 ui.sliders;
 #X obj 203 118 ui.sliders @auto_count 1;
 #X obj 174 234 ui.hrd;
@@ -50,8 +51,9 @@
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 561 библиотека: ceammc v0.9.8;
-#X text 532 573 смотрите также:;
-#X obj 653 573 list.stretch;
+#X text 529 573 смотрите также:;
+#X obj 650 576 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.stretch] @url list.stretch-help.pd;
 #N canvas 10 580 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

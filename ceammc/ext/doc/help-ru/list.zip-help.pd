@@ -4,8 +4,9 @@
 #X text 320 50 создает чередующийся список элементов из N входных списков;
 #X obj 1 1 cnv 5 765 40 empty empty list.zip 20 20 0 20 -104026 -4096
 0;
-#X obj 548 11 list.interleave;
-#X obj 682 11 list.zip;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.interleave] @url list.zip-help.pd;
+#X obj 682 8 list.zip;
 #X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 takes X lists of length M and outputs them as a single
 list:;
@@ -85,8 +86,9 @@ with repeated values from the beginning.;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 867 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 870 библиотека: ceammc v0.9.8;
-#X text 546 882 смотрите также:;
-#X obj 667 882 list.unzip;
+#X text 544 882 смотрите также:;
+#X obj 665 885 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.unzip] @url list.unzip-help.pd;
 #N canvas 10 889 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

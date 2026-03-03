@@ -77,10 +77,13 @@
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 812 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 815 библиотека: ceammc v0.9.8;
-#X text 328 827 смотрите также:;
-#X obj 449 827 list.contains;
-#X obj 558 827 list.all_of;
-#X obj 653 827 list.none_of;
+#X text 319 827 смотрите также:;
+#X obj 440 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.contains] @url list.contains-help.pd;
+#X obj 552 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.all_of] @url list.all_of-help.pd;
+#X obj 650 830 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.none_of] @url list.none_of-help.pd;
 #N canvas 10 834 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

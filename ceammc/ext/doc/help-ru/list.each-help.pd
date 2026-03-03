@@ -69,9 +69,11 @@ each iteration. Тип: int. Значение по умолчанию: 1\. Ди�
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 793 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 796 библиотека: ceammc v0.9.8;
-#X text 459 808 смотрите также:;
-#X obj 580 808 list.do;
-#X obj 646 808 list.apply_to;
+#X text 453 808 смотрите также:;
+#X obj 574 811 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.do] @url list.do-help.pd;
+#X obj 643 811 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.apply_to] @url list.apply_to-help.pd;
 #N canvas 10 815 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

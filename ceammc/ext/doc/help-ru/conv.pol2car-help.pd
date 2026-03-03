@@ -4,9 +4,11 @@
 #X text 366 50 преобразование из полярных координат в картезианские;
 #X obj 1 1 cnv 5 765 40 empty empty conv.pol2car 20 20 0 20 -104026
 -4096 0;
-#X obj 434 11 ceammc/pol->car;
-#X obj 568 11 pol->car;
-#X obj 652 11 conv.pol2car;
+#X obj 429 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/pol->car] @url conv.pol2car-help.pd;
+#X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[pol->car] @url conv.pol2car-help.pd;
+#X obj 652 8 conv.pol2car;
 #X obj 50 118 ui.knob;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 50 205 phase->rad;
@@ -32,8 +34,9 @@
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 507 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 510 библиотека: ceammc v0.9.8;
-#X text 532 522 смотрите также:;
-#X obj 653 522 conv.car2pol;
+#X text 529 522 смотрите также:;
+#X obj 650 525 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.car2pol] @url conv.car2pol-help.pd;
 #N canvas 10 529 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

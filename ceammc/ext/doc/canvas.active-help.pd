@@ -5,8 +5,9 @@
 active;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.active 20 20 0 20 -104026
 -4096 0;
-#X obj 475 11 ceammc/canvas.active;
-#X obj 645 11 canvas.active;
+#X obj 472 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/canvas.active] @url canvas.active-help.pd;
+#X obj 645 8 canvas.active;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X text 88 118 after pressing change active window;
@@ -40,9 +41,11 @@ active;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.8;
-#X text 505 520 see also:;
-#X obj 580 520 patch.args;
-#X obj 667 520 canvas.top;
+#X text 500 520 see also:;
+#X obj 575 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [patch.args] @url patch.args-help.pd;
+#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+@title [canvas.top] @url canvas.top-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -128,8 +128,9 @@ values can be interpoltaed. Тип: float. Значение по умолчан�
 #X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 1459 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1462 библиотека: ceammc v0.9.8;
-#X text 495 1474 смотрите также:;
-#X obj 616 1474 synth.voice_fofc~;
+#X text 493 1474 смотрите также:;
+#X obj 614 1477 ui.link @background_color 0.78431 0.78431 0.78431
+@title [synth.voice_fofc~] @url synth.voice_fofc~-help.pd;
 #N canvas 10 1481 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

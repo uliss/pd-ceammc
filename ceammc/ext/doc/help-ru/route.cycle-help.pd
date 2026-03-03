@@ -93,9 +93,11 @@ all messages (including property requests) are passed thru;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 1110 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1113 библиотека: ceammc v0.9.8;
-#X text 452 1125 смотрите также:;
-#X obj 573 1125 flow.ring;
-#X obj 653 1125 route.random;
+#X text 446 1125 смотрите также:;
+#X obj 567 1128 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.ring] @url flow.ring-help.pd;
+#X obj 650 1128 ui.link @background_color 0.78431 0.78431 0.78431
+@title [route.random] @url route.random-help.pd;
 #N canvas 10 1132 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

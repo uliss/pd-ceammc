@@ -74,9 +74,11 @@ VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
 #X obj 1 1068 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1071 библиотека: ceammc v0.9.8;
-#X text 437 1083 смотрите также:;
-#X obj 558 1083 hw.apple_sms;
-#X obj 660 1083 system.info;
+#X text 431 1083 смотрите также:;
+#X obj 552 1086 ui.link @background_color 0.78431 0.78431 0.78431
+@title [hw.apple_sms] @url hw.apple_sms-help.pd;
+#X obj 657 1086 ui.link @background_color 0.78431 0.78431 0.78431
+@title [system.info] @url system.info-help.pd;
 #N canvas 10 1090 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

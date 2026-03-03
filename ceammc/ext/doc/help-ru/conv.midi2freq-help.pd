@@ -5,10 +5,14 @@
 #X obj 1 1 cnv 5 765 40 empty empty conv.midi2freq 20 20 0 20 -104026
 -4096 0;
 #N canvas 542 11 250 400 aliases 0;
-#X obj 30 40 ceammc/midi->freq;
-#X obj 30 78 midi->freq;
-#X obj 30 116 ceammc/m->f;
-#X obj 30 154 m->f;
+#X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/midi->freq] @url conv.midi2freq-help.pd;
+#X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi->freq] @url conv.midi2freq-help.pd;
+#X obj 30 108 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/m->f] @url conv.midi2freq-help.pd;
+#X obj 30 142 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[m->f] @url conv.midi2freq-help.pd;
 #X restore 542 11 pd aliases;
 #X obj 639 11 conv.midi2freq;
 #X obj 50 118 ui.keyboard;
@@ -66,8 +70,9 @@ pythagorean rameau valotti zarlino;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 720 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 723 библиотека: ceammc v0.9.8;
-#X text 589 735 смотрите также:;
-#X obj 710 735 mtof;
+#X text 587 735 смотрите также:;
+#X obj 708 738 ui.link @background_color 0.78431 0.78431 0.78431
+@title [mtof] @url mtof-help.pd;
 #N canvas 10 742 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

@@ -70,11 +70,15 @@ suppression. 2nd order interpolation.;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
 #X obj 1 832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 835 библиотека: ceammc v0.9.8;
-#X text 308 847 смотрите также:;
-#X obj 429 847 osc.saw4~;
-#X obj 511 847 osc.tri~;
-#X obj 585 847 osc.square~;
-#X obj 681 847 lfo.tri~;
+#X text 301 847 смотрите также:;
+#X obj 422 850 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.saw4~] @url osc.saw4~-help.pd;
+#X obj 505 850 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.tri~] @url osc.tri~-help.pd;
+#X obj 581 850 ui.link @background_color 0.78431 0.78431 0.78431
+@title [osc.square~] @url osc.square~-help.pd;
+#X obj 679 850 ui.link @background_color 0.78431 0.78431 0.78431
+@title [lfo.tri~] @url lfo.tri~-help.pd;
 #N canvas 10 854 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

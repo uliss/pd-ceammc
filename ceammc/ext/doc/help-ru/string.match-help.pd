@@ -4,8 +4,9 @@
 #X text 381 50 проверка соответствия строки регулярному выражению;
 #X obj 1 1 cnv 5 765 40 empty empty string.match 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 str.match;
-#X obj 653 11 string.match;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.match] @url string.match-help.pd;
+#X obj 653 8 string.match;
 #X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Используемый синтаксис: pcre. Некоторые символы не поддерживаются
 в Pd. Используйте ` вместо обратного слеша \, `` вместо ` \, (( вместо

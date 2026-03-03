@@ -4,8 +4,9 @@
 #X text 365 50 outputs each list item in turn as a separate message;
 #X obj 1 1 cnv 5 765 40 empty empty list.separate 20 20 0 20 -104026
 -4096 0;
-#X obj 563 11 list.sep;
-#X obj 646 11 list.separate;
+#X obj 560 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[list.sep] @url list.separate-help.pd;
+#X obj 646 8 list.separate;
 #X msg 50 118 1 2 3 4 5;
 #X msg 165 118 (a b c d e) \, bang;
 #X obj 165 147 ml;
@@ -48,9 +49,11 @@ mode).;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 544 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 547 library: ceammc v0.9.8;
-#X text 490 559 see also:;
-#X obj 565 559 list.repack;
-#X obj 660 559 list.unpack;
+#X text 484 559 see also:;
+#X obj 559 562 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.repack] @url list.repack-help.pd;
+#X obj 657 562 ui.link @background_color 0.78431 0.78431 0.78431
+@title [list.unpack] @url list.unpack-help.pd;
 #N canvas 10 566 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

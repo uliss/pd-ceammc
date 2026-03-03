@@ -4,8 +4,9 @@
 #X text 451 50 removes a substring from the input string;
 #X obj 1 1 cnv 5 765 40 empty empty string.remove 20 20 0 20 -104026
 -4096 0;
-#X obj 547 11 str.remove;
-#X obj 645 11 string.remove;
+#X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[str.remove] @url string.remove-help.pd;
+#X obj 645 8 string.remove;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 280 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1

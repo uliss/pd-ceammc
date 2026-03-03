@@ -4,8 +4,9 @@
 #X text 648 50 MOD file player;
 #X obj 1 1 cnv 5 765 40 empty empty modplug~ 20 20 0 20 -104026 -4096
 0;
-#X obj 545 11 ceammc/modplug~;
-#X obj 680 11 modplug~;
+#X obj 543 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/modplug~] @url modplug~-help.pd;
+#X obj 680 8 modplug~;
 #X msg 50 118 symbol stargazing.mod;
 #X obj 290 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 69 147 play;
