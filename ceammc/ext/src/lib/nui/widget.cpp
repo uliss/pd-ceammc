@@ -64,12 +64,15 @@ namespace ui {
 
         Point object_abs_pos(t_text* x, const t_glist* parent)
         {
-            return { text_xpix(x, (t_glist*)parent), text_ypix(x, (t_glist*)parent) };
+            return {
+                text_xpix(x, const_cast<t_glist*>(parent)),
+                text_ypix(x, const_cast<t_glist*>(parent)),
+            };
         }
 
         bool canvas_is_visible(const t_glist* c)
         {
-            return glist_isvisible((t_glist*)c);
+            return glist_isvisible(const_cast<t_glist*>(c));
         }
 
         void object_move(t_text* x, int dx, int dy)
@@ -80,12 +83,12 @@ namespace ui {
 
         void canvas_update_object_lines(const t_glist* c, t_text* x)
         {
-            canvas_fixlinesfor((t_glist*)c, x);
+            canvas_fixlinesfor(const_cast<t_glist*>(c), x);
         }
 
         void canvas_delete_object_lines(const t_glist* c, t_text* x)
         {
-            canvas_deletelinesfor((t_glist*)c, x);
+            canvas_deletelinesfor(const_cast<t_glist*>(c), x);
         }
 
         bool canvas_is_edit(const t_glist* c)
@@ -191,7 +194,7 @@ namespace ui {
             for (size_t i = 0; i < num; i++) {
                 const int outlet_x = (num < 2)
                     ? 0
-                    : std::round((i / float(num - 1)) * (w - outlet_wd));
+                    : std::round((i / static_cast<float>(num - 1)) * (w - outlet_wd));
 
                 if (x >= outlet_x && x <= outlet_x + outlet_wd)
                     return i;
