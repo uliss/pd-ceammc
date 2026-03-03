@@ -1,8 +1,39 @@
-namespace eval ::ceammc::colorpanel:: { }
+namespace eval ::ceammc::colorpanel:: {}
+
+proc ::ceammc::colorpanel::parse_zenity {str} {
+    set raw [string trim $str]
+
+    # parse rgb(r,g,b) or rgba(r,g,b,a)
+    if {[regexp {rgb[a]?\((\d+),(\d+),(\d+)} $raw -> r g b]} {
+        return [format "#%02x%02x%02x" $r $g $b]
+    } else {
+        return $raw
+    }
+}
 
 proc ::ceammc::colorpanel::do_open {objectid initialcolor} {
-    set color [tk_chooseColor -initialcolor $initialcolor]
-    pdsend "$objectid .tcl_callback $color"
+    set color {}
+
+    if {[catch {tk windowingsystem} ws]} {
+        set color [tk_chooseColor -initialcolor $initialcolor]
+    }
+
+    switch $ws {
+        "x11" {
+            if {[catch {exec zenity --color-selection --show-palette} result]} {
+                return
+            }
+
+            set color [::ceammc::colorpanel::parse_zenity $result]
+        }
+        default {
+            set color [tk_chooseColor -initialcolor $initialcolor]
+        }
+    }
+
+    if {$color ne ""} {
+        pdsend "$objectid .tcl_callback $color"
+    }
 }
 
 proc ::ceammc::colorpanel::open {objectid initialcolor} {
