@@ -104,15 +104,19 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">float: current encoder value</tr>
-          <tr lang="ru">float: текущее значение энкодера</tr>
+        <out type="float">
+          <tr lang="en">current encoder value</tr>
+          <tr lang="ru">текущее значение энкодера</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">[dir -1|1( or [btn 1|0( messages</tr>
-          <tr lang="ru">сообщения: [dir -1|1( или [btn 1|0(</tr>
+        <out type="any" name="dir">
+          <tr lang="en">turn direction: [dir -1|1(</tr>
+          <tr lang="ru">направление вращения: [dir -1|1(</tr>
+        </out>
+        <out type="any" name="btn">
+          <tr lang="en">button state [btn STATE(</tr>
+          <tr lang="ru">состояние кнопки: [btn СОСТОЯНИЕ(</tr>
         </out>
       </outlet>
     </outlets>
