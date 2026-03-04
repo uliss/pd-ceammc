@@ -21,6 +21,7 @@ TEST_CASE("midi.sustain", "[externals]")
     pd_test_init();
     test::pdPrintToStdError();
     using ML = std::vector<Message>;
+    using M = Message;
 
     SECTION("init")
     {
@@ -55,7 +56,7 @@ TEST_CASE("midi.sustain", "[externals]")
         t << LF(11, 0);
         REQUIRE_FALSE(t.hasOutput());
         t->setProperty("@on", LF(0));
-        REQUIRE(t.messagesAt(0) == ML { LF(10, 0), LF(11, 0) });
+        REQUIRE(t.messagesAt(0) == ML { M(LF(10, 0)), M(LF(11, 0)) });
 
         t << LF(10, 20);
         REQUIRE(t.outputListAt(0) == LF(10, 20));
@@ -66,6 +67,6 @@ TEST_CASE("midi.sustain", "[externals]")
         t->setProperty("@ctlin", LF(1));
         Atom args[2] = { 64, 10 };
         pd_typedmess(gensym("#ctlin")->s_thing, &s_list, 2, (t_atom*)args);
-        REQUIRE(t.messagesAt(0) == ML { LF(10, 0), LF(11, 0) });
+        REQUIRE(t.messagesAt(0) == ML { M(LF(10, 0)), M(LF(11, 0)) });
     }
 }

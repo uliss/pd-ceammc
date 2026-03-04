@@ -17,6 +17,8 @@
 PD_COMPLETE_TEST_SETUP(DictGet, dict, get)
 
 using MA = std::vector<Message>;
+using M = Message;
+
 static std::vector<Message> msort(const std::vector<Message>& m)
 {
     auto res = m;
@@ -198,20 +200,20 @@ TEST_CASE("dict.get", "[externals]")
             REQUIRE(listAt(t) == L());
             t << DictAtom("[a: b:]");
             REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(0).at(0) == L());
-            REQUIRE(t.messagesAt(0).at(1) == L());
+            REQUIRE(t.messagesAt(0).at(0) == M());
+            REQUIRE(t.messagesAt(0).at(1) == M());
 
             t << DictAtom("[a: 1 b: TEXT]");
             REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE_MESSAGES(t, LF(1), LA("TEXT"));
+            REQUIRE_MESSAGES(t, M(1), M(SYM("TEXT")));
 
             t << DictAtom("[a: 1 b: TEXT c: 1 2 3]");
             REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE_MESSAGES(t, LF(1), LA("TEXT"), LF(1, 2, 3));
+            REQUIRE_MESSAGES(t, M(1), M(SYM("TEXT")), M(LF(1, 2, 3)));
 
             t << DictAtom("[a: 1 b: [f:]]");
             REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE_MESSAGES(t, LF(1), DictAtom("[f:]"));
+            REQUIRE_MESSAGES(t, M(1), M(DictAtom("[f:]")));
         }
 
         SECTION("/1")
@@ -270,13 +272,13 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[a: 1 2 3]");
             REQUIRE(listAt(t) == LF(1, 2, 3));
             t << DictAtom("[a: b:]");
-            REQUIRE_MESSAGES(t, L(), L());
+            REQUIRE_MESSAGES(t, M(), M());
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3]");
-            REQUIRE_MESSAGES(t, LF(1), LA("DEF"), LF(1, 2, 3), L());
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M());
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3 e: ()]");
-            REQUIRE_MESSAGES(t, LF(1), LA("DEF"), LF(1, 2, 3), L(), MListAtom());
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(), M(MListAtom()));
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3 e: () f: []]");
-            REQUIRE_MESSAGES(t, LF(1), LA("DEF"), LF(1, 2, 3), L(), DictAtom(), MListAtom());
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(), M(DictAtom()), M(MListAtom()));
         }
 
         SECTION("/*/foo")
@@ -286,15 +288,15 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[]");
             REQUIRE(!t.hasOutputAt(0));
             t << DictAtom("[a: 1 2 3 b: [foo:]]");
-            REQUIRE_MESSAGES(t, L());
+            REQUIRE_MESSAGES(t, M());
             t << DictAtom("[a: 1 2 3 b: [foo: ()]]");
             REQUIRE_MESSAGES(t, MListAtom());
             t << DictAtom("[a: 1 2 3 b: [foo: 1 2 3]]");
-            REQUIRE_MESSAGES(t, LF(1, 2, 3));
+            REQUIRE_MESSAGES(t, M(LF(1, 2, 3)));
             t << DictAtom("[a: 1 2 3 b: [foo: ABC] c: [foo: 4]]");
-            REQUIRE_MESSAGES(t, LF(4), LA("ABC"));
+            REQUIRE_MESSAGES(t, M(4), M(SYM("ABC")));
             t << DictAtom("[a: 1 2 3 b: [foo: ABC] c: [foo: 4] d: [foo: [bar:]]]");
-            REQUIRE_MESSAGES(t, LF(4), LA("ABC"), DictAtom("[bar:]"));
+            REQUIRE_MESSAGES(t, M(4), M(SYM("ABC")), M(DictAtom("[bar:]")));
         }
 
         SECTION("/*/foo/*")
@@ -308,9 +310,9 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[b: [foo: 1]]");
             REQUIRE(floatAt(t) == 1);
             t << DictAtom("[b: [foo: 1 2]]");
-            REQUIRE_MESSAGES(t, LF(1), LF(2));
+            REQUIRE_MESSAGES(t, M(1), M(2));
             t << DictAtom("[b: [foo: 1 2] c: [foo: ABC]]");
-            REQUIRE_MESSAGES(t, LF(1), LF(2), LA("ABC"));
+            REQUIRE_MESSAGES(t, M(1), M(2), M(SYM("ABC")));
         }
 
         SECTION("/foo/*/foo")
@@ -326,7 +328,7 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[foo: [a: 1 b: 2 c: [foo: 32]]]");
             REQUIRE(floatAt(t) == 32);
             t << DictAtom("[foo: [a: 1 b: 2 c: [foo: 32] d: [foo: 33 34 35]]]");
-            REQUIRE_MESSAGES(t, LF(32), LF(33, 34, 35));
+            REQUIRE_MESSAGES(t, M(32), M(LF(33, 34, 35)));
         }
 
         SECTION("/*/0")

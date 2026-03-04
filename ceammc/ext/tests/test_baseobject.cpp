@@ -853,7 +853,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(t.outputFloatAt(0) == 1);
 
             REQUIRE(outletAtom(t->outletAt(0), A("abc")));
-            REQUIRE(t.outputSymbolAt(0) == A("abc"));
+            REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
 
             REQUIRE(outletAtom(t->outletAt(0), Atom(new IntData(200))));
             REQUIRE(t.outputAtomAt(0) == Atom(new IntData(200)));

@@ -60,6 +60,7 @@ TEST_CASE("flow.delay", "[externals]")
         TExt t("flow.delay", 5_ticks);
 
         const Message bang = Message::makeBang();
+        using M = Message;
 
         // bang
         t.bang();
@@ -73,7 +74,7 @@ TEST_CASE("flow.delay", "[externals]")
         t << f0;
         REQUIRE(t.messagesAt(0).empty());
         t.schedTicks(6);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(f0) }));
         t.clearAll();
 
         // symbol
@@ -81,14 +82,14 @@ TEST_CASE("flow.delay", "[externals]")
         t << s0;
         REQUIRE(t.messagesAt(0).empty());
         t.schedTicks(6);
-        REQUIRE(t.messagesAt(0) == MessageList({ s0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(s0) }));
         t.clearAll();
 
         const IntA i0(1000);
         t << i0;
         REQUIRE(t.messagesAt(0).empty());
         t.schedTicks(6);
-        REQUIRE(t.messagesAt(0) == MessageList({ i0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(i0) }));
         t.clearAll();
 
         // list
@@ -96,7 +97,7 @@ TEST_CASE("flow.delay", "[externals]")
         t << l0;
         REQUIRE(t.messagesAt(0).empty());
         t.schedTicks(6);
-        REQUIRE(t.messagesAt(0) == MessageList({ l0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(l0) }));
         t.clearAll();
 
         // any
@@ -133,6 +134,7 @@ TEST_CASE("flow.delay", "[externals]")
         TExt t("flow.delay", 5_ticks, "@block", 1);
 
         const Message bang = Message::makeBang();
+        using M = Message;
 
         // bang
         t.bang();
@@ -152,7 +154,7 @@ TEST_CASE("flow.delay", "[externals]")
         REQUIRE(t.messagesAt(0).empty());
         t.sendBang();
         t.schedTicks(4);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(f0) }));
         t.clearAll();
 
         // symbol
@@ -163,7 +165,7 @@ TEST_CASE("flow.delay", "[externals]")
         REQUIRE(t.messagesAt(0).empty());
         t.sendBang();
         t.schedTicks(4);
-        REQUIRE(t.messagesAt(0) == MessageList({ s0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(s0) }));
         t.clearAll();
 
         // list
@@ -174,7 +176,7 @@ TEST_CASE("flow.delay", "[externals]")
         REQUIRE(t.messagesAt(0).empty());
         t.sendSymbol("DEF");
         t.schedTicks(4);
-        REQUIRE(t.messagesAt(0) == MessageList({ l0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(l0) }));
         t.clearAll();
 
         // any

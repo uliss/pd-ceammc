@@ -206,7 +206,7 @@ TEST_CASE("global.list", "[externals]")
         REQUIRE(t.outputListAt(0) == LA("C", "A", 1, 2, 4));
 
         t.call("front");
-        REQUIRE(t.outputSymbolAt(0) == A("C"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("C"));
 
         t.call("back");
         REQUIRE(t.outputFloatAt(0) == 4);
@@ -221,10 +221,10 @@ TEST_CASE("global.list", "[externals]")
         REQUIRE(t.outputFloatAt(0) == 1);
 
         t.call("at", -4);
-        REQUIRE(t.outputSymbolAt(0) == A("A"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("A"));
 
         t.call("at", -5);
-        REQUIRE(t.outputSymbolAt(0) == A("C"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("C"));
 
         t.call("at", -6);
         REQUIRE_FALSE(t.hasOutput());
@@ -245,10 +245,10 @@ TEST_CASE("global.list", "[externals]")
         REQUIRE(t.outputFloatAt(0) == 1);
 
         t.call("at", 1);
-        REQUIRE(t.outputSymbolAt(0) == A("A"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("A"));
 
         t.call("at", 0);
-        REQUIRE(t.outputSymbolAt(0) == A("C"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("C"));
 
         t.call("remove", LF(-6));
         REQUIRE_FALSE(t.hasOutput());

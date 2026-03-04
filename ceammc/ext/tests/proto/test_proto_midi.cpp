@@ -252,17 +252,18 @@ TEST_CASE("proto.midi", "[externals]")
 
     SECTION("raw")
     {
+        using M = Message;
         TExt t("proto.midi");
         t.call("raw", 1, 2, 3);
         REQUIRE(t.messagesAt(0).size() == 3);
-        REQUIRE(t.messagesAt(0).at(0) == 1);
-        REQUIRE(t.messagesAt(0).at(1) == 2);
-        REQUIRE(t.messagesAt(0).at(2) == 3);
+        REQUIRE(t.messagesAt(0).at(0) == M(1));
+        REQUIRE(t.messagesAt(0).at(1) == M(2));
+        REQUIRE(t.messagesAt(0).at(2) == M(3));
 
         t.call("raw", "0xBE", "0xEF", 100);
         REQUIRE(t.messagesAt(0).size() == 3);
-        REQUIRE(t.messagesAt(0).at(0) == 0xbe);
-        REQUIRE(t.messagesAt(0).at(1) == 0xef);
-        REQUIRE(t.messagesAt(0).at(2) == 100);
+        REQUIRE(t.messagesAt(0).at(0) == M(0xbe));
+        REQUIRE(t.messagesAt(0).at(1) == M(0xef));
+        REQUIRE(t.messagesAt(0).at(2) == M(100));
     }
 }

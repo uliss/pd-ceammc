@@ -499,7 +499,7 @@ TEST_CASE("ui.tab", "[ui.tab]")
             t << "B";
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0., 0., 1));
             REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(0).back() == LF(1, 0));
+            REQUIRE(t.messagesAt(0).back() == Message(LF(1, 0)));
             REQUIRE(t.messagesAt(0).front().anyValue() == LA("@selected", 0., 0., 1));
 
             t.clearAll();

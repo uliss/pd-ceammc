@@ -31,7 +31,7 @@ void ListRoute::initDone()
 
     for (auto& a : args_->value()) {
         createOutlet();
-        sprintf(buf, "lists starting with '%s'", atom_gensym(&a.atom())->s_name);
+        snprintf(buf, sizeof(buf), "lists starting with '%s'", atom_gensym(&a.atom())->s_name);
         out_annotations_.push_back(buf);
     }
 

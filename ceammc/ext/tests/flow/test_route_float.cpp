@@ -53,24 +53,24 @@ TEST_CASE("route.float", "[externals]")
         REQUIRE(t.messagesAt(1) == ML { b });
 
         t << 100.5;
-        REQUIRE(t.messagesAt(0) == ML { 100.5 });
+        REQUIRE(t.messagesAt(0) == ML { M(100.5) });
         REQUIRE(t.messagesAt(1) == ML {});
 
         t << "ABC";
         REQUIRE(t.messagesAt(0) == ML {});
-        REQUIRE(t.messagesAt(1) == ML { SYM("ABC") });
+        REQUIRE(t.messagesAt(1) == ML { M(SYM("ABC")) });
 
         t << L();
         REQUIRE(t.messagesAt(0) == ML {});
-        REQUIRE(t.messagesAt(1) == ML { L() });
+        REQUIRE(t.messagesAt(1) == ML { M(L()) });
 
         t << LF(-5);
-        REQUIRE(t.messagesAt(0) == ML { -5 });
+        REQUIRE(t.messagesAt(0) == ML { M(-5) });
         REQUIRE(t.messagesAt(1) == ML {});
 
         t << LF(-5, 5);
         REQUIRE(t.messagesAt(0) == ML {});
-        REQUIRE(t.messagesAt(1) == ML { LF(-5, 5) });
+        REQUIRE(t.messagesAt(1) == ML { M(LF(-5, 5)) });
 
         t.call("a");
         REQUIRE(t.messagesAt(0) == ML {});
@@ -81,15 +81,15 @@ TEST_CASE("route.float", "[externals]")
         REQUIRE(t.messagesAt(1) == ML { M(SYM("a"), LF(1, 2, 3)) });
 
         t.call("float", 1);
-        REQUIRE(t.messagesAt(0) == ML { 1 });
+        REQUIRE(t.messagesAt(0) == ML { M(1) });
         REQUIRE(t.messagesAt(1) == ML {});
 
         t.call("list", 200);
-        REQUIRE(t.messagesAt(0) == ML { 200 });
+        REQUIRE(t.messagesAt(0) == ML { M(200) });
         REQUIRE(t.messagesAt(1) == ML {});
 
         t.call("list", 200, 300);
         REQUIRE(t.messagesAt(0) == ML {});
-        REQUIRE(t.messagesAt(1) == ML { LF(200, 300) });
+        REQUIRE(t.messagesAt(1) == ML { M(LF(200, 300)) });
     }
 }

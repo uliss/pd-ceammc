@@ -102,7 +102,7 @@ TEST_CASE("loadexpr", "[extension]")
             TExt t("loadexpr", LA("Dict[a:1]", Atom::comma(), "String(test)"));
 
             t->onLoadBang();
-            REQUIRE(t.messagesAt(0) == ML { DictAtom("[a:1]"), StringAtom("test") });
+            REQUIRE(t.messagesAt(0) == ML { M(DictAtom("[a:1]")), M(StringAtom("test")) });
         }
 
         SECTION("@props")

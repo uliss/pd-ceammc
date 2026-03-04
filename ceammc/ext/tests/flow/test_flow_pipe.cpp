@@ -85,6 +85,8 @@ TEST_CASE("flow.pipe", "[externals]")
         const AtomList l0(1, 2, 3);
         const Message m0(SYM("@msg"), LF(1));
 
+        using M = Message;
+
         t << f0;
         REQUIRE_PROPERTY(t, @size, 1);
         t.schedTicks(1);
@@ -101,19 +103,19 @@ TEST_CASE("flow.pipe", "[externals]")
         REQUIRE_PROPERTY(t, @size, 5);
         t.schedTicks(1_wd);
         REQUIRE_PROPERTY(t, @size, 4);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ Message(f0) }));
         t.schedTicks(1);
         REQUIRE_PROPERTY(t, @size, 3);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0, s0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ Message(f0), Message(s0) }));
         t.schedTicks(1);
         REQUIRE_PROPERTY(t, @size, 2);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0, s0, i0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ Message(f0), Message(s0), Message(i0) }));
         t.schedTicks(1);
         REQUIRE_PROPERTY(t, @size, 1);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0, s0, i0, l0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ Message(f0), Message(s0), Message(i0), Message(l0) }));
         t.schedTicks(1);
         REQUIRE_PROPERTY(t, @size, 0);
-        REQUIRE(t.messagesAt(0) == MessageList({ f0, s0, i0, l0, m0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ M(f0), M(s0), M(i0), M(l0), M(m0) }));
     }
 
     SECTION("second inlet")

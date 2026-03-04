@@ -82,7 +82,7 @@ TEST_CASE("flow.stack", "[externals]")
         REQUIRE(t.messagesAt(0).empty());
         REQUIRE_PROPERTY(t, @size, 4);
         t.sendMessageTo(Message(SYM("top"), L()), 1);
-        REQUIRE(t.messagesAt(0) == MessageList({ l0 }));
+        REQUIRE(t.messagesAt(0) == MessageList({ Message(l0) }));
 
         t.clearAll();
         t.sendMessage(m0);

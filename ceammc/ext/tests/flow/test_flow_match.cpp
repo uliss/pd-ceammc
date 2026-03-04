@@ -71,18 +71,18 @@ TEST_CASE("flow.match", "[externals]")
 
         // symbol
         t << "abc";
-        REQUIRE(t.outputSymbolAt(1) == S("abc"));
+        REQUIRE(t.outputSymbolAt(1) == SYM("abc"));
 
         t << "pp";
-        REQUIRE(t.outputSymbolAt(0) == S("pp"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("pp"));
         t << "pppp";
-        REQUIRE(t.outputSymbolAt(0) == S("pppp"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("pppp"));
         t << "Ap";
         REQUIRE(!t.hasOutputAt(0));
-        REQUIRE(t.outputSymbolAt(1) == S("Ap"));
+        REQUIRE(t.outputSymbolAt(1) == SYM("Ap"));
         t << "pE";
         REQUIRE(!t.hasOutputAt(0));
-        REQUIRE(t.outputSymbolAt(1) == S("pE"));
+        REQUIRE(t.outputSymbolAt(1) == SYM("pE"));
 
         // any
         t.sendMessage("ppppp", LF(1, 2, 3));
@@ -91,7 +91,7 @@ TEST_CASE("flow.match", "[externals]")
         // properties
         TExt t1("flow.match", "\"@a.+\"");
         t1 << "@abc";
-        REQUIRE(t1.outputSymbolAt(0) == S("@abc"));
+        REQUIRE(t1.outputSymbolAt(0) == SYM("@abc"));
         t1.sendMessage("@abc", LF(1, 2, 3));
         REQUIRE(t1.outputAnyAt(0) == LA("@abc", 1, 2, 3));
         t1.sendMessage("@abcde", LF(1, 2, 3));

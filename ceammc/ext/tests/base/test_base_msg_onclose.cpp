@@ -46,7 +46,7 @@ TEST_CASE("msg.onclose", "[extension]")
             REQUIRE(t.messagesAt(0).size() == 2);
 
             char buf[12] = { 0 };
-            sprintf(buf, "%d", dz);
+            snprintf(buf, sizeof(buf), "%d", dz);
             REQUIRE(t.messagesAt(0).at(0) == Message(LA(12, buf)));
             REQUIRE(t.messagesAt(0).at(1) == Message(LA(2)));
         }
@@ -62,13 +62,6 @@ TEST_CASE("msg.onclose", "[extension]")
         TExt t("msg.onclose", LA(c, 1, c, 2, c, "symbol", "ABC", c, 1, 2, c, 4, 5));
 
         t->onCloseBang();
-        REQUIRE(t.messagesAt(0) == ML {
-                    bng,
-                    1,
-                    2,
-                    SYM("ABC"),
-                    LF(1, 2),
-                    LF(4, 5)
-                });
+        REQUIRE(t.messagesAt(0) == ML { bng, M(1), M(2), M(SYM("ABC")), M(LF(1, 2)), M(LF(4, 5)) });
     }
 }

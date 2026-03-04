@@ -162,6 +162,6 @@ TEST_CASE("list.at", "[externals]")
 
         t.sendList(LF(1, 2));
         REQUIRE_THAT(t, hasOutput(&t));
-        REQUIRE(t.outputSymbolAt(0) == S("???"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("???"));
     }
 }

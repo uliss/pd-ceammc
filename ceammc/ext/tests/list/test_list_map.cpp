@@ -65,7 +65,7 @@ TEST_CASE("list.map", "[externals]")
         t << 1;
         REQUIRE(!t.hasOutputAt(0));
         REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputSymbolAt(1) == A("1"));
+        REQUIRE(t.outputSymbolAt(1) == SYM("1"));
         t << 2;
         REQUIRE(t.outputListAt(0) == LF(1, 2));
         REQUIRE(!t.hasOutputAt(1));

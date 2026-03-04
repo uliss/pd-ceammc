@@ -14,6 +14,8 @@
 #include "conv_bits2note.h"
 #include "test_conv_base.h"
 
+using M = Message;
+
 PD_COMPLETE_TEST_SETUP(ConvBits2Note, conv, bits2note)
 
 TEST_CASE("conv.bits2note", "[externals]")
@@ -66,48 +68,48 @@ TEST_CASE("conv.bits2note", "[externals]")
         {
             TExt t("bits->note", LA(60, 62, 64, "@vel", 92, "@mode", "off"));
             t << LF(1, 0, 0);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
             REQUIRE(t.messagesAt(2) == ML {});
 
             t << LF(1, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 0), LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 0)), M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 92)) });
 
             t << LF(1, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 0), LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 0)), M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0), LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)), M(LF(64, 92)) });
 
             t << LF(0, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 0) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 0)) });
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0), LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)), M(LF(64, 92)) });
 
             t << LF(0, 0, 1);
             REQUIRE(t.messagesAt(0) == ML {});
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0), LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)), M(LF(64, 92)) });
 
             t << LF(1, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0), LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)), M(LF(64, 92)) });
         }
 
         SECTION("tie")
         {
             TExt t("bits->note", LA(60, 62, 64, "@vel", 92, "@mode", "tie"));
             t << LF(1, 0, 0);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
             REQUIRE(t.messagesAt(2) == ML {});
 
             t << LF(1, 0, 1);
             REQUIRE(t.messagesAt(0) == ML {});
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 92) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 92)) });
 
             t << LF(1, 0, 1);
             REQUIRE(t.messagesAt(0) == ML {});
@@ -115,7 +117,7 @@ TEST_CASE("conv.bits2note", "[externals]")
             REQUIRE(t.messagesAt(2) == ML {});
 
             t << LF(0, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 0) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 0)) });
             REQUIRE(t.messagesAt(1) == ML {});
             REQUIRE(t.messagesAt(2) == ML {});
 
@@ -125,33 +127,33 @@ TEST_CASE("conv.bits2note", "[externals]")
             REQUIRE(t.messagesAt(2) == ML {});
 
             t << LF(1, 0, 0);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
             REQUIRE(t.messagesAt(1) == ML {});
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)) });
         }
 
         SECTION("raw")
         {
             TExt t("bits->note", LA(60, 62, 64, "@vel", 92, "@mode", "raw"));
             t << LF(1, 0, 0);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
-            REQUIRE(t.messagesAt(1) == ML { LF(62, 0) });
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 0) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
+            REQUIRE(t.messagesAt(1) == ML { M(LF(62, 0)) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 0)) });
 
             t << LF(1, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
-            REQUIRE(t.messagesAt(1) == ML { LF(62, 0) });
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
+            REQUIRE(t.messagesAt(1) == ML { M(LF(62, 0)) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 92)) });
 
             t << LF(1, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 92) });
-            REQUIRE(t.messagesAt(1) == ML { LF(62, 0) });
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 92)) });
+            REQUIRE(t.messagesAt(1) == ML { M(LF(62, 0)) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 92)) });
 
             t << LF(0, 0, 1);
-            REQUIRE(t.messagesAt(0) == ML { LF(60, 0) });
-            REQUIRE(t.messagesAt(1) == ML { LF(62, 0) });
-            REQUIRE(t.messagesAt(2) == ML { LF(64, 92) });
+            REQUIRE(t.messagesAt(0) == ML { M(LF(60, 0)) });
+            REQUIRE(t.messagesAt(1) == ML { M(LF(62, 0)) });
+            REQUIRE(t.messagesAt(2) == ML { M(LF(64, 92)) });
         }
     }
 }

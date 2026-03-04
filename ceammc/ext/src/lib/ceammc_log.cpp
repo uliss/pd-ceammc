@@ -236,7 +236,7 @@ bool ThreadPdLogger::notify(int /*code*/)
     Lock g(mtx_);
 
     while (!msg_.empty()) {
-        auto& m = msg_.front();        
+        auto& m = msg_.front();
         LogPdObject(owner_, m.second) << m.first;
         msg_.pop_front();
     }
@@ -296,7 +296,7 @@ void ThreadPdLogger::verbose(const std::string& msg)
     Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
-}  // namespace ceammc
+} // namespace ceammc
 
 std::ostream& operator<<(std::ostream& os, t_symbol* s)
 {

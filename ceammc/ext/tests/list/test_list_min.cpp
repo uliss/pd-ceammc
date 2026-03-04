@@ -75,13 +75,13 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_THAT(t, !hasOutput(&t));;
 
         t << LA("test");
-        REQUIRE(t.outputSymbolAt(0) == A("test"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("test"));
 
         t << LA("a", "b", "c");
-        REQUIRE(t.outputSymbolAt(0) == A("a"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("a"));
 
         t << LA("a", "b", 100);
-        REQUIRE(t.outputSymbolAt(0) == A("a"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("a"));
     }
 
     SECTION("any")
@@ -93,7 +93,7 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_THAT(t, !hasOutput(&t));;
 
         t << LA("a");
-        REQUIRE(t.outputSymbolAt(0) == A("a"));
+        REQUIRE(t.outputSymbolAt(0) == SYM("a"));
 
         t << LF(100);
         REQUIRE_THAT(t, outputFloat(&t, 100));
