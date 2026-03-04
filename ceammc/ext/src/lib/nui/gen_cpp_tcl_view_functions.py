@@ -64,7 +64,7 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
     auto object = reinterpret_cast<std::uint64_t>(obj);
     {{tcl_fn}}("{{ns}}::{{module|lower}}::create_ui [dict create"
 {% for arg in create_args %}
-        " -{{arg['field']}} {{arg['sprintf_fmt']}}" {{"\t"}}
+        " -{{arg['field']}} {{arg['sprintf_fmt']}}"
 {% endfor %}
         "]\n",
 {% for arg in create_args %}
@@ -82,7 +82,7 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
     auto object = reinterpret_cast<std::uint64_t>(obj);
     {{tcl_fn}}("{{ns}}::{{module|lower}}::update_ui [dict create"
 {% for arg in update_args %}
-        " -{{arg['field']}} {{arg['sprintf_fmt']}}" {{"\t"}}
+        " -{{arg['field']}} {{arg['sprintf_fmt']}}"
 {% endfor %}
         "]\n",
 {% for arg in update_args %}
