@@ -40,8 +40,8 @@ impl hw_spi_ws2812 {
         on_msg: hw_msg_cb,
         clear_on_exit: bool,
     ) -> Result<Self, CString> {
-        let (tx, mut rx) = tokio::sync::mpsc::channel(10);
-        let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(10);
+        let (tx, mut rx) = tokio::sync::mpsc::channel(16);
+        let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(16);
 
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
@@ -246,8 +246,7 @@ impl hw_spi_ws2812 {
     async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
         error!("ws2812 write error: {err}");
 
-        tx.send(Reply::pd_error(CString::new(err).unwrap_or_default()))
-            .await
+        tx.try_send(Reply::pd_error(CString::new(err).unwrap_or_default()))
             .map(|_| {
                 notify.notify();
             })
