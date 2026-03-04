@@ -21,7 +21,6 @@ class HwRpiDisplaySsd1306 : public HwRpiDevice<ceammc_hw_display_ssd1306> {
 public:
     explicit HwRpiDisplaySsd1306(const PdArgs& args);
 
-    void initDone() final;
     bool notify(int code) final;
 
     void m_brightness(t_symbol* s, const AtomListView& lv);

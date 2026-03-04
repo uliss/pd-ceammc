@@ -327,6 +327,22 @@ pub struct hw_slice {
     step: u32,
 }
 
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_bits {
+    data: *const u8,
+    size: usize,
+}
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_indexes {
+    data: *const i32,
+    size: usize,
+}
+
 pub mod printers;
 
 #[cfg(feature = "cups")]

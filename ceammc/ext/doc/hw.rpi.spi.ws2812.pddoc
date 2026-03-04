@@ -180,17 +180,17 @@
     <example>
       <pdascii>
 <![CDATA[
-[B]                    [fill @slice 2 @color8 255 0 0, bang #b(
-|
-|                      [fill @lslice 4 4 @color8 0 255 0, bang #c(
+[B] [T]                [fill @slice 2 @color8 255 0 0, bang #b(
+|   |
+|   [@connect $1 #h(   [fill @lslice 4 4 @color8 0 255 0, bang #c(
 |
 [system.colorpanel @f] [fill @slice 1 15 3 @color8 0 127 255, bang #d(
 |
-[msg fill @color]      [fx rainbow 0.5 #e(
-|
-[msg.after 0 bang #a]  [F]
-                       |
- [brightness #f(       [set_pixel $1 @color8 0 0 255, bang #g(
+[msg fill @color]      [fx rainbow 0.5 #e(       [T]
+|                                                |
+[msg.after 0 bang #a]  [F]                       [metro 50]
+                       |                         |
+ [brightness #f(       [set_pixel #g(            [fx meteor, bang #i(
 
 
  [clear(
@@ -199,10 +199,11 @@
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X i->x]
 #e 8, bang
 #x @spi_bus 0
-#f 32
+#f 32, bang
+#g $1 @color8 0 0 255, bang
 ]]>
       </pdascii>
     </example>

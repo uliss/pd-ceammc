@@ -115,20 +115,30 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
 {
+    if (!check_connected(true))
+        return;
+
     ceammc_hw_color_rgb8 color;
     if (!parse_color_property(color, lv)) {
         METHOD_ERR(s) << "@color property not found in list: " << lv;
         return;
     }
 
+    // try to parse bit properties
+    ceammc_hw_bits bits;
+    std::uint8_t data[1024];
+    if (!parse_bits_property(bits, data, sizeof(data), lv)) {
+        ceammc_hw_spi_ws2812_fill_bits(device(), color, &bits);
+        return;
+    }
+
+    // try to parse slice properties
     ceammc_hw_slice slice;
     const ceammc_hw_slice* slice_ptr = &slice;
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
 
-    if (!check_connected(true))
-        return;
-
+    // if no props found - fill all pixels!
     ceammc_hw_spi_ws2812_fill_slice(device(), color, slice_ptr);
 }
 
@@ -199,9 +209,40 @@ bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListVie
             return false;
 
         slice.first = res.intAt(0, 0);
-        slice.last = slice.first + res.intAt(1, size_->value());
+        slice.last = slice.first + res.intAt(1, size_->value()) - 1;
         slice.step = res.intAt(2, 1);
 
+        return true;
+    } else if (lv.getProperty(gensym("@indexes"), res)) {
+        static const args::ArgChecker idx_chk("INDEXES:i+");
+        if (!idx_chk.check(res, this_, gensym("@indexes")))
+            return false;
+
+        return false;
+    }
+
+    return false;
+}
+
+/**
+ * Parse bits into static buffer
+ */
+bool HwSpiWs2812::parse_bits_property(ceammc_hw_bits& bits, std::uint8_t* const& buf, size_t buf_size, const AtomListView& lv) const
+{
+    AtomListView res;
+    auto this_ = const_cast<HwSpiWs2812*>(this);
+
+    if (lv.getProperty(gensym("@bits"), res)) {
+        static const args::ArgChecker bits_chk("BITS:b+");
+        if (!bits_chk.check(res, this_, gensym("@bits")))
+            return false;
+
+        auto N = std::min(buf_size, res.size());
+        for (auto i = 0; i < N; i++)
+            buf[i] = res[i].asBool();
+
+        bits.data = &buf[0];
+        bits.size = N;
         return true;
     }
 
@@ -279,15 +320,10 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_slice slice;
-    const ceammc_hw_slice* slice_ptr = &slice;
-    if (!parse_slice_property(slice, lv))
-        slice_ptr = nullptr;
-
     if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_rotate(device(), lv.intAt(0, 1), slice_ptr);
+    ceammc_hw_spi_ws2812_rotate(device(), lv.intAt(0, 1), nullptr);
 }
 
 void setup_hw_rpi_spi_ws2812()

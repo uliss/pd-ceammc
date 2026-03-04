@@ -476,6 +476,11 @@ struct ceammc_hw_color_rgb8 {
     uint8_t blue;
 };
 
+struct ceammc_hw_bits {
+    const uint8_t *data;
+    size_t size;
+};
+
 
 extern "C" {
 
@@ -1108,6 +1113,14 @@ bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
 /// clear (turn off) the led strip
 /// @param ws - pointer to the led strip handle
 bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
+
+/// fill leds addressed by bits with specified color
+/// @param ws - pointer to the led strip handle
+/// @param color - fill color
+/// @param bits - not NULL(!)
+bool ceammc_hw_spi_ws2812_fill_bits(const ceammc_hw_spi_ws2812 *ws,
+                                    ceammc_hw_color_rgb8 color,
+                                    const ceammc_hw_bits *bits);
 
 /// fill leds slice with color
 /// @param ws - pointer to the led strip handle
