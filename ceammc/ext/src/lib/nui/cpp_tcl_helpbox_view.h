@@ -3,7 +3,6 @@
 #define CPP_TCL_VIEW_HELPBOX_H_
 // clang-format off
 
-#include <cstring>
 #include <string>
 #include <vector>
 
@@ -18,7 +17,7 @@ using namespace ceammc::ui;
 namespace nui {
 namespace helpbox {
 
-const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>& vec) {
+std::string to_cstring(const std::vector<std::string>& vec) {
     if (vec.empty())
         return "";
 
@@ -27,16 +26,21 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
         str_len += s.size();
 
     auto total_size = str_len + (vec.size() * 3);
-    if (total_size >= bufsize)
-        return "";
+    std::string res;
+    res.reserve(total_size);
 
-    size_t offset = 0;
-    for(auto& s: vec) {
-        if (offset < bufsize)
-            offset += snprintf(&buf[offset], bufsize - offset, "{%s} ", s.c_str());
+    res += '{';
+    res += vec[0];
+    res += '}';
+
+    for (size_t i = 1; i < vec.size(); i++) {
+      res += ' ';
+      res += '{';
+      res += vec[i];
+      res += '}';
     }
 
-    return buf;
+    return res;
 }
 
 const char* to_cstring(char* buf, size_t bufsize, const Font& font, int zoom) {
@@ -48,7 +52,6 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
 {
     char buf0[256] = {0};
     char buf1[256] = {0};
-    char buf2[1024] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::create_ui [dict create"
         " -cnv %lx" 	
@@ -90,7 +93,6 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
 {
     char buf0[256] = {0};
     char buf1[256] = {0};
-    char buf2[1024] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::update_ui [dict create"
         " -cnv %lx" 	
@@ -139,7 +141,7 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         model.isOpen(),
         model.directionRight(),
         model.indicatorRight(),
-        to_cstring(buf2, sizeof(buf2), model.textLines())    );
+        to_cstring(model.textLines()).c_str()    );
 }
 
 void tcl_erase(WinId window, WidgetId widget, void* obj)
