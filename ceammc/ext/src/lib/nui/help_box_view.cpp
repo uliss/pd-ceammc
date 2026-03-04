@@ -21,7 +21,7 @@ namespace ui {
 
     void TclHelpboxImpl::create(const RectF& bbox, const HelpboxData& data)
     {
-        nui::helpbox::tcl_create(winId(), widgetId(), this, transform(bbox), data);
+        nui::helpbox::tcl_create(winId(), widgetId(), this, transform(bbox).leftTop(), scale(), data);
     }
 
     void TclHelpboxImpl::erase()
@@ -31,7 +31,7 @@ namespace ui {
 
     void TclHelpboxImpl::update(const RectF& bbox, const HelpboxData& data)
     {
-        nui::helpbox::tcl_update(winId(), widgetId(), this, transform(bbox), data);
+        nui::helpbox::tcl_update(winId(), widgetId(), this, transform(bbox).leftTop(), scale(), data);
     }
 
     void TclHelpboxImpl::updateCoords(const RectF& bbox)

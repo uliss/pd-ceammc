@@ -66,12 +66,11 @@ namespace eval ::nui {
             $_pc delete $OPEN
 
             if {$args(-is_open)} {
-                set _zoom 1
                 set _win [::nui::widget_window $args(-cnv) $args(-model)]
 
                 set _nitems [llength $args(-text_lines)]
                 lassign [$_pc coords $_win] _gx _menu_y
-                set _menu_x [expr {$_gx + $args(-width)}]
+                set _menu_x [expr {$_gx + $args(-width) * $args(-zoom)}]
                 set _txt_left [expr {$_menu_x + 5}]
                 set _txt_top [expr {$_menu_y + 5}]
 

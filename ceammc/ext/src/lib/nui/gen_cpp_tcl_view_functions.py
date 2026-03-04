@@ -46,12 +46,9 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
     return buf;
 }
 
-void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, const {{module|capitalize}}Data& model)
+void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const {{module|capitalize}}Data& model)
 {
-    char buf[8192];
-    auto pt = rect.pt0();
     auto object = reinterpret_cast<std::uint64_t>(obj);
-
     {{tcl_fn}}("{{ns}}::{{module|lower}}::create_ui [dict create"
 {% for arg in create_args %}
         " -{{arg['field']}} {{arg['sprintf_fmt']}}" {{"\t"}}
@@ -64,10 +61,9 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, con
     );
 }
 
-void tcl_update(WinId window, WidgetId widget, void* obj, const RectF& rect, const {{module|capitalize}}Data& model)
+void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const {{module|capitalize}}Data& model)
 {
     char buf[8192];
-    auto pt = rect.pt0();
     auto object = reinterpret_cast<std::uint64_t>(obj);
     {{tcl_fn}}("{{ns}}::{{module|lower}}::update_ui [dict create"
 {% for arg in update_args %}
@@ -158,14 +154,14 @@ if __name__ == "__main__":
             'view_create': True,
             'view_update': True,
             'sprintf_fmt': '%d',
-            'getter': 'rect.left()',
+            'getter': 'pt.x()',
         },
         {
             'field': 'y',
             'view_create': True,
             'view_update': True,
             'sprintf_fmt': '%d',
-            'getter': 'rect.top()',
+            'getter': 'pt.y()',
         },
         {
             'field': 'width',
@@ -180,6 +176,13 @@ if __name__ == "__main__":
             'view_update': True,
             'sprintf_fmt': '%d',
             'getter': 'model.size().height()',
+        },
+        {
+            'field': 'zoom',
+            'view_create': True,
+            'view_update': True,
+            'sprintf_fmt': '%d',
+            'getter': 'zoom',
         }
     ]
     for x in mod['data']:

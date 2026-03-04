@@ -38,12 +38,9 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
     return buf;
 }
 
-void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, const HelpboxData& model)
+void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const HelpboxData& model)
 {
-    char buf[8192];
-    auto pt = rect.pt0();
     auto object = reinterpret_cast<std::uint64_t>(obj);
-
     sys_vgui("nui::helpbox::create_ui [dict create"
         " -cnv %lx" 	
         " -model %lx" 	
@@ -52,6 +49,7 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, con
         " -y %d" 	
         " -width %d" 	
         " -height %d" 	
+        " -zoom %d" 	
         " -border_color #%6.6x" 	
         " -fill_color #%6.6x" 	
         " -title_color #%6.6x" 	
@@ -64,10 +62,11 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, con
         window,
         widget,
         object,
-        rect.left(),
-        rect.top(),
+        pt.x(),
+        pt.y(),
         model.size().width(),
         model.size().height(),
+        zoom,
         model.borderColor(),
         model.fillColor(),
         model.titleColor(),
@@ -78,10 +77,9 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const RectF& rect, con
         model.indicatorRight()    );
 }
 
-void tcl_update(WinId window, WidgetId widget, void* obj, const RectF& rect, const HelpboxData& model)
+void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const HelpboxData& model)
 {
     char buf[8192];
-    auto pt = rect.pt0();
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::update_ui [dict create"
         " -cnv %lx" 	
@@ -91,6 +89,7 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const RectF& rect, con
         " -y %d" 	
         " -width %d" 	
         " -height %d" 	
+        " -zoom %d" 	
         " -border_color #%6.6x" 	
         " -fill_color #%6.6x" 	
         " -title_color #%6.6x" 	
@@ -109,10 +108,11 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const RectF& rect, con
         window,
         widget,
         object,
-        rect.left(),
-        rect.top(),
+        pt.x(),
+        pt.y(),
         model.size().width(),
         model.size().height(),
+        zoom,
         model.borderColor(),
         model.fillColor(),
         model.titleColor(),
