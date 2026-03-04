@@ -200,8 +200,8 @@ TEST_CASE("dict.get", "[externals]")
             REQUIRE(listAt(t) == L());
             t << DictAtom("[a: b:]");
             REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(0).at(0) == M());
-            REQUIRE(t.messagesAt(0).at(1) == M());
+            REQUIRE(t.messagesAt(0).at(0) == M(L()));
+            REQUIRE(t.messagesAt(0).at(1) == M(L()));
 
             t << DictAtom("[a: 1 b: TEXT]");
             REQUIRE(t.messagesAt(0).size() == 2);
@@ -272,13 +272,13 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[a: 1 2 3]");
             REQUIRE(listAt(t) == LF(1, 2, 3));
             t << DictAtom("[a: b:]");
-            REQUIRE_MESSAGES(t, M(), M());
+            REQUIRE_MESSAGES(t, M(L()), M(L()));
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3]");
-            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M());
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(L()));
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3 e: ()]");
-            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(), M(MListAtom()));
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(L()), M(MListAtom()));
             t << DictAtom("[a: b: 1 c: DEF d: 1 2 3 e: () f: []]");
-            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(), M(DictAtom()), M(MListAtom()));
+            REQUIRE_MESSAGES(t, M(1), M(SYM("DEF")), M(LF(1, 2, 3)), M(L()), M(DictAtom()), M(MListAtom()));
         }
 
         SECTION("/*/foo")
@@ -288,9 +288,9 @@ TEST_CASE("dict.get", "[externals]")
             t << DictAtom("[]");
             REQUIRE(!t.hasOutputAt(0));
             t << DictAtom("[a: 1 2 3 b: [foo:]]");
-            REQUIRE_MESSAGES(t, M());
+            REQUIRE_MESSAGES(t, M(L()));
             t << DictAtom("[a: 1 2 3 b: [foo: ()]]");
-            REQUIRE_MESSAGES(t, MListAtom());
+            REQUIRE_MESSAGES(t, M(MListAtom(L())));
             t << DictAtom("[a: 1 2 3 b: [foo: 1 2 3]]");
             REQUIRE_MESSAGES(t, M(LF(1, 2, 3)));
             t << DictAtom("[a: 1 2 3 b: [foo: ABC] c: [foo: 4]]");
