@@ -111,10 +111,22 @@ namespace ui {
 
             res->setSuccessFn([&prop, res](Property*) {
                 prop.clear();
-                prop.reserve(res->value().size());
-
                 for (auto& a : res->value()) {
-                    prop.push_back(to_string(a));
+                    if (a.isSymbol()) {
+                        // long string starts with '>' chah following base64 list of symbols
+                        auto str = a.asT<t_symbol*>()->s_name;
+
+                        // new string start
+                        if (str[0] == '>') {
+                            prop.push_back({});
+                            str += 1;
+                        }
+
+                        if (prop.empty())
+                            continue;
+
+                        prop.back() += str;
+                    }
                 }
             });
 
@@ -122,7 +134,10 @@ namespace ui {
         }
 
     protected:
-        BoxView& boxView() { return box_view_; }
+        BoxView& boxView()
+        {
+            return box_view_;
+        }
 
         ViewPtr& modelView()
         {
@@ -140,6 +155,5 @@ namespace ui {
         }
     };
 }
-
 }
 #endif // NUI_SIMPLE_WIDGET_H
