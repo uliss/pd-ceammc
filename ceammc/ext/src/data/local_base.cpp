@@ -30,4 +30,4 @@ PdArgs make_local_id(const PdArgs& a)
     return res;
 }
 
-}
+} // namespace ceammc
