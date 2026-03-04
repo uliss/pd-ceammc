@@ -4,8 +4,11 @@ namespace eval ::nui {
         proc tag_open {id} {return "#hb${id}_open"}
 
         proc make_title_indicator {title indicator indicator_right} {
-            if {$indicator_right} {return "${title} ${indicator}"}
-            else { return "${indicator} ${title}" }
+            if {$indicator_right} {
+                return "${title} ${indicator}"
+            } else {
+                return "${indicator} ${title}"
+            }
         }
 
         proc make_title {title direction_right indicator_right is_open} {
@@ -90,7 +93,7 @@ namespace eval ::nui {
                 # draw rect
                 set _menu_right [expr {$_menu_x + $args(-text_width)}]
                 set _box [$_pc create rectangle $_menu_x $_menu_y $_menu_right $_txt_top \
-                    -fill $args(-popup_fill_color)\
+                    -fill $args(-popup_fill_color) \
                     -outline $args(-popup_border_color) \
                     -width $args(-popup_border_width) \
                     -tags [list $ALL $OPEN]]
