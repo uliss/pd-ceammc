@@ -25,7 +25,7 @@ using namespace ceammc::ui;
 namespace nui {
 namespace {{module|lower}} {
 
-const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>& vec) {
+std::string to_cstring(const std::vector<std::string>& vec) {
     if (vec.empty())
         return "";
 
@@ -34,16 +34,21 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
         str_len += s.size();
 
     auto total_size = str_len + (vec.size() * 3);
-    if (total_size >= bufsize)
-        return "";
+    std::string res;
+    res.reserve(total_size);
 
-    size_t offset = 0;
-    for(auto& s: vec) {
-        if (offset < bufsize)
-            offset += snprintf(&buf[offset], bufsize - offset, "{{"{%s} "}}", s.c_str());
+    res += '{';
+    res += vec[0];
+    res += '}';
+
+    for (size_t i = 1; i < vec.size(); i++) {
+      res += ' ';
+      res += '{';
+      res += vec[i];
+      res += '}';
     }
 
-    return buf;
+    return res;
 }
 
 const char* to_cstring(char* buf, size_t bufsize, const Font& font, int zoom) {
@@ -136,8 +141,6 @@ if __name__ == "__main__":
 
     local_includes = set(["nui/view.h", "nui/{}_model.h".format(name.lower()), "m_pd.h"])
     sys_includes = set()
-
-
 
     args = [
         {
@@ -239,11 +242,9 @@ if __name__ == "__main__":
         elif x['type'] == 'std::vector<std::string>':
             sys_includes.add('vector')
             sys_includes.add('string')
-            sys_includes.add('cstring')
 
             data['sprintf_fmt'] = '[list %s]'
-            data['getter'] = "to_cstring(buf{1}, sizeof(buf{1}), model.{0}())".format(camelCase(x['name']), len(buffers))
-            buffers.append(1024);
+            data['getter'] = "to_cstring(model.{0}()).c_str()".format(camelCase(x['name']))
 
 
     create_args = filtered = [x for x in args if x.get('view_create', False)]
