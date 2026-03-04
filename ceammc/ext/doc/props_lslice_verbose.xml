@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<verbose>
+  <par>
+    <tr lang="en">@lslice FROM: Selects all pixels starting from FROM. If FROM is a negative
+    value, it indicates the position of the pixel from the end. For example: @slice -2 will
+    select the last two pixels.</tr>
+    <tr lang="ru">@lslice FROM: Выбирает все пиксели начиная с FROM. Если FROM - отрицательное
+    значение, оно обозначает положение пикселя с конца. Например: @lslice -4 выберет четыре
+    последних пикселя.</tr>
+  </par>
+  <par>
+    <tr lang="en">@lslice FROM LENGTH: Selects LENGTH pixels starting from FROM.
+    If FROM is a negative value, it indicates the position of the pixel from the end.
+    LENGTH is always a positive value.</tr>
+    <tr lang="ru">@lslice FROM LENGTH: Выбирает LENGTH пикселей начиная с FROM.
+    Если FROM - отрицательное значение, оно обозначает положение пикселя с конца.
+    LENGTH - всегда положительное значение.</tr>
+  </par>
+  <par>
+    <tr lang="en">@lslice FROM TO STEP: Selects LENGTH pixels starting from FROM with the specified STEP.
+    For example, if STEP is 3, it selects every third pixel in the specified range.</tr>
+    <tr lang="ru">@lslice FROM LENGTH STEP: Выбирает LENGTH пикселей начиная с FROМ
+    через указанный шаг (STEP). Например, если STEP равно 3, выбирает каждый третий пиксель в
+    указанном диапазоне.</tr>
+  </par>
+</verbose>

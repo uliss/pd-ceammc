@@ -18,12 +18,8 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">When using the object, you need to specify the number of the SPI bus being
-        used, which this object takes into exclusive ownership. As long as the object exists, this
-        bus becomes unavailable to other objects!</tr>
-        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI, которую
-        этот объект забирает в эксклюзивное владение. Пока объект существует – эта шина становится
-        недоступна для других объектов!</tr>
+        <tr lang="en">When using the object, you need to specify the number of the SPI!</tr>
+        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI!</tr>
       </par>
       <par style="info">
         <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
@@ -39,12 +35,6 @@
         be sent to the LED strip using a bang or the [flush( command.</tr>
         <tr lang="ru">Для указания группы пикселей, с которой собираемся работать, используются два
         вида диапазонов:</tr>
-      </par>
-      <par>
-        <tr lang="en">The second type of slices: @lslice. It differs in that the second parameter
-        represents the LENGTH of the range, instead of the last element.</tr>
-        <tr lang="ru">Второй вид срезов: @lslice. Отличается тем, что второй параметр обозначает
-        ДЛИНУ диапазона, вместо последнего элемента.</tr>
       </par>
     </info>
     <properties>
@@ -128,6 +118,7 @@
         <param name="@lslice FIRST LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
+          <xi:include href="props_lslice_verbose.xml" parse="xml"/>
         </param>
       </method>
       <!-- flush -->
@@ -157,6 +148,7 @@
         <param name="@lslice FIRST LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
+          <xi:include href="props_lslice_verbose.xml" parse="xml"/>
         </param>
       </method>
       <!-- rotate -->
@@ -239,6 +231,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
 #e 8, bang
 #x @spi_bus 0
+#f 32
 ]]>
       </pdascii>
     </example>
