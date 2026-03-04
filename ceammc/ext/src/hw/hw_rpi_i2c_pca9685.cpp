@@ -21,6 +21,7 @@ ceammc_hw_pca8695_prog_address to_prog_address(const Atom& type)
 
 HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
+    , pwm_(nullptr, &ceammc_hw_pca9685_free)
 {
     createOutlet();
 
@@ -28,28 +29,20 @@ HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     i2c_bus_->setArgIndex(0);
 
     i2c_addr_ = addI2cAddrProperty();
-}
 
-HwI2cPca8695::~HwI2cPca8695()
-{
-    ceammc_hw_pca9685_free(pwm_);
-}
-
-void HwI2cPca8695::initDone()
-{
-    std::int8_t bus = 0;
-    if (!i2c_bus_->getBus(bus))
-        return;
-
-    pwm_ = ceammc_hw_pca9685_new(bus,
-        i2c_addr_->value(),
-        on_notify(),
-        on_message());
+    connect_ = new BoolProperty("@connect", false);
+    connect_->setSuccessFn([this](Property*) {
+        i2c_connect(connect_->value());
+    });
+    addProperty(connect_);
 }
 
 bool HwI2cPca8695::notify(int code)
 {
-    return ceammc_hw_pca9685_proc_reply(pwm_);
+    if (pwm_)
+        return ceammc_hw_pca9685_proc_reply(pwm_.get());
+    else
+        return false;
 }
 
 void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
@@ -58,11 +51,14 @@ void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     auto chan = lv.intAt(0, 0);
     auto value = lv.boolAt(1, 0);
     float delay = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_const(pwm_, chan, value, delay);
+    ceammc_hw_pca9685_set_const(pwm_.get(), chan, value, delay);
 }
 
 void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
@@ -71,11 +67,14 @@ void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     auto chan = lv.intAt(0, 0);
     auto duty = lv.floatAt(1, 0);
     float phase = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_duty_cycle(pwm_, chan, duty, lv.size() > 2 ? &phase : nullptr);
+    ceammc_hw_pca9685_set_duty_cycle(pwm_.get(), chan, duty, lv.size() > 2 ? &phase : nullptr);
 }
 
 void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
@@ -84,11 +83,14 @@ void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     auto chan = lv.intAt(0, 0);
     auto on = lv.intAt(1, 0);
     auto off = lv.intAt(2, 0);
 
-    ceammc_hw_pca9685_set_on_off(pwm_, chan, on, off);
+    ceammc_hw_pca9685_set_on_off(pwm_.get(), chan, on, off);
 }
 
 void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
@@ -97,11 +99,14 @@ void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     auto chan = lv.intAt(0, 0);
     auto width_ms = lv.floatAt(1, 0);
     auto phase = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_pulse_width(pwm_, chan, width_ms, phase);
+    ceammc_hw_pca9685_set_pulse_width(pwm_.get(), chan, width_ms, phase);
 }
 
 void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
@@ -110,10 +115,22 @@ void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     ceammc_hw_pca8695_prog_address addr_type;
     auto type = lv.atomAt(0, 1);
     auto i2c_addr = lv.intAt(1, 41);
-    ceammc_hw_pca9685_use_prog_addr(pwm_, to_prog_address(type), i2c_addr);
+    ceammc_hw_pca9685_use_prog_addr(pwm_.get(), to_prog_address(type), i2c_addr);
+}
+
+bool HwI2cPca8695::check_connected(bool print_err)
+{
+    if (!pwm_ && print_err) {
+        OBJ_ERR << "device is not connected to the I2C bus";
+    }
+
+    return pwm_.get();
 }
 
 void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
@@ -122,19 +139,28 @@ void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     ceammc_hw_pca8695_prog_address addr_type;
     auto type = lv.atomAt(0, 1);
-    ceammc_hw_pca9685_disable_prog_addr(pwm_, to_prog_address(type));
+    ceammc_hw_pca9685_disable_prog_addr(pwm_.get(), to_prog_address(type));
 }
 
 void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_pca9685_restart(pwm_);
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_pca9685_restart(pwm_.get());
 }
 
 void HwI2cPca8695::m_enable_restart_and_disable(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_pca9685_enable_restart_and_disable(pwm_);
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_pca9685_enable_restart_and_disable(pwm_.get());
 }
 
 void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
@@ -143,7 +169,10 @@ void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_pca9685_set_period(pwm_, lv.floatAt(0, 0));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_pca9685_set_period(pwm_.get(), lv.floatAt(0, 0));
 }
 
 void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
@@ -152,7 +181,10 @@ void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_pca9685_set_polarity(pwm_,
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_pca9685_set_polarity(pwm_.get(),
         lv.boolAt(0, true)
             ? ceammc_hw_rpi_pwm_polarity::INVERSE
             : ceammc_hw_rpi_pwm_polarity::NORMAL);
@@ -164,7 +196,10 @@ void HwI2cPca8695::m_enable(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    ceammc_hw_pca9685_enable(pwm_, lv.boolAt(0, true));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_pca9685_enable(pwm_.get(), lv.boolAt(0, true));
 }
 
 void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
@@ -173,8 +208,32 @@ void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     auto freq = lv.floatAt(0, 0);
-    ceammc_hw_pca9685_set_freq(pwm_, freq);
+    ceammc_hw_pca9685_set_freq(pwm_.get(), freq);
+}
+
+void HwI2cPca8695::i2c_connect(bool state)
+{
+    if (state) {
+        std::int8_t bus = 0;
+        if (!i2c_bus_->getBus(bus)) {
+            OBJ_ERR << "i2c bus is not specified";
+            return;
+        }
+
+        pwm_.reset(ceammc_hw_pca9685_new(bus,
+            i2c_addr_->value(),
+            on_notify(),
+            on_message()));
+
+        if (!pwm_)
+            OBJ_ERR << "can't connect to i2c bus";
+    } else {
+        pwm_.reset();
+    }
 }
 
 void setup_hw_rpi_i2c_pca9685()

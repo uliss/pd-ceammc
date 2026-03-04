@@ -42,7 +42,7 @@
         <tr lang="ru">Как правило, 2.5% ширины импульса 20 мс (0.5 мс) представляет собой поворот
         -90°, а 12,5% ширины импульса 20 мс (2,5 мс) представляет собой поворот +90°.</tr>
       </par>
-      <par>
+      <par style="important">
         <tr lang="en">Be aware that driving some 180° servos too far past their -90°/+90°
         operational range can cause a little plastic limiter pin to break off and get stuck inside
         of the servo's gearing, which could potentially cause the servo to become jammed and no
@@ -277,24 +277,27 @@
 <![CDATA[
 /*180° servo example*/
 
-[T]
+[T]/*<- first*/
 |
-[enable $1(
+[@connect $1(
 |
-| [ui.hsl]
-| |
-| [l->l 0 1 0.5 2.5]
-| |
-| [clip 0.5 2.5]
-| |
-| [pwidth 0 $1(
-| |
-| |
-[hw.rpi.pwm.pca9685 default]
+|  [enable 1 #a(/*<- then*/
+|
+|      [ui.hsl]
+|      |
+|      [l->l 0 1 0.5 2.5]
+|      |
+|      [clip 0.5 2.5]
+|      |
+|      [pwidth 0 $1(
+|      |
+|      |
+[hw.rpi.pwm.pca9685 default #z]
 
 [ui.link @url=ceammc://img/conn_pca9685.png @title='Connection_scheme']
 
 [ui.link @url=ceammc://img/info_pca9685.jpg @title='Address']
+[X a->z]
 ]]>
       </pdascii>
     </example>

@@ -23,6 +23,7 @@ PCA9685 для Raspberry Pi;
 отломится и застрянет внутри зубчатой передачи сервопривода \, что
 потенциально может привести к тому \, что сервопривод застрянет и больше
 не будет функционировать.;
+#X obj 230 278 cnv 1 2 106 empty empty empty 17 7 0 10 -221520 -1 0;
 #X text 240 389 Непрерывные сервоприводы работают во многом так же
 \, как сервоприводы 180° \, но вместо 2.5%/12.5% ширины импульса \,
 контролирующего смещение -90°/+90° \, они управляются множителем скорости
@@ -30,153 +31,156 @@ PCA9685 для Raspberry Pi;
 скоростью в любом направлении.;
 #X text 50 553 180° servo example;
 #X obj 50 582 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 611 enable \$1;
-#X obj 69 640 ui.hsl;
-#X obj 69 669 l->l 0 1 0.5 2.5;
-#X obj 69 697 clip 0.5 2.5;
-#X msg 69 726 pwidth 0 \$1;
-#X obj 50 769 hw.rpi.pwm.pca9685 default;
-#X obj 50 798 ui.link @title 'Connection_scheme' @url
+#X text 78 582 <- first;
+#X msg 50 611 @connect \$1;
+#X msg 78 640 enable 1;
+#X text 203 640 <- then;
+#X obj 117 669 ui.hsl;
+#X obj 117 697 l->l 0 1 0.5 2.5;
+#X obj 117 726 clip 0.5 2.5;
+#X msg 117 755 pwidth 0 \$1;
+#X obj 50 798 hw.rpi.pwm.pca9685 default;
+#X obj 50 827 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_pca9685.png;
-#X obj 50 827 ui.link @title 'Address' @url
+#X obj 50 856 ui.link @title 'Address' @url
 ceammc://img/info_pca9685.jpg;
-#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 889 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 918 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 892 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 921 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 890 1\.;
-#X text 170 890 atom;
-#X obj 268 891 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 890 I2C_BUS: См. @i2c_bus свойство. Разрешённые значения:
+#X text 130 919 1\.;
+#X text 170 919 atom;
+#X obj 268 920 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 919 I2C_BUS: См. @i2c_bus свойство. Разрешённые значения:
 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none. Тип: atom.;
-#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 945 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 974 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 948 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 977 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 946 @i2c_addr;
-#X text 270 946 (при инициализации) Адрес I²C. Также принимается значение
+#X msg 130 975 @i2c_addr;
+#X text 270 975 (при инициализации) Адрес I²C. Также принимается значение
 «default» (для адреса 0x40). Тип: int. Значение по умолчанию: -1\.
 Диапазон: [-4\..119].;
-#X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1003 @i2c_bus;
-#X text 270 1003 (при инициализации) Шина I²C. Тип: atom. Значение
+#X obj 250 1032 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1032 @i2c_bus;
+#X text 270 1032 (при инициализации) Шина I²C. Тип: atom. Значение
 по умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \,
 6 \, default \, none.;
-#X obj 20 1070 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1075 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1099 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1104 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1076 const;
-#X text 270 1076 установить постоянное значение канала. Аргументы:;
-#X obj 300 1101 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1101 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
+#X msg 130 1105 const;
+#X text 270 1105 установить постоянное значение канала. Аргументы:;
+#X obj 300 1130 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1130 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
 Диапазон: [0\..16].;
-#X obj 300 1139 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1139 VALUE: значение. Тип: bool.;
-#X obj 300 1162 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1162 [DELAY]: задержка установки на заданное значение фазы.
+#X obj 300 1168 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1168 VALUE: значение. Тип: bool.;
+#X obj 300 1191 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1191 [DELAY]: задержка установки на заданное значение фазы.
 Тип: float. Диапазон: [0\..1].;
-#X obj 250 1210 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1210 disable_prog_addr;
-#X text 270 1210 отключить использования программируемого адреса. Аргументы:;
-#X obj 300 1235 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1235 TYPE: тип программируемого адреса. Тип: atom. Разрешённые
+#X obj 250 1239 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1239 disable_prog_addr;
+#X text 270 1239 отключить использования программируемого адреса. Аргументы:;
+#X obj 300 1264 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1264 TYPE: тип программируемого адреса. Тип: atom. Разрешённые
 значения: 1 \, 2 \, 3 \, all.;
-#X obj 250 1283 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1283 duty;
-#X text 270 1283 установить рабочее значение ШИМ цикла. Аргументы:;
-#X obj 300 1308 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1308 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
+#X obj 250 1312 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1312 duty;
+#X text 270 1312 установить рабочее значение ШИМ цикла. Аргументы:;
+#X obj 300 1337 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1337 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
 Диапазон: [0\..16].;
-#X obj 300 1346 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1346 DUTY: значение рабочего цикла. Тип: float. Диапазон:
+#X obj 300 1375 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1375 DUTY: значение рабочего цикла. Тип: float. Диапазон:
 [-1\..1].;
-#X obj 300 1384 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1384 [PHASE]: фазовое смещение. Тип: float. Диапазон: [-1\..1].;
-#X obj 250 1417 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1417 enable;
-#X text 270 1417 Включить/отключить устройство. Отключенное состояние
+#X obj 300 1413 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1413 [PHASE]: фазовое смещение. Тип: float. Диапазон: [-1\..1].;
+#X obj 250 1446 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1446 enable;
+#X text 270 1446 Включить/отключить устройство. Отключенное состояние
 эквивалентно сну \, в нем устройство поддерживает все текущие настройки
 ШИМ \, но просто не реагирует на новые настройки. Аргументы:;
-#X obj 300 1487 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1487 [STATE=1]: Новое состояние. Тип: bool.;
-#X obj 250 1520 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1520 enable_restart_and_disable;
-#X text 350 1520 перевести контроллер в состояние сна \, сохраняя содержимое
+#X obj 300 1516 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1516 [STATE=1]: Новое состояние. Тип: bool.;
+#X obj 250 1549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1549 enable_restart_and_disable;
+#X text 350 1549 перевести контроллер в состояние сна \, сохраняя содержимое
 регистра ШИМ для подготовки к будущему перезапуску.;
-#X obj 250 1570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1570 freq;
-#X text 270 1570 установить частоту ШИМ. Аргументы:;
-#X obj 300 1595 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1595 FREQ: новая частота. Тип: float. Диапазон: [24\..2048].
+#X obj 250 1599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1599 freq;
+#X text 270 1599 установить частоту ШИМ. Аргументы:;
+#X obj 300 1624 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1624 FREQ: новая частота. Тип: float. Диапазон: [24\..2048].
 Единицы: 'Hz'.;
-#X obj 250 1643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1643 period;
-#X text 270 1643 установить период ШИМ. Аргументы:;
-#X obj 300 1668 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1668 PERIOD: новый период. Тип: float. Диапазон: [0.5\..40].
+#X obj 250 1672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1672 period;
+#X text 270 1672 установить период ШИМ. Аргументы:;
+#X obj 300 1697 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1697 PERIOD: новый период. Тип: float. Диапазон: [0.5\..40].
 Единицы: 'ms'.;
-#X obj 250 1716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1716 polarity;
-#X text 270 1716 инвертировать полярность ШИМ. Применяется при OE =
+#X obj 250 1745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1745 polarity;
+#X text 270 1745 инвертировать полярность ШИМ. Применяется при OE =
 0\. Аргументы:;
-#X obj 300 1756 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1756 POLARITY: значение полярности: 0 - прямое \, 1 - обратное.
+#X obj 300 1785 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1785 POLARITY: значение полярности: 0 - прямое \, 1 - обратное.
 Тип: bool.;
-#X obj 250 1804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1804 pwidth;
-#X text 270 1804 установить ширину импульса канала ШИМ. Аргументы:;
-#X obj 300 1829 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1829 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
+#X obj 250 1833 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1833 pwidth;
+#X text 270 1833 установить ширину импульса канала ШИМ. Аргументы:;
+#X obj 300 1858 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1858 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
 Диапазон: [0\..16].;
-#X obj 300 1867 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1867 WIDTH: ширина импульса. Тип: float. Диапазон: [0.5\..40].
+#X obj 300 1896 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1896 WIDTH: ширина импульса. Тип: float. Диапазон: [0.5\..40].
 Единицы: 'ms'.;
-#X obj 300 1905 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1905 [PHASE]: фазовое смещение. Тип: float. Диапазон: [0\..1].;
-#X obj 250 1938 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1938 restart;
-#X text 270 1938 повторно включить контроллер после сна с включенным
+#X obj 300 1934 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1934 [PHASE]: фазовое смещение. Тип: float. Диапазон: [0\..1].;
+#X obj 250 1967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1967 restart;
+#X text 270 1967 повторно включить контроллер после сна с включенным
 перезапуском с перезапуском ранее активных каналов ШИМ.;
-#X obj 250 1988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1988 set_raw;
-#X text 270 1988 установить низкоуровневое значение ШИМ. Аргументы:;
-#X obj 300 2013 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2013 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
+#X obj 250 2017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2017 set_raw;
+#X text 270 2017 установить низкоуровневое значение ШИМ. Аргументы:;
+#X obj 300 2042 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2042 CHAN: ШИМ-канал. 16 означает все каналы. Тип: int.
 Диапазон: [0\..16].;
-#X obj 300 2051 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2051 ON: время \, в которое импульс переходит в высокое
+#X obj 300 2080 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2080 ON: время \, в которое импульс переходит в высокое
 состояние. Тип: int. Диапазон: [0\..4095].;
-#X obj 300 2089 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2089 OFF: время \, в которое импульс переходит в низкое
+#X obj 300 2118 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2118 OFF: время \, в которое импульс переходит в низкое
 состояние. Тип: int. Диапазон: [0\..4095].;
-#X obj 250 2137 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2137 use_prog_addr;
-#X text 270 2137 установить и использовать программируемый адрес. Аргументы:;
-#X obj 300 2162 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2162 TYPE: тип программируемого адреса. Тип: atom. Разрешённые
+#X obj 250 2166 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2166 use_prog_addr;
+#X text 270 2166 установить и использовать программируемый адрес. Аргументы:;
+#X obj 300 2191 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2191 TYPE: тип программируемого адреса. Тип: atom. Разрешённые
 значения: 1 \, 2 \, 3 \, all.;
-#X obj 300 2200 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2200 I2C_ADDR: новый I²C адрес. Тип: int. Диапазон: [7\..119].;
-#X obj 20 2243 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2248 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 2229 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2229 I2C_ADDR: новый I²C адрес. Тип: int. Диапазон: [7\..119].;
+#X obj 20 2272 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2277 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 2249 1\.;
-#X text 270 2249 управляющий вход.;
-#X obj 20 2284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2289 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2278 1\.;
+#X text 270 2278 управляющий вход.;
+#X obj 20 2313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2318 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2290 1\.;
-#X text 270 2290 управляющий выход.;
+#X text 130 2319 1\.;
+#X text 270 2319 управляющий выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2340 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2343 библиотека: ceammc v0.9.8;
-#N canvas 10 2362 400 290 info 0;
+#X obj 1 2369 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2372 библиотека: ceammc v0.9.8;
+#N canvas 10 2391 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -200,10 +204,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2362 pd info;
-#X connect 13 0 14 0;
-#X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 14 0 19 0;
-#X connect 18 0 19 0;
+#X restore 10 2391 pd info;
+#X connect 14 0 16 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 16 0 23 0;
+#X connect 22 0 23 0;
+#X connect 17 0 23 0;
