@@ -27,16 +27,17 @@ namespace eval ::nui {
             set _c [::nui::widget_canvas $args(-cnv) $args(-model)]
             set _t [tag_all $args(-id)]
 
-            set _title_x [expr {$args(-x) + 4}]
-            set _title_y [expr {$args(-height) * 0.5}]
+            set _ztitle_x [expr {$args(-x) + (4 * $args(-zoom))}]
+            set _ztitle_y [expr {$args(-height) * 0.5 * $args(-zoom)}]
+            set _ztext_width [expr $args(-text_width) * $args(-zoom)]
 
             set _title [make_title $args(-title) $args(-direction_right) $args(-indicator_right) 0]
 
-            $_c create text $_title_x $_title_y \
+            $_c create text $_ztitle_x $_ztitle_y \
                 -text $_title \
                 -fill $args(-title_color) \
                 -anchor w \
-                -width $args(-text_width) \
+                -width $_ztext_width \
                 -tags $_t
         }
 
@@ -46,16 +47,17 @@ namespace eval ::nui {
             set _c [::nui::widget_canvas $args(-cnv) $args(-model)]
             set _t [tag_all $args(-id)]
 
-            set _title_x [expr {$args(-x) + 4}]
-            set _title_y [expr {$args(-height) * 0.5}]
-            $_c coords $_t $_title_x $_title_y
+            set _ztitle_x [expr {$args(-x) + (4 * $args(-zoom))}]
+            set _ztitle_y [expr {$args(-height) * 0.5 * $args(-zoom)}]
+            set _ztext_width [expr $args(-text_width) * $args(-zoom)]
+            $_c coords $_t $_ztitle_x $_ztitle_y
 
             # set title
             set _title [make_title $args(-title) $args(-direction_right) $args(-indicator_right) $args(-is_open)]
             $_c itemconfigure $_t \
                 -text $_title \
                 -fill $args(-title_color) \
-                -width $args(-text_width) \
+                -width $_ztext_width \
                 -tags $_t
 
             set OPEN [tag_open $args(-id)]
@@ -69,29 +71,35 @@ namespace eval ::nui {
                 set _win [::nui::widget_window $args(-cnv) $args(-model)]
 
                 set _nitems [llength $args(-text_lines)]
-                lassign [$_pc coords $_win] _gx _menu_y
-                set _menu_x [expr {$_gx + $args(-width) * $args(-zoom)}]
-                set _txt_left [expr {$_menu_x + 5}]
-                set _txt_top [expr {$_menu_y + 5}]
+                lassign [$_pc coords $_win] _gx _menu_top
+
+                if {$args(-direction_right)} {
+                    set _menu_left [expr {$_gx + $_ztext_width}]
+                } else {
+                    set _menu_left [expr {$_gx - $_ztext_width}]
+                }
+
+                set _menu_right [expr {$_menu_left + $_ztext_width}]
+                set _txt_left [expr {$_menu_left + 5}]
+                set _txt_ypos [expr {$_menu_top + 5}]
 
                 # draw lines
                 for {set i 0} {$i < $_nitems} {incr i} {
                     # line text
-                    set _line_id [$_pc create text $_txt_left $_txt_top \
+                    set _line_id [$_pc create text $_txt_left $_txt_ypos \
                         -text [lindex $args(-text_lines) $i] \
-                        -width $args(-text_width) \
+                        -width $_ztext_width \
                         -fill $args(-popup_text_color) \
                         -anchor nw \
                         -tags [list $ALL $OPEN]]
 
                     set _line_bbox [$_pc bbox $_line_id]
                     lassign $_line_bbox _ _ _ _y2
-                    set _txt_top [expr {$_y2 + 5}]
+                    set _txt_ypos [expr {$_y2 + 5}]
                 }
 
                 # draw rect
-                set _menu_right [expr {$_menu_x + $args(-text_width)}]
-                set _box [$_pc create rectangle $_menu_x $_menu_y $_menu_right $_txt_top \
+                set _box [$_pc create rectangle $_menu_left $_menu_top $_menu_right $_txt_ypos \
                     -fill $args(-popup_fill_color) \
                     -outline $args(-popup_border_color) \
                     -width $args(-popup_border_width) \
