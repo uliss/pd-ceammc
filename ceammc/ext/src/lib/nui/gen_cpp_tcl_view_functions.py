@@ -126,8 +126,9 @@ if __name__ == "__main__":
         mod = yaml.safe_load(f)
 
     template = Template(template_hxx, trim_blocks=True, lstrip_blocks=True)
+    name = mod['name']
 
-    local_includes = set(["nui/view.h", "nui/help_box_model.h", "m_pd.h"])
+    local_includes = set(["nui/view.h", "nui/{}_model.h".format(name.lower()), "m_pd.h"])
     sys_includes = set()
 
     args = [
@@ -225,7 +226,6 @@ if __name__ == "__main__":
     update_args = filtered = [x for x in args if x.get('view_update', False)]
 
     ns = 'nui'
-    name = mod['name']
     tcl_fn = 'sys_vgui'
 
     print(template.render(

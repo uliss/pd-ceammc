@@ -50,9 +50,9 @@ add_custom_target(
   COMMAND ${GEN_MODEL} button_model.yaml > button_model.h
   COMMAND ${GEN_MODEL} combobox_model.yaml > combobox_model.h
   COMMAND ${GEN_MODEL} frame_model.yaml > frame_model.h
+  COMMAND ${GEN_MODEL} helpbox_model.yaml > helpbox_model.h
   COMMAND ${GEN_MODEL} label_model.yaml > label_model.h
   COMMAND ${GEN_MODEL} nentry_model.yaml > nentry_model.h
-  COMMAND ${GEN_MODEL} help_box_model.yaml > help_box_model.h
   COMMAND ${GEN_MODEL} slider_model.yaml > slider_model.h
   COMMAND ${GEN_MODEL} toggle_model.yaml > toggle_model.h
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -61,9 +61,9 @@ set(GEN_CXX_TCL_VIEW_FN
     ${CMAKE_CURRENT_SOURCE_DIR}/gen_cpp_tcl_view_functions.py)
 add_custom_target(
   nui_tcl_view_gen
-  COMMAND ${GEN_CXX_TCL_VIEW_FN} help_box_model.yaml > cpp_tcl_view_box_help.h
+  COMMAND ${GEN_CXX_TCL_VIEW_FN} helpbox_model.yaml > cpp_tcl_helpbox_view.h
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  DEPENDS nui_model_gen help_box_model.yaml)
+  DEPENDS nui_model_gen helpbox_model.yaml)
 
 target_link_libraries(ceammc_nui PRIVATE ceammc_core puredata-core)
 

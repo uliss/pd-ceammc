@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "help_box_view.h"
 #include "ceammc_log.h"
-#include "cpp_tcl_view_box_help.h"
+#include "cpp_tcl_helpbox_view.h"
 #include "nui_help_box_tcl.h"
 
 namespace ceammc {

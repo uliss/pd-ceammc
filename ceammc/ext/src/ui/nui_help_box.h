@@ -15,7 +15,7 @@
 #define NUI_HELP_BOX_H
 
 #include "ceammc_object.h"
-#include "nui/help_box_model.h"
+#include "nui/helpbox_model.h"
 #include "nui/simple_widget.h"
 
 namespace ceammc {

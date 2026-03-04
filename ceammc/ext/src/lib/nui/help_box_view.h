@@ -14,7 +14,7 @@
 #ifndef HELP_BOX_VIEW_H
 #define HELP_BOX_VIEW_H
 
-#include "nui/help_box_model.h"
+#include "nui/helpbox_model.h"
 #include "nui/view.h"
 
 namespace ceammc {
