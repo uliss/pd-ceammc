@@ -6,66 +6,71 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.ir 20 20 0 20
 -104026 -4096 0;
 #X obj 624 11 hw.rpi.sensor.ir;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 165 118 ui.menu NEC RC5 RC6 JVC Sharp;
-#X msg 50 147 poll \$1;
-#X msg 165 147 @proto \$2;
-#X obj 50 190 hw.rpi.sensor.ir @pin 23;
-#X obj 59 219 route D S F;
-#X floatatom 59 248 5 0 0 0 - - -;
-#X floatatom 126 248 5 0 0 0 - - -;
-#X floatatom 194 248 5 0 0 0 - - -;
-#X obj 50 277 print IR;
-#X obj 50 305 ui.link @title Connection_Scheme @url
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 При создании объект забирает в эксклюзивное владение
+GPIO контакт @pin: использовать его в других объектах одновременно
+с этим *невозможно*.;
+#X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
+#X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 165 201 ui.menu NEC RC5 RC6 JVC Sharp;
+#X msg 50 230 poll \$1;
+#X msg 165 230 @proto \$2;
+#X obj 50 273 hw.rpi.sensor.ir @pin 23;
+#X obj 59 302 route D S F;
+#X floatatom 59 331 5 0 0 0 - - -;
+#X floatatom 126 331 5 0 0 0 - - -;
+#X floatatom 194 331 5 0 0 0 - - -;
+#X obj 50 360 print IR;
+#X obj 50 388 ui.link @title Connection_Scheme @url
 ceammc://img/conn_infrared.png;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 367 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 450 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 370 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 453 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 368 1\.;
-#X text 170 368 int;
-#X obj 268 369 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 368 PIN: пин соединения GPIO. См. @pin. Тип: int. Диапазон:
+#X text 130 451 1\.;
+#X text 170 451 int;
+#X obj 268 452 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 451 PIN: пин соединения GPIO. См. @pin. Тип: int. Диапазон:
 [-1\..127];
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 423 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 506 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 509 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 424 @pin;
-#X text 270 424 (при инициализации) Пин соединения GPIO. Тип: int.
+#X msg 130 507 @pin;
+#X text 270 507 (при инициализации) Пин соединения GPIO. Тип: int.
 Значение по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 466 @proto;
-#X text 270 466 Название протокола. Вы должны выключить/включить опрос
+#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 549 @proto;
+#X text 270 549 Название протокола. Вы должны выключить/включить опрос
 датчика \, чтобы изменение этого свойства вступило в силу. Тип: symbol.
 Значение по умолчанию: NEC.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 621 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 539 poll;
-#X text 270 539 start/stop IR sensor polling. Аргументы:;
-#X obj 300 564 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 564 VALUE: состояние. Тип: bool.;
-#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 612 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 622 poll;
+#X text 270 622 start/stop IR sensor polling. Аргументы:;
+#X obj 300 647 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 647 VALUE: состояние. Тип: bool.;
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 695 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 613 1\.;
-#X text 270 613 вход для управляющих сообщений.;
-#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 653 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 696 1\.;
+#X text 270 696 вход для управляющих сообщений.;
+#X obj 20 731 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 736 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 654 1\.;
-#X text 270 654 нажатые кнопки ИК-пультов управления согласно протоколу.;
+#X text 130 737 1\.;
+#X text 270 737 нажатые кнопки ИК-пультов управления согласно протоколу.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 704 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 707 библиотека: ceammc v0.9.8;
-#N canvas 10 726 400 290 info 0;
+#X obj 1 787 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 790 библиотека: ceammc v0.9.8;
+#N canvas 10 809 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,13 +94,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 726 pd info;
-#X connect 4 0 6 0;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
-#X connect 9 1 11 0;
-#X connect 9 2 12 0;
-#X connect 8 0 13 0;
+#X restore 10 809 pd info;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 2 15 0;
+#X connect 11 0 16 0;

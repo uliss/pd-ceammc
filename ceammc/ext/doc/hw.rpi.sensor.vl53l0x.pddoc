@@ -30,17 +30,17 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C
-        bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на
-        шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
         <tr lang="en">I²C address. The value 'default' means default device I²C address (0x29)</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает адрес I²C
-        устройства по умолчанию (0x29)</tr>
+        <tr lang="ru">Адрес I²C. Значение «default» означает адрес I²C устройства по умолчанию
+        (0x29)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -55,8 +55,8 @@
         <info>
           <tr lang="en">set sensor I²C address. Note that the address resets when the device is
           powered off</tr>
-          <tr lang="ru">установка I²C адреса. Обратите внимание, что адрес
-          сбрасывается, когда устройство выключено</tr>
+          <tr lang="ru">установка I²C адреса. Обратите внимание, что адрес сбрасывается, когда
+          устройство выключено</tr>
         </info>
         <param name="ADDR" type="int" minvalue="8" maxvalue="119" required="true">
           <tr lang="en">new I²C address</tr>

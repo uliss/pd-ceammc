@@ -36,9 +36,8 @@
       <par style="important">
         <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакт @pin:
         использовать его в других объектах одновременно с этим *невозможно*.</tr>
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin,
-         - it is *impossible* to use them in other objects simultaneously with this
-        one.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin, - it
+        is *impossible* to use them in other objects simultaneously with this one.</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1</tr>
@@ -54,10 +53,10 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C
-        bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на
-        шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @pin -->
       <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127" access="initonly">

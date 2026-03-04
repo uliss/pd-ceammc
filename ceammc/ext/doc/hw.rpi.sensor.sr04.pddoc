@@ -56,10 +56,10 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C
-        bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на
-        шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @echo_pin -->
       <property name="@echo_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
