@@ -54,9 +54,9 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
     char buf1[256] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::create_ui [dict create"
-        " -cnv %lx"
-        " -model %lx"
-        " -id %lx"
+        " -cnv %llx"
+        " -model %llx"
+        " -id %llx"
         " -x %d"
         " -y %d"
         " -width %d"
@@ -74,8 +74,8 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         window,
         widget,
         object,
-        pt.x(),
-        pt.y(),
+        static_cast<int>(pt.x()),
+        static_cast<int>(pt.y()),
         model.size().width(),
         model.size().height(),
         zoom,
@@ -95,9 +95,9 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
     char buf1[256] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::update_ui [dict create"
-        " -cnv %lx"
-        " -model %lx"
-        " -id %lx"
+        " -cnv %llx"
+        " -model %llx"
+        " -id %llx"
         " -x %d"
         " -y %d"
         " -width %d"
@@ -122,8 +122,8 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         window,
         widget,
         object,
-        pt.x(),
-        pt.y(),
+        static_cast<int>(pt.x()),
+        static_cast<int>(pt.y()),
         model.size().width(),
         model.size().height(),
         zoom,
