@@ -7,21 +7,19 @@
 using namespace ceammc;
 
 class HwRpiSensorIR : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_infrared* ir_ { nullptr };
+    using Sensor = std::unique_ptr<ceammc_hw_infrared, void (*)(ceammc_hw_infrared*)>;
+    Sensor ir_;
     GpioPinProperty* pin_ { nullptr };
     SymbolProperty* proto_ { nullptr };
 
 public:
     explicit HwRpiSensorIR(const PdArgs& args);
-    ~HwRpiSensorIR();
 
     bool notify(int code) final;
-
     void m_poll(t_symbol* s, const AtomListView& lv);
 
 private:
     void startSensor();
-    void stopSensor();
 };
 
 void setup_hw_rpi_sensor_ir();

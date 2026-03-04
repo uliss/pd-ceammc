@@ -4,6 +4,7 @@
 
 HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
+    , ir_(nullptr, &ceammc_hw_infrared_free)
 {
     createOutlet();
     pin_ = addGpioPinProperty("@pin");
@@ -13,14 +14,9 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
     addProperty(proto_);
 }
 
-HwRpiSensorIR::~HwRpiSensorIR()
-{
-    stopSensor();
-}
-
 bool HwRpiSensorIR::notify(int code)
 {
-    return ceammc_hw_infrared_free_process_reply(ir_);
+    return ceammc_hw_infrared_free_process_reply(ir_.get());
 }
 
 void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
@@ -33,7 +29,7 @@ void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
     if (poll && !ir_) {
         startSensor();
     } else if (!poll && ir_) {
-        stopSensor();
+        ir_.reset();
     }
 }
 
@@ -42,12 +38,7 @@ void HwRpiSensorIR::startSensor()
     if (!pin_->checkPin(this))
         return;
 
-    if (ir_) {
-        ceammc_hw_infrared_free(ir_);
-        ir_ = nullptr;
-    }
-
-    ir_ = ceammc_hw_infrared_new(pin_->value(),
+    ir_.reset(ceammc_hw_infrared_new(pin_->value(),
         on_notify(),
         on_message(), //
         { this, [](void* user, const char* key, std::int64_t value) {
@@ -56,17 +47,15 @@ void HwRpiSensorIR::startSensor()
                  return;
 
              obj->anyTo(0, gensym(key), Atom(value));
-         } });
+         } }) //
+    );
 
-    ceammc_hw_infrared_set_protocol(ir_, proto_->value()->s_name);
-}
-
-void HwRpiSensorIR::stopSensor()
-{
-    if (ir_) {
-        ceammc_hw_infrared_free(ir_);
-        ir_ = nullptr;
+    if (!ir_) {
+        OBJ_ERR << "can't connect to device";
+        return;
     }
+
+    ceammc_hw_infrared_set_protocol(ir_.get(), proto_->value()->s_name);
 }
 
 void setup_hw_rpi_sensor_ir()
