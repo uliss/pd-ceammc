@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<verbose>
+  <par>
+    <tr lang="en">@slice FROM: Selects all pixels starting from FROM. If FROM is a negative
+    value, it indicates the position of the pixel from the end. For example: @slice -2 will
+    select the last two pixels.</tr>
+    <tr lang="ru">@slice FROM: Выбирает все пиксели начиная с FROM. Если FROM - отрицательное
+    значение, оно обозначает положение пикселя с конца. Например: @slice -2 выберет два
+    последних пикселя.</tr>
+  </par>
+  <par>
+    <tr lang="en">@slice FROM TO: Selects all pixels starting from FROM and up to and including
+    TO. If FROM or TO are negative values, they indicate the position of the pixel from the
+    end.</tr>
+    <tr lang="ru">@slice FROM TO: Выбирает все пиксели начиная с FROM и до TO включительно.
+    Если FROM или TO - отрицательные значения, они обозначает положение пикселя с конца.</tr>
+  </par>
+  <par>
+    <tr lang="en">@slice FROM TO STEP: Selects all pixels starting from FROM up to and
+    including TO with the specified STEP. For example, if STEP is 3, it selects every third
+    pixel in the specified range.</tr>
+    <tr lang="ru">@slice FROM TO STEP: Выбирает все пиксели начиная с FROM и до TO включительно
+    через указанный шаг (STEP). Например, если STEP равно 3, выбирает каждый третий пиксель в
+    указанном диапазоне.</tr>
+  </par>
+</verbose>

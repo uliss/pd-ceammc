@@ -90,6 +90,19 @@ int. Range: [0\..255].;
 #X obj 300 1271 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1271 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
+#X obj 270 1271 nui.helpbox @title ? @direction_right 0 @text_width
+250 @lines
+>QHNsaWNlIEZST006IFNlbGVjdHMgYWxsIHBpeGVscyBzdGFydGluZyBmcm9tIEZST00uIElmIEZS
+T00gaXMgYSBuZWdhdGl2ZSB2YWx1ZSwgaXQgaW5kaWNhdGVzIHRoZSBwb3NpdGlvbiBvZiB0aGUg
+cGl4ZWwgZnJvbSB0aGUgZW5kLiBGb3IgZXhhbXBsZTogQHNsaWNlIC0yIHdpbGwgc2VsZWN0IHRo
+ZSBsYXN0IHR3byBwaXhlbHMu
+>QHNsaWNlIEZST00gVE86IFNlbGVjdHMgYWxsIHBpeGVscyBzdGFydGluZyBmcm9tIEZST00gYW5k
+IHVwIHRvIGFuZCBpbmNsdWRpbmcgVE8uIElmIEZST00gb3IgVE8gYXJlIG5lZ2F0aXZlIHZhbHVl
+cywgdGhleSBpbmRpY2F0ZSB0aGUgcG9zaXRpb24gb2YgdGhlIHBpeGVsIGZyb20gdGhlIGVuZC4=
+>QHNsaWNlIEZST00gVE8gU1RFUDogU2VsZWN0cyBhbGwgcGl4ZWxzIHN0YXJ0aW5nIGZyb20gRlJP
+TSB1cCB0byBhbmQgaW5jbHVkaW5nIFRPIHdpdGggdGhlIHNwZWNpZmllZCBTVEVQLiBGb3IgZXhh
+bXBsZSwgaWYgU1RFUCBpcyAzLCBpdCBzZWxlY3RzIGV2ZXJ5IHRoaXJkIHBpeGVsIGluIHRoZSBz
+cGVjaWZpZWQgcmFuZ2Uu ;
 #X obj 300 1309 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1309 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
 list.;
@@ -106,10 +119,7 @@ list.;
 #X obj 300 1455 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1455 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
-#X obj 300 1493 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1493 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
-list.;
-#X obj 270 1493 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1455 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QHNsaWNlIEZST006IFNlbGVjdHMgYWxsIHBpeGVscyBzdGFydGluZyBmcm9tIEZST00uIElmIEZS
 T00gaXMgYSBuZWdhdGl2ZSB2YWx1ZSwgaXQgaW5kaWNhdGVzIHRoZSBwb3NpdGlvbiBvZiB0aGUg
@@ -122,6 +132,9 @@ cywgdGhleSBpbmRpY2F0ZSB0aGUgcG9zaXRpb24gb2YgdGhlIHBpeGVsIGZyb20gdGhlIGVuZC4=
 TSB1cCB0byBhbmQgaW5jbHVkaW5nIFRPIHdpdGggdGhlIHNwZWNpZmllZCBTVEVQLiBGb3IgZXhh
 bXBsZSwgaWYgU1RFUCBpcyAzLCBpdCBzZWxlY3RzIGV2ZXJ5IHRoaXJkIHBpeGVsIGluIHRoZSBz
 cGVjaWZpZWQgcmFuZ2Uu ;
+#X obj 300 1493 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1493 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
+list.;
 #X obj 250 1526 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1526 rotate;
 #X text 270 1526 shift all pixel by specified step. Arguments are:;
