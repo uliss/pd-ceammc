@@ -7,18 +7,23 @@
 using namespace ceammc;
 
 class HwRpiSensorDht11 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_gpio_dht11* dht_ { nullptr };
+    using Sensor = std::unique_ptr<ceammc_hw_gpio_dht11, void (*)(ceammc_hw_gpio_dht11*)>;
+
+    Sensor dht_;
     GpioPinProperty* pin_ { nullptr };
+    BoolProperty* connect_ { nullptr };
 
 public:
     explicit HwRpiSensorDht11(const PdArgs& args);
-    ~HwRpiSensorDht11();
 
-    void initDone() final;
     bool notify(int code) final;
 
     void onBang() final;
     void m_poll(t_symbol* s, const AtomListView& lv);
+
+private:
+    bool check_connected(bool print_err);
+    void gpio_connect(bool state);
 };
 
 void setup_hw_rpi_sensor_dht11();

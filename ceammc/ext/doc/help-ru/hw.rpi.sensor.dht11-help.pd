@@ -51,33 +51,38 @@ ceammc://img/conn_dht11.png;
 #X msg 130 682 @pin;
 #X text 270 682 (при инициализации) Пин соединения GPIO. Тип: int.
 Значение по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 739 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 724 @connect;
+#X text 270 724 При установке в 1: пробует подключиться к устройству
+на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 796 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 740 poll;
-#X text 270 740 включить/выключить автоматический опрос сенсора. Аргументы:;
-#X obj 300 765 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 765 STATE: состояние опроса. Тип: bool.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 813 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 797 poll;
+#X text 270 797 включить/выключить автоматический опрос сенсора. Аргументы:;
+#X obj 300 822 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 822 STATE: состояние опроса. Тип: bool.;
+#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 870 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 814 1\.;
-#X text 170 814 bang:;
-#X text 270 814 произвести однократное измерение.;
-#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 854 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 871 1\.;
+#X text 170 871 bang:;
+#X text 270 871 произвести однократное измерение.;
+#X obj 20 906 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 911 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 855 1\.;
-#X text 170 855 list:;
-#X text 270 855 ТЕМПЕРАТУРА (в Цельсиях) ВЛАЖНОСТЬ.;
+#X text 130 912 1\.;
+#X text 170 912 list:;
+#X text 270 912 ТЕМПЕРАТУРА (в Цельсиях) ВЛАЖНОСТЬ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 905 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 908 библиотека: ceammc v0.9.8;
-#N canvas 10 927 400 290 info 0;
+#X obj 1 962 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 965 библиотека: ceammc v0.9.8;
+#N canvas 10 984 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +106,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 927 pd info;
+#X restore 10 984 pd info;
 #X connect 13 0 14 0;
 #X connect 15 0 17 0;
 #X connect 14 0 20 0;

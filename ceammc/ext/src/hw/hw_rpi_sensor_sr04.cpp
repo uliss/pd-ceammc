@@ -71,7 +71,7 @@ void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 bool HwRpiSensorSr04::check_connected(bool print_err)
 {
     if (!sr04_ && print_err) {
-        OBJ_ERR << "device is not connected to the I2C bus";
+        OBJ_ERR << "device is not connected";
     }
 
     return sr04_.get();

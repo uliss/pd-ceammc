@@ -5,45 +5,27 @@
 
 HwRpiSensorDht11::HwRpiSensorDht11(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
+    , dht_(nullptr, &ceammc_hw_gpio_dht11_free)
     , pin_(nullptr)
 {
     pin_ = addGpioPinProperty("@pin");
     pin_->setArgIndex(0);
 
+    connect_ = new BoolProperty("@connect", false);
+    connect_->setSuccessFn([this](Property*) {
+        gpio_connect(connect_->value());
+    });
+    addProperty(connect_);
+
     createOutlet();
-}
-
-HwRpiSensorDht11::~HwRpiSensorDht11()
-{
-    ceammc_hw_gpio_dht11_free(dht_);
-}
-
-void HwRpiSensorDht11::initDone()
-{
-    if (pin_->isNone())
-        return;
-
-    dht_ = ceammc_hw_gpio_dht11_new(pin_->value(),
-        on_notify(), //
-        on_message(),
-        { this, [](void* user, double temp, double hum) {
-             auto obj = static_cast<HwRpiSensorDht11*>(user);
-             if (!obj)
-                 return;
-
-             AtomArray<2> data;
-             data[0] = temp;
-             data[1] = hum;
-             obj->listTo(0, data.view());
-         } });
-
-    if (!dht_)
-        OBJ_ERR << "can't connect to device";
 }
 
 void HwRpiSensorDht11::onBang()
 {
-    ceammc_hw_gpio_dht11_measure(dht_);
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_gpio_dht11_measure(dht_.get());
 }
 
 void HwRpiSensorDht11::m_poll(t_symbol* s, const AtomListView& lv)
@@ -52,12 +34,56 @@ void HwRpiSensorDht11::m_poll(t_symbol* s, const AtomListView& lv)
     if (!args.check(lv, this))
         return args.usage(this, s);
 
-    ceammc_hw_gpio_dht11_poll(dht_, lv.boolAt(0, false));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_gpio_dht11_poll(dht_.get(), lv.boolAt(0, false));
+}
+
+bool HwRpiSensorDht11::check_connected(bool print_err)
+{
+    if (!dht_ && print_err) {
+        OBJ_ERR << "device is not connected";
+    }
+
+    return dht_.get();
 }
 
 bool HwRpiSensorDht11::notify(int /*code*/)
 {
-    return ceammc_hw_gpio_dht11_process(dht_);
+    return ceammc_hw_gpio_dht11_process(dht_.get());
+}
+
+void HwRpiSensorDht11::gpio_connect(bool state)
+{
+    if (state) {
+        if (pin_->isNone()) {
+            OBJ_ERR << "GPIO pin is not set";
+            return;
+        }
+
+        dht_.reset(
+            ceammc_hw_gpio_dht11_new(
+                pin_->value(),
+                on_notify(), //
+                on_message(),
+                { this, [](void* user, double temp, double hum) {
+                     auto obj = static_cast<HwRpiSensorDht11*>(user);
+                     if (!obj)
+                         return;
+
+                     AtomArray<2> data;
+                     data[0] = temp;
+                     data[1] = hum;
+                     obj->listTo(0, data.view());
+                 } }) //
+        );
+
+        if (!dht_)
+            OBJ_ERR << "can't connect to device";
+    } else {
+        dht_.reset();
+    }
 }
 
 void setup_hw_rpi_sensor_dht11()
