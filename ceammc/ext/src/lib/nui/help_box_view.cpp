@@ -56,9 +56,6 @@ namespace ui {
             data().setIsOpen(!data().isOpen());
             redraw();
             notifyOthers();
-
-            LIB_DBG << "state: " << data().isOpen();
-
             return { nullptr, EVENT_STATUS_ACCEPT };
         // case EVENT_MOUSE_LEAVE:
         //     data().setState(false);
