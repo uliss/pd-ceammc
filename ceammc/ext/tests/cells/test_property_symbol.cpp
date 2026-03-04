@@ -52,7 +52,7 @@ TEST_CASE("SymbolProperty", "[core]")
         REQUIRE(p.get() == LA("test"));
         REQUIRE(p.value() == SYM("test"));
         REQUIRE(p.set(LA("ABC")));
-        REQUIRE(p.value() == S("ABC"));
+        REQUIRE(p.value() == SYM("ABC"));
 
         CHECK_SUCCESS(p, LA("ABC"), LF(1000));
         CHECK_READONLY(p, LA("A"));
@@ -77,12 +77,12 @@ TEST_CASE("SymbolProperty", "[core]")
         REQUIRE_FALSE(p.set(LA("@A")));
 
         REQUIRE(p.set(LA("#a")));
-        REQUIRE(p.value() == LA("#a"));
+        REQUIRE(p.value() == SYM("#a"));
         CHECK_SUCCESS(p, LA("#b"), LA("B"));
 
         p.setSymbolCheckFn(nullptr);
         REQUIRE(p.set(LA("B")));
-        REQUIRE(p.value() == LA("B"));
+        REQUIRE(p.value() == SYM("B"));
     }
 
     SECTION("getSymbol/getT")

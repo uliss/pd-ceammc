@@ -94,12 +94,12 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE_FALSE(p.set(LA(1, 2, 3)));
 
             REQUIRE(p.set(LA("@a")));
-            REQUIRE(p.value() == LA("@a"));
+            REQUIRE(p.value() == A("@a"));
             CHECK_SUCCESS(p, LA("@prop"), LA("non-prop"));
 
             p.setAtomCheckFn(nullptr);
             REQUIRE(p.set(LA(1)));
-            REQUIRE(p.value() == LA(1));
+            REQUIRE(p.value() == A(1));
 
             REQUIRE_FALSE(p.checkNegative());
             REQUIRE_FALSE(p.checkNonNegative());

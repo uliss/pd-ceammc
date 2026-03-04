@@ -87,7 +87,7 @@ void FlowRoute::onAny(t_symbol* s, const AtomListView& lv)
         const size_t IDX = i - 1;
         auto& r = routes_[IDX];
 
-        if (s == r.sel) {
+        if (Atom(s) == r.sel) {
             if (r.keep)
                 anyTo(IDX, s, lv);
             else {

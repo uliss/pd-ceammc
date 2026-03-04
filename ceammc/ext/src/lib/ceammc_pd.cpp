@@ -201,7 +201,7 @@ bool pd::External::isAbstraction() const
 {
     return obj_
         && pd_class(&obj_->te_g.g_pd) == canvas_class
-        && canvas_isabstraction((t_canvas*)(obj_));
+        && canvas_isabstraction(reinterpret_cast<t_canvas*>(obj_));
 }
 
 t_symbol* pd::External::className() const
@@ -231,15 +231,15 @@ bool pd::External::connectTo(size_t outn, t_object* dest, size_t inln)
         return false;
     }
 
-    if (int(inln) >= obj_ninlets(dest)) {
+    if (static_cast<int>(inln) >= obj_ninlets(dest)) {
         printf("[%s: connectTo %s] invalid destination inlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(dest), int(inln));
+            OBJ_NAME(obj_), OBJ_NAME(dest), static_cast<int>(inln));
         return false;
     }
 
-    if (int(outn) >= numOutlets()) {
+    if (static_cast<int>(outn) >= numOutlets()) {
         printf("[%s: connectTo %s] invalid source outlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(dest), int(outn));
+            OBJ_NAME(obj_), OBJ_NAME(dest), static_cast<int>(outn));
         return false;
     }
 
@@ -272,21 +272,21 @@ bool pd::External::connectFrom(size_t outn, t_object* src, size_t inln)
         return false;
     }
 
-    if (int(inln) >= numInlets()) {
+    if (static_cast<int>(inln) >= numInlets()) {
         printf("[%s: connectFrom %s] invalid destination inlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(src), int(inln));
+            OBJ_NAME(obj_), OBJ_NAME(src), static_cast<int>(inln));
         return false;
     }
 
-    if (int(outn) >= obj_noutlets(src)) {
+    if (static_cast<int>(outn) >= obj_noutlets(src)) {
         printf("[%s: connectFrom %s] invalid source outlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(src), int(outn));
+            OBJ_NAME(obj_), OBJ_NAME(src), static_cast<int>(outn));
         return false;
     }
 
 #undef OBJ_NAME
 
-    return obj_connect(src, int(outn), obj_, int(inln)) != 0;
+    return obj_connect(src, static_cast<int>(outn), obj_, int(inln)) != 0;
 }
 
 bool pd::External::connectFrom(size_t outn, pd::External& ext, size_t inln)
@@ -314,7 +314,7 @@ _glist* pd::External::asAbstraction()
     if (!isAbstraction())
         return nullptr;
     else
-        return (t_canvas*)(obj_);
+        return reinterpret_cast<t_canvas*>(obj_);
 }
 
 void pd::External::sendBang()
@@ -435,7 +435,7 @@ void pd::External::sendMessageTo(const Message& m, size_t inlet)
         External pd_a("t", AtomList(gensym("a")));
         if (pd_a.connectTo(0, *this, inlet)) {
             const auto& l = m.listValue();
-            pd_anything(pd_a.pd(), m.atomValue().asSymbol(), int(l.size()), l.toPdData());
+            pd_anything(pd_a.pd(), m.atomValue().asSymbol(), static_cast<int>(l.size()), l.toPdData());
         }
     }
 }
@@ -493,7 +493,7 @@ void pd::External::setXPos(int x)
     if (!obj_)
         return;
 
-    obj_->te_xpix = short(x);
+    obj_->te_xpix = static_cast<short>(x);
 }
 
 void pd::External::setYPos(int y)
@@ -501,7 +501,7 @@ void pd::External::setYPos(int y)
     if (!obj_)
         return;
 
-    obj_->te_ypix = short(y);
+    obj_->te_ypix = static_cast<short>(y);
 }
 
 std::vector<t_symbol*> pd::External::methods() const

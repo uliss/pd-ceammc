@@ -55,7 +55,7 @@ TEST_CASE("loadexpr", "[extension]")
 
             t->onLoadBang();
             REQUIRE(t.isOutputSymbolAt(0));
-            REQUIRE(t.outputSymbolAt(0) == S("ABC"));
+            REQUIRE(t.outputSymbolAt(0) == SYM("ABC"));
         }
 
         SECTION("list")
@@ -126,11 +126,11 @@ TEST_CASE("loadexpr", "[extension]")
             t->onLoadBang();
             REQUIRE(t.messagesAt(0) == ML {
                         bng,
-                        1,
-                        2,
-                        SYM("ABC"),
-                        LF(1, 2, 3),
-                        LF(4, 5, 6),
+                        M(1),
+                        M(2),
+                        M(SYM("ABC")),
+                        M(LF(1, 2, 3)),
+                        M(LF(4, 5, 6)),
                         M(SYM("any"), LA("message")),
                         M(SYM("@prop"), LF(1, 2, 3)),
                         bng,
@@ -147,7 +147,7 @@ TEST_CASE("loadexpr", "[extension]")
             t->onLoadBang();
 
             char buf[32];
-            sprintf(buf, "%d-msg", canvas_info_dollarzero(canvas_getcurrent()));
+            snprintf(buf, sizeof(buf), "%d-msg", canvas_info_dollarzero(canvas_getcurrent()));
             REQUIRE(t.messagesAt(0) == ML { M { SYM("test"), LA(buf) } });
         }
     }

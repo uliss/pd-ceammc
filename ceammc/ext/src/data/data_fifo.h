@@ -30,7 +30,7 @@ class DataFifo : public DataFifoBase {
     size_t size_;
 
 public:
-    DataFifo(const PdArgs& args);
+    explicit DataFifo(const PdArgs& args);
 
     void onBang() override;
     void onFloat(t_float v) override;

@@ -18,10 +18,10 @@
 #include "ceammc_atomlist_view.h"
 
 #include <boost/iterator/filter_iterator.hpp>
+#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 namespace ceammc {
@@ -247,9 +247,9 @@ public:
     bool insert(size_t pos, const AtomList& l);
     bool remove(size_t pos);
     void removeAll(const Atom& a);
-    void removeAll(AtomPredicate pred);
+    void removeAll(const AtomPredicate& pred);
     void replaceAll(const Atom& old_value, const Atom& new_value);
-    void replaceAll(AtomPredicate pred, const Atom& new_value);
+    void replaceAll(const AtomPredicate& pred, const Atom& new_value);
 
     /**
      * Remove all list values
@@ -348,13 +348,13 @@ public:
      * Find position of first element in list that compare equal to a
      * @return -1, if not found
      */
-    long findPos(const Atom& a) const noexcept;
+    std::int64_t findPos(const Atom& a) const noexcept;
 
     /**
      * Find position of first element in list for that predicate pred returns true
      * @return -1, if not found
      */
-    long findPos(AtomPredicate pred) const noexcept;
+    std::int64_t findPos(const AtomPredicate& pred) const noexcept;
 
     /**
      * Convert atomlist to parametrised type

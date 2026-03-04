@@ -62,7 +62,7 @@ void FlowSync::onInlet(size_t n, const AtomListView& lv)
 
 void FlowSync::onList(const AtomListView& lv)
 {
-    msg_list_[0] = lv;
+    msg_list_[0] = Message(lv);
     sync();
 }
 

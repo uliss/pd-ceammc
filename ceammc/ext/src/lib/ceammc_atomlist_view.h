@@ -16,10 +16,7 @@
 
 #include "ceammc_atom.h"
 
-#include <algorithm>
 #include <functional>
-#include <initializer_list>
-
 #include <boost/container/small_vector.hpp>
 #include <boost/optional.hpp>
 

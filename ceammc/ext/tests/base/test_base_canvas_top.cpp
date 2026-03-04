@@ -100,8 +100,8 @@ TEST_CASE("canvas.top", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 0, log0.object(), 0));
 
         obj->sendBang();
-        REQUIRE(log0.msg() == DictAtom("[x: 0 y: 0 size: 600 400 font: 10 dir: \"~\" "
-                                       "name: patch paths: \"" TEST_DIR "\" width: 600 height: 400]"));
+        REQUIRE(log0.msg() == Message(DictAtom("[x: 0 y: 0 size: 600 400 font: 10 dir: \"~\" "
+                                               "name: patch paths: \"" TEST_DIR "\" width: 600 height: 400]")));
     }
 
     SECTION("abstractions")
@@ -119,7 +119,7 @@ TEST_CASE("canvas.top", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 0, log0.object(), 0));
 
         obj->sendBang();
-        REQUIRE(log0.msg() == DictAtom("[x: 302 y: 338 size: 781 276 font: 12 dir: \"~\" paths: "
-                                       "name: canvas_top_test1.pd dir: \"" TEST_DATA_DIR "/base\" width: 781 height: 276]"));
+        REQUIRE(log0.msg() == Message(DictAtom("[x: 302 y: 338 size: 781 276 font: 12 dir: \"~\" paths: "
+                                               "name: canvas_top_test1.pd dir: \"" TEST_DATA_DIR "/base\" width: 781 height: 276]")));
     }
 }

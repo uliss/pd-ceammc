@@ -52,7 +52,7 @@ TEST_CASE("FloatProperty", "[core]")
     SECTION("get*")
     {
         REQUIRE(p.get() == LF(0.5));
-        REQUIRE(p.value() == LF(0.5));
+        REQUIRE(p.value() == (0.5));
 
         t_float f;
         REQUIRE(p.getFloat(f));

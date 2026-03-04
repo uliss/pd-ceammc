@@ -6,15 +6,13 @@
 //
 
 #include "list_zip.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
+#include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "datatype_mlist.h"
-
-#include <cassert>
-#include <sstream>
 
 using namespace ceammc;
 
@@ -22,11 +20,11 @@ constexpr size_t DEFAULT_INLET = 2;
 constexpr size_t MIN_INLET = 2;
 constexpr size_t MAX_INLET = 20;
 
-static t_symbol* SYM_MIN;
-static t_symbol* SYM_PAD;
-static t_symbol* SYM_CLIP;
-static t_symbol* SYM_WRAP;
-static t_symbol* SYM_FOLD;
+CEAMMC_DEFINE_SYM_HASH(min)
+CEAMMC_DEFINE_SYM_HASH(pad)
+CEAMMC_DEFINE_SYM_HASH(clip)
+CEAMMC_DEFINE_SYM_HASH(wrap)
+CEAMMC_DEFINE_SYM_HASH(fold)
 
 ListZip::ListZip(const PdArgs& a)
     : BaseObject(a)
@@ -45,21 +43,21 @@ ListZip::ListZip(const PdArgs& a)
     // @wrap - pad with wrapped values
     // @fold - pad with fold values
     method_ = new SymbolEnumProperty("@method",
-        { SYM_MIN, SYM_PAD, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+        { str_min, str_pad, str_clip, str_wrap, str_fold });
     addProperty(method_);
 
     // adding aliases
-    addProperty(new SymbolEnumAlias("@min", method_, SYM_MIN));
-    addProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
-    addProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@min", method_, sym_min()));
+    addProperty(new SymbolEnumAlias("@clip", method_, sym_clip()));
+    addProperty(new SymbolEnumAlias("@wrap", method_, sym_wrap()));
+    addProperty(new SymbolEnumAlias("@fold", method_, sym_fold()));
 
     createCbAtomProperty(
         "@pad",
         [this]() -> Atom { return pad_; },
         [this](const Atom& a) -> bool {
             pad_ = a;
-            method_->setValue(SYM_PAD);
+            method_->setValue(sym_pad());
             return true; });
 
     createCbListProperty("@lists",
@@ -90,15 +88,15 @@ void ListZip::onList(const AtomListView& lv)
     in_list_[0] = lv;
     const t_symbol* m = method_->value();
 
-    if (m == SYM_MIN)
+    if (m == sym_min())
         out_list_ = list::interleaveMinLength(in_list_);
-    else if (m == SYM_PAD)
+    else if (m == sym_pad())
         out_list_ = list::interleavePadWith(in_list_, pad_);
-    else if (m == SYM_CLIP)
+    else if (m == sym_clip())
         out_list_ = list::interleaveClip(in_list_);
-    else if (m == SYM_WRAP)
+    else if (m == sym_wrap())
         out_list_ = list::interleaveWrap(in_list_);
-    else if (m == SYM_FOLD)
+    else if (m == sym_fold())
         out_list_ = list::interleaveFold(in_list_);
 
     onBang();
@@ -142,16 +140,10 @@ void ListZip::initLists()
 
 void setup_list_zip()
 {
-    SYM_MIN = gensym("min");
-    SYM_PAD = gensym("pad");
-    SYM_CLIP = gensym("clip");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
     ObjectFactory<ListZip> obj("list.zip");
     obj.addAlias("list.interleave");
 
-    obj.setDescription("takes n lists from n inlets (specified by argument) and output their            elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).");
+    obj.setDescription("takes n lists from n inlets (specified by argument) and output their elements sequentially (list1-1 list2-1 list1-2 list2-2 etc.).");
     obj.setCategory("list");
-    obj.setKeywords({"list", "functional"});
+    obj.setKeywords({ "list", "functional" });
 }

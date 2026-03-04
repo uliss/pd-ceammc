@@ -15,6 +15,8 @@
 #include "test_base.h"
 #include "test_catch2.hpp"
 
+using M = Message;
+
 PD_COMPLETE_TEST_SETUP(CanvasDir, base_canvas, dir)
 
 TEST_CASE("canvas.dir", "[externals]")
@@ -70,8 +72,8 @@ TEST_CASE("canvas.dir", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 1, log1.object(), 0));
 
         canvas_send_bang((t_canvas*)obj->pd());
-        REQUIRE(log0.msg() == LA(TEST_DATA_DIR "/base"));
-        REQUIRE(log1.msg() == LF(0));
+        REQUIRE(log0.msg() == M(LA(TEST_DATA_DIR "/base")));
+        REQUIRE(log1.msg() == M(LF(0)));
     }
 
     SECTION("abstraction 1")
@@ -90,8 +92,8 @@ TEST_CASE("canvas.dir", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 1, log1.object(), 0));
 
         canvas_send_bang((t_canvas*)obj->pd());
-        REQUIRE(log0.msg() == LA(TEST_DATA_DIR "/base"));
-        REQUIRE(log1.msg() == LF(1));
+        REQUIRE(log0.msg() == M(LA(TEST_DATA_DIR "/base")));
+        REQUIRE(log1.msg() == M(1));
     }
 
     SECTION("abstraction subpatch")
@@ -110,8 +112,8 @@ TEST_CASE("canvas.dir", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 1, log1.object(), 0));
 
         canvas_send_bang((t_canvas*)obj->pd());
-        REQUIRE(log0.msg() == Message(LA(TEST_DATA_DIR)));
-        REQUIRE(log1.msg() == LF(3));
+        REQUIRE(log0.msg() == M(LA(TEST_DATA_DIR)));
+        REQUIRE(log1.msg() == M(3));
     }
 
     SECTION("abstraction subpatch")
@@ -130,7 +132,7 @@ TEST_CASE("canvas.dir", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 1, log1.object(), 0));
 
         canvas_send_bang((t_canvas*)obj->pd());
-        REQUIRE(log0.msg() == Message(LA(TEST_DATA_DIR)));
-        REQUIRE(log1.msg() == LF(4));
+        REQUIRE(log0.msg() == M(LA(TEST_DATA_DIR)));
+        REQUIRE(log1.msg() == M(4));
     }
 }

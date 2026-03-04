@@ -292,23 +292,23 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(parser::parse_dict_match_expr("/node", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchDict());
-        REQUIRE(m[0].key_name == S("node"));
+        REQUIRE(m[0].key_name == SYM("node"));
 
         m.clear();
         REQUIRE(parser::parse_dict_match_expr("/\"node:\"", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchDict());
-        REQUIRE(m[0].key_name == S("node:"));
+        REQUIRE(m[0].key_name == SYM("node:"));
 
         m.clear();
         REQUIRE(parser::parse_dict_match_expr("/a/*/b", &m));
         REQUIRE(m.size() == 3);
         REQUIRE(m[0].matchDict());
-        REQUIRE(m[0].key_name == S("a"));
+        REQUIRE(m[0].key_name == SYM("a"));
         REQUIRE(m[1].matchAny());
-        REQUIRE(m[1].key_name == S(""));
+        REQUIRE(m[1].key_name == SYM(""));
         REQUIRE(m[2].matchDict());
-        REQUIRE(m[2].key_name == S("b"));
+        REQUIRE(m[2].key_name == SYM("b"));
 
         m.clear();
         REQUIRE(parser::parse_dict_match_expr("/a/2", &m));

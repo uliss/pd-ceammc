@@ -602,7 +602,7 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(*std::min_element(a.begin_atom_filter(isFloat), a.end_atom_filter()) == LX(-2));
         REQUIRE(*std::max_element(a.begin_atom_filter(isFloat), a.end_atom_filter()) == LX(3));
         REQUIRE(*std::min_element(a.begin(), a.end()) == LX(-2));
-        REQUIRE(*std::max_element(a.begin(), a.end()) == LA("a"));
+        REQUIRE(*std::max_element(a.begin(), a.end()) == A("a"));
 
         AtomList a1("a", "b", "c", "d", "e");
         auto e = a1.end_atom_filter();
@@ -646,10 +646,10 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(LF(1, 2).floatAt(2, -1) == -1);
         REQUIRE(L().floatAt(0, -100) == -100);
 
-        REQUIRE(LA("A", 1, 3.5).symbolAt(0, SYM("?")) == LA("A"));
-        REQUIRE(LA("A", 1, 3.5).symbolAt(1, SYM("?")) == LA("?"));
-        REQUIRE(LA("A", 1, 3.5).symbolAt(2, SYM("?")) == LA("?"));
-        REQUIRE(LA("A", 1, 3.5).symbolAt(3, SYM("?")) == LA("?"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(0, SYM("?")) == SYM("A"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(1, SYM("?")) == SYM("?"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(2, SYM("?")) == SYM("?"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(3, SYM("?")) == SYM("?"));
         REQUIRE(L().symbolAt(0, nullptr) == nullptr);
     }
 

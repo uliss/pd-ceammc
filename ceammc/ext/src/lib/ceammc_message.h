@@ -40,13 +40,13 @@ public:
     // create none
     Message();
     // create float
-    Message(t_float v);
+    explicit Message(t_float v);
     // create symbol
-    Message(t_symbol* s);
-    Message(const Atom& a);
+    explicit Message(t_symbol* s);
+    explicit Message(const Atom& a);
     // create list
-    Message(const AtomList& l);
-    Message(const AtomListView& v);
+    explicit Message(const AtomList& l);
+    explicit Message(const AtomListView& v);
     Message(int argc, t_atom* argv);
     // create any
     Message(t_symbol* s, const AtomList& l);

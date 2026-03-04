@@ -18,7 +18,7 @@ DataFifo::DataFifo(const PdArgs& args)
         ->checkNonNegative();
     {
         auto prop_size = createCbIntProperty(
-        "@size", [this]() -> int { return size_; },
+            "@size", [this]() -> int { return size_; },
             [this](int v) -> bool { clear(); size_ = v; return true; });
 
         prop_size->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_SIZE, MAX_SIZE);
@@ -32,11 +32,11 @@ DataFifo::DataFifo(const PdArgs& args)
 
 void DataFifo::onBang() { flush(); }
 
-void DataFifo::onFloat(t_float v) { add(Atom(v)); }
+void DataFifo::onFloat(t_float v) { add(Message(v)); }
 
-void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
+void DataFifo::onSymbol(t_symbol* s) { add(Message(s)); }
 
-void DataFifo::onList(const AtomListView& lv) { add(lv); }
+void DataFifo::onList(const AtomListView& lv) { add(Message(lv)); }
 
 void DataFifo::onAny(t_symbol* s, const AtomListView& lv) { add(Message(s, lv)); }
 
@@ -111,20 +111,20 @@ void DataFifo::editorAddLine(t_symbol* sel, const AtomListView& lv)
         switch (lv[0].type()) {
         case Atom::FLOAT:
             if (N == 1) // single float
-                return add(lv[0].asT<t_float>());
+                return add(Message(lv[0].asT<t_float>()));
             else
-                return add(lv); // list
+                return add(Message(lv)); // list
         case Atom::PROPERTY:
         case Atom::SYMBOL: {
             const auto sel = lv[0].asT<t_symbol*>();
             const auto sel_hash = crc32_hash(sel);
             if (N == 2 && sel_hash == "symbol"_hash && lv[1].isSymbol()) { // symbol FOO
                 OBJ_ERR << "here";
-                return add(lv[1].asT<t_symbol*>());
+                return add(Message(lv[1].asT<t_symbol*>()));
             } else if (N == 2 && sel_hash == "float"_hash && lv[1].isFloat()) { // float X
-                return add(lv[1].asT<t_float>());
+                return add(Message(lv[1].asT<t_float>()));
             } else if (sel_hash == "list"_hash) { // list ....
-                return add(lv.subView(1));
+                return add(Message(lv.subView(1)));
             } else
                 return add({ sel, lv.subView(1) });
         }

@@ -16,18 +16,12 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_message.h"
-#include "ceammc_object_info.h"
 #include "ceammc_property.h"
 #include "ceammc_proxy.h"
 
 #include <array>
-#include <cstdint>
-#include <initializer_list>
-#include <iostream>
 #include <map>
-#include <sstream>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 namespace ceammc {
@@ -422,48 +416,48 @@ public:
      * @return pointer to created prperty
      */
     Property* createCbFloatProperty(const char* name,
-        PropertyFloatGetter g,
-        PropertyFloatSetter s = nullptr);
+        const PropertyFloatGetter& g,
+        const PropertyFloatSetter& s = nullptr);
 
     /**
      * Create callback int property
      * @return pointer to created prperty
      */
     Property* createCbIntProperty(const char* name,
-        PropertyIntGetter g,
-        PropertyIntSetter s = nullptr);
+        const PropertyIntGetter& g,
+        const PropertyIntSetter& s = nullptr);
 
     /**
      * Create callback bool property
      * @return pointer to created prperty
      */
     Property* createCbBoolProperty(const char* name,
-        PropertyBoolGetter g,
-        PropertyBoolSetter s = nullptr);
+        const PropertyBoolGetter& g,
+        const PropertyBoolSetter& s = nullptr);
 
     /**
      * Create callback symbol property
      * @return pointer to created prperty
      */
     Property* createCbSymbolProperty(const char* name,
-        PropertySymbolGetter g,
-        PropertySymbolSetter s = nullptr);
+        const PropertySymbolGetter& g,
+        const PropertySymbolSetter& s = nullptr);
 
     /**
      * Create callback atom property
      * @return pointer to created prperty
      */
     Property* createCbAtomProperty(const char* name,
-        PropertyAtomGetter g,
-        PropertyAtomSetter s = nullptr);
+        const PropertyAtomGetter& g,
+        const PropertyAtomSetter& s = nullptr);
 
     /**
      * Create callback list property
      * @return pointer to created prperty
      */
     Property* createCbListProperty(const char* name,
-        PropertyListGetter g,
-        PropertyListSetter s = nullptr);
+        const PropertyListGetter& g,
+        const PropertyListSetter& s = nullptr);
 
     /**
      * Check if object has specified property

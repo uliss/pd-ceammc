@@ -17,6 +17,8 @@
 #include <cmath>
 #include <numeric>
 
+using M = Message;
+
 FlowLoop::FlowLoop(const PdArgs& a)
     : BaseObject(a)
     , n_(nullptr)
@@ -96,7 +98,7 @@ void FlowLoop::onBang()
     if (mode_ != MODE_REC)
         return;
 
-    appendMessage(&s_bang);
+    appendMessage(M(&s_bang));
 }
 
 void FlowLoop::onFloat(t_float f)
@@ -104,7 +106,7 @@ void FlowLoop::onFloat(t_float f)
     if (mode_ != MODE_REC)
         return;
 
-    appendMessage(f);
+    appendMessage(M(f));
 }
 
 void FlowLoop::onSymbol(t_symbol* s)
@@ -112,7 +114,7 @@ void FlowLoop::onSymbol(t_symbol* s)
     if (mode_ != MODE_REC)
         return;
 
-    appendMessage(s);
+    appendMessage(M(s));
 }
 
 void FlowLoop::onList(const AtomListView& lv)
@@ -120,7 +122,7 @@ void FlowLoop::onList(const AtomListView& lv)
     if (mode_ != MODE_REC)
         return;
 
-    appendMessage(lv);
+    appendMessage(M(lv));
 }
 
 void FlowLoop::onInlet(size_t n, const AtomListView&)

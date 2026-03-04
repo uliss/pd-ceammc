@@ -27,7 +27,7 @@ class ListZip : public BaseObject {
     Atom pad_;
 
 public:
-    ListZip(const PdArgs& a);
+    explicit ListZip(const PdArgs& a);
     void initDone() override;
 
     void onBang() override;

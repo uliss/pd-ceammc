@@ -15,7 +15,6 @@
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_deprecated.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -28,7 +27,6 @@
 #include "fmt/core.h"
 #include "lex/parser_strings.h"
 
-#include <cstdarg>
 #include <cstring>
 
 #include <algorithm>
@@ -142,32 +140,32 @@ Property* BaseObject::addProperty(Property* p)
     return p;
 }
 
-Property* BaseObject::createCbFloatProperty(const char* name, PropertyFloatGetter g, PropertyFloatSetter s)
+Property* BaseObject::createCbFloatProperty(const char* name, const PropertyFloatGetter& g, const PropertyFloatSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbIntProperty(const char* name, PropertyIntGetter g, PropertyIntSetter s)
+Property* BaseObject::createCbIntProperty(const char* name, const PropertyIntGetter& g, const PropertyIntSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbBoolProperty(const char* name, PropertyBoolGetter g, PropertyBoolSetter s)
+Property* BaseObject::createCbBoolProperty(const char* name, const PropertyBoolGetter& g, const PropertyBoolSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbSymbolProperty(const char* name, PropertySymbolGetter g, PropertySymbolSetter s)
+Property* BaseObject::createCbSymbolProperty(const char* name, const PropertySymbolGetter& g, const PropertySymbolSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbAtomProperty(const char* name, PropertyAtomGetter g, PropertyAtomSetter s)
+Property* BaseObject::createCbAtomProperty(const char* name, const PropertyAtomGetter& g, const PropertyAtomSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
 
-Property* BaseObject::createCbListProperty(const char* name, PropertyListGetter g, PropertyListSetter s)
+Property* BaseObject::createCbListProperty(const char* name, const PropertyListGetter& g, const PropertyListSetter& s)
 {
     return addProperty(new CallbackProperty(name, g, s));
 }
@@ -575,9 +573,9 @@ size_t BaseObject::positionalConstantP(size_t pos, size_t def, size_t min, size_
             OBJ_ERR << "invalid value " << v << " at position: " << pos
                     << ", should be in [" << min
                     << "..." << max << "]"
-                    << ", using: " << clip<long>(v, min, max);
+                    << ", using: " << clip<std::int64_t>(v, min, max);
 
-            return static_cast<size_t>(clip<long>(v, min, max));
+            return static_cast<size_t>(clip<std::int64_t>(v, min, max));
         } else
             return static_cast<size_t>(v);
     }
@@ -980,13 +978,13 @@ bool BaseObject::isVisible() const
         && canvas()
         && owner()->te_binbuf
         && glist_isvisible(const_cast<t_glist*>(canvas()))
-        && gobj_shouldvis((t_gobj*)owner(), const_cast<t_glist*>(canvas()));
+        && gobj_shouldvis(reinterpret_cast<t_gobj*>(owner()), const_cast<t_glist*>(canvas()));
 }
 
 void BaseObject::show(bool value)
 {
     if (owner() && canvas())
-        gobj_vis((t_gobj*)owner(), canvas(), value ? 1 : 0);
+        gobj_vis(reinterpret_cast<t_gobj*>(owner()), canvas(), value ? 1 : 0);
 }
 
 void BaseObject::fixLines()
@@ -1190,4 +1188,4 @@ void BaseObject::setOutletsInfo(_class* c, const BaseObject::XletInfo& l)
 {
     outlet_info_map[c] = l;
 }
-}
+} // namespace ceammc

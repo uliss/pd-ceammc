@@ -24,18 +24,18 @@ TEST_CASE("SymbolEnumProperty", "[core]")
 
         SECTION("init")
         {
-            REQUIRE(p.name() == S("@s"));
-            REQUIRE(p.value() == S("a"));
+            REQUIRE(p.name() == SYM("@s"));
+            REQUIRE(p.value() == SYM("a"));
             REQUIRE(p.index() == 0);
             REQUIRE(p.str() == std::string("a"));
-            REQUIRE(p.defaultValue() == S("a"));
+            REQUIRE(p.defaultValue() == SYM("a"));
 
             REQUIRE(p.setList(LA("b")));
-            REQUIRE(p.value() == S("b"));
+            REQUIRE(p.value() == SYM("b"));
             REQUIRE(p.index() == 1);
 
             REQUIRE(p.setSymbol(SYM("c")));
-            REQUIRE(p.value() == S("c"));
+            REQUIRE(p.value() == SYM("c"));
             REQUIRE(p.index() == 2);
         }
     }
@@ -46,20 +46,20 @@ TEST_CASE("SymbolEnumProperty", "[core]")
 
         SECTION("init")
         {
-            REQUIRE(p.name() == S("@s"));
-            REQUIRE(p.value() == S("a"));
+            REQUIRE(p.name() == SYM("@s"));
+            REQUIRE(p.value() == SYM("a"));
             REQUIRE(p.index() == 0);
             REQUIRE(p.valuePair() == 1);
             REQUIRE(p.str() == std::string("a"));
-            REQUIRE(p.defaultValue() == S("a"));
+            REQUIRE(p.defaultValue() == SYM("a"));
 
             REQUIRE(p.setList(LA("b")));
-            REQUIRE(p.value() == S("b"));
+            REQUIRE(p.value() == SYM("b"));
             REQUIRE(p.index() == 1);
             REQUIRE(p.valuePair() == 2);
 
             REQUIRE(p.setSymbol(SYM("c")));
-            REQUIRE(p.value() == S("c"));
+            REQUIRE(p.value() == SYM("c"));
             REQUIRE(p.index() == 2);
             REQUIRE(p.valuePair() == 3);
         }

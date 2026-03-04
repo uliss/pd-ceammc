@@ -45,7 +45,7 @@ public:
     AtomList call(t_symbol* name, const AtomListView& args) const;
     bool exists(t_symbol* name) const;
 
-    bool registerFn(t_symbol* name, BuiltinFunction fn);
+    bool registerFn(t_symbol* name, const BuiltinFunction& fn);
 };
 
 }

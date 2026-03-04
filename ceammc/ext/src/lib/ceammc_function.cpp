@@ -352,7 +352,7 @@ AtomList BuiltinFunctionMap::call(t_symbol* name, const AtomListView& args) cons
         return it->second(args);
 }
 
-bool BuiltinFunctionMap::registerFn(t_symbol* name, BuiltinFunction fn)
+bool BuiltinFunctionMap::registerFn(t_symbol* name, const BuiltinFunction& fn)
 {
     auto it = std::find_if(
         fn_map_.cbegin(),

@@ -296,7 +296,7 @@ void ThreadPdLogger::verbose(const std::string& msg)
     Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
-}
+}  // namespace ceammc
 
 std::ostream& operator<<(std::ostream& os, t_symbol* s)
 {

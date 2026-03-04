@@ -281,7 +281,7 @@ static size_t normalizeIdx(int idx, size_t N, bool clip)
     const auto last_idx = N - 1;
     const bool is_negative = idx < 0;
 
-    size_t abs_idx = is_negative ? size_t((-idx) - 1) : size_t(idx);
+    size_t abs_idx = is_negative ? static_cast<size_t>((-idx) - 1) : static_cast<size_t>(idx);
 
     if (clip)
         abs_idx = std::min<size_t>(abs_idx, last_idx);
@@ -369,7 +369,7 @@ void AtomList::removeAll(const Atom& a)
     atoms_.erase(nend, atoms_.end());
 }
 
-void AtomList::removeAll(AtomPredicate pred)
+void AtomList::removeAll(const AtomPredicate& pred)
 {
     auto nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
     atoms_.erase(nend, atoms_.end());
@@ -380,7 +380,7 @@ void AtomList::replaceAll(const Atom& old_value, const Atom& new_value)
     std::replace(atoms_.begin(), atoms_.end(), old_value, new_value);
 }
 
-void AtomList::replaceAll(AtomPredicate pred, const Atom& new_value)
+void AtomList::replaceAll(const AtomPredicate& pred, const Atom& new_value)
 {
     std::replace_if(atoms_.begin(), atoms_.end(), pred, new_value);
 }
@@ -459,7 +459,7 @@ bool AtomList::contains(const AtomList& sublist) const noexcept
     return it != atoms_.end();
 }
 
-long AtomList::findPos(const Atom& a) const noexcept
+std::int64_t AtomList::findPos(const Atom& a) const noexcept
 {
     auto it = std::find(atoms_.begin(), atoms_.end(), a);
     if (it == atoms_.end())
@@ -468,7 +468,7 @@ long AtomList::findPos(const Atom& a) const noexcept
     return std::distance(atoms_.begin(), it);
 }
 
-long AtomList::findPos(AtomPredicate pred) const noexcept
+std::int64_t AtomList::findPos(const AtomPredicate& pred) const noexcept
 {
     auto it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     if (it == atoms_.end())

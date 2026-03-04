@@ -15,6 +15,8 @@
 #include "../base/function.h"
 #include "ceammc_factory.h"
 
+using M = Message;
+
 FlowChange::FlowChange(const PdArgs& a)
     : BaseObject(a)
     , on_repeat_(NULL)
@@ -37,34 +39,34 @@ void FlowChange::onBang()
 
 void FlowChange::onFloat(t_float f)
 {
-    if (msg_.isEqual(f)) {
+    if (msg_.isEqual(M(f))) {
         onRepeat();
         return;
     }
 
-    msg_ = f;
+    msg_ = M(f);
     floatTo(0, f);
 }
 
 void FlowChange::onSymbol(t_symbol* s)
 {
-    if (msg_.isEqual(s)) {
+    if (msg_.isEqual(M(s))) {
         onRepeat();
         return;
     }
 
-    msg_ = s;
+    msg_ = M(s);
     symbolTo(0, s);
 }
 
 void FlowChange::onList(const AtomListView& lv)
 {
-    if (msg_.isEqual(lv)) {
+    if (msg_.isEqual(M(lv))) {
         onRepeat();
         return;
     }
 
-    msg_ = lv;
+    msg_ = M(lv);
     listTo(0, lv);
 }
 
@@ -124,5 +126,5 @@ void setup_flow_change()
 
     obj.setDescription("rejects redundant input values");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "change"});
+    obj.setKeywords({ "flow", "change" });
 }
