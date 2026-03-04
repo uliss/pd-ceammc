@@ -703,6 +703,11 @@ void BaseObject::parseProps(int flags, PdArgs::ParseMode mode)
     if (first_prop >= 0)
         prop_args = pd_.args.view(first_prop);
 
+    // sort properties by priority
+    std::stable_sort(props_.begin(), props_.end(), [](const Property* a, const Property* b) {
+        return a->info().priority() < b->info().priority();
+    });
+
     for (Property* p : props_) {
         // skip non-public properties
         if (p->isReadOnly() || p->isInternal())
