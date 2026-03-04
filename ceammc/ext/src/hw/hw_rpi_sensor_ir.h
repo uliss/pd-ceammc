@@ -2,13 +2,11 @@
 #define HW_RPI_SENSOR_IR_H
 
 #include "ceammc_object.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiSensorIR : public RustDispatchedObject<BaseObject> {
-    using Sensor = std::unique_ptr<ceammc_hw_infrared, void (*)(ceammc_hw_infrared*)>;
-    Sensor ir_;
+class HwRpiSensorIR : public HwRpiDevice<ceammc_hw_infrared> {
     GpioPinProperty* pin_ { nullptr };
     SymbolProperty* proto_ { nullptr };
 
@@ -18,8 +16,7 @@ public:
     bool notify(int code) final;
     void m_poll(t_symbol* s, const AtomListView& lv);
 
-private:
-    void startSensor();
+    Device createDevice() final;
 };
 
 void setup_hw_rpi_sensor_ir();

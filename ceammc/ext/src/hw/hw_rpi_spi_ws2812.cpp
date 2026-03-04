@@ -36,7 +36,7 @@ constexpr int MIN_PIXEL_COUNT = 1;
 constexpr int MAX_PIXEL_COUNT = 4096;
 
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
+    : HwRpiDevice<ceammc_hw_spi_ws2812>(&ceammc_hw_spi_ws2812_free, args)
 {
     createOutlet();
 
@@ -52,37 +52,18 @@ HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     addProperty(clear_on_exit_);
 }
 
-HwSpiWs2812::~HwSpiWs2812()
-{
-    ceammc_hw_spi_ws2812_free(ws_);
-}
-
-void HwSpiWs2812::initDone()
-{
-    if (spi_->isNone(false))
-        return;
-
-    ws_ = ceammc_hw_spi_ws2812_new( //
-        spi_->bus(),
-        cs_->pin(),
-        size_->value(),
-        on_notify(),
-        on_message(),
-        clear_on_exit_->value());
-}
-
 bool HwSpiWs2812::notify(int code)
 {
-    ceammc_hw_spi_ws2812_process_reply(ws_);
+    ceammc_hw_spi_ws2812_process_reply(device());
     return true;
 }
 
 void HwSpiWs2812::onBang()
 {
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_flush(ws_);
+    ceammc_hw_spi_ws2812_flush(device());
 }
 
 void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
@@ -91,10 +72,10 @@ void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_set_brightness(ws_, lv.intAt(0, 0));
+    ceammc_hw_spi_ws2812_set_brightness(device(), lv.intAt(0, 0));
 }
 
 void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
@@ -103,13 +84,13 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_clear(ws_);
+    ceammc_hw_spi_ws2812_clear(device());
 
     if (lv.boolAt(0, true))
-        ceammc_hw_spi_ws2812_flush(ws_);
+        ceammc_hw_spi_ws2812_flush(device());
 }
 
 void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
@@ -126,10 +107,10 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_set_pixel_color(ws_, idx, color);
+    ceammc_hw_spi_ws2812_set_pixel_color(device(), idx, color);
 }
 
 void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
@@ -145,10 +126,27 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_fill_slice(ws_, color, slice_ptr);
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, slice_ptr);
+}
+
+HwSpiWs2812::HwRpiDevice::Device HwSpiWs2812::createDevice()
+{
+    if (spi_->isNone(false)) {
+        OBJ_ERR << "spi is not set";
+        return nullDevice();
+    }
+
+    return Device(ceammc_hw_spi_ws2812_new( //
+                      spi_->bus(),
+                      cs_->pin(),
+                      size_->value(),
+                      on_notify(),
+                      on_message(),
+                      clear_on_exit_->value()),
+        freeDeviceFn());
 }
 
 bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const
@@ -219,20 +217,6 @@ bool HwSpiWs2812::parse_pixel_index(size_t& idx, const AtomListView& lv)
     return true;
 }
 
-bool HwSpiWs2812::is_null_device(bool print_err) const
-{
-    if (spi_->isNone(print_err))
-        return true;
-
-    if (!ws_) {
-        if (print_err)
-            OBJ_ERR << "device is not initialized";
-
-        return true;
-    } else
-        return false;
-}
-
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
     onBang();
@@ -287,10 +271,10 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_apply_fx(ws_, fx, slice_ptr);
+    ceammc_hw_spi_ws2812_apply_fx(device(), fx, slice_ptr);
 }
 
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
@@ -300,10 +284,10 @@ void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
 
-    if (is_null_device(true))
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_rotate(ws_, lv.intAt(0, 1), slice_ptr);
+    ceammc_hw_spi_ws2812_rotate(device(), lv.intAt(0, 1), slice_ptr);
 }
 
 void setup_hw_rpi_spi_ws2812()

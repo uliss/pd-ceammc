@@ -8,7 +8,7 @@ CEAMMC_DEFINE_SYMBOL2(lcd1602_alias, "hw.rpi.display.lcd1602");
 CEAMMC_DEFINE_SYMBOL2(lcd2004_alias, "hw.rpi.display.lcd2004");
 
 HwRpiDisplayHd44780::HwRpiDisplayHd44780(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
+    : HwRpiDevice<ceammc_hw_hd44780>(&ceammc_hw_hd44780_free, args)
 {
     createOutlet();
 
@@ -20,38 +20,25 @@ HwRpiDisplayHd44780::HwRpiDisplayHd44780(const PdArgs& args)
     addProperty(rows_);
 }
 
-HwRpiDisplayHd44780::~HwRpiDisplayHd44780()
-{
-    ceammc_hw_hd44780_free(lcd_);
-}
-
 void HwRpiDisplayHd44780::initDone()
 {
     if (pdArgs().creationName == sym_lcd1602_alias())
         rows_->setValue(2);
     else if (pdArgs().creationName == sym_lcd2004_alias())
         rows_->setValue(4);
-
-    std::int8_t bus = 0;
-    if (!i2c_bus_->getBus(bus))
-        return;
-
-    lcd_ = ceammc_hw_hd44780_new(
-        bus,
-        i2c_addr_->value(),
-        rows_->value(),
-        on_notify(),
-        on_message());
 }
 
 bool HwRpiDisplayHd44780::notify(int code)
 {
-    return ceammc_hw_hd44780_process(lcd_);
+    return ceammc_hw_hd44780_process(device());
 }
 
 void HwRpiDisplayHd44780::m_clear(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_hd44780_clear(lcd_);
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_clear(device());
 }
 
 void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
@@ -59,6 +46,9 @@ void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("LINE:i[0,3]");
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
+
+    if (!check_connected(true))
+        return;
 
     auto line = lv.intAt(0, 0);
 
@@ -69,9 +59,9 @@ void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
 
     constexpr const char* SPACES_20 = "                    ";
 
-    ceammc_hw_hd44780_cursor_pos(lcd_, line, 0);
-    ceammc_hw_hd44780_write_text(lcd_, SPACES_20);
-    ceammc_hw_hd44780_cursor_pos(lcd_, line, 0);
+    ceammc_hw_hd44780_cursor_pos(device(), line, 0);
+    ceammc_hw_hd44780_write_text(device(), SPACES_20);
+    ceammc_hw_hd44780_cursor_pos(device(), line, 0);
 }
 
 void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
@@ -80,7 +70,10 @@ void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_backlight(lcd_, lv.boolAt(0, false));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_backlight(device(), lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_write(t_symbol* s, const AtomListView& lv)
@@ -89,7 +82,10 @@ void HwRpiDisplayHd44780::m_write(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_write_text(lcd_, to_string(lv).c_str());
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_write_text(device(), to_string(lv).c_str());
 }
 
 void HwRpiDisplayHd44780::m_char(t_symbol* s, const AtomListView& lv)
@@ -98,7 +94,10 @@ void HwRpiDisplayHd44780::m_char(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_write_char(lcd_, lv.intAt(0, 0));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_write_char(device(), lv.intAt(0, 0));
 }
 
 void HwRpiDisplayHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
@@ -107,7 +106,10 @@ void HwRpiDisplayHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_cursor_on(lcd_, lv.boolAt(0, false));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_cursor_on(device(), lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
@@ -116,7 +118,10 @@ void HwRpiDisplayHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_cursor_blink(lcd_, lv.boolAt(0, false));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_cursor_blink(device(), lv.boolAt(0, false));
 }
 
 void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
@@ -124,6 +129,9 @@ void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("LINE:i[0,3] COL:i[0,20)");
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
+
+    if (!check_connected(true))
+        return;
 
     auto line = lv.intAt(0, 0);
     auto col = lv.intAt(1, 0);
@@ -133,7 +141,7 @@ void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    ceammc_hw_hd44780_cursor_pos(lcd_, line, col);
+    ceammc_hw_hd44780_cursor_pos(device(), line, col);
 }
 
 void HwRpiDisplayHd44780::m_font(t_symbol* s, const AtomListView& lv)
@@ -142,12 +150,15 @@ void HwRpiDisplayHd44780::m_font(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
+    if (!check_connected(true))
+        return;
+
     switch (lv.intAt(0, 0)) {
     case 10:
-        ceammc_hw_hd44780_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x10);
+        ceammc_hw_hd44780_set_font(device(), ceammc_hw_hd44780_font::FONT_5x10);
         break;
     default:
-        ceammc_hw_hd44780_set_font(lcd_, ceammc_hw_hd44780_font::FONT_5x8);
+        ceammc_hw_hd44780_set_font(device(), ceammc_hw_hd44780_font::FONT_5x8);
     }
 }
 
@@ -157,7 +168,10 @@ void HwRpiDisplayHd44780::m_cursor_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_move_cursor(lcd_, lv.intAt(0, 1));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_move_cursor(device(), lv.intAt(0, 1));
 }
 
 void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
@@ -166,7 +180,27 @@ void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    ceammc_hw_hd44780_scroll_text(lcd_, lv.intAt(0, 1));
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_hd44780_scroll_text(device(), lv.intAt(0, 1));
+}
+
+HwRpiDisplayHd44780::HwRpiDevice::Device HwRpiDisplayHd44780::createDevice()
+{
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus)) {
+        OBJ_ERR << "i2c bus is not set";
+        return nullDevice();
+    }
+
+    return Device(ceammc_hw_hd44780_new(
+                      bus,
+                      i2c_addr_->value(),
+                      rows_->value(),
+                      on_notify(),
+                      on_message()),
+        freeDeviceFn());
 }
 
 void setup_hw_rpi_display_hd44780()

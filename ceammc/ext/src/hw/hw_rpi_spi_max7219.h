@@ -2,21 +2,18 @@
 #define HW_RPI_SPI_MAX7219_H
 
 #include "ceammc_object.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwSpiMax7219 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_max7219* mx_ { nullptr };
+class HwSpiMax7219 : public HwRpiDevice<ceammc_hw_max7219> {
     IntProperty* displays_ { nullptr };
     SpiBusProperty* spi_bus_ { nullptr };
     SpiCsPinProperty* spi_cs_ { nullptr };
 
 public:
     explicit HwSpiMax7219(const PdArgs& args);
-    ~HwSpiMax7219();
 
-    void initDone() final;
     bool notify(int code) final;
 
     void m_intensity(t_symbol* s, const AtomListView& lv);
@@ -25,6 +22,8 @@ public:
     void m_power(t_symbol* s, const AtomListView& lv);
     void m_test(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
+
+    Device createDevice() final;
 
 private:
     void writeBits(t_symbol* s, const AtomListView& lv);

@@ -2,16 +2,13 @@
 #define HW_RPI_SENSOR_VL53L0X_H
 
 #include "ceammc_object.h"
-#include "rust_dispatched_object.h"
+#include "hw_rpi_device.h"
+#include "hw_rust.hpp"
 using namespace ceammc;
 
-using VL53L0XPtr = std::unique_ptr<ceammc_hw_sensor_vl53l0x, void (*)(ceammc_hw_sensor_vl53l0x*)>;
-
-class HwRpiSensorVl53l0x : public RustDispatchedObject<BaseObject> {
-    VL53L0XPtr vc_;
+class HwRpiSensorVl53l0x : public HwRpiDevice<ceammc_hw_sensor_vl53l0x> {
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
-    BoolProperty* connect_ { nullptr };
 
 public:
     explicit HwRpiSensorVl53l0x(const PdArgs& args);
@@ -23,9 +20,7 @@ public:
     void m_poll(t_symbol* s, const AtomListView& lv);
     void m_address(t_symbol* s, const AtomListView& lv);
 
-private:
-    bool check_connected(bool print_err);
-    void i2c_connect(bool state);
+    Device createDevice() final;
 };
 
 void setup_hw_rpi_sensor_vl53l0x();

@@ -3,12 +3,11 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_display_ssd1306* display_ { nullptr };
+class HwRpiDisplaySsd1306 : public HwRpiDevice<ceammc_hw_display_ssd1306> {
     SymbolEnumProperty* mode_ = { nullptr };
     ListProperty* size_ = { nullptr };
     I2cBusProperty* i2c_bus_ { nullptr };
@@ -21,7 +20,6 @@ class HwRpiDisplaySsd1306 : public RustDispatchedObject<BaseObject> {
 
 public:
     explicit HwRpiDisplaySsd1306(const PdArgs& args);
-    ~HwRpiDisplaySsd1306();
 
     void initDone() final;
     bool notify(int code) final;
@@ -37,6 +35,8 @@ public:
     void m_switch_on(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
+
+    Device createDevice() final;
 
 private:
     void writeBytes(t_symbol* s, const AtomListView& lv);

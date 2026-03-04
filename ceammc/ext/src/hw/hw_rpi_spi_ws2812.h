@@ -2,12 +2,11 @@
 #define HW_RPI_SPI_WS2812_H
 
 #include "ceammc_object.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwSpiWs2812 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_spi_ws2812* ws_ { nullptr };
+class HwSpiWs2812 : public HwRpiDevice<ceammc_hw_spi_ws2812> {
     SpiBusProperty* spi_ { nullptr };
     SpiCsPinProperty* cs_ { nullptr };
     IntProperty* size_ { nullptr };
@@ -15,9 +14,7 @@ class HwSpiWs2812 : public RustDispatchedObject<BaseObject> {
 
 public:
     explicit HwSpiWs2812(const PdArgs& args);
-    ~HwSpiWs2812();
 
-    void initDone() final;
     bool notify(int code) final;
 
     void onBang() final;
@@ -30,13 +27,12 @@ public:
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
 
+    Device createDevice() final;
+
     //
     bool parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const;
     bool parse_slice_property(ceammc_hw_slice& slice, const AtomListView& lv) const;
     static bool parse_pixel_index(size_t& idx, const AtomListView& lv);
-
-private:
-    bool is_null_device(bool print_err) const;
 };
 
 void setup_hw_rpi_spi_ws2812();

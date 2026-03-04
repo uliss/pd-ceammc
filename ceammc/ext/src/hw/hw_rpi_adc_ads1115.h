@@ -3,13 +3,11 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_i2c_ads1115* adc_ { nullptr };
-
+class HwRpiAdcAds1115 : public HwRpiDevice<ceammc_hw_i2c_ads1115> {
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
 
@@ -27,13 +25,14 @@ class HwRpiAdcAds1115 : public RustDispatchedObject<BaseObject> {
 
 public:
     explicit HwRpiAdcAds1115(const PdArgs& args);
-    ~HwRpiAdcAds1115();
 
     void initDone() final;
     bool notify(int code) final;
 
     void m_poll(t_symbol* s, const AtomListView& lv);
     void m_measure(t_symbol* s, const AtomListView& lv);
+
+    Device createDevice() final;
 
 private:
     t_float normalizeValue(int16_t value) const;

@@ -20,8 +20,7 @@ ceammc_hw_pca8695_prog_address to_prog_address(const Atom& type)
 } // namespace
 
 HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
-    , pwm_(nullptr, &ceammc_hw_pca9685_free)
+    : HwRpiDevice<ceammc_hw_pca9685>(&ceammc_hw_pca9685_free, args)
 {
     createOutlet();
 
@@ -29,20 +28,11 @@ HwI2cPca8695::HwI2cPca8695(const PdArgs& args)
     i2c_bus_->setArgIndex(0);
 
     i2c_addr_ = addI2cAddrProperty();
-
-    connect_ = new BoolProperty("@connect", false);
-    connect_->setSuccessFn([this](Property*) {
-        i2c_connect(connect_->value());
-    });
-    addProperty(connect_);
 }
 
 bool HwI2cPca8695::notify(int code)
 {
-    if (pwm_)
-        return ceammc_hw_pca9685_proc_reply(pwm_.get());
-    else
-        return false;
+    return ceammc_hw_pca9685_proc_reply(device());
 }
 
 void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
@@ -58,7 +48,7 @@ void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
     auto value = lv.boolAt(1, 0);
     float delay = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_const(pwm_.get(), chan, value, delay);
+    ceammc_hw_pca9685_set_const(device(), chan, value, delay);
 }
 
 void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
@@ -74,7 +64,7 @@ void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
     auto duty = lv.floatAt(1, 0);
     float phase = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_duty_cycle(pwm_.get(), chan, duty, lv.size() > 2 ? &phase : nullptr);
+    ceammc_hw_pca9685_set_duty_cycle(device(), chan, duty, lv.size() > 2 ? &phase : nullptr);
 }
 
 void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
@@ -90,7 +80,7 @@ void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
     auto on = lv.intAt(1, 0);
     auto off = lv.intAt(2, 0);
 
-    ceammc_hw_pca9685_set_on_off(pwm_.get(), chan, on, off);
+    ceammc_hw_pca9685_set_on_off(device(), chan, on, off);
 }
 
 void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
@@ -106,7 +96,7 @@ void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
     auto width_ms = lv.floatAt(1, 0);
     auto phase = lv.floatAt(2, 0);
 
-    ceammc_hw_pca9685_set_pulse_width(pwm_.get(), chan, width_ms, phase);
+    ceammc_hw_pca9685_set_pulse_width(device(), chan, width_ms, phase);
 }
 
 void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
@@ -121,16 +111,7 @@ void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pca8695_prog_address addr_type;
     auto type = lv.atomAt(0, 1);
     auto i2c_addr = lv.intAt(1, 41);
-    ceammc_hw_pca9685_use_prog_addr(pwm_.get(), to_prog_address(type), i2c_addr);
-}
-
-bool HwI2cPca8695::check_connected(bool print_err)
-{
-    if (!pwm_ && print_err) {
-        OBJ_ERR << "device is not connected to the I2C bus";
-    }
-
-    return pwm_.get();
+    ceammc_hw_pca9685_use_prog_addr(device(), to_prog_address(type), i2c_addr);
 }
 
 void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
@@ -144,7 +125,7 @@ void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
 
     ceammc_hw_pca8695_prog_address addr_type;
     auto type = lv.atomAt(0, 1);
-    ceammc_hw_pca9685_disable_prog_addr(pwm_.get(), to_prog_address(type));
+    ceammc_hw_pca9685_disable_prog_addr(device(), to_prog_address(type));
 }
 
 void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
@@ -152,7 +133,7 @@ void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true))
         return;
 
-    ceammc_hw_pca9685_restart(pwm_.get());
+    ceammc_hw_pca9685_restart(device());
 }
 
 void HwI2cPca8695::m_enable_restart_and_disable(t_symbol* s, const AtomListView& lv)
@@ -160,7 +141,7 @@ void HwI2cPca8695::m_enable_restart_and_disable(t_symbol* s, const AtomListView&
     if (!check_connected(true))
         return;
 
-    ceammc_hw_pca9685_enable_restart_and_disable(pwm_.get());
+    ceammc_hw_pca9685_enable_restart_and_disable(device());
 }
 
 void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
@@ -172,7 +153,7 @@ void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true))
         return;
 
-    ceammc_hw_pca9685_set_period(pwm_.get(), lv.floatAt(0, 0));
+    ceammc_hw_pca9685_set_period(device(), lv.floatAt(0, 0));
 }
 
 void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
@@ -184,7 +165,7 @@ void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true))
         return;
 
-    ceammc_hw_pca9685_set_polarity(pwm_.get(),
+    ceammc_hw_pca9685_set_polarity(device(),
         lv.boolAt(0, true)
             ? ceammc_hw_rpi_pwm_polarity::INVERSE
             : ceammc_hw_rpi_pwm_polarity::NORMAL);
@@ -199,7 +180,7 @@ void HwI2cPca8695::m_enable(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true))
         return;
 
-    ceammc_hw_pca9685_enable(pwm_.get(), lv.boolAt(0, true));
+    ceammc_hw_pca9685_enable(device(), lv.boolAt(0, true));
 }
 
 void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
@@ -212,28 +193,22 @@ void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
         return;
 
     auto freq = lv.floatAt(0, 0);
-    ceammc_hw_pca9685_set_freq(pwm_.get(), freq);
+    ceammc_hw_pca9685_set_freq(device(), freq);
 }
 
-void HwI2cPca8695::i2c_connect(bool state)
+HwI2cPca8695::HwRpiDevice::Device HwI2cPca8695::createDevice()
 {
-    if (state) {
-        std::int8_t bus = 0;
-        if (!i2c_bus_->getBus(bus)) {
-            OBJ_ERR << "i2c bus is not specified";
-            return;
-        }
-
-        pwm_.reset(ceammc_hw_pca9685_new(bus,
-            i2c_addr_->value(),
-            on_notify(),
-            on_message()));
-
-        if (!pwm_)
-            OBJ_ERR << "can't connect to i2c bus";
-    } else {
-        pwm_.reset();
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus)) {
+        OBJ_ERR << "i2c bus is not specified";
+        return nullDevice();
     }
+
+    return Device(ceammc_hw_pca9685_new(bus,
+                      i2c_addr_->value(),
+                      on_notify(),
+                      on_message()),
+        freeDeviceFn());
 }
 
 void setup_hw_rpi_i2c_pca9685()

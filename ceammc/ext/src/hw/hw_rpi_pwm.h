@@ -2,19 +2,16 @@
 #define HW_RPI_PWM_H
 
 #include "ceammc_object.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiPwm : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_rpi_pwm* pwm_ { nullptr };
+class HwRpiPwm : public HwRpiDevice<ceammc_hw_rpi_pwm> {
     IntProperty* chan_ { nullptr };
 
 public:
     explicit HwRpiPwm(const PdArgs& args);
-    ~HwRpiPwm();
 
-    void initDone() final;
     bool notify(int code) final;
 
     void m_duty(t_symbol* s, const AtomListView& lv);
@@ -24,6 +21,8 @@ public:
     void m_polarity(t_symbol* s, const AtomListView& lv);
     void m_pwm(t_symbol* s, const AtomListView& lv);
     void m_width(t_symbol* s, const AtomListView& lv);
+
+    Device createDevice() final;
 };
 
 void setup_hw_rpi_pwm();

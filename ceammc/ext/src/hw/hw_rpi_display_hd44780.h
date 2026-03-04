@@ -3,19 +3,17 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+#include "hw_rpi_device.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
-class HwRpiDisplayHd44780 : public RustDispatchedObject<BaseObject> {
-    ceammc_hw_hd44780* lcd_ { nullptr };
+class HwRpiDisplayHd44780 : public HwRpiDevice<ceammc_hw_hd44780> {
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
     IntEnumProperty* rows_ { nullptr };
 
 public:
     explicit HwRpiDisplayHd44780(const PdArgs& args);
-    ~HwRpiDisplayHd44780();
 
     void initDone() final;
     bool notify(int code) final;
@@ -34,6 +32,8 @@ public:
 
     void m_cursor_move(t_symbol* s, const AtomListView& lv);
     void m_display_move(t_symbol* s, const AtomListView& lv);
+
+    Device createDevice() final;
 };
 
 void setup_hw_rpi_display_hd44780();

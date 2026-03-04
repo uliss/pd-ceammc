@@ -3,8 +3,7 @@
 #include "ceammc_factory.h"
 
 HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
-    , ir_(nullptr, &ceammc_hw_infrared_free)
+    : HwRpiDevice<ceammc_hw_infrared>(&ceammc_hw_infrared_free, args)
 {
     createOutlet();
     pin_ = addGpioPinProperty("@pin");
@@ -16,7 +15,7 @@ HwRpiSensorIR::HwRpiSensorIR(const PdArgs& args)
 
 bool HwRpiSensorIR::notify(int code)
 {
-    return ceammc_hw_infrared_free_process_reply(ir_.get());
+    return ceammc_hw_infrared_free_process_reply(device());
 }
 
 void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
@@ -25,42 +24,36 @@ void HwRpiSensorIR::m_poll(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    auto poll = lv.boolAt(0, false);
-    if (poll && !ir_) {
-        startSensor();
-    } else if (!poll && ir_) {
-        ir_.reset();
-    }
+    connect(lv.boolAt(0, false));
 }
 
-void HwRpiSensorIR::startSensor()
+HwRpiSensorIR::HwRpiDevice::Device HwRpiSensorIR::createDevice()
 {
-    if (!pin_->checkPin(this))
-        return;
-
-    ir_.reset(ceammc_hw_infrared_new(pin_->value(),
-        on_notify(),
-        on_message(), //
-        { this, [](void* user, const char* key, std::int64_t value) {
-             auto obj = static_cast<HwRpiSensorIR*>(user);
-             if (!obj)
-                 return;
-
-             obj->anyTo(0, gensym(key), Atom(value));
-         } }) //
-    );
-
-    if (!ir_) {
-        OBJ_ERR << "can't connect to device";
-        return;
+    if (!pin_->checkPin(this)) {
+        OBJ_ERR << "GPIO pin is not set";
+        return nullDevice();
     }
 
-    ceammc_hw_infrared_set_protocol(ir_.get(), proto_->value()->s_name);
+    Device dev(ceammc_hw_infrared_new(pin_->value(),
+                   on_notify(),
+                   on_message(), //
+                   { this, [](void* user, const char* key, std::int64_t value) {
+                        auto obj = static_cast<HwRpiSensorIR*>(user);
+                        if (!obj)
+                            return;
+
+                        obj->anyTo(0, gensym(key), Atom(value));
+                    } }),
+        freeDeviceFn());
+
+    if (dev)
+        ceammc_hw_infrared_set_protocol(dev.get(), proto_->value()->s_name);
+
+    return dev;
 }
 
 void setup_hw_rpi_sensor_ir()
 {
     ObjectFactory<HwRpiSensorIR> obj("hw.rpi.sensor.ir");
-
     obj.addMethod("poll", &HwRpiSensorIR::m_poll);
 }

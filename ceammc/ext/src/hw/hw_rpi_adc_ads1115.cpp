@@ -21,7 +21,7 @@ MVOLT_VALUE(4096)
 MVOLT_VALUE(6144)
 
 HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
+    : HwRpiDevice<ceammc_hw_i2c_ads1115>(&ceammc_hw_ads1115_free, args)
 {
     createOutlet();
 
@@ -70,16 +70,51 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     sym_channel_ = gensym("ch");
 }
 
-HwRpiAdcAds1115::~HwRpiAdcAds1115()
-{
-    ceammc_hw_ads1115_free(adc_);
-}
-
 void HwRpiAdcAds1115::initDone()
 {
-    std::int8_t bus = 0;
-    if (!i2c_bus_->getBus(bus))
+}
+
+bool HwRpiAdcAds1115::notify(int code)
+{
+    return ceammc_hw_ads1115_process_reply(device());
+}
+
+void HwRpiAdcAds1115::m_poll(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STATE:B");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    if (!check_connected(true))
         return;
+
+    ceammc_hw_ads1115_poll(device(), lv.boolAt(0, false));
+}
+
+void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,3]?");
+    if (!chk.check(lv, this, s))
+        return chk.usage(this, s);
+
+    if (!check_connected(true))
+        return;
+
+    auto chan = lv.intAt(0, -1);
+
+    if (chan < 0)
+        ceammc_hw_ads1115_measure_all(device());
+    else
+        ceammc_hw_ads1115_measure_chan(device(), lv.intAt(0, 0));
+}
+
+HwRpiAdcAds1115::HwRpiDevice::Device HwRpiAdcAds1115::createDevice()
+{
+    std::int8_t bus = 0;
+    if (!i2c_bus_->getBus(bus)) {
+        OBJ_ERR << "i2c bus is not set";
+        return nullDevice();
+    }
 
     ceammc_hw_i2c_ads1115_measure_mode mode {};
     switch (crc32_hash(mode_->value())) {
@@ -92,81 +127,58 @@ void HwRpiAdcAds1115::initDone()
         break;
     }
 
-    adc_ = ceammc_hw_ads1115_new(bus,
-        i2c_addr_->value(),
-        mode,
-        on_notify(),
-        on_message(),
-        { this,
-            [](void* user, std::uint8_t chan, std::int16_t value) {
-                auto obj = static_cast<HwRpiAdcAds1115*>(user);
-                if (obj)
-                    obj->outputValue(chan, value);
-            },
-            [](void* user, int16_t a0, int16_t a1, int16_t a2, int16_t a3) {
-                auto obj = static_cast<HwRpiAdcAds1115*>(user);
-                if (obj) {
-                    obj->outputValue(3, a3);
-                    obj->outputValue(2, a2);
-                    obj->outputValue(1, a1);
-                    obj->outputValue(0, a0);
-                }
-            } });
+    Device dev(ceammc_hw_ads1115_new(bus,
+                   i2c_addr_->value(),
+                   mode,
+                   on_notify(),
+                   on_message(),
+                   { this,
+                       [](void* user, std::uint8_t chan, std::int16_t value) {
+                           auto obj = static_cast<HwRpiAdcAds1115*>(user);
+                           if (obj)
+                               obj->outputValue(chan, value);
+                       },
+                       [](void* user, int16_t a0, int16_t a1, int16_t a2, int16_t a3) {
+                           auto obj = static_cast<HwRpiAdcAds1115*>(user);
+                           if (obj) {
+                               obj->outputValue(3, a3);
+                               obj->outputValue(2, a2);
+                               obj->outputValue(1, a1);
+                               obj->outputValue(0, a0);
+                           }
+                       } }),
+        freeDeviceFn());
 
-    ceammc_hw_i2c_ads1115_range range;
+    if (dev) {
+        ceammc_hw_i2c_ads1115_range range;
 
-    switch (static_cast<int>(fsr_->valuePair())) {
-    case int_mv256:
-        range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
-        break;
-    case int_mv512:
-        range = ceammc_hw_i2c_ads1115_range::Within_0_512V;
-        break;
-    case int_mv1024:
-        range = ceammc_hw_i2c_ads1115_range::Within_1_024V;
-        break;
-    case int_mv2048:
-        range = ceammc_hw_i2c_ads1115_range::Within_2_048V;
-        break;
-    case int_mv4096:
-        range = ceammc_hw_i2c_ads1115_range::Within_4_096V;
-        break;
-    case int_mv6144:
-    default:
-        range = ceammc_hw_i2c_ads1115_range::Within_6_144V;
-        break;
+        switch (static_cast<int>(fsr_->valuePair())) {
+        case int_mv256:
+            range = ceammc_hw_i2c_ads1115_range::Within_0_256V;
+            break;
+        case int_mv512:
+            range = ceammc_hw_i2c_ads1115_range::Within_0_512V;
+            break;
+        case int_mv1024:
+            range = ceammc_hw_i2c_ads1115_range::Within_1_024V;
+            break;
+        case int_mv2048:
+            range = ceammc_hw_i2c_ads1115_range::Within_2_048V;
+            break;
+        case int_mv4096:
+            range = ceammc_hw_i2c_ads1115_range::Within_4_096V;
+            break;
+        case int_mv6144:
+        default:
+            range = ceammc_hw_i2c_ads1115_range::Within_6_144V;
+            break;
+        }
+
+        ceammc_hw_ads1115_set_input_range(dev.get(), range);
+        ceammc_hw_ads1115_set_poll_time(dev.get(), poll_time_->value());
     }
 
-    ceammc_hw_ads1115_set_input_range(adc_, range);
-    ceammc_hw_ads1115_set_poll_time(adc_, poll_time_->value());
-}
-
-bool HwRpiAdcAds1115::notify(int code)
-{
-    return ceammc_hw_ads1115_process_reply(adc_);
-}
-
-void HwRpiAdcAds1115::m_poll(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("STATE:B");
-    if (!chk.check(lv, this, s))
-        return chk.usage(this, s);
-
-    ceammc_hw_ads1115_poll(adc_, lv.boolAt(0, false));
-}
-
-void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
-{
-    static const args::ArgChecker chk("CHAN:i[0,3]?");
-    if (!chk.check(lv, this, s))
-        return chk.usage(this, s);
-
-    auto chan = lv.intAt(0, -1);
-
-    if (chan < 0)
-        ceammc_hw_ads1115_measure_all(adc_);
-    else
-        ceammc_hw_ads1115_measure_chan(adc_, lv.intAt(0, 0));
+    return dev;
 }
 
 t_float HwRpiAdcAds1115::normalizeValue(std::int16_t value) const
