@@ -70,10 +70,6 @@ HwRpiAdcAds1115::HwRpiAdcAds1115(const PdArgs& args)
     sym_channel_ = gensym("ch");
 }
 
-void HwRpiAdcAds1115::initDone()
-{
-}
-
 bool HwRpiAdcAds1115::notify(int code)
 {
     return ceammc_hw_ads1115_process_reply(device());

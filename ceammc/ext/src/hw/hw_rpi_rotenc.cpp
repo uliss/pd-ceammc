@@ -33,18 +33,21 @@ HwRpiRotaryEncoder::HwRpiRotaryEncoder(const PdArgs& args)
     addProperty(init_);
 
     step_ = new FloatProperty("@step", 1);
+    step_->info().setPriority(DEVICE_CONNECTED_PRIORITY);
     step_->setSuccessFn([this](Property*) {
         ceammc_hw_gpio_rotenc_set_step(device(), step_->value());
     });
     addProperty(step_);
 
     min_ = new FloatProperty("@min", -100);
+    min_->info().setPriority(DEVICE_CONNECTED_PRIORITY + 1);
     min_->setSuccessFn([this](Property*) {
         ceammc_hw_gpio_rotenc_set_min(device(), min_->value());
     });
     addProperty(min_);
 
     max_ = new FloatProperty("@max", 100);
+    max_->info().setPriority(DEVICE_CONNECTED_PRIORITY + 2);
     max_->setSuccessFn([this](Property*) {
         ceammc_hw_gpio_rotenc_set_max(device(), max_->value());
     });
