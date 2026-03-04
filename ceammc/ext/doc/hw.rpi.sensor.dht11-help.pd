@@ -6,64 +6,77 @@ Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.dht11 20 20 0 20
 -104026 -4096 0;
 #X obj 602 11 hw.rpi.sensor.dht11;
-#X obj 230 93 cnv 1 535 140 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 93 cnv 1 535 220 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Temperature range: 0\..+50°C ±2°C;
 #X text 240 123 Humidity range: 20-90%RH ±5%RH;
 #X text 240 148 When using a 3.5V voltage supply cable length shall
 not be greater than 20cm. Otherwise \, the line voltage drop will cause
 the sensor power supply shortage \, caused by measurement error;
-#X obj 50 281 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 310 poll \$1;
-#X obj 78 339 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 153 cnv 1 2 60 empty empty empty 17 7 0 10 -221520 -1 0;
+#X text 240 218 When created \, the object takes exclusive ownership
+of the GPIO pin @pin \, - it is *impossible* to use them in other objects
+simultaneously with this one.;
+#X obj 230 223 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
+#X text 240 273 To connect to the device \, set the @connect property
+to 1;
+#X obj 230 278 cnv 1 2 15 empty empty empty 17 7 0 10 -158925 -1 0;
+#X obj 50 361 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 390 @connect \$1;
+#X obj 213 390 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 242 390 <- poll sensor data;
+#X msg 213 419 poll \$1;
+#X obj 242 448 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 368 hw.rpi.sensor.dht11 @pin 17;
-#X obj 50 397 print;
-#X obj 50 440 ui.link @title Connection_Scheme @url
+#X text 270 448 <- single measurement;
+#X obj 50 477 hw.rpi.sensor.dht11 @pin 17;
+#X obj 50 505 print;
+#X obj 50 548 ui.link @title Connection_Scheme @url
 ceammc://img/conn_dht11.png;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 502 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 505 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 503 1\.;
-#X text 170 503 int;
-#X obj 268 504 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 503 PIN: GPIO pin to connect. See @pin. Type: int. Range:
+#X text 130 611 1\.;
+#X text 170 611 int;
+#X obj 268 612 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 611 PIN: GPIO pin to connect. See @pin. Type: int. Range:
 [-1\..127];
-#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 558 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 666 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 561 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 669 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 559 @pin;
-#X text 270 559 (initonly) GPIO connection pin. Type: int. Default
+#X msg 130 667 @pin;
+#X text 270 667 (initonly) GPIO connection pin. Type: int. Default
 value: -1\. Range: [-1\..127].;
-#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 616 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 724 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 617 poll;
-#X text 270 617 turn the sensor polling on/off. Arguments are:;
-#X obj 300 642 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 642 STATE: poll state. Type: bool.;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 690 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 725 poll;
+#X text 270 725 turn the sensor polling on/off. Arguments are:;
+#X obj 300 750 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 750 STATE: poll state. Type: bool.;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 691 1\.;
-#X text 170 691 bang:;
-#X text 270 691 take a single measurement.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 731 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 799 1\.;
+#X text 170 799 bang:;
+#X text 270 799 take a single measurement.;
+#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 839 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 732 1\.;
-#X text 270 732 list: TEMPERATURE(in Celsius) HUMIDITY.;
+#X text 130 840 1\.;
+#X text 170 840 list:;
+#X text 270 840 TEMPERATURE(in Celsius) HUMIDITY.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 782 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 785 library: ceammc v0.9.8;
-#N canvas 10 804 400 290 info 0;
+#X obj 1 890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 893 library: ceammc v0.9.8;
+#N canvas 10 912 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -87,8 +100,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 804 pd info;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 912 pd info;
+#X connect 13 0 14 0;
+#X connect 15 0 17 0;
+#X connect 14 0 20 0;
+#X connect 17 0 20 0;
+#X connect 18 0 20 0;
+#X connect 20 0 21 0;

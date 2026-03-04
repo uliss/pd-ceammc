@@ -36,6 +36,9 @@ void HwRpiSensorDht11::initDone()
              data[1] = hum;
              obj->listTo(0, data.view());
          } });
+
+    if (!dht_)
+        OBJ_ERR << "can't connect to device";
 }
 
 void HwRpiSensorDht11::onBang()
