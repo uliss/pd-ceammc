@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">When using the object, you need to specify the number of the SPI (@spi_bus property).</tr>
-        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI (свойство @spi_bus).</tr>
+        <tr lang="en">When using the object, you need to specify the number of the SPI (@spi_bus
+        property).</tr>
+        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI (свойство
+        @spi_bus).</tr>
       </par>
       <par style="info">
         <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
@@ -30,8 +32,8 @@
         передать на светодиодную ленту при помощи bang или команды [flush(</tr>
       </par>
       <par>
-        <tr lang="en">To specify the group of pixels we are going to work with,
-        two types of ranges are used: @slice and @lslice.</tr>
+        <tr lang="en">To specify the group of pixels we are going to work with, two types of ranges
+        are used: @slice and @lslice.</tr>
         <tr lang="ru">Для указания группы пикселей, с которой собираемся работать, используются два
         вида диапазонов: @slice и @lslice.</tr>
       </par>
@@ -92,17 +94,17 @@
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
           <tr lang="ru">цвет</tr>
-          <xi:include href="props_verbose_color0.xml" parse="xml"/>
+          <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
         <param name="@slice FIRST LAST? STEP?" type="list">
           <tr lang="en">range slice of pixels</tr>
           <tr lang="ru">дипазонный срез пикселей</tr>
-          <xi:include href="props_slice_verbose.xml" parse="xml"/>
+          <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
         <param name="@lslice FIRST LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
-          <xi:include href="props_lslice_verbose.xml" parse="xml"/>
+          <xi:include href="props_lslice_verbose.xml" parse="xml" />
         </param>
       </method>
       <!-- flush -->
@@ -127,12 +129,12 @@
         <param name="@slice FIRST LAST? STEP?" type="list">
           <tr lang="en">range slice of pixels</tr>
           <tr lang="ru">дипазонный срез пикселей</tr>
-          <xi:include href="props_slice_verbose.xml" parse="xml"/>
+          <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
         <param name="@lslice FIRST LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
-          <xi:include href="props_lslice_verbose.xml" parse="xml"/>
+          <xi:include href="props_lslice_verbose.xml" parse="xml" />
         </param>
       </method>
       <!-- rotate -->
@@ -155,7 +157,7 @@
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
           <tr lang="ru">цвет</tr>
-          <xi:include href="props_verbose_color0.xml" parse="xml"/>
+          <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
       </method>
     </methods>

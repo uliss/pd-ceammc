@@ -75,6 +75,13 @@
       </argument>
     </arguments>
     <properties>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">connection mode. When set to 1: tries to connect to the device on the I²C
+        bus. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">режим подключения. При установке в 1: пробует подключиться к устройству на
+        шине I²C. При установке в 0: отключается от устройства.</tr>
+      </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
       access="initonly">
@@ -86,13 +93,6 @@
       access="initonly">
         <tr lang="en">I²C bus</tr>
         <tr lang="ru">шина I²C</tr>
-      </property>
-      <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">connection mode.
-        When set to 1: tries to connect to the device on the I²C bus.
-        When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">режим подключения. При установке в 1: пробует подключиться к устройству на шине I²C.
-        При установке в 0: отключается от устройства.</tr>
       </property>
     </properties>
     <methods>

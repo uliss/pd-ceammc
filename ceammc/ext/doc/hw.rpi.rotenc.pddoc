@@ -20,8 +20,8 @@
       <par style="important">
         <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @btn, @clk
         и @dt: использовать их в других объектах одновременно с этим *невозможно*.</tr>
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn, @clk
-        and @dt - it is *impossible* to use them in other objects simultaneously with this
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn,
+        @clk and @dt - it is *impossible* to use them in other objects simultaneously with this
         one.</tr>
       </par>
     </info>
@@ -119,11 +119,11 @@
         </out>
       </outlet>
       <outlet>
-        <out type="any" name="dir">
+        <out name="dir" type="any">
           <tr lang="en">turn direction: [dir -1|1(</tr>
           <tr lang="ru">направление вращения: [dir -1|1(</tr>
         </out>
-        <out type="any" name="btn">
+        <out name="btn" type="any">
           <tr lang="en">button state [btn STATE(</tr>
           <tr lang="ru">состояние кнопки: [btn СОСТОЯНИЕ(</tr>
         </out>

@@ -29,22 +29,28 @@
       <!-- @d -->
       <property name="@d" type="alias">
         <tr lang="en">alias for @mode data. Sets the color output mode as a Color data type.</tr>
-        <tr lang="ru">сокращение для: @mode data. Устанавливает режим вывода цвета в виде типа данных Color.</tr>
+        <tr lang="ru">сокращение для: @mode data. Устанавливает режим вывода цвета в виде типа
+        данных Color.</tr>
       </property>
       <!-- @f -->
       <property name="@f" type="alias">
-        <tr lang="en">alias for @mode float. Sets the color output mode as an RGB list in the range [0..1]</tr>
-        <tr lang="ru">сокращение для: @mode float. Устанавливает режим вывода цвета в виде списка RGB в диапазоне [0..1]</tr>
+        <tr lang="en">alias for @mode float. Sets the color output mode as an RGB list in the range
+        [0..1]</tr>
+        <tr lang="ru">сокращение для: @mode float. Устанавливает режим вывода цвета в виде списка
+        RGB в диапазоне [0..1]</tr>
       </property>
       <!-- @float -->
-      <property name="@float" type="list" default="1 1 1" item-type="float" minvalue="0" maxvalue="1">
+      <property name="@float" type="list" default="1 1 1" item-type="float" minvalue="0"
+      maxvalue="1">
         <tr lang="en">current color value in RGB list format</tr>
         <tr lang="ru">текущее цветовое значение в формате списка RGB</tr>
       </property>
       <!-- @h -->
       <property name="@h" type="alias">
-        <tr lang="en">alias for @mode hex. Sets the color output mode as a character in #RRGGBB format.</tr>
-        <tr lang="ru">сокращение для: @mode hex. Устанавливает режим вывода цвета в виде символа в формате #RRGGBB</tr>
+        <tr lang="en">alias for @mode hex. Sets the color output mode as a character in #RRGGBB
+        format.</tr>
+        <tr lang="ru">сокращение для: @mode hex. Устанавливает режим вывода цвета в виде символа в
+        формате #RRGGBB</tr>
       </property>
       <!-- @hex -->
       <property name="@hex" type="symbol" default="#FFFFFF">
@@ -53,11 +59,14 @@
       </property>
       <!-- @i -->
       <property name="@i" type="alias">
-        <tr lang="en">alias for @mode int. Sets the color output mode as an RGB list in the range [0..255]</tr>
-        <tr lang="ru">сокращение для: @mode int. Устанавливает режим вывода цвета в виде списка RGB в диапазоне [0..255]</tr>
+        <tr lang="en">alias for @mode int. Sets the color output mode as an RGB list in the range
+        [0..255]</tr>
+        <tr lang="ru">сокращение для: @mode int. Устанавливает режим вывода цвета в виде списка RGB
+        в диапазоне [0..255]</tr>
       </property>
       <!-- @int -->
-      <property name="@int" type="list" num-items="3" minvalue="0" maxvalue="255" default="255 255 255" item-type="int">
+      <property name="@int" type="list" num-items="3" minvalue="0" maxvalue="255"
+      default="255 255 255" item-type="int">
         <tr lang="en">current color value in RGB list format</tr>
         <tr lang="ru">текущее цветовое значение в формате списка RGB</tr>
       </property>
@@ -83,7 +92,8 @@
           <tr lang="en">opens colorpanel with selected color. RGB color triplet expected in float
           [0..1] or int [0..255] range, depending from @mode property</tr>
           <tr lang="ru">открывает диалог выбора цвета с указанным цветом по умолчанию. Цветовой
-          список значений RGB, в диапазоне [0..1] или [0..255], в зависимости от свойства @mode</tr>
+          список значений RGB, в диапазоне [0..1] или [0..255], в зависимости от свойства
+          @mode</tr>
         </in>
       </inlet>
     </inlets>
@@ -94,9 +104,10 @@
           <tr lang="ru">цвет в шестнадцатиричном формате #RRGGBB</tr>
         </out>
         <out type="list">
-          <tr lang="en">RGB color triplet in float [0..1] or int [0..255] range depending from @mode property</tr>
-          <tr lang="ru">список из трех цетовых компонент RGB в рациональном [0..1] или в целочисленном [0..255]
-          диапазоне в зависимости от значения свойства @mode</tr>
+          <tr lang="en">RGB color triplet in float [0..1] or int [0..255] range depending from
+          @mode property</tr>
+          <tr lang="ru">список из трех цетовых компонент RGB в рациональном [0..1] или в
+          целочисленном [0..255] диапазоне в зависимости от значения свойства @mode</tr>
         </out>
       </outlet>
     </outlets>
