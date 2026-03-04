@@ -77,6 +77,7 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
     , access_(access)
     , vis_(PropValueVis::PUBLIC)
     , constraints_(PropValueConstraints::NONE)
+    , priority_(static_cast<std::underlying_type_t<PropPriority>>(PropPriority::DEFAULT))
 {
     if (isInt())
         clearRangeInt();
@@ -103,6 +104,7 @@ PropertyInfo::PropertyInfo(const PropertyInfo& info)
     , access_(info.access_)
     , vis_(info.vis_)
     , constraints_(info.constraints_)
+    , priority_(info.priority_)
 {
 }
 
@@ -133,6 +135,7 @@ PropertyInfo& PropertyInfo::operator=(const PropertyInfo& info)
     access_ = info.access_;
     vis_ = info.vis_;
     constraints_ = info.constraints_;
+    priority_ = info.priority_;
 
     return *this;
 }
@@ -152,6 +155,7 @@ PropertyInfo& PropertyInfo::operator=(PropertyInfo&& info)
     access_ = info.access_;
     vis_ = info.vis_;
     constraints_ = info.constraints_;
+    priority_ = info.priority_;
 
     return *this;
 }
@@ -844,6 +848,11 @@ bool PropertyInfo::setConstraints(PropValueConstraints c)
 void PropertyInfo::setArgIndex(int8_t idx)
 {
     arg_index_ = idx;
+}
+
+void PropertyInfo::setPriority(std::uint8_t p)
+{
+    priority_ = p;
 }
 
 void PropertyInfo::addUnit(PropValueUnits u)

@@ -61,13 +61,14 @@ private:
     NumericUnion min_, max_;
     t_float step_;
     int8_t arg_index_;
-    // info
-    PropValueUnitsBase units_;
     PropValueType type_;
     PropValueView view_;
     PropValueAccess access_;
+    // info
+    PropValueUnitsBase units_;
     PropValueVis vis_;
     PropValueConstraints constraints_;
+    std::uint8_t priority_;
 
 public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
@@ -91,6 +92,7 @@ public:
     inline PropValueConstraints constraints() const { return constraints_; }
     inline int8_t argIndex() const { return arg_index_; }
     inline bool hasArgIndex() const { return arg_index_ >= 0; }
+    inline std::uint8_t priority() const { return priority_; }
     /// checks
     inline bool isPublic() const { return vis_ == PropValueVis::PUBLIC; }
     inline bool isHidden() const { return vis_ == PropValueVis::HIDDEN; }
@@ -113,6 +115,7 @@ public:
     void setVisibility(PropValueVis v);
     bool setConstraints(PropValueConstraints c);
     void setArgIndex(int8_t idx);
+    void setPriority(std::uint8_t p);
 
     /// units
     inline PropValueUnitsBase units() const { return units_; }

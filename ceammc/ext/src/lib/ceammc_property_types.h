@@ -118,6 +118,14 @@ enum class PropValueConstraints : uint8_t {
     OTHER
 };
 
+// properties are sorted by this value
+enum class PropPriority : uint8_t {
+    FIRST = 0,
+    DEFAULT = 64,
+    LESSER = 128,
+    LAST = 255,
+};
+
 t_symbol* to_symbol(PropValueType t);
 t_symbol* to_symbol(PropValueView v);
 t_symbol* to_symbol(PropValueUnits u);
