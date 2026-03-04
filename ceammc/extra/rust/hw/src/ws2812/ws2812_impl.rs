@@ -43,6 +43,8 @@ impl hw_spi_ws2812 {
         let (tx, mut rx) = tokio::sync::mpsc::channel(10);
         let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(10);
 
+        let tokio_tx = tx.clone();
+
         std::thread::spawn(move || -> Result<(), CString> {
             debug!("thread start");
 
@@ -77,16 +79,6 @@ impl hw_spi_ws2812 {
 
             debug!("SPI init: {spi:?}");
 
-            let mut prerendered_buf = [0; 2024];
-            let mut ws = Ws2812::new(spi, &mut prerendered_buf);
-
-            debug!("ws2182 init with size: {size}");
-
-            let mut leds = Vec::with_capacity(size);
-            leds.resize(size, RGB8::default());
-
-            let mut brightness = 127;
-
             let mut fx_rainbow = Rainbow::new(size, None);
             let mut fx_strobe = Strobe::new(size, None, Duration::from_millis(30), None);
             let mut fx_twinkle = Twinkle::new(size, None, None, None, None);
@@ -106,110 +98,133 @@ impl hw_spi_ws2812 {
             rt.block_on(async {
                 debug!("tokio start");
 
-                while let Some(req) = rx.recv().await {
-                    debug!("{req:?}");
+                tokio::spawn(async move {
+                    debug!("tokio worker thread start");
 
-                    match req {
-                        Request::SetPixelColor(rgb, idx) => match leds.get_mut(idx) {
-                            Some(c) => {
-                                *c = rgb.into8();
-                            }
-                            None => {
-                                Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str()).await
-                            }
-                        },
-                        Request::SetBrightness(b) => {
-                            brightness = b;
-                        }
-                        Request::Flush => {
-                            if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
-                                Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
-                            }
-                        }
-                        Request::Rotate(delta, _slice) => {
-                            if delta > 0 {
-                                leds.rotate_right((delta as usize).min(size));
-                            } else {
-                                leds.rotate_left((delta.abs() as usize).min(size));
-                            }
-                        }
-                        Request::Clear => {
-                            leds.fill(RGB8::default());
-                        }
-                        Request::SetSliceColor(color, slice) => {
-                            let a = slice.map(|x| pos2index(x.first, size)).unwrap_or(0);
-                            let b = slice.map(|x| pos2index(x.last, size)).unwrap_or(size);
-                            let step = slice.map(|x| x.step).unwrap_or(1);
+                    let mut prerendered_buf = [0; 2024];
+                    let mut ws = Ws2812::new(spi, &mut prerendered_buf);
+                    debug!("ws2182 init with size: {size}");
 
-                            for idx in (a..=b).step_by(step as usize) {
-                                leds.get_mut(idx).map(|c| {
-                                    *c = color.into8();
-                                });
-                            }
-                        }
-                        Request::Quit => {
-                            break;
-                        }
-                        Request::ApplyEffect(fx, slice) => {
-                            let mut apply_fn = |fx: &mut dyn EffectIterator| -> Option<()> {
-                                let new_data = fx.next()?;
+                    let mut leds = Vec::with_capacity(size);
+                    leds.resize(size, RGB8::default());
 
-                                match slice {
-                                    Some(slice) => {
-                                        let a = pos2index(slice.first, size);
-                                        let b = pos2index(slice.last, size);
-                                        let step = slice.step.max(1).try_into().ok()?;
+                    let mut brightness = 127;
 
-                                        for idx in (a..=b).step_by(step) {
-                                            let a = leds.get_mut(idx)?;
-                                            let b = new_data.get(idx)?;
-                                            a.r = b.red;
-                                            a.g = b.green;
-                                            a.b = b.blue;
-                                        }
-                                    }
-                                    None => {
-                                        for (a, b) in leds.iter_mut().zip(&new_data) {
-                                            a.r = b.red;
-                                            a.g = b.green;
-                                            a.b = b.blue;
-                                        }
-                                    }
+                    while let Some(req) = rx.recv().await {
+                        debug!("{req:?}");
+
+                        match req {
+                            Request::SetPixelColor(rgb, idx) => match leds.get_mut(idx) {
+                                Some(c) => {
+                                    *c = rgb.into8();
                                 }
+                                None => {
+                                    Self::send_error(&rep_tx, notify, format!("invalid pixel index: {idx}").as_str())
+                                        .await
+                                }
+                            },
+                            Request::SetBrightness(b) => {
+                                brightness = b;
+                            }
+                            Request::Flush => {
+                                if let Err(err) = ws.write(smart_leds::brightness(leds.iter().cloned(), brightness)) {
+                                    Self::send_error(&rep_tx, notify, format!("{err:?}").as_str()).await;
+                                }
+                            }
+                            Request::Rotate(delta, _slice) => {
+                                if delta > 0 {
+                                    leds.rotate_right((delta as usize).min(size));
+                                } else {
+                                    leds.rotate_left((delta.abs() as usize).min(size));
+                                }
+                            }
+                            Request::Clear => {
+                                leds.fill(RGB8::default());
+                            }
+                            Request::SetSliceColor(color, slice) => {
+                                let a = slice.map(|x| pos2index(x.first, size)).unwrap_or(0);
+                                let b = slice.map(|x| pos2index(x.last, size)).unwrap_or(size);
+                                let step = slice.map(|x| x.step).unwrap_or(1);
 
-                                Some(())
-                            };
+                                for idx in (a..=b).step_by(step as usize) {
+                                    leds.get_mut(idx).map(|c| {
+                                        *c = color.into8();
+                                    });
+                                }
+                            }
+                            Request::Quit => {
+                                break;
+                            }
+                            Request::ApplyEffect(fx, slice) => {
+                                let mut apply_fn = |fx: &mut dyn EffectIterator| -> Option<()> {
+                                    let new_data = fx.next()?;
 
-                            match fx {
-                                crate::ws2812::hw_led_fx::Bounce => apply_fn(&mut fx_bounce),
-                                crate::ws2812::hw_led_fx::Breathe => apply_fn(&mut fx_breathe),
-                                crate::ws2812::hw_led_fx::Collision => apply_fn(&mut fx_collision),
-                                crate::ws2812::hw_led_fx::Cycle => apply_fn(&mut fx_cycle),
-                                crate::ws2812::hw_led_fx::Cylon => apply_fn(&mut fx_cylon),
-                                crate::ws2812::hw_led_fx::Fire => apply_fn(&mut fx_fire),
-                                crate::ws2812::hw_led_fx::Meteor => apply_fn(&mut fx_meteor),
-                                crate::ws2812::hw_led_fx::Rainbow => apply_fn(&mut fx_rainbow),
-                                crate::ws2812::hw_led_fx::Strobe => apply_fn(&mut fx_strobe),
-                                crate::ws2812::hw_led_fx::Twinkle => apply_fn(&mut fx_twinkle),
-                                crate::ws2812::hw_led_fx::SnowSparkle => apply_fn(&mut fx_snow_sparkle),
-                            };
+                                    match slice {
+                                        Some(slice) => {
+                                            let a = pos2index(slice.first, size);
+                                            let b = pos2index(slice.last, size);
+                                            let step = slice.step.max(1).try_into().ok()?;
+
+                                            for idx in (a..=b).step_by(step) {
+                                                let a = leds.get_mut(idx)?;
+                                                let b = new_data.get(idx)?;
+                                                a.r = b.red;
+                                                a.g = b.green;
+                                                a.b = b.blue;
+                                            }
+                                        }
+                                        None => {
+                                            for (a, b) in leds.iter_mut().zip(&new_data) {
+                                                a.r = b.red;
+                                                a.g = b.green;
+                                                a.b = b.blue;
+                                            }
+                                        }
+                                    }
+
+                                    Some(())
+                                };
+
+                                match fx {
+                                    crate::ws2812::hw_led_fx::Bounce => apply_fn(&mut fx_bounce),
+                                    crate::ws2812::hw_led_fx::Breathe => apply_fn(&mut fx_breathe),
+                                    crate::ws2812::hw_led_fx::Collision => apply_fn(&mut fx_collision),
+                                    crate::ws2812::hw_led_fx::Cycle => apply_fn(&mut fx_cycle),
+                                    crate::ws2812::hw_led_fx::Cylon => apply_fn(&mut fx_cylon),
+                                    crate::ws2812::hw_led_fx::Fire => apply_fn(&mut fx_fire),
+                                    crate::ws2812::hw_led_fx::Meteor => apply_fn(&mut fx_meteor),
+                                    crate::ws2812::hw_led_fx::Rainbow => apply_fn(&mut fx_rainbow),
+                                    crate::ws2812::hw_led_fx::Strobe => apply_fn(&mut fx_strobe),
+                                    crate::ws2812::hw_led_fx::Twinkle => apply_fn(&mut fx_twinkle),
+                                    crate::ws2812::hw_led_fx::SnowSparkle => apply_fn(&mut fx_snow_sparkle),
+                                };
+                            }
                         }
+                    }
+
+                    let _ = rep_tx.try_send(Reply::Done);
+                    if clear_on_exit {
+                        leds.fill(RGB8::default());
+                        if let Err(err) = ws.write(leds.iter().cloned()) {
+                            error!("clear_on_exit error: {err:?}");
+                        } else {
+                            debug!("clear on exit ...");
+                        }
+                    }
+
+                    debug!("tokio worker done");
+                });
+
+                tokio::select! {
+                    _ = tokio::signal::ctrl_c() => {
+                        debug!("Ctrl+C received");
+                        let _ = tokio_tx.send_timeout(Request::Quit, Duration::from_millis(10)).await;
                     }
                 }
 
-                let _ = rep_tx.try_send(Reply::Done);
                 // no notify
                 debug!("tokio done");
             });
-
-            if clear_on_exit {
-                leds.fill(RGB8::default());
-                if let Err(err) = ws.write(leds.iter().cloned()) {
-                    error!("clear_on_exit error: {err:?}");
-                } else {
-                    debug!("clear on exit ...");
-                }
-            }
 
             debug!("thread done");
             Ok(())
