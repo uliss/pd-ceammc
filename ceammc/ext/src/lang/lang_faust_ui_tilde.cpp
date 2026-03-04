@@ -463,8 +463,6 @@ void setup_ui0x2efaust_tilde()
 
 t_class* setup_ui_faust_non_external()
 {
-    tcl_nui_init();
-
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
     obj.useMouseLeave();

@@ -16,6 +16,7 @@
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
+#include "nui/tk_view_impl.h"
 #include "tcl/ceammc_tcl.h"
 
 extern "C" {
@@ -186,6 +187,8 @@ void ceammc_init()
 #ifdef WITH_RUST_CORE
     ceammc_rust_log_init();
 #endif
+
+    ceammc::ui::tcl_nui_init();
 
     ceammc_analyze_setup();
     ceammc_array_setup();
