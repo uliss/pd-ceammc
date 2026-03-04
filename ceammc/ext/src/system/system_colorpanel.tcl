@@ -17,7 +17,7 @@ proc ::ceammc::colorpanel::do_open {objectid initialcolor} {
     switch $::windowingsystem {
         "x11" {
             set cmd "exec zenity --color-selection --title=Color --color=$initialcolor"
-            ::pdwindow::error "$cmd\n"
+            # ::pdwindow::debug "$cmd\n"
             if {[catch $cmd result]} {
                 return
             }
