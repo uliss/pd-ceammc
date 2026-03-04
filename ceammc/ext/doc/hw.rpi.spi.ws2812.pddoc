@@ -18,8 +18,8 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">When using the object, you need to specify the number of the SPI!</tr>
-        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI!</tr>
+        <tr lang="en">When using the object, you need to specify the number of the SPI (@spi_bus property).</tr>
+        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI (свойство @spi_bus).</tr>
       </par>
       <par style="info">
         <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
@@ -30,11 +30,10 @@
         передать на светодиодную ленту при помощи bang или команды [flush(</tr>
       </par>
       <par>
-        <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
-        by sending messages to the object. After finishing work with the pixel buffer, it needs to
-        be sent to the LED strip using a bang or the [flush( command.</tr>
+        <tr lang="en">To specify the group of pixels we are going to work with,
+        two types of ranges are used: @slice and @lslice.</tr>
         <tr lang="ru">Для указания группы пикселей, с которой собираемся работать, используются два
-        вида диапазонов:</tr>
+        вида диапазонов: @slice и @lslice.</tr>
       </par>
     </info>
     <properties>
@@ -90,25 +89,10 @@
           <tr lang="en">fill pixels with the RGB color</tr>
           <tr lang="ru">заполнить пиксели цветом RGB</tr>
         </info>
-        <param name="@color R G B" type="float" minvalue="0" maxvalue="1" >
-          <tr lang="en">list of R G B color components</tr>
-          <tr lang="ru">список R G B цветовых компонент</tr>
-        </param>
-        <param name="@color #RRGGBB" type="property">
-          <tr lang="en">hex RGB color</tr>
-          <tr lang="ru">шестнадцатеричный RGB цвет</tr>
-        </param>
-        <param name="@color name" type="property" enum="black white red green blue cyan magenta">
-          <tr lang="en">named color</tr>
-          <tr lang="ru">именованый цвет</tr>
-        </param>
-        <param name="@color Color(red)" type="data:color">
-          <tr lang="en">color data type</tr>
-          <tr lang="ru">цветовой тип данных</tr>
-        </param>
-        <param name="@color8 R G B" type="int" minvalue="0" maxvalue="255" >
-          <tr lang="en">list of R G B color components</tr>
-          <tr lang="ru">список R G B цветовых компонент</tr>
+        <param name="@color ..." type="list">
+          <tr lang="en">color</tr>
+          <tr lang="ru">цвет</tr>
+          <xi:include href="props_verbose_color0.xml" parse="xml"/>
         </param>
         <param name="@slice FIRST LAST? STEP?" type="list">
           <tr lang="en">range slice of pixels</tr>
@@ -168,25 +152,10 @@
           <tr lang="en">set single pixel color</tr>
           <tr lang="ru">установить цвет отдельного пикселя</tr>
         </info>
-        <param name="@color R G B" type="float" minvalue="0" maxvalue="1" >
-          <tr lang="en">list of R G B color components</tr>
-          <tr lang="ru">список R G B цветовых компонент</tr>
-        </param>
-        <param name="@color #RRGGBB" type="property">
-          <tr lang="en">hex RGB color</tr>
-          <tr lang="ru">шестнадцатеричный RGB цвет</tr>
-        </param>
-        <param name="@color name" type="property" enum="black white red green blue cyan magenta">
-          <tr lang="en">named color</tr>
-          <tr lang="ru">именованый цвет</tr>
-        </param>
-        <param name="@color Color(red)" type="data:color">
-          <tr lang="en">color data type</tr>
-          <tr lang="ru">цветовой тип данных</tr>
-        </param>
-        <param name="@color8 R G B" type="int" minvalue="0" maxvalue="255" >
-          <tr lang="en">list of R G B color components</tr>
-          <tr lang="ru">список R G B цветовых компонент</tr>
+        <param name="@color ..." type="list">
+          <tr lang="en">color</tr>
+          <tr lang="ru">цвет</tr>
+          <xi:include href="props_verbose_color0.xml" parse="xml"/>
         </param>
       </method>
     </methods>

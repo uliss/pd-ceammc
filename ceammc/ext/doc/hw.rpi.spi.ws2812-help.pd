@@ -5,87 +5,85 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.spi.ws2812 20 20 0 20
 -104026 -4096 0;
 #X obj 617 11 hw.rpi.spi.ws2812;
-#X obj 230 78 cnv 1 535 230 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 When using the object \, you need to specify the number
-of the SPI!;
+of the SPI (@spi_bus property).;
 #X obj 230 88 cnv 1 2 30 empty empty empty 17 7 0 10 -221520 -1 0;
 #X text 240 123 The object uses an internal pixel buffer \, with the
 colors of which it works by sending messages to the object. After finishing
 work with the pixel buffer \, it needs to be sent to the LED strip
 using a bang or the [flush( command.;
 #X obj 230 128 cnv 1 2 75 empty empty empty 17 7 0 10 -158925 -1 0;
-#X text 240 208 The object uses an internal pixel buffer \, with the
-colors of which it works by sending messages to the object. After finishing
-work with the pixel buffer \, it needs to be sent to the LED strip
-using a bang or the [flush( command.;
-#X obj 50 356 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 208 To specify the group of pixels we are going to work
+with \, two types of ranges are used: @slice and @lslice.;
+#X obj 50 311 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 270 356 fill @slice 2 @color8 255 0 0 \, bang;
-#X msg 270 385 fill @lslice 4 4 @color8 0 255 0 \, bang;
-#X obj 50 414 system.colorpanel @f;
-#X msg 270 414 fill @slice 1 15 3 @color8 0 127 255 \, bang;
-#X obj 50 443 msg fill @color;
-#X msg 270 443 fx rainbow 0.5 8 \, bang;
-#X obj 50 472 msg.after 0 bang;
-#X floatatom 270 472 5 0 0 0 - - -;
-#X msg 59 500 brightness 32;
-#X msg 270 500 set_pixel \$1 @color8 0 0 255 \, bang;
-#X msg 59 543 clear;
-#X obj 50 572 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
-#X obj 50 616 ui.link @title 'Connection_Scheme' @url
+#X msg 270 311 fill @slice 2 @color8 255 0 0 \, bang;
+#X msg 270 340 fill @lslice 4 4 @color8 0 255 0 \, bang;
+#X obj 50 369 system.colorpanel @f;
+#X msg 270 369 fill @slice 1 15 3 @color8 0 127 255 \, bang;
+#X obj 50 398 msg fill @color;
+#X msg 270 398 fx rainbow 0.5 8 \, bang;
+#X obj 50 427 msg.after 0 bang;
+#X floatatom 270 427 5 0 0 0 - - -;
+#X msg 59 455 brightness 32;
+#X msg 270 455 set_pixel \$1 @color8 0 0 255 \, bang;
+#X msg 59 498 clear;
+#X obj 50 527 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
+#X obj 50 571 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_ws2812.png;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 678 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 633 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 681 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 636 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 679 @spi_bus;
-#X text 270 679 (initonly) SPI bus number. If not specified or equal
+#X msg 130 634 @spi_bus;
+#X text 270 634 (initonly) SPI bus number. If not specified or equal
 to -1: the object does not perform any actions. Type: int. Default
 value: -1\. Range: [-1\..6].;
-#X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 736 @spi_cs;
-#X text 270 736 (initonly) SPI CS (chip select/enable). In most cases
+#X obj 250 691 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 691 @spi_cs;
+#X text 270 691 (initonly) SPI CS (chip select/enable). In most cases
 you don't need to set this property \, because LED strips are not using
 CS pin. Type: int. Default value: 0\. Range: [0\..3].;
-#X obj 250 808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 808 @size;
-#X text 270 808 (initonly) Number of leds in the strip. Type: int.
+#X obj 250 763 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 763 @size;
+#X text 270 763 (initonly) Number of leds in the strip. Type: int.
 Default value: 16\. Range: [1\..4096].;
-#X obj 250 850 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 850 @clear;
-#X text 270 850 Turn off all pixels when an object is removed. Type:
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 805 @clear;
+#X text 270 805 Turn off all pixels when an object is removed. Type:
 bool. Default value: 1\.;
-#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 907 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 862 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 908 brightness;
-#X text 270 908 set pixel brightness. Arguments are:;
-#X obj 300 933 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 933 LEVEL: brightness level. Type: int. Range: [0\..255].;
-#X obj 250 966 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 966 clear;
-#X text 270 966 turn off all pixels.;
-#X obj 250 1001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1001 fill;
-#X text 270 1001 fill pixels with the RGB color. Arguments are:;
-#X obj 300 1026 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1026 [@color R G B]: list of R G B color components. Type:
-float. Range: [0\..1].;
-#X obj 300 1064 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1064 [@color #RRGGBB]: hex RGB color. Type: property.;
-#X obj 300 1087 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1087 [@color name]: named color. Type: property. Allowed
-values: black \, white \, red \, green \, blue \, cyan \, magenta.;
-#X obj 300 1125 cnv 1 147 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1125 [@color Color(red)]: color data type. Type: data:color.;
-#X obj 300 1148 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1148 [@color8 R G B]: list of R G B color components. Type:
-int. Range: [0\..255].;
-#X obj 300 1186 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1186 [@slice FIRST LAST? STEP?]: range slice of pixels.
+#X msg 130 863 brightness;
+#X text 270 863 set pixel brightness. Arguments are:;
+#X obj 300 888 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 888 LEVEL: brightness level. Type: int. Range: [0\..255].;
+#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 921 clear;
+#X text 270 921 turn off all pixels.;
+#X obj 250 956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 956 fill;
+#X text 270 956 fill pixels with the RGB color. Arguments are:;
+#X obj 300 981 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 981 [@color ...]: color. Type: list.;
+#X obj 270 981 nui.helpbox @title ? @direction_right 0 @text_width 250
+@lines
+>QGNvbG9yIFIgRyBCOiBsaXN0IG9mIFIgRyBCIGNvbG9yIGNvbXBvbmVudHMgaW4gWzAuLjFdIHJh
+bmdl
+>QGNvbG9yIFIgRyBCOiBsaXN0IG9mIFIgRyBCIGNvbG9yIGNvbXBvbmVudHMsIGludGVnZXJzIGlu
+IFswLi4yNTVdIHJhbmdl
+>QGNvbG9yICNSUkdHQkIgb3IgI1JHQjogaGV4IFJHQiBjb2xvcg==
+>QGNvbG9yIG5hbWU6IG5hbWVkIGNvbG9yLiBQb3NzaWJsZSB2YWx1ZXMgYXJlOiBibGFjaywgYmx1
+ZSwgY3lhbiwgZ29sZCwgZ3JheSwgZ3JlZW4sIGxpbWUsIG1hZ2VudGEsIG5hdnksIG9saXZlLCBv
+cmFuZ2UsIHBpbmssIHB1cnBsZSwgcmVkLCB3aGl0ZSwgeWVsbG93LCByYW5kb20uIA==
+>QGNvbG9yIENvbG9yKGRhdGEpOiBjb2xvciBkYXRhIHR5cGU= ;
+#X obj 300 1004 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1004 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
-#X obj 270 1186 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1004 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QHNsaWNlIEZST006IFNlbGVjdHMgYWxsIHBpeGVscyBzdGFydGluZyBmcm9tIEZST00uIElmIEZS
 T00gaXMgYSBuZWdhdGl2ZSB2YWx1ZSwgaXQgaW5kaWNhdGVzIHRoZSBwb3NpdGlvbiBvZiB0aGUg
@@ -98,10 +96,10 @@ cywgdGhleSBpbmRpY2F0ZSB0aGUgcG9zaXRpb24gb2YgdGhlIHBpeGVsIGZyb20gdGhlIGVuZC4=
 TSB1cCB0byBhbmQgaW5jbHVkaW5nIFRPIHdpdGggdGhlIHNwZWNpZmllZCBTVEVQLiBGb3IgZXhh
 bXBsZSwgaWYgU1RFUCBpcyAzLCBpdCBzZWxlY3RzIGV2ZXJ5IHRoaXJkIHBpeGVsIGluIHRoZSBz
 cGVjaWZpZWQgcmFuZ2Uu ;
-#X obj 300 1224 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1224 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
+#X obj 300 1042 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1042 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
 list.;
-#X obj 270 1224 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1042 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGxzbGljZSBGUk9NOiBTZWxlY3RzIGFsbCBwaXhlbHMgc3RhcnRpbmcgZnJvbSBGUk9NLiBJZiBG
 Uk9NIGlzIGEgbmVnYXRpdmUgdmFsdWUsIGl0IGluZGljYXRlcyB0aGUgcG9zaXRpb24gb2YgdGhl
@@ -115,20 +113,20 @@ ZSB2YWx1ZS4=
 IEZST00gd2l0aCB0aGUgc3BlY2lmaWVkIFNURVAuIEZvciBleGFtcGxlLCBpZiBTVEVQIGlzIDMs
 IGl0IHNlbGVjdHMgZXZlcnkgdGhpcmQgcGl4ZWwgaW4gdGhlIHNwZWNpZmllZCByYW5nZS4=
 ;
-#X obj 250 1257 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1257 flush;
-#X text 270 1257 flush all pixels to the strip.;
-#X obj 250 1292 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1292 fx;
-#X text 270 1292 apply color effect function. Arguments are:;
-#X obj 300 1317 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1317 NAME: effect name. Type: symbol. Allowed values: bounce
+#X obj 250 1075 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1075 flush;
+#X text 270 1075 flush all pixels to the strip.;
+#X obj 250 1110 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1110 fx;
+#X text 270 1110 apply color effect function. Arguments are:;
+#X obj 300 1135 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1135 NAME: effect name. Type: symbol. Allowed values: bounce
 \, breathe \, collision \, cycle \, fire \, meteor \, rainbow \, sparkle
 \, strobe \, twinkle.;
-#X obj 300 1370 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1370 [@slice FIRST LAST? STEP?]: range slice of pixels.
+#X obj 300 1188 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1188 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;
-#X obj 270 1370 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1188 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QHNsaWNlIEZST006IFNlbGVjdHMgYWxsIHBpeGVscyBzdGFydGluZyBmcm9tIEZST00uIElmIEZS
 T00gaXMgYSBuZWdhdGl2ZSB2YWx1ZSwgaXQgaW5kaWNhdGVzIHRoZSBwb3NpdGlvbiBvZiB0aGUg
@@ -141,10 +139,10 @@ cywgdGhleSBpbmRpY2F0ZSB0aGUgcG9zaXRpb24gb2YgdGhlIHBpeGVsIGZyb20gdGhlIGVuZC4=
 TSB1cCB0byBhbmQgaW5jbHVkaW5nIFRPIHdpdGggdGhlIHNwZWNpZmllZCBTVEVQLiBGb3IgZXhh
 bXBsZSwgaWYgU1RFUCBpcyAzLCBpdCBzZWxlY3RzIGV2ZXJ5IHRoaXJkIHBpeGVsIGluIHRoZSBz
 cGVjaWZpZWQgcmFuZ2Uu ;
-#X obj 300 1408 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1408 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
+#X obj 300 1226 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1226 [@lslice FIRST LENGTH? STEP?]: slice of pixels. Type:
 list.;
-#X obj 270 1408 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1226 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGxzbGljZSBGUk9NOiBTZWxlY3RzIGFsbCBwaXhlbHMgc3RhcnRpbmcgZnJvbSBGUk9NLiBJZiBG
 Uk9NIGlzIGEgbmVnYXRpdmUgdmFsdWUsIGl0IGluZGljYXRlcyB0aGUgcG9zaXRpb24gb2YgdGhl
@@ -158,46 +156,46 @@ ZSB2YWx1ZS4=
 IEZST00gd2l0aCB0aGUgc3BlY2lmaWVkIFNURVAuIEZvciBleGFtcGxlLCBpZiBTVEVQIGlzIDMs
 IGl0IHNlbGVjdHMgZXZlcnkgdGhpcmQgcGl4ZWwgaW4gdGhlIHNwZWNpZmllZCByYW5nZS4=
 ;
-#X obj 250 1441 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1441 rotate;
-#X text 270 1441 shift all pixel by specified step. Arguments are:;
-#X obj 300 1466 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1466 SHIFT: shift amount. Type: int.;
-#X obj 250 1499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1499 set_pixel;
-#X text 270 1499 set single pixel color. Arguments are:;
-#X obj 300 1524 cnv 1 109 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1524 [@color R G B]: list of R G B color components. Type:
-float. Range: [0\..1].;
-#X obj 300 1562 cnv 1 124 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1562 [@color #RRGGBB]: hex RGB color. Type: property.;
-#X obj 300 1585 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1585 [@color name]: named color. Type: property. Allowed
-values: black \, white \, red \, green \, blue \, cyan \, magenta.;
-#X obj 300 1623 cnv 1 147 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1623 [@color Color(red)]: color data type. Type: data:color.;
-#X obj 300 1646 cnv 1 116 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1646 [@color8 R G B]: list of R G B color components. Type:
-int. Range: [0\..255].;
-#X obj 20 1704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1709 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1259 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1259 rotate;
+#X text 270 1259 shift all pixel by specified step. Arguments are:;
+#X obj 300 1284 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1284 SHIFT: shift amount. Type: int.;
+#X obj 250 1317 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1317 set_pixel;
+#X text 270 1317 set single pixel color. Arguments are:;
+#X obj 300 1342 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1342 [@color ...]: color. Type: list.;
+#X obj 270 1342 nui.helpbox @title ? @direction_right 0 @text_width
+250 @lines
+>QGNvbG9yIFIgRyBCOiBsaXN0IG9mIFIgRyBCIGNvbG9yIGNvbXBvbmVudHMgaW4gWzAuLjFdIHJh
+bmdl
+>QGNvbG9yIFIgRyBCOiBsaXN0IG9mIFIgRyBCIGNvbG9yIGNvbXBvbmVudHMsIGludGVnZXJzIGlu
+IFswLi4yNTVdIHJhbmdl
+>QGNvbG9yICNSUkdHQkIgb3IgI1JHQjogaGV4IFJHQiBjb2xvcg==
+>QGNvbG9yIG5hbWU6IG5hbWVkIGNvbG9yLiBQb3NzaWJsZSB2YWx1ZXMgYXJlOiBibGFjaywgYmx1
+ZSwgY3lhbiwgZ29sZCwgZ3JheSwgZ3JlZW4sIGxpbWUsIG1hZ2VudGEsIG5hdnksIG9saXZlLCBv
+cmFuZ2UsIHBpbmssIHB1cnBsZSwgcmVkLCB3aGl0ZSwgeWVsbG93LCByYW5kb20uIA==
+>QGNvbG9yIENvbG9yKGRhdGEpOiBjb2xvciBkYXRhIHR5cGU= ;
+#X obj 20 1385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1390 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1710 1\.;
-#X text 170 1710 bang:;
-#X text 270 1710 flush pixels to the strip.;
-#X obj 20 1745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1750 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1391 1\.;
+#X text 170 1391 bang:;
+#X text 270 1391 flush pixels to the strip.;
+#X obj 20 1426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1431 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1751 1\.;
-#X text 270 1751 no output.;
+#X text 130 1432 1\.;
+#X text 270 1432 no output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1801 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1804 library: ceammc v0.9.8;
-#N canvas 10 1823 400 290 info 0;
+#X obj 1 1482 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1485 library: ceammc v0.9.8;
+#N canvas 10 1504 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -221,7 +219,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1823 pd info;
+#X restore 10 1504 pd info;
 #X connect 10 0 13 0;
 #X connect 13 0 15 0;
 #X connect 15 0 17 0;
