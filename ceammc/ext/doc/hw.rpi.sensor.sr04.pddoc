@@ -37,6 +37,10 @@
         and @echo_pin - it is *impossible* to use them in other objects simultaneously with this
         one.</tr>
       </par>
+      <par style="info">
+        <tr lang="en">To connect to the device, set the @connect property to 1</tr>
+        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1</tr>
+      </par>
     </info>
     <arguments>
       <argument name="TRIG_PIN" type="int" minvalue="-1" maxvalue="255">
@@ -50,6 +54,13 @@
       </argument>
     </arguments>
     <properties>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C
+        bus. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на
+        шине I²C. При установке в 0: отключается от устройства.</tr>
+      </property>
       <!-- @echo_pin -->
       <property name="@echo_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
@@ -110,11 +121,13 @@
 <![CDATA[
 [T]
 |
-[poll $1(  [bang #a(
+[@connect $1(  [bang #a(
 |
-|
-|
-|
+| [T]
+| |
+| [poll $1(
+| |
+| |
 [hw.rpi.sensor.sr04 @trig_pin 23 @echo_pin 24 #x]
 |                              ^|
 [F]                            [B]

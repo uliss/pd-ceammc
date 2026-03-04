@@ -8,6 +8,7 @@ constexpr int NULL_ECHO_GPIO_PIN = -1;
 
 HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
     : RustDispatchedObject<BaseObject>(args)
+    , sr04_(nullptr, ceammc_hw_gpio_sr04_free)
 {
     createOutlet();
     createOutlet();
@@ -26,79 +27,90 @@ HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
     poll_interval_->checkClosedRange(ceammc_HW_SR04_MIN_POLL_INTERVAL, ceammc_HW_SR04_MAX_POLL_INTERVAL);
     poll_interval_->setUnits(PropValueUnits::MSEC);
     poll_interval_->setSuccessFn([this](Property*) {
-        ceammc_hw_gpio_sr04_set_poll_interval(sr04_, poll_interval_->value());
+        if (!check_connected(true))
+            return;
+        ceammc_hw_gpio_sr04_set_poll_interval(sr04_.get(), poll_interval_->value());
     });
     addProperty(poll_interval_);
-}
 
-HwRpiSensorSr04::~HwRpiSensorSr04()
-{
-    ceammc_hw_gpio_sr04_free(sr04_);
-}
-
-void HwRpiSensorSr04::initDone()
-{
-    if (check_no_pins(false))
-        return;
-
-    sr04_ = ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
-        echo_pin_->value(),
-        on_notify(), //
-        on_message(),
-        { this, [](void* user, float distance_cm, bool is_inf) {
-             auto obj = static_cast<HwRpiSensorSr04*>(user);
-             if (!obj)
-                 return;
-
-             if (!is_inf)
-                 obj->floatTo(0, distance_cm);
-             else
-                 obj->bangTo(1);
-         } });
+    connect_ = new BoolProperty("@connect", false);
+    connect_->setSuccessFn([this](Property*) {
+        gpio_connect(connect_->value());
+    });
+    addProperty(connect_);
 }
 
 bool HwRpiSensorSr04::notify(int code)
 {
-    if (!check_no_pins())
+    if (!check_connected(true))
         return false;
 
-    return ceammc_hw_gpio_sr04_process(sr04_);
+    return ceammc_hw_gpio_sr04_process(sr04_.get());
 }
 
 void HwRpiSensorSr04::onBang()
 {
-    if (!check_no_pins())
+    if (!check_connected(true))
         return;
 
-    ceammc_hw_gpio_sr04_measure(sr04_);
+    ceammc_hw_gpio_sr04_measure(sr04_.get());
 }
 
 void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_no_pins())
+    if (!check_connected(true))
         return;
 
     static const args::ArgChecker args("STATE:b");
     if (!args.check(lv, this))
         return args.usage(this, s);
 
-    ceammc_hw_gpio_sr04_poll(sr04_, lv.boolAt(0, false));
+    ceammc_hw_gpio_sr04_poll(sr04_.get(), lv.boolAt(0, false));
 }
 
-bool HwRpiSensorSr04::check_no_pins(bool output_warning) const
+bool HwRpiSensorSr04::check_connected(bool print_err)
 {
-    bool no_pins = false;
-    if (trigger_pin_->value() == NULL_TRIG_GPIO_PIN && output_warning) {
-        OBJ_ERR << fmt::format("@trig_pin is not set");
-        no_pins = true;
+    if (!sr04_ && print_err) {
+        OBJ_ERR << "device is not connected to the I2C bus";
     }
 
-    if (echo_pin_->value() == NULL_ECHO_GPIO_PIN && output_warning) {
-        OBJ_ERR << fmt::format("@echo_pin is not set");
-        no_pins = true;
-    }
+    return sr04_.get();
+}
 
-    return no_pins;
+void HwRpiSensorSr04::gpio_connect(bool state)
+{
+    if (state) {
+        if (trigger_pin_->value() == NULL_TRIG_GPIO_PIN) {
+            OBJ_ERR << fmt::format("@trig_pin is not set");
+            return;
+        }
+
+        if (echo_pin_->value() == NULL_ECHO_GPIO_PIN) {
+            OBJ_ERR << fmt::format("@echo_pin is not set");
+            return;
+        }
+
+        sr04_.reset(ceammc_hw_gpio_sr04_new(trigger_pin_->value(),
+            echo_pin_->value(),
+            on_notify(), //
+            on_message(),
+            { this, [](void* user, float distance_cm, bool is_inf) {
+                 auto obj = static_cast<HwRpiSensorSr04*>(user);
+                 if (!obj)
+                     return;
+
+                 if (!is_inf)
+                     obj->floatTo(0, distance_cm);
+                 else
+                     obj->bangTo(1);
+             } }));
+
+        if (!sr04_)
+            OBJ_ERR << "can't connect to SR04";
+
+    } else {
+        sr04_.reset();
+    }
 }
 
 void setup_hw_rpi_sensor_sr04()

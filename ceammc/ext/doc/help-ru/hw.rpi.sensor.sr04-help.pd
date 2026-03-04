@@ -6,7 +6,7 @@ Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.sr04 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 hw.rpi.sensor.sr04;
-#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 **Примечание:** Ультразвуковой датчик HC-SR04 требует
 питания 5В \, но входы GPIO Raspberry Pi работают при 3.3В.;
 #X obj 230 88 cnv 1 3 45 empty empty empty 17 7 0 10 -258049 -1 0;
@@ -19,78 +19,88 @@ c 5В на 3.3В \, иначе можно повредить Raspberry Pi! Пр�
 GPIO контакты @trig_pin и @echo_pin: использовать их в других объектах
 одновременно с этим *невозможно*.;
 #X obj 230 198 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
-#X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 340 poll \$1;
-#X msg 155 340 bang;
-#X obj 50 412 hw.rpi.sensor.sr04 @trig_pin 23 @echo_pin 24;
-#X floatatom 50 441 5 0 0 0 - - -;
-#X obj 347 441 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 248 Для подключения к устройству установите свойство @connect
+равным 1;
+#X obj 230 253 cnv 1 2 30 empty empty empty 17 7 0 10 -158925 -1 0;
+#X obj 50 351 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 380 @connect \$1;
+#X msg 194 380 bang;
+#X obj 69 409 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 438 poll \$1;
+#X obj 50 481 hw.rpi.sensor.sr04 @trig_pin 23 @echo_pin 24;
+#X floatatom 50 510 5 0 0 0 - - -;
+#X obj 347 510 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 484 ui.link @title 'Connection_scheme' @url
+#X obj 50 553 ui.link @title 'Connection_scheme' @url
 ceammc://img/hc_sr04.png;
-#X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 546 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 615 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 549 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 618 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 547 1\.;
-#X text 170 547 int;
-#X obj 268 548 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 547 TRIG_PIN: триггерный контакт GPIO. Значение -1 означает
+#X text 130 616 1\.;
+#X text 170 616 int;
+#X obj 268 617 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 616 TRIG_PIN: триггерный контакт GPIO. Значение -1 означает
 не использовать GPIO контакт. Тип: int. Диапазон: [-1\..255];
-#X text 130 602 2\.;
-#X text 170 602 int;
-#X obj 268 603 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 602 ECHO_PIN: эхо контакт GPIO. Значение -1 означает не
+#X text 130 671 2\.;
+#X text 170 671 int;
+#X obj 268 672 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 671 ECHO_PIN: эхо контакт GPIO. Значение -1 означает не
 использовать GPIO контакт. Тип: int. Диапазон: [-1\..255];
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 657 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 726 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 660 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 729 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 658 @echo_pin;
-#X text 270 658 (при инициализации) Эхо контакт GPIO. Значение -1 означает
+#X msg 130 727 @echo_pin;
+#X text 270 727 (при инициализации) Эхо контакт GPIO. Значение -1 означает
 не использовать GPIO контакт. Тип: int. Значение по умолчанию: -1\.
 Диапазон: [-1\..255].;
-#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 715 @trig_pin;
-#X text 270 715 (при инициализации) Триггерный контакт GPIO. Значение
+#X obj 250 784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 784 @trig_pin;
+#X text 270 784 (при инициализации) Триггерный контакт GPIO. Значение
 -1 означает не использовать GPIO контакт. Тип: int. Значение по умолчанию:
 -1\. Диапазон: [-1\..255].;
-#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 772 @poll_interval;
-#X text 270 772 Интервал между измерениями. Тип: int. Единицы: 'ms'.
+#X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 841 @connect;
+#X text 270 841 При установке в 1: пробует подключиться к устройству
+на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 898 @poll_interval;
+#X text 270 898 Интервал между измерениями. Тип: int. Единицы: 'ms'.
 Значение по умолчанию: 20\. Диапазон: [10\..1000].;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 829 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 955 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 830 poll;
-#X text 270 830 включить/выключить автоматический опрос сенсора. Аргументы:;
-#X obj 300 855 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 855 STATE: состояние опроса. Тип: bool.;
-#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 903 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 956 poll;
+#X text 270 956 включить/выключить автоматический опрос сенсора. Аргументы:;
+#X obj 300 981 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 981 STATE: состояние опроса. Тип: bool.;
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1029 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 904 1\.;
-#X text 170 904 bang:;
-#X text 270 904 произвести однократное измерение расстояния.;
-#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 944 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 945 1\.;
-#X text 170 945 float:;
-#X text 270 945 расстояние в см.;
-#X text 130 965 2\.;
-#X text 170 965 bang:;
-#X text 270 965 если расстояние невозможно измерить.;
+#X text 130 1030 1\.;
+#X text 170 1030 bang:;
+#X text 270 1030 произвести однократное измерение расстояния.;
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1071 1\.;
+#X text 170 1071 float:;
+#X text 270 1071 расстояние в см.;
+#X text 130 1091 2\.;
+#X text 170 1091 bang:;
+#X text 270 1091 если расстояние невозможно измерить.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1015 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1018 библиотека: ceammc v0.9.8;
-#N canvas 10 1037 400 290 info 0;
+#X obj 1 1141 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1144 библиотека: ceammc v0.9.8;
+#N canvas 10 1163 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -114,9 +124,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1037 pd info;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 1 16 0;
+#X restore 10 1163 pd info;
 #X connect 13 0 14 0;
+#X connect 16 0 17 0;
+#X connect 14 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;
+#X connect 15 0 18 0;
