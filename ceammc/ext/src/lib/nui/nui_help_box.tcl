@@ -88,9 +88,11 @@ namespace eval ::nui {
                 # draw lines
                 for {set i 0} {$i < $_nitems} {incr i} {
                     # line text
+                    set _txt [binary decode base64 [lindex $args(-text_lines) $i]]
+                    set _txt_utf8 [encoding convertfrom utf-8 $_txt]
                     set _line_id [$_pc create text $_txt_left $_txt_ypos \
-                        -text [lindex $args(-text_lines) $i] \
-                        -width $_ztext_width \
+                        -text $_txt_utf8 \
+                        -width [expr {$_ztext_width - 10}] \
                         -fill $args(-popup_text_color) \
                         -font $args(-popup_font) \
                         -anchor nw \
