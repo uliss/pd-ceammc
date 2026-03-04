@@ -16,6 +16,15 @@
       <keywords>display gpio raspberry rotary encoder</keywords>
       <since>0.9.8</since>
     </meta>
+    <info>
+      <par style="important">
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @btn, @clk
+        и @dt: использовать их в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn, @clk
+        and @dt - it is *impossible* to use them in other objects simultaneously with this
+        one.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @btn -->
       <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
