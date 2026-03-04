@@ -332,7 +332,8 @@ pub struct hw_slice {
 #[repr(C)]
 pub struct hw_bits {
     data: *const u8,
-    size: usize,
+    offset: i32,
+    size: u32,
 }
 
 #[derive(Debug, Clone, Copy)]

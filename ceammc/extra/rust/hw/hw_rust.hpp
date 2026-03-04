@@ -478,7 +478,8 @@ struct ceammc_hw_color_rgb8 {
 
 struct ceammc_hw_bits {
     const uint8_t *data;
-    size_t size;
+    int32_t offset;
+    uint32_t size;
 };
 
 

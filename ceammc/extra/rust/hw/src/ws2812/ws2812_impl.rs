@@ -194,7 +194,22 @@ impl hw_spi_ws2812 {
                                 crate::ws2812::hw_led_fx::SnowSparkle => apply_fn(&mut fx_snow_sparkle),
                             };
                         }
-                        _ => {},
+                        Request::FillBitsColor(color, offset, bitset) => {
+                            let a = pos2index(offset, leds.len());
+                            for i in 0..bitset.len() {
+                                let led_idx = i + a;
+                                if led_idx >= leds.len() {
+                                    break;
+                                }
+                                if bitset[i] {
+                                    leds[led_idx] = color.into8();
+                                } else {
+                                    leds[led_idx].b = 0;
+                                    leds[led_idx].g = 0;
+                                    leds[led_idx].r = 0;
+                                }
+                            }
+                        }
                     }
                 }
 

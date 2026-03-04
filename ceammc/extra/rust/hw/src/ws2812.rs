@@ -7,7 +7,9 @@ use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    MakePdMessage, hw_bits, hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice, max7219::{hw_spi_bus, hw_spi_cs}
+    hw_bits, hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
+    max7219::{hw_spi_bus, hw_spi_cs},
+    MakePdMessage,
 };
 
 // mod led_fx;
@@ -45,7 +47,7 @@ pub enum hw_led_fx {
 pub enum Request {
     SetPixelColor(hw_color_rgb8, usize),
     SetSliceColor(hw_color_rgb8, Option<hw_slice>),
-    FillBitsColor(hw_color_rgb8, hw_bits),
+    FillBitsColor(hw_color_rgb8, i32, fixedbitset::FixedBitSet),
     Rotate(i32, Option<hw_slice>),
     Clear,
     Flush,
@@ -145,7 +147,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_clear(ws: *const hw_spi_ws2812) -> bool {
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::Clear) });
 }
 
-#[no_mangle] 
+#[no_mangle]
 /// fill leds slice with color
 /// @param ws - pointer to the led strip handle
 /// @param color - fill color
@@ -159,7 +161,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill_slice(
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetSliceColor(color, slice),) });
 }
 
-#[no_mangle] 
+#[no_mangle]
 /// fill leds addressed by bits with specified color
 /// @param ws - pointer to the led strip handle
 /// @param color - fill color
@@ -169,7 +171,17 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill_bits(
     color: hw_color_rgb8,
     bits: &hw_bits,
 ) -> bool {
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillBitsColor(color, bits),) });
+    if bits.data.is_null() {
+        return false;
+    }
+
+    let data = unsafe { std::slice::from_raw_parts(bits.data, bits.size as usize) };
+    let mut bitset = fixedbitset::FixedBitSet::with_capacity(data.len());
+    for (i, b) in data.iter().enumerate() {
+        bitset.set(i, *b > 0);
+    }
+
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillBitsColor(color, bits.offset, bitset),) });
 }
 
 /// process events
@@ -178,7 +190,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
     rpi_check!((), { hw_spi_ws2812::process_ptr(ws) });
 }
 
-/// apply fx to specified slice 
+/// apply fx to specified slice
 #[no_mangle]
 pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(ws: *mut hw_spi_ws2812, fx: hw_led_fx, slice: *const hw_slice) -> bool {
     let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
