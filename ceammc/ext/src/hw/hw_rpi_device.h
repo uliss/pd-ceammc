@@ -53,7 +53,12 @@ public:
     virtual void connect(bool state)
     {
         if (state) {
-            hw_ = createDevice();
+            if (hw_) {
+                OBJ_DBG << "already connected";
+                return;
+            }
+
+            hw_ = std::move(createDevice());
 
             if (!hw_)
                 OBJ_ERR << "can't connect to the device";
