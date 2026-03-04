@@ -26,7 +26,7 @@ with \, two types of ranges are used: @slice and @lslice.;
 #X msg 270 398 fx rainbow 0.5 8 \, bang;
 #X obj 50 427 msg.after 0 bang;
 #X floatatom 270 427 5 0 0 0 - - -;
-#X msg 59 455 brightness 32;
+#X msg 59 455 brightness 32 \, bang;
 #X msg 270 455 set_pixel \$1 @color8 0 0 255 \, bang;
 #X msg 59 498 clear;
 #X obj 50 527 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;

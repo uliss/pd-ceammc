@@ -27,7 +27,7 @@ Pi;
 #X msg 270 413 fx rainbow 0.5 8 \, bang;
 #X obj 50 442 msg.after 0 bang;
 #X floatatom 270 442 5 0 0 0 - - -;
-#X msg 59 470 brightness 32;
+#X msg 59 470 brightness 32 \, bang;
 #X msg 270 470 set_pixel \$1 @color8 0 0 255 \, bang;
 #X msg 59 513 clear;
 #X obj 50 542 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;

@@ -202,7 +202,7 @@
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
 #e 8, bang
 #x @spi_bus 0
-#f 32
+#f 32, bang
 ]]>
       </pdascii>
     </example>
