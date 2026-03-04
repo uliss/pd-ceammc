@@ -14,16 +14,17 @@ namespace ceammc {
 namespace ui {
 
 class HelpboxData
-    : public std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, Font, std::string, int, Font, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int> {
 public:
     enum Fields {
         SIZE,
         BORDER_COLOR,
         FILL_COLOR,
         TITLE_COLOR,
-        TITLE_FONT_SIZE,
+        TITLE_FONT,
         TITLE,
         TEXT_WIDTH,
+        POPUP_FONT,
         POPUP_FILL_COLOR,
         POPUP_BORDER_COLOR,
         POPUP_BORDER_WIDTH,
@@ -36,7 +37,7 @@ public:
     };
 public:
     HelpboxData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, {}, 100, 16777215, 10526880, 1, 0, false, true, true, {}, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, Font, std::string, int, Font, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, Font(), {}, 100, Font(), 16777215, 10526880, 1, 0, false, true, true, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {
@@ -50,9 +51,10 @@ public:
     HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& titleColor() const noexcept { return std::get<TITLE_COLOR>(*this); }
-    int const& titleFontSize() const noexcept { return std::get<TITLE_FONT_SIZE>(*this); }
+    Font const& titleFont() const noexcept { return std::get<TITLE_FONT>(*this); }
     std::string const& title() const noexcept { return std::get<TITLE>(*this); }
     int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
+    Font const& popupFont() const noexcept { return std::get<POPUP_FONT>(*this); }
     HexColor const& popupFillColor() const noexcept { return std::get<POPUP_FILL_COLOR>(*this); }
     HexColor const& popupBorderColor() const noexcept { return std::get<POPUP_BORDER_COLOR>(*this); }
     int const& popupBorderWidth() const noexcept { return std::get<POPUP_BORDER_WIDTH>(*this); }
@@ -68,9 +70,10 @@ public:
     void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setTitleColor(HexColor v) { std::get<TITLE_COLOR>(*this) = v; }
-    void setTitleFontSize(int v) { std::get<TITLE_FONT_SIZE>(*this) = v; }
+    void setTitleFont(Font v) { std::get<TITLE_FONT>(*this) = v; }
     void setTitle(std::string v) { std::get<TITLE>(*this) = v; }
     void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
+    void setPopupFont(Font v) { std::get<POPUP_FONT>(*this) = v; }
     void setPopupFillColor(HexColor v) { std::get<POPUP_FILL_COLOR>(*this) = v; }
     void setPopupBorderColor(HexColor v) { std::get<POPUP_BORDER_COLOR>(*this) = v; }
     void setPopupBorderWidth(int v) { std::get<POPUP_BORDER_WIDTH>(*this) = v; }
@@ -86,9 +89,10 @@ public:
     HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& titleColorRef() { return std::get<TITLE_COLOR>(*this); }
-    int& titleFontSizeRef() { return std::get<TITLE_FONT_SIZE>(*this); }
+    Font& titleFontRef() { return std::get<TITLE_FONT>(*this); }
     std::string& titleRef() { return std::get<TITLE>(*this); }
     int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }
+    Font& popupFontRef() { return std::get<POPUP_FONT>(*this); }
     HexColor& popupFillColorRef() { return std::get<POPUP_FILL_COLOR>(*this); }
     HexColor& popupBorderColorRef() { return std::get<POPUP_BORDER_COLOR>(*this); }
     int& popupBorderWidthRef() { return std::get<POPUP_BORDER_WIDTH>(*this); }
@@ -106,6 +110,8 @@ public:
         setBorderColor(sc::color(st, "helpbox:border_color"_hash, 10526880));
         setFillColor(sc::color(st, "helpbox:fill_color"_hash, 10526880));
         setTitleColor(sc::color(st, "helpbox:title_color"_hash, 16777215));
+        setTitleFont(sc::font(st, "helpbox:title_font"_hash, Font()));
+        setPopupFont(sc::font(st, "helpbox:popup_font"_hash, Font()));
         setPopupFillColor(sc::color(st, "helpbox:popup_fill_color"_hash, 16777215));
         setPopupBorderColor(sc::color(st, "helpbox:popup_border_color"_hash, 10526880));
         setPopupTextColor(sc::color(st, "helpbox:popup_text_color"_hash, 0));

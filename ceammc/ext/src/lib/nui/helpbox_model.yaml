@@ -19,9 +19,10 @@ data:
   init: 0xFFFFFF
   style: color
   view: [create, update]
-- name: title font size
-  type: int
-  init: 12
+- name: title font
+  type: Font
+  init: Font()
+  style: font
   view: [create, update]
 - name: title
   type: std::string
@@ -31,6 +32,11 @@ data:
   type: int
   init: 100
   view: [create, update]
+- name: popup font
+  type: Font
+  init: Font()
+  style: font
+  view: [update]
 - name: popup fill color
   type: HexColor
   init: 0xFFFFFF

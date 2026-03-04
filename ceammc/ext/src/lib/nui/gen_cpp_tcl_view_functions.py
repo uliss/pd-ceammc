@@ -46,8 +46,16 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
     return buf;
 }
 
+const char* to_cstring(char* buf, size_t bufsize, const Font& font, int zoom) {
+    snprintf(buf, bufsize, "{{'{{%s}'}} %d {{'{{%s} {%s}}}'}}", font.family(), zoom * font.size(), font.style(), font.weight());
+    return buf;
+}
+
 void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const {{module|capitalize}}Data& model)
 {
+{% for sz in buffers %}
+    char buf{{loop.index0}}[{{sz}}] = {0};
+{% endfor %}
     auto object = reinterpret_cast<std::uint64_t>(obj);
     {{tcl_fn}}("{{ns}}::{{module|lower}}::create_ui [dict create"
 {% for arg in create_args %}
@@ -63,7 +71,9 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
 
 void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const {{module|capitalize}}Data& model)
 {
-    char buf[8192];
+{% for sz in buffers %}
+    char buf{{loop.index0}}[{{sz}}] = {0};
+{% endfor %}
     auto object = reinterpret_cast<std::uint64_t>(obj);
     {{tcl_fn}}("{{ns}}::{{module|lower}}::update_ui [dict create"
 {% for arg in update_args %}
@@ -127,6 +137,8 @@ if __name__ == "__main__":
     local_includes = set(["nui/view.h", "nui/{}_model.h".format(name.lower()), "m_pd.h"])
     sys_includes = set()
 
+
+
     args = [
         {
             'field': 'cnv',
@@ -185,6 +197,9 @@ if __name__ == "__main__":
             'getter': 'zoom',
         }
     ]
+
+    buffers = []
+
     for x in mod['data']:
         field = x['name'].replace(' ', '_')
         data = {
@@ -216,13 +231,19 @@ if __name__ == "__main__":
             data['getter'] = "model.{}().width()".format(camelCase(x['name']))
             copy['sprintf_fmt'] = '%d'
             copy['getter'] = "model.{}().height()".format(camelCase(x['name']))
+        elif x['type'] == 'Font':
+            local_includes.add('nui/font.h')
+            data['sprintf_fmt'] = '%s'
+            data['getter'] = "to_cstring(buf{1}, sizeof(buf{1}), model.{0}(), zoom)".format(camelCase(x['name']), len(buffers))
+            buffers.append(256);
         elif x['type'] == 'std::vector<std::string>':
             sys_includes.add('vector')
             sys_includes.add('string')
             sys_includes.add('cstring')
 
             data['sprintf_fmt'] = '[list %s]'
-            data['getter'] = "to_cstring(buf, sizeof(buf), model.{}())".format(camelCase(x['name']))
+            data['getter'] = "to_cstring(buf{1}, sizeof(buf{1}), model.{0}())".format(camelCase(x['name']), len(buffers))
+            buffers.append(1024);
 
 
     create_args = filtered = [x for x in args if x.get('view_create', False)]
@@ -239,5 +260,6 @@ if __name__ == "__main__":
         ns=ns,
         tcl_fn=tcl_fn,
         sys_includes=list(sys_includes),
-        local_includes=list(local_includes)
+        local_includes=list(local_includes),
+        buffers=buffers,
         ))

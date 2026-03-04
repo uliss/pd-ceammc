@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "m_pd.h"
+#include "nui/font.h"
 #include "nui/helpbox_model.h"
 #include "nui/size.h"
 #include "nui/view.h"
@@ -38,8 +39,16 @@ const char* to_cstring(char* buf, size_t bufsize, const std::vector<std::string>
     return buf;
 }
 
+const char* to_cstring(char* buf, size_t bufsize, const Font& font, int zoom) {
+    snprintf(buf, bufsize, "{{%s} %d {{%s} {%s}}}", font.family(), zoom * font.size(), font.style(), font.weight());
+    return buf;
+}
+
 void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const HelpboxData& model)
 {
+    char buf0[256] = {0};
+    char buf1[256] = {0};
+    char buf2[1024] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::create_ui [dict create"
         " -cnv %lx" 	
@@ -53,7 +62,7 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         " -border_color #%6.6x" 	
         " -fill_color #%6.6x" 	
         " -title_color #%6.6x" 	
-        " -title_font_size %d" 	
+        " -title_font %s" 	
         " -title {%s}" 	
         " -text_width %d" 	
         " -direction_right %d" 	
@@ -70,7 +79,7 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         model.borderColor(),
         model.fillColor(),
         model.titleColor(),
-        model.titleFontSize(),
+        to_cstring(buf0, sizeof(buf0), model.titleFont(), zoom),
         model.title().c_str(),
         model.textWidth(),
         model.directionRight(),
@@ -79,7 +88,9 @@ void tcl_create(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
 
 void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int zoom, const HelpboxData& model)
 {
-    char buf[8192];
+    char buf0[256] = {0};
+    char buf1[256] = {0};
+    char buf2[1024] = {0};
     auto object = reinterpret_cast<std::uint64_t>(obj);
     sys_vgui("nui::helpbox::update_ui [dict create"
         " -cnv %lx" 	
@@ -93,9 +104,10 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         " -border_color #%6.6x" 	
         " -fill_color #%6.6x" 	
         " -title_color #%6.6x" 	
-        " -title_font_size %d" 	
+        " -title_font %s" 	
         " -title {%s}" 	
         " -text_width %d" 	
+        " -popup_font %s" 	
         " -popup_fill_color #%6.6x" 	
         " -popup_border_color #%6.6x" 	
         " -popup_border_width %d" 	
@@ -116,9 +128,10 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         model.borderColor(),
         model.fillColor(),
         model.titleColor(),
-        model.titleFontSize(),
+        to_cstring(buf0, sizeof(buf0), model.titleFont(), zoom),
         model.title().c_str(),
         model.textWidth(),
+        to_cstring(buf1, sizeof(buf1), model.popupFont(), zoom),
         model.popupFillColor(),
         model.popupBorderColor(),
         model.popupBorderWidth(),
@@ -126,7 +139,7 @@ void tcl_update(WinId window, WidgetId widget, void* obj, const PointF& pt, int 
         model.isOpen(),
         model.directionRight(),
         model.indicatorRight(),
-        to_cstring(buf, sizeof(buf), model.textLines())    );
+        to_cstring(buf2, sizeof(buf2), model.textLines())    );
 }
 
 void tcl_erase(WinId window, WidgetId widget, void* obj)

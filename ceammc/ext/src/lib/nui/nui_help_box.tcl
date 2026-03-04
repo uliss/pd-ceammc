@@ -36,6 +36,7 @@ namespace eval ::nui {
             $_c create text $_ztitle_x $_ztitle_y \
                 -text $_title \
                 -fill $args(-title_color) \
+                -font $args(-title_font) \
                 -anchor w \
                 -width $_ztext_width \
                 -tags $_t
@@ -57,6 +58,7 @@ namespace eval ::nui {
             $_c itemconfigure $_t \
                 -text $_title \
                 -fill $args(-title_color) \
+                -font $args(-title_font) \
                 -width $_ztext_width \
                 -tags $_t
 
@@ -74,7 +76,7 @@ namespace eval ::nui {
                 lassign [$_pc coords $_win] _gx _menu_top
 
                 if {$args(-direction_right)} {
-                    set _menu_left [expr {$_gx + $_ztext_width}]
+                    set _menu_left [expr {$_gx + $args(-width) * $args(-zoom)}]
                 } else {
                     set _menu_left [expr {$_gx - $_ztext_width}]
                 }
@@ -90,6 +92,7 @@ namespace eval ::nui {
                         -text [lindex $args(-text_lines) $i] \
                         -width $_ztext_width \
                         -fill $args(-popup_text_color) \
+                        -font $args(-popup_font) \
                         -anchor nw \
                         -tags [list $ALL $OPEN]]
 
