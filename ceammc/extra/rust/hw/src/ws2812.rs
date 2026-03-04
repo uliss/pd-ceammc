@@ -7,9 +7,7 @@ use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
-    max7219::{hw_spi_bus, hw_spi_cs},
-    MakePdMessage,
+    MakePdMessage, hw_bits, hw_color_rgb8, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice, max7219::{hw_spi_bus, hw_spi_cs}
 };
 
 // mod led_fx;
@@ -47,6 +45,7 @@ pub enum hw_led_fx {
 pub enum Request {
     SetPixelColor(hw_color_rgb8, usize),
     SetSliceColor(hw_color_rgb8, Option<hw_slice>),
+    FillBitsColor(hw_color_rgb8, hw_bits),
     Rotate(i32, Option<hw_slice>),
     Clear,
     Flush,
@@ -158,6 +157,19 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill_slice(
 ) -> bool {
     let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetSliceColor(color, slice),) });
+}
+
+#[no_mangle] 
+/// fill leds addressed by bits with specified color
+/// @param ws - pointer to the led strip handle
+/// @param color - fill color
+/// @param bits - not NULL(!)
+pub extern "C" fn ceammc_hw_spi_ws2812_fill_bits(
+    ws: *const hw_spi_ws2812,
+    color: hw_color_rgb8,
+    bits: &hw_bits,
+) -> bool {
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillBitsColor(color, bits),) });
 }
 
 /// process events

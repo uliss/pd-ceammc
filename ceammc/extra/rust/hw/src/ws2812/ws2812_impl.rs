@@ -194,6 +194,7 @@ impl hw_spi_ws2812 {
                                 crate::ws2812::hw_led_fx::SnowSparkle => apply_fn(&mut fx_snow_sparkle),
                             };
                         }
+                        _ => {},
                     }
                 }
 
