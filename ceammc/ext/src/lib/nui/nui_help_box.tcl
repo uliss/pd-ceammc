@@ -4,7 +4,7 @@ namespace eval ::nui {
 
         switch $::windowingsystem {
             "x11" {
-                variable title_margin_top 3
+                variable title_margin_top 2
             }
             default {}
         }
@@ -54,13 +54,14 @@ namespace eval ::nui {
         }
 
         proc update_ui {params} {
+            variable title_margin_top
             array set args $params
 
             set _c [::nui::widget_canvas $args(-cnv) $args(-model)]
             set _t [tag_all $args(-id)]
 
             set _ztitle_x [expr {$args(-x) + (4 * $args(-zoom))}]
-            set _ztitle_y [expr {$args(-height) * 0.5 * $args(-zoom)}]
+            set _ztitle_y [expr {(($args(-height) * 0.5) + $title_margin_top) * $args(-zoom)}]
             set _ztext_width [expr {$args(-text_width) * $args(-zoom)}]
             $_c coords $_t $_ztitle_x $_ztitle_y
 
