@@ -199,7 +199,7 @@ bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListVie
             return false;
 
         slice.first = res.intAt(0, 0);
-        slice.last = slice.first + res.intAt(1, size_->value());
+        slice.last = slice.first + res.intAt(1, size_->value()) - 1;
         slice.step = res.intAt(2, 1);
 
         return true;
