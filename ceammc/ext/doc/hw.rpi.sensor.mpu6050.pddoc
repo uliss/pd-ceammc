@@ -20,13 +20,22 @@
       <par>
         <tr lang="en">The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer)
         motion tracking device.</tr>
-        <!-- old: MPU-6050 представляет собой 6-осевое (комбинирует
-                3-осевой гироскоп, 3-осевой акселерометр) устройство отслеживания движения. -->
-        <tr lang="ru" finished="false">MPU-6050 представляет собой 6-осевое (комбинирует 3-осевой
-        гироскоп, 3-осевой акселерометр) устройство отслеживания движения.</tr>
+        <tr lang="ru">MPU-6050 представляет собой 6-осевое (комбинирует 3-осевой
+        гироскоп и 3-осевой акселерометр) устройство отслеживания движения.</tr>
+      </par>
+      <par style="info">
+        <tr lang="en">To connect to the device, set the @connect property to 1</tr>
+        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1</tr>
       </par>
     </info>
     <properties>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
+      </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
@@ -49,21 +58,19 @@
         <info>
           <tr lang="en">calibrate the sensor. Place it still so that the Z axis is pointing
           down.</tr>
-          <!-- old: калибровать датчик. Поместите его так, чтобы ось
-                    Z указывала вниз. -->
-          <tr lang="ru" finished="false">калибровать датчик. Поместите его так, чтобы ось Z
+          <tr lang="ru">калибровать датчик. Поместите его так, чтобы ось Z
           указывала вниз.</tr>
         </info>
       </method>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">start/stop sensor polling</tr>
-          <tr lang="ru" finished="false">Старт / остановка сенсорного опроса</tr>
+          <tr lang="en">turn on/off the sensor pollingg</tr>
+          <tr lang="ru">включить/выключить опрос сенсора</tr>
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">state</tr>
-          <tr lang="ru" finished="false">государство</tr>
+          <tr lang="ru">состояние</tr>
         </param>
       </method>
     </methods>
@@ -71,17 +78,27 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">контрольный вход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">messages: [ypr YAW PITCH ROLL(, [time CELSIUS(, [gyro X Y Z( and [accel X Y
-          Z(</tr>
-          <tr lang="ru" finished="false">[ypr YAW PITCH ROLL, [time CELSIUS, [gyro X Y Z() и [accel
-          X Y Z()]]</tr>
+        <out type="any" name="ypr">
+          <tr lang="en">[ypr YAW PITCH ROLL( incline angles (yaw, pitch, roll)</tr>
+          <tr lang="ru">[ypr YAW PITCH ROLL( углы наклона (рыскание/курс, тангаж, крен)</tr>
+        </out>
+        <out type="any" name="temp">
+          <tr lang="en">[temp CELSIUS(</tr>
+          <tr lang="ru">[temp CELSIUS( - температура в градусах цельсия</tr>
+        </out>
+        <out type="any" name="gyro">
+          <tr lang="en">[gyro X Y Z( - gyroscope readings (rotation speed) along the X, Y, Z axes</tr>
+          <tr lang="ru">[gyro X Y Z( - показания гироскопа (cкорость вращения) по осям X, Y, Z</tr>
+        </out>
+        <out type="any" name="accel">
+          <tr lang="en">[accel X Y Z(</tr>
+          <tr lang="ru">[accel X Y Z( - ускорения по осям X Y Z</tr>
         </out>
       </outlet>
     </outlets>
@@ -90,9 +107,10 @@
 <![CDATA[
 [T]
 |
-[poll $1(
-|
-|
+[@connect $1( [T]
+|             |
+|             [poll $1(
+|             |
 [hw.rpi.sensor.mpu6050 @i2c_bus default]
 |
 [route ypr gyro accel temp {w=30} #r]

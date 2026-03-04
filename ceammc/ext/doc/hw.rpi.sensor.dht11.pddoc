@@ -53,9 +53,9 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При
         установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @pin -->
