@@ -39,10 +39,6 @@ HwRpiDisplaySsd1306::HwRpiDisplaySsd1306(const PdArgs& args)
     addProperty(size_);
 }
 
-void HwRpiDisplaySsd1306::initDone()
-{
-}
-
 bool HwRpiDisplaySsd1306::notify(int code)
 {
     return ceammc_hw_display_ssd1306_proc_reply(device());
