@@ -33,13 +33,19 @@ namespace eval ::nui {
 
             set _title [make_title $args(-title) $args(-direction_right) $args(-indicator_right) 0]
 
-            $_c create text $_ztitle_x $_ztitle_y \
+            set _txt [$_c create text $_ztitle_x $_ztitle_y \
                 -text $_title \
                 -fill $args(-title_color) \
                 -font $args(-title_font) \
-                -anchor w \
+                -anchor nw \
                 -width $_ztext_width \
-                -tags $_t
+                -tags $_t]
+
+            lassign [$_c bbox $_txt] _ _y1 _ _y2
+            set _txt_h [expr {$_y2 - $_y1}]
+            set _txt_y [expr {(($args(-height) * $args(-zoom)) - $_txt_h) * 0.5}]
+
+            $_c coords $_txt $_ztitle_x $_txt_y
         }
 
         proc update_ui {params} {
