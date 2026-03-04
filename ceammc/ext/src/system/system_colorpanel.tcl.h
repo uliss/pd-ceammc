@@ -18,7 +18,7 @@ constexpr const char* system_colorpanel_tcl =
 "    switch $::windowingsystem {\n"
 "        \"x11\" {\n"
 "            set cmd \"exec zenity --color-selection --title=Color --color=$initialcolor\"\n"
-"            ::pdwindow::error \"$cmd\\n\"\n"
+"            # ::pdwindow::debug \"$cmd\\n\"\n"
 "            if {[catch $cmd result]} {\n"
 "                return\n"
 "            }\n"
