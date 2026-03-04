@@ -64,4 +64,5 @@ void setup_nui_help_box()
     using namespace ceammc::ui;
 
     WidgetFactory<NUIHelpBox> obj("nui.helpbox", ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);
+    obj.parsePropsMode(ceammc::PdArgs::PARSE_COPY);
 }
