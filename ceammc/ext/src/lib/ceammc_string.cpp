@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ceammc_string.h"
 #include "ceammc_abstractdata.h"
-#include "ceammc_atomlist.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 #include "fmt/core.h"
@@ -99,7 +98,7 @@ namespace string {
 
         // negative position
         if (from < 0) {
-            if (-from <= int(N))
+            if (-from <= static_cast<int>(N))
                 from += N;
             else
                 return {};
@@ -796,5 +795,5 @@ namespace string {
         return (dlen + (src - osrc)); /* count does not include NUL */
     }
 
-}
-}
+} // namespace string
+} // namespace ceammc
