@@ -13,76 +13,30 @@
  *****************************************************************************/
 #include "help_box_view.h"
 #include "ceammc_log.h"
-#include "fmt/core.h"
+#include "cpp_tcl_view_box_help.h"
 #include "nui_help_box_tcl.h"
 
 namespace ceammc {
 namespace ui {
 
-    namespace {
-        std::pair<Point, const char*> anchorToPos(const Rect& rect, const AnchorPosition an)
-        {
-            switch (an) {
-            case ANCHOR_CORNER_LEFT_TOP:
-                return { rect.leftTop(), "nw" };
-            case ANCHOR_SIDE_LEFT_CENTER:
-                return { rect.leftCenter(), "w" };
-            default:
-                return { rect.leftTop(), "nw" };
-            }
-        }
-    }
-
     void TclHelpboxImpl::create(const RectF& bbox, const HelpboxData& data)
     {
-        Rect rect = transform(bbox);
-        auto pt = rect.pt0();
-
-        sys_vgui("nui::help_box::create %lx %lx %lx"
-                 " %d %d %d %d"
-                 " %s #%6.6x"
-                 " %d\n",
-            winId(), widgetId(), this,
-            pt.x(), pt.y(), rect.width(), rect.height(),
-            data.title().c_str(), data.titleColor(),
-            data.textWidth());
+        nui::helpbox::tcl_create(winId(), widgetId(), this, transform(bbox), data);
     }
 
     void TclHelpboxImpl::erase()
     {
-        sys_vgui("nui::help_box::erase %lx %lx %lx\n", winId(), widgetId(), this);
+        nui::helpbox::tcl_erase(winId(), widgetId(), this);
     }
 
     void TclHelpboxImpl::update(const RectF& bbox, const HelpboxData& data)
     {
-        Rect rect = transform(bbox);
-        auto pt = rect.pt0();
-
-        std::string items;
-        for (auto& s : data.textLines()) {
-            items += fmt::format(" {{{0}}}", s);
-        }
-
-        sys_vgui("nui::help_box::update %lx %lx %lx"
-                 " %d %d %d %d"
-                 " %s #%6.6x"
-                 " %d"
-                 " %d"
-                 " [list %s]\n",
-            winId(), widgetId(), this,
-            pt.x(), pt.y(), rect.width(), rect.height(),
-            data.title().c_str(), data.titleColor(),
-            data.textWidth(),
-            data.isOpen(),
-            items.c_str());
+        nui::helpbox::tcl_update(winId(), widgetId(), this, transform(bbox), data);
     }
 
     void TclHelpboxImpl::updateCoords(const RectF& bbox)
     {
-        Rect rect = transform(bbox);
-
-        sys_vgui("nui::help_box::move %lx %lx %lx %d %d\n",
-            winId(), widgetId(), this, rect.left(), rect.top());
+        nui::helpbox::tcl_move(winId(), widgetId(), this, transform(bbox).leftTop());
     }
 
     void tcl_help_box_init()

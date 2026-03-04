@@ -8,26 +8,62 @@ data:
   type: HexColor
   init: 0xA0A0A0
   style: color
+  view: [create, update]
 - name: fill color
   type: HexColor
   init: 0xA0A0A0
   style: color
+  view: [create, update]
 - name: title color
   type: HexColor
   init: 0xFFFFFF
   style: color
+  view: [create, update]
 - name: title font size
   type: int
   init: 12
+  view: [create, update]
 - name: title
   type: std::string
   init: "{}"
+  view: [create, update]
 - name: text width
   type: int
-  init: 0
+  init: 100
+  view: [create, update]
+- name: popup fill color
+  type: HexColor
+  init: 0xFFFFFF
+  style: color
+  view: [update]
+- name: popup border color
+  type: HexColor
+  init: 0xA0A0A0
+  style: color
+  view: [update]
+- name: popup border width
+  type: int
+  init: 1
+  view: [update]
+- name: popup text color
+  type: HexColor
+  init: 0x000000
+  style: color
+  view: [update]
 - name: is open
   type: bool
   init: "false"
+  view: [update]
+- name: direction right
+  type: bool
+  init: "true"
+  view: [create, update]
+- name: indicator right
+  type: bool
+  init: "true"
+  view: [create, update]
 - name: text lines
   type: std::vector<std::string>
   init: "{}"
+  view: [update]
+

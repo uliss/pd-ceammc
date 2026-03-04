@@ -42,22 +42,11 @@ NUIHelpBox::NUIHelpBox(const PdArgs& args)
     setSize(sz);
     setResizeMode(RESIZE_WIDTH);
 
-    lines_ = new ListProperty("@lines");
-    lines_->setSuccessFn([this](Property*) {
-        auto& lines = model_.data().textLinesRef();
-        lines.clear();
-        lines.reserve(lines_->value().size());
-
-        for (auto& a : lines_->value())
-            lines.push_back(to_string(a));
-    });
-    addProperty(lines_);
-
-    title_ = new SymbolProperty("@title", &s_);
-    title_->setSuccessFn([this](Property*) {
-        model_.data().titleRef().assign(title_->cstr());
-    });
-    addProperty(title_);
+    addModelProperty<HelpboxData::TEXT_WIDTH>(model_.data(), "@text_width");
+    addModelProperty<HelpboxData::TITLE>(model_.data(), "@title");
+    addModelProperty<HelpboxData::TEXT_LINES>(model_.data(), "@lines");
+    addModelProperty<HelpboxData::INDICATOR_RIGHT>(model_.data(), "@indicator_right");
+    addModelProperty<HelpboxData::DIRECTION_RIGHT>(model_.data(), "@direction_right");
 }
 
 void NUIHelpBox::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)

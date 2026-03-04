@@ -14,7 +14,7 @@ namespace ceammc {
 namespace ui {
 
 class HelpboxData
-    : public std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int> {
 public:
     enum Fields {
         SIZE,
@@ -24,13 +24,19 @@ public:
         TITLE_FONT_SIZE,
         TITLE,
         TEXT_WIDTH,
+        POPUP_FILL_COLOR,
+        POPUP_BORDER_COLOR,
+        POPUP_BORDER_WIDTH,
+        POPUP_TEXT_COLOR,
         IS_OPEN,
+        DIRECTION_RIGHT,
+        INDICATOR_RIGHT,
         TEXT_LINES,
         STYLE_IDX,
     };
 public:
     HelpboxData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, {}, 0, false, {}, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, int, std::string, int, HexColor, HexColor, int, HexColor, bool, bool, bool, std::vector<std::string>, int>(Size(20, 30), 10526880, 10526880, 16777215, 12, {}, 100, 16777215, 10526880, 1, 0, false, true, true, {}, 0) { }
 
     HelpboxData(int style)
         : HelpboxData() {
@@ -47,7 +53,13 @@ public:
     int const& titleFontSize() const noexcept { return std::get<TITLE_FONT_SIZE>(*this); }
     std::string const& title() const noexcept { return std::get<TITLE>(*this); }
     int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
+    HexColor const& popupFillColor() const noexcept { return std::get<POPUP_FILL_COLOR>(*this); }
+    HexColor const& popupBorderColor() const noexcept { return std::get<POPUP_BORDER_COLOR>(*this); }
+    int const& popupBorderWidth() const noexcept { return std::get<POPUP_BORDER_WIDTH>(*this); }
+    HexColor const& popupTextColor() const noexcept { return std::get<POPUP_TEXT_COLOR>(*this); }
     bool const& isOpen() const noexcept { return std::get<IS_OPEN>(*this); }
+    bool const& directionRight() const noexcept { return std::get<DIRECTION_RIGHT>(*this); }
+    bool const& indicatorRight() const noexcept { return std::get<INDICATOR_RIGHT>(*this); }
     std::vector<std::string> const& textLines() const noexcept { return std::get<TEXT_LINES>(*this); }
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
@@ -59,7 +71,13 @@ public:
     void setTitleFontSize(int v) { std::get<TITLE_FONT_SIZE>(*this) = v; }
     void setTitle(std::string v) { std::get<TITLE>(*this) = v; }
     void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
+    void setPopupFillColor(HexColor v) { std::get<POPUP_FILL_COLOR>(*this) = v; }
+    void setPopupBorderColor(HexColor v) { std::get<POPUP_BORDER_COLOR>(*this) = v; }
+    void setPopupBorderWidth(int v) { std::get<POPUP_BORDER_WIDTH>(*this) = v; }
+    void setPopupTextColor(HexColor v) { std::get<POPUP_TEXT_COLOR>(*this) = v; }
     void setIsOpen(bool v) { std::get<IS_OPEN>(*this) = v; }
+    void setDirectionRight(bool v) { std::get<DIRECTION_RIGHT>(*this) = v; }
+    void setIndicatorRight(bool v) { std::get<INDICATOR_RIGHT>(*this) = v; }
     void setTextLines(std::vector<std::string> v) { std::get<TEXT_LINES>(*this) = v; }
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
@@ -71,7 +89,13 @@ public:
     int& titleFontSizeRef() { return std::get<TITLE_FONT_SIZE>(*this); }
     std::string& titleRef() { return std::get<TITLE>(*this); }
     int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }
+    HexColor& popupFillColorRef() { return std::get<POPUP_FILL_COLOR>(*this); }
+    HexColor& popupBorderColorRef() { return std::get<POPUP_BORDER_COLOR>(*this); }
+    int& popupBorderWidthRef() { return std::get<POPUP_BORDER_WIDTH>(*this); }
+    HexColor& popupTextColorRef() { return std::get<POPUP_TEXT_COLOR>(*this); }
     bool& isOpenRef() { return std::get<IS_OPEN>(*this); }
+    bool& directionRightRef() { return std::get<DIRECTION_RIGHT>(*this); }
+    bool& indicatorRightRef() { return std::get<INDICATOR_RIGHT>(*this); }
     std::vector<std::string>& textLinesRef() { return std::get<TEXT_LINES>(*this); }
     int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
@@ -82,6 +106,9 @@ public:
         setBorderColor(sc::color(st, "helpbox:border_color"_hash, 10526880));
         setFillColor(sc::color(st, "helpbox:fill_color"_hash, 10526880));
         setTitleColor(sc::color(st, "helpbox:title_color"_hash, 16777215));
+        setPopupFillColor(sc::color(st, "helpbox:popup_fill_color"_hash, 16777215));
+        setPopupBorderColor(sc::color(st, "helpbox:popup_border_color"_hash, 10526880));
+        setPopupTextColor(sc::color(st, "helpbox:popup_text_color"_hash, 0));
     }
 };
 

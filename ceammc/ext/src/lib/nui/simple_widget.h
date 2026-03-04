@@ -14,6 +14,7 @@
 #ifndef NUI_SIMPLE_WIDGET_H
 #define NUI_SIMPLE_WIDGET_H
 
+#include "ceammc_format.h"
 #include "nui/tk_view_impl.h"
 #include "widget.h"
 
@@ -62,6 +63,64 @@ namespace ui {
             box_view_.erase();
         }
 
+    public:
+        template <size_t Prop, typename Model>
+        void addModelProperty(Model& m, const char* name)
+        {
+            using FieldType = decltype(std::get<Prop>(m));
+            auto prop = createModelProperty(name, std::get<Prop>(m));
+            this->addProperty(prop);
+        }
+
+        Property* createModelProperty(const char* name, bool& prop)
+        {
+            auto res = new BoolProperty(name, prop);
+
+            res->setSuccessFn([&prop, res](Property*) {
+                prop = res->value();
+            });
+
+            return res;
+        }
+
+        Property* createModelProperty(const char* name, int& prop)
+        {
+            auto res = new IntProperty(name, prop);
+
+            res->setSuccessFn([&prop, res](Property*) {
+                prop = res->value();
+            });
+
+            return res;
+        }
+
+        Property* createModelProperty(const char* name, std::string& prop)
+        {
+            auto res = new SymbolProperty(name, gensym(prop.c_str()));
+
+            res->setSuccessFn([&prop, res](Property*) {
+                prop.assign(res->cstr());
+            });
+
+            return res;
+        }
+
+        Property* createModelProperty(const char* name, std::vector<std::string>& prop)
+        {
+            auto res = new ListProperty(name);
+
+            res->setSuccessFn([&prop, res](Property*) {
+                prop.clear();
+                prop.reserve(res->value().size());
+
+                for (auto& a : res->value()) {
+                    prop.push_back(to_string(a));
+                }
+            });
+
+            return res;
+        }
+
     protected:
         BoxView& boxView() { return box_view_; }
 
@@ -81,6 +140,6 @@ namespace ui {
         }
     };
 }
-}
 
+}
 #endif // NUI_SIMPLE_WIDGET_H
