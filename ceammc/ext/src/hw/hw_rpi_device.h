@@ -24,6 +24,9 @@ public:
     using FreeDeviceFn = void (*)(HardwareHandle*);
     using Device = std::unique_ptr<HardwareHandle, FreeDeviceFn>;
 
+    static const auto CONNECT_PRIORITY = 128;
+    static const auto DEVICE_CONNECTED_PRIORITY = 160;
+
 public:
     HwRpiDevice(FreeDeviceFn fn, const PdArgs& args)
         : RustDispatchedObject<BaseObject>(args)
@@ -32,6 +35,7 @@ public:
     {
 
         connect_ = new BoolProperty("@connect", false);
+        connect_->info().setPriority(CONNECT_PRIORITY);
         connect_->setSuccessFn([this](Property*) {
             connect(connect_->value());
         });

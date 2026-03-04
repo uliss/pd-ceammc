@@ -26,7 +26,6 @@ class HwRpiAdcAds1115 : public HwRpiDevice<ceammc_hw_i2c_ads1115> {
 public:
     explicit HwRpiAdcAds1115(const PdArgs& args);
 
-    void initDone() final;
     bool notify(int code) final;
 
     void m_poll(t_symbol* s, const AtomListView& lv);
