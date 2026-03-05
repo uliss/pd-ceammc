@@ -127,7 +127,7 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     // try to parse bit properties
     ceammc_hw_bits bits;
     std::uint8_t data[1024];
-    if (!parse_bits_property(bits, data, sizeof(data), lv)) {
+    if (parse_bits_property(bits, data, sizeof(data), lv)) {
         ceammc_hw_spi_ws2812_fill_bits(device(), color, &bits);
         return;
     }
@@ -231,6 +231,11 @@ bool HwSpiWs2812::parse_bits_property(ceammc_hw_bits& bits, std::uint8_t* const&
 {
     AtomListView res;
     auto this_ = const_cast<HwSpiWs2812*>(this);
+
+    bits.offset = 0;
+
+    if (lv.getProperty(gensym("@offset"), res))
+        bits.offset = res.asInt();
 
     if (lv.getProperty(gensym("@bits"), res)) {
         static const args::ArgChecker bits_chk("BITS:b+");
