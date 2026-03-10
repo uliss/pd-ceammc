@@ -5,7 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "portmidi.h"
+
+/* declared in portmidi.c */
+int pm_find_default_device(char *pattern, int is_input);
 
 #define STRING_MAX 256
 
