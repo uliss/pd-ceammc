@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -540,7 +541,6 @@ struct spat_zita6x8 : public spat_zita6x8_dsp {
 #include "m_pd.h"
 #include <algorithm>
 #include <cmath>
-#include <cstdint>
 #include <math.h>
 
 #ifndef FAUSTCLASS 

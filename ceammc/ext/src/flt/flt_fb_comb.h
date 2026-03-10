@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -538,7 +539,6 @@ struct flt_fb_comb : public flt_fb_comb_dsp {
 
 #include <algorithm>
 #include <cmath>
-#include <cstdint>
 #include <math.h>
 
 #ifndef FAUSTCLASS 
