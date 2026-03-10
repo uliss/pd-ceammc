@@ -94,9 +94,9 @@ size_t atom_hash(const t_atom& a) noexcept
     std::size_t hash = std::hash<std::uint8_t> {}(a.a_type);
 
     if (a.a_type == A_SYMBOL)
-        boost::hash_combine(hash, boost::hash_value<t_symbol*>(a.a_w.w_symbol));
+        boost::hash_combine(hash, boost::hash<t_symbol*>{}(a.a_w.w_symbol));
     else
-        boost::hash_combine(hash, boost::hash_value<t_float>(a.a_w.w_float));
+        boost::hash_combine(hash, boost::hash<t_float>{}(a.a_w.w_float));
 
     return hash;
 }
