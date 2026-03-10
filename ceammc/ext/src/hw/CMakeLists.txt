@@ -105,6 +105,7 @@ endif()
 
 # GPIO (requires hw_rust)
 if(WITH_RUST_HW)
+    target_compile_definitions(ceammc_hw PRIVATE WITH_RUST_HW)
     ceammc_hw_external(rpi_adc_ads1115)
     ceammc_hw_external(rpi_display_hd44780)
     ceammc_hw_external(rpi_display_ssd1306)

@@ -17,6 +17,8 @@
 void setup_hw_gamepad();
 void setup_hw_motu_avb();
 void setup_hw_printer();
+
+#ifdef WITH_RUST_HW
 void setup_hw_rpi_adc_ads1115();
 void setup_hw_rpi_display_hd44780();
 void setup_hw_rpi_display_ssd1306();
@@ -31,6 +33,7 @@ void setup_hw_rpi_sensor_sr04();
 void setup_hw_rpi_sensor_vl53l0x();
 void setup_hw_rpi_spi_max7219();
 void setup_hw_rpi_spi_ws2812();
+#endif
 
 void ceammc_hw_setup()
 {
@@ -44,6 +47,8 @@ void ceammc_hw_setup()
     setup_hw_keyboard_light();
     setup_hw_motu_avb();
     setup_hw_printer();
+
+#ifdef WITH_RUST_HW
     setup_hw_rpi_adc_ads1115();
     setup_hw_rpi_display_hd44780();
     setup_hw_rpi_display_ssd1306();
@@ -58,6 +63,7 @@ void ceammc_hw_setup()
     setup_hw_rpi_sensor_vl53l0x();
     setup_hw_rpi_spi_max7219();
     setup_hw_rpi_spi_ws2812();
+#endif
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();
