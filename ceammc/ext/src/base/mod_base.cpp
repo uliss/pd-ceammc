@@ -42,7 +42,9 @@ extern "C" void is_symbol_setup();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 
+#ifdef WITH_RUST_CORE
 void setup_base_bitmap();
+#endif
 void setup_base_canvas_active();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
@@ -89,7 +91,9 @@ void ceammc_base_setup()
     is_prop_setup();
     is_symbol_setup();
 
+#ifdef WITH_RUST_CORE
     setup_base_bitmap();
+#endif
     setup_base_canvas_active();
     setup_base_canvas_dir();
     setup_base_canvas_name();

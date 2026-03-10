@@ -1,5 +1,4 @@
 set(BASE_SOURCES
-    base_bitmap.cpp
     base_log.cpp
     base_sync.cpp
     base_spring.cpp
@@ -90,11 +89,17 @@ if(RAGEL_FOUND)
     add_custom_target(ragel_base SOURCES parser_canvas_id.rl)
 endif()
 
-add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES}
-    base_bitmap.h base_bitmap.cpp
-    # matrix_bitmap_ops.h matrix_bitmap_ops.cpp
-    base_bitmap.tcl
-)
+add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
+
+if(WITH_RUST_CORE)
+    target_sources(ceammc_base PRIVATE base_bitmap.h base_bitmap.cpp base_bitmap.tcl)
+    target_compile_definitions(ceammc_base PRIVATE WITH_RUST_CORE)
+    target_include_directories(ceammc_base PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core)
+    target_link_libraries(ceammc_base PRIVATE core_rust)
+    include(tcl_autogen)
+    tcl_autogen_header(base_bitmap.tcl TARGET ceammc_base SOURCES ceammc_base)
+endif()
+
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(ceammc_base
@@ -102,15 +107,11 @@ target_include_directories(ceammc_base
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
         "$<TARGET_PROPERTY:aubio,INCLUDE_DIRECTORIES>"
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
         ${CMAKE_BINARY_DIR} # for config.h
         ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
 )
 
-target_link_libraries(ceammc_base PRIVATE fftconv core_rust)
-
-include(tcl_autogen)
-tcl_autogen_header(base_bitmap.tcl TARGET ceammc_base SOURCES ceammc_base)
+target_link_libraries(ceammc_base PRIVATE fftconv)
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)

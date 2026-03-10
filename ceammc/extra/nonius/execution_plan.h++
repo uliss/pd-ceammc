@@ -14,6 +14,7 @@
 #ifndef NONIUS_EXECUTION_PLAN_HPP
 #define NONIUS_EXECUTION_PLAN_HPP
 
+#include <algorithm>
 #include <nonius/clock.h++>
 #include <nonius/environment.h++>
 #include <nonius/optimizer.h++>

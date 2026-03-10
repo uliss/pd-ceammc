@@ -3,9 +3,12 @@
 #include "proto_hui.h"
 #include "proto_ltc_in_tilde.h"
 #include "proto_ltcout_tilde.h"
-#include "proto_rust.hpp"
 #include "proto_sp_alpaca.h"
 #include "proto_whammy.h"
+
+#ifdef WITH_OBS
+#include "proto_rust.hpp"
+#endif
 
 void setup_proto_arturia_minilab();
 void setup_proto_feelworld();
@@ -19,11 +22,16 @@ void setup_proto_morse();
 void setup_proto_mpv();
 void setup_proto_vlc();
 void setup_proto_xtouch_ext();
+
+#ifdef WITH_OBS
 void setup_proto_obs_client();
+#endif
 
 void ceammc_proto_setup()
 {
+#ifdef WITH_OBS
     ceammc_proto_log_init();
+#endif
 
     setup_proto_arturia_minilab();
     setup_proto_feelworld();
@@ -39,7 +47,9 @@ void ceammc_proto_setup()
     setup_proto_moppy();
     setup_proto_morse();
     setup_proto_mpv();
+#ifdef WITH_OBS
     setup_proto_obs_client();
+#endif
     setup_proto_sp_alpaca();
     setup_proto_vlc();
     setup_proto_whammy();
