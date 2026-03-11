@@ -64,10 +64,10 @@ DataTypeColor::DataTypeColor()
 
 DataTypeColor::DataTypeColor(std::uint32_t value)
     : data_ {
-        float((0xFF & (value >> 24)) / 255.0),
-        float((0xFF & (value >> 16)) / 255.0),
-        float((0xFF & (value >> 8)) / 255.0),
-        float((0xFF & value) / 255.0),
+        static_cast<float>((0xFF & (value >> 24)) / 255.0),
+        static_cast<float>((0xFF & (value >> 16)) / 255.0),
+        static_cast<float>((0xFF & (value >> 8)) / 255.0),
+        static_cast<float>((0xFF & value) / 255.0),
     }
 {
 }
