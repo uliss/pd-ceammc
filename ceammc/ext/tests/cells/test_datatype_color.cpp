@@ -103,6 +103,7 @@ TEST_CASE("DataTypeColor", "[core]")
         REQUIRE_DATA_STR("Color() ", Color());
         REQUIRE_DATA_STR("Color( ) ", Color());
         REQUIRE_DATA_STR("Color(1 2 3)", Color(LF(1, 2, 3)));
+        REQUIRE_DATA_STR("Color(red)", Color(LF(1, 0, 0)));
         Color s;
         REQUIRE_FALSE(s.setFromDataString("Color( "));
     }
