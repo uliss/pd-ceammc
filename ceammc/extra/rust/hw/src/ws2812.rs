@@ -44,15 +44,14 @@ pub enum hw_led_fx {
 #[derive(Debug)]
 pub enum Request {
     SetPixelColor(hw_color_rgb8, usize),
-    SetSliceColor(hw_color_rgb8, Option<hw_slice>),
-    FillBitsColor(hw_color_rgb8, i32, fixedbitset::FixedBitSet),
+    FillSlice(hw_color_rgb8, Option<hw_slice>),
+    FillBits(hw_color_rgb8, i32, fixedbitset::FixedBitSet),
     FillPixels(hw_color_rgb8, Vec<i32>),
     Rotate(i32, Option<hw_slice>),
     Clear,
-    Flush,
+    Flush,    // EffectNext,
     SetBrightness(u8),
     ApplyEffect(hw_led_fx, Option<hw_slice>),
-    // EffectNext,
     Quit,
 }
 
@@ -157,7 +156,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill_slice(
     slice: *const hw_slice,
 ) -> bool {
     let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetSliceColor(color, slice),) });
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillSlice(color, slice),) });
 }
 
 #[no_mangle]
@@ -180,7 +179,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_fill_bits(
         bitset.set(i, *b > 0);
     }
 
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillBitsColor(color, bits.offset, bitset),) });
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::FillBits(color, bits.offset, bitset),) });
 }
 
 #[no_mangle]

@@ -136,7 +136,7 @@ impl hw_spi_ws2812 {
                         Request::Clear => {
                             leds.fill(RGB8::default());
                         }
-                        Request::SetSliceColor(color, slice) => {
+                        Request::FillSlice(color, slice) => {
                             let a = slice.map(|x| pos2index(x.first, size)).unwrap_or(0);
                             let b = slice.map(|x| pos2index(x.last, size)).unwrap_or(size);
                             let step = slice.map(|x| x.step).unwrap_or(1);
@@ -194,7 +194,7 @@ impl hw_spi_ws2812 {
                                 crate::ws2812::hw_led_fx::SnowSparkle => apply_fn(&mut fx_snow_sparkle),
                             };
                         }
-                        Request::FillBitsColor(color, offset, bitset) => {
+                        Request::FillBits(color, offset, bitset) => {
                             let a = pos2index(offset, leds.len());
                             for i in 0..bitset.len() {
                                 let led_idx = i + a;
