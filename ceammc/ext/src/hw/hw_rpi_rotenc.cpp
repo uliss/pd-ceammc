@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
-#define CHECK_GPIO_PINS(obj)                 \
+#define CHECK_GPIO_PINS(obj, s)              \
     {                                        \
         if (!dt_pin_->checkPin(obj)) {       \
             OBJ_ERR << "DT pin is not set";  \
@@ -13,7 +13,7 @@
             OBJ_ERR << "CLK pin is not set"; \
             return;                          \
         }                                    \
-        if (!check_connected(true))          \
+        if (!check_connected(true, s))       \
             return;                          \
     }
 
@@ -61,14 +61,14 @@ bool HwRpiRotaryEncoder::notify(int code)
 
 void HwRpiRotaryEncoder::onBang()
 {
-    CHECK_GPIO_PINS(this);
+    CHECK_GPIO_PINS(this, nullptr);
 
     ceammc_hw_gpio_rotenc_get_value(device());
 }
 
 void HwRpiRotaryEncoder::onFloat(t_float f)
 {
-    CHECK_GPIO_PINS(this);
+    CHECK_GPIO_PINS(this, nullptr);
 
     if (ceammc_hw_gpio_rotenc_set_value(device(), f))
         floatTo(0, f);
@@ -76,7 +76,7 @@ void HwRpiRotaryEncoder::onFloat(t_float f)
 
 void HwRpiRotaryEncoder::onInlet(size_t idx, const AtomListView& lv)
 {
-    CHECK_GPIO_PINS(this);
+    CHECK_GPIO_PINS(this, nullptr);
 
     if (idx == 1 && lv.isFloat())
         ceammc_hw_gpio_rotenc_set_value(device(), lv.asFloat());
@@ -91,7 +91,7 @@ void HwRpiRotaryEncoder::m_get(t_symbol* s, const AtomListView& lv)
 
 void HwRpiRotaryEncoder::m_reset(t_symbol* s, const AtomListView& lv)
 {
-    CHECK_GPIO_PINS(this);
+    CHECK_GPIO_PINS(this, s);
 
     ceammc_hw_gpio_rotenc_reset(device());
 }
@@ -102,7 +102,7 @@ void HwRpiRotaryEncoder::m_set(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    CHECK_GPIO_PINS(this);
+    CHECK_GPIO_PINS(this, s);
 
     ceammc_hw_gpio_rotenc_set_value(device(), lv.floatAt(0, 0));
 }

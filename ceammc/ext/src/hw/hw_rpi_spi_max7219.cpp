@@ -41,7 +41,7 @@ void HwSpiMax7219::m_intensity(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);
@@ -55,7 +55,7 @@ void HwSpiMax7219::m_power(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_max7219_power(device(), lv.boolAt(0, false));
@@ -68,7 +68,7 @@ void HwSpiMax7219::writeInt(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(1, 0);
@@ -82,7 +82,7 @@ void HwSpiMax7219::writeHex(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(1, 0);
@@ -96,7 +96,7 @@ void HwSpiMax7219::writeReg(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto reg = lv.intAt(0, 0);
@@ -112,7 +112,7 @@ void HwSpiMax7219::writeFloat(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto value = lv.floatAt(0, 0);
@@ -128,7 +128,7 @@ void HwSpiMax7219::writeStr(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto str = lv.symbolAt(0, &s_)->s_name;
@@ -162,7 +162,7 @@ void HwSpiMax7219::writeBytes(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(0, 0);
@@ -190,7 +190,7 @@ void HwSpiMax7219::writeMatrix(t_symbol* s, const AtomListView& lv)
         bits.push_back(a.asInt());
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_max7219_write_matrix(device(), nrows, ncols, bits.data(), bits.size());
@@ -210,7 +210,7 @@ void HwSpiMax7219::writeBits(t_symbol* s, const AtomListView& lv)
         bits.push_back(a.asInt());
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_max7219_write_bits(device(), addr, bits.data(), bits.size());
@@ -223,7 +223,7 @@ void HwSpiMax7219::m_clear(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(0, ceammc_HW_MAX7219_ADDRESS_ALL);
@@ -237,7 +237,7 @@ void HwSpiMax7219::m_test(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     const auto addr = lv.intAt(1, ceammc_HW_MAX7219_ADDRESS_ALL);

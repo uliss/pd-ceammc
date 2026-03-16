@@ -41,7 +41,7 @@ void HwI2cPca8695::m_const(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto chan = lv.intAt(0, 0);
@@ -57,7 +57,7 @@ void HwI2cPca8695::m_duty(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto chan = lv.intAt(0, 0);
@@ -73,7 +73,7 @@ void HwI2cPca8695::m_set_raw(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto chan = lv.intAt(0, 0);
@@ -89,7 +89,7 @@ void HwI2cPca8695::m_pulse_width(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto chan = lv.intAt(0, 0);
@@ -105,7 +105,7 @@ void HwI2cPca8695::m_use_prog_addr(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca8695_prog_address addr_type;
@@ -120,7 +120,7 @@ void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca8695_prog_address addr_type;
@@ -130,7 +130,7 @@ void HwI2cPca8695::m_disable_prog_addr(t_symbol* s, const AtomListView& lv)
 
 void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca9685_restart(device());
@@ -138,7 +138,7 @@ void HwI2cPca8695::m_restart(t_symbol* s, const AtomListView& lv)
 
 void HwI2cPca8695::m_enable_restart_and_disable(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca9685_enable_restart_and_disable(device());
@@ -150,7 +150,7 @@ void HwI2cPca8695::m_period(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca9685_set_period(device(), lv.floatAt(0, 0));
@@ -162,7 +162,7 @@ void HwI2cPca8695::m_polarity(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca9685_set_polarity(device(),
@@ -177,7 +177,7 @@ void HwI2cPca8695::m_enable(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_pca9685_enable(device(), lv.boolAt(0, true));
@@ -189,7 +189,7 @@ void HwI2cPca8695::m_freq(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto freq = lv.floatAt(0, 0);

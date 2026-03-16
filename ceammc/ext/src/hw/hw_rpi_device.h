@@ -42,10 +42,14 @@ public:
         addProperty(connect_);
     }
 
-    virtual bool check_connected(bool print_error)
+    virtual bool check_connected(bool print_error, t_symbol* s)
     {
-        if (!hw_ && print_error)
-            OBJ_ERR << "device is not connected";
+        if (!hw_ && print_error) {
+            if (s && s != &s_)
+                METHOD_ERR(s) << "device is not connected";
+            else
+                OBJ_ERR << "device is not connected";
+        }
 
         return hw_.get();
     }

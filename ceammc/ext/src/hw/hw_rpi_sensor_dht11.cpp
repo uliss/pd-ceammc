@@ -15,7 +15,7 @@ HwRpiSensorDht11::HwRpiSensorDht11(const PdArgs& args)
 
 void HwRpiSensorDht11::onBang()
 {
-    if (!check_connected(true))
+    if (!check_connected(true, nullptr))
         return;
 
     ceammc_hw_gpio_dht11_measure(device());
@@ -27,7 +27,7 @@ void HwRpiSensorDht11::m_poll(t_symbol* s, const AtomListView& lv)
     if (!args.check(lv, this))
         return args.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_gpio_dht11_poll(device(), lv.boolAt(0, false));

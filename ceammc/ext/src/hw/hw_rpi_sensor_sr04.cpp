@@ -26,7 +26,7 @@ HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
     poll_interval_->checkClosedRange(ceammc_HW_SR04_MIN_POLL_INTERVAL, ceammc_HW_SR04_MAX_POLL_INTERVAL);
     poll_interval_->setUnits(PropValueUnits::MSEC);
     poll_interval_->setSuccessFn([this](Property*) {
-        if (!check_connected(true))
+        if (!check_connected(true, nullptr))
             return;
         ceammc_hw_gpio_sr04_set_poll_interval(device(), poll_interval_->value());
     });
@@ -35,7 +35,7 @@ HwRpiSensorSr04::HwRpiSensorSr04(const PdArgs& args)
 
 bool HwRpiSensorSr04::notify(int code)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, nullptr))
         return false;
 
     return ceammc_hw_gpio_sr04_process(device());
@@ -43,7 +43,7 @@ bool HwRpiSensorSr04::notify(int code)
 
 void HwRpiSensorSr04::onBang()
 {
-    if (!check_connected(true))
+    if (!check_connected(true, nullptr))
         return;
 
     ceammc_hw_gpio_sr04_measure(device());
@@ -51,7 +51,7 @@ void HwRpiSensorSr04::onBang()
 
 void HwRpiSensorSr04::m_poll(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     static const args::ArgChecker args("STATE:b");

@@ -9,7 +9,7 @@
             METHOD_ERR(s) << "PWM channel is not configured, valid channel values are: "                  \
                           << (int)ceammc_HW_RPI_PWM_MIN_CHAN << "..." << (int)ceammc_HW_RPI_PWM_MAX_CHAN; \
         }                                                                                                 \
-        if (!check_connected(true))                                                                       \
+        if (!check_connected(true, s))                                                                       \
             return;                                                                                       \
     }
 

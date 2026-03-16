@@ -35,7 +35,7 @@ bool HwRpiDisplayHd44780::notify(int code)
 
 void HwRpiDisplayHd44780::m_clear(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_clear(device());
@@ -47,7 +47,7 @@ void HwRpiDisplayHd44780::m_clear_line(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto line = lv.intAt(0, 0);
@@ -70,7 +70,7 @@ void HwRpiDisplayHd44780::m_backlight(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_backlight(device(), lv.boolAt(0, false));
@@ -82,7 +82,7 @@ void HwRpiDisplayHd44780::m_write(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_write_text(device(), to_string(lv).c_str());
@@ -94,7 +94,7 @@ void HwRpiDisplayHd44780::m_char(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_write_char(device(), lv.intAt(0, 0));
@@ -106,7 +106,7 @@ void HwRpiDisplayHd44780::m_cursor_on(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_cursor_on(device(), lv.boolAt(0, false));
@@ -118,7 +118,7 @@ void HwRpiDisplayHd44780::m_cursor_blink(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_cursor_blink(device(), lv.boolAt(0, false));
@@ -130,7 +130,7 @@ void HwRpiDisplayHd44780::m_cursor_pos(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto line = lv.intAt(0, 0);
@@ -150,7 +150,7 @@ void HwRpiDisplayHd44780::m_font(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     switch (lv.intAt(0, 0)) {
@@ -168,7 +168,7 @@ void HwRpiDisplayHd44780::m_cursor_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_move_cursor(device(), lv.intAt(0, 1));
@@ -180,7 +180,7 @@ void HwRpiDisplayHd44780::m_display_move(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_hd44780_scroll_text(device(), lv.intAt(0, 1));

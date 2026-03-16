@@ -18,7 +18,7 @@ bool HwRpiSensorVl53l0x::notify(int code)
 
 void HwRpiSensorVl53l0x::onBang()
 {
-    if (!check_connected(true))
+    if (!check_connected(true, nullptr))
         return;
 
     ceammc_hw_sensor_vl53l0x_read_mm(device());
@@ -30,7 +30,7 @@ void HwRpiSensorVl53l0x::m_poll(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_sensor_vl53l0x_poll(device(), lv.boolAt(0, true));
@@ -42,7 +42,7 @@ void HwRpiSensorVl53l0x::m_address(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_sensor_vl53l0x_set_address(device(), lv.intAt(0, true));

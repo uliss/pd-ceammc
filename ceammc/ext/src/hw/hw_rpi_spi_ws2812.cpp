@@ -35,7 +35,7 @@ bool HwSpiWs2812::notify(int code)
 
 void HwSpiWs2812::onBang()
 {
-    if (!check_connected(true))
+    if (!check_connected(true, nullptr))
         return;
 
     ceammc_hw_spi_ws2812_flush(device());
@@ -50,7 +50,7 @@ void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_spi_ws2812_set_brightness(device(), args.level);
@@ -65,7 +65,7 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_spi_ws2812_clear(device());
@@ -102,7 +102,7 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
         color.blue = args.prop_color8.blue;
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_spi_ws2812_set_pixel_color(device(), args.pos, color);
@@ -122,7 +122,7 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_color_rgb8 color;
@@ -158,7 +158,7 @@ void HwSpiWs2812::m_fill_slice(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_color_rgb8 color;
@@ -364,7 +364,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     if (!parse_slice_property(slice, lv))
         slice_ptr = nullptr;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_spi_ws2812_apply_fx(device(), fx, slice_ptr);
@@ -379,7 +379,7 @@ void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_spi_ws2812_rotate(device(), lv.intAt(0, 1), nullptr);

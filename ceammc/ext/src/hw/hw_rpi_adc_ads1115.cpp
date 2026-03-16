@@ -81,7 +81,7 @@ void HwRpiAdcAds1115::m_poll(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_ads1115_poll(device(), lv.boolAt(0, false));
@@ -93,7 +93,7 @@ void HwRpiAdcAds1115::m_measure(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto chan = lv.intAt(0, -1);

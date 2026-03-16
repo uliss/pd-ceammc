@@ -19,7 +19,7 @@ bool HwRpiSensorMpu6050::notify(int code)
 
 void HwRpiSensorMpu6050::m_calibrate(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_mpu6050_calibrate(device());
@@ -31,7 +31,7 @@ void HwRpiSensorMpu6050::m_poll(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_mpu6050_poll(device(), lv.boolAt(0, false));

@@ -50,7 +50,7 @@ void HwRpiDisplaySsd1306::m_brightness(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_set_brightness(device(), lv.intAt(0, 0));
@@ -62,7 +62,7 @@ void HwRpiDisplaySsd1306::m_clear(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_clear(device(), lv.boolAt(0, false));
@@ -70,7 +70,7 @@ void HwRpiDisplaySsd1306::m_clear(t_symbol* s, const AtomListView& lv)
 
 void HwRpiDisplaySsd1306::m_flush(t_symbol* s, const AtomListView& lv)
 {
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_flush(device());
@@ -82,7 +82,7 @@ void HwRpiDisplaySsd1306::m_font(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_set_font(device(), lv.symbolAt(0, &s_)->s_name);
@@ -94,7 +94,7 @@ void HwRpiDisplaySsd1306::m_invert(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_invert(device(), lv.boolAt(0, false));
@@ -106,7 +106,7 @@ void HwRpiDisplaySsd1306::m_mirror(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_mirror(device(), lv.boolAt(0, false));
@@ -118,7 +118,7 @@ void HwRpiDisplaySsd1306::m_pixel(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_set_pixel(device(), lv.intAt(0, 0), lv.intAt(1, 0), lv.boolAt(2, true));
@@ -130,7 +130,7 @@ void HwRpiDisplaySsd1306::m_rotation(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_rotation rot;
@@ -158,7 +158,7 @@ void HwRpiDisplaySsd1306::m_switch_on(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     ceammc_hw_display_ssd1306_switch_on(device(), lv.boolAt(0, false));
@@ -170,7 +170,7 @@ void HwRpiDisplaySsd1306::m_text(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto txt = lv.symbolAt(0, &s_);
@@ -185,7 +185,7 @@ void HwRpiDisplaySsd1306::m_write(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto sel = lv.symbolAt(0, &s_);
@@ -258,7 +258,7 @@ void HwRpiDisplaySsd1306::writeBytes(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     std::vector<std::uint8_t> bytes;
@@ -277,7 +277,7 @@ void HwRpiDisplaySsd1306::writeBitmap(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
     }
 
-    if (!check_connected(true))
+    if (!check_connected(true, s))
         return;
 
     auto x = lv.intAt(0, 0);
