@@ -1605,8 +1605,8 @@ struct m_fill_pixels_args {
     // types
     struct prop_indexes_t {
         int _count {0};
-        AtomListView idx; // pixel index, can be negative. If negative: means position from the end of the buffer
-        int process_idx(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView list; // pixel index, can be negative. If negative: means position from the end of the buffer
+        int process_list(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             // check size
             if (lv.size() < 1) {
                 return NOT_ENOUGH_ARGS;
@@ -1626,20 +1626,20 @@ struct m_fill_pixels_args {
                 return NOT_ENOUGH_ARGS;
             }
             // set value
-            idx = lv.subView(0, take_count);
+            list = lv.subView(0, take_count);
             // number of matched items
             return take_count;
         }
-        static const char* arg_idx_info() {
-            return "IDX+ (pixel index, can be negative. If negative: means position from the end of the buffer), int";
+        static const char* arg_list_info() {
+            return "LIST+ (pixel index, can be negative. If negative: means position from the end of the buffer), int";
         }
         static const char* info() {
-            return "@indexes IDX+ (list of pixel positions)";
+            return "@indexes LIST+ (list of pixel positions)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
-            matched = process_idx(left_args, obj, print_err);
+            matched = process_list(left_args, obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
@@ -1658,7 +1658,7 @@ struct m_fill_pixels_args {
     };
     struct prop_color_t {
         int _count {0};
-        DataTypeColor color {}; // 
+        DataTypeColor color {}; // color
         int process_color(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             if ((lv.size() == 3) && lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1) && lv[1].isFloat() && (0 <= lv[1].asT<t_float>()) && (lv[1].asT<t_float>() <= 1) && lv[2].isFloat() && (0 <= lv[2].asT<t_float>()) && (lv[2].asT<t_float>() <= 1)) {
                 // check rgb triplet
@@ -1696,7 +1696,7 @@ struct m_fill_pixels_args {
             }
         }
         static const char* arg_color_info() {
-            return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
+            return "COLOR (color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
             return "@color COLOR (RGB color)";

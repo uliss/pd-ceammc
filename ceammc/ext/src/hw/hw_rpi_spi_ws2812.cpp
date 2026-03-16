@@ -232,9 +232,9 @@ void HwSpiWs2812::m_fill_lslice(t_symbol* s, const AtomListView& lv)
 
 /// @function "fill the range of pixels in the internal buffer with specified color" {
 ///  @indexes "list of pixel positions" {
-///     #idx int + "pixel index, can be negative. If negative: means position from the end of the buffer" {}
+///     #list int + "pixel index, can be negative. If negative: means position from the end of the buffer" {}
 ///  }
-///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color  ^(@color8) "RGB color"                         { #color color "color" {} }
 ///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
 ///     #red   byte "red color component"   {}
 ///     #green byte "green color component" {}
@@ -253,7 +253,16 @@ void HwSpiWs2812::m_fill_pixels(t_symbol* s, const AtomListView& lv)
     ceammc_hw_color_rgb8 color { 0, 0, 0 };
     process_rgb(color, args);
 
-    // ceammc_hw_spi_ws2812_fill_slice(device(), color, process_lslice(lslice, size_->value(), args));
+    boost::container::small_vector<std::int32_t, 128> data;
+    for (auto& a : args.prop_indexes.list) {
+        data.push_back(a.asBool());
+    }
+
+    ceammc_hw_indexes pixels;
+    pixels.data = data.data();
+    pixels.size = data.size();
+
+    ceammc_hw_spi_ws2812_fill_pixels(device(), color, &pixels);
 }
 
 /// @function "fill the range of pixels in the internal buffer with specified color" {
