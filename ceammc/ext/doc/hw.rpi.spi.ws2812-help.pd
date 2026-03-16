@@ -195,9 +195,9 @@ cGVjaWZpZWQgcmFuZ2Uu ;
 #X msg 130 1676 fx;
 #X text 270 1676 apply color effect function. Arguments are:;
 #X obj 300 1701 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1701 NAME: effect name. Type: symbol. Allowed values: bounce
-\, breathe \, collision \, cycle \, fire \, meteor \, rainbow \, sparkle
-\, strobe \, twinkle.;
+#X text 300 1701 NAME: effect name. Type: symbol. Allowed values: rainbow
+\, breathe \, bounce \, collision \, cycle \, cylon \, fire \, meteor
+\, sparkle \, twinkle \, strobe.;
 #X obj 300 1754 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1754 [@slice FIRST LAST? STEP?]: range slice of pixels.
 Type: list.;

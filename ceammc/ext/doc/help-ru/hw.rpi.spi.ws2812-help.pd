@@ -222,8 +222,8 @@ utCw0LbQtNGL0Lkg0YLRgNC10YLQuNC5INC/0LjQutGB0LXQu9GMINCyINGD0LrQsNC30LDQvdC9
 #X text 270 1751 применить функцию цветового эффекта. Аргументы:;
 #X obj 300 1776 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1776 NAME: название эффекта. Тип: symbol. Разрешённые значения:
-bounce \, breathe \, collision \, cycle \, fire \, meteor \, rainbow
-\, sparkle \, strobe \, twinkle.;
+rainbow \, breathe \, bounce \, collision \, cycle \, cylon \, fire
+\, meteor \, sparkle \, twinkle \, strobe.;
 #X obj 300 1829 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1829 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
 Тип: list.;
