@@ -278,6 +278,9 @@ struct m_set_pixel_args {
                     if (print_err) {
                         Error(obj) << "invalid hex value: '" << lv[0] << "'";
                     }
+                    if (print_err) {
+                        Post(obj) << "expected: #RRGGBB or #RGB, for example: #00FFAA or #D0F";
+                    }
                     return INVALID_VALUE;
                 }
             } else if ((lv.size() == 1) && lv[0].isSymbol()) {
@@ -426,7 +429,9 @@ struct m_set_pixel_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[set_pixel( invalid value for @color8 property, expected:";
-                Error(obj) << prop_color8_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color8_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -442,7 +447,9 @@ struct m_set_pixel_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[set_pixel( invalid value for @color property, expected:";
-                Error(obj) << prop_color_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -489,6 +496,9 @@ struct m_fill_args {
                 } else {
                     if (print_err) {
                         Error(obj) << "invalid hex value: '" << lv[0] << "'";
+                    }
+                    if (print_err) {
+                        Post(obj) << "expected: #RRGGBB or #RGB, for example: #00FFAA or #D0F";
                     }
                     return INVALID_VALUE;
                 }
@@ -694,7 +704,9 @@ struct m_fill_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fill( invalid value for @color property, expected:";
-                Error(obj) << prop_color_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -710,7 +722,9 @@ struct m_fill_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fill( invalid value for @color8 property, expected:";
-                Error(obj) << prop_color8_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color8_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -848,6 +862,9 @@ struct m_fill_slice_args {
                 } else {
                     if (print_err) {
                         Error(obj) << "invalid hex value: '" << lv[0] << "'";
+                    }
+                    if (print_err) {
+                        Post(obj) << "expected: #RRGGBB or #RGB, for example: #00FFAA or #D0F";
                     }
                     return INVALID_VALUE;
                 }
@@ -1075,7 +1092,9 @@ struct m_fill_slice_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fill_slice( invalid value for @slice property, expected:";
-                Error(obj) << prop_slice_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_slice_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -1091,7 +1110,9 @@ struct m_fill_slice_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fill_slice( invalid value for @color property, expected:";
-                Error(obj) << prop_color_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -1107,7 +1128,9 @@ struct m_fill_slice_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fill_slice( invalid value for @color8 property, expected:";
-                Error(obj) << prop_color8_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_color8_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -1425,7 +1448,9 @@ struct m_fx_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fx( invalid value for @slice property, expected:";
-                Error(obj) << prop_slice_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_slice_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
@@ -1441,7 +1466,9 @@ struct m_fx_args {
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
                 Error(obj) << "[fx( invalid value for @lslice property, expected:";
-                Error(obj) << prop_lslice_t::info();
+            }
+            if (print_err) {
+                Post(obj) << prop_lslice_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
