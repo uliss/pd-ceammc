@@ -10,6 +10,46 @@ constexpr int DEF_PIXEL_COUNT = 16;
 constexpr int MIN_PIXEL_COUNT = 1;
 constexpr int MAX_PIXEL_COUNT = 4096;
 
+template <typename T>
+void process_rgb(ceammc_hw_color_rgb8& c, const T& args)
+{
+    if (args.prop_color._count) {
+        c.red = args.prop_color.color.red8();
+        c.green = args.prop_color.color.green8();
+        c.blue = args.prop_color.color.blue8();
+    } else if (args.prop_color8._count) {
+        c.red = args.prop_color8.red;
+        c.green = args.prop_color8.green;
+        c.blue = args.prop_color8.blue;
+    }
+}
+
+template <typename T>
+const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, const T& args)
+{
+    const ceammc_hw_slice* slice_ptr = &slice;
+    slice.first = args.prop_slice.first;
+    slice.last = args.prop_slice.last;
+    slice.step = args.prop_slice.step;
+    return slice_ptr;
+}
+
+template <typename T>
+const ceammc_hw_slice* process_lslice(ceammc_hw_slice& lslice, size_t size, const T& args)
+{
+    const ceammc_hw_slice* slice_ptr = &lslice;
+    lslice.first = args.prop_lslice.start;
+
+    if (args.prop_lslice.length < 1) {
+        lslice.last = -1;
+    } else {
+        lslice.last = args.prop_lslice.start + size - 1;
+    }
+
+    lslice.step = args.prop_lslice.step;
+    return slice_ptr;
+}
+
 HwSpiWs2812::HwSpiWs2812(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_spi_ws2812>(&ceammc_hw_spi_ws2812_free, args)
 {
@@ -92,15 +132,7 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
         return;
 
     ceammc_hw_color_rgb8 color;
-    if (args.prop_color._count) {
-        color.red = args.prop_color.color.red8();
-        color.green = args.prop_color.color.green8();
-        color.blue = args.prop_color.color.blue8();
-    } else if(args.prop_color8._count) {
-        color.red = args.prop_color8.red;
-        color.green = args.prop_color8.green;
-        color.blue = args.prop_color8.blue;
-    }
+    process_rgb(color, args);
 
     if (!check_connected(true, s))
         return;
@@ -109,7 +141,7 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 }
 
 /// @function "fill all pixels in the internal buffer with specified color" {
-///  @color  ^(@color8) "RGB color"                         { #color color "pixel color" {} }
+///  @color  ^(@color8) "RGB color"                         { #color color "fill color" {} }
 ///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
 ///     #red   byte "red color component"   {}
 ///     #green byte "green color component" {}
@@ -126,17 +158,38 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
         return;
 
     ceammc_hw_color_rgb8 color;
-    if (args.prop_color._count) {
-        color.red = args.prop_color.color.red8();
-        color.green = args.prop_color.color.green8();
-        color.blue = args.prop_color.color.blue8();
-    } else if (args.prop_color8._count) {
-        color.red = args.prop_color8.red;
-        color.green = args.prop_color8.green;
-        color.blue = args.prop_color8.blue;
-    }
+    process_rgb(color, args);
 
     ceammc_hw_spi_ws2812_fill_slice(device(), color, nullptr);
+}
+
+/// @function "fill the range of pixels in the internal buffer with specified color" {
+///  @lslice "length-based pixel slice" {
+///     #start  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
+///     #length int ?   "slice length. If ommitted means position from the end of the buffer"  { default: 0, check: >0 }
+///     #step  int ?    "step between pixels"  { default: 1 check: > 0 }
+///  }
+///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+/// }
+void HwSpiWs2812::m_fill_lslice(t_symbol* s, const AtomListView& lv)
+{
+    m_fill_lslice_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_color_rgb8 color { 0, 0, 0 };
+    process_rgb(color, args);
+
+    ceammc_hw_slice lslice { 0, 0, 0 };
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, process_lslice(lslice, size_->value(), args));
 }
 
 /// @function "fill the range of pixels in the internal buffer with specified color" {
@@ -161,24 +214,11 @@ void HwSpiWs2812::m_fill_slice(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true, s))
         return;
 
-    ceammc_hw_color_rgb8 color;
-    if (args.prop_color._count) {
-        color.red = args.prop_color.color.red8();
-        color.green = args.prop_color.color.green8();
-        color.blue = args.prop_color.color.blue8();
-    } else if (args.prop_color8._count) {
-        color.red = args.prop_color8.red;
-        color.green = args.prop_color8.green;
-        color.blue = args.prop_color8.blue;
-    }
+    ceammc_hw_color_rgb8 color { 0, 0, 0 };
+    process_rgb(color, args);
 
-    ceammc_hw_slice slice;
-    const ceammc_hw_slice* slice_ptr = &slice;
-    slice.first = args.prop_slice.first;
-    slice.last = args.prop_slice.last;
-    slice.step = args.prop_slice.step;
-
-    ceammc_hw_spi_ws2812_fill_slice(device(), color, slice_ptr);
+    ceammc_hw_slice slice { 0, 0, 0 };
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, process_slice(slice, args));
 }
 
 HwSpiWs2812::HwRpiDevice::Device HwSpiWs2812::createDevice()
@@ -391,6 +431,7 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
     obj.addMethod("clear", &HwSpiWs2812::m_clear);
     obj.addMethod("fill_slice", &HwSpiWs2812::m_fill_slice);
+    obj.addMethod("fill_lslice", &HwSpiWs2812::m_fill_lslice);
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);

@@ -26,6 +26,7 @@ public:
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
+    void m_fill_lslice(t_symbol* s, const AtomListView& lv);
     void m_fill_slice(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
