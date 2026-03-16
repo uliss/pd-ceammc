@@ -482,6 +482,11 @@ struct ceammc_hw_bits {
     uint32_t size;
 };
 
+struct ceammc_hw_indexes {
+    const int32_t *data;
+    size_t size;
+};
+
 
 extern "C" {
 
@@ -1122,6 +1127,14 @@ bool ceammc_hw_spi_ws2812_clear(const ceammc_hw_spi_ws2812 *ws);
 bool ceammc_hw_spi_ws2812_fill_bits(const ceammc_hw_spi_ws2812 *ws,
                                     ceammc_hw_color_rgb8 color,
                                     const ceammc_hw_bits *bits);
+
+/// fill leds addressed by pixel indexes with specified color
+/// @param ws - pointer to the led strip handle
+/// @param color - fill color
+/// @param pixels - not NULL(!)
+bool ceammc_hw_spi_ws2812_fill_pixels(const ceammc_hw_spi_ws2812 *ws,
+                                      ceammc_hw_color_rgb8 color,
+                                      const ceammc_hw_indexes *pixels);
 
 /// fill leds slice with color
 /// @param ws - pointer to the led strip handle
