@@ -302,36 +302,14 @@ HwSpiWs2812::HwRpiDevice::Device HwSpiWs2812::createDevice()
         freeDeviceFn());
 }
 
-bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const
-{
-    AtomListView res;
-    DataTypeColor c;
-    if (lv.getProperty(gensym("@color"), res)
-        && DataTypeColor::parseFromList(res, c)) {
-
-        rgb.red = c.red8();
-        rgb.green = c.green8();
-        rgb.blue = c.blue8();
-
-        return true;
-    } else if (lv.getProperty(gensym("@color8"), res)) {
-        rgb.red = clip<int, 0, 255>(res.intAt(0, 0));
-        rgb.green = clip<int, 0, 255>(res.intAt(1, 0));
-        rgb.blue = clip<int, 0, 255>(res.intAt(2, 0));
-        return true;
-    }
-
-    OBJ_ERR << "color property expected:"
-               "\n  - @color R[0..1] G[0..1] B[0..1] or"
-               "\n  - @color #RRGGBB or name or"
-               "\n. - @color Color(...) or"
-               "\n. - @color8 R[0..255] G[0..255] B[0..255]";
-
-    return false;
-}
-
+/// @function "send internal pixel buffer to the device" {
+/// }
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
+    m_flush_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     onBang();
 }
 
@@ -400,6 +378,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     auto slice_ptr = (args.prop_slice._count)
         ? process_slice(slice, args)
         : process_lslice(slice, size_->value(), args);
+
     if (!check_connected(true, s))
         return;
 

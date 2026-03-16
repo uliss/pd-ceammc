@@ -32,9 +32,6 @@ public:
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
-
-    //
-    bool parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const;
 };
 
 void setup_hw_rpi_spi_ws2812();
