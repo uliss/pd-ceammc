@@ -53,7 +53,7 @@ struct m_brightness_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_level_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_level(left_args.subView(matched), obj, print_err);
@@ -124,7 +124,7 @@ struct m_clear_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_flush_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_flush(left_args.subView(matched), obj, print_err);
@@ -229,7 +229,7 @@ struct m_set_pixel_args {
         static const char* info() {
             return "@color8 RED GREEN BLUE (RGB int pixel color in range [0..255])";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_red(left_args.subView(matched), obj, print_err);
@@ -336,7 +336,7 @@ struct m_set_pixel_args {
         static const char* info() {
             return "@color COLOR (RGB float pixel color, hex or named color or color datatype)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_color(left_args.subView(matched), obj, print_err);
@@ -436,7 +436,7 @@ struct m_set_pixel_args {
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_pos(left_args.subView(matched), obj, print_err);
@@ -557,7 +557,7 @@ struct m_fill_args {
         static const char* info() {
             return "@color COLOR (RGB color)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_color(left_args.subView(matched), obj, print_err);
@@ -647,7 +647,7 @@ struct m_fill_args {
         static const char* info() {
             return "@color8 RED GREEN BLUE (int RGB color in [0..255] range)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_red(left_args.subView(matched), obj, print_err);
@@ -763,7 +763,7 @@ struct m_fill_args {
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         // check extra arguments
@@ -884,7 +884,7 @@ struct m_fill_slice_args {
         static const char* info() {
             return "@slice FIRST LAST? STEP? (range-based pixel slice)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_first(left_args.subView(matched), obj, print_err);
@@ -991,7 +991,7 @@ struct m_fill_slice_args {
         static const char* info() {
             return "@color COLOR (RGB color)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_color(left_args.subView(matched), obj, print_err);
@@ -1081,7 +1081,7 @@ struct m_fill_slice_args {
         static const char* info() {
             return "@color8 RED GREEN BLUE (int RGB color in [0..255] range)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_red(left_args.subView(matched), obj, print_err);
@@ -1210,7 +1210,7 @@ struct m_fill_slice_args {
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         // check extra arguments
@@ -1357,7 +1357,7 @@ struct m_fx_args {
         static const char* info() {
             return "@slice FIRST LAST? STEP? (range-based pixel slice)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_first(left_args.subView(matched), obj, print_err);
@@ -1481,7 +1481,7 @@ struct m_fx_args {
         static const char* info() {
             return "@lslice FIRST LENGTH? STEP? (length-based pixel slice)";
         }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
             matched = process_first(left_args.subView(matched), obj, print_err);
@@ -1615,7 +1615,7 @@ struct m_fx_args {
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_fx_name(left_args.subView(matched), obj, print_err);
@@ -1721,7 +1721,7 @@ struct m_rotate_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_n_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_n(left_args.subView(matched), obj, print_err);
