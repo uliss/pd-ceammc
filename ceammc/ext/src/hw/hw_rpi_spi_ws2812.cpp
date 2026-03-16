@@ -3,33 +3,8 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_color.h"
-#include "fmt/core.h"
-#include "fmt/format.h"
 
-CEAMMC_DEFINE_HASH(bounce)
-CEAMMC_DEFINE_HASH(breathe)
-CEAMMC_DEFINE_HASH(collision)
-CEAMMC_DEFINE_HASH(cycle)
-CEAMMC_DEFINE_HASH(cylon)
-CEAMMC_DEFINE_HASH(fire)
-CEAMMC_DEFINE_HASH(meteor)
-CEAMMC_DEFINE_HASH(rainbow)
-CEAMMC_DEFINE_HASH(sparkle)
-CEAMMC_DEFINE_HASH(strobe)
-CEAMMC_DEFINE_HASH(twinkle)
-
-static const std::array<const char*, 10> FX_NAMES = {
-    str_bounce,
-    str_breathe,
-    str_collision,
-    str_cycle,
-    str_fire,
-    str_meteor,
-    str_rainbow,
-    str_sparkle,
-    str_strobe,
-    str_twinkle,
-};
+#include "hw_rpi_spi_ws2812_args.hpp"
 
 constexpr int DEF_PIXEL_COUNT = 16;
 constexpr int MIN_PIXEL_COUNT = 1;
@@ -66,79 +41,146 @@ void HwSpiWs2812::onBang()
     ceammc_hw_spi_ws2812_flush(device());
 }
 
+/// @function "set led strip brighness" [{
+///  #level byte "brightness level" {}
+/// }]
 void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("BRIGHT:b");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    m_brightness_args args;
+    if (!args.parse_args(lv, this))
+        return;
 
     if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_set_brightness(device(), lv.intAt(0, 0));
+    ceammc_hw_spi_ws2812_set_brightness(device(), args.level);
 }
 
+/// @function "clear the internal pixel buffer and (optionally) flush it to the strip" [{
+///  #flush bool ? "do flush" { default: true }
+/// }]
 void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FLUSH:B?");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    m_clear_args args;
+    if (!args.parse_args(lv, this))
+        return;
 
     if (!check_connected(true))
         return;
 
     ceammc_hw_spi_ws2812_clear(device());
 
-    if (lv.boolAt(0, true))
+    if (args.flush)
         ceammc_hw_spi_ws2812_flush(device());
 }
 
+/// @function "set pixel color in the internal buffer" {
+///  #pos     int  "pixel position" { check: >= 0 }
+///  @color8  ^@color "RGB int pixel color in range [0..255]" {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+///  @color   ^@color8 "RGB float pixel color in range [0..1]" {
+///     #red   float "red color component"      { check: [0..1] }
+///     #green float "green color component"    { check: [0..1] }
+///     #blue  float "blue color component"     { check: [0..1] }
+///  }
+/// }
 void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_hw_color_rgb8 color;
-    if (!parse_color_property(color, lv)) {
-        METHOD_ERR(s) << "@color property not found in list: " << lv;
+    m_set_pixel_args args;
+    if (!args.parse_args(lv, this))
         return;
+
+    ceammc_hw_color_rgb8 color;
+    if (args.prop_color._count) {
+        color.red = clip<int, 0, 255>(args.prop_color.red * 255);
+        color.green = clip<int, 0, 255>(args.prop_color.green * 255);
+        color.blue = clip<int, 0, 255>(args.prop_color.blue * 255);
     }
 
-    size_t idx = 0;
-    if (!parse_pixel_index(idx, lv)) {
-        METHOD_ERR(s) << "valid pixel index not found in list: " << lv;
+    if (!parse_color_property(color, lv)) {
+        METHOD_ERR(s) << "@color property not found in list: " << lv;
         return;
     }
 
     if (!check_connected(true))
         return;
 
-    ceammc_hw_spi_ws2812_set_pixel_color(device(), idx, color);
+    ceammc_hw_spi_ws2812_set_pixel_color(device(), args.pos, color);
 }
 
+/// @function "fill all pixels in the internal buffer with specified color" {
+///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+/// }
 void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
 {
+    m_fill_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     if (!check_connected(true))
         return;
 
     ceammc_hw_color_rgb8 color;
-    if (!parse_color_property(color, lv)) {
-        METHOD_ERR(s) << "@color property not found in list: " << lv;
-        return;
+    if (args.prop_color._count) {
+        color.red = args.prop_color.color.red8();
+        color.green = args.prop_color.color.green8();
+        color.blue = args.prop_color.color.blue8();
+    } else if (args.prop_color8._count) {
+        color.red = args.prop_color8.red;
+        color.green = args.prop_color8.green;
+        color.blue = args.prop_color8.blue;
     }
 
-    // try to parse bit properties
-    ceammc_hw_bits bits;
-    std::uint8_t data[1024];
-    if (parse_bits_property(bits, data, sizeof(data), lv)) {
-        ceammc_hw_spi_ws2812_fill_bits(device(), color, &bits);
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, nullptr);
+}
+
+/// @function "fill the range of pixels in the internal buffer with specified color" {
+///  @slice "range-based pixel slice" {
+///     #first int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
+///     #last  int ?   "last index, can be negative. If negative: means position from the end of the buffer"  { default: -1 }
+///     #step  int ?   "step between pixels"  { default: 1 check: > 0 }
+///  }
+///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+/// }
+void HwSpiWs2812::m_fill_slice(t_symbol* s, const AtomListView& lv)
+{
+    m_fill_slice_args args;
+    if (!args.parse_args(lv, this))
         return;
+
+    if (!check_connected(true))
+        return;
+
+    ceammc_hw_color_rgb8 color;
+    if (args.prop_color._count) {
+        color.red = args.prop_color.color.red8();
+        color.green = args.prop_color.color.green8();
+        color.blue = args.prop_color.color.blue8();
+    } else if (args.prop_color8._count) {
+        color.red = args.prop_color8.red;
+        color.green = args.prop_color8.green;
+        color.blue = args.prop_color8.blue;
     }
 
-    // try to parse slice properties
     ceammc_hw_slice slice;
     const ceammc_hw_slice* slice_ptr = &slice;
-    if (!parse_slice_property(slice, lv))
-        slice_ptr = nullptr;
+    slice.first = args.prop_slice.first;
+    slice.last = args.prop_slice.last;
+    slice.step = args.prop_slice.step;
 
-    // if no props found - fill all pixels!
     ceammc_hw_spi_ws2812_fill_slice(device(), color, slice_ptr);
 }
 
@@ -254,26 +296,35 @@ bool HwSpiWs2812::parse_bits_property(ceammc_hw_bits& bits, std::uint8_t* const&
     return false;
 }
 
-bool HwSpiWs2812::parse_pixel_index(size_t& idx, const AtomListView& lv)
-{
-    if (lv.empty() || !lv[0].isIntGreaterEqual(0))
-        return false;
-
-    idx = lv[0].asInt();
-    return true;
-}
-
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
     onBang();
 }
 
+/// @function "apply fx to internal buffer" {
+///  #fx_name symbol "effect name" {
+///      enum: ##("rainbow", "breathe", "bounce", "collision", "cycle", "cylon", "fire", "meteor", "sparkle", "twinkle", "strobe")
+///  }
+///  @slice ^(@lslice) "range-based pixel slice" {
+///     #first int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
+///     #last  int ?   "last index, can be negative. If negative: means position from the end of the buffer"  { default: -1 }
+///     #step  int ?   "step between pixels"  { default: 1 check: > 0 }
+///  }
+///  @lslice ^(@slice) "length-based pixel slice" {
+///     #first  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
+///     #length int ?   "length. If 0 or not specified: apply to all pixels"  { default: 0 check: >= 0 }
+///     #step   int ?   "step between pixels"  { default: 1 check: > 0 }
+///  }
+/// }
 void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
 {
-    auto fx_name = lv.symbolAt(0, &s_);
+    m_fx_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     ceammc_hw_led_fx fx {};
 
-    switch (crc32_hash(fx_name)) {
+    switch (crc32_hash(args.fx_name)) {
     case hash_rainbow:
         fx = ceammc_hw_led_fx::Rainbow;
         break;
@@ -308,7 +359,6 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         fx = ceammc_hw_led_fx::Strobe;
         break;
     default:
-        METHOD_ERR(s) << fmt::format("unknown effect name: '{}', allowed values are: {}", fx_name->s_name, fmt::join(FX_NAMES, ", "));
         return;
     }
 
@@ -323,8 +373,15 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_apply_fx(device(), fx, slice_ptr);
 }
 
+/// @function "rotate internal pixel buffer" [{
+///  #n int "rotation amount" {}
+/// }]
 void HwSpiWs2812::m_rotate(t_symbol* s, const AtomListView& lv)
 {
+    m_rotate_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     if (!check_connected(true))
         return;
 
@@ -336,6 +393,7 @@ void setup_hw_rpi_spi_ws2812()
     ObjectFactory<HwSpiWs2812> obj("hw.rpi.spi.ws2812");
     obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
     obj.addMethod("clear", &HwSpiWs2812::m_clear);
+    obj.addMethod("fill_slice", &HwSpiWs2812::m_fill_slice);
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);

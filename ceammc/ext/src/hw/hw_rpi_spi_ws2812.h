@@ -26,6 +26,7 @@ public:
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
+    void m_fill_slice(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
 
@@ -33,7 +34,6 @@ public:
     bool parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomListView& lv) const;
     bool parse_slice_property(ceammc_hw_slice& slice, const AtomListView& lv) const;
     bool parse_bits_property(ceammc_hw_bits& bits, std::uint8_t* const& buf, size_t buf_size, const AtomListView& lv) const;
-    static bool parse_pixel_index(size_t& idx, const AtomListView& lv);
 };
 
 void setup_hw_rpi_spi_ws2812();
