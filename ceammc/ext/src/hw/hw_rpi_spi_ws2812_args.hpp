@@ -481,7 +481,7 @@ struct m_set_pixel_args {
             return false;
         } else if (prop_color._count == 0 && prop_color8._count == 0) {
             if (print_err) {
-                Error(obj) << "One of the properties is required: @color or @color8";
+                Error(obj) << "[set_pixel( one of the properties is required: @color or @color8";
             }
             return false;
         }
@@ -808,7 +808,7 @@ struct m_fill_args {
             return false;
         } else if (prop_color8._count == 0 && prop_color._count == 0) {
             if (print_err) {
-                Error(obj) << "One of the properties is required: @color8 or @color";
+                Error(obj) << "[fill( one of the properties is required: @color8 or @color";
             }
             return false;
         }
@@ -1255,7 +1255,7 @@ struct m_fill_slice_args {
             return false;
         } else if (prop_color8._count == 0 && prop_color._count == 0) {
             if (print_err) {
-                Error(obj) << "One of the properties is required: @color8 or @color";
+                Error(obj) << "[fill_slice( one of the properties is required: @color8 or @color";
             }
             return false;
         }
@@ -1660,7 +1660,7 @@ struct m_fx_args {
             return false;
         } else if (prop_lslice._count == 0 && prop_slice._count == 0) {
             if (print_err) {
-                Error(obj) << "One of the properties is required: @lslice or @slice";
+                Error(obj) << "[fx( one of the properties is required: @lslice or @slice";
             }
             return false;
         }
