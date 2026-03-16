@@ -26,6 +26,11 @@
 namespace ceammc {
 namespace parser {
 
+    /**
+     * array of named colors
+     */
+    std::array<const char*, 17> named_colors();
+
     template <size_t N>
     using SmallColorVecN = boost::container::small_vector<uint32_t, N>;
     using SmallColorVec = SmallColorVecN<8>;

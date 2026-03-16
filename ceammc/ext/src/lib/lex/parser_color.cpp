@@ -1863,6 +1863,28 @@ bool ColorFullMatch::parse(const char* str)
     return parse(str, strlen(str));
 }
 
+std::array<const char*, 17> named_colors() {
+    return {
+        "black",
+        "blue",
+        "cyan",
+        "gold",
+        "gray",
+        "green",
+        "lime",
+        "magenta",
+        "navy",
+        "olive",
+        "orange",
+        "pink",
+        "purple",
+        "red",
+        "white",
+        "yellow",
+        "random",
+    };
+}
+
 }
 }
 
