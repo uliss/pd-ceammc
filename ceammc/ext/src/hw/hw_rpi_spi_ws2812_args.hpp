@@ -50,7 +50,7 @@ struct m_brightness_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_level_info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
@@ -76,8 +76,8 @@ struct m_brightness_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[brightness( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -121,7 +121,7 @@ struct m_clear_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_flush_info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
@@ -147,8 +147,8 @@ struct m_clear_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[clear( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -286,8 +286,8 @@ struct m_set_pixel_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[set_pixel( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -410,8 +410,8 @@ struct m_set_pixel_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[set_pixel( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -468,7 +468,7 @@ struct m_set_pixel_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_pos_info();
         Post(obj) << " - " << prop_color8_t::info();
         Post(obj) << " - " << prop_color_t::info();
@@ -510,8 +510,8 @@ struct m_set_pixel_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[set_pixel( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -520,7 +520,7 @@ struct m_set_pixel_args {
         prop_st = process_prop_color8(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color8 property, expected:";
+                Error(obj) << "[set_pixel( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -535,7 +535,7 @@ struct m_set_pixel_args {
         prop_st = process_prop_color(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color property, expected:";
+                Error(obj) << "[set_pixel( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -631,8 +631,8 @@ struct m_fill_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -755,8 +755,8 @@ struct m_fill_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -796,7 +796,7 @@ struct m_fill_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << prop_color_t::info();
         Post(obj) << " - " << prop_color8_t::info();
     }
@@ -820,8 +820,8 @@ struct m_fill_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -830,7 +830,7 @@ struct m_fill_args {
         prop_st = process_prop_color(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color property, expected:";
+                Error(obj) << "[fill( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -845,7 +845,7 @@ struct m_fill_args {
         prop_st = process_prop_color8(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color8 property, expected:";
+                Error(obj) << "[fill( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -992,8 +992,8 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -1065,8 +1065,8 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -1189,8 +1189,8 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -1242,7 +1242,7 @@ struct m_fill_slice_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << prop_slice_t::info();
         Post(obj) << " - " << prop_color_t::info();
         Post(obj) << " - " << prop_color8_t::info();
@@ -1267,8 +1267,8 @@ struct m_fill_slice_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -1286,7 +1286,7 @@ struct m_fill_slice_args {
         }
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @slice property, expected:";
+                Error(obj) << "[fill_slice( invalid value for @slice property, expected:";
                 Error(obj) << prop_slice_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -1301,7 +1301,7 @@ struct m_fill_slice_args {
         prop_st = process_prop_color(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color property, expected:";
+                Error(obj) << "[fill_slice( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -1316,7 +1316,7 @@ struct m_fill_slice_args {
         prop_st = process_prop_color8(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @color8 property, expected:";
+                Error(obj) << "[fill_slice( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -1465,8 +1465,8 @@ struct m_fx_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fx( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -1589,8 +1589,8 @@ struct m_fx_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage_verbose(obj);
+                    Error(obj) << "[fx( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
                 }
                 return false;
             }
@@ -1647,7 +1647,7 @@ struct m_fx_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_fx_name_info();
         Post(obj) << " - " << prop_slice_t::info();
         Post(obj) << " - " << prop_lslice_t::info();
@@ -1689,8 +1689,8 @@ struct m_fx_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[fx( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
@@ -1699,7 +1699,7 @@ struct m_fx_args {
         prop_st = process_prop_slice(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @slice property, expected:";
+                Error(obj) << "[fx( invalid value for @slice property, expected:";
                 Error(obj) << prop_slice_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -1714,7 +1714,7 @@ struct m_fx_args {
         prop_st = process_prop_lslice(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "invalid value for @lslice property, expected:";
+                Error(obj) << "[fx( invalid value for @lslice property, expected:";
                 Error(obj) << prop_lslice_t::info();
             }
         } else if (prop_st == PropProcessState::Ok) {
@@ -1769,7 +1769,7 @@ struct m_rotate_args {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Post(obj) << usage() << " where:";
+        Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_n_info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
@@ -1795,8 +1795,8 @@ struct m_rotate_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage_verbose(obj);
+                Error(obj) << "[rotate( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
