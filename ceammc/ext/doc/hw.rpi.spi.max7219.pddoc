@@ -25,13 +25,13 @@
         дисплеев. Каждый дисплей может быть соединен последовательно с другим и управляться через
         одно соединение.</tr>
       </par>
-      <par>
+      <par style="warning">
         <tr lang="en">Note: in case of LED dot matrix display only write_bits and write_reg
         commands will work as expected</tr>
         <tr lang="ru">Примечание: в случае светодиодной матрицы только команды write_bits и
         write_reg будут работать так, как ожидалось</tr>
       </par>
-      <par>
+      <par style="warning">
         <tr lang="en">Note: 7-segment LED display supports only this charset:
         -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</tr>
         <tr lang="ru">Примечание: 7-сегментный светодиодный дисплей поддерживает только этот набор
@@ -279,16 +279,16 @@
 
 
 
-[hw.rpi.spi.max7219 4 #x]
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x]
-[X q->x] [X r->x]
-#x @spi_bus 0
+[hw.rpi.spi.max7219 4 #x]/*← for 7-segment display change number of displays (4) to 1!*/
+
 [hw.rpi.spi.max7219-spi]
 
 [ui.link @url=ceammc://img/conn_max7219a.png @title='Connection_Matrix']
 
 [ui.link @url=ceammc://img/conn_max7219b.png @title='Connection_Digits']
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
+[X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x] [X q->x] [X r->x]
+#x @spi_bus 0
 ]]>
       </pdascii>
       <pdascii id="spi">
