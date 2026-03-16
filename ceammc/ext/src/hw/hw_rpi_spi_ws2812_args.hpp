@@ -238,11 +238,11 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #0 'RED' is required:";
+                        Error(obj) << "[set_pixel @color8( argument #0 'RED' is required:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #0 'RED' check failed, expected:";
+                        Error(obj) << "[set_pixel @color8( argument #0 'RED' check failed, expected:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage_verbose(obj);
                     }
@@ -255,11 +255,11 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #1 'GREEN' is required:";
+                        Error(obj) << "[set_pixel @color8( argument #1 'GREEN' is required:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #1 'GREEN' check failed, expected:";
+                        Error(obj) << "[set_pixel @color8( argument #1 'GREEN' check failed, expected:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage_verbose(obj);
                     }
@@ -272,11 +272,11 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #2 'BLUE' is required:";
+                        Error(obj) << "[set_pixel @color8( argument #2 'BLUE' is required:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #2 'BLUE' check failed, expected:";
+                        Error(obj) << "[set_pixel @color8( argument #2 'BLUE' check failed, expected:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage_verbose(obj);
                     }
@@ -286,7 +286,7 @@ struct m_set_pixel_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[set_pixel( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[set_pixel @color8( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -345,11 +345,11 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #0 'COLOR' is required:";
+                        Error(obj) << "[set_pixel @color( argument #0 'COLOR' is required:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #0 'COLOR' check failed, expected:";
+                        Error(obj) << "[set_pixel @color( argument #0 'COLOR' check failed, expected:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage_verbose(obj);
                     }
@@ -359,7 +359,7 @@ struct m_set_pixel_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[set_pixel( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[set_pixel @color( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -566,11 +566,11 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill( argument #0 'COLOR' is required:";
+                        Error(obj) << "[fill @color( argument #0 'COLOR' is required:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill( argument #0 'COLOR' check failed, expected:";
+                        Error(obj) << "[fill @color( argument #0 'COLOR' check failed, expected:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage_verbose(obj);
                     }
@@ -580,7 +580,7 @@ struct m_fill_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fill @color( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -656,11 +656,11 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill( argument #0 'RED' is required:";
+                        Error(obj) << "[fill @color8( argument #0 'RED' is required:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill( argument #0 'RED' check failed, expected:";
+                        Error(obj) << "[fill @color8( argument #0 'RED' check failed, expected:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage_verbose(obj);
                     }
@@ -673,11 +673,11 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill( argument #1 'GREEN' is required:";
+                        Error(obj) << "[fill @color8( argument #1 'GREEN' is required:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill( argument #1 'GREEN' check failed, expected:";
+                        Error(obj) << "[fill @color8( argument #1 'GREEN' check failed, expected:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage_verbose(obj);
                     }
@@ -690,11 +690,11 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill( argument #2 'BLUE' is required:";
+                        Error(obj) << "[fill @color8( argument #2 'BLUE' is required:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill( argument #2 'BLUE' check failed, expected:";
+                        Error(obj) << "[fill @color8( argument #2 'BLUE' check failed, expected:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage_verbose(obj);
                     }
@@ -704,7 +704,7 @@ struct m_fill_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fill @color8( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -893,11 +893,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #0 'FIRST' is required:";
+                        Error(obj) << "[fill_slice @slice( argument #0 'FIRST' is required:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #0 'FIRST' check failed, expected:";
+                        Error(obj) << "[fill_slice @slice( argument #0 'FIRST' check failed, expected:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage_verbose(obj);
                     }
@@ -910,11 +910,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #1 'LAST?' is required:";
+                        Error(obj) << "[fill_slice @slice( argument #1 'LAST?' is required:";
                         Post(obj) << " - " << arg_last_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #1 'LAST?' check failed, expected:";
+                        Error(obj) << "[fill_slice @slice( argument #1 'LAST?' check failed, expected:";
                         Post(obj) << " - " << arg_last_info();
                         output_usage_verbose(obj);
                     }
@@ -927,11 +927,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #2 'STEP?' is required:";
+                        Error(obj) << "[fill_slice @slice( argument #2 'STEP?' is required:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #2 'STEP?' check failed, expected:";
+                        Error(obj) << "[fill_slice @slice( argument #2 'STEP?' check failed, expected:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage_verbose(obj);
                     }
@@ -941,7 +941,7 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fill_slice @slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -1000,11 +1000,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #0 'COLOR' is required:";
+                        Error(obj) << "[fill_slice @color( argument #0 'COLOR' is required:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #0 'COLOR' check failed, expected:";
+                        Error(obj) << "[fill_slice @color( argument #0 'COLOR' check failed, expected:";
                         Post(obj) << " - " << arg_color_info();
                         output_usage_verbose(obj);
                     }
@@ -1014,7 +1014,7 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fill_slice @color( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -1090,11 +1090,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #0 'RED' is required:";
+                        Error(obj) << "[fill_slice @color8( argument #0 'RED' is required:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #0 'RED' check failed, expected:";
+                        Error(obj) << "[fill_slice @color8( argument #0 'RED' check failed, expected:";
                         Post(obj) << " - " << arg_red_info();
                         output_usage_verbose(obj);
                     }
@@ -1107,11 +1107,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #1 'GREEN' is required:";
+                        Error(obj) << "[fill_slice @color8( argument #1 'GREEN' is required:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #1 'GREEN' check failed, expected:";
+                        Error(obj) << "[fill_slice @color8( argument #1 'GREEN' check failed, expected:";
                         Post(obj) << " - " << arg_green_info();
                         output_usage_verbose(obj);
                     }
@@ -1124,11 +1124,11 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice( argument #2 'BLUE' is required:";
+                        Error(obj) << "[fill_slice @color8( argument #2 'BLUE' is required:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice( argument #2 'BLUE' check failed, expected:";
+                        Error(obj) << "[fill_slice @color8( argument #2 'BLUE' check failed, expected:";
                         Post(obj) << " - " << arg_blue_info();
                         output_usage_verbose(obj);
                     }
@@ -1138,7 +1138,7 @@ struct m_fill_slice_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fill_slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fill_slice @color8( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -1366,11 +1366,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #0 'FIRST' is required:";
+                        Error(obj) << "[fx @slice( argument #0 'FIRST' is required:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #0 'FIRST' check failed, expected:";
+                        Error(obj) << "[fx @slice( argument #0 'FIRST' check failed, expected:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage_verbose(obj);
                     }
@@ -1383,11 +1383,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #1 'LAST?' is required:";
+                        Error(obj) << "[fx @slice( argument #1 'LAST?' is required:";
                         Post(obj) << " - " << arg_last_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #1 'LAST?' check failed, expected:";
+                        Error(obj) << "[fx @slice( argument #1 'LAST?' check failed, expected:";
                         Post(obj) << " - " << arg_last_info();
                         output_usage_verbose(obj);
                     }
@@ -1400,11 +1400,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #2 'STEP?' is required:";
+                        Error(obj) << "[fx @slice( argument #2 'STEP?' is required:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #2 'STEP?' check failed, expected:";
+                        Error(obj) << "[fx @slice( argument #2 'STEP?' check failed, expected:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage_verbose(obj);
                     }
@@ -1414,7 +1414,7 @@ struct m_fx_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fx( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fx @slice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -1490,11 +1490,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #0 'FIRST' is required:";
+                        Error(obj) << "[fx @lslice( argument #0 'FIRST' is required:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #0 'FIRST' check failed, expected:";
+                        Error(obj) << "[fx @lslice( argument #0 'FIRST' check failed, expected:";
                         Post(obj) << " - " << arg_first_info();
                         output_usage_verbose(obj);
                     }
@@ -1507,11 +1507,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #1 'LENGTH?' is required:";
+                        Error(obj) << "[fx @lslice( argument #1 'LENGTH?' is required:";
                         Post(obj) << " - " << arg_length_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #1 'LENGTH?' check failed, expected:";
+                        Error(obj) << "[fx @lslice( argument #1 'LENGTH?' check failed, expected:";
                         Post(obj) << " - " << arg_length_info();
                         output_usage_verbose(obj);
                     }
@@ -1524,11 +1524,11 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx( argument #2 'STEP?' is required:";
+                        Error(obj) << "[fx @lslice( argument #2 'STEP?' is required:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx( argument #2 'STEP?' check failed, expected:";
+                        Error(obj) << "[fx @lslice( argument #2 'STEP?' check failed, expected:";
                         Post(obj) << " - " << arg_step_info();
                         output_usage_verbose(obj);
                     }
@@ -1538,7 +1538,7 @@ struct m_fx_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[fx( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[fx @lslice( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
