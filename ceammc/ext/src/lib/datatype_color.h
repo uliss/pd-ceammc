@@ -219,6 +219,9 @@ public:
 public:
     static bool looksLikeCtor(const AtomListView& lv) noexcept;
     static bool parseFromList(const AtomListView& lv, DataTypeColor& res);
+    static std::array<const char*, 17> namedColors();
+    static bool hasNamedColor(const char* color);
+    static AtomList namedColorList();
 
 
 public:

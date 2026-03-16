@@ -343,6 +343,32 @@ bool DataTypeColor::parseFromList(const AtomListView& lv, DataTypeColor& res)
         return false;
 }
 
+std::array<const char*, 17> DataTypeColor::namedColors()
+{
+    return parser::named_colors();
+}
+
+bool DataTypeColor::hasNamedColor(const char* color)
+{
+    for (auto& c : namedColors()) {
+        if (std::strcmp(c, color) == 0)
+            return true;
+    }
+
+    return false;
+}
+
+AtomList DataTypeColor::namedColorList()
+{
+    auto colors = namedColors();
+    AtomList res;
+    res.reserve(colors.size());
+    for (auto& c : colors)
+        res.push_back(Atom(gensym(c)));
+
+    return res;
+}
+
 std::ostream& operator<<(std::ostream& os, const DataTypeColor& color)
 {
     os << color.toString();
