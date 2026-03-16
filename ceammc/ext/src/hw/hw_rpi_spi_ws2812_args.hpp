@@ -236,51 +236,18 @@ struct m_set_pixel_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel @color8( argument #0 'RED' is required:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel @color8( argument #0 'RED' check failed, expected:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_green(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel @color8( argument #1 'GREEN' is required:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel @color8( argument #1 'GREEN' check failed, expected:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_blue(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel @color8( argument #2 'BLUE' is required:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel @color8( argument #2 'BLUE' check failed, expected:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -296,7 +263,7 @@ struct m_set_pixel_args {
     };
     struct prop_color_t {
         int _count {0};
-        DataTypeColor color {}; // 
+        DataTypeColor color {}; // pixel color
         int process_color(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             if ((lv.size() == 3) && lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1) && lv[1].isFloat() && (0 <= lv[1].asT<t_float>()) && (lv[1].asT<t_float>() <= 1) && lv[2].isFloat() && (0 <= lv[2].asT<t_float>()) && (lv[2].asT<t_float>() <= 1)) {
                 // check rgb triplet
@@ -313,8 +280,8 @@ struct m_set_pixel_args {
                     }
                     return INVALID_VALUE;
                 }
-            } else if ((lv.size() == 1) && lv[0].isSymbol() && DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name)) {
-                if (DataTypeColor::parseFromList(lv, color)) {
+            } else if ((lv.size() == 1) && lv[0].isSymbol()) {
+                if (DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name) && DataTypeColor::parseFromList(lv, color)) {
                     return 1;
                 } else {
                     if (print_err) {
@@ -331,10 +298,10 @@ struct m_set_pixel_args {
             }
         }
         static const char* arg_color_info() {
-            return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
+            return "COLOR (pixel color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
-            return "@color COLOR (RGB float pixel color, hex or named color or color datatype)";
+            return "@color COLOR (float RGB color list, hex, named color or color datatype)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
@@ -343,17 +310,6 @@ struct m_set_pixel_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel @color( argument #0 'COLOR' is required:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel @color( argument #0 'COLOR' check failed, expected:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -369,7 +325,7 @@ struct m_set_pixel_args {
     };
     // vars
     prop_color8_t prop_color8; // RGB int pixel color in range [0..255]
-    prop_color_t prop_color; // RGB float pixel color, hex or named color or color datatype
+    prop_color_t prop_color; // float RGB color list, hex, named color or color datatype
     // methods
     int process_pos(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -517,7 +473,7 @@ struct m_fill_args {
     // types
     struct prop_color_t {
         int _count {0};
-        DataTypeColor color {}; // 
+        DataTypeColor color {}; // pixel color
         int process_color(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             if ((lv.size() == 3) && lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1) && lv[1].isFloat() && (0 <= lv[1].asT<t_float>()) && (lv[1].asT<t_float>() <= 1) && lv[2].isFloat() && (0 <= lv[2].asT<t_float>()) && (lv[2].asT<t_float>() <= 1)) {
                 // check rgb triplet
@@ -534,8 +490,8 @@ struct m_fill_args {
                     }
                     return INVALID_VALUE;
                 }
-            } else if ((lv.size() == 1) && lv[0].isSymbol() && DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name)) {
-                if (DataTypeColor::parseFromList(lv, color)) {
+            } else if ((lv.size() == 1) && lv[0].isSymbol()) {
+                if (DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name) && DataTypeColor::parseFromList(lv, color)) {
                     return 1;
                 } else {
                     if (print_err) {
@@ -552,7 +508,7 @@ struct m_fill_args {
             }
         }
         static const char* arg_color_info() {
-            return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
+            return "COLOR (pixel color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
             return "@color COLOR (RGB color)";
@@ -564,17 +520,6 @@ struct m_fill_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill @color( argument #0 'COLOR' is required:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill @color( argument #0 'COLOR' check failed, expected:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -654,51 +599,18 @@ struct m_fill_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill @color8( argument #0 'RED' is required:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill @color8( argument #0 'RED' check failed, expected:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_green(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill @color8( argument #1 'GREEN' is required:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill @color8( argument #1 'GREEN' check failed, expected:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_blue(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill @color8( argument #2 'BLUE' is required:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill @color8( argument #2 'BLUE' check failed, expected:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -891,51 +803,18 @@ struct m_fill_slice_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @slice( argument #0 'FIRST' is required:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @slice( argument #0 'FIRST' check failed, expected:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_last(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @slice( argument #1 'LAST?' is required:";
-                        Post(obj) << " - " << arg_last_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @slice( argument #1 'LAST?' check failed, expected:";
-                        Post(obj) << " - " << arg_last_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_step(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @slice( argument #2 'STEP?' is required:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @slice( argument #2 'STEP?' check failed, expected:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -968,8 +847,8 @@ struct m_fill_slice_args {
                     }
                     return INVALID_VALUE;
                 }
-            } else if ((lv.size() == 1) && lv[0].isSymbol() && DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name)) {
-                if (DataTypeColor::parseFromList(lv, color)) {
+            } else if ((lv.size() == 1) && lv[0].isSymbol()) {
+                if (DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name) && DataTypeColor::parseFromList(lv, color)) {
                     return 1;
                 } else {
                     if (print_err) {
@@ -998,17 +877,6 @@ struct m_fill_slice_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @color( argument #0 'COLOR' is required:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @color( argument #0 'COLOR' check failed, expected:";
-                        Post(obj) << " - " << arg_color_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -1088,51 +956,18 @@ struct m_fill_slice_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @color8( argument #0 'RED' is required:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @color8( argument #0 'RED' check failed, expected:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_green(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @color8( argument #1 'GREEN' is required:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @color8( argument #1 'GREEN' check failed, expected:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_blue(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fill_slice @color8( argument #2 'BLUE' is required:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fill_slice @color8( argument #2 'BLUE' check failed, expected:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -1364,51 +1199,18 @@ struct m_fx_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @slice( argument #0 'FIRST' is required:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @slice( argument #0 'FIRST' check failed, expected:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_last(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @slice( argument #1 'LAST?' is required:";
-                        Post(obj) << " - " << arg_last_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @slice( argument #1 'LAST?' check failed, expected:";
-                        Post(obj) << " - " << arg_last_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_step(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @slice( argument #2 'STEP?' is required:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @slice( argument #2 'STEP?' check failed, expected:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments
@@ -1488,51 +1290,18 @@ struct m_fx_args {
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @lslice( argument #0 'FIRST' is required:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @lslice( argument #0 'FIRST' check failed, expected:";
-                        Post(obj) << " - " << arg_first_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_length(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @lslice( argument #1 'LENGTH?' is required:";
-                        Post(obj) << " - " << arg_length_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @lslice( argument #1 'LENGTH?' check failed, expected:";
-                        Post(obj) << " - " << arg_length_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             matched = process_step(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[fx @lslice( argument #2 'STEP?' is required:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[fx @lslice( argument #2 'STEP?' check failed, expected:";
-                        Post(obj) << " - " << arg_step_info();
-                        output_usage_verbose(obj);
-                    }
-                }
                 return false;
             }
             // check extra arguments

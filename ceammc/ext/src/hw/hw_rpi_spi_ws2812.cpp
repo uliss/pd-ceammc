@@ -81,8 +81,8 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
 ///     #green byte "green color component" {}
 ///     #blue  byte "blue color component"  {}
 ///  }
-///  @color   ^@color8 "RGB float pixel color, hex or named color or color datatype" {
-///     #color color "" {}
+///  @color   ^@color8 "float RGB color list, hex, named color or color datatype" {
+///     #color color "pixel color" {}
 ///  }
 /// }
 void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
@@ -109,7 +109,7 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 }
 
 /// @function "fill all pixels in the internal buffer with specified color" {
-///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color  ^(@color8) "RGB color"                         { #color color "pixel color" {} }
 ///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
 ///     #red   byte "red color component"   {}
 ///     #green byte "green color component" {}
