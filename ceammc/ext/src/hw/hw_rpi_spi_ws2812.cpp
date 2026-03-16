@@ -254,7 +254,7 @@ void HwSpiWs2812::m_fill_pixels(t_symbol* s, const AtomListView& lv)
 
     boost::container::small_vector<std::int32_t, 128> data;
     for (auto& a : args.prop_indexes.list) {
-        data.push_back(a.asBool());
+        data.push_back(a.asInt());
     }
 
     ceammc_hw_indexes pixels;
