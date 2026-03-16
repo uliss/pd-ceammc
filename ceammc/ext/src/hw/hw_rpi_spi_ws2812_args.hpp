@@ -53,7 +53,7 @@ struct m_brightness_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_level_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_level(left_args.subView(matched), obj, print_err);
@@ -124,7 +124,7 @@ struct m_clear_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_flush_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_flush(left_args.subView(matched), obj, print_err);
@@ -296,112 +296,61 @@ struct m_set_pixel_args {
     };
     struct prop_color_t {
         int _count {0};
-        t_float red {0}; // red color component
-        t_float green {0}; // green color component
-        t_float blue {0}; // blue color component
-        int process_red(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
+        DataTypeColor color {}; // 
+        int process_color(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            if ((lv.size() == 3) && lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1) && lv[1].isFloat() && (0 <= lv[1].asT<t_float>()) && (lv[1].asT<t_float>() <= 1) && lv[2].isFloat() && (0 <= lv[2].asT<t_float>()) && (lv[2].asT<t_float>() <= 1)) {
+                // check rgb triplet
+                color.setRed(lv[0].asT<t_float>());
+                color.setGreen(lv[1].asT<t_float>());
+                color.setRed(lv[2].asT<t_float>());
+                return 3;
+            } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
+                if (DataTypeColor::parseFromList(lv, color)) {
+                    return 1;
+                } else {
+                    if (print_err) {
+                        Error(obj) << "invalid hex value: " << lv;
+                    }
+                    return INVALID_VALUE;
+                }
+            } else if ((lv.size() == 1) && lv[0].isSymbol() && DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name)) {
+                if (DataTypeColor::parseFromList(lv, color)) {
+                    return 1;
+                } else {
+                    if (print_err) {
+                        Error(obj) << "invalid named color value: " << lv;
+                        Error(obj) << "expected: " << DataTypeColor::namedColorList();
+                    }
+                    return INVALID_VALUE;
+                }
+            } else if ((lv.size() == 1) && lv.isA<DataTypeColor>()) {
+                color = *lv[0].asD<DataTypeColor>();
+                return 1;
+            } else {
                 return INVALID_VALUE;
             }
-            // set value
-            red = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
         }
-        int process_green(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            green = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        int process_blue(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            blue = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        static const char* arg_red_info() {
-            return "RED (red color component), float in [0..1] range";
-        }
-        static const char* arg_green_info() {
-            return "GREEN (green color component), float in [0..1] range";
-        }
-        static const char* arg_blue_info() {
-            return "BLUE (blue color component), float in [0..1] range";
+        static const char* arg_color_info() {
+            return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
-            return "@color RED GREEN BLUE (RGB float pixel color in range [0..1])";
+            return "@color COLOR (RGB float pixel color, hex or named color or color datatype)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
             AtomListView left_args = lv.arguments();
-            matched = process_red(left_args.subView(matched), obj, print_err);
+            matched = process_color(left_args.subView(matched), obj, print_err);
             if (matched >= 0) {
                 left_args = left_args.subView(matched);
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #0 'RED' is required:";
-                        Post(obj) << " - " << arg_red_info();
+                        Error(obj) << "[set_pixel( argument #0 'COLOR' is required:";
+                        Post(obj) << " - " << arg_color_info();
                         output_usage(obj);
                     } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #0 'RED' check failed, expected:";
-                        Post(obj) << " - " << arg_red_info();
-                        output_usage_verbose(obj);
-                    }
-                }
-                return false;
-            }
-            matched = process_green(left_args.subView(matched), obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #1 'GREEN' is required:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #1 'GREEN' check failed, expected:";
-                        Post(obj) << " - " << arg_green_info();
-                        output_usage_verbose(obj);
-                    }
-                }
-                return false;
-            }
-            matched = process_blue(left_args.subView(matched), obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                if (print_err) {
-                    if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "[set_pixel( argument #2 'BLUE' is required:";
-                        Post(obj) << " - " << arg_blue_info();
-                        output_usage(obj);
-                    } else if (matched == INVALID_VALUE) {
-                        Error(obj) << "[set_pixel( argument #2 'BLUE' check failed, expected:";
-                        Post(obj) << " - " << arg_blue_info();
+                        Error(obj) << "[set_pixel( argument #0 'COLOR' check failed, expected:";
+                        Post(obj) << " - " << arg_color_info();
                         output_usage_verbose(obj);
                     }
                 }
@@ -420,7 +369,7 @@ struct m_set_pixel_args {
     };
     // vars
     prop_color8_t prop_color8; // RGB int pixel color in range [0..255]
-    prop_color_t prop_color; // RGB float pixel color in range [0..1]
+    prop_color_t prop_color; // RGB float pixel color, hex or named color or color datatype
     // methods
     int process_pos(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -476,18 +425,18 @@ struct m_set_pixel_args {
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
         if (prop_color._count > 0 && prop_color8._count > 0) {
             if (print_err) {
-                Error(obj) << "The properties @color and @color8 cannot be used at the same time";
+                Error(obj) << "[set_pixel( the properties @color and @color8 cannot be used at the same time";
             }
             return false;
         } else if (prop_color._count == 0 && prop_color8._count == 0) {
             if (print_err) {
-                Error(obj) << "[set_pixel( one of the properties is required: @color or @color8";
+                Error(obj) << "[set_pixel( one of this properties is required: @color or @color8";
             }
             return false;
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_pos(left_args.subView(matched), obj, print_err);
@@ -803,18 +752,18 @@ struct m_fill_args {
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
         if (prop_color8._count > 0 && prop_color._count > 0) {
             if (print_err) {
-                Error(obj) << "The properties @color8 and @color cannot be used at the same time";
+                Error(obj) << "[fill( the properties @color8 and @color cannot be used at the same time";
             }
             return false;
         } else if (prop_color8._count == 0 && prop_color._count == 0) {
             if (print_err) {
-                Error(obj) << "[fill( one of the properties is required: @color8 or @color";
+                Error(obj) << "[fill( one of this properties is required: @color8 or @color";
             }
             return false;
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         // check extra arguments
@@ -1250,18 +1199,18 @@ struct m_fill_slice_args {
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
         if (prop_color8._count > 0 && prop_color._count > 0) {
             if (print_err) {
-                Error(obj) << "The properties @color8 and @color cannot be used at the same time";
+                Error(obj) << "[fill_slice( the properties @color8 and @color cannot be used at the same time";
             }
             return false;
         } else if (prop_color8._count == 0 && prop_color._count == 0) {
             if (print_err) {
-                Error(obj) << "[fill_slice( one of the properties is required: @color8 or @color";
+                Error(obj) << "[fill_slice( one of this properties is required: @color8 or @color";
             }
             return false;
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         // check extra arguments
@@ -1655,18 +1604,18 @@ struct m_fx_args {
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
         if (prop_lslice._count > 0 && prop_slice._count > 0) {
             if (print_err) {
-                Error(obj) << "The properties @lslice and @slice cannot be used at the same time";
+                Error(obj) << "[fx( the properties @lslice and @slice cannot be used at the same time";
             }
             return false;
         } else if (prop_lslice._count == 0 && prop_slice._count == 0) {
             if (print_err) {
-                Error(obj) << "[fx( one of the properties is required: @lslice or @slice";
+                Error(obj) << "[fx( one of this properties is required: @lslice or @slice";
             }
             return false;
         }
         return true;
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_fx_name(left_args.subView(matched), obj, print_err);
@@ -1772,7 +1721,7 @@ struct m_rotate_args {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_n_info();
     }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
         matched = process_n(left_args.subView(matched), obj, print_err);

@@ -81,10 +81,8 @@ void HwSpiWs2812::m_clear(t_symbol* s, const AtomListView& lv)
 ///     #green byte "green color component" {}
 ///     #blue  byte "blue color component"  {}
 ///  }
-///  @color   ^@color8 "RGB float pixel color in range [0..1]" {
-///     #red   float "red color component"      { check: [0..1] }
-///     #green float "green color component"    { check: [0..1] }
-///     #blue  float "blue color component"     { check: [0..1] }
+///  @color   ^@color8 "RGB float pixel color, hex or named color or color datatype" {
+///     #color color "" {}
 ///  }
 /// }
 void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
@@ -95,14 +93,13 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 
     ceammc_hw_color_rgb8 color;
     if (args.prop_color._count) {
-        color.red = clip<int, 0, 255>(args.prop_color.red * 255);
-        color.green = clip<int, 0, 255>(args.prop_color.green * 255);
-        color.blue = clip<int, 0, 255>(args.prop_color.blue * 255);
-    }
-
-    if (!parse_color_property(color, lv)) {
-        METHOD_ERR(s) << "@color property not found in list: " << lv;
-        return;
+        color.red = args.prop_color.color.red8();
+        color.green = args.prop_color.color.green8();
+        color.blue = args.prop_color.color.blue8();
+    } else if(args.prop_color8._count) {
+        color.red = args.prop_color8.red;
+        color.green = args.prop_color8.green;
+        color.blue = args.prop_color8.blue;
     }
 
     if (!check_connected(true))
