@@ -44,6 +44,13 @@
         <tr lang="en">turn off all pixels when an object is removed</tr>
         <tr lang="ru">выключать все пиксели при удалении объекта</tr>
       </property>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
+        from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При установке в 0:
+        отключается от устройства.</tr>
+      </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
       access="initonly">
@@ -81,37 +88,110 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">turn off all pixels</tr>
-          <tr lang="ru">выключить все пиксели</tr>
+          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize
+          it with the strip</tr>
+          <tr lang="ru">установить в черный цвет все пиксели во внутреннем буфере и опционально
+          синхронихзировать его с лентой</tr>
         </info>
+        <param name="flush" type="bool" default="1">
+          <tr lang="en">if equal to 1: output the internal buffer to the device</tr>
+          <tr lang="ru">если равно 1: вывести внутренний буфер на устройство</tr>
+        </param>
       </method>
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fill pixels with the RGB color</tr>
-          <tr lang="ru">заполнить пиксели цветом RGB</tr>
+          <tr lang="en">fill all pixels with the color</tr>
+          <tr lang="ru">заполнить все пиксели цветом</tr>
         </info>
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
           <tr lang="ru">цвет</tr>
           <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
-        <param name="@slice FIRST LAST? STEP?" type="list">
-          <tr lang="en">range slice of pixels</tr>
-          <tr lang="ru">дипазонный срез пикселей</tr>
-          <xi:include href="props_slice_verbose.xml" parse="xml" />
+        <param name="@color8 ..." type="list">
+          <tr lang="en">RGB int color</tr>
+          <tr lang="ru">RGB целочисленный цвет</tr>
+          <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
-        <param name="@lslice FIRST LENGTH? STEP?" type="list">
+      </method>
+      <!-- fill_bits -->
+      <method name="fill_bits">
+        <info>
+          <tr lang="en">fill only those pixels in the internal buffer with the specified color for
+          which the corresponding bit in the input list is set to 1</tr>
+          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для
+          которых соответствующий бит во входном списке установлен в 1</tr>
+        </info>
+        <param name="@offset" type="int" minvalue="0" default="0">
+          <tr lang="en">bit list offset</tr>
+          <tr lang="ru">смещение битового списка</tr>
+        </param>
+        <param name="@bits" type="bool" default="0">
+          <tr lang="en">bit list</tr>
+          <tr lang="ru">битовый список</tr>
+        </param>
+        <param name="@color ..." type="list">
+          <tr lang="en">color</tr>
+          <tr lang="ru">цвет</tr>
+          <xi:include href="props_verbose_color0.xml" parse="xml" />
+        </param>
+        <param name="@color8 ..." type="list">
+          <tr lang="en">RGB int color</tr>
+          <tr lang="ru">RGB целочисленный цвет</tr>
+          <xi:include href="props_verbose_color8.xml" parse="xml" />
+        </param>
+      </method>
+      <!-- fill_lslice -->
+      <method name="fill_lslice">
+        <info>
+          <tr lang="en">fill the slice of pixels in the internal buffer with specified color</tr>
+          <tr lang="ru">заполнить срез пикселей во внутреннем буфере указанным цветом</tr>
+        </info>
+        <param name="@lslice START LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
           <xi:include href="props_lslice_verbose.xml" parse="xml" />
         </param>
       </method>
+      <!-- fill_pixels -->
+      <method name="fill_pixels">
+        <info>
+          <tr lang="en">fill the specified pixels with the specified color</tr>
+          <tr lang="ru">заполнить указанные пиксели указанным цветом</tr>
+        </info>
+        <param name="@indexes" type="list">
+          <tr lang="en">list of pixel indexes</tr>
+          <tr lang="ru">список индексов пикселей</tr>
+        </param>
+        <param name="@color ..." type="list">
+          <tr lang="en">color</tr>
+          <tr lang="ru">цвет</tr>
+          <xi:include href="props_verbose_color0.xml" parse="xml" />
+        </param>
+        <param name="@color8 ..." type="list">
+          <tr lang="en">RGB int color</tr>
+          <tr lang="ru">RGB целочисленный цвет</tr>
+          <xi:include href="props_verbose_color8.xml" parse="xml" />
+        </param>
+      </method>
+      <!-- fill_slice -->
+      <method name="fill_slice">
+        <info>
+          <tr lang="en">fill the slice of pixels in the internal buffer with specified color</tr>
+          <tr lang="ru">заполнить срез пикселей во внутреннем буфере указанным цветом</tr>
+        </info>
+        <param name="@slice FIRST LAST? STEP?" type="list">
+          <tr lang="en">range slice of pixels</tr>
+          <tr lang="ru">дипазонный срез пикселей</tr>
+          <xi:include href="props_slice_verbose.xml" parse="xml" />
+        </param>
+      </method>
       <!-- flush -->
       <method name="flush">
         <info>
-          <tr lang="en">flush all pixels to the strip</tr>
-          <tr lang="ru">вывести и очистить внутренний буфер на ленту</tr>
+          <tr lang="en">write the internal buffer to the strip</tr>
+          <tr lang="ru">вывести внутренний буфер на ленту</tr>
         </info>
       </method>
       <!-- fx -->
@@ -131,7 +211,7 @@
           <tr lang="ru">дипазонный срез пикселей</tr>
           <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
-        <param name="@lslice FIRST LENGTH? STEP?" type="list">
+        <param name="@lslice START LENGTH? STEP?" type="list">
           <tr lang="en">slice of pixels</tr>
           <tr lang="ru">срез пикселей по длине</tr>
           <xi:include href="props_lslice_verbose.xml" parse="xml" />
@@ -180,11 +260,15 @@
     <example>
       <pdascii>
 <![CDATA[
-[B] [T]                [fill @slice 2 @color8 255 0 0, bang #b(
+[B] [T]                [fill @color8 255 0 0, bang #b(
 |   |
-|   [@connect $1 #h(   [fill @lslice 4 4 @color8 0 255 0, bang #c(
+|   [@connect $1 #h(   [fill_slice @slice 3 -3 2 @color 0 0 1, bang #c(
 |
-[system.colorpanel @f] [fill @slice 1 15 3 @color8 0 127 255, bang #d(
+[system.colorpanel @d] [fill_lslice @lslice 1 7  @color cyan, bang #d(
+|
+|                      [fill_pixels @indexes 1 2 3  @color yellow, bang #j(
+|
+|                      [fill_bits @bits 0 1 0 1 0 1  @color blue, bang #k(
 |
 [msg fill @color]      [fx rainbow 0.5 #e(       [T]
 |                                                |
@@ -193,17 +277,18 @@
  [brightness #f(       [set_pixel #g(            [fx meteor, bang #i(
 
 
- [clear(
- |
+ [clear(               [rotate 1, bang(
+ |                     |
 [hw.rpi.spi.ws2812 @size 16 #x]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X i->x]
+[X j->x] [X k->x]
 #e 8, bang
 #x @spi_bus 0
 #f 32, bang
-#g $1 @color8 0 0 255, bang
+#g $1 @color random, bang
 ]]>
       </pdascii>
     </example>

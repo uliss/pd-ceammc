@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<verbose>
+<par>
+  <tr lang="en">@color8 R G B: list of R G B color components in [0..255] range</tr>
+  <tr lang="ru">@color8 R G B: список R G B цветовых компонент в диапазоне [0..255]</tr>
+</par>
+</verbose>

@@ -5,10 +5,6 @@
   <tr lang="ru">@color R G B: список R G B цветовых компонент в диапазоне [0..1]</tr>
 </par>
 <par>
-  <tr lang="en">@color R G B: list of R G B color components, integers in [0..255] range</tr>
-  <tr lang="ru">@color R G B: список R G B цветовых компонент, целые числа в диапазоне [0..255]</tr>
-</par>
-<par>
   <tr lang="en">@color #RRGGBB or #RGB: hex RGB color</tr>
   <tr lang="ru">@color #RRGGBB или #RGB: шестнадцатеричный RGB цвет</tr>
 </par>

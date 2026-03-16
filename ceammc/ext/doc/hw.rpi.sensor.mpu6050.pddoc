@@ -20,8 +20,8 @@
       <par>
         <tr lang="en">The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer)
         motion tracking device.</tr>
-        <tr lang="ru">MPU-6050 представляет собой 6-осевое (комбинирует 3-осевой
-        гироскоп и 3-осевой акселерометр) устройство отслеживания движения.</tr>
+        <tr lang="ru">MPU-6050 представляет собой 6-осевое (комбинирует 3-осевой гироскоп и
+        3-осевой акселерометр) устройство отслеживания движения.</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1</tr>
@@ -58,8 +58,7 @@
         <info>
           <tr lang="en">calibrate the sensor. Place it still so that the Z axis is pointing
           down.</tr>
-          <tr lang="ru">калибровать датчик. Поместите его так, чтобы ось Z
-          указывала вниз.</tr>
+          <tr lang="ru">калибровать датчик. Поместите его так, чтобы ось Z указывала вниз.</tr>
         </info>
       </method>
       <!-- poll -->
@@ -84,19 +83,20 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any" name="ypr">
+        <out name="ypr" type="any">
           <tr lang="en">[ypr YAW PITCH ROLL( incline angles (yaw, pitch, roll)</tr>
           <tr lang="ru">[ypr YAW PITCH ROLL( углы наклона (рыскание/курс, тангаж, крен)</tr>
         </out>
-        <out type="any" name="temp">
+        <out name="temp" type="any">
           <tr lang="en">[temp CELSIUS(</tr>
           <tr lang="ru">[temp CELSIUS( - температура в градусах цельсия</tr>
         </out>
-        <out type="any" name="gyro">
-          <tr lang="en">[gyro X Y Z( - gyroscope readings (rotation speed) along the X, Y, Z axes</tr>
+        <out name="gyro" type="any">
+          <tr lang="en">[gyro X Y Z( - gyroscope readings (rotation speed) along the X, Y, Z
+          axes</tr>
           <tr lang="ru">[gyro X Y Z( - показания гироскопа (cкорость вращения) по осям X, Y, Z</tr>
         </out>
-        <out type="any" name="accel">
+        <out name="accel" type="any">
           <tr lang="en">[accel X Y Z(</tr>
           <tr lang="ru">[accel X Y Z( - ускорения по осям X Y Z</tr>
         </out>
