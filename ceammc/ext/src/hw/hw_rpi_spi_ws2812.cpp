@@ -1,7 +1,6 @@
 #include "hw_rpi_spi_ws2812.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "datatype_color.h"
 
 #include "hw_rpi_spi_ws2812_args.hpp"
 

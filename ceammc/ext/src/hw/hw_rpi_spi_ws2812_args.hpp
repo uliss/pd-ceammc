@@ -269,7 +269,7 @@ struct m_set_pixel_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
@@ -488,7 +488,7 @@ struct m_fill_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
@@ -859,7 +859,7 @@ struct m_fill_bits_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
@@ -1296,7 +1296,7 @@ struct m_fill_lslice_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
@@ -1664,7 +1664,7 @@ struct m_fill_pixels_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
@@ -2070,7 +2070,7 @@ struct m_fill_slice_args {
                 // check rgb triplet
                 color.setRed(lv[0].asT<t_float>());
                 color.setGreen(lv[1].asT<t_float>());
-                color.setRed(lv[2].asT<t_float>());
+                color.setBlue(lv[2].asT<t_float>());
                 return 3;
             } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
                 if (DataTypeColor::parseFromList(lv, color)) {
