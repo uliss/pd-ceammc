@@ -1186,7 +1186,7 @@ struct m_fill_bits_args {
 };
 
 const char* m_fill_bits_args_info() {
-    return "fill only pixels for which corresponding bit is set to 1 in the internal buffer with the specified color";
+    return "fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1";
 }
 void m_fill_bits_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
@@ -1960,7 +1960,7 @@ struct m_fill_pixels_args {
 };
 
 const char* m_fill_pixels_args_info() {
-    return "fill the range of pixels in the internal buffer with specified color";
+    return "fill the specified pixels with the specified color";
 }
 void m_fill_pixels_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
@@ -2366,7 +2366,7 @@ struct m_fill_slice_args {
 };
 
 const char* m_fill_slice_args_info() {
-    return "fill the range of pixels in the internal buffer with specified color";
+    return "fill the slice of pixels in the internal buffer with specified color";
 }
 void m_fill_slice_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,

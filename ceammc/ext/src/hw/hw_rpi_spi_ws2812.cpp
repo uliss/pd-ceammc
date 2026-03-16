@@ -161,7 +161,7 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_fill_slice(device(), color, nullptr);
 }
 
-/// @function "fill only pixels for which corresponding bit is set to 1 in the internal buffer with the specified color" {
+/// @function "fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1" {
 ///  @bits   "bit list" {
 ///     #list    bool + "list of 0|1" {}
 ///  }
@@ -229,7 +229,7 @@ void HwSpiWs2812::m_fill_lslice(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_fill_slice(device(), color, process_lslice(lslice, size_->value(), args));
 }
 
-/// @function "fill the range of pixels in the internal buffer with specified color" {
+/// @function "fill the specified pixels with the specified color" {
 ///  @indexes "list of pixel positions" {
 ///     #list int + "pixel index, can be negative. If negative: means position from the end of the buffer" {}
 ///  }
@@ -264,7 +264,7 @@ void HwSpiWs2812::m_fill_pixels(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_fill_pixels(device(), color, &pixels);
 }
 
-/// @function "fill the range of pixels in the internal buffer with specified color" {
+/// @function "fill the slice of pixels in the internal buffer with specified color" {
 ///  @slice "range-based pixel slice" {
 ///     #first int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
 ///     #last  int ?   "last index, can be negative. If negative: means position from the end of the buffer"  { default: -1 }
