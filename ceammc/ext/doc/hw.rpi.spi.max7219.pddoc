@@ -285,6 +285,10 @@
 [X q->x] [X r->x]
 #x @spi_bus 0
 [hw.rpi.spi.max7219-spi]
+
+[ui.link @url=ceammc://img/conn_max7219a.png @title='Connection_Matrix']
+
+[ui.link @url=ceammc://img/conn_max7219b.png @title='Connection_Digits']
 ]]>
       </pdascii>
       <pdascii id="spi">
