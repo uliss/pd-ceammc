@@ -227,7 +227,7 @@ struct m_set_pixel_args {
             return "BLUE (blue color component), byte[0..255] range";
         }
         static const char* info() {
-            return "@color8 RED GREEN BLUE";
+            return "@color8 RED GREEN BLUE (RGB int pixel color in range [0..255])";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -351,7 +351,7 @@ struct m_set_pixel_args {
             return "BLUE (blue color component), float in [0..1] range";
         }
         static const char* info() {
-            return "@color RED GREEN BLUE";
+            return "@color RED GREEN BLUE (RGB float pixel color in range [0..1])";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -606,7 +606,7 @@ struct m_fill_args {
             return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
-            return "@color COLOR";
+            return "@color COLOR (RGB color)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -696,7 +696,7 @@ struct m_fill_args {
             return "BLUE (blue color component), byte[0..255] range";
         }
         static const char* info() {
-            return "@color8 RED GREEN BLUE";
+            return "@color8 RED GREEN BLUE (int RGB color in [0..255] range)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -933,7 +933,7 @@ struct m_fill_slice_args {
             return "STEP? (step between pixels), int > 0";
         }
         static const char* info() {
-            return "@slice FIRST LAST? STEP?";
+            return "@slice FIRST LAST? STEP? (range-based pixel slice)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -1040,7 +1040,7 @@ struct m_fill_slice_args {
             return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
         static const char* info() {
-            return "@color COLOR";
+            return "@color COLOR (RGB color)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -1130,7 +1130,7 @@ struct m_fill_slice_args {
             return "BLUE (blue color component), byte[0..255] range";
         }
         static const char* info() {
-            return "@color8 RED GREEN BLUE";
+            return "@color8 RED GREEN BLUE (int RGB color in [0..255] range)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -1406,7 +1406,7 @@ struct m_fx_args {
             return "STEP? (step between pixels), int > 0";
         }
         static const char* info() {
-            return "@slice FIRST LAST? STEP?";
+            return "@slice FIRST LAST? STEP? (range-based pixel slice)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
@@ -1530,7 +1530,7 @@ struct m_fx_args {
             return "STEP? (step between pixels), int > 0";
         }
         static const char* info() {
-            return "@lslice FIRST LENGTH? STEP?";
+            return "@lslice FIRST LENGTH? STEP? (length-based pixel slice)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
             int matched = 0;
