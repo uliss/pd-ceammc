@@ -62,12 +62,14 @@ struct m_brightness_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "argument #0 'LEVEL' is required:";
+                    Error(obj) << "[brightness( argument #0 'LEVEL' is required:";
+                    Post(obj) << " - " << arg_level_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[brightness( argument #0 'LEVEL' check failed, expected:";
+                    Post(obj) << " - " << arg_level_info();
+                    output_usage_verbose(obj);
                 }
-                if (matched == INVALID_VALUE) {
-                    Error(obj) << "argument #0 'LEVEL' check failed, expected:";
-                }
-                Post(obj) << " - " << arg_level_info();
             }
             return false;
         }
@@ -131,12 +133,14 @@ struct m_clear_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "argument #0 'FLUSH' is required:";
+                    Error(obj) << "[clear( argument #0 'FLUSH?' is required:";
+                    Post(obj) << " - " << arg_flush_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[clear( argument #0 'FLUSH?' check failed, expected:";
+                    Post(obj) << " - " << arg_flush_info();
+                    output_usage_verbose(obj);
                 }
-                if (matched == INVALID_VALUE) {
-                    Error(obj) << "argument #0 'FLUSH' check failed, expected:";
-                }
-                Post(obj) << " - " << arg_flush_info();
             }
             return false;
         }
@@ -234,12 +238,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'RED' is required:";
+                        Error(obj) << "[set_pixel( argument #0 'RED' is required:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #0 'RED' check failed, expected:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'RED' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_red_info();
                 }
                 return false;
             }
@@ -249,12 +255,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'GREEN' is required:";
+                        Error(obj) << "[set_pixel( argument #1 'GREEN' is required:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #1 'GREEN' check failed, expected:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'GREEN' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_green_info();
                 }
                 return false;
             }
@@ -264,12 +272,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'BLUE' is required:";
+                        Error(obj) << "[set_pixel( argument #2 'BLUE' is required:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #2 'BLUE' check failed, expected:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'BLUE' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_blue_info();
                 }
                 return false;
             }
@@ -352,12 +362,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'RED' is required:";
+                        Error(obj) << "[set_pixel( argument #0 'RED' is required:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #0 'RED' check failed, expected:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'RED' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_red_info();
                 }
                 return false;
             }
@@ -367,12 +379,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'GREEN' is required:";
+                        Error(obj) << "[set_pixel( argument #1 'GREEN' is required:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #1 'GREEN' check failed, expected:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'GREEN' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_green_info();
                 }
                 return false;
             }
@@ -382,12 +396,14 @@ struct m_set_pixel_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'BLUE' is required:";
+                        Error(obj) << "[set_pixel( argument #2 'BLUE' is required:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[set_pixel( argument #2 'BLUE' check failed, expected:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'BLUE' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_blue_info();
                 }
                 return false;
             }
@@ -480,12 +496,14 @@ struct m_set_pixel_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "argument #0 'POS' is required:";
+                    Error(obj) << "[set_pixel( argument #0 'POS' is required:";
+                    Post(obj) << " - " << arg_pos_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[set_pixel( argument #0 'POS' check failed, expected:";
+                    Post(obj) << " - " << arg_pos_info();
+                    output_usage_verbose(obj);
                 }
-                if (matched == INVALID_VALUE) {
-                    Error(obj) << "argument #0 'POS' check failed, expected:";
-                }
-                Post(obj) << " - " << arg_pos_info();
             }
             return false;
         }
@@ -599,12 +617,14 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'COLOR' is required:";
+                        Error(obj) << "[fill( argument #0 'COLOR' is required:";
+                        Post(obj) << " - " << arg_color_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill( argument #0 'COLOR' check failed, expected:";
+                        Post(obj) << " - " << arg_color_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'COLOR' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_color_info();
                 }
                 return false;
             }
@@ -687,12 +707,14 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'RED' is required:";
+                        Error(obj) << "[fill( argument #0 'RED' is required:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill( argument #0 'RED' check failed, expected:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'RED' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_red_info();
                 }
                 return false;
             }
@@ -702,12 +724,14 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'GREEN' is required:";
+                        Error(obj) << "[fill( argument #1 'GREEN' is required:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill( argument #1 'GREEN' check failed, expected:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'GREEN' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_green_info();
                 }
                 return false;
             }
@@ -717,12 +741,14 @@ struct m_fill_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'BLUE' is required:";
+                        Error(obj) << "[fill( argument #2 'BLUE' is required:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill( argument #2 'BLUE' check failed, expected:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'BLUE' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_blue_info();
                 }
                 return false;
             }
@@ -918,12 +944,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'FIRST' is required:";
+                        Error(obj) << "[fill_slice( argument #0 'FIRST' is required:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #0 'FIRST' check failed, expected:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'FIRST' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_first_info();
                 }
                 return false;
             }
@@ -933,12 +961,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'LAST' is required:";
+                        Error(obj) << "[fill_slice( argument #1 'LAST?' is required:";
+                        Post(obj) << " - " << arg_last_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #1 'LAST?' check failed, expected:";
+                        Post(obj) << " - " << arg_last_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'LAST' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_last_info();
                 }
                 return false;
             }
@@ -948,12 +978,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'STEP' is required:";
+                        Error(obj) << "[fill_slice( argument #2 'STEP?' is required:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #2 'STEP?' check failed, expected:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'STEP' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_step_info();
                 }
                 return false;
             }
@@ -1019,12 +1051,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'COLOR' is required:";
+                        Error(obj) << "[fill_slice( argument #0 'COLOR' is required:";
+                        Post(obj) << " - " << arg_color_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #0 'COLOR' check failed, expected:";
+                        Post(obj) << " - " << arg_color_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'COLOR' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_color_info();
                 }
                 return false;
             }
@@ -1107,12 +1141,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'RED' is required:";
+                        Error(obj) << "[fill_slice( argument #0 'RED' is required:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #0 'RED' check failed, expected:";
+                        Post(obj) << " - " << arg_red_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'RED' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_red_info();
                 }
                 return false;
             }
@@ -1122,12 +1158,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'GREEN' is required:";
+                        Error(obj) << "[fill_slice( argument #1 'GREEN' is required:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #1 'GREEN' check failed, expected:";
+                        Post(obj) << " - " << arg_green_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'GREEN' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_green_info();
                 }
                 return false;
             }
@@ -1137,12 +1175,14 @@ struct m_fill_slice_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'BLUE' is required:";
+                        Error(obj) << "[fill_slice( argument #2 'BLUE' is required:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fill_slice( argument #2 'BLUE' check failed, expected:";
+                        Post(obj) << " - " << arg_blue_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'BLUE' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_blue_info();
                 }
                 return false;
             }
@@ -1377,12 +1417,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'FIRST' is required:";
+                        Error(obj) << "[fx( argument #0 'FIRST' is required:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #0 'FIRST' check failed, expected:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'FIRST' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_first_info();
                 }
                 return false;
             }
@@ -1392,12 +1434,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'LAST' is required:";
+                        Error(obj) << "[fx( argument #1 'LAST?' is required:";
+                        Post(obj) << " - " << arg_last_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #1 'LAST?' check failed, expected:";
+                        Post(obj) << " - " << arg_last_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'LAST' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_last_info();
                 }
                 return false;
             }
@@ -1407,12 +1451,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'STEP' is required:";
+                        Error(obj) << "[fx( argument #2 'STEP?' is required:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #2 'STEP?' check failed, expected:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'STEP' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_step_info();
                 }
                 return false;
             }
@@ -1495,12 +1541,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #0 'FIRST' is required:";
+                        Error(obj) << "[fx( argument #0 'FIRST' is required:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #0 'FIRST' check failed, expected:";
+                        Post(obj) << " - " << arg_first_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #0 'FIRST' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_first_info();
                 }
                 return false;
             }
@@ -1510,12 +1558,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #1 'LENGTH' is required:";
+                        Error(obj) << "[fx( argument #1 'LENGTH?' is required:";
+                        Post(obj) << " - " << arg_length_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #1 'LENGTH?' check failed, expected:";
+                        Post(obj) << " - " << arg_length_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #1 'LENGTH' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_length_info();
                 }
                 return false;
             }
@@ -1525,12 +1575,14 @@ struct m_fx_args {
             } else {
                 if (print_err) {
                     if (matched == NOT_ENOUGH_ARGS) {
-                        Error(obj) << "argument #2 'STEP' is required:";
+                        Error(obj) << "[fx( argument #2 'STEP?' is required:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage(obj);
+                    } else if (matched == INVALID_VALUE) {
+                        Error(obj) << "[fx( argument #2 'STEP?' check failed, expected:";
+                        Post(obj) << " - " << arg_step_info();
+                        output_usage_verbose(obj);
                     }
-                    if (matched == INVALID_VALUE) {
-                        Error(obj) << "argument #2 'STEP' check failed, expected:";
-                    }
-                    Post(obj) << " - " << arg_step_info();
                 }
                 return false;
             }
@@ -1623,12 +1675,14 @@ struct m_fx_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "argument #0 'FX_NAME' is required:";
+                    Error(obj) << "[fx( argument #0 'FX_NAME' is required:";
+                    Post(obj) << " - " << arg_fx_name_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[fx( argument #0 'FX_NAME' check failed, expected:";
+                    Post(obj) << " - " << arg_fx_name_info();
+                    output_usage_verbose(obj);
                 }
-                if (matched == INVALID_VALUE) {
-                    Error(obj) << "argument #0 'FX_NAME' check failed, expected:";
-                }
-                Post(obj) << " - " << arg_fx_name_info();
             }
             return false;
         }
@@ -1727,12 +1781,14 @@ struct m_rotate_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "argument #0 'N' is required:";
+                    Error(obj) << "[rotate( argument #0 'N' is required:";
+                    Post(obj) << " - " << arg_n_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[rotate( argument #0 'N' check failed, expected:";
+                    Post(obj) << " - " << arg_n_info();
+                    output_usage_verbose(obj);
                 }
-                if (matched == INVALID_VALUE) {
-                    Error(obj) << "argument #0 'N' check failed, expected:";
-                }
-                Post(obj) << " - " << arg_n_info();
             }
             return false;
         }
