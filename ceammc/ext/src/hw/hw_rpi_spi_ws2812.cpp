@@ -1,5 +1,4 @@
 #include "hw_rpi_spi_ws2812.h"
-#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_color.h"
@@ -163,6 +162,45 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_fill_slice(device(), color, nullptr);
 }
 
+/// @function "fill only pixels for which corresponding bit is set to 1 in the internal buffer with the specified color" {
+///  @bits   "bit list" {
+///     #list    bool + "list of 0|1" {}
+///  }
+///  @offset ? "bit list offset" {
+///     #value   int "offset" { default: 0 check: >0 }
+///  }
+///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+/// }
+void HwSpiWs2812::m_fill_bits(t_symbol* s, const AtomListView& lv)
+{
+    m_fill_bits_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_color_rgb8 color;
+    process_rgb(color, args);
+
+    boost::container::small_vector<std::uint8_t, 128> data;
+    for (auto& a : args.prop_bits.list) {
+        data.push_back(a.asBool());
+    }
+
+    ceammc_hw_bits bits;
+    bits.data = data.data();
+    bits.size = data.size();
+    bits.offset = args.prop_offset.value;
+
+    ceammc_hw_spi_ws2812_fill_bits(device(), color, &bits);
+}
+
 /// @function "fill the range of pixels in the internal buffer with specified color" {
 ///  @lslice "length-based pixel slice" {
 ///     #start  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
@@ -190,6 +228,32 @@ void HwSpiWs2812::m_fill_lslice(t_symbol* s, const AtomListView& lv)
 
     ceammc_hw_slice lslice { 0, 0, 0 };
     ceammc_hw_spi_ws2812_fill_slice(device(), color, process_lslice(lslice, size_->value(), args));
+}
+
+/// @function "fill the range of pixels in the internal buffer with specified color" {
+///  @indexes "list of pixel positions" {
+///     #idx int + "pixel index, can be negative. If negative: means position from the end of the buffer" {}
+///  }
+///  @color  ^(@color8) "RGB color"                         { #color color "" {} }
+///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
+///     #red   byte "red color component"   {}
+///     #green byte "green color component" {}
+///     #blue  byte "blue color component"  {}
+///  }
+/// }
+void HwSpiWs2812::m_fill_pixels(t_symbol* s, const AtomListView& lv)
+{
+    m_fill_pixels_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_color_rgb8 color { 0, 0, 0 };
+    process_rgb(color, args);
+
+    // ceammc_hw_spi_ws2812_fill_slice(device(), color, process_lslice(lslice, size_->value(), args));
 }
 
 /// @function "fill the range of pixels in the internal buffer with specified color" {
@@ -266,73 +330,6 @@ bool HwSpiWs2812::parse_color_property(ceammc_hw_color_rgb8& rgb, const AtomList
     return false;
 }
 
-bool HwSpiWs2812::parse_slice_property(ceammc_hw_slice& slice, const AtomListView& lv) const
-{
-    AtomListView res;
-
-    auto this_ = const_cast<HwSpiWs2812*>(this);
-
-    if (lv.getProperty(gensym("@slice"), res)) {
-        static const args::ArgChecker rslice_chk("FIRST:i LAST:i? STEP:i>0?");
-        if (!rslice_chk.check(res, this_, gensym("@slice")))
-            return false;
-
-        slice.first = res.intAt(0, 0);
-        slice.last = res.intAt(1, -1);
-        slice.step = res.intAt(2, 1);
-
-        return true;
-    } else if (lv.getProperty(gensym("@lslice"), res)) {
-        static const args::ArgChecker lslice_chk("FIRST:i LENGTH:i>0? STEP:i>0?");
-        if (!lslice_chk.check(res, this_, gensym("@lslice")))
-            return false;
-
-        slice.first = res.intAt(0, 0);
-        slice.last = slice.first + res.intAt(1, size_->value()) - 1;
-        slice.step = res.intAt(2, 1);
-
-        return true;
-    } else if (lv.getProperty(gensym("@indexes"), res)) {
-        static const args::ArgChecker idx_chk("INDEXES:i+");
-        if (!idx_chk.check(res, this_, gensym("@indexes")))
-            return false;
-
-        return false;
-    }
-
-    return false;
-}
-
-/**
- * Parse bits into static buffer
- */
-bool HwSpiWs2812::parse_bits_property(ceammc_hw_bits& bits, std::uint8_t* const& buf, size_t buf_size, const AtomListView& lv) const
-{
-    AtomListView res;
-    auto this_ = const_cast<HwSpiWs2812*>(this);
-
-    bits.offset = 0;
-
-    if (lv.getProperty(gensym("@offset"), res))
-        bits.offset = res.asInt();
-
-    if (lv.getProperty(gensym("@bits"), res)) {
-        static const args::ArgChecker bits_chk("BITS:b+");
-        if (!bits_chk.check(res, this_, gensym("@bits")))
-            return false;
-
-        auto N = std::min(buf_size, res.size());
-        for (auto i = 0; i < N; i++)
-            buf[i] = res[i].asBool();
-
-        bits.data = &buf[0];
-        bits.size = N;
-        return true;
-    }
-
-    return false;
-}
-
 void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 {
     onBang();
@@ -348,7 +345,7 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 ///     #step  int ?   "step between pixels"  { default: 1 check: > 0 }
 ///  }
 ///  @lslice ^(@slice) "length-based pixel slice" {
-///     #first  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
+///     #start  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
 ///     #length int ?   "length. If 0 or not specified: apply to all pixels"  { default: 0 check: >= 0 }
 ///     #step   int ?   "step between pixels"  { default: 1 check: > 0 }
 ///  }
@@ -400,10 +397,9 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_hw_slice slice;
-    const ceammc_hw_slice* slice_ptr = &slice;
-    if (!parse_slice_property(slice, lv))
-        slice_ptr = nullptr;
-
+    auto slice_ptr = (args.prop_slice._count)
+        ? process_slice(slice, args)
+        : process_lslice(slice, size_->value(), args);
     if (!check_connected(true, s))
         return;
 
@@ -430,9 +426,11 @@ void setup_hw_rpi_spi_ws2812()
     ObjectFactory<HwSpiWs2812> obj("hw.rpi.spi.ws2812");
     obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
     obj.addMethod("clear", &HwSpiWs2812::m_clear);
-    obj.addMethod("fill_slice", &HwSpiWs2812::m_fill_slice);
-    obj.addMethod("fill_lslice", &HwSpiWs2812::m_fill_lslice);
     obj.addMethod("fill", &HwSpiWs2812::m_fill);
+    obj.addMethod("fill_bits", &HwSpiWs2812::m_fill_bits);
+    obj.addMethod("fill_lslice", &HwSpiWs2812::m_fill_lslice);
+    obj.addMethod("fill_pixels", &HwSpiWs2812::m_fill_pixels);
+    obj.addMethod("fill_slice", &HwSpiWs2812::m_fill_slice);
     obj.addMethod("flush", &HwSpiWs2812::m_flush);
     obj.addMethod("fx", &HwSpiWs2812::m_fx);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
