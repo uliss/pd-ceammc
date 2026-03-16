@@ -276,7 +276,7 @@ struct m_set_pixel_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid hex value: " << lv;
+                        Error(obj) << "invalid hex value: '" << lv[0] << "'";
                     }
                     return INVALID_VALUE;
                 }
@@ -285,7 +285,7 @@ struct m_set_pixel_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid named color value: " << lv;
+                        Error(obj) << "invalid named color: '" << lv[0] << "'";
                         Error(obj) << "expected: " << DataTypeColor::namedColorList();
                     }
                     return INVALID_VALUE;
@@ -428,6 +428,7 @@ struct m_set_pixel_args {
                 Error(obj) << "[set_pixel( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color8._count > 1) {
                 if (print_err) {
@@ -443,6 +444,7 @@ struct m_set_pixel_args {
                 Error(obj) << "[set_pixel( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color._count > 1) {
                 if (print_err) {
@@ -486,7 +488,7 @@ struct m_fill_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid hex value: " << lv;
+                        Error(obj) << "invalid hex value: '" << lv[0] << "'";
                     }
                     return INVALID_VALUE;
                 }
@@ -495,7 +497,7 @@ struct m_fill_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid named color value: " << lv;
+                        Error(obj) << "invalid named color: '" << lv[0] << "'";
                         Error(obj) << "expected: " << DataTypeColor::namedColorList();
                     }
                     return INVALID_VALUE;
@@ -694,6 +696,7 @@ struct m_fill_args {
                 Error(obj) << "[fill( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color._count > 1) {
                 if (print_err) {
@@ -709,6 +712,7 @@ struct m_fill_args {
                 Error(obj) << "[fill( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color8._count > 1) {
                 if (print_err) {
@@ -843,7 +847,7 @@ struct m_fill_slice_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid hex value: " << lv;
+                        Error(obj) << "invalid hex value: '" << lv[0] << "'";
                     }
                     return INVALID_VALUE;
                 }
@@ -852,7 +856,7 @@ struct m_fill_slice_args {
                     return 1;
                 } else {
                     if (print_err) {
-                        Error(obj) << "invalid named color value: " << lv;
+                        Error(obj) << "invalid named color: '" << lv[0] << "'";
                         Error(obj) << "expected: " << DataTypeColor::namedColorList();
                     }
                     return INVALID_VALUE;
@@ -1073,6 +1077,7 @@ struct m_fill_slice_args {
                 Error(obj) << "[fill_slice( invalid value for @slice property, expected:";
                 Error(obj) << prop_slice_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_slice._count > 1) {
                 if (print_err) {
@@ -1088,6 +1093,7 @@ struct m_fill_slice_args {
                 Error(obj) << "[fill_slice( invalid value for @color property, expected:";
                 Error(obj) << prop_color_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color._count > 1) {
                 if (print_err) {
@@ -1103,6 +1109,7 @@ struct m_fill_slice_args {
                 Error(obj) << "[fill_slice( invalid value for @color8 property, expected:";
                 Error(obj) << prop_color8_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_color8._count > 1) {
                 if (print_err) {
@@ -1420,6 +1427,7 @@ struct m_fx_args {
                 Error(obj) << "[fx( invalid value for @slice property, expected:";
                 Error(obj) << prop_slice_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_slice._count > 1) {
                 if (print_err) {
@@ -1435,6 +1443,7 @@ struct m_fx_args {
                 Error(obj) << "[fx( invalid value for @lslice property, expected:";
                 Error(obj) << prop_lslice_t::info();
             }
+            return false;
         } else if (prop_st == PropProcessState::Ok) {
             if (prop_lslice._count > 1) {
                 if (print_err) {
