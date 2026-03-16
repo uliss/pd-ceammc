@@ -271,9 +271,9 @@
 
 [write str DSP 1 right #l(     /*matrix only*/
 
-                               [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
-                               |
-                               [bitmap 32 8]
+  [T]                          [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
+  |                            |
+  [@connect $1 #r(             [bitmap 32 8]
                                |
                                [msg write #q]
 
@@ -282,7 +282,7 @@
 [hw.rpi.spi.max7219 4 #x]
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
 [X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x]
-[X q->x]
+[X q->x] [X r->x]
 #x @spi_bus 0
 [hw.rpi.spi.max7219-spi]
 ]]>
