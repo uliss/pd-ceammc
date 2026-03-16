@@ -1083,7 +1083,7 @@ struct m_fill_lslice_args {
         if (prop_st == PropProcessState::NotFound) {
             if (prop_lslice._count < 1) {
                 if (print_err) {
-                    Error(obj) << "property @lslice is required";;
+                    Error(obj) << "[fill_lslice( property @lslice is required";;
                     Post(obj) << " - " << prop_lslice_t::info();
                 }
                 return false;
@@ -1489,7 +1489,7 @@ struct m_fill_slice_args {
         if (prop_st == PropProcessState::NotFound) {
             if (prop_slice._count < 1) {
                 if (print_err) {
-                    Error(obj) << "property @slice is required";;
+                    Error(obj) << "[fill_slice( property @slice is required";;
                     Post(obj) << " - " << prop_slice_t::info();
                 }
                 return false;
