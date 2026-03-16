@@ -270,7 +270,7 @@
 |
 |                      [fill_bits @bits 0 1 0 1 0 1  @color blue, bang #k(
 |
-[msg fill @color]      [fx rainbow 0.5 #e(       [T]
+[msg fill @color]      [fx rainbow #e(           [T]
 |                                                |
 [msg.after 0 bang #a]  [F]                       [metro 50]
                        |                         |
@@ -285,7 +285,7 @@
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X i->x]
 [X j->x] [X k->x]
-#e 8, bang
+#e , bang
 #x @spi_bus 0
 #f 32, bang
 #g $1 @color random, bang

@@ -27,7 +27,7 @@ with \, two types of ranges are used: @slice and @lslice.;
 #X msg 270 398 fill_pixels @indexes 1 2 3 @color yellow \, bang;
 #X msg 270 427 fill_bits @bits 0 1 0 1 0 1 @color blue \, bang;
 #X obj 50 455 msg fill @color;
-#X msg 270 455 fx rainbow 0.5 8 \, bang;
+#X msg 270 455 fx rainbow \, bang;
 #X obj 520 455 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 484 msg.after 0 bang;
 #X floatatom 270 484 5 0 0 0 - - -;

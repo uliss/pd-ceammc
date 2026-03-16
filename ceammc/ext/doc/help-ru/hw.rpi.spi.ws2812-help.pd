@@ -28,7 +28,7 @@ Pi;
 #X msg 270 413 fill_pixels @indexes 1 2 3 @color yellow \, bang;
 #X msg 270 442 fill_bits @bits 0 1 0 1 0 1 @color blue \, bang;
 #X obj 50 470 msg fill @color;
-#X msg 270 470 fx rainbow 0.5 8 \, bang;
+#X msg 270 470 fx rainbow \, bang;
 #X obj 520 470 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 499 msg.after 0 bang;
 #X floatatom 270 499 5 0 0 0 - - -;
