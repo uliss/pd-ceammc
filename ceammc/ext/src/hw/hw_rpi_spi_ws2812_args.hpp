@@ -24,7 +24,7 @@ CEAMMC_DEFINE_HASH(twinkle)
 struct m_brightness_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
-    std::uint8_t level {0}; // brightness level
+    t_int level {0}; // brightness level
     // methods
     int process_level(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -32,7 +32,7 @@ struct m_brightness_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 25))) {
             return INVALID_VALUE;
         }
         // set value
@@ -41,7 +41,7 @@ struct m_brightness_args {
         return 1;
     }
     static const char* arg_level_info() {
-        return "LEVEL (brightness level), byte[0..255] range";
+        return "LEVEL (brightness level), int in [0..25] range";
     }
     static const char* usage() {
         return "usage: [brightness LEVEL(";

@@ -80,7 +80,7 @@ void HwSpiWs2812::onBang()
 }
 
 /// @function "set led strip brighness" [{
-///  #level byte "brightness level" {}
+///  #level int "brightness level" { check: [0..25] }
 /// }]
 void HwSpiWs2812::m_brightness(t_symbol* s, const AtomListView& lv)
 {
