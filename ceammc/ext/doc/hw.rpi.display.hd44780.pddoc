@@ -157,7 +157,7 @@
         <info>
           <tr lang="en">move the display content horizontally (without changing its contents)</tr>
           <tr lang="ru">переместить содержимое дисплея по-горизонтали (без именения его
-          сожержимого)</tr>
+          содержимого)</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">relative shift. Negative values move the content to the left, positive
