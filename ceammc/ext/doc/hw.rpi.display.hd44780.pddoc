@@ -207,9 +207,9 @@
     |
     [backlight $1 #a(
 
- [T]               [cursor_pos 1 0 #f(
+ [T]               [cursor_pos 1 0 #f( [move_display 1 #k(
  |
- [cursor_on $1 #b( [move_cursor 1 #g(
+ [cursor_on $1 #b( [move_cursor 1 #g(  [move_display -1 #l(
 
  [T]               [move_cursor -1 #h( [list Some Information!(
  |                                     |
@@ -225,7 +225,7 @@
 
 [ui.link @url=ceammc://img/conn_lcd1602.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X i->x] [X j->x]
+[X i->x] [X j->x] [X k->x] [X l->x]
 ]]>
       </pdascii>
     </example>
