@@ -67,19 +67,26 @@ void UILink::m_resize(const AtomListView& lv)
 
 void UILink::onMouseDown(t_object* /*view*/, const t_pt& /*pt*/, const t_pt& /*abs_pt*/, long /*modifiers*/)
 {
-    constexpr const char* CEAMMC_PROTO = "ceammc://";
+    constexpr const char* CEAMMC_PROTO = "ceammc://"; // external path
+    constexpr const char* CEAMMC_HELP_I18N = "ceammc-i18n://"; // lang localized help
 
-    if (string::starts_with(prop_url->s_name, CEAMMC_PROTO)) {
-        std::string ceammc_path(class_gethelpdir(*asPd()));
+    if (string::starts_with(prop_url->s_name, CEAMMC_HELP_I18N)) {
+        // open lang localized help file
+        std::string ceammc_i18n_path(class_gethelpdir(*asPd()));
         std::string helpname = class_gethelpname(*asPd());
-        if (string::starts_with(helpname.c_str(), "help-")) {
+        if (string::starts_with(helpname.c_str(), "help-")) { // expect 'lang-ru/' etc.
             auto pos = helpname.find('/');
             if (pos != std::string::npos) {
-                ceammc_path += '/';
-                ceammc_path += helpname.substr(0, pos);
+                ceammc_i18n_path += '/';
+                ceammc_i18n_path += helpname.substr(0, pos);
             }
         }
 
+        ceammc_i18n_path += '/';
+        ceammc_i18n_path += std::string(prop_url->s_name).substr(strlen(CEAMMC_HELP_I18N));
+        sys_vgui("ui::link_open {%s} {%s}\n", ceammc_i18n_path.c_str(), canvas_dir_->s_name);
+    } else if (string::starts_with(prop_url->s_name, CEAMMC_PROTO)) {
+        std::string ceammc_path(class_gethelpdir(*asPd()));
         ceammc_path += '/';
         ceammc_path += std::string(prop_url->s_name).substr(strlen(CEAMMC_PROTO));
         sys_vgui("ui::link_open {%s} {%s}\n", ceammc_path.c_str(), canvas_dir_->s_name);
