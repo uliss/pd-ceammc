@@ -14,51 +14,53 @@
 значения с кнопок и пороговых датчиков.;
 #X obj 230 247 ui.link @title Управление GPIO @url
 ceammc://hw.rpi.gpio-example.pd;
-#X obj 40 282 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
-#X text 230 279 - работа с ШИМ (PWM) - широтно-импульсной модуляцией
+#X obj 230 282 ui.link @title Управление Шаговыми двигателями @url
+ceammc://ceammc_rpi_stepper-info.pd;
+#X obj 40 317 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
+#X text 230 314 - работа с ШИМ (PWM) - широтно-импульсной модуляцией
 (pulse width modulation) при помощи аппаратных генераторов Raspberry
 Pi \, которые обеспечивают большую стабильность параметров модуляции.;
-#X obj 40 352 ui.link @title [hw.rpi.pwm.pca9685] @url
+#X obj 40 387 ui.link @title [hw.rpi.pwm.pca9685] @url
 hw.rpi.pwm.pca9685-help.pd;
-#X text 230 349 - драйвер для 16-канального ШИМ на микросхеме PCA9685
+#X text 230 384 - драйвер для 16-канального ШИМ на микросхеме PCA9685
 для работы с сервоприводами \, светодиодами и др. \, подключаемый к
 шине I2C.;
-#X obj 40 407 ui.link @title [hw.rpi.rotenc] @url
+#X obj 40 442 ui.link @title [hw.rpi.rotenc] @url
 hw.rpi.rotenc-help.pd;
-#X text 230 404 - считывание сигналов и работа с поворотными энкодерами.;
-#X obj 40 442 ui.link @title [hw.rpi.sensor.sr04] @url
+#X text 230 439 - считывание сигналов и работа с поворотными энкодерами.;
+#X obj 40 477 ui.link @title [hw.rpi.sensor.sr04] @url
 hw.rpi.sensor.sr04-help.pd;
-#X text 230 439 - ультразвуковой датчик растояния.;
-#X obj 40 477 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+#X text 230 474 - ультразвуковой датчик растояния.;
+#X obj 40 512 ui.link @title [hw.rpi.sensor.vl53l0x] @url
 hw.rpi.sensor.vl53l0x-help.pd;
-#X text 230 474 - лазерный датчик растояния.;
-#X obj 40 512 ui.link @title [hw.rpi.sensor.dht11] @url
+#X text 230 509 - лазерный датчик растояния.;
+#X obj 40 547 ui.link @title [hw.rpi.sensor.dht11] @url
 hw.rpi.sensor.dht11-help.pd;
-#X text 230 509 - датчик температуры и влажности.;
-#X obj 40 547 ui.link @title [hw.rpi.sensor.ir] @url
+#X text 230 544 - датчик температуры и влажности.;
+#X obj 40 582 ui.link @title [hw.rpi.sensor.ir] @url
 hw.rpi.sensor.ir-help.pd;
-#X text 230 544 - работа с ИК-пультами управления.;
-#X obj 40 582 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X text 230 579 - работа с ИК-пультами управления.;
+#X obj 40 617 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 230 579 - датчик ускорения и гироскоп.;
-#X obj 40 617 ui.link @title [hw.rpi.spi.ws2812] @url
+#X text 230 614 - датчик ускорения и гироскоп.;
+#X obj 40 652 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 230 614 - работа с управляемой адресной светодиодной лентой
+#X text 230 649 - работа с управляемой адресной светодиодной лентой
 на базе микросхемы WS2812 (Neopixel и др.).;
-#X obj 40 657 ui.link @title [hw.rpi.spi.max7219] @url
+#X obj 40 692 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 230 654 - работа со светодиодными матрицами и индикаторами
+#X text 230 689 - работа со светодиодными матрицами и индикаторами
 на основе микросхемы MAX2712\.;
-#X obj 40 697 ui.link @title [hw.rpi.display.hd44780] @url
+#X obj 40 732 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
-#X text 230 694 - работа со жидкокристаллическими дисплеями на базе
+#X text 230 729 - работа со жидкокристаллическими дисплеями на базе
 микросхемы HD44780 \, часто известными как 1602 или 2004;
-#X obj 40 737 ui.link @title [hw.rpi.display.ssd1306] @url
+#X obj 40 772 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 230 734 - работа со OLED дисплеями на базе микросхемы ssd1306;
-#X obj 40 772 ui.link @title [hw.rpi.adc.ads1115] @url
+#X text 230 769 - работа со OLED дисплеями на базе микросхемы ssd1306;
+#X obj 40 807 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 230 769 - работа с 4-х канальным АЦП на базе микросхемы ADS1115\.
+#X text 230 804 - работа с 4-х канальным АЦП на базе микросхемы ADS1115\.
 Считывание уровней напряжения с переменных резисторов \, аналоговых
 датчиков и т.д.;
-#X obj 1 844 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 879 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
