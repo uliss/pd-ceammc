@@ -9,7 +9,7 @@
       <tr lang="en">Rotation in one direction</tr>
       <tr lang="ru">Вращение в одном направлении</tr>
     </h1>
-    <a href="ceammc://img/conn_stepper_0.png" indent="19">
+    <a href="ceammc://img/conn_stepper_0.png" indent="0">
       <tr lang="en">Connection scheme</tr>
       <tr lang="ru">Схема подключения</tr>
     </a>
@@ -29,8 +29,8 @@
 ]]>
     </pdascii>
     <h1>
-      <tr lang="en">Playing notes</tr>
-      <tr lang="ru">Воспроизведение нот</tr>
+      <tr lang="en">Playing frequencies</tr>
+      <tr lang="ru">Воспроизведение частот</tr>
     </h1>
     <pdascii indent="10">
 <![CDATA[
@@ -39,6 +39,29 @@
 [output 20 #a(      |     |     |     |     |
                     [soft_pwm_freq 20 $1 0.5 #c(
   [reset 20 #b(
+
+
+[hw.rpi.gpio #x]
+[X a->x] [X b->x] [X c->x]
+]]>
+    </pdascii>
+    <h1>
+      <tr lang="en">Playing notes</tr>
+      <tr lang="ru">Воспроизведение нот</tr>
+    </h1>
+    <pdascii indent="10">
+<![CDATA[
+/*init gpio pin*/   [T]
+                    |
+[output 20 #a(      [metro 180]
+                    |
+  [reset 20 #b(     [random.a 0 1 5 6 12]
+                    |
+                    [+ 48]
+                    |
+                    [mtof]
+                    |
+                    [soft_pwm_freq 20 $1 0.5 #c(
 
 
 [hw.rpi.gpio #x]
