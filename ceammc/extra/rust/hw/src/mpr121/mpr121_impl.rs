@@ -1,12 +1,12 @@
 use log::{debug, error};
 use mpr121_hal::{mpr121::Mpr121, Mpr121Address};
 use rppal::hal::Delay;
-use std::{ffi::CString, sync::Arc};
+use std::ffi::CString;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::I2cAddress,
-    mpr121::{hw_sensor_mpr121, hw_mpr121_key_cb, Mpr212SensorWorker, Reply, Request},
+    mpr121::{hw_mpr121_key_cb, hw_sensor_mpr121, Mpr212SensorWorker, Reply, Request},
     process_err, send_debug, send_reply,
 };
 
@@ -26,16 +26,14 @@ impl hw_sensor_mpr121 {
 
             let bus = i2c.bus();
             let mut delay = Delay::new();
-            let sensor = Arc::new(std::sync::Mutex::new(
-                match i2c_addr {
-                    I2cAddress::Addr(_addr) => Mpr121::new(i2c, Mpr121Address::Default, &mut delay, true),
-                    I2cAddress::Default => Mpr121::new_default(i2c, &mut delay),
-                    I2cAddress::Auto => Mpr121::new_default(i2c, &mut delay),
-                    I2cAddress::Alt => return Err(format!("no alternative device address")),
-                    I2cAddress::Invalid(addr) => return Err(format!("invalid i2c address: {addr}")),
-                }
-                .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?,
-            ));
+            let mut sensor = match i2c_addr {
+                I2cAddress::Addr(_addr) => Mpr121::new(i2c, Mpr121Address::Default, &mut delay, true),
+                I2cAddress::Default => Mpr121::new_default(i2c, &mut delay),
+                I2cAddress::Auto => Mpr121::new_default(i2c, &mut delay),
+                I2cAddress::Alt => return Err(format!("no alternative device address")),
+                I2cAddress::Invalid(addr) => return Err(format!("invalid i2c address: {addr}")),
+            }
+            .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?;
 
             send_debug(
                 &tx,
@@ -43,11 +41,9 @@ impl hw_sensor_mpr121 {
                 format!("mpr121 init with bus={bus} and addr={i2c_addr:?}").as_str(),
             );
 
-            // let poll_mode = Arc::new(AtomicBool::new(false));
-
             while let Ok(req) = rx.recv() {
                 match req {
-                    Request::ReadAll => match sensor.lock().unwrap().get_touched() {
+                    Request::ReadAll => match sensor.get_touched() {
                         Ok(res) => {
                             debug!("all keys: {res:b}");
                             send_reply(Reply::AllKeys(res), &tx, notify);
@@ -67,7 +63,7 @@ impl hw_sensor_mpr121 {
 
     pub(crate) fn process_reply(mpr: *const Self) -> bool {
         if mpr.is_null() {
-            error!("NULL vl53l0x pointer");
+            error!("NULL Mpr121 pointer");
             false
         } else {
             let mpr: &hw_sensor_mpr121 = unsafe { &*mpr };
@@ -91,9 +87,9 @@ impl hw_sensor_mpr121 {
             error!("NULL mpr121 pointer");
             false
         } else {
-            let vc = unsafe { &*mpr };
+            let mpr = unsafe { &*mpr };
 
-            vc.worker.send_request(req)
+            mpr.worker.send_request(req)
         }
     }
 }
