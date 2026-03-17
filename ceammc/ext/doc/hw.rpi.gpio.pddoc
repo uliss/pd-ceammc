@@ -264,7 +264,7 @@
 
 [ui.link @url=ceammc://img/conn_gpio1.png @title='Connection_Scheme']
 
-[ui.link @url=ceammc-i18n://hw.rpi.gpio-example.pd @title='GPIO_control']
+[ui.link @url=ceammc://hw.rpi.gpio-example.pd @title='GPIO_control']
 
 [X a->x] [X b->x] [X c->x] [X d->x]
 [X e->x] [X f->x] [X g->x] [X h->x]
