@@ -21,12 +21,16 @@
       </aliases>
     </meta>
     <info>
-      <par>
-        <tr lang="en">Note: display can be configured in single line mode.</tr>
-        <!-- old: Примечание: дисплей может быть настроен в
-                однострочном режиме. -->
-        <tr lang="ru" finished="false">Примечание: дисплей может быть настроен в однострочном
+      <par style="info">
+        <tr lang="en">Note: the display can be set to output text in single-line mode.</tr>
+        <tr lang="ru">Примечание: дисплей может быть настроен для вывода текста в однострочном
         режиме.</tr>
+      </par>
+      <par style="warning">
+        <tr lang="en">Attention: for some displays, a 3.3V power supply may be insufficient,
+        their backlight lights up, but the characters are not displayed. Check the information for the specific model before connecting</tr>
+        <tr lang="ru">Внимание: для некоторых дисплеев напряжения питания 3.3V может быть недостаточно,
+        у них горит подсветка, но не отображаются символы. Уточняйте информацию по конкретной модели перед подключением.</tr>
       </par>
     </info>
     <properties>
@@ -195,26 +199,33 @@
     <example>
       <pdascii>
 <![CDATA[
-[T]                [clear #d(
+[T]
 |
-[backlight $1 #a(  [cursor_pos 0 0 #e(
+[@connect $1 #j(   [clear #d(
+
+    [T]            [cursor_pos 0 0 #e(
+    |
+    [backlight $1 #a(
 
  [T]               [cursor_pos 1 0 #f(
  |
  [cursor_on $1 #b( [move_cursor 1 #g(
 
- [T]               [move_cursor -1 #h(
- |
- [cursor_blink $1 #c(  [L]
-                       |
-                       [msg write #i]
+ [T]               [move_cursor -1 #h( [list Some Information!(
+ |                                     |
+ [cursor_blink $1 #c(                  [L]
+                                       |
+                                       [msg write #i]
+
+
 
 [hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto @rows 2 #x]
 
 
-[ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
+
+[ui.link @url=ceammc://img/conn_lcd1602.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
-[X i->x]
+[X i->x] [X j->x]
 ]]>
       </pdascii>
     </example>
