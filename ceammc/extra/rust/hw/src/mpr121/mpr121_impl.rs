@@ -6,11 +6,11 @@ use std::{ffi::CString, sync::Arc};
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::I2cAddress,
-    mpr121::{hw_mpr121, hw_mpr121_key_cb, Mpr212SensorWorker, Reply, Request},
+    mpr121::{hw_sensor_mpr121, hw_mpr121_key_cb, Mpr212SensorWorker, Reply, Request},
     process_err, send_debug, send_reply,
 };
 
-impl hw_mpr121 {
+impl hw_sensor_mpr121 {
     pub(crate) fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
@@ -70,7 +70,7 @@ impl hw_mpr121 {
             error!("NULL vl53l0x pointer");
             false
         } else {
-            let mpr: &hw_mpr121 = unsafe { &*mpr };
+            let mpr: &hw_sensor_mpr121 = unsafe { &*mpr };
 
             mpr.worker.process_reply(&|rep| match rep {
                 Reply::Message(level, msg) => {

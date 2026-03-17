@@ -27,15 +27,15 @@ pub enum Reply {
 
 type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;
 
-pub struct hw_mpr121 {
+pub struct hw_sensor_mpr121 {
     worker: Mpr212SensorWorker,
     cb: hw_mpr121_key_cb,
 }
 
 #[repr(C)]
 pub struct hw_mpr121_key_cb {
-    user: *const c_void,
-    on_all_keys: extern "C" fn(user: *const c_void, state: u16),
+    user: *mut c_void,
+    on_all_keys: extern "C" fn(user: *mut c_void, state: u16),
 }
 
 impl hw_mpr121_key_cb {
@@ -45,15 +45,15 @@ impl hw_mpr121_key_cb {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_mpr121_new(
+pub extern "C" fn ceammc_hw_sensor_mpr121_new(
     i2c_bus: i8,
     i2c_addr: i8,
     notify: hw_notify_cb,
     on_msg: hw_msg_cb,
     on_key: hw_mpr121_key_cb,
-) -> *mut hw_mpr121 {
+) -> *mut hw_sensor_mpr121 {
     rpi_check!(null_mut(), {
-        match hw_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_key) {
+        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_key) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -65,7 +65,7 @@ pub extern "C" fn ceammc_hw_mpr121_new(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_mpr121_free(mpr: *mut hw_mpr121) {
+pub extern "C" fn ceammc_hw_sensor_mpr121_free(mpr: *mut hw_sensor_mpr121) {
     rpi_check!((), {
         if !mpr.is_null() {
             drop(unsafe { Box::from_raw(mpr) })
@@ -74,11 +74,11 @@ pub extern "C" fn ceammc_hw_mpr121_free(mpr: *mut hw_mpr121) {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_sensor_mpr121_proc_reply(mpr: *const hw_mpr121) -> bool {
-    rpi_check!({ hw_mpr121::process_reply(mpr) });
+pub extern "C" fn ceammc_hw_sensor_mpr121_proc_reply(mpr: *const hw_sensor_mpr121) -> bool {
+    rpi_check!({ hw_sensor_mpr121::process_reply(mpr) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_sensor_mpr121_get_all(mpr: *const hw_mpr121) -> bool {
-    rpi_check!({ hw_mpr121::send_request(mpr, Request::ReadAll) });
+pub extern "C" fn ceammc_hw_sensor_mpr121_readall(mpr: *const hw_sensor_mpr121) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::ReadAll) });
 }

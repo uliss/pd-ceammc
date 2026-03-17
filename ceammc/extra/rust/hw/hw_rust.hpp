@@ -297,13 +297,13 @@ struct ceammc_hw_infrared;
 
 struct ceammc_hw_max7219;
 
-struct ceammc_hw_mpr121;
-
 struct ceammc_hw_mpu6050;
 
 struct ceammc_hw_pca9685;
 
 struct ceammc_hw_rpi_pwm;
+
+struct ceammc_hw_sensor_mpr121;
 
 struct ceammc_hw_sensor_vl53l0x;
 
@@ -451,11 +451,6 @@ struct ceammc_hw_infrared_key_cb {
     void (*cb)(void *user, const char *key, int64_t value);
 };
 
-struct ceammc_hw_mpr121_key_cb {
-    const void *user;
-    void (*on_all_keys)(const void *user, uint16_t state);
-};
-
 struct ceammc_hw_mpu6050_data_cb {
     void *user;
     void (*cb_ypr)(void *user, float yaw, float pitch, float roll);
@@ -464,6 +459,11 @@ struct ceammc_hw_mpu6050_data_cb {
 
 struct ceammc_hw_print_options {
     bool landscape;
+};
+
+struct ceammc_hw_mpr121_key_cb {
+    void *user;
+    void (*on_all_keys)(void *user, uint16_t state);
 };
 
 struct ceammc_hw_sensor_vl53l0x_data_cb {
@@ -1002,14 +1002,6 @@ bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
 
-void ceammc_hw_mpr121_free(ceammc_hw_mpr121 *mpr);
-
-ceammc_hw_mpr121 *ceammc_hw_mpr121_new(int8_t i2c_bus,
-                                       int8_t i2c_addr,
-                                       ceammc_hw_notify_cb notify,
-                                       ceammc_hw_msg_cb on_msg,
-                                       ceammc_hw_mpr121_key_cb on_key);
-
 bool ceammc_hw_mpu6050_calibrate(ceammc_hw_mpu6050 *mpu);
 
 void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
@@ -1110,9 +1102,17 @@ bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double widt
 
 bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, double width_ms);
 
-bool ceammc_hw_sensor_mpr121_get_all(const ceammc_hw_mpr121 *mpr);
+void ceammc_hw_sensor_mpr121_free(ceammc_hw_sensor_mpr121 *mpr);
 
-bool ceammc_hw_sensor_mpr121_proc_reply(const ceammc_hw_mpr121 *mpr);
+ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
+                                                     int8_t i2c_addr,
+                                                     ceammc_hw_notify_cb notify,
+                                                     ceammc_hw_msg_cb on_msg,
+                                                     ceammc_hw_mpr121_key_cb on_key);
+
+bool ceammc_hw_sensor_mpr121_proc_reply(const ceammc_hw_sensor_mpr121 *mpr);
+
+bool ceammc_hw_sensor_mpr121_readall(const ceammc_hw_sensor_mpr121 *mpr);
 
 void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
 

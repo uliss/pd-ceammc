@@ -108,6 +108,7 @@ ceammc_hw_external(rpi_sensor_sr04)
 ceammc_hw_external(rpi_sensor_vl53l0x)
 ceammc_hw_external(rpi_spi_max7219)
 ceammc_hw_external(rpi_spi_ws2812)
+ceammc_hw_external(rpi_sensor_mpr121)
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES
 # udmx_handle.cpp) ceammc_hw_external(udmx) target_link_libraries(ceammc_hw
