@@ -299,6 +299,8 @@ struct ceammc_hw_max7219;
 
 struct ceammc_hw_mpu6050;
 
+struct ceammc_hw_nfc_pn532;
+
 struct ceammc_hw_pca9685;
 
 struct ceammc_hw_rpi_pwm;
@@ -455,6 +457,11 @@ struct ceammc_hw_mpu6050_data_cb {
     void *user;
     void (*cb_ypr)(void *user, float yaw, float pitch, float roll);
     void (*cb_temp)(void *user, float temp);
+};
+
+struct ceammc_hw_nfc_pn532_cb {
+    void *user;
+    void (*on_all_keys)(void *user, uint16_t state);
 };
 
 struct ceammc_hw_print_options {
@@ -1016,6 +1023,12 @@ bool ceammc_hw_mpu6050_poll(ceammc_hw_mpu6050 *mpu, bool state);
 
 bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
 
+void ceammc_hw_nfc_pn532_free(ceammc_hw_nfc_pn532 *nfc);
+
+bool ceammc_hw_nfc_pn532_proc_reply(const ceammc_hw_nfc_pn532 *nfc);
+
+bool ceammc_hw_nfc_pn532_readall(const ceammc_hw_nfc_pn532 *nfc);
+
 bool ceammc_hw_pca9685_disable_prog_addr(const ceammc_hw_pca9685 *pwm,
                                          ceammc_hw_pca8695_prog_address addr_type);
 
@@ -1071,6 +1084,12 @@ bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
 bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_pca8695_prog_address addr_type,
                                      uint8_t i2c_addr);
+
+ceammc_hw_nfc_pn532 *ceammc_hw_pn532_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         ceammc_hw_notify_cb notify,
+                                         ceammc_hw_msg_cb on_msg,
+                                         ceammc_hw_nfc_pn532_cb on_key);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,

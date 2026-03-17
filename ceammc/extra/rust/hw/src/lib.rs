@@ -314,7 +314,11 @@ pub struct hw_color_rgb8 {
 
 impl hw_color_rgb8 {
     pub fn into8(&self) -> rgb::RGB8 {
-        rgb::RGB8 { r: self.red, g: self.green, b: self.blue }
+        rgb::RGB8 {
+            r: self.red,
+            g: self.green,
+            b: self.blue,
+        }
     }
 }
 
@@ -361,6 +365,8 @@ pub mod i2c;
 pub mod infrared;
 pub mod lcd1602;
 pub mod max7219;
+pub mod mpr121;
+pub mod pn532;
 pub mod rotenc;
 pub mod rpi_gyro;
 pub mod rpi_pwm;
@@ -368,4 +374,3 @@ pub mod rpi_pwm_pca9685;
 pub mod spi;
 pub mod vl53l0x;
 pub mod ws2812;
-pub mod mpr121;

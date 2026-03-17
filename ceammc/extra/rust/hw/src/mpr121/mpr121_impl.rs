@@ -21,8 +21,9 @@ impl hw_sensor_mpr121 {
         let (worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
-            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
+            let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}");
+            i2c.set_slave_address(0x5A);
 
             let bus = i2c.bus();
             let mut delay = Delay::new();
