@@ -18,11 +18,11 @@
       управлять светодиодами, реле, соленоидами, сервомоторами, шаговыми двигателями, а также
       считывать цифровые значения с кнопок и пороговых датчиков.</tr>
     </info>
-    <a href="ceammc://hw.rpi.gpio-example.pd" indent="19">
+    <a href="ceammc-i18n://hw.rpi.gpio-example.pd" indent="19">
       <tr lang="en">GPIO Control</tr>
       <tr lang="ru">Управление GPIO</tr>
     </a>
-    <a href="ceammc://ceammc_rpi_stepper-info.pd" indent="19">
+    <a href="ceammc-i18n://ceammc_rpi_stepper-info.pd" indent="19">
       <tr lang="en">Stepper motor control</tr>
       <tr lang="ru">Управление Шаговыми двигателями</tr>
     </a>

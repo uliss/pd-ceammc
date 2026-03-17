@@ -35,7 +35,7 @@
 #X obj 50 618 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_gpio1.png;
 #X obj 50 647 ui.link @title 'GPIO_control' @url
-ceammc://hw.rpi.gpio-example.pd;
+ceammc-i18n://hw.rpi.gpio-example.pd;
 #X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 709 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;

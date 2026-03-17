@@ -34,7 +34,7 @@ objects (the first one that captured this pin);
 #X obj 50 588 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_gpio1.png;
 #X obj 50 617 ui.link @title 'GPIO_control' @url
-ceammc://hw.rpi.gpio-example.pd;
+ceammc-i18n://hw.rpi.gpio-example.pd;
 #X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 679 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
