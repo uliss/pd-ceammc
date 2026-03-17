@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef tl_cue_fn_tcl_h_
 #define tl_cue_fn_tcl_h_
-const char* tl_cue_fn_tcl = 
+constexpr const char* tl_cue_fn_tcl = 
 "namespace eval ::ceammc::tl:: {\n"
 "    variable receive_symbol\n"
 "}\n"

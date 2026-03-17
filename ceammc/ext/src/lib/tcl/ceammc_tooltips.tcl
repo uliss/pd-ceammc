@@ -3,13 +3,13 @@ namespace eval ::ceammc_tt {
     set active 0
 }
 proc ::ceammc_tt::txt {c tag xlet text} {
-    $c bind $tag <Enter>  [list ::ceammc_tt::enter $c $tag $xlet $text]
-    $c bind $tag <Leave>  [list ::ceammc_tt::leave $c]
- }
+    $c bind $tag <Enter> [list ::ceammc_tt::enter $c $tag $xlet $text]
+    $c bind $tag <Leave> [list ::ceammc_tt::leave $c]
+}
 proc ::ceammc_tt::show {c tag xlet} {
-    if {$::ceammc_tt::active == 0} return
+    if {$::ceammc_tt::active == 0} {return}
     $c delete ceammc_tt
-    foreach {x - - y} [$c bbox $tag] break
+    foreach {x - - y} [$c bbox $tag] {break}
     if [info exists y] {
         variable id
         if {$xlet == 0} {
@@ -31,7 +31,7 @@ proc ::ceammc_tt::enter {c tag xlet text} {
     after 500 ::ceammc_tt::show $c $tag $xlet
 }
 proc ::ceammc_tt::delete {c} {
-    if {$::ceammc_tt::active == 1} return
+    if {$::ceammc_tt::active == 1} {return}
     $c delete ceammc_tt
 }
 proc ::ceammc_tt::leave {c} {
