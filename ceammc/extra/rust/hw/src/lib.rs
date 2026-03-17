@@ -368,3 +368,4 @@ pub mod rpi_pwm_pca9685;
 pub mod spi;
 pub mod vl53l0x;
 pub mod ws2812;
+pub mod mpr121;
