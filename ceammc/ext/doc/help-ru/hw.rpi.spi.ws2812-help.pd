@@ -106,19 +106,64 @@ ZCwgd2hpdGUsIHllbGxvdywgcmFuZG9tLiA=
 250 @lines
 >QGNvbG9yOCBSIEcgQjog0YHQv9C40YHQvtC6IFIgRyBCINGG0LLQtdGC0L7QstGL0YUg0LrQvtC8
 0L/QvtC90LXQvdGCINCyINC00LjQsNC/0LDQt9C+0L3QtSBbMC4uMjU1XQ== ;
-#X obj 250 1264 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1264 fill_bits;
-#X text 270 1264 заполнять только те пиксели во внутреннем буфере указанным
+#X obj 300 1254 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1254 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
+Тип: list.;
+#X obj 270 1254 nui.helpbox @title ? @direction_right 0 @text_width
+250 @lines
+>QHNsaWNlIEZST006INCS0YvQsdC40YDQsNC10YIg0LLRgdC1INC/0LjQutGB0LXQu9C4INC90LDR
+h9C40L3QsNGPINGBIEZST00uINCV0YHQu9C4IEZST00gLSDQvtGC0YDQuNGG0LDRgtC10LvRjNC9
+0L7QtSDQt9C90LDRh9C10L3QuNC1LCDQvtC90L4g0L7QsdC+0LfQvdCw0YfQsNC10YIg0L/QvtC7
+0L7QttC10L3QuNC1INC/0LjQutGB0LXQu9GPINGBINC60L7QvdGG0LAuINCd0LDQv9GA0LjQvNC1
+0YA6IEBzbGljZSAtMiDQstGL0LHQtdGA0LXRgiDQtNCy0LAg0L/QvtGB0LvQtdC00L3QuNGFINC/
+0LjQutGB0LXQu9GPLg==
+>QHNsaWNlIEZST00gVE86INCS0YvQsdC40YDQsNC10YIg0LLRgdC1INC/0LjQutGB0LXQu9C4INC9
+0LDRh9C40L3QsNGPINGBIEZST00g0Lgg0LTQviBUTyDQstC60LvRjtGH0LjRgtC10LvRjNC90L4u
+INCV0YHQu9C4IEZST00g0LjQu9C4IFRPIC0g0L7RgtGA0LjRhtCw0YLQtdC70YzQvdGL0LUg0LfQ
+vdCw0YfQtdC90LjRjywg0L7QvdC4INC+0LHQvtC30L3QsNGH0LDQtdGCINC/0L7Qu9C+0LbQtdC9
+0LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLg==
+>QHNsaWNlIEZST00gVE8gU1RFUDog0JLRi9Cx0LjRgNCw0LXRgiDQstGB0LUg0L/QuNC60YHQtdC7
+0Lgg0L3QsNGH0LjQvdCw0Y8g0YEgRlJPTSDQuCDQtNC+IFRPINCy0LrQu9GO0YfQuNGC0LXQu9GM
+0L3QviDRh9C10YDQtdC3INGD0LrQsNC30LDQvdC90YvQuSDRiNCw0LMgKFNURVApLiDQndCw0L/R
+gNC40LzQtdGALCDQtdGB0LvQuCBTVEVQINGA0LDQstC90L4gMywg0LLRi9Cx0LjRgNCw0LXRgiDQ
+utCw0LbQtNGL0Lkg0YLRgNC10YLQuNC5INC/0LjQutGB0LXQu9GMINCyINGD0LrQsNC30LDQvdC9
+0L7QvCDQtNC40LDQv9Cw0LfQvtC90LUu ;
+#X obj 300 1292 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1292 [@lslice START LENGTH? STEP?]: срез пикселей по длине.
+Тип: list.;
+#X obj 270 1292 nui.helpbox @title ? @direction_right 0 @text_width
+250 @lines
+>QGxzbGljZSBGUk9NOiDQktGL0LHQuNGA0LDQtdGCINCy0YHQtSDQv9C40LrRgdC10LvQuCDQvdCw
+0YfQuNC90LDRjyDRgSBGUk9NLiDQldGB0LvQuCBGUk9NIC0g0L7RgtGA0LjRhtCw0YLQtdC70YzQ
+vdC+0LUg0LfQvdCw0YfQtdC90LjQtSwg0L7QvdC+INC+0LHQvtC30L3QsNGH0LDQtdGCINC/0L7Q
+u9C+0LbQtdC90LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLiDQndCw0L/RgNC40LzQ
+tdGAOiBAbHNsaWNlIC00INCy0YvQsdC10YDQtdGCINGH0LXRgtGL0YDQtSDQv9C+0YHQu9C10LTQ
+vdC40YUg0L/QuNC60YHQtdC70Y8u
+>QGxzbGljZSBGUk9NIExFTkdUSDog0JLRi9Cx0LjRgNCw0LXRgiBMRU5HVEgg0L/QuNC60YHQtdC7
+0LXQuSDQvdCw0YfQuNC90LDRjyDRgSBGUk9NLiDQldGB0LvQuCBGUk9NIC0g0L7RgtGA0LjRhtCw
+0YLQtdC70YzQvdC+0LUg0LfQvdCw0YfQtdC90LjQtSwg0L7QvdC+INC+0LHQvtC30L3QsNGH0LDQ
+tdGCINC/0L7Qu9C+0LbQtdC90LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLiBMRU5H
+VEggLSDQstGB0LXQs9C00LAg0L/QvtC70L7QttC40YLQtdC70YzQvdC+0LUg0LfQvdCw0YfQtdC9
+0LjQtS4=
+>QGxzbGljZSBGUk9NIExFTkdUSCBTVEVQOiDQktGL0LHQuNGA0LDQtdGCIExFTkdUSCDQv9C40LrR
+gdC10LvQtdC5INC90LDRh9C40L3QsNGPINGBIEZST9CcINGH0LXRgNC10Lcg0YPQutCw0LfQsNC9
+0L3Ri9C5INGI0LDQsyAoU1RFUCkuINCd0LDQv9GA0LjQvNC10YAsINC10YHQu9C4IFNURVAg0YDQ
+sNCy0L3QviAzLCDQstGL0LHQuNGA0LDQtdGCINC60LDQttC00YvQuSDRgtGA0LXRgtC40Lkg0L/Q
+uNC60YHQtdC70Ywg0LIg0YPQutCw0LfQsNC90L3QvtC8INC00LjQsNC/0LDQt9C+0L3QtS4=
+;
+#X obj 250 1340 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1340 fill_bits;
+#X text 270 1340 заполнять только те пиксели во внутреннем буфере указанным
 цветом \, для которых соответствующий бит во входном списке установлен
 в 1\. Аргументы:;
-#X obj 300 1319 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1319 [@offset=0]: смещение битового списка. Тип: int. Минимальное
+#X obj 300 1395 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1395 [@offset=0]: смещение битового списка. Тип: int. Минимальное
 значение: 0\.;
-#X obj 300 1357 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1357 [@bits=0]: битовый список. Тип: bool.;
-#X obj 300 1380 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1380 [@color ...]: цвет. Тип: list.;
-#X obj 270 1380 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 300 1433 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1433 [@bits=0]: битовый список. Тип: bool.;
+#X obj 300 1456 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1456 [@color ...]: цвет. Тип: list.;
+#X obj 270 1456 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGNvbG9yIFIgRyBCOiDRgdC/0LjRgdC+0LogUiBHIEIg0YbQstC10YLQvtCy0YvRhSDQutC+0LzQ
 v9C+0L3QtdC90YIg0LIg0LTQuNCw0L/QsNC30L7QvdC1IFswLi4xXQ==
@@ -130,47 +175,20 @@ ZWVuLCBsaW1lLCBtYWdlbnRhLCBuYXZ5LCBvbGl2ZSwgb3JhbmdlLCBwaW5rLCBwdXJwbGUsIHJl
 ZCwgd2hpdGUsIHllbGxvdywgcmFuZG9tLiA=
 >QGNvbG9yIENvbG9yKGRhdGEpOiDRhtCy0LXRgtC+0LLQvtC5INGC0LjQvyDQtNCw0L3QvdGL0YU=
 ;
-#X obj 300 1403 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1403 [@color8 ...]: RGB целочисленный цвет. Тип: list.;
-#X obj 270 1403 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 300 1479 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1479 [@color8 ...]: RGB целочисленный цвет. Тип: list.;
+#X obj 270 1479 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGNvbG9yOCBSIEcgQjog0YHQv9C40YHQvtC6IFIgRyBCINGG0LLQtdGC0L7QstGL0YUg0LrQvtC8
 0L/QvtC90LXQvdGCINCyINC00LjQsNC/0LDQt9C+0L3QtSBbMC4uMjU1XQ== ;
-#X obj 250 1436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1436 fill_lslice;
-#X text 270 1436 заполнить срез пикселей во внутреннем буфере указанным
-цветом. Аргументы:;
-#X obj 300 1476 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1476 [@lslice START LENGTH? STEP?]: срез пикселей по длине.
-Тип: list.;
-#X obj 270 1476 nui.helpbox @title ? @direction_right 0 @text_width
-250 @lines
->QGxzbGljZSBGUk9NOiDQktGL0LHQuNGA0LDQtdGCINCy0YHQtSDQv9C40LrRgdC10LvQuCDQvdCw
-0YfQuNC90LDRjyDRgSBGUk9NLiDQldGB0LvQuCBGUk9NIC0g0L7RgtGA0LjRhtCw0YLQtdC70YzQ
-vdC+0LUg0LfQvdCw0YfQtdC90LjQtSwg0L7QvdC+INC+0LHQvtC30L3QsNGH0LDQtdGCINC/0L7Q
-u9C+0LbQtdC90LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLiDQndCw0L/RgNC40LzQ
-tdGAOiBAbHNsaWNlIC00INCy0YvQsdC10YDQtdGCINGH0LXRgtGL0YDQtSDQv9C+0YHQu9C10LTQ
-vdC40YUg0L/QuNC60YHQtdC70Y8u
->QGxzbGljZSBGUk9NIExFTkdUSDog0JLRi9Cx0LjRgNCw0LXRgiBMRU5HVEgg0L/QuNC60YHQtdC7
-0LXQuSDQvdCw0YfQuNC90LDRjyDRgSBGUk9NLiDQldGB0LvQuCBGUk9NIC0g0L7RgtGA0LjRhtCw
-0YLQtdC70YzQvdC+0LUg0LfQvdCw0YfQtdC90LjQtSwg0L7QvdC+INC+0LHQvtC30L3QsNGH0LDQ
-tdGCINC/0L7Qu9C+0LbQtdC90LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLiBMRU5H
-VEggLSDQstGB0LXQs9C00LAg0L/QvtC70L7QttC40YLQtdC70YzQvdC+0LUg0LfQvdCw0YfQtdC9
-0LjQtS4=
->QGxzbGljZSBGUk9NIExFTkdUSCBTVEVQOiDQktGL0LHQuNGA0LDQtdGCIExFTkdUSCDQv9C40LrR
-gdC10LvQtdC5INC90LDRh9C40L3QsNGPINGBIEZST9CcINGH0LXRgNC10Lcg0YPQutCw0LfQsNC9
-0L3Ri9C5INGI0LDQsyAoU1RFUCkuINCd0LDQv9GA0LjQvNC10YAsINC10YHQu9C4IFNURVAg0YDQ
-sNCy0L3QviAzLCDQstGL0LHQuNGA0LDQtdGCINC60LDQttC00YvQuSDRgtGA0LXRgtC40Lkg0L/Q
-uNC60YHQtdC70Ywg0LIg0YPQutCw0LfQsNC90L3QvtC8INC00LjQsNC/0LDQt9C+0L3QtS4=
-;
-#X obj 250 1524 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1524 fill_pixels;
-#X text 270 1524 заполнить указанные пиксели указанным цветом. Аргументы:;
-#X obj 300 1549 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1549 [@indexes]: список индексов пикселей. Тип: list.;
-#X obj 300 1572 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1572 [@color ...]: цвет. Тип: list.;
-#X obj 270 1572 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 250 1512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1512 fill_pixels;
+#X text 270 1512 заполнить указанные пиксели указанным цветом. Аргументы:;
+#X obj 300 1537 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1537 [@indexes]: список индексов пикселей. Тип: list.;
+#X obj 300 1560 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1560 [@color ...]: цвет. Тип: list.;
+#X obj 270 1560 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGNvbG9yIFIgRyBCOiDRgdC/0LjRgdC+0LogUiBHIEIg0YbQstC10YLQvtCy0YvRhSDQutC+0LzQ
 v9C+0L3QtdC90YIg0LIg0LTQuNCw0L/QsNC30L7QvdC1IFswLi4xXQ==
@@ -182,52 +200,26 @@ ZWVuLCBsaW1lLCBtYWdlbnRhLCBuYXZ5LCBvbGl2ZSwgb3JhbmdlLCBwaW5rLCBwdXJwbGUsIHJl
 ZCwgd2hpdGUsIHllbGxvdywgcmFuZG9tLiA=
 >QGNvbG9yIENvbG9yKGRhdGEpOiDRhtCy0LXRgtC+0LLQvtC5INGC0LjQvyDQtNCw0L3QvdGL0YU=
 ;
-#X obj 300 1595 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1595 [@color8 ...]: RGB целочисленный цвет. Тип: list.;
-#X obj 270 1595 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 300 1583 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1583 [@color8 ...]: RGB целочисленный цвет. Тип: list.;
+#X obj 270 1583 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGNvbG9yOCBSIEcgQjog0YHQv9C40YHQvtC6IFIgRyBCINGG0LLQtdGC0L7QstGL0YUg0LrQvtC8
 0L/QvtC90LXQvdGCINCyINC00LjQsNC/0LDQt9C+0L3QtSBbMC4uMjU1XQ== ;
-#X obj 250 1628 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1628 fill_slice;
-#X text 270 1628 заполнить срез пикселей во внутреннем буфере указанным
-цветом. Аргументы:;
-#X obj 300 1668 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1668 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
-Тип: list.;
-#X obj 270 1668 nui.helpbox @title ? @direction_right 0 @text_width
-250 @lines
->QHNsaWNlIEZST006INCS0YvQsdC40YDQsNC10YIg0LLRgdC1INC/0LjQutGB0LXQu9C4INC90LDR
-h9C40L3QsNGPINGBIEZST00uINCV0YHQu9C4IEZST00gLSDQvtGC0YDQuNGG0LDRgtC10LvRjNC9
-0L7QtSDQt9C90LDRh9C10L3QuNC1LCDQvtC90L4g0L7QsdC+0LfQvdCw0YfQsNC10YIg0L/QvtC7
-0L7QttC10L3QuNC1INC/0LjQutGB0LXQu9GPINGBINC60L7QvdGG0LAuINCd0LDQv9GA0LjQvNC1
-0YA6IEBzbGljZSAtMiDQstGL0LHQtdGA0LXRgiDQtNCy0LAg0L/QvtGB0LvQtdC00L3QuNGFINC/
-0LjQutGB0LXQu9GPLg==
->QHNsaWNlIEZST00gVE86INCS0YvQsdC40YDQsNC10YIg0LLRgdC1INC/0LjQutGB0LXQu9C4INC9
-0LDRh9C40L3QsNGPINGBIEZST00g0Lgg0LTQviBUTyDQstC60LvRjtGH0LjRgtC10LvRjNC90L4u
-INCV0YHQu9C4IEZST00g0LjQu9C4IFRPIC0g0L7RgtGA0LjRhtCw0YLQtdC70YzQvdGL0LUg0LfQ
-vdCw0YfQtdC90LjRjywg0L7QvdC4INC+0LHQvtC30L3QsNGH0LDQtdGCINC/0L7Qu9C+0LbQtdC9
-0LjQtSDQv9C40LrRgdC10LvRjyDRgSDQutC+0L3RhtCwLg==
->QHNsaWNlIEZST00gVE8gU1RFUDog0JLRi9Cx0LjRgNCw0LXRgiDQstGB0LUg0L/QuNC60YHQtdC7
-0Lgg0L3QsNGH0LjQvdCw0Y8g0YEgRlJPTSDQuCDQtNC+IFRPINCy0LrQu9GO0YfQuNGC0LXQu9GM
-0L3QviDRh9C10YDQtdC3INGD0LrQsNC30LDQvdC90YvQuSDRiNCw0LMgKFNURVApLiDQndCw0L/R
-gNC40LzQtdGALCDQtdGB0LvQuCBTVEVQINGA0LDQstC90L4gMywg0LLRi9Cx0LjRgNCw0LXRgiDQ
-utCw0LbQtNGL0Lkg0YLRgNC10YLQuNC5INC/0LjQutGB0LXQu9GMINCyINGD0LrQsNC30LDQvdC9
-0L7QvCDQtNC40LDQv9Cw0LfQvtC90LUu ;
-#X obj 250 1716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1716 flush;
-#X text 270 1716 вывести внутренний буфер на ленту.;
-#X obj 250 1751 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1751 fx;
-#X text 270 1751 применить функцию цветового эффекта. Аргументы:;
-#X obj 300 1776 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1776 NAME: название эффекта. Тип: symbol. Разрешённые значения:
+#X obj 250 1616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1616 flush;
+#X text 270 1616 вывести внутренний буфер на ленту.;
+#X obj 250 1651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1651 fx;
+#X text 270 1651 применить функцию цветового эффекта. Аргументы:;
+#X obj 300 1676 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1676 NAME: название эффекта. Тип: symbol. Разрешённые значения:
 rainbow \, breathe \, bounce \, collision \, cycle \, cylon \, fire
 \, meteor \, sparkle \, twinkle \, strobe.;
-#X obj 300 1829 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1829 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
+#X obj 300 1729 cnv 1 200 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1729 [@slice FIRST LAST? STEP?]: дипазонный срез пикселей.
 Тип: list.;
-#X obj 270 1829 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1729 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QHNsaWNlIEZST006INCS0YvQsdC40YDQsNC10YIg0LLRgdC1INC/0LjQutGB0LXQu9C4INC90LDR
 h9C40L3QsNGPINGBIEZST00uINCV0YHQu9C4IEZST00gLSDQvtGC0YDQuNGG0LDRgtC10LvRjNC9
@@ -246,10 +238,10 @@ vdCw0YfQtdC90LjRjywg0L7QvdC4INC+0LHQvtC30L3QsNGH0LDQtdGCINC/0L7Qu9C+0LbQtdC9
 gNC40LzQtdGALCDQtdGB0LvQuCBTVEVQINGA0LDQstC90L4gMywg0LLRi9Cx0LjRgNCw0LXRgiDQ
 utCw0LbQtNGL0Lkg0YLRgNC10YLQuNC5INC/0LjQutGB0LXQu9GMINCyINGD0LrQsNC30LDQvdC9
 0L7QvCDQtNC40LDQv9Cw0LfQvtC90LUu ;
-#X obj 300 1867 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1867 [@lslice START LENGTH? STEP?]: срез пикселей по длине.
+#X obj 300 1767 cnv 1 223 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1767 [@lslice START LENGTH? STEP?]: срез пикселей по длине.
 Тип: list.;
-#X obj 270 1867 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 270 1767 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGxzbGljZSBGUk9NOiDQktGL0LHQuNGA0LDQtdGCINCy0YHQtSDQv9C40LrRgdC10LvQuCDQvdCw
 0YfQuNC90LDRjyDRgSBGUk9NLiDQldGB0LvQuCBGUk9NIC0g0L7RgtGA0LjRhtCw0YLQtdC70YzQ
@@ -269,17 +261,17 @@ gdC10LvQtdC5INC90LDRh9C40L3QsNGPINGBIEZST9CcINGH0LXRgNC10Lcg0YPQutCw0LfQsNC9
 sNCy0L3QviAzLCDQstGL0LHQuNGA0LDQtdGCINC60LDQttC00YvQuSDRgtGA0LXRgtC40Lkg0L/Q
 uNC60YHQtdC70Ywg0LIg0YPQutCw0LfQsNC90L3QvtC8INC00LjQsNC/0LDQt9C+0L3QtS4=
 ;
-#X obj 250 1915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1915 rotate;
-#X text 270 1915 сдвинуть все пиксели на указанный шаг. Аргументы:;
-#X obj 300 1940 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1940 SHIFT: значение шага. Тип: int.;
-#X obj 250 1973 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1973 set_pixel;
-#X text 270 1973 установить цвет отдельного пикселя. Аргументы:;
-#X obj 300 1998 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1998 [@color ...]: цвет. Тип: list.;
-#X obj 270 1998 nui.helpbox @title ? @direction_right 0 @text_width
+#X obj 250 1815 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1815 rotate;
+#X text 270 1815 сдвинуть все пиксели на указанный шаг. Аргументы:;
+#X obj 300 1840 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1840 SHIFT: значение шага. Тип: int.;
+#X obj 250 1873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1873 set_pixel;
+#X text 270 1873 установить цвет отдельного пикселя. Аргументы:;
+#X obj 300 1898 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1898 [@color ...]: цвет. Тип: list.;
+#X obj 270 1898 nui.helpbox @title ? @direction_right 0 @text_width
 250 @lines
 >QGNvbG9yIFIgRyBCOiDRgdC/0LjRgdC+0LogUiBHIEIg0YbQstC10YLQvtCy0YvRhSDQutC+0LzQ
 v9C+0L3QtdC90YIg0LIg0LTQuNCw0L/QsNC30L7QvdC1IFswLi4xXQ==
@@ -291,25 +283,25 @@ ZWVuLCBsaW1lLCBtYWdlbnRhLCBuYXZ5LCBvbGl2ZSwgb3JhbmdlLCBwaW5rLCBwdXJwbGUsIHJl
 ZCwgd2hpdGUsIHllbGxvdywgcmFuZG9tLiA=
 >QGNvbG9yIENvbG9yKGRhdGEpOiDRhtCy0LXRgtC+0LLQvtC5INGC0LjQvyDQtNCw0L3QvdGL0YU=
 ;
-#X obj 20 2041 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2046 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1941 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1946 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 2047 1\.;
-#X text 170 2047 bang:;
-#X text 270 2047 сбросить значения пикселей на ленту.;
-#X obj 20 2082 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2087 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1947 1\.;
+#X text 170 1947 bang:;
+#X text 270 1947 сбросить значения пикселей на ленту.;
+#X obj 20 1982 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1987 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2088 1\.;
-#X text 270 2088 ничего не выводит.;
+#X text 130 1988 1\.;
+#X text 270 1988 ничего не выводит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2138 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2141 библиотека: ceammc v0.9.8;
-#N canvas 10 2160 400 290 info 0;
+#X obj 1 2038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2041 библиотека: ceammc v0.9.8;
+#N canvas 10 2060 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -333,7 +325,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2160 pd info;
+#X restore 10 2060 pd info;
 #X connect 11 0 13 0;
 #X connect 10 0 15 0;
 #X connect 15 0 19 0;

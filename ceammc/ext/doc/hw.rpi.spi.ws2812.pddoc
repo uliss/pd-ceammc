@@ -114,6 +114,16 @@
           <tr lang="ru">RGB целочисленный цвет</tr>
           <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
+        <param name="@slice FIRST LAST? STEP?" type="list">
+          <tr lang="en">range slice of pixels</tr>
+          <tr lang="ru">дипазонный срез пикселей</tr>
+          <xi:include href="props_slice_verbose.xml" parse="xml" />
+        </param>
+        <param name="@lslice START LENGTH? STEP?" type="list">
+          <tr lang="en">slice of pixels</tr>
+          <tr lang="ru">срез пикселей по длине</tr>
+          <xi:include href="props_lslice_verbose.xml" parse="xml" />
+        </param>
       </method>
       <!-- fill_bits -->
       <method name="fill_bits">
@@ -142,18 +152,6 @@
           <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
       </method>
-      <!-- fill_lslice -->
-      <method name="fill_lslice">
-        <info>
-          <tr lang="en">fill the slice of pixels in the internal buffer with specified color</tr>
-          <tr lang="ru">заполнить срез пикселей во внутреннем буфере указанным цветом</tr>
-        </info>
-        <param name="@lslice START LENGTH? STEP?" type="list">
-          <tr lang="en">slice of pixels</tr>
-          <tr lang="ru">срез пикселей по длине</tr>
-          <xi:include href="props_lslice_verbose.xml" parse="xml" />
-        </param>
-      </method>
       <!-- fill_pixels -->
       <method name="fill_pixels">
         <info>
@@ -173,18 +171,6 @@
           <tr lang="en">RGB int color</tr>
           <tr lang="ru">RGB целочисленный цвет</tr>
           <xi:include href="props_verbose_color8.xml" parse="xml" />
-        </param>
-      </method>
-      <!-- fill_slice -->
-      <method name="fill_slice">
-        <info>
-          <tr lang="en">fill the slice of pixels in the internal buffer with specified color</tr>
-          <tr lang="ru">заполнить срез пикселей во внутреннем буфере указанным цветом</tr>
-        </info>
-        <param name="@slice FIRST LAST? STEP?" type="list">
-          <tr lang="en">range slice of pixels</tr>
-          <tr lang="ru">дипазонный срез пикселей</tr>
-          <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
       </method>
       <!-- flush -->
