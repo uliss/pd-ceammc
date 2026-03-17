@@ -23,7 +23,7 @@ void process_rgb(ceammc_hw_color_rgb8& c, const T& args)
 }
 
 template <typename T>
-const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, const T& args)
+const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, size_t size, const T& args)
 {
     const ceammc_hw_slice* slice_ptr = nullptr;
 
@@ -32,28 +32,18 @@ const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, const T& args)
         slice.first = args.prop_slice.first;
         slice.last = args.prop_slice.last;
         slice.step = args.prop_slice.step;
-    }
-
-    return slice_ptr;
-}
-
-template <typename T>
-const ceammc_hw_slice* process_lslice(ceammc_hw_slice& lslice, size_t size, const T& args)
-{
-    const ceammc_hw_slice* slice_ptr = nullptr;
-    if (args.prop_lslice._count) {
-        slice_ptr = &lslice;
-
-        lslice.first = args.prop_lslice.start;
-
+    } else if (args.prop_lslice._count) {
+        slice_ptr = &slice;
+        slice.first = args.prop_lslice.start;
         if (args.prop_lslice.length < 1) {
-            lslice.last = -1;
+            slice.last = -1;
         } else {
-            lslice.last = args.prop_lslice.start + size - 1;
+            slice.last = args.prop_lslice.start + size - 1;
         }
 
-        lslice.step = args.prop_lslice.step;
+        slice.step = args.prop_lslice.step;
     }
+
     return slice_ptr;
 }
 
@@ -178,11 +168,7 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     process_rgb(color, args);
 
     ceammc_hw_slice slice;
-    const ceammc_hw_slice* slice_ptr = process_slice(slice, args);
-    if (!slice_ptr)
-        slice_ptr = process_lslice(slice, size_->value(), args);
-
-    ceammc_hw_spi_ws2812_fill_slice(device(), color, slice_ptr);
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, process_slice(slice, size_->value(), args));
 }
 
 /// @function "fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1" {
@@ -349,14 +335,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_hw_slice slice;
-    const ceammc_hw_slice* slice_ptr = process_slice(slice, args);
-    if (!slice_ptr)
-        slice_ptr = process_lslice(slice, size_->value(), args);
-
-    if (!check_connected(true, s))
-        return;
-
-    ceammc_hw_spi_ws2812_apply_fx(device(), fx, slice_ptr);
+    ceammc_hw_spi_ws2812_apply_fx(device(), fx, process_slice(slice, size_->value(), args));
 }
 
 /// @function "rotate internal pixel buffer" [{
