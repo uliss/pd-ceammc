@@ -2605,7 +2605,7 @@ struct m_fx_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isSymbol() || (strcmp(lv[0].asT<t_symbol*>()->s_name, "rainbow") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "breathe") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "bounce") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "collision") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "cycle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "cylon") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "fire") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "meteor") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "sparkle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "twinkle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "strobe") == 0))) {
+        if (!(false || (strcmp(lv[0].asT<t_symbol*>()->s_name, "rainbow") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "breathe") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "bounce") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "collision") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "cycle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "cylon") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "fire") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "meteor") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "sparkle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "twinkle") == 0) || (strcmp(lv[0].asT<t_symbol*>()->s_name, "strobe") == 0))) {
             return INVALID_VALUE;
         }
         // set value
