@@ -71,6 +71,15 @@ void UILink::onMouseDown(t_object* /*view*/, const t_pt& /*pt*/, const t_pt& /*a
 
     if (string::starts_with(prop_url->s_name, CEAMMC_PROTO)) {
         std::string ceammc_path(class_gethelpdir(*asPd()));
+        std::string helpname = class_gethelpname(*asPd());
+        if (string::starts_with(helpname.c_str(), "help-")) {
+            auto pos = helpname.find('/');
+            if (pos != std::string::npos) {
+                ceammc_path += '/';
+                ceammc_path += helpname.substr(0, pos);
+            }
+        }
+
         ceammc_path += '/';
         ceammc_path += std::string(prop_url->s_name).substr(strlen(CEAMMC_PROTO));
         sys_vgui("ui::link_open {%s} {%s}\n", ceammc_path.c_str(), canvas_dir_->s_name);
