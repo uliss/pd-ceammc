@@ -82,7 +82,7 @@ optionally synchronize it with the strip. Arguments are:;
 to the device. Type: bool.;
 #X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1123 fill;
-#X text 270 1123 fill all pixels with the color. Arguments are:;
+#X text 270 1123 fill pixels with the color. Arguments are:;
 #X obj 300 1148 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1148 [@color ...]: color. Type: list.;
 #X obj 270 1148 nui.helpbox @title ? @direction_right 0 @text_width

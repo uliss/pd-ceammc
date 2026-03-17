@@ -101,8 +101,8 @@
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fill all pixels with the color</tr>
-          <tr lang="ru">заполнить все пиксели цветом</tr>
+          <tr lang="en">fill pixels with the color</tr>
+          <tr lang="ru">заполнить пиксели цветом</tr>
         </info>
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
