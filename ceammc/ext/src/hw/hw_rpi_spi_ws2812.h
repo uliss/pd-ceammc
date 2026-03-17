@@ -23,9 +23,7 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_fill(t_symbol* s, const AtomListView& lv);
     void m_fill_bits(t_symbol* s, const AtomListView& lv);
-    void m_fill_lslice(t_symbol* s, const AtomListView& lv);
     void m_fill_pixels(t_symbol* s, const AtomListView& lv);
-    void m_fill_slice(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
     void m_fx(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
