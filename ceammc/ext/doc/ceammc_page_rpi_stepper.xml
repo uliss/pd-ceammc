@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page output="ceammc_rpi_stepper-info.pd">
+  <title>
+    <tr lang="en">Stepper motors</tr>
+    <tr lang="ru">Шаговые двигатели</tr>
+  </title>
+  <sections>
+    <h1>
+      <tr lang="en">Rotation in one direction</tr>
+      <tr lang="ru">Вращение в одном направлении</tr>
+    </h1>
+    <a href="ceammc://img/conn_stepper_0.png" indent="19">
+      <tr lang="en">Connection scheme</tr>
+      <tr lang="ru">Схема подключения</tr>
+    </a>
+    <pdascii indent="10">
+<![CDATA[
+/*init gpio pin*/              [T] /*rotation*/
+                               |
+[output 20(   /*single step*/  [metro 50]
+|                              |
+| [reset 20(  [impulse #a(     [impulse #b(
+| |
+| |
+[hw.rpi.gpio #x]
+[X a->x] [X b->x]
+#a 20 25
+#b 20 25
+]]>
+    </pdascii>
+    <h1>
+      <tr lang="en">Playing notes</tr>
+      <tr lang="ru">Воспроизведение нот</tr>
+    </h1>
+    <pdascii indent="10">
+<![CDATA[
+/*init gpio pin*/   [200( [300( [400( [600( [0(
+                    |     |     |     |     |
+[output 20 #a(      |     |     |     |     |
+                    [soft_pwm_freq 20 $1 0.5 #c(
+  [reset 20 #b(
+
+
+[hw.rpi.gpio #x]
+[X a->x] [X b->x] [X c->x]
+]]>
+    </pdascii>
+  </sections>
+</page>
