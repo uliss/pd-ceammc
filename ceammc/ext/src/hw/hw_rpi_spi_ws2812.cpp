@@ -325,12 +325,12 @@ void HwSpiWs2812::m_flush(t_symbol* s, const AtomListView& lv)
 ///  #fx_name symbol "effect name" {
 ///      enum: ##("rainbow", "breathe", "bounce", "collision", "cycle", "cylon", "fire", "meteor", "sparkle", "twinkle", "strobe")
 ///  }
-///  @slice ^(@lslice) "range-based pixel slice" {
+///  @slice !(@lslice) "range-based pixel slice" {
 ///     #first int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
 ///     #last  int ?   "last index, can be negative. If negative: means position from the end of the buffer"  { default: -1 }
 ///     #step  int ?   "step between pixels"  { default: 1 check: > 0 }
 ///  }
-///  @lslice ^(@slice) "length-based pixel slice" {
+///  @lslice !(@slice) "length-based pixel slice" {
 ///     #start  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
 ///     #length int ?   "length. If 0 or not specified: apply to all pixels"  { default: 0 check: >= 0 }
 ///     #step   int ?   "step between pixels"  { default: 1 check: > 0 }

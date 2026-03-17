@@ -2639,7 +2639,7 @@ struct m_fx_args {
         return "FX_NAME (effect name), symbol ('bounce', 'breathe', 'collision', 'cycle', 'cylon', 'fire', 'meteor', 'rainbow', 'sparkle', 'strobe', 'twinkle')";
     }
     static const char* usage() {
-        return "usage: [fx FX_NAME ^@slice ^@lslice(";
+        return "usage: [fx FX_NAME !@slice !@lslice(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -2650,15 +2650,10 @@ struct m_fx_args {
         Post(obj) << " - " << prop_slice_t::info();
         Post(obj) << " - " << prop_lslice_t::info();
     }
-    bool check_xor_props(const BaseObject* obj, bool print_err) const {
+    bool check_nor_props(const BaseObject* obj, bool print_err) const {
         if (prop_lslice._count > 0 && prop_slice._count > 0) {
             if (print_err) {
                 Error(obj) << "[fx( the properties @lslice and @slice cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_lslice._count == 0 && prop_slice._count == 0) {
-            if (print_err) {
-                Error(obj) << "[fx( one of this properties is required: @lslice or @slice";
             }
             return false;
         }
@@ -2707,7 +2702,7 @@ struct m_fx_args {
             if (prop_slice._count > 1) {
                 if (print_err) {
                     Error(obj) << "too many @slice properties are specified";
-                    Error(obj) << "only 1 ^(@lslice) entries for property @slice are expected";
+                    Error(obj) << "only 1 !(@lslice) entries for property @slice are expected";
                 }
                 return false;
             }
@@ -2725,12 +2720,12 @@ struct m_fx_args {
             if (prop_lslice._count > 1) {
                 if (print_err) {
                     Error(obj) << "too many @lslice properties are specified";
-                    Error(obj) << "only 1 ^(@slice) entries for property @lslice are expected";
+                    Error(obj) << "only 1 !(@slice) entries for property @lslice are expected";
                 }
                 return false;
             }
         }
-        if (!check_xor_props(obj, print_err)) {
+        if (!check_nor_props(obj, print_err)) {
             return false;
         }
         return true;
