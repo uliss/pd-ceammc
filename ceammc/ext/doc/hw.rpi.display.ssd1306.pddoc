@@ -25,7 +25,7 @@
       <par>
         <tr lang="en">Note: you should send [flush( message to transfer internal pixel buffer to
         the device</tr>
-        <tr lang="ru">Примечание: вы должны отправить сообщение [flush( для передачи внутреннего
+        <tr lang="ru">Примечание: вы должны отправить сообщение [flush( для отправки внутреннего
         буфера пикселей на устройство</tr>
       </par>
     </info>
