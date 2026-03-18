@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -701,7 +702,7 @@ class fx_freeverb : public fx_freeverb_dsp {
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
@@ -735,14 +736,14 @@ class fx_freeverb : public fx_freeverb_dsp {
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
-		iConst4 = int(0.036666665f * fConst0);
-		iConst5 = int(0.035306122f * fConst0);
-		iConst6 = int(0.033809524f * fConst0);
+		iConst4 = int(0.0322449f * fConst0);
+		iConst5 = int(0.030748298f * fConst0);
+		iConst6 = int(0.028956916f * fConst0);
 		iConst7 = int(0.026938776f * fConst0);
-		iConst8 = int(0.025306122f * fConst0);
-		iConst9 = int(0.0322449f * fConst0);
-		iConst10 = int(0.028956916f * fConst0);
-		iConst11 = int(0.030748298f * fConst0);
+		iConst8 = int(0.036666665f * fConst0);
+		iConst9 = int(0.035306122f * fConst0);
+		iConst10 = int(0.033809524f * fConst0);
+		iConst11 = int(0.025306122f * fConst0);
 		iConst12 = std::min<int>(1024, std::max<int>(0, int(0.0126077095f * fConst0) + -1));
 		iConst13 = std::min<int>(1024, std::max<int>(0, int(0.01f * fConst0) + -1));
 		iConst14 = std::min<int>(1024, std::max<int>(0, int(0.0077324263f * fConst0) + -1));
@@ -957,7 +958,7 @@ class fx_freeverb : public fx_freeverb_dsp {
 			fVec3[IOTA0 & 8191] = fTemp2 + fRec11[0] * fRec21[0];
 			fRec20[0] = fVec3[(IOTA0 - iConst7) & 8191];
 			fRec23[0] = fRec14[0] * fRec23[1] + fTemp3 * fRec22[1];
-			fVec4[IOTA0 & 8191] = fRec23[0] * fRec11[0] + fTemp2;
+			fVec4[IOTA0 & 8191] = fTemp2 + fRec11[0] * fRec23[0];
 			fRec22[0] = fVec4[(IOTA0 - iConst8) & 8191];
 			fRec25[0] = fRec14[0] * fRec25[1] + fTemp3 * fRec24[1];
 			fVec5[IOTA0 & 8191] = fTemp2 + fRec11[0] * fRec25[0];
@@ -966,21 +967,21 @@ class fx_freeverb : public fx_freeverb_dsp {
 			fVec6[IOTA0 & 8191] = fTemp2 + fRec11[0] * fRec27[0];
 			fRec26[0] = fVec6[(IOTA0 - iConst10) & 8191];
 			fRec29[0] = fRec14[0] * fRec29[1] + fTemp3 * fRec28[1];
-			fVec7[IOTA0 & 8191] = fTemp2 + fRec11[0] * fRec29[0];
+			fVec7[IOTA0 & 8191] = fRec29[0] * fRec11[0] + fTemp2;
 			fRec28[0] = fVec7[(IOTA0 - iConst11) & 8191];
-			float fTemp4 = 0.5f * fRec7[1] + fRec9[0] + fRec16[0] + fRec18[0] + fRec20[0] + fRec22[0] + fRec24[0] + fRec26[0] + fRec28[0];
+			float fTemp4 = fRec9[0] + fRec16[0] + fRec18[0] + fRec20[0] + fRec22[0] + fRec24[0] + fRec26[0] + fRec28[0] + 0.5f * fRec7[1];
 			fVec8[IOTA0 & 2047] = fTemp4;
 			fRec7[0] = fVec8[(IOTA0 - iConst12) & 2047];
 			float fRec8 = -(0.5f * fTemp4);
-			float fTemp5 = fRec7[1] + fRec8 + 0.5f * fRec5[1];
+			float fTemp5 = fRec8 + 0.5f * fRec5[1] + fRec7[1];
 			fVec9[IOTA0 & 2047] = fTemp5;
 			fRec5[0] = fVec9[(IOTA0 - iConst13) & 2047];
 			float fRec6 = -(0.5f * fTemp5);
-			float fTemp6 = fRec5[1] + fRec6 + 0.5f * fRec3[1];
+			float fTemp6 = fRec6 + 0.5f * fRec3[1] + fRec5[1];
 			fVec10[IOTA0 & 2047] = fTemp6;
 			fRec3[0] = fVec10[(IOTA0 - iConst14) & 2047];
 			float fRec4 = -(0.5f * fTemp6);
-			float fTemp7 = fRec3[1] + fRec4 + 0.5f * fRec1[1];
+			float fTemp7 = fRec4 + 0.5f * fRec1[1] + fRec3[1];
 			fVec11[IOTA0 & 1023] = fTemp7;
 			fRec1[0] = fVec11[(IOTA0 - iConst15) & 1023];
 			float fRec2 = -(0.5f * fTemp7);

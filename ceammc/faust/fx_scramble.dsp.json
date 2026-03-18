@@ -32,7 +32,7 @@
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "1.1.0" },
 		{ "filename": "fx_scramble.dsp" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/nlf2:author": "Julius O. Smith III" },
 		{ "filters.lib/nlf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },

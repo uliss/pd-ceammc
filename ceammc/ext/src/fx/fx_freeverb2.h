@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -739,7 +740,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/version", "1.3.0");
 		m->declare("maths.lib/author", "GRAME");
@@ -776,13 +777,13 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
-		iConst4 = int(0.036666665f * fConst0);
-		iConst5 = int(0.035306122f * fConst0);
-		iConst6 = int(0.026938776f * fConst0);
-		iConst7 = int(0.025306122f * fConst0);
-		iConst8 = int(0.033809524f * fConst0);
-		iConst9 = int(0.0322449f * fConst0);
-		iConst10 = int(0.028956916f * fConst0);
+		iConst4 = int(0.028956916f * fConst0);
+		iConst5 = int(0.026938776f * fConst0);
+		iConst6 = int(0.025306122f * fConst0);
+		iConst7 = int(0.036666665f * fConst0);
+		iConst8 = int(0.035306122f * fConst0);
+		iConst9 = int(0.033809524f * fConst0);
+		iConst10 = int(0.0322449f * fConst0);
 		iConst11 = int(0.030748298f * fConst0);
 		iConst12 = int(0.0126077095f * fConst0);
 		iConst13 = std::min<int>(1024, std::max<int>(0, iConst12 + -1));
@@ -1081,14 +1082,14 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		float fSlow10 = fConst1 * float(fHslider4);
 		float fSlow11 = float(fHslider5);
 		int iSlow12 = int(fConst20 * float(fHslider6));
-		int iSlow13 = iConst4 + iSlow12;
+		int iSlow13 = iConst10 + iSlow12;
 		int iSlow14 = iConst11 + iSlow12;
-		int iSlow15 = iConst10 + iSlow12;
-		int iSlow16 = iConst6 + iSlow12;
-		int iSlow17 = iConst5 + iSlow12;
-		int iSlow18 = iConst8 + iSlow12;
-		int iSlow19 = iConst9 + iSlow12;
-		int iSlow20 = iConst7 + iSlow12;
+		int iSlow15 = iConst4 + iSlow12;
+		int iSlow16 = iConst5 + iSlow12;
+		int iSlow17 = iConst6 + iSlow12;
+		int iSlow18 = iConst7 + iSlow12;
+		int iSlow19 = iConst8 + iSlow12;
+		int iSlow20 = iConst9 + iSlow12;
 		int iSlow21 = iSlow12 + -1;
 		int iSlow22 = std::min<int>(1024, std::max<int>(0, iConst12 + iSlow21));
 		int iSlow23 = std::min<int>(1024, std::max<int>(0, iConst14 + iSlow21));
@@ -1117,10 +1118,10 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			fVec1[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec18[0];
 			fRec17[0] = fVec1[(IOTA0 - iConst5) & 8191];
 			fRec20[0] = fRec15[0] * fRec20[1] + fTemp7 * fRec19[1];
-			fVec2[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec20[0];
+			fVec2[IOTA0 & 8191] = fRec20[0] * fRec12[0] + fTemp6;
 			fRec19[0] = fVec2[(IOTA0 - iConst6) & 8191];
 			fRec22[0] = fRec15[0] * fRec22[1] + fTemp7 * fRec21[1];
-			fVec3[IOTA0 & 8191] = fRec22[0] * fRec12[0] + fTemp6;
+			fVec3[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec22[0];
 			fRec21[0] = fVec3[(IOTA0 - iConst7) & 8191];
 			fRec24[0] = fRec15[0] * fRec24[1] + fTemp7 * fRec23[1];
 			fVec4[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec24[0];
@@ -1134,19 +1135,19 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			fRec30[0] = fRec15[0] * fRec30[1] + fTemp7 * fRec29[1];
 			fVec7[IOTA0 & 8191] = fTemp6 + fRec12[0] * fRec30[0];
 			fRec29[0] = fVec7[(IOTA0 - iConst11) & 8191];
-			float fTemp8 = 0.5f * fRec8[1] + fRec10[0] + fRec17[0] + fRec19[0] + fRec21[0] + fRec23[0] + fRec25[0] + fRec27[0] + fRec29[0];
+			float fTemp8 = fRec10[0] + fRec17[0] + fRec19[0] + fRec21[0] + fRec23[0] + fRec25[0] + fRec27[0] + fRec29[0] + 0.5f * fRec8[1];
 			fVec8[IOTA0 & 2047] = fTemp8;
 			fRec8[0] = fVec8[(IOTA0 - iConst13) & 2047];
 			float fRec9 = -(0.5f * fTemp8);
-			float fTemp9 = fRec8[1] + fRec9 + 0.5f * fRec6[1];
+			float fTemp9 = fRec9 + 0.5f * fRec6[1] + fRec8[1];
 			fVec9[IOTA0 & 2047] = fTemp9;
 			fRec6[0] = fVec9[(IOTA0 - iConst15) & 2047];
 			float fRec7 = -(0.5f * fTemp9);
-			float fTemp10 = fRec6[1] + fRec7 + 0.5f * fRec4[1];
+			float fTemp10 = fRec7 + 0.5f * fRec4[1] + fRec6[1];
 			fVec10[IOTA0 & 2047] = fTemp10;
 			fRec4[0] = fVec10[(IOTA0 - iConst17) & 2047];
 			float fRec5 = -(0.5f * fTemp10);
-			float fTemp11 = fRec4[1] + fRec5 + 0.5f * fRec2[1];
+			float fTemp11 = fRec5 + 0.5f * fRec2[1] + fRec4[1];
 			fVec11[IOTA0 & 1023] = fTemp11;
 			fRec2[0] = fVec11[(IOTA0 - iConst19) & 1023];
 			float fRec3 = -(0.5f * fTemp11);
