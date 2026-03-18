@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -826,7 +827,7 @@ class fx_distortion3 : public fx_distortion3_dsp {
 			float fTemp5 = 1.0f - fTemp4;
 			fRec2[0] = 0.5f * fRec2[3] + fTemp3 * (2.0f * (fTemp4 / fTemp5) + 1.0f) / (2.0f * (std::fabs(fTemp3) * fTemp4 / fTemp5) + 1.0f);
 			fRec1[0] = fRec2[0] - fSlow4 * (fSlow15 * fRec1[2] + fSlow16 * fRec1[1]);
-			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fSlow4 * fRec0[0] * (2.0f * fRec1[1] + fRec1[0] + fRec1[2])));
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fSlow4 * fRec0[0] * (fRec1[0] + fRec1[2] + 2.0f * fRec1[1])));
 			fRec0[1] = fRec0[0];
 			fRec4[2] = fRec4[1];
 			fRec4[1] = fRec4[0];
