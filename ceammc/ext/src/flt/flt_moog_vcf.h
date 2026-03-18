@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -746,11 +747,11 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp4 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 2e+01));
 			double fTemp5 = 1.0 / fTemp4;
 			double fTemp6 = fTemp2 + fTemp5;
-			double fTemp7 = fTemp3 + (fTemp6 + 2.0) / fTemp4 + 1.0;
+			double fTemp7 = fTemp1 + fTemp2 + (fTemp6 + 2.0) / fTemp4 + 1.0;
 			double fTemp8 = (fTemp3 + (1.0 - (fTemp2 + (2.0 - fTemp5)) / fTemp4)) / fTemp7;
 			double fTemp9 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp8));
 			double fTemp10 = fTemp2 + 2.0;
-			double fTemp11 = fTemp1 + fTemp2 + (fTemp10 + fTemp5) / fTemp4 + 1.0;
+			double fTemp11 = fTemp3 + (fTemp10 + fTemp5) / fTemp4 + 1.0;
 			double fTemp12 = (fTemp3 + (1.0 - (fTemp10 - fTemp5) / fTemp4)) / fTemp11;
 			double fTemp13 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp12));
 			double fTemp14 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp13);
@@ -767,26 +768,25 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp22 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp9);
 			double fTemp23 = 1.0 - fTemp18 / fTemp7;
 			double fTemp24 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp18 / (fTemp7 * (fTemp8 + 1.0)))));
-			double fTemp25 = 1.0 - fTemp2;
-			double fTemp26 = 2.0 - fTemp2;
-			double fTemp27 = fTemp1 + (fTemp5 + fTemp26) / fTemp4 + fTemp25;
-			double fTemp28 = (fTemp1 + (fTemp6 + -2.0) / fTemp4 + fTemp25) / fTemp27;
-			double fTemp29 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp28));
-			double fTemp30 = 1.0 - fTemp18 / fTemp11;
-			double fTemp31 = std::sqrt(fTemp14);
-			double fTemp32 = (fTemp1 + (fTemp5 - fTemp26) / fTemp4 + fTemp25) / fTemp27;
-			double fTemp33 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp32));
-			double fTemp34 = (fTemp0 * fTemp13 + fRec1[1] * fTemp15 + 2.0 * (fRec1[0] * fTemp30 / fTemp31) + fRec2 * (1.0 - fTemp12 - 2.0 * fTemp19 * fTemp30) / (fTemp31 * std::sqrt(fTemp20))) * std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp33))) / fTemp11 - fTemp33 * fRec4[1];
-			double fTemp35 = fTemp1 + (1.0 - (fTemp2 + fTemp17));
-			double fTemp36 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp35 / (fTemp27 * (fTemp32 + 1.0)))));
-			double fTemp37 = std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp36)));
-			fRec6[0] = fTemp34 * fTemp37 - fTemp36 * fRec6[1];
-			fRec4[0] = fTemp34 * fTemp36 + fRec6[1] * fTemp37;
+			double fTemp25 = 2.0 - fTemp2;
+			double fTemp26 = fTemp1 + (fTemp5 + fTemp25) / fTemp4 + (1.0 - fTemp2);
+			double fTemp27 = (fTemp1 + (1.0 - (fTemp2 + (2.0 - fTemp6) / fTemp4))) / fTemp26;
+			double fTemp28 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp27));
+			double fTemp29 = 1.0 - fTemp18 / fTemp11;
+			double fTemp30 = std::sqrt(fTemp14);
+			double fTemp31 = (fTemp1 + (1.0 - (fTemp2 + (fTemp25 - fTemp5) / fTemp4))) / fTemp26;
+			double fTemp32 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp31));
+			double fTemp33 = (fTemp0 * fTemp13 + fRec1[1] * fTemp15 + 2.0 * (fRec1[0] * fTemp29 / fTemp30) + fRec2 * (1.0 - fTemp12 - 2.0 * fTemp19 * fTemp29) / (fTemp30 * std::sqrt(fTemp20))) * std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp32))) / fTemp11 - fTemp32 * fRec4[1];
+			double fTemp34 = fTemp1 + (1.0 - (fTemp2 + fTemp17));
+			double fTemp35 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp34 / (fTemp26 * (fTemp31 + 1.0)))));
+			double fTemp36 = std::sqrt(std::max<double>(0.0, 1.0 - flt_moog_vcf_faustpower2_f(fTemp35)));
+			fRec6[0] = fTemp33 * fTemp36 - fTemp35 * fRec6[1];
+			fRec4[0] = fTemp33 * fTemp35 + fRec6[1] * fTemp36;
 			double fRec5 = fRec6[0];
-			double fTemp38 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp29);
-			double fTemp39 = 1.0 - fTemp35 / fTemp27;
-			double fTemp40 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp35 / (fTemp27 * (fTemp28 + 1.0)))));
-			output0[i0] = FAUSTFLOAT(((fTemp0 * fTemp9 + fRec1[1] * std::sqrt(std::max<double>(0.0, fTemp22)) + (fRec2 * (1.0 - (fTemp8 + 2.0 * fTemp23 * fTemp24)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp24)) + 2.0 * fRec1[0] * fTemp23) / std::sqrt(fTemp22)) * fTemp29 / fTemp7 + fRec4[1] * std::sqrt(std::max<double>(0.0, fTemp38)) + (fRec5 * (1.0 - (fTemp28 + 2.0 * fTemp39 * fTemp40)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp40)) + 2.0 * fRec4[0] * fTemp39) / std::sqrt(fTemp38)) / fTemp27);
+			double fTemp37 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp28);
+			double fTemp38 = 1.0 - fTemp34 / fTemp26;
+			double fTemp39 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp34 / (fTemp26 * (fTemp27 + 1.0)))));
+			output0[i0] = FAUSTFLOAT(((fTemp0 * fTemp9 + fRec1[1] * std::sqrt(std::max<double>(0.0, fTemp22)) + (fRec2 * (1.0 - (fTemp8 + 2.0 * fTemp23 * fTemp24)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp24)) + 2.0 * fRec1[0] * fTemp23) / std::sqrt(fTemp22)) * fTemp28 / fTemp7 + fRec4[1] * std::sqrt(std::max<double>(0.0, fTemp37)) + (fRec5 * (1.0 - (fTemp27 + 2.0 * fTemp38 * fTemp39)) / std::sqrt(1.0 - flt_moog_vcf_faustpower2_f(fTemp39)) + 2.0 * fRec4[0] * fTemp38) / std::sqrt(fTemp37)) / fTemp26);
 			fRec0[1] = fRec0[0];
 			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];
