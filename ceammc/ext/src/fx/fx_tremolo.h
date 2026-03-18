@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -782,7 +783,7 @@ class fx_tremolo : public fx_tremolo_dsp {
 			float fTemp3 = ((iTemp2) ? 0.0f : fSlow7 + fRec2[1]);
 			fRec2[0] = fTemp3 - std::floor(fTemp3);
 			fRec5[0] = fRec5[1] - fSlow8 * fRec3[1];
-			fRec4[0] = fRec4[1] + float(iTemp2) + fSlow8 * fRec5[0];
+			fRec4[0] = fSlow8 * fRec5[0] + float(iTemp2) + fRec4[1];
 			fRec3[0] = fRec4[0];
 			iRec7[0] = ((iRec7[1] > 0) ? 2 * (iRec6[1] < iSlow9) + -1 : 1 - 2 * (iRec6[1] > 0));
 			iRec6[0] = iRec7[0] + iRec6[1];

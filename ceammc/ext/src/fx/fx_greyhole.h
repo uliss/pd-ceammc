@@ -13,6 +13,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -1497,7 +1498,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp77 = fVec7[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp76)))) & 16383];
 			fVec8[0] = fTemp77;
 			float fTemp78 = std::floor(fTemp76);
-			fRec49[0] = fVec8[1] - (fTemp78 + (2.0f - fRec56[0])) * (fRec49[1] - fTemp77) / (fRec56[0] - fTemp78);
+			fRec49[0] = fVec8[1] + (fTemp78 + (2.0f - fRec56[0])) * (fTemp77 - fRec49[1]) / (fRec56[0] - fTemp78);
 			fRec47[0] = fRec49[0];
 			float fTemp79 = fConst3 * fTemp53 * (fRec51[0] + 1.0f);
 			float fTemp80 = fTemp79 + 8.500005f;
@@ -1573,7 +1574,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp115 = fVec24[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp114)))) & 16383];
 			fVec25[0] = fTemp115;
 			float fTemp116 = std::floor(fTemp114);
-			fRec34[0] = fVec25[1] - (fTemp116 + (2.0f - fRec65[0])) * (fRec34[1] - fTemp115) / (fRec65[0] - fTemp116);
+			fRec34[0] = fVec25[1] + (fTemp116 + (2.0f - fRec65[0])) * (fTemp115 - fRec34[1]) / (fRec65[0] - fTemp116);
 			fRec32[0] = fRec34[0];
 			float fTemp117 = fRec35[1] * fTemp14 + fTemp23 * fTemp91;
 			float fTemp118 = fTemp117 * fTemp25 - fTemp38 * fRec20[1];
@@ -1611,7 +1612,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp130 = fVec34[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp129)))) & 16383];
 			fVec35[0] = fTemp130;
 			float fTemp131 = std::floor(fTemp129);
-			fRec70[0] = fVec35[1] + (fTemp131 + (2.0f - fRec71[0])) * (fTemp130 - fRec70[1]) / (fRec71[0] - fTemp131);
+			fRec70[0] = fVec35[1] - (fTemp131 + (2.0f - fRec71[0])) * (fRec70[1] - fTemp130) / (fRec71[0] - fTemp131);
 			fRec25[0] = fRec70[0];
 			fVec36[IOTA0 & 16383] = fTemp25 * fRec25[1] + fTemp38 * fTemp111;
 			float fTemp132 = fVec36[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp26)))) & 16383];
@@ -1648,7 +1649,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp148 = fVec42[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp147)))) & 16383];
 			fVec43[0] = fTemp148;
 			float fTemp149 = std::floor(fTemp147);
-			fRec75[0] = fVec43[1] + (fTemp149 + (2.0f - fRec76[0])) * (fTemp148 - fRec75[1]) / (fRec76[0] - fTemp149);
+			fRec75[0] = fVec43[1] - (fTemp149 + (2.0f - fRec76[0])) * (fRec75[1] - fTemp148) / (fRec76[0] - fTemp149);
 			fRec18[0] = fRec75[0];
 			fVec44[IOTA0 & 16383] = fTemp14 * fRec18[1] + fTemp23 * fTemp139;
 			float fTemp150 = fVec44[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp19)))) & 16383];
