@@ -50,7 +50,7 @@
 					"meta": [
 						{ "unit": "ms" }
 					],
-					"init": 3000,
+					"init": 1000,
 					"min": 500,
 					"max": 3000,
 					"step": 1
