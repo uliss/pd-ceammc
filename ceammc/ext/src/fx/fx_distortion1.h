@@ -13,6 +13,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -732,7 +733,7 @@ class fx_distortion1 : public fx_distortion1_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -1045,24 +1046,24 @@ class fx_distortion1 : public fx_distortion1_dsp {
 		float fSlow14 = (fSlow13 + 1.0f) / fSlow11 + 1.0f;
 		float fSlow15 = std::pow(1e+01f, 2.0f * float(fVslider5) * fSlow10) / (fSlow12 * fSlow14);
 		float fSlow16 = 1.0f / (fSlow13 + 1.0f);
-		float fSlow17 = 1.0f - fSlow13;
-		float fSlow18 = fConst7 / fSlow11;
-		int iSlow19 = int(float(fCheckbox1));
-		float fSlow20 = 1.0f / std::tan(fConst1 * float(fEntry1));
-		float fSlow21 = 1.0f / (fSlow20 + 1.0f);
-		float fSlow22 = 1.0f - fSlow20;
-		float fSlow23 = 1.0f / std::tan(fConst1 * float(fEntry2));
-		float fSlow24 = 1.0f / (fSlow23 + 1.0f);
-		float fSlow25 = 1.0f - fSlow23;
-		int iSlow26 = int(float(fCheckbox2));
-		float fSlow27 = 1.0f - float(fVslider7);
-		float fSlow28 = float(fVslider8);
-		int iSlow29 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow28 + -1.0f)));
-		int iSlow30 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow28)));
-		float fSlow31 = 1.0f - fSlow5;
-		float fSlow32 = (fSlow2 + -1.847759f) / fSlow1 + 1.0f;
-		float fSlow33 = 2.0f * (1.0f - 1.0f / fx_distortion1_faustpower2_f(fSlow1));
-		float fSlow34 = (fSlow2 + -0.76536685f) / fSlow1 + 1.0f;
+		float fSlow17 = fConst7 / fSlow11;
+		int iSlow18 = int(float(fCheckbox1));
+		float fSlow19 = 1.0f / std::tan(fConst1 * float(fEntry1));
+		float fSlow20 = 1.0f / (fSlow19 + 1.0f);
+		float fSlow21 = 1.0f - fSlow19;
+		float fSlow22 = 1.0f / std::tan(fConst1 * float(fEntry2));
+		float fSlow23 = 1.0f / (fSlow22 + 1.0f);
+		float fSlow24 = 1.0f - fSlow22;
+		int iSlow25 = int(float(fCheckbox2));
+		float fSlow26 = 1.0f - float(fVslider7);
+		float fSlow27 = float(fVslider8);
+		int iSlow28 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow27 + -1.0f)));
+		int iSlow29 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow27)));
+		float fSlow30 = 1.0f - fSlow5;
+		float fSlow31 = (fSlow2 + -1.847759f) / fSlow1 + 1.0f;
+		float fSlow32 = 2.0f * (1.0f - 1.0f / fx_distortion1_faustpower2_f(fSlow1));
+		float fSlow33 = (fSlow2 + -0.76536685f) / fSlow1 + 1.0f;
+		float fSlow34 = 1.0f - fSlow13;
 		float fSlow35 = 1.0f / fSlow14;
 		float fSlow36 = (fSlow13 + -1.0f) / fSlow11 + 1.0f;
 		float fSlow37 = 2.0f * (1.0f - 1.0f / fSlow12);
@@ -1096,34 +1097,34 @@ class fx_distortion1 : public fx_distortion1_dsp {
 			fRec6[0] = fSlow7 + 0.999f * fRec6[1];
 			fRec7[0] = fSlow8 + 0.999f * fRec7[1];
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = fTemp0 + fSlow27 * fRec17[1];
+			float fTemp1 = fTemp0 + fSlow26 * fRec17[1];
 			fVec1[0] = fTemp1;
-			fRec17[0] = 0.5f * (fVec1[iSlow29] + fVec1[iSlow30]);
-			float fTemp2 = fRec4[0] + ((iSlow26) ? fRec17[0] : fTemp0);
-			float fTemp3 = fRec4[0] + ((iSlow19) ? 0.0f : fTemp2);
+			fRec17[0] = 0.5f * (fVec1[iSlow28] + fVec1[iSlow29]);
+			float fTemp2 = fRec4[0] + ((iSlow25) ? fRec17[0] : fTemp0);
+			float fTemp3 = fRec4[0] + ((iSlow18) ? 0.0f : fTemp2);
 			fVec2[0] = fTemp3;
-			fRec16[0] = -(fSlow24 * (fSlow25 * fRec16[1] - (fTemp3 + fVec2[1])));
-			fRec15[0] = -(fSlow21 * (fSlow22 * fRec15[1] - fSlow20 * (fRec16[0] - fRec16[1])));
-			float fTemp4 = ((iSlow19) ? fTemp2 : fRec15[0]);
+			fRec16[0] = -(fSlow23 * (fSlow24 * fRec16[1] - (fTemp3 + fVec2[1])));
+			fRec15[0] = -(fSlow20 * (fSlow21 * fRec15[1] - fSlow19 * (fRec16[0] - fRec16[1])));
+			float fTemp4 = ((iSlow18) ? fTemp2 : fRec15[0]);
 			float fTemp5 = fRec4[0] + ((iSlow0) ? 0.0f : fTemp4);
 			fVec3[0] = fSlow6 * fTemp5;
-			fRec14[0] = fSlow6 * (fTemp5 + fSlow31 * fRec14[1]) - fVec3[1];
+			fRec14[0] = fSlow6 * (fTemp5 + fSlow30 * fRec14[1]) - fVec3[1];
 			fVec4[0] = fSlow6 * fRec14[0];
-			fRec13[0] = fSlow6 * (fRec14[0] + fSlow31 * fRec13[1]) - fVec4[1];
-			fRec12[0] = fRec13[0] - fSlow4 * (fSlow32 * fRec12[2] + fSlow33 * fRec12[1]);
-			fRec11[0] = fSlow4 * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) - fSlow3 * (fSlow34 * fRec11[2] + fSlow33 * fRec11[1]);
+			fRec13[0] = fSlow6 * (fRec14[0] + fSlow30 * fRec13[1]) - fVec4[1];
+			fRec12[0] = fRec13[0] - fSlow4 * (fSlow31 * fRec12[2] + fSlow32 * fRec12[1]);
+			fRec11[0] = fSlow4 * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) - fSlow3 * (fSlow33 * fRec11[2] + fSlow32 * fRec11[1]);
 			fRec10[0] = ((iSlow0) ? fTemp4 : fSlow3 * (fRec11[2] + fRec11[0] + 2.0f * fRec11[1])) - fConst7 * (fConst10 * fRec10[2] + fConst12 * fRec10[1]);
 			float fTemp6 = fConst9 * fRec10[0] - fConst13 * fRec10[1] + fConst15 * fRec10[2];
 			fVec5[0] = fTemp6;
-			fRec9[0] = -(fSlow16 * (fSlow17 * fRec9[1] - fSlow18 * (fTemp6 - fVec5[1])));
+			fRec9[0] = fSlow16 * (fSlow17 * (fTemp6 - fVec5[1]) - fSlow34 * fRec9[1]);
 			fRec8[0] = fRec9[0] - fSlow35 * (fSlow36 * fRec8[2] + fSlow37 * fRec8[1]);
 			float fTemp7 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow15 * (fRec8[2] + (fRec8[0] - 2.0f * fRec8[1]))));
 			fRec18[0] = fSlow38 + 0.999f * fRec18[1];
-			fRec22[0] = -(fSlow16 * (fSlow17 * fRec22[1] - fConst7 * (fTemp6 + fVec5[1])));
+			fRec22[0] = -(fSlow16 * (fSlow34 * fRec22[1] - fConst7 * (fTemp6 + fVec5[1])));
 			fRec21[0] = fRec22[0] - fSlow35 * (fSlow36 * fRec21[2] + fSlow37 * fRec21[1]);
 			float fTemp8 = fSlow35 * (fRec21[2] + fRec21[0] + 2.0f * fRec21[1]);
 			fVec6[0] = fTemp8;
-			fRec20[0] = -(fSlow44 * (fSlow45 * fRec20[1] - fSlow41 * (fTemp8 - fVec6[1])));
+			fRec20[0] = fSlow44 * (fSlow41 * (fTemp8 - fVec6[1]) - fSlow45 * fRec20[1]);
 			fRec19[0] = fRec20[0] - fSlow46 * (fSlow47 * fRec19[2] + fSlow48 * fRec19[1]);
 			float fTemp9 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow43 * (fRec19[2] + (fRec19[0] - 2.0f * fRec19[1]))));
 			fRec23[0] = fSlow49 + 0.999f * fRec23[1];
@@ -1131,7 +1132,7 @@ class fx_distortion1 : public fx_distortion1_dsp {
 			fRec26[0] = fRec27[0] - fSlow46 * (fSlow47 * fRec26[2] + fSlow48 * fRec26[1]);
 			float fTemp10 = fSlow46 * (fRec26[2] + fRec26[0] + 2.0f * fRec26[1]);
 			fVec7[0] = fTemp10;
-			fRec25[0] = -(fSlow55 * (fSlow56 * fRec25[1] - fSlow52 * (fTemp10 - fVec7[1])));
+			fRec25[0] = fSlow55 * (fSlow52 * (fTemp10 - fVec7[1]) - fSlow56 * fRec25[1]);
 			fRec24[0] = fRec25[0] - fSlow57 * (fSlow58 * fRec24[2] + fSlow59 * fRec24[1]);
 			float fTemp11 = std::max<float>(-1.0f, std::min<float>(1.0f, fSlow9 + fSlow54 * (fRec24[2] + (fRec24[0] - 2.0f * fRec24[1]))));
 			fRec28[0] = fSlow60 + 0.999f * fRec28[1];
@@ -1142,12 +1143,12 @@ class fx_distortion1 : public fx_distortion1_dsp {
 			float fTemp13 = fConst13 * fRec5[1];
 			float fTemp14 = fRec4[0] + ((iSlow0) ? 0.0f : fConst7 * (fConst9 * fRec5[0] - fTemp13 + fConst15 * fRec5[2]));
 			fVec8[0] = fSlow6 * fTemp14;
-			fRec3[0] = fSlow6 * (fTemp14 + fSlow31 * fRec3[1]) - fVec8[1];
+			fRec3[0] = fSlow6 * (fTemp14 + fSlow30 * fRec3[1]) - fVec8[1];
 			fVec9[0] = fSlow6 * fRec3[0];
-			fRec2[0] = fSlow6 * (fRec3[0] + fSlow31 * fRec2[1]) - fVec9[1];
-			fRec1[0] = fRec2[0] - fSlow4 * (fSlow32 * fRec1[2] + fSlow33 * fRec1[1]);
-			fRec0[0] = fSlow4 * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]) - fSlow3 * (fSlow34 * fRec0[2] + fSlow33 * fRec0[1]);
-			output0[i0] = FAUSTFLOAT(((iSlow0) ? fConst7 * (0.31622776f * (fConst8 * fRec5[0] + fConst14 * fRec5[2]) - fTemp13) : fSlow3 * (fRec0[2] + fRec0[0] + 2.0f * fRec0[1])));
+			fRec2[0] = fSlow6 * (fRec3[0] + fSlow30 * fRec2[1]) - fVec9[1];
+			fRec1[0] = fRec2[0] - fSlow4 * (fSlow31 * fRec1[2] + fSlow32 * fRec1[1]);
+			fRec0[0] = fSlow4 * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]) - fSlow3 * (fSlow33 * fRec0[2] + fSlow32 * fRec0[1]);
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fConst7 * (0.31622776f * (fConst8 * fRec5[0] + fConst14 * fRec5[2]) - fTemp13) : fSlow3 * (fRec0[0] + fRec0[2] + 2.0f * fRec0[1])));
 			iVec0[1] = iVec0[0];
 			fRec4[1] = fRec4[0];
 			fRec6[1] = fRec6[0];
