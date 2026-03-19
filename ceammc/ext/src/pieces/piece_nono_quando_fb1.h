@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.fb1"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_fb1_H__
@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -73,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -120,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -164,8 +170,8 @@ class FAUST_API piece_nono_quando_fb1_dsp {
 
     public:
 
-        piece_nono_quando_fb1_dsp() {}
-        virtual ~piece_nono_quando_fb1_dsp() {}
+        piece_nono_quando_fb1_dsp() = default;
+        virtual ~piece_nono_quando_fb1_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -194,14 +200,14 @@ class FAUST_API piece_nono_quando_fb1_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -218,17 +224,18 @@ class FAUST_API piece_nono_quando_fb1_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual piece_nono_quando_fb1_dsp* clone() = 0;
+        virtual ::piece_nono_quando_fb1_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -279,33 +286,33 @@ class FAUST_API piece_nono_quando_fb1_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public piece_nono_quando_fb1_dsp {
+class FAUST_API decorator_dsp : public ::piece_nono_quando_fb1_dsp {
 
     protected:
 
-        piece_nono_quando_fb1_dsp* fDSP;
+        ::piece_nono_quando_fb1_dsp* fDSP;
 
     public:
 
-        decorator_dsp(piece_nono_quando_fb1_dsp* piece_nono_quando_fb1_dsp = nullptr):fDSP(piece_nono_quando_fb1_dsp) {}
+        decorator_dsp(::piece_nono_quando_fb1_dsp* piece_nono_quando_fb1_dsp = nullptr):fDSP(piece_nono_quando_fb1_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -319,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -343,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual piece_nono_quando_fb1_dsp* createDSPInstance() = 0;
+        virtual ::piece_nono_quando_fb1_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -450,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -506,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -522,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -545,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -732,22 +737,22 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fConst97;
 	double fConst98;
 	double fConst99;
-	double fConst100;
 	double fRec8[3];
+	double fConst100;
 	double fConst101;
 	double fConst102;
 	double fConst103;
 	double fConst104;
 	double fConst105;
 	double fConst106;
-	double fConst107;
 	double fRec7[5];
+	double fConst107;
 	double fConst108;
 	double fConst109;
 	double fConst110;
 	double fConst111;
-	double fConst112;
 	double fRec6[5];
+	double fConst112;
 	double fConst113;
 	double fConst114;
 	double fConst115;
@@ -769,22 +774,22 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fConst131;
 	double fConst132;
 	double fConst133;
-	double fConst134;
 	double fRec11[3];
+	double fConst134;
 	double fConst135;
 	double fConst136;
 	double fConst137;
 	double fConst138;
 	double fConst139;
 	double fConst140;
-	double fConst141;
 	double fRec10[5];
+	double fConst141;
 	double fConst142;
 	double fConst143;
 	double fConst144;
 	double fConst145;
-	double fConst146;
 	double fRec9[5];
+	double fConst146;
 	double fConst147;
 	double fConst148;
 	double fConst149;
@@ -806,29 +811,34 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fConst165;
 	double fConst166;
 	double fConst167;
-	double fConst168;
 	double fRec14[3];
+	double fConst168;
 	double fConst169;
 	double fConst170;
 	double fConst171;
 	double fConst172;
 	double fConst173;
 	double fConst174;
-	double fConst175;
 	double fRec13[5];
+	double fConst175;
 	double fConst176;
 	double fConst177;
 	double fConst178;
 	double fConst179;
-	double fConst180;
 	double fRec12[5];
 	
  public:
 	piece_nono_quando_fb1() {
 	}
 	
+	piece_nono_quando_fb1(const piece_nono_quando_fb1&) = default;
+	
+	virtual ~piece_nono_quando_fb1() = default;
+	
+	piece_nono_quando_fb1& operator=(const piece_nono_quando_fb1&) = default;
+	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0");
 		m->declare("filename", "piece_nono_quando_fb1.dsp");
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -853,12 +863,12 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		m->declare("filters.lib/tf2sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2sb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "nono.quando.fb1");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
@@ -876,7 +886,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, static_cast<double>(fSampleRate)));
 		fConst1 = 1.0 / fConst0;
 		fConst2 = piece_nono_quando_fb1_faustpower2_f(fConst1);
 		fConst3 = std::tan(1196.946801017711 / fConst0);
@@ -960,103 +970,102 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		fConst81 = piece_nono_quando_fb1_faustpower2_f(fConst80);
 		fConst82 = 2.0 * fConst79 - 0.5 * (fConst81 / fConst79);
 		fConst83 = piece_nono_quando_fb1_faustpower2_f(fConst82);
-		fConst84 = fConst2 * (4.0 * fConst83 + 8.0 * fConst81);
-		fConst85 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst80);
+		fConst84 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst80);
+		fConst85 = fConst84 + fConst2 * (4.0 * fConst83 + 8.0 * fConst81);
 		fConst86 = fConst14 * fConst81;
 		fConst87 = fConst82 * (fConst13 + 1.2360679774997894 * fConst86);
-		fConst88 = fConst84 + fConst85 + fConst87 + 16.0;
+		fConst88 = fConst85 + fConst87 + 16.0;
 		fConst89 = fConst83 / fConst88;
 		fConst90 = fConst82 * (fConst19 + 3.2360679774997894 * fConst86);
-		fConst91 = fConst85 + fConst84;
-		fConst92 = fConst90 + fConst91 + 16.0;
-		fConst93 = fConst2 * fConst83 / fConst92;
-		fConst94 = fConst2 * fConst81;
-		fConst95 = 2.0 * (fConst82 / fConst0);
-		fConst96 = fConst94 + fConst95 + 4.0;
-		fConst97 = 2.0 * (fConst82 / (fConst0 * fConst96));
-		fConst98 = 1.0 / fConst96;
-		fConst99 = 2.0 * fConst94 + -8.0;
-		fConst100 = fConst94 + (4.0 - fConst95);
-		fConst101 = 1.0 / fConst92;
-		fConst102 = 4.0 * fConst85;
-		fConst103 = 6.472135954999579 * fConst86;
-		fConst104 = fConst102 + fConst82 * (fConst103 - fConst33) + -64.0;
-		fConst105 = 6.0 * fConst85 + (96.0 - fConst2 * (8.0 * fConst83 + 16.0 * fConst81));
-		fConst106 = fConst102 + fConst82 * (fConst33 - fConst103) + -64.0;
-		fConst107 = fConst91 + (16.0 - fConst90);
-		fConst108 = 1.0 / fConst88;
-		fConst109 = 2.4721359549995787 * fConst86;
-		fConst110 = fConst102 + fConst82 * (fConst109 - fConst40) + -64.0;
-		fConst111 = fConst102 + fConst82 * (fConst40 - fConst109) + -64.0;
-		fConst112 = fConst91 + (16.0 - fConst87);
-		fConst113 = std::tan(15189.60048010665 / fConst0);
-		fConst114 = fConst0 * fConst113;
-		fConst115 = std::sqrt(4.0 * fConst5 * std::tan(14344.512056290996 / fConst0) * fConst113);
-		fConst116 = piece_nono_quando_fb1_faustpower2_f(fConst115);
-		fConst117 = 2.0 * fConst114 - 0.5 * (fConst116 / fConst114);
-		fConst118 = piece_nono_quando_fb1_faustpower2_f(fConst117);
-		fConst119 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst115);
-		fConst120 = fConst119 + fConst2 * (4.0 * fConst118 + 8.0 * fConst116);
-		fConst121 = fConst14 * fConst116;
-		fConst122 = fConst117 * (fConst13 + 1.2360679774997894 * fConst121);
-		fConst123 = fConst120 + fConst122 + 16.0;
-		fConst124 = fConst118 / fConst123;
-		fConst125 = fConst117 * (fConst19 + 3.2360679774997894 * fConst121);
-		fConst126 = fConst125 + fConst120 + 16.0;
-		fConst127 = fConst2 * fConst118 / fConst126;
-		fConst128 = fConst2 * fConst116;
-		fConst129 = 2.0 * (fConst117 / fConst0);
-		fConst130 = fConst128 + fConst129 + 4.0;
-		fConst131 = 2.0 * (fConst117 / (fConst0 * fConst130));
-		fConst132 = 1.0 / fConst130;
-		fConst133 = 2.0 * fConst128 + -8.0;
-		fConst134 = fConst128 + (4.0 - fConst129);
-		fConst135 = 1.0 / fConst126;
-		fConst136 = 4.0 * fConst119;
-		fConst137 = 6.472135954999579 * fConst121;
-		fConst138 = fConst136 + fConst117 * (fConst137 - fConst33) + -64.0;
-		fConst139 = 6.0 * fConst119 + (96.0 - fConst2 * (8.0 * fConst118 + 16.0 * fConst116));
-		fConst140 = fConst136 + fConst117 * (fConst33 - fConst137) + -64.0;
-		fConst141 = fConst120 + (16.0 - fConst125);
-		fConst142 = 1.0 / fConst123;
-		fConst143 = 2.4721359549995787 * fConst121;
-		fConst144 = fConst136 + fConst117 * (fConst143 - fConst40) + -64.0;
-		fConst145 = fConst136 + fConst117 * (fConst40 - fConst143) + -64.0;
-		fConst146 = fConst120 + (16.0 - fConst122);
-		fConst147 = std::tan(21482.210565247005 / fConst0);
-		fConst148 = fConst0 * fConst147;
-		fConst149 = std::sqrt(4.0 * fConst5 * std::tan(20288.405356882882 / fConst0) * fConst147);
-		fConst150 = piece_nono_quando_fb1_faustpower2_f(fConst149);
-		fConst151 = 2.0 * fConst148 - 0.5 * (fConst150 / fConst148);
-		fConst152 = piece_nono_quando_fb1_faustpower2_f(fConst151);
-		fConst153 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst149);
-		fConst154 = fConst153 + fConst2 * (4.0 * fConst152 + 8.0 * fConst150);
-		fConst155 = fConst14 * fConst150;
-		fConst156 = fConst151 * (fConst13 + 1.2360679774997894 * fConst155);
-		fConst157 = fConst154 + fConst156 + 16.0;
-		fConst158 = fConst152 / fConst157;
-		fConst159 = fConst151 * (fConst19 + 3.2360679774997894 * fConst155);
-		fConst160 = fConst159 + fConst154 + 16.0;
-		fConst161 = fConst2 * fConst152 / fConst160;
-		fConst162 = fConst2 * fConst150;
-		fConst163 = 2.0 * (fConst151 / fConst0);
-		fConst164 = fConst162 + fConst163 + 4.0;
-		fConst165 = 2.0 * (fConst151 / (fConst0 * fConst164));
-		fConst166 = 1.0 / fConst164;
-		fConst167 = 2.0 * fConst162 + -8.0;
-		fConst168 = fConst162 + (4.0 - fConst163);
-		fConst169 = 1.0 / fConst160;
-		fConst170 = 4.0 * fConst153;
-		fConst171 = 6.472135954999579 * fConst155;
-		fConst172 = fConst170 + fConst151 * (fConst171 - fConst33) + -64.0;
-		fConst173 = 6.0 * fConst153 + (96.0 - fConst2 * (8.0 * fConst152 + 16.0 * fConst150));
-		fConst174 = fConst170 + fConst151 * (fConst33 - fConst171) + -64.0;
-		fConst175 = fConst154 + (16.0 - fConst159);
-		fConst176 = 1.0 / fConst157;
-		fConst177 = 2.4721359549995787 * fConst155;
-		fConst178 = fConst170 + fConst151 * (fConst177 - fConst40) + -64.0;
-		fConst179 = fConst170 + fConst151 * (fConst40 - fConst177) + -64.0;
-		fConst180 = fConst154 + (16.0 - fConst156);
+		fConst91 = fConst90 + fConst85 + 16.0;
+		fConst92 = fConst2 * fConst83 / fConst91;
+		fConst93 = fConst2 * fConst81;
+		fConst94 = 2.0 * (fConst82 / fConst0);
+		fConst95 = fConst93 + fConst94 + 4.0;
+		fConst96 = 2.0 * (fConst82 / (fConst0 * fConst95));
+		fConst97 = 1.0 / fConst95;
+		fConst98 = 2.0 * fConst93 + -8.0;
+		fConst99 = fConst93 + (4.0 - fConst94);
+		fConst100 = 1.0 / fConst91;
+		fConst101 = 4.0 * fConst84;
+		fConst102 = 6.472135954999579 * fConst86;
+		fConst103 = fConst101 + fConst82 * (fConst102 - fConst33) + -64.0;
+		fConst104 = 6.0 * fConst84 + (96.0 - fConst2 * (8.0 * fConst83 + 16.0 * fConst81));
+		fConst105 = fConst101 + fConst82 * (fConst33 - fConst102) + -64.0;
+		fConst106 = fConst85 + (16.0 - fConst90);
+		fConst107 = 1.0 / fConst88;
+		fConst108 = 2.4721359549995787 * fConst86;
+		fConst109 = fConst101 + fConst82 * (fConst108 - fConst40) + -64.0;
+		fConst110 = fConst101 + fConst82 * (fConst40 - fConst108) + -64.0;
+		fConst111 = fConst85 + (16.0 - fConst87);
+		fConst112 = std::tan(15189.60048010665 / fConst0);
+		fConst113 = fConst0 * fConst112;
+		fConst114 = std::sqrt(4.0 * fConst5 * std::tan(14344.512056290996 / fConst0) * fConst112);
+		fConst115 = piece_nono_quando_fb1_faustpower2_f(fConst114);
+		fConst116 = 2.0 * fConst113 - 0.5 * (fConst115 / fConst113);
+		fConst117 = piece_nono_quando_fb1_faustpower2_f(fConst116);
+		fConst118 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst114);
+		fConst119 = fConst118 + fConst2 * (4.0 * fConst117 + 8.0 * fConst115);
+		fConst120 = fConst14 * fConst115;
+		fConst121 = fConst116 * (fConst13 + 1.2360679774997894 * fConst120);
+		fConst122 = fConst119 + fConst121 + 16.0;
+		fConst123 = fConst117 / fConst122;
+		fConst124 = fConst116 * (fConst19 + 3.2360679774997894 * fConst120);
+		fConst125 = fConst124 + fConst119 + 16.0;
+		fConst126 = fConst2 * fConst117 / fConst125;
+		fConst127 = fConst2 * fConst115;
+		fConst128 = 2.0 * (fConst116 / fConst0);
+		fConst129 = fConst127 + fConst128 + 4.0;
+		fConst130 = 2.0 * (fConst116 / (fConst0 * fConst129));
+		fConst131 = 1.0 / fConst129;
+		fConst132 = 2.0 * fConst127 + -8.0;
+		fConst133 = fConst127 + (4.0 - fConst128);
+		fConst134 = 1.0 / fConst125;
+		fConst135 = 4.0 * fConst118;
+		fConst136 = 6.472135954999579 * fConst120;
+		fConst137 = fConst135 + fConst116 * (fConst136 - fConst33) + -64.0;
+		fConst138 = 6.0 * fConst118 + (96.0 - fConst2 * (8.0 * fConst117 + 16.0 * fConst115));
+		fConst139 = fConst135 + fConst116 * (fConst33 - fConst136) + -64.0;
+		fConst140 = fConst119 + (16.0 - fConst124);
+		fConst141 = 1.0 / fConst122;
+		fConst142 = 2.4721359549995787 * fConst120;
+		fConst143 = fConst135 + fConst116 * (fConst142 - fConst40) + -64.0;
+		fConst144 = fConst135 + fConst116 * (fConst40 - fConst142) + -64.0;
+		fConst145 = fConst119 + (16.0 - fConst121);
+		fConst146 = std::tan(21482.210565247005 / fConst0);
+		fConst147 = fConst0 * fConst146;
+		fConst148 = std::sqrt(4.0 * fConst5 * std::tan(20288.405356882882 / fConst0) * fConst146);
+		fConst149 = piece_nono_quando_fb1_faustpower2_f(fConst148);
+		fConst150 = 2.0 * fConst147 - 0.5 * (fConst149 / fConst147);
+		fConst151 = piece_nono_quando_fb1_faustpower2_f(fConst150);
+		fConst152 = fConst10 * piece_nono_quando_fb1_faustpower4_f(fConst148);
+		fConst153 = fConst152 + fConst2 * (4.0 * fConst151 + 8.0 * fConst149);
+		fConst154 = fConst14 * fConst149;
+		fConst155 = fConst150 * (fConst13 + 1.2360679774997894 * fConst154);
+		fConst156 = fConst153 + fConst155 + 16.0;
+		fConst157 = fConst151 / fConst156;
+		fConst158 = fConst150 * (fConst19 + 3.2360679774997894 * fConst154);
+		fConst159 = fConst158 + fConst153 + 16.0;
+		fConst160 = fConst2 * fConst151 / fConst159;
+		fConst161 = fConst2 * fConst149;
+		fConst162 = 2.0 * (fConst150 / fConst0);
+		fConst163 = fConst161 + fConst162 + 4.0;
+		fConst164 = 2.0 * (fConst150 / (fConst0 * fConst163));
+		fConst165 = 1.0 / fConst163;
+		fConst166 = 2.0 * fConst161 + -8.0;
+		fConst167 = fConst161 + (4.0 - fConst162);
+		fConst168 = 1.0 / fConst159;
+		fConst169 = 4.0 * fConst152;
+		fConst170 = 6.472135954999579 * fConst154;
+		fConst171 = fConst169 + fConst150 * (fConst170 - fConst33) + -64.0;
+		fConst172 = 6.0 * fConst152 + (96.0 - fConst2 * (8.0 * fConst151 + 16.0 * fConst149));
+		fConst173 = fConst169 + fConst150 * (fConst33 - fConst170) + -64.0;
+		fConst174 = fConst153 + (16.0 - fConst158);
+		fConst175 = 1.0 / fConst156;
+		fConst176 = 2.4721359549995787 * fConst154;
+		fConst177 = fConst169 + fConst150 * (fConst176 - fConst40) + -64.0;
+		fConst178 = fConst169 + fConst150 * (fConst40 - fConst176) + -64.0;
+		fConst179 = fConst153 + (16.0 - fConst155);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -1122,7 +1131,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	}
 	
 	virtual piece_nono_quando_fb1* clone() {
-		return new piece_nono_quando_fb1();
+		return new piece_nono_quando_fb1(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1138,23 +1147,23 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			double fTemp0 = double(input0[i0]);
+			double fTemp0 = static_cast<double>(input0[i0]);
 			fRec2[0] = fTemp0 - fConst27 * (fConst28 * fRec2[1] + fConst29 * fRec2[2]);
 			fRec1[0] = fConst26 * (fRec2[0] - fRec2[2]) - fConst30 * (fConst34 * fRec1[1] + fConst35 * fRec1[2] + fConst36 * fRec1[3] + fConst37 * fRec1[4]);
 			fRec0[0] = fConst22 * (4.0 * fRec1[0] - 8.0 * fRec1[2] + 4.0 * fRec1[4]) - fConst38 * (fConst41 * fRec0[1] + fConst35 * fRec0[2] + fConst42 * fRec0[3] + fConst43 * fRec0[4]);
 			fRec5[0] = fTemp0 - fConst63 * (fConst64 * fRec5[1] + fConst65 * fRec5[2]);
 			fRec4[0] = fConst62 * (fRec5[0] - fRec5[2]) - fConst66 * (fConst69 * fRec4[1] + fConst70 * fRec4[2] + fConst71 * fRec4[3] + fConst72 * fRec4[4]);
 			fRec3[0] = fConst58 * (4.0 * fRec4[0] - 8.0 * fRec4[2] + 4.0 * fRec4[4]) - fConst73 * (fConst75 * fRec3[1] + fConst70 * fRec3[2] + fConst76 * fRec3[3] + fConst77 * fRec3[4]);
-			fRec8[0] = fTemp0 - fConst98 * (fConst99 * fRec8[1] + fConst100 * fRec8[2]);
-			fRec7[0] = fConst97 * (fRec8[0] - fRec8[2]) - fConst101 * (fConst104 * fRec7[1] + fConst105 * fRec7[2] + fConst106 * fRec7[3] + fConst107 * fRec7[4]);
-			fRec6[0] = fConst93 * (4.0 * fRec7[0] - 8.0 * fRec7[2] + 4.0 * fRec7[4]) - fConst108 * (fConst110 * fRec6[1] + fConst105 * fRec6[2] + fConst111 * fRec6[3] + fConst112 * fRec6[4]);
-			fRec11[0] = fTemp0 - fConst132 * (fConst133 * fRec11[1] + fConst134 * fRec11[2]);
-			fRec10[0] = fConst131 * (fRec11[0] - fRec11[2]) - fConst135 * (fConst138 * fRec10[1] + fConst139 * fRec10[2] + fConst140 * fRec10[3] + fConst141 * fRec10[4]);
-			fRec9[0] = fConst127 * (4.0 * fRec10[0] - 8.0 * fRec10[2] + 4.0 * fRec10[4]) - fConst142 * (fConst144 * fRec9[1] + fConst139 * fRec9[2] + fConst145 * fRec9[3] + fConst146 * fRec9[4]);
-			fRec14[0] = fTemp0 - fConst166 * (fConst167 * fRec14[1] + fConst168 * fRec14[2]);
-			fRec13[0] = fConst165 * (fRec14[0] - fRec14[2]) - fConst169 * (fConst172 * fRec13[1] + fConst173 * fRec13[2] + fConst174 * fRec13[3] + fConst175 * fRec13[4]);
-			fRec12[0] = fConst161 * (4.0 * fRec13[0] - 8.0 * fRec13[2] + 4.0 * fRec13[4]) - fConst176 * (fConst178 * fRec12[1] + fConst173 * fRec12[2] + fConst179 * fRec12[3] + fConst180 * fRec12[4]);
-			output0[i0] = FAUSTFLOAT(fConst2 * (fConst18 * (4.0 * (fRec0[0] + fRec0[4]) - 8.0 * fRec0[2]) + fConst55 * (4.0 * (fRec3[0] + fRec3[4]) - 8.0 * fRec3[2]) + fConst89 * (4.0 * (fRec6[0] + fRec6[4]) - 8.0 * fRec6[2]) + fConst124 * (4.0 * (fRec9[0] + fRec9[4]) - 8.0 * fRec9[2]) + fConst158 * (4.0 * (fRec12[0] + fRec12[4]) - 8.0 * fRec12[2])));
+			fRec8[0] = fTemp0 - fConst97 * (fConst98 * fRec8[1] + fConst99 * fRec8[2]);
+			fRec7[0] = fConst96 * (fRec8[0] - fRec8[2]) - fConst100 * (fConst103 * fRec7[1] + fConst104 * fRec7[2] + fConst105 * fRec7[3] + fConst106 * fRec7[4]);
+			fRec6[0] = fConst92 * (4.0 * fRec7[0] - 8.0 * fRec7[2] + 4.0 * fRec7[4]) - fConst107 * (fConst109 * fRec6[1] + fConst104 * fRec6[2] + fConst110 * fRec6[3] + fConst111 * fRec6[4]);
+			fRec11[0] = fTemp0 - fConst131 * (fConst132 * fRec11[1] + fConst133 * fRec11[2]);
+			fRec10[0] = fConst130 * (fRec11[0] - fRec11[2]) - fConst134 * (fConst137 * fRec10[1] + fConst138 * fRec10[2] + fConst139 * fRec10[3] + fConst140 * fRec10[4]);
+			fRec9[0] = fConst126 * (4.0 * fRec10[0] - 8.0 * fRec10[2] + 4.0 * fRec10[4]) - fConst141 * (fConst143 * fRec9[1] + fConst138 * fRec9[2] + fConst144 * fRec9[3] + fConst145 * fRec9[4]);
+			fRec14[0] = fTemp0 - fConst165 * (fConst166 * fRec14[1] + fConst167 * fRec14[2]);
+			fRec13[0] = fConst164 * (fRec14[0] - fRec14[2]) - fConst168 * (fConst171 * fRec13[1] + fConst172 * fRec13[2] + fConst173 * fRec13[3] + fConst174 * fRec13[4]);
+			fRec12[0] = fConst160 * (4.0 * fRec13[0] - 8.0 * fRec13[2] + 4.0 * fRec13[4]) - fConst175 * (fConst177 * fRec12[1] + fConst172 * fRec12[2] + fConst178 * fRec12[3] + fConst179 * fRec12[4]);
+			output0[i0] = static_cast<FAUSTFLOAT>(fConst2 * (fConst18 * (4.0 * fRec0[0] - 8.0 * fRec0[2] + 4.0 * fRec0[4]) + fConst55 * (4.0 * fRec3[0] - 8.0 * fRec3[2] + 4.0 * fRec3[4]) + fConst89 * (4.0 * fRec6[0] - 8.0 * fRec6[2] + 4.0 * fRec6[4]) + fConst123 * (4.0 * fRec9[0] - 8.0 * fRec9[2] + 4.0 * fRec9[4]) + fConst157 * (4.0 * fRec12[0] - 8.0 * fRec12[2] + 4.0 * fRec12[4])));
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
