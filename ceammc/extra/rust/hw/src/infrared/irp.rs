@@ -129,7 +129,7 @@ fn parse_xml() -> Result<Vec<irp::Protocol>, String> {
                             protocol.decode_only = bool::from_str(&data).unwrap();
                         }
                         Element::RejectRepeatLess => {
-                            protocol.reject_repeatess = bool::from_str(&data).unwrap();
+                            protocol.reject_repeatless = bool::from_str(&data).unwrap();
                         }
                         Element::AbsoluteTolerance => {
                             protocol.absolute_tolerance = u32::from_str(&data).unwrap();
