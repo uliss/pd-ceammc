@@ -1,24 +1,24 @@
 {
 	"name": "spat.pan8",
 	"filename": "spat_pan8.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/signals.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 76,
 	"inputs": 1,
 	"outputs": 8,
 	"meta": [ 
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn spat_pan8 -scn spat_pan8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "spat_pan8.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "spat.pan8" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -28,6 +28,7 @@
 				{
 					"type": "vslider",
 					"label": "angle",
+					"varname": "fVslider1",
 					"shortname": "angle",
 					"address": "/spat.pan8/angle",
 					"meta": [
@@ -41,6 +42,7 @@
 				{
 					"type": "vslider",
 					"label": "radius",
+					"varname": "fVslider0",
 					"shortname": "radius",
 					"address": "/spat.pan8/radius",
 					"init": 1,

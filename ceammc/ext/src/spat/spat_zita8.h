@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "spat.zita8"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __spat_zita8_H__
@@ -74,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -121,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -165,8 +170,8 @@ class FAUST_API spat_zita8_dsp {
 
     public:
 
-        spat_zita8_dsp() {}
-        virtual ~spat_zita8_dsp() {}
+        spat_zita8_dsp() = default;
+        virtual ~spat_zita8_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -195,14 +200,14 @@ class FAUST_API spat_zita8_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -219,17 +224,18 @@ class FAUST_API spat_zita8_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual spat_zita8_dsp* clone() = 0;
+        virtual ::spat_zita8_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -280,33 +286,33 @@ class FAUST_API spat_zita8_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public spat_zita8_dsp {
+class FAUST_API decorator_dsp : public ::spat_zita8_dsp {
 
     protected:
 
-        spat_zita8_dsp* fDSP;
+        ::spat_zita8_dsp* fDSP;
 
     public:
 
-        decorator_dsp(spat_zita8_dsp* spat_zita8_dsp = nullptr):fDSP(spat_zita8_dsp) {}
+        decorator_dsp(::spat_zita8_dsp* spat_zita8_dsp = nullptr):fDSP(spat_zita8_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -320,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -344,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual spat_zita8_dsp* createDSPInstance() = 0;
+        virtual ::spat_zita8_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -451,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -507,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -523,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -546,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -740,18 +744,23 @@ class spat_zita8 : public spat_zita8_dsp {
 	spat_zita8() {
 	}
 	
+	spat_zita8(const spat_zita8&) = default;
+	
+	virtual ~spat_zita8() = default;
+	
+	spat_zita8& operator=(const spat_zita8&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("basics.lib/version", "1.22.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn spat_zita8 -scn spat_zita8_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "spat_zita8.dsp");
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -763,22 +772,22 @@ class spat_zita8 : public spat_zita8_dsp {
 		m->declare("filters.lib/tf1s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "spat.zita8");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
 		m->declare("reverbs.lib/name", "Faust Reverb Library");
-		m->declare("reverbs.lib/version", "1.3.0");
+		m->declare("reverbs.lib/version", "1.5.1");
 		m->declare("routes.lib/hadamard:author", "Remy Muller, revised by Romain Michon");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "1.2.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("routes.lib/version", "1.3.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -793,62 +802,62 @@ class spat_zita8 : public spat_zita8_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = std::floor(0.219991f * fConst0 + 0.5f);
 		fConst2 = 6.9077554f * (fConst1 / fConst0);
 		fConst3 = 6.2831855f / fConst0;
 		fConst4 = 3.1415927f / fConst0;
 		fConst5 = std::floor(0.019123f * fConst0 + 0.5f);
-		iConst6 = int(std::min<float>(32768.0f, std::max<float>(0.0f, fConst1 - fConst5)));
-		iConst7 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst5 + -1.0f)));
+		iConst6 = static_cast<int>(std::min<float>(32768.0f, std::max<float>(0.0f, fConst1 - fConst5)));
+		iConst7 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst5 + -1.0f)));
 		fConst8 = std::floor(0.256891f * fConst0 + 0.5f);
 		fConst9 = 6.9077554f * (fConst8 / fConst0);
 		fConst10 = std::floor(0.027333f * fConst0 + 0.5f);
-		iConst11 = int(std::min<float>(32768.0f, std::max<float>(0.0f, fConst8 - fConst10)));
-		iConst12 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst10 + -1.0f)));
+		iConst11 = static_cast<int>(std::min<float>(32768.0f, std::max<float>(0.0f, fConst8 - fConst10)));
+		iConst12 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst10 + -1.0f)));
 		fConst13 = std::floor(0.192303f * fConst0 + 0.5f);
 		fConst14 = 6.9077554f * (fConst13 / fConst0);
 		fConst15 = std::floor(0.029291f * fConst0 + 0.5f);
-		iConst16 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst13 - fConst15)));
-		iConst17 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst15 + -1.0f)));
+		iConst16 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst13 - fConst15)));
+		iConst17 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst15 + -1.0f)));
 		fConst18 = std::floor(0.210389f * fConst0 + 0.5f);
 		fConst19 = 6.9077554f * (fConst18 / fConst0);
 		fConst20 = std::floor(0.024421f * fConst0 + 0.5f);
-		iConst21 = int(std::min<float>(32768.0f, std::max<float>(0.0f, fConst18 - fConst20)));
-		iConst22 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst20 + -1.0f)));
+		iConst21 = static_cast<int>(std::min<float>(32768.0f, std::max<float>(0.0f, fConst18 - fConst20)));
+		iConst22 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst20 + -1.0f)));
 		fConst23 = std::floor(0.125f * fConst0 + 0.5f);
 		fConst24 = 6.9077554f * (fConst23 / fConst0);
 		fConst25 = std::floor(0.013458f * fConst0 + 0.5f);
-		iConst26 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst23 - fConst25)));
+		iConst26 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst23 - fConst25)));
 		fConst27 = 0.001f * fConst0;
 		fConst28 = 44.1f / fConst0;
 		fConst29 = 1.0f - fConst28;
-		iConst30 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst25 + -1.0f)));
+		iConst30 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst25 + -1.0f)));
 		fConst31 = std::floor(0.127837f * fConst0 + 0.5f);
 		fConst32 = 6.9077554f * (fConst31 / fConst0);
 		fConst33 = std::floor(0.031604f * fConst0 + 0.5f);
-		iConst34 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst31 - fConst33)));
-		iConst35 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst33 + -1.0f)));
+		iConst34 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst31 - fConst33)));
+		iConst35 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst33 + -1.0f)));
 		fConst36 = std::floor(0.174713f * fConst0 + 0.5f);
 		fConst37 = 6.9077554f * (fConst36 / fConst0);
 		fConst38 = std::floor(0.022904f * fConst0 + 0.5f);
-		iConst39 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst36 - fConst38)));
-		iConst40 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst38 + -1.0f)));
+		iConst39 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst36 - fConst38)));
+		iConst40 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst38 + -1.0f)));
 		fConst41 = std::floor(0.153129f * fConst0 + 0.5f);
 		fConst42 = 6.9077554f * (fConst41 / fConst0);
 		fConst43 = std::floor(0.020346f * fConst0 + 0.5f);
-		iConst44 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst41 - fConst43)));
-		iConst45 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst43 + -1.0f)));
+		iConst44 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst41 - fConst43)));
+		iConst45 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst43 + -1.0f)));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(2.0f);
-		fVslider1 = FAUSTFLOAT(6e+03f);
-		fVslider2 = FAUSTFLOAT(3.0f);
-		fVslider3 = FAUSTFLOAT(2e+02f);
-		fVslider4 = FAUSTFLOAT(6e+01f);
-		fVslider5 = FAUSTFLOAT(1.0f);
-		fVslider6 = FAUSTFLOAT(0.0f);
+		fVslider0 = static_cast<FAUSTFLOAT>(2.0f);
+		fVslider1 = static_cast<FAUSTFLOAT>(6e+03f);
+		fVslider2 = static_cast<FAUSTFLOAT>(3.0f);
+		fVslider3 = static_cast<FAUSTFLOAT>(2e+02f);
+		fVslider4 = static_cast<FAUSTFLOAT>(6e+01f);
+		fVslider5 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider6 = static_cast<FAUSTFLOAT>(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -1041,7 +1050,7 @@ class spat_zita8 : public spat_zita8_dsp {
 	}
 	
 	virtual spat_zita8* clone() {
-		return new spat_zita8();
+		return new spat_zita8(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1084,18 +1093,18 @@ class spat_zita8 : public spat_zita8_dsp {
 		FAUSTFLOAT* output5 = outputs[5];
 		FAUSTFLOAT* output6 = outputs[6];
 		FAUSTFLOAT* output7 = outputs[7];
-		float fSlow0 = float(fVslider0);
+		float fSlow0 = static_cast<float>(fVslider0);
 		float fSlow1 = std::exp(-(fConst2 / fSlow0));
-		float fSlow2 = std::cos(fConst3 * float(fVslider1));
+		float fSlow2 = std::cos(fConst3 * static_cast<float>(fVslider1));
 		float fSlow3 = spat_zita8_faustpower2_f(fSlow1);
 		float fSlow4 = 1.0f - fSlow2 * fSlow3;
 		float fSlow5 = 1.0f - fSlow3;
 		float fSlow6 = std::sqrt(std::max<float>(0.0f, spat_zita8_faustpower2_f(fSlow4) / spat_zita8_faustpower2_f(fSlow5) + -1.0f));
 		float fSlow7 = fSlow4 / fSlow5;
 		float fSlow8 = fSlow1 * (fSlow6 + (1.0f - fSlow7));
-		float fSlow9 = float(fVslider2);
+		float fSlow9 = static_cast<float>(fVslider2);
 		float fSlow10 = std::exp(-(fConst2 / fSlow9)) / fSlow1 + -1.0f;
-		float fSlow11 = 1.0f / std::tan(fConst4 * float(fVslider3));
+		float fSlow11 = 1.0f / std::tan(fConst4 * static_cast<float>(fVslider3));
 		float fSlow12 = 1.0f / (fSlow11 + 1.0f);
 		float fSlow13 = 1.0f - fSlow11;
 		float fSlow14 = fSlow7 - fSlow6;
@@ -1135,7 +1144,7 @@ class spat_zita8 : public spat_zita8_dsp {
 		float fSlow48 = fSlow42 * (fSlow46 + (1.0f - fSlow47));
 		float fSlow49 = std::exp(-(fConst24 / fSlow9)) / fSlow42 + -1.0f;
 		float fSlow50 = fSlow47 - fSlow46;
-		float fSlow51 = fConst28 * float(fVslider4);
+		float fSlow51 = fConst28 * static_cast<float>(fVslider4);
 		float fSlow52 = std::exp(-(fConst32 / fSlow0));
 		float fSlow53 = spat_zita8_faustpower2_f(fSlow52);
 		float fSlow54 = 1.0f - fSlow2 * fSlow53;
@@ -1163,9 +1172,9 @@ class spat_zita8 : public spat_zita8_dsp {
 		float fSlow76 = fSlow70 * (fSlow74 + (1.0f - fSlow75));
 		float fSlow77 = std::exp(-(fConst42 / fSlow9)) / fSlow70 + -1.0f;
 		float fSlow78 = fSlow75 - fSlow74;
-		float fSlow79 = float(fVslider5);
+		float fSlow79 = static_cast<float>(fVslider5);
 		float fSlow80 = fSlow79 + 1.0f;
-		float fSlow81 = float(fVslider6);
+		float fSlow81 = static_cast<float>(fVslider6);
 		float fSlow82 = 5e-05f * fSlow80 * q8_sqrt(std::max<float>(0.0f, 1.0f - 8.0f * fSlow79 * std::fabs(std::fmod(fSlow81 + 1.5f, 1.0f) + -0.5f)));
 		float fSlow83 = 5e-05f * fSlow80 * q8_sqrt(std::max<float>(0.0f, 1.0f - 8.0f * fSlow79 * std::fabs(std::fmod(fSlow81 + 1.375f, 1.0f) + -0.5f)));
 		float fSlow84 = 5e-05f * fSlow80 * q8_sqrt(std::max<float>(0.0f, 1.0f - 8.0f * fSlow79 * std::fabs(std::fmod(fSlow81 + 1.25f, 1.0f) + -0.5f)));
@@ -1206,9 +1215,9 @@ class spat_zita8 : public spat_zita8_dsp {
 			fRec27[0] = -(fSlow12 * (fSlow13 * fRec27[1] - (fRec6[1] + fRec6[2])));
 			fRec26[0] = fSlow48 * (fRec6[1] + fSlow49 * fRec27[0]) + fSlow50 * fRec26[1];
 			fVec8[IOTA0 & 32767] = 0.35355338f * fRec26[0] + 1e-20f;
-			fVec9[IOTA0 & 16383] = float(input0[i0]);
+			fVec9[IOTA0 & 16383] = static_cast<float>(input0[i0]);
 			fRec28[0] = fSlow51 + fConst29 * fRec28[1];
-			float fTemp4 = 0.3f * fVec9[(IOTA0 - int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst27 * fRec28[0])))) & 16383];
+			float fTemp4 = 0.3f * fVec9[(IOTA0 - static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst27 * fRec28[0])))) & 16383];
 			float fTemp5 = fVec8[(IOTA0 - iConst26) & 32767] - (fTemp4 + 0.6f * fRec24[1]);
 			fVec10[IOTA0 & 4095] = fTemp5;
 			fRec24[0] = fVec10[(IOTA0 - iConst30) & 4095];
@@ -1251,21 +1260,21 @@ class spat_zita8 : public spat_zita8_dsp {
 			fRec7[0] = fRec12[1] + fRec16[1] + fRec24[1] + fRec37[1] + fRec13 + fRec17 + fTemp14 - (fRec8[1] + fRec20[1] + fRec29[1] + fRec33[1] + fRec9 + fRec21 + fTemp15);
 			float fTemp16 = fRec1[0] + fRec2[0];
 			fRec41[0] = fSlow82 + 0.9999f * fRec41[1];
-			output0[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec41[0]);
+			output0[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec41[0]);
 			fRec42[0] = fSlow83 + 0.9999f * fRec42[1];
-			output1[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec42[0]);
+			output1[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec42[0]);
 			fRec43[0] = fSlow84 + 0.9999f * fRec43[1];
-			output2[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec43[0]);
+			output2[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec43[0]);
 			fRec44[0] = fSlow85 + 0.9999f * fRec44[1];
-			output3[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec44[0]);
+			output3[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec44[0]);
 			fRec45[0] = fSlow86 + 0.9999f * fRec45[1];
-			output4[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec45[0]);
+			output4[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec45[0]);
 			fRec46[0] = fSlow87 + 0.9999f * fRec46[1];
-			output5[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec46[0]);
+			output5[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec46[0]);
 			fRec47[0] = fSlow88 + 0.9999f * fRec47[1];
-			output6[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec47[0]);
+			output6[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec47[0]);
 			fRec48[0] = fSlow89 + 0.9999f * fRec48[1];
-			output7[i0] = FAUSTFLOAT(0.37f * fTemp16 * fRec48[0]);
+			output7[i0] = static_cast<FAUSTFLOAT>(0.37f * fTemp16 * fRec48[0]);
 			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];
 			IOTA0 = IOTA0 + 1;
