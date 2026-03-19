@@ -366,7 +366,7 @@ pub mod infrared;
 pub mod lcd1602;
 pub mod max7219;
 pub mod mpr121;
-pub mod pn532;
+pub mod nfc;
 pub mod rotenc;
 pub mod rpi_gyro;
 pub mod rpi_pwm;

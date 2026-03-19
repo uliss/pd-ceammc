@@ -11,8 +11,10 @@ use std::{
     ptr::null_mut,
 };
 
-#[cfg(target_os = "linux")]
+#[cfg(target_os = "linux")] 
 mod pn532_impl;
+#[cfg(target_os = "linux")] 
+mod pn532_timer;
 
 pub enum Request {
     ReadAll,

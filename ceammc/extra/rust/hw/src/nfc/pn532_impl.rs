@@ -1,14 +1,13 @@
-use log::{debug, error};
-use pn532::{i2c::I2CInterface, Pn532};
-use rppal::hal::{Delay, Timer};
-use std::ffi::CString;
-
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::I2cAddress,
-    pn532::{hw_nfc_pn532, hw_nfc_pn532_cb, NfcWorker, Reply, Request},
-    process_err, send_debug, send_reply,
+    nfc::{hw_nfc_pn532, hw_nfc_pn532_cb, pn532_timer::Timer, NfcWorker, Reply, Request},
+    send_debug,
 };
+use log::{debug, error};
+use pn532::requests::SAMMode;
+use pn532::{i2c::I2CInterface, CountDown, Pn532};
+use std::{ffi::CString, time::Duration};
 
 impl hw_nfc_pn532 {
     pub(crate) fn new(
@@ -23,13 +22,15 @@ impl hw_nfc_pn532 {
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}");
-            i2c.set_slave_address(0x24);
+            i2c.set_slave_address(0x24).map_err(|err| err.to_string())?;
 
             let bus = i2c.bus();
             let interface = I2CInterface { i2c };
-            let mut delay = Delay::new();
+
             let mut timer = Timer::new();
-            let mut pn532 = Pn532::<_, _, 1024>::new(interface, timer);
+            timer.start(Duration::from_millis(10));
+
+            let mut pn532 = Pn532::<_, _>::new(interface, timer);
             // = match i2c_addr {
             // I2cAddress::Addr(_addr) => Pn532::new(interface, timer)),
             // I2cAddress::Default => Mpr121::new_default(i2c, &mut delay),
@@ -39,17 +40,32 @@ impl hw_nfc_pn532 {
             // }?;
             // .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?;
 
+            // let t = CountDown::start(&mut self, count);
+
             send_debug(
                 &tx,
                 notify,
-                format!("mpr121 init with bus={bus} and addr={i2c_addr:?}").as_str(),
+                format!("pn532 init with bus={bus} and addr={i2c_addr:?}").as_str(),
             );
 
-            // loop {
-            //     match pn532.process(&Request::INLIST_ONE_ISO_A_TARGET, 7, 1000.ms()) {}
-            // }
+            let firmware = pn532
+                .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
+                .map_err(|err| format!("{err:?}"))?;
+            log::info!("firmware: {firmware:?}");
 
-            while let Ok(req) = rx.recv() {
+            match pn532.process(
+                &pn532::Request::sam_configuration(SAMMode::Normal, false),
+                0,
+                Duration::from_millis(50),
+            ) {
+                Ok(_) => println!("✅ PN532 готов"),
+                Err(err) => {
+                    println!("❌ Ошибка: {:?}", err);
+                    return Err(format!("{err:?}"));
+                }
+            }
+
+            while let Ok(_req) = rx.recv() {
                 // match req {
                 //     Request::ReadAll => match pn532.get_touched() {
                 //         Ok(res) => {
