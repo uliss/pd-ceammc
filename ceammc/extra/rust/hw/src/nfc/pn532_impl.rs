@@ -2,7 +2,7 @@ use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::I2cAddress,
     nfc::{hw_nfc_pn532, hw_nfc_pn532_cb, pn532_timer::Timer, NfcWorker, Reply, Request},
-    send_debug,
+    process_err, send_debug,
 };
 use log::{debug, error};
 use pn532::requests::SAMMode;
@@ -22,25 +22,20 @@ impl hw_nfc_pn532 {
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}");
-            i2c.set_slave_address(0x24).map_err(|err| err.to_string())?;
 
+            let i2c_addr: u16 = match i2c_addr {
+                I2cAddress::Addr(addr) => addr.into(),
+                I2cAddress::Default => 0x24,
+                I2cAddress::Auto => 0x24,
+                I2cAddress::Alt => return Err(format!("no alternative device address")),
+                _ => return Err(format!("invalid i2c address:")),
+            };
+
+            i2c.set_slave_address(i2c_addr).map_err(|err| err.to_string())?;
             let bus = i2c.bus();
+
             let interface = I2CInterface { i2c };
-
-            let mut timer = Timer::new();
-            timer.start(Duration::from_millis(10));
-
-            let mut pn532 = Pn532::<_, _>::new(interface, timer);
-            // = match i2c_addr {
-            // I2cAddress::Addr(_addr) => Pn532::new(interface, timer)),
-            // I2cAddress::Default => Mpr121::new_default(i2c, &mut delay),
-            // I2cAddress::Auto => Mpr121::new_default(i2c, &mut delay),
-            // I2cAddress::Alt => return Err(format!("no alternative device address")),
-            // _ => return Err(format!("invalid i2c address:")),
-            // }?;
-            // .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?;
-
-            // let t = CountDown::start(&mut self, count);
+            let mut pn532 = Pn532::<_, _>::new(interface, Timer::new());
 
             send_debug(
                 &tx,
