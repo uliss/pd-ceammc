@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.fb_comb"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_fb_comb_H__
@@ -74,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -121,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -165,8 +170,8 @@ class FAUST_API flt_fb_comb_dsp {
 
     public:
 
-        flt_fb_comb_dsp() {}
-        virtual ~flt_fb_comb_dsp() {}
+        flt_fb_comb_dsp() = default;
+        virtual ~flt_fb_comb_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -195,14 +200,14 @@ class FAUST_API flt_fb_comb_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -219,17 +224,18 @@ class FAUST_API flt_fb_comb_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual flt_fb_comb_dsp* clone() = 0;
+        virtual ::flt_fb_comb_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -280,33 +286,33 @@ class FAUST_API flt_fb_comb_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public flt_fb_comb_dsp {
+class FAUST_API decorator_dsp : public ::flt_fb_comb_dsp {
 
     protected:
 
-        flt_fb_comb_dsp* fDSP;
+        ::flt_fb_comb_dsp* fDSP;
 
     public:
 
-        decorator_dsp(flt_fb_comb_dsp* flt_fb_comb_dsp = nullptr):fDSP(flt_fb_comb_dsp) {}
+        decorator_dsp(::flt_fb_comb_dsp* flt_fb_comb_dsp = nullptr):fDSP(flt_fb_comb_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -320,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -344,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual flt_fb_comb_dsp* createDSPInstance() = 0;
+        virtual ::flt_fb_comb_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -451,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -507,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -523,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -546,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -622,46 +626,50 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
-	float fRec2[2];
+	float fRec1[2];
 	int IOTA0;
-	float fVec0[16384];
 	int iConst3;
 	int iConst4;
 	int iConst5;
 	int iConst6;
 	int iConst7;
 	int iConst8;
-	float fRec0[2];
-	float fRec1[2];
+	float fRec0[16384];
 	
  public:
 	flt_fb_comb() {
 	}
 	
+	flt_fb_comb(const flt_fb_comb&) = default;
+	
+	virtual ~flt_fb_comb() = default;
+	
+	flt_fb_comb& operator=(const flt_fb_comb&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("basics.lib/version", "1.22.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_fb_comb -scn flt_fb_comb_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "flt_fb_comb.dsp");
+		m->declare("filters.lib/fb_comb_common:author", "Oleg Nesterov");
 		m->declare("filters.lib/fb_fcomb:author", "Julius O. Smith III");
-		m->declare("filters.lib/fb_fcomb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/fb_fcomb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>, revised by Oleg Nesterov");
 		m->declare("filters.lib/fb_fcomb:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "flt.fb_comb");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -676,10 +684,10 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
-		iConst3 = int(0.05f * std::max<float>(8e+03f, fConst0) + -1.0f);
+		iConst3 = static_cast<int>(0.05f * std::max<float>(8e+03f, fConst0) + -1.0f);
 		iConst4 = (iConst3 >> 1) | iConst3;
 		iConst5 = (iConst4 >> 2) | iConst4;
 		iConst6 = (iConst5 >> 4) | iConst5;
@@ -688,22 +696,16 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.75f);
+		fHslider0 = static_cast<FAUSTFLOAT>(0.75f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec2[l0] = 0.0f;
+			fRec1[l0] = 0.0f;
 		}
 		IOTA0 = 0;
 		for (int l1 = 0; l1 < 16384; l1 = l1 + 1) {
-			fVec0[l1] = 0.0f;
-		}
-		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec0[l2] = 0.0f;
-		}
-		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec1[l3] = 0.0f;
+			fRec0[l1] = 0.0f;
 		}
 	}
 	
@@ -719,7 +721,7 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 	}
 	
 	virtual flt_fb_comb* clone() {
-		return new flt_fb_comb();
+		return new flt_fb_comb(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -736,22 +738,17 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst1 * float(fHslider0);
+		float fSlow0 = fConst1 * static_cast<float>(fHslider0);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec2[0] = fSlow0 + fConst2 * fRec2[1];
-			float fTemp0 = float(input0[i0]) - fRec2[0] * fRec0[1];
-			fVec0[IOTA0 & 16383] = fTemp0;
-			float fTemp1 = fConst0 / std::max<float>(2e+01f, std::min<float>(2e+04f, float(input1[i0])));
-			float fTemp2 = fTemp1 + -1.0f;
-			int iTemp3 = int(fTemp2);
-			float fTemp4 = std::floor(fTemp2);
-			fRec0[0] = fVec0[(IOTA0 - std::min<int>(iConst8, std::max<int>(0, iTemp3))) & 16383] * (fTemp4 + (2.0f - fTemp1)) + (fTemp1 + (-1.0f - fTemp4)) * fVec0[(IOTA0 - std::min<int>(iConst8, std::max<int>(0, iTemp3 + 1))) & 16383];
-			fRec1[0] = fTemp0;
-			output0[i0] = FAUSTFLOAT(fRec1[1]);
-			fRec2[1] = fRec2[0];
-			IOTA0 = IOTA0 + 1;
-			fRec0[1] = fRec0[0];
+			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
+			float fTemp0 = fConst0 / std::max<float>(2e+01f, std::min<float>(2e+04f, static_cast<float>(input1[i0])));
+			float fTemp1 = fTemp0 + -1.0f;
+			int iTemp2 = static_cast<int>(fTemp1);
+			float fTemp3 = std::floor(fTemp1);
+			fRec0[IOTA0 & 16383] = static_cast<float>(input0[i0]) - fRec1[0] * (fRec0[(IOTA0 - (std::min<int>(iConst8, std::max<int>(0, iTemp2)) + 1)) & 16383] * (fTemp3 + (2.0f - fTemp0)) + (fTemp0 + (-1.0f - fTemp3)) * fRec0[(IOTA0 - (std::min<int>(iConst8, std::max<int>(0, iTemp2 + 1)) + 1)) & 16383]);
+			output0[i0] = static_cast<FAUSTFLOAT>(fRec0[(IOTA0 - 1) & 16383]);
 			fRec1[1] = fRec1[0];
+			IOTA0 = IOTA0 + 1;
 		}
 	}
 

@@ -1,8 +1,8 @@
 {
 	"name": "flt.fbank5x1",
 	"filename": "flt_filterbank5x1.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/analyzers.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/signals.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 548,
@@ -10,11 +10,10 @@
 	"outputs": 5,
 	"meta": [ 
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "1.2.0" },
+		{ "analyzers.lib/version": "1.3.0" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "basics.lib/version": "1.22.0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "flt_filterbank5x1.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -48,17 +47,17 @@
 		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "flt.fbank5x1" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -68,6 +67,7 @@
 				{
 					"type": "vslider",
 					"label": "f1000",
+					"varname": "fVslider2",
 					"shortname": "f1000",
 					"address": "/flt.fbank5x1/f1000",
 					"meta": [
@@ -81,6 +81,7 @@
 				{
 					"type": "vslider",
 					"label": "f2000",
+					"varname": "fVslider3",
 					"shortname": "f2000",
 					"address": "/flt.fbank5x1/f2000",
 					"meta": [
@@ -94,6 +95,7 @@
 				{
 					"type": "vslider",
 					"label": "f250",
+					"varname": "fVslider0",
 					"shortname": "f250",
 					"address": "/flt.fbank5x1/f250",
 					"meta": [
@@ -107,6 +109,7 @@
 				{
 					"type": "vslider",
 					"label": "f4000",
+					"varname": "fVslider4",
 					"shortname": "f4000",
 					"address": "/flt.fbank5x1/f4000",
 					"meta": [
@@ -120,6 +123,7 @@
 				{
 					"type": "vslider",
 					"label": "f500",
+					"varname": "fVslider1",
 					"shortname": "f500",
 					"address": "/flt.fbank5x1/f500",
 					"meta": [

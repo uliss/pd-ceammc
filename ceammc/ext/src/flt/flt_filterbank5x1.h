@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.fbank5x1"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_filterbank5x1_H__
@@ -74,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -121,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -165,8 +170,8 @@ class FAUST_API flt_filterbank5x1_dsp {
 
     public:
 
-        flt_filterbank5x1_dsp() {}
-        virtual ~flt_filterbank5x1_dsp() {}
+        flt_filterbank5x1_dsp() = default;
+        virtual ~flt_filterbank5x1_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -195,14 +200,14 @@ class FAUST_API flt_filterbank5x1_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -219,17 +224,18 @@ class FAUST_API flt_filterbank5x1_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual flt_filterbank5x1_dsp* clone() = 0;
+        virtual ::flt_filterbank5x1_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -280,33 +286,33 @@ class FAUST_API flt_filterbank5x1_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public flt_filterbank5x1_dsp {
+class FAUST_API decorator_dsp : public ::flt_filterbank5x1_dsp {
 
     protected:
 
-        flt_filterbank5x1_dsp* fDSP;
+        ::flt_filterbank5x1_dsp* fDSP;
 
     public:
 
-        decorator_dsp(flt_filterbank5x1_dsp* flt_filterbank5x1_dsp = nullptr):fDSP(flt_filterbank5x1_dsp) {}
+        decorator_dsp(::flt_filterbank5x1_dsp* flt_filterbank5x1_dsp = nullptr):fDSP(flt_filterbank5x1_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -320,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -344,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual flt_filterbank5x1_dsp* createDSPInstance() = 0;
+        virtual ::flt_filterbank5x1_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -451,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -507,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -523,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -546,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -717,13 +721,18 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	flt_filterbank5x1() {
 	}
 	
+	flt_filterbank5x1(const flt_filterbank5x1&) = default;
+	
+	virtual ~flt_filterbank5x1() = default;
+	
+	flt_filterbank5x1& operator=(const flt_filterbank5x1&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
-		m->declare("analyzers.lib/version", "1.2.0");
+		m->declare("analyzers.lib/version", "1.3.0");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("basics.lib/version", "1.22.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "flt_filterbank5x1.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -757,17 +766,17 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "flt.fbank5x1");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -782,7 +791,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = std::tan(1570.7964f / fConst0);
 		fConst2 = 1.0f / fConst1;
 		fConst3 = (fConst2 + 1.0f) / fConst1 + 1.0f;
@@ -840,11 +849,11 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.0f);
-		fVslider1 = FAUSTFLOAT(0.0f);
-		fVslider2 = FAUSTFLOAT(0.0f);
-		fVslider3 = FAUSTFLOAT(0.0f);
-		fVslider4 = FAUSTFLOAT(0.0f);
+		fVslider0 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider1 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider2 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider3 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider4 = static_cast<FAUSTFLOAT>(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -955,7 +964,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	}
 	
 	virtual flt_filterbank5x1* clone() {
-		return new flt_filterbank5x1();
+		return new flt_filterbank5x1(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -984,14 +993,14 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		FAUSTFLOAT* output2 = outputs[2];
 		FAUSTFLOAT* output3 = outputs[3];
 		FAUSTFLOAT* output4 = outputs[4];
-		float fSlow0 = fConst5 * std::pow(1e+01f, 0.05f * float(fVslider0));
-		float fSlow1 = fConst5 * std::pow(1e+01f, 0.05f * float(fVslider1));
-		float fSlow2 = fConst5 * std::pow(1e+01f, 0.05f * float(fVslider2));
-		float fSlow3 = fConst5 * std::pow(1e+01f, 0.05f * float(fVslider3));
-		float fSlow4 = fConst5 * std::pow(1e+01f, 0.05f * float(fVslider4));
+		float fSlow0 = fConst5 * std::pow(1e+01f, 0.05f * static_cast<float>(fVslider0));
+		float fSlow1 = fConst5 * std::pow(1e+01f, 0.05f * static_cast<float>(fVslider1));
+		float fSlow2 = fConst5 * std::pow(1e+01f, 0.05f * static_cast<float>(fVslider2));
+		float fSlow3 = fConst5 * std::pow(1e+01f, 0.05f * static_cast<float>(fVslider3));
+		float fSlow4 = fConst5 * std::pow(1e+01f, 0.05f * static_cast<float>(fVslider4));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec0[0] = fSlow0 + fConst6 * fRec0[1];
-			float fTemp0 = float(input0[i0]);
+			float fTemp0 = static_cast<float>(input0[i0]);
 			fVec0[0] = fTemp0;
 			fRec8[0] = -(fConst28 * (fConst29 * fRec8[1] - (fTemp0 + fVec0[1])));
 			fRec7[0] = fRec8[0] - fConst27 * (fConst30 * fRec7[2] + fConst32 * fRec7[1]);
@@ -1007,17 +1016,17 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fVec3[0] = fTemp3;
 			fRec2[0] = -(fConst8 * (fConst9 * fRec2[1] - fConst13 * (fTemp3 + fVec3[1])));
 			fRec1[0] = fRec2[0] - fConst4 * (fConst39 * fRec1[2] + fConst41 * fRec1[1]);
-			output0[i0] = FAUSTFLOAT(fConst4 * fRec0[0] * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]));
+			output0[i0] = static_cast<FAUSTFLOAT>(fConst4 * fRec0[0] * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]));
 			fRec9[0] = fSlow1 + fConst6 * fRec9[1];
 			fRec11[0] = -(fConst8 * (fConst9 * fRec11[1] - fConst43 * (fTemp3 - fVec3[1])));
 			fRec10[0] = fRec11[0] - fConst4 * (fConst39 * fRec10[2] + fConst41 * fRec10[1]);
-			output1[i0] = FAUSTFLOAT(fConst42 * fRec9[0] * (fRec10[0] + fRec10[2] - 2.0f * fRec10[1]));
+			output1[i0] = static_cast<FAUSTFLOAT>(fConst42 * fRec9[0] * (fRec10[2] + (fRec10[0] - 2.0f * fRec10[1])));
 			fRec12[0] = fSlow2 + fConst6 * fRec12[1];
 			fRec15[0] = -(fConst15 * (fConst16 * fRec15[1] - fConst45 * (fTemp2 - fVec2[1])));
 			fRec14[0] = fRec15[0] - fConst13 * (fConst36 * fRec14[2] + fConst38 * fRec14[1]);
 			float fTemp4 = fConst41 * fRec13[1];
 			fRec13[0] = fConst44 * (fRec14[2] + (fRec14[0] - 2.0f * fRec14[1])) - fConst46 * (fConst47 * fRec13[2] + fTemp4);
-			output2[i0] = FAUSTFLOAT(fRec12[0] * (fRec13[2] + fConst46 * (fTemp4 + fConst47 * fRec13[0])));
+			output2[i0] = static_cast<FAUSTFLOAT>(fRec12[0] * (fRec13[2] + fConst46 * (fTemp4 + fConst47 * fRec13[0])));
 			fRec16[0] = fSlow3 + fConst6 * fRec16[1];
 			fRec20[0] = -(fConst22 * (fConst23 * fRec20[1] - fConst49 * (fTemp1 - fVec1[1])));
 			fRec19[0] = fRec20[0] - fConst20 * (fConst33 * fRec19[2] + fConst35 * fRec19[1]);
@@ -1025,9 +1034,9 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fRec18[0] = fConst48 * (fRec19[2] + (fRec19[0] - 2.0f * fRec19[1])) - fConst46 * (fConst47 * fRec18[2] + fTemp5);
 			float fTemp6 = fConst38 * fRec17[1];
 			fRec17[0] = fRec18[2] + fConst46 * (fTemp5 + fConst47 * fRec18[0]) - fConst50 * (fConst51 * fRec17[2] + fTemp6);
-			output3[i0] = FAUSTFLOAT(fRec16[0] * (fRec17[2] + fConst50 * (fTemp6 + fConst51 * fRec17[0])));
+			output3[i0] = static_cast<FAUSTFLOAT>(fRec16[0] * (fRec17[2] + fConst50 * (fTemp6 + fConst51 * fRec17[0])));
 			fRec21[0] = fSlow4 + fConst6 * fRec21[1];
-			fRec26[0] = fConst28 * (fConst25 * (fTemp0 - fVec0[1]) - fConst29 * fRec26[1]);
+			fRec26[0] = -(fConst28 * (fConst29 * fRec26[1] - fConst25 * (fTemp0 - fVec0[1])));
 			fRec25[0] = fRec26[0] - fConst27 * (fConst30 * fRec25[2] + fConst32 * fRec25[1]);
 			float fTemp7 = fConst41 * fRec24[1];
 			fRec24[0] = fConst52 * (fRec25[2] + (fRec25[0] - 2.0f * fRec25[1])) - fConst46 * (fConst47 * fRec24[2] + fTemp7);
@@ -1035,7 +1044,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fRec23[0] = fRec24[2] + fConst46 * (fTemp7 + fConst47 * fRec24[0]) - fConst50 * (fConst51 * fRec23[2] + fTemp8);
 			float fTemp9 = fConst35 * fRec22[1];
 			fRec22[0] = fRec23[2] + fConst50 * (fTemp8 + fConst51 * fRec23[0]) - fConst53 * (fConst54 * fRec22[2] + fTemp9);
-			output4[i0] = FAUSTFLOAT(fRec21[0] * (fRec22[2] + fConst53 * (fTemp9 + fConst54 * fRec22[0])));
+			output4[i0] = static_cast<FAUSTFLOAT>(fRec21[0] * (fRec22[2] + fConst53 * (fTemp9 + fConst54 * fRec22[0])));
 			fRec0[1] = fRec0[0];
 			fVec0[1] = fVec0[0];
 			fRec8[1] = fRec8[0];
