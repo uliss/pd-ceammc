@@ -7,7 +7,22 @@ use crate::{
 use log::{debug, error};
 use pn532::requests::SAMMode;
 use pn532::{i2c::I2CInterface, Pn532};
+use rppal::i2c::I2c;
 use std::{ffi::CString, time::Duration};
+
+fn try_device(i2c: &mut I2c, i2c_addr: u16) -> Result<(), String> {
+    i2c.set_slave_address(i2c_addr).map_err(|err| err.to_string())?;
+    i2c.set_timeout(10).map_err(|err| err.to_string())?;
+    let mut read_buf = [0u8; 1];
+    match i2c.write_read(&[0x00], &mut read_buf) {
+        Ok(_) => Ok(()),
+        Err(_) => {
+            let msg = format!("device is not response: 0x{:02x}", i2c_addr);
+            log::error!("{msg}");
+            Err(msg)
+        }
+    }
+}
 
 impl hw_nfc_pn532 {
     pub(crate) fn new(
@@ -28,19 +43,19 @@ impl hw_nfc_pn532 {
                 I2cAddress::Default => 0x24,
                 I2cAddress::Auto => 0x24,
                 I2cAddress::Alt => return Err(format!("no alternative device address")),
-                _ => return Err(format!("invalid i2c address:")),
+                _ => return Err(format!("invalid i2c address: {i2c_addr:?}")),
             };
 
-            i2c.set_slave_address(i2c_addr).map_err(|err| err.to_string())?;
-            let bus = i2c.bus();
+            try_device(&mut i2c, i2c_addr)?;
 
+            let bus = i2c.bus();
             let interface = I2CInterface { i2c };
             let mut pn532 = Pn532::<_, _>::new(interface, Timer::new());
 
             send_debug(
                 &tx,
                 notify,
-                format!("pn532 init with bus={bus} and addr={i2c_addr:?}").as_str(),
+                format!("pn532 init with bus={bus} and addr=0x{i2c_addr:02x}").as_str(),
             );
 
             let firmware = pn532
