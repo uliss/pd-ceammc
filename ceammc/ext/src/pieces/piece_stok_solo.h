@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "shtokhausen.solo"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_stok_solo -scn piece_stok_solo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn piece_stok_solo -scn piece_stok_solo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_stok_solo_H__
@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -73,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -120,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -164,8 +170,8 @@ class FAUST_API piece_stok_solo_dsp {
 
     public:
 
-        piece_stok_solo_dsp() {}
-        virtual ~piece_stok_solo_dsp() {}
+        piece_stok_solo_dsp() = default;
+        virtual ~piece_stok_solo_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -194,14 +200,14 @@ class FAUST_API piece_stok_solo_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -218,17 +224,18 @@ class FAUST_API piece_stok_solo_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual piece_stok_solo_dsp* clone() = 0;
+        virtual ::piece_stok_solo_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -279,33 +286,33 @@ class FAUST_API piece_stok_solo_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public piece_stok_solo_dsp {
+class FAUST_API decorator_dsp : public ::piece_stok_solo_dsp {
 
     protected:
 
-        piece_stok_solo_dsp* fDSP;
+        ::piece_stok_solo_dsp* fDSP;
 
     public:
 
-        decorator_dsp(piece_stok_solo_dsp* piece_stok_solo_dsp = nullptr):fDSP(piece_stok_solo_dsp) {}
+        decorator_dsp(::piece_stok_solo_dsp* piece_stok_solo_dsp = nullptr):fDSP(piece_stok_solo_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -319,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -343,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual piece_stok_solo_dsp* createDSPInstance() = 0;
+        virtual ::piece_stok_solo_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -450,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -506,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -522,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -545,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -641,26 +646,26 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	float fConst12;
 	float fConst13;
 	float fConst14;
+	float fConst15;
 	FAUSTFLOAT fHslider2;
 	FAUSTFLOAT fHslider3;
 	float fRec7[2];
-	float fConst15;
 	float fConst16;
+	float fConst17;
 	float fRec9[2];
 	FAUSTFLOAT fHslider4;
 	int iVec0[2];
-	int iConst17;
+	int iConst18;
 	int iRec10[2];
-	float fConst18;
+	float fConst19;
 	float fRec8[2];
 	float fVec1[2];
 	float fRec6[2];
-	float fConst19;
 	float fConst20;
 	float fConst21;
+	float fConst22;
 	float fRec5[3];
 	float fVec2[2];
-	float fConst22;
 	float fRec4[2];
 	float fConst23;
 	float fConst24;
@@ -719,14 +724,19 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	piece_stok_solo() {
 	}
 	
+	piece_stok_solo(const piece_stok_solo&) = default;
+	
+	virtual ~piece_stok_solo() = default;
+	
+	piece_stok_solo& operator=(const piece_stok_solo&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("analyzers.lib/amp_follower_ar:author", "Jonatan Liljedahl, revised by Romain Michon");
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
-		m->declare("analyzers.lib/version", "1.2.0");
+		m->declare("analyzers.lib/version", "1.3.0");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn piece_stok_solo -scn piece_stok_solo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("basics.lib/version", "1.22.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn piece_stok_solo -scn piece_stok_solo_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
@@ -748,7 +758,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
 		m->declare("compressors.lib/version", "1.6.0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "piece_stok_solo.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -758,7 +768,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -776,25 +786,25 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("misceffects.lib/gate_gain_mono:author", "Julius O. Smith III");
 		m->declare("misceffects.lib/gate_gain_mono:license", "STK-4.3");
 		m->declare("misceffects.lib/gate_mono:author", "Julius O. Smith III");
 		m->declare("misceffects.lib/gate_mono:license", "STK-4.3");
 		m->declare("misceffects.lib/name", "Misc Effects Library");
-		m->declare("misceffects.lib/version", "2.5.0");
+		m->declare("misceffects.lib/version", "2.5.2");
 		m->declare("name", "shtokhausen.solo");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/name", "Faust Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -809,7 +819,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = std::tan(314.15927f / fConst0);
@@ -818,20 +828,20 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		fConst6 = (fConst5 + 1.0f) / fConst3 + 1.0f;
 		fConst7 = 1.0f / (fConst4 * fConst6);
 		fConst8 = 1.0f / (fConst5 + 1.0f);
-		fConst9 = std::tan(31415.926f / fConst0);
-		fConst10 = 1.0f / fConst9;
-		fConst11 = (fConst10 + 1.0f) / fConst9 + 1.0f;
-		fConst12 = 1.0f / (fConst3 * fConst11);
-		fConst13 = 1.0f / (fConst10 + 1.0f);
-		fConst14 = 1.0f - fConst10;
-		fConst15 = std::exp(-(1e+04f / fConst0));
-		fConst16 = 1.0f - fConst15;
-		iConst17 = int(0.2f * fConst0);
-		fConst18 = std::exp(-(1e+01f / fConst0));
-		fConst19 = 1.0f / fConst11;
-		fConst20 = (fConst10 + -1.0f) / fConst9 + 1.0f;
-		fConst21 = 2.0f * (1.0f - 1.0f / piece_stok_solo_faustpower2_f(fConst9));
-		fConst22 = 1.0f - fConst5;
+		fConst9 = 1.0f - fConst5;
+		fConst10 = std::tan(31415.926f / fConst0);
+		fConst11 = 1.0f / fConst10;
+		fConst12 = (fConst11 + 1.0f) / fConst10 + 1.0f;
+		fConst13 = 1.0f / (fConst3 * fConst12);
+		fConst14 = 1.0f / (fConst11 + 1.0f);
+		fConst15 = 1.0f - fConst11;
+		fConst16 = std::exp(-(1e+04f / fConst0));
+		fConst17 = 1.0f - fConst16;
+		iConst18 = static_cast<int>(0.2f * fConst0);
+		fConst19 = std::exp(-(1e+01f / fConst0));
+		fConst20 = 1.0f / fConst12;
+		fConst21 = (fConst11 + -1.0f) / fConst10 + 1.0f;
+		fConst22 = 2.0f * (1.0f - 1.0f / piece_stok_solo_faustpower2_f(fConst10));
 		fConst23 = 1.0f / fConst6;
 		fConst24 = (fConst5 + -1.0f) / fConst3 + 1.0f;
 		fConst25 = 2.0f * (1.0f - 1.0f / fConst4);
@@ -842,27 +852,27 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(0.0f);
-		fCheckbox1 = FAUSTFLOAT(0.0f);
-		fHslider1 = FAUSTFLOAT(1e+01f);
-		fHslider2 = FAUSTFLOAT(0.999f);
-		fHslider3 = FAUSTFLOAT(0.0f);
-		fHslider4 = FAUSTFLOAT(-4e+01f);
-		fCheckbox2 = FAUSTFLOAT(0.0f);
-		fHslider5 = FAUSTFLOAT(0.0f);
-		fCheckbox3 = FAUSTFLOAT(0.0f);
-		fHslider6 = FAUSTFLOAT(0.0f);
-		fCheckbox4 = FAUSTFLOAT(0.0f);
-		fHslider7 = FAUSTFLOAT(0.0f);
-		fCheckbox5 = FAUSTFLOAT(0.0f);
-		fHslider8 = FAUSTFLOAT(0.0f);
-		fCheckbox6 = FAUSTFLOAT(0.0f);
-		fHslider9 = FAUSTFLOAT(0.0f);
-		fHslider10 = FAUSTFLOAT(0.0f);
-		fCheckbox7 = FAUSTFLOAT(0.0f);
-		fHslider11 = FAUSTFLOAT(0.0f);
-		fHslider12 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider0 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox1 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider1 = static_cast<FAUSTFLOAT>(1e+01f);
+		fHslider2 = static_cast<FAUSTFLOAT>(0.999f);
+		fHslider3 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider4 = static_cast<FAUSTFLOAT>(-4e+01f);
+		fCheckbox2 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider5 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox3 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider6 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox4 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider7 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox5 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider8 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox6 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider9 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider10 = static_cast<FAUSTFLOAT>(0.0f);
+		fCheckbox7 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider11 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider12 = static_cast<FAUSTFLOAT>(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -1007,7 +1017,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	}
 	
 	virtual piece_stok_solo* clone() {
-		return new piece_stok_solo();
+		return new piece_stok_solo(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1016,20 +1026,20 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("shtokhausen.solo");
-		ui_interface->addCheckButton("cycle0", &fCheckbox4);
-		ui_interface->addCheckButton("cycle1", &fCheckbox3);
-		ui_interface->addCheckButton("cycle2", &fCheckbox2);
-		ui_interface->addCheckButton("cycle3", &fCheckbox0);
+		ui_interface->addCheckButton("cycle0", &fCheckbox0);
+		ui_interface->addCheckButton("cycle1", &fCheckbox2);
+		ui_interface->addCheckButton("cycle2", &fCheckbox3);
+		ui_interface->addCheckButton("cycle3", &fCheckbox4);
 		ui_interface->addCheckButton("cycle4", &fCheckbox5);
 		ui_interface->addCheckButton("cycle5", &fCheckbox6);
-		ui_interface->declare(&fHslider7, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay0", &fHslider7, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fHslider6, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay1", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fHslider5, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay2", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay3", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("delay0", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider5, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay1", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider6, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay2", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider7, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay3", &fHslider7, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider8, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay4", &fHslider8, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider9, "unit", "sec");
@@ -1052,89 +1062,89 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = fConst1 * float(fCheckbox0);
-		float fSlow1 = fConst0 * float(fHslider0);
+		float fSlow0 = fConst1 * static_cast<float>(fCheckbox0);
+		float fSlow1 = fConst0 * static_cast<float>(fHslider0);
 		float fSlow2 = std::floor(fSlow1);
 		float fSlow3 = fSlow2 + (1.0f - fSlow1);
-		float fSlow4 = 0.00999f * float(fHslider1);
+		float fSlow4 = 0.00999f * static_cast<float>(fHslider1);
 		float fSlow5 = 1.0f - fSlow4;
-		float fSlow6 = float(fCheckbox1) * fSlow5;
-		float fSlow7 = float(fHslider2);
-		float fSlow8 = float(fHslider3) * fSlow5;
-		float fSlow9 = std::pow(1e+01f, 0.05f * float(fHslider4));
-		int iSlow10 = int(fSlow1);
-		int iSlow11 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow10))));
+		float fSlow6 = static_cast<float>(fCheckbox1) * fSlow5;
+		float fSlow7 = static_cast<float>(fHslider2);
+		float fSlow8 = static_cast<float>(fHslider3) * fSlow5;
+		float fSlow9 = std::pow(1e+01f, 0.05f * static_cast<float>(fHslider4));
+		int iSlow10 = static_cast<int>(fSlow1);
+		int iSlow11 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow10))));
 		float fSlow12 = fSlow1 - fSlow2;
-		int iSlow13 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow10 + 1))));
-		float fSlow14 = fConst1 * float(fCheckbox2);
-		float fSlow15 = fConst0 * float(fHslider5);
+		int iSlow13 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow10 + 1))));
+		float fSlow14 = fConst1 * static_cast<float>(fCheckbox2);
+		float fSlow15 = fConst0 * static_cast<float>(fHslider5);
 		float fSlow16 = std::floor(fSlow15);
 		float fSlow17 = fSlow16 + (1.0f - fSlow15);
-		int iSlow18 = int(fSlow15);
-		int iSlow19 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow18))));
+		int iSlow18 = static_cast<int>(fSlow15);
+		int iSlow19 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow18))));
 		float fSlow20 = fSlow15 - fSlow16;
-		int iSlow21 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow18 + 1))));
-		float fSlow22 = fConst1 * float(fCheckbox3);
-		float fSlow23 = fConst0 * float(fHslider6);
+		int iSlow21 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow18 + 1))));
+		float fSlow22 = fConst1 * static_cast<float>(fCheckbox3);
+		float fSlow23 = fConst0 * static_cast<float>(fHslider6);
 		float fSlow24 = std::floor(fSlow23);
 		float fSlow25 = fSlow24 + (1.0f - fSlow23);
-		int iSlow26 = int(fSlow23);
-		int iSlow27 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow26))));
+		int iSlow26 = static_cast<int>(fSlow23);
+		int iSlow27 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow26))));
 		float fSlow28 = fSlow23 - fSlow24;
-		int iSlow29 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow26 + 1))));
-		float fSlow30 = fConst1 * float(fCheckbox4);
-		float fSlow31 = fConst0 * float(fHslider7);
+		int iSlow29 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow26 + 1))));
+		float fSlow30 = fConst1 * static_cast<float>(fCheckbox4);
+		float fSlow31 = fConst0 * static_cast<float>(fHslider7);
 		float fSlow32 = std::floor(fSlow31);
 		float fSlow33 = fSlow32 + (1.0f - fSlow31);
-		int iSlow34 = int(fSlow31);
-		int iSlow35 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow34))));
+		int iSlow34 = static_cast<int>(fSlow31);
+		int iSlow35 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow34))));
 		float fSlow36 = fSlow31 - fSlow32;
-		int iSlow37 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow34 + 1))));
-		float fSlow38 = fConst1 * float(fCheckbox5);
-		float fSlow39 = fConst0 * float(fHslider8);
+		int iSlow37 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow34 + 1))));
+		float fSlow38 = fConst1 * static_cast<float>(fCheckbox5);
+		float fSlow39 = fConst0 * static_cast<float>(fHslider8);
 		float fSlow40 = std::floor(fSlow39);
 		float fSlow41 = fSlow40 + (1.0f - fSlow39);
-		int iSlow42 = int(fSlow39);
-		int iSlow43 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow42))));
+		int iSlow42 = static_cast<int>(fSlow39);
+		int iSlow43 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow42))));
 		float fSlow44 = fSlow39 - fSlow40;
-		int iSlow45 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow42 + 1))));
-		float fSlow46 = fConst1 * float(fCheckbox6);
-		float fSlow47 = fConst0 * float(fHslider9);
+		int iSlow45 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow42 + 1))));
+		float fSlow46 = fConst1 * static_cast<float>(fCheckbox6);
+		float fSlow47 = fConst0 * static_cast<float>(fHslider9);
 		float fSlow48 = std::floor(fSlow47);
 		float fSlow49 = fSlow48 + (1.0f - fSlow47);
-		int iSlow50 = int(fSlow47);
-		int iSlow51 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow50))));
+		int iSlow50 = static_cast<int>(fSlow47);
+		int iSlow51 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow50))));
 		float fSlow52 = fSlow47 - fSlow48;
-		int iSlow53 = int(std::min<float>(4377601.0f, float(std::max<int>(0, iSlow50 + 1))));
-		float fSlow54 = float(fHslider10) * fSlow5;
-		float fSlow55 = float(fCheckbox7) * fSlow5;
-		float fSlow56 = float(fHslider11) * fSlow5;
-		float fSlow57 = float(fHslider12) * fSlow5;
+		int iSlow53 = static_cast<int>(std::min<float>(4377601.0f, static_cast<float>(std::max<int>(0, iSlow50 + 1))));
+		float fSlow54 = static_cast<float>(fHslider10) * fSlow5;
+		float fSlow55 = static_cast<float>(fCheckbox7) * fSlow5;
+		float fSlow56 = static_cast<float>(fHslider11) * fSlow5;
+		float fSlow57 = static_cast<float>(fHslider12) * fSlow5;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
 			fRec2[0] = fSlow6 + fSlow4 * fRec2[1];
 			fRec7[0] = fSlow8 + fSlow4 * fRec7[1];
-			fRec9[0] = fConst16 * std::fabs(fSlow7 * fRec7[0] * fRec0[1]) + fConst15 * fRec9[1];
+			fRec9[0] = fConst17 * std::fabs(fSlow7 * fRec7[0] * fRec0[1]) + fConst16 * fRec9[1];
 			int iTemp0 = fRec9[0] > fSlow9;
 			iVec0[0] = iTemp0;
-			iRec10[0] = std::max<int>(iConst17 * (iTemp0 < iVec0[1]), iRec10[1] + -1);
-			float fTemp1 = std::fabs(std::max<float>(float(iTemp0), float(iRec10[0] > 0)));
-			float fTemp2 = ((fTemp1 > fRec8[1]) ? fConst15 : fConst18);
+			iRec10[0] = std::max<int>(iConst18 * (iTemp0 < iVec0[1]), iRec10[1] + -1);
+			float fTemp1 = std::fabs(std::max<float>(static_cast<float>(iTemp0), static_cast<float>(iRec10[0] > 0)));
+			float fTemp2 = ((fTemp1 > fRec8[1]) ? fConst16 : fConst19);
 			fRec8[0] = fTemp1 * (1.0f - fTemp2) + fRec8[1] * fTemp2;
 			float fTemp3 = fSlow7 * fRec7[0] * fRec8[0] * fRec0[1];
 			fVec1[0] = fTemp3;
-			fRec6[0] = -(fConst13 * (fConst14 * fRec6[1] - (fTemp3 + fVec1[1])));
-			fRec5[0] = fRec6[0] - fConst19 * (fConst20 * fRec5[2] + fConst21 * fRec5[1]);
+			fRec6[0] = -(fConst14 * (fConst15 * fRec6[1] - (fTemp3 + fVec1[1])));
+			fRec5[0] = fRec6[0] - fConst20 * (fConst21 * fRec5[2] + fConst22 * fRec5[1]);
 			float fTemp4 = fRec5[2] + fRec5[0] + 2.0f * fRec5[1];
 			fVec2[0] = fTemp4;
-			fRec4[0] = fConst8 * (fConst12 * (fTemp4 - fVec2[1]) - fConst22 * fRec4[1]);
+			fRec4[0] = -(fConst8 * (fConst9 * fRec4[1] - fConst13 * (fTemp4 - fVec2[1])));
 			fRec3[0] = fRec4[0] - fConst23 * (fConst24 * fRec3[2] + fConst25 * fRec3[1]);
 			float fTemp5 = fRec3[2] + (fRec3[0] - 2.0f * fRec3[1]);
 			float fTemp6 = std::fabs(fConst7 * fTemp5);
 			float fTemp7 = ((fTemp6 > fRec12[1]) ? fConst29 : fConst28);
 			fRec12[0] = fTemp6 * (1.0f - fTemp7) + fRec12[1] * fTemp7;
 			fRec11[0] = fConst26 * fRec11[1] - fConst27 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec12[0])) + 6.0f, 0.0f);
-			float fTemp8 = float(input0[i0]) * fRec2[0] + fConst7 * fTemp5 * std::pow(1e+01f, 0.05f * fRec11[0]);
+			float fTemp8 = static_cast<float>(input0[i0]) * fRec2[0] + fConst7 * fTemp5 * std::pow(1e+01f, 0.05f * fRec11[0]);
 			fVec3[IOTA0 & 8388607] = fTemp8;
 			fRec13[0] = fSlow14 + fConst2 * fRec13[1];
 			fRec14[0] = fSlow22 + fConst2 * fRec14[1];
@@ -1146,29 +1156,29 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			float fTemp9 = fRec0[0] * fRec18[0];
 			fRec22[0] = fSlow55 + fSlow4 * fRec22[1];
 			fRec27[0] = fSlow56 + fSlow4 * fRec27[1];
-			fRec29[0] = fConst16 * std::fabs(fSlow7 * fRec27[0] * fRec21[1]) + fConst15 * fRec29[1];
+			fRec29[0] = fConst17 * std::fabs(fSlow7 * fRec27[0] * fRec21[1]) + fConst16 * fRec29[1];
 			int iTemp10 = fRec29[0] > fSlow9;
 			iVec4[0] = iTemp10;
-			iRec30[0] = std::max<int>(iConst17 * (iTemp10 < iVec4[1]), iRec30[1] + -1);
-			float fTemp11 = std::fabs(std::max<float>(float(iTemp10), float(iRec30[0] > 0)));
-			float fTemp12 = ((fTemp11 > fRec28[1]) ? fConst15 : fConst18);
+			iRec30[0] = std::max<int>(iConst18 * (iTemp10 < iVec4[1]), iRec30[1] + -1);
+			float fTemp11 = std::fabs(std::max<float>(static_cast<float>(iTemp10), static_cast<float>(iRec30[0] > 0)));
+			float fTemp12 = ((fTemp11 > fRec28[1]) ? fConst16 : fConst19);
 			fRec28[0] = fTemp11 * (1.0f - fTemp12) + fRec28[1] * fTemp12;
 			float fTemp13 = fSlow7 * fRec27[0] * fRec28[0] * fRec21[1];
 			fVec5[0] = fTemp13;
-			fRec26[0] = fConst13 * (fTemp13 + fVec5[1] - fConst14 * fRec26[1]);
-			fRec25[0] = fRec26[0] - fConst19 * (fConst20 * fRec25[2] + fConst21 * fRec25[1]);
+			fRec26[0] = -(fConst14 * (fConst15 * fRec26[1] - (fTemp13 + fVec5[1])));
+			fRec25[0] = fRec26[0] - fConst20 * (fConst21 * fRec25[2] + fConst22 * fRec25[1]);
 			float fTemp14 = fRec25[2] + fRec25[0] + 2.0f * fRec25[1];
 			fVec6[0] = fTemp14;
-			fRec24[0] = fConst8 * (fConst12 * (fTemp14 - fVec6[1]) - fConst22 * fRec24[1]);
+			fRec24[0] = -(fConst8 * (fConst9 * fRec24[1] - fConst13 * (fTemp14 - fVec6[1])));
 			fRec23[0] = fRec24[0] - fConst23 * (fConst24 * fRec23[2] + fConst25 * fRec23[1]);
 			float fTemp15 = fRec23[2] + (fRec23[0] - 2.0f * fRec23[1]);
 			float fTemp16 = std::fabs(fConst7 * fTemp15);
 			float fTemp17 = ((fTemp16 > fRec32[1]) ? fConst29 : fConst28);
 			fRec32[0] = fTemp16 * (1.0f - fTemp17) + fRec32[1] * fTemp17;
 			fRec31[0] = fConst26 * fRec31[1] - fConst27 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec32[0])) + 6.0f, 0.0f);
-			float fTemp18 = float(input1[i0]) * fRec22[0] + fConst7 * fTemp15 * std::pow(1e+01f, 0.05f * fRec31[0]);
+			float fTemp18 = static_cast<float>(input1[i0]) * fRec22[0] + fConst7 * fTemp15 * std::pow(1e+01f, 0.05f * fRec31[0]);
 			fVec7[IOTA0 & 8388607] = fTemp18;
-			fRec21[0] = fRec15[0] * (fSlow33 * fVec7[(IOTA0 - iSlow35) & 8388607] + fSlow36 * fVec7[(IOTA0 - iSlow37) & 8388607]) + fRec14[0] * (fSlow25 * fVec7[(IOTA0 - iSlow27) & 8388607] + fSlow28 * fVec7[(IOTA0 - iSlow29) & 8388607]) + fRec13[0] * (fSlow17 * fVec7[(IOTA0 - iSlow19) & 8388607] + fSlow20 * fVec7[(IOTA0 - iSlow21) & 8388607]) + fRec1[0] * (fSlow3 * fVec7[(IOTA0 - iSlow11) & 8388607] + fSlow12 * fVec7[(IOTA0 - iSlow13) & 8388607]) + fRec16[0] * (fSlow41 * fVec7[(IOTA0 - iSlow43) & 8388607] + fSlow44 * fVec7[(IOTA0 - iSlow45) & 8388607]) + fRec17[0] * (fSlow49 * fVec7[(IOTA0 - iSlow51) & 8388607] + fSlow52 * fVec7[(IOTA0 - iSlow53) & 8388607]);
+			fRec21[0] = fRec1[0] * (fSlow3 * fVec7[(IOTA0 - iSlow11) & 8388607] + fSlow12 * fVec7[(IOTA0 - iSlow13) & 8388607]) + fRec13[0] * (fSlow17 * fVec7[(IOTA0 - iSlow19) & 8388607] + fSlow20 * fVec7[(IOTA0 - iSlow21) & 8388607]) + fRec14[0] * (fSlow25 * fVec7[(IOTA0 - iSlow27) & 8388607] + fSlow28 * fVec7[(IOTA0 - iSlow29) & 8388607]) + fRec15[0] * (fSlow33 * fVec7[(IOTA0 - iSlow35) & 8388607] + fSlow36 * fVec7[(IOTA0 - iSlow37) & 8388607]) + fRec16[0] * (fSlow41 * fVec7[(IOTA0 - iSlow43) & 8388607] + fSlow44 * fVec7[(IOTA0 - iSlow45) & 8388607]) + fRec17[0] * (fSlow49 * fVec7[(IOTA0 - iSlow51) & 8388607] + fSlow52 * fVec7[(IOTA0 - iSlow53) & 8388607]);
 			fRec33[0] = fSlow57 + fSlow4 * fRec33[1];
 			float fTemp19 = fRec21[0] * fRec33[0];
 			float fTemp20 = std::fabs(std::fabs(fTemp9) + std::fabs(fTemp19));
@@ -1176,8 +1186,8 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fRec20[0] = fTemp20 * (1.0f - fTemp21) + fRec20[1] * fTemp21;
 			fRec19[0] = fConst26 * fRec19[1] - fConst27 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec20[0])) + 6.0f, 0.0f);
 			float fTemp22 = std::pow(1e+01f, 0.05f * fRec19[0]);
-			output0[i0] = FAUSTFLOAT(fTemp9 * fTemp22);
-			output1[i0] = FAUSTFLOAT(fTemp19 * fTemp22);
+			output0[i0] = static_cast<FAUSTFLOAT>(fTemp9 * fTemp22);
+			output1[i0] = static_cast<FAUSTFLOAT>(fTemp19 * fTemp22);
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec7[1] = fRec7[0];
