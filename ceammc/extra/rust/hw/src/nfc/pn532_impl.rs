@@ -5,8 +5,8 @@ use crate::{
     send_debug,
 };
 use log::{debug, error};
-use pn532::requests::SAMMode;
 use pn532::{i2c::I2CInterface, Pn532};
+use pn532::{requests::SAMMode, Interface};
 use rppal::i2c::I2c;
 use std::{ffi::CString, time::Duration};
 
@@ -69,6 +69,7 @@ impl hw_nfc_pn532 {
 
             let bus = i2c.bus();
             let interface = I2CInterface { i2c };
+
             let mut pn532 = Pn532::<_, _>::new(interface, Timer::new());
 
             send_debug(
@@ -77,35 +78,27 @@ impl hw_nfc_pn532 {
                 format!("pn532 init with bus={bus} and addr=0x{i2c_addr:02x}").as_str(),
             );
 
-            let firmware = pn532
-                .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
-                .map_err(|err| format!("{err:?}"))?;
-            log::info!("firmware: {firmware:?}");
+            while let Ok(req) = rx.recv() {
+                match req {
+                    Request::ReadAll => {
+                        // let firmware = pn532
+                        //     .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
+                        //     .map_err(|err| format!("{err:?}"))?;
+                        // log::info!("firmware: {firmware:?}");
 
-            match pn532.process(
-                &pn532::Request::sam_configuration(SAMMode::Normal, false),
-                0,
-                Duration::from_millis(50),
-            ) {
-                Ok(_) => println!("✅ PN532 готов"),
-                Err(err) => {
-                    println!("❌ Ошибка: {:?}", err);
-                    return Err(format!("{err:?}"));
+                        match pn532.process(
+                            &pn532::Request::sam_configuration(SAMMode::Normal, false),
+                            0,
+                            Duration::from_millis(50),
+                        ) {
+                            Ok(_) => println!("✅ PN532 готов"),
+                            Err(err) => {
+                                println!("❌ Ошибка: {:?}", err);
+                                return Err(format!("{err:?}"));
+                            }
+                        }
+                    }
                 }
-            }
-
-            while let Ok(_req) = rx.recv() {
-                // match req {
-                //     Request::ReadAll => match pn532.get_touched() {
-                //         Ok(res) => {
-                //             debug!("all keys: {res:b}");
-                //             send_reply(Reply::AllKeys(res), &tx, notify);
-                //         }
-                //         Err(err) => {
-                //             process_err(format!("{err:?}"), &tx, notify);
-                //         }
-                //     },
-                // }
             }
 
             Ok(())
