@@ -19,6 +19,7 @@
 #include "hw_rust.hpp"
 
 namespace ceammc {
+
 class HwRpiNfcPn532 : public HwRpiDevice<ceammc_hw_nfc_pn532> {
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
