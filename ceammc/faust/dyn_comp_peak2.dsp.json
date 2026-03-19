@@ -1,8 +1,8 @@
 {
 	"name": "dyn.comp_peak2",
 	"filename": "dyn_comp_peak2.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/compressors.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/routes.lib","/Users/serge/.local/faust/share/faust/interpolators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 92,
@@ -17,13 +17,12 @@
 		{ "basics.lib/parallelOp:author": "Bart Brouns" },
 		{ "basics.lib/parallelOp:copyright": "Copyright (c) 2020 Bart Brouns <bart@magnetophon.nl>" },
 		{ "basics.lib/parallelOp:licence": "GPL-3.0" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "compressors.lib/name": "Faust Compressor Effect Library" },
 		{ "compressors.lib/peak_compression_gain_N_chan_db:author": "Bart Brouns" },
 		{ "compressors.lib/peak_compression_gain_N_chan_db:license": "GPLv3" },
@@ -34,21 +33,21 @@
 		{ "interpolators.lib/interpolate_linear:author": "Stéphane Letz" },
 		{ "interpolators.lib/interpolate_linear:licence": "MIT" },
 		{ "interpolators.lib/name": "Faust Interpolator Library" },
-		{ "interpolators.lib/version": "1.3.1" },
+		{ "interpolators.lib/version": "1.4.0" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "dyn.comp_peak2" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
-		{ "routes.lib/version": "1.2.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "1.3.0" },
+		{ "signals.lib/name": "Faust Routing Library" },
 		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
 		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -58,6 +57,7 @@
 				{
 					"type": "hslider",
 					"label": "attack",
+					"varname": "fHslider3",
 					"shortname": "attack",
 					"address": "/dyn.comp_peak2/attack",
 					"meta": [
@@ -71,12 +71,14 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"varname": "fCheckbox0",
 					"shortname": "bypass",
 					"address": "/dyn.comp_peak2/bypass"
 				},
 				{
 					"type": "vslider",
 					"label": "gain",
+					"varname": "fVslider0",
 					"shortname": "gain",
 					"address": "/dyn.comp_peak2/gain",
 					"meta": [
@@ -90,6 +92,7 @@
 				{
 					"type": "hslider",
 					"label": "knee",
+					"varname": "fHslider2",
 					"shortname": "knee",
 					"address": "/dyn.comp_peak2/knee",
 					"meta": [
@@ -103,6 +106,7 @@
 				{
 					"type": "hbargraph",
 					"label": "level0",
+					"varname": "fHbargraph0",
 					"shortname": "level0",
 					"address": "/dyn.comp_peak2/level0",
 					"min": 0,
@@ -111,6 +115,7 @@
 				{
 					"type": "hbargraph",
 					"label": "level1",
+					"varname": "fHbargraph1",
 					"shortname": "level1",
 					"address": "/dyn.comp_peak2/level1",
 					"min": 0,
@@ -119,6 +124,7 @@
 				{
 					"type": "hslider",
 					"label": "link",
+					"varname": "fHslider5",
 					"shortname": "link",
 					"address": "/dyn.comp_peak2/link",
 					"init": 1,
@@ -129,6 +135,7 @@
 				{
 					"type": "hslider",
 					"label": "release",
+					"varname": "fHslider4",
 					"shortname": "release",
 					"address": "/dyn.comp_peak2/release",
 					"meta": [
@@ -142,6 +149,7 @@
 				{
 					"type": "hslider",
 					"label": "strength",
+					"varname": "fHslider0",
 					"shortname": "strength",
 					"address": "/dyn.comp_peak2/strength",
 					"init": 0,
@@ -152,6 +160,7 @@
 				{
 					"type": "hslider",
 					"label": "threshold",
+					"varname": "fHslider1",
 					"shortname": "threshold",
 					"address": "/dyn.comp_peak2/threshold",
 					"meta": [
