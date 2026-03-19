@@ -24,7 +24,7 @@ index_tri(period_samp, phase_samp) = x : int with {
 };
 
 delay_module(max_delay_ms, delay_ms, phase_ms) = rwtable(TAB_SIZE, 0.0, write_pos, _, read_pos) : *(hann) with{
-    TAB_SIZE = max_delay_ms * 0.001 * 48000;
+    TAB_SIZE = max_delay_ms * 0.001 * 48000 : int;
     ms2samp(x) = x * 0.001 * ma.SR : int;
     delay_samp = ms2samp(min(max_delay_ms, delay_ms));
     phase_samp = ms2samp(phase_ms);
