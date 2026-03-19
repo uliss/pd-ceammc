@@ -2,7 +2,7 @@ use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::I2cAddress,
     nfc::{hw_nfc_pn532, hw_nfc_pn532_cb, pn532_timer::Timer, NfcWorker, Reply, Request},
-    process_err, send_debug,
+    send_debug,
 };
 use log::{debug, error};
 use pn532::requests::SAMMode;
@@ -10,11 +10,29 @@ use pn532::{i2c::I2CInterface, Pn532};
 use rppal::i2c::I2c;
 use std::{ffi::CString, time::Duration};
 
-fn try_device(i2c: &mut I2c, i2c_addr: u16) -> Result<(), String> {
+enum DetectMethod {
+    QuickWrite,
+    ReceiveByte,
+    ReadByte,
+    WriteRead,
+}
+
+fn try_device(i2c: &mut I2c, i2c_addr: u16, method: DetectMethod) -> Result<(), String> {
     i2c.set_slave_address(i2c_addr).map_err(|err| err.to_string())?;
-    i2c.set_timeout(10).map_err(|err| err.to_string())?;
-    let mut read_buf = [0u8; 1];
-    match i2c.write_read(&[0x00], &mut read_buf) {
+    // i2c.set_timeout(10).map_err(|err| err.to_string())?;
+
+    match match method {
+        DetectMethod::QuickWrite => i2c.write(&[]).map(|_| ()),
+        DetectMethod::ReceiveByte => i2c.smbus_receive_byte().map(|_| ()),
+        DetectMethod::ReadByte => {
+            let mut buf = [0u8; 1];
+            i2c.read(&mut buf).map(|_| ())
+        }
+        DetectMethod::WriteRead => {
+            let mut buf = [0u8; 1];
+            i2c.write_read(&[0x00], &mut buf).map(|_| ())
+        }
+    } {
         Ok(_) => Ok(()),
         Err(_) => {
             let msg = format!("device is not response: 0x{:02x}", i2c_addr);
@@ -46,7 +64,8 @@ impl hw_nfc_pn532 {
                 _ => return Err(format!("invalid i2c address: {i2c_addr:?}")),
             };
 
-            try_device(&mut i2c, i2c_addr)?;
+            try_device(&mut i2c, i2c_addr, DetectMethod::QuickWrite)?;
+            i2c.set_timeout(10).map_err(|err| err.to_string())?;
 
             let bus = i2c.bus();
             let interface = I2CInterface { i2c };
