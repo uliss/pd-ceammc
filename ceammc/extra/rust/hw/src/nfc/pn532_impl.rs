@@ -6,7 +6,7 @@ use crate::{
 };
 use log::{debug, error};
 use pn532::requests::SAMMode;
-use pn532::{i2c::I2CInterface, CountDown, Pn532};
+use pn532::{i2c::I2CInterface, Pn532};
 use std::{ffi::CString, time::Duration};
 
 impl hw_nfc_pn532 {
