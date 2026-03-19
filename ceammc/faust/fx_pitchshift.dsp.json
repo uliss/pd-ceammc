@@ -1,8 +1,8 @@
 {
 	"name": "fx.pitchshift",
 	"filename": "fx_pitchshift.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_pitchshift -scn fx_pitchshift_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_pitchshift -scn fx_pitchshift_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/misceffects.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/.local/faust/share/faust/delays.lib","/Users/serge/.local/faust/share/faust/basics.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 524360,
@@ -11,28 +11,27 @@
 	"meta": [ 
 		{ "basics.lib/bypass1:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_pitchshift -scn fx_pitchshift_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_pitchshift -scn fx_pitchshift_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "1.1.0" },
+		{ "delays.lib/version": "1.2.0" },
 		{ "filename": "fx_pitchshift.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "misceffects.lib/name": "Misc Effects Library" },
-		{ "misceffects.lib/version": "2.5.0" },
+		{ "misceffects.lib/version": "2.5.2" },
 		{ "name": "fx.pitchshift" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -42,12 +41,14 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"varname": "fCheckbox0",
 					"shortname": "bypass",
 					"address": "/fx.pitchshift/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"varname": "fHslider0",
 					"shortname": "drywet",
 					"address": "/fx.pitchshift/drywet",
 					"meta": [
@@ -61,6 +62,7 @@
 				{
 					"type": "vslider",
 					"label": "fade",
+					"varname": "fVslider2",
 					"shortname": "fade",
 					"address": "/fx.pitchshift/fade",
 					"meta": [
@@ -74,6 +76,7 @@
 				{
 					"type": "vslider",
 					"label": "pitch",
+					"varname": "fVslider1",
 					"shortname": "pitch",
 					"address": "/fx.pitchshift/pitch",
 					"init": 0,
@@ -84,6 +87,7 @@
 				{
 					"type": "vslider",
 					"label": "window",
+					"varname": "fVslider0",
 					"shortname": "window",
 					"address": "/fx.pitchshift/window",
 					"meta": [

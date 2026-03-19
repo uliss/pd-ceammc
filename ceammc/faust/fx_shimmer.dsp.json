@@ -1,8 +1,8 @@
 {
 	"name": "fx.shimmer",
 	"filename": "fx_shimmer.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/delays.lib","/Users/serge/.local/faust/share/faust/routes.lib","/Users/serge/.local/faust/share/faust/analyzers.lib","/Users/serge/.local/faust/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 5849772,
@@ -10,17 +10,16 @@
 	"outputs": 2,
 	"meta": [ 
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "1.2.0" },
+		{ "analyzers.lib/version": "1.3.0" },
 		{ "author": "thedrgreenthumb" },
 		{ "basics.lib/bypass2:author": "Julius Smith" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "1.1.0" },
+		{ "delays.lib/version": "1.2.0" },
 		{ "filename": "fx_shimmer.dsp" },
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -37,24 +36,24 @@
 		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "id": "fx.shimmer" },
 		{ "license": "MIT" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "fx.shimmer" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "1.5.1" },
+		{ "oscillators.lib/version": "1.7.0" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
 		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
-		{ "routes.lib/version": "1.2.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "routes.lib/version": "1.3.0" },
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -64,12 +63,14 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"varname": "fCheckbox0",
 					"shortname": "bypass",
 					"address": "/fx.shimmer/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "control",
+					"varname": "fHslider9",
 					"shortname": "control",
 					"address": "/fx.shimmer/control",
 					"init": 0.5,
@@ -80,6 +81,7 @@
 				{
 					"type": "hslider",
 					"label": "damp_hf",
+					"varname": "fHslider3",
 					"shortname": "damp_hf",
 					"address": "/fx.shimmer/damp_hf",
 					"meta": [
@@ -93,6 +95,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_low",
+					"varname": "fHslider4",
 					"shortname": "decay_low",
 					"address": "/fx.shimmer/decay_low",
 					"meta": [
@@ -106,6 +109,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_mid",
+					"varname": "fHslider2",
 					"shortname": "decay_mid",
 					"address": "/fx.shimmer/decay_mid",
 					"meta": [
@@ -119,6 +123,7 @@
 				{
 					"type": "hslider",
 					"label": "depth",
+					"varname": "fHslider8",
 					"shortname": "depth",
 					"address": "/fx.shimmer/depth",
 					"init": 0,
@@ -129,6 +134,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"varname": "fHslider0",
 					"shortname": "drywet",
 					"address": "/fx.shimmer/drywet",
 					"meta": [
@@ -142,6 +148,7 @@
 				{
 					"type": "hslider",
 					"label": "envelope",
+					"varname": "fHslider11",
 					"shortname": "envelope",
 					"address": "/fx.shimmer/envelope",
 					"meta": [
@@ -155,6 +162,7 @@
 				{
 					"type": "hslider",
 					"label": "freq_low",
+					"varname": "fHslider5",
 					"shortname": "freq_low",
 					"address": "/fx.shimmer/freq_low",
 					"meta": [
@@ -168,6 +176,7 @@
 				{
 					"type": "hslider",
 					"label": "mode",
+					"varname": "fHslider7",
 					"shortname": "mode",
 					"address": "/fx.shimmer/mode",
 					"meta": [
@@ -181,6 +190,7 @@
 				{
 					"type": "hslider",
 					"label": "ps_drywet",
+					"varname": "fHslider1",
 					"shortname": "ps_drywet",
 					"address": "/fx.shimmer/ps_drywet",
 					"init": 0.5,
@@ -191,6 +201,7 @@
 				{
 					"type": "hslider",
 					"label": "shift",
+					"varname": "fHslider6",
 					"shortname": "shift",
 					"address": "/fx.shimmer/shift",
 					"meta": [
@@ -204,6 +215,7 @@
 				{
 					"type": "hslider",
 					"label": "speed",
+					"varname": "fHslider10",
 					"shortname": "speed",
 					"address": "/fx.shimmer/speed",
 					"meta": [

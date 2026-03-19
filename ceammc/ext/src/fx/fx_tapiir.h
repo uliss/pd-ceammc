@@ -4,8 +4,8 @@ copyright: "(c)GRAME 2006"
 license: "BSD"
 name: "fx.tapiir"
 version: "1.0"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_tapiir_H__
@@ -78,12 +78,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -125,22 +125,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -169,8 +174,8 @@ class FAUST_API fx_tapiir_dsp {
 
     public:
 
-        fx_tapiir_dsp() {}
-        virtual ~fx_tapiir_dsp() {}
+        fx_tapiir_dsp() = default;
+        virtual ~fx_tapiir_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -199,14 +204,14 @@ class FAUST_API fx_tapiir_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -223,17 +228,18 @@ class FAUST_API fx_tapiir_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_tapiir_dsp* clone() = 0;
+        virtual ::fx_tapiir_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -284,33 +290,33 @@ class FAUST_API fx_tapiir_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public fx_tapiir_dsp {
+class FAUST_API decorator_dsp : public ::fx_tapiir_dsp {
 
     protected:
 
-        fx_tapiir_dsp* fDSP;
+        ::fx_tapiir_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_tapiir_dsp* fx_tapiir_dsp = nullptr):fDSP(fx_tapiir_dsp) {}
+        decorator_dsp(::fx_tapiir_dsp* fx_tapiir_dsp = nullptr):fDSP(fx_tapiir_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -324,7 +330,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -348,9 +354,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual fx_tapiir_dsp* createDSPInstance() = 0;
+        virtual ::fx_tapiir_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -455,10 +464,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -511,15 +521,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -527,14 +541,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -550,21 +568,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -721,29 +725,34 @@ class fx_tapiir : public fx_tapiir_dsp {
 	fx_tapiir() {
 	}
 	
+	fx_tapiir(const fx_tapiir&) = default;
+	
+	virtual ~fx_tapiir() = default;
+	
+	fx_tapiir& operator=(const fx_tapiir&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("author", "Grame");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
+		m->declare("basics.lib/version", "1.22.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "fx_tapiir.dsp");
 		m->declare("license", "BSD");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "fx.tapiir");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 		m->declare("version", "1.0");
 	}
 
@@ -759,90 +768,90 @@ class fx_tapiir : public fx_tapiir_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 0.001f * fConst0;
 		fConst2 = 5.0f * fConst0 + 1.0f;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.0f);
-		fVslider1 = FAUSTFLOAT(0.0f);
-		fVslider2 = FAUSTFLOAT(0.0f);
-		fVslider3 = FAUSTFLOAT(0.0f);
-		fVslider4 = FAUSTFLOAT(0.0f);
-		fVslider5 = FAUSTFLOAT(0.0f);
-		fVslider6 = FAUSTFLOAT(0.0f);
-		fVslider7 = FAUSTFLOAT(0.0f);
-		fVslider8 = FAUSTFLOAT(0.0f);
-		fVslider9 = FAUSTFLOAT(0.0f);
-		fVslider10 = FAUSTFLOAT(1.0f);
-		fVslider11 = FAUSTFLOAT(1.0f);
-		fVslider12 = FAUSTFLOAT(0.0f);
-		fVslider13 = FAUSTFLOAT(0.0f);
-		fVslider14 = FAUSTFLOAT(0.0f);
-		fVslider15 = FAUSTFLOAT(0.0f);
-		fVslider16 = FAUSTFLOAT(0.0f);
-		fVslider17 = FAUSTFLOAT(0.0f);
-		fVslider18 = FAUSTFLOAT(0.0f);
-		fVslider19 = FAUSTFLOAT(0.0f);
-		fVslider20 = FAUSTFLOAT(1.0f);
-		fVslider21 = FAUSTFLOAT(1.0f);
-		fVslider22 = FAUSTFLOAT(0.0f);
-		fVslider23 = FAUSTFLOAT(0.0f);
-		fVslider24 = FAUSTFLOAT(0.0f);
-		fVslider25 = FAUSTFLOAT(0.0f);
-		fVslider26 = FAUSTFLOAT(0.0f);
-		fVslider27 = FAUSTFLOAT(0.0f);
-		fVslider28 = FAUSTFLOAT(0.0f);
-		fVslider29 = FAUSTFLOAT(0.0f);
-		fVslider30 = FAUSTFLOAT(1.0f);
-		fVslider31 = FAUSTFLOAT(1.0f);
-		fVslider32 = FAUSTFLOAT(0.0f);
-		fVslider33 = FAUSTFLOAT(0.0f);
-		fVslider34 = FAUSTFLOAT(0.0f);
-		fVslider35 = FAUSTFLOAT(0.0f);
-		fVslider36 = FAUSTFLOAT(0.0f);
-		fVslider37 = FAUSTFLOAT(0.0f);
-		fVslider38 = FAUSTFLOAT(0.0f);
-		fVslider39 = FAUSTFLOAT(0.0f);
-		fVslider40 = FAUSTFLOAT(1.0f);
-		fVslider41 = FAUSTFLOAT(1.0f);
-		fVslider42 = FAUSTFLOAT(0.0f);
-		fVslider43 = FAUSTFLOAT(0.0f);
-		fVslider44 = FAUSTFLOAT(0.0f);
-		fVslider45 = FAUSTFLOAT(0.0f);
-		fVslider46 = FAUSTFLOAT(0.0f);
-		fVslider47 = FAUSTFLOAT(0.0f);
-		fVslider48 = FAUSTFLOAT(0.0f);
-		fVslider49 = FAUSTFLOAT(0.0f);
-		fVslider50 = FAUSTFLOAT(1.0f);
-		fVslider51 = FAUSTFLOAT(1.0f);
-		fVslider52 = FAUSTFLOAT(0.0f);
-		fVslider53 = FAUSTFLOAT(0.0f);
-		fVslider54 = FAUSTFLOAT(0.0f);
-		fVslider55 = FAUSTFLOAT(0.0f);
-		fVslider56 = FAUSTFLOAT(0.0f);
-		fVslider57 = FAUSTFLOAT(0.0f);
-		fVslider58 = FAUSTFLOAT(0.0f);
-		fVslider59 = FAUSTFLOAT(0.0f);
-		fVslider60 = FAUSTFLOAT(1.0f);
-		fVslider61 = FAUSTFLOAT(1.0f);
-		fVslider62 = FAUSTFLOAT(0.0f);
-		fVslider63 = FAUSTFLOAT(0.0f);
-		fVslider64 = FAUSTFLOAT(0.0f);
-		fVslider65 = FAUSTFLOAT(0.0f);
-		fVslider66 = FAUSTFLOAT(0.0f);
-		fVslider67 = FAUSTFLOAT(0.0f);
-		fVslider68 = FAUSTFLOAT(0.0f);
-		fVslider69 = FAUSTFLOAT(0.0f);
-		fVslider70 = FAUSTFLOAT(0.0f);
-		fVslider71 = FAUSTFLOAT(0.0f);
-		fVslider72 = FAUSTFLOAT(0.0f);
-		fVslider73 = FAUSTFLOAT(0.0f);
-		fVslider74 = FAUSTFLOAT(0.0f);
-		fVslider75 = FAUSTFLOAT(0.0f);
-		fVslider76 = FAUSTFLOAT(0.0f);
-		fVslider77 = FAUSTFLOAT(0.0f);
+		fVslider0 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider1 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider2 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider3 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider4 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider5 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider6 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider7 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider8 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider9 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider10 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider11 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider12 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider13 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider14 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider15 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider16 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider17 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider18 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider19 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider20 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider21 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider22 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider23 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider24 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider25 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider26 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider27 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider28 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider29 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider30 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider31 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider32 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider33 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider34 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider35 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider36 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider37 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider38 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider39 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider40 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider41 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider42 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider43 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider44 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider45 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider46 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider47 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider48 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider49 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider50 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider51 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider52 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider53 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider54 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider55 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider56 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider57 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider58 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider59 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider60 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider61 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider62 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider63 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider64 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider65 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider66 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider67 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider68 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider69 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider70 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider71 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider72 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider73 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider74 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider75 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider76 = static_cast<FAUSTFLOAT>(0.0f);
+		fVslider77 = static_cast<FAUSTFLOAT>(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -897,7 +906,7 @@ class fx_tapiir : public fx_tapiir_dsp {
 	}
 	
 	virtual fx_tapiir* clone() {
-		return new fx_tapiir();
+		return new fx_tapiir(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1008,123 +1017,123 @@ class fx_tapiir : public fx_tapiir_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = std::pow(1e+01f, 0.05f * float(fVslider0));
-		float fSlow1 = float(fVslider1);
-		float fSlow2 = fConst1 * float(fVslider2);
+		float fSlow0 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider0));
+		float fSlow1 = static_cast<float>(fVslider1);
+		float fSlow2 = fConst1 * static_cast<float>(fVslider2);
 		float fSlow3 = std::floor(fSlow2);
 		float fSlow4 = fSlow3 + (1.0f - fSlow2);
-		float fSlow5 = std::pow(1e+01f, 0.05f * float(fVslider3));
-		float fSlow6 = float(fVslider4);
-		float fSlow7 = float(fVslider5);
-		float fSlow8 = float(fVslider6);
-		float fSlow9 = float(fVslider7);
-		float fSlow10 = float(fVslider8);
-		float fSlow11 = float(fVslider9);
-		float fSlow12 = float(fVslider10);
-		float fSlow13 = float(fVslider11);
-		int iSlow14 = int(fSlow2);
-		int iSlow15 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow14))));
+		float fSlow5 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider3));
+		float fSlow6 = static_cast<float>(fVslider4);
+		float fSlow7 = static_cast<float>(fVslider5);
+		float fSlow8 = static_cast<float>(fVslider6);
+		float fSlow9 = static_cast<float>(fVslider7);
+		float fSlow10 = static_cast<float>(fVslider8);
+		float fSlow11 = static_cast<float>(fVslider9);
+		float fSlow12 = static_cast<float>(fVslider10);
+		float fSlow13 = static_cast<float>(fVslider11);
+		int iSlow14 = static_cast<int>(fSlow2);
+		int iSlow15 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow14))));
 		float fSlow16 = fSlow2 - fSlow3;
-		int iSlow17 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow14 + 1))));
-		float fSlow18 = fConst1 * float(fVslider12);
+		int iSlow17 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow14 + 1))));
+		float fSlow18 = fConst1 * static_cast<float>(fVslider12);
 		float fSlow19 = std::floor(fSlow18);
 		float fSlow20 = fSlow19 + (1.0f - fSlow18);
-		float fSlow21 = std::pow(1e+01f, 0.05f * float(fVslider13));
-		float fSlow22 = float(fVslider14);
-		float fSlow23 = float(fVslider15);
-		float fSlow24 = float(fVslider16);
-		float fSlow25 = float(fVslider17);
-		float fSlow26 = float(fVslider18);
-		float fSlow27 = float(fVslider19);
-		float fSlow28 = float(fVslider20);
-		float fSlow29 = float(fVslider21);
-		int iSlow30 = int(fSlow18);
-		int iSlow31 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow30))));
+		float fSlow21 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider13));
+		float fSlow22 = static_cast<float>(fVslider14);
+		float fSlow23 = static_cast<float>(fVslider15);
+		float fSlow24 = static_cast<float>(fVslider16);
+		float fSlow25 = static_cast<float>(fVslider17);
+		float fSlow26 = static_cast<float>(fVslider18);
+		float fSlow27 = static_cast<float>(fVslider19);
+		float fSlow28 = static_cast<float>(fVslider20);
+		float fSlow29 = static_cast<float>(fVslider21);
+		int iSlow30 = static_cast<int>(fSlow18);
+		int iSlow31 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow30))));
 		float fSlow32 = fSlow18 - fSlow19;
-		int iSlow33 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow30 + 1))));
-		float fSlow34 = fConst1 * float(fVslider22);
+		int iSlow33 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow30 + 1))));
+		float fSlow34 = fConst1 * static_cast<float>(fVslider22);
 		float fSlow35 = std::floor(fSlow34);
 		float fSlow36 = fSlow35 + (1.0f - fSlow34);
-		float fSlow37 = std::pow(1e+01f, 0.05f * float(fVslider23));
-		float fSlow38 = float(fVslider24);
-		float fSlow39 = float(fVslider25);
-		float fSlow40 = float(fVslider26);
-		float fSlow41 = float(fVslider27);
-		float fSlow42 = float(fVslider28);
-		float fSlow43 = float(fVslider29);
-		float fSlow44 = float(fVslider30);
-		float fSlow45 = float(fVslider31);
-		int iSlow46 = int(fSlow34);
-		int iSlow47 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow46))));
+		float fSlow37 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider23));
+		float fSlow38 = static_cast<float>(fVslider24);
+		float fSlow39 = static_cast<float>(fVslider25);
+		float fSlow40 = static_cast<float>(fVslider26);
+		float fSlow41 = static_cast<float>(fVslider27);
+		float fSlow42 = static_cast<float>(fVslider28);
+		float fSlow43 = static_cast<float>(fVslider29);
+		float fSlow44 = static_cast<float>(fVslider30);
+		float fSlow45 = static_cast<float>(fVslider31);
+		int iSlow46 = static_cast<int>(fSlow34);
+		int iSlow47 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow46))));
 		float fSlow48 = fSlow34 - fSlow35;
-		int iSlow49 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow46 + 1))));
-		float fSlow50 = fConst1 * float(fVslider32);
+		int iSlow49 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow46 + 1))));
+		float fSlow50 = fConst1 * static_cast<float>(fVslider32);
 		float fSlow51 = std::floor(fSlow50);
 		float fSlow52 = fSlow51 + (1.0f - fSlow50);
-		float fSlow53 = std::pow(1e+01f, 0.05f * float(fVslider33));
-		float fSlow54 = float(fVslider34);
-		float fSlow55 = float(fVslider35);
-		float fSlow56 = float(fVslider36);
-		float fSlow57 = float(fVslider37);
-		float fSlow58 = float(fVslider38);
-		float fSlow59 = float(fVslider39);
-		float fSlow60 = float(fVslider40);
-		float fSlow61 = float(fVslider41);
-		int iSlow62 = int(fSlow50);
-		int iSlow63 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow62))));
+		float fSlow53 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider33));
+		float fSlow54 = static_cast<float>(fVslider34);
+		float fSlow55 = static_cast<float>(fVslider35);
+		float fSlow56 = static_cast<float>(fVslider36);
+		float fSlow57 = static_cast<float>(fVslider37);
+		float fSlow58 = static_cast<float>(fVslider38);
+		float fSlow59 = static_cast<float>(fVslider39);
+		float fSlow60 = static_cast<float>(fVslider40);
+		float fSlow61 = static_cast<float>(fVslider41);
+		int iSlow62 = static_cast<int>(fSlow50);
+		int iSlow63 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow62))));
 		float fSlow64 = fSlow50 - fSlow51;
-		int iSlow65 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow62 + 1))));
-		float fSlow66 = fConst1 * float(fVslider42);
+		int iSlow65 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow62 + 1))));
+		float fSlow66 = fConst1 * static_cast<float>(fVslider42);
 		float fSlow67 = std::floor(fSlow66);
 		float fSlow68 = fSlow67 + (1.0f - fSlow66);
-		float fSlow69 = std::pow(1e+01f, 0.05f * float(fVslider43));
-		float fSlow70 = float(fVslider44);
-		float fSlow71 = float(fVslider45);
-		float fSlow72 = float(fVslider46);
-		float fSlow73 = float(fVslider47);
-		float fSlow74 = float(fVslider48);
-		float fSlow75 = float(fVslider49);
-		float fSlow76 = float(fVslider50);
-		float fSlow77 = float(fVslider51);
-		int iSlow78 = int(fSlow66);
-		int iSlow79 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow78))));
+		float fSlow69 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider43));
+		float fSlow70 = static_cast<float>(fVslider44);
+		float fSlow71 = static_cast<float>(fVslider45);
+		float fSlow72 = static_cast<float>(fVslider46);
+		float fSlow73 = static_cast<float>(fVslider47);
+		float fSlow74 = static_cast<float>(fVslider48);
+		float fSlow75 = static_cast<float>(fVslider49);
+		float fSlow76 = static_cast<float>(fVslider50);
+		float fSlow77 = static_cast<float>(fVslider51);
+		int iSlow78 = static_cast<int>(fSlow66);
+		int iSlow79 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow78))));
 		float fSlow80 = fSlow66 - fSlow67;
-		int iSlow81 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow78 + 1))));
-		float fSlow82 = fConst1 * float(fVslider52);
+		int iSlow81 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow78 + 1))));
+		float fSlow82 = fConst1 * static_cast<float>(fVslider52);
 		float fSlow83 = std::floor(fSlow82);
 		float fSlow84 = fSlow83 + (1.0f - fSlow82);
-		float fSlow85 = std::pow(1e+01f, 0.05f * float(fVslider53));
-		float fSlow86 = float(fVslider54);
-		float fSlow87 = float(fVslider55);
-		float fSlow88 = float(fVslider56);
-		float fSlow89 = float(fVslider57);
-		float fSlow90 = float(fVslider58);
-		float fSlow91 = float(fVslider59);
-		float fSlow92 = float(fVslider60);
-		float fSlow93 = float(fVslider61);
-		int iSlow94 = int(fSlow82);
-		int iSlow95 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow94))));
+		float fSlow85 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider53));
+		float fSlow86 = static_cast<float>(fVslider54);
+		float fSlow87 = static_cast<float>(fVslider55);
+		float fSlow88 = static_cast<float>(fVslider56);
+		float fSlow89 = static_cast<float>(fVslider57);
+		float fSlow90 = static_cast<float>(fVslider58);
+		float fSlow91 = static_cast<float>(fVslider59);
+		float fSlow92 = static_cast<float>(fVslider60);
+		float fSlow93 = static_cast<float>(fVslider61);
+		int iSlow94 = static_cast<int>(fSlow82);
+		int iSlow95 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow94))));
 		float fSlow96 = fSlow82 - fSlow83;
-		int iSlow97 = int(std::min<float>(fConst2, float(std::max<int>(0, iSlow94 + 1))));
-		float fSlow98 = float(fVslider62);
-		float fSlow99 = float(fVslider63);
-		float fSlow100 = float(fVslider64);
-		float fSlow101 = float(fVslider65);
-		float fSlow102 = float(fVslider66);
-		float fSlow103 = float(fVslider67);
-		float fSlow104 = float(fVslider68);
-		float fSlow105 = std::pow(1e+01f, 0.05f * float(fVslider69));
-		float fSlow106 = float(fVslider70);
-		float fSlow107 = float(fVslider71);
-		float fSlow108 = float(fVslider72);
-		float fSlow109 = float(fVslider73);
-		float fSlow110 = float(fVslider74);
-		float fSlow111 = float(fVslider75);
-		float fSlow112 = float(fVslider76);
-		float fSlow113 = float(fVslider77);
+		int iSlow97 = static_cast<int>(std::min<float>(fConst2, static_cast<float>(std::max<int>(0, iSlow94 + 1))));
+		float fSlow98 = static_cast<float>(fVslider62);
+		float fSlow99 = static_cast<float>(fVslider63);
+		float fSlow100 = static_cast<float>(fVslider64);
+		float fSlow101 = static_cast<float>(fVslider65);
+		float fSlow102 = static_cast<float>(fVslider66);
+		float fSlow103 = static_cast<float>(fVslider67);
+		float fSlow104 = static_cast<float>(fVslider68);
+		float fSlow105 = std::pow(1e+01f, 0.05f * static_cast<float>(fVslider69));
+		float fSlow106 = static_cast<float>(fVslider70);
+		float fSlow107 = static_cast<float>(fVslider71);
+		float fSlow108 = static_cast<float>(fVslider72);
+		float fSlow109 = static_cast<float>(fVslider73);
+		float fSlow110 = static_cast<float>(fVslider74);
+		float fSlow111 = static_cast<float>(fVslider75);
+		float fSlow112 = static_cast<float>(fVslider76);
+		float fSlow113 = static_cast<float>(fVslider77);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = float(input0[i0]);
-			float fTemp1 = float(input1[i0]);
+			float fTemp0 = static_cast<float>(input0[i0]);
+			float fTemp1 = static_cast<float>(input1[i0]);
 			float fTemp2 = fSlow5 * (fSlow6 * fRec0[1] + fSlow7 * fRec1[1] + fSlow8 * fRec2[1] + fSlow9 * fRec3[1] + fSlow10 * fRec4[1] + fSlow11 * fRec5[1] + fSlow12 * fTemp0 + fSlow13 * fTemp1);
 			fVec0[IOTA0 & 1048575] = fTemp2;
 			fRec0[0] = fSlow4 * fVec0[(IOTA0 - iSlow15) & 1048575] + fSlow16 * fVec0[(IOTA0 - iSlow17) & 1048575];
@@ -1143,8 +1152,8 @@ class fx_tapiir : public fx_tapiir_dsp {
 			float fTemp7 = fSlow85 * (fSlow86 * fRec0[1] + fSlow87 * fRec1[1] + fSlow88 * fRec2[1] + fSlow89 * fRec3[1] + fSlow90 * fRec4[1] + fSlow91 * fRec5[1] + fSlow92 * fTemp0 + fSlow93 * fTemp1);
 			fVec5[IOTA0 & 1048575] = fTemp7;
 			fRec5[0] = fSlow84 * fVec5[(IOTA0 - iSlow95) & 1048575] + fSlow96 * fVec5[(IOTA0 - iSlow97) & 1048575];
-			output0[i0] = FAUSTFLOAT(fSlow0 * (fSlow1 * fRec0[0] + fSlow98 * fRec1[0] + fSlow99 * fRec2[0] + fSlow100 * fRec3[0] + fSlow101 * fRec4[0] + fSlow102 * fRec5[0] + fSlow103 * fTemp0 + fSlow104 * fTemp1));
-			output1[i0] = FAUSTFLOAT(fSlow105 * (fSlow106 * fRec0[0] + fSlow107 * fRec1[0] + fSlow108 * fRec2[0] + fSlow109 * fRec3[0] + fSlow110 * fRec4[0] + fSlow111 * fRec5[0] + fSlow112 * fTemp0 + fSlow113 * fTemp1));
+			output0[i0] = static_cast<FAUSTFLOAT>(fSlow0 * (fSlow1 * fRec0[0] + fSlow98 * fRec1[0] + fSlow99 * fRec2[0] + fSlow100 * fRec3[0] + fSlow101 * fRec4[0] + fSlow102 * fRec5[0] + fSlow103 * fTemp0 + fSlow104 * fTemp1));
+			output1[i0] = static_cast<FAUSTFLOAT>(fSlow105 * (fSlow106 * fRec0[0] + fSlow107 * fRec1[0] + fSlow108 * fRec2[0] + fSlow109 * fRec3[0] + fSlow110 * fRec4[0] + fSlow111 * fRec5[0] + fSlow112 * fTemp0 + fSlow113 * fTemp1));
 			IOTA0 = IOTA0 + 1;
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];

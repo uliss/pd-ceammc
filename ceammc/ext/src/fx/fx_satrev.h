@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.satrev"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_satrev -scn fx_satrev_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_satrev -scn fx_satrev_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_satrev_H__
@@ -74,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -121,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -165,8 +170,8 @@ class FAUST_API fx_satrev_dsp {
 
     public:
 
-        fx_satrev_dsp() {}
-        virtual ~fx_satrev_dsp() {}
+        fx_satrev_dsp() = default;
+        virtual ~fx_satrev_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -195,14 +200,14 @@ class FAUST_API fx_satrev_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -219,17 +224,18 @@ class FAUST_API fx_satrev_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_satrev_dsp* clone() = 0;
+        virtual ::fx_satrev_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -280,33 +286,33 @@ class FAUST_API fx_satrev_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public fx_satrev_dsp {
+class FAUST_API decorator_dsp : public ::fx_satrev_dsp {
 
     protected:
 
-        fx_satrev_dsp* fDSP;
+        ::fx_satrev_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_satrev_dsp* fx_satrev_dsp = nullptr):fDSP(fx_satrev_dsp) {}
+        decorator_dsp(::fx_satrev_dsp* fx_satrev_dsp = nullptr):fDSP(fx_satrev_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -320,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -344,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual fx_satrev_dsp* createDSPInstance() = 0;
+        virtual ::fx_satrev_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -451,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -507,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -523,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -546,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -625,48 +629,46 @@ class fx_satrev : public fx_satrev_dsp {
 	float fConst1;
 	float fRec1[2];
 	int IOTA0;
-	float fVec0[2048];
-	float fRec8[2];
-	float fRec9[2];
-	float fVec1[1024];
-	float fRec10[2];
-	float fRec11[2];
-	float fVec2[1024];
-	float fRec12[2];
-	float fRec13[2];
-	float fVec3[1024];
-	float fRec14[2];
-	float fRec15[2];
-	float fVec4[128];
+	float fRec8[2048];
+	float fRec9[1024];
+	float fRec10[1024];
+	float fRec11[1024];
+	float fVec0[128];
 	float fRec6[2];
-	float fVec5[64];
+	float fVec1[64];
 	float fRec4[2];
-	float fVec6[12];
+	float fVec2[12];
 	float fRec2[2];
 	
  public:
 	fx_satrev() {
 	}
 	
+	fx_satrev(const fx_satrev&) = default;
+	
+	virtual ~fx_satrev() = default;
+	
+	fx_satrev& operator=(const fx_satrev&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
+		m->declare("basics.lib/version", "1.22.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_satrev -scn fx_satrev_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_satrev -scn fx_satrev_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "fx_satrev.dsp");
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/fb_comb:author", "Julius O. Smith III");
-		m->declare("filters.lib/fb_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/fb_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>, revised by Oleg Nesterov");
 		m->declare("filters.lib/fb_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/fb_comb_common:author", "Oleg Nesterov");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/rev1:author", "Julius O. Smith III");
 		m->declare("filters.lib/rev1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -674,21 +676,21 @@ class fx_satrev : public fx_satrev_dsp {
 		m->declare("filters.lib/rev2:author", "Julius O. Smith III");
 		m->declare("filters.lib/rev2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/rev2:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "fx.satrev");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
 		m->declare("reverbs.lib/name", "Faust Reverb Library");
-		m->declare("reverbs.lib/version", "1.3.0");
+		m->declare("reverbs.lib/version", "1.5.1");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "1.2.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("routes.lib/version", "1.3.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -703,13 +705,13 @@ class fx_satrev : public fx_satrev_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = 44.1f / std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = 44.1f / std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 1.0f - fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(0.25f);
+		fCheckbox0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider0 = static_cast<FAUSTFLOAT>(0.25f);
 	}
 	
 	virtual void instanceClear() {
@@ -721,58 +723,34 @@ class fx_satrev : public fx_satrev_dsp {
 		}
 		IOTA0 = 0;
 		for (int l2 = 0; l2 < 2048; l2 = l2 + 1) {
-			fVec0[l2] = 0.0f;
+			fRec8[l2] = 0.0f;
 		}
-		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec8[l3] = 0.0f;
+		for (int l3 = 0; l3 < 1024; l3 = l3 + 1) {
+			fRec9[l3] = 0.0f;
 		}
-		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec9[l4] = 0.0f;
+		for (int l4 = 0; l4 < 1024; l4 = l4 + 1) {
+			fRec10[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 1024; l5 = l5 + 1) {
-			fVec1[l5] = 0.0f;
+			fRec11[l5] = 0.0f;
 		}
-		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			fRec10[l6] = 0.0f;
+		for (int l6 = 0; l6 < 128; l6 = l6 + 1) {
+			fVec0[l6] = 0.0f;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec11[l7] = 0.0f;
+			fRec6[l7] = 0.0f;
 		}
-		for (int l8 = 0; l8 < 1024; l8 = l8 + 1) {
-			fVec2[l8] = 0.0f;
+		for (int l8 = 0; l8 < 64; l8 = l8 + 1) {
+			fVec1[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec12[l9] = 0.0f;
+			fRec4[l9] = 0.0f;
 		}
-		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			fRec13[l10] = 0.0f;
+		for (int l10 = 0; l10 < 12; l10 = l10 + 1) {
+			fVec2[l10] = 0.0f;
 		}
-		for (int l11 = 0; l11 < 1024; l11 = l11 + 1) {
-			fVec3[l11] = 0.0f;
-		}
-		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
-			fRec14[l12] = 0.0f;
-		}
-		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
-			fRec15[l13] = 0.0f;
-		}
-		for (int l14 = 0; l14 < 128; l14 = l14 + 1) {
-			fVec4[l14] = 0.0f;
-		}
-		for (int l15 = 0; l15 < 2; l15 = l15 + 1) {
-			fRec6[l15] = 0.0f;
-		}
-		for (int l16 = 0; l16 < 64; l16 = l16 + 1) {
-			fVec5[l16] = 0.0f;
-		}
-		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
-			fRec4[l17] = 0.0f;
-		}
-		for (int l18 = 0; l18 < 12; l18 = l18 + 1) {
-			fVec6[l18] = 0.0f;
-		}
-		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
-			fRec2[l19] = 0.0f;
+		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
+			fRec2[l11] = 0.0f;
 		}
 	}
 	
@@ -788,7 +766,7 @@ class fx_satrev : public fx_satrev_dsp {
 	}
 	
 	virtual fx_satrev* clone() {
-		return new fx_satrev();
+		return new fx_satrev(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -807,10 +785,10 @@ class fx_satrev : public fx_satrev_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
-		float fSlow1 = fConst0 * float(fHslider0);
+		float fSlow0 = static_cast<float>(static_cast<float>(fCheckbox0) >= 1.0f);
+		float fSlow1 = fConst0 * static_cast<float>(fHslider0);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = float(input0[i0]);
+			float fTemp0 = static_cast<float>(input0[i0]);
 			float fTemp1 = fRec0[1] + 0.0078125f;
 			float fTemp2 = fRec0[1] + -0.0078125f;
 			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
@@ -819,52 +797,32 @@ class fx_satrev : public fx_satrev_dsp {
 			fRec1[0] = fSlow1 + fConst1 * fRec1[1];
 			float fTemp5 = fTemp0 * (1.0f - fRec1[0]);
 			float fTemp6 = 0.2f * fTemp0;
-			float fTemp7 = fTemp6 + 0.764f * fRec8[1];
-			fVec0[IOTA0 & 2047] = fTemp7;
-			fRec8[0] = fVec0[(IOTA0 - 1122) & 2047];
-			fRec9[0] = fTemp7;
-			float fTemp8 = fTemp6 + 0.783f * fRec10[1];
-			fVec1[IOTA0 & 1023] = fTemp8;
-			fRec10[0] = fVec1[(IOTA0 - 1010) & 1023];
-			fRec11[0] = fTemp8;
-			float fTemp9 = fTemp6 + 0.805f * fRec12[1];
-			fVec2[IOTA0 & 1023] = fTemp9;
-			fRec12[0] = fVec2[(IOTA0 - 900) & 1023];
-			fRec13[0] = fTemp9;
-			float fTemp10 = 0.827f * fRec14[1] + fTemp6;
-			fVec3[IOTA0 & 1023] = fTemp10;
-			fRec14[0] = fVec3[(IOTA0 - 777) & 1023];
-			fRec15[0] = fTemp10;
-			float fTemp11 = fRec9[1] + fRec11[1] + fRec13[1] + 0.7f * fRec6[1] + fRec15[1];
-			fVec4[IOTA0 & 127] = fTemp11;
-			fRec6[0] = fVec4[(IOTA0 - 124) & 127];
-			float fRec7 = -(0.7f * fTemp11);
-			float fTemp12 = fRec6[1] + fRec7 + 0.7f * fRec4[1];
-			fVec5[IOTA0 & 63] = fTemp12;
-			fRec4[0] = fVec5[(IOTA0 - 41) & 63];
-			float fRec5 = -(0.7f * fTemp12);
-			float fTemp13 = fRec4[1] + fRec5 + 0.7f * fRec2[1];
-			fVec6[0] = fTemp13;
-			fRec2[0] = fVec6[11];
-			float fRec3 = -(0.7f * fTemp13);
-			float fTemp14 = fRec1[0] * (fRec3 + fRec2[1]);
-			output0[i0] = FAUSTFLOAT(fTemp3 + fTemp4 * (fTemp5 + fTemp14));
-			output1[i0] = FAUSTFLOAT(fTemp3 + fTemp4 * (fTemp5 - fTemp14));
+			fRec8[IOTA0 & 2047] = fTemp6 + 0.764f * fRec8[(IOTA0 - 1123) & 2047];
+			fRec9[IOTA0 & 1023] = fTemp6 + 0.783f * fRec9[(IOTA0 - 1011) & 1023];
+			fRec10[IOTA0 & 1023] = fTemp6 + 0.805f * fRec10[(IOTA0 - 901) & 1023];
+			fRec11[IOTA0 & 1023] = 0.827f * fRec11[(IOTA0 - 778) & 1023] + fTemp6;
+			float fTemp7 = fRec8[(IOTA0 - 1) & 2047] + fRec9[(IOTA0 - 1) & 1023] + fRec10[(IOTA0 - 1) & 1023] + 0.7f * fRec6[1] + fRec11[(IOTA0 - 1) & 1023];
+			fVec0[IOTA0 & 127] = fTemp7;
+			fRec6[0] = fVec0[(IOTA0 - 124) & 127];
+			float fRec7 = -(0.7f * fTemp7);
+			float fTemp8 = fRec6[1] + fRec7 + 0.7f * fRec4[1];
+			fVec1[IOTA0 & 63] = fTemp8;
+			fRec4[0] = fVec1[(IOTA0 - 41) & 63];
+			float fRec5 = -(0.7f * fTemp8);
+			float fTemp9 = fRec4[1] + fRec5 + 0.7f * fRec2[1];
+			fVec2[0] = fTemp9;
+			fRec2[0] = fVec2[11];
+			float fRec3 = -(0.7f * fTemp9);
+			float fTemp10 = fRec1[0] * (fRec3 + fRec2[1]);
+			output0[i0] = static_cast<FAUSTFLOAT>(fTemp3 + fTemp4 * (fTemp5 + fTemp10));
+			output1[i0] = static_cast<FAUSTFLOAT>(fTemp3 + fTemp4 * (fTemp5 - fTemp10));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			IOTA0 = IOTA0 + 1;
-			fRec8[1] = fRec8[0];
-			fRec9[1] = fRec9[0];
-			fRec10[1] = fRec10[0];
-			fRec11[1] = fRec11[0];
-			fRec12[1] = fRec12[0];
-			fRec13[1] = fRec13[0];
-			fRec14[1] = fRec14[0];
-			fRec15[1] = fRec15[0];
 			fRec6[1] = fRec6[0];
 			fRec4[1] = fRec4[0];
 			for (int j0 = 11; j0 > 0; j0 = j0 - 1) {
-				fVec6[j0] = fVec6[j0 - 1];
+				fVec2[j0] = fVec2[j0 - 1];
 			}
 			fRec2[1] = fRec2[0];
 		}

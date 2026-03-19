@@ -1,47 +1,46 @@
 {
 	"name": "fx.freeverb2",
 	"filename": "fx_freeverb2.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/reverbs.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/.local/faust/share/faust/routes.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
-	"size": 586232,
+	"size": 586264,
 	"inputs": 2,
 	"outputs": 2,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_freeverb2 -scn fx_freeverb2_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "1.1.0" },
+		{ "delays.lib/version": "1.2.0" },
 		{ "filename": "fx_freeverb2.dsp" },
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "fx.freeverb2" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
 		{ "reverbs.lib/mono_freeverb:author": "Romain Michon" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
 		{ "reverbs.lib/stereo_freeverb:author": "Romain Michon" },
-		{ "reverbs.lib/version": "1.3.0" },
+		{ "reverbs.lib/version": "1.5.1" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
-		{ "routes.lib/version": "1.2.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "routes.lib/version": "1.3.0" },
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -51,12 +50,14 @@
 				{
 					"type": "checkbox",
 					"label": "bypass",
+					"varname": "fCheckbox0",
 					"shortname": "bypass",
 					"address": "/fx.freeverb2/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "damp",
+					"varname": "fHslider4",
 					"shortname": "damp",
 					"address": "/fx.freeverb2/damp",
 					"init": 0.5,
@@ -67,6 +68,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
+					"varname": "fHslider0",
 					"shortname": "drywet",
 					"address": "/fx.freeverb2/drywet",
 					"meta": [
@@ -80,6 +82,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_damp",
+					"varname": "fHslider5",
 					"shortname": "fr_damp",
 					"address": "/fx.freeverb2/fr_damp",
 					"meta": [
@@ -93,6 +96,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_room",
+					"varname": "fHslider3",
 					"shortname": "fr_room",
 					"address": "/fx.freeverb2/fr_room",
 					"meta": [
@@ -106,6 +110,7 @@
 				{
 					"type": "hslider",
 					"label": "fr_time",
+					"varname": "fHslider1",
 					"shortname": "fr_time",
 					"address": "/fx.freeverb2/fr_time",
 					"meta": [
@@ -120,6 +125,7 @@
 				{
 					"type": "checkbox",
 					"label": "freeze",
+					"varname": "fCheckbox1",
 					"shortname": "freeze",
 					"address": "/fx.freeverb2/freeze",
 					"meta": [
@@ -129,6 +135,7 @@
 				{
 					"type": "hslider",
 					"label": "room",
+					"varname": "fHslider2",
 					"shortname": "room",
 					"address": "/fx.freeverb2/room",
 					"init": 0.5,
@@ -139,6 +146,7 @@
 				{
 					"type": "hslider",
 					"label": "spread",
+					"varname": "fHslider6",
 					"shortname": "spread",
 					"address": "/fx.freeverb2/spread",
 					"init": 0.5,

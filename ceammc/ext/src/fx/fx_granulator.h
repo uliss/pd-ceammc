@@ -2,8 +2,8 @@
 author: "Lukas Hartmann & Luca Hilbrich"
 name: "fx.granulator"
 version: "2.8.1"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_granulator_H__
@@ -76,12 +76,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -123,22 +123,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -167,8 +172,8 @@ class FAUST_API fx_granulator_dsp {
 
     public:
 
-        fx_granulator_dsp() {}
-        virtual ~fx_granulator_dsp() {}
+        fx_granulator_dsp() = default;
+        virtual ~fx_granulator_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -197,14 +202,14 @@ class FAUST_API fx_granulator_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,17 +226,18 @@ class FAUST_API fx_granulator_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_granulator_dsp* clone() = 0;
+        virtual ::fx_granulator_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -282,33 +288,33 @@ class FAUST_API fx_granulator_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public fx_granulator_dsp {
+class FAUST_API decorator_dsp : public ::fx_granulator_dsp {
 
     protected:
 
-        fx_granulator_dsp* fDSP;
+        ::fx_granulator_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_granulator_dsp* fx_granulator_dsp = nullptr):fDSP(fx_granulator_dsp) {}
+        decorator_dsp(::fx_granulator_dsp* fx_granulator_dsp = nullptr):fDSP(fx_granulator_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -322,7 +328,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -346,9 +352,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual fx_granulator_dsp* createDSPInstance() = 0;
+        virtual ::fx_granulator_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -453,10 +462,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -509,15 +519,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -525,14 +539,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -548,21 +566,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -618,6 +622,7 @@ class fx_granulatorSIG0 {
 	
   private:
 	
+	int fSampleRate;
 	
   public:
 	
@@ -629,6 +634,7 @@ class fx_granulatorSIG0 {
 	}
 	
 	void instanceInitfx_granulatorSIG0(int sample_rate) {
+		fSampleRate = sample_rate;
 	}
 	
 	void fillfx_granulatorSIG0(int count, float* table) {
@@ -730,12 +736,17 @@ class fx_granulator : public fx_granulator_dsp {
 	fx_granulator() {
 	}
 	
+	fx_granulator(const fx_granulator&) = default;
+	
+	virtual ~fx_granulator() = default;
+	
+	fx_granulator& operator=(const fx_granulator&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("author", "Lukas Hartmann & Luca Hilbrich");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("basics.lib/version", "1.22.0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("filename", "fx_granulator.dsp");
 		m->declare("filters.lib/highpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/highpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -748,12 +759,12 @@ class fx_granulator : public fx_granulator_dsp {
 		m->declare("filters.lib/tf1s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "fx.granulator");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
@@ -772,7 +783,7 @@ class fx_granulator : public fx_granulator_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 3.1415927f / fConst0;
 		fx_granulatorSIG0* sig0 = newfx_granulatorSIG0();
 		sig0->instanceInitfx_granulatorSIG0(sample_rate);
@@ -782,18 +793,18 @@ class fx_granulator : public fx_granulator_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.75f);
-		fVslider1 = FAUSTFLOAT(1e+02f);
-		fVslider2 = FAUSTFLOAT(1.0f);
-		fVslider3 = FAUSTFLOAT(1e+03f);
-		fVslider4 = FAUSTFLOAT(1e+02f);
-		fVslider5 = FAUSTFLOAT(1.0f);
-		fVslider6 = FAUSTFLOAT(0.5f);
-		fVslider7 = FAUSTFLOAT(0.25f);
-		fVslider8 = FAUSTFLOAT(1e+02f);
-		fVslider9 = FAUSTFLOAT(1.0f);
-		fVslider10 = FAUSTFLOAT(0.25f);
-		fVslider11 = FAUSTFLOAT(0.75f);
+		fVslider0 = static_cast<FAUSTFLOAT>(0.75f);
+		fVslider1 = static_cast<FAUSTFLOAT>(1e+02f);
+		fVslider2 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider3 = static_cast<FAUSTFLOAT>(1e+03f);
+		fVslider4 = static_cast<FAUSTFLOAT>(1e+02f);
+		fVslider5 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider6 = static_cast<FAUSTFLOAT>(0.5f);
+		fVslider7 = static_cast<FAUSTFLOAT>(0.25f);
+		fVslider8 = static_cast<FAUSTFLOAT>(1e+02f);
+		fVslider9 = static_cast<FAUSTFLOAT>(1.0f);
+		fVslider10 = static_cast<FAUSTFLOAT>(0.25f);
+		fVslider11 = static_cast<FAUSTFLOAT>(0.75f);
 	}
 	
 	virtual void instanceClear() {
@@ -994,7 +1005,7 @@ class fx_granulator : public fx_granulator_dsp {
 	}
 	
 	virtual fx_granulator* clone() {
-		return new fx_granulator();
+		return new fx_granulator(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1032,50 +1043,50 @@ class fx_granulator : public fx_granulator_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(fVslider0);
-		float fSlow1 = 1.0f / std::tan(fConst1 * float(fVslider1));
+		float fSlow0 = static_cast<float>(fVslider0);
+		float fSlow1 = 1.0f / std::tan(fConst1 * static_cast<float>(fVslider1));
 		float fSlow2 = 1.0f / (fSlow1 + 1.0f);
 		float fSlow3 = 1.0f - fSlow1;
-		float fSlow4 = float(fVslider2);
+		float fSlow4 = static_cast<float>(fVslider2);
 		float fSlow5 = 0.8f / fSlow4;
-		float fSlow6 = float(0.0f < fSlow4);
-		float fSlow7 = float(fVslider3);
+		float fSlow6 = static_cast<float>(0.0f < fSlow4);
+		float fSlow7 = static_cast<float>(fVslider3);
 		float fSlow8 = 48.0f * fSlow7;
-		float fSlow9 = fConst2 * float(fVslider4);
+		float fSlow9 = fConst2 * static_cast<float>(fVslider4);
 		float fSlow10 = fSlow9 + -1.0f;
 		float fSlow11 = 1.0f / fSlow10;
-		float fSlow12 = float(fVslider5);
-		float fSlow13 = 48.0f * fSlow7 * float(fVslider6);
+		float fSlow12 = static_cast<float>(fVslider5);
+		float fSlow13 = 48.0f * fSlow7 * static_cast<float>(fVslider6);
 		float fSlow14 = 6.28318f / fSlow10;
-		float fSlow15 = float(1.0f < fSlow4);
-		float fSlow16 = float(2.0f < fSlow4);
-		float fSlow17 = float(3.0f < fSlow4);
-		float fSlow18 = float(4.0f < fSlow4);
-		float fSlow19 = float(5.0f < fSlow4);
-		float fSlow20 = float(6.0f < fSlow4);
-		float fSlow21 = float(7.0f < fSlow4);
-		float fSlow22 = float(8.0f < fSlow4);
-		float fSlow23 = float(9.0f < fSlow4);
-		float fSlow24 = float(1e+01f < fSlow4);
-		float fSlow25 = float(11.0f < fSlow4);
-		float fSlow26 = float(12.0f < fSlow4);
-		float fSlow27 = float(13.0f < fSlow4);
-		float fSlow28 = float(14.0f < fSlow4);
-		float fSlow29 = float(15.0f < fSlow4);
-		float fSlow30 = float(fVslider7);
-		float fSlow31 = 1.0f / std::tan(fConst1 * float(fVslider8));
+		float fSlow15 = static_cast<float>(1.0f < fSlow4);
+		float fSlow16 = static_cast<float>(2.0f < fSlow4);
+		float fSlow17 = static_cast<float>(3.0f < fSlow4);
+		float fSlow18 = static_cast<float>(4.0f < fSlow4);
+		float fSlow19 = static_cast<float>(5.0f < fSlow4);
+		float fSlow20 = static_cast<float>(6.0f < fSlow4);
+		float fSlow21 = static_cast<float>(7.0f < fSlow4);
+		float fSlow22 = static_cast<float>(8.0f < fSlow4);
+		float fSlow23 = static_cast<float>(9.0f < fSlow4);
+		float fSlow24 = static_cast<float>(1e+01f < fSlow4);
+		float fSlow25 = static_cast<float>(11.0f < fSlow4);
+		float fSlow26 = static_cast<float>(12.0f < fSlow4);
+		float fSlow27 = static_cast<float>(13.0f < fSlow4);
+		float fSlow28 = static_cast<float>(14.0f < fSlow4);
+		float fSlow29 = static_cast<float>(15.0f < fSlow4);
+		float fSlow30 = static_cast<float>(fVslider7);
+		float fSlow31 = 1.0f / std::tan(fConst1 * static_cast<float>(fVslider8));
 		float fSlow32 = 1.0f / (fSlow31 + 1.0f);
 		float fSlow33 = 1.0f - fSlow31;
 		float fSlow34 = 0.85f / fSlow4;
-		float fSlow35 = float(fVslider9);
-		float fSlow36 = float(fVslider10);
+		float fSlow35 = static_cast<float>(fVslider9);
+		float fSlow36 = static_cast<float>(fVslider10);
 		float fSlow37 = 0.9f / fSlow4;
-		float fSlow38 = float(fVslider11);
+		float fSlow38 = static_cast<float>(fVslider11);
 		float fSlow39 = 0.95f / fSlow4;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
 			fRec1[0] = std::fmod(fRec1[1] + 1.0f, fSlow8);
-			ftbl0[int(std::fmod(float(int(fRec1[0])), fSlow8))] = float(input0[i0]);
+			ftbl0[static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(fRec1[0])), fSlow8))] = static_cast<float>(input0[i0]);
 			fRec3[0] = std::fmod(fSlow12 + fRec3[1], fSlow9);
 			int iTemp0 = 1 - iVec0[1];
 			int iTemp1 = 1103515245 * iRec5[1] + 12345;
@@ -1110,167 +1121,167 @@ class fx_granulator : public fx_granulator_dsp {
 			int iRec18 = iTemp4;
 			int iRec19 = iTemp3;
 			int iRec20 = iTemp2;
-			int iTemp17 = int(fSlow13 * (2.3283064e-10f * float(iRec5[0]) + 1.0f));
+			int iTemp17 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec5[0]) + 1.0f));
 			iRec4[0] = iVec0[1] * iRec4[1] + iTemp0 * iTemp17;
-			float fTemp18 = float(iRec4[0]);
+			float fTemp18 = static_cast<float>(iRec4[0]);
 			float fTemp19 = std::fmod(fRec3[0] + fTemp18, fSlow9);
-			int iTemp20 = int(fSlow11 * fTemp19);
+			int iTemp20 = static_cast<int>(fSlow11 * fTemp19);
 			iRec2[0] = iRec2[1] * (1 - iTemp20) + iTemp17 * iTemp20;
-			int iTemp21 = int(fSlow13 * (2.3283064e-10f * float(iRec6) + 1.0f));
+			int iTemp21 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec6) + 1.0f));
 			iRec22[0] = iVec0[1] * iRec22[1] + iTemp0 * iTemp21;
-			float fTemp22 = float(iRec22[0]);
+			float fTemp22 = static_cast<float>(iRec22[0]);
 			float fTemp23 = std::fmod(fRec3[0] + fTemp22, fSlow9);
-			int iTemp24 = int(fSlow11 * fTemp23);
+			int iTemp24 = static_cast<int>(fSlow11 * fTemp23);
 			iRec21[0] = iRec21[1] * (1 - iTemp24) + iTemp21 * iTemp24;
-			int iTemp25 = int(fSlow13 * (2.3283064e-10f * float(iRec7) + 1.0f));
+			int iTemp25 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec7) + 1.0f));
 			iRec24[0] = iVec0[1] * iRec24[1] + iTemp0 * iTemp25;
-			float fTemp26 = float(iRec24[0]);
+			float fTemp26 = static_cast<float>(iRec24[0]);
 			float fTemp27 = std::fmod(fRec3[0] + fTemp26, fSlow9);
-			int iTemp28 = int(fSlow11 * fTemp27);
+			int iTemp28 = static_cast<int>(fSlow11 * fTemp27);
 			iRec23[0] = iRec23[1] * (1 - iTemp28) + iTemp25 * iTemp28;
-			int iTemp29 = int(fSlow13 * (2.3283064e-10f * float(iRec8) + 1.0f));
+			int iTemp29 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec8) + 1.0f));
 			iRec26[0] = iVec0[1] * iRec26[1] + iTemp0 * iTemp29;
-			float fTemp30 = float(iRec26[0]);
+			float fTemp30 = static_cast<float>(iRec26[0]);
 			float fTemp31 = std::fmod(fRec3[0] + fTemp30, fSlow9);
-			int iTemp32 = int(fSlow11 * fTemp31);
+			int iTemp32 = static_cast<int>(fSlow11 * fTemp31);
 			iRec25[0] = iRec25[1] * (1 - iTemp32) + iTemp29 * iTemp32;
-			int iTemp33 = int(fSlow13 * (2.3283064e-10f * float(iRec9) + 1.0f));
+			int iTemp33 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec9) + 1.0f));
 			iRec28[0] = iVec0[1] * iRec28[1] + iTemp0 * iTemp33;
-			float fTemp34 = float(iRec28[0]);
+			float fTemp34 = static_cast<float>(iRec28[0]);
 			float fTemp35 = std::fmod(fRec3[0] + fTemp34, fSlow9);
-			int iTemp36 = int(fSlow11 * fTemp35);
+			int iTemp36 = static_cast<int>(fSlow11 * fTemp35);
 			iRec27[0] = iRec27[1] * (1 - iTemp36) + iTemp33 * iTemp36;
-			int iTemp37 = int(fSlow13 * (2.3283064e-10f * float(iRec10) + 1.0f));
+			int iTemp37 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec10) + 1.0f));
 			iRec30[0] = iVec0[1] * iRec30[1] + iTemp0 * iTemp37;
-			float fTemp38 = float(iRec30[0]);
+			float fTemp38 = static_cast<float>(iRec30[0]);
 			float fTemp39 = std::fmod(fRec3[0] + fTemp38, fSlow9);
-			int iTemp40 = int(fSlow11 * fTemp39);
+			int iTemp40 = static_cast<int>(fSlow11 * fTemp39);
 			iRec29[0] = iRec29[1] * (1 - iTemp40) + iTemp37 * iTemp40;
-			int iTemp41 = int(fSlow13 * (2.3283064e-10f * float(iRec11) + 1.0f));
+			int iTemp41 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec11) + 1.0f));
 			iRec32[0] = iVec0[1] * iRec32[1] + iTemp0 * iTemp41;
-			float fTemp42 = float(iRec32[0]);
+			float fTemp42 = static_cast<float>(iRec32[0]);
 			float fTemp43 = std::fmod(fRec3[0] + fTemp42, fSlow9);
-			int iTemp44 = int(fSlow11 * fTemp43);
+			int iTemp44 = static_cast<int>(fSlow11 * fTemp43);
 			iRec31[0] = iRec31[1] * (1 - iTemp44) + iTemp41 * iTemp44;
-			int iTemp45 = int(fSlow13 * (2.3283064e-10f * float(iRec12) + 1.0f));
+			int iTemp45 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec12) + 1.0f));
 			iRec34[0] = iVec0[1] * iRec34[1] + iTemp0 * iTemp45;
-			float fTemp46 = float(iRec34[0]);
+			float fTemp46 = static_cast<float>(iRec34[0]);
 			float fTemp47 = std::fmod(fRec3[0] + fTemp46, fSlow9);
-			int iTemp48 = int(fSlow11 * fTemp47);
+			int iTemp48 = static_cast<int>(fSlow11 * fTemp47);
 			iRec33[0] = iRec33[1] * (1 - iTemp48) + iTemp45 * iTemp48;
-			int iTemp49 = int(fSlow13 * (2.3283064e-10f * float(iRec13) + 1.0f));
+			int iTemp49 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec13) + 1.0f));
 			iRec36[0] = iVec0[1] * iRec36[1] + iTemp0 * iTemp49;
-			float fTemp50 = float(iRec36[0]);
+			float fTemp50 = static_cast<float>(iRec36[0]);
 			float fTemp51 = std::fmod(fRec3[0] + fTemp50, fSlow9);
-			int iTemp52 = int(fSlow11 * fTemp51);
+			int iTemp52 = static_cast<int>(fSlow11 * fTemp51);
 			iRec35[0] = iRec35[1] * (1 - iTemp52) + iTemp49 * iTemp52;
-			int iTemp53 = int(fSlow13 * (2.3283064e-10f * float(iRec14) + 1.0f));
+			int iTemp53 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec14) + 1.0f));
 			iRec38[0] = iVec0[1] * iRec38[1] + iTemp0 * iTemp53;
-			float fTemp54 = float(iRec38[0]);
+			float fTemp54 = static_cast<float>(iRec38[0]);
 			float fTemp55 = std::fmod(fRec3[0] + fTemp54, fSlow9);
-			int iTemp56 = int(fSlow11 * fTemp55);
+			int iTemp56 = static_cast<int>(fSlow11 * fTemp55);
 			iRec37[0] = iRec37[1] * (1 - iTemp56) + iTemp53 * iTemp56;
-			int iTemp57 = int(fSlow13 * (2.3283064e-10f * float(iRec15) + 1.0f));
+			int iTemp57 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec15) + 1.0f));
 			iRec40[0] = iVec0[1] * iRec40[1] + iTemp0 * iTemp57;
-			float fTemp58 = float(iRec40[0]);
+			float fTemp58 = static_cast<float>(iRec40[0]);
 			float fTemp59 = std::fmod(fRec3[0] + fTemp58, fSlow9);
-			int iTemp60 = int(fSlow11 * fTemp59);
+			int iTemp60 = static_cast<int>(fSlow11 * fTemp59);
 			iRec39[0] = iRec39[1] * (1 - iTemp60) + iTemp57 * iTemp60;
-			int iTemp61 = int(fSlow13 * (2.3283064e-10f * float(iRec16) + 1.0f));
+			int iTemp61 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec16) + 1.0f));
 			iRec42[0] = iVec0[1] * iRec42[1] + iTemp0 * iTemp61;
-			float fTemp62 = float(iRec42[0]);
+			float fTemp62 = static_cast<float>(iRec42[0]);
 			float fTemp63 = std::fmod(fRec3[0] + fTemp62, fSlow9);
-			int iTemp64 = int(fSlow11 * fTemp63);
+			int iTemp64 = static_cast<int>(fSlow11 * fTemp63);
 			iRec41[0] = iRec41[1] * (1 - iTemp64) + iTemp61 * iTemp64;
-			int iTemp65 = int(fSlow13 * (2.3283064e-10f * float(iRec17) + 1.0f));
+			int iTemp65 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec17) + 1.0f));
 			iRec44[0] = iVec0[1] * iRec44[1] + iTemp0 * iTemp65;
-			float fTemp66 = float(iRec44[0]);
+			float fTemp66 = static_cast<float>(iRec44[0]);
 			float fTemp67 = std::fmod(fRec3[0] + fTemp66, fSlow9);
-			int iTemp68 = int(fSlow11 * fTemp67);
+			int iTemp68 = static_cast<int>(fSlow11 * fTemp67);
 			iRec43[0] = iRec43[1] * (1 - iTemp68) + iTemp65 * iTemp68;
-			int iTemp69 = int(fSlow13 * (2.3283064e-10f * float(iRec18) + 1.0f));
+			int iTemp69 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec18) + 1.0f));
 			iRec46[0] = iVec0[1] * iRec46[1] + iTemp0 * iTemp69;
-			float fTemp70 = float(iRec46[0]);
+			float fTemp70 = static_cast<float>(iRec46[0]);
 			float fTemp71 = std::fmod(fRec3[0] + fTemp70, fSlow9);
-			int iTemp72 = int(fSlow11 * fTemp71);
+			int iTemp72 = static_cast<int>(fSlow11 * fTemp71);
 			iRec45[0] = iRec45[1] * (1 - iTemp72) + iTemp69 * iTemp72;
-			int iTemp73 = int(fSlow13 * (2.3283064e-10f * float(iRec19) + 1.0f));
+			int iTemp73 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec19) + 1.0f));
 			iRec48[0] = iVec0[1] * iRec48[1] + iTemp0 * iTemp73;
-			float fTemp74 = float(iRec48[0]);
+			float fTemp74 = static_cast<float>(iRec48[0]);
 			float fTemp75 = std::fmod(fRec3[0] + fTemp74, fSlow9);
-			int iTemp76 = int(fSlow11 * fTemp75);
+			int iTemp76 = static_cast<int>(fSlow11 * fTemp75);
 			iRec47[0] = iRec47[1] * (1 - iTemp76) + iTemp73 * iTemp76;
-			int iTemp77 = int(fSlow13 * (2.3283064e-10f * float(iRec20) + 1.0f));
+			int iTemp77 = static_cast<int>(fSlow13 * (2.3283064e-10f * static_cast<float>(iRec20) + 1.0f));
 			iRec50[0] = iVec0[1] * iRec50[1] + iTemp0 * iTemp77;
-			float fTemp78 = float(iRec50[0]);
+			float fTemp78 = static_cast<float>(iRec50[0]);
 			float fTemp79 = std::fmod(fRec3[0] + fTemp78, fSlow9);
-			int iTemp80 = int(fSlow11 * fTemp79);
+			int iTemp80 = static_cast<int>(fSlow11 * fTemp79);
 			iRec49[0] = iRec49[1] * (1 - iTemp80) + iTemp77 * iTemp80;
-			float fTemp81 = fSlow6 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec2[0]) + fTemp19)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp19) + fSlow15 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec21[0]) + fTemp23)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp23) + fSlow16 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec23[0]) + fTemp27)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp27) + fSlow17 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec25[0]) + fTemp31)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp31) + fSlow18 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec27[0]) + fTemp35)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp35) + fSlow19 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec29[0]) + fTemp39)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp39) + fSlow20 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec31[0]) + fTemp43)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp43) + fSlow21 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec33[0]) + fTemp47)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp47) + fSlow22 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec35[0]) + fTemp51)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp51) + fSlow23 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec37[0]) + fTemp55)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp55) + fSlow24 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec39[0]) + fTemp59)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp59) + fSlow25 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec41[0]) + fTemp63)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp63) + fSlow26 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec43[0]) + fTemp67)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp67) + fSlow27 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec45[0]) + fTemp71)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp71) + fSlow28 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec47[0]) + fTemp75)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp75) + fSlow29 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec49[0]) + fTemp79)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp79);
+			float fTemp81 = fSlow6 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec2[0]) + fTemp19)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp19) + fSlow15 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec21[0]) + fTemp23)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp23) + fSlow16 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec23[0]) + fTemp27)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp27) + fSlow17 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec25[0]) + fTemp31)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp31) + fSlow18 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec27[0]) + fTemp35)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp35) + fSlow19 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec29[0]) + fTemp39)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp39) + fSlow20 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec31[0]) + fTemp43)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp43) + fSlow21 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec33[0]) + fTemp47)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp47) + fSlow22 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec35[0]) + fTemp51)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp51) + fSlow23 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec37[0]) + fTemp55)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp55) + fSlow24 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec39[0]) + fTemp59)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp59) + fSlow25 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec41[0]) + fTemp63)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp63) + fSlow26 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec43[0]) + fTemp67)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp67) + fSlow27 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec45[0]) + fTemp71)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp71) + fSlow28 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec47[0]) + fTemp75)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp75) + fSlow29 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec49[0]) + fTemp79)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp79);
 			float fTemp82 = fSlow5 * fTemp81;
 			fVec1[0] = fTemp82;
 			fRec0[0] = -(fSlow2 * (fSlow3 * fRec0[1] - fSlow1 * (fTemp82 - fVec1[1])));
 			fRec53[0] = std::fmod(fSlow35 + fRec53[1], fSlow9);
 			float fTemp83 = std::fmod(fRec53[0] + fTemp18, fSlow9);
-			int iTemp84 = int(fSlow11 * fTemp83);
+			int iTemp84 = static_cast<int>(fSlow11 * fTemp83);
 			iRec52[0] = iRec52[1] * (1 - iTemp84) + iTemp17 * iTemp84;
 			float fTemp85 = std::fmod(fRec53[0] + fTemp22, fSlow9);
-			int iTemp86 = int(fSlow11 * fTemp85);
+			int iTemp86 = static_cast<int>(fSlow11 * fTemp85);
 			iRec54[0] = iRec54[1] * (1 - iTemp86) + iTemp21 * iTemp86;
 			float fTemp87 = std::fmod(fRec53[0] + fTemp26, fSlow9);
-			int iTemp88 = int(fSlow11 * fTemp87);
+			int iTemp88 = static_cast<int>(fSlow11 * fTemp87);
 			iRec55[0] = iRec55[1] * (1 - iTemp88) + iTemp25 * iTemp88;
 			float fTemp89 = std::fmod(fRec53[0] + fTemp30, fSlow9);
-			int iTemp90 = int(fSlow11 * fTemp89);
+			int iTemp90 = static_cast<int>(fSlow11 * fTemp89);
 			iRec56[0] = iRec56[1] * (1 - iTemp90) + iTemp29 * iTemp90;
 			float fTemp91 = std::fmod(fRec53[0] + fTemp34, fSlow9);
-			int iTemp92 = int(fSlow11 * fTemp91);
+			int iTemp92 = static_cast<int>(fSlow11 * fTemp91);
 			iRec57[0] = iRec57[1] * (1 - iTemp92) + iTemp33 * iTemp92;
 			float fTemp93 = std::fmod(fRec53[0] + fTemp38, fSlow9);
-			int iTemp94 = int(fSlow11 * fTemp93);
+			int iTemp94 = static_cast<int>(fSlow11 * fTemp93);
 			iRec58[0] = iRec58[1] * (1 - iTemp94) + iTemp37 * iTemp94;
 			float fTemp95 = std::fmod(fRec53[0] + fTemp42, fSlow9);
-			int iTemp96 = int(fSlow11 * fTemp95);
+			int iTemp96 = static_cast<int>(fSlow11 * fTemp95);
 			iRec59[0] = iRec59[1] * (1 - iTemp96) + iTemp41 * iTemp96;
 			float fTemp97 = std::fmod(fRec53[0] + fTemp46, fSlow9);
-			int iTemp98 = int(fSlow11 * fTemp97);
+			int iTemp98 = static_cast<int>(fSlow11 * fTemp97);
 			iRec60[0] = iRec60[1] * (1 - iTemp98) + iTemp45 * iTemp98;
 			float fTemp99 = std::fmod(fRec53[0] + fTemp50, fSlow9);
-			int iTemp100 = int(fSlow11 * fTemp99);
+			int iTemp100 = static_cast<int>(fSlow11 * fTemp99);
 			iRec61[0] = iRec61[1] * (1 - iTemp100) + iTemp49 * iTemp100;
 			float fTemp101 = std::fmod(fRec53[0] + fTemp54, fSlow9);
-			int iTemp102 = int(fSlow11 * fTemp101);
+			int iTemp102 = static_cast<int>(fSlow11 * fTemp101);
 			iRec62[0] = iRec62[1] * (1 - iTemp102) + iTemp53 * iTemp102;
 			float fTemp103 = std::fmod(fRec53[0] + fTemp58, fSlow9);
-			int iTemp104 = int(fSlow11 * fTemp103);
+			int iTemp104 = static_cast<int>(fSlow11 * fTemp103);
 			iRec63[0] = iRec63[1] * (1 - iTemp104) + iTemp57 * iTemp104;
 			float fTemp105 = std::fmod(fRec53[0] + fTemp62, fSlow9);
-			int iTemp106 = int(fSlow11 * fTemp105);
+			int iTemp106 = static_cast<int>(fSlow11 * fTemp105);
 			iRec64[0] = iRec64[1] * (1 - iTemp106) + iTemp61 * iTemp106;
 			float fTemp107 = std::fmod(fRec53[0] + fTemp66, fSlow9);
-			int iTemp108 = int(fSlow11 * fTemp107);
+			int iTemp108 = static_cast<int>(fSlow11 * fTemp107);
 			iRec65[0] = iRec65[1] * (1 - iTemp108) + iTemp65 * iTemp108;
 			float fTemp109 = std::fmod(fRec53[0] + fTemp70, fSlow9);
-			int iTemp110 = int(fSlow11 * fTemp109);
+			int iTemp110 = static_cast<int>(fSlow11 * fTemp109);
 			iRec66[0] = iRec66[1] * (1 - iTemp110) + iTemp69 * iTemp110;
 			float fTemp111 = std::fmod(fRec53[0] + fTemp74, fSlow9);
-			int iTemp112 = int(fSlow11 * fTemp111);
+			int iTemp112 = static_cast<int>(fSlow11 * fTemp111);
 			iRec67[0] = iRec67[1] * (1 - iTemp112) + iTemp73 * iTemp112;
 			float fTemp113 = std::fmod(fRec53[0] + fTemp78, fSlow9);
-			int iTemp114 = int(fSlow11 * fTemp113);
+			int iTemp114 = static_cast<int>(fSlow11 * fTemp113);
 			iRec68[0] = iRec68[1] * (1 - iTemp114) + iTemp77 * iTemp114;
-			float fTemp115 = fSlow6 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec52[0]) + fTemp83)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp83) + fSlow15 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec54[0]) + fTemp85)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp85) + fSlow16 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec55[0]) + fTemp87)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp87) + fSlow17 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec56[0]) + fTemp89)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp89) + fSlow18 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec57[0]) + fTemp91)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp91) + fSlow19 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec58[0]) + fTemp93)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp93) + fSlow20 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec59[0]) + fTemp95)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp95) + fSlow21 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec60[0]) + fTemp97)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp97) + fSlow22 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec61[0]) + fTemp99)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp99) + fSlow23 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec62[0]) + fTemp101)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp101) + fSlow24 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec63[0]) + fTemp103)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp103) + fSlow25 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec64[0]) + fTemp105)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp105) + fSlow26 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec65[0]) + fTemp107)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp107) + fSlow27 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec66[0]) + fTemp109)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp109) + fSlow28 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec67[0]) + fTemp111)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp111) + fSlow29 * ftbl0[std::max<int>(0, std::min<int>(int(std::fmod(float(int(float(iRec68[0]) + fTemp113)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp113);
+			float fTemp115 = fSlow6 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec52[0]) + fTemp83)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp83) + fSlow15 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec54[0]) + fTemp85)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp85) + fSlow16 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec55[0]) + fTemp87)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp87) + fSlow17 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec56[0]) + fTemp89)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp89) + fSlow18 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec57[0]) + fTemp91)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp91) + fSlow19 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec58[0]) + fTemp93)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp93) + fSlow20 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec59[0]) + fTemp95)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp95) + fSlow21 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec60[0]) + fTemp97)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp97) + fSlow22 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec61[0]) + fTemp99)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp99) + fSlow23 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec62[0]) + fTemp101)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp101) + fSlow24 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec63[0]) + fTemp103)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp103) + fSlow25 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec64[0]) + fTemp105)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp105) + fSlow26 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec65[0]) + fTemp107)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp107) + fSlow27 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec66[0]) + fTemp109)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp109) + fSlow28 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec67[0]) + fTemp111)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp111) + fSlow29 * ftbl0[std::max<int>(0, std::min<int>(static_cast<int>(std::fmod(static_cast<float>(static_cast<int>(static_cast<float>(iRec68[0]) + fTemp113)), fSlow8)), 143999))] * std::sin(fSlow14 * fTemp113);
 			float fTemp116 = fSlow34 * fTemp115;
 			fVec2[0] = fTemp116;
 			fRec51[0] = -(fSlow32 * (fSlow33 * fRec51[1] - fSlow31 * (fTemp116 - fVec2[1])));
-			output0[i0] = FAUSTFLOAT(fSlow0 * fRec0[0] + fSlow30 * fRec51[0]);
+			output0[i0] = static_cast<FAUSTFLOAT>(fSlow0 * fRec0[0] + fSlow30 * fRec51[0]);
 			float fTemp117 = fSlow37 * fTemp81;
 			fVec3[0] = fTemp117;
 			fRec69[0] = -(fSlow2 * (fSlow3 * fRec69[1] - fSlow1 * (fTemp117 - fVec3[1])));
 			float fTemp118 = fSlow39 * fTemp115;
 			fVec4[0] = fTemp118;
 			fRec70[0] = -(fSlow32 * (fSlow33 * fRec70[1] - fSlow31 * (fTemp118 - fVec4[1])));
-			output1[i0] = FAUSTFLOAT(fSlow36 * fRec69[0] + fSlow38 * fRec70[0]);
+			output1[i0] = static_cast<FAUSTFLOAT>(fSlow36 * fRec69[0] + fSlow38 * fRec70[0]);
 			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];
 			fRec3[1] = fRec3[0];

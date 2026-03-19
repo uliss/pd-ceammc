@@ -1,8 +1,8 @@
 {
 	"name": "fx.granulator",
 	"filename": "fx_granulator.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/filters.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 576552,
@@ -11,9 +11,8 @@
 	"meta": [ 
 		{ "author": "Lukas Hartmann & Luca Hilbrich" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "basics.lib/version": "1.22.0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_granulator -scn fx_granulator_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "fx_granulator.dsp" },
 		{ "filters.lib/highpass:author": "Julius O. Smith III" },
 		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -26,12 +25,12 @@
 		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "fx.granulator" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
@@ -45,6 +44,7 @@
 				{
 					"type": "vslider",
 					"label": "delay",
+					"varname": "fVslider3",
 					"shortname": "delay",
 					"address": "/fx.granulator/delay",
 					"meta": [
@@ -58,6 +58,7 @@
 				{
 					"type": "vslider",
 					"label": "density",
+					"varname": "fVslider2",
 					"shortname": "density",
 					"address": "/fx.granulator/density",
 					"init": 1,
@@ -68,6 +69,7 @@
 				{
 					"type": "vslider",
 					"label": "gainAL",
+					"varname": "fVslider0",
 					"shortname": "gainAL",
 					"address": "/fx.granulator/gainAL",
 					"meta": [
@@ -81,6 +83,7 @@
 				{
 					"type": "vslider",
 					"label": "gainAR",
+					"varname": "fVslider10",
 					"shortname": "gainAR",
 					"address": "/fx.granulator/gainAR",
 					"meta": [
@@ -94,6 +97,7 @@
 				{
 					"type": "vslider",
 					"label": "gainBL",
+					"varname": "fVslider7",
 					"shortname": "gainBL",
 					"address": "/fx.granulator/gainBL",
 					"meta": [
@@ -107,6 +111,7 @@
 				{
 					"type": "vslider",
 					"label": "gainBR",
+					"varname": "fVslider11",
 					"shortname": "gainBR",
 					"address": "/fx.granulator/gainBR",
 					"meta": [
@@ -120,6 +125,7 @@
 				{
 					"type": "vslider",
 					"label": "hpfA",
+					"varname": "fVslider1",
 					"shortname": "hpfA",
 					"address": "/fx.granulator/hpfA",
 					"meta": [
@@ -134,6 +140,7 @@
 				{
 					"type": "vslider",
 					"label": "hpfB",
+					"varname": "fVslider8",
 					"shortname": "hpfB",
 					"address": "/fx.granulator/hpfB",
 					"meta": [
@@ -148,6 +155,7 @@
 				{
 					"type": "vslider",
 					"label": "pitchA",
+					"varname": "fVslider5",
 					"shortname": "pitchA",
 					"address": "/fx.granulator/pitchA",
 					"init": 1,
@@ -158,6 +166,7 @@
 				{
 					"type": "vslider",
 					"label": "pitchB",
+					"varname": "fVslider9",
 					"shortname": "pitchB",
 					"address": "/fx.granulator/pitchB",
 					"init": 1,
@@ -168,6 +177,7 @@
 				{
 					"type": "vslider",
 					"label": "size",
+					"varname": "fVslider4",
 					"shortname": "size",
 					"address": "/fx.granulator/size",
 					"meta": [
@@ -181,6 +191,7 @@
 				{
 					"type": "vslider",
 					"label": "spread",
+					"varname": "fVslider6",
 					"shortname": "spread",
 					"address": "/fx.granulator/spread",
 					"init": 0.5,

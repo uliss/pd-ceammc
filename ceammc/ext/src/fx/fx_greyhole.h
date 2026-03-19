@@ -4,8 +4,8 @@ copyright: "(c) Julian Parker 2013"
 license: "GPL2+"
 name: "fx.greyhole"
 version: "1.0"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_greyhole_H__
@@ -78,12 +78,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -125,22 +125,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -169,8 +174,8 @@ class FAUST_API fx_greyhole_dsp {
 
     public:
 
-        fx_greyhole_dsp() {}
-        virtual ~fx_greyhole_dsp() {}
+        fx_greyhole_dsp() = default;
+        virtual ~fx_greyhole_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -199,14 +204,14 @@ class FAUST_API fx_greyhole_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -223,17 +228,18 @@ class FAUST_API fx_greyhole_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_greyhole_dsp* clone() = 0;
+        virtual ::fx_greyhole_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -284,33 +290,33 @@ class FAUST_API fx_greyhole_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public fx_greyhole_dsp {
+class FAUST_API decorator_dsp : public ::fx_greyhole_dsp {
 
     protected:
 
-        fx_greyhole_dsp* fDSP;
+        ::fx_greyhole_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_greyhole_dsp* fx_greyhole_dsp = nullptr):fDSP(fx_greyhole_dsp) {}
+        decorator_dsp(::fx_greyhole_dsp* fx_greyhole_dsp = nullptr):fDSP(fx_greyhole_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -324,7 +330,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -348,9 +354,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual fx_greyhole_dsp* createDSPInstance() = 0;
+        virtual ::fx_greyhole_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -455,10 +464,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -511,15 +521,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -527,14 +541,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -550,21 +568,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -784,22 +788,27 @@ class fx_greyhole : public fx_greyhole_dsp {
 	fx_greyhole() {
 	}
 	
+	fx_greyhole(const fx_greyhole&) = default;
+	
+	virtual ~fx_greyhole() = default;
+	
+	fx_greyhole& operator=(const fx_greyhole&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("author", "Julian Parker, bug fixes by Till Bovermann");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
+		m->declare("basics.lib/version", "1.22.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn fx_greyhole -scn fx_greyhole_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("copyright", "(c) Julian Parker 2013");
 		m->declare("delays.lib/fdelay1a:author", "Julius O. Smith III");
 		m->declare("delays.lib/fdelay4:author", "Julius O. Smith III");
 		m->declare("delays.lib/fdelayltv:author", "Julius O. Smith III");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("filename", "fx_greyhole.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
@@ -809,22 +818,22 @@ class fx_greyhole : public fx_greyhole_dsp {
 		m->declare("filters.lib/tf1:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("license", "GPL2+");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "fx.greyhole");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "1.5.1");
+		m->declare("oscillators.lib/version", "1.7.0");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "1.2.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("routes.lib/version", "1.3.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 		m->declare("version", "1.0");
 	}
 
@@ -840,7 +849,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 0.00056689343f * fConst0;
@@ -848,15 +857,15 @@ class fx_greyhole : public fx_greyhole_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(0.0f);
-		fHslider2 = FAUSTFLOAT(1.0f);
-		fHslider3 = FAUSTFLOAT(0.5f);
-		fHslider4 = FAUSTFLOAT(0.9f);
-		fHslider5 = FAUSTFLOAT(0.1f);
-		fHslider6 = FAUSTFLOAT(2.0f);
-		fHslider7 = FAUSTFLOAT(0.2f);
+		fCheckbox0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider0 = static_cast<FAUSTFLOAT>(1.0f);
+		fHslider1 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider2 = static_cast<FAUSTFLOAT>(1.0f);
+		fHslider3 = static_cast<FAUSTFLOAT>(0.5f);
+		fHslider4 = static_cast<FAUSTFLOAT>(0.9f);
+		fHslider5 = static_cast<FAUSTFLOAT>(0.1f);
+		fHslider6 = static_cast<FAUSTFLOAT>(2.0f);
+		fHslider7 = static_cast<FAUSTFLOAT>(0.2f);
 	}
 	
 	virtual void instanceClear() {
@@ -1295,7 +1304,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 	}
 	
 	virtual fx_greyhole* clone() {
-		return new fx_greyhole();
+		return new fx_greyhole(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1323,76 +1332,76 @@ class fx_greyhole : public fx_greyhole_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
-		float fSlow1 = fConst1 * float(fHslider0);
-		float fSlow2 = float(fHslider1);
-		float fSlow3 = float(fHslider2);
+		float fSlow0 = static_cast<float>(static_cast<float>(fCheckbox0) >= 1.0f);
+		float fSlow1 = fConst1 * static_cast<float>(fHslider0);
+		float fSlow2 = static_cast<float>(fHslider1);
+		float fSlow3 = static_cast<float>(fHslider2);
 		float fSlow4 = 48.0f * fSlow3;
-		int iSlow5 = primes(int(fSlow4));
-		float fSlow6 = 0.001f * float(iSlow5);
-		float fSlow7 = float(fHslider3);
+		int iSlow5 = primes(static_cast<int>(fSlow4));
+		float fSlow6 = 0.001f * static_cast<float>(iSlow5);
+		float fSlow7 = static_cast<float>(fHslider3);
 		float fSlow8 = 61.0f * fSlow3;
-		int iSlow9 = primes(int(fSlow8));
-		float fSlow10 = 0.001f * float(iSlow9);
+		int iSlow9 = primes(static_cast<int>(fSlow8));
+		float fSlow10 = 0.001f * static_cast<float>(iSlow9);
 		float fSlow11 = 74.0f * fSlow3;
-		int iSlow12 = primes(int(fSlow11));
-		float fSlow13 = 0.001f * float(iSlow12);
+		int iSlow12 = primes(static_cast<int>(fSlow11));
+		float fSlow13 = 0.001f * static_cast<float>(iSlow12);
 		float fSlow14 = 29.0f * fSlow3;
-		int iSlow15 = primes(int(fSlow14));
-		float fSlow16 = 0.001f * float(iSlow15);
+		int iSlow15 = primes(static_cast<int>(fSlow14));
+		float fSlow16 = 0.001f * static_cast<float>(iSlow15);
 		float fSlow17 = 42.0f * fSlow3;
-		int iSlow18 = primes(int(fSlow17));
-		float fSlow19 = 0.001f * float(iSlow18);
+		int iSlow18 = primes(static_cast<int>(fSlow17));
+		float fSlow19 = 0.001f * static_cast<float>(iSlow18);
 		float fSlow20 = 55.0f * fSlow3;
-		int iSlow21 = primes(int(fSlow20));
-		float fSlow22 = 0.001f * float(iSlow21);
-		int iSlow23 = primes(int(1e+01f * fSlow3));
-		float fSlow24 = 0.001f * float(iSlow23);
+		int iSlow21 = primes(static_cast<int>(fSlow20));
+		float fSlow22 = 0.001f * static_cast<float>(iSlow21);
+		int iSlow23 = primes(static_cast<int>(1e+01f * fSlow3));
+		float fSlow24 = 0.001f * static_cast<float>(iSlow23);
 		float fSlow25 = 23.0f * fSlow3;
-		int iSlow26 = primes(int(fSlow25));
-		float fSlow27 = 0.001f * float(iSlow26);
+		int iSlow26 = primes(static_cast<int>(fSlow25));
+		float fSlow27 = 0.001f * static_cast<float>(iSlow26);
 		float fSlow28 = 36.0f * fSlow3;
-		int iSlow29 = primes(int(fSlow28));
-		float fSlow30 = 0.001f * float(iSlow29);
-		float fSlow31 = float(fHslider4);
-		float fSlow32 = float(fHslider5);
-		float fSlow33 = float(fHslider6);
-		float fSlow34 = std::floor(std::min<float>(65533.0f, fConst0 * float(fHslider7)));
+		int iSlow29 = primes(static_cast<int>(fSlow28));
+		float fSlow30 = 0.001f * static_cast<float>(iSlow29);
+		float fSlow31 = static_cast<float>(fHslider4);
+		float fSlow32 = static_cast<float>(fHslider5);
+		float fSlow33 = static_cast<float>(fHslider6);
+		float fSlow34 = std::floor(std::min<float>(65533.0f, fConst0 * static_cast<float>(fHslider7)));
 		float fSlow35 = 49.0f * fSlow3;
-		int iSlow36 = primes(int(fSlow35));
-		float fSlow37 = 0.0001f * float(iSlow36);
-		int iSlow38 = primes(int(fSlow35 + 1e+01f));
-		float fSlow39 = 0.0001f * float(iSlow38);
-		int iSlow40 = primes(int(fSlow28 + 1e+01f));
-		float fSlow41 = 0.001f * float(iSlow40);
-		int iSlow42 = primes(int(fSlow25 + 1e+01f));
-		float fSlow43 = 0.001f * float(iSlow42);
-		int iSlow44 = primes(int(1e+01f * (fSlow3 + 1.0f)));
-		float fSlow45 = 0.001f * float(iSlow44);
+		int iSlow36 = primes(static_cast<int>(fSlow35));
+		float fSlow37 = 0.0001f * static_cast<float>(iSlow36);
+		int iSlow38 = primes(static_cast<int>(fSlow35 + 1e+01f));
+		float fSlow39 = 0.0001f * static_cast<float>(iSlow38);
+		int iSlow40 = primes(static_cast<int>(fSlow28 + 1e+01f));
+		float fSlow41 = 0.001f * static_cast<float>(iSlow40);
+		int iSlow42 = primes(static_cast<int>(fSlow25 + 1e+01f));
+		float fSlow43 = 0.001f * static_cast<float>(iSlow42);
+		int iSlow44 = primes(static_cast<int>(1e+01f * (fSlow3 + 1.0f)));
+		float fSlow45 = 0.001f * static_cast<float>(iSlow44);
 		float fSlow46 = 68.0f * fSlow3;
-		int iSlow47 = primes(int(fSlow46));
-		float fSlow48 = 0.0001f * float(iSlow47);
-		int iSlow49 = primes(int(fSlow46 + 1e+01f));
-		float fSlow50 = 0.0001f * float(iSlow49);
-		int iSlow51 = primes(int(fSlow20 + 1e+01f));
-		float fSlow52 = 0.001f * float(iSlow51);
-		int iSlow53 = primes(int(fSlow17 + 1e+01f));
-		float fSlow54 = 0.001f * float(iSlow53);
-		int iSlow55 = primes(int(fSlow14 + 1e+01f));
-		float fSlow56 = 0.001f * float(iSlow55);
+		int iSlow47 = primes(static_cast<int>(fSlow46));
+		float fSlow48 = 0.0001f * static_cast<float>(iSlow47);
+		int iSlow49 = primes(static_cast<int>(fSlow46 + 1e+01f));
+		float fSlow50 = 0.0001f * static_cast<float>(iSlow49);
+		int iSlow51 = primes(static_cast<int>(fSlow20 + 1e+01f));
+		float fSlow52 = 0.001f * static_cast<float>(iSlow51);
+		int iSlow53 = primes(static_cast<int>(fSlow17 + 1e+01f));
+		float fSlow54 = 0.001f * static_cast<float>(iSlow53);
+		int iSlow55 = primes(static_cast<int>(fSlow14 + 1e+01f));
+		float fSlow56 = 0.001f * static_cast<float>(iSlow55);
 		float fSlow57 = 87.0f * fSlow3;
-		int iSlow58 = primes(int(fSlow57));
-		float fSlow59 = 0.0001f * float(iSlow58);
-		int iSlow60 = primes(int(fSlow57 + 1e+01f));
-		float fSlow61 = 0.0001f * float(iSlow60);
-		int iSlow62 = primes(int(fSlow11 + 1e+01f));
-		float fSlow63 = 0.001f * float(iSlow62);
-		int iSlow64 = primes(int(fSlow8 + 1e+01f));
-		float fSlow65 = 0.001f * float(iSlow64);
-		int iSlow66 = primes(int(fSlow4 + 1e+01f));
-		float fSlow67 = 0.001f * float(iSlow66);
+		int iSlow58 = primes(static_cast<int>(fSlow57));
+		float fSlow59 = 0.0001f * static_cast<float>(iSlow58);
+		int iSlow60 = primes(static_cast<int>(fSlow57 + 1e+01f));
+		float fSlow61 = 0.0001f * static_cast<float>(iSlow60);
+		int iSlow62 = primes(static_cast<int>(fSlow11 + 1e+01f));
+		float fSlow63 = 0.001f * static_cast<float>(iSlow62);
+		int iSlow64 = primes(static_cast<int>(fSlow8 + 1e+01f));
+		float fSlow65 = 0.001f * static_cast<float>(iSlow64);
+		int iSlow66 = primes(static_cast<int>(fSlow4 + 1e+01f));
+		float fSlow67 = 0.001f * static_cast<float>(iSlow66);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = float(input0[i0]);
+			float fTemp0 = static_cast<float>(input0[i0]);
 			iVec0[0] = 1;
 			float fTemp1 = fRec0[1] + 0.0078125f;
 			float fTemp2 = fRec0[1] + -0.0078125f;
@@ -1404,7 +1413,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp5 = fSlow2 + fVec1[1];
 			float fTemp6 = 1.0f - 0.5f * fTemp5;
 			int iTemp7 = 1 - iVec0[1];
-			fRec8[0] = fSlow6 + 0.999f * (fRec8[1] + float(iSlow5 * iTemp7));
+			fRec8[0] = fSlow6 + 0.999f * (fRec8[1] + static_cast<float>(iSlow5 * iTemp7));
 			float fTemp8 = fRec8[0] + -1.49999f;
 			float fTemp9 = std::floor(fTemp8);
 			float fTemp10 = fTemp9 + (2.0f - fRec8[0]);
@@ -1413,12 +1422,12 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp12 = fSlow7 + fVec2[1];
 			float fTemp13 = 0.5f * fTemp12;
 			float fTemp14 = std::cos(fTemp13);
-			fRec12[0] = fSlow10 + 0.999f * (fRec12[1] + float(iSlow9 * iTemp7));
+			fRec12[0] = fSlow10 + 0.999f * (fRec12[1] + static_cast<float>(iSlow9 * iTemp7));
 			float fTemp15 = fRec12[0] + -1.49999f;
 			float fTemp16 = std::floor(fTemp15);
 			float fTemp17 = fTemp16 + (2.0f - fRec12[0]);
 			float fTemp18 = fRec12[0] - fTemp16;
-			fRec16[0] = fSlow13 + 0.999f * (fRec16[1] + float(iSlow12 * iTemp7));
+			fRec16[0] = fSlow13 + 0.999f * (fRec16[1] + static_cast<float>(iSlow12 * iTemp7));
 			float fTemp19 = fRec16[0] + -1.49999f;
 			float fTemp20 = std::floor(fTemp19);
 			float fTemp21 = fTemp20 + (2.0f - fRec16[0]);
@@ -1426,38 +1435,38 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp23 = std::sin(fTemp13);
 			float fTemp24 = -0.5f * fTemp12;
 			float fTemp25 = std::cos(fTemp24);
-			fRec23[0] = fSlow16 + 0.999f * (fRec23[1] + float(iSlow15 * iTemp7));
+			fRec23[0] = fSlow16 + 0.999f * (fRec23[1] + static_cast<float>(iSlow15 * iTemp7));
 			float fTemp26 = fRec23[0] + -1.49999f;
 			float fTemp27 = std::floor(fTemp26);
 			float fTemp28 = fTemp27 + (2.0f - fRec23[0]);
 			float fTemp29 = fRec23[0] - fTemp27;
-			fRec27[0] = fSlow19 + 0.999f * (fRec27[1] + float(iSlow18 * iTemp7));
+			fRec27[0] = fSlow19 + 0.999f * (fRec27[1] + static_cast<float>(iSlow18 * iTemp7));
 			float fTemp30 = fRec27[0] + -1.49999f;
 			float fTemp31 = std::floor(fTemp30);
 			float fTemp32 = fTemp31 + (2.0f - fRec27[0]);
 			float fTemp33 = fRec27[0] - fTemp31;
-			fRec31[0] = fSlow22 + 0.999f * (fRec31[1] + float(iSlow21 * iTemp7));
+			fRec31[0] = fSlow22 + 0.999f * (fRec31[1] + static_cast<float>(iSlow21 * iTemp7));
 			float fTemp34 = fRec31[0] + -1.49999f;
 			float fTemp35 = std::floor(fTemp34);
 			float fTemp36 = fTemp35 + (2.0f - fRec31[0]);
 			float fTemp37 = fRec31[0] - fTemp35;
 			float fTemp38 = std::sin(fTemp24);
-			fRec38[0] = fSlow24 + 0.999f * (fRec38[1] + float(iSlow23 * iTemp7));
+			fRec38[0] = fSlow24 + 0.999f * (fRec38[1] + static_cast<float>(iSlow23 * iTemp7));
 			float fTemp39 = fRec38[0] + -1.49999f;
 			float fTemp40 = std::floor(fTemp39);
 			float fTemp41 = fTemp40 + (2.0f - fRec38[0]);
 			float fTemp42 = fRec38[0] - fTemp40;
-			fRec42[0] = fSlow27 + 0.999f * (fRec42[1] + float(iSlow26 * iTemp7));
+			fRec42[0] = fSlow27 + 0.999f * (fRec42[1] + static_cast<float>(iSlow26 * iTemp7));
 			float fTemp43 = fRec42[0] + -1.49999f;
 			float fTemp44 = std::floor(fTemp43);
 			float fTemp45 = fTemp44 + (2.0f - fRec42[0]);
 			float fTemp46 = fRec42[0] - fTemp44;
-			fRec46[0] = fSlow30 + 0.999f * (fRec46[1] + float(iSlow29 * iTemp7));
+			fRec46[0] = fSlow30 + 0.999f * (fRec46[1] + static_cast<float>(iSlow29 * iTemp7));
 			float fTemp47 = fRec46[0] + -1.49999f;
 			float fTemp48 = std::floor(fTemp47);
 			float fTemp49 = fTemp48 + (2.0f - fRec46[0]);
 			float fTemp50 = fRec46[0] - fTemp48;
-			float fTemp51 = float(input1[i0]);
+			float fTemp51 = static_cast<float>(input1[i0]);
 			fVec3[0] = fSlow31;
 			float fTemp52 = fSlow31 + fVec3[1];
 			fVec4[0] = fSlow32;
@@ -1467,13 +1476,13 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp55 = std::sin(fTemp54);
 			float fTemp56 = std::cos(fTemp54);
 			fRec50[0] = fRec51[1] * fTemp55 + fRec50[1] * fTemp56;
-			fRec51[0] = float(iTemp7) + fRec51[1] * fTemp56 - fTemp55 * fRec50[1];
+			fRec51[0] = static_cast<float>(iTemp7) + fRec51[1] * fTemp56 - fTemp55 * fRec50[1];
 			float fTemp57 = fConst3 * fTemp53 * (fRec50[0] + 1.0f);
 			float fTemp58 = fTemp57 + 8.500005f;
 			float fTemp59 = std::floor(fTemp58);
 			float fTemp60 = fTemp57 + (7.0f - fTemp59);
 			float fTemp61 = fTemp57 + (8.0f - fTemp59);
-			int iTemp62 = int(fTemp58);
+			int iTemp62 = static_cast<int>(fTemp58);
 			float fTemp63 = fTemp57 + (9.0f - fTemp59);
 			float fTemp64 = fTemp57 + (1e+01f - fTemp59);
 			float fTemp65 = fTemp64 * fTemp63;
@@ -1485,27 +1494,27 @@ class fx_greyhole : public fx_greyhole_dsp {
 			fRec53[0] = std::max<float>(0.0f, std::min<float>(1.0f, fRec53[1] + fTemp68));
 			fRec54[0] = (((fRec53[1] >= 1.0f) & (fRec55[1] != fSlow34)) ? fSlow34 : fRec54[1]);
 			fRec55[0] = (((fRec53[1] <= 0.0f) & (fRec54[1] != fSlow34)) ? fSlow34 : fRec55[1]);
-			int iTemp69 = int(std::min<float>(65536.0f, std::max<float>(0.0f, fRec54[0])));
+			int iTemp69 = static_cast<int>(std::min<float>(65536.0f, std::max<float>(0.0f, fRec54[0])));
 			float fTemp70 = fVec6[(IOTA0 - iTemp69) & 131071];
-			int iTemp71 = int(std::min<float>(65536.0f, std::max<float>(0.0f, fRec55[0])));
+			int iTemp71 = static_cast<int>(std::min<float>(65536.0f, std::max<float>(0.0f, fRec55[0])));
 			float fTemp72 = fTemp51 + 0.5f * fTemp52 * (fTemp70 + fRec53[0] * (fVec6[(IOTA0 - iTemp71) & 131071] - fTemp70));
 			float fTemp73 = fTemp14 * fTemp72 - fTemp23 * fRec36[1];
 			float fTemp74 = fTemp14 * fTemp73 - fTemp23 * fRec40[1];
 			float fTemp75 = fTemp14 * fTemp74 - fTemp23 * fRec44[1];
 			fVec7[IOTA0 & 16383] = fTemp23 * fRec48[1] - fTemp14 * fTemp75;
-			fRec56[0] = fSlow37 + 0.9999f * (fRec56[1] + float(iSlow36 * iTemp7));
+			fRec56[0] = fSlow37 + 0.9999f * (fRec56[1] + static_cast<float>(iSlow36 * iTemp7));
 			float fTemp76 = fRec56[0] + -1.49999f;
-			float fTemp77 = fVec7[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp76)))) & 16383];
+			float fTemp77 = fVec7[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp76)))) & 16383];
 			fVec8[0] = fTemp77;
 			float fTemp78 = std::floor(fTemp76);
-			fRec49[0] = fVec8[1] + (fTemp78 + (2.0f - fRec56[0])) * (fTemp77 - fRec49[1]) / (fRec56[0] - fTemp78);
+			fRec49[0] = fVec8[1] - (fTemp78 + (2.0f - fRec56[0])) * (fRec49[1] - fTemp77) / (fRec56[0] - fTemp78);
 			fRec47[0] = fRec49[0];
 			float fTemp79 = fConst3 * fTemp53 * (fRec51[0] + 1.0f);
 			float fTemp80 = fTemp79 + 8.500005f;
 			float fTemp81 = std::floor(fTemp80);
 			float fTemp82 = fTemp79 + (7.0f - fTemp81);
 			float fTemp83 = fTemp79 + (8.0f - fTemp81);
-			int iTemp84 = int(fTemp80);
+			int iTemp84 = static_cast<int>(fTemp80);
 			float fTemp85 = fTemp79 + (9.0f - fTemp81);
 			float fTemp86 = fTemp79 + (1e+01f - fTemp81);
 			float fTemp87 = fTemp86 * fTemp85;
@@ -1518,48 +1527,48 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp93 = fTemp14 * fTemp92 - fTemp23 * fRec39[1];
 			float fTemp94 = fTemp14 * fTemp93 - fTemp23 * fRec43[1];
 			fVec10[IOTA0 & 16383] = fTemp14 * fTemp94 - fTemp23 * fRec47[1];
-			fRec58[0] = fSlow39 + 0.9999f * (fRec58[1] + float(iSlow38 * iTemp7));
+			fRec58[0] = fSlow39 + 0.9999f * (fRec58[1] + static_cast<float>(iSlow38 * iTemp7));
 			float fTemp95 = fRec58[0] + -1.49999f;
-			float fTemp96 = fVec10[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp95)))) & 16383];
+			float fTemp96 = fVec10[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp95)))) & 16383];
 			fVec11[0] = fTemp96;
 			float fTemp97 = std::floor(fTemp95);
 			fRec57[0] = fVec11[1] - (fTemp97 + (2.0f - fRec58[0])) * (fRec57[1] - fTemp96) / (fRec58[0] - fTemp97);
 			fRec48[0] = fRec57[0];
 			fVec12[IOTA0 & 16383] = fTemp14 * fRec48[1] + fTemp23 * fTemp75;
-			float fTemp98 = fVec12[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp47)))) & 16383];
+			float fTemp98 = fVec12[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp47)))) & 16383];
 			fVec13[0] = fTemp98;
 			fRec45[0] = -(fRec45[1] * fTemp49 / fTemp50 + fTemp49 * fTemp98 / fTemp50 + fVec13[1]);
 			fRec43[0] = fRec45[0];
 			fVec14[IOTA0 & 16383] = fRec47[1] * fTemp14 + fTemp23 * fTemp94;
-			fRec60[0] = fSlow41 + 0.999f * (fRec60[1] + float(iSlow40 * iTemp7));
+			fRec60[0] = fSlow41 + 0.999f * (fRec60[1] + static_cast<float>(iSlow40 * iTemp7));
 			float fTemp99 = fRec60[0] + -1.49999f;
-			float fTemp100 = fVec14[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp99)))) & 16383];
+			float fTemp100 = fVec14[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp99)))) & 16383];
 			fVec15[0] = fTemp100;
 			float fTemp101 = std::floor(fTemp99);
 			fRec59[0] = fVec15[1] - (fTemp101 + (2.0f - fRec60[0])) * (fRec59[1] - fTemp100) / (fRec60[0] - fTemp101);
 			fRec44[0] = fRec59[0];
 			fVec16[IOTA0 & 16383] = fTemp14 * fRec44[1] + fTemp23 * fTemp74;
-			float fTemp102 = fVec16[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp43)))) & 16383];
+			float fTemp102 = fVec16[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp43)))) & 16383];
 			fVec17[0] = fTemp102;
 			fRec41[0] = -(fRec41[1] * fTemp45 / fTemp46 + fTemp45 * fTemp102 / fTemp46 + fVec17[1]);
 			fRec39[0] = fRec41[0];
 			fVec18[IOTA0 & 16383] = fRec43[1] * fTemp14 + fTemp23 * fTemp93;
-			fRec62[0] = fSlow43 + 0.999f * (fRec62[1] + float(iSlow42 * iTemp7));
+			fRec62[0] = fSlow43 + 0.999f * (fRec62[1] + static_cast<float>(iSlow42 * iTemp7));
 			float fTemp103 = fRec62[0] + -1.49999f;
-			float fTemp104 = fVec18[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp103)))) & 16383];
+			float fTemp104 = fVec18[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp103)))) & 16383];
 			fVec19[0] = fTemp104;
 			float fTemp105 = std::floor(fTemp103);
 			fRec61[0] = fVec19[1] - (fTemp105 + (2.0f - fRec62[0])) * (fRec61[1] - fTemp104) / (fRec62[0] - fTemp105);
 			fRec40[0] = fRec61[0];
 			fVec20[IOTA0 & 16383] = fTemp14 * fRec40[1] + fTemp23 * fTemp73;
-			float fTemp106 = fVec20[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp39)))) & 16383];
+			float fTemp106 = fVec20[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp39)))) & 16383];
 			fVec21[0] = fTemp106;
 			fRec37[0] = -(fRec37[1] * fTemp41 / fTemp42 + fTemp41 * fTemp106 / fTemp42 + fVec21[1]);
 			fRec35[0] = fRec37[0];
 			fVec22[IOTA0 & 16383] = fRec39[1] * fTemp14 + fTemp23 * fTemp92;
-			fRec64[0] = fSlow45 + 0.999f * (fRec64[1] + float(iSlow44 * iTemp7));
+			fRec64[0] = fSlow45 + 0.999f * (fRec64[1] + static_cast<float>(iSlow44 * iTemp7));
 			float fTemp107 = fRec64[0] + -1.49999f;
-			float fTemp108 = fVec22[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp107)))) & 16383];
+			float fTemp108 = fVec22[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp107)))) & 16383];
 			fVec23[0] = fTemp108;
 			float fTemp109 = std::floor(fTemp107);
 			fRec63[0] = fVec23[1] - (fTemp109 + (2.0f - fRec64[0])) * (fRec63[1] - fTemp108) / (fRec64[0] - fTemp109);
@@ -1569,60 +1578,60 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp112 = fTemp25 * fTemp111 - fTemp38 * fRec25[1];
 			float fTemp113 = fTemp25 * fTemp112 - fTemp38 * fRec29[1];
 			fVec24[IOTA0 & 16383] = fTemp38 * fRec33[1] - fTemp25 * fTemp113;
-			fRec65[0] = fSlow48 + 0.9999f * (fRec65[1] + float(iSlow47 * iTemp7));
+			fRec65[0] = fSlow48 + 0.9999f * (fRec65[1] + static_cast<float>(iSlow47 * iTemp7));
 			float fTemp114 = fRec65[0] + -1.49999f;
-			float fTemp115 = fVec24[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp114)))) & 16383];
+			float fTemp115 = fVec24[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp114)))) & 16383];
 			fVec25[0] = fTemp115;
 			float fTemp116 = std::floor(fTemp114);
-			fRec34[0] = fVec25[1] + (fTemp116 + (2.0f - fRec65[0])) * (fTemp115 - fRec34[1]) / (fRec65[0] - fTemp116);
+			fRec34[0] = fVec25[1] - (fTemp116 + (2.0f - fRec65[0])) * (fRec34[1] - fTemp115) / (fRec65[0] - fTemp116);
 			fRec32[0] = fRec34[0];
 			float fTemp117 = fRec35[1] * fTemp14 + fTemp23 * fTemp91;
 			float fTemp118 = fTemp117 * fTemp25 - fTemp38 * fRec20[1];
 			float fTemp119 = fTemp25 * fTemp118 - fTemp38 * fRec24[1];
 			float fTemp120 = fTemp25 * fTemp119 - fTemp38 * fRec28[1];
 			fVec26[IOTA0 & 16383] = fTemp25 * fTemp120 - fRec32[1] * fTemp38;
-			fRec67[0] = fSlow50 + 0.9999f * (fRec67[1] + float(iSlow49 * iTemp7));
+			fRec67[0] = fSlow50 + 0.9999f * (fRec67[1] + static_cast<float>(iSlow49 * iTemp7));
 			float fTemp121 = fRec67[0] + -1.49999f;
-			float fTemp122 = fVec26[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp121)))) & 16383];
+			float fTemp122 = fVec26[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp121)))) & 16383];
 			fVec27[0] = fTemp122;
 			float fTemp123 = std::floor(fTemp121);
 			fRec66[0] = fVec27[1] - (fTemp123 + (2.0f - fRec67[0])) * (fRec66[1] - fTemp122) / (fRec67[0] - fTemp123);
 			fRec33[0] = fRec66[0];
 			fVec28[IOTA0 & 16383] = fTemp25 * fRec33[1] + fTemp38 * fTemp113;
-			float fTemp124 = fVec28[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp34)))) & 16383];
+			float fTemp124 = fVec28[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp34)))) & 16383];
 			fVec29[0] = fTemp124;
 			fRec30[0] = -(fRec30[1] * fTemp36 / fTemp37 + fTemp36 * fTemp124 / fTemp37 + fVec29[1]);
 			fRec28[0] = fRec30[0];
 			fVec30[IOTA0 & 16383] = fRec32[1] * fTemp25 + fTemp38 * fTemp120;
-			fRec69[0] = fSlow52 + 0.999f * (fRec69[1] + float(iSlow51 * iTemp7));
+			fRec69[0] = fSlow52 + 0.999f * (fRec69[1] + static_cast<float>(iSlow51 * iTemp7));
 			float fTemp125 = fRec69[0] + -1.49999f;
-			float fTemp126 = fVec30[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp125)))) & 16383];
+			float fTemp126 = fVec30[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp125)))) & 16383];
 			fVec31[0] = fTemp126;
 			float fTemp127 = std::floor(fTemp125);
 			fRec68[0] = fVec31[1] - (fTemp127 + (2.0f - fRec69[0])) * (fRec68[1] - fTemp126) / (fRec69[0] - fTemp127);
 			fRec29[0] = fRec68[0];
 			fVec32[IOTA0 & 16383] = fTemp25 * fRec29[1] + fTemp38 * fTemp112;
-			float fTemp128 = fVec32[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp30)))) & 16383];
+			float fTemp128 = fVec32[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp30)))) & 16383];
 			fVec33[0] = fTemp128;
 			fRec26[0] = -(fRec26[1] * fTemp32 / fTemp33 + fTemp32 * fTemp128 / fTemp33 + fVec33[1]);
 			fRec24[0] = fRec26[0];
 			fVec34[IOTA0 & 16383] = fRec28[1] * fTemp25 + fTemp38 * fTemp119;
-			fRec71[0] = fSlow54 + 0.999f * (fRec71[1] + float(iSlow53 * iTemp7));
+			fRec71[0] = fSlow54 + 0.999f * (fRec71[1] + static_cast<float>(iSlow53 * iTemp7));
 			float fTemp129 = fRec71[0] + -1.49999f;
-			float fTemp130 = fVec34[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp129)))) & 16383];
+			float fTemp130 = fVec34[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp129)))) & 16383];
 			fVec35[0] = fTemp130;
 			float fTemp131 = std::floor(fTemp129);
 			fRec70[0] = fVec35[1] - (fTemp131 + (2.0f - fRec71[0])) * (fRec70[1] - fTemp130) / (fRec71[0] - fTemp131);
 			fRec25[0] = fRec70[0];
 			fVec36[IOTA0 & 16383] = fTemp25 * fRec25[1] + fTemp38 * fTemp111;
-			float fTemp132 = fVec36[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp26)))) & 16383];
+			float fTemp132 = fVec36[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp26)))) & 16383];
 			fVec37[0] = fTemp132;
 			fRec22[0] = -(fRec22[1] * fTemp28 / fTemp29 + fTemp28 * fTemp132 / fTemp29 + fVec37[1]);
 			fRec20[0] = fRec22[0];
 			fVec38[IOTA0 & 16383] = fRec24[1] * fTemp25 + fTemp38 * fTemp118;
-			fRec73[0] = fSlow56 + 0.999f * (fRec73[1] + float(iSlow55 * iTemp7));
+			fRec73[0] = fSlow56 + 0.999f * (fRec73[1] + static_cast<float>(iSlow55 * iTemp7));
 			float fTemp133 = fRec73[0] + -1.49999f;
-			float fTemp134 = fVec38[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp133)))) & 16383];
+			float fTemp134 = fVec38[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp133)))) & 16383];
 			fVec39[0] = fTemp134;
 			float fTemp135 = std::floor(fTemp133);
 			fRec72[0] = fVec39[1] - (fTemp135 + (2.0f - fRec73[0])) * (fRec72[1] - fTemp134) / (fRec73[0] - fTemp135);
@@ -1632,9 +1641,9 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp138 = fTemp14 * fTemp137 - fTemp23 * fRec10[1];
 			float fTemp139 = fTemp14 * fTemp138 - fTemp23 * fRec14[1];
 			fVec40[IOTA0 & 16383] = fTemp23 * fRec18[1] - fTemp14 * fTemp139;
-			fRec74[0] = fSlow59 + 0.9999f * (fRec74[1] + float(iSlow58 * iTemp7));
+			fRec74[0] = fSlow59 + 0.9999f * (fRec74[1] + static_cast<float>(iSlow58 * iTemp7));
 			float fTemp140 = fRec74[0] + -1.49999f;
-			float fTemp141 = fVec40[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp140)))) & 16383];
+			float fTemp141 = fVec40[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp140)))) & 16383];
 			fVec41[0] = fTemp141;
 			float fTemp142 = std::floor(fTemp140);
 			fRec19[0] = fVec41[1] - (fTemp142 + (2.0f - fRec74[0])) * (fRec19[1] - fTemp141) / (fRec74[0] - fTemp142);
@@ -1644,48 +1653,48 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp145 = fTemp14 * fTemp144 - fTemp23 * fRec9[1];
 			float fTemp146 = fTemp14 * fTemp145 - fTemp23 * fRec13[1];
 			fVec42[IOTA0 & 16383] = fTemp14 * fTemp146 - fRec17[1] * fTemp23;
-			fRec76[0] = fSlow61 + 0.9999f * (fRec76[1] + float(iSlow60 * iTemp7));
+			fRec76[0] = fSlow61 + 0.9999f * (fRec76[1] + static_cast<float>(iSlow60 * iTemp7));
 			float fTemp147 = fRec76[0] + -1.49999f;
-			float fTemp148 = fVec42[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp147)))) & 16383];
+			float fTemp148 = fVec42[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp147)))) & 16383];
 			fVec43[0] = fTemp148;
 			float fTemp149 = std::floor(fTemp147);
 			fRec75[0] = fVec43[1] - (fTemp149 + (2.0f - fRec76[0])) * (fRec75[1] - fTemp148) / (fRec76[0] - fTemp149);
 			fRec18[0] = fRec75[0];
 			fVec44[IOTA0 & 16383] = fTemp14 * fRec18[1] + fTemp23 * fTemp139;
-			float fTemp150 = fVec44[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp19)))) & 16383];
+			float fTemp150 = fVec44[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp19)))) & 16383];
 			fVec45[0] = fTemp150;
 			fRec15[0] = -(fRec15[1] * fTemp21 / fTemp22 + fTemp21 * fTemp150 / fTemp22 + fVec45[1]);
 			fRec13[0] = fRec15[0];
 			fVec46[IOTA0 & 16383] = fRec17[1] * fTemp14 + fTemp23 * fTemp146;
-			fRec78[0] = fSlow63 + 0.999f * (fRec78[1] + float(iSlow62 * iTemp7));
+			fRec78[0] = fSlow63 + 0.999f * (fRec78[1] + static_cast<float>(iSlow62 * iTemp7));
 			float fTemp151 = fRec78[0] + -1.49999f;
-			float fTemp152 = fVec46[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp151)))) & 16383];
+			float fTemp152 = fVec46[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp151)))) & 16383];
 			fVec47[0] = fTemp152;
 			float fTemp153 = std::floor(fTemp151);
 			fRec77[0] = fVec47[1] - (fTemp153 + (2.0f - fRec78[0])) * (fRec77[1] - fTemp152) / (fRec78[0] - fTemp153);
 			fRec14[0] = fRec77[0];
 			fVec48[IOTA0 & 16383] = fTemp14 * fRec14[1] + fTemp23 * fTemp138;
-			float fTemp154 = fVec48[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp15)))) & 16383];
+			float fTemp154 = fVec48[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp15)))) & 16383];
 			fVec49[0] = fTemp154;
 			fRec11[0] = -(fRec11[1] * fTemp17 / fTemp18 + fTemp17 * fTemp154 / fTemp18 + fVec49[1]);
 			fRec9[0] = fRec11[0];
 			fVec50[IOTA0 & 16383] = fRec13[1] * fTemp14 + fTemp23 * fTemp145;
-			fRec80[0] = fSlow65 + 0.999f * (fRec80[1] + float(iSlow64 * iTemp7));
+			fRec80[0] = fSlow65 + 0.999f * (fRec80[1] + static_cast<float>(iSlow64 * iTemp7));
 			float fTemp155 = fRec80[0] + -1.49999f;
-			float fTemp156 = fVec50[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp155)))) & 16383];
+			float fTemp156 = fVec50[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp155)))) & 16383];
 			fVec51[0] = fTemp156;
 			float fTemp157 = std::floor(fTemp155);
 			fRec79[0] = fVec51[1] - (fTemp157 + (2.0f - fRec80[0])) * (fRec79[1] - fTemp156) / (fRec80[0] - fTemp157);
 			fRec10[0] = fRec79[0];
 			fVec52[IOTA0 & 16383] = fTemp14 * fRec10[1] + fTemp23 * fTemp137;
-			float fTemp158 = fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp8)))) & 16383];
+			float fTemp158 = fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp8)))) & 16383];
 			fVec53[0] = fTemp158;
 			fRec7[0] = -(fRec7[1] * fTemp10 / fTemp11 + fTemp10 * fTemp158 / fTemp11 + fVec53[1]);
 			fRec5[0] = fRec7[0];
 			fVec54[IOTA0 & 16383] = fRec9[1] * fTemp14 + fTemp23 * fTemp144;
-			fRec82[0] = fSlow67 + 0.999f * (fRec82[1] + float(iSlow66 * iTemp7));
+			fRec82[0] = fSlow67 + 0.999f * (fRec82[1] + static_cast<float>(iSlow66 * iTemp7));
 			float fTemp159 = fRec82[0] + -1.49999f;
-			float fTemp160 = fVec54[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp159)))) & 16383];
+			float fTemp160 = fVec54[(IOTA0 - std::min<int>(8192, std::max<int>(0, static_cast<int>(fTemp159)))) & 16383];
 			fVec55[0] = fTemp160;
 			float fTemp161 = std::floor(fTemp159);
 			fRec81[0] = fVec55[1] - (fTemp161 + (2.0f - fRec82[0])) * (fRec81[1] - fTemp160) / (fRec82[0] - fTemp161);
@@ -1694,8 +1703,8 @@ class fx_greyhole : public fx_greyhole_dsp {
 			fRec2[IOTA0 & 1023] = fRec4[0];
 			fRec83[0] = fTemp6 * (fTemp14 * fRec6[1] + fTemp23 * fTemp136) + 0.5f * fTemp5 * fRec83[1];
 			fRec3[IOTA0 & 1023] = fRec83[0];
-			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0] + fTemp3 * (fTemp0 * fTemp4 + fRec1[0] * fRec2[IOTA0 & 1023]));
-			output1[i0] = FAUSTFLOAT(fTemp51 * fRec0[0] + fTemp3 * (fTemp51 * fTemp4 + fRec1[0] * fRec3[IOTA0 & 1023]));
+			output0[i0] = static_cast<FAUSTFLOAT>(fTemp0 * fRec0[0] + fTemp3 * (fTemp0 * fTemp4 + fRec1[0] * fRec2[IOTA0 & 1023]));
+			output1[i0] = static_cast<FAUSTFLOAT>(fTemp51 * fRec0[0] + fTemp3 * (fTemp51 * fTemp4 + fRec1[0] * fRec3[IOTA0 & 1023]));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
