@@ -1,8 +1,8 @@
 {
 	"name": "synth.kick",
 	"filename": "synth_kick.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/oscillators.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/noises.lib","/Users/serge/.local/faust/share/faust/basics.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 348,
@@ -10,13 +10,12 @@
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_kick -scn synth_kick_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "filename": "synth_kick.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -47,17 +46,17 @@
 		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "synth.kick" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "1.4.1" },
+		{ "noises.lib/version": "1.5.0" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "1.5.1" },
+		{ "oscillators.lib/version": "1.7.0" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" }
 	],
@@ -69,6 +68,7 @@
 				{
 					"type": "vslider",
 					"label": "attack",
+					"varname": "fVslider0",
 					"shortname": "attack",
 					"address": "/synth.kick/attack",
 					"meta": [
@@ -82,6 +82,7 @@
 				{
 					"type": "vslider",
 					"label": "freq",
+					"varname": "fVslider2",
 					"shortname": "freq",
 					"address": "/synth.kick/freq",
 					"meta": [
@@ -95,6 +96,7 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
+					"varname": "fCheckbox0",
 					"shortname": "gate",
 					"address": "/synth.kick/gate",
 					"meta": [
@@ -106,6 +108,7 @@
 				{
 					"type": "vslider",
 					"label": "release",
+					"varname": "fVslider1",
 					"shortname": "release",
 					"address": "/synth.kick/release",
 					"meta": [

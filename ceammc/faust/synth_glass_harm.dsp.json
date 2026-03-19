@@ -1,28 +1,27 @@
 {
 	"name": "synth.glass_harm",
 	"filename": "synth_glass_harm.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/envelopes.lib","/Users/serge/.local/faust/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/Users/serge/.local/faust/share/faust/reverbs.lib","/Users/serge/.local/faust/share/faust/routes.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
-	"size": 959484,
+	"size": 943100,
 	"inputs": 0,
 	"outputs": 2,
 	"meta": [ 
 		{ "author": "Romain Michon" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
+		{ "basics.lib/version": "1.22.0" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.4" },
 		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
 		{ "ceammc_instruments.lib/version": "0.3" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_glass_harm -scn synth_glass_harm_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "copyright": "Romain Michon (rmichon@ccrma.stanford.edu)" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "1.1.0" },
+		{ "delays.lib/version": "1.2.0" },
 		{ "description": "Nonlinear Banded Waveguide Modeled Glass Harmonica" },
 		{ "envelopes.lib/adsr:author": "Yann Orlarey and Andrey Bundin" },
 		{ "envelopes.lib/author": "GRAME" },
@@ -37,7 +36,7 @@
 		{ "filters.lib/allpassnn:author": "Julius O. Smith III" },
 		{ "filters.lib/allpassnn:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpassnn:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -49,7 +48,7 @@
 		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "instruments.lib/author": "Romain Michon (rmichon@ccrma.stanford.edu)" },
 		{ "instruments.lib/copyright": "Romain Michon" },
 		{ "instruments.lib/licence": "STK-4.3" },
@@ -60,19 +59,19 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "synth.glass_harm" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "1.5.1" },
+		{ "oscillators.lib/version": "1.7.0" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
 		{ "reverbs.lib/name": "Faust Reverb Library" },
-		{ "reverbs.lib/version": "1.3.0" },
+		{ "reverbs.lib/version": "1.5.1" },
 		{ "routes.lib/hadamard:author": "Remy Muller, revised by Romain Michon" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
-		{ "routes.lib/version": "1.2.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" },
+		{ "routes.lib/version": "1.3.0" },
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
 		{ "spn.lib/version": "0.2" },
 		{ "version": "1.0" }
@@ -85,6 +84,7 @@
 				{
 					"type": "hslider",
 					"label": "bow_press",
+					"varname": "fHslider5",
 					"shortname": "bow_press",
 					"address": "/synth.glass_harm/bow_press",
 					"meta": [
@@ -98,6 +98,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
+					"varname": "fHslider3",
 					"shortname": "gain",
 					"address": "/synth.glass_harm/gain",
 					"meta": [
@@ -111,6 +112,7 @@
 				{
 					"type": "checkbox",
 					"label": "gate",
+					"varname": "fCheckbox0",
 					"shortname": "gate",
 					"address": "/synth.glass_harm/gate",
 					"meta": [
@@ -122,6 +124,7 @@
 				{
 					"type": "hslider",
 					"label": "integration",
+					"varname": "fHslider4",
 					"shortname": "integration",
 					"address": "/synth.glass_harm/integration",
 					"meta": [
@@ -135,6 +138,7 @@
 				{
 					"type": "hslider",
 					"label": "modfreq",
+					"varname": "fHslider8",
 					"shortname": "modfreq",
 					"address": "/synth.glass_harm/modfreq",
 					"meta": [
@@ -149,6 +153,7 @@
 				{
 					"type": "nentry",
 					"label": "modtype",
+					"varname": "fEntry0",
 					"shortname": "modtype",
 					"address": "/synth.glass_harm/modtype",
 					"meta": [
@@ -163,6 +168,7 @@
 				{
 					"type": "hslider",
 					"label": "nonlin",
+					"varname": "fHslider7",
 					"shortname": "nonlin",
 					"address": "/synth.glass_harm/nonlin",
 					"meta": [
@@ -176,6 +182,7 @@
 				{
 					"type": "hslider",
 					"label": "pan",
+					"varname": "fHslider1",
 					"shortname": "pan",
 					"address": "/synth.glass_harm/pan",
 					"init": 0.6,
@@ -186,6 +193,7 @@
 				{
 					"type": "hslider",
 					"label": "pitch",
+					"varname": "fHslider6",
 					"shortname": "pitch",
 					"address": "/synth.glass_harm/pitch",
 					"init": 48,
@@ -196,6 +204,7 @@
 				{
 					"type": "hslider",
 					"label": "reverb_gain",
+					"varname": "fHslider2",
 					"shortname": "reverb_gain",
 					"address": "/synth.glass_harm/reverb_gain",
 					"init": 0.137,
@@ -206,6 +215,7 @@
 				{
 					"type": "hslider",
 					"label": "room_size",
+					"varname": "fHslider0",
 					"shortname": "room_size",
 					"address": "/synth.glass_harm/room_size",
 					"init": 0.36,
@@ -216,6 +226,7 @@
 				{
 					"type": "nentry",
 					"label": "strike",
+					"varname": "fEntry1",
 					"shortname": "strike",
 					"address": "/synth.glass_harm/strike",
 					"meta": [
@@ -230,6 +241,7 @@
 				{
 					"type": "hslider",
 					"label": "width",
+					"varname": "fHslider9",
 					"shortname": "width",
 					"address": "/synth.glass_harm/width",
 					"init": 0.5,

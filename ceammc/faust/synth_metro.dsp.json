@@ -1,8 +1,8 @@
 {
 	"name": "synth.metro",
 	"filename": "synth_metro.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/compressors.lib","/Users/serge/.local/faust/share/faust/analyzers.lib","/Users/serge/.local/faust/share/faust/signals.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 192,
@@ -11,11 +11,10 @@
 	"meta": [ 
 		{ "analyzers.lib/amp_follower_ar:author": "Jonatan Liljedahl, revised by Romain Michon" },
 		{ "analyzers.lib/name": "Faust Analyzer Library" },
-		{ "analyzers.lib/version": "1.2.0" },
+		{ "analyzers.lib/version": "1.3.0" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "basics.lib/version": "1.22.0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "compressors.lib/compression_gain_mono:author": "Julius O. Smith III" },
 		{ "compressors.lib/compression_gain_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compression_gain_mono:license": "MIT-style STK-4.3 license" },
@@ -37,7 +36,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/resonlp:author": "Julius O. Smith III" },
 		{ "filters.lib/resonlp:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -48,19 +47,19 @@
 		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "synth.metro" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/name": "Faust Routing Library" },
 		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
 		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
-		{ "signals.lib/version": "1.5.0" }
+		{ "signals.lib/version": "1.6.0" }
 	],
 	"ui": [ 
 		{
@@ -70,6 +69,7 @@
 				{
 					"type": "button",
 					"label": ".down",
+					"varname": "fButton0",
 					"shortname": "_down",
 					"address": "/synth.metro/.down",
 					"meta": [
@@ -79,6 +79,7 @@
 				{
 					"type": "button",
 					"label": ".mark",
+					"varname": "fButton3",
 					"shortname": "_mark",
 					"address": "/synth.metro/.mark",
 					"meta": [
@@ -88,6 +89,7 @@
 				{
 					"type": "button",
 					"label": ".off",
+					"varname": "fButton2",
 					"shortname": "_off",
 					"address": "/synth.metro/.off",
 					"meta": [
@@ -97,6 +99,7 @@
 				{
 					"type": "button",
 					"label": ".on",
+					"varname": "fButton1",
 					"shortname": "_on",
 					"address": "/synth.metro/.on",
 					"meta": [
@@ -106,6 +109,7 @@
 				{
 					"type": "hslider",
 					"label": "down.freq",
+					"varname": "fHslider3",
 					"shortname": "down_freq",
 					"address": "/synth.metro/down.freq",
 					"meta": [
@@ -119,6 +123,7 @@
 				{
 					"type": "hslider",
 					"label": "down.gain",
+					"varname": "fHslider1",
 					"shortname": "down_gain",
 					"address": "/synth.metro/down.gain",
 					"meta": [
@@ -132,6 +137,7 @@
 				{
 					"type": "hslider",
 					"label": "down.reson",
+					"varname": "fHslider2",
 					"shortname": "down_reson",
 					"address": "/synth.metro/down.reson",
 					"init": 50,
@@ -142,6 +148,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
+					"varname": "fHslider0",
 					"shortname": "gain",
 					"address": "/synth.metro/gain",
 					"meta": [
@@ -155,6 +162,7 @@
 				{
 					"type": "hslider",
 					"label": "mark.freq",
+					"varname": "fHslider12",
 					"shortname": "mark_freq",
 					"address": "/synth.metro/mark.freq",
 					"meta": [
@@ -168,6 +176,7 @@
 				{
 					"type": "hslider",
 					"label": "mark.gain",
+					"varname": "fHslider10",
 					"shortname": "mark_gain",
 					"address": "/synth.metro/mark.gain",
 					"meta": [
@@ -181,6 +190,7 @@
 				{
 					"type": "hslider",
 					"label": "mark.reson",
+					"varname": "fHslider11",
 					"shortname": "mark_reson",
 					"address": "/synth.metro/mark.reson",
 					"init": 500,
@@ -191,6 +201,7 @@
 				{
 					"type": "hslider",
 					"label": "off.freq",
+					"varname": "fHslider9",
 					"shortname": "off_freq",
 					"address": "/synth.metro/off.freq",
 					"meta": [
@@ -204,6 +215,7 @@
 				{
 					"type": "hslider",
 					"label": "off.gain",
+					"varname": "fHslider7",
 					"shortname": "off_gain",
 					"address": "/synth.metro/off.gain",
 					"meta": [
@@ -217,6 +229,7 @@
 				{
 					"type": "hslider",
 					"label": "off.reson",
+					"varname": "fHslider8",
 					"shortname": "off_reson",
 					"address": "/synth.metro/off.reson",
 					"init": 10,
@@ -227,6 +240,7 @@
 				{
 					"type": "hslider",
 					"label": "on.freq",
+					"varname": "fHslider6",
 					"shortname": "on_freq",
 					"address": "/synth.metro/on.freq",
 					"meta": [
@@ -240,6 +254,7 @@
 				{
 					"type": "hslider",
 					"label": "on.gain",
+					"varname": "fHslider4",
 					"shortname": "on_gain",
 					"address": "/synth.metro/on.gain",
 					"meta": [
@@ -253,6 +268,7 @@
 				{
 					"type": "hslider",
 					"label": "on.reson",
+					"varname": "fHslider5",
 					"shortname": "on_reson",
 					"address": "/synth.metro/on.reson",
 					"init": 30,

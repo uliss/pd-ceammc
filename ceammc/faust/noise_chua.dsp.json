@@ -1,8 +1,8 @@
 {
 	"name": "noise.chua",
 	"filename": "noise_chua.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/wdmodels.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/signals.lib","/Users/serge/.local/faust/share/faust/basics.lib","/Users/serge/.local/faust/share/faust/filters.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 332,
@@ -10,9 +10,8 @@
 	"outputs": 2,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0" },
+		{ "basics.lib/version": "1.22.0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn noise_chua -scn noise_chua_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -double -ftz 0" },
 		{ "filename": "noise_chua.dsp" },
 		{ "filters.lib/dcblocker:author": "Julius O. Smith III" },
 		{ "filters.lib/dcblocker:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -22,7 +21,7 @@
 		{ "filters.lib/pole:author": "Julius O. Smith III" },
 		{ "filters.lib/pole:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/pole:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "filters.lib/zero:author": "Julius O. Smith III" },
 		{ "filters.lib/zero:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/zero:license": "MIT-style STK-4.3 license" },
@@ -30,12 +29,12 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "noise.chua" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" },
-		{ "signals.lib/name": "Faust Signal Routing Library" },
-		{ "signals.lib/version": "1.5.0" },
+		{ "signals.lib/name": "Faust Routing Library" },
+		{ "signals.lib/version": "1.6.0" },
 		{ "wdmodels.lib/builddown:author": "Dirk Roosenburg" },
 		{ "wdmodels.lib/builddown:copyright": "Copyright (C) 2020 by Dirk Roosenburg <dirk.roosenburg.30@gmail.com>" },
 		{ "wdmodels.lib/builddown:license": "MIT-style STK-4.3 license" },
@@ -73,7 +72,7 @@
 		{ "wdmodels.lib/u_chua:author": "Dirk Roosenburg" },
 		{ "wdmodels.lib/u_chua:copyright": "Copyright (C) 2020 by Dirk Roosenburg <dirk.roosenburg.30@gmail.com>" },
 		{ "wdmodels.lib/u_chua:license": "MIT-style STK-4.3 license" },
-		{ "wdmodels.lib/version": "1.2.1" }
+		{ "wdmodels.lib/version": "1.4.0" }
 	],
 	"ui": [ 
 		{
@@ -83,6 +82,7 @@
 				{
 					"type": "hslider",
 					"label": "C1",
+					"varname": "fHslider0",
 					"shortname": "C1",
 					"address": "/noise.chua/C1",
 					"init": 5.5,
@@ -93,6 +93,7 @@
 				{
 					"type": "hslider",
 					"label": "C2",
+					"varname": "fHslider3",
 					"shortname": "C2",
 					"address": "/noise.chua/C2",
 					"init": 49.5,
@@ -103,6 +104,7 @@
 				{
 					"type": "hslider",
 					"label": "L",
+					"varname": "fHslider2",
 					"shortname": "L",
 					"address": "/noise.chua/L",
 					"init": 7.07,
@@ -113,6 +115,7 @@
 				{
 					"type": "hslider",
 					"label": "R",
+					"varname": "fHslider1",
 					"shortname": "R",
 					"address": "/noise.chua/R",
 					"init": 1.6,
@@ -123,6 +126,7 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"varname": "fButton0",
 					"shortname": "gate",
 					"address": "/noise.chua/gate"
 				}

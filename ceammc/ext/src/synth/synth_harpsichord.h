@@ -3,8 +3,8 @@ author: "Romain Michon (rmichon@ccrma.stanford.edu)"
 copyright: "Romain Michon"
 name: "synth.harpsichord"
 version: "1.0"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_harpsichord -scn synth_harpsichord_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_harpsichord -scn synth_harpsichord_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_harpsichord_H__
@@ -12,6 +12,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -76,12 +77,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -123,22 +124,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -167,8 +173,8 @@ class FAUST_API synth_harpsichord_dsp {
 
     public:
 
-        synth_harpsichord_dsp() {}
-        virtual ~synth_harpsichord_dsp() {}
+        synth_harpsichord_dsp() = default;
+        virtual ~synth_harpsichord_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -197,14 +203,14 @@ class FAUST_API synth_harpsichord_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -221,17 +227,18 @@ class FAUST_API synth_harpsichord_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual synth_harpsichord_dsp* clone() = 0;
+        virtual ::synth_harpsichord_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -282,33 +289,33 @@ class FAUST_API synth_harpsichord_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public synth_harpsichord_dsp {
+class FAUST_API decorator_dsp : public ::synth_harpsichord_dsp {
 
     protected:
 
-        synth_harpsichord_dsp* fDSP;
+        ::synth_harpsichord_dsp* fDSP;
 
     public:
 
-        decorator_dsp(synth_harpsichord_dsp* synth_harpsichord_dsp = nullptr):fDSP(synth_harpsichord_dsp) {}
+        decorator_dsp(::synth_harpsichord_dsp* synth_harpsichord_dsp = nullptr):fDSP(synth_harpsichord_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -322,7 +329,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -346,9 +353,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual synth_harpsichord_dsp* createDSPInstance() = 0;
+        virtual ::synth_harpsichord_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -453,10 +463,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -509,15 +520,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -525,14 +540,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -548,21 +567,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -622,6 +627,7 @@ class synth_harpsichordSIG0 {
 	
 	int iVec2[2];
 	int iRec17[2];
+	int fSampleRate;
 	
   public:
 	
@@ -633,6 +639,7 @@ class synth_harpsichordSIG0 {
 	}
 	
 	void instanceInitsynth_harpsichordSIG0(int sample_rate) {
+		fSampleRate = sample_rate;
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
 			iVec2[l7] = 0;
 		}
@@ -645,7 +652,7 @@ class synth_harpsichordSIG0 {
 		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
 			iVec2[0] = 1;
 			iRec17[0] = (iVec2[1] + iRec17[1]) % 65536;
-			table[i1] = std::sin(9.58738e-05f * float(iRec17[0]));
+			table[i1] = std::sin(9.58738e-05f * static_cast<float>(iRec17[0]));
 			iVec2[1] = iVec2[0];
 			iRec17[1] = iRec17[0];
 		}
@@ -754,7 +761,6 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst34;
 	int iConst35;
 	float fVec9[4096];
-	float fVec10[2048];
 	int iConst36;
 	float fRec42[2];
 	float fConst37;
@@ -763,10 +769,10 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst40;
 	float fRec49[2];
 	float fRec48[2];
-	float fVec11[16384];
+	float fVec10[32768];
 	float fConst41;
 	int iConst42;
-	float fVec12[4096];
+	float fVec11[4096];
 	int iConst43;
 	float fRec46[2];
 	float fConst44;
@@ -775,10 +781,11 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst47;
 	float fRec53[2];
 	float fRec52[2];
-	float fVec13[32768];
+	float fVec12[16384];
 	float fConst48;
 	int iConst49;
-	float fVec14[4096];
+	float fVec13[4096];
+	float fVec14[2048];
 	int iConst50;
 	float fRec50[2];
 	float fConst51;
@@ -790,7 +797,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fVec15[16384];
 	float fConst55;
 	int iConst56;
-	float fVec16[2048];
+	float fVec16[4096];
 	int iConst57;
 	float fRec54[2];
 	float fConst58;
@@ -814,7 +821,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fVec19[16384];
 	float fConst69;
 	int iConst70;
-	float fVec20[4096];
+	float fVec20[2048];
 	int iConst71;
 	float fRec62[2];
 	float fRec0[3];
@@ -830,21 +837,26 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	synth_harpsichord() {
 	}
 	
+	synth_harpsichord(const synth_harpsichord&) = default;
+	
+	virtual ~synth_harpsichord() = default;
+	
+	synth_harpsichord& operator=(const synth_harpsichord&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("analyzers.lib/amp_follower_ar:author", "Jonatan Liljedahl, revised by Romain Michon");
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
-		m->declare("analyzers.lib/version", "1.2.0");
+		m->declare("analyzers.lib/version", "1.3.0");
 		m->declare("author", "Romain Michon (rmichon@ccrma.stanford.edu)");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
+		m->declare("basics.lib/version", "1.22.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_instruments.lib/name", "CEAMMC replacement for intruments.lib");
 		m->declare("ceammc_instruments.lib/version", "0.3");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_harpsichord -scn synth_harpsichord_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_harpsichord -scn synth_harpsichord_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
@@ -858,7 +870,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		m->declare("compressors.lib/version", "1.6.0");
 		m->declare("copyright", "Romain Michon");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "1.1.0");
+		m->declare("delays.lib/version", "1.2.0");
 		m->declare("description", "Nonlinear WaveGuide Commuted Harpsichord");
 		m->declare("filename", "synth_harpsichord.dsp");
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
@@ -867,7 +879,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		m->declare("filters.lib/allpassnn:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpassnn:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpassnn:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -879,7 +891,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		m->declare("filters.lib/tf1s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1s:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("instruments.lib/author", "Romain Michon (rmichon@ccrma.stanford.edu)");
 		m->declare("instruments.lib/copyright", "Romain Michon");
 		m->declare("instruments.lib/licence", "STK-4.3");
@@ -890,23 +902,23 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "synth.harpsichord");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "1.4.1");
+		m->declare("noises.lib/version", "1.5.0");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "1.5.1");
+		m->declare("oscillators.lib/version", "1.7.0");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
 		m->declare("reverbs.lib/name", "Faust Reverb Library");
-		m->declare("reverbs.lib/version", "1.3.0");
+		m->declare("reverbs.lib/version", "1.5.1");
 		m->declare("routes.lib/hadamard:author", "Remy Muller, revised by Romain Michon");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "1.2.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("routes.lib/version", "1.3.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/version", "1.6.0");
 		m->declare("spn.lib/name", "Standart Pitch Notation constants");
 		m->declare("spn.lib/version", "0.2");
 		m->declare("version", "1.0");
@@ -928,7 +940,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = std::floor(0.219991f * fConst0 + 0.5f);
 		fConst2 = fConst1 / fConst0;
 		fConst3 = 1.7269388f * fConst2;
@@ -938,7 +950,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fConst7 = 1.0f / (fConst6 + 1.0f);
 		fConst8 = 1.0f - fConst6;
 		fConst9 = std::floor(0.019123f * fConst0 + 0.5f);
-		iConst10 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst1 - fConst9)));
+		iConst10 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst1 - fConst9)));
 		fConst11 = 44.1f / fConst0;
 		fConst12 = 1.0f - fConst11;
 		fConst13 = 1.0f / fConst0;
@@ -949,69 +961,69 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fConst18 = std::exp(-(0.02f / fConst0));
 		fConst19 = std::exp(-(0.1f / fConst0));
 		fConst20 = 0.0011363636f * fConst0;
-		iConst21 = int(std::min<float>(8192.0f, std::max<float>(0.0f, 0.02f * fConst0)));
-		iConst22 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst9 + -1.0f)));
+		iConst21 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, 0.02f * fConst0)));
+		iConst22 = static_cast<int>(std::min<float>(1024.0f, std::max<float>(0.0f, fConst9 + -1.0f)));
 		fConst23 = std::floor(0.256891f * fConst0 + 0.5f);
 		fConst24 = fConst23 / fConst0;
 		fConst25 = 1.7269388f * fConst24;
 		fConst26 = 1.1512926f * fConst24;
 		fConst27 = std::floor(0.027333f * fConst0 + 0.5f);
-		iConst28 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst23 - fConst27)));
-		iConst29 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst27 + -1.0f)));
-		fConst30 = std::floor(0.153129f * fConst0 + 0.5f);
+		iConst28 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst23 - fConst27)));
+		iConst29 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst27 + -1.0f)));
+		fConst30 = std::floor(0.192303f * fConst0 + 0.5f);
 		fConst31 = fConst30 / fConst0;
 		fConst32 = 1.7269388f * fConst31;
 		fConst33 = 1.1512926f * fConst31;
-		fConst34 = std::floor(0.020346f * fConst0 + 0.5f);
-		iConst35 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst30 - fConst34)));
-		iConst36 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst34 + -1.0f)));
-		fConst37 = std::floor(0.192303f * fConst0 + 0.5f);
+		fConst34 = std::floor(0.029291f * fConst0 + 0.5f);
+		iConst35 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst30 - fConst34)));
+		iConst36 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst34 + -1.0f)));
+		fConst37 = std::floor(0.210389f * fConst0 + 0.5f);
 		fConst38 = fConst37 / fConst0;
 		fConst39 = 1.7269388f * fConst38;
 		fConst40 = 1.1512926f * fConst38;
-		fConst41 = std::floor(0.029291f * fConst0 + 0.5f);
-		iConst42 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst37 - fConst41)));
-		iConst43 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst41 + -1.0f)));
-		fConst44 = std::floor(0.210389f * fConst0 + 0.5f);
+		fConst41 = std::floor(0.024421f * fConst0 + 0.5f);
+		iConst42 = static_cast<int>(std::min<float>(16384.0f, std::max<float>(0.0f, fConst37 - fConst41)));
+		iConst43 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst41 + -1.0f)));
+		fConst44 = std::floor(0.125f * fConst0 + 0.5f);
 		fConst45 = fConst44 / fConst0;
 		fConst46 = 1.7269388f * fConst45;
 		fConst47 = 1.1512926f * fConst45;
-		fConst48 = std::floor(0.024421f * fConst0 + 0.5f);
-		iConst49 = int(std::min<float>(16384.0f, std::max<float>(0.0f, fConst44 - fConst48)));
-		iConst50 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst48 + -1.0f)));
-		fConst51 = std::floor(0.125f * fConst0 + 0.5f);
+		fConst48 = std::floor(0.013458f * fConst0 + 0.5f);
+		iConst49 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst44 - fConst48)));
+		iConst50 = static_cast<int>(std::min<float>(1024.0f, std::max<float>(0.0f, fConst48 + -1.0f)));
+		fConst51 = std::floor(0.127837f * fConst0 + 0.5f);
 		fConst52 = fConst51 / fConst0;
 		fConst53 = 1.7269388f * fConst52;
 		fConst54 = 1.1512926f * fConst52;
-		fConst55 = std::floor(0.013458f * fConst0 + 0.5f);
-		iConst56 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst51 - fConst55)));
-		iConst57 = int(std::min<float>(1024.0f, std::max<float>(0.0f, fConst55 + -1.0f)));
-		fConst58 = std::floor(0.127837f * fConst0 + 0.5f);
+		fConst55 = std::floor(0.031604f * fConst0 + 0.5f);
+		iConst56 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst51 - fConst55)));
+		iConst57 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst55 + -1.0f)));
+		fConst58 = std::floor(0.174713f * fConst0 + 0.5f);
 		fConst59 = fConst58 / fConst0;
 		fConst60 = 1.7269388f * fConst59;
 		fConst61 = 1.1512926f * fConst59;
-		fConst62 = std::floor(0.031604f * fConst0 + 0.5f);
-		iConst63 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst58 - fConst62)));
-		iConst64 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst62 + -1.0f)));
-		fConst65 = std::floor(0.174713f * fConst0 + 0.5f);
+		fConst62 = std::floor(0.022904f * fConst0 + 0.5f);
+		iConst63 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst58 - fConst62)));
+		iConst64 = static_cast<int>(std::min<float>(2048.0f, std::max<float>(0.0f, fConst62 + -1.0f)));
+		fConst65 = std::floor(0.153129f * fConst0 + 0.5f);
 		fConst66 = fConst65 / fConst0;
 		fConst67 = 1.7269388f * fConst66;
 		fConst68 = 1.1512926f * fConst66;
-		fConst69 = std::floor(0.022904f * fConst0 + 0.5f);
-		iConst70 = int(std::min<float>(8192.0f, std::max<float>(0.0f, fConst65 - fConst69)));
-		iConst71 = int(std::min<float>(2048.0f, std::max<float>(0.0f, fConst69 + -1.0f)));
+		fConst69 = std::floor(0.020346f * fConst0 + 0.5f);
+		iConst70 = static_cast<int>(std::min<float>(8192.0f, std::max<float>(0.0f, fConst65 - fConst69)));
+		iConst71 = static_cast<int>(std::min<float>(1024.0f, std::max<float>(0.0f, fConst69 + -1.0f)));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.36f);
-		fHslider1 = FAUSTFLOAT(0.6f);
-		fHslider2 = FAUSTFLOAT(0.137f);
-		fHslider3 = FAUSTFLOAT(48.0f);
-		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fEntry0 = FAUSTFLOAT(0.0f);
-		fHslider4 = FAUSTFLOAT(0.0f);
-		fHslider5 = FAUSTFLOAT(2.2e+02f);
-		fHslider6 = FAUSTFLOAT(0.5f);
+		fHslider0 = static_cast<FAUSTFLOAT>(0.36f);
+		fHslider1 = static_cast<FAUSTFLOAT>(0.6f);
+		fHslider2 = static_cast<FAUSTFLOAT>(0.137f);
+		fHslider3 = static_cast<FAUSTFLOAT>(48.0f);
+		fCheckbox0 = static_cast<FAUSTFLOAT>(0.0f);
+		fEntry0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider4 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider5 = static_cast<FAUSTFLOAT>(2.2e+02f);
+		fHslider6 = static_cast<FAUSTFLOAT>(0.5f);
 	}
 	
 	virtual void instanceClear() {
@@ -1142,37 +1154,37 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		for (int l43 = 0; l43 < 4096; l43 = l43 + 1) {
 			fVec9[l43] = 0.0f;
 		}
-		for (int l44 = 0; l44 < 2048; l44 = l44 + 1) {
-			fVec10[l44] = 0.0f;
+		for (int l44 = 0; l44 < 2; l44 = l44 + 1) {
+			fRec42[l44] = 0.0f;
 		}
 		for (int l45 = 0; l45 < 2; l45 = l45 + 1) {
-			fRec42[l45] = 0.0f;
+			fRec49[l45] = 0.0f;
 		}
 		for (int l46 = 0; l46 < 2; l46 = l46 + 1) {
-			fRec49[l46] = 0.0f;
+			fRec48[l46] = 0.0f;
 		}
-		for (int l47 = 0; l47 < 2; l47 = l47 + 1) {
-			fRec48[l47] = 0.0f;
+		for (int l47 = 0; l47 < 32768; l47 = l47 + 1) {
+			fVec10[l47] = 0.0f;
 		}
-		for (int l48 = 0; l48 < 16384; l48 = l48 + 1) {
+		for (int l48 = 0; l48 < 4096; l48 = l48 + 1) {
 			fVec11[l48] = 0.0f;
 		}
-		for (int l49 = 0; l49 < 4096; l49 = l49 + 1) {
-			fVec12[l49] = 0.0f;
+		for (int l49 = 0; l49 < 2; l49 = l49 + 1) {
+			fRec46[l49] = 0.0f;
 		}
 		for (int l50 = 0; l50 < 2; l50 = l50 + 1) {
-			fRec46[l50] = 0.0f;
+			fRec53[l50] = 0.0f;
 		}
 		for (int l51 = 0; l51 < 2; l51 = l51 + 1) {
-			fRec53[l51] = 0.0f;
+			fRec52[l51] = 0.0f;
 		}
-		for (int l52 = 0; l52 < 2; l52 = l52 + 1) {
-			fRec52[l52] = 0.0f;
+		for (int l52 = 0; l52 < 16384; l52 = l52 + 1) {
+			fVec12[l52] = 0.0f;
 		}
-		for (int l53 = 0; l53 < 32768; l53 = l53 + 1) {
+		for (int l53 = 0; l53 < 4096; l53 = l53 + 1) {
 			fVec13[l53] = 0.0f;
 		}
-		for (int l54 = 0; l54 < 4096; l54 = l54 + 1) {
+		for (int l54 = 0; l54 < 2048; l54 = l54 + 1) {
 			fVec14[l54] = 0.0f;
 		}
 		for (int l55 = 0; l55 < 2; l55 = l55 + 1) {
@@ -1187,7 +1199,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		for (int l58 = 0; l58 < 16384; l58 = l58 + 1) {
 			fVec15[l58] = 0.0f;
 		}
-		for (int l59 = 0; l59 < 2048; l59 = l59 + 1) {
+		for (int l59 = 0; l59 < 4096; l59 = l59 + 1) {
 			fVec16[l59] = 0.0f;
 		}
 		for (int l60 = 0; l60 < 2; l60 = l60 + 1) {
@@ -1217,7 +1229,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		for (int l68 = 0; l68 < 16384; l68 = l68 + 1) {
 			fVec19[l68] = 0.0f;
 		}
-		for (int l69 = 0; l69 < 4096; l69 = l69 + 1) {
+		for (int l69 = 0; l69 < 2048; l69 = l69 + 1) {
 			fVec20[l69] = 0.0f;
 		}
 		for (int l70 = 0; l70 < 2; l70 = l70 + 1) {
@@ -1261,7 +1273,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	}
 	
 	virtual synth_harpsichord* clone() {
-		return new synth_harpsichord();
+		return new synth_harpsichord(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -1293,7 +1305,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(fHslider0);
+		float fSlow0 = static_cast<float>(fHslider0);
 		float fSlow1 = std::exp(-(fConst3 / fSlow0));
 		float fSlow2 = synth_harpsichord_faustpower2_f(fSlow1);
 		float fSlow3 = 1.0f - fConst4 * fSlow2;
@@ -1303,35 +1315,35 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		float fSlow7 = fSlow1 * (fSlow5 + (1.0f - fSlow6));
 		float fSlow8 = std::exp(-(fConst5 / fSlow0)) / fSlow1 + -1.0f;
 		float fSlow9 = fSlow6 - fSlow5;
-		float fSlow10 = float(fHslider1);
+		float fSlow10 = static_cast<float>(fHslider1);
 		float fSlow11 = 4.0f * fSlow10;
-		float fSlow12 = fConst11 * float(fHslider2);
-		float fSlow13 = std::pow(2.0f, 0.083333336f * (float(fHslider3) + -69.0f));
+		float fSlow12 = fConst11 * static_cast<float>(fHslider2);
+		float fSlow13 = std::pow(2.0f, 0.083333336f * (static_cast<float>(fHslider3) + -69.0f));
 		float fSlow14 = 4.4e+02f * fSlow13;
 		float fSlow15 = getValueLoopFilterb0(fSlow14);
-		float fSlow16 = float(fCheckbox0);
+		float fSlow16 = static_cast<float>(fCheckbox0);
 		int iSlow17 = fSlow16 > 0.0f;
 		int iSlow18 = iSlow17 < 1;
-		float fSlow19 = fConst11 * (0.9996f * float(iSlow17) + 0.9f * float(iSlow18) * getValueReleaseLoopGain(fSlow14));
-		int iSlow20 = int(float(fEntry0));
-		float fSlow21 = float(iSlow20 >= 3);
-		float fSlow22 = fConst11 * float(fHslider4);
-		float fSlow23 = 4.4e+02f * fSlow13 * float(iSlow20 == 4);
-		float fSlow24 = float(iSlow20 != 4);
-		float fSlow25 = fConst11 * float(fHslider5);
-		float fSlow26 = float(iSlow20 < 3);
-		float fSlow27 = 3.1415927f * float(iSlow20 == 0);
-		float fSlow28 = 1.5707964f * float(iSlow20 == 1);
-		float fSlow29 = 3.1415927f * float(iSlow20 == 2);
+		float fSlow19 = fConst11 * (0.9996f * static_cast<float>(iSlow17) + 0.9f * static_cast<float>(iSlow18) * getValueReleaseLoopGain(fSlow14));
+		int iSlow20 = static_cast<int>(static_cast<float>(fEntry0));
+		float fSlow21 = static_cast<float>(iSlow20 >= 3);
+		float fSlow22 = fConst11 * static_cast<float>(fHslider4);
+		float fSlow23 = 4.4e+02f * fSlow13 * static_cast<float>(iSlow20 == 4);
+		float fSlow24 = static_cast<float>(iSlow20 != 4);
+		float fSlow25 = fConst11 * static_cast<float>(fHslider5);
+		float fSlow26 = static_cast<float>(iSlow20 < 3);
+		float fSlow27 = 3.1415927f * static_cast<float>(iSlow20 == 0);
+		float fSlow28 = 1.5707964f * static_cast<float>(iSlow20 == 1);
+		float fSlow29 = 3.1415927f * static_cast<float>(iSlow20 == 2);
 		int iSlow30 = iSlow17 > 0;
 		float fSlow31 = fConst14 / getValueDryTapAmpT60(fSlow14);
 		float fSlow32 = fConst11 * std::min<float>(1.0f, std::max<float>(0.0f, fSlow16));
-		int iSlow33 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst15 / fSlow13)));
+		int iSlow33 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst15 / fSlow13)));
 		float fSlow34 = getValueLoopFiltera1(fSlow14);
 		float fSlow35 = getValueLoopFiltera2(fSlow14);
 		float fSlow36 = getValueLoopFilterb1(fSlow14);
 		float fSlow37 = getValueLoopFilterb2(fSlow14);
-		int iSlow38 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fConst20 * (float(fHslider6) / fSlow13))));
+		int iSlow38 = static_cast<int>(std::min<float>(4096.0f, std::max<float>(0.0f, fConst20 * (static_cast<float>(fHslider6) / fSlow13))));
 		float fSlow39 = std::exp(-(fConst25 / fSlow0));
 		float fSlow40 = synth_harpsichord_faustpower2_f(fSlow39);
 		float fSlow41 = 1.0f - fConst4 * fSlow40;
@@ -1350,25 +1362,25 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		float fSlow54 = fSlow48 * (fSlow52 + (1.0f - fSlow53));
 		float fSlow55 = std::exp(-(fConst33 / fSlow0)) / fSlow48 + -1.0f;
 		float fSlow56 = fSlow53 - fSlow52;
-		float fSlow57 = 4.0f * (1.0f - fSlow10);
-		float fSlow58 = std::exp(-(fConst39 / fSlow0));
-		float fSlow59 = synth_harpsichord_faustpower2_f(fSlow58);
-		float fSlow60 = 1.0f - fConst4 * fSlow59;
-		float fSlow61 = 1.0f - fSlow59;
-		float fSlow62 = std::sqrt(std::max<float>(0.0f, synth_harpsichord_faustpower2_f(fSlow60) / synth_harpsichord_faustpower2_f(fSlow61) + -1.0f));
-		float fSlow63 = fSlow60 / fSlow61;
-		float fSlow64 = fSlow58 * (fSlow62 + (1.0f - fSlow63));
-		float fSlow65 = std::exp(-(fConst40 / fSlow0)) / fSlow58 + -1.0f;
-		float fSlow66 = fSlow63 - fSlow62;
-		float fSlow67 = std::exp(-(fConst46 / fSlow0));
-		float fSlow68 = synth_harpsichord_faustpower2_f(fSlow67);
-		float fSlow69 = 1.0f - fConst4 * fSlow68;
-		float fSlow70 = 1.0f - fSlow68;
-		float fSlow71 = std::sqrt(std::max<float>(0.0f, synth_harpsichord_faustpower2_f(fSlow69) / synth_harpsichord_faustpower2_f(fSlow70) + -1.0f));
-		float fSlow72 = fSlow69 / fSlow70;
-		float fSlow73 = fSlow67 * (fSlow71 + (1.0f - fSlow72));
-		float fSlow74 = std::exp(-(fConst47 / fSlow0)) / fSlow67 + -1.0f;
-		float fSlow75 = fSlow72 - fSlow71;
+		float fSlow57 = std::exp(-(fConst39 / fSlow0));
+		float fSlow58 = synth_harpsichord_faustpower2_f(fSlow57);
+		float fSlow59 = 1.0f - fConst4 * fSlow58;
+		float fSlow60 = 1.0f - fSlow58;
+		float fSlow61 = std::sqrt(std::max<float>(0.0f, synth_harpsichord_faustpower2_f(fSlow59) / synth_harpsichord_faustpower2_f(fSlow60) + -1.0f));
+		float fSlow62 = fSlow59 / fSlow60;
+		float fSlow63 = fSlow57 * (fSlow61 + (1.0f - fSlow62));
+		float fSlow64 = std::exp(-(fConst40 / fSlow0)) / fSlow57 + -1.0f;
+		float fSlow65 = fSlow62 - fSlow61;
+		float fSlow66 = std::exp(-(fConst46 / fSlow0));
+		float fSlow67 = synth_harpsichord_faustpower2_f(fSlow66);
+		float fSlow68 = 1.0f - fConst4 * fSlow67;
+		float fSlow69 = 1.0f - fSlow67;
+		float fSlow70 = std::sqrt(std::max<float>(0.0f, synth_harpsichord_faustpower2_f(fSlow68) / synth_harpsichord_faustpower2_f(fSlow69) + -1.0f));
+		float fSlow71 = fSlow68 / fSlow69;
+		float fSlow72 = fSlow66 * (fSlow70 + (1.0f - fSlow71));
+		float fSlow73 = std::exp(-(fConst47 / fSlow0)) / fSlow66 + -1.0f;
+		float fSlow74 = fSlow71 - fSlow70;
+		float fSlow75 = 4.0f * (1.0f - fSlow10);
 		float fSlow76 = std::exp(-(fConst53 / fSlow0));
 		float fSlow77 = synth_harpsichord_faustpower2_f(fSlow76);
 		float fSlow78 = 1.0f - fConst4 * fSlow77;
@@ -1409,7 +1421,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fRec19[0] = fSlow25 + fConst12 * fRec19[1];
 			float fTemp2 = ((1 - iVec0[1]) ? 0.0f : fRec18[1] + fConst13 * (fSlow23 + fSlow24 * fRec19[0]));
 			fRec18[0] = fTemp2 - std::floor(fTemp2);
-			float fTemp3 = 3.1415927f * fRec16[0] * ftbl0synth_harpsichordSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec18[0]), 65535))];
+			float fTemp3 = 3.1415927f * fRec16[0] * ftbl0synth_harpsichordSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec18[0]), 65535))];
 			float fTemp4 = std::sin(fTemp3);
 			float fTemp5 = std::cos(fTemp3);
 			float fTemp6 = fTemp1 * fTemp5 - fTemp4 * fRec20[1];
@@ -1438,13 +1450,13 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fRec27[0] = fTemp12 * fTemp15 + fTemp13 * fRec28[1];
 			fRec26[0] = fTemp12 * fTemp14 + fTemp13 * fRec27[1];
 			iRec33[0] = iSlow17 * iRec33[1] + 1;
-			float fTemp19 = float(iRec33[0] + -1);
-			float fTemp20 = float((fTemp19 < 2.0f) & iSlow30);
+			float fTemp19 = static_cast<float>(iRec33[0] + -1);
+			float fTemp20 = static_cast<float>((fTemp19 < 2.0f) & iSlow30);
 			fRec34[0] = fSlow32 + fConst12 * fRec34[1];
-			float fTemp21 = 0.030197384f * fTemp20 + float((fTemp19 >= 2.0f) | iSlow18) * std::exp(-(fSlow31 / fRec34[0]));
+			float fTemp21 = 0.030197384f * fTemp20 + static_cast<float>((fTemp19 >= 2.0f) | iSlow18) * std::exp(-(fSlow31 / fRec34[0]));
 			fRec32[0] = fRec32[1] * fTemp21 + 0.15f * fTemp20 * (1.0f - fTemp21);
 			iRec35[0] = 1103515245 * iRec35[1] + 12345;
-			fVec3[IOTA0 & 8191] = fRec15[0] * (fSlow21 * (fTemp1 * fTemp4 + fRec20[1] * fTemp5) + fSlow26 * (fRec16[0] * (fTemp1 * fTemp12 + fRec26[1] * fTemp13) + (1.0f - fRec16[0]) * fTemp1)) + 4.656613e-10f * fRec32[0] * float(iRec35[0]);
+			fVec3[IOTA0 & 8191] = fRec15[0] * (fSlow21 * (fTemp1 * fTemp4 + fRec20[1] * fTemp5) + fSlow26 * (fRec16[0] * (fTemp1 * fTemp12 + fRec26[1] * fTemp13) + (1.0f - fRec16[0]) * fTemp1)) + 4.656613e-10f * fRec32[0] * static_cast<float>(iRec35[0]);
 			fRec14[0] = fVec3[(IOTA0 - iSlow33) & 8191] - (fSlow34 * fRec14[1] + fSlow35 * fRec14[2]);
 			float fTemp22 = fSlow15 * fRec14[0] + fSlow36 * fRec14[1] + fSlow37 * fRec14[2];
 			float fTemp23 = std::fabs(fTemp22);
@@ -1465,69 +1477,69 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fVec7[IOTA0 & 4095] = fTemp27 - fTemp26;
 			fRec38[0] = fVec7[(IOTA0 - iConst29) & 4095];
 			float fRec39 = 0.6f * (fTemp26 - fTemp27);
-			fRec45[0] = -(fConst7 * (fConst8 * fRec45[1] - (fRec0[1] + fRec0[2])));
-			fRec44[0] = fSlow54 * (fRec0[1] + fSlow55 * fRec45[0]) + fSlow56 * fRec44[1];
+			fRec45[0] = -(fConst7 * (fConst8 * fRec45[1] - (fRec5[1] + fRec5[2])));
+			fRec44[0] = fSlow54 * (fRec5[1] + fSlow55 * fRec45[0]) + fSlow56 * fRec44[1];
 			fVec8[IOTA0 & 16383] = 0.35355338f * fRec44[0] + 1e-20f;
-			float fTemp28 = fRec13[IOTA0 & 8191];
-			fVec9[IOTA0 & 4095] = fSlow57 * fTemp28 * fRec12[0];
-			float fTemp29 = 0.3f * fVec9[(IOTA0 - iConst21) & 4095];
-			float fTemp30 = fVec8[(IOTA0 - iConst35) & 16383] + fTemp29 - 0.6f * fRec42[1];
-			fVec10[IOTA0 & 2047] = fTemp30;
-			fRec42[0] = fVec10[(IOTA0 - iConst36) & 2047];
-			float fRec43 = 0.6f * fTemp30;
-			fRec49[0] = -(fConst7 * (fConst8 * fRec49[1] - (fRec5[1] + fRec5[2])));
-			fRec48[0] = fSlow64 * (fRec5[1] + fSlow65 * fRec49[0]) + fSlow66 * fRec48[1];
-			fVec11[IOTA0 & 16383] = 0.35355338f * fRec48[0] + 1e-20f;
-			float fTemp31 = fVec11[(IOTA0 - iConst42) & 16383] + fTemp26 + 0.6f * fRec46[1];
-			fVec12[IOTA0 & 4095] = fTemp31;
-			fRec46[0] = fVec12[(IOTA0 - iConst43) & 4095];
-			float fRec47 = -(0.6f * fTemp31);
-			fRec53[0] = -(fConst7 * (fConst8 * fRec53[1] - (fRec1[1] + fRec1[2])));
-			fRec52[0] = fSlow73 * (fRec1[1] + fSlow74 * fRec53[0]) + fSlow75 * fRec52[1];
-			fVec13[IOTA0 & 32767] = 0.35355338f * fRec52[0] + 1e-20f;
-			float fTemp32 = fTemp26 + 0.6f * fRec50[1] + fVec13[(IOTA0 - iConst49) & 32767];
-			fVec14[IOTA0 & 4095] = fTemp32;
-			fRec50[0] = fVec14[(IOTA0 - iConst50) & 4095];
-			float fRec51 = -(0.6f * fTemp32);
-			fRec57[0] = -(fConst7 * (fConst8 * fRec57[1] - (fRec6[1] + fRec6[2])));
-			fRec56[0] = fSlow82 * (fRec6[1] + fSlow83 * fRec57[0]) + fSlow84 * fRec56[1];
+			float fTemp28 = fVec8[(IOTA0 - iConst35) & 16383] + fTemp26 + 0.6f * fRec42[1];
+			fVec9[IOTA0 & 4095] = fTemp28;
+			fRec42[0] = fVec9[(IOTA0 - iConst36) & 4095];
+			float fRec43 = -(0.6f * fTemp28);
+			fRec49[0] = -(fConst7 * (fConst8 * fRec49[1] - (fRec1[1] + fRec1[2])));
+			fRec48[0] = fSlow63 * (fRec1[1] + fSlow64 * fRec49[0]) + fSlow65 * fRec48[1];
+			fVec10[IOTA0 & 32767] = 0.35355338f * fRec48[0] + 1e-20f;
+			float fTemp29 = fTemp26 + 0.6f * fRec46[1] + fVec10[(IOTA0 - iConst42) & 32767];
+			fVec11[IOTA0 & 4095] = fTemp29;
+			fRec46[0] = fVec11[(IOTA0 - iConst43) & 4095];
+			float fRec47 = -(0.6f * fTemp29);
+			fRec53[0] = -(fConst7 * (fConst8 * fRec53[1] - (fRec6[1] + fRec6[2])));
+			fRec52[0] = fSlow72 * (fRec6[1] + fSlow73 * fRec53[0]) + fSlow74 * fRec52[1];
+			fVec12[IOTA0 & 16383] = 0.35355338f * fRec52[0] + 1e-20f;
+			float fTemp30 = fRec13[IOTA0 & 8191];
+			fVec13[IOTA0 & 4095] = fSlow75 * fTemp30 * fRec12[0];
+			float fTemp31 = 0.3f * fVec13[(IOTA0 - iConst21) & 4095];
+			float fTemp32 = fVec12[(IOTA0 - iConst49) & 16383] - (fTemp31 + 0.6f * fRec50[1]);
+			fVec14[IOTA0 & 2047] = fTemp32;
+			fRec50[0] = fVec14[(IOTA0 - iConst50) & 2047];
+			float fRec51 = 0.6f * fTemp32;
+			fRec57[0] = -(fConst7 * (fConst8 * fRec57[1] - (fRec2[1] + fRec2[2])));
+			fRec56[0] = fSlow82 * (fRec2[1] + fSlow83 * fRec57[0]) + fSlow84 * fRec56[1];
 			fVec15[IOTA0 & 16383] = 0.35355338f * fRec56[0] + 1e-20f;
-			float fTemp33 = fVec15[(IOTA0 - iConst56) & 16383] - (fTemp29 + 0.6f * fRec54[1]);
-			fVec16[IOTA0 & 2047] = fTemp33;
-			fRec54[0] = fVec16[(IOTA0 - iConst57) & 2047];
+			float fTemp33 = fVec15[(IOTA0 - iConst56) & 16383] - (fTemp31 + 0.6f * fRec54[1]);
+			fVec16[IOTA0 & 4095] = fTemp33;
+			fRec54[0] = fVec16[(IOTA0 - iConst57) & 4095];
 			float fRec55 = 0.6f * fTemp33;
-			fRec61[0] = -(fConst7 * (fConst8 * fRec61[1] - (fRec2[1] + fRec2[2])));
-			fRec60[0] = fSlow91 * (fRec2[1] + fSlow92 * fRec61[0]) + fSlow93 * fRec60[1];
+			fRec61[0] = -(fConst7 * (fConst8 * fRec61[1] - (fRec4[1] + fRec4[2])));
+			fRec60[0] = fSlow91 * (fRec4[1] + fSlow92 * fRec61[0]) + fSlow93 * fRec60[1];
 			fVec17[IOTA0 & 16383] = 0.35355338f * fRec60[0] + 1e-20f;
-			float fTemp34 = fVec17[(IOTA0 - iConst63) & 16383] - (fTemp29 + 0.6f * fRec58[1]);
+			float fTemp34 = fTemp31 + fVec17[(IOTA0 - iConst63) & 16383] - 0.6f * fRec58[1];
 			fVec18[IOTA0 & 4095] = fTemp34;
 			fRec58[0] = fVec18[(IOTA0 - iConst64) & 4095];
 			float fRec59 = 0.6f * fTemp34;
-			fRec65[0] = -(fConst7 * (fConst8 * fRec65[1] - (fRec4[1] + fRec4[2])));
-			fRec64[0] = fSlow100 * (fRec4[1] + fSlow101 * fRec65[0]) + fSlow102 * fRec64[1];
+			fRec65[0] = -(fConst7 * (fConst8 * fRec65[1] - (fRec0[1] + fRec0[2])));
+			fRec64[0] = fSlow100 * (fRec0[1] + fSlow101 * fRec65[0]) + fSlow102 * fRec64[1];
 			fVec19[IOTA0 & 16383] = 0.35355338f * fRec64[0] + 1e-20f;
-			float fTemp35 = fTemp29 + fVec19[(IOTA0 - iConst70) & 16383] - 0.6f * fRec62[1];
-			fVec20[IOTA0 & 4095] = fTemp35;
-			fRec62[0] = fVec20[(IOTA0 - iConst71) & 4095];
+			float fTemp35 = fVec19[(IOTA0 - iConst70) & 16383] + fTemp31 - 0.6f * fRec62[1];
+			fVec20[IOTA0 & 2047] = fTemp35;
+			fRec62[0] = fVec20[(IOTA0 - iConst71) & 2047];
 			float fRec63 = 0.6f * fTemp35;
-			float fTemp36 = fRec43 + fRec63;
-			float fTemp37 = fRec55 + fRec59 + fTemp36;
-			fRec0[0] = fRec9 + fRec39 + fRec42[1] + fRec8[1] + fRec38[1] + fRec46[1] + fRec50[1] + fRec54[1] + fRec58[1] + fRec62[1] + fRec47 + fRec51 + fTemp37;
-			fRec1[0] = fRec42[1] + fRec54[1] + fRec58[1] + fRec62[1] + fTemp37 - (fRec9 + fRec39 + fRec8[1] + fRec46[1] + fRec50[1] + fRec51 + fRec47 + fRec38[1]);
-			float fTemp38 = fRec59 + fRec55;
-			fRec2[0] = fRec42[1] + fRec46[1] + fRec50[1] + fRec62[1] + fRec47 + fRec51 + fTemp36 - (fRec9 + fRec39 + fRec8[1] + fRec54[1] + fRec58[1] + fTemp38 + fRec38[1]);
-			fRec3[0] = fRec9 + fRec39 + fRec42[1] + fRec8[1] + fRec62[1] + fTemp36 + fRec38[1] - (fRec46[1] + fRec50[1] + fRec54[1] + fRec58[1] + fRec47 + fRec51 + fTemp38);
-			float fTemp39 = fRec43 + fRec59;
-			float fTemp40 = fRec63 + fRec55;
-			fRec4[0] = fRec39 + fRec42[1] + fRec38[1] + fRec50[1] + fRec58[1] + fRec51 + fTemp39 - (fRec9 + fRec8[1] + fRec46[1] + fRec54[1] + fRec62[1] + fRec47 + fTemp40);
-			fRec5[0] = fRec9 + fRec42[1] + fRec8[1] + fRec46[1] + fRec58[1] + fRec47 + fTemp39 - (fRec39 + fRec38[1] + fRec50[1] + fRec54[1] + fRec62[1] + fRec51 + fTemp40);
-			float fTemp41 = fRec43 + fRec55;
-			float fTemp42 = fRec63 + fRec59;
-			fRec6[0] = fRec9 + fRec42[1] + fRec8[1] + fRec50[1] + fRec54[1] + fRec51 + fTemp41 - (fRec39 + fRec38[1] + fRec46[1] + fRec58[1] + fRec62[1] + fRec47 + fTemp42);
-			fRec7[0] = fRec39 + fRec42[1] + fRec38[1] + fRec46[1] + fRec54[1] + fRec47 + fTemp41 - (fRec9 + fRec8[1] + fRec50[1] + fRec58[1] + fRec62[1] + fRec51 + fTemp42);
+			float fTemp36 = fRec63 + fRec59;
+			float fTemp37 = fRec51 + fRec55 + fTemp36;
+			fRec0[0] = fRec8[1] + fRec38[1] + fRec42[1] + fRec46[1] + fRec50[1] + fRec54[1] + fRec58[1] + fRec62[1] + fRec9 + fRec39 + fRec43 + fRec47 + fTemp37;
+			fRec1[0] = fRec50[1] + fRec54[1] + fRec58[1] + fRec62[1] + fTemp37 - (fRec8[1] + fRec38[1] + fRec42[1] + fRec46[1] + fRec9 + fRec39 + fRec47 + fRec43);
+			float fTemp38 = fRec55 + fRec51;
+			fRec2[0] = fRec42[1] + fRec46[1] + fRec58[1] + fRec62[1] + fRec43 + fRec47 + fTemp36 - (fRec8[1] + fRec38[1] + fRec50[1] + fRec54[1] + fRec9 + fRec39 + fTemp38);
+			fRec3[0] = fRec8[1] + fRec38[1] + fRec58[1] + fRec62[1] + fRec9 + fRec39 + fTemp36 - (fRec42[1] + fRec46[1] + fRec50[1] + fRec54[1] + fRec43 + fRec47 + fTemp38);
+			float fTemp39 = fRec63 + fRec55;
+			float fTemp40 = fRec59 + fRec51;
+			fRec4[0] = fRec38[1] + fRec46[1] + fRec54[1] + fRec62[1] + fRec39 + fRec47 + fTemp39 - (fRec8[1] + fRec42[1] + fRec50[1] + fRec58[1] + fRec9 + fRec43 + fTemp40);
+			fRec5[0] = fRec8[1] + fRec42[1] + fRec54[1] + fRec62[1] + fRec9 + fRec43 + fTemp39 - (fRec38[1] + fRec46[1] + fRec50[1] + fRec58[1] + fRec39 + fRec47 + fTemp40);
+			float fTemp41 = fRec63 + fRec51;
+			float fTemp42 = fRec59 + fRec55;
+			fRec6[0] = fRec8[1] + fRec46[1] + fRec50[1] + fRec62[1] + fRec9 + fRec47 + fTemp41 - (fRec38[1] + fRec42[1] + fRec54[1] + fRec58[1] + fRec39 + fRec43 + fTemp42);
+			fRec7[0] = fRec38[1] + fRec42[1] + fRec50[1] + fRec62[1] + fRec39 + fRec43 + fTemp41 - (fRec8[1] + fRec46[1] + fRec54[1] + fRec58[1] + fRec9 + fRec47 + fTemp42);
 			float fTemp43 = 1.0f - fRec12[0];
-			output0[i0] = FAUSTFLOAT(0.37f * (fRec1[0] + fRec2[0]) + fSlow57 * fTemp28 * fTemp43);
-			output1[i0] = FAUSTFLOAT(0.37f * (fRec1[0] - fRec2[0]) + fSlow11 * fTemp43 * fTemp25);
+			output0[i0] = static_cast<FAUSTFLOAT>(0.37f * (fRec1[0] + fRec2[0]) + fSlow75 * fTemp30 * fTemp43);
+			output1[i0] = static_cast<FAUSTFLOAT>(0.37f * (fRec1[0] - fRec2[0]) + fSlow11 * fTemp43 * fTemp25);
 			iVec0[1] = iVec0[0];
 			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];

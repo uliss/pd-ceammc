@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.voice_fofs"
-Code generated with Faust 2.74.5. (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_voice_fofs -scn synth_voice_fofs_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+Code generated with Faust 2.85.5 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_voice_fofs -scn synth_voice_fofs_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_voice_fofs_H__
@@ -9,6 +9,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <memory>
@@ -73,12 +74,12 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #define __export__
 
 // Version as a global string
-#define FAUSTVERSION "2.74.3"
+#define FAUSTVERSION "2.85.5"
 
 // Version as separated [major,minor,patch] values
 #define FAUSTMAJORVERSION 2
-#define FAUSTMINORVERSION 74
-#define FAUSTPATCHVERSION 3
+#define FAUSTMINORVERSION 85
+#define FAUSTPATCHVERSION 5
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -120,22 +121,27 @@ struct FAUST_API Meta;
 
 struct FAUST_API dsp_memory_manager {
     
-    virtual ~dsp_memory_manager() {}
+    enum MemType { kInt32, kInt32_ptr, kFloat, kFloat_ptr, kDouble, kDouble_ptr, kQuad, kQuad_ptr, kFixedPoint, kFixedPoint_ptr, kObj, kObj_ptr, kSound, kSound_ptr };
+
+    virtual ~dsp_memory_manager() = default;
     
     /**
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t /*count*/) {}
+    virtual void begin(size_t count) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
-     * @param size - the size in bytes of the memory zone
+     * @param name - the memory zone name
+     * @param type - the memory zone type (in MemType)
+     * @param size - the size in unit of the memory type of the memory zone
+     * @param size_bytes - the size in bytes of the memory zone
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
-
+    virtual void info(const char* name, MemType type, size_t size, size_t size_bytes, size_t reads, size_t writes) {}
+  
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -164,8 +170,8 @@ class FAUST_API synth_voice_fofs_dsp {
 
     public:
 
-        synth_voice_fofs_dsp() {}
-        virtual ~synth_voice_fofs_dsp() {}
+        synth_voice_fofs_dsp() = default;
+        virtual ~synth_voice_fofs_dsp() = default;
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -194,14 +200,14 @@ class FAUST_API synth_voice_fofs_dsp {
         virtual void init(int sample_rate) = 0;
 
         /**
-         * Init instance state
+         * Init instance state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
     
         /**
-         * Init instance constant state
+         * Init instance constant state.
          *
          * @param sample_rate - the sampling rate in Hz
          */
@@ -218,17 +224,18 @@ class FAUST_API synth_voice_fofs_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual synth_voice_fofs_dsp* clone() = 0;
+        virtual ::synth_voice_fofs_dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
+         * Trigger the Meta* m parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
+
     
         /**
-         * Read all controllers (buttons, sliders..etc), and update the DSP state to be used by 'frame' or 'compute'.
+         * Read all controllers (buttons, sliders, etc.), and update the DSP state to be used by 'frame' or 'compute'.
          * This method will be filled with the -ec (--external-control) option.
          */
         virtual void control() {}
@@ -279,33 +286,33 @@ class FAUST_API synth_voice_fofs_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public synth_voice_fofs_dsp {
+class FAUST_API decorator_dsp : public ::synth_voice_fofs_dsp {
 
     protected:
 
-        synth_voice_fofs_dsp* fDSP;
+        ::synth_voice_fofs_dsp* fDSP;
 
     public:
 
-        decorator_dsp(synth_voice_fofs_dsp* synth_voice_fofs_dsp = nullptr):fDSP(synth_voice_fofs_dsp) {}
+        decorator_dsp(::synth_voice_fofs_dsp* synth_voice_fofs_dsp = nullptr):fDSP(synth_voice_fofs_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
-        virtual int getNumInputs() { return fDSP->getNumInputs(); }
-        virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
-        virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
-        virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
-        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
-        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
-        virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
-        virtual void instanceClear() { fDSP->instanceClear(); }
-        virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { fDSP->metadata(m); }
+        virtual int getNumInputs() override { return fDSP->getNumInputs(); }
+        virtual int getNumOutputs() override { return fDSP->getNumOutputs(); }
+        virtual void buildUserInterface(UI* ui_interface) override { fDSP->buildUserInterface(ui_interface); }
+        virtual int getSampleRate() override { return fDSP->getSampleRate(); }
+        virtual void init(int sample_rate) override { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) override { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) override { fDSP->instanceConstants(sample_rate); }
+        virtual void instanceResetUserInterface() override { fDSP->instanceResetUserInterface(); }
+        virtual void instanceClear() override { fDSP->instanceClear(); }
+        virtual decorator_dsp* clone() override { return new decorator_dsp(fDSP->clone()); }
+        virtual void metadata(Meta* m) override { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
-        virtual void control() { fDSP->control(); }
-        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) { fDSP->frame(inputs, outputs); }
-        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
+        virtual void control() override { fDSP->control(); }
+        virtual void frame(FAUSTFLOAT* inputs, FAUSTFLOAT* outputs) override { fDSP->frame(inputs, outputs); }
+        virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(count, inputs, outputs); }
+        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) override { fDSP->compute(date_usec, count, inputs, outputs); }
     
 };
 
@@ -319,7 +326,7 @@ class FAUST_API dsp_factory {
     protected:
     
         // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
-        virtual ~dsp_factory() {}
+        virtual ~dsp_factory() = default;
     
     public:
     
@@ -343,9 +350,12 @@ class FAUST_API dsp_factory {
     
         /* Get warning messages list for a given compilation */
         virtual std::vector<std::string> getWarningMessages() = 0;
+
+        /* Return JSON description of the DSP (UI + metadata) */
+        virtual std::string getJSON() = 0;
     
         /* Create a new DSP instance, to be deleted with C++ 'delete' */
-        virtual synth_voice_fofs_dsp* createDSPInstance() = 0;
+        virtual ::synth_voice_fofs_dsp* createDSPInstance() = 0;
     
         /* Static tables initialization, possibly implemened in sub-classes*/
         virtual void classInit(int sample_rate) {};
@@ -450,10 +460,11 @@ architecture section is not modified.
 #define __misc__
 
 #include <algorithm>
-#include <map>
 #include <cstdlib>
-#include <string.h>
 #include <fstream>
+#include <iterator>
+#include <map>
+#include <string.h>
 #include <string>
 
 /************************** BEGIN meta.h *******************************
@@ -506,15 +517,19 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return std::strtol(argv[i + 1], nullptr, 10);
+        }
+    }
     return def;
 }
 
 static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
-            return atoi(argv[i]);
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
+            return std::strtol(argv[i], nullptr, 10);
         }
     }
     return def;
@@ -522,14 +537,18 @@ static long lopt1(int argc, char* argv[], const char* longname, const char* shor
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    for (int i = 0; argv[i]; i++) {
+        if (!strcmp(argv[i], name) && argv[i + 1]) {
+            return argv[i + 1];
+        }
+    }
     return def;
 }
 
 static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
 {
     for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+        if ((strcmp(argv[i - 1], shortname) == 0 || strcmp(argv[i - 1], longname) == 0) && argv[i]) {
             return argv[i];
         }
     }
@@ -545,21 +564,7 @@ static bool isopt(char* argv[], const char* name)
 static std::string pathToContent(const std::string& path)
 {
     std::ifstream file(path.c_str(), std::ifstream::binary);
-    
-    file.seekg(0, file.end);
-    int size = int(file.tellg());
-    file.seekg(0, file.beg);
-    
-    // And allocate buffer to that a single line can be read...
-    char* buffer = new char[size + 1];
-    file.read(buffer, size);
-    
-    // Terminate the string
-    buffer[size] = 0;
-    std::string result = buffer;
-    file.close();
-    delete [] buffer;
-    return result;
+    return (!file) ? "" : std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
 #endif
@@ -617,6 +622,7 @@ class synth_voice_fofsSIG0 {
 	
 	int iVec1[2];
 	int iRec4[2];
+	int fSampleRate;
 	
   public:
 	
@@ -628,6 +634,7 @@ class synth_voice_fofsSIG0 {
 	}
 	
 	void instanceInitsynth_voice_fofsSIG0(int sample_rate) {
+		fSampleRate = sample_rate;
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
 			iVec1[l3] = 0;
 		}
@@ -640,7 +647,7 @@ class synth_voice_fofsSIG0 {
 		for (int i1 = 0; i1 < count; i1 = i1 + 1) {
 			iVec1[0] = 1;
 			iRec4[0] = (iVec1[1] + iRec4[1]) % 65536;
-			table[i1] = std::sin(9.58738e-05f * float(iRec4[0]));
+			table[i1] = std::sin(9.58738e-05f * static_cast<float>(iRec4[0]));
 			iVec1[1] = iVec1[0];
 			iRec4[1] = iRec4[0];
 		}
@@ -711,14 +718,19 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 	synth_voice_fofs() {
 	}
 	
+	synth_voice_fofs(const synth_voice_fofs&) = default;
+	
+	virtual ~synth_voice_fofs() = default;
+	
+	synth_voice_fofs& operator=(const synth_voice_fofs&) = default;
+	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/listInterp:author", "Romain Michon");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/tabulateNd", "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>");
-		m->declare("basics.lib/version", "1.16.0");
+		m->declare("basics.lib/version", "1.22.0");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_voice_fofs -scn synth_voice_fofs_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_voice_fofs -scn synth_voice_fofs_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0");
 		m->declare("envelopes.lib/asr:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
@@ -737,21 +749,21 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/version", "1.3.0");
+		m->declare("filters.lib/version", "1.7.1");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.8.0");
+		m->declare("maths.lib/version", "2.9.0");
 		m->declare("name", "synth.voice_fofs");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
-		m->declare("noises.lib/version", "1.4.1");
+		m->declare("noises.lib/version", "1.5.0");
 		m->declare("oscillators.lib/hs_oscsin:author", "Mike Olsen");
 		m->declare("oscillators.lib/hs_phasor:author", "Mike Olsen, revised by Stéphane Letz");
 		m->declare("oscillators.lib/lf_sawpos:author", "Bart Brouns, revised by Stéphane Letz");
 		m->declare("oscillators.lib/lf_sawpos:licence", "STK-4.3");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "1.5.1");
+		m->declare("oscillators.lib/version", "1.7.0");
 		m->declare("physmodels.lib/SFFormantModel:author", "Mike Olsen");
 		m->declare("physmodels.lib/autobendFreq:author", "Mike Olsen");
 		m->declare("physmodels.lib/fof:author", "Mike Olsen");
@@ -759,13 +771,13 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 		m->declare("physmodels.lib/formantFilterbank:author", "Mike Olsen");
 		m->declare("physmodels.lib/name", "Faust Physical Models Library");
 		m->declare("physmodels.lib/skirtWidthMultiplier:author", "Mike Olsen");
-		m->declare("physmodels.lib/version", "1.1.0");
+		m->declare("physmodels.lib/version", "1.2.0");
 		m->declare("physmodels.lib/vocalEffort:author", "Mike Olsen");
 		m->declare("physmodels.lib/voiceGender:author", "Mike Olsen");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "1.3.0");
-		m->declare("signals.lib/name", "Faust Signal Routing Library");
-		m->declare("signals.lib/version", "1.5.0");
+		m->declare("signals.lib/name", "Faust Routing Library");
+		m->declare("signals.lib/version", "1.6.0");
 	}
 
 	virtual int getNumInputs() {
@@ -784,7 +796,7 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
 		fConst1 = 1.0f / fConst0;
 		fConst2 = 44.1f / fConst0;
 		fConst3 = 1.0f - fConst2;
@@ -795,16 +807,16 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(4.4e+02f);
-		fHslider0 = FAUSTFLOAT(0.0f);
-		fHslider1 = FAUSTFLOAT(0.5f);
-		fHslider2 = FAUSTFLOAT(6.0f);
-		fHslider3 = FAUSTFLOAT(0.0f);
-		fHslider4 = FAUSTFLOAT(1e+01f);
-		fHslider5 = FAUSTFLOAT(0.0f);
-		fHslider6 = FAUSTFLOAT(3e+01f);
-		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider7 = FAUSTFLOAT(5e+01f);
+		fVslider0 = static_cast<FAUSTFLOAT>(4.4e+02f);
+		fHslider0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider1 = static_cast<FAUSTFLOAT>(0.5f);
+		fHslider2 = static_cast<FAUSTFLOAT>(6.0f);
+		fHslider3 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider4 = static_cast<FAUSTFLOAT>(1e+01f);
+		fHslider5 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider6 = static_cast<FAUSTFLOAT>(3e+01f);
+		fCheckbox0 = static_cast<FAUSTFLOAT>(0.0f);
+		fHslider7 = static_cast<FAUSTFLOAT>(5e+01f);
 	}
 	
 	virtual void instanceClear() {
@@ -912,7 +924,7 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 	}
 	
 	virtual synth_voice_fofs* clone() {
-		return new synth_voice_fofs();
+		return new synth_voice_fofs(*this);
 	}
 	
 	virtual int getSampleRate() {
@@ -942,30 +954,30 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst2 * float(fVslider0);
-		float fSlow1 = 0.001f * float(fHslider0);
+		float fSlow0 = fConst2 * static_cast<float>(fVslider0);
+		float fSlow1 = 0.001f * static_cast<float>(fHslider0);
 		int iSlow2 = std::fabs(fSlow1) < 1.1920929e-07f;
 		float fSlow3 = ((iSlow2) ? 0.0f : std::exp(-(fConst1 / ((iSlow2) ? 1.0f : fSlow1))));
 		float fSlow4 = 1.0f - fSlow3;
-		float fSlow5 = 0.1f * float(fHslider1);
-		float fSlow6 = fConst1 * float(fHslider2);
-		float fSlow7 = 0.001f * float(fHslider4);
+		float fSlow5 = 0.1f * static_cast<float>(fHslider1);
+		float fSlow6 = fConst1 * static_cast<float>(fHslider2);
+		float fSlow7 = 0.001f * static_cast<float>(fHslider4);
 		int iSlow8 = std::fabs(fSlow7) < 1.1920929e-07f;
 		float fSlow9 = ((iSlow8) ? 0.0f : std::exp(-(fConst1 / ((iSlow8) ? 1.0f : fSlow7))));
-		float fSlow10 = float(fHslider3) * (1.0f - fSlow9);
-		int iSlow11 = int(float(fHslider5));
+		float fSlow10 = static_cast<float>(fHslider3) * (1.0f - fSlow9);
+		int iSlow11 = static_cast<int>(static_cast<float>(fHslider5));
 		int iSlow12 = ((iSlow11 == 0) ? 1 : ((iSlow11 == 3) ? 1 : 0));
-		float fSlow13 = float(5 * iSlow12);
+		float fSlow13 = static_cast<float>(5 * iSlow12);
 		int iSlow14 = iSlow12 >= 1;
 		float fSlow15 = ((iSlow14) ? 174.61f : 82.41f);
 		float fSlow16 = ((iSlow14) ? 1046.5f : 523.25f);
 		float fSlow17 = fSlow16 - fSlow15;
-		float fSlow18 = float(5 * iSlow11);
+		float fSlow18 = static_cast<float>(5 * iSlow11);
 		int iSlow19 = iSlow12 == 0;
 		int iSlow20 = iSlow11 != 2;
-		float fSlow21 = 1.0f / std::max<float>(1.0f, fConst7 * float(fHslider6));
-		float fSlow22 = float(fCheckbox0);
-		float fSlow23 = 1.0f / std::max<float>(1.0f, fConst7 * float(fHslider7));
+		float fSlow21 = 1.0f / std::max<float>(1.0f, fConst7 * static_cast<float>(fHslider6));
+		float fSlow22 = static_cast<float>(fCheckbox0);
+		float fSlow23 = 1.0f / std::max<float>(1.0f, fConst7 * static_cast<float>(fHslider7));
 		int iSlow24 = fSlow22 == 0.0f;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
@@ -974,10 +986,10 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 			fRec2[0] = fRec3[0] * fSlow4 + fSlow3 * fRec2[1];
 			float fTemp1 = ((iTemp0) ? 0.0f : fSlow6 + fRec5[1]);
 			fRec5[0] = fTemp1 - std::floor(fTemp1);
-			float fTemp2 = fRec2[0] * (fSlow5 * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec5[0]), 65535))] + 1.0f);
+			float fTemp2 = fRec2[0] * (fSlow5 * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec5[0]), 65535))] + 1.0f);
 			float fTemp3 = ((iTemp0) ? 0.0f : fRec1[1] + fConst1 * fTemp2);
 			fRec1[0] = fTemp3 - std::floor(fTemp3);
-			float fTemp4 = float((fRec1[0] - fRec1[1]) < 0.0f);
+			float fTemp4 = static_cast<float>((fRec1[0] - fRec1[1]) < 0.0f);
 			fVec2[0] = fTemp4;
 			fRec7[0] = fSlow10 + fSlow9 * fRec7[1];
 			float fTemp5 = fRec7[0] + fSlow13;
@@ -1050,7 +1062,7 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 			fRec0[0] = fVec2[1] + fRec0[1] * (fTemp68 + fTemp69) - fTemp68 * fTemp69 * fRec0[2];
 			float fTemp70 = 0.00084f * (1e+03f - fTemp2) + 0.8f;
 			float fTemp71 = 0.0036666666f * (4e+02f - fTemp2) + 3.0f;
-			int iTemp72 = iTemp0 | int(fTemp4);
+			int iTemp72 = iTemp0 | static_cast<int>(fTemp4);
 			float fTemp73 = fSlow18 + fRec7[0] + -19.0f;
 			float fTemp74 = fSlow18 + fRec7[0] + -16.0f;
 			float fTemp75 = 8e+01f * fTemp74;
@@ -1114,9 +1126,9 @@ class synth_voice_fofs : public synth_voice_fofs_dsp {
 			float fTemp117 = ((iTemp72) ? 0.0f : fRec25[1] + fConst1 * ((iTemp17) ? ((iTemp20) ? ((iTemp22) ? ((iTemp24) ? ((iTemp27) ? ((iTemp28) ? ((iTemp30) ? ((iTemp32) ? ((iTemp33) ? ((iTemp36) ? ((iTemp38) ? ((iTemp39) ? ((iTemp40) ? ((iTemp42) ? ((iTemp45) ? ((iTemp47) ? ((iTemp48) ? ((iTemp50) ? ((iTemp52) ? ((iTemp54) ? 4.95e+03f : ((iTemp52) ? 4.95e+03f - 2.2e+03f * fTemp55 : 2.75e+03f)) : ((iTemp50) ? fTemp111 + 2.75e+03f : 3.1e+03f)) : ((iTemp48) ? 2.4e+02f * fTemp51 + 3.1e+03f : 3.34e+03f)) : ((iTemp47) ? 3.34e+03f - 4.4e+02f * fTemp49 : 2.9e+03f)) : ((iTemp45) ? fTemp79 + 2.9e+03f : 2.95e+03f)) : ((iTemp42) ? 4e+02f * fTemp46 + 2.95e+03f : 3.35e+03f)) : ((iTemp40) ? 3.35e+03f - fTemp104 : 3.3e+03f)) : ((iTemp39) ? 2.9e+02f * fTemp41 + 3.3e+03f : 3.59e+03f)) : ((iTemp38) ? 3.59e+03f - 2.9e+02f * fTemp77 : 3.3e+03f)) : ((iTemp36) ? 1e+02f * fTemp76 + 3.3e+03f : 3.4e+03f)) : ((iTemp33) ? 1.55e+03f * fTemp37 + 3.4e+03f : 4.95e+03f)) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : 4.95e+03f) : ((iTemp24) ? 4.95e+03f - 1.7e+03f * fTemp73 : 3.25e+03f)) : ((iTemp22) ? 3.3e+02f * fTemp25 + 3.25e+03f : 3.58e+03f)) : ((iTemp20) ? 3.58e+03f - 4e+01f * fTemp23 : 3.54e+03f)) : ((iTemp17) ? 3.54e+03f - 5.4e+02f * fTemp21 : 3e+03f)) : ((iTemp18) ? 3e+02f * fTemp19 + 3e+03f : 3.3e+03f)));
 			fRec25[0] = fTemp117 - std::floor(fTemp117);
 			fVec3[0] = fSlow22;
-			fRec26[0] = fSlow22 + fRec26[1] * float(fVec3[1] >= fSlow22);
+			fRec26[0] = fSlow22 + fRec26[1] * static_cast<float>(fVec3[1] >= fSlow22);
 			iRec27[0] = iSlow24 * (iRec27[1] + 1);
-			output0[i0] = FAUSTFLOAT(5e+01f * (fRec0[0] * ((iSlow19) ? fTemp71 : fTemp70) * (1.0f - (fTemp68 + fTemp69 * (1.0f - fTemp68))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec9[0]), 65535))] + fRec10[0] * ((iSlow19) ? fTemp71 * fTemp89 : fTemp70 * fTemp89) * (1.0f - (fTemp88 + fTemp87 * (1.0f - fTemp88))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec13[0]), 65535))] + fRec14[0] * ((iSlow19) ? fTemp71 * fTemp102 : fTemp70 * fTemp102) * (1.0f - (fTemp100 + fTemp99 * (1.0f - fTemp100))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec17[0]), 65535))] + fRec18[0] * ((iSlow19) ? fTemp71 * fTemp110 : fTemp70 * fTemp110) * (1.0f - (fTemp107 + fTemp108 * (1.0f - fTemp107))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec21[0]), 65535))] + fRec22[0] * ((iSlow19) ? fTemp71 * fTemp116 : fTemp70 * fTemp116) * (1.0f - (fTemp115 + fTemp114 * (1.0f - fTemp115))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(int(65536.0f * fRec25[0]), 65535))]) * std::max<float>(0.0f, std::min<float>(fSlow21 * fRec26[0], 1.0f) - fSlow23 * float(iRec27[0])));
+			output0[i0] = static_cast<FAUSTFLOAT>(5e+01f * (fRec0[0] * ((iSlow19) ? fTemp71 : fTemp70) * (1.0f - (fTemp69 + fTemp68 * (1.0f - fTemp69))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec9[0]), 65535))] + fRec10[0] * ((iSlow19) ? fTemp71 * fTemp89 : fTemp70 * fTemp89) * (1.0f - (fTemp88 + fTemp87 * (1.0f - fTemp88))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec13[0]), 65535))] + fRec14[0] * ((iSlow19) ? fTemp71 * fTemp102 : fTemp70 * fTemp102) * (1.0f - (fTemp100 + fTemp99 * (1.0f - fTemp100))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec17[0]), 65535))] + fRec18[0] * ((iSlow19) ? fTemp71 * fTemp110 : fTemp70 * fTemp110) * (1.0f - (fTemp108 + fTemp107 * (1.0f - fTemp108))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec21[0]), 65535))] + fRec22[0] * ((iSlow19) ? fTemp71 * fTemp116 : fTemp70 * fTemp116) * (1.0f - (fTemp115 + fTemp114 * (1.0f - fTemp115))) * ftbl0synth_voice_fofsSIG0[std::max<int>(0, std::min<int>(static_cast<int>(65536.0f * fRec25[0]), 65535))]) * std::max<float>(0.0f, std::min<float>(fSlow21 * fRec26[0], 1.0f) - fSlow23 * static_cast<float>(iRec27[0])));
 			iVec0[1] = iVec0[0];
 			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];

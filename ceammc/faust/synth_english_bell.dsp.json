@@ -1,8 +1,8 @@
 {
 	"name": "synth.english_bell",
 	"filename": "synth_english_bell.dsp",
-	"version": "2.74.5.",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_english_bell -scn synth_english_bell_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
+	"version": "2.85.5",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_english_bell -scn synth_english_bell_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0",
 	"library_list": ["/Users/serge/.local/faust/share/faust/physmodels.lib","/Users/serge/.local/faust/share/faust/stdfaust.lib","/Users/serge/.local/faust/share/faust/noises.lib","/Users/serge/.local/faust/share/faust/filters.lib","/Users/serge/.local/faust/share/faust/maths.lib","/Users/serge/.local/faust/share/faust/platform.lib","/Users/serge/.local/faust/share/faust/envelopes.lib","/Users/serge/.local/faust/share/faust/basics.lib"],
 	"include_pathnames": ["/Users/serge/.local/faust/share/faust","/Users/serge/.local/faust/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"size": 932,
@@ -10,9 +10,8 @@
 	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/tabulateNd": "Copyright (C) 2023 Bart Brouns <bart@magnetophon.nl>" },
-		{ "basics.lib/version": "1.16.0" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -ct 1 -cn synth_english_bell -scn synth_english_bell_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
+		{ "basics.lib/version": "1.22.0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -fpga-mem-th 4 -ct 1 -cn synth_english_bell -scn synth_english_bell_dsp -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0" },
 		{ "envelopes.lib/ar:author": "Yann Orlarey, Stéphane Letz" },
 		{ "envelopes.lib/author": "GRAME" },
 		{ "envelopes.lib/copyright": "GRAME" },
@@ -40,17 +39,17 @@
 		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
 		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/version": "1.3.0" },
+		{ "filters.lib/version": "1.7.1" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.8.0" },
+		{ "maths.lib/version": "2.9.0" },
 		{ "name": "synth.english_bell" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "1.4.1" },
+		{ "noises.lib/version": "1.5.0" },
 		{ "physmodels.lib/name": "Faust Physical Models Library" },
-		{ "physmodels.lib/version": "1.1.0" },
+		{ "physmodels.lib/version": "1.2.0" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "1.3.0" }
 	],
@@ -62,6 +61,7 @@
 				{
 					"type": "hslider",
 					"label": "cutoff",
+					"varname": "fHslider1",
 					"shortname": "cutoff",
 					"address": "/synth.english_bell/cutoff",
 					"meta": [
@@ -75,6 +75,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_ratio",
+					"varname": "fHslider4",
 					"shortname": "decay_ratio",
 					"address": "/synth.english_bell/decay_ratio",
 					"init": 1,
@@ -85,6 +86,7 @@
 				{
 					"type": "hslider",
 					"label": "decay_slope",
+					"varname": "fHslider5",
 					"shortname": "decay_slope",
 					"address": "/synth.english_bell/decay_slope",
 					"init": 2.5,
@@ -95,6 +97,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
+					"varname": "fHslider0",
 					"shortname": "gain",
 					"address": "/synth.english_bell/gain",
 					"init": 1,
@@ -105,12 +108,14 @@
 				{
 					"type": "button",
 					"label": "gate",
+					"varname": "fButton0",
 					"shortname": "gate",
 					"address": "/synth.english_bell/gate"
 				},
 				{
 					"type": "nentry",
 					"label": "pos",
+					"varname": "fEntry0",
 					"shortname": "pos",
 					"address": "/synth.english_bell/pos",
 					"meta": [
@@ -124,6 +129,7 @@
 				{
 					"type": "hslider",
 					"label": "sharp",
+					"varname": "fHslider2",
 					"shortname": "sharp",
 					"address": "/synth.english_bell/sharp",
 					"init": 0.5,
@@ -134,6 +140,7 @@
 				{
 					"type": "hslider",
 					"label": "t60",
+					"varname": "fHslider3",
 					"shortname": "t60",
 					"address": "/synth.english_bell/t60",
 					"meta": [
