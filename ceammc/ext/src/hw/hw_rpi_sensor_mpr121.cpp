@@ -37,23 +37,21 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                       i2c_addr_->value(),
                       on_notify(),
                       on_message(),
-                      ceammc_hw_mpr121_key_cb {
+                      {
                           this,
-                          [](void* user, std::uint16_t state) {
+                          [](void* user, std::uint16_t touched, std::uint16_t previous) {
                               auto obj = static_cast<HwRpiSensorMpr121*>(user);
-                              if (obj) {
-                                  SmallAtomListN<12> data;
+                              if (obj && (touched != previous)) {
+                                  AtomArray<2> data;
                                   for (int i = 0; i < 12; i++) {
-                                      if ((1 << i) & state) {
-                                          obj->anyTo(0, gensym("touch"), Atom(i));
-                                          data.push_back(Atom(i));
+                                      auto old_bit = (1 << i) & previous;
+                                      auto new_bit = (1 << i) & touched;
+                                      if (old_bit != new_bit) {
+                                          data[0] = i;
+                                          data[0] = new_bit;
+                                          obj->listTo(0, data.view());
                                       }
                                   }
-
-                                  if (!data.empty())
-                                      obj->listTo(0, data.view());
-                                  else
-                                      obj->bangTo(1);
                               }
                           },
                       }),

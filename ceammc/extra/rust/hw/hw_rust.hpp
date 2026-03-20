@@ -468,9 +468,9 @@ struct ceammc_hw_print_options {
     bool landscape;
 };
 
-struct ceammc_hw_mpr121_key_cb {
+struct ceammc_hw_mpr121_touch_cb {
     void *user;
-    void (*on_all_keys)(void *user, uint16_t state);
+    void (*on_touch)(void *user, uint16_t touched, uint16_t previous);
 };
 
 struct ceammc_hw_sensor_vl53l0x_data_cb {
@@ -1136,7 +1136,7 @@ ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
                                                      int8_t i2c_addr,
                                                      ceammc_hw_notify_cb notify,
                                                      ceammc_hw_msg_cb on_msg,
-                                                     ceammc_hw_mpr121_key_cb on_key);
+                                                     ceammc_hw_mpr121_touch_cb on_touch);
 
 bool ceammc_hw_sensor_mpr121_proc_reply(const ceammc_hw_sensor_mpr121 *mpr);
 

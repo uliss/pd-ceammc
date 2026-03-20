@@ -14,6 +14,7 @@ use std::{
 #[cfg(target_os = "linux")]
 mod mpr121_impl;
 
+#[derive(Debug)]
 pub enum Request {
     ReadAll,
 }
@@ -21,26 +22,25 @@ pub enum Request {
 #[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
-    AllKeys(u16),
-    Key,
+    AllTouches { touched: u16, previous: u16 },
 }
 
 type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;
 
 pub struct hw_sensor_mpr121 {
     worker: Mpr212SensorWorker,
-    cb: hw_mpr121_key_cb,
+    cb: hw_mpr121_touch_cb,
 }
 
 #[repr(C)]
-pub struct hw_mpr121_key_cb {
+pub struct hw_mpr121_touch_cb {
     user: *mut c_void,
-    on_all_keys: extern "C" fn(user: *mut c_void, state: u16),
+    on_touch: extern "C" fn(user: *mut c_void, touched: u16, previous: u16),
 }
 
-impl hw_mpr121_key_cb {
-    pub(crate) fn all_keys(&self, st: u16) {
-        (self.on_all_keys)(self.user, st)
+impl hw_mpr121_touch_cb {
+    pub(crate) fn all_touches(&self, touched: u16, previous: u16) {
+        (self.on_touch)(self.user, touched, previous)
     }
 }
 
@@ -50,10 +50,10 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_new(
     i2c_addr: i8,
     notify: hw_notify_cb,
     on_msg: hw_msg_cb,
-    on_key: hw_mpr121_key_cb,
+    on_touch: hw_mpr121_touch_cb,
 ) -> *mut hw_sensor_mpr121 {
     rpi_check!(null_mut(), {
-        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_key) {
+        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_touch) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
