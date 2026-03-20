@@ -265,7 +265,8 @@ where
 
     pub fn send_request(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
-            self.on_msg.exec(hw_msg_level::Error, err.to_string().as_str());
+            log::error!("{err}");
+            self.on_msg.exec(hw_msg_level::Error, "device is closed");
             false
         } else {
             true
