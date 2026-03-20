@@ -1,0 +1,51 @@
+[package]
+edition = "2021"
+name    = "esp32s3"
+version = "0.1.0"
+
+[[bin]]
+name = "esp32s3"
+path = "src/main.rs"
+test = false
+doctest = false
+bench = false
+
+[dependencies]
+critical-section = "1.2.0"
+defmt = "1.0.1"
+embassy-executor = { version = "0.7.0", features = [
+  "defmt",
+  "task-arena-size-20480",
+] }
+embassy-time = { version = "0.4.0", features = ["generic-queue-8"] }
+esp-alloc = "0.7.0"
+esp-hal = { version = "1.0.0-beta.0", features = [
+  "defmt",
+  "esp32s3",
+  "unstable",
+] }
+esp-hal-embassy = { version = "0.7.0", features = ["esp32s3"] }
+panic-rtt-target = { version = "0.2.0", features = ["defmt"] }
+rtt-target = { version = "0.6.1", features = ["defmt"] }
+static_cell = { version = "2.1.0", features = ["nightly"] }
+mpr121-hal = { path = "../../", features = [
+  "async",
+], default-features = false }
+embassy-sync = "0.6.2"
+embassy-embedded-hal = "0.3.0"
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = "s"
+
+[profile.release]
+codegen-units    = 1     # LLVM can perform better optimizations using a single thread
+debug            = 2
+debug-assertions = false
+incremental      = false
+lto              = 'fat'
+opt-level        = 's'
+overflow-checks  = false
+
+
+[workspace]
