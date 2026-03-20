@@ -131,24 +131,28 @@ impl<I2C: I2c> Mpr121<I2C> {
         self.reset().await?;
         delay.delay_us(100).await;
         // Verify that the default registers match up
-        let register_1 = Register::GlobalChargeDischargeCurrentConfig;
-        let read_register_1_config = self.read_reg8(register_1).await?;
-        if read_register_1_config != register_1.get_initial_value() {
-            return Err(Mpr121Error::WrongDevice {
-                mismatched_register: register_1,
-                expected: register_1.get_initial_value(),
-                actual: read_register_1_config,
-            });
+        // ceammc begin
+        if false {
+            let register_1 = Register::GlobalChargeDischargeCurrentConfig;
+            let read_register_1_config = self.read_reg8(register_1).await?;
+            if read_register_1_config != register_1.get_initial_value() {
+                return Err(Mpr121Error::WrongDevice {
+                    mismatched_register: register_1,
+                    expected: register_1.get_initial_value(),
+                    actual: read_register_1_config,
+                });
+            }
+            let register_2 = Register::GlobalChargeDischargeTimeConfig;
+            let read_register_2_config = self.read_reg8(register_2).await?;
+            if read_register_2_config != register_2.get_initial_value() {
+                return Err(Mpr121Error::WrongDevice {
+                    mismatched_register: register_2,
+                    expected: register_2.get_initial_value(),
+                    actual: read_register_2_config,
+                });
+            }
         }
-        let register_2 = Register::GlobalChargeDischargeTimeConfig;
-        let read_register_2_config = self.read_reg8(register_2).await?;
-        if read_register_2_config != register_2.get_initial_value() {
-            return Err(Mpr121Error::WrongDevice {
-                mismatched_register: register_2,
-                expected: register_2.get_initial_value(),
-                actual: read_register_2_config,
-            });
-        }
+        // ceammc end
         Ok(())
     }
 
