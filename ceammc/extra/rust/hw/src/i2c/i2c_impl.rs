@@ -7,19 +7,44 @@ use crate::{hw_msg_cb, hw_notify_cb, process_err, MakePdMessage};
 
 use super::hw_i2c;
 
+pub enum DetectMethod {
+    QuickWrite,
+    ReceiveByte,
+    ReadByte,
+    WriteRead,
+}
+
+pub fn try_i2c_device(i2c: &mut I2c, i2c_addr: u16, method: DetectMethod) -> Result<(), String> {
+    i2c.set_slave_address(i2c_addr).map_err(|err| err.to_string())?;
+
+    match match method {
+        DetectMethod::QuickWrite => i2c.write(&[]).map(|_| ()),
+        DetectMethod::ReceiveByte => i2c.smbus_receive_byte().map(|_| ()),
+        DetectMethod::ReadByte => {
+            let mut buf = [0u8; 1];
+            i2c.read(&mut buf).map(|_| ())
+        }
+        DetectMethod::WriteRead => {
+            let mut buf = [0u8; 1];
+            i2c.write_read(&[0x00], &mut buf).map(|_| ())
+        }
+    } {
+        Ok(_) => Ok(()),
+        Err(_) => {
+            let msg = format!("device 0x{:02x} is not responding: check connection!", i2c_addr);
+            log::error!("{msg}");
+            Err(msg)
+        }
+    }
+}
+
 #[allow(non_snake_case)]
-pub fn create_i2c_bus<Reply>(
-    bus: i8,
-    tx: &std::sync::mpsc::Sender<Reply>,
-    notify: hw_notify_cb,
-) -> Result<I2c, String>
+pub fn create_i2c_bus<Reply>(bus: i8, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) -> Result<I2c, String>
 where
     Reply: MakePdMessage<Reply>,
 {
     match bus {
-        crate::i2c::HW_I2C_DEFAULT_BUS => {
-            Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?)
-        }
+        crate::i2c::HW_I2C_DEFAULT_BUS => Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?),
         bus if bus >= 0 && bus < crate::i2c::HW_I2C_MAX_BUS => {
             Ok(I2c::with_bus(bus as u8).map_err(|err| process_err(err, tx, notify))?)
         }
@@ -41,8 +66,7 @@ impl hw_i2c {
                 err.to_string()
             })?;
 
-            i2c.set_slave_address(addr as u16)
-                .map_err(|e| e.to_string())?;
+            i2c.set_slave_address(addr as u16).map_err(|e| e.to_string())?;
 
             debug!("i2c init done");
 

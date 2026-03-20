@@ -47,7 +47,6 @@ HwRpiNfcPn532::HwRpiDevice::Device HwRpiNfcPn532::createDevice()
     }
 
     return Device(ceammc_hw_pn532_new(bus,
-                      i2c_addr_->value(),
                       on_notify(),
                       on_message(),
                       ceammc_hw_nfc_pn532_cb {
