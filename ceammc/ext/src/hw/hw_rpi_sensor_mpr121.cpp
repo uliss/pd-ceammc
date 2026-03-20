@@ -48,7 +48,7 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                                       auto new_bit = (1 << i) & touched;
                                       if (old_bit != new_bit) {
                                           data[0] = i;
-                                          data[1] = new_bit;
+                                          data[1] = new_bit > 0;
                                           obj->listTo(0, data.view());
                                       }
                                   }
