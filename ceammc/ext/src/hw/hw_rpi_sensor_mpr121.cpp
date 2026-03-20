@@ -1,9 +1,11 @@
 #include "hw_rpi_sensor_mpr121.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 HwRpiSensorMpr121::HwRpiSensorMpr121(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_sensor_mpr121>(&ceammc_hw_sensor_mpr121_free, args)
 {
+    createOutlet();
     createOutlet();
 
     i2c_addr_ = addI2cAddrProperty();
@@ -39,8 +41,20 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                           this,
                           [](void* user, std::uint16_t state) {
                               auto obj = static_cast<HwRpiSensorMpr121*>(user);
-                              if (obj)
-                                  obj->floatTo(0, state);
+                              if (obj) {
+                                  SmallAtomListN<12> data;
+                                  for (int i = 0; i < 12; i++) {
+                                      if ((1 << i) & state) {
+                                          obj->anyTo(0, gensym("touch"), Atom(i));
+                                          data.push_back(Atom(i));
+                                      }
+                                  }
+
+                                  if (!data.empty())
+                                      obj->listTo(0, data.view());
+                                  else
+                                      obj->bangTo(1);
+                              }
                           },
                       }),
         freeDeviceFn());

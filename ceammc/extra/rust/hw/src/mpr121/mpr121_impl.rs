@@ -66,7 +66,7 @@ impl hw_sensor_mpr121 {
             send_debug(
                 &tx,
                 notify,
-                format!("mpr121 init with bus={bus} and addr={addr:?}").as_str(),
+                format!("mpr121 init with bus={bus} and addr=0x{addr:02x}").as_str(),
             );
 
             while let Ok(req) = rx.recv() {
