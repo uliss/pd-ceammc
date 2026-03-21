@@ -35,6 +35,16 @@ void HwRpiSensorMpr121::m_threshold(t_symbol *s, const AtomListView &lv)
     ceammc_hw_sensor_mpr121_set_thresholds(device(), on, off);
 }
 
+void HwRpiSensorMpr121::m_debounce(t_symbol *s, const AtomListView &lv)
+{
+    if (!check_connected(true, nullptr))
+        return;
+
+    auto on = lv.intAt(0, 0);
+    auto off = lv.intAt(1, 0);
+    ceammc_hw_sensor_mpr121_set_debounce(device(), on, off);
+}
+
 HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
 {
     std::int8_t bus = 0;
@@ -88,4 +98,5 @@ void setup_hw_rpi_sensor_mpr121()
 {
     ObjectFactory<HwRpiSensorMpr121> obj("hw.rpi.sensor.mpr121");
     obj.addMethod("threshold", &HwRpiSensorMpr121::m_threshold);
+    obj.addMethod("debounce", &HwRpiSensorMpr121::m_debounce);
 }
