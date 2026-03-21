@@ -24,45 +24,47 @@
 #X obj 50 462 dyn.comp2~ 4 -6, f 32;
 #X obj 50 491 ui.hgain2~;
 #X obj 50 519 dac~;
-#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 574 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 562 ui.link @title Connection_Scheme @url
+ceammc://img/conn_mpr121.png;
+#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 624 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 577 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 627 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 575 @i2c_addr;
-#X text 270 575 (при инициализации) Адрес I²C. Также принимается значение
+#X msg 130 625 @i2c_addr;
+#X text 270 625 (при инициализации) Адрес I²C. Также принимается значение
 «default» (для адреса 0x48) и «alt» (для адреса 0x49). Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-4\..119].;
-#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 647 @i2c_bus;
-#X text 270 647 (при инициализации) Шина I²C. Тип: atom. Значение по
+#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 697 @i2c_bus;
+#X text 270 697 (при инициализации) Шина I²C. Тип: atom. Значение по
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
-#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 704 @connect;
-#X text 270 704 При установке в 1: пробует подключиться к устройству
+#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 754 @connect;
+#X text 270 754 При установке в 1: пробует подключиться к устройству
 на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 776 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 826 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 777 1\.;
-#X text 170 777 bang:;
-#X text 270 777 выполнить однократный опрос электродов.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 817 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 827 1\.;
+#X text 170 827 bang:;
+#X text 270 827 выполнить однократный опрос электродов.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 867 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 818 1\.;
-#X text 170 818 list:;
-#X text 270 818 список из двух элементов: SENSOR_INDEX STATE(0|1).;
+#X text 130 868 1\.;
+#X text 170 868 list:;
+#X text 270 868 список из двух элементов: SENSOR_INDEX STATE(0|1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 868 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 871 библиотека: ceammc v0.9.8;
-#N canvas 10 890 400 290 info 0;
+#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 921 библиотека: ceammc v0.9.8;
+#N canvas 10 940 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +89,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 890 pd info;
+#X restore 10 940 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
