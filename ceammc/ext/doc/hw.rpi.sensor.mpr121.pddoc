@@ -23,9 +23,9 @@
         <tr lang="en">The MPR121 is sutable for proximity detection and touch sensing applications,
         offering built-in electrode configuration, adjustable thresholds, and filtering to ensure
         reliable performance in noisy environments.</tr>
-        <tr lang="ru">MPR121 хорошо подходит для обнаружения приближения и сенсорного контакта,
+        <tr lang="ru">MPR121 можно использовать в качестве детектора приближения или сенсорного контакта,
         предлагая встроенную настройку электродов, регулируемые пороги срабатывания и фильтрацию
-        для надежной работы в условиях шумов.</tr>
+        для работы в условиях шумов.</tr>
       </par>
     </info>
     <properties>
@@ -54,8 +54,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">polls the touch sensors</tr>
-          <tr lang="ru">делает опрос сенсоров прикосновений</tr>
+          <tr lang="en">perform a single poll of electrodes</tr>
+          <tr lang="ru">выполнить однократный опрос электродов</tr>
         </in>
       </inlet>
     </inlets>
@@ -76,13 +76,15 @@
 
   [T]
   |
-  [metro 50]
+  [metro 50]/*<- poll every 50ms*/
   |
 [hw.rpi.sensor.mpr121 #x] [ui.dsp~]
 |              |
+|              |
+|              |
 [$1 $1 $2(     [ui.dt]
 |
-[clone 12 hw.rpi.sensor.mpr121-osc~ #c {o=2}]
+[clone 12 hw.rpi.sensor.mpr121-osc~ #c {i=1,o=2}]
 *|*
 [dyn.comp2~ #b {w=32}]
 *|*

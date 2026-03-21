@@ -6,7 +6,6 @@ HwRpiSensorMpr121::HwRpiSensorMpr121(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_sensor_mpr121>(&ceammc_hw_sensor_mpr121_free, args)
 {
     createOutlet();
-    createOutlet();
 
     i2c_addr_ = addI2cAddrProperty();
     i2c_bus_ = addI2cBusProperty();
@@ -61,7 +60,4 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
 void setup_hw_rpi_sensor_mpr121()
 {
     ObjectFactory<HwRpiSensorMpr121> obj("hw.rpi.sensor.mpr121");
-
-    //    obj.addMethod("poll", &HwRpiSensorMpr121::m_poll);
-    //    obj.addMethod("address", &HwRpiSensorMpr121::m_address);
 }
