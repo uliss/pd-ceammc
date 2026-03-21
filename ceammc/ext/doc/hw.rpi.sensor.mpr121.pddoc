@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
+  <object name="hw.rpi.sensor.mpr121">
+    <title>hw.rpi.sensor.mpr121</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">12-channel I²C capacitive touch sensor controller with low power consumption
+        and automatic calibration.</tr>
+        <tr lang="ru">12-канальный I²C-контроллер емкостного сенсора с низким энергопотреблением и
+        автоматической калибровкой.</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>pwm hardware rpi raspberry mpr121 touch sensor</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par>
+        <tr lang="en">The MPR121 is sutable for proximity detection and touch sensing applications,
+        offering built-in electrode configuration, adjustable thresholds, and filtering to ensure
+        reliable performance in noisy environments.</tr>
+        <tr lang="ru">MPR121 хорошо подходит для обнаружения приближения и сенсорного контакта,
+        предлагая встроенную настройку электродов, регулируемые пороги срабатывания и фильтрацию
+        для надежной работы в условиях шумов.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
+      </property>
+      <!-- @i2c_addr -->
+      <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
+      maxvalue="119">
+        <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x48) and 'alt'
+        (for address 0x49)</tr>
+        <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
+        (для адреса 0x49)</tr>
+      </property>
+      <!-- @i2c_bus -->
+      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+      access="initonly">
+        <tr lang="en">I²C bus</tr>
+        <tr lang="ru">шина I²C</tr>
+      </property>
+    </properties>
+    <inlets>
+      <inlet>
+        <in on="bang">
+          <tr lang="en">polls the touch sensors</tr>
+          <tr lang="ru">делает опрос сенсоров прикосновений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="list">
+          <tr lang="en">list of two elements: SENSOR_INDEX STATE(0|1)</tr>
+          <tr lang="ru">список из двух элементов: SENSOR_INDEX STATE(0|1)</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
+<![CDATA[
+[T]
+|
+[@connect $1 #a(
+
+  [T]
+  |
+  [metro 50]
+  |
+[hw.rpi.sensor.mpr121 #x]
+|              |
+[$1 $1 $2(     [ui.dt]
+|
+[clone 12 hw.rpi.sensor.mpr121-osc~]
+*|*
+[dyn.comp2~ 4 -6]  [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+[X a->x]
+#x @i2c_bus 1
+]]>
+      </pdascii>
+    </example>
+  </object>
+</pddoc>
