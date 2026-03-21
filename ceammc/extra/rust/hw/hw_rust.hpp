@@ -468,9 +468,9 @@ struct ceammc_hw_print_options {
     bool landscape;
 };
 
-struct ceammc_hw_mpr121_key_cb {
+struct ceammc_hw_mpr121_touch_cb {
     void *user;
-    void (*on_all_keys)(void *user, uint16_t state);
+    void (*on_touch)(void *user, uint16_t touched, uint16_t previous);
 };
 
 struct ceammc_hw_sensor_vl53l0x_data_cb {
@@ -1023,8 +1023,12 @@ bool ceammc_hw_mpu6050_poll(ceammc_hw_mpu6050 *mpu, bool state);
 
 bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
 
+/// delete pn532 handle
+/// @param nfc - device handle, nullable
 void ceammc_hw_nfc_pn532_free(ceammc_hw_nfc_pn532 *nfc);
 
+/// process reply from device
+/// @param nfc - device handle, nullable
 bool ceammc_hw_nfc_pn532_proc_reply(const ceammc_hw_nfc_pn532 *nfc);
 
 bool ceammc_hw_nfc_pn532_readall(const ceammc_hw_nfc_pn532 *nfc);
@@ -1085,11 +1089,16 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_pca8695_prog_address addr_type,
                                      uint8_t i2c_addr);
 
+/// create new pn532 device handle
+/// @i2c_bus - i2c bus number
+/// @notify - notify callback, when device get some information
+/// @on_msg - message callback called on device message
+/// @on_data - data callback
+/// @return pointer to handle or nullptr on error
 ceammc_hw_nfc_pn532 *ceammc_hw_pn532_new(int8_t i2c_bus,
-                                         int8_t i2c_addr,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_msg,
-                                         ceammc_hw_nfc_pn532_cb on_key);
+                                         ceammc_hw_nfc_pn532_cb on_data);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
@@ -1127,7 +1136,7 @@ ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
                                                      int8_t i2c_addr,
                                                      ceammc_hw_notify_cb notify,
                                                      ceammc_hw_msg_cb on_msg,
-                                                     ceammc_hw_mpr121_key_cb on_key);
+                                                     ceammc_hw_mpr121_touch_cb on_touch);
 
 bool ceammc_hw_sensor_mpr121_proc_reply(const ceammc_hw_sensor_mpr121 *mpr);
 

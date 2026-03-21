@@ -3,7 +3,7 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 use lib_macro::PdMessage;
 use log::error;
 use std::{
@@ -11,9 +11,9 @@ use std::{
     ptr::null_mut,
 };
 
-#[cfg(target_os = "linux")] 
+#[cfg(target_os = "linux")]
 mod pn532_impl;
-#[cfg(target_os = "linux")] 
+#[cfg(target_os = "linux")]
 mod pn532_timer;
 
 pub enum Request {
@@ -46,15 +46,20 @@ impl hw_nfc_pn532_cb {
 }
 
 #[no_mangle]
+/// create new pn532 device handle
+/// @i2c_bus - i2c bus number
+/// @notify - notify callback, when device get some information
+/// @on_msg - message callback called on device message
+/// @on_data - data callback
+/// @return pointer to handle or nullptr on error
 pub extern "C" fn ceammc_hw_pn532_new(
-    i2c_bus: i8,
-    i2c_addr: i8,
+    i2c_bus: i8, 
     notify: hw_notify_cb,
     on_msg: hw_msg_cb,
-    on_key: hw_nfc_pn532_cb,
+    on_data: hw_nfc_pn532_cb,
 ) -> *mut hw_nfc_pn532 {
     rpi_check!(null_mut(), {
-        match hw_nfc_pn532::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_key) {
+        match hw_nfc_pn532::new(i2c_bus, notify, on_msg, on_data) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -66,6 +71,8 @@ pub extern "C" fn ceammc_hw_pn532_new(
 }
 
 #[no_mangle]
+/// delete pn532 handle
+/// @param nfc - device handle, nullable
 pub extern "C" fn ceammc_hw_nfc_pn532_free(nfc: *mut hw_nfc_pn532) {
     rpi_check!((), {
         if !nfc.is_null() {
@@ -75,6 +82,8 @@ pub extern "C" fn ceammc_hw_nfc_pn532_free(nfc: *mut hw_nfc_pn532) {
 }
 
 #[no_mangle]
+/// process reply from device
+/// @param nfc - device handle, nullable
 pub extern "C" fn ceammc_hw_nfc_pn532_proc_reply(nfc: *const hw_nfc_pn532) -> bool {
     rpi_check!({ hw_nfc_pn532::process_reply(nfc) });
 }

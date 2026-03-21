@@ -1,0 +1,18 @@
+[package]
+name = "tests-common"
+description = "Common tests for the MPR121 Driver that are cross platform. Currently using Synchronous Embedded Hal"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mpr121-hal = {path="../"}
+embedded-hal-bus = { version = "0.3.0" }
+# Embedded HAL traits
+embedded-hal = { version = "1.0", optional = true }
+embedded-hal-async = { version = "1.0", optional = true }
+
+[features]
+
+# Embedded Hal Features
+sync = ["dep:embedded-hal"]
+async = ["dep:embedded-hal-async"]
