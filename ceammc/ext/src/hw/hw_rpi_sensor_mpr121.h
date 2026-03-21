@@ -17,7 +17,7 @@ public:
 
     void onBang() final;
 
-//    void m_poll(t_symbol* s, const AtomListView& lv);
+    void m_threshold(t_symbol* s, const AtomListView& lv);
 //    void m_address(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
