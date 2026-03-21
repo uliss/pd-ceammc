@@ -1,6 +1,7 @@
 #include "hw_rpi_sensor_mpr121.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
+#include "hw_rpi_sensor_mpr121_args.hpp"
 
 HwRpiSensorMpr121::HwRpiSensorMpr121(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_sensor_mpr121>(&ceammc_hw_sensor_mpr121_free, args)
@@ -25,24 +26,38 @@ void HwRpiSensorMpr121::onBang()
     ceammc_hw_sensor_mpr121_readall(device());
 }
 
-void HwRpiSensorMpr121::m_threshold(t_symbol *s, const AtomListView &lv)
+/// @function "set the touch and release threshold for all channels" {
+///  #touch   int "touch threshold"     { check: [0..30] }
+///  #release int "release threshold"   { check: [0..30] }
+/// }
+void HwRpiSensorMpr121::m_threshold(t_symbol* s, const AtomListView& lv)
 {
+    m_threshold_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     if (!check_connected(true, nullptr))
         return;
 
-    auto on = lv.intAt(0, 8);
-    auto off = lv.intAt(1, 6);
-    ceammc_hw_sensor_mpr121_set_thresholds(device(), on, off);
+    ceammc_hw_sensor_mpr121_set_thresholds(device(), args.touch, args.release);
 }
 
-void HwRpiSensorMpr121::m_debounce(t_symbol *s, const AtomListView &lv)
+/// @function "the number of consecutive samples needed to confirm a touch/release, helping to filter out noise" {
+///  #touch   int "touch threshold"     { check: [0..7] }
+///  #release int "release threshold"   { check: [0..7] }
+/// }
+void HwRpiSensorMpr121::m_debounce(t_symbol* s, const AtomListView& lv)
 {
+    m_debounce_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     if (!check_connected(true, nullptr))
         return;
 
     auto on = lv.intAt(0, 0);
     auto off = lv.intAt(1, 0);
-    ceammc_hw_sensor_mpr121_set_debounce(device(), on, off);
+    ceammc_hw_sensor_mpr121_set_debounce(device(), args.touch, args.release);
 }
 
 HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
@@ -97,6 +112,6 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
 void setup_hw_rpi_sensor_mpr121()
 {
     ObjectFactory<HwRpiSensorMpr121> obj("hw.rpi.sensor.mpr121");
-    obj.addMethod("threshold", &HwRpiSensorMpr121::m_threshold);
     obj.addMethod("debounce", &HwRpiSensorMpr121::m_debounce);
+    obj.addMethod("threshold", &HwRpiSensorMpr121::m_threshold);
 }
