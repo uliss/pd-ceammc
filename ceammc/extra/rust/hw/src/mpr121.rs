@@ -17,43 +17,67 @@ mod mpr121_impl;
 #[derive(Debug)]
 pub enum Request {
     ReadAll,
+    Reset,
+    SetThresholds(u8, u8),
+    SetDebounce(u8, u8),
+    GetFiltered(u8),
+    GetBaseline(u8),
 }
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
     AllTouches { touched: u16, previous: u16 },
+    Filtered { value: u16, channel: u8 },
+    Baseline { value: u8, channel: u8 },
 }
 
 type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;
 
 pub struct hw_sensor_mpr121 {
     worker: Mpr212SensorWorker,
-    cb: hw_mpr121_touch_cb,
+    cb: hw_mpr121_reply_cb,
 }
 
 #[repr(C)]
-pub struct hw_mpr121_touch_cb {
+pub struct hw_mpr121_reply_cb {
     user: *mut c_void,
     on_touch: extern "C" fn(user: *mut c_void, touched: u16, previous: u16),
+    on_baseline: extern "C" fn(user: *mut c_void, channel: u8, data: u8),
+    on_filtered: extern "C" fn(user: *mut c_void, channel: u8, data: u16),
 }
 
-impl hw_mpr121_touch_cb {
+impl hw_mpr121_reply_cb {
     pub(crate) fn all_touches(&self, touched: u16, previous: u16) {
         (self.on_touch)(self.user, touched, previous)
+    }
+
+    pub(crate) fn filtered(&self, channel: u8, data: u16) {
+        (self.on_filtered)(self.user, channel, data)
+    }
+
+    pub(crate) fn baseline(&self, channel: u8, data: u8) {
+        (self.on_baseline)(self.user, channel, data)
     }
 }
 
 #[no_mangle]
+/// create new mpr121 device handle
+/// @param i2c_bus - i2c bus
+/// @param i2c_addr - i2c address
+/// @param caller notify callback
+/// @param on_msg - on message callback
+/// @param on_reply - on worker data callback
+/// @return pointer to device handle or NULL on error
 pub extern "C" fn ceammc_hw_sensor_mpr121_new(
     i2c_bus: i8,
     i2c_addr: i8,
     notify: hw_notify_cb,
     on_msg: hw_msg_cb,
-    on_touch: hw_mpr121_touch_cb,
+    on_reply: hw_mpr121_reply_cb,
 ) -> *mut hw_sensor_mpr121 {
     rpi_check!(null_mut(), {
-        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_touch) {
+        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_reply) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -65,6 +89,8 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_new(
 }
 
 #[no_mangle]
+/// free mpr121 device handle
+/// @param mpr - device handle, nullable
 pub extern "C" fn ceammc_hw_sensor_mpr121_free(mpr: *mut hw_sensor_mpr121) {
     rpi_check!((), {
         if !mpr.is_null() {
@@ -74,11 +100,54 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_free(mpr: *mut hw_sensor_mpr121) {
 }
 
 #[no_mangle]
+/// process mpr121 replies
+/// @param mpr - device handle, nullable
 pub extern "C" fn ceammc_hw_sensor_mpr121_proc_reply(mpr: *const hw_sensor_mpr121) -> bool {
     rpi_check!({ hw_sensor_mpr121::process_reply(mpr) });
 }
 
 #[no_mangle]
+/// single request to read all touches
+/// @param mpr - device handle, nullable
 pub extern "C" fn ceammc_hw_sensor_mpr121_readall(mpr: *const hw_sensor_mpr121) -> bool {
     rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::ReadAll) });
 }
+
+#[no_mangle]
+/// performs a software reset on the device, resetting the MPR121 Touch sensor back to default configuration
+/// @param mpr - device handle, nullable
+pub extern "C" fn ceammc_hw_sensor_mpr121_reset(mpr: *const hw_sensor_mpr121) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::Reset) });
+}
+
+#[no_mangle]
+/// Set the touch and release threshold for all channels. Usually the touch threshold is a little bigger than the release threshold. This creates some debounce characteristics. The correct thresholds depend on the application.
+/// @param mpr - device handle, nullable
+/// @param on - touch threshold
+/// @param off - release threshold
+pub extern "C" fn ceammc_hw_sensor_mpr121_set_thresholds(mpr: *const hw_sensor_mpr121, on: u8, off: u8) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::SetThresholds(on, off)) });
+}
+
+#[no_mangle]
+/// Sets the count for both touch and release. See 5.7 of the Mpr121 Data Sheet.
+/// @param mpr - device handle, nullable
+pub extern "C" fn ceammc_hw_sensor_mpr121_set_debounce(mpr: *const hw_sensor_mpr121, on: u8, off: u8) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::SetDebounce(on, off)) });
+}
+
+#[no_mangle]
+/// Reads the filtered data from touch channels. Noise gets filtered out by the chip. See 5.3 in the data sheet.
+/// Note that the resulting value is only 10bit wide.
+/// @param mpr - device handle, nullable
+pub extern "C" fn ceammc_hw_sensor_mpr121_get_filtered(mpr: *const hw_sensor_mpr121, channel: u8) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::GetFiltered(channel)) });
+}
+
+#[no_mangle]
+/// Reads the baseline data for the channel. Note that this has only a resolution of 8bit.
+/// @param mpr - device handle, nullable
+pub extern "C" fn ceammc_hw_sensor_mpr121_get_baseline(mpr: *const hw_sensor_mpr121, channel: u8) -> bool {
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::GetFiltered(channel)) });
+}
+

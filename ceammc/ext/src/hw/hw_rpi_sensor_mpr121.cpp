@@ -6,6 +6,7 @@ HwRpiSensorMpr121::HwRpiSensorMpr121(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_sensor_mpr121>(&ceammc_hw_sensor_mpr121_free, args)
 {
     createOutlet();
+    createOutlet();
 
     i2c_addr_ = addI2cAddrProperty();
     i2c_bus_ = addI2cBusProperty();
@@ -41,6 +42,8 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                           [](void* user, std::uint16_t touched, std::uint16_t previous) {
                               auto obj = static_cast<HwRpiSensorMpr121*>(user);
                               if (obj && (touched != previous)) {
+                                  obj->anyTo(1, gensym("touches"), Atom(touched));
+
                                   AtomArray<2> data;
                                   for (int i = 0; i < 12; i++) {
                                       auto old_bit = (1 << i) & previous;
@@ -52,6 +55,20 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                                       }
                                   }
                               }
+                          },
+                          [](void* user, std::uint8_t channel, std::uint8_t data) {
+                              auto obj = static_cast<HwRpiSensorMpr121*>(user);
+                              AtomArray<2> pair;
+                              pair[0] = channel;
+                              pair[1] = data;
+                              obj->anyTo(1, gensym("baseline"), pair.view());
+                          },
+                          [](void* user, std::uint8_t channel, std::uint16_t data) {
+                              auto obj = static_cast<HwRpiSensorMpr121*>(user);
+                              AtomArray<2> pair;
+                              pair[0] = channel;
+                              pair[1] = data;
+                              obj->anyTo(1, gensym("filtered"), pair.view());
                           },
                       }),
         freeDeviceFn());

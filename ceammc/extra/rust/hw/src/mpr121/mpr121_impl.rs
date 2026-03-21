@@ -1,14 +1,46 @@
 use log::{debug, error};
-use mpr121_hal::{mpr121::Mpr121, Mpr121Address};
+use mpr121_hal::{mpr121::Mpr121, Channel, DebounceNumber, Mpr121Address};
 use rppal::hal::Delay;
 use std::ffi::CString;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::try_i2c_device, I2cAddress},
-    mpr121::{hw_mpr121_touch_cb, hw_sensor_mpr121, Mpr212SensorWorker, Reply, Request},
+    mpr121::{hw_mpr121_reply_cb, hw_sensor_mpr121, Mpr212SensorWorker, Reply, Request},
     process_err, send_debug, send_reply,
 };
+
+fn to_channel(num: u8) -> Result<Channel, String> {
+    match num {
+        0 => Ok(Channel::Zero),
+        1 => Ok(Channel::One),
+        2 => Ok(Channel::Two),
+        3 => Ok(Channel::Three),
+        4 => Ok(Channel::Four),
+        5 => Ok(Channel::Five),
+        6 => Ok(Channel::Six),
+        7 => Ok(Channel::Seven),
+        8 => Ok(Channel::Eight),
+        9 => Ok(Channel::Nine),
+        10 => Ok(Channel::Ten),
+        11 => Ok(Channel::Eleven),
+        _ => Err(format!("invalid channel: {num}, allowed values in [0..11] range")),
+    }
+}
+
+fn to_debounce(num: u8) -> Result<DebounceNumber, String> {
+    match num {
+        0 => Ok(DebounceNumber::Zero),
+        1 => Ok(DebounceNumber::One),
+        2 => Ok(DebounceNumber::Two),
+        3 => Ok(DebounceNumber::Three),
+        4 => Ok(DebounceNumber::Four),
+        5 => Ok(DebounceNumber::Five),
+        6 => Ok(DebounceNumber::Six),
+        7 => Ok(DebounceNumber::Seven),
+        _ => Err(format!("invalid debounce value: {num}, allowed values in [0..7] range")),
+    }
+}
 
 impl hw_sensor_mpr121 {
     pub(crate) fn new(
@@ -16,7 +48,7 @@ impl hw_sensor_mpr121 {
         i2c_addr: I2cAddress,
         notify: hw_notify_cb,
         on_msg: hw_msg_cb,
-        on_key: hw_mpr121_touch_cb,
+        on_reply: hw_mpr121_reply_cb,
     ) -> Result<Self, CString> {
         let (worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
 
@@ -90,13 +122,44 @@ impl hw_sensor_mpr121 {
                             process_err(format!("{err:?}"), &tx, notify);
                         }
                     },
+                    Request::Reset => {
+                        if let Err(err) = sensor.reset() {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    }
+                    Request::SetThresholds(on, off) => {
+                        if let Err(err) = sensor.set_thresholds(on, off) {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    }
+                    Request::SetDebounce(on, off) => {
+                        if let Err(err) = sensor.set_debounce(to_debounce(on)?, to_debounce(off)?) {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    }
+                    Request::GetFiltered(channel) => match sensor.get_filtered(to_channel(channel)?) {
+                        Ok(value) => {
+                            send_reply(Reply::Filtered { value, channel }, &tx, notify);
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    },
+                    Request::GetBaseline(channel) => match sensor.get_baseline(to_channel(channel)?) {
+                        Ok(value) => {
+                            send_reply(Reply::Baseline { value, channel }, &tx, notify);
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    },
                 }
             }
 
             Ok(())
         });
 
-        Ok(Self { worker, cb: on_key })
+        Ok(Self { worker, cb: on_reply })
     }
 
     pub(crate) fn process_reply(mpr: *const Self) -> bool {
@@ -113,6 +176,12 @@ impl hw_sensor_mpr121 {
                 Reply::AllTouches { touched, previous } => {
                     mpr.cb.all_touches(touched, previous);
                 }
+                Reply::Filtered { value, channel } => {
+                    mpr.cb.filtered(channel, value);
+                }
+                Reply::Baseline { value, channel } => {
+                    mpr.cb.baseline(channel, value);
+                },
             });
 
             true

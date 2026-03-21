@@ -468,9 +468,11 @@ struct ceammc_hw_print_options {
     bool landscape;
 };
 
-struct ceammc_hw_mpr121_touch_cb {
+struct ceammc_hw_mpr121_reply_cb {
     void *user;
     void (*on_touch)(void *user, uint16_t touched, uint16_t previous);
+    void (*on_baseline)(void *user, uint8_t channel, uint8_t data);
+    void (*on_filtered)(void *user, uint8_t channel, uint16_t data);
 };
 
 struct ceammc_hw_sensor_vl53l0x_data_cb {
@@ -1130,17 +1132,58 @@ bool ceammc_hw_rpi_pwm_set_pulse_width(const ceammc_hw_rpi_pwm *pwm, double widt
 
 bool ceammc_hw_rpi_pwm_set_pwm(const ceammc_hw_rpi_pwm *pwm, double period_ms, double width_ms);
 
+/// free mpr121 device handle
+/// @param mpr - device handle, nullable
 void ceammc_hw_sensor_mpr121_free(ceammc_hw_sensor_mpr121 *mpr);
 
+/// Reads the baseline data for the channel. Note that this has only a resolution of 8bit.
+/// @param mpr - device handle, nullable
+bool ceammc_hw_sensor_mpr121_get_baseline(const ceammc_hw_sensor_mpr121 *mpr, uint8_t channel);
+
+/// Reads the filtered data from touch channels. Noise gets filtered out by the chip. See 5.3 in the data sheet.
+/// Note that the resulting value is only 10bit wide.
+/// @param mpr - device handle, nullable
+bool ceammc_hw_sensor_mpr121_get_filtered(const ceammc_hw_sensor_mpr121 *mpr,
+                                          uint8_t channel);
+
+/// create new mpr121 device handle
+/// @param i2c_bus - i2c bus
+/// @param i2c_addr - i2c address
+/// @param caller notify callback
+/// @param on_msg - on message callback
+/// @param on_reply - on worker data callback
+/// @return pointer to device handle or NULL on error
 ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
                                                      int8_t i2c_addr,
                                                      ceammc_hw_notify_cb notify,
                                                      ceammc_hw_msg_cb on_msg,
-                                                     ceammc_hw_mpr121_touch_cb on_touch);
+                                                     ceammc_hw_mpr121_reply_cb on_reply);
 
+/// process mpr121 replies
+/// @param mpr - device handle, nullable
 bool ceammc_hw_sensor_mpr121_proc_reply(const ceammc_hw_sensor_mpr121 *mpr);
 
+/// single request to read all touches
+/// @param mpr - device handle, nullable
 bool ceammc_hw_sensor_mpr121_readall(const ceammc_hw_sensor_mpr121 *mpr);
+
+/// performs a software reset on the device, resetting the MPR121 Touch sensor back to default configuration
+/// @param mpr - device handle, nullable
+bool ceammc_hw_sensor_mpr121_reset(const ceammc_hw_sensor_mpr121 *mpr);
+
+/// Sets the count for both touch and release. See 5.7 of the Mpr121 Data Sheet.
+/// @param mpr - device handle, nullable
+bool ceammc_hw_sensor_mpr121_set_debounce(const ceammc_hw_sensor_mpr121 *mpr,
+                                          uint8_t on,
+                                          uint8_t off);
+
+/// Set the touch and release threshold for all channels. Usually the touch threshold is a little bigger than the release threshold. This creates some debounce characteristics. The correct thresholds depend on the application.
+/// @param mpr - device handle, nullable
+/// @param on - touch threshold
+/// @param off - release threshold
+bool ceammc_hw_sensor_mpr121_set_thresholds(const ceammc_hw_sensor_mpr121 *mpr,
+                                            uint8_t on,
+                                            uint8_t off);
 
 void ceammc_hw_sensor_vl53l0x_free(ceammc_hw_sensor_vl53l0x *vl);
 
