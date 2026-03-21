@@ -27,8 +27,8 @@ void HwRpiSensorMpr121::onBang()
 }
 
 /// @function "set the touch and release threshold for all channels" {
-///  #touch   int "touch threshold"     { check: [0..30] }
-///  #release int "release threshold"   { check: [0..30] }
+///  #touch   byte "touch threshold"   {}
+///  #release byte "release threshold" {}
 /// }
 void HwRpiSensorMpr121::m_threshold(t_symbol* s, const AtomListView& lv)
 {

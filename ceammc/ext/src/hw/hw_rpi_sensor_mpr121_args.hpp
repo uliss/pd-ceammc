@@ -12,8 +12,8 @@ namespace {
 struct m_threshold_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
-    t_int touch {0}; // touch threshold
-    t_int release {0}; // release threshold
+    std::uint8_t touch {0}; // touch threshold
+    std::uint8_t release {0}; // release threshold
     // methods
     int process_touch(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -21,7 +21,7 @@ struct m_threshold_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 30))) {
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
             return INVALID_VALUE;
         }
         // set value
@@ -35,7 +35,7 @@ struct m_threshold_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 30))) {
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
             return INVALID_VALUE;
         }
         // set value
@@ -44,10 +44,10 @@ struct m_threshold_args {
         return 1;
     }
     static const char* arg_touch_info() {
-        return "TOUCH (touch threshold), int in [0..30] range";
+        return "TOUCH (touch threshold), byte[0..255] range";
     }
     static const char* arg_release_info() {
-        return "RELEASE (release threshold), int in [0..30] range";
+        return "RELEASE (release threshold), byte[0..255] range";
     }
     static const char* usage() {
         return "usage: [threshold TOUCH RELEASE(";
