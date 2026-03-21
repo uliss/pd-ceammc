@@ -78,19 +78,42 @@
   |
   [metro 50]
   |
-[hw.rpi.sensor.mpr121 #x]
+[hw.rpi.sensor.mpr121 #x] [ui.dsp~]
 |              |
 [$1 $1 $2(     [ui.dt]
 |
-[clone 12 hw.rpi.sensor.mpr121-osc~]
+[clone 12 hw.rpi.sensor.mpr121-osc~ #c {o=2}]
 *|*
-[dyn.comp2~ 4 -6]  [ui.dsp~]
+[dyn.comp2~ #b {w=32}]
 *|*
-[ui.hgain2~]
+[ui.hgain2~ {o:2}]
 *|*
-[dac~]
-[X a->x]
+[dac~ {o:2}]
+[X a->x] [X c:1->b:1]
 #x @i2c_bus 1
+#b 4 -6
+]]>
+      </pdascii>
+      <pdascii id="osc~">
+<![CDATA[
+[inlet]
+|
+[unpack f f #a]
+|
+[+ 48]
+|
+[mtof~]
+|
+[lop~ 5]
+|
+[osc.tri~]
+|
+[env.asr~ 1000 40 2000 #x]
+|
+[pan~   expr((\$1 / 6) - 1)]
+|          ^|
+[outlet~] [outlet~]
+[X a:1->x:1]
 ]]>
       </pdascii>
     </example>

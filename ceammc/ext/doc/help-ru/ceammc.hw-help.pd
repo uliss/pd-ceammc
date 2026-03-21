@@ -51,28 +51,32 @@ Raspberry Pi;
 hw.rpi.sensor.ir-help.pd;
 #X text 220 562 ИК (инфракрасные) датчики и протоколы для Raspberry
 Pi;
-#X obj 30 590 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X obj 30 590 ui.link @title [hw.rpi.sensor.mpr121] @url
+hw.rpi.sensor.mpr121-help.pd;
+#X text 220 587 12-канальный I²C-контроллер емкостного сенсора с низким
+энергопотреблением и автоматической калибровкой.;
+#X obj 30 630 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 220 587 MPU-6050 гироскоп и датчик ускорения для Raspberry
+#X text 220 627 MPU-6050 гироскоп и датчик ускорения для Raspberry
 Pi;
-#X obj 30 615 ui.link @title [hw.rpi.sensor.sr04] @url
+#X obj 30 655 ui.link @title [hw.rpi.sensor.sr04] @url
 hw.rpi.sensor.sr04-help.pd;
-#X text 220 612 HC-SR04 ультразвуковой датчик расстояния для Raspberry
+#X text 220 652 HC-SR04 ультразвуковой датчик расстояния для Raspberry
 Pi;
-#X obj 30 640 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+#X obj 30 680 ui.link @title [hw.rpi.sensor.vl53l0x] @url
 hw.rpi.sensor.vl53l0x-help.pd;
-#X text 220 637 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
-#X obj 30 665 ui.link @title [hw.rpi.spi.max7219] @url
+#X text 220 677 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
+#X obj 30 705 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 220 662 драйвер для LED матрицы на чипе max7219 для Raspberry
+#X text 220 702 драйвер для LED матрицы на чипе max7219 для Raspberry
 Pi;
-#X obj 30 690 ui.link @title [hw.rpi.spi.ws2812] @url
+#X obj 30 730 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 220 687 драйвер для светодиодной ленты ws2812 для Raspberry
+#X text 220 727 драйвер для светодиодной ленты ws2812 для Raspberry
 Pi;
-#X obj 30 715 ui.link @title [hw.serial] @url hw.serial-help.pd;
-#X text 220 712 серийный порт устройства;
+#X obj 30 755 ui.link @title [hw.serial] @url hw.serial-help.pd;
+#X text 220 752 серийный порт устройства;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 737 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 747 library: ceammc;
+#X obj 1 777 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 787 library: ceammc;
