@@ -1077,6 +1077,9 @@
     <entry name="hw.rpi.sensor.ir" descr="IR (infrared) sensors and protocols for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.ir.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.sensor.mpr121" descr="12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration." ref_view="link">
+      <xi:include href="hw.rpi.sensor.mpr121.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.sensor.mpu6050" descr="MPU-6050 gyroscope and accelerometer for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.mpu6050.pddoc" parse="xml"/>
     </entry>

@@ -620,6 +620,7 @@ hw.rpi.pwm	hardware PWM output for Raspberry Pi / аппаратный ШИМ (P
 hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
 hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
 hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (инфракрасные) датчики и протоколы для Raspberry Pi
+hw.rpi.sensor.mpr121	12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration. / 12-канальный I²C-контроллер емкостного сенсора с низким энергопотреблением и автоматической калибровкой.
 hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi / MPU-6050 гироскоп и датчик ускорения для Raspberry Pi
 hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / HC-SR04 ультразвуковой датчик расстояния для Raspberry Pi
 hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi

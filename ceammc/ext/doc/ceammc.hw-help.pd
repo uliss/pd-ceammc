@@ -49,27 +49,31 @@ Raspberry Pi;
 #X obj 30 550 ui.link @title [hw.rpi.sensor.ir] @url
 hw.rpi.sensor.ir-help.pd;
 #X text 220 547 IR (infrared) sensors and protocols for Raspberry Pi;
-#X obj 30 575 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X obj 30 575 ui.link @title [hw.rpi.sensor.mpr121] @url
+hw.rpi.sensor.mpr121-help.pd;
+#X text 220 572 12-channel I²C capacitive touch sensor controller with
+low power consumption and automatic calibration.;
+#X obj 30 615 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 220 572 MPU-6050 gyroscope and accelerometer for Raspberry
+#X text 220 612 MPU-6050 gyroscope and accelerometer for Raspberry
 Pi;
-#X obj 30 600 ui.link @title [hw.rpi.sensor.sr04] @url
+#X obj 30 640 ui.link @title [hw.rpi.sensor.sr04] @url
 hw.rpi.sensor.sr04-help.pd;
-#X text 220 597 HC-SR04 ultrasonic ranging module for Raspberry Pi;
-#X obj 30 625 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+#X text 220 637 HC-SR04 ultrasonic ranging module for Raspberry Pi;
+#X obj 30 665 ui.link @title [hw.rpi.sensor.vl53l0x] @url
 hw.rpi.sensor.vl53l0x-help.pd;
-#X text 220 622 time-of-flight (ToF) laser-ranging sensor on VL53L0X
+#X text 220 662 time-of-flight (ToF) laser-ranging sensor on VL53L0X
 chip for Raspberry Pi;
-#X obj 30 665 ui.link @title [hw.rpi.spi.max7219] @url
+#X obj 30 705 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 220 662 LED matrix driver based on max7219 chip for Raspberry
+#X text 220 702 LED matrix driver based on max7219 chip for Raspberry
 Pi;
-#X obj 30 690 ui.link @title [hw.rpi.spi.ws2812] @url
+#X obj 30 730 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 220 687 ws2812 LED strip driver for Raspberry Pi;
-#X obj 30 715 ui.link @title [hw.serial] @url hw.serial-help.pd;
-#X text 220 712 serial port device;
+#X text 220 727 ws2812 LED strip driver for Raspberry Pi;
+#X obj 30 755 ui.link @title [hw.serial] @url hw.serial-help.pd;
+#X text 220 752 serial port device;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 737 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 747 library: ceammc;
+#X obj 1 777 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 787 library: ceammc;
