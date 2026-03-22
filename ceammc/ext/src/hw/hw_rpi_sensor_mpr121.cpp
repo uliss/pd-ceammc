@@ -42,7 +42,7 @@ void HwRpiSensorMpr121::m_threshold(t_symbol* s, const AtomListView& lv)
     ceammc_hw_sensor_mpr121_set_thresholds(device(), args.touch, args.release);
 }
 
-/// @function "the number of consecutive samples needed to confirm a touch/release, helping to filter out noise" {
+/// @function "set the number of consecutive samples needed to confirm a touch/release, helping to filter out noise" {
 ///  #touch   int "touch threshold"     { check: [0..7] }
 ///  #release int "release threshold"   { check: [0..7] }
 /// }
@@ -58,6 +58,20 @@ void HwRpiSensorMpr121::m_debounce(t_symbol* s, const AtomListView& lv)
     auto on = lv.intAt(0, 0);
     auto off = lv.intAt(1, 0);
     ceammc_hw_sensor_mpr121_set_debounce(device(), args.touch, args.release);
+}
+
+/// @function "performs a software reset on the device, resetting the MPR121 Touch sensor back to default configuration" {
+/// }
+void HwRpiSensorMpr121::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    m_reset_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, nullptr))
+        return;
+
+    ceammc_hw_sensor_mpr121_reset(device());
 }
 
 HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
@@ -113,5 +127,6 @@ void setup_hw_rpi_sensor_mpr121()
 {
     ObjectFactory<HwRpiSensorMpr121> obj("hw.rpi.sensor.mpr121");
     obj.addMethod("debounce", &HwRpiSensorMpr121::m_debounce);
+    obj.addMethod("reset", &HwRpiSensorMpr121::m_reset);
     obj.addMethod("threshold", &HwRpiSensorMpr121::m_threshold);
 }

@@ -23,9 +23,9 @@
         <tr lang="en">The MPR121 is sutable for proximity detection and touch sensing applications,
         offering built-in electrode configuration, adjustable thresholds, and filtering to ensure
         reliable performance in noisy environments.</tr>
-        <tr lang="ru">MPR121 можно использовать в качестве детектора приближения или сенсорного контакта,
-        предлагая встроенную настройку электродов, регулируемые пороги срабатывания и фильтрацию
-        для работы в условиях шумов.</tr>
+        <tr lang="ru">MPR121 можно использовать в качестве детектора приближения или сенсорного
+        контакта, предлагая встроенную настройку электродов, регулируемые пороги срабатывания и
+        фильтрацию для работы в условиях шумов.</tr>
       </par>
     </info>
     <properties>
@@ -39,10 +39,10 @@
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x48) and 'alt'
-        (for address 0x49)</tr>
-        <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
-        (для адреса 0x49)</tr>
+        <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x5A) and 'alt'
+        (for address 0x5B)</tr>
+        <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x5A) и «alt»
+        (для адреса 0x5B)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -51,6 +51,47 @@
         <tr lang="ru">шина I²C</tr>
       </property>
     </properties>
+    <methods>
+      <!-- debounce -->
+      <method name="debounce">
+        <info>
+          <tr lang="en">set the number of consecutive samples needed to confirm a touch/release,
+          helping to filter out noise</tr>
+          <tr lang="ru">установить число последовательных сэмплов, необходимых для подтверждения
+          касания/отпускания – помогает отфильтровать шум</tr>
+        </info>
+        <param name="TOUCH" type="int" minvalue="0" maxvalue="7" required="true">
+          <tr lang="en">touch debounce samples</tr>
+          <tr lang="ru">порог антидребезга при касании</tr>
+        </param>
+        <param name="RELEASE" type="int" minvalue="0" maxvalue="7" required="true">
+          <tr lang="en">release debounce samples</tr>
+          <tr lang="ru">порог антидребезга при отпускании</tr>
+        </param>
+      </method>
+      <!-- reset -->
+      <method name="reset">
+        <info>
+          <tr lang="en">performs a software reset on the device</tr>
+          <tr lang="ru">выполняет программный сброс устройства</tr>
+        </info>
+      </method>
+      <!-- threshold -->
+      <method name="threshold">
+        <info>
+          <tr lang="en">set the touch and release threshold for all channels</tr>
+          <tr lang="ru">установить порог срабатывания и отпускания для всех каналов</tr>
+        </info>
+        <param name="TOUCH" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">touch threshold</tr>
+          <tr lang="ru">порог срабатывания</tr>
+        </param>
+        <param name="RELEASE" type="int" minvalue="0" maxvalue="255" required="true">
+          <tr lang="en">release threshold</tr>
+          <tr lang="ru">порог отпускания</tr>
+        </param>
+      </method>
+    </methods>
     <inlets>
       <inlet>
         <in on="bang">
@@ -64,6 +105,20 @@
         <out type="list">
           <tr lang="en">list of two elements: SENSOR_INDEX STATE(0|1)</tr>
           <tr lang="ru">список из двух элементов: SENSOR_INDEX STATE(0|1)</tr>
+        </out>
+      </outlet>
+      <outlet>
+        <out name="touches" type="any">
+          <tr lang="en">all sensors touch state as 10-bit integer</tr>
+          <tr lang="ru">полное состояние сенсора прикосновений как 10-битное целое число</tr>
+        </out>
+        <out name="baseline" type="any">
+          <tr lang="en">baseline data for the channel, list: CHANNEL VALUE</tr>
+          <tr lang="ru">baseline данные для канала, список: CHANNEL VALUE</tr>
+        </out>
+        <out name="filtered" type="any">
+          <tr lang="en">filtered data from touch channels, list: CHANNEL VALUE</tr>
+          <tr lang="ru">фильтрованные данные для канала, список: CHANNEL VALUE</tr>
         </out>
       </outlet>
     </outlets>
