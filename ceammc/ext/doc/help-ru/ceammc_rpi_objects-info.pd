@@ -40,27 +40,30 @@ hw.rpi.sensor.dht11-help.pd;
 #X obj 40 582 ui.link @title [hw.rpi.sensor.ir] @url
 hw.rpi.sensor.ir-help.pd;
 #X text 230 579 - работа с ИК-пультами управления.;
-#X obj 40 617 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X obj 40 617 ui.link @title [hw.rpi.sensor.mpr121] @url
+hw.rpi.sensor.mpr121-help.pd;
+#X text 230 614 - датчик прикосновений.;
+#X obj 40 652 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 230 614 - датчик ускорения и гироскоп.;
-#X obj 40 652 ui.link @title [hw.rpi.spi.ws2812] @url
+#X text 230 649 - датчик ускорения и гироскоп.;
+#X obj 40 687 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 230 649 - работа с управляемой адресной светодиодной лентой
+#X text 230 684 - работа с управляемой адресной светодиодной лентой
 на базе микросхемы WS2812 (Neopixel и др.).;
-#X obj 40 692 ui.link @title [hw.rpi.spi.max7219] @url
+#X obj 40 727 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 230 689 - работа со светодиодными матрицами и индикаторами
+#X text 230 724 - работа со светодиодными матрицами и индикаторами
 на основе микросхемы MAX2712\.;
-#X obj 40 732 ui.link @title [hw.rpi.display.hd44780] @url
+#X obj 40 767 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
-#X text 230 729 - работа со жидкокристаллическими дисплеями на базе
+#X text 230 764 - работа со жидкокристаллическими дисплеями на базе
 микросхемы HD44780 \, часто известными как 1602 или 2004;
-#X obj 40 772 ui.link @title [hw.rpi.display.ssd1306] @url
+#X obj 40 807 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 230 769 - работа со OLED дисплеями на базе микросхемы ssd1306;
-#X obj 40 807 ui.link @title [hw.rpi.adc.ads1115] @url
+#X text 230 804 - работа со OLED дисплеями на базе микросхемы ssd1306;
+#X obj 40 842 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 230 804 - работа с 4-х канальным АЦП на базе микросхемы ADS1115\.
+#X text 230 839 - работа с 4-х канальным АЦП на базе микросхемы ADS1115\.
 Считывание уровней напряжения с переменных резисторов \, аналоговых
 датчиков и т.д.;
-#X obj 1 879 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 914 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
