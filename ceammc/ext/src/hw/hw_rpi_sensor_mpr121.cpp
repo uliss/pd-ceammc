@@ -5,8 +5,8 @@
 
 constexpr t_float DEFAULT_DEBOUNCE_ON = 0;
 constexpr t_float DEFAULT_DEBOUNCE_OFF = 0;
-constexpr t_float DEFAULT_THRESHOLD_ON = 0;
-constexpr t_float DEFAULT_THRESHOLD_OFF = 0;
+constexpr t_float DEFAULT_THRESHOLD_ON = ceammc_HW_RPI_MPR121_DEFAULT_TOUCH_THRESHOLD;
+constexpr t_float DEFAULT_THRESHOLD_OFF = ceammc_HW_RPI_MPR121_DEFAULT_RELEASE_THRESHOLD;
 
 HwRpiSensorMpr121::HwRpiSensorMpr121(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_sensor_mpr121>(&ceammc_hw_sensor_mpr121_free, args)
