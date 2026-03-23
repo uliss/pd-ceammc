@@ -82,21 +82,24 @@ impl hw_sensor_mpr121 {
 
             try_i2c_device(&mut i2c, addr, crate::i2c::i2c_impl::DetectMethod::QuickWrite)?;
 
-            if irq_pin.is_some() {
-                let mut gpio = rppal::gpio::Gpio::new()
+            let _pin = if irq_pin.is_some() {
+                let mut pin = rppal::gpio::Gpio::new()
                     .map_err(|err| err.to_string())?
                     .get(irq_pin.unwrap_or_default())
                     .map_err(|err| err.to_string())?
                     .into_input_pulldown();
-                gpio.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
+                pin.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
                     log::debug!("event: {_event:?}");
                     if let Err(err) = gpio_tx.send(Request::ReadAll) {
                         log::error!("irq send error: {err}");
                     };
                 })
                 .map_err(|err| err.to_string())?;
-                log::debug!("IRQ pin: {}", gpio.pin());
-            }
+                log::debug!("IRQ pin: {}", pin.pin());
+                Some(pin)
+            } else {
+                None
+            };
 
             let mut sensor = match i2c_addr {
                 I2cAddress::Addr(addr) => Mpr121::new(
