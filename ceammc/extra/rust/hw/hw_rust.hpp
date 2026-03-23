@@ -85,6 +85,12 @@ constexpr static const int32_t ceammc_HW_MAX7219_ADDRESS_ALL = -1;
 /// max debounce count
 constexpr static const uint8_t ceammc_HW_RPI_MPR121_DEBOUNCE_MAX = 7;
 
+/// default touch threshold
+constexpr static const uint8_t ceammc_HW_RPI_MPR121_DEFAULT_TOUCH_THRESHOLD = 12;
+
+/// default release threshold
+constexpr static const uint8_t ceammc_HW_RPI_MPR121_DEFAULT_RELEASE_THRESHOLD = 6;
+
 constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = -1;
 
 constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;

@@ -26,13 +26,27 @@ pub enum Request {
 
 /// max debounce count
 pub const HW_RPI_MPR121_DEBOUNCE_MAX: u8 = 7;
+/// default touch threshold
+pub const HW_RPI_MPR121_DEFAULT_TOUCH_THRESHOLD: u8 = 12;
+/// default release threshold
+pub const HW_RPI_MPR121_DEFAULT_RELEASE_THRESHOLD: u8 = 6;
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
-    AllTouches { touched: u16, previous: u16, over_current: bool },
-    Filtered { value: u16, channel: u8 },
-    Baseline { value: u8, channel: u8 },
+    AllTouches {
+        touched: u16,
+        previous: u16,
+        over_current: bool,
+    },
+    Filtered {
+        value: u16,
+        channel: u8,
+    },
+    Baseline {
+        value: u8,
+        channel: u8,
+    },
 }
 
 type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;

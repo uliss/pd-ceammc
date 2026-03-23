@@ -88,7 +88,8 @@ impl hw_sensor_mpr121 {
                     .get(irq_pin.unwrap_or_default())
                     .map_err(|err| err.to_string())?
                     .into_input();
-                gpio.set_async_interrupt(rppal::gpio::Trigger::RisingEdge, None, move |_event| {
+                gpio.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
+                    log::debug!("event: {_event:?}");
                     if let Err(err) = gpio_tx.send(Request::ReadAll) {
                         log::error!("irq send error: {err}");
                     };
@@ -195,7 +196,11 @@ impl hw_sensor_mpr121 {
                 Reply::Message(level, msg) => {
                     mpr.worker.pd_message(level, &msg);
                 }
-                Reply::AllTouches { touched, previous, over_current } => {
+                Reply::AllTouches {
+                    touched,
+                    previous,
+                    over_current,
+                } => {
                     mpr.cb.all_touches(touched, previous, over_current);
                 }
                 Reply::Filtered { value, channel } => {
