@@ -89,8 +89,7 @@ impl hw_sensor_mpr121 {
                     .map_err(|err| err.to_string())?
                     .into_input_pulldown();
                 pin.set_reset_on_drop(true);
-                pin.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
-                    log::debug!("event: {_event:?}");
+                pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
                     if let Err(err) = gpio_tx.send(Request::ReadAll) {
                         log::error!("irq send error: {err}");
                     };
@@ -189,6 +188,7 @@ impl hw_sensor_mpr121 {
                     log::error!("async pin: {err}");
                 }
                 drop(pin);
+                log::debug!("drop PIN");
             }
 
             Ok(())
