@@ -82,7 +82,7 @@ impl hw_sensor_mpr121 {
 
             try_i2c_device(&mut i2c, addr, crate::i2c::i2c_impl::DetectMethod::QuickWrite)?;
 
-            let _pin = if irq_pin.is_some() {
+            let pin = if irq_pin.is_some() {
                 let mut pin = rppal::gpio::Gpio::new()
                     .map_err(|err| err.to_string())?
                     .get(irq_pin.unwrap_or_default())
@@ -181,6 +181,14 @@ impl hw_sensor_mpr121 {
                         }
                     },
                 }
+            }
+
+            if let Some(mut pin) = pin {
+                if let Err(err) = pin.clear_async_interrupt() {
+                    log::error!("async pin: {err}");
+                }
+
+                drop(pin);
             }
 
             Ok(())
