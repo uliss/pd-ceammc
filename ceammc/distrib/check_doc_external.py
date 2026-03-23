@@ -361,7 +361,12 @@ def check_methods(name, doc, ext):
         # helper text
         cprint("<methods>", 'white')
         for m in undoc_methods_set:
-            cprint(f'    <method name="{m}">method</method>', 'white')
+            cprint(f'  <method name="{m}">', 'white')
+            cprint(f'    <info>', 'white')
+            cprint(f'      <tr lang="en">method</tr>', 'white')
+            cprint(f'      <tr lang="ru">method</tr>', 'white')
+            cprint(f'    </info>', 'white')
+            cprint(f'  </method>', 'white')
 
         cprint("</methods>", 'white')
 

@@ -59,6 +59,10 @@
       <tr lang="en">- working with IR remote controls.</tr>
       <tr lang="ru">- работа с ИК-пультами управления.</tr>
     </info>
+    <info object="hw.rpi.sensor.mpr121">
+      <tr lang="en">- touch sensor.</tr>
+      <tr lang="ru">- датчик прикосновений.</tr>
+    </info>
     <info object="hw.rpi.sensor.mpu6050">
       <tr lang="en">- accelerometer and gyroscope.</tr>
       <tr lang="ru">- датчик ускорения и гироскоп.</tr>

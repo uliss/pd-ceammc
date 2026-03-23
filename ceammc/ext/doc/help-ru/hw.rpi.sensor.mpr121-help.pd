@@ -33,7 +33,7 @@ ceammc://img/conn_mpr121.png;
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 625 @i2c_addr;
 #X text 270 625 (при инициализации) Адрес I²C. Также принимается значение
-«default» (для адреса 0x48) и «alt» (для адреса 0x49). Тип: int. Значение
+«default» (для адреса 0x5A) и «alt» (для адреса 0x5B). Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-4\..119].;
 #X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 697 @i2c_bus;
@@ -46,25 +46,58 @@ default \, none.;
 на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
 Значение по умолчанию: 0\.;
 #X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 826 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 826 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 827 1\.;
-#X text 170 827 bang:;
-#X text 270 827 выполнить однократный опрос электродов.;
-#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 867 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X msg 130 827 debounce;
+#X text 270 827 установить число последовательных сэмплов \, необходимых
+для подтверждения касания/отпускания – помогает отфильтровать шум.
+Аргументы:;
+#X obj 300 882 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 882 TOUCH: порог антидребезга при касании. Тип: int. Диапазон:
+[0\..7].;
+#X obj 300 920 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 920 RELEASE: порог антидребезга при отпускании. Тип: int.
+Диапазон: [0\..7].;
+#X obj 250 968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 968 reset;
+#X text 270 968 выполняет программный сброс устройства.;
+#X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1003 threshold;
+#X text 270 1003 установить порог срабатывания и отпускания для всех
+каналов. Аргументы:;
+#X obj 300 1043 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1043 TOUCH: порог срабатывания. Тип: int. Диапазон: [0\..255].;
+#X obj 300 1066 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1066 RELEASE: порог отпускания. Тип: int. Диапазон: [0\..255].;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1114 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 868 1\.;
-#X text 170 868 list:;
-#X text 270 868 список из двух элементов: SENSOR_INDEX STATE(0|1).;
+#X text 130 1115 1\.;
+#X text 170 1115 bang:;
+#X text 270 1115 выполнить однократный опрос электродов.;
+#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1155 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1156 1\.;
+#X text 170 1156 list:;
+#X text 270 1156 список из двух элементов: SENSOR_INDEX STATE(0|1).;
+#X text 130 1176 2\.;
+#X msg 170 1176 touches;
+#X text 270 1176 полное состояние сенсора прикосновений как 10-битное
+целое число.;
+#X msg 170 1216 baseline;
+#X text 270 1216 baseline данные для канала \, список: CHANNEL VALUE.;
+#X msg 170 1241 filtered;
+#X text 270 1241 фильтрованные данные для канала \, список: CHANNEL
+VALUE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 921 библиотека: ceammc v0.9.8;
-#N canvas 10 940 400 290 info 0;
+#X obj 1 1291 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1294 библиотека: ceammc v0.9.8;
+#N canvas 10 1313 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +122,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 940 pd info;
+#X restore 10 1313 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;

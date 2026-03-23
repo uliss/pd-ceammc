@@ -39,27 +39,30 @@ hw.rpi.sensor.dht11-help.pd;
 #X obj 40 567 ui.link @title [hw.rpi.sensor.ir] @url
 hw.rpi.sensor.ir-help.pd;
 #X text 230 564 - working with IR remote controls.;
-#X obj 40 602 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X obj 40 602 ui.link @title [hw.rpi.sensor.mpr121] @url
+hw.rpi.sensor.mpr121-help.pd;
+#X text 230 599 - touch sensor.;
+#X obj 40 637 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 230 599 - accelerometer and gyroscope.;
-#X obj 40 637 ui.link @title [hw.rpi.spi.ws2812] @url
+#X text 230 634 - accelerometer and gyroscope.;
+#X obj 40 672 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 230 634 - working with an addressable LED strip based on the
+#X text 230 669 - working with an addressable LED strip based on the
 WS2812 chip (Neopixel \, etc.).;
-#X obj 40 677 ui.link @title [hw.rpi.spi.max7219] @url
+#X obj 40 712 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 230 674 - working with LED matrices and indicators based on
+#X text 230 709 - working with LED matrices and indicators based on
 the MAX2712 chip.;
-#X obj 40 717 ui.link @title [hw.rpi.display.hd44780] @url
+#X obj 40 752 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
-#X text 230 714 - working with liquid crystal displays based on the
+#X text 230 749 - working with liquid crystal displays based on the
 HD44780 chipset \, often known as 1602 or 2004;
-#X obj 40 757 ui.link @title [hw.rpi.display.ssd1306] @url
+#X obj 40 792 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 230 754 - working with OLED displays based on the ssd1306 chip;
-#X obj 40 792 ui.link @title [hw.rpi.adc.ads1115] @url
+#X text 230 789 - working with OLED displays based on the ssd1306 chip;
+#X obj 40 827 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 230 789 - working with a 4-channel ADC based on the ADS1115
+#X text 230 824 - working with a 4-channel ADC based on the ADS1115
 chip. Reading voltage levels from variable resistors \, analog sensors
 \, etc.;
-#X obj 1 864 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 899 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;

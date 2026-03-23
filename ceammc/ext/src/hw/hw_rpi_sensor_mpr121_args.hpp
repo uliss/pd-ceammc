@@ -12,8 +12,8 @@ namespace {
 struct m_threshold_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
-    t_int touch {0}; // touch threshold
-    t_int release {0}; // release threshold
+    std::uint8_t touch {0}; // touch threshold
+    std::uint8_t release {0}; // release threshold
     // methods
     int process_touch(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -21,7 +21,7 @@ struct m_threshold_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 30))) {
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
             return INVALID_VALUE;
         }
         // set value
@@ -35,7 +35,7 @@ struct m_threshold_args {
             return NOT_ENOUGH_ARGS;
         }
         // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 30))) {
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
             return INVALID_VALUE;
         }
         // set value
@@ -44,10 +44,10 @@ struct m_threshold_args {
         return 1;
     }
     static const char* arg_touch_info() {
-        return "TOUCH (touch threshold), int in [0..30] range";
+        return "TOUCH (touch threshold), byte[0..255] range";
     }
     static const char* arg_release_info() {
-        return "RELEASE (release threshold), int in [0..30] range";
+        return "RELEASE (release threshold), byte[0..255] range";
     }
     static const char* usage() {
         return "usage: [threshold TOUCH RELEASE(";
@@ -217,11 +217,45 @@ struct m_debounce_args {
 };
 
 const char* m_debounce_args_info() {
-    return "the number of consecutive samples needed to confirm a touch/release, helping to filter out noise";
+    return "set the number of consecutive samples needed to confirm a touch/release, helping to filter out noise";
 }
 void m_debounce_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_debounce_args_info());
+}
+struct m_reset_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // methods
+    static const char* usage() {
+        return "usage: [reset (";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[reset( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_reset_args_info() {
+    return "performs a software reset on the device, resetting the MPR121 Touch sensor back to default configuration";
+}
+void m_reset_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_reset_args_info());
 }
 } // namespace 
 
