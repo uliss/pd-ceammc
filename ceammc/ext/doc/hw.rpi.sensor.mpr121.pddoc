@@ -50,7 +50,7 @@
         <tr lang="en">I²C bus</tr>
         <tr lang="ru">шина I²C</tr>
       </property>
-      <property name="@threshold" type="list" default="0 0" access="readwrite" min-count="2" max-count="2" minvalue="0" maxvalue="255">
+      <property name="@threshold" type="list" default="12 6" access="readwrite" min-count="2" max-count="2" minvalue="0" maxvalue="255">
         <tr lang="en">the touch and release threshold for all channels</tr>
         <tr lang="ru">порог срабатывания и отпускания для всех каналов</tr>
       </property>
