@@ -24,10 +24,13 @@ pub enum Request {
     GetBaseline(u8),
 }
 
+/// max debounce count
+pub const HW_RPI_MPR121_DEBOUNCE_MAX: u8 = 7;
+
 #[derive(Debug, PdMessage)]
 pub enum Reply {
     Message(hw_msg_level, CString),
-    AllTouches { touched: u16, previous: u16 },
+    AllTouches { touched: u16, previous: u16, over_current: bool },
     Filtered { value: u16, channel: u8 },
     Baseline { value: u8, channel: u8 },
 }
@@ -42,14 +45,14 @@ pub struct hw_sensor_mpr121 {
 #[repr(C)]
 pub struct hw_mpr121_reply_cb {
     user: *mut c_void,
-    on_touch: extern "C" fn(user: *mut c_void, touched: u16, previous: u16),
+    on_touch: extern "C" fn(user: *mut c_void, touched: u16, previous: u16, over_current: bool),
     on_baseline: extern "C" fn(user: *mut c_void, channel: u8, data: u8),
     on_filtered: extern "C" fn(user: *mut c_void, channel: u8, data: u16),
 }
 
 impl hw_mpr121_reply_cb {
-    pub(crate) fn all_touches(&self, touched: u16, previous: u16) {
-        (self.on_touch)(self.user, touched, previous)
+    pub(crate) fn all_touches(&self, touched: u16, previous: u16, over_current: bool) {
+        (self.on_touch)(self.user, touched, previous, over_current)
     }
 
     pub(crate) fn filtered(&self, channel: u8, data: u16) {
@@ -72,12 +75,13 @@ impl hw_mpr121_reply_cb {
 pub extern "C" fn ceammc_hw_sensor_mpr121_new(
     i2c_bus: i8,
     i2c_addr: i8,
+    irq_pin: *const u8,
     notify: hw_notify_cb,
     on_msg: hw_msg_cb,
     on_reply: hw_mpr121_reply_cb,
 ) -> *mut hw_sensor_mpr121 {
     rpi_check!(null_mut(), {
-        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_reply) {
+        match hw_sensor_mpr121::new(i2c_bus, I2cAddress::new(i2c_addr), irq_pin, notify, on_msg, on_reply) {
             Ok(ir) => return Box::into_raw(Box::new(ir)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -150,4 +154,3 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_get_filtered(mpr: *const hw_sensor_mpr
 pub extern "C" fn ceammc_hw_sensor_mpr121_get_baseline(mpr: *const hw_sensor_mpr121, channel: u8) -> bool {
     rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::GetFiltered(channel)) });
 }
-

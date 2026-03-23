@@ -46,15 +46,22 @@ impl hw_sensor_mpr121 {
     pub(crate) fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
+        irq_pin: *const u8,
         notify: hw_notify_cb,
         on_msg: hw_msg_cb,
         on_reply: hw_mpr121_reply_cb,
     ) -> Result<Self, CString> {
         let (worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
+        let irq_pin = if irq_pin.is_null() {
+            None
+        } else {
+            Some(unsafe { *irq_pin })
+        };
 
+        let gpio_tx = worker.tx.clone();
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("i2c init: {i2c:?}");
+            debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
 
             let bus = i2c.bus();
             let mut delay = Delay::new();
@@ -74,6 +81,20 @@ impl hw_sensor_mpr121 {
             .into();
 
             try_i2c_device(&mut i2c, addr, crate::i2c::i2c_impl::DetectMethod::QuickWrite)?;
+
+            if irq_pin.is_some() {
+                let mut gpio = rppal::gpio::Gpio::new()
+                    .map_err(|err| err.to_string())?
+                    .get(irq_pin.unwrap_or_default())
+                    .map_err(|err| err.to_string())?
+                    .into_input();
+                gpio.set_async_interrupt(rppal::gpio::Trigger::RisingEdge, None, move |_event| {
+                    if let Err(err) = gpio_tx.send(Request::ReadAll) {
+                        log::error!("irq send error: {err}");
+                    };
+                })
+                .map_err(|err| err.to_string())?;
+            }
 
             let mut sensor = match i2c_addr {
                 I2cAddress::Addr(addr) => Mpr121::new(
@@ -112,6 +133,7 @@ impl hw_sensor_mpr121 {
                                 Reply::AllTouches {
                                     touched: keys,
                                     previous: key_state,
+                                    over_current: sensor.is_over_current_set().unwrap_or(false),
                                 },
                                 &tx,
                                 notify,
@@ -173,15 +195,15 @@ impl hw_sensor_mpr121 {
                 Reply::Message(level, msg) => {
                     mpr.worker.pd_message(level, &msg);
                 }
-                Reply::AllTouches { touched, previous } => {
-                    mpr.cb.all_touches(touched, previous);
+                Reply::AllTouches { touched, previous, over_current } => {
+                    mpr.cb.all_touches(touched, previous, over_current);
                 }
                 Reply::Filtered { value, channel } => {
                     mpr.cb.filtered(channel, value);
                 }
                 Reply::Baseline { value, channel } => {
                     mpr.cb.baseline(channel, value);
-                },
+                }
             });
 
             true

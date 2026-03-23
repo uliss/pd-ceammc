@@ -82,6 +82,9 @@ constexpr static const uint8_t ceammc_HW_MAX7219_REG_DISPLAY_TEST = 15;
 
 constexpr static const int32_t ceammc_HW_MAX7219_ADDRESS_ALL = -1;
 
+/// max debounce count
+constexpr static const uint8_t ceammc_HW_RPI_MPR121_DEBOUNCE_MAX = 7;
+
 constexpr static const int8_t ceammc_HW_RPI_PWM_MIN_CHAN = -1;
 
 constexpr static const int8_t ceammc_HW_RPI_PWM_MAX_CHAN = 3;
@@ -470,7 +473,7 @@ struct ceammc_hw_print_options {
 
 struct ceammc_hw_mpr121_reply_cb {
     void *user;
-    void (*on_touch)(void *user, uint16_t touched, uint16_t previous);
+    void (*on_touch)(void *user, uint16_t touched, uint16_t previous, bool over_current);
     void (*on_baseline)(void *user, uint8_t channel, uint8_t data);
     void (*on_filtered)(void *user, uint8_t channel, uint16_t data);
 };
@@ -1155,6 +1158,7 @@ bool ceammc_hw_sensor_mpr121_get_filtered(const ceammc_hw_sensor_mpr121 *mpr,
 /// @return pointer to device handle or NULL on error
 ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
                                                      int8_t i2c_addr,
+                                                     const uint8_t *irq_pin,
                                                      ceammc_hw_notify_cb notify,
                                                      ceammc_hw_msg_cb on_msg,
                                                      ceammc_hw_mpr121_reply_cb on_reply);
