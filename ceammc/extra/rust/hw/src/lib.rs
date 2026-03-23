@@ -1,6 +1,7 @@
 use std::{
     ffi::{CStr, CString},
     os::raw::{c_char, c_void},
+    thread::JoinHandle,
 };
 
 use log::{debug, error, info};
@@ -241,7 +242,7 @@ where
         process_err(format!("worker error: {str}"), tx, notify);
     }
 
-    pub fn spawn<F>(&self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F)
+    pub fn spawn<F>(&self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F) -> JoinHandle<()>
     where
         F: FnOnce() -> Result<(), String>,
         F: Send + 'static,
@@ -255,7 +256,7 @@ where
             }
 
             debug!("worker thread done");
-        });
+        })
     }
 
     // should be called only in the main caller thread!

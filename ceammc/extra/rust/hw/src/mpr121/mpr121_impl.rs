@@ -59,7 +59,7 @@ impl hw_sensor_mpr121 {
         };
 
         let gpio_tx = worker.tx.clone();
-        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+        let handle = worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
 
@@ -196,7 +196,11 @@ impl hw_sensor_mpr121 {
             Ok(())
         });
 
-        Ok(Self { worker, cb: on_reply })
+        Ok(Self {
+            worker,
+            cb: on_reply,
+            join_handle: handle,
+        })
     }
 
     pub(crate) fn process_reply(mpr: *const Self) -> bool {
@@ -237,6 +241,13 @@ impl hw_sensor_mpr121 {
             let mpr = unsafe { &*mpr };
 
             mpr.worker.send_request(req)
+        }
+    }
+
+    pub(crate) fn free(self) {
+        drop(self.worker);
+        if let Err(err) = self.join_handle.join() {
+            log::error!("join error: {err:?}");
         }
     }
 }

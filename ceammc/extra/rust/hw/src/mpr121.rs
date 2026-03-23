@@ -9,6 +9,7 @@ use log::error;
 use std::{
     ffi::{c_void, CString},
     ptr::null_mut,
+    thread::JoinHandle,
 };
 
 #[cfg(target_os = "linux")]
@@ -54,6 +55,7 @@ type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;
 pub struct hw_sensor_mpr121 {
     worker: Mpr212SensorWorker,
     cb: hw_mpr121_reply_cb,
+    join_handle: JoinHandle<()>,
 }
 
 #[repr(C)]
@@ -112,7 +114,7 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_new(
 pub extern "C" fn ceammc_hw_sensor_mpr121_free(mpr: *mut hw_sensor_mpr121) {
     rpi_check!((), {
         if !mpr.is_null() {
-            drop(unsafe { Box::from_raw(mpr) })
+            hw_sensor_mpr121::free(*unsafe { Box::from_raw(mpr) });
         }
     });
 }
