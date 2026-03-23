@@ -87,7 +87,7 @@ impl hw_sensor_mpr121 {
                     .map_err(|err| err.to_string())?
                     .get(irq_pin.unwrap_or_default())
                     .map_err(|err| err.to_string())?
-                    .into_input();
+                    .into_input_pulldown();
                 gpio.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
                     log::debug!("event: {_event:?}");
                     if let Err(err) = gpio_tx.send(Request::ReadAll) {
