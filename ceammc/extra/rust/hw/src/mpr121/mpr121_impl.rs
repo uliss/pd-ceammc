@@ -95,6 +95,7 @@ impl hw_sensor_mpr121 {
                     };
                 })
                 .map_err(|err| err.to_string())?;
+                log::debug!("IRQ pin: {}", gpio.pin());
             }
 
             let mut sensor = match i2c_addr {
