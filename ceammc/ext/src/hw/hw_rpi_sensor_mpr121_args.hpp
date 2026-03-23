@@ -9,220 +9,6 @@
 using namespace ceammc;
 
 namespace {
-struct m_threshold_args {
-    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
-    // args
-    std::uint8_t touch {0}; // touch threshold
-    std::uint8_t release {0}; // release threshold
-    // methods
-    int process_touch(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        // check size
-        if (lv.size() < 1) {
-            return NOT_ENOUGH_ARGS;
-        }
-        // check values
-        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
-            return INVALID_VALUE;
-        }
-        // set value
-        touch = lv[0].asT<t_int>();
-        // number of matched items
-        return 1;
-    }
-    int process_release(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        // check size
-        if (lv.size() < 1) {
-            return NOT_ENOUGH_ARGS;
-        }
-        // check values
-        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
-            return INVALID_VALUE;
-        }
-        // set value
-        release = lv[0].asT<t_int>();
-        // number of matched items
-        return 1;
-    }
-    static const char* arg_touch_info() {
-        return "TOUCH (touch threshold), byte[0..255] range";
-    }
-    static const char* arg_release_info() {
-        return "RELEASE (release threshold), byte[0..255] range";
-    }
-    static const char* usage() {
-        return "usage: [threshold TOUCH RELEASE(";
-    }
-    static void output_usage(const BaseObject* obj) {
-        Post(obj) << usage();
-    }
-    static void output_usage_verbose(const BaseObject* obj) {
-        Error(obj) << usage() << " where:";
-        Post(obj) << " - " << arg_touch_info();
-        Post(obj) << " - " << arg_release_info();
-    }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
-        int matched = 0;
-        AtomListView left_args = lv.arguments();
-        matched = process_touch(left_args, obj, print_err);
-        if (matched >= 0) {
-            left_args = left_args.subView(matched);
-        } else {
-            if (print_err) {
-                if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[threshold( argument #0 'TOUCH' is required:";
-                    Post(obj) << " - " << arg_touch_info();
-                    output_usage(obj);
-                } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[threshold( argument #0 'TOUCH' check failed, expected:";
-                    Post(obj) << " - " << arg_touch_info();
-                    output_usage_verbose(obj);
-                }
-            }
-            return false;
-        }
-        matched = process_release(left_args, obj, print_err);
-        if (matched >= 0) {
-            left_args = left_args.subView(matched);
-        } else {
-            if (print_err) {
-                if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[threshold( argument #1 'RELEASE' is required:";
-                    Post(obj) << " - " << arg_release_info();
-                    output_usage(obj);
-                } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[threshold( argument #1 'RELEASE' check failed, expected:";
-                    Post(obj) << " - " << arg_release_info();
-                    output_usage_verbose(obj);
-                }
-            }
-            return false;
-        }
-        // check extra arguments
-        if (left_args.size()) {
-            if (print_err) {
-                Error(obj) << "[threshold( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage(obj);
-            }
-            return false;
-        }
-        return true;
-    }
-};
-
-const char* m_threshold_args_info() {
-    return "set the touch and release threshold for all channels";
-}
-void m_threshold_args_info_output(const BaseObject* obj) {
-    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_threshold_args_info());
-}
-struct m_debounce_args {
-    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
-    // args
-    t_int touch {0}; // touch threshold
-    t_int release {0}; // release threshold
-    // methods
-    int process_touch(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        // check size
-        if (lv.size() < 1) {
-            return NOT_ENOUGH_ARGS;
-        }
-        // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
-            return INVALID_VALUE;
-        }
-        // set value
-        touch = lv[0].asT<t_int>();
-        // number of matched items
-        return 1;
-    }
-    int process_release(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        // check size
-        if (lv.size() < 1) {
-            return NOT_ENOUGH_ARGS;
-        }
-        // check values
-        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
-            return INVALID_VALUE;
-        }
-        // set value
-        release = lv[0].asT<t_int>();
-        // number of matched items
-        return 1;
-    }
-    static const char* arg_touch_info() {
-        return "TOUCH (touch threshold), int in [0..7] range";
-    }
-    static const char* arg_release_info() {
-        return "RELEASE (release threshold), int in [0..7] range";
-    }
-    static const char* usage() {
-        return "usage: [debounce TOUCH RELEASE(";
-    }
-    static void output_usage(const BaseObject* obj) {
-        Post(obj) << usage();
-    }
-    static void output_usage_verbose(const BaseObject* obj) {
-        Error(obj) << usage() << " where:";
-        Post(obj) << " - " << arg_touch_info();
-        Post(obj) << " - " << arg_release_info();
-    }
-    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
-        int matched = 0;
-        AtomListView left_args = lv.arguments();
-        matched = process_touch(left_args, obj, print_err);
-        if (matched >= 0) {
-            left_args = left_args.subView(matched);
-        } else {
-            if (print_err) {
-                if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[debounce( argument #0 'TOUCH' is required:";
-                    Post(obj) << " - " << arg_touch_info();
-                    output_usage(obj);
-                } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[debounce( argument #0 'TOUCH' check failed, expected:";
-                    Post(obj) << " - " << arg_touch_info();
-                    output_usage_verbose(obj);
-                }
-            }
-            return false;
-        }
-        matched = process_release(left_args, obj, print_err);
-        if (matched >= 0) {
-            left_args = left_args.subView(matched);
-        } else {
-            if (print_err) {
-                if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[debounce( argument #1 'RELEASE' is required:";
-                    Post(obj) << " - " << arg_release_info();
-                    output_usage(obj);
-                } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[debounce( argument #1 'RELEASE' check failed, expected:";
-                    Post(obj) << " - " << arg_release_info();
-                    output_usage_verbose(obj);
-                }
-            }
-            return false;
-        }
-        // check extra arguments
-        if (left_args.size()) {
-            if (print_err) {
-                Error(obj) << "[debounce( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                output_usage(obj);
-            }
-            return false;
-        }
-        return true;
-    }
-};
-
-const char* m_debounce_args_info() {
-    return "set the number of consecutive samples needed to confirm a touch/release, helping to filter out noise";
-}
-void m_debounce_args_info_output(const BaseObject* obj) {
-    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_debounce_args_info());
-}
 struct m_reset_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // methods
@@ -256,6 +42,148 @@ const char* m_reset_args_info() {
 void m_reset_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_reset_args_info());
+}
+struct m_filtered_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int channel {0}; // sensor channel
+    // methods
+    int process_channel(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 11))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        channel = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_channel_info() {
+        return "CHANNEL (sensor channel), int in [0..11] range";
+    }
+    static const char* usage() {
+        return "usage: [filtered CHANNEL(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_channel_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_channel(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[filtered( argument #0 'CHANNEL' is required:";
+                    Post(obj) << " - " << arg_channel_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[filtered( argument #0 'CHANNEL' check failed, expected:";
+                    Post(obj) << " - " << arg_channel_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[filtered( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_filtered_args_info() {
+    return "get filtered signal from the channel";
+}
+void m_filtered_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_filtered_args_info());
+}
+struct m_baseline_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int channel {0}; // sensor channel
+    // methods
+    int process_channel(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 11))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        channel = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_channel_info() {
+        return "CHANNEL (sensor channel), int in [0..11] range";
+    }
+    static const char* usage() {
+        return "usage: [baseline CHANNEL(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_channel_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_channel(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[baseline( argument #0 'CHANNEL' is required:";
+                    Post(obj) << " - " << arg_channel_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[baseline( argument #0 'CHANNEL' check failed, expected:";
+                    Post(obj) << " - " << arg_channel_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[baseline( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_baseline_args_info() {
+    return "reads the baseline data for the channel. Note that this has only a resolution of 8bit.";
+}
+void m_baseline_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_baseline_args_info());
 }
 } // namespace 
 

@@ -67,35 +67,48 @@ void HwRpiSensorMpr121::onBang()
     ceammc_hw_sensor_mpr121_readall(device());
 }
 
+/// @function "performs a software reset on the device, resetting the MPR121 Touch sensor back to default configuration" {
+/// }
+void HwRpiSensorMpr121::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    m_reset_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, nullptr))
+        return;
+
+    ceammc_hw_sensor_mpr121_reset(device());
+}
+
 /// @function "get filtered signal from the channel" {
-///  #channel   int "sensor channel" { check: [0..11] }
+///  #channel   int "sensor channel"    { check: [0..11] }
 /// }
 void HwRpiSensorMpr121::m_filtered(t_symbol* s, const AtomListView& lv)
 {
-//    m_filtered_args args;
-//    if (!args.parse_args(lv, this))
-//        return;
+    m_filtered_args args;
+    if (!args.parse_args(lv, this))
+        return;
 
-//    if (!check_connected(true, nullptr))
-//        return;
+    if (!check_connected(true, nullptr))
+        return;
 
-//    ceammc_hw_sensor_mpr121_get_filtered(device(), args.channel);
+    ceammc_hw_sensor_mpr121_get_filtered(device(), args.channel);
 }
 
-/// @function "the number of consecutive samples needed to confirm a touch/release, helping to filter out noise" {
-///  #touch   int "touch threshold"     { check: [0..7] }
-///  #release int "release threshold"   { check: [0..7] }
+/// @function "reads the baseline data for the channel. Note that this has only a resolution of 8bit." {
+///  #channel   int "sensor channel"    { check: [0..11] }
 /// }
 void HwRpiSensorMpr121::m_baseline(t_symbol* s, const AtomListView& lv)
 {
-//    m_baseline_args args;
-//    if (!args.parse_args(lv, this))
-//        return;
+    m_baseline_args args;
+    if (!args.parse_args(lv, this))
+        return;
 
-//    if (!check_connected(true, nullptr))
-//        return;
+    if (!check_connected(true, nullptr))
+        return;
 
-//    ceammc_hw_sensor_mpr121_get_baseline(device(), args.touch, args.release);
+    ceammc_hw_sensor_mpr121_get_baseline(device(), args.channel);
 }
 
 HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
@@ -178,6 +191,8 @@ std::pair<uint8_t, uint8_t> HwRpiSensorMpr121::threshold() const
 void setup_hw_rpi_sensor_mpr121()
 {
     ObjectFactory<HwRpiSensorMpr121> obj("hw.rpi.sensor.mpr121");
+
     obj.addMethod("baseline", &HwRpiSensorMpr121::m_baseline);
     obj.addMethod("filtered", &HwRpiSensorMpr121::m_filtered);
+    obj.addMethod("reset", &HwRpiSensorMpr121::m_reset);
 }

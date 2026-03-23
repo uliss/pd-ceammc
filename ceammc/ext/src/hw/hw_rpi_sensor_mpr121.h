@@ -20,8 +20,9 @@ public:
 
     void onBang() final;
 
-    void m_filtered(t_symbol* s, const AtomListView& lv);
     void m_baseline(t_symbol* s, const AtomListView& lv);
+    void m_filtered(t_symbol* s, const AtomListView& lv);
+    void m_reset(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
 
