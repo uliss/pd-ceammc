@@ -183,6 +183,8 @@ impl hw_sensor_mpr121 {
                 }
             }
 
+            log::info!("worker cycle done");
+
             if let Some(mut pin) = pin {
                 if let Err(err) = pin.clear_async_interrupt() {
                     log::error!("async pin: {err}");
