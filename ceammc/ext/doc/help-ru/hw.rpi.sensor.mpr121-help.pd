@@ -41,63 +41,66 @@ ceammc://img/conn_mpr121.png;
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
 #X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 754 @connect;
-#X text 270 754 При установке в 1: пробует подключиться к устройству
+#X msg 130 754 @irq;
+#X text 270 754 (при инициализации) GPIO контакт прерывания. Тип: int.
+Значение по умолчанию: -1\. Диапазон: [-1\..127].;
+#X obj 250 796 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 796 @connect;
+#X text 270 796 При установке в 1: пробует подключиться к устройству
 на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 826 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 853 @debounce;
+#X text 270 853 Число последовательных сэмплов \, необходимых для подтверждения
+касания/отпускания – помогает отфильтровать шум. Тип: list. Значение
+по умолчанию: 0 0\. Число элементов: [2\..2]. Диапазон элемента: [0\..7].;
+#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 925 @threshold;
+#X text 270 925 Порог срабатывания и отпускания для всех каналов. Тип:
+list. Значение по умолчанию: 0 0\. Число элементов: [2\..2]. Диапазон
+элемента: [0\..255].;
+#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 997 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 827 debounce;
-#X text 270 827 установить число последовательных сэмплов \, необходимых
-для подтверждения касания/отпускания – помогает отфильтровать шум.
-Аргументы:;
-#X obj 300 882 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 882 TOUCH: порог антидребезга при касании. Тип: int. Диапазон:
-[0\..7].;
-#X obj 300 920 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 920 RELEASE: порог антидребезга при отпускании. Тип: int.
-Диапазон: [0\..7].;
-#X obj 250 968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 968 reset;
-#X text 270 968 выполняет программный сброс устройства.;
-#X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1003 threshold;
-#X text 270 1003 установить порог срабатывания и отпускания для всех
-каналов. Аргументы:;
-#X obj 300 1043 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1043 TOUCH: порог срабатывания. Тип: int. Диапазон: [0\..255].;
-#X obj 300 1066 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1066 RELEASE: порог отпускания. Тип: int. Диапазон: [0\..255].;
-#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1114 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 998 baseline;
+#X text 270 998 считывает базовые данные для канала. Обратите внимание
+\, что разрешение составляет всего 8 бит.;
+#X obj 250 1048 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1048 filtered;
+#X text 270 1048 cчитывает отфильтрованные данные с сенсорных каналов.
+Шум фильтруется чипом.;
+#X obj 250 1098 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1098 reset;
+#X text 270 1098 выполняет программный сброс устройства.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1148 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1115 1\.;
-#X text 170 1115 bang:;
-#X text 270 1115 выполнить однократный опрос электродов.;
-#X obj 20 1150 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1155 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1149 1\.;
+#X text 170 1149 bang:;
+#X text 270 1149 выполнить однократный опрос всех сенсорных каналов.;
+#X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1189 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1156 1\.;
-#X text 170 1156 list:;
-#X text 270 1156 список из двух элементов: SENSOR_INDEX STATE(0|1).;
-#X text 130 1176 2\.;
-#X msg 170 1176 touches;
-#X text 270 1176 полное состояние сенсора прикосновений как 10-битное
+#X text 130 1190 1\.;
+#X text 170 1190 list:;
+#X text 270 1190 список из двух элементов: SENSOR_INDEX STATE(0|1).;
+#X text 130 1210 2\.;
+#X msg 170 1210 touches;
+#X text 270 1210 полное состояние сенсора прикосновений как 10-битное
 целое число.;
-#X msg 170 1216 baseline;
-#X text 270 1216 baseline данные для канала \, список: CHANNEL VALUE.;
-#X msg 170 1241 filtered;
-#X text 270 1241 фильтрованные данные для канала \, список: CHANNEL
+#X msg 170 1250 baseline;
+#X text 270 1250 baseline данные для канала \, список: CHANNEL VALUE.;
+#X msg 170 1275 filtered;
+#X text 270 1275 фильтрованные данные для канала \, список: CHANNEL
 VALUE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1291 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1294 библиотека: ceammc v0.9.8;
-#N canvas 10 1313 400 290 info 0;
+#X obj 1 1325 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1328 библиотека: ceammc v0.9.8;
+#N canvas 10 1347 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -122,7 +125,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1313 pd info;
+#X restore 10 1347 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;

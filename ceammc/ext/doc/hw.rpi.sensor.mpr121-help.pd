@@ -40,60 +40,64 @@ value: -1\. Range: [-4\..119].;
 #X text 270 682 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
 #X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 724 @connect;
-#X text 270 724 When set to 1: tries to connect to the device on the
+#X msg 130 724 @irq;
+#X text 270 724 (initonly) GPIO interrupt pin. Type: int. Default value:
+-1\. Range: [-1\..127].;
+#X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 766 @connect;
+#X text 270 766 When set to 1: tries to connect to the device on the
 I²C bus. When set to 0: disconnects from the device. Type: bool. Default
 value: 0\.;
-#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 796 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 823 @debounce;
+#X text 270 823 The number of consecutive samples needed to confirm
+a touch/release \, helping to filter out noise. Type: list. Default
+value: 0 0\. Item count: [2\..2]. Item range: [0\..7].;
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 895 @threshold;
+#X text 270 895 The touch and release threshold for all channels. Type:
+list. Default value: 0 0\. Item count: [2\..2]. Item range: [0\..255].;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 967 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 797 debounce;
-#X text 270 797 set the number of consecutive samples needed to confirm
-a touch/release \, helping to filter out noise. Arguments are:;
-#X obj 300 852 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 852 TOUCH: touch debounce samples. Type: int. Range: [0\..7].;
-#X obj 300 875 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 875 RELEASE: release debounce samples. Type: int. Range:
-[0\..7].;
-#X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 908 reset;
-#X text 270 908 performs a software reset on the device.;
-#X obj 250 943 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 943 threshold;
-#X text 270 943 set the touch and release threshold for all channels.
-Arguments are:;
-#X obj 300 983 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 983 TOUCH: touch threshold. Type: int. Range: [0\..255].;
-#X obj 300 1006 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1006 RELEASE: release threshold. Type: int. Range: [0\..255].;
-#X obj 20 1049 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1054 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 968 baseline;
+#X text 270 968 reads the baseline data for the channel. Note that
+this has only a resolution of 8bit.;
+#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1018 filtered;
+#X text 270 1018 reads the filtered data from touch channels. Noise
+gets filtered out by the chip.;
+#X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1068 reset;
+#X text 270 1068 performs a software reset on the device.;
+#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1118 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1055 1\.;
-#X text 170 1055 bang:;
-#X text 270 1055 perform a single poll of electrodes.;
-#X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1095 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1119 1\.;
+#X text 170 1119 bang:;
+#X text 270 1119 perform a single poll of electrodes.;
+#X obj 20 1154 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1159 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1096 1\.;
-#X text 170 1096 list:;
-#X text 270 1096 list of two elements: SENSOR_INDEX STATE(0|1).;
-#X text 130 1116 2\.;
-#X msg 170 1116 touches;
-#X text 270 1116 all sensors touch state as 10-bit integer.;
-#X msg 170 1141 baseline;
-#X text 270 1141 baseline data for the channel \, list: CHANNEL VALUE.;
-#X msg 170 1166 filtered;
-#X text 270 1166 filtered data from touch channels \, list: CHANNEL
+#X text 130 1160 1\.;
+#X text 170 1160 list:;
+#X text 270 1160 list of two elements: SENSOR_INDEX STATE(0|1).;
+#X text 130 1180 2\.;
+#X msg 170 1180 touches;
+#X text 270 1180 all sensors touch state as 10-bit integer.;
+#X msg 170 1205 baseline;
+#X text 270 1205 baseline data for the channel \, list: CHANNEL VALUE.;
+#X msg 170 1230 filtered;
+#X text 270 1230 filtered data from touch channels \, list: CHANNEL
 VALUE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1216 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1219 library: ceammc v0.9.8;
-#N canvas 10 1238 400 290 info 0;
+#X obj 1 1280 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1283 library: ceammc v0.9.8;
+#N canvas 10 1302 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +122,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1238 pd info;
+#X restore 10 1302 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
