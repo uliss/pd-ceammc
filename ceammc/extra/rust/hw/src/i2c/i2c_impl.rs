@@ -72,6 +72,55 @@ fn check_kernel_i2c_modules() -> Result<(), String> {
     ))
 }
 
+fn check_kernel_i2c_config() -> Result<(), String> {
+    const BOOT_CONFIG: &str = "/boot/firmware/config.txt";
+    const DT_PARAM0: &str = "dtparam=i2c_arm=on";
+    const DT_PARAM1: &str = "dtparam=i2c_arm=true";
+
+    if Path::new(BOOT_CONFIG).exists() {
+        let config = std::fs::read_to_string(BOOT_CONFIG).map_err(|err| format!("can't read {BOOT_CONFIG}: {err}"))?;
+
+        let i2c_enabled = config
+            .lines()
+            .any(|line| line.trim().starts_with(DT_PARAM0) || line.trim().starts_with(DT_PARAM1));
+
+        if !i2c_enabled {
+            return Err(format!(
+                "I2C is not enabled in {BOOT_CONFIG}. Add {DT_PARAM0} into {BOOT_CONFIG}"
+            ));
+        }
+        return Ok(());
+    }
+
+    Err(format!("{BOOT_CONFIG} is not found"))
+}
+
+fn check_i2c_device(bus: u8) -> Result<(), String> {
+    let i2c_dev = format!("/dev/i2c-{bus}");
+    if !Path::new(&i2c_dev).exists() {
+        return Err(format!("i2c device is not found: {i2c_dev}"));
+    }
+    Ok(())
+}
+
+fn check_i2c_permissions() -> Result<(), String> {
+    const I2C_GROUP: &str = "i2c";
+    let user = users::get_user_by_uid(users::get_current_uid()).ok_or(format!("can't get current user"))?;
+
+    if let Some(groups) = users::get_user_groups(user.name(), user.primary_group_id()) {
+        if !groups.iter().any(|g| g.name() == I2C_GROUP) {
+            Err(format!(
+                "user {0} is NOT in the group {I2C_GROUP}. Add: sudo usermod -a -G {I2C_GROUP} {0}",
+                user.name().display()
+            ))
+        } else {
+            Ok(())
+        }
+    } else {
+        Err(format!("can't get user groups"))
+    }
+}
+
 #[allow(non_snake_case)]
 pub fn create_i2c_bus<Reply>(bus: i8, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) -> Result<I2c, String>
 where
@@ -83,6 +132,9 @@ where
             Ok(i2c) => Ok(i2c),
             Err(err) => {
                 check_kernel_i2c_modules()?;
+                check_kernel_i2c_config()?;
+                check_i2c_device(bus as u8)?;
+                check_i2c_permissions()?;
                 Err(process_err(err, tx, notify))
             }
         },
