@@ -213,8 +213,9 @@ macro_rules! rpi_check {
 
 pub struct HwThreadWorker<Request, Reply> {
     rx: std::sync::mpsc::Receiver<Reply>,
-    tx: std::sync::mpsc::Sender<Request>,
+    tx: std::sync::mpsc::Sender<Option<Request>>,
     on_msg: hw_msg_cb,
+    join_handle: Option<JoinHandle<()>>,
 }
 
 impl<Request, Reply> HwThreadWorker<Request, Reply>
@@ -222,7 +223,13 @@ where
     Request: Send,
     Reply: MakePdMessage<Reply>,
 {
-    pub fn new(on_msg: hw_msg_cb) -> (Self, std::sync::mpsc::Receiver<Request>, std::sync::mpsc::Sender<Reply>) {
+    pub fn new(
+        on_msg: hw_msg_cb,
+    ) -> (
+        Self,
+        std::sync::mpsc::Receiver<Option<Request>>,
+        std::sync::mpsc::Sender<Reply>,
+    ) {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel();
 
@@ -231,6 +238,7 @@ where
                 rx: rep_rx,
                 tx: req_tx,
                 on_msg,
+                join_handle: None,
             },
             req_rx,
             rep_tx,
@@ -242,21 +250,38 @@ where
         process_err(format!("worker error: {str}"), tx, notify);
     }
 
-    pub fn spawn<F>(&self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F) -> JoinHandle<()>
+    pub fn quit(&mut self) {
+        if let Some(jh) = self.join_handle.take() {
+            log::info!("quit worker thread");
+            if let Err(err) = self.tx.send(None) {
+                log::error!("can't send quit: {err}");
+            }
+            if let Err(err) = jh.join() {
+                log::error!("worker join error: {err:?}")
+            } else {
+                log::info!("exit")
+            }
+        }
+    }
+
+    pub fn spawn<F>(&mut self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F)
     where
         F: FnOnce() -> Result<(), String>,
         F: Send + 'static,
         Reply: Send + 'static,
     {
-        std::thread::spawn(move || {
+        self.quit();
+
+        let jh = std::thread::spawn(move || {
             debug!("worker thread start");
 
             if let Err(err) = fx() {
                 process_err(format!("worker error: {err}"), &tx, notify);
             }
 
-            debug!("worker thread done");
-        })
+            debug!("worker thread done")
+        });
+        self.join_handle = Some(jh);
     }
 
     // should be called only in the main caller thread!
@@ -265,7 +290,7 @@ where
     }
 
     pub fn send_request(&self, req: Request) -> bool {
-        if let Err(err) = self.tx.send(req) {
+        if let Err(err) = self.tx.send(Some(req)) {
             log::error!("{err}");
             self.on_msg.exec(hw_msg_level::Error, "device is closed");
             false

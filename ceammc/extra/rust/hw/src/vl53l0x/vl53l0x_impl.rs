@@ -19,7 +19,7 @@ impl hw_sensor_vl53l0x {
         on_data: hw_sensor_vl53l0x_data_cb,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = LaserSensorWorker::new(on_msg);
+        let (mut worker, rx, tx) = LaserSensorWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -46,6 +46,10 @@ impl hw_sensor_vl53l0x {
             let poll_mode = Arc::new(AtomicBool::new(false));
 
             while let Ok(req) = rx.recv() {
+                if req.is_none() {
+                    break;
+                }
+                let req = req.unwrap();
                 match req {
                     Request::ReadMM => match sensor.lock().unwrap().read_range_single_millimeters_blocking() {
                         Ok(res) => {

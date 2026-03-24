@@ -22,7 +22,7 @@ impl hw_gpio_rotenc {
         on_click: hw_gpio_rotenc_click,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = RotEncoderWorker::new(on_msg);
+        let (mut worker, rx, tx) = RotEncoderWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             debug!("try to init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
@@ -123,6 +123,11 @@ impl hw_gpio_rotenc {
 
                 match rx.try_recv() {
                     Ok(req) => {
+                        if req.is_none() {
+                            break;
+                        }
+
+                        let req = req.unwrap();
                         debug!("{req:?}");
 
                         match req {

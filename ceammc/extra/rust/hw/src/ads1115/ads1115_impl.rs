@@ -8,15 +8,13 @@ use log::{debug, error};
 use pwm_pca9685::nb::block;
 
 use crate::{
-    ads1115::{
-        Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC,
-    }, hw_msg_cb, hw_notify_cb, i2c::{i2c_impl::create_i2c_bus, I2cAddress}, send_debug, send_error, send_reply
+    ads1115::{Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC},
+    hw_msg_cb, hw_notify_cb,
+    i2c::{i2c_impl::create_i2c_bus, I2cAddress},
+    send_debug, send_error, send_reply,
 };
 
-use super::{
-    hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, hw_i2c_ads1115_range,
-    Ads1115Worker,
-};
+use super::{hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, hw_i2c_ads1115_range, Ads1115Worker};
 
 impl hw_i2c_ads1115 {
     fn to_fsr(range: hw_i2c_ads1115_range) -> FullScaleRange {
@@ -41,7 +39,7 @@ impl hw_i2c_ads1115 {
         on_msg: hw_msg_cb,
         on_data: hw_i2c_ads1115_data_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ads1115Worker::new(on_msg);
+        let (mut worker, rx, tx) = Ads1115Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -59,16 +57,23 @@ impl hw_i2c_ads1115 {
             let i2c_bus = i2c.bus();
             let mut adc = Ads1x1x::new_ads1115(i2c, addr);
 
-            send_debug(&tx, notify, format!("connected to ADS1115 with bus={i2c_bus}, addr={i2c_addr:?}").as_str());
+            send_debug(
+                &tx,
+                notify,
+                format!("connected to ADS1115 with bus={i2c_bus}, addr={i2c_addr:?}").as_str(),
+            );
 
             let mut poll_mode = false;
-            let mut poll_time =
-                Duration::from_millis(super::HW_ADC_ADS1115_DEF_POLL_TIME_MSEC.into());
+            let mut poll_time = Duration::from_millis(super::HW_ADC_ADS1115_DEF_POLL_TIME_MSEC.into());
             let mut measure_mode = mode;
 
             'outer: loop {
                 match rx.try_recv() {
                     Ok(req) => {
+                        if req.is_none() {
+                            break 'outer;
+                        }
+                        let req = req.unwrap();
                         debug!("{req:?}");
                         match req {
                             Request::MeasureChan(chan) => {
@@ -85,11 +90,7 @@ impl hw_i2c_ads1115 {
                                     (Diff, 2) => block!(adc.read(DifferentialA1A3)),
                                     (Diff, 3) => block!(adc.read(DifferentialA2A3)),
                                     _ => {
-                                        send_error(
-                                            &tx,
-                                            notify,
-                                            format!("invalid channel: {chan}").as_str(),
-                                        );
+                                        send_error(&tx, notify, format!("invalid channel: {chan}").as_str());
                                         continue;
                                     }
                                 } {
@@ -98,36 +99,24 @@ impl hw_i2c_ads1115 {
                                         send_reply(Reply::Measure(chan, res), &tx, notify);
                                     }
                                     Err(err) => {
-                                        send_error(
-                                            &tx,
-                                            notify,
-                                            format!("measure error: {err:?}").as_str(),
-                                        );
+                                        send_error(&tx, notify, format!("measure error: {err:?}").as_str());
                                     }
                                 }
                             }
                             Request::MeasureAll => {
                                 let result = match measure_mode {
                                     hw_i2c_ads1115_measure_mode::Single => {
-                                        let a0 =
-                                            block!(adc.read(channel::SingleA0)).unwrap_or_default();
-                                        let a1 =
-                                            block!(adc.read(channel::SingleA1)).unwrap_or_default();
-                                        let a2 =
-                                            block!(adc.read(channel::SingleA2)).unwrap_or_default();
-                                        let a3 =
-                                            block!(adc.read(channel::SingleA3)).unwrap_or_default();
+                                        let a0 = block!(adc.read(channel::SingleA0)).unwrap_or_default();
+                                        let a1 = block!(adc.read(channel::SingleA1)).unwrap_or_default();
+                                        let a2 = block!(adc.read(channel::SingleA2)).unwrap_or_default();
+                                        let a3 = block!(adc.read(channel::SingleA3)).unwrap_or_default();
                                         (a0, a1, a2, a3)
                                     }
                                     hw_i2c_ads1115_measure_mode::Diff => {
-                                        let d0 = block!(adc.read(channel::DifferentialA0A1))
-                                            .unwrap_or_default();
-                                        let d1 = block!(adc.read(channel::DifferentialA0A3))
-                                            .unwrap_or_default();
-                                        let d2 = block!(adc.read(channel::DifferentialA1A3))
-                                            .unwrap_or_default();
-                                        let d3 = block!(adc.read(channel::DifferentialA2A3))
-                                            .unwrap_or_default();
+                                        let d0 = block!(adc.read(channel::DifferentialA0A1)).unwrap_or_default();
+                                        let d1 = block!(adc.read(channel::DifferentialA0A3)).unwrap_or_default();
+                                        let d2 = block!(adc.read(channel::DifferentialA1A3)).unwrap_or_default();
+                                        let d3 = block!(adc.read(channel::DifferentialA2A3)).unwrap_or_default();
                                         (d0, d1, d2, d3)
                                     }
                                 };
@@ -142,11 +131,8 @@ impl hw_i2c_ads1115 {
                             Request::Poll(state) => poll_mode = state,
                             Request::SetPollTime(msec) => {
                                 poll_time = Duration::from_millis(
-                                    msec.clamp(
-                                        HW_ADC_ADS1115_MIN_POLL_TIME_MSEC,
-                                        HW_ADC_ADS1115_MAX_POLL_TIME_MSEC,
-                                    )
-                                    .into(),
+                                    msec.clamp(HW_ADC_ADS1115_MIN_POLL_TIME_MSEC, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC)
+                                        .into(),
                                 );
                             }
                             Request::SetMeasureMode(mode) => {
@@ -171,14 +157,10 @@ impl hw_i2c_ads1115 {
                             (a0, a1, a2, a3)
                         }
                         hw_i2c_ads1115_measure_mode::Diff => {
-                            let d0 =
-                                block!(adc.read(channel::DifferentialA0A1)).unwrap_or_default();
-                            let d1 =
-                                block!(adc.read(channel::DifferentialA0A3)).unwrap_or_default();
-                            let d2 =
-                                block!(adc.read(channel::DifferentialA1A3)).unwrap_or_default();
-                            let d3 =
-                                block!(adc.read(channel::DifferentialA2A3)).unwrap_or_default();
+                            let d0 = block!(adc.read(channel::DifferentialA0A1)).unwrap_or_default();
+                            let d1 = block!(adc.read(channel::DifferentialA0A3)).unwrap_or_default();
+                            let d2 = block!(adc.read(channel::DifferentialA1A3)).unwrap_or_default();
+                            let d3 = block!(adc.read(channel::DifferentialA2A3)).unwrap_or_default();
                             (d0, d1, d2, d3)
                         }
                     };

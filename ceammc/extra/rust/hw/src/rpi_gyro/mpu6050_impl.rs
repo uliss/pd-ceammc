@@ -26,7 +26,7 @@ impl hw_mpu6050 {
         on_msg: hw_msg_cb,
         on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Mpu6050Worker::new(on_msg);
+        let (mut worker, rx, tx) = Mpu6050Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -63,6 +63,11 @@ impl hw_mpu6050 {
                 'request_loop: loop {
                     match rx.try_recv() {
                         Ok(req) => {
+                            if req.is_none() {
+                                break 'outer;
+                            }
+
+                            let req = req.unwrap();
                             debug!("{req:?}");
 
                             match req {

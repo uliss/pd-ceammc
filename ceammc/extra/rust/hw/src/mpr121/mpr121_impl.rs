@@ -51,7 +51,7 @@ impl hw_sensor_mpr121 {
         on_msg: hw_msg_cb,
         on_reply: hw_mpr121_reply_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
+        let (mut worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
         let irq_pin = if irq_pin.is_null() {
             None
         } else {
@@ -59,7 +59,7 @@ impl hw_sensor_mpr121 {
         };
 
         let gpio_tx = worker.tx.clone();
-        let handle = worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
 
@@ -90,7 +90,7 @@ impl hw_sensor_mpr121 {
                     .into_input_pulldown();
                 pin.set_reset_on_drop(true);
                 pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
-                    if let Err(err) = gpio_tx.send(Request::ReadAll) {
+                    if let Err(err) = gpio_tx.send(Some(Request::ReadAll)) {
                         log::error!("irq send error: {err}");
                     };
                 })
@@ -130,60 +130,60 @@ impl hw_sensor_mpr121 {
             let mut key_state: u16 = 0;
 
             while let Ok(req) = rx.recv() {
-                debug!("request: {req:?}");
-                match req {
-                    Request::ReadAll => match sensor.get_touched() {
-                        Ok(keys) => {
-                            send_reply(
-                                Reply::AllTouches {
-                                    touched: keys,
-                                    previous: key_state,
-                                    over_current: sensor.is_over_current_set().unwrap_or(false),
-                                },
-                                &tx,
-                                notify,
-                            );
-                            key_state = keys;
+                if let Some(req) = req {
+                    debug!("request: {req:?}");
+                    match req {
+                        Request::ReadAll => match sensor.get_touched() {
+                            Ok(keys) => {
+                                send_reply(
+                                    Reply::AllTouches {
+                                        touched: keys,
+                                        previous: key_state,
+                                        over_current: sensor.is_over_current_set().unwrap_or(false),
+                                    },
+                                    &tx,
+                                    notify,
+                                );
+                                key_state = keys;
+                            }
+                            Err(err) => {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
+                        },
+                        Request::Reset => {
+                            if let Err(err) = sensor.reset() {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
                         }
-                        Err(err) => {
-                            process_err(format!("{err:?}"), &tx, notify);
+                        Request::SetThresholds(on, off) => {
+                            if let Err(err) = sensor.set_thresholds(on, off) {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
                         }
-                    },
-                    Request::Reset => {
-                        if let Err(err) = sensor.reset() {
-                            process_err(format!("{err:?}"), &tx, notify);
+                        Request::SetDebounce(on, off) => {
+                            if let Err(err) = sensor.set_debounce(to_debounce(on)?, to_debounce(off)?) {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
                         }
+                        Request::GetFiltered(channel) => match sensor.get_filtered(to_channel(channel)?) {
+                            Ok(value) => {
+                                send_reply(Reply::Filtered { value, channel }, &tx, notify);
+                            }
+                            Err(err) => {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
+                        },
+                        Request::GetBaseline(channel) => match sensor.get_baseline(to_channel(channel)?) {
+                            Ok(value) => {
+                                send_reply(Reply::Baseline { value, channel }, &tx, notify);
+                            }
+                            Err(err) => {
+                                process_err(format!("{err:?}"), &tx, notify);
+                            }
+                        },
                     }
-                    Request::SetThresholds(on, off) => {
-                        if let Err(err) = sensor.set_thresholds(on, off) {
-                            process_err(format!("{err:?}"), &tx, notify);
-                        }
-                    }
-                    Request::SetDebounce(on, off) => {
-                        if let Err(err) = sensor.set_debounce(to_debounce(on)?, to_debounce(off)?) {
-                            process_err(format!("{err:?}"), &tx, notify);
-                        }
-                    }
-                    Request::GetFiltered(channel) => match sensor.get_filtered(to_channel(channel)?) {
-                        Ok(value) => {
-                            send_reply(Reply::Filtered { value, channel }, &tx, notify);
-                        }
-                        Err(err) => {
-                            process_err(format!("{err:?}"), &tx, notify);
-                        }
-                    },
-                    Request::GetBaseline(channel) => match sensor.get_baseline(to_channel(channel)?) {
-                        Ok(value) => {
-                            send_reply(Reply::Baseline { value, channel }, &tx, notify);
-                        }
-                        Err(err) => {
-                            process_err(format!("{err:?}"), &tx, notify);
-                        }
-                    },
-                    Request::Quit => {
-                        log::info!("worker: quit");
-                        break;
-                    }
+                } else {
+                    break;
                 }
             }
 
@@ -200,11 +200,7 @@ impl hw_sensor_mpr121 {
             Ok(())
         });
 
-        Ok(Self {
-            worker,
-            cb: on_reply,
-            join_handle: handle,
-        })
+        Ok(Self { worker, cb: on_reply })
     }
 
     pub(crate) fn process_reply(mpr: *const Self) -> bool {
@@ -248,13 +244,7 @@ impl hw_sensor_mpr121 {
         }
     }
 
-    pub(crate) fn free(self) {
-        if self.worker.send_request(Request::Quit) {
-            log::info!("worker is finished: {}", self.join_handle.is_finished());
-            log::info!("waiting for worker thread done...");
-            if let Err(err) = self.join_handle.join() {
-                log::error!("join error: {err:?}");
-            }
-        }
+    pub(crate) fn free(mut self) {
+        self.worker.quit();
     }
 }

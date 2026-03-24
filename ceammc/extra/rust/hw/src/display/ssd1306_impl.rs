@@ -34,7 +34,7 @@ impl hw_display_ssd1306 {
     fn process_loop<DI, SIZE>(
         display: &mut Ssd1306<DI, SIZE, BufferedGraphicsMode<SIZE>>,
         tx: &std::sync::mpsc::Sender<Reply>,
-        rx: &std::sync::mpsc::Receiver<Request>,
+        rx: &std::sync::mpsc::Receiver<Option<Request>>,
         notify: hw_notify_cb,
     ) where
         DI: WriteOnlyDataCommand,
@@ -52,6 +52,11 @@ impl hw_display_ssd1306 {
             .build();
 
         while let Ok(req) = rx.recv() {
+            if req.is_none() {
+                break;
+            }
+
+            let req = req.unwrap();
             debug!("{req:?}");
 
             match req {
@@ -170,7 +175,7 @@ impl hw_display_ssd1306 {
         size: SIZE,
         notify: hw_notify_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
+        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
             let i2c = create_i2c_bus(args.i2c_bus, &tx, args.notify)?;
@@ -209,7 +214,7 @@ impl hw_display_ssd1306 {
     }
 
     pub fn new_spi<SIZE: DisplaySize + Send + 'static>(args: DisplaySpiArgs, size: SIZE) -> Result<Self, CString> {
-        let (worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
+        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
             let gpio = Gpio::new().map_err(|err| process_err(err, &tx, args.notify))?;

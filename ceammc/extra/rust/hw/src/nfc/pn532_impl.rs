@@ -18,7 +18,7 @@ impl hw_nfc_pn532 {
         on_msg: hw_msg_cb,
         on_key: hw_nfc_pn532_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = NfcWorker::new(on_msg);
+        let (mut worker, rx, tx) = NfcWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -39,25 +39,29 @@ impl hw_nfc_pn532 {
             );
 
             while let Ok(req) = rx.recv() {
-                match req {
-                    Request::ReadAll => {
-                        let firmware = pn532
-                            .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
-                            .map_err(|err| format!("{err:?}"))?;
-                        log::info!("firmware: {firmware:?}");
+                if let Some(req) = req {
+                    match req {
+                        Request::ReadAll => {
+                            let firmware = pn532
+                                .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
+                                .map_err(|err| format!("{err:?}"))?;
+                            log::info!("firmware: {firmware:?}");
 
-                        match pn532.process(
-                            &pn532::Request::sam_configuration(SAMMode::Normal, false),
-                            0,
-                            Duration::from_millis(50),
-                        ) {
-                            Ok(_) => println!("✅ PN532 готов"),
-                            Err(err) => {
-                                println!("❌ Ошибка: {:?}", err);
-                                return Err(format!("{err:?}"));
+                            match pn532.process(
+                                &pn532::Request::sam_configuration(SAMMode::Normal, false),
+                                0,
+                                Duration::from_millis(50),
+                            ) {
+                                Ok(_) => println!("✅ PN532 готов"),
+                                Err(err) => {
+                                    println!("❌ Ошибка: {:?}", err);
+                                    return Err(format!("{err:?}"));
+                                }
                             }
                         }
                     }
+                } else {
+                    break;
                 }
             }
 
