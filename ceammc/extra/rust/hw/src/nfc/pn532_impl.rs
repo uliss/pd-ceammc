@@ -35,7 +35,7 @@ impl hw_nfc_pn532 {
             send_debug(
                 &tx,
                 notify,
-                format!("pn532 init with bus={bus} and addr=0x{PN532_I2C_ADDR:02x}").as_str(),
+                format!("pn532 init with i2c_bus={bus} and i2c_addr=0x{PN532_I2C_ADDR:02x}").as_str(),
             );
 
             while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
