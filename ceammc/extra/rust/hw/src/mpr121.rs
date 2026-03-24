@@ -166,5 +166,5 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_get_filtered(mpr: *const hw_sensor_mpr
 /// Reads the baseline data for the channel. Note that this has only a resolution of 8bit.
 /// @param mpr - device handle, nullable
 pub extern "C" fn ceammc_hw_sensor_mpr121_get_baseline(mpr: *const hw_sensor_mpr121, channel: u8) -> bool {
-    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::GetFiltered(channel)) });
+    rpi_check!({ hw_sensor_mpr121::send_request(mpr, Request::GetBaseline(channel)) });
 }
