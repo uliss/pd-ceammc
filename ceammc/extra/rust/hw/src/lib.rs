@@ -252,14 +252,11 @@ where
 
     pub fn quit(&mut self) {
         if let Some(jh) = self.join_handle.take() {
-            log::info!("quit worker thread");
             if let Err(err) = self.tx.send(None) {
                 log::error!("can't send quit: {err}");
             }
             if let Err(err) = jh.join() {
                 log::error!("worker join error: {err:?}")
-            } else {
-                log::info!("exit")
             }
         }
     }
