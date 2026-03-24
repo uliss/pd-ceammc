@@ -249,12 +249,12 @@ impl hw_sensor_mpr121 {
     }
 
     pub(crate) fn free(self) {
-        log::info!("free");
-        drop(self.worker.tx);
-        log::info!("worker is finished: {}", self.join_handle.is_finished());
-        log::info!("wait for worker thread done...");
-        if let Err(err) = self.join_handle.join() {
-            log::error!("join error: {err:?}");
+        if self.worker.send_request(Request::Quit) {
+            log::info!("worker is finished: {}", self.join_handle.is_finished());
+            log::info!("waiting for worker thread done...");
+            if let Err(err) = self.join_handle.join() {
+                log::error!("join error: {err:?}");
+            }
         }
     }
 }
