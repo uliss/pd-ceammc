@@ -27,6 +27,14 @@
         контакта, предлагая встроенную настройку электродов, регулируемые пороги срабатывания и
         фильтрацию для работы в условиях шумов.</tr>
       </par>
+      <par style="warning">
+        <tr lang="en">If the @irq property is specified, the sensor operates in external interrupt
+        mode, and the specified GPIO pin is taken for exclusive use and is unavailable to other
+        objects</tr>
+        <tr lang="ru">Если указано свойство @irq, то датчик работает в режиме внешнего прерывания,
+        а указанный контакт GPIO забирается в эксклюзивное пользование и недоступен для других
+        объектов</tr>
+      </par>
     </info>
     <properties>
       <!-- @connect -->
@@ -35,6 +43,14 @@
         disconnects from the device.</tr>
         <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
         установке в 0: отключается от устройства.</tr>
+      </property>
+      <!-- @debounce -->
+      <property name="@debounce" type="list" default="0 0" access="readwrite" min-count="2"
+      max-count="2" minvalue="0" maxvalue="7">
+        <tr lang="en">the number of consecutive samples needed to confirm a touch/release, helping
+        to filter out noise</tr>
+        <tr lang="ru">число последовательных сэмплов, необходимых для подтверждения
+        касания/отпускания – помогает отфильтровать шум</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
@@ -50,39 +66,42 @@
         <tr lang="en">I²C bus</tr>
         <tr lang="ru">шина I²C</tr>
       </property>
-      <property name="@threshold" type="list" default="12 6" access="readwrite" min-count="2" max-count="2" minvalue="0" maxvalue="255">
-        <tr lang="en">the touch and release threshold for all channels</tr>
-        <tr lang="ru">порог срабатывания и отпускания для всех каналов</tr>
-      </property>
-      <property name="@debounce" type="list" default="0 0" access="readwrite" min-count="2" max-count="2" minvalue="0" maxvalue="7">
-        <tr lang="en">the number of consecutive samples needed to confirm a touch/release,
-        helping to filter out noise</tr>
-        <tr lang="ru">число последовательных сэмплов, необходимых для подтверждения
-        касания/отпускания – помогает отфильтровать шум</tr>
-      </property>
+      <!-- @irq -->
       <property name="@irq" type="int" minvalue="-1" maxvalue="127" default="-1" access="initonly">
         <tr lang="en">GPIO interrupt pin</tr>
         <tr lang="ru">GPIO контакт прерывания</tr>
       </property>
+      <!-- @threshold -->
+      <property name="@threshold" type="list" default="12 6" access="readwrite" min-count="2"
+      max-count="2" minvalue="0" maxvalue="255">
+        <tr lang="en">the touch and release threshold for all channels</tr>
+        <tr lang="ru">порог срабатывания и отпускания для всех каналов</tr>
+      </property>
     </properties>
     <methods>
+      <!-- baseline -->
+      <method name="baseline">
+        <info>
+          <tr lang="en">reads the baseline data for the channel. Note that this has only a
+          resolution of 8bit.</tr>
+          <tr lang="ru">считывает базовые данные для канала. Обратите внимание, что разрешение
+          составляет всего 8 бит.</tr>
+        </info>
+      </method>
+      <!-- filtered -->
+      <method name="filtered">
+        <info>
+          <tr lang="en">reads the filtered data from touch channels. Noise gets filtered out by the
+          chip.</tr>
+          <tr lang="ru">cчитывает отфильтрованные данные с сенсорных каналов. Шум фильтруется
+          чипом</tr>
+        </info>
+      </method>
       <!-- reset -->
       <method name="reset">
         <info>
           <tr lang="en">performs a software reset on the device</tr>
           <tr lang="ru">выполняет программный сброс устройства</tr>
-        </info>
-      </method>
-      <method name="filtered">
-        <info>
-          <tr lang="en">reads the filtered data from touch channels. Noise gets filtered out by the chip.</tr>
-          <tr lang="ru">cчитывает отфильтрованные данные с сенсорных каналов. Шум фильтруется чипом</tr>
-        </info>
-      </method>
-      <method name="baseline">
-        <info>
-          <tr lang="en">reads the baseline data for the channel. Note that this has only a resolution of 8bit.</tr>
-          <tr lang="ru">считывает базовые данные для канала. Обратите внимание, что разрешение составляет всего 8 бит.</tr>
         </info>
       </method>
     </methods>
