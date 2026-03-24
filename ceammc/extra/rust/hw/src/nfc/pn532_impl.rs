@@ -38,30 +38,26 @@ impl hw_nfc_pn532 {
                 format!("pn532 init with bus={bus} and addr=0x{PN532_I2C_ADDR:02x}").as_str(),
             );
 
-            while let Ok(req) = rx.recv() {
-                if let Some(req) = req {
-                    match req {
-                        Request::ReadAll => {
-                            let firmware = pn532
-                                .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
-                                .map_err(|err| format!("{err:?}"))?;
-                            log::info!("firmware: {firmware:?}");
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
+                match req {
+                    Request::ReadAll => {
+                        let firmware = pn532
+                            .process(&pn532::Request::GET_FIRMWARE_VERSION, 4, Duration::from_millis(50))
+                            .map_err(|err| format!("{err:?}"))?;
+                        log::info!("firmware: {firmware:?}");
 
-                            match pn532.process(
-                                &pn532::Request::sam_configuration(SAMMode::Normal, false),
-                                0,
-                                Duration::from_millis(50),
-                            ) {
-                                Ok(_) => println!("✅ PN532 готов"),
-                                Err(err) => {
-                                    println!("❌ Ошибка: {:?}", err);
-                                    return Err(format!("{err:?}"));
-                                }
+                        match pn532.process(
+                            &pn532::Request::sam_configuration(SAMMode::Normal, false),
+                            0,
+                            Duration::from_millis(50),
+                        ) {
+                            Ok(_) => println!("✅ PN532 готов"),
+                            Err(err) => {
+                                println!("❌ Ошибка: {:?}", err);
+                                return Err(format!("{err:?}"));
                             }
                         }
                     }
-                } else {
-                    break;
                 }
             }
 

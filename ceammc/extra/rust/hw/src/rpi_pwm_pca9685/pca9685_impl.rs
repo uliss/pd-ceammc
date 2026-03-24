@@ -118,12 +118,7 @@ impl hw_pca9685 {
 
             pwm.set_prescale(pwm_freq.prescale()).map_err(|err| err.to_string())?;
 
-            while let Ok(req) = rx.recv() {
-                if req.is_none() {
-                    break;
-                }
-
-                let req = req.unwrap();
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("{req:?}");
 
                 match req {

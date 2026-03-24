@@ -122,12 +122,8 @@ impl hw_gpio_rotenc {
                 }
 
                 match rx.try_recv() {
-                    Ok(req) => {
-                        if req.is_none() {
-                            break;
-                        }
-
-                        let req = req.unwrap();
+                    Ok(crate::WorkerCommand::Quit) => break,
+                    Ok(crate::WorkerCommand::Command(req)) => {
                         debug!("{req:?}");
 
                         match req {

@@ -11,7 +11,7 @@ use crate::{
     ads1115::{Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC},
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    send_debug, send_error, send_reply,
+    send_debug, send_error, send_reply, WorkerCommand,
 };
 
 use super::{hw_i2c_ads1115, hw_i2c_ads1115_data_cb, hw_i2c_ads1115_measure_mode, hw_i2c_ads1115_range, Ads1115Worker};
@@ -69,11 +69,8 @@ impl hw_i2c_ads1115 {
 
             'outer: loop {
                 match rx.try_recv() {
-                    Ok(req) => {
-                        if req.is_none() {
-                            break 'outer;
-                        }
-                        let req = req.unwrap();
+                    Ok(WorkerCommand::Quit) => break 'outer,
+                    Ok(WorkerCommand::Command(req)) => {
                         debug!("{req:?}");
                         match req {
                             Request::MeasureChan(chan) => {

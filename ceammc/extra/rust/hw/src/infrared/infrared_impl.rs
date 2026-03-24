@@ -83,12 +83,8 @@ impl hw_infrared {
 
                 'req: loop {
                     match rx.try_recv() {
-                        Ok(req) => {
-                            if req.is_none() {
-                                break 'outer;
-                            }
-
-                            let req = req.unwrap();
+                        Ok(crate::WorkerCommand::Quit) => break 'outer,
+                        Ok(crate::WorkerCommand::Command(req)) => {
                             debug!("{req:?}");
 
                             match req {

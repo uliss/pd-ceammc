@@ -288,15 +288,11 @@ impl hw_max7219 {
 
             led_display.write(Address::All, Request::PowerOn(true))?;
 
-            while let Ok(req) = rx.recv() {
-                if let Some((addr, req)) = req {
-                    debug!("{addr:?} {req:?}");
-                    led_display.write(addr, req).unwrap_or_else(|err| {
-                        send_error(&tx, notify, err.as_str());
-                    });
-                } else {
-                    break;
-                }
+            while let Ok(crate::WorkerCommand::Command((addr, req))) = rx.recv() {
+                debug!("{addr:?} {req:?}");
+                led_display.write(addr, req).unwrap_or_else(|err| {
+                    send_error(&tx, notify, err.as_str());
+                });
             }
 
             Ok(())

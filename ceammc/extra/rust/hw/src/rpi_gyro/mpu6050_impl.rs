@@ -62,34 +62,26 @@ impl hw_mpu6050 {
             'outer: loop {
                 'request_loop: loop {
                     match rx.try_recv() {
-                        Ok(req) => {
-                            if req.is_none() {
-                                break 'outer;
+                        Ok(crate::WorkerCommand::Quit) => break 'outer,
+                        Ok(crate::WorkerCommand::Command(req)) => match req {
+                            Request::Poll(state) => {
+                                poll_mode = state;
                             }
+                            Request::Calibrate => {
+                                send_info(&tx, notify, "Calibrating Sensor ...");
 
-                            let req = req.unwrap();
-                            debug!("{req:?}");
-
-                            match req {
-                                Request::Poll(state) => {
-                                    poll_mode = state;
-                                }
-                                Request::Calibrate => {
-                                    send_info(&tx, notify, "Calibrating Sensor ...");
-
-                                    if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
-                                        &mut mpu,
-                                        &mut delay,
-                                        mpu6050_dmp::accel::AccelFullScale::G2,
-                                        mpu6050_dmp::calibration::ReferenceGravity::ZN,
-                                    )
-                                    .map_err(|err| process_err(format!("calibration error: {err:?}"), &tx, notify))
-                                    {
-                                        send_info(&tx, notify, "Sensor Calibrated");
-                                    }
+                                if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
+                                    &mut mpu,
+                                    &mut delay,
+                                    mpu6050_dmp::accel::AccelFullScale::G2,
+                                    mpu6050_dmp::calibration::ReferenceGravity::ZN,
+                                )
+                                .map_err(|err| process_err(format!("calibration error: {err:?}"), &tx, notify))
+                                {
+                                    send_info(&tx, notify, "Sensor Calibrated");
                                 }
                             }
-                        }
+                        },
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'request_loop, // just no request
                             std::sync::mpsc::TryRecvError::Disconnected => {

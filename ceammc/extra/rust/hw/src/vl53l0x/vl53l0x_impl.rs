@@ -45,11 +45,7 @@ impl hw_sensor_vl53l0x {
 
             let poll_mode = Arc::new(AtomicBool::new(false));
 
-            while let Ok(req) = rx.recv() {
-                if req.is_none() {
-                    break;
-                }
-                let req = req.unwrap();
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 match req {
                     Request::ReadMM => match sensor.lock().unwrap().read_range_single_millimeters_blocking() {
                         Ok(res) => {

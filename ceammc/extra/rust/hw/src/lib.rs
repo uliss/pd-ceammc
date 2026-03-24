@@ -211,9 +211,15 @@ macro_rules! rpi_check {
     };
 }
 
+#[derive(Debug)]
+pub enum WorkerCommand<T> {
+    Command(T),
+    Quit,
+}
+
 pub struct HwThreadWorker<Request, Reply> {
     rx: std::sync::mpsc::Receiver<Reply>,
-    tx: std::sync::mpsc::Sender<Option<Request>>,
+    tx: std::sync::mpsc::Sender<WorkerCommand<Request>>,
     on_msg: hw_msg_cb,
     join_handle: Option<JoinHandle<()>>,
 }
@@ -227,7 +233,7 @@ where
         on_msg: hw_msg_cb,
     ) -> (
         Self,
-        std::sync::mpsc::Receiver<Option<Request>>,
+        std::sync::mpsc::Receiver<WorkerCommand<Request>>,
         std::sync::mpsc::Sender<Reply>,
     ) {
         let (req_tx, req_rx) = std::sync::mpsc::channel();
@@ -252,7 +258,7 @@ where
 
     pub fn quit(&mut self) {
         if let Some(jh) = self.join_handle.take() {
-            if let Err(err) = self.tx.send(None) {
+            if let Err(err) = self.tx.send(WorkerCommand::Quit) {
                 log::error!("can't send quit: {err}");
             }
             if let Err(err) = jh.join() {
@@ -287,7 +293,7 @@ where
     }
 
     pub fn send_request(&self, req: Request) -> bool {
-        if let Err(err) = self.tx.send(Some(req)) {
+        if let Err(err) = self.tx.send(WorkerCommand::Command(req)) {
             log::error!("{err}");
             self.on_msg.exec(hw_msg_level::Error, "device is closed");
             false

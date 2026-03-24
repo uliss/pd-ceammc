@@ -151,12 +151,7 @@ impl hw_hd44780 {
 
             let mut lcd = lcd.unwrap();
 
-            while let Ok(req) = rx.recv() {
-                if req.is_none() {
-                    break;
-                }
-
-                let req = req.unwrap();
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("{:?}", &req);
 
                 use crate::lcd1602::Request;

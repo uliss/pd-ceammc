@@ -44,8 +44,6 @@ impl hw_gpio {
         let (mut worker, rx, tx) = GpioThreadWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
-            debug!("[worker thread] starting ...");
-
             let gpio = Gpio::new().map_err(|err| {
                 error!("{err}");
                 err.to_string()
@@ -60,17 +58,12 @@ impl hw_gpio {
 
             let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
-            while let Ok(req) = rx.recv() {
-                if let Some(req) = req {
-                    if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins) {
-                        process_err(err, &tx, notify);
-                    }
-                } else {
-                    break;
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
+                if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins) {
+                    process_err(err, &tx, notify);
                 }
             }
 
-            debug!("[worker thread] exit");
             Ok(())
         });
 

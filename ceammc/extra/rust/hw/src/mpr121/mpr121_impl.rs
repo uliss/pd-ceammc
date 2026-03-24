@@ -90,7 +90,7 @@ impl hw_sensor_mpr121 {
                     .into_input_pulldown();
                 pin.set_reset_on_drop(true);
                 pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
-                    if let Err(err) = gpio_tx.send(Some(Request::ReadAll)) {
+                    if let Err(err) = gpio_tx.send(crate::WorkerCommand::Command(Request::ReadAll)) {
                         log::error!("irq send error: {err}");
                     };
                 })
@@ -129,61 +129,57 @@ impl hw_sensor_mpr121 {
 
             let mut key_state: u16 = 0;
 
-            while let Ok(req) = rx.recv() {
-                if let Some(req) = req {
-                    debug!("request: {req:?}");
-                    match req {
-                        Request::ReadAll => match sensor.get_touched() {
-                            Ok(keys) => {
-                                send_reply(
-                                    Reply::AllTouches {
-                                        touched: keys,
-                                        previous: key_state,
-                                        over_current: sensor.is_over_current_set().unwrap_or(false),
-                                    },
-                                    &tx,
-                                    notify,
-                                );
-                                key_state = keys;
-                            }
-                            Err(err) => {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
-                        },
-                        Request::Reset => {
-                            if let Err(err) = sensor.reset() {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
+                debug!("request: {req:?}");
+                match req {
+                    Request::ReadAll => match sensor.get_touched() {
+                        Ok(keys) => {
+                            send_reply(
+                                Reply::AllTouches {
+                                    touched: keys,
+                                    previous: key_state,
+                                    over_current: sensor.is_over_current_set().unwrap_or(false),
+                                },
+                                &tx,
+                                notify,
+                            );
+                            key_state = keys;
                         }
-                        Request::SetThresholds(on, off) => {
-                            if let Err(err) = sensor.set_thresholds(on, off) {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
                         }
-                        Request::SetDebounce(on, off) => {
-                            if let Err(err) = sensor.set_debounce(to_debounce(on)?, to_debounce(off)?) {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
+                    },
+                    Request::Reset => {
+                        if let Err(err) = sensor.reset() {
+                            process_err(format!("{err:?}"), &tx, notify);
                         }
-                        Request::GetFiltered(channel) => match sensor.get_filtered(to_channel(channel)?) {
-                            Ok(value) => {
-                                send_reply(Reply::Filtered { value, channel }, &tx, notify);
-                            }
-                            Err(err) => {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
-                        },
-                        Request::GetBaseline(channel) => match sensor.get_baseline(to_channel(channel)?) {
-                            Ok(value) => {
-                                send_reply(Reply::Baseline { value, channel }, &tx, notify);
-                            }
-                            Err(err) => {
-                                process_err(format!("{err:?}"), &tx, notify);
-                            }
-                        },
                     }
-                } else {
-                    break;
+                    Request::SetThresholds(on, off) => {
+                        if let Err(err) = sensor.set_thresholds(on, off) {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    }
+                    Request::SetDebounce(on, off) => {
+                        if let Err(err) = sensor.set_debounce(to_debounce(on)?, to_debounce(off)?) {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    }
+                    Request::GetFiltered(channel) => match sensor.get_filtered(to_channel(channel)?) {
+                        Ok(value) => {
+                            send_reply(Reply::Filtered { value, channel }, &tx, notify);
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    },
+                    Request::GetBaseline(channel) => match sensor.get_baseline(to_channel(channel)?) {
+                        Ok(value) => {
+                            send_reply(Reply::Baseline { value, channel }, &tx, notify);
+                        }
+                        Err(err) => {
+                            process_err(format!("{err:?}"), &tx, notify);
+                        }
+                    },
                 }
             }
 
