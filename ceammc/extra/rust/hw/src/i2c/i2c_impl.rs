@@ -58,7 +58,7 @@ fn check_kernel_i2c_modules() -> Result<(), String> {
 
         for line in modules_conf.lines() {
             if line.trim().starts_with(I2C_MODULE_CONF) {
-                return Err(format!("module {I2C_MODULE} is set for autoload, but not loaded. You can load it with command: sudo modprobe {I2C_MODULE}"));
+                return Err(format!("module {I2C_MODULE} is set for autoload, but is not loaded. You can load it with command: sudo modprobe {I2C_MODULE}"));
             }
         }
 
