@@ -180,6 +180,10 @@ impl hw_sensor_mpr121 {
                             process_err(format!("{err:?}"), &tx, notify);
                         }
                     },
+                    Request::Quit => {
+                        log::info!("worker: quit");
+                        break;
+                    }
                 }
             }
 

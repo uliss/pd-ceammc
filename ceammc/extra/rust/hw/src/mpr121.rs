@@ -23,6 +23,7 @@ pub enum Request {
     SetDebounce(u8, u8),
     GetFiltered(u8),
     GetBaseline(u8),
+    Quit,
 }
 
 /// max debounce count
