@@ -38,6 +38,21 @@ pub fn try_i2c_device(i2c: &mut I2c, i2c_addr: u16, method: DetectMethod) -> Res
     }
 }
 
+fn check_kernel_i2c_modules() -> Result<(), String> {
+    const PROC_MODULES: &str = "/proc/modules";
+    const I2C_MODULE: &str = "i2c_dev";
+    let modules_content =
+        std::fs::read_to_string(PROC_MODULES).map_err(|err| format!("can't read {PROC_MODULES}: {err}"))?;
+
+    for line in modules_content.lines() {
+        if line.starts_with(I2C_MODULE) {
+            return Ok(());
+        }
+    }
+
+    Err(format!("module {I2C_MODULE} is not loaded"))
+}
+
 #[allow(non_snake_case)]
 pub fn create_i2c_bus<Reply>(bus: i8, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) -> Result<I2c, String>
 where
@@ -45,9 +60,13 @@ where
 {
     match bus {
         crate::i2c::HW_I2C_DEFAULT_BUS => Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?),
-        bus if bus >= 0 && bus < crate::i2c::HW_I2C_MAX_BUS => {
-            Ok(I2c::with_bus(bus as u8).map_err(|err| process_err(err, tx, notify))?)
-        }
+        bus if bus >= 0 && bus < crate::i2c::HW_I2C_MAX_BUS => match I2c::with_bus(bus as u8) {
+            Ok(i2c) => Ok(i2c),
+            Err(err) => {
+                check_kernel_i2c_modules()?;
+                Err(process_err(err, tx, notify))
+            }
+        },
         _ => {
             return Err(process_err(format!("invalid I2C bus: {bus}"), tx, notify));
         }
