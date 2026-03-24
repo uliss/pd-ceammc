@@ -281,14 +281,14 @@ impl hw_max7219 {
         notify: hw_notify_cb,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Max2719Worker::new(on_msg);
+        let (mut worker, rx, tx) = Max2719Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let mut led_display = LedDisplay::new(displays, bus, cs)?;
 
             led_display.write(Address::All, Request::PowerOn(true))?;
 
-            while let Ok((addr, req)) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command((addr, req))) = rx.recv() {
                 debug!("{addr:?} {req:?}");
                 led_display.write(addr, req).unwrap_or_else(|err| {
                     send_error(&tx, notify, err.as_str());

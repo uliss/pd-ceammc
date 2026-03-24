@@ -18,7 +18,7 @@ impl hw_nfc_pn532 {
         on_msg: hw_msg_cb,
         on_key: hw_nfc_pn532_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = NfcWorker::new(on_msg);
+        let (mut worker, rx, tx) = NfcWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -38,7 +38,7 @@ impl hw_nfc_pn532 {
                 format!("pn532 init with bus={bus} and addr=0x{PN532_I2C_ADDR:02x}").as_str(),
             );
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 match req {
                     Request::ReadAll => {
                         let firmware = pn532

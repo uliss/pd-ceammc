@@ -92,7 +92,7 @@ impl FreqData {
 
 impl hw_pca9685 {
     pub fn new(i2c_bus: i8, i2c_addr: I2cAddress, notify: hw_notify_cb, on_msg: hw_msg_cb) -> Result<Self, CString> {
-        let (worker, rx, tx) = Pca9685Worker::new(on_msg);
+        let (mut worker, rx, tx) = Pca9685Worker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
@@ -118,7 +118,7 @@ impl hw_pca9685 {
 
             pwm.set_prescale(pwm_freq.prescale()).map_err(|err| err.to_string())?;
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("{req:?}");
 
                 match req {

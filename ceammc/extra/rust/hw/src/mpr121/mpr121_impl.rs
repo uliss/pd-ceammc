@@ -51,7 +51,7 @@ impl hw_sensor_mpr121 {
         on_msg: hw_msg_cb,
         on_reply: hw_mpr121_reply_cb,
     ) -> Result<Self, CString> {
-        let (worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
+        let (mut worker, rx, tx) = Mpr212SensorWorker::new(on_msg);
         let irq_pin = if irq_pin.is_null() {
             None
         } else {
@@ -61,7 +61,7 @@ impl hw_sensor_mpr121 {
         let gpio_tx = worker.tx.clone();
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
+            log::debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
 
             let bus = i2c.bus();
             let mut delay = Delay::new();
@@ -82,21 +82,24 @@ impl hw_sensor_mpr121 {
 
             try_i2c_device(&mut i2c, addr, crate::i2c::i2c_impl::DetectMethod::QuickWrite)?;
 
-            if irq_pin.is_some() {
-                let mut gpio = rppal::gpio::Gpio::new()
+            let pin = if irq_pin.is_some() {
+                let mut pin = rppal::gpio::Gpio::new()
                     .map_err(|err| err.to_string())?
                     .get(irq_pin.unwrap_or_default())
                     .map_err(|err| err.to_string())?
                     .into_input_pulldown();
-                gpio.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_event| {
-                    log::debug!("event: {_event:?}");
-                    if let Err(err) = gpio_tx.send(Request::ReadAll) {
+                pin.set_reset_on_drop(true);
+                pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
+                    if let Err(err) = gpio_tx.send(crate::WorkerCommand::Command(Request::ReadAll)) {
                         log::error!("irq send error: {err}");
                     };
                 })
                 .map_err(|err| err.to_string())?;
-                log::debug!("IRQ pin: {}", gpio.pin());
-            }
+                log::debug!("IRQ pin: {}", pin.pin());
+                Some(pin)
+            } else {
+                None
+            };
 
             let mut sensor = match i2c_addr {
                 I2cAddress::Addr(addr) => Mpr121::new(
@@ -126,7 +129,7 @@ impl hw_sensor_mpr121 {
 
             let mut key_state: u16 = 0;
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("request: {req:?}");
                 match req {
                     Request::ReadAll => match sensor.get_touched() {
@@ -180,6 +183,13 @@ impl hw_sensor_mpr121 {
                 }
             }
 
+            if let Some(mut pin) = pin {
+                if let Err(err) = pin.clear_async_interrupt() {
+                    log::error!("async pin: {err}");
+                }
+                drop(pin);
+            }
+
             Ok(())
         });
 
@@ -225,5 +235,9 @@ impl hw_sensor_mpr121 {
 
             mpr.worker.send_request(req)
         }
+    }
+
+    pub(crate) fn free(mut self) {
+        self.worker.quit();
     }
 }

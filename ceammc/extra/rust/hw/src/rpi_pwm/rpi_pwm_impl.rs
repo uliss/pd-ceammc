@@ -27,7 +27,7 @@ impl hw_rpi_pwm {
             }
         };
 
-        let (worker, rx, tx) = PwmWorker::new(on_msg);
+        let (mut worker, rx, tx) = PwmWorker::new(on_msg);
 
         worker.spawn(tx.clone(), notify, move || {
             let dev_info = DeviceInfo::new().map_err(|err| err.to_string())?;
@@ -51,10 +51,7 @@ impl hw_rpi_pwm {
             debug!("using pin: {pwm_pin} at mode: {pin_mode:?}");
 
             let gpio = Gpio::new().map_err(|err| err.to_string())?;
-            let mut pwm_pin = gpio
-                .get(pwm_pin)
-                .map_err(|err| err.to_string())?
-                .into_io(pin_mode);
+            let mut pwm_pin = gpio.get(pwm_pin).map_err(|err| err.to_string())?.into_io(pin_mode);
 
             pwm_pin.set_reset_on_drop(true);
 
@@ -62,7 +59,7 @@ impl hw_rpi_pwm {
 
             debug!("init pwm done: {pwm:?}");
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("{req:?}");
 
                 match req {
@@ -85,12 +82,8 @@ impl hw_rpi_pwm {
                         .unwrap_or_default(),
                     Request::SetPolarity(p) => pwm
                         .set_polarity(match p {
-                            crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => {
-                                rppal::pwm::Polarity::Normal
-                            }
-                            crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => {
-                                rppal::pwm::Polarity::Inverse
-                            }
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => rppal::pwm::Polarity::Normal,
+                            crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => rppal::pwm::Polarity::Inverse,
                         })
                         .map_err(|err| process_err(err, &tx, notify))
                         .unwrap_or_default(),

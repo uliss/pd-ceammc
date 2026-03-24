@@ -100,7 +100,7 @@ impl hw_hd44780 {
     ) -> Result<Self, CString> {
         // const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
-        let (worker, rx, tx) = Hd44780Worker::new(on_msg);
+        let (mut worker, rx, tx) = Hd44780Worker::new(on_msg);
         worker.spawn(tx.clone(), notify, move || {
             let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
             debug!("I2C init");
@@ -151,7 +151,7 @@ impl hw_hd44780 {
 
             let mut lcd = lcd.unwrap();
 
-            while let Ok(req) = rx.recv() {
+            while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 debug!("{:?}", &req);
 
                 use crate::lcd1602::Request;
