@@ -30,81 +30,83 @@
 #X obj 50 589 dac~;
 #X obj 50 632 ui.link @title Connection_Scheme @url
 ceammc://img/conn_mpr121.png;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 694 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 661 ui.link @title Connection_Scheme_IRQ @url
+ceammc://img/conn_mpr121_irq.png;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 697 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 726 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 695 @i2c_addr;
-#X text 270 695 (при инициализации) Адрес I²C. Также принимается значение
+#X msg 130 724 @i2c_addr;
+#X text 270 724 (при инициализации) Адрес I²C. Также принимается значение
 «default» (для адреса 0x5A) и «alt» (для адреса 0x5B). Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-4\..119].;
-#X obj 250 767 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 767 @i2c_bus;
-#X text 270 767 (при инициализации) Шина I²C. Тип: atom. Значение по
+#X obj 250 796 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 796 @i2c_bus;
+#X text 270 796 (при инициализации) Шина I²C. Тип: atom. Значение по
 умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
 default \, none.;
-#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 824 @irq;
-#X text 270 824 (при инициализации) GPIO контакт прерывания. Тип: int.
+#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 853 @irq;
+#X text 270 853 (при инициализации) GPIO контакт прерывания. Тип: int.
 Значение по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 866 @connect;
-#X text 270 866 При установке в 1: пробует подключиться к устройству
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 895 @connect;
+#X text 270 895 При установке в 1: пробует подключиться к устройству
 на шине I²C. При установке в 0: отключается от устройства. Тип: bool.
 Значение по умолчанию: 0\.;
-#X obj 250 923 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 923 @debounce;
-#X text 270 923 Число последовательных сэмплов \, необходимых для подтверждения
+#X obj 250 952 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 952 @debounce;
+#X text 270 952 Число последовательных сэмплов \, необходимых для подтверждения
 касания/отпускания – помогает отфильтровать шум. Тип: list. Значение
 по умолчанию: 0 0\. Число элементов: [2\..2]. Диапазон элемента: [0\..7].;
-#X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 995 @threshold;
-#X text 270 995 Порог срабатывания и отпускания для всех каналов. Тип:
-list. Значение по умолчанию: 12 6\. Число элементов: [2\..2]. Диапазон
-элемента: [0\..255].;
-#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1067 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1024 @threshold;
+#X text 270 1024 Порог срабатывания и отпускания для всех каналов.
+Тип: list. Значение по умолчанию: 12 6\. Число элементов: [2\..2].
+Диапазон элемента: [0\..255].;
+#X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1096 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1068 baseline;
-#X text 270 1068 считывает базовые данные для канала. Обратите внимание
+#X msg 130 1097 baseline;
+#X text 270 1097 считывает базовые данные для канала. Обратите внимание
 \, что разрешение составляет всего 8 бит.;
-#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1118 filtered;
-#X text 270 1118 cчитывает отфильтрованные данные с сенсорных каналов.
+#X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1147 filtered;
+#X text 270 1147 cчитывает отфильтрованные данные с сенсорных каналов.
 Шум фильтруется чипом.;
-#X obj 250 1168 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1168 reset;
-#X text 270 1168 выполняет программный сброс устройства.;
-#X obj 20 1213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1218 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 1197 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1197 reset;
+#X text 270 1197 выполняет программный сброс устройства.;
+#X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1247 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1219 1\.;
-#X text 170 1219 bang:;
-#X text 270 1219 выполнить однократный опрос всех сенсорных каналов.;
-#X obj 20 1254 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1259 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1248 1\.;
+#X text 170 1248 bang:;
+#X text 270 1248 выполнить однократный опрос всех сенсорных каналов.;
+#X obj 20 1283 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1288 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1260 1\.;
-#X text 170 1260 list:;
-#X text 270 1260 список из двух элементов: SENSOR_INDEX STATE(0|1).;
-#X text 130 1280 2\.;
-#X msg 170 1280 touches;
-#X text 270 1280 полное состояние сенсора прикосновений как 10-битное
+#X text 130 1289 1\.;
+#X text 170 1289 list:;
+#X text 270 1289 список из двух элементов: SENSOR_INDEX STATE(0|1).;
+#X text 130 1309 2\.;
+#X msg 170 1309 touches;
+#X text 270 1309 полное состояние сенсора прикосновений как 10-битное
 целое число.;
-#X msg 170 1320 baseline;
-#X text 270 1320 baseline данные для канала \, список: CHANNEL VALUE.;
-#X msg 170 1345 filtered;
-#X text 270 1345 фильтрованные данные для канала \, список: CHANNEL
+#X msg 170 1349 baseline;
+#X text 270 1349 baseline данные для канала \, список: CHANNEL VALUE.;
+#X msg 170 1374 filtered;
+#X text 270 1374 фильтрованные данные для канала \, список: CHANNEL
 VALUE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1395 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1398 библиотека: ceammc v0.9.8;
-#N canvas 10 1417 400 290 info 0;
+#X obj 1 1424 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1427 библиотека: ceammc v0.9.8;
+#N canvas 10 1446 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -129,7 +131,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1417 pd info;
+#X restore 10 1446 pd info;
 #X connect 8 0 9 0;
 #X connect 10 0 11 0;
 #X connect 11 0 13 0;

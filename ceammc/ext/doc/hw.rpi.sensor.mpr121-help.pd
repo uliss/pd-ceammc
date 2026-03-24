@@ -30,78 +30,80 @@ exclusive use and is unavailable to other objects;
 #X obj 50 589 dac~;
 #X obj 50 632 ui.link @title Connection_Scheme @url
 ceammc://img/conn_mpr121.png;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 694 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 661 ui.link @title Connection_Scheme_IRQ @url
+ceammc://img/conn_mpr121_irq.png;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 697 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 726 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 695 @i2c_addr;
-#X text 270 695 (initonly) I²C address. Also 'default' value is accepted
+#X msg 130 724 @i2c_addr;
+#X text 270 724 (initonly) I²C address. Also 'default' value is accepted
 (for address 0x5A) and 'alt' (for address 0x5B). Type: int. Default
 value: -1\. Range: [-4\..119].;
-#X obj 250 752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 752 @i2c_bus;
-#X text 270 752 (initonly) I²C bus. Type: atom. Default value: none.
+#X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 781 @i2c_bus;
+#X text 270 781 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 794 @irq;
-#X text 270 794 (initonly) GPIO interrupt pin. Type: int. Default value:
+#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 823 @irq;
+#X text 270 823 (initonly) GPIO interrupt pin. Type: int. Default value:
 -1\. Range: [-1\..127].;
-#X obj 250 836 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 836 @connect;
-#X text 270 836 When set to 1: tries to connect to the device on the
+#X obj 250 865 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 865 @connect;
+#X text 270 865 When set to 1: tries to connect to the device on the
 I²C bus. When set to 0: disconnects from the device. Type: bool. Default
 value: 0\.;
-#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 893 @debounce;
-#X text 270 893 The number of consecutive samples needed to confirm
+#X obj 250 922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 922 @debounce;
+#X text 270 922 The number of consecutive samples needed to confirm
 a touch/release \, helping to filter out noise. Type: list. Default
 value: 0 0\. Item count: [2\..2]. Item range: [0\..7].;
-#X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 965 @threshold;
-#X text 270 965 The touch and release threshold for all channels. Type:
+#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 994 @threshold;
+#X text 270 994 The touch and release threshold for all channels. Type:
 list. Default value: 12 6\. Item count: [2\..2]. Item range: [0\..255].;
-#X obj 20 1032 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1037 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1066 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1038 baseline;
-#X text 270 1038 reads the baseline data for the channel. Note that
+#X msg 130 1067 baseline;
+#X text 270 1067 reads the baseline data for the channel. Note that
 this has only a resolution of 8bit.;
-#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1088 filtered;
-#X text 270 1088 reads the filtered data from touch channels. Noise
+#X obj 250 1117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1117 filtered;
+#X text 270 1117 reads the filtered data from touch channels. Noise
 gets filtered out by the chip.;
-#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1138 reset;
-#X text 270 1138 performs a software reset on the device.;
-#X obj 20 1183 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1188 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1167 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1167 reset;
+#X text 270 1167 performs a software reset on the device.;
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1217 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1189 1\.;
-#X text 170 1189 bang:;
-#X text 270 1189 perform a single poll of electrodes.;
-#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1229 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1218 1\.;
+#X text 170 1218 bang:;
+#X text 270 1218 perform a single poll of electrodes.;
+#X obj 20 1253 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1258 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1230 1\.;
-#X text 170 1230 list:;
-#X text 270 1230 list of two elements: SENSOR_INDEX STATE(0|1).;
-#X text 130 1250 2\.;
-#X msg 170 1250 touches;
-#X text 270 1250 all sensors touch state as 10-bit integer.;
-#X msg 170 1275 baseline;
-#X text 270 1275 baseline data for the channel \, list: CHANNEL VALUE.;
-#X msg 170 1300 filtered;
-#X text 270 1300 filtered data from touch channels \, list: CHANNEL
+#X text 130 1259 1\.;
+#X text 170 1259 list:;
+#X text 270 1259 list of two elements: SENSOR_INDEX STATE(0|1).;
+#X text 130 1279 2\.;
+#X msg 170 1279 touches;
+#X text 270 1279 all sensors touch state as 10-bit integer.;
+#X msg 170 1304 baseline;
+#X text 270 1304 baseline data for the channel \, list: CHANNEL VALUE.;
+#X msg 170 1329 filtered;
+#X text 270 1329 filtered data from touch channels \, list: CHANNEL
 VALUE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1350 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1353 library: ceammc v0.9.8;
-#N canvas 10 1372 400 290 info 0;
+#X obj 1 1379 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1382 library: ceammc v0.9.8;
+#N canvas 10 1401 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -126,7 +128,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1372 pd info;
+#X restore 10 1401 pd info;
 #X connect 8 0 9 0;
 #X connect 10 0 11 0;
 #X connect 11 0 13 0;
