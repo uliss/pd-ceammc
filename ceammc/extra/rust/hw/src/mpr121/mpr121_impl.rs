@@ -61,7 +61,7 @@ impl hw_sensor_mpr121 {
         let gpio_tx = worker.tx.clone();
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
-            debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
+            log::debug!("i2c init: {i2c:?}, irq: {irq_pin:?}");
 
             let bus = i2c.bus();
             let mut delay = Delay::new();
@@ -183,14 +183,11 @@ impl hw_sensor_mpr121 {
                 }
             }
 
-            log::info!("worker cycle done");
-
             if let Some(mut pin) = pin {
                 if let Err(err) = pin.clear_async_interrupt() {
                     log::error!("async pin: {err}");
                 }
                 drop(pin);
-                log::debug!("drop PIN");
             }
 
             Ok(())
