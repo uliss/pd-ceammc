@@ -1,4 +1,4 @@
-use std::ffi::CString;
+use std::{ffi::CString, path::Path};
 
 use log::{debug, error};
 use rppal::i2c::I2c;
@@ -40,17 +40,36 @@ pub fn try_i2c_device(i2c: &mut I2c, i2c_addr: u16, method: DetectMethod) -> Res
 
 fn check_kernel_i2c_modules() -> Result<(), String> {
     const PROC_MODULES: &str = "/proc/modules";
+    const ETC_MODULES: &str = "/etc/modules";
     const I2C_MODULE: &str = "i2c_dev";
+    const I2C_MODULE_CONF: &str = "i2c-dev";
     let modules_content =
         std::fs::read_to_string(PROC_MODULES).map_err(|err| format!("can't read {PROC_MODULES}: {err}"))?;
 
     for line in modules_content.lines() {
-        if line.starts_with(I2C_MODULE) {
+        if line.trim().starts_with(I2C_MODULE) {
             return Ok(());
         }
     }
 
-    Err(format!("module {I2C_MODULE} is not loaded"))
+    if Path::new(ETC_MODULES).exists() {
+        let modules_conf =
+            std::fs::read_to_string("/etc/modules").map_err(|err| format!("can't read {ETC_MODULES}: {err}"))?;
+
+        for line in modules_conf.lines() {
+            if line.trim().starts_with(I2C_MODULE_CONF) {
+                return Err(format!("module {I2C_MODULE} is set for autoload, but not loaded. You can load it with command: sudo modprobe {I2C_MODULE}"));
+            }
+        }
+
+        return Err(format!(
+            "module {I2C_MODULE} is NOT set for autoload, add {I2C_MODULE_CONF} to {ETC_MODULES}"
+        ));
+    }
+
+    Err(format!(
+        "module {I2C_MODULE} is not loaded and module autoload settings not found"
+    ))
 }
 
 #[allow(non_snake_case)]
