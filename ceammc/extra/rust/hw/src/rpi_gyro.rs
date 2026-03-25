@@ -51,6 +51,7 @@ pub struct hw_mpu6050 {
 }
 
 #[derive(Debug)]
+#[repr(C)]
 pub enum hw_mpu6050_accel_fullscale {
     /// ±2g range (16384 LSB/g)
     G2 = 0,
@@ -63,6 +64,7 @@ pub enum hw_mpu6050_accel_fullscale {
 }
 
 #[derive(Debug)]
+#[repr(C)]
 pub enum hw_mpu6050_gyro_fullscale {
     /// ±250°/s range (131 LSB/°/s)
     Deg250 = 0,
