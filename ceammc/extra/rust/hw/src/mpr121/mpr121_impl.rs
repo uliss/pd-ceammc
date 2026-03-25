@@ -121,6 +121,7 @@ impl hw_sensor_mpr121 {
                     rppal::gpio::Trigger::FallingEdge,
                     Some(Duration::from_millis(1)),
                     move |_event| {
+                        log::info("irq event");
                         if let Err(err) =
                             send_reply(crate::WorkerCommand::Command(Request::ReadAll), &gpio_tx, notify).to_err()
                         {
