@@ -1,11 +1,18 @@
 use std::{
+    array::TryFromSliceError,
     ffi::CString,
     time::{Duration, Instant},
 };
 
 use log::{debug, error, info};
 use mpu6050_dmp::{
-    address::Address, quaternion::Quaternion, sensor::Mpu6050, temperature::Temperature, yaw_pitch_roll::YawPitchRoll,
+    accel::{Accel, AccelFullScale},
+    address::Address,
+    gyro::{Gyro, GyroFullScale},
+    quaternion::Quaternion,
+    sensor::Mpu6050,
+    temperature::Temperature,
+    yaw_pitch_roll::YawPitchRoll,
 };
 
 use crate::{
@@ -25,7 +32,7 @@ impl hw_mpu6050 {
         on_msg: hw_msg_cb,
         on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Mpu6050Worker::new(on_msg, None);
+        let (mut worker, rx, tx) = Mpu6050Worker::new(on_msg, Some(128));
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let i2c = create_i2c_bus(i2c_bus)?;
@@ -57,6 +64,13 @@ impl hw_mpu6050 {
 
             let poll_time = Duration::from_millis(20);
             let mut poll_mode = false;
+
+            let acc_scale = AccelFullScale::G2;
+            mpu.set_accel_full_scale(acc_scale)
+                .map_err(|err| format!("can't set MPU acceleration full-scale {acc_scale:?}: {err:?}"))?;
+            let gyro_scale = GyroFullScale::Deg250;
+            mpu.set_gyro_full_scale(gyro_scale)
+                .map_err(|err| format!("can't set MPU gyro full-scale {gyro_scale:?}: {err:?}"))?;
 
             'outer: loop {
                 'request_loop: loop {
@@ -97,15 +111,35 @@ impl hw_mpu6050 {
                         Ok(fifo_count) => {
                             if fifo_count >= 256 {
                                 // FIFO is full - reset to prevent overflow
-                                mpu.reset_fifo().map_err(|err| format!("{err:?}")).unwrap_or_default();
+                                mpu.reset_fifo().map_err(|err| format!("{err:?}"))?
                             } else {
                                 if fifo_count >= 28 {
-                                    let buf = mpu.read_fifo(&mut buffer).unwrap();
-                                    let q = Quaternion::from_bytes(&buf[..16]).unwrap().normalize();
+                                    let buf = mpu.read_fifo(&mut buffer).map_err(|err| format!("{err:?}"))?;
+                                    let q = Quaternion::from_bytes(&buf[..16])
+                                        .ok_or(format!("quaternion error"))?
+                                        .normalize();
                                     let ypr = YawPitchRoll::from(q);
                                     debug!("{:?}", ypr);
 
                                     send_reply(super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll), &tx, notify)
+                                        .to_err()?;
+
+                                    let accel = Accel::from_bytes(
+                                        buf[16..21]
+                                            .try_into()
+                                            .map_err(|err: TryFromSliceError| err.to_string())?,
+                                    )
+                                    .scaled(acc_scale);
+                                    send_reply(super::Reply::Accel(accel.x(), accel.y(), accel.z()), &tx, notify)
+                                        .to_err()?;
+
+                                    let gyro = Gyro::from_bytes(
+                                        buf[21..27]
+                                            .try_into()
+                                            .map_err(|err: TryFromSliceError| err.to_string())?,
+                                    )
+                                    .scaled(gyro_scale);
+                                    send_reply(super::Reply::Gyro(gyro.x(), gyro.y(), gyro.z()), &tx, notify)
                                         .to_err()?;
                                 }
                             }
@@ -145,10 +179,10 @@ impl hw_mpu6050 {
             let mpu = unsafe { &*mpu };
             mpu.worker.process_reply(&|rep| match rep {
                 super::Reply::Message(level, msg) => mpu.worker.pd_message(level, &msg),
-                super::Reply::YawPitchRoll(yaw, pitch, roll) => {
-                    (mpu.on_data.cb_ypr)(mpu.on_data.user, yaw, pitch, roll)
-                }
-                super::Reply::Temperature(t) => (mpu.on_data.cb_temp)(mpu.on_data.user, t),
+                super::Reply::YawPitchRoll(yaw, pitch, roll) => mpu.on_data.ypr(yaw, pitch, roll),
+                super::Reply::Temperature(t) => mpu.on_data.temp(t),
+                super::Reply::Accel(x, y, z) => mpu.on_data.accel(x, y, z),
+                super::Reply::Gyro(x, y, z) => mpu.on_data.gyro(x, y, z),
             })
         }
     }

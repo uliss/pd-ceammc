@@ -49,7 +49,8 @@ HwRpiSensorMpu6050::HwRpiDevice::Device HwRpiSensorMpu6050::createDevice()
                       i2c_addr_->value(),
                       on_notify(),
                       on_message(),
-                      { this,
+                      {
+                          this,
                           [](void* user, float yaw, float pitch, float roll) {
                               auto obj = static_cast<HwRpiSensorMpu6050*>(user);
                               if (!obj)
@@ -63,7 +64,30 @@ HwRpiSensorMpu6050::HwRpiDevice::Device HwRpiSensorMpu6050::createDevice()
                                   return;
 
                               obj->anyTo(0, gensym("temp"), temp);
-                          } }),
+                          },
+                          [](void* user, float x, float y, float z) {
+                              auto obj = static_cast<HwRpiSensorMpu6050*>(user);
+                              if (!obj)
+                                  return;
+
+                              AtomArray<3> data;
+                              data[0] = x;
+                              data[1] = y;
+                              data[2] = z;
+                              obj->anyTo(0, gensym("accel"), data.view());
+                          },
+                          [](void* user, float x, float y, float z) {
+                              auto obj = static_cast<HwRpiSensorMpu6050*>(user);
+                              if (!obj)
+                                  return;
+
+                              AtomArray<3> data;
+                              data[0] = x;
+                              data[1] = y;
+                              data[2] = z;
+                              obj->anyTo(0, gensym("gyro"), data.view());
+                          },
+                      }),
         freeDeviceFn());
 }
 

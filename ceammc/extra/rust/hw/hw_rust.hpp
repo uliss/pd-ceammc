@@ -466,6 +466,8 @@ struct ceammc_hw_mpu6050_data_cb {
     void *user;
     void (*cb_ypr)(void *user, float yaw, float pitch, float roll);
     void (*cb_temp)(void *user, float temp);
+    void (*cb_accel)(void *user, float x, float y, float z);
+    void (*cb_gyro)(void *user, float x, float y, float z);
 };
 
 struct ceammc_hw_nfc_pn532_cb {
