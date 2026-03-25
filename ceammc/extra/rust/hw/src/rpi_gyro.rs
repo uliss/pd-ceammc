@@ -51,9 +51,35 @@ pub struct hw_mpu6050 {
 }
 
 #[derive(Debug)]
+pub enum hw_mpu6050_accel_fullscale {
+    /// ±2g range (16384 LSB/g)
+    G2 = 0,
+    /// ±4g range (8192 LSB/g)
+    G4 = 1,
+    /// ±8g range (4096 LSB/g)
+    G8 = 2,
+    /// ±16g range (2048 LSB/g)
+    G16 = 3,
+}
+
+#[derive(Debug)]
+pub enum hw_mpu6050_gyro_fullscale {
+    /// ±250°/s range (131 LSB/°/s)
+    Deg250 = 0,
+    /// ±500°/s range (65.5 LSB/°/s)
+    Deg500 = 1,
+    /// ±1000°/s range (32.8 LSB/°/s)
+    Deg1000 = 2,
+    /// ±2000°/s range (16.4 LSB/°/s)
+    Deg2000 = 3,
+}
+
+#[derive(Debug)]
 pub enum Request {
     Poll(bool),
     Calibrate,
+    SetAccelScale(hw_mpu6050_accel_fullscale),
+    SetGyroScale(hw_mpu6050_gyro_fullscale),
 }
 
 #[derive(PdMessage)]
@@ -66,6 +92,13 @@ pub enum Reply {
 }
 
 #[no_mangle]
+/// create mpu6050 device handle
+/// @return nullptr on error
+/// @param i2c_bus - i2c bus
+/// @param i2c_addr - i2c address
+/// @param notify - notify callback
+/// @param on_msg - message callback
+/// @param on_data - data callback
 pub extern "C" fn ceammc_hw_mpu6050_new(
     i2c_bus: i8,
     i2c_addr: i8,
@@ -86,6 +119,8 @@ pub extern "C" fn ceammc_hw_mpu6050_new(
 }
 
 #[no_mangle]
+/// free mpu6050 device handle
+/// @param mpu - handle (nullable)
 pub extern "C" fn ceammc_hw_mpu6050_free(mpu: *mut hw_mpu6050) {
     rpi_check!((), {
         if !mpu.is_null() {
@@ -95,16 +130,40 @@ pub extern "C" fn ceammc_hw_mpu6050_free(mpu: *mut hw_mpu6050) {
 }
 
 #[no_mangle]
+/// process replies from device
+/// @param mpu - handle (nullable)
 pub extern "C" fn ceammc_hw_mpu6050_process_reply(mpu: *mut hw_mpu6050) -> bool {
     rpi_check!({ hw_mpu6050::process_reply_ptr(mpu) });
 }
 
 #[no_mangle]
+/// turn on/off mpu6050 polling
+/// @param mpu - handle (nullable)
+/// @param state - poll state
 pub extern "C" fn ceammc_hw_mpu6050_poll(mpu: *mut hw_mpu6050, state: bool) -> bool {
     rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::Poll(state)) });
 }
 
 #[no_mangle]
+/// starts device calibration
+/// @param mpu - handle (nullable)
 pub extern "C" fn ceammc_hw_mpu6050_calibrate(mpu: *mut hw_mpu6050) -> bool {
     rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::Calibrate) });
+}
+
+#[no_mangle]
+/// set device accel sensitivity
+/// @param mpu - handle (nullable)
+pub extern "C" fn ceammc_hw_mpu6050_set_accel_fullscale(
+    mpu: *mut hw_mpu6050,
+    scale: hw_mpu6050_accel_fullscale,
+) -> bool {
+    rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::SetAccelScale(scale)) });
+}
+
+#[no_mangle]
+/// set device gyro sensitivity
+/// @param mpu - handle (nullable)
+pub extern "C" fn ceammc_hw_mpu6050_set_gyro_fullscale(mpu: *mut hw_mpu6050, scale: hw_mpu6050_gyro_fullscale) -> bool {
+    rpi_check!({ hw_mpu6050::send_request_ptr(mpu, Request::SetGyroScale(scale)) });
 }

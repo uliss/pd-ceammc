@@ -308,6 +308,10 @@ struct ceammc_hw_max7219;
 
 struct ceammc_hw_mpu6050;
 
+struct ceammc_hw_mpu6050_accel_fullscale;
+
+struct ceammc_hw_mpu6050_gyro_fullscale;
+
 struct ceammc_hw_nfc_pn532;
 
 struct ceammc_hw_pca9685;
@@ -1023,19 +1027,45 @@ bool ceammc_hw_max7219_write_str(ceammc_hw_max7219 *mx,
                                  ceammc_hw_max7219_string_align align,
                                  uint8_t dots);
 
+/// starts device calibration
+/// @param mpu - handle (nullable)
 bool ceammc_hw_mpu6050_calibrate(ceammc_hw_mpu6050 *mpu);
 
+/// free mpu6050 device handle
+/// @param mpu - handle (nullable)
 void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
 
+/// create mpu6050 device handle
+/// @return nullptr on error
+/// @param i2c_bus - i2c bus
+/// @param i2c_addr - i2c address
+/// @param notify - notify callback
+/// @param on_msg - message callback
+/// @param on_data - data callback
 ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          ceammc_hw_notify_cb notify,
                                          ceammc_hw_msg_cb on_msg,
                                          ceammc_hw_mpu6050_data_cb on_data);
 
+/// turn on/off mpu6050 polling
+/// @param mpu - handle (nullable)
+/// @param state - poll state
 bool ceammc_hw_mpu6050_poll(ceammc_hw_mpu6050 *mpu, bool state);
 
+/// process replies from device
+/// @param mpu - handle (nullable)
 bool ceammc_hw_mpu6050_process_reply(ceammc_hw_mpu6050 *mpu);
+
+/// set device accel sensitivity
+/// @param mpu - handle (nullable)
+bool ceammc_hw_mpu6050_set_accel_fullscale(ceammc_hw_mpu6050 *mpu,
+                                           ceammc_hw_mpu6050_accel_fullscale scale);
+
+/// set device gyro sensitivity
+/// @param mpu - handle (nullable)
+bool ceammc_hw_mpu6050_set_gyro_fullscale(ceammc_hw_mpu6050 *mpu,
+                                          ceammc_hw_mpu6050_gyro_fullscale scale);
 
 /// delete pn532 handle
 /// @param nfc - device handle, nullable

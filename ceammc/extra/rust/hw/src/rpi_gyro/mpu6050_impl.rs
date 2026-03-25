@@ -18,7 +18,7 @@ use mpu6050_dmp::{
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    rpi_gyro::Mpu6050Worker,
+    rpi_gyro::{hw_mpu6050_accel_fullscale, hw_mpu6050_gyro_fullscale, Mpu6050Worker},
     send_error, send_info, send_reply,
 };
 
@@ -65,10 +65,10 @@ impl hw_mpu6050 {
             let poll_time = Duration::from_millis(20);
             let mut poll_mode = false;
 
-            let acc_scale = AccelFullScale::G2;
+            let mut acc_scale = AccelFullScale::G2;
             mpu.set_accel_full_scale(acc_scale)
                 .map_err(|err| format!("can't set MPU acceleration full-scale {acc_scale:?}: {err:?}"))?;
-            let gyro_scale = GyroFullScale::Deg250;
+            let mut gyro_scale = GyroFullScale::Deg250;
             mpu.set_gyro_full_scale(gyro_scale)
                 .map_err(|err| format!("can't set MPU gyro full-scale {gyro_scale:?}: {err:?}"))?;
 
@@ -76,25 +76,46 @@ impl hw_mpu6050 {
                 'request_loop: loop {
                     match rx.try_recv() {
                         Ok(crate::WorkerCommand::Quit) => break 'outer,
-                        Ok(crate::WorkerCommand::Command(req)) => match req {
-                            Request::Poll(state) => {
-                                poll_mode = state;
-                            }
-                            Request::Calibrate => {
-                                send_info(&tx, notify, "Calibrating Sensor ...").to_err()?;
+                        Ok(crate::WorkerCommand::Command(req)) => {
+                            //
+                            debug!("{req:?}");
 
-                                if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
-                                    &mut mpu,
-                                    &mut delay,
-                                    mpu6050_dmp::accel::AccelFullScale::G2,
-                                    mpu6050_dmp::calibration::ReferenceGravity::ZN,
-                                )
-                                .map_err(|err| format!("calibration error: {err:?}"))
-                                {
-                                    send_info(&tx, notify, "Sensor Calibrated").to_err()?;
+                            match req {
+                                Request::Poll(state) => {
+                                    poll_mode = state;
+                                }
+                                Request::Calibrate => {
+                                    send_info(&tx, notify, "Calibrating Sensor ...").to_err()?;
+
+                                    if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
+                                        &mut mpu,
+                                        &mut delay,
+                                        mpu6050_dmp::accel::AccelFullScale::G2,
+                                        mpu6050_dmp::calibration::ReferenceGravity::ZN,
+                                    )
+                                    .map_err(|err| format!("calibration error: {err:?}"))
+                                    {
+                                        send_info(&tx, notify, "Sensor Calibrated").to_err()?;
+                                    }
+                                }
+                                Request::SetAccelScale(scale) => {
+                                    acc_scale = match scale {
+                                        hw_mpu6050_accel_fullscale::G2 => AccelFullScale::G2,
+                                        hw_mpu6050_accel_fullscale::G4 => AccelFullScale::G4,
+                                        hw_mpu6050_accel_fullscale::G8 => AccelFullScale::G8,
+                                        hw_mpu6050_accel_fullscale::G16 => AccelFullScale::G16,
+                                    };
+                                }
+                                Request::SetGyroScale(scale) => {
+                                    gyro_scale = match scale {
+                                        hw_mpu6050_gyro_fullscale::Deg250 => GyroFullScale::Deg250,
+                                        hw_mpu6050_gyro_fullscale::Deg500 => GyroFullScale::Deg500,
+                                        hw_mpu6050_gyro_fullscale::Deg1000 => GyroFullScale::Deg1000,
+                                        hw_mpu6050_gyro_fullscale::Deg2000 => GyroFullScale::Deg2000,
+                                    };
                                 }
                             }
-                        },
+                        }
                         Err(err) => match err {
                             std::sync::mpsc::TryRecvError::Empty => break 'request_loop, // just no request
                             std::sync::mpsc::TryRecvError::Disconnected => {
