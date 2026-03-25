@@ -238,6 +238,28 @@ enum class ceammc_hw_max7219_string_align {
     Center,
 };
 
+enum class ceammc_hw_mpu6050_accel_fullscale {
+    /// ±2g range (16384 LSB/g)
+    G2 = 0,
+    /// ±4g range (8192 LSB/g)
+    G4 = 1,
+    /// ±8g range (4096 LSB/g)
+    G8 = 2,
+    /// ±16g range (2048 LSB/g)
+    G16 = 3,
+};
+
+enum class ceammc_hw_mpu6050_gyro_fullscale {
+    /// ±250°/s range (131 LSB/°/s)
+    Deg250 = 0,
+    /// ±500°/s range (65.5 LSB/°/s)
+    Deg500 = 1,
+    /// ±1000°/s range (32.8 LSB/°/s)
+    Deg1000 = 2,
+    /// ±2000°/s range (16.4 LSB/°/s)
+    Deg2000 = 3,
+};
+
 enum class ceammc_hw_msg_level {
     Error,
     Debug,
@@ -307,10 +329,6 @@ struct ceammc_hw_infrared;
 struct ceammc_hw_max7219;
 
 struct ceammc_hw_mpu6050;
-
-struct ceammc_hw_mpu6050_accel_fullscale;
-
-struct ceammc_hw_mpu6050_gyro_fullscale;
 
 struct ceammc_hw_nfc_pn532;
 
