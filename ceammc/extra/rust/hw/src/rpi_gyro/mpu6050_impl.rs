@@ -146,7 +146,7 @@ impl hw_mpu6050 {
                                         .to_err()?;
 
                                     let accel = Accel::from_bytes(
-                                        buf[16..21]
+                                        buf[16..22]
                                             .try_into()
                                             .map_err(|err: TryFromSliceError| err.to_string())?,
                                     )
@@ -155,7 +155,7 @@ impl hw_mpu6050 {
                                         .to_err()?;
 
                                     let gyro = Gyro::from_bytes(
-                                        buf[21..27]
+                                        buf[22..28]
                                             .try_into()
                                             .map_err(|err: TryFromSliceError| err.to_string())?,
                                     )
