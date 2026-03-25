@@ -119,7 +119,7 @@ impl hw_sensor_mpr121 {
                 pin.set_reset_on_drop(true);
                 pin.set_async_interrupt(
                     rppal::gpio::Trigger::FallingEdge,
-                    Some(Duration::from_millis(1)),
+                    Some(Duration::from_millis(5)),
                     move |_event| {
                         log::info!("irq event");
                         if let Err(err) =
