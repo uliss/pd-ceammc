@@ -3,7 +3,7 @@ use std::{ffi::CString, path::Path};
 use log::{debug, error};
 use rppal::i2c::I2c;
 
-use crate::{hw_msg_cb, hw_notify_cb, process_err, MakePdMessage};
+use crate::{hw_msg_cb, hw_notify_cb};
 
 use super::hw_i2c;
 
@@ -122,12 +122,9 @@ fn check_i2c_permissions() -> Result<(), String> {
 }
 
 #[allow(non_snake_case)]
-pub fn create_i2c_bus<Reply>(bus: i8, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) -> Result<I2c, String>
-where
-    Reply: MakePdMessage<Reply>,
-{
+pub fn create_i2c_bus(bus: i8) -> Result<I2c, String> {
     match bus {
-        crate::i2c::HW_I2C_DEFAULT_BUS => Ok(I2c::new().map_err(|err| process_err(err, tx, notify))?),
+        crate::i2c::HW_I2C_DEFAULT_BUS => Ok(I2c::new().map_err(|err| err.to_string())?),
         bus if bus >= 0 && bus < crate::i2c::HW_I2C_MAX_BUS => match I2c::with_bus(bus as u8) {
             Ok(i2c) => Ok(i2c),
             Err(err) => {
@@ -135,11 +132,11 @@ where
                 check_kernel_i2c_config()?;
                 check_i2c_device(bus as u8)?;
                 check_i2c_permissions()?;
-                Err(process_err(err, tx, notify))
+                Err(err.to_string())
             }
         },
         _ => {
-            return Err(process_err(format!("invalid I2C bus: {bus}"), tx, notify));
+            return Err(format!("invalid I2C bus: {bus}"));
         }
     }
 }

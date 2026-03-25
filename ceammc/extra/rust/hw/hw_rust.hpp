@@ -482,6 +482,7 @@ struct ceammc_hw_mpr121_reply_cb {
     void (*on_touch)(void *user, uint16_t touched, uint16_t previous, bool over_current);
     void (*on_baseline)(void *user, uint8_t channel, uint8_t data);
     void (*on_filtered)(void *user, uint8_t channel, uint16_t data);
+    void (*on_disconnect)(void *user);
 };
 
 struct ceammc_hw_sensor_vl53l0x_data_cb {

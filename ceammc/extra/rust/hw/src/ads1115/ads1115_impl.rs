@@ -39,10 +39,10 @@ impl hw_i2c_ads1115 {
         on_msg: hw_msg_cb,
         on_data: hw_i2c_ads1115_data_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Ads1115Worker::new(on_msg);
+        let (mut worker, rx, tx) = Ads1115Worker::new(on_msg, Some(32));
 
-        worker.spawn(tx.clone(), notify, move || {
-            let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+            let i2c = create_i2c_bus(i2c_bus)?;
             debug!("I2C init: {i2c:?}");
 
             let addr = match i2c_addr {
@@ -61,7 +61,8 @@ impl hw_i2c_ads1115 {
                 &tx,
                 notify,
                 format!("connected to ADS1115 with bus={i2c_bus}, addr={i2c_addr:?}").as_str(),
-            );
+            )
+            .to_err()?;
 
             let mut poll_mode = false;
             let mut poll_time = Duration::from_millis(super::HW_ADC_ADS1115_DEF_POLL_TIME_MSEC.into());
@@ -87,16 +88,17 @@ impl hw_i2c_ads1115 {
                                     (Diff, 2) => block!(adc.read(DifferentialA1A3)),
                                     (Diff, 3) => block!(adc.read(DifferentialA2A3)),
                                     _ => {
-                                        send_error(&tx, notify, format!("invalid channel: {chan}").as_str());
+                                        send_error(&tx, notify, format!("invalid channel: {chan}").as_str())
+                                            .to_err()?;
                                         continue;
                                     }
                                 } {
                                     Ok(res) => {
                                         debug!("measure: {res}");
-                                        send_reply(Reply::Measure(chan, res), &tx, notify);
+                                        send_reply(Reply::Measure(chan, res), &tx, notify).to_err()?;
                                     }
                                     Err(err) => {
-                                        send_error(&tx, notify, format!("measure error: {err:?}").as_str());
+                                        send_error(&tx, notify, format!("measure error: {err:?}").as_str()).to_err()?;
                                     }
                                 }
                             }
@@ -118,7 +120,7 @@ impl hw_i2c_ads1115 {
                                     }
                                 };
 
-                                send_reply(Reply::MeasureAll(result.into()), &tx, notify);
+                                send_reply(Reply::MeasureAll(result.into()), &tx, notify).to_err()?;
                             }
                             Request::SetFullScaleRange(range) => {
                                 adc.set_full_scale_range(Self::to_fsr(range))
@@ -162,7 +164,7 @@ impl hw_i2c_ads1115 {
                         }
                     };
 
-                    send_reply(Reply::MeasureAll(result), &tx, notify);
+                    send_reply(Reply::MeasureAll(result), &tx, notify).to_err()?;
 
                     let elapsed = Instant::now() - now;
                     if elapsed < poll_time {

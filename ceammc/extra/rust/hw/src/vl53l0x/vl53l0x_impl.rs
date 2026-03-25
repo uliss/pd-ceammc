@@ -7,7 +7,7 @@ use std::{
 use log::{debug, error};
 use vl53l0x::VL53L0x;
 
-use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, process_err, send_debug, send_reply, vl53l0x::Reply};
+use crate::{hw_msg_cb, hw_notify_cb, i2c::I2cAddress, send_debug, send_error, send_reply, vl53l0x::Reply};
 
 use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, LaserSensorWorker, Request};
 
@@ -19,10 +19,10 @@ impl hw_sensor_vl53l0x {
         on_data: hw_sensor_vl53l0x_data_cb,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = LaserSensorWorker::new(on_msg);
+        let (mut worker, rx, tx) = LaserSensorWorker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
-            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
+            let i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus)?;
             debug!("i2c init: {i2c:?}");
 
             let bus = i2c.bus();
@@ -34,14 +34,15 @@ impl hw_sensor_vl53l0x {
                     I2cAddress::Alt => return Err(format!("no alternative device address")),
                     I2cAddress::Invalid(addr) => return Err(format!("invalid i2c address: {addr}")),
                 }
-                .map_err(|err| process_err(format!("{err:?}"), &tx, notify))?,
+                .map_err(|err| format!("{err:?}"))?,
             ));
 
             send_debug(
                 &tx,
                 notify,
                 format!("vk53l0x init with bus={bus} and addr={i2c_addr:?}").as_str(),
-            );
+            )
+            .to_err()?;
 
             let poll_mode = Arc::new(AtomicBool::new(false));
 
@@ -50,16 +51,16 @@ impl hw_sensor_vl53l0x {
                     Request::ReadMM => match sensor.lock().unwrap().read_range_single_millimeters_blocking() {
                         Ok(res) => {
                             debug!("distance: {res}mm");
-                            send_reply(Reply::Distance(res), &tx, notify);
+                            send_reply(Reply::Distance(res), &tx, notify).to_err()?;
                         }
                         Err(err) => {
-                            process_err(format!("{err:?}"), &tx, notify);
+                            send_error(&tx, notify, &format!("{err:?}")).to_err()?;
                         }
                     },
                     Request::Poll(state) => {
                         if state {
                             if poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
-                                process_err(format!("already polling"), &tx, notify);
+                                send_error(&tx, notify, &format!("already polling")).to_err()?
                             } else {
                                 poll_mode.store(true, std::sync::atomic::Ordering::SeqCst);
 
@@ -71,16 +72,15 @@ impl hw_sensor_vl53l0x {
                                     .lock()
                                     .unwrap()
                                     .start_continuous(0)
-                                    .map_err(|err| process_err(err, &tx, notify))
-                                    .unwrap_or_default();
+                                    .map_err(|err| err.to_string())?;
 
-                                std::thread::spawn(move || {
+                                std::thread::spawn(move || -> Result<(), String> {
                                     debug!("start poll loop");
 
                                     loop {
                                         match sensor.lock().unwrap().read_range_mm() {
                                             Ok(res) => {
-                                                if !send_reply(Reply::Distance(res), &tx, notify) {
+                                                if let Err(_) = send_reply(Reply::Distance(res), &tx, notify).to_err() {
                                                     break;
                                                 }
                                             }
@@ -89,7 +89,7 @@ impl hw_sensor_vl53l0x {
                                                     continue;
                                                 }
                                                 _ => {
-                                                    process_err(format!("{err:?}"), &tx, notify);
+                                                    send_error(&tx, notify, &format!("{err:?}")).to_err()?;
                                                     break;
                                                 }
                                             },
@@ -103,6 +103,7 @@ impl hw_sensor_vl53l0x {
                                     }
 
                                     debug!("exit poll loop");
+                                    Ok(())
                                 });
                             }
                         } else {
@@ -110,11 +111,10 @@ impl hw_sensor_vl53l0x {
                                 .lock()
                                 .unwrap()
                                 .stop_continuous()
-                                .map_err(|err| process_err(err, &tx, notify))
-                                .unwrap_or_default();
+                                .map_err(|err| err.to_string())?;
 
                             if !poll_mode.load(std::sync::atomic::Ordering::SeqCst) {
-                                process_err(format!("not polling"), &tx, notify);
+                                send_error(&tx, notify, &format!("not polling")).to_err()?
                             } else {
                                 poll_mode.store(false, std::sync::atomic::Ordering::SeqCst);
                             }
@@ -125,7 +125,7 @@ impl hw_sensor_vl53l0x {
                             .lock()
                             .unwrap()
                             .set_address(addr)
-                            .map_err(|err| process_err(format!("{err:?}"), &tx, notify))
+                            .map_err(|err| format!("{err:?}"))
                             .unwrap_or_default();
                     }
                 }

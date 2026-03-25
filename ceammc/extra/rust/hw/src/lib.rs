@@ -118,17 +118,36 @@ pub trait MakePdMessage<Message> {
     fn pd_info(msg: CString) -> Message;
 }
 
-fn send_reply<R>(rep: R, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> bool {
-    if let Err(err) = tx.send(rep) {
-        error!("reply send error: {err}");
-        false
-    } else {
-        notify.notify();
-        true
+#[must_use]
+pub enum SendStatus {
+    Full,
+    Disconnected,
+    Ok,
+}
+
+impl SendStatus {
+    pub fn to_err(&self) -> Result<(), String> {
+        match self {
+            SendStatus::Disconnected => Err(format!("disconnected")),
+            _ => Ok(()),
+        }
     }
 }
 
-fn send_error<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
+fn send_reply<R>(rep: R, tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb) -> SendStatus {
+    if let Err(err) = tx.try_send(rep) {
+        error!("reply send error: {err}");
+        match err {
+            std::sync::mpsc::TrySendError::Full(_) => SendStatus::Full,
+            std::sync::mpsc::TrySendError::Disconnected(_) => SendStatus::Disconnected,
+        }
+    } else {
+        notify.notify();
+        SendStatus::Ok
+    }
+}
+
+fn send_error<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
@@ -137,7 +156,7 @@ where
 }
 
 #[allow(dead_code)]
-fn send_debug<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
+fn send_debug<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
@@ -146,44 +165,12 @@ where
 }
 
 #[allow(dead_code)]
-fn send_info<R>(tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb, msg: &str) -> bool
+fn send_info<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
     info!("{msg}");
     send_reply(R::pd_info(CString::new(msg).unwrap_or_default()), tx, notify)
-}
-
-fn process_err<E, R>(err: E, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
-where
-    E: std::fmt::Display,
-    R: MakePdMessage<R>,
-{
-    let str = err.to_string();
-    send_error(tx, notify, str.as_str());
-    str
-}
-
-#[allow(dead_code)]
-fn process_debug<D, R>(msg: D, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
-where
-    D: std::fmt::Display,
-    R: MakePdMessage<R>,
-{
-    let str = msg.to_string();
-    send_debug(tx, notify, str.as_str());
-    str
-}
-
-#[allow(dead_code)]
-fn process_info<D, R>(msg: D, tx: &std::sync::mpsc::Sender<R>, notify: hw_notify_cb) -> String
-where
-    D: std::fmt::Display,
-    R: MakePdMessage<R>,
-{
-    let str = msg.to_string();
-    send_debug(tx, notify, str.as_str());
-    str
 }
 
 macro_rules! return_not_rpi {
@@ -219,7 +206,7 @@ pub enum WorkerCommand<T> {
 
 pub struct HwThreadWorker<Request, Reply> {
     rx: std::sync::mpsc::Receiver<Reply>,
-    tx: std::sync::mpsc::Sender<WorkerCommand<Request>>,
+    tx: std::sync::mpsc::SyncSender<WorkerCommand<Request>>,
     on_msg: hw_msg_cb,
     join_handle: Option<JoinHandle<()>>,
 }
@@ -231,13 +218,14 @@ where
 {
     pub fn new(
         on_msg: hw_msg_cb,
+        size: Option<usize>,
     ) -> (
         Self,
         std::sync::mpsc::Receiver<WorkerCommand<Request>>,
-        std::sync::mpsc::Sender<Reply>,
+        std::sync::mpsc::SyncSender<Reply>,
     ) {
-        let (req_tx, req_rx) = std::sync::mpsc::channel();
-        let (rep_tx, rep_rx) = std::sync::mpsc::channel();
+        let (req_tx, req_rx) = std::sync::mpsc::sync_channel(size.unwrap_or(32));
+        let (rep_tx, rep_rx) = std::sync::mpsc::sync_channel(size.unwrap_or(32));
 
         (
             Self {
@@ -251,14 +239,14 @@ where
         )
     }
 
-    pub fn worker_error(&self, str: &str, tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb) {
+    pub fn worker_error(&self, str: &str, tx: &std::sync::mpsc::SyncSender<Reply>, notify: hw_notify_cb) -> SendStatus {
         error!("worker error {str}");
-        process_err(format!("worker error: {str}"), tx, notify);
+        send_error(tx, notify, &format!("worker error: {str}"))
     }
 
     pub fn quit(&mut self) {
         if let Some(jh) = self.join_handle.take() {
-            if let Err(err) = self.tx.send(WorkerCommand::Quit) {
+            if let Err(err) = self.tx.try_send(WorkerCommand::Quit) {
                 log::error!("can't send quit: {err}");
             }
             if let Err(err) = jh.join() {
@@ -267,7 +255,7 @@ where
         }
     }
 
-    pub fn spawn<F>(&mut self, tx: std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, fx: F)
+    pub fn spawn<F>(&mut self, tx: std::sync::mpsc::SyncSender<Reply>, notify: hw_notify_cb, fx: F)
     where
         F: FnOnce() -> Result<(), String>,
         F: Send + 'static,
@@ -279,7 +267,9 @@ where
             debug!("worker thread start");
 
             if let Err(err) = fx() {
-                process_err(format!("worker error: {err}"), &tx, notify);
+                if let Err(err2) = send_error(&tx, notify, &format!("worker error: {err}")).to_err() {
+                    log::error!("{err}: {err2}")
+                }
             }
 
             debug!("worker thread done")
@@ -293,7 +283,7 @@ where
     }
 
     pub fn send_request(&self, req: Request) -> bool {
-        if let Err(err) = self.tx.send(WorkerCommand::Command(req)) {
+        if let Err(err) = self.tx.try_send(WorkerCommand::Command(req)) {
             log::error!("{err}");
             self.on_msg.exec(hw_msg_level::Error, "device is closed");
             false

@@ -100,9 +100,9 @@ impl hw_hd44780 {
     ) -> Result<Self, CString> {
         // const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below
 
-        let (mut worker, rx, tx) = Hd44780Worker::new(on_msg);
-        worker.spawn(tx.clone(), notify, move || {
-            let mut i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
+        let (mut worker, rx, tx) = Hd44780Worker::new(on_msg, None);
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+            let mut i2c = create_i2c_bus(i2c_bus)?;
             debug!("I2C init");
 
             let addrs: Vec<u8> = match i2c_addr {
@@ -139,7 +139,8 @@ impl hw_hd44780 {
                         &tx,
                         notify,
                         format!("connected to display: bus={bus} addr=0x{addr:02x} rows={rows}").as_str(),
-                    );
+                    )
+                    .to_err()?;
                     break;
                 }
             }
@@ -159,33 +160,27 @@ impl hw_hd44780 {
                 match &req {
                     Request::WriteText(msg) => {
                         let bytes: String = encode_str(msg).into_iter().collect();
-                        lcd.write_str(bytes.as_ref()).unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.write_str(bytes.as_ref())
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::Clear => {
-                        lcd.clear().unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.clear()
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::Backlight(state) => {
                         lcd.backlight(match state {
                             true => lcd_lcm1602_i2c::Backlight::On,
                             false => lcd_lcm1602_i2c::Backlight::Off,
                         })
-                        .unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::CursorOn(state) => {
-                        lcd.cursor_on(*state).unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.cursor_on(*state)
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::CursorBlink(state) => {
-                        lcd.cursor_blink(*state).unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.cursor_blink(*state)
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::CursorPos(row, col) => {
                         let shift = match rows {
@@ -194,9 +189,8 @@ impl hw_hd44780 {
                             _ => *col,
                         };
 
-                        lcd.set_cursor(0, shift).unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.set_cursor(0, shift)
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::CursorMove(dir) => {
                         match dir {
@@ -204,9 +198,7 @@ impl hw_hd44780 {
                             b if *b > 0 => lcd.scroll_cursor_right().map_err(|e| e.to_string()),
                             _ => Err(format!("invalid direction value: {dir}")),
                         }
-                        .unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.as_str());
-                        });
+                        .or_else(|e| send_error(&tx, notify, e.as_str()).to_err())?;
                     }
                     Request::TextScroll(dir) => {
                         match dir {
@@ -214,9 +206,7 @@ impl hw_hd44780 {
                             b if *b > 0 => lcd.scroll_display_right().map_err(|e| e.to_string()),
                             _ => Err(format!("invalid direction value: {dir}")),
                         }
-                        .unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.as_str());
-                        });
+                        .or_else(|e| send_error(&tx, notify, e.as_str()).to_err())?;
                     }
                     Request::SetFont(font) => {
                         use crate::lcd1602::hw_hd44780_font;
@@ -224,15 +214,12 @@ impl hw_hd44780 {
                             hw_hd44780_font::FONT_5x8 => lcd_lcm1602_i2c::Font::Font5x8,
                             hw_hd44780_font::FONT_5x10 => lcd_lcm1602_i2c::Font::Font5x10,
                         })
-                        .unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                     Request::WriteChar(ch) => {
                         let ch = unsafe { char::from_u32_unchecked(*ch) };
-                        lcd.write_str(ch.to_string().as_str()).unwrap_or_else(|e| {
-                            send_error(&tx, notify, e.to_string().as_str());
-                        });
+                        lcd.write_str(ch.to_string().as_str())
+                            .or_else(|e| send_error(&tx, notify, e.to_string().as_str()).to_err())?;
                     }
                 }
             }

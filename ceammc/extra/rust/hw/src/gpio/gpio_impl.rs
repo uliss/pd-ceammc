@@ -1,8 +1,8 @@
 use crate::gpio::HW_GPIO_IMPULSE_LENGTH_MIN_MSEC;
 use crate::hw_msg_cb;
 use crate::hw_notify_cb;
-use crate::process_debug;
-use crate::process_err;
+use crate::send_debug;
+use crate::send_error;
 use crate::send_reply;
 use log::{debug, error};
 use rppal::system::DeviceInfo;
@@ -41,7 +41,7 @@ impl hw_gpio {
         on_pin_list: hw_gpio_pin_list_cb,
         on_pin_poll: hw_gpio_poll_cb,
     ) -> Result<hw_gpio, CString> {
-        let (mut worker, rx, tx) = GpioThreadWorker::new(on_msg);
+        let (mut worker, rx, tx) = GpioThreadWorker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let gpio = Gpio::new().map_err(|err| {
@@ -54,13 +54,13 @@ impl hw_gpio {
                 err.to_string()
             })?;
 
-            process_debug(format!("RPi model: {}, soc: {}", dev.model(), dev.soc()), &tx, notify);
+            send_debug(&tx, notify, &format!("RPi model: {}, soc: {}", dev.model(), dev.soc())).to_err()?;
 
             let mut pins: HashMap<u8, GpioPin> = HashMap::new();
 
             while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 if let Err(err) = process_request(req, &notify, on_pin_poll, &tx, &gpio, &mut pins) {
-                    process_err(err, &tx, notify);
+                    send_error(&tx, notify, &err.to_string()).to_err()?;
                 }
             }
 
@@ -153,7 +153,7 @@ fn process_request(
     req: Request,
     notify: &hw_notify_cb,
     poll_notify: hw_gpio_poll_cb,
-    reply_tx: &std::sync::mpsc::Sender<Reply>,
+    reply_tx: &std::sync::mpsc::SyncSender<Reply>,
     gpio: &Gpio,
     pins: &mut HashMap<u8, GpioPin>,
 ) -> Result<(), String> {
@@ -167,7 +167,7 @@ fn process_request(
                 None => return Err(format!("pin [{pin}] is not configured")),
             };
 
-            send_reply(Reply::PinLevel(pin, level), reply_tx, *notify);
+            send_reply(Reply::PinLevel(pin, level), reply_tx, *notify).to_err()?
         }
         Request::Write(pin, state) => {
             let io_pin = get_output_pin(pin, pins)?;
@@ -270,7 +270,7 @@ fn process_request(
         }
         Request::ListPins => {
             let keys = pins.keys().into_iter().map(|k| *k).collect::<Vec<_>>();
-            send_reply(Reply::Pins(keys), reply_tx, *notify);
+            send_reply(Reply::Pins(keys), reply_tx, *notify).to_err()?
         }
         Request::Impulse(pin, length_ms) => {
             if length_ms < HW_GPIO_IMPULSE_LENGTH_MIN_MSEC || length_ms > HW_GPIO_IMPULSE_LENGTH_MAX_MSEC {

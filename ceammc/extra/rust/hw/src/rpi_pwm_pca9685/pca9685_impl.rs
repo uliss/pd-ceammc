@@ -92,10 +92,10 @@ impl FreqData {
 
 impl hw_pca9685 {
     pub fn new(i2c_bus: i8, i2c_addr: I2cAddress, notify: hw_notify_cb, on_msg: hw_msg_cb) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Pca9685Worker::new(on_msg);
+        let (mut worker, rx, tx) = Pca9685Worker::new(on_msg, None);
 
-        worker.spawn(tx.clone(), notify, move || {
-            let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+            let i2c = create_i2c_bus(i2c_bus)?;
             debug!("I2C init: {i2c:?}");
 
             let address = match i2c_addr {
@@ -111,7 +111,8 @@ impl hw_pca9685 {
                 &tx,
                 notify,
                 format!("connected to bus:{} addr:{:?}", i2c.bus(), address).as_str(),
-            );
+            )
+            .to_err()?;
 
             let mut pwm = Pca9685::new(i2c, address).map_err(|err| err.to_string())?;
             let mut pwm_freq = FreqData::new(50.0);
@@ -123,35 +124,29 @@ impl hw_pca9685 {
 
                 match req {
                     Request::Enable(state) => {
-                        let _ = if state { pwm.enable() } else { pwm.disable() }.unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        let _ = if state { pwm.enable() } else { pwm.disable() }
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetChanOnOff(chan, on, off) => {
-                        pwm.set_channel_on_off(to_channel(chan), on, off).unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.set_channel_on_off(to_channel(chan), on, off)
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetFreq(freq_hz) => {
                         pwm_freq.set_freq(freq_hz);
-                        pwm.set_prescale(pwm_freq.prescale()).unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.set_prescale(pwm_freq.prescale())
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetPolarity(polarity) => {
                         pwm.set_output_logic_state(match polarity {
                             crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => pwm_pca9685::OutputLogicState::Direct,
                             crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => pwm_pca9685::OutputLogicState::Inverted,
                         })
-                        .unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetPeriod(period_ms) => {
                         pwm_freq.set_period_ms(period_ms);
-                        pwm.set_prescale(pwm_freq.prescale()).unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.set_prescale(pwm_freq.prescale())
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetChanPulseWidth(chan, width_ms, phase) => {
                         let chan = to_channel(chan);
@@ -164,9 +159,7 @@ impl hw_pca9685 {
                         } else {
                             pwm.set_channel_on_off(chan, on_pos, off_pos)
                         }
-                        .unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetChanDutyCycle(chan, duty, phase) => {
                         let chan = to_channel(chan);
@@ -190,9 +183,7 @@ impl hw_pca9685 {
                         } else {
                             pwm.set_channel_on_off(chan, on_pos, off_pos)
                         }
-                        .unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::SetChanConst(chan, value, delay) => {
                         let chan = to_channel(chan);
@@ -203,33 +194,26 @@ impl hw_pca9685 {
                         } else {
                             pwm.set_channel_full_off(chan)
                         }
-                        .unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::UseProgAddress(sub_addr, i2c_addr) => {
                         let sub_addr = sub_addr.into();
                         pwm.set_programmable_address(sub_addr, i2c_addr)
                             .and_then(|_| pwm.enable_programmable_address(sub_addr))
                             .and_then(|_| pwm.set_address(Address::from(i2c_addr)))
-                            .unwrap_or_else(|err| {
-                                send_error(&tx, notify, err.to_string().as_str());
-                            });
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::DisableProgAddress(addr) => {
-                        pwm.disable_programmable_address(addr.into()).unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.disable_programmable_address(addr.into())
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::Restart => {
-                        pwm.restart(&mut rppal::hal::Delay::new()).unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.restart(&mut rppal::hal::Delay::new())
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                     Request::EnableRestartAndDisable => {
-                        pwm.enable_restart_and_disable().unwrap_or_else(|err| {
-                            send_error(&tx, notify, err.to_string().as_str());
-                        });
+                        pwm.enable_restart_and_disable()
+                            .or_else(|err| send_error(&tx, notify, err.to_string().as_str()).to_err())?;
                     }
                 }
             }
