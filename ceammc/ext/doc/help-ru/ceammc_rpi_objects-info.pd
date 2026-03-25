@@ -13,7 +13,7 @@
 сервомоторами \, шаговыми двигателями \, а также считывать цифровые
 значения с кнопок и пороговых датчиков.;
 #X obj 230 247 ui.link @title Управление GPIO @url
-ceammc-i18n://hw.rpi.gpio-example.pd;
+ceammc://hw.rpi.gpio-example.pd;
 #X obj 230 282 ui.link @title Управление Шаговыми двигателями @url
 ceammc-i18n://ceammc_rpi_stepper-info.pd;
 #X obj 40 317 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;

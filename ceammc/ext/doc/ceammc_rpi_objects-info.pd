@@ -13,7 +13,7 @@ With this object \, you can control LEDs \, relays \, solenoids \,
 servomotors \, stepper motors \, as well as read digital values from
 buttons and threshold sensors.;
 #X obj 230 247 ui.link @title GPIO Control @url
-ceammc-i18n://hw.rpi.gpio-example.pd;
+ceammc://hw.rpi.gpio-example.pd;
 #X obj 230 282 ui.link @title Stepper motor control @url
 ceammc-i18n://ceammc_rpi_stepper-info.pd;
 #X obj 40 317 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
