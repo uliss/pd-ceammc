@@ -127,8 +127,7 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                    pin_ptr,
                    on_notify(),
                    on_message(),
-                   {
-                       this,
+                   { this,
                        [](void* user, std::uint16_t touched, std::uint16_t previous, bool over_current) {
                            auto obj = static_cast<HwRpiSensorMpr121*>(user);
                            if (obj && over_current)
@@ -163,7 +162,11 @@ HwRpiSensorMpr121::HwRpiDevice::Device HwRpiSensorMpr121::createDevice()
                            pair[1] = data;
                            obj->anyTo(1, gensym("filtered"), pair.view());
                        },
-                   }),
+                       [](void* user) {
+                           auto obj = static_cast<HwRpiSensorMpr121*>(user);
+                           obj->freeDevice();
+                           Error(obj) << "disconnected";
+                       } }),
         freeDeviceFn());
 
     if (dev) {

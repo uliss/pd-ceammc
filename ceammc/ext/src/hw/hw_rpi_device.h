@@ -77,6 +77,11 @@ public:
     const HardwareHandle* device() const { return hw_.get(); }
     FreeDeviceFn freeDeviceFn() const { return free_fn_; }
 
+    void freeDevice()
+    {
+        hw_.reset();
+    }
+
     Device nullDevice() const
     {
         return Device(nullptr, free_fn_);

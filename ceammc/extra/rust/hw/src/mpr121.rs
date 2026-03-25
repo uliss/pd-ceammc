@@ -47,6 +47,7 @@ pub enum Reply {
         value: u8,
         channel: u8,
     },
+    InvalidDevice,
 }
 
 type Mpr212SensorWorker = HwThreadWorker<Request, Reply>;
@@ -62,6 +63,7 @@ pub struct hw_mpr121_reply_cb {
     on_touch: extern "C" fn(user: *mut c_void, touched: u16, previous: u16, over_current: bool),
     on_baseline: extern "C" fn(user: *mut c_void, channel: u8, data: u8),
     on_filtered: extern "C" fn(user: *mut c_void, channel: u8, data: u16),
+    on_disconnect: extern "C" fn(user: *mut c_void),
 }
 
 impl hw_mpr121_reply_cb {
@@ -75,6 +77,10 @@ impl hw_mpr121_reply_cb {
 
     pub(crate) fn baseline(&self, channel: u8, data: u8) {
         (self.on_baseline)(self.user, channel, data)
+    }
+
+    pub(crate) fn disconnect(&self) {
+        (self.on_disconnect)(self.user)
     }
 }
 

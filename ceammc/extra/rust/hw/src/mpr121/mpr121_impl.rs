@@ -205,6 +205,7 @@ impl hw_sensor_mpr121 {
                 Reply::Baseline { value, channel } => {
                     mpr.cb.baseline(channel, value);
                 }
+                Reply::InvalidDevice => mpr.cb.disconnect(),
             });
 
             true
