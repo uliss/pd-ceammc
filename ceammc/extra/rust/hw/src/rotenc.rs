@@ -11,9 +11,7 @@ use std::{
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    gpio::HW_GPIO_PIN_NONE, hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage,
-};
+use crate::{gpio::HW_GPIO_PIN_NONE, hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod rotenc_impl;
@@ -78,15 +76,10 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
             return null_mut();
         }
 
-        let btn = if btn == HW_GPIO_PIN_NONE {
-            None
-        } else {
-            Some(btn as u8)
-        };
+        let btn = if btn == HW_GPIO_PIN_NONE { None } else { Some(btn as u8) };
 
         match hw_gpio_rotenc::new(
-            dt as u8, clk as u8, btn, init, step, min_value, max_value, notify, on_data, on_click,
-            on_msg,
+            dt as u8, clk as u8, btn, init, step, min_value, max_value, notify, on_data, on_click, on_msg,
         ) {
             Ok(pwm) => return Box::into_raw(Box::new(pwm)),
             Err(err) => {

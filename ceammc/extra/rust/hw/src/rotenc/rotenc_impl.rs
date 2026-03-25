@@ -4,7 +4,7 @@ use log::{debug, error};
 use rotary_encoder_embedded::RotaryEncoder;
 use rppal::gpio::{Gpio, Trigger};
 
-use crate::{hw_msg_cb, hw_notify_cb, send_debug};
+use crate::{hw_msg_cb, hw_notify_cb, send_debug, send_reply};
 
 use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker};
 
@@ -22,7 +22,7 @@ impl hw_gpio_rotenc {
         on_click: hw_gpio_rotenc_click,
         on_msg: hw_msg_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = RotEncoderWorker::new(on_msg);
+        let (mut worker, rx, tx) = RotEncoderWorker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || {
             debug!("try to init Rotary Encoder with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}");
@@ -61,17 +61,17 @@ impl hw_gpio_rotenc {
                     })?
                     .into_input_pullup();
 
-                let rx2 = tx.clone();
+                let tx2 = tx.clone();
 
                 pin.set_async_interrupt(
                     rppal::gpio::Trigger::Both,
                     Some(Duration::from_millis(10)),
                     move |ev| match ev.trigger {
                         Trigger::RisingEdge => {
-                            Self::send_reply(&rx2, notify, Reply::Click(false));
+                            let _ = send_reply(Reply::Click(false), &tx2, notify);
                         }
                         Trigger::FallingEdge => {
-                            Self::send_reply(&rx2, notify, Reply::Click(true));
+                            let _ = send_reply(Reply::Click(true), &tx2, notify);
                         }
                         _ => {}
                     },
@@ -100,7 +100,8 @@ impl hw_gpio_rotenc {
                 notify,
                 format!("Rotary Encoder init done with pins: dt={dt}, clk={clk}, btn={btn:?} and init value={init}")
                     .as_str(),
-            );
+            )
+            .to_err()?;
 
             // ...timer initialize at 900Hz to poll the rotary encoder
             loop {
@@ -111,12 +112,12 @@ impl hw_gpio_rotenc {
                     rotary_encoder_embedded::Direction::Clockwise => {
                         enc_value += enc_step;
                         enc_value = enc_value.clamp(enc_min, enc_max);
-                        Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_INC));
+                        send_reply(Reply::Data(enc_value, DIR_INC), &tx, notify).to_err()?;
                     }
                     rotary_encoder_embedded::Direction::Anticlockwise => {
                         enc_value -= enc_step;
                         enc_value = enc_value.clamp(enc_min, enc_max);
-                        Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_DEC));
+                        send_reply(Reply::Data(enc_value, DIR_DEC), &tx, notify).to_err()?;
                     }
                     _ => {}
                 }
@@ -131,7 +132,7 @@ impl hw_gpio_rotenc {
                             Request::ResetValue => enc_value = init,
                             Request::SetStep(val) => enc_step = val,
                             Request::GetValue => {
-                                Self::send_reply(&tx, notify, Reply::Data(enc_value, DIR_NONE));
+                                send_reply(Reply::Data(enc_value, DIR_NONE), &tx, notify).to_err()?;
                             }
                             Request::SetMin(min) => enc_min = min,
                             Request::SetMax(max) => enc_max = max,
@@ -154,16 +155,6 @@ impl hw_gpio_rotenc {
             on_data,
             on_click,
         })
-    }
-
-    fn send_reply(tx: &std::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, rep: Reply) -> bool {
-        if let Err(err) = tx.send(rep) {
-            error!("send error: {err}");
-            return false;
-        }
-
-        notify.notify();
-        true
     }
 
     pub fn process_reply_ptr(enc: *mut Self) -> bool {

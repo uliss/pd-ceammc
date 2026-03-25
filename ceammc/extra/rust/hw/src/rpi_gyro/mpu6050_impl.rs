@@ -11,9 +11,8 @@ use mpu6050_dmp::{
 use crate::{
     hw_msg_cb, hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    process_err,
     rpi_gyro::Mpu6050Worker,
-    send_info, send_reply,
+    send_error, send_info, send_reply,
 };
 
 use super::{hw_mpu6050, hw_mpu6050_data_cb, Request};
@@ -26,10 +25,10 @@ impl hw_mpu6050 {
         on_msg: hw_msg_cb,
         on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Mpu6050Worker::new(on_msg);
+        let (mut worker, rx, tx) = Mpu6050Worker::new(on_msg, None);
 
-        worker.spawn(tx.clone(), notify, move || {
-            let i2c = create_i2c_bus(i2c_bus, &tx, notify)?;
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
+            let i2c = create_i2c_bus(i2c_bus)?;
             debug!("I2c init: {i2c:?}");
 
             let mut mpu = match i2c_addr {
@@ -43,11 +42,11 @@ impl hw_mpu6050 {
                 }
                 I2cAddress::Addr(addr) => Mpu6050::new(i2c, Address(addr)),
             }
-            .map_err(|err| process_err(format!("MPU6050 init: {err:?}"), &tx, notify))?;
+            .map_err(|err| format!("MPU6050 init: {err:?}"))?;
 
             let mut delay = rppal::hal::Delay::default();
             mpu.initialize_dmp(&mut delay)
-                .map_err(|err| process_err(format!("MPU6050 DMP init: {err:?}"), &tx, notify))?;
+                .map_err(|err| format!("MPU6050 DMP init: {err:?}"))?;
 
             // Configure FIFO
             mpu.enable_fifo().map_err(|err| format!("{err:?}"))?;
@@ -68,7 +67,7 @@ impl hw_mpu6050 {
                                 poll_mode = state;
                             }
                             Request::Calibrate => {
-                                send_info(&tx, notify, "Calibrating Sensor ...");
+                                send_info(&tx, notify, "Calibrating Sensor ...").to_err()?;
 
                                 if let Ok(_) = mpu6050_dmp::calibration_blocking::collect_mean_values(
                                     &mut mpu,
@@ -76,9 +75,9 @@ impl hw_mpu6050 {
                                     mpu6050_dmp::accel::AccelFullScale::G2,
                                     mpu6050_dmp::calibration::ReferenceGravity::ZN,
                                 )
-                                .map_err(|err| process_err(format!("calibration error: {err:?}"), &tx, notify))
+                                .map_err(|err| format!("calibration error: {err:?}"))
                                 {
-                                    send_info(&tx, notify, "Sensor Calibrated");
+                                    send_info(&tx, notify, "Sensor Calibrated").to_err()?;
                                 }
                             }
                         },
@@ -106,7 +105,8 @@ impl hw_mpu6050 {
                                     let ypr = YawPitchRoll::from(q);
                                     debug!("{:?}", ypr);
 
-                                    send_reply(super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll), &tx, notify);
+                                    send_reply(super::Reply::YawPitchRoll(ypr.yaw, ypr.pitch, ypr.roll), &tx, notify)
+                                        .to_err()?;
                                 }
                             }
 
@@ -116,11 +116,9 @@ impl hw_mpu6050 {
                                 .unwrap_or(Temperature::new(0))
                                 .celsius();
 
-                            send_reply(super::Reply::Temperature(temp), &tx, notify);
+                            send_reply(super::Reply::Temperature(temp), &tx, notify).to_err()?;
                         }
-                        Err(err) => {
-                            process_err(format!("{err:?}"), &tx, notify);
-                        }
+                        Err(err) => send_error(&tx, notify, &format!("{err:?}")).to_err()?,
                     }
 
                     let elapsed = now - Instant::now();

@@ -4,9 +4,9 @@ use log::{debug, error};
 use rppal::{gpio::Gpio, pwm::Pwm, system::DeviceInfo};
 
 use crate::{
-    hw_msg_cb, hw_notify_cb, process_err,
+    hw_msg_cb, hw_notify_cb,
     rpi_pwm::{Reply, Request},
-    str_to_cstr,
+    send_error, str_to_cstr,
 };
 
 use super::{hw_rpi_pwm, PwmWorker};
@@ -27,9 +27,9 @@ impl hw_rpi_pwm {
             }
         };
 
-        let (mut worker, rx, tx) = PwmWorker::new(on_msg);
+        let (mut worker, rx, tx) = PwmWorker::new(on_msg, None);
 
-        worker.spawn(tx.clone(), notify, move || {
+        worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
             let dev_info = DeviceInfo::new().map_err(|err| err.to_string())?;
 
             let (pwm_pin, pin_mode) = match dev_info.model() {
@@ -65,49 +65,40 @@ impl hw_rpi_pwm {
                 match req {
                     crate::rpi_pwm::Request::Enable(state) => {
                         if state { pwm.enable() } else { pwm.disable() }
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                     }
                     crate::rpi_pwm::Request::SetFreq(freq, duty) => {
                         // this depends from PWM clock divider
                         // we assume divider equal 384
                         // gpio pwmc 384
                         pwm.set_frequency(1000.0 * freq, duty)
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                     }
                     Request::SetPeriod(msec) => pwm
                         .set_period(msec_to_pwm_time(msec))
-                        .map_err(|err| process_err(err, &tx, notify))
-                        .unwrap_or_default(),
+                        .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?,
                     Request::SetPolarity(p) => pwm
                         .set_polarity(match p {
                             crate::rpi_pwm::hw_rpi_pwm_polarity::NORMAL => rppal::pwm::Polarity::Normal,
                             crate::rpi_pwm::hw_rpi_pwm_polarity::INVERSE => rppal::pwm::Polarity::Inverse,
                         })
-                        .map_err(|err| process_err(err, &tx, notify))
-                        .unwrap_or_default(),
+                        .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?,
                     Request::SetPulseWidth(msec) => {
                         pwm.set_pulse_width(msec_to_pwm_time(msec))
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                     }
                     Request::SetDutyCycle(duty) => pwm
                         .set_duty_cycle(duty)
-                        .map_err(|err| process_err(err, &tx, notify))
-                        .unwrap_or_default(),
+                        .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?,
                     Request::SetPwm(period_ms, width_ms) => {
                         let period_ms = period_ms.max(0.0);
                         let width_ms = width_ms.clamp(0.0, period_ms);
                         pwm.set_pulse_width(Duration::from_secs(0))
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                         pwm.set_period(msec_to_pwm_time(period_ms))
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                         pwm.set_pulse_width(msec_to_pwm_time(width_ms))
-                            .map_err(|err| process_err(err, &tx, notify))
-                            .unwrap_or_default();
+                            .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                     }
                 }
             }

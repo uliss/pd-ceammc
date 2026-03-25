@@ -18,10 +18,10 @@ impl hw_nfc_pn532 {
         on_msg: hw_msg_cb,
         on_key: hw_nfc_pn532_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = NfcWorker::new(on_msg);
+        let (mut worker, rx, tx) = NfcWorker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {
-            let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus, &tx, notify)?;
+            let mut i2c = crate::i2c::i2c_impl::create_i2c_bus(i2c_bus)?;
             debug!("i2c init: {i2c:?}");
 
             try_i2c_device(&mut i2c, PN532_I2C_ADDR, DetectMethod::QuickWrite)?;
@@ -36,7 +36,8 @@ impl hw_nfc_pn532 {
                 &tx,
                 notify,
                 format!("pn532 init with i2c_bus={bus} and i2c_addr=0x{PN532_I2C_ADDR:02x}").as_str(),
-            );
+            )
+            .to_err()?;
 
             while let Ok(crate::WorkerCommand::Command(req)) = rx.recv() {
                 match req {

@@ -24,7 +24,7 @@ use ssd1306::{
 use crate::{
     hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    process_err, send_debug, send_error,
+    send_debug, send_error,
     spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
     WorkerCommand,
 };
@@ -34,10 +34,11 @@ use super::{hw_display_ssd1306, DisplayI2cArgs, DisplaySpiArgs, Reply, Request, 
 impl hw_display_ssd1306 {
     fn process_loop<DI, SIZE>(
         display: &mut Ssd1306<DI, SIZE, BufferedGraphicsMode<SIZE>>,
-        tx: &std::sync::mpsc::Sender<Reply>,
+        tx: &std::sync::mpsc::SyncSender<Reply>,
         rx: &std::sync::mpsc::Receiver<WorkerCommand<Request>>,
         notify: hw_notify_cb,
-    ) where
+    ) -> Result<(), String>
+    where
         DI: WriteOnlyDataCommand,
         SIZE: DisplaySize,
     {
@@ -62,15 +63,15 @@ impl hw_display_ssd1306 {
                             display.clear_buffer();
 
                             if flush {
-                                display.flush().unwrap_or_else(|err| {
-                                    process_err(format!("{err:?}"), tx, notify);
-                                });
+                                display
+                                    .flush()
+                                    .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                             }
                         }
                         Request::Flush => {
-                            display.flush().unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
+                            display
+                                .flush()
+                                .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                         }
                         Request::DrawText(cstr, x, y) => {
                             Text::with_baseline(
@@ -80,10 +81,8 @@ impl hw_display_ssd1306 {
                                 Baseline::Top,
                             )
                             .draw(display)
-                            .map_err(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            })
-                            .unwrap_or_default();
+                            .map(|_| ())
+                            .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                         }
                         Request::SetFont(font) => {
                             let font = font.to_string_lossy();
@@ -98,33 +97,26 @@ impl hw_display_ssd1306 {
                                         tx,
                                         notify,
                                         format!("font not found: {font:?}. supported fonts are: {keys}").as_str(),
-                                    );
+                                    )
+                                    .to_err()?
                                 }
                             }
                         }
-                        Request::Invert(state) => {
-                            display.set_invert(state).unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
-                        }
-                        Request::Mirror(state) => {
-                            display.set_mirror(state).unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
-                        }
-                        Request::SwitchOn(state) => {
-                            display.set_display_on(state).unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
-                        }
+                        Request::Invert(state) => display
+                            .set_invert(state)
+                            .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?,
+                        Request::Mirror(state) => display
+                            .set_mirror(state)
+                            .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?,
+                        Request::SwitchOn(state) => display
+                            .set_display_on(state)
+                            .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?,
                         Request::SetPixel(x, y, value) => {
                             display.set_pixel(x as u32, y as u32, value);
                         }
-                        Request::SetData(data) => {
-                            display.draw(data.as_slice()).unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
-                        }
+                        Request::SetData(data) => display
+                            .draw(data.as_slice())
+                            .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?,
                         Request::DrawBitmap(x, y, w, data) => {
                             let raw_image = ImageRaw::<BinaryColor>::new(data.as_slice(), w.into());
                             let image = Image::new(
@@ -134,9 +126,9 @@ impl hw_display_ssd1306 {
                                     y: y.into(),
                                 },
                             );
-                            image.draw(display).unwrap_or_else(|err| {
-                                process_err(format!("{err:?}"), tx, notify);
-                            });
+                            image
+                                .draw(display)
+                                .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                         }
                         Request::SetRotation(rotate) => {
                             display
@@ -146,9 +138,7 @@ impl hw_display_ssd1306 {
                                     crate::display::hw_display_rotation::ROTATE_180 => DisplayRotation::Rotate180,
                                     crate::display::hw_display_rotation::ROTATE_270 => DisplayRotation::Rotate270,
                                 })
-                                .unwrap_or_else(|err| {
-                                    process_err(format!("{err:?}"), tx, notify);
-                                });
+                                .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                         }
                         Request::SetBrightness(level) => {
                             display
@@ -160,14 +150,14 @@ impl hw_display_ssd1306 {
                                     4 => Brightness::BRIGHTEST,
                                     _ => Brightness::NORMAL,
                                 })
-                                .unwrap_or_else(|err| {
-                                    process_err(format!("{err:?}"), tx, notify);
-                                });
+                                .or_else(|err| send_error(tx, notify, &format!("{err:?}")).to_err())?;
                         }
                     }
                 }
             }
         }
+
+        Ok(())
     }
 
     pub fn new_i2c<SIZE: DisplaySize + Send + 'static>(
@@ -175,10 +165,10 @@ impl hw_display_ssd1306 {
         size: SIZE,
         notify: hw_notify_cb,
     ) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
+        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg, None);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
-            let i2c = create_i2c_bus(args.i2c_bus, &tx, args.notify)?;
+            let i2c = create_i2c_bus(args.i2c_bus)?;
             debug!("I2C init: {i2c:?}");
 
             let i2c_iface = match args.i2c_addr {
@@ -201,12 +191,13 @@ impl hw_display_ssd1306 {
                 &tx,
                 notify,
                 format!("i2c display init with: bus={} addr={:?}", args.i2c_bus, args.i2c_addr).as_str(),
-            );
+            )
+            .to_err()?;
 
             display.clear_buffer();
             display.flush().unwrap_or_default();
 
-            Self::process_loop(&mut display, &tx, &rx, args.notify);
+            Self::process_loop(&mut display, &tx, &rx, args.notify)?;
             Ok(())
         });
 
@@ -214,32 +205,21 @@ impl hw_display_ssd1306 {
     }
 
     pub fn new_spi<SIZE: DisplaySize + Send + 'static>(args: DisplaySpiArgs, size: SIZE) -> Result<Self, CString> {
-        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg);
+        let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg, None);
 
         worker.spawn(tx.clone(), args.notify, move || -> Result<(), String> {
-            let gpio = Gpio::new().map_err(|err| process_err(err, &tx, args.notify))?;
-            let dc = gpio
-                .get(args.dc_pin)
-                .map_err(|err| process_err(err, &tx, args.notify))?
-                .into_output_low();
+            let gpio = Gpio::new().map_err(|err| err.to_string())?;
+            let dc = gpio.get(args.dc_pin).map_err(|err| err.to_string())?.into_output_low();
 
-            let mut rst = gpio
-                .get(args.rs_pin)
-                .map_err(|err| process_err(err, &tx, args.notify))?
-                .into_output_low();
+            let mut rst = gpio.get(args.rs_pin).map_err(|err| err.to_string())?.into_output_low();
 
             debug!("GPIO init");
 
             let bus = i8_to_spi_bus(args.spi_bus);
             let cs = i8_to_slave_select(args.cs_pin)?;
 
-            let spi = Spi::new(bus, cs, args.freq, rppal::spi::Mode::Mode0).map_err(|err| {
-                process_err(
-                    format!("SPI init error: {err}, bus={bus}, cs={cs}, freq={}", args.freq),
-                    &tx,
-                    args.notify,
-                )
-            })?;
+            let spi = Spi::new(bus, cs, args.freq, rppal::spi::Mode::Mode0)
+                .map_err(|err| format!("SPI init error: {err}, bus={bus}, cs={cs}, freq={}", args.freq))?;
 
             debug!("SPI init: {spi:?} freq={} cs={cs}", args.freq);
 
@@ -256,15 +236,13 @@ impl hw_display_ssd1306 {
 
             display
                 .reset(&mut rst, &mut rppal::hal::Delay::default())
-                .map_err(|err| process_err(format!("display error: {err:?}"), &tx, args.notify))?;
+                .map_err(|err| format!("display error: {err:?}"))?;
 
-            display
-                .init()
-                .map_err(|err| process_err(format!("display error: {err:?}"), &tx, args.notify))?;
+            display.init().map_err(|err| format!("display error: {err:?}"))?;
 
             display.clear_buffer();
 
-            Self::process_loop(&mut display, &tx, &rx, args.notify);
+            Self::process_loop(&mut display, &tx, &rx, args.notify)?;
 
             Ok(())
         });
