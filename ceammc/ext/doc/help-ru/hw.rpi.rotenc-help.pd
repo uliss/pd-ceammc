@@ -10,94 +10,101 @@
 GPIO контакты @btn \, @clk и @dt: использовать их в других объектах
 одновременно с этим *невозможно*.;
 #X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
-#X msg 50 201 @step 0.5;
-#X obj 69 230 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 230 @connect \$1;
+#X msg 69 259 @step 0.5;
+#X obj 78 288 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 117 230 set 50;
-#X msg 203 230 reset;
-#X obj 50 259 hw.rpi.rotenc @dt 22 @clk 23 @btn 27;
-#X obj 299 288 route btn dir;
-#X floatatom 50 317 5 0 0 0 - - -;
-#X obj 299 317 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 424 317 5 0 0 0 - - -;
-#X obj 50 360 ui.link @title 'Connection_scheme' @url
+#X msg 126 288 set 50;
+#X msg 213 288 reset;
+#X obj 50 317 hw.rpi.rotenc @dt 22 @clk 23 @btn 27;
+#X obj 299 345 route btn dir;
+#X floatatom 50 374 5 0 0 0 - - -;
+#X obj 299 374 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 424 374 5 0 0 0 - - -;
+#X obj 50 417 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_rotenc.png;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 422 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 479 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 425 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 482 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 423 @btn;
-#X text 270 423 (при инициализации) Пин BTN GPIO. Тип: int. Значение
+#X msg 130 480 @btn;
+#X text 270 480 (при инициализации) Пин BTN GPIO. Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 465 @clk;
-#X text 270 465 (при инициализации) Пин CLK GPIO. Тип: int. Значение
+#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 522 @clk;
+#X text 270 522 (при инициализации) Пин CLK GPIO. Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 507 @dt;
-#X text 270 507 (при инициализации) Пин DT GPIO. Тип: int. Значение
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 564 @dt;
+#X text 270 564 (при инициализации) Пин DT GPIO. Тип: int. Значение
 по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 549 @init;
-#X text 270 549 (при инициализации) Начальное значение энкодера. Тип:
+#X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 606 @init;
+#X text 270 606 (при инициализации) Начальное значение энкодера. Тип:
 float. Значение по умолчанию: 0\.;
-#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 591 @max;
-#X text 270 591 Максимальное значение энкодера. Тип: float. Значение
+#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 648 @connect;
+#X text 270 648 При установке в 1: пробует подключиться к устройству.
+При установке в 0: отключается от устройства. Тип: bool. Значение по
+умолчанию: 0\.;
+#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 705 @max;
+#X text 270 705 Максимальное значение энкодера. Тип: float. Значение
 по умолчанию: 100\.;
-#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 633 @min;
-#X text 270 633 Минимальное значение энкодера. Тип: float. Значение
+#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 747 @min;
+#X text 270 747 Минимальное значение энкодера. Тип: float. Значение
 по умолчанию: -100\.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @step;
-#X text 270 675 Шаг энкодера. Тип: float. Значение по умолчанию: 1\.;
-#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 720 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 789 @step;
+#X text 270 789 Шаг энкодера. Тип: float. Значение по умолчанию: 1\.;
+#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 834 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 721 get;
-#X text 270 721 запросить текущее значение.;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 reset;
-#X text 270 756 сброс текущего значения на @init.;
-#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 791 set;
-#X text 270 791 установить новое текущее значение без его вывода. Аргументы:;
-#X obj 300 816 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 816 VAL: новое значение. Тип: float.;
-#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 864 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 835 get;
+#X text 270 835 запросить текущее значение.;
+#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 870 reset;
+#X text 270 870 сброс текущего значения на @init.;
+#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 905 set;
+#X text 270 905 установить новое текущее значение без его вывода. Аргументы:;
+#X obj 300 930 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 930 VAL: новое значение. Тип: float.;
+#X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 978 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 865 1\.;
-#X text 170 865 bang:;
-#X text 270 865 вывести текущее значение.;
-#X text 170 890 float:;
-#X text 270 890 установить новое текущее значение и вывести его.;
-#X text 130 915 2\.;
-#X text 170 915 bang:;
-#X text 270 915 сбросить текущее значение на @init.;
-#X text 170 940 float:;
-#X text 270 940 установить новое текущее значение без его вывода.;
-#X obj 20 975 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 980 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 981 1\.;
-#X text 170 981 float:;
-#X text 270 981 текущее значение энкодера.;
-#X text 130 1001 2\.;
-#X msg 170 1001 dir;
-#X text 270 1001 направление вращения: [dir -1|1(.;
-#X msg 170 1026 btn;
-#X text 270 1026 состояние кнопки: [btn СОСТОЯНИЕ(.;
+#X text 130 979 1\.;
+#X text 170 979 bang:;
+#X text 270 979 вывести текущее значение.;
+#X text 170 1004 float:;
+#X text 270 1004 установить новое текущее значение и вывести его.;
+#X text 130 1029 2\.;
+#X text 170 1029 bang:;
+#X text 270 1029 сбросить текущее значение на @init.;
+#X text 170 1054 float:;
+#X text 270 1054 установить новое текущее значение без его вывода.;
+#X obj 20 1089 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1094 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1095 1\.;
+#X text 170 1095 float:;
+#X text 270 1095 текущее значение энкодера.;
+#X text 130 1115 2\.;
+#X msg 170 1115 dir;
+#X text 270 1115 направление вращения: -1 или 1\.;
+#X msg 170 1140 btn;
+#X text 270 1140 состояние кнопки: 0 или 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1076 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1079 библиотека: ceammc v0.9.8;
-#N canvas 10 1098 400 290 info 0;
+#X obj 1 1190 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1193 библиотека: ceammc v0.9.8;
+#N canvas 10 1212 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -121,12 +128,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1098 pd info;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 1 12 0;
+#X restore 10 1212 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 13 0;
+#X connect 10 0 13 0;
 #X connect 11 0 13 0;
-#X connect 12 0 14 0;
-#X connect 12 1 15 0;
-#X connect 7 0 11 0;
+#X connect 12 0 13 0;
+#X connect 13 1 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 14 1 17 0;
+#X connect 9 0 13 0;

@@ -36,6 +36,13 @@
         <tr lang="en">CLK GPIO pin</tr>
         <tr lang="ru">пин CLK GPIO</tr>
       </property>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
+        from the device.</tr>
+        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При установке в 0:
+        отключается от устройства.</tr>
+      </property>
       <!-- @dt -->
       <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
         <tr lang="en">DT GPIO pin</tr>
@@ -120,22 +127,26 @@
       </outlet>
       <outlet>
         <out name="dir" type="any">
-          <tr lang="en">turn direction: [dir -1|1(</tr>
-          <tr lang="ru">направление вращения: [dir -1|1(</tr>
+          <tr lang="en">turn direction: -1 or 1</tr>
+          <tr lang="ru">направление вращения: -1 или 1</tr>
         </out>
         <out name="btn" type="any">
-          <tr lang="en">button state [btn STATE(</tr>
-          <tr lang="ru">состояние кнопки: [btn СОСТОЯНИЕ(</tr>
+          <tr lang="en">button state: 0 or 1</tr>
+          <tr lang="ru">состояние кнопки: 0 или 1</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[@step 0.5 #a(
-
-  [B]  [set 50( [reset(
-  |    |        |
+[T]
+|
+[@connect $1(
+|
+| [@step 0.5 #a(
+|
+|  [B]  [set 50( [reset(
+|  |    |        |
 [hw.rpi.rotenc @dt 22 @clk 23 @btn 27 #x]
 |                         ^|
 |                         [route btn dir ]
