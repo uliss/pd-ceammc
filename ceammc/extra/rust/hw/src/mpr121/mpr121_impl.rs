@@ -1,7 +1,7 @@
 use log::{debug, error};
 use mpr121_hal::{mpr121::Mpr121, Channel, DebounceNumber, Mpr121Address};
 use rppal::hal::Delay;
-use std::ffi::CString;
+use std::{ffi::CString, time::Duration};
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
@@ -117,13 +117,17 @@ impl hw_sensor_mpr121 {
                     .map_err(|err| err.to_string())?
                     .into_input_pulldown();
                 pin.set_reset_on_drop(true);
-                pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
-                    if let Err(err) =
-                        send_reply(crate::WorkerCommand::Command(Request::ReadAll), &gpio_tx, notify).to_err()
-                    {
-                        log::error!("irq send error: {err}");
-                    }
-                })
+                pin.set_async_interrupt(
+                    rppal::gpio::Trigger::FallingEdge,
+                    Some(Duration::from_millis(1)),
+                    move |_event| {
+                        if let Err(err) =
+                            send_reply(crate::WorkerCommand::Command(Request::ReadAll), &gpio_tx, notify).to_err()
+                        {
+                            log::error!("irq send error: {err}");
+                        }
+                    },
+                )
                 .map_err(|err| err.to_string())?;
                 log::debug!("IRQ pin: {}", pin.pin());
                 Some(pin)
