@@ -82,25 +82,6 @@ impl hw_sensor_mpr121 {
 
             try_i2c_device(&mut i2c, addr, crate::i2c::i2c_impl::DetectMethod::QuickWrite)?;
 
-            let pin = if irq_pin.is_some() {
-                let mut pin = rppal::gpio::Gpio::new()
-                    .map_err(|err| err.to_string())?
-                    .get(irq_pin.unwrap_or_default())
-                    .map_err(|err| err.to_string())?
-                    .into_input_pulldown();
-                pin.set_reset_on_drop(true);
-                pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
-                    if let Err(err) = gpio_tx.send(crate::WorkerCommand::Command(Request::ReadAll)) {
-                        log::error!("irq send error: {err}");
-                    };
-                })
-                .map_err(|err| err.to_string())?;
-                log::debug!("IRQ pin: {}", pin.pin());
-                Some(pin)
-            } else {
-                None
-            };
-
             let mut sensor = match i2c_addr {
                 I2cAddress::Addr(addr) => Mpr121::new(
                     i2c,
@@ -124,8 +105,28 @@ impl hw_sensor_mpr121 {
             send_debug(
                 &tx,
                 notify,
-                format!("mpr121 init with bus={bus} and addr=0x{addr:02x}").as_str(),
+                format!("mpr121 init with i2c_bus={bus} and i2c_addr=0x{addr:02x}").as_str(),
             );
+
+            // after i2c device is ready and found
+            let pin = if irq_pin.is_some() {
+                let mut pin = rppal::gpio::Gpio::new()
+                    .map_err(|err| err.to_string())?
+                    .get(irq_pin.unwrap_or_default())
+                    .map_err(|err| err.to_string())?
+                    .into_input_pulldown();
+                pin.set_reset_on_drop(true);
+                pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_event| {
+                    if let Err(err) = gpio_tx.send(crate::WorkerCommand::Command(Request::ReadAll)) {
+                        log::error!("irq send error: {err}");
+                    };
+                })
+                .map_err(|err| err.to_string())?;
+                log::debug!("IRQ pin: {}", pin.pin());
+                Some(pin)
+            } else {
+                None
+            };
 
             let mut key_state: u16 = 0;
 
