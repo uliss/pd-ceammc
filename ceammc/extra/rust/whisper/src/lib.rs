@@ -256,7 +256,7 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
                 println!("num output samples: {output_len}");
 
                 let (len_in, len_out) = resampler
-                    .process_all_into_buffer(&input, &mut output, output_len, None)
+                    .process_all_into_buffer(&input, &mut output, samples.len(), None)
                     .map_err(|err| err.to_string())?;
 
                 println!("resampled: in: {len_in}, out: {len_out}");
