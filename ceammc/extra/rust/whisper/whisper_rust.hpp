@@ -54,7 +54,8 @@ bool ceammc_misc_whisper_process_reply(ceammc_misc_whisper *wh);
 
 /// do whisper recognition
 /// @param wh - whisper handle (nullable)
-bool ceammc_misc_whisper_recognize(ceammc_misc_whisper *wh);
+/// @param recorded samplerate
+bool ceammc_misc_whisper_recognize(ceammc_misc_whisper *wh, uint32_t sr);
 
 /// set whisper recognition language
 /// @param wh - whisper handle (nullable)

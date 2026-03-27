@@ -24,7 +24,7 @@ pub enum Request {
     ClearBuf,
     SetLanguage(whisper_lang),
     SetNumThreads(u8),
-    Recognize,
+    Recognize(u32),
 }
 
 pub enum Reply {
@@ -141,13 +141,14 @@ pub extern "C" fn ceammc_misc_whisper_clear(wh: *mut misc_whisper) -> bool {
 #[no_mangle]
 /// do whisper recognition
 /// @param wh - whisper handle (nullable)
-pub extern "C" fn ceammc_misc_whisper_recognize(wh: *mut misc_whisper) -> bool {
+/// @param recorded samplerate
+pub extern "C" fn ceammc_misc_whisper_recognize(wh: *mut misc_whisper, sr: u32) -> bool {
     if wh.is_null() {
         return false;
     }
 
     let wh = unsafe { &*wh };
-    wh.send(Request::Recognize)
+    wh.send(Request::Recognize(sr))
 }
 
 #[no_mangle]
@@ -193,7 +194,6 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
     params.set_print_progress(false);
 
     let mut samples = vec![];
-    let input_sample_rate = 44100;
 
     channel.send_debug(format!(
         "model size: {}MB",
@@ -219,12 +219,12 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
                 samples.clear();
                 Ok(())
             }
-            Request::Recognize => {
+            Request::Recognize(sr) => {
                 channel.send_debug("recognize")?;
                 time_start = Instant::now();
 
                 let target_rate = 16000;
-                let resample_ratio = target_rate as f64 / input_sample_rate as f64;
+                let resample_ratio = target_rate as f64 / sr as f64;
 
                 let resample_params = SincInterpolationParameters {
                     sinc_len: 256,
@@ -270,15 +270,15 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
                 state
                     .full(params.clone(), &outdata)
                     .map_err(|err| err.to_string())?;
-                let num_segments = state.full_n_segments();
+
                 let mut result = String::new();
-                for i in 0..num_segments {
-                    if let Some(segment) = state.get_segment(i) {
-                        result.push_str(&segment.to_str_lossy().unwrap_or_default());
-                        result.push(' ');
-                    }
+                for segment in state.as_iter() {
+                    result.push_str(&segment.to_str_lossy().unwrap_or_default());
+                    result.push(' ');
                 }
-                println!("result: {result}");
+
+                log::info!("result: {result}");
+
                 channel.send_debug(format!(
                     "recognized in {}ms",
                     time_start.elapsed().as_millis()
