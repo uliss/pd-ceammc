@@ -1,0 +1,18 @@
+[package]
+name = "whisper_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+audioadapter = "2.0.1"
+audioadapter-buffers = "2.0.0"
+log = "0.4.29"
+rubato = "1.0.1"
+whisper-rs = "0.16.0"
+ceammc_rs_msg = { path = "../msg" }
+
+[build-dependencies]
+cbindgen = "0.28.0"

@@ -152,6 +152,20 @@ if(Rust_FOUND)
                              staticlib)
     endif()
   endif()
+
+  # rust whisper speech recognition
+  # ############################################################################
+  if(WITH_RUST_WHISPER)
+    if(WIN32)
+      corrosion_import_crate(MANIFEST_PATH whisper/Cargo.toml CRATE_TYPES
+                             cdylib)
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/whisper_rust.dll
+              DESTINATION bin)
+    else()
+      corrosion_import_crate(MANIFEST_PATH whisper/Cargo.toml CRATE_TYPES
+                             staticlib)
+    endif()
+  endif()
 endif()
 
 file(GLOB_RECURSE RUST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} *.rs *.toml)
