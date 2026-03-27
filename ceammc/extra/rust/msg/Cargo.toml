@@ -1,0 +1,13 @@
+[package]
+name = "ceammc_rs_msg"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib", "lib"]
+
+[build-dependencies]
+cbindgen = "0.28.0"
+
+[dependencies]
+log = "0.4.29"

@@ -71,12 +71,18 @@ if(Rust_FOUND)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/core_rust.dll DESTINATION bin)
+      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES cdylib)
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_rs_msg.dll DESTINATION bin)
     else()
       corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES
+                             staticlib)
+      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES
                              staticlib)
     endif()
     target_include_directories(
       core_rust INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>)
+    target_include_directories(
+      ceammc_rs_msg INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/msg>)
   endif()
 
   # rust hw
