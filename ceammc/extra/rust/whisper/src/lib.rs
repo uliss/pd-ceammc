@@ -287,7 +287,7 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
                 channel.send_data(Reply::Text(cstr)).to_worker_result()
             }
             Request::SetLanguage(whisper_lang) => {
-                log::info!("set_language: {whisper_lang:?}");
+                channel.send_debug(format!("set_language: {whisper_lang:?}"))?;
                 params.set_language(match whisper_lang {
                     whisper_lang::Russian => Some("ru"),
                     whisper_lang::English => Some("en"),
@@ -303,7 +303,7 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
                     .min(default)
                     .get() as c_int;
 
-                log::info!("set_n_threads: {num_threads}");
+                channel.send_debug(format!("set_n_threads: {num_threads}"))?;
                 params.set_n_threads(num_threads);
                 Ok(())
             }
