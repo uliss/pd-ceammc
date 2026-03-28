@@ -38,5 +38,5 @@ namespace string {
         }
     }
 
-}
-}
+} // namespace string
+} // namespace ceammc
