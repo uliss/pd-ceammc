@@ -188,10 +188,15 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
 
     let mut state = ctx.create_state().map_err(|err| err.to_string())?;
 
-    let mut params = FullParams::new(whisper_rs::SamplingStrategy::Greedy { best_of: 1 });
+    // let mut params = FullParams::new(whisper_rs::SamplingStrategy::Greedy { best_of: 1 });
+    let mut params = FullParams::new(whisper_rs::SamplingStrategy::BeamSearch {
+        beam_size: 5,
+        patience: -1.0,
+    });
     params.set_n_threads(1);
     params.set_print_special(false);
     params.set_print_progress(false);
+    params.set_single_segment(true);
 
     let mut samples = vec![];
 
