@@ -83,6 +83,17 @@ else()
     target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde_stub.cpp)
 endif()
 
+if(WITH_RUST_WHISPER)
+  target_include_directories(ceammc_misc
+      PRIVATE
+          ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+          ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/whisper
+  )
+  target_link_libraries(ceammc_misc PRIVATE whisper_rust)
+  target_compile_definitions(ceammc_misc PRIVATE WITH_RUST_WHISPER)
+  target_sources(ceammc_misc PRIVATE misc_whisper_tilde.h misc_whisper_tilde.cpp)
+endif()
+
 if(WIN32)
     set(DOC_INSTALL_PATH "extra/ceammc")
 else()

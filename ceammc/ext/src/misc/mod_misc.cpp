@@ -19,6 +19,10 @@ void setup_speech_rhvoice_tilde();
 #include "fluid_tilde.h"
 #include "risset_glissando.h"
 
+#ifdef WITH_RUST_WHISPER
+#include "misc_whisper_tilde.h"
+#endif
+
 extern void setup_live_capture_tilde();
 extern void setup_misc_qrcode();
 extern void setup_misc_sfizz_tilde();
@@ -46,5 +50,9 @@ void ceammc_misc_setup()
 #ifdef WITH_TTS_FLITE
     setup_misc_speech_flite();
     setup_misc_speech_filte_tilde();
+#endif
+
+#ifdef WITH_RUST_WHISPER
+    setup_misc_whisper_tilde();
 #endif
 }

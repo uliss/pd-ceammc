@@ -278,7 +278,13 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
 
                 let mut result = String::new();
                 for segment in state.as_iter() {
-                    result.push_str(&segment.to_str_lossy().unwrap_or_default());
+                    result.push_str(
+                        &segment
+                            .to_str_lossy()
+                            .unwrap_or_default()
+                            .replace("{", "") // remove unsupported Pd characters
+                            .replace("}", ""),
+                    );
                     result.push(' ');
                 }
 
