@@ -34,24 +34,21 @@
 #X text 270 398 MSG: Отправляемое сообщение. Поддерживаются также сообщения
 \, разделенные запятой. Тип: list.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 453 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 453 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 479 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 480 1\.;
-#X text 270 480 вывод сообщений.;
+#X text 130 454 1\.;
+#X text 270 454 вывод сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 530 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 533 библиотека: ceammc v0.9.8;
-#X text 536 545 смотрите также:;
-#X obj 657 548 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 библиотека: ceammc v0.9.8;
+#X text 536 520 смотрите также:;
+#X obj 657 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [msg.onclose] @url msg.onclose-help.pd;
-#N canvas 10 552 400 290 info 0;
+#N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -75,7 +72,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 552 pd info;
+#X restore 10 527 pd info;
 #X connect 9 0 10 0;
 #X connect 9 0 11 0;
 #X connect 9 0 12 0;

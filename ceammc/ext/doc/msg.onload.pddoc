@@ -38,7 +38,6 @@
         <tr lang="ru">Отправляемое сообщение. Поддерживаются также сообщения, разделенные запятой.</tr>
       </argument>
     </arguments>
-    <inlets />
     <outlets>
       <outlet>
         <out type="any">
@@ -74,11 +73,11 @@
 |                        |
 [ui.dt @auto_size 0]     [ui.dt @auto_size 0 @size 140 15]
 
-[msg.onload 1 2 3 4 5]    /*implicit list*/
+[msg.onload 1 2 3 4 5]   /*<-- implicit list*/
 |
 [ui.dt @auto_size 0]
 
-[msg.onload list A B @C]  /*explicit list*/
+[msg.onload list A B @C] /*<-- explicit list*/
 |
 [ui.dt @auto_size 0]
 
@@ -90,7 +89,7 @@
 |
 [ui.dt @auto_size 0 @size 140 15]
 
-[msg.onload A \, B \, C]  /*comma separated messages*/
+[msg.onload A \, B \, C] /*<-- comma separated messages*/
 |
 [print]
 ]]>
