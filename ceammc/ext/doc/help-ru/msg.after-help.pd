@@ -6,55 +6,58 @@
 #X obj 1 1 cnv 5 765 40 empty empty msg.after 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 msg.after;
-#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 if new input message received \, while delayed message
-is not send \, the delayed message is resetted;
-#X msg 165 201 1;
-#X obj 50 230 osc~ 500;
-#X obj 165 230 msg.after 500 0;
-#X msg 165 259 @gate \$1;
-#X obj 50 288 env.adsr~ 20 100 30 500;
-#X obj 50 317 ui.gain~ @size 120 14;
-#X obj 280 317 ui.dsp~;
-#X obj 50 345 dac~;
-#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 400 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 При получении нового входящего сообщения \, если предыдущее
+добавленное сообщение еще не было отправлено: его отправка отменяется.
+Далее будет запланирована отправка добавленного сообщения только для
+этого нового сообщения.;
+#X obj 230 103 cnv 1 2 75 empty empty empty 17 7 0 10 -158925 -1 0;
+#X msg 165 246 1;
+#X obj 50 275 osc~ 500;
+#X obj 165 275 msg.after 500 0;
+#X msg 165 304 @gate \$1;
+#X obj 50 333 env.adsr~ 20 100 30 500;
+#X obj 50 362 ui.gain~ @size 120 14;
+#X obj 280 362 ui.dsp~;
+#X obj 50 390 dac~;
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 445 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 403 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 401 1\.;
-#X text 170 401 float;
-#X obj 268 402 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 401 DELAY(ms): message delay. Тип: float. Минимальное значение:
-0\.;
-#X text 130 441 2\.;
-#X text 170 441 list;
-#X obj 268 442 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 441 MSG: message arguments. Тип: list.;
-#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 481 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 446 1\.;
+#X text 170 446 float;
+#X obj 268 447 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 446 DELAY(ms): задержка отправки добавленного сообщения.
+Тип: float. Минимальное значение: 0\.;
+#X text 130 486 2\.;
+#X text 170 486 list;
+#X obj 268 487 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 486 MSG: сообщение отправляемое после входного. Тип: list.;
+#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 526 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 482 1\.;
-#X text 270 482 any input message.;
-#X text 130 507 2\.;
-#X text 170 507 float:;
-#X text 270 507 change message delay.;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 547 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 527 1\.;
+#X text 270 527 любое входящее сообщение.;
+#X text 130 552 2\.;
+#X text 170 552 float:;
+#X text 270 552 установить время задержки оправки добавленного сообщения.;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 592 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 548 1\.;
-#X text 270 548 message output.;
+#X text 130 593 1\.;
+#X text 270 593 выходные сообщения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 598 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 601 библиотека: ceammc v0.9.8;
-#X text 594 613 смотрите также:;
-#X obj 715 616 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 643 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 646 библиотека: ceammc v0.9.8;
+#X text 594 658 смотрите также:;
+#X obj 715 661 ui.link @background_color 0.78431 0.78431 0.78431
 @title [msg] @url msg-help.pd;
-#N canvas 10 620 400 290 info 0;
+#N canvas 10 665 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,11 +81,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 620 pd info;
-#X connect 6 0 8 0;
-#X connect 8 0 9 0;
-#X connect 7 0 10 0;
+#X restore 10 665 pd info;
+#X connect 7 0 9 0;
 #X connect 9 0 10 0;
+#X connect 8 0 11 0;
 #X connect 10 0 11 0;
-#X connect 11 0 13 0;
-#X connect 11 0 13 1;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 12 0 14 1;

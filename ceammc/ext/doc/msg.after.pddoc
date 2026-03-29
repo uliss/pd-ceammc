@@ -20,44 +20,45 @@
       </also>
     </meta>
     <info>
-      <par>
-        <tr lang="en">if new input message received, while delayed message is not send, the delayed
-        message is resetted</tr>
-        <!-- old: если получено новое входное сообщение, а отложенное
-                сообщение не отправлено, то отложенное сообщение сбрасывается -->
-        <tr lang="ru" finished="false">если получено новое входное сообщение, а отложенное
-        сообщение не отправлено, то отложенное сообщение сбрасывается</tr>
+      <par style="info">
+        <tr lang="en">Upon receiving a new incoming message, if the previously
+        added message has not yet been sent: its sending is canceled.
+        The sending of the added message will then be scheduled only for this new message.</tr>
+        <tr lang="ru">При получении нового входящего сообщения, если предыдущее добавленное
+        сообщение еще не  было отправлено: его отправка отменяется.
+        Далее будет запланирована отправка добавленного сообщения только для этого
+        нового сообщения.</tr>
       </par>
     </info>
     <arguments>
       <argument name="DELAY" type="float" minvalue="0" units="millisecond">
-        <tr lang="en">message delay</tr>
-        <tr lang="ru" finished="false">задержка сообщения</tr>
+        <tr lang="en">delay in sending the added message</tr>
+        <tr lang="ru">задержка отправки добавленного сообщения</tr>
       </argument>
       <argument name="MSG" type="list">
-        <tr lang="en">message arguments</tr>
-        <tr lang="ru" finished="false">сообщение аргументов</tr>
+        <tr lang="en">message sent after the incoming one</tr>
+        <tr lang="ru">сообщение отправляемое после входного</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">any input message</tr>
-          <tr lang="ru" finished="false">Любое входное сообщение</tr>
+          <tr lang="ru">любое входящее сообщение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">change message delay</tr>
-          <tr lang="ru" finished="false">Изменение сообщения задержка</tr>
+          <tr lang="en">set the delay time for sending the added message</tr>
+          <tr lang="ru">установить время задержки оправки добавленного сообщения</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">message output</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="en">output messages</tr>
+          <tr lang="ru">выходные сообщения</tr>
         </out>
       </outlet>
     </outlets>
