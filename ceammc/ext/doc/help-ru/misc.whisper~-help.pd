@@ -1,0 +1,102 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 626 50 распознование речи;
+#X obj 1 1 cnv 5 765 40 empty empty misc.whisper~ 20 20 0 20 -104026
+-4096 0;
+#X obj 421 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ceammc/whisper~] @url misc.whisper~-help.pd;
+#X obj 558 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[whisper~] @url misc.whisper~-help.pd;
+#X obj 644 8 misc.whisper~;
+#X obj 50 118 misc.whisper~;
+#X obj 20 168 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 173 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 176 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 174 @model;
+#X text 270 174 (при инициализации) Путь к модели распознования. Тип:
+symbol.;
+#X obj 250 204 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 204 @lang;
+#X text 270 204 Язык распознования. Тип: symbol. Значение по умолчанию:
+auto. Разрешённые значения: auto \, en \, ru.;
+#X obj 250 246 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 246 @max_length;
+#X text 270 246 Максимальная продолжительность входящего аудио сигнала.
+Тип: float. Единицы: 'sec'. Значение по умолчанию: 10.0\. Диапазон:
+[0.0\..120.0].;
+#X obj 250 303 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 303 @output;
+#X text 270 303 Режим вывода. Тип: symbol. Значение по умолчанию: list.
+Разрешённые значения: list \, symbol \, string.;
+#X obj 250 345 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 345 @threads;
+#X text 270 345 Число потоков распознования. Тип: int. Значение по
+умолчанию: 1\. Диапазон: [1\..16].;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 402 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+0;
+#X msg 130 403 clear;
+#X text 270 403 очистить внутренний аудио-буфер.;
+#X obj 250 438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 438 recognize;
+#X text 270 438 начать процесс распознования внутреннего аудио-буфера.;
+#X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 473 record;
+#X text 270 473 начать запись во внутренний аудио-буфер.;
+#X obj 250 508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 508 stop;
+#X text 270 508 остановить запись во внутренний буфер.;
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 558 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 559 1\.;
+#X text 170 559 ~;
+#X text 270 559 входной сигнал.;
+#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 599 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 600 1\.;
+#X text 170 600 symbol:;
+#X text 270 600 весь распознанный текст в виде единого symbol \, если
+установлено свойство @output symbol.;
+#X text 170 640 list:;
+#X text 270 640 распознанный текст как список символов \, если установлено
+свойство @output list.;
+#X text 170 680 data:string:;
+#X text 270 680 весь распознанный текст как тип данных String \, если
+установлено свойство @output string.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
+#X obj 1 745 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 748 библиотека: ceammc v0.9.8;
+#N canvas 10 767 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 misc.whisper~;
+#X text 10 76 категория:;
+#X text 120 76 misc;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 mod \, player;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 767 pd info;

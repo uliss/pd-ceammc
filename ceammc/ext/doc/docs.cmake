@@ -570,6 +570,7 @@ set(DOC_FILES
     midi.tuning
     midi.vramp
     midi.vrand
+    misc.whisper~
     mix~
     mlist.flatten
     modplug~

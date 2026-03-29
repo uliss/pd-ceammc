@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
+  <object name="misc.whisper~">
+    <title>misc.whisper~</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">speech recognition</tr>
+        <tr lang="ru">распознование речи</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>misc</category>
+      <keywords>mod player</keywords>
+      <since>0.9.8</since>
+      <aliases>
+        <alias>ceammc/whisper~</alias>
+        <alias>whisper~</alias>
+      </aliases>
+    </meta>
+    <properties>
+      <!-- @lang -->
+      <property name="@lang" type="symbol" default="auto" enum="auto en ru" access="readwrite">
+        <tr lang="en">recognition language</tr>
+        <tr lang="ru">язык распознования</tr>
+      </property>
+      <!-- @output -->
+      <property name="@output" type="symbol" default="list" enum="list symbol string" access="readwrite">
+        <tr lang="en">output mode</tr>
+        <tr lang="ru">режим вывода</tr>
+      </property>
+      <!-- @max_length -->
+      <property name="@max_length" type="float" minvalue="0.0" maxvalue="120.0" default="10.0" units="second" access="readwrite">
+        <tr lang="en">maximum length of the input audio</tr>
+        <tr lang="ru">максимальная продолжительность входящего аудио сигнала</tr>
+      </property>
+      <!-- @model -->
+      <property name="@model" type="symbol" default="" access="initonly">
+        <tr lang="en">path to recognition model</tr>
+        <tr lang="ru">путь к модели распознования</tr>
+      </property>
+      <!-- @threads -->
+      <property name="@threads" type="int" minvalue="1" maxvalue="16" default="1" access="readwrite">
+        <tr lang="en">number of worker threads</tr>
+        <tr lang="ru">число потоков распознования</tr>
+      </property>
+    </properties>
+    <methods>
+      <method name="clear">
+        <info>
+          <tr lang="en">clear internal audio buffer</tr>
+          <tr lang="ru">очистить внутренний аудио-буфер</tr>
+        </info>
+      </method>
+      <method name="stop">
+        <info>
+          <tr lang="en">stop recording into internal audio buffer</tr>
+          <tr lang="ru">остановить запись во внутренний буфер</tr>
+        </info>
+      </method>
+      <method name="record">
+        <info>
+          <tr lang="en">start recording into internal audio buffer</tr>
+          <tr lang="ru">начать запись во внутренний аудио-буфер</tr>
+        </info>
+      </method>
+      <method name="recognize">
+        <info>
+          <tr lang="en">begin recognition process of internal audio-buffer</tr>
+          <tr lang="ru">начать процесс распознования внутреннего аудио-буфера</tr>
+        </info>
+      </method>
+    </methods>
+    <inlets>
+      <inlet type="audio">
+        <in>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru">входной сигнал</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out type="symbol">
+          <tr lang="en">all recognized text as single symbol, if @mode symbol is set</tr>
+          <tr lang="ru">весь распознанный текст в виде единого symbol, если установлено свойство @output symbol</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">recognized text as list of symbol atom, if @mode list is set</tr>
+          <tr lang="ru">распознанный текст как список символов, если установлено свойство @output list</tr>
+        </out>
+        <out type="data:string">
+          <tr lang="en">all recognized text as String data type, if @mode string is set</tr>
+          <tr lang="ru">весь распознанный текст как тип данных String, если установлено свойство @output string</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
+<![CDATA[
+[misc.whisper~]
+]]>
+      </pdascii>
+    </example>
+  </object>
+</pddoc>

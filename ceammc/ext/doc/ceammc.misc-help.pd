@@ -6,22 +6,25 @@
 #X text 220 117 outputs a single impulse on a bang input;
 #X obj 30 145 ui.link @title [fluid~] @url fluid~-help.pd;
 #X text 220 142 FluidSynth SoundFont 2 player;
-#X obj 30 170 ui.link @title [modplug~] @url modplug~-help.pd;
-#X text 220 167 MOD file player;
-#X obj 30 195 ui.link @title [qrcode] @url qrcode-help.pd;
-#X text 220 192 QR code generator;
-#X obj 30 220 ui.link @title [risset.gliss] @url risset.gliss-help.pd;
-#X text 220 217 Sheppard/Risset glissando calculator;
-#X obj 30 245 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 220 242 SFZ format sample player;
-#X obj 30 270 ui.link @title [speech.flite] @url speech.flite-help.pd;
-#X text 220 267 render speech to array;
-#X obj 30 295 ui.link @title [speech.flite~] @url
+#X obj 30 170 ui.link @title [misc.whisper~] @url
+misc.whisper~-help.pd;
+#X text 220 167 speech recognition;
+#X obj 30 195 ui.link @title [modplug~] @url modplug~-help.pd;
+#X text 220 192 MOD file player;
+#X obj 30 220 ui.link @title [qrcode] @url qrcode-help.pd;
+#X text 220 217 QR code generator;
+#X obj 30 245 ui.link @title [risset.gliss] @url risset.gliss-help.pd;
+#X text 220 242 Sheppard/Risset glissando calculator;
+#X obj 30 270 ui.link @title [sfizz~] @url sfizz~-help.pd;
+#X text 220 267 SFZ format sample player;
+#X obj 30 295 ui.link @title [speech.flite] @url speech.flite-help.pd;
+#X text 220 292 render speech to array;
+#X obj 30 320 ui.link @title [speech.flite~] @url
 speech.flite~-help.pd;
-#X text 220 292 Flite text to speech synthesis;
-#X obj 30 320 ui.link @title [speech.rhvoice~] @url
+#X text 220 317 Flite text to speech synthesis;
+#X obj 30 345 ui.link @title [speech.rhvoice~] @url
 speech.rhvoice~-help.pd;
-#X text 220 317 RHVoice text to speech synthesis;
+#X text 220 342 RHVoice text to speech synthesis;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::misc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
