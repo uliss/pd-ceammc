@@ -200,6 +200,8 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
 
     let mut samples = vec![];
 
+    channel.send_debug(format!("model path: '{}'", model.display()))?;
+
     channel.send_debug(format!(
         "model size: {}MB",
         model.metadata().map_err(|e| e.to_string())?.len() / 1000000
