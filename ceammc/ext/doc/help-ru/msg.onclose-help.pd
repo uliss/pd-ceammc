@@ -6,23 +6,26 @@
 -4096 0;
 #X obj 659 11 msg.onclose;
 #X text 50 118 Close this help and see Pd console window;
-#X obj 50 147 msg.onclose MESSAGE 1 2 3;
+#X obj 50 147 msg.onclose MESSAGE1;
 #X obj 50 176 print onclose;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 50 205 Comma separated messages;
+#X obj 50 234 msg.onclose MSG1 \, MSG2;
+#X obj 50 262 print comma_separated;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 234 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 232 1\.;
-#X text 170 232 list;
-#X obj 268 233 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 232 ARGS: Отправляемое сообщение. Поддерживаются также
+#X text 130 318 1\.;
+#X text 170 318 list;
+#X obj 268 319 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 318 ARGS: Отправляемое сообщение. Поддерживаются также
 сообщения \, разделенные запятой. Тип: list.;
-#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 287 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 373 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 288 1\.;
-#X text 270 288 вывод сообщений.;
+#X text 130 374 1\.;
+#X text 270 374 вывод сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -59,3 +62,4 @@ https://github.com/uliss/pd-ceammc;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
 #X connect 5 0 6 0;
+#X connect 8 0 9 0;

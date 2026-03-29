@@ -38,9 +38,15 @@
 <![CDATA[
 /*Close this help and see Pd console window*/
 
-[msg.onclose MESSAGE 1 2 3]
+[msg.onclose MESSAGE1]
 |
 [print onclose]
+
+/*Comma separated messages*/
+
+[msg.onclose MSG1 \, MSG2]
+|
+[print comma_separated]
 ]]>
       </pdascii>
     </example>
