@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_output.h"
+#include "ceammc_pd.h"
 
 #include <cstring>
 
@@ -246,12 +247,35 @@ void Message::output(t_outlet* x) const
     case LIST:
         outletAtomList(x, v_list_.view());
         break;
-    case ANY:
-        outlet_anything(x,
-            value_.asSymbol(),
-            static_cast<int>(v_list_.size()),
-            v_list_.toPdData());
-        break;
+    case ANY: {
+        if (value_.isSemicolon()) {
+            auto target = v_list_.symbolAt(0, &s_);
+            if (target != &s_) {
+                auto args = v_list_.view(1);
+                if (args.empty())
+                    pd::send_bang(target);
+                else if (args.isFloat())
+                    pd::send_float(target, args.asFloat());
+                else if (args.isSymbol())
+                    pd::send_symbol(target, args.asSymbol());
+                else {
+                    auto sel = args.symbolAt(0, &s_);
+                    if (sel == &s_)
+                        pd::send_list(target, args);
+                    else
+                        pd::send_message(target, sel, args.subView(1));
+                }
+
+            } else {
+                LIB_ERR << "invalid semicolon message: " << v_list_;
+            }
+        } else {
+            outlet_anything(x,
+                value_.asSymbol(),
+                static_cast<int>(v_list_.size()),
+                v_list_.toPdData());
+        }
+    } break;
     case DATA:
         outletAtom(x, value_);
         break;
@@ -288,7 +312,7 @@ Message Message::makeTyped(const AtomListView& lv)
     } else if (lv.size() >= 2 && lv[0].isFloat()) { // [1 3(
         m.type_ = LIST;
         m.v_list_ = lv;
-    } else if (lv.size() > 0 && lv[0].isSymbol()) {
+    } else if (lv.size() > 0 && (lv[0].isSymbol() || lv[0].isSemicolon())) { // [any message(
         m.type_ = ANY;
         m.value_ = lv[0];
         m.v_list_ = lv.subView(1);

@@ -199,5 +199,6 @@ TEST_CASE("Message", "[core]")
         REQUIRE(Message::makeTyped(LA("any", 1, 2, 3)) == Message("any", 1, 2, 3));
         REQUIRE(Message::makeTyped(LA("float", "ABC")) == Message("float", "ABC"));
         REQUIRE(Message::makeTyped(LA("symbol", 123)) == Message("symbol", 123));
+        REQUIRE(Message::makeTyped(LA(Atom::semicolon(), S("test"), A(1))).isAny());
     }
 }
