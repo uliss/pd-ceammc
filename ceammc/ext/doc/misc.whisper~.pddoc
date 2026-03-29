@@ -54,28 +54,28 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear internal audio buffer</tr>
+          <tr lang="en">clear the internal audio buffer</tr>
           <tr lang="ru">очистить внутренний аудио-буфер</tr>
         </info>
       </method>
       <!-- recognize -->
       <method name="recognize">
         <info>
-          <tr lang="en">begin recognition process of internal audio-buffer</tr>
+          <tr lang="en">start the process of recognizing the internal audio buffer</tr>
           <tr lang="ru">начать процесс распознования внутреннего аудио-буфера</tr>
         </info>
       </method>
       <!-- record -->
       <method name="record">
         <info>
-          <tr lang="en">start recording into internal audio buffer</tr>
+          <tr lang="en">start recording to the internal audio buffer</tr>
           <tr lang="ru">начать запись во внутренний аудио-буфер</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop recording into internal audio buffer</tr>
+          <tr lang="en">stop recording to the internal audio buffer</tr>
           <tr lang="ru">остановить запись во внутренний буфер</tr>
         </info>
       </method>
@@ -91,17 +91,17 @@
     <outlets>
       <outlet>
         <out type="symbol">
-          <tr lang="en">all recognized text as single symbol, if @mode symbol is set</tr>
+          <tr lang="en">all recognized text as a single symbol, if @mode symbol is set</tr>
           <tr lang="ru">весь распознанный текст в виде единого symbol, если установлено свойство
           @output symbol</tr>
         </out>
         <out type="list">
-          <tr lang="en">recognized text as list of symbol atom, if @mode list is set</tr>
+          <tr lang="en">recognized text as a list of symbol atoms, if @mode list is set</tr>
           <tr lang="ru">распознанный текст как список символов, если установлено свойство @output
           list</tr>
         </out>
         <out type="data:string">
-          <tr lang="en">all recognized text as String data type, if @mode string is set</tr>
+          <tr lang="en">all recognized text as a String data type, if @mode string is set</tr>
           <tr lang="ru">весь распознанный текст как тип данных String, если установлено свойство
           @output string</tr>
         </out>

@@ -1589,27 +1589,27 @@ midi.sustain-help.pd;
 #X text 200 16778 выводит единичный импульс при пустом входном событии;
 #X obj 30 16806 ui.link @title [fluid~] @url fluid~-help.pd;
 #X text 200 16803 плеер для семплов FluidSynth SoundFont 2;
-#X obj 30 16831 ui.link @title [misc.whisper~] @url
-misc.whisper~-help.pd;
-#X text 200 16828 распознование речи;
-#X obj 30 16856 ui.link @title [modplug~] @url modplug~-help.pd;
-#X text 200 16853 плеер файлов MOD;
-#X obj 30 16881 ui.link @title [qrcode] @url qrcode-help.pd;
-#X text 200 16878 генератор QR кода;
-#X obj 30 16906 ui.link @title [risset.gliss] @url
+#X obj 30 16831 ui.link @title [modplug~] @url modplug~-help.pd;
+#X text 200 16828 плеер файлов MOD;
+#X obj 30 16856 ui.link @title [qrcode] @url qrcode-help.pd;
+#X text 200 16853 генератор QR кода;
+#X obj 30 16881 ui.link @title [risset.gliss] @url
 risset.gliss-help.pd;
-#X text 200 16903 калькулятор для глиссандо Шеппарда/Риссе;
-#X obj 30 16931 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 200 16928 плеер семплов в формате SFZ;
-#X obj 30 16956 ui.link @title [speech.flite] @url
+#X text 200 16878 калькулятор для глиссандо Шеппарда/Риссе;
+#X obj 30 16906 ui.link @title [sfizz~] @url sfizz~-help.pd;
+#X text 200 16903 плеер семплов в формате SFZ;
+#X obj 30 16931 ui.link @title [speech.flite] @url
 speech.flite-help.pd;
-#X text 200 16953 рендеринг синтезатора речи в массив;
-#X obj 30 16981 ui.link @title [speech.flite~] @url
+#X text 200 16928 рендеринг синтезатора речи в массив;
+#X obj 30 16956 ui.link @title [speech.flite~] @url
 speech.flite~-help.pd;
-#X text 200 16978 синтезатор речи Flite;
-#X obj 30 17006 ui.link @title [speech.rhvoice~] @url
+#X text 200 16953 синтезатор речи Flite;
+#X obj 30 16981 ui.link @title [speech.rhvoice~] @url
 speech.rhvoice~-help.pd;
-#X text 200 17003 синтезатор речи RHVoice;
+#X text 200 16978 синтезатор речи RHVoice;
+#X obj 30 17006 ui.link @title [speech.whisper~] @url
+speech.whisper~-help.pd;
+#X text 200 17003 распознование речи;
 #X obj 20 17028 cnv 5 38 32 empty empty msg 4 16 0 17 -262144 -49933
 0;
 #X obj 20 17070 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;

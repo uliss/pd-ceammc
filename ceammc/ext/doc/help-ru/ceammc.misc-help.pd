@@ -6,25 +6,25 @@
 #X text 220 117 выводит единичный импульс при пустом входном событии;
 #X obj 30 145 ui.link @title [fluid~] @url fluid~-help.pd;
 #X text 220 142 плеер для семплов FluidSynth SoundFont 2;
-#X obj 30 170 ui.link @title [misc.whisper~] @url
-misc.whisper~-help.pd;
-#X text 220 167 распознование речи;
-#X obj 30 195 ui.link @title [modplug~] @url modplug~-help.pd;
-#X text 220 192 плеер файлов MOD;
-#X obj 30 220 ui.link @title [qrcode] @url qrcode-help.pd;
-#X text 220 217 генератор QR кода;
-#X obj 30 245 ui.link @title [risset.gliss] @url risset.gliss-help.pd;
-#X text 220 242 калькулятор для глиссандо Шеппарда/Риссе;
-#X obj 30 270 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 220 267 плеер семплов в формате SFZ;
-#X obj 30 295 ui.link @title [speech.flite] @url speech.flite-help.pd;
-#X text 220 292 рендеринг синтезатора речи в массив;
-#X obj 30 320 ui.link @title [speech.flite~] @url
+#X obj 30 170 ui.link @title [modplug~] @url modplug~-help.pd;
+#X text 220 167 плеер файлов MOD;
+#X obj 30 195 ui.link @title [qrcode] @url qrcode-help.pd;
+#X text 220 192 генератор QR кода;
+#X obj 30 220 ui.link @title [risset.gliss] @url risset.gliss-help.pd;
+#X text 220 217 калькулятор для глиссандо Шеппарда/Риссе;
+#X obj 30 245 ui.link @title [sfizz~] @url sfizz~-help.pd;
+#X text 220 242 плеер семплов в формате SFZ;
+#X obj 30 270 ui.link @title [speech.flite] @url speech.flite-help.pd;
+#X text 220 267 рендеринг синтезатора речи в массив;
+#X obj 30 295 ui.link @title [speech.flite~] @url
 speech.flite~-help.pd;
-#X text 220 317 синтезатор речи Flite;
-#X obj 30 345 ui.link @title [speech.rhvoice~] @url
+#X text 220 292 синтезатор речи Flite;
+#X obj 30 320 ui.link @title [speech.rhvoice~] @url
 speech.rhvoice~-help.pd;
-#X text 220 342 синтезатор речи RHVoice;
+#X text 220 317 синтезатор речи RHVoice;
+#X obj 30 345 ui.link @title [speech.whisper~] @url
+speech.whisper~-help.pd;
+#X text 220 342 распознование речи;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::misc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

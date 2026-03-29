@@ -950,9 +950,6 @@ click~	outputs a single impulse on a bang input / выводит единичн�
 ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
 ceammc/fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
-misc.whisper~	speech recognition / распознование речи
-ceammc/whisper~	speech recognition / распознование речи
-whisper~	speech recognition / распознование речи
 modplug~	MOD file player / плеер файлов MOD
 ceammc/modplug~	MOD file player / плеер файлов MOD
 qrcode	QR code generator / генератор QR кода
@@ -965,6 +962,9 @@ speech.flite~	Flite text to speech synthesis / синтезатор речи Fli
 speech.rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 ceammc/rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
+speech.whisper~	speech recognition / распознование речи
+ceammc/whisper~	speech recognition / распознование речи
+whisper~	speech recognition / распознование речи
 loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
 ceammc/loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
 msg	message constructor / конструктор сообщений
