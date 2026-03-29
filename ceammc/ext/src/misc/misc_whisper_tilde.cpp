@@ -67,7 +67,13 @@ MiscWhisperTilde::MiscWhisperTilde(const PdArgs& args)
 void MiscWhisperTilde::initDone()
 {
     if (model_->cstr()[0] != 0) {
-        w_.reset(ceammc_misc_whisper_create(model_->cstr(),
+        auto path = findInStdPaths(model_->cstr());
+        if (path.empty()) {
+            OBJ_ERR << "model not found: " << model_->cstr();
+            return;
+        }
+
+        w_.reset(ceammc_misc_whisper_create(path.c_str(),
             on_notify(),
             on_message(),
             {
