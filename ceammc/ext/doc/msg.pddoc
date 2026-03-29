@@ -25,51 +25,43 @@
     </meta>
     <arguments>
       <argument name="NAME" type="symbol">
-        <tr lang="en">message selector</tr>
-        <tr lang="ru" finished="false">Селектор сообщений</tr>
+        <tr lang="en">message selector (name)</tr>
+        <tr lang="ru">селектор сообщения (имя)</tr>
       </argument>
       <argument name="X" type="any">
         <tr lang="en">message content</tr>
-        <tr lang="ru" finished="false">контент сообщения</tr>
+        <tr lang="ru">содержимое сообщения</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">appends all atoms to message content and outputs it</tr>
-          <!-- old: Добавляет все атомы к содержанию сообщения и
-                    выводит его -->
-          <tr lang="ru" finished="false">Добавляет все атомы к содержанию сообщения и выводит
+          <tr lang="en">appends all elements to the message content, and then outputs it</tr>
+          <tr lang="ru">добавляет все элементы к содержимому сообщения, а затем выводит
           его</tr>
         </in>
         <in on="list">
-          <tr lang="en">appends input list to message content and outputs it</tr>
-          <!-- old: Добавляет список ввода к содержанию сообщения и
-                    выводит его -->
-          <tr lang="ru" finished="false">Добавляет список ввода к содержанию сообщения и выводит
+          <tr lang="en">appends all list elements to the message content, and then outputs it</tr>
+          <tr lang="ru">добавляет все элементы списка к содержимому сообщения, а затем выводит
           его</tr>
         </in>
         <in on="float">
-          <tr lang="en">appends float to message content and outputs it</tr>
-          <!-- old: Добавляет поплавок к контенту сообщения и
-                    выводит его -->
-          <tr lang="ru" finished="false">Добавляет поплавок к контенту сообщения и выводит его</tr>
+          <tr lang="en">appends a float number to the content of the message, and then outputs it</tr>
+          <tr lang="ru">добавляет число к содержимому сообщения, а затем выводит его</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">appends symbol to message content and outputs it</tr>
-          <!-- old: Добавляет символ к содержанию сообщения и
-                    выводит его -->
-          <tr lang="ru" finished="false">Добавляет символ к содержанию сообщения и выводит его</tr>
+          <tr lang="en">appends a symbol to the content of the message, and then outputs it</tr>
+          <tr lang="ru">добавляет символ к содержимому сообщения, а затем выводит его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">change message selector</tr>
-          <tr lang="ru" finished="false">Изменить селектор сообщений</tr>
+          <tr lang="en">change the message selector</tr>
+          <tr lang="ru">изменить селектор сообщения</tr>
         </in>
         <in on="list">
-          <tr lang="en">change message selector and first atoms</tr>
-          <tr lang="ru" finished="false">Изменить селектор сообщений и первые атомы</tr>
+          <tr lang="en">change the message selector and first atoms</tr>
+          <tr lang="ru">изменить селектор сообщения и первые элементы</tr>
         </in>
       </inlet>
     </inlets>
@@ -77,7 +69,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">message output</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="ru">вывод сообщений</tr>
         </out>
       </outlet>
     </outlets>

@@ -72,41 +72,45 @@
 #X text 130 592 1\.;
 #X text 170 592 symbol;
 #X obj 268 593 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 592 NAME: message selector. Тип: symbol.;
+#X text 270 592 NAME: селектор сообщения (имя). Тип: symbol.;
 #X text 130 617 2\.;
 #X text 170 617 any;
 #X obj 268 618 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 617 X: message content. Тип: any.;
+#X text 270 617 X: содержимое сообщения. Тип: any.;
 #X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 657 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 658 1\.;
 #X text 170 658 any:;
-#X text 270 658 appends all atoms to message content and outputs it.;
-#X text 170 683 list:;
-#X text 270 683 appends input list to message content and outputs it.;
-#X text 170 708 float:;
-#X text 270 708 appends float to message content and outputs it.;
-#X text 170 733 symbol:;
-#X text 270 733 appends symbol to message content and outputs it.;
-#X text 130 758 2\.;
-#X text 170 758 symbol:;
-#X text 270 758 change message selector.;
-#X text 170 783 list:;
-#X text 270 783 change message selector and first atoms.;
-#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 823 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 270 658 добавляет все элементы к содержимому сообщения \, а
+затем выводит его.;
+#X text 170 698 list:;
+#X text 270 698 добавляет все элементы списка к содержимому сообщения
+\, а затем выводит его.;
+#X text 170 738 float:;
+#X text 270 738 добавляет число к содержимому сообщения \, а затем
+выводит его.;
+#X text 170 763 symbol:;
+#X text 270 763 добавляет символ к содержимому сообщения \, а затем
+выводит его.;
+#X text 130 803 2\.;
+#X text 170 803 symbol:;
+#X text 270 803 изменить селектор сообщения.;
+#X text 170 828 list:;
+#X text 270 828 изменить селектор сообщения и первые элементы.;
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 868 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 824 1\.;
-#X text 270 824 message output.;
+#X text 130 869 1\.;
+#X text 270 869 вывод сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 874 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 877 библиотека: ceammc v0.9.8;
-#N canvas 10 896 400 290 info 0;
+#X obj 1 919 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 922 библиотека: ceammc v0.9.8;
+#N canvas 10 941 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -130,7 +134,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 896 pd info;
+#X restore 10 941 pd info;
 #X connect 5 0 11 0;
 #X connect 6 0 12 0;
 #X connect 7 0 13 0;
