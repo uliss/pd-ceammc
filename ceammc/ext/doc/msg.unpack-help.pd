@@ -44,11 +44,14 @@
 #X obj 20 515 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 516 1\.;
-#X text 270 516 symbol: message selector.;
+#X text 170 516 symbol:;
+#X text 270 516 message selector.;
 #X text 130 536 ...;
-#X text 270 536 atom: message args.;
-#X text 130 556 n+1\.;
-#X text 270 556 list: last message args.;
+#X text 170 536 atom:;
+#X text 270 536 message atom.;
+#X text 130 556 n.;
+#X text 170 556 atom:;
+#X text 270 556 n-th element of the message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

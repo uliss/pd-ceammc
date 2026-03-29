@@ -37,27 +37,27 @@
       <inlet>
         <in>
           <tr lang="en">any messages</tr>
-          <tr lang="ru" finished="false">Любые сообщения</tr>
+          <tr lang="ru">любые сообщения</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
-        <out type="any">
-          <tr lang="en">symbol: message selector</tr>
-          <tr lang="ru" finished="false">символ: селектор сообщений</tr>
+        <out type="symbol">
+          <tr lang="en">message selector</tr>
+          <tr lang="ru">селектор сообщений</tr>
         </out>
       </outlet>
       <outlet number="...">
-        <out type="any">
-          <tr lang="en">atom: message args</tr>
-          <tr lang="ru" finished="false">Атом: сообщение args</tr>
+        <out type="atom">
+          <tr lang="en">message atom</tr>
+          <tr lang="ru">элемент сообщения</tr>
         </out>
       </outlet>
-      <outlet number="n+1">
-        <out type="any">
-          <tr lang="en">list: last message args</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Last Message Args</tr>
+      <outlet number="n">
+        <out type="atom">
+          <tr lang="en">n-th element of the message</tr>
+          <tr lang="ru">n-й элемент сообщения</tr>
         </out>
       </outlet>
     </outlets>
