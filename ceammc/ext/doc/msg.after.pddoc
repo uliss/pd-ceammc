@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">sends the specified message following the forwarded incoming message</tr>
-        <tr lang="ru">отправляет указанное сообщение после пересланного входящего сообщения</tr>
+        <tr lang="ru">отправляет указанное сообщение после пересылки входящего сообщения</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>

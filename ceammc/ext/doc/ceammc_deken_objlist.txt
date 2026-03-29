@@ -973,7 +973,7 @@ ceammc/m	message constructor / конструктор сообщений
 m	message constructor / конструктор сообщений
 ceammc/prepend	message constructor / конструктор сообщений
 prepend	message constructor / конструктор сообщений
-msg.after	sends the specified message following the forwarded incoming message / отправляет указанное сообщение после пересланного входящего сообщения
+msg.after	sends the specified message following the forwarded incoming message / отправляет указанное сообщение после пересылки входящего сообщения
 msg.onclose	send a message when closing a patch / отправить сообщение при закрытии патча
 msg.onload	send the specified message upon patch loading / отправить указанное сообщение при загрузе патча
 ceammc/loadmsg	send the specified message upon patch loading / отправить указанное сообщение при загрузе патча

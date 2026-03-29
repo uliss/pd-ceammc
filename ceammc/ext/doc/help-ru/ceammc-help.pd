@@ -1618,8 +1618,8 @@ speech.whisper~-help.pd;
 #X obj 30 17109 ui.link @title [msg] @url msg-help.pd;
 #X text 200 17106 конструктор сообщений;
 #X obj 30 17134 ui.link @title [msg.after] @url msg.after-help.pd;
-#X text 200 17131 отправляет указанное сообщение после пересланного
-входящего сообщения;
+#X text 200 17131 отправляет указанное сообщение после пересылки входящего
+сообщения;
 #X obj 30 17174 ui.link @title [msg.onclose] @url msg.onclose-help.pd;
 #X text 200 17171 отправить сообщение при закрытии патча;
 #X obj 30 17199 ui.link @title [msg.onload] @url msg.onload-help.pd;

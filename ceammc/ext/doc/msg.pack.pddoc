@@ -20,6 +20,12 @@
         <see>msg.unpack</see>
       </also>
     </meta>
+    <info>
+      <par style="important">
+        <tr lang="en">Properties in this object can only be changed through the connected object [prop.set]</tr>
+        <tr lang="ru">Измененять свойства в этом объекте можно только через подключенный объект [prop.set]</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="32">
         <tr lang="en">number of inputs</tr>
@@ -33,11 +39,8 @@
     <properties>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
-        <tr lang="en">message prefix. Change value via [prop.set] object</tr>
-        <!-- old: Префикс сообщения. Изменение значения через
-                [prop.set] объект -->
-        <tr lang="ru" finished="false">Префикс сообщения. Изменение значения через [prop.set]
-        объект</tr>
+        <tr lang="en">message prefix</tr>
+        <tr lang="ru">префикс сообщения</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="1" default="2" maxvalue="32" access="initonly">
@@ -46,30 +49,29 @@
       </property>
       <!-- @sync -->
       <property name="@sync" type="bool" default="0">
-        <tr lang="en">sync mode. If true: output value on each inlet value change</tr>
-        <!-- old: режим синхронизации. Если верно: выходное значение
-                для каждого изменения входного значения -->
-        <tr lang="ru" finished="false">режим синхронизации. Если верно: выходное значение для
-        каждого изменения входного значения</tr>
+        <tr lang="en">sync mode. If true: outputs a message for every event on each of the inputs,
+        otherwise it outputs a message only for the event on the first input.</tr>
+        <tr lang="ru">режим синхронизации. Если true: выводит сообщение при каждом событии на каждом их входов,
+        в противном случае выводит сообщение только при событии на первом входе.</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet number="1">
         <in>
-          <tr lang="en">first atom</tr>
-          <tr lang="ru" finished="false">Первый атом</tr>
+          <tr lang="en">first message atom</tr>
+          <tr lang="ru">первый атом сообщения</tr>
         </in>
       </inlet>
       <inlet number="...">
         <in>
-          <tr lang="en">... atom</tr>
-          <tr lang="ru" finished="false">... атом</tr>
+          <tr lang="en">... message atom</tr>
+          <tr lang="ru">... атом сообщения</tr>
         </in>
       </inlet>
       <inlet number="n">
         <in>
-          <tr lang="en">n-th atom</tr>
-          <tr lang="ru" finished="false">n-й атом</tr>
+          <tr lang="en">n-th message atom</tr>
+          <tr lang="ru">n-й атом сообщения</tr>
         </in>
       </inlet>
     </inlets>
@@ -77,7 +79,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">message output</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="ru">вывод сообщений</tr>
         </out>
       </outlet>
     </outlets>

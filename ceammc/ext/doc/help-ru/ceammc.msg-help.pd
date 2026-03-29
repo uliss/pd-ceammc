@@ -7,7 +7,7 @@
 #X obj 30 145 ui.link @title [msg] @url msg-help.pd;
 #X text 220 142 конструктор сообщений;
 #X obj 30 170 ui.link @title [msg.after] @url msg.after-help.pd;
-#X text 220 167 отправляет указанное сообщение после пересланного входящего
+#X text 220 167 отправляет указанное сообщение после пересылки входящего
 сообщения;
 #X obj 30 210 ui.link @title [msg.onclose] @url msg.onclose-help.pd;
 #X text 220 207 отправить сообщение при закрытии патча;
