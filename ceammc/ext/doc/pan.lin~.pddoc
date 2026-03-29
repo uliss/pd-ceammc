@@ -25,77 +25,56 @@
       </aliases>
     </meta>
     <info>
-      <par>
+      <par style="info">
         <tr lang="en">The signal is lowered as it pans from left (or right) to center using a
-        straight line from (+-)1 (left or right) to 0.0 (center) for a 6dB reduction in the
+        straight line from ±1 (left or right) to 0.0 (center) for a 6dB reduction in the
         middle.</tr>
-        <!-- old: Сигнал опускается, когда он поворачивается слева
-                (или справа) к центру, используя прямую линию от (+-)1 (слева или справа) до 0,0 (в
-                центре) для уменьшения на 6 дБ в середине. -->
-        <tr lang="ru" finished="false">Сигнал опускается, когда он поворачивается слева (или
-        справа) к центру, используя прямую линию от (+-)1 (слева или справа) до 0,0 (в центре) для
-        уменьшения на 6 дБ в середине.</tr>
+        <tr lang="ru">Сигнал уменьшается по мере его панорамирования с левого (или правого) канала в центр,
+        при помощи прямой линии от ±1 (лево или право) до 0.0 (центр), приводя к снижению на 6 дБ в середине.</tr>
       </par>
-      <par>
+      <par style="important">
         <tr lang="en">A problem inherent to linear panning is that the perceived volume of the
         signal drops in the middle. [pan.sqrt~] solves this by taking the square root of the linear
-        scaling factor going from 1 (left or right) to 0.5.sqrt (~=0.707) in the center, which is
+        scaling factor going from 1 (left or right) to √0.5 (~=0.707) in the center, which is
         about 3dB reduction.</tr>
-        <!-- old: Проблема, присущая линейному панорамированию,
-                заключается в том, что воспринимаемый объем сигнала падает посередине. [pan.sqrt~]
-                решает это, принимая квадратный корень линейного масштабирующего фактора, идущего
-                от 1 (слева или справа) до 0,5.sqrt (~=0.707) в центре, что составляет около 3dB
-                сокращения. -->
-        <tr lang="ru" finished="false">Проблема, присущая линейному панорамированию, заключается в
-        том, что воспринимаемый объем сигнала падает посередине. [pan.sqrt~] решает это, принимая
-        квадратный корень линейного масштабирующего фактора, идущего от 1 (слева или справа) до
-        0,5.sqrt (~=0.707) в центре, что составляет около 3dB сокращения.</tr>
-      </par>
-      <par>
-        <tr lang="en">This is equal power panning. [pan.lin~] sounds more like the Rhodes tremolo
-        than [pan.sqrt~].</tr>
-        <!-- old: Это равносиловое панирование. [pan.lin~] звучит
-                скорее как тремоло Родоса, чем [pan.sqrt~]. -->
-        <tr lang="ru" finished="false">Это равносиловое панирование. [pan.lin~] звучит скорее как
-        тремоло Родоса, чем [pan.sqrt~].</tr>
+        <tr lang="ru">Проблема, присущая линейному панорамированию, заключается в
+        том, что воспринимаемый уровень сигнала падает посередине.
+        [pan.sqrt~] решает эту проблему, используя квадратный корень из линейного коэффициента масштабирования,
+        изменяющегося от 1 (лево или право) до √0.5 (~=0.707) в центре, что приводит к снижению уровня примерно на 3 дБ.</tr>
       </par>
     </info>
     <arguments>
       <argument name="POS" type="float" minvalue="-1" maxvalue="1">
         <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый -->
-        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
-        правый</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 -
+        право</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pos -->
       <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
         <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <!-- old: Позиция панорамирования. -1 означает левый, 0 -
-                центр, +1 - правый -->
-        <tr lang="ru" finished="false">Позиция панорамирования. -1 означает левый, 0 - центр, +1 -
-        правый</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 -
+        право</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
       access="initonly">
-        <tr lang="en">smooth control signal to avoid zipping-noise</tr>
-        <tr lang="ru" finished="false">плавный сигнал управления, чтобы избежать шума</tr>
+        <tr lang="en">smoothing the control signal to avoid zipping-noise</tr>
+        <tr lang="ru">сглаживание управляющего сигнала, чтобы избежать щелкающего шума</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float" minvalue="-1" maxvalue="1">
           <tr lang="en">pan position</tr>
-          <tr lang="ru" finished="false">положение</tr>
+          <tr lang="ru">позиция панорамирования</tr>
         </in>
       </inlet>
     </inlets>
@@ -103,13 +82,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output channel</tr>
-          <tr lang="ru" finished="false">левый выходной канал</tr>
+          <tr lang="ru">левый выходной канал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output channel</tr>
-          <tr lang="ru" finished="false">правильный выходной канал</tr>
+          <tr lang="ru">правый выходной канал</tr>
         </out>
       </outlet>
     </outlets>
