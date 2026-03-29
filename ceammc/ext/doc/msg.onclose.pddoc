@@ -22,10 +22,9 @@
     <arguments>
       <argument name="ARGS" type="list">
         <tr lang="en">The message being sent. Messages separated by commas are also supported.</tr>
-        <tr lang="ru" finished="false">Отправляемое сообщение. Поддерживаются также сообщения, разделенные запятой.</tr>
+        <tr lang="ru">Отправляемое сообщение. Поддерживаются также сообщения, разделенные запятой.</tr>
       </argument>
     </arguments>
-    <inlets />
     <outlets>
       <outlet>
         <out type="any">
@@ -37,7 +36,9 @@
     <example>
       <pdascii>
 <![CDATA[
-[msg.onclose MESSAGE]
+/*Close this help and see Pd console window*/
+
+[msg.onclose MESSAGE 1 2 3]
 |
 [print onclose]
 ]]>
