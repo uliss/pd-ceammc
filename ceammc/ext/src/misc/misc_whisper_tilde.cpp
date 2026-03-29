@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_string.h"
+#include "misc_whisper_tilde_args.hpp"
 
 namespace ceammc {
 
@@ -131,27 +132,51 @@ void MiscWhisperTilde::processBlock(const t_sample** in, t_sample** out)
 #endif
 }
 
+/// @function "clear the internal audio buffer" {
+/// }
 void MiscWhisperTilde::m_clear(t_symbol* s, const AtomListView& lv)
 {
+    m_clear_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     ceammc_misc_whisper_clear(w_.get());
 }
 
+/// @function "start the process of recognizing the internal audio buffer" {
+/// }
 void MiscWhisperTilde::m_recognize(t_symbol* s, const AtomListView& lv)
 {
+    m_recognize_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     do_record_ = false;
     ceammc_misc_whisper_set_language(w_.get(), to_lang(lang_->symbol()))
         && ceammc_misc_whisper_set_num_threads(w_.get(), num_threads_->value())
         && ceammc_misc_whisper_recognize(w_.get(), samplerate());
 }
 
+/// @function "start recording to the internal audio buffer" {
+/// }
 void MiscWhisperTilde::m_record(t_symbol* s, const AtomListView& lv)
 {
+    m_record_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     do_record_ = true;
     recorded_samples_ = 0;
 }
 
+/// @function "stop recording to the internal audio buffer" {
+/// }
 void MiscWhisperTilde::m_stop(t_symbol* s, const AtomListView& lv)
 {
+    m_stop_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
     do_record_ = false;
 }
 
