@@ -11,7 +11,8 @@ audioadapter = "2.0.1"
 audioadapter-buffers = "2.0.0"
 log = "0.4.29"
 rubato = "1.0.1"
-whisper-rs = { version = "0.16.0", features = ["metal"] }
+# features = ["metal"]
+whisper-rs = { version = "0.16.0" }
 ceammc_rs_msg = { path = "../msg" }
 
 [build-dependencies]
