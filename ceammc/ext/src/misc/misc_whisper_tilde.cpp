@@ -152,6 +152,7 @@ void MiscWhisperTilde::m_stop(t_symbol* s, const AtomListView& lv)
 void setup_misc_whisper_tilde()
 {
     SoundExternalFactory<MiscWhisperTilde> obj("misc.whisper~");
+    obj.addAlias("whisper~");
 
     obj.addMethod("clear", &MiscWhisperTilde::m_clear);
     obj.addMethod("recognize", &MiscWhisperTilde::m_recognize);
