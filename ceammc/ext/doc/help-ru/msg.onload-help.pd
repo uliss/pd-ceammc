@@ -10,7 +10,7 @@
 [loadmsg] @url msg.onload-help.pd;
 #X obj 667 8 msg.onload;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 like [loadbang] \, but with message and click support.;
+#X text 240 83 Как [loadbang] \, но с поддержкой сообщений и клика.;
 #X text 50 171 click me!;
 #X obj 50 200 loadmsg load message;
 #X obj 50 243 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -30,9 +30,9 @@
 @title [?] @url ceammc.args-info.pd;
 #X text 130 398 1\.;
 #X text 170 398 list;
-#X obj 268 399 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 398 ARGS: message. Comma separated messages are supported.
-Тип: list.;
+#X obj 268 399 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 398 MSG: Отправляемое сообщение. Поддерживаются также сообщения
+\, разделенные запятой. Тип: list.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 453 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
@@ -40,7 +40,7 @@
 #X obj 20 479 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 480 1\.;
-#X text 270 480 message output.;
+#X text 270 480 вывод сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
