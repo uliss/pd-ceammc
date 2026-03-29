@@ -1,7 +1,19 @@
 macro(ceammc_misc_external mod name)
-    list(APPEND MISC_SOURCES "${mod}_${name}.cpp")
-    ceammc_faust_gen_obj(${mod} ${name})
+  list(APPEND MISC_SOURCES "${mod}_${name}.cpp")
+  ceammc_faust_gen_obj(${mod} ${name})
 endmacro()
+
+find_program(METHOD_GENERATOR "method_args")
+function(ceammc_misc_args name)
+  if(METHOD_GENERATOR)
+    add_custom_command(
+      OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/misc_${name}_args.hpp"
+      DEPENDS "misc_${name}.cpp"
+      COMMAND ${METHOD_GENERATOR} --force "misc_${name}.cpp"
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    target_sources(ceammc_misc PRIVATE "misc_${name}_args.hpp")
+  endif()
+endfunction()
 
 ceammc_misc_external(aubio pitchshift_tilde)
 ceammc_misc_external(live capture)
@@ -10,98 +22,100 @@ ceammc_misc_external(misc qrcode)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
-target_include_directories(ceammc_misc
-    PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio
-        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-        ${PROJECT_BINARY_DIR}/ceammc # ceammc_config.h
-    PUBLIC
-        ${PROJECT_SOURCE_DIR}/ceammc/ext/src
-)
+target_include_directories(
+  ceammc_misc
+  PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio
+          "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+          ${PROJECT_BINARY_DIR}/ceammc # ceammc_config.h
+  PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/ext/src)
 
 target_link_libraries(ceammc_misc PRIVATE qrcode)
 
 if(WITH_FLUIDSYNTH)
-    target_link_libraries(ceammc_misc PUBLIC fluidsynth ceammc_proto)
-    target_sources(ceammc_misc PRIVATE fluid_tilde.h fluid_tilde.cpp)
-    target_compile_definitions(ceammc_misc PRIVATE -DWITH_FLUIDSYNTH=1)
+  target_link_libraries(ceammc_misc PUBLIC fluidsynth ceammc_proto)
+  target_sources(ceammc_misc PRIVATE fluid_tilde.h fluid_tilde.cpp)
+  target_compile_definitions(ceammc_misc PRIVATE -DWITH_FLUIDSYNTH=1)
 endif()
 
 find_package(PkgConfig QUIET)
 
 if(WITH_SFIZZ)
-    target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
-    target_compile_definitions(ceammc_misc PRIVATE -DSFIZZ_EXPORT_SYMBOLS)
+  target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
+  target_compile_definitions(ceammc_misc PRIVATE -DSFIZZ_EXPORT_SYMBOLS)
 
-    if(APPLE OR WIN32)
-        if(APPLE)
-            list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local/sfizz")
-        endif()
-        if(WIN32)
-            list(APPEND CMAKE_PREFIX_PATH "$ENV{USERPROFILE}/.local/sfizz")
-        endif()
-        find_package(PkgConfig REQUIRED)
-        pkg_check_modules(SFIZZ REQUIRED sfizz)
-
-        target_compile_definitions(ceammc_misc PUBLIC -DWITH_SFIZZ -DSFIZZ_VERSION="${SFIZZ_VERSION}")
-        target_include_directories(ceammc_misc PUBLIC ${SFIZZ_INCLUDE_DIRS})
-        target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LINK_LIBRARIES})
-    else()
-        target_compile_definitions(ceammc_misc PUBLIC -DWITH_SFIZZ -DSFIZZ_VERSION="1.2.0")
-        target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
-        target_link_libraries(ceammc_misc PUBLIC sfizz_static)
+  if(APPLE OR WIN32)
+    if(APPLE)
+      list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local/sfizz")
     endif()
+    if(WIN32)
+      list(APPEND CMAKE_PREFIX_PATH "$ENV{USERPROFILE}/.local/sfizz")
+    endif()
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(SFIZZ REQUIRED sfizz)
+
+    target_compile_definitions(
+      ceammc_misc PUBLIC -DWITH_SFIZZ -DSFIZZ_VERSION="${SFIZZ_VERSION}")
+    target_include_directories(ceammc_misc PUBLIC ${SFIZZ_INCLUDE_DIRS})
+    target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LINK_LIBRARIES})
+  else()
+    target_compile_definitions(ceammc_misc PUBLIC -DWITH_SFIZZ
+                                                  -DSFIZZ_VERSION="1.2.0")
+    target_include_directories(ceammc_misc PUBLIC ${sfizz_SOURCE_DIR}/src)
+    target_link_libraries(ceammc_misc PUBLIC sfizz_static)
+  endif()
 endif()
 
 if(WITH_MODPLUG)
-    find_package(ModPlug REQUIRED)
-    target_include_directories(ceammc_misc PRIVATE ${MODPLUG_INCLUDES})
-    target_compile_definitions(ceammc_misc PRIVATE -DWITH_MODPLUG)
-    target_link_libraries(ceammc_misc PUBLIC ${MODPLUG_LIBRARIES})
-    target_sources(ceammc_misc PRIVATE misc_modplug.cpp)
+  find_package(ModPlug REQUIRED)
+  target_include_directories(ceammc_misc PRIVATE ${MODPLUG_INCLUDES})
+  target_compile_definitions(ceammc_misc PRIVATE -DWITH_MODPLUG)
+  target_link_libraries(ceammc_misc PUBLIC ${MODPLUG_LIBRARIES})
+  target_sources(ceammc_misc PRIVATE misc_modplug.cpp)
 endif()
 
 if(WITH_TTS_FLITE)
-    target_link_libraries(ceammc_misc PUBLIC flite readerwriterqueue)
-    target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp speech_flite_tilde.cpp)
-    target_compile_definitions(ceammc_misc PRIVATE -DWITH_TTS_FLITE)
+  target_link_libraries(ceammc_misc PUBLIC flite readerwriterqueue)
+  target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp
+                                     speech_flite_tilde.cpp)
+  target_compile_definitions(ceammc_misc PRIVATE -DWITH_TTS_FLITE)
 endif()
 
 if(WITH_TTS_RHVOICE)
-    find_package(RHVoice REQUIRED)
+  find_package(RHVoice REQUIRED)
 
-    if(RHVOICE_FOUND)
-        set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-        target_include_directories(ceammc_misc PRIVATE ${RHVOICE_INCLUDE_DIRS})
-        target_include_directories(ceammc_misc PRIVATE "${PROJECT_SOURCE_DIR}/ceammc/extra/soxr/code/src")
-        target_compile_definitions(ceammc_misc PRIVATE -DWITH_RHVOICE)
-        target_link_libraries(ceammc_misc PRIVATE ${RHVOICE_LIBRARIES} soxr)
-        target_link_libraries(ceammc_misc PUBLIC readerwriterqueue)
-        target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde.cpp)
-    endif()
+  if(RHVOICE_FOUND)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+    target_include_directories(ceammc_misc PRIVATE ${RHVOICE_INCLUDE_DIRS})
+    target_include_directories(
+      ceammc_misc PRIVATE "${PROJECT_SOURCE_DIR}/ceammc/extra/soxr/code/src")
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_RHVOICE)
+    target_link_libraries(ceammc_misc PRIVATE ${RHVOICE_LIBRARIES} soxr)
+    target_link_libraries(ceammc_misc PUBLIC readerwriterqueue)
+    target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde.cpp)
+  endif()
 else()
-    target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde_stub.cpp)
+  target_sources(ceammc_misc PRIVATE speech_rhvoice_tilde_stub.cpp)
 endif()
 
 if(WITH_RUST_WHISPER)
-  target_include_directories(ceammc_misc
-      PRIVATE
-          ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
-          ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/whisper
-  )
+  target_include_directories(
+    ceammc_misc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+                        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/whisper)
   target_link_libraries(ceammc_misc PRIVATE whisper_rust)
   target_compile_definitions(ceammc_misc PRIVATE WITH_RUST_WHISPER)
-  target_sources(ceammc_misc PRIVATE misc_whisper_tilde.h misc_whisper_tilde.cpp)
+  target_sources(ceammc_misc PRIVATE misc_whisper_tilde.h
+                                     misc_whisper_tilde.cpp)
+  ceammc_misc_args(whisper_tilde)
 endif()
 
 if(WIN32)
-    set(DOC_INSTALL_PATH "extra/ceammc")
+  set(DOC_INSTALL_PATH "extra/ceammc")
 else()
-    set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+  set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
 add_custom_target(misc_tts_files SOURCES "RHVoice.conf")
 # install extra files
-install(FILES
-    "RHVoice.conf"
-    DESTINATION ${DOC_INSTALL_PATH}/
-    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+install(
+  FILES "RHVoice.conf"
+  DESTINATION ${DOC_INSTALL_PATH}/
+  PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
