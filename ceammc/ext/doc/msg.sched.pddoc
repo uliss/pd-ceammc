@@ -20,70 +20,63 @@
       </also>
     </meta>
     <info>
-      <par>
-        <tr lang="en">First element of input list considered as delay time in milliseconds.</tr>
-        <!-- old: Первый элемент входного списка рассматривается как
-                время задержки в миллисекундах. -->
-        <tr lang="ru" finished="false">Первый элемент входного списка рассматривается как время
-        задержки в миллисекундах.</tr>
+      <par style="important">
+        <tr lang="en">If the first element of the input list is a number, it is considered as the message sending delay time in milliseconds.</tr>
+        <tr lang="ru">Если первый элемент входного списка - число, он рассматривается как время
+        задержки отправки сообщения в миллисекундах.</tr>
       </par>
       <par>
-        <tr lang="en">Other messages passed 'as is' immediately.</tr>
-        <!-- old: Другие сообщения были переданы «как есть»
-                немедленно. -->
-        <tr lang="ru" finished="false">Другие сообщения были переданы «как есть» немедленно.</tr>
+        <tr lang="en">Other messages are immediately passed to the output.</tr>
+        <tr lang="ru">Другие сообщения немедленно передаются на выход.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">immediately output bang</tr>
-          <tr lang="ru" finished="false">Немедленно произвести взрыв</tr>
+          <tr lang="ru">немедленно выводит bang</tr>
         </in>
         <in on="float">
           <tr lang="en">immediately output float</tr>
-          <tr lang="ru" finished="false">немедленно выпустить поплавок</tr>
+          <tr lang="ru">немедленно выводит float</tr>
         </in>
         <in on="symbol">
           <tr lang="en">immediately output symbol</tr>
-          <tr lang="ru" finished="false">Немедленный вывод символа</tr>
+          <tr lang="ru">немедленно выводит symbol</tr>
         </in>
         <in on="list">
-          <tr lang="en">If first element is a float it considered as delay time in millisecond. If
-          this delay time is &gt;0: output left elements after this delay time. If delay time is
-          &lt;0, output left elements immediately. If delay time is ==0, output left elements with
-          shortest possible delay (on next scheduler block). If first element not a float, output
-          whole list immediately.</tr>
-          <!-- old: Если первый элемент является поплавком, он
-                    считается временем задержки в миллисекунде. Если это время задержки > 0:
-                    выход оставил элементы после этого времени задержки. Если время задержки <0,
-                    то выход сразу же оставляет элементы. Если время задержки ==0, на выходе
-                    остаются элементы с наименьшей возможной задержкой (на следующем блоке
-                    планировщика). Если первый элемент не плавает, немедленно выведите весь
-                    список. -->
-          <tr lang="ru" finished="false">Если первый элемент является поплавком, он считается
-          временем задержки в миллисекунде. Если это время задержки &gt; 0: выход оставил элементы
-          после этого времени задержки. Если время задержки &lt;0, то выход сразу же оставляет
-          элементы. Если время задержки ==0, на выходе остаются элементы с наименьшей возможной
-          задержкой (на следующем блоке планировщика). Если первый элемент не плавает, немедленно
-          выведите весь список.</tr>
+          <tr lang="en">If the first element is a number, it is considered
+          the message sending delay time in milliseconds.
+          If this delay time &gt;0: it outputs the remaining elements of the list
+          after this delay time. If the delay time &lt;0, it immediately outputs the remaining
+          elements of the list. If the delay time == 0, it outputs the remaining elements of the list with the smallest possible
+          delay (in the next scheduler tick). If the first element is not a number, immediately
+          output the entire(!) list.</tr>
+          <tr lang="ru">Если первый элемент является числом, он рассматривается
+          временем задержки отправки сообщения в миллисекундах.
+          Если это время задержки &gt;0: выводит остальные элементы списка
+          после этого времени задержки. Если время задержки &lt;0, сразу же выводит остальные
+          элементы списка. Если время задержки ==0, выводит остальные элементы списка с наименьшей возможной
+          задержкой (на следующем блоке планировщика). Если первый элемент не число: немедленно
+          выводит весь(!) список.</tr>
         </in>
         <in on="any">
-          <tr lang="en">immediately output any</tr>
-          <tr lang="ru" finished="false">немедленно вывести любой</tr>
+          <tr lang="en">immediately output message</tr>
+          <tr lang="ru">немедленно выводит сообщение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">clear scheduled messages</tr>
-          <tr lang="ru" finished="false">четкие запланированные сообщения</tr>
+          <tr lang="en">clear the list of messages scheduled for sending</tr>
+          <tr lang="ru">очистить список запланированных к отправке сообщений</tr>
         </in>
-        <in on="any">
-          <tr lang="en">reset: clear scheduled messages, flush: output and clear</tr>
-          <!-- old: Сброс: четкие запланированные сообщения, смыв:
-                    вывод и ясность -->
-          <tr lang="ru" finished="false">Сброс: четкие запланированные сообщения, смыв: вывод и
-          ясность</tr>
+        <in on="any" selector="reset">
+          <tr lang="en">clear the list of messages scheduled for sending</tr>
+          <tr lang="ru">очистить список запланированных к отправке сообщений</tr>
+        </in>
+        <in on="any" selector="flush">
+          <tr lang="en">immediately output scheduled messages and clear their list</tr>
+          <tr lang="ru">немедленно вывести запланированные сообщения и очистить их список</tr>
         </in>
       </inlet>
     </inlets>
@@ -91,7 +84,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">message output</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="ru">вывод сообщений</tr>
         </out>
       </outlet>
     </outlets>
