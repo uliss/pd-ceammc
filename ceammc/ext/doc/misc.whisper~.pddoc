@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
-  <object name="misc.whisper~">
+  <object name="speech.whisper~">
     <title>misc.whisper~</title>
     <meta>
       <authors>

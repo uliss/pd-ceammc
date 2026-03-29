@@ -1534,27 +1534,27 @@ midi.sustain-help.pd;
 #X text 200 16058 outputs a single impulse on a bang input;
 #X obj 30 16086 ui.link @title [fluid~] @url fluid~-help.pd;
 #X text 200 16083 FluidSynth SoundFont 2 player;
-#X obj 30 16111 ui.link @title [misc.whisper~] @url
-misc.whisper~-help.pd;
-#X text 200 16108 speech recognition;
-#X obj 30 16136 ui.link @title [modplug~] @url modplug~-help.pd;
-#X text 200 16133 MOD file player;
-#X obj 30 16161 ui.link @title [qrcode] @url qrcode-help.pd;
-#X text 200 16158 QR code generator;
-#X obj 30 16186 ui.link @title [risset.gliss] @url
+#X obj 30 16111 ui.link @title [modplug~] @url modplug~-help.pd;
+#X text 200 16108 MOD file player;
+#X obj 30 16136 ui.link @title [qrcode] @url qrcode-help.pd;
+#X text 200 16133 QR code generator;
+#X obj 30 16161 ui.link @title [risset.gliss] @url
 risset.gliss-help.pd;
-#X text 200 16183 Sheppard/Risset glissando calculator;
-#X obj 30 16211 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 200 16208 SFZ format sample player;
-#X obj 30 16236 ui.link @title [speech.flite] @url
+#X text 200 16158 Sheppard/Risset glissando calculator;
+#X obj 30 16186 ui.link @title [sfizz~] @url sfizz~-help.pd;
+#X text 200 16183 SFZ format sample player;
+#X obj 30 16211 ui.link @title [speech.flite] @url
 speech.flite-help.pd;
-#X text 200 16233 render speech to array;
-#X obj 30 16261 ui.link @title [speech.flite~] @url
+#X text 200 16208 render speech to array;
+#X obj 30 16236 ui.link @title [speech.flite~] @url
 speech.flite~-help.pd;
-#X text 200 16258 Flite text to speech synthesis;
-#X obj 30 16286 ui.link @title [speech.rhvoice~] @url
+#X text 200 16233 Flite text to speech synthesis;
+#X obj 30 16261 ui.link @title [speech.rhvoice~] @url
 speech.rhvoice~-help.pd;
-#X text 200 16283 RHVoice text to speech synthesis;
+#X text 200 16258 RHVoice text to speech synthesis;
+#X obj 30 16286 ui.link @title [speech.whisper~] @url
+speech.whisper~-help.pd;
+#X text 200 16283 speech recognition;
 #X obj 20 16308 cnv 5 38 32 empty empty msg 4 16 0 17 -262144 -49933
 0;
 #X obj 20 16350 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;

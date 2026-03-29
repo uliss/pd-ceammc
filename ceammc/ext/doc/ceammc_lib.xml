@@ -1753,9 +1753,6 @@
     <entry name="fluid~" descr="FluidSynth SoundFont 2 player" ref_view="link">
       <xi:include href="fluid~.pddoc" parse="xml"/>
     </entry>
-    <entry name="misc.whisper~" descr="speech recognition" ref_view="link">
-      <xi:include href="misc.whisper~.pddoc" parse="xml"/>
-    </entry>
     <entry name="modplug~" descr="MOD file player" ref_view="link">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
@@ -1776,6 +1773,9 @@
     </entry>
     <entry name="speech.rhvoice~" descr="RHVoice text to speech synthesis" ref_view="link">
       <xi:include href="speech.rhvoice~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="speech.whisper~" descr="speech recognition" ref_view="link">
+      <xi:include href="misc.whisper~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="msg">
