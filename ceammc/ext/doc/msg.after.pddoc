@@ -21,13 +21,12 @@
     </meta>
     <info>
       <par style="info">
-        <tr lang="en">Upon receiving a new incoming message, if the previously
-        added message has not yet been sent: its sending is canceled.
-        The sending of the added message will then be scheduled only for this new message.</tr>
+        <tr lang="en">Upon receiving a new incoming message, if the previously added message has
+        not yet been sent: its sending is canceled. The sending of the added message will then be
+        scheduled only for this new message.</tr>
         <tr lang="ru">При получении нового входящего сообщения, если предыдущее добавленное
-        сообщение еще не  было отправлено: его отправка отменяется.
-        Далее будет запланирована отправка добавленного сообщения только для этого
-        нового сообщения.</tr>
+        сообщение еще не было отправлено: его отправка отменяется. Далее будет запланирована
+        отправка добавленного сообщения только для этого нового сообщения.</tr>
       </par>
     </info>
     <arguments>

@@ -40,10 +40,10 @@
         is *impossible* to use them in other objects simultaneously with this one.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Before connecting, carefully check the sensor pins:
-        some sensors have a different pin layout than shown in the wiring diagram!</tr>
-        <tr lang="ru">Перед подключением внимательно изучите выводы сенсора:
-        бывают сенсоры с другим порядком контактов, чем на схеме подключения!</tr>
+        <tr lang="en">Before connecting, carefully check the sensor pins: some sensors have a
+        different pin layout than shown in the wiring diagram!</tr>
+        <tr lang="ru">Перед подключением внимательно изучите выводы сенсора: бывают сенсоры с
+        другим порядком контактов, чем на схеме подключения!</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1</tr>

@@ -23,11 +23,11 @@
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="32">
         <tr lang="en">number of inputs</tr>
-        <tr lang="ru" finished="false">Количество входов</tr>
+        <tr lang="ru">количество входов</tr>
       </argument>
       <argument name="MSG" type="list">
         <tr lang="en">message prefix</tr>
-        <tr lang="ru" finished="false">префикс сообщения</tr>
+        <tr lang="ru">префикс сообщения</tr>
       </argument>
     </arguments>
     <properties>
@@ -42,7 +42,7 @@
       <!-- @n -->
       <property name="@n" type="int" minvalue="1" default="2" maxvalue="32" access="initonly">
         <tr lang="en">number of inlets</tr>
-        <tr lang="ru" finished="false">Количество входов</tr>
+        <tr lang="ru">количество входов</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="bool" default="0">
