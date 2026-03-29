@@ -26,13 +26,9 @@
         <tr lang="en">recognition language</tr>
         <tr lang="ru">язык распознования</tr>
       </property>
-      <!-- @output -->
-      <property name="@output" type="symbol" default="list" enum="list symbol string" access="readwrite">
-        <tr lang="en">output mode</tr>
-        <tr lang="ru">режим вывода</tr>
-      </property>
       <!-- @max_length -->
-      <property name="@max_length" type="float" minvalue="0.0" maxvalue="120.0" default="10.0" units="second" access="readwrite">
+      <property name="@max_length" type="float" minvalue="0.0" maxvalue="120.0" default="10.0"
+      units="second" access="readwrite">
         <tr lang="en">maximum length of the input audio</tr>
         <tr lang="ru">максимальная продолжительность входящего аудио сигнала</tr>
       </property>
@@ -41,35 +37,46 @@
         <tr lang="en">path to recognition model</tr>
         <tr lang="ru">путь к модели распознования</tr>
       </property>
+      <!-- @output -->
+      <property name="@output" type="symbol" default="list" enum="list symbol string"
+      access="readwrite">
+        <tr lang="en">output mode</tr>
+        <tr lang="ru">режим вывода</tr>
+      </property>
       <!-- @threads -->
-      <property name="@threads" type="int" minvalue="1" maxvalue="16" default="1" access="readwrite">
+      <property name="@threads" type="int" minvalue="1" maxvalue="16" default="1"
+      access="readwrite">
         <tr lang="en">number of worker threads</tr>
         <tr lang="ru">число потоков распознования</tr>
       </property>
     </properties>
     <methods>
+      <!-- clear -->
       <method name="clear">
         <info>
           <tr lang="en">clear internal audio buffer</tr>
           <tr lang="ru">очистить внутренний аудио-буфер</tr>
         </info>
       </method>
-      <method name="stop">
+      <!-- recognize -->
+      <method name="recognize">
         <info>
-          <tr lang="en">stop recording into internal audio buffer</tr>
-          <tr lang="ru">остановить запись во внутренний буфер</tr>
+          <tr lang="en">begin recognition process of internal audio-buffer</tr>
+          <tr lang="ru">начать процесс распознования внутреннего аудио-буфера</tr>
         </info>
       </method>
+      <!-- record -->
       <method name="record">
         <info>
           <tr lang="en">start recording into internal audio buffer</tr>
           <tr lang="ru">начать запись во внутренний аудио-буфер</tr>
         </info>
       </method>
-      <method name="recognize">
+      <!-- stop -->
+      <method name="stop">
         <info>
-          <tr lang="en">begin recognition process of internal audio-buffer</tr>
-          <tr lang="ru">начать процесс распознования внутреннего аудио-буфера</tr>
+          <tr lang="en">stop recording into internal audio buffer</tr>
+          <tr lang="ru">остановить запись во внутренний буфер</tr>
         </info>
       </method>
     </methods>
@@ -85,15 +92,18 @@
       <outlet>
         <out type="symbol">
           <tr lang="en">all recognized text as single symbol, if @mode symbol is set</tr>
-          <tr lang="ru">весь распознанный текст в виде единого symbol, если установлено свойство @output symbol</tr>
+          <tr lang="ru">весь распознанный текст в виде единого symbol, если установлено свойство
+          @output symbol</tr>
         </out>
         <out type="list">
           <tr lang="en">recognized text as list of symbol atom, if @mode list is set</tr>
-          <tr lang="ru">распознанный текст как список символов, если установлено свойство @output list</tr>
+          <tr lang="ru">распознанный текст как список символов, если установлено свойство @output
+          list</tr>
         </out>
         <out type="data:string">
           <tr lang="en">all recognized text as String data type, if @mode string is set</tr>
-          <tr lang="ru">весь распознанный текст как тип данных String, если установлено свойство @output string</tr>
+          <tr lang="ru">весь распознанный текст как тип данных String, если установлено свойство
+          @output string</tr>
         </out>
       </outlet>
     </outlets>
