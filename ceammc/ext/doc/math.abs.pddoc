@@ -40,11 +40,11 @@
     <outlets>
       <outlet>
         <out type="float">
-          <tr lang="en">result value</tr>
+          <tr lang="en">the result value</tr>
           <tr lang="ru">результат</tr>
         </out>
         <out type="list">
-          <tr lang="en">result list</tr>
+          <tr lang="en">the result list</tr>
           <tr lang="ru">результат</tr>
         </out>
       </outlet>
