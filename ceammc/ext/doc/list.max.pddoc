@@ -20,20 +20,29 @@
       </also>
     </meta>
     <info>
-      <par>
-        <tr lang="en">By default returns largest float in list, this equal to using @float
-        property.</tr>
-        <!-- old: По умолчанию возвращает самый большой поплавок в
-                списке, это равно использованию свойства @float. -->
-        <tr lang="ru" finished="false">По умолчанию возвращает самый большой поплавок в списке, это
-        равно использованию свойства @float.</tr>
+      <par style="warning">
+        <tr lang="en">"The largest" can mean either the maximum element among numbers in a list,
+        or the very last character element when sorted in lexicographic order,
+        depending on the value of the @type property.</tr>
+        <tr lang="ru">"Самый большой" может означать как максимальный элемент среди чисел в списке,
+        так и самый последний символьный элемент, при сортировке в лексикографическом порядке, в зависимости от
+        значения свойства @type.</tr>
       </par>
       <par>
-        <tr lang="en">Also you can choose largest symbol from list, using @symbol property.</tr>
-        <!-- old: Также можно выбрать самый большой символ из списка,
-                используя свойство @symbol. -->
-        <tr lang="ru" finished="false">Также можно выбрать самый большой символ из списка,
-        используя свойство @symbol.</tr>
+        <tr lang="en">By default, returns the maximum number in the list,
+        which can be specified explicitly using the flag-property @float</tr>
+        <tr lang="ru">По умолчанию возвращает самое большое число в списке,
+        что может быть указано явно при помощи флага-свойства @float</tr>
+      </par>
+      <par>
+        <tr lang="en">If the flag-property @symbol is specified,
+        it returns the "largest" (last) element as if the list were sorted in lexicographic order</tr>
+        <tr lang="ru">Если указан флаг-свойство @symbol - возвращает "самый большой" (последний)
+        элемент, если бы список был отсортирован в лексикографическом порядке</tr>
+      </par>
+      <par>
+        <tr lang="en">If the flag-property @any is specified, in this order characters are considered "greater" than numbers.</tr>
+        <tr lang="ru">Если указан флаг-свойство @any - в этом порядке символы считаются "больше" чисел.</tr>
       </par>
     </info>
     <properties>
@@ -41,58 +50,57 @@
       <property name="@any" type="alias">
         <tr lang="en">alias for @type any. Find greatest atom of any type. Note: symbols are
         greater then numbers</tr>
-        <!-- old: Фамилия для @type any. Найдите самый большой атом
-                любого типа. Примечание: символы больше, чем числа -->
-        <tr lang="ru" finished="false">Фамилия для @type any. Найдите самый большой атом любого
-        типа. Примечание: символы больше, чем числа</tr>
+        <tr lang="ru">Сокращение для @type any. Находит самый большой атом любого
+        типа.</tr>
       </property>
       <!-- @float -->
       <property name="@float" type="alias">
-        <tr lang="en">alias for @type float. Find max float element in list</tr>
-        <!-- old: Оригинальное название: @type float. Найти элемент
-                max float в списке -->
-        <tr lang="ru" finished="false">Оригинальное название: @type float. Найти элемент max float
-        в списке</tr>
+        <tr lang="en">alias for @type float. Finds the maximum number in the list, other types of elements are ignored</tr>
+        <tr lang="ru">Сокращение для @type float. Находит максимальное число в списке,
+        элементы других типов игнорируются</tr>
       </property>
       <!-- @symbol -->
       <property name="@symbol" type="alias">
-        <tr lang="en">alias for @type symbol. Find greatest symbol element</tr>
-        <!-- old: Фамилия для символа @type. Найдите самый большой
-                элемент символа -->
-        <tr lang="ru" finished="false">Фамилия для символа @type. Найдите самый большой элемент
-        символа</tr>
+        <tr lang="en">alias for @type symbol. Find the "greatest" symbol in the list, other types of elements are ignored</tr>
+        <tr lang="ru">Сокращение для @type symbol. Находит "самый большой" символ в списк, элементы других типов игнорируются</tr>
       </property>
       <!-- @type -->
       <property name="@type" type="symbol" enum="float symbol any" default="float">
         <tr lang="en">type of largest element</tr>
-        <tr lang="ru" finished="false">Тип самого большого элемента</tr>
+        <tr lang="ru">тип самого большого элемента</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">input list</tr>
-          <tr lang="ru" finished="false">вводный список</tr>
+          <tr lang="ru">входной список</tr>
         </in>
         <in on="data:mlist">
-          <tr lang="en">input mlist</tr>
-          <tr lang="ru" finished="false">входной млечный</tr>
+          <tr lang="en">input multi-level list</tr>
+          <tr lang="ru">входной многоуровневый список</tr>
         </in>
         <in on="float">
-          <tr lang="en">passed thru in @float or @any mode</tr>
-          <tr lang="ru" finished="false">@float или любой режим</tr>
+          <tr lang="en">a number is considered a list of unit length in @float or @any mode and this number is passed to the output in these modes</tr>
+          <tr lang="ru">число считается списком единичной длины в режиме @float или @any
+          и это число пропускается на выход в этих режимах</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">passed thru in @symbol or @any mode</tr>
-          <tr lang="ru" finished="false">@symbol или любой режим</tr>
+          <tr lang="en">a symbol is considered a list of unit length in @symbol or @any mode and this character is passed to the output in these modes</tr>
+          <tr lang="ru">символ считается списком единичной длины в режиме @symbol или @any
+          и этот символ пропускается на выход в этих режимах</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">largest element</tr>
-          <tr lang="ru" finished="false">Самый большой элемент</tr>
+        <out type="float">
+          <tr lang="en">the largest numeric element</tr>
+          <tr lang="ru">cамый большое число в списке</tr>
+        </out>
+        <out type="symbol">
+          <tr lang="en">the largest symbol element</tr>
+          <tr lang="ru">cамый большой символьный элемент в списке</tr>
         </out>
       </outlet>
     </outlets>
@@ -104,7 +112,7 @@
 |            |             |            |
 [list.max @float]          [list.max @symbol]
 |                          |
-[F]                        [S digits=10]
+[ui.dt]                    [ui.dt]
 
 [1 a 2 b 3 c( [F]    [S digits=8]
 |             |      |
