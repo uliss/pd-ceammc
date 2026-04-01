@@ -8,37 +8,44 @@
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 вычисляет абсолютное значение входных чисел;
 #X floatatom 50 171 5 0 0 0 - - -;
-#X msg 117 171 1 2 -5 7 d b;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array \$0-abs 100 float 0;
+#X coords 0 1 100 0 320 140 1;
+#X restore 251 171 graph;
 #X obj 50 200 math.abs;
 #X obj 50 229 ui.dt;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 284 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 50 258 bang;
+#X obj 50 287 list.seq -1 1 0.025;
+#X obj 50 315 math.abs;
+#X obj 50 344 list->array \$0-abs;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 399 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 285 1\.;
-#X text 170 285 float:;
-#X text 270 285 входное значение.;
-#X text 170 310 list:;
-#X text 270 310 список числовых входных значений \, нечисловые значения
+#X text 130 400 1\.;
+#X text 170 400 float:;
+#X text 270 400 входное значение.;
+#X text 170 425 list:;
+#X text 270 425 список числовых входных значений \, нечисловые значения
 заменяются на 0\.;
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 365 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 480 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 366 1\.;
-#X text 170 366 float:;
-#X text 270 366 результат.;
-#X text 170 391 list:;
-#X text 270 391 результат.;
+#X text 130 481 1\.;
+#X text 170 481 float:;
+#X text 270 481 результат.;
+#X text 170 506 list:;
+#X text 270 506 список результатов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 544 520 смотрите также:;
-#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 556 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 559 библиотека: ceammc v0.9.8;
+#X text 544 571 смотрите также:;
+#X obj 665 574 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.floor] @url math.floor-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 578 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -62,7 +69,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
+#X restore 10 578 pd info;
 #X connect 6 0 8 0;
-#X connect 7 0 8 0;
 #X connect 8 0 9 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

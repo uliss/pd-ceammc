@@ -26,52 +26,50 @@
       <par>
         <tr lang="en">The cos() function computes the cosine of input value (measured in
         radians).</tr>
-        <!-- old: Функция cos() вычисляет косинус входного значения
-                (измеряется в радианах). -->
         <tr lang="ru" finished="false">Функция cos() вычисляет косинус входного значения
-        (измеряется в радианах).</tr>
+        (в радианах).</tr>
       </par>
       <par>
         <tr lang="en">Special values:</tr>
-        <tr lang="ru" finished="false">Особые ценности:</tr>
+        <tr lang="ru">Особые значения:</tr>
       </par>
       <par>
-        <tr lang="en">cos(+-0) returns 1.</tr>
-        <tr lang="ru" finished="false">cos(+-0) возвращается 1.</tr>
+        <tr lang="en">cos(±0) returns 1.</tr>
+        <tr lang="ru">cos(±0) возвращает 1.</tr>
       </par>
       <par>
-        <tr lang="en">cos(+-infinity) returns a NaN and raises the "invalid" floating-point
-        exception.</tr>
-        <!-- old: cos(+-infinity) возвращает NaN и поднимает
-                «недействительное» исключение из плавающей точки. -->
-        <tr lang="ru" finished="false">cos(+-infinity) возвращает NaN и поднимает
-        «недействительное» исключение из плавающей точки.</tr>
+        <tr lang="en">cos(±infinity) returns a NaN</tr>
+        <tr lang="ru">cos(±infinity) возвращает NaN</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
         <in on="list">
-          <tr lang="en">apply to all numeric values</tr>
-          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+          <tr lang="en">list of numeric values</tr>
+          <tr lang="ru">список входных значений</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+        <out type="float">
+          <tr lang="en">the result</tr>
+          <tr lang="ru">результат</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">the result list</tr>
+          <tr lang="ru">список результатов</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[bang(                 [array \$0-cos y=-1..1 w=320]
+[bang(                 [array \$0-cos yr=-1..1 w=320]
 |
 [list.seq -6 6 0.025]
 |

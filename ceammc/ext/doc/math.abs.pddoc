@@ -40,23 +40,31 @@
     <outlets>
       <outlet>
         <out type="float">
-          <tr lang="en">the result value</tr>
+          <tr lang="en">the result</tr>
           <tr lang="ru">результат</tr>
         </out>
         <out type="list">
           <tr lang="en">the result list</tr>
-          <tr lang="ru">результат</tr>
+          <tr lang="ru">список результатов</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]    [1 2 -5 7 d b(
-|      |
+[F]                  [array \$0-abs yr=0..1 w=320]
+|
 [math.abs]
 |
 [ui.dt]
+
+[bang(
+|
+[list.seq -1 1 0.025]
+|
+[math.abs]
+|
+[list->array \$0-abs]
 ]]>
       </pdascii>
     </example>

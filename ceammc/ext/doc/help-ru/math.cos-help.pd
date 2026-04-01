@@ -5,51 +5,53 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.cos 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 math.cos;
-#X obj 230 78 cnv 1 535 150 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 135 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The cos() function computes the cosine of input value
 (measured in radians).;
-#X text 240 123 Special values:;
-#X text 240 148 cos(+-0) returns 1\.;
-#X text 240 173 cos(+-infinity) returns a NaN and raises the "invalid"
-floating-point exception.;
-#X msg 50 276 bang;
+#X text 240 123 Особые значения:;
+#X text 240 148 cos(±0) возвращает 1\.;
+#X text 240 173 cos(±infinity) возвращает NaN;
+#X msg 50 261 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array \$0-cos 100 float 0;
 #X coords 0 1 100 -1 320 140 1;
-#X restore 270 276 graph;
-#X obj 50 305 list.seq -6 6 0.025;
-#X obj 50 334 math.cos;
-#X obj 50 363 list->array \$0-cos;
-#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 453 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X restore 270 261 graph;
+#X obj 50 290 list.seq -6 6 0.025;
+#X obj 50 319 math.cos;
+#X obj 50 348 list->array \$0-cos;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 438 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 454 1\.;
-#X text 170 454 float:;
-#X text 270 454 input value.;
-#X text 170 479 list:;
-#X text 270 479 apply to all numeric values.;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 439 1\.;
+#X text 170 439 float:;
+#X text 270 439 входное значение.;
+#X text 170 464 list:;
+#X text 270 464 список входных значений.;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 504 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 520 1\.;
-#X text 270 520 result value.;
+#X text 130 505 1\.;
+#X text 170 505 float:;
+#X text 270 505 результат.;
+#X text 170 530 list:;
+#X text 270 530 список результатов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 570 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 573 библиотека: ceammc v0.9.8;
-#X text 316 585 смотрите также:;
-#X obj 437 588 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 580 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 583 библиотека: ceammc v0.9.8;
+#X text 316 595 смотрите также:;
+#X obj 437 598 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.sin] @url math.sin-help.pd;
-#X obj 513 588 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 513 598 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.tan] @url math.tan-help.pd;
-#X obj 589 588 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 589 598 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.asin] @url math.asin-help.pd;
-#X obj 672 588 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 598 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.acos] @url math.acos-help.pd;
-#N canvas 10 592 400 290 info 0;
+#N canvas 10 602 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -73,7 +75,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 592 pd info;
+#X restore 10 602 pd info;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;
