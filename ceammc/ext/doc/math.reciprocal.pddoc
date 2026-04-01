@@ -23,41 +23,52 @@
     <info>
       <par>
         <tr lang="en">Symbols are ignored, 0 gives NAN value</tr>
-        <tr lang="ru" finished="false">Символы игнорируются, 0 дает значение NAN</tr>
+        <tr lang="ru">Символы игнорируются, 0 дает значение NAN</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">input number</tr>
+          <tr lang="ru">входное число</tr>
         </in>
         <in on="list">
-          <tr lang="en">on list input outputs a list of reciprocal values</tr>
-          <!-- old: в списке входных выходов список взаимных
-                    значений -->
-          <tr lang="ru" finished="false">в списке входных выходов список взаимных значений</tr>
+          <tr lang="en">input list of numbers</tr>
+          <tr lang="ru">входной список чисел</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+        <out type="float">
+          <tr lang="en">the result</tr>
+          <tr lang="ru">результат</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">the result</tr>
+          <tr lang="ru">результат</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]  [1 2 3 4 5(      [F]
-|    |                |
-[1/x ]                [1 $1(
-|                     |
-[ui.dt]               [/]
-                      |
-                      [F]
+[F]  [1 2 3 4 5(      [array \$0-recip #a]    [F]  /*vanilla analogue*/
+|    |                                        |
+[1/x ]                                        [1 $1(
+|                                             |
+[ui.dt]                                       [/]
+                                              |
+                                              [F]
+
+[bang(
+|
+[list.seq -5 5 0.025]
+|
+[math.reciprocal]
+|
+[list->array \$0-recip]
+#a yr=-5..5 w=200 h=200
 ]]>
       </pdascii>
     </example>
