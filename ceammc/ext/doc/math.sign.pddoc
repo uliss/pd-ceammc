@@ -18,41 +18,62 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Returns *-1* if x &lt; 0, *0* if x == 0 and *1* if x &gt; 0.</tr>
-        <!-- old: Возвращает *-1*, если x < 0, *0*, если x == 0 и
-                *1*, если x > 0. -->
-        <tr lang="ru" finished="false">Возвращает *-1*, если x &lt; 0, *0*, если x == 0 и *1*, если
-        x &gt; 0.</tr>
+        <tr lang="en">Returns:</tr>
+        <tr lang="ru">Возвращает:</tr>
+      </par>
+      <par indent="1" space-bottom="-7">
+          <tr lang="en">-1, if x &lt; 0</tr>
+          <tr lang="ru">-1, если x &lt; 0</tr>
+      </par>
+      <par indent="1" space-bottom="-7">
+        <tr lang="en">±0, if x == ±0</tr>
+        <tr lang="ru">±0, если x == 0</tr>
+      </par>
+      <par indent="1" space-bottom="-7">
+        <tr lang="en">+1, if x &gt; 0</tr>
+        <tr lang="ru">+1, если x &gt; 0</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">the number</tr>
+          <tr lang="ru">входное число</tr>
         </in>
         <in on="list">
-          <tr lang="en">list of numbers</tr>
-          <tr lang="ru" finished="false">Список номеров</tr>
+          <tr lang="en">the list of numbers</tr>
+          <tr lang="ru">список чисел</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+        <out type="float">
+          <tr lang="en">the result</tr>
+          <tr lang="ru">результат</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">the result</tr>
+          <tr lang="ru">результат</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]  [-10 0 100(
+[F]  [-10 0 100(     [array \$0-sign yr=-1..1 w=340]
 |    |
 [math.sign]
 |
 [ui.dt]
+
+[bang(
+|
+[list.seq -2 2 0.025]
+|
+[math.sign]
+|
+[list->array \$0-sign]
 ]]>
       </pdascii>
     </example>
