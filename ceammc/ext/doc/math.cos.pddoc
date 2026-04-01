@@ -71,11 +71,13 @@
     <example>
       <pdascii>
 <![CDATA[
-[F]
+[bang(                 [array \$0-cos y=-1..1 w=320]
+|
+[list.seq -6 6 0.025]
 |
 [math.cos]
 |
-[F]
+[list->array \$0-cos]
 ]]>
       </pdascii>
     </example>
