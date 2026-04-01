@@ -10,7 +10,7 @@
 [-x] @url math.neg-help.pd;
 #X obj 681 8 math.neg;
 #X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Returns value with opposite sign;
+#X text 240 83 Возвращает значения с противоположным знаком;
 #X floatatom 50 171 5 0 0 0 - - -;
 #X msg 98 171 -2 -1 0 1 2;
 #X obj 50 200 math.neg;
@@ -20,14 +20,17 @@
 0;
 #X text 130 285 1\.;
 #X text 170 285 float:;
-#X text 270 285 input value.;
+#X text 270 285 входное число.;
 #X text 170 310 list:;
-#X text 270 310 list of numbers.;
+#X text 270 310 список чисел.;
 #X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 350 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 351 1\.;
-#X text 270 351 result.;
+#X text 170 351 float:;
+#X text 270 351 результат.;
+#X text 170 376 list:;
+#X text 270 376 результат.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

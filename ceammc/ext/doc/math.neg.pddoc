@@ -23,26 +23,30 @@
     <info>
       <par>
         <tr lang="en">Returns value with opposite sign</tr>
-        <tr lang="ru" finished="false">Возврат значения с противоположным знаком</tr>
+        <tr lang="ru">Возвращает значения с противоположным знаком</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">input number</tr>
+          <tr lang="ru">входное число</tr>
         </in>
         <in on="list">
           <tr lang="en">list of numbers</tr>
-          <tr lang="ru" finished="false">Список номеров</tr>
+          <tr lang="ru">список чисел</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">result</tr>
-          <tr lang="ru" finished="false">результат</tr>
+          <tr lang="ru">результат</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">result</tr>
+          <tr lang="ru">результат</tr>
         </out>
       </outlet>
     </outlets>
