@@ -1420,7 +1420,7 @@ math.lgamma~-help.pd;
 #X obj 30 15160 ui.link @title [math.or] @url math.or-help.pd;
 #X text 200 15157 операция ИЛИ для множества аргументов;
 #X obj 30 15185 ui.link @title [math.pi] @url math.pi-help.pd;
-#X text 200 15182 математическая константа π;
+#X text 200 15182 математическая константа π и её произведения;
 #X obj 30 15210 ui.link @title [math.pi~] @url math.pi~-help.pd;
 #X text 200 15207 математическая константа π;
 #X obj 30 15235 ui.link @title [math.polyeval] @url

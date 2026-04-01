@@ -1564,7 +1564,7 @@
     <entry name="math.or" descr="operation OR for multiple arguments" ref_view="link">
       <xi:include href="math.or.pddoc" parse="xml"/>
     </entry>
-    <entry name="math.pi" descr="mathematical constant π" ref_view="link">
+    <entry name="math.pi" descr="the mathematical constant π and its multiples" ref_view="link">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>
     <entry name="math.pi~" descr="mathematical constant π" ref_view="link">

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 559 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 564 50 математическая константа π;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 математическая константа π и её произведения;
 #X obj 1 1 cnv 5 765 40 empty empty math.pi 20 20 0 20 -104026 -4096
 0;
 #X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,9 +10,9 @@
 [pi] @url math.pi-help.pd;
 #X obj 688 8 math.pi;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 The number PI is a mathematical constant \, the ratio
-of a circle's circumference to its diameter \, commonly approximated
-as 3.14159\.;
+#X text 240 83 Число Пи — математическая константа \, отношение окружности
+круга к его диаметру \, обычно аппроксимируемое как 3.14159\.;
+#X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -158925 -1 0;
 #X obj 50 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 203 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -29,26 +29,27 @@ as 3.14159\.;
 #X text 130 297 1\.;
 #X text 170 297 float;
 #X obj 268 298 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 297 K: multiplier. default is 1\. Тип: float.;
+#X text 270 297 K: множитель - по умолчанию 1\. Тип: float.;
 #X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 337 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 340 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 338 @k;
-#X text 270 338 (при инициализации) Multiplier. Тип: float. Значение
+#X text 270 338 (при инициализации) Множитель. Тип: float. Значение
 по умолчанию: 1\.;
 #X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 395 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 396 1\.;
 #X text 170 396 bang:;
-#X text 270 396 outputs value.;
+#X text 270 396 вычисляет значение.;
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 436 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 437 1\.;
-#X text 270 437 output value.;
+#X text 170 437 float:;
+#X text 270 437 выходное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -86,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
-#X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
+#X connect 12 0 14 0;

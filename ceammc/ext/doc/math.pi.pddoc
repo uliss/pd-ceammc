@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">mathematical constant π</tr>
-        <tr lang="ru">математическая константа π</tr>
+        <tr lang="en">the mathematical constant π and its multiples</tr>
+        <tr lang="ru">математическая константа π и её произведения</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,41 +25,39 @@
       </aliases>
     </meta>
     <info>
-      <par>
+      <par style="info">
         <tr lang="en">The number PI is a mathematical constant, the ratio of a circle's
         circumference to its diameter, commonly approximated as 3.14159.</tr>
-        <!-- old: Число PI — математическая константа, отношение
-                окружности круга к его диаметру, обычно аппроксимируемое как 3.14159. -->
-        <tr lang="ru" finished="false">Число PI — математическая константа, отношение окружности
+        <tr lang="ru">Число Пи — математическая константа, отношение окружности
         круга к его диаметру, обычно аппроксимируемое как 3.14159.</tr>
       </par>
     </info>
     <arguments>
       <argument name="K" type="float">
-        <tr lang="en">multiplier. default is 1</tr>
-        <tr lang="ru" finished="false">мультипликатор - по умолчанию 1</tr>
+        <tr lang="en">multiplier - default 1</tr>
+        <tr lang="ru">множитель - по умолчанию 1</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @k -->
       <property name="@k" type="float" default="1" access="initonly">
         <tr lang="en">multiplier</tr>
-        <tr lang="ru" finished="false">умножитель</tr>
+        <tr lang="ru">множитель</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="en">calculates the value</tr>
+          <tr lang="ru">вычисляет значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="ru">выходное значение</tr>
         </out>
       </outlet>
     </outlets>

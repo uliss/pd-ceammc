@@ -134,7 +134,7 @@ function for signals;
 #X obj 30 1685 ui.link @title [math.or] @url math.or-help.pd;
 #X text 220 1682 operation OR for multiple arguments;
 #X obj 30 1710 ui.link @title [math.pi] @url math.pi-help.pd;
-#X text 220 1707 mathematical constant π;
+#X text 220 1707 the mathematical constant π and its multiples;
 #X obj 30 1735 ui.link @title [math.pi~] @url math.pi~-help.pd;
 #X text 220 1732 mathematical constant π;
 #X obj 30 1760 ui.link @title [math.polyeval] @url

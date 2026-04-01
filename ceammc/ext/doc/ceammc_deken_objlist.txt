@@ -814,9 +814,9 @@ ceammc/-x	negate function / отрицательная функция
 math.or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
 ceammc/or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
 or	operation OR for multiple arguments / операция ИЛИ для множества аргументов
-math.pi	mathematical constant π / математическая константа π
-ceammc/pi	mathematical constant π / математическая константа π
-pi	mathematical constant π / математическая константа π
+math.pi	the mathematical constant π and its multiples / математическая константа π и её произведения
+ceammc/pi	the mathematical constant π and its multiples / математическая константа π и её произведения
+pi	the mathematical constant π and its multiples / математическая константа π и её произведения
 math.pi~	mathematical constant π / математическая константа π
 ceammc/pi~	mathematical constant π / математическая константа π
 pi~	mathematical constant π / математическая константа π
