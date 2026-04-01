@@ -61,7 +61,7 @@
     <example>
       <pdascii>
 <![CDATA[
-[bang(                 [array ERF y=0..1 w=320]
+[bang(                 [array ERF yr=-1..1 w=320]
 |
 [list.seq -4 4 0.025]
 |
