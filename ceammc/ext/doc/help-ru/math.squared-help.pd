@@ -13,21 +13,32 @@
 #X obj 653 8 math.squared;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 98 118 -2 -1 0 1 2;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array \$0-pow2 100 float 0;
+#X coords 0 1 100 0 140 140 1;
+#X restore 261 118 graph;
 #X obj 50 147 math.squared;
 #X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 50 205 bang;
+#X obj 50 234 list.seq -1 1 0.025;
+#X obj 50 262 math.squared;
+#X obj 50 291 list->array \$0-pow2;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 346 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 232 1\.;
-#X text 170 232 float:;
-#X text 270 232 input value.;
-#X text 170 257 list:;
-#X text 270 257 list of numbers.;
-#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 347 1\.;
+#X text 170 347 float:;
+#X text 270 347 входное число.;
+#X text 170 372 list:;
+#X text 270 372 список чисел.;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 412 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 298 1\.;
-#X text 270 298 result.;
+#X text 130 413 1\.;
+#X text 170 413 float:;
+#X text 270 413 результат.;
+#X text 170 438 list:;
+#X text 270 438 результат.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -60,6 +71,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
