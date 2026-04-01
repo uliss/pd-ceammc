@@ -22,8 +22,10 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">Properties in this object can only be changed through the connected object [prop.set]</tr>
-        <tr lang="ru">Измененять свойства в этом объекте можно только через подключенный объект [prop.set]</tr>
+        <tr lang="en">Properties in this object can only be changed through the connected object
+        [prop.set]</tr>
+        <tr lang="ru">Измененять свойства в этом объекте можно только через подключенный объект
+        [prop.set]</tr>
       </par>
     </info>
     <arguments>
@@ -51,8 +53,9 @@
       <property name="@sync" type="bool" default="0">
         <tr lang="en">sync mode. If true: outputs a message for every event on each of the inputs,
         otherwise it outputs a message only for the event on the first input.</tr>
-        <tr lang="ru">режим синхронизации. Если true: выводит сообщение при каждом событии на каждом их входов,
-        в противном случае выводит сообщение только при событии на первом входе.</tr>
+        <tr lang="ru">режим синхронизации. Если true: выводит сообщение при каждом событии на
+        каждом их входов, в противном случае выводит сообщение только при событии на первом
+        входе.</tr>
       </property>
     </properties>
     <inlets dynamic="true">

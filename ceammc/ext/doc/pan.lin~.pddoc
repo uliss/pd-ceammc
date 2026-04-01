@@ -29,33 +29,33 @@
         <tr lang="en">The signal is lowered as it pans from left (or right) to center using a
         straight line from ±1 (left or right) to 0.0 (center) for a 6dB reduction in the
         middle.</tr>
-        <tr lang="ru">Сигнал уменьшается по мере его панорамирования с левого (или правого) канала в центр,
-        при помощи прямой линии от ±1 (лево или право) до 0.0 (центр), приводя к снижению на 6 дБ в середине.</tr>
+        <tr lang="ru">Сигнал уменьшается по мере его панорамирования с левого (или правого) канала
+        в центр, при помощи прямой линии от ±1 (лево или право) до 0.0 (центр), приводя к снижению
+        на 6 дБ в середине.</tr>
       </par>
       <par style="important">
         <tr lang="en">A problem inherent to linear panning is that the perceived volume of the
         signal drops in the middle. [pan.sqrt~] solves this by taking the square root of the linear
-        scaling factor going from 1 (left or right) to √0.5 (~=0.707) in the center, which is
-        about 3dB reduction.</tr>
-        <tr lang="ru">Проблема, присущая линейному панорамированию, заключается в
-        том, что воспринимаемый уровень сигнала падает посередине.
-        [pan.sqrt~] решает эту проблему, используя квадратный корень из линейного коэффициента масштабирования,
-        изменяющегося от 1 (лево или право) до √0.5 (~=0.707) в центре, что приводит к снижению уровня примерно на 3 дБ.</tr>
+        scaling factor going from 1 (left or right) to √0.5 (~=0.707) in the center, which is about
+        3dB reduction.</tr>
+        <tr lang="ru">Проблема, присущая линейному панорамированию, заключается в том, что
+        воспринимаемый уровень сигнала падает посередине. [pan.sqrt~] решает эту проблему,
+        используя квадратный корень из линейного коэффициента масштабирования, изменяющегося от 1
+        (лево или право) до √0.5 (~=0.707) в центре, что приводит к снижению уровня примерно на 3
+        дБ.</tr>
       </par>
     </info>
     <arguments>
       <argument name="POS" type="float" minvalue="-1" maxvalue="1">
         <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 -
-        право</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 - право</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pos -->
       <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
         <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 -
-        право</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 - право</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"

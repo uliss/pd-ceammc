@@ -150,7 +150,7 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any" name="ch">
+        <out name="ch" type="any">
           <tr lang="en">CHANNEL VALUE</tr>
           <tr lang="ru">КАНАЛ ЗНАЧЕНИЕ</tr>
         </out>

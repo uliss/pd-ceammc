@@ -37,8 +37,7 @@
       <inlet>
         <in on="any">
           <tr lang="en">appends all elements to the message content, and then outputs it</tr>
-          <tr lang="ru">добавляет все элементы к содержимому сообщения, а затем выводит
-          его</tr>
+          <tr lang="ru">добавляет все элементы к содержимому сообщения, а затем выводит его</tr>
         </in>
         <in on="list">
           <tr lang="en">appends all list elements to the message content, and then outputs it</tr>
@@ -46,7 +45,8 @@
           его</tr>
         </in>
         <in on="float">
-          <tr lang="en">appends a float number to the content of the message, and then outputs it</tr>
+          <tr lang="en">appends a float number to the content of the message, and then outputs
+          it</tr>
           <tr lang="ru">добавляет число к содержимому сообщения, а затем выводит его</tr>
         </in>
         <in on="symbol">

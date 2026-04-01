@@ -21,7 +21,8 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">If the first element of the input list is a number, it is considered as the message sending delay time in milliseconds.</tr>
+        <tr lang="en">If the first element of the input list is a number, it is considered as the
+        message sending delay time in milliseconds.</tr>
         <tr lang="ru">Если первый элемент входного списка - число, он рассматривается как время
         задержки отправки сообщения в миллисекундах.</tr>
       </par>
@@ -45,20 +46,18 @@
           <tr lang="ru">немедленно выводит symbol</tr>
         </in>
         <in on="list">
-          <tr lang="en">If the first element is a number, it is considered
-          the message sending delay time in milliseconds.
-          If this delay time &gt;0: it outputs the remaining elements of the list
-          after this delay time. If the delay time &lt;0, it immediately outputs the remaining
-          elements of the list. If the delay time == 0, it outputs the remaining elements of the list with the smallest possible
-          delay (in the next scheduler tick). If the first element is not a number, immediately
-          output the entire(!) list.</tr>
-          <tr lang="ru">Если первый элемент является числом, он рассматривается
-          временем задержки отправки сообщения в миллисекундах.
-          Если это время задержки &gt;0: выводит остальные элементы списка
-          после этого времени задержки. Если время задержки &lt;0, сразу же выводит остальные
-          элементы списка. Если время задержки ==0, выводит остальные элементы списка с наименьшей возможной
-          задержкой (на следующем блоке планировщика). Если первый элемент не число: немедленно
-          выводит весь(!) список.</tr>
+          <tr lang="en">If the first element is a number, it is considered the message sending
+          delay time in milliseconds. If this delay time &gt;0: it outputs the remaining elements
+          of the list after this delay time. If the delay time &lt;0, it immediately outputs the
+          remaining elements of the list. If the delay time == 0, it outputs the remaining elements
+          of the list with the smallest possible delay (in the next scheduler tick). If the first
+          element is not a number, immediately output the entire(!) list.</tr>
+          <tr lang="ru">Если первый элемент является числом, он рассматривается временем задержки
+          отправки сообщения в миллисекундах. Если это время задержки &gt;0: выводит остальные
+          элементы списка после этого времени задержки. Если время задержки &lt;0, сразу же выводит
+          остальные элементы списка. Если время задержки ==0, выводит остальные элементы списка с
+          наименьшей возможной задержкой (на следующем блоке планировщика). Если первый элемент не
+          число: немедленно выводит весь(!) список.</tr>
         </in>
         <in on="any">
           <tr lang="en">immediately output message</tr>

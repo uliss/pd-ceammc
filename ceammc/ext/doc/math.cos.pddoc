@@ -26,8 +26,8 @@
       <par>
         <tr lang="en">The cos() function computes the cosine of input value (measured in
         radians).</tr>
-        <tr lang="ru" finished="false">Функция cos() вычисляет косинус входного значения
-        (в радианах).</tr>
+        <tr lang="ru" finished="false">Функция cos() вычисляет косинус входного значения (в
+        радианах).</tr>
       </par>
       <par>
         <tr lang="en">Special values:</tr>
