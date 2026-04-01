@@ -17,57 +17,65 @@
       <since>0.1</since>
     </meta>
     <info>
-      <par>
-        <tr lang="en">The sqrt() function compute the non-negative square root of x.</tr>
-        <!-- old: Функция sqrt() вычисляет неотрицательный квадратный
-                корень x. -->
-        <tr lang="ru" finished="false">Функция sqrt() вычисляет неотрицательный квадратный корень
-        x.</tr>
+      <par style="info">
+        <tr lang="en">compute the non-negative square root</tr>
+        <tr lang="ru">вычисляет неотрицательный квадратный корень</tr>
       </par>
-      <par>
+      <par style="warning">
         <tr lang="en">Special values:</tr>
-        <tr lang="ru" finished="false">Особые ценности:</tr>
+        <tr lang="ru">Особые значения:</tr>
       </par>
-      <par>
-        <tr lang="en">sqrt(-0) returns -0.</tr>
-        <tr lang="ru" finished="false">sqrt(-0) возвращается -0.</tr>
+      <par indent="1" style="warning">
+        <tr lang="en">sqrt(-0) returns -0. (negative 0)</tr>
+        <tr lang="ru">sqrt(-0) возвращает -0. (отрицательный ноль)</tr>
       </par>
-      <par>
-        <tr lang="en">sqrt(x) returns a NaN and generates a domain error for x &lt; 0.</tr>
-        <!-- old: sqrt(x) возвращает NaN и генерирует ошибку домена
-                для x < 0. -->
-        <tr lang="ru" finished="false">sqrt(x) возвращает NaN и генерирует ошибку домена для x &lt;
-        0.</tr>
+      <par indent="1" style="warning">
+        <tr lang="en">sqrt(x) returns a NaN for x&lt;0.</tr>
+        <tr lang="ru">sqrt(x) возвращает NaN для x&lt;0.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">input number</tr>
+          <tr lang="ru">входное число</tr>
         </in>
         <in on="list">
-          <tr lang="en">apply to all numeric values</tr>
-          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+          <tr lang="en">input list, the function is applied only to numbers, the other elements are
+          passed unchanged, as is</tr>
+          <tr lang="ru">входной список, функция применяется только к числам, остальные элементы
+          передаются без изменений, как есть</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+          <tr lang="ru">значение результата</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">result value</tr>
+          <tr lang="ru">значение результата</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]
-|
+[F]  [-3( [-0(          [array \$0-sqrt yr=0..3 w=320]
+|    |    |
 [math.sqrt]
 |
 [F]
+
+[bang(
+|
+[list.seq 0 9 0.025]
+|
+[math.sqrt]
+|
+[list->array \$0-sqrt]
 ]]>
       </pdascii>
     </example>
