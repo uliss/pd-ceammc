@@ -8,8 +8,7 @@
       </authors>
       <description>
         <tr lang="en">round to the largest integral value not greater than input value</tr>
-        <tr lang="ru">округление до наибольшего целого значения, не превышающего входное
-        значение</tr>
+        <tr lang="ru">округление до наибольшего целого значения, не превышающего входное</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,57 +22,60 @@
       <since>0.1</since>
     </meta>
     <info>
-      <par>
-        <tr lang="en">The floor() functions return the largest integral value less than or equal to
-        x.</tr>
-        <!-- old: Функции пола возвращают наибольшее интегральное
-                значение меньше или равно x. -->
-        <tr lang="ru" finished="false">Функции пола возвращают наибольшее интегральное значение
-        меньше или равно x.</tr>
-      </par>
-      <par>
+      <par style="warning">
         <tr lang="en">Special values:</tr>
-        <tr lang="ru" finished="false">Особые ценности:</tr>
+        <tr lang="ru">Специальные значения:</tr>
       </par>
-      <par>
-        <tr lang="en">floor(+-0) returns +-0.</tr>
-        <tr lang="ru" finished="false">Пол (+-0) возвращается +-0.</tr>
+      <par indent="1" space-bottom="-7">
+        <tr lang="en">floor(±0) returns ±0.</tr>
+        <tr lang="ru">floor(±0) возвращает ±0.</tr>
       </par>
-      <par>
-        <tr lang="en">floor(+-infinity) returns +-infinity.</tr>
-        <!-- old: Пол (+-бесконечность) возвращается
-                +-бесконечность. -->
-        <tr lang="ru" finished="false">Пол (+-бесконечность) возвращается +-бесконечность.</tr>
+      <par indent="1" space-bottom="-7">
+        <tr lang="en">floor(±infinity) returns ±infinity.</tr>
+        <tr lang="ru">floor(±бесконечность) возвращает ±бесконечность.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">input number</tr>
+          <tr lang="ru">входное число</tr>
         </in>
         <in on="list">
-          <tr lang="en">apply to all numeric values</tr>
-          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+          <tr lang="en">list of numbers</tr>
+          <tr lang="ru">список чисел</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+        <out type="float">
+          <tr lang="en">result</tr>
+          <tr lang="ru">результат</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">result</tr>
+          <tr lang="ru">результат</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(
+[F]    [2.3 3.8 5.5 -2.3 -3.8 -5.5(  [array \$0-floor yr=-4..4 w=280]
 |      |
 [math.floor]
 |
 [ui.dt]
+
+
+[bang(
+|
+[list.seq -4 4 0.025]
+|
+[math.floor]
+|
+[list->array \$0-floor]
 ]]>
       </pdascii>
     </example>

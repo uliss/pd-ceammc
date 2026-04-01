@@ -788,7 +788,7 @@ math.exp2	base-2 exponential function / экспоненциальная фун�
 math.exp2~	base-2 exponential for signal / экспоненциальная функция на основе 2 для сигналов
 math.expr	dynamic version of [expr] object / динамическая версия объекта [expr]
 math.exp~	base-e exponential function for signals / экспоненциальная функция для сигналов на основе числа e
-math.floor	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное значение
+math.floor	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входное
 math.floor~	round to the largest integral value not greater than input value / округление до наибольшего целого значения, не превышающего входного значения
 math.gamma	gamma function / гамма-функция
 math.gamma~	gamma function for signals / гамма-функция для сигналов

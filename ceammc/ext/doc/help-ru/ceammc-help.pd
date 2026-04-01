@@ -1375,7 +1375,7 @@ math.binomial-help.pd;
 e;
 #X obj 30 14615 ui.link @title [math.floor] @url math.floor-help.pd;
 #X text 200 14612 округление до наибольшего целого значения \, не превышающего
-входное значение;
+входное;
 #X obj 30 14655 ui.link @title [math.floor~] @url math.floor~-help.pd;
 #X text 200 14652 округление до наибольшего целого значения \, не превышающего
 входного значения;
