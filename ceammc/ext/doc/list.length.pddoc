@@ -25,33 +25,38 @@
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">Input list</tr>
-          <tr lang="ru" finished="false">Список вводимых данных</tr>
+          <tr lang="en">the list</tr>
+          <tr lang="ru">список</tr>
         </in>
         <in on="data:mlist">
-          <tr lang="en">Input mlist</tr>
-          <tr lang="ru" finished="false">Входной млист</tr>
+          <tr lang="en">the multi-level list (MList)</tr>
+          <tr lang="ru">многоуровневый список (MList)</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="int">
           <tr lang="en">the number of elements in the list</tr>
-          <tr lang="ru" finished="false">Количество элементов в списке</tr>
+          <tr lang="ru">количество элементов в списке</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-      [a b c d e(        [\("a list" "of two elements"\), bang(
-      |                  |
-[1 2( | [list a b c( [F] [ml]
-|     | |            |   |
-[list.length             ]
+[list #a(   [\("a list" "of two elements"\), bang(
+            |
+            [ml #b]
+
+ [1 2( [F]  [list 1 #c(
+ |     |
+ |     |
+[list.length #x]
 |
-[F]
+[ui.dt]
+[X a->x] [X b->x] [X c->x]
+#a a b c
 ]]>
       </pdascii>
     </example>
