@@ -61,7 +61,7 @@
     <example>
       <pdascii>
 <![CDATA[
-[F]  [-10 0 100(     [array \$0-sign yr=-1..1 w=340]
+[F]  [-10 -0 0 100(     [array \$0-sign yr=-1..1 w=340]
 |    |
 [math.sign]
 |

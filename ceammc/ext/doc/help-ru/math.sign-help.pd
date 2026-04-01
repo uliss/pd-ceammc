@@ -11,11 +11,11 @@
 #X text 250 126 ±0 \, если x == 0;
 #X text 250 144 +1 \, если x > 0;
 #X floatatom 50 225 5 0 0 0 - - -;
-#X msg 98 225 -10 0 100;
+#X msg 98 225 -10 -0 0 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array \$0-sign 100 float 0;
 #X coords 0 1 100 -1 340 140 1;
-#X restore 251 225 graph;
+#X restore 280 225 graph;
 #X obj 50 254 math.sign;
 #X obj 50 283 ui.dt;
 #X msg 50 312 bang;
