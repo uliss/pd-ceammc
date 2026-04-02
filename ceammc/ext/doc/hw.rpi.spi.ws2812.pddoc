@@ -248,9 +248,9 @@
 <![CDATA[
 [B] [T]                [fill @color8 255 0 0, bang #b(
 |   |
-|   [@connect $1 #h(   [fill_slice @slice 3 -3 2 @color 0 0 1, bang #c(
+|   [@connect $1 #h(   [fill @slice 3 -3 2 @color 0 0 1, bang #c(
 |
-[system.colorpanel @d] [fill_lslice @lslice 1 7  @color cyan, bang #d(
+[system.colorpanel @d] [fill @lslice 1 7  @color cyan, bang #d(
 |
 |                      [fill_pixels @indexes 1 2 3  @color yellow, bang #j(
 |
