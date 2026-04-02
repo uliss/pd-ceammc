@@ -45,65 +45,70 @@ set(BASE_SOURCES
     replace.cpp)
 
 # predicates
-list(APPEND BASE_SOURCES
-    is_any.cpp
-    is_bang.cpp
-    is_data.cpp
-    is_even.cpp
-    is_file.cpp
-    is_float.cpp
-    is_list.cpp
-    is_odd.cpp
-    is_pointer.cpp
-    is_prop.cpp
-    is_symbol.cpp)
+list(
+  APPEND
+  BASE_SOURCES
+  is_any.cpp
+  is_bang.cpp
+  is_data.cpp
+  is_even.cpp
+  is_file.cpp
+  is_float.cpp
+  is_list.cpp
+  is_odd.cpp
+  is_pointer.cpp
+  is_prop.cpp
+  is_symbol.cpp)
 
 # test
-list(APPEND BASE_SOURCES
-    test_data.cpp
-    test_expect.cpp)
+list(APPEND BASE_SOURCES test_data.cpp test_expect.cpp)
 
 # sound
-list(APPEND BASE_SOURCES
-    base_click.cpp
-    base_convolve_tilde.cpp
-    base_dac.cpp
-    base_gate_tilde.cpp
-    base_merge_tilde.cpp
-    base_split_tilde.cpp
-    base_z_tilde.cpp
-    gain.cpp
-    matrix_tilde.h
-    matrix_tilde.cpp
-    mix.cpp
-    nsig_tilde.cpp
-    snd_play_tilde.cpp
-    xfade_tilde.cpp
-    xfade2_tilde.cpp)
+list(
+  APPEND
+  BASE_SOURCES
+  base_click.cpp
+  base_convolve_tilde.cpp
+  base_dac.cpp
+  base_gate_tilde.cpp
+  base_merge_tilde.cpp
+  base_split_tilde.cpp
+  base_z_tilde.cpp
+  gain.cpp
+  matrix_tilde.h
+  matrix_tilde.cpp
+  mix.cpp
+  nsig_tilde.cpp
+  snd_play_tilde.cpp
+  xfade_tilde.cpp
+  xfade2_tilde.cpp)
 
 find_package(RAGEL 6.6)
 if(RAGEL_FOUND)
-    RAGEL_TARGET(parser_canvas_id
-        parser_canvas_id.rl parser_canvas_id.cpp
-        COMPILE_FLAGS "-G2 -s")
+  ragel_target(parser_canvas_id parser_canvas_id.rl parser_canvas_id.cpp
+               COMPILE_FLAGS "-G2 -s")
 
-    add_custom_target(ragel_base SOURCES parser_canvas_id.rl)
+  add_custom_target(ragel_base SOURCES parser_canvas_id.rl)
 endif()
 
-add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES}
-    base_bitmap.h base_bitmap.cpp
-    # matrix_bitmap_ops.h matrix_bitmap_ops.cpp
-    base_bitmap.tcl
+add_library(
+  ceammc_base STATIC
+  mod_base.cpp
+  ${BASE_SOURCES}
+  base_bitmap.h
+  base_bitmap.cpp
+  # matrix_bitmap_ops.h matrix_bitmap_ops.cpp
+  base_bitmap.tcl
 )
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
-target_include_directories(ceammc_base
-    PRIVATE
-        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-        "$<TARGET_PROPERTY:aubio,INCLUDE_DIRECTORIES>"
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
-        ${CMAKE_BINARY_DIR} # for config.h
-        ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
+target_include_directories(
+  ceammc_base
+  PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+          "$<TARGET_PROPERTY:aubio,INCLUDE_DIRECTORIES>"
+          ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
+          ${CMAKE_BINARY_DIR} # for config.h
+          ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
 )
 
 target_link_libraries(ceammc_base PRIVATE fftconv core_rust)
@@ -113,11 +118,9 @@ tcl_autogen_header(base_bitmap.tcl TARGET ceammc_base SOURCES ceammc_base)
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)
-    target_include_directories(ceammc_base PRIVATE ${RUBBERBAND_INCLUDE_DIRS})
-    target_link_libraries(ceammc_base PRIVATE ${RUBBERBAND_LIBRARIES})
+  target_include_directories(ceammc_base PRIVATE ${RUBBERBAND_INCLUDE_DIRS})
+  target_link_libraries(ceammc_base PRIVATE ${RUBBERBAND_LIBRARIES})
 endif()
 
-
-# separate external:
-# because it use CEAMMC Pd API
+# separate external: because it use CEAMMC Pd API
 ceammc_cxx_extension(debug gensym)
