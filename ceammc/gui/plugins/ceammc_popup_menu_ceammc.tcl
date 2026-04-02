@@ -154,8 +154,8 @@
         midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ misc.whisper~ modplug~ qrcode risset.gliss sfizz~
-        speech.flite speech.flite~ speech.rhvoice~
+        click~ fluid~ modplug~ qrcode risset.gliss sfizz~ speech.flite
+        speech.flite~ speech.rhvoice~ speech.whisper~
     }}
     {msg {
         loadexpr msg msg.after msg.onclose msg.onload msg.pack msg.sched
