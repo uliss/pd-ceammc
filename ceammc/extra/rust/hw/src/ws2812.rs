@@ -233,5 +233,13 @@ pub extern "C" fn ceammc_hw_spi_ws2812_write_pixels(
     }
 
     let colors = unsafe { std::slice::from_raw_parts(colors, length) };
-    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetPixels(colors.to_vec(), offset),) });
+    rpi_check!({
+        hw_spi_ws2812::send_ptr(
+            ws,
+            Request::SetPixels {
+                colors: colors.to_vec(),
+                offset,
+            },
+        )
+    });
 }
