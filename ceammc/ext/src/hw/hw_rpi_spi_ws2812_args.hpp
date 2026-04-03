@@ -1820,13 +1820,13 @@ struct m_flush_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // methods
     static const char* usage() {
-        return "usage: [flush (";
+        return "usage: [flush(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
-        Error(obj) << usage() << " where:";
+        Error(obj) << usage();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
