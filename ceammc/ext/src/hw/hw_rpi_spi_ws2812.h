@@ -28,6 +28,7 @@ public:
     void m_fx(t_symbol* s, const AtomListView& lv);
     void m_rotate(t_symbol* s, const AtomListView& lv);
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
+    void m_write(t_symbol* s, const AtomListView& lv);
 
     Device createDevice() final;
 };

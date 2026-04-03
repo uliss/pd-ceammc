@@ -214,14 +214,20 @@ impl hw_spi_ws2812 {
                             for p in &pixels {
                                 let idx = pos2index(*p, leds.len());
                                 if idx >= leds.len() {
-                                    break
+                                    break;
                                 }
 
                                 leds[idx].r = color.red;
                                 leds[idx].g = color.green;
                                 leds[idx].b = color.blue;
                             }
-                        },
+                        }
+                        Request::SetPixels {
+                            colors: color,
+                            offset: offset,
+                        } => {
+
+                        }
                     }
                 }
 

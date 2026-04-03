@@ -475,6 +475,87 @@ void m_set_pixel_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_set_pixel_args_info());
 }
+struct m_write_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    AtomListView colors; // list of pixel color in int24 format
+    // methods
+    int process_colors(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        int take_count = 0;
+        for (auto& a: lv) {
+            if (a.isInteger()) {
+                take_count++;
+            }
+        else {
+            break;
+        }
+        }
+        // check count
+        if (take_count < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // set value
+        colors = lv.subView(0, take_count);
+        // number of matched items
+        return take_count;
+    }
+    static const char* arg_colors_info() {
+        return "COLORS+ (list of pixel color in int24 format), int";
+    }
+    static const char* usage() {
+        return "usage: [write COLORS+(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_colors_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_colors(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[write( argument #0 'COLORS+' is required:";
+                    Post(obj) << " - " << arg_colors_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[write( argument #0 'COLORS+' check failed, expected:";
+                    Post(obj) << " - " << arg_colors_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[write( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_write_args_info() {
+    return "write list of color into the strip";
+}
+void m_write_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_write_args_info());
+}
 struct m_fill_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // props

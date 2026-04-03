@@ -1333,6 +1333,16 @@ bool ceammc_hw_spi_ws2812_set_pixel_color(const ceammc_hw_spi_ws2812 *ws,
                                           size_t idx,
                                           ceammc_hw_color_rgb8 color);
 
+/// write pixels colors into the led strip
+/// @param ws - device handle (nullable)
+/// @param colors - pointer to pixel colors (RGB24 format)
+/// @param length - length of colors array
+/// @param offset - offset
+bool ceammc_hw_spi_ws2812_write_pixels(const ceammc_hw_spi_ws2812 *ws,
+                                       const uint32_t *colors,
+                                       size_t length,
+                                       size_t offset);
+
 }  // extern "C"
 
 #endif  // ceammc_rust_hw_h

@@ -7,7 +7,9 @@ use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    MakePdMessage, hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice, max7219::{hw_spi_bus, hw_spi_cs}
+    hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
+    max7219::{hw_spi_bus, hw_spi_cs},
+    MakePdMessage,
 };
 
 // mod led_fx;
@@ -44,12 +46,13 @@ pub enum hw_led_fx {
 #[derive(Debug)]
 pub enum Request {
     SetPixelColor(hw_color_rgb8, usize),
+    SetPixels { colors: Vec<u32>, offset: usize },
     FillSlice(hw_color_rgb8, Option<hw_slice>),
     FillBits(hw_color_rgb8, i32, fixedbitset::FixedBitSet),
     FillPixels(hw_color_rgb8, Vec<i32>),
     Rotate(i32, Option<hw_slice>),
     Clear,
-    Flush,    // EffectNext,
+    Flush, // EffectNext,
     SetBrightness(u8),
     ApplyEffect(hw_led_fx, Option<hw_slice>),
     Quit,
@@ -211,4 +214,24 @@ pub extern "C" fn ceammc_hw_spi_ws2812_process_reply(ws: *mut hw_spi_ws2812) {
 pub extern "C" fn ceammc_hw_spi_ws2812_apply_fx(ws: *mut hw_spi_ws2812, fx: hw_led_fx, slice: *const hw_slice) -> bool {
     let slice = if slice.is_null() { None } else { Some(unsafe { *slice }) };
     rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::ApplyEffect(fx, slice)) });
+}
+
+#[no_mangle]
+/// write pixels colors into the led strip
+/// @param ws - device handle (nullable)
+/// @param colors - pointer to pixel colors (RGB24 format)
+/// @param length - length of colors array
+/// @param offset - offset
+pub extern "C" fn ceammc_hw_spi_ws2812_write_pixels(
+    ws: *const hw_spi_ws2812,
+    colors: *const u32,
+    length: usize,
+    offset: usize,
+) -> bool {
+    if colors.is_null() {
+        return false;
+    }
+
+    let colors = unsafe { std::slice::from_raw_parts(colors, length) };
+    rpi_check!({ hw_spi_ws2812::send_ptr(ws, Request::SetPixels(colors.to_vec(), offset),) });
 }

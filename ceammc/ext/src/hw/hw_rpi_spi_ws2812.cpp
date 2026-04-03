@@ -137,6 +137,16 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_ws2812_set_pixel_color(device(), args.pos, color);
 }
 
+/// @function "write list of color into the strip" {
+///     #colors int + "list of pixel color in int24 format" {}
+/// }
+void HwSpiWs2812::m_write(t_symbol* s, const AtomListView& lv)
+{
+    m_write_args args;
+    if (!args.parse_args(lv, this))
+        return;
+}
+
 /// @function "fill all pixels in the internal buffer with specified color" {
 ///  @color  ^(@color8) "RGB color"                         { #color color "fill color" {} }
 ///  @color8 ^(@color)  "int RGB color in [0..255] range"   {
@@ -365,4 +375,5 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("fx", &HwSpiWs2812::m_fx);
     obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
     obj.addMethod("set_pixel", &HwSpiWs2812::m_set_pixel);
+    obj.addMethod("write", &HwSpiWs2812::m_write);
 }
