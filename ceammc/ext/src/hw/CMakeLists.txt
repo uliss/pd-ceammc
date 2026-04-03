@@ -6,18 +6,6 @@ function(ceammc_hw_external name)
   target_sources(ceammc_hw PRIVATE "hw_${name}.h" "hw_${name}.cpp")
 endfunction()
 
-find_program(METHOD_GENERATOR "method_args")
-function(ceammc_hw_args name)
-  if(METHOD_GENERATOR)
-    add_custom_command(
-      OUTPUT "hw_${name}_args.hpp"
-      DEPENDS "hw_${name}.cpp"
-      COMMAND ${METHOD_GENERATOR} --force "hw_${name}.cpp"
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-    target_sources(ceammc_hw PRIVATE "hw_${name}_args.hpp")
-  endif()
-endfunction()
-
 # Sudden motion sensor on macbook's
 if(APPLE)
   add_compile_definitions(WITH_SMS)
@@ -116,8 +104,8 @@ ceammc_hw_external(rpi_sensor_vl53l0x)
 ceammc_hw_external(rpi_spi_max7219)
 ceammc_hw_external(rpi_spi_ws2812)
 
-ceammc_hw_args(rpi_sensor_mpr121)
-ceammc_hw_args(rpi_spi_ws2812)
+pd_method_args(ceammc_hw hw_rpi_sensor_mpr121)
+pd_method_args(ceammc_hw hw_rpi_spi_ws2812)
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES
 # udmx_handle.cpp) ceammc_hw_external(udmx) target_link_libraries(ceammc_hw
