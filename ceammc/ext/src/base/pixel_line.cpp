@@ -450,7 +450,7 @@ void PixelLine::onBang()
 /// @function "clear the pixels of the layer (by filling them with a transparent color)" {
 ///     #layer int?    "layer index" { default: 0 check: >=0 }
 ///     @range? "pixel range" {
-///         #from int  "first element"            { default: 0 }
+///         #from int  "first element"            { }
 ///         #to   int? "last element (including)" { default: -1 }
 ///         #step int? "step"                     { default: 1 check: >0 }
 ///     }
@@ -484,10 +484,10 @@ void PixelLine::m_clear(t_symbol* s, const AtomListView& lv)
 }
 
 /// @function "fill the layer by specified color" {
-///     #layer int?    "layer index" { default: 0 check: >=0 }
-///     @color color   "fill color" {}
+///     #layer int     "layer index" { check: >=0 }
+///     #color color   "fill color"  {}
 ///     @range? "pixel range" {
-///         #from int  "first element"            { default: 0 }
+///         #from int  "first element"            { }
 ///         #to   int? "last element (including)" { default: -1 }
 ///         #step int? "step"                     { default: 1 check: >0 }
 ///     }
@@ -495,39 +495,29 @@ void PixelLine::m_clear(t_symbol* s, const AtomListView& lv)
 /// }
 void PixelLine::m_fill(t_symbol* s, const AtomListView& lv)
 {
-    DataTypeColor c;
-    if (!DataTypeColor::parseFromList(lv.subView(0, 1), c)) {
-        if (lv.size() > 0 && lv[0].isFloat()) {
-            std::uint32_t color = lv.floatAt(0, 0);
-            c = DataTypeColor(color);
-        } else {
-            METHOD_ERR(s) << "unknown color: " << lv;
-            return;
-        }
-    }
+    m_fill_args args;
+    if (!args.parse_args(lv, this))
+        return;
 
-    METHOD_DBG(s) << c;
-
-    auto layer = lv.intAt(1, 0);
-    if (layer < 0 || layer >= layers_.size()) {
+    auto layer = args.layer;
+    if (layer >= layers_.size()) {
         METHOD_ERR(s) << "invalid layer index: " << layer;
         return;
     }
 
-    auto from = lv.intAt(2, 0);
-    auto to = lv.intAt(3, -1);
-    auto step = lv.intAt(4, 1);
-
-    PixelRelClosedRange range = PixelRelClosedRange::slice(PixelPos(from), PixelPos(to), step);
     PixelAbsSlice slice;
-    auto err = range.get_slice(layers_[layer].size(), slice);
-    if (PixelLineError::NoError != err) {
-        METHOD_ERR(s) << "err: " << static_cast<int>(err);
+    if (is_error(PixelRelClosedRange::slice(
+                     PixelPos(args.prop_range.from),
+                     PixelPos(args.prop_range.to),
+                     args.prop_range.step)
+                     .get_slice(layers_[layer].size(), slice),
+            this))
         return;
-    }
 
-    layers_[layer].fill(from_datatype(c), slice);
-    syncLayers();
+    layers_[layer].fill(from_datatype(args.color), slice);
+
+    if (args.prop_flush._count)
+        onBang();
 }
 
 void PixelLine::m_grayscale(t_symbol* s, const AtomListView& lv)

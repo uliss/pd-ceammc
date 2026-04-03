@@ -258,6 +258,313 @@ void m_clear_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_clear_args_info());
 }
+struct m_fill_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int layer {0}; // layer index
+    DataTypeColor color {}; // fill color
+    // props
+    enum class PropProcessState { Ok, NotFound, InvalidValue };
+    // types
+    struct prop_range_t {
+        int _count {0};
+        t_int from {0}; // first element
+        t_int to {-1}; // last element (including)
+        t_int step {1}; // step
+        int process_from(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!lv[0].isInteger()) {
+                return INVALID_VALUE;
+            }
+            // set value
+            from = lv[0].asT<t_int>();
+            // number of matched items
+            return 1;
+        }
+        int process_to(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check values
+            int take_count = 0;
+            const auto N = lv.size();
+            if ((0 < N) && lv[0].isInteger()) {
+                take_count++;
+            }
+            // set value
+            if (take_count == 1) {
+                to = lv[0].asT<t_int>();
+            }
+            // number of matched items
+            return take_count;
+        }
+        int process_step(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check values
+            int take_count = 0;
+            const auto N = lv.size();
+            if ((0 < N) && lv[0].isInteger() && (lv[0].asT<t_int>() > 0)) {
+                take_count++;
+            }
+            // set value
+            if (take_count == 1) {
+                step = lv[0].asT<t_int>();
+            }
+            // number of matched items
+            return take_count;
+        }
+        static const char* arg_from_info() {
+            return "FROM (first element), int";
+        }
+        static const char* arg_to_info() {
+            return "TO? (last element (including)), int";
+        }
+        static const char* arg_step_info() {
+            return "STEP? (step), int > 0";
+        }
+        static const char* info() {
+            return "@range FROM TO? STEP? (pixel range)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_from(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            matched = process_to(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            matched = process_step(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[fill @range( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    struct prop_flush_t {
+        int _count {0};
+        static const char* info() {
+            return "@flush (output buffer)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[fill @flush( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    // vars
+    prop_range_t prop_range; // pixel range
+    prop_flush_t prop_flush; // output buffer
+    // methods
+    int process_layer(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (lv[0].asT<t_int>() >= 0))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        layer = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    int process_color(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        if ((lv.size() == 3) && lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1) && lv[1].isFloat() && (0 <= lv[1].asT<t_float>()) && (lv[1].asT<t_float>() <= 1) && lv[2].isFloat() && (0 <= lv[2].asT<t_float>()) && (lv[2].asT<t_float>() <= 1)) {
+            // check rgb triplet
+            color.setRed(lv[0].asT<t_float>());
+            color.setGreen(lv[1].asT<t_float>());
+            color.setBlue(lv[2].asT<t_float>());
+            return 3;
+        } else if ((lv.size() == 1) && lv[0].isSymbol() && (lv[0].asT<t_symbol*>()->s_name[0] == '#')) {
+            if (DataTypeColor::parseFromList(lv, color)) {
+                return 1;
+            } else {
+                if (print_err) {
+                    Error(obj) << "invalid hex value: '" << lv[0] << "'";
+                }
+                if (print_err) {
+                    Post(obj) << "expected #XXXXXX or #XXX format, for example: #00FFAA or #D0F";
+                }
+                return INVALID_VALUE;
+            }
+        } else if ((lv.size() == 1) && lv[0].isSymbol()) {
+            if (DataTypeColor::hasNamedColor(lv[0].asT<t_symbol*>()->s_name) && DataTypeColor::parseFromList(lv, color)) {
+                return 1;
+            } else {
+                if (print_err) {
+                    Error(obj) << "invalid named color: '" << lv[0] << "'";
+                    Error(obj) << "expected: " << DataTypeColor::namedColorList();
+                }
+                return INVALID_VALUE;
+            }
+        } else if ((lv.size() == 1) && lv.isA<DataTypeColor>()) {
+            color = *lv[0].asD<DataTypeColor>();
+            return 1;
+        } else {
+            return INVALID_VALUE;
+        }
+    }
+    PropProcessState process_prop_range (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@range"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_range.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_range._count++;
+        return PropProcessState::Ok;
+    }
+    PropProcessState process_prop_flush (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@flush"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_flush.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_flush._count++;
+        return PropProcessState::Ok;
+    }
+    static const char* arg_layer_info() {
+        return "LAYER (layer index), int >= 0";
+    }
+    static const char* arg_color_info() {
+        return "COLOR (fill color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
+    }
+    static const char* usage() {
+        return "usage: [fill LAYER COLOR @range? @flush?(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_layer_info();
+        Post(obj) << " - " << arg_color_info();
+        Post(obj) << " - " << prop_range_t::info();
+        Post(obj) << " - " << prop_flush_t::info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_layer(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[fill( argument #0 'LAYER' is required:";
+                    Post(obj) << " - " << arg_layer_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[fill( argument #0 'LAYER' check failed, expected:";
+                    Post(obj) << " - " << arg_layer_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_color(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[fill( argument #1 'COLOR' is required:";
+                    Post(obj) << " - " << arg_color_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[fill( argument #1 'COLOR' check failed, expected:";
+                    Post(obj) << " - " << arg_color_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[fill( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        // check properties
+        PropProcessState prop_st = PropProcessState::Ok;
+        prop_st = process_prop_range(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[fill( invalid value for @range property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_range_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_range._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @range properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @range are expected";
+                }
+                return false;
+            }
+        }
+        prop_st = process_prop_flush(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[fill( invalid value for @flush property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_flush_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_flush._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @flush properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @flush are expected";
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+const char* m_fill_args_info() {
+    return "fill the layer by specified color";
+}
+void m_fill_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_fill_args_info());
+}
 } // namespace 
 
 #endif // PIXEL_LINE_ARGS_HPP_
