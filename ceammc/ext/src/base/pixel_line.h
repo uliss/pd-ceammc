@@ -197,6 +197,7 @@ public:
 
 private:
     void syncLayers();
+    PixelLineLayer* getAbsSliceFromRelRange(t_symbol* s, t_int layer, PixelAbsSlice& slice, t_int first, t_int last, t_int step);
 };
 
 void setup_base_pixel_line();

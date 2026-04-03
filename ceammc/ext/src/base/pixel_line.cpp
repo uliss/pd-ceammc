@@ -462,22 +462,12 @@ void PixelLine::m_clear(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    auto layer = args.layer;
-    if (layer >= layers_.size()) {
-        METHOD_ERR(s) << "invalid layer index: " << layer;
-        return;
-    }
-
     PixelAbsSlice slice;
-    if (is_error(PixelRelClosedRange::slice(
-                     PixelPos(args.prop_range.from),
-                     PixelPos(args.prop_range.to),
-                     args.prop_range.step)
-                     .get_slice(layers_[layer].size(), slice),
-            this))
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
         return;
 
-    layers_[layer].fill(PixelRgba::none(), slice);
+    layer->fill(PixelRgba::none(), slice);
 
     if (args.prop_flush._count)
         onBang();
@@ -499,22 +489,12 @@ void PixelLine::m_fill(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    auto layer = args.layer;
-    if (layer >= layers_.size()) {
-        METHOD_ERR(s) << "invalid layer index: " << layer;
-        return;
-    }
-
     PixelAbsSlice slice;
-    if (is_error(PixelRelClosedRange::slice(
-                     PixelPos(args.prop_range.from),
-                     PixelPos(args.prop_range.to),
-                     args.prop_range.step)
-                     .get_slice(layers_[layer].size(), slice),
-            this))
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
         return;
 
-    layers_[layer].fill(from_datatype(args.color), slice);
+    layer->fill(from_datatype(args.color), slice);
 
     if (args.prop_flush._count)
         onBang();
@@ -535,22 +515,12 @@ void PixelLine::m_grayscale(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    auto layer = args.layer;
-    if (layer >= layers_.size()) {
-        METHOD_ERR(s) << "invalid layer index: " << layer;
-        return;
-    }
-
     PixelAbsSlice slice;
-    if (is_error(PixelRelClosedRange::slice(
-                     PixelPos(args.prop_range.from),
-                     PixelPos(args.prop_range.to),
-                     args.prop_range.step)
-                     .get_slice(layers_[layer].size(), slice),
-            this))
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
         return;
 
-    layers_[layer].grayscale(slice);
+    layer->grayscale(slice);
 
     if (args.prop_flush._count)
         onBang();
@@ -568,23 +538,15 @@ void PixelLine::m_grayscale(t_symbol* s, const AtomListView& lv)
 void PixelLine::m_invert(t_symbol* s, const AtomListView& lv)
 {
     m_invert_args args;
-
-    auto layer = args.layer;
-    if (layer >= layers_.size()) {
-        METHOD_ERR(s) << "invalid layer index: " << layer;
+    if (!args.parse_args(lv, this))
         return;
-    }
 
     PixelAbsSlice slice;
-    if (is_error(PixelRelClosedRange::slice(
-                     PixelPos(args.prop_range.from),
-                     PixelPos(args.prop_range.to),
-                     args.prop_range.step)
-                     .get_slice(layers_[layer].size(), slice),
-            this))
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
         return;
 
-    layers_[layer].negative(slice);
+    layer->negative(slice);
 
     if (args.prop_flush._count)
         onBang();
@@ -594,25 +556,31 @@ void PixelLine::m_shift(t_symbol* s, const AtomListView& lv)
 {
 }
 
+/// @function "darken the layer pixels by specified amount" {
+///     #layer  int     "layer index"   { check: >=0 }
+///     #amount float?  "darken amount" { default: 0.125 check: [0..1] }
+///     @range? "pixel range" {
+///         #from int  "first element"            { }
+///         #to   int? "last element (including)" { default: -1 }
+///         #step int? "step"                     { default: 1 check: >0 }
+///     }
+///     @flush?        "output buffer" {}
+/// }
 void PixelLine::m_darken(t_symbol* s, const AtomListView& lv)
 {
-    auto layer = lv.intAt(0, 0);
-    if (layer < 0 || layer >= layers_.size()) {
-        METHOD_ERR(s) << "invalid layer index: " << layer;
+    m_darken_args args;
+    if (!args.parse_args(lv, this))
         return;
-    }
 
-    PixelRelClosedRange range;
     PixelAbsSlice slice;
-    auto err = range.get_slice(layers_[layer].size(), slice);
-    if (PixelLineError::NoError != err) {
-        METHOD_ERR(s) << "err: " << static_cast<int>(err);
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
         return;
-    }
 
-    auto k = lv.floatAt(1, 0.125);
-    layers_[layer].darken(k, slice);
-    syncLayers();
+    layer->darken(args.amount, slice);
+
+    if (args.prop_flush._count)
+        onBang();
 }
 
 void PixelLine::syncLayers()
@@ -643,6 +611,22 @@ void PixelLine::syncLayers()
 
         output_[i] = color_to_float(pixel_prev);
     }
+}
+
+PixelLineLayer* PixelLine::getAbsSliceFromRelRange(t_symbol* s, t_int layer, PixelAbsSlice& slice, t_int first, t_int last, t_int step)
+{
+    if (layer < 0 || layer >= layers_.size()) {
+        METHOD_ERR(s) << "invalid layer index: " << layer;
+        return nullptr;
+    }
+
+    auto range = PixelRelClosedRange::slice(PixelPos(first), PixelPos(last), step);
+    auto err = range.get_slice(layers_[layer].size(), slice);
+
+    if (is_error(err), this)
+        return nullptr;
+    else
+        return &layers_[layer];
 }
 
 void setup_base_pixel_line()
