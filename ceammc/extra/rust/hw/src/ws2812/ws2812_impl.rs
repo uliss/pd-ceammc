@@ -222,11 +222,17 @@ impl hw_spi_ws2812 {
                                 leds[idx].b = color.blue;
                             }
                         }
-                        Request::SetPixels {
-                            colors: color,
-                            offset: offset,
-                        } => {
+                        Request::SetPixels { colors, offset } => {
+                            for (i, c) in colors.iter().enumerate() {
+                                let idx = i + offset;
+                                if idx >= leds.len() {
+                                    break;
+                                }
 
+                                leds[idx].r = ((*c >> 16) & 0xFF) as u8;
+                                leds[idx].g = ((*c >> 8) & 0xFF) as u8;
+                                leds[idx].b = (*c & 0xFF) as u8;
+                            }
                         }
                     }
                 }
