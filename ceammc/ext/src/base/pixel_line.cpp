@@ -556,23 +556,38 @@ void PixelLine::m_grayscale(t_symbol* s, const AtomListView& lv)
         onBang();
 }
 
+/// @function "invert the layer pixels" {
+///     #layer int     "layer index" { check: >=0 }
+///     @range? "pixel range" {
+///         #from int  "first element"            { }
+///         #to   int? "last element (including)" { default: -1 }
+///         #step int? "step"                     { default: 1 check: >0 }
+///     }
+///     @flush?        "output buffer" {}
+/// }
 void PixelLine::m_invert(t_symbol* s, const AtomListView& lv)
 {
-    auto layer = lv.intAt(0, 0);
-    if (layer < 0 || layer >= layers_.size()) {
+    m_invert_args args;
+
+    auto layer = args.layer;
+    if (layer >= layers_.size()) {
         METHOD_ERR(s) << "invalid layer index: " << layer;
         return;
     }
 
-    PixelRelClosedRange range;
     PixelAbsSlice slice;
-    auto err = range.get_slice(layers_[layer].size(), slice);
-    if (PixelLineError::NoError != err) {
-        METHOD_ERR(s) << "err: " << static_cast<int>(err);
+    if (is_error(PixelRelClosedRange::slice(
+                     PixelPos(args.prop_range.from),
+                     PixelPos(args.prop_range.to),
+                     args.prop_range.step)
+                     .get_slice(layers_[layer].size(), slice),
+            this))
         return;
-    }
+
     layers_[layer].negative(slice);
-    syncLayers();
+
+    if (args.prop_flush._count)
+        onBang();
 }
 
 void PixelLine::m_shift(t_symbol* s, const AtomListView& lv)
