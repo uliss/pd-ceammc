@@ -131,18 +131,18 @@ struct m_clear_args {
     prop_flush_t prop_flush; // output buffer
     // methods
     int process_layer(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        // check size
-        if (lv.size() < 1) {
-            return NOT_ENOUGH_ARGS;
-        }
         // check values
-        if (!(lv[0].isInteger() && (lv[0].asT<t_int>() >= 0))) {
-            return INVALID_VALUE;
+        int take_count = 0;
+        const auto N = lv.size();
+        if ((0 < N) && lv[0].isInteger() && (lv[0].asT<t_int>() >= 0)) {
+            take_count++;
         }
         // set value
-        layer = lv[0].asT<t_int>();
+        if (take_count == 1) {
+            layer = lv[0].asT<t_int>();
+        }
         // number of matched items
-        return 1;
+        return take_count;
     }
     PropProcessState process_prop_range (const AtomListView& lv, const BaseObject* obj, bool print_err) {
         AtomListView prop;
@@ -167,10 +167,10 @@ struct m_clear_args {
         return PropProcessState::Ok;
     }
     static const char* arg_layer_info() {
-        return "LAYER (layer index), int >= 0";
+        return "LAYER? (layer index), int >= 0";
     }
     static const char* usage() {
-        return "usage: [clear LAYER @range? @flush?(";
+        return "usage: [clear LAYER? @range? @flush?(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -190,11 +190,11 @@ struct m_clear_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[clear( argument #0 'LAYER' is required:";
+                    Error(obj) << "[clear( argument #0 'LAYER?' is required:";
                     Post(obj) << " - " << arg_layer_info();
                     output_usage(obj);
                 } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[clear( argument #0 'LAYER' check failed, expected:";
+                    Error(obj) << "[clear( argument #0 'LAYER?' check failed, expected:";
                     Post(obj) << " - " << arg_layer_info();
                     output_usage_verbose(obj);
                 }

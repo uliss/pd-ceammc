@@ -448,7 +448,7 @@ void PixelLine::onBang()
 }
 
 /// @function "clear the pixels of the layer (by filling them with a transparent color)" {
-///     #layer int "layer index" { check: >=0 }
+///     #layer int?    "layer index" { default: 0 check: >=0 }
 ///     @range? "pixel range" {
 ///         #from int  "first element"            { default: 0 }
 ///         #to   int? "last element (including)" { default: -1 }
@@ -483,6 +483,16 @@ void PixelLine::m_clear(t_symbol* s, const AtomListView& lv)
         onBang();
 }
 
+/// @function "fill the layer by specified color" {
+///     #layer int?    "layer index" { default: 0 check: >=0 }
+///     @color color   "fill color" {}
+///     @range? "pixel range" {
+///         #from int  "first element"            { default: 0 }
+///         #to   int? "last element (including)" { default: -1 }
+///         #step int? "step"                     { default: 1 check: >0 }
+///     }
+///     @flush? "output buffer" {}
+/// }
 void PixelLine::m_fill(t_symbol* s, const AtomListView& lv)
 {
     DataTypeColor c;
