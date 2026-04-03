@@ -139,12 +139,24 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
 
 /// @function "write list of color into the strip" {
 ///     #colors int + "list of pixel color in int24 format" {}
+///     @offset? "start offset" { #value int "value" { default: 0 check: >=0 } }
 /// }
 void HwSpiWs2812::m_write(t_symbol* s, const AtomListView& lv)
 {
     m_write_args args;
     if (!args.parse_args(lv, this))
         return;
+
+    if (!check_connected(true, s))
+        return;
+
+    std::vector<std::uint32_t> colors;
+    colors.reserve(args.colors.size());
+    for (auto& a : args.colors) {
+        colors.push_back(a.asInt());
+    }
+
+    ceammc_hw_spi_ws2812_write_pixels(device(), colors.data(), colors.size(), args.prop_offset.value);
 }
 
 /// @function "fill all pixels in the internal buffer with specified color" {

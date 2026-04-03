@@ -479,6 +479,54 @@ struct m_write_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
     AtomListView colors; // list of pixel color in int24 format
+    // props
+    enum class PropProcessState { Ok, NotFound, InvalidValue };
+    // types
+    struct prop_offset_t {
+        int _count {0};
+        t_int value {0}; // value
+        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!(lv[0].isInteger() && (lv[0].asT<t_int>() >= 0))) {
+                return INVALID_VALUE;
+            }
+            // set value
+            value = lv[0].asT<t_int>();
+            // number of matched items
+            return 1;
+        }
+        static const char* arg_value_info() {
+            return "VALUE (value), int >= 0";
+        }
+        static const char* info() {
+            return "@offset VALUE (start offset)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_value(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[write @offset( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    // vars
+    prop_offset_t prop_offset; // start offset
     // methods
     int process_colors(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -504,11 +552,22 @@ struct m_write_args {
         // number of matched items
         return take_count;
     }
+    PropProcessState process_prop_offset (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@offset"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_offset.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_offset._count++;
+        return PropProcessState::Ok;
+    }
     static const char* arg_colors_info() {
         return "COLORS+ (list of pixel color in int24 format), int";
     }
     static const char* usage() {
-        return "usage: [write COLORS+(";
+        return "usage: [write COLORS+ @offset?(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -516,6 +575,7 @@ struct m_write_args {
     static void output_usage_verbose(const BaseObject* obj) {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_colors_info();
+        Post(obj) << " - " << prop_offset_t::info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
@@ -544,6 +604,26 @@ struct m_write_args {
                 output_usage(obj);
             }
             return false;
+        }
+        // check properties
+        PropProcessState prop_st = PropProcessState::Ok;
+        prop_st = process_prop_offset(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[write( invalid value for @offset property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_offset_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_offset._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @offset properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @offset are expected";
+                }
+                return false;
+            }
         }
         return true;
     }
