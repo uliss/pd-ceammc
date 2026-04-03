@@ -113,7 +113,14 @@ public:
     static PixelRelClosedRange slice(PixelPos from, PixelPos to, PixelStep step);
 
     PixelLineError get_slice(size_t N, PixelAbsSlice& slice) const;
+    PixelPos first() const { return from_; }
+    PixelPos last() const { return to_; }
+    PixelStep step() const { return step_; }
+
+    friend std::ostream& operator<<(std::ostream& os, const PixelRelClosedRange& s);
 };
+
+std::ostream& operator<<(std::ostream& os, const PixelRelClosedRange& range);
 
 class PixelAbsSlice {
     size_t begin_, end_;
@@ -123,7 +130,11 @@ public:
     friend class PixelRelClosedRange;
 
 public:
+    size_t begin() const { return begin_; }
+    size_t end() const { return end_; }
     size_t length() const { return (end_ - begin_) / step_; }
+    PixelStep step() const { return step_; }
+
     bool get_nth_index(size_t n, size_t& idx) const;
 
     template <class T>
@@ -169,8 +180,7 @@ public:
     void swap_channels(int c0, int c1, const PixelAbsSlice& slice);
 
     void set(const PixelRgba& color, size_t idx);
-    void shift_right(size_t steps);
-    void shift_left(size_t steps);
+    void shift(std::int16_t steps, const PixelAbsSlice& slice);
 };
 
 class PixelLine : public BaseObject {
@@ -198,6 +208,7 @@ public:
 private:
     void syncLayers();
     PixelLineLayer* getAbsSliceFromRelRange(t_symbol* s, t_int layer, PixelAbsSlice& slice, t_int first, t_int last, t_int step);
+    PixelLineLayer* getAbsPosFromRel(t_symbol* s, t_int layer, size_t& abs_pos, PixelPos rel_pos);
 };
 
 void setup_base_pixel_line();

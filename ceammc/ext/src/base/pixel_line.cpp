@@ -19,6 +19,9 @@
 #include "fmt/core.h"
 #include "pixel_line_args.hpp"
 
+#include <boost/range/adaptor/sliced.hpp>
+#include <boost/range/adaptor/strided.hpp>
+
 constexpr t_int PIXEL_LINE_SIZE_DEF = 16;
 constexpr t_int PIXEL_LINE_SIZE_MIN = 1;
 constexpr t_int PIXEL_LINE_SIZE_MAX = 1024;
@@ -61,6 +64,8 @@ static t_float color_to_float(const PixelRgba& c)
 static bool is_error(PixelLineError err, const BaseObject* obj = nullptr)
 {
     switch (err) {
+    case PixelLineError::NoError:
+        return false;
     case PixelLineError::InvalidStep:
         Error(obj) << "invalid slice step";
         return true;
@@ -73,8 +78,6 @@ static bool is_error(PixelLineError err, const BaseObject* obj = nullptr)
     case PixelLineError::DivisionByZero:
         Error(obj) << "division by zero";
         return true;
-    case PixelLineError::NoError:
-        return false;
     default:
         Error(obj) << "unknown error: " << static_cast<int>(err);
         return true;
@@ -95,6 +98,12 @@ bool PixelAbsSlice::get_nth_index(size_t n, size_t& idx) const
 std::ostream& operator<<(std::ostream& os, const PixelAbsSlice& slice)
 {
     os << "slice: [" << slice.begin_ << ", " << slice.end_ << ") step=" << slice.step_;
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const PixelRelClosedRange& range)
+{
+    os << "range: [" << range.from_.pos << ", " << range.to_.pos << "] step=" << range.step_;
     return os;
 }
 
@@ -183,23 +192,27 @@ void PixelLineLayer::swap_channels(int c0, int c1, const PixelAbsSlice& slice)
     apply(slice, [c0, c1](size_t, PixelRgba& color) { color = color.swap_channels(c0, c1); });
 }
 
-void PixelLineLayer::shift_right(size_t steps)
+void PixelLineLayer::shift(std::int16_t steps, const PixelAbsSlice& slice)
 {
-    if (data_.empty())
+    const auto N = slice.length();
+    if (data_.empty() || N == 0)
         return;
 
-    steps = steps % data_.size();
-    std::rotate(data_.begin(), data_.begin() + steps, data_.end());
-}
+    if (steps < 0) {
+        const auto offset = (-steps) % N;
+        auto result = data_
+            | boost::adaptors::sliced(slice.begin(), slice.end() - slice.begin())
+            | boost::adaptors::strided(slice.step());
 
-void PixelLineLayer::shift_left(size_t steps)
-{
-    auto N = data_.size();
-    if (N == 0)
-        return;
+        std::rotate(result.begin(), result.begin() + offset, result.end());
+    } else if (steps > 0) {
+        const auto offset = steps % N;
+        auto result = data_
+            | boost::adaptors::sliced(slice.begin(), slice.end() - slice.begin())
+            | boost::adaptors::strided(slice.step());
 
-    steps = steps % N;
-    std::rotate(data_.begin(), data_.begin() + (N - steps), data_.end());
+        std::rotate(result.begin(), result.end() - offset, result.end());
+    }
 }
 
 void PixelLineLayer::apply(const PixelAbsSlice& slice, const PixelFunc& fn)
@@ -552,8 +565,54 @@ void PixelLine::m_invert(t_symbol* s, const AtomListView& lv)
         onBang();
 }
 
+/// @function "set pixel color" {
+///     #layer  int     "layer index" { check: >=0 }
+///     #pos    int     "pixel position" {}
+///     #color  color   "pixel color" {}
+///     @flush?         "output buffer" {}
+/// }
+void PixelLine::m_set(t_symbol* s, const AtomListView& lv)
+{
+    m_set_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    size_t abs_pos = 0;
+    auto layer = getAbsPosFromRel(s, args.layer, abs_pos, PixelPos(args.pos));
+    if (!layer)
+        return;
+
+    layer->set(from_datatype(args.color), abs_pos);
+
+    if (args.prop_flush._count)
+        onBang();
+}
+
+/// @function "shift the layer pixel by specified offset" {
+///     #layer  int     "layer index" { check: >=0 }
+///     #shift  int     "shift offset, if >0: shift right, else if <0: shifts left." { }
+///     @range? "pixel range" {
+///         #from int  "first element"            { }
+///         #to   int? "last element (including)" { default: -1 }
+///         #step int? "step"                     { default: 1 check: >0 }
+///     }
+///     @flush?        "output buffer" {}
+/// }
 void PixelLine::m_shift(t_symbol* s, const AtomListView& lv)
 {
+    m_shift_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    PixelAbsSlice slice;
+    auto layer = getAbsSliceFromRelRange(s, args.layer, slice, args.prop_range.from, args.prop_range.to, args.prop_range.step);
+    if (!layer)
+        return;
+
+    layer->shift(args.shift, slice);
+
+    if (args.prop_flush._count)
+        onBang();
 }
 
 /// @function "darken the layer pixels by specified amount" {
@@ -596,7 +655,6 @@ void PixelLine::syncLayers()
     }
 
     auto N = it->size();
-    OBJ_DBG << "max size: " << N;
     output_.resizePad(N, Atom(0.));
     for (size_t i = 0; i < N; i++) {
         auto pixel_prev = PixelRgba::black();
@@ -620,10 +678,25 @@ PixelLineLayer* PixelLine::getAbsSliceFromRelRange(t_symbol* s, t_int layer, Pix
         return nullptr;
     }
 
+    auto res = &layers_[layer];
     auto range = PixelRelClosedRange::slice(PixelPos(first), PixelPos(last), step);
-    auto err = range.get_slice(layers_[layer].size(), slice);
+    auto err = range.get_slice(res->size(), slice);
+    if (is_error(err, this))
+        return nullptr;
+    else
+        return res;
+}
 
-    if (is_error(err), this)
+PixelLineLayer* PixelLine::getAbsPosFromRel(t_symbol* s, t_int layer, size_t& abs_pos, PixelPos rel_pos)
+{
+    if (layer < 0 || layer >= layers_.size()) {
+        METHOD_ERR(s) << "invalid layer index: " << layer;
+        return nullptr;
+    }
+
+    auto err = rel_pos.to_index(layers_[layer].size(), abs_pos);
+
+    if (is_error(err, this))
         return nullptr;
     else
         return &layers_[layer];
@@ -638,6 +711,7 @@ void setup_base_pixel_line()
     obj.addMethod("fill", &PixelLine::m_fill);
     obj.addMethod("grayscale", &PixelLine::m_grayscale);
     obj.addMethod("invert", &PixelLine::m_invert);
+    obj.addMethod("set", &PixelLine::m_set);
     obj.addMethod("shift", &PixelLine::m_shift);
 }
 
