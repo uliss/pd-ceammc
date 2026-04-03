@@ -29,6 +29,10 @@
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
 
+namespace ceammc {
+void setup_base_pixel_line();
+}
+
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
@@ -110,6 +114,7 @@ void ceammc_base_setup()
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
+    ceammc::setup_base_pixel_line();
     setup_base_split_tilde();
     setup_base_spring();
     setup_base_sync();

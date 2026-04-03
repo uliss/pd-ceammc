@@ -99,7 +99,8 @@ add_library(
   base_bitmap.cpp
   # matrix_bitmap_ops.h matrix_bitmap_ops.cpp
   base_bitmap.tcl
-)
+  pixel_line.h
+  pixel_line.cpp)
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(
@@ -111,10 +112,14 @@ target_include_directories(
           ${CMAKE_CURRENT_BINARY_DIR} # for base_bitmap.tcl.h
 )
 
-target_link_libraries(ceammc_base PRIVATE fftconv core_rust)
+target_link_libraries(ceammc_base PRIVATE fftconv core_rust colorm)
 
 include(tcl_autogen)
 tcl_autogen_header(base_bitmap.tcl TARGET ceammc_base SOURCES ceammc_base)
+
+include(pd_method_args)
+pd_method_args(ceammc_base pixel_line)
+
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)
