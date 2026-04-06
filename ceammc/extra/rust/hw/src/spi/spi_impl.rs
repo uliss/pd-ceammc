@@ -45,7 +45,7 @@ pub fn i8_to_slave_select(cs: u8) -> Result<rppal::spi::SlaveSelect, String> {
     }
 }
 
-pub fn spi_new(bus: hw_spi_bus, cs: hw_spi_cs) -> Result<Spi, String> {
+pub fn spi_new(bus: hw_spi_bus, cs: hw_spi_cs, clock_speed: u32) -> Result<Spi, String> {
     rppal::spi::Spi::new(
         match bus {
             hw_spi_bus::NONE => return Err(String::new()),
@@ -63,7 +63,7 @@ pub fn spi_new(bus: hw_spi_bus, cs: hw_spi_cs) -> Result<Spi, String> {
             hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
             hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
         },
-        1_000_000,
+        clock_speed,
         rppal::spi::Mode::Mode0,
     )
     .map_err(|err| {
@@ -83,44 +83,36 @@ impl hw_spi {
         Ok(Self {
             obj: ceammc_rs_msg::Client::<Request, Reply>::start_worker(
                 move |channel: &ceammc_rs_msg::ClientChannelBounded<Request, Reply>| {
-                    let spi = spi_new(bus, cs)?;
+                    let spi = spi_new(bus, cs, 1_000_000)?;
 
-                    loop {
-                        if let Err(err) = channel.recv(&mut |req| -> Result<(), String> {
-                            //
-                            match req {
-                                Request::LoopbackTest => {
-                                    let tx_data = [0xAA, 0xBB, 0xCC, 0xDD];
-                                    let mut rx_data = [0; 4];
-                                    channel.send_debug(format!("sending data {:02X?}", tx_data))?;
-                                    channel.send_debug(format!("MOSI shorted to MISO"))?;
-                                    spi.transfer(&mut rx_data, &tx_data).map_err(|e| e.to_string())?;
-                                    if tx_data == rx_data {
-                                        channel.send_post(format!("MOSI and MISO are working correct"))?;
-                                        channel.send_data(Reply::Loopback(true)).to_worker_result()?;
-                                    } else {
-                                        channel.send_debug(format!("received data: {:02X?}", rx_data))?;
-                                        channel.send_error(format!("received data does not match sent data"))?;
-                                        channel.send_data(Reply::Loopback(true)).to_worker_result()?;
-                                    }
-                                }
-                                Request::Transfer { tx_data, rx_size } => {
-                                    let mut rx_data = vec![0u8; rx_size];
-                                    spi.transfer(&mut rx_data, &tx_data).map_err(|e| e.to_string())?;
-                                    channel
-                                        .send_data(Reply::ReceivedData(rx_data.to_vec()))
-                                        .to_worker_result()?;
+                    channel.recv_loop(&mut |req| {
+                        match req {
+                            Request::LoopbackTest => {
+                                let tx_data = [0xAA, 0xBB, 0xCC, 0xDD];
+                                let mut rx_data = [0; 4];
+                                channel.send_debug(format!("sending data {:02X?}", tx_data))?;
+                                channel.send_debug(format!("MOSI shorted to MISO"))?;
+                                spi.transfer(&mut rx_data, &tx_data).map_err(|e| e.to_string())?;
+                                if tx_data == rx_data {
+                                    channel.send_post(format!("MOSI and MISO are working correct"))?;
+                                    channel.send_data(Reply::Loopback(true)).to_worker_result()?;
+                                } else {
+                                    channel.send_debug(format!("received data: {:02X?}", rx_data))?;
+                                    channel.send_error(format!("received data does not match sent data"))?;
+                                    channel.send_data(Reply::Loopback(true)).to_worker_result()?;
                                 }
                             }
-
-                            Ok(())
-                        }) {
-                            error!("{err}");
-                            break;
+                            Request::Transfer { tx_data, rx_size } => {
+                                let mut rx_data = vec![0u8; rx_size];
+                                spi.transfer(&mut rx_data, &tx_data).map_err(|e| e.to_string())?;
+                                channel
+                                    .send_data(Reply::ReceivedData(rx_data.to_vec()))
+                                    .to_worker_result()?;
+                            }
                         }
-                    }
 
-                    Ok(())
+                        Ok(())
+                    })
                 },
                 32,
                 notify,
@@ -137,7 +129,7 @@ impl hw_spi {
         }
 
         let spi = unsafe { &*spi };
-        spi.obj.recv(|rep| match rep {
+        spi.obj.recv_loop(|rep| match rep {
             Reply::Loopback(result) => spi.cb.loopback(result),
             Reply::ReceivedData(items) => {
                 spi.cb.received(&items);

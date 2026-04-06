@@ -258,7 +258,7 @@ where
         }
     }
 
-    pub fn recv<F>(&self, on_request: &mut F) -> Result<(), String>
+    pub fn recv_loop<F>(&self, on_request: &mut F) -> Result<(), String>
     where
         F: FnMut(Request) -> Result<(), String>,
     {
@@ -373,7 +373,7 @@ where
         }
     }
 
-    pub fn recv<F>(&self, on_data: F)
+    pub fn recv_loop<F>(&self, on_data: F)
     where
         F: Fn(Reply),
     {
