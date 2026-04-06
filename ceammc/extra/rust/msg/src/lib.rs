@@ -5,6 +5,7 @@ use std::{
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+#[derive(Clone)]
 /// notify pd caller from other threads
 pub struct msg_notify {
     /// pd subscriber id
@@ -47,6 +48,7 @@ pub enum msg_level {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+#[derive(Clone, Copy)]
 pub struct msg_cb {
     /// user data pointer
     user: *mut c_void,
@@ -232,6 +234,14 @@ where
         self.send_msg(WorkerMessage::debug(msg)).to_worker_result()
     }
 
+    pub fn send_error<T: AsRef<str>>(&self, msg: T) -> Result<(), String> {
+        self.send_msg(WorkerMessage::error(msg)).to_worker_result()
+    }
+
+    pub fn send_post<T: AsRef<str>>(&self, msg: T) -> Result<(), String> {
+        self.send_msg(WorkerMessage::post(msg)).to_worker_result()
+    }
+
     pub fn send(&self, msg: ReplyMessage<Reply>) -> SendState {
         if let Err(err) = self.to_client.try_send(msg) {
             log::error!("worker send error: {err}");
@@ -377,7 +387,7 @@ where
                     match err {
                         std::sync::mpsc::TryRecvError::Empty => break,
                         std::sync::mpsc::TryRecvError::Disconnected => {
-                            self.on_msg.error_str("worker is disonnected");
+                            self.on_msg.error_str("worker is disconnected");
                         }
                     }
                     break;

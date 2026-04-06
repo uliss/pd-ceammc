@@ -340,6 +340,8 @@ struct ceammc_hw_sensor_mpr121;
 
 struct ceammc_hw_sensor_vl53l0x;
 
+struct ceammc_hw_spi;
+
 struct ceammc_hw_spi_ws2812;
 
 struct ceammc_hw_notify_cb {
@@ -512,6 +514,12 @@ struct ceammc_hw_mpr121_reply_cb {
 struct ceammc_hw_sensor_vl53l0x_data_cb {
     void *user;
     void (*cb)(void*, uint16_t data);
+};
+
+struct ceammc_hw_spi_cb {
+    void *user;
+    void (*loopback_cb)(void *user, bool result);
+    void (*received_cb)(void *user, const uint8_t *data, size_t size);
 };
 
 struct ceammc_hw_slice {
@@ -1261,6 +1269,31 @@ bool ceammc_hw_sensor_vl53l0x_proc_reply(const ceammc_hw_sensor_vl53l0x *vl);
 bool ceammc_hw_sensor_vl53l0x_read_mm(const ceammc_hw_sensor_vl53l0x *display);
 
 bool ceammc_hw_sensor_vl53l0x_set_address(const ceammc_hw_sensor_vl53l0x *display, uint8_t addr);
+
+/// free spi handle
+/// @param spi - device handle (nullable)
+void ceammc_hw_spi_free(ceammc_hw_spi *spi);
+
+/// request loopback test
+/// @param spi - device handle (nullable)
+bool ceammc_hw_spi_loopback_test(ceammc_hw_spi *spi);
+
+/// create new spi device
+/// @return device handle or nullptr
+/// @param bus - spi bus
+/// @param cs - GPIO chip select pin
+/// @param notify - notify pd caller
+/// @param on_msg - on message from worker callback
+/// @param on_data - on data from worker callback
+ceammc_hw_spi *ceammc_hw_spi_new(ceammc_hw_spi_bus bus,
+                                 ceammc_hw_spi_cs cs,
+                                 ceammc_msg_notify notify,
+                                 ceammc_msg_cb on_msg,
+                                 ceammc_hw_spi_cb on_data);
+
+/// process all available data from spi worker
+/// @param spi - spi pointer (nullable)
+bool ceammc_hw_spi_process_reply(ceammc_hw_spi *spi);
 
 /// apply fx to specified slice
 bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,

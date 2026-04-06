@@ -13,7 +13,7 @@ use lib_macro::PdMessage;
 use log::error;
 use ndarray::{Array1, Array2};
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{HwThreadWorker, MakePdMessage, hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, spi::{hw_spi_bus, hw_spi_cs}};
 
 pub const HW_MAX7219_REG_DIGIT_0: u8 = 0x1;
 pub const HW_MAX7219_REG_DIGIT_1: u8 = 0x2;
@@ -33,28 +33,6 @@ pub const HW_MAX7219_ADDRESS_ALL: i32 = -1;
 
 #[cfg(target_os = "linux")]
 mod max7219_impl;
-
-#[repr(C)]
-#[derive(Debug)]
-pub enum hw_spi_bus {
-    NONE = -1,
-    SPI0,
-    SPI1,
-    SPI2,
-    SPI3,
-    SPI4,
-    SPI5,
-    SPI6,
-}
-
-#[repr(C)]
-#[derive(Debug)]
-pub enum hw_spi_cs {
-    CS0,
-    CS1,
-    CS2,
-    CS3,
-}
 
 #[derive(Debug, Clone, Copy)]
 #[repr(C)]
