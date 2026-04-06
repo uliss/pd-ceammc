@@ -1,10 +1,11 @@
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use mpr121_hal::{mpr121::Mpr121, Channel, DebounceNumber, Mpr121Address};
 use rppal::hal::Delay;
 use std::{ffi::CString, time::Duration};
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb,
     i2c::{i2c_impl::try_i2c_device, I2cAddress},
     mpr121::{hw_mpr121_reply_cb, hw_sensor_mpr121, Mpr212SensorWorker, Reply, Request},
     send_debug, send_error, send_reply,
@@ -47,7 +48,7 @@ impl hw_sensor_mpr121 {
         i2c_bus: i8,
         i2c_addr: I2cAddress,
         irq_pin: *const u8,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_msg: hw_msg_cb,
         on_reply: hw_mpr121_reply_cb,
     ) -> Result<Self, CString> {

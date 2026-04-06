@@ -5,7 +5,7 @@ use std::{
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 /// notify pd caller from other threads
 pub struct msg_notify {
     /// pd subscriber id

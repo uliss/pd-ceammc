@@ -5,10 +5,11 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, HwThreadWorker, MakePdMessage};
 
 pub const HW_RPI_PWM_MIN_CHAN: i8 = -1;
 pub const HW_RPI_PWM_MAX_CHAN: i8 = 3;
@@ -49,7 +50,7 @@ pub enum hw_rpi_pwm_polarity {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_rpi_pwm_new(
     channel: i8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_rpi_pwm {
     rpi_check!(null_mut(), {

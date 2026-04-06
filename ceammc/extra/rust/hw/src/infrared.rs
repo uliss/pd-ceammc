@@ -8,10 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
@@ -45,7 +46,7 @@ pub struct hw_infrared {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_infrared_new(
     pin: u8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
     on_key: hw_infrared_key_cb,
 ) -> *mut hw_infrared {

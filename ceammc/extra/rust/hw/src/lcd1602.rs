@@ -8,10 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod lcd1602_impl;
@@ -53,7 +54,7 @@ pub extern "C" fn ceammc_hw_hd44780_new(
     i2c_bus: i8,
     i2c_addr: i8,
     rows: u8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_hd44780 {
     rpi_check!(null_mut(), {

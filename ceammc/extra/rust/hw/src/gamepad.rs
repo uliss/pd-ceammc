@@ -5,10 +5,9 @@ use std::{
     time::Duration,
 };
 
+use ceammc_rs_msg::msg_notify;
 use gilrs::{Axis, Button, EventType, Gilrs, PowerInfo};
 use tokio::time::sleep;
-
-use crate::hw_notify_cb;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -358,11 +357,7 @@ impl gamepad_listdev_cb {
     }
 }
 
-async fn list_devices(
-    gp: &Gilrs,
-    tx: &tokio::sync::mpsc::Sender<GamepadReply>,
-    cb_notify: &hw_notify_cb,
-) {
+async fn list_devices(gp: &Gilrs, tx: &tokio::sync::mpsc::Sender<GamepadReply>, cb_notify: &msg_notify) {
     for (gid, gamepad) in gp.gamepads() {
         log::debug!("gid: {gid}");
         let name = CString::new(gamepad.name()).unwrap_or_default();
@@ -390,10 +385,10 @@ async fn list_devices(
         }
 
         // log::debug!("gamepad: {gamepad:?}");
-        cb_notify.notify();
+        cb_notify.exec();
     }
 
-    cb_notify.notify();
+    cb_notify.exec();
 }
 
 /// create new gamepad
@@ -407,7 +402,7 @@ pub extern "C" fn ceammc_hw_gamepad_new(
     on_err: gamepad_err_cb,
     on_event: gamepad_event_cb,
     on_devinfo: gamepad_listdev_cb,
-    cb_notify: hw_notify_cb,
+    cb_notify: msg_notify,
     poll_time_ms: u64,
 ) -> *mut hw_gamepad {
     let rt = tokio::runtime::Runtime::new();
@@ -444,12 +439,11 @@ pub extern "C" fn ceammc_hw_gamepad_new(
                                     let ev = hw_gamepad_event::new(event.id.into(), event.event);
                                     log::debug!("event: {ev:?}");
 
-                                    if let Err(err) = reply_tx.send(Ok(ReplyData::Event(ev))).await
-                                    {
+                                    if let Err(err) = reply_tx.send(Ok(ReplyData::Event(ev))).await {
                                         log::error!("[worker thread] send error: {err}");
                                     }
 
-                                    cb_notify.notify();
+                                    cb_notify.exec();
                                 }
 
                                 sleep(Duration::from_millis(poll_time_ms)).await;
@@ -525,8 +519,7 @@ pub extern "C" fn ceammc_hw_gamepad_list_devices(gp: *mut hw_gamepad) -> bool {
     let gp = unsafe { &mut *gp };
 
     if let Err(err) = gp.req_tx.try_send(GamepadRequest::ListDevices) {
-        gp.on_err
-            .exec(format!("[owner] send error: {err}").as_str());
+        gp.on_err.exec(format!("[owner] send error: {err}").as_str());
         return false;
     }
 

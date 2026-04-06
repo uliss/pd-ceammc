@@ -1,10 +1,11 @@
 use std::{ffi::CString, thread::sleep, time::Duration};
 
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use rotary_encoder_embedded::RotaryEncoder;
 use rppal::gpio::{Gpio, Trigger};
 
-use crate::{hw_msg_cb, hw_notify_cb, send_debug, send_reply};
+use crate::{hw_msg_cb, send_debug, send_reply};
 
 use super::{hw_gpio_rotenc, hw_gpio_rotenc_click, hw_gpio_rotenc_data, Reply, Request, RotEncoderWorker};
 
@@ -17,7 +18,7 @@ impl hw_gpio_rotenc {
         step: f64,
         min_value: f64,
         max_value: f64,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_data: hw_gpio_rotenc_data,
         on_click: hw_gpio_rotenc_click,
         on_msg: hw_msg_cb,

@@ -1,9 +1,10 @@
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb,
     i2c::i2c_impl::{try_i2c_device, DetectMethod},
     nfc::{hw_nfc_pn532, hw_nfc_pn532_cb, pn532_timer::Timer, NfcWorker, Reply, Request},
     send_debug,
 };
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use pn532::requests::SAMMode;
 use pn532::{i2c::I2CInterface, Pn532};
@@ -14,7 +15,7 @@ const PN532_I2C_ADDR: u16 = 0x24;
 impl hw_nfc_pn532 {
     pub(crate) fn new(
         i2c_bus: i8,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_msg: hw_msg_cb,
         on_key: hw_nfc_pn532_cb,
     ) -> Result<Self, CString> {

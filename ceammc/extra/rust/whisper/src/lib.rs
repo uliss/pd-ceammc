@@ -62,7 +62,7 @@ impl whisper_data_cb {
 #[no_mangle]
 /// create whisper handle
 /// @param model_path - full path to model
-/// @param notify - nofity caller callback
+/// @param notify - notify caller callback
 /// @param on_msg - message from whisper
 /// @param on_data - data from whisper
 pub extern "C" fn ceammc_misc_whisper_create(

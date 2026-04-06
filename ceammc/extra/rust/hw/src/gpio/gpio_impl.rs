@@ -1,9 +1,9 @@
 use crate::gpio::HW_GPIO_IMPULSE_LENGTH_MIN_MSEC;
 use crate::hw_msg_cb;
-use crate::hw_notify_cb;
 use crate::send_debug;
 use crate::send_error;
 use crate::send_reply;
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use rppal::system::DeviceInfo;
 
@@ -36,7 +36,7 @@ impl hw_gpio {
 
     pub fn new(
         on_msg: hw_msg_cb,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_pin: hw_gpio_pin_cb,
         on_pin_list: hw_gpio_pin_list_cb,
         on_pin_poll: hw_gpio_poll_cb,
@@ -151,7 +151,7 @@ impl hw_gpio_poll_cb {
 
 fn process_request(
     req: Request,
-    notify: &hw_notify_cb,
+    notify: &msg_notify,
     poll_notify: hw_gpio_poll_cb,
     reply_tx: &std::sync::mpsc::SyncSender<Reply>,
     gpio: &Gpio,

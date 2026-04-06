@@ -8,11 +8,12 @@ use std::{
     ptr::null_mut,
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
 use crate::{
-    hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
+    hw_msg_cb, hw_msg_level, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
 };
 
 #[cfg(target_os = "linux")]
@@ -50,7 +51,7 @@ pub struct hw_sensor_vl53l0x {
 pub extern "C" fn ceammc_hw_sensor_vl53l0x_new(
     i2c_bus: i8,
     i2c_addr: i8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_data: hw_sensor_vl53l0x_data_cb,
     on_msg: hw_msg_cb,
 ) -> *mut hw_sensor_vl53l0x {

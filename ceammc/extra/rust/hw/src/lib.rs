@@ -4,24 +4,8 @@ use std::{
     thread::JoinHandle,
 };
 
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error, info};
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct hw_notify_cb {
-    /// dispatcher ID
-    id: usize,
-    /// dispatcher callback (not NULL!)
-    f: extern "C" fn(id: usize),
-}
-
-impl hw_notify_cb {
-    fn notify(&self) {
-        (self.f)(self.id);
-    }
-}
-
 pub mod gamepad;
 
 #[derive(Debug, Clone, Copy)]
@@ -134,7 +118,7 @@ impl SendStatus {
     }
 }
 
-fn send_reply<R>(rep: R, tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb) -> SendStatus {
+fn send_reply<R>(rep: R, tx: &std::sync::mpsc::SyncSender<R>, notify: msg_notify) -> SendStatus {
     if let Err(err) = tx.try_send(rep) {
         error!("reply send error: {err}");
         match err {
@@ -142,12 +126,12 @@ fn send_reply<R>(rep: R, tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_
             std::sync::mpsc::TrySendError::Disconnected(_) => SendStatus::Disconnected,
         }
     } else {
-        notify.notify();
+        notify.exec();
         SendStatus::Ok
     }
 }
 
-fn send_error<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
+fn send_error<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: msg_notify, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
@@ -156,7 +140,7 @@ where
 }
 
 #[allow(dead_code)]
-fn send_debug<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
+fn send_debug<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: msg_notify, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
@@ -165,7 +149,7 @@ where
 }
 
 #[allow(dead_code)]
-fn send_info<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: hw_notify_cb, msg: &str) -> SendStatus
+fn send_info<R>(tx: &std::sync::mpsc::SyncSender<R>, notify: msg_notify, msg: &str) -> SendStatus
 where
     R: MakePdMessage<R>,
 {
@@ -239,7 +223,7 @@ where
         )
     }
 
-    pub fn worker_error(&self, str: &str, tx: &std::sync::mpsc::SyncSender<Reply>, notify: hw_notify_cb) -> SendStatus {
+    pub fn worker_error(&self, str: &str, tx: &std::sync::mpsc::SyncSender<Reply>, notify: msg_notify) -> SendStatus {
         error!("worker error {str}");
         send_error(tx, notify, &format!("worker error: {str}"))
     }
@@ -255,7 +239,7 @@ where
         }
     }
 
-    pub fn spawn<F>(&mut self, tx: std::sync::mpsc::SyncSender<Reply>, notify: hw_notify_cb, fx: F)
+    pub fn spawn<F>(&mut self, tx: std::sync::mpsc::SyncSender<Reply>, notify: msg_notify, fx: F)
     where
         F: FnOnce() -> Result<(), String>,
         F: Send + 'static,

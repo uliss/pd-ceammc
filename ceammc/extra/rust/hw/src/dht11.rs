@@ -12,10 +12,11 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, MakePdMessage};
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -58,7 +59,7 @@ pub struct hw_gpio_dht11 {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_dht11_new(
     pin: u8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
     on_data: hw_dht11_cb,
 ) -> *mut hw_gpio_dht11 {

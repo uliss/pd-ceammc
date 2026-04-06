@@ -9,11 +9,12 @@ use std::{
     slice::from_raw_parts,
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 use ndarray::{Array1, Array2};
 
-use crate::{HwThreadWorker, MakePdMessage, hw_msg_cb, hw_msg_level, hw_notify_cb, ptr_to_cstr, spi::{hw_spi_bus, hw_spi_cs}};
+use crate::{HwThreadWorker, MakePdMessage, hw_msg_cb, hw_msg_level, ptr_to_cstr, spi::{hw_spi_bus, hw_spi_cs}};
 
 pub const HW_MAX7219_REG_DIGIT_0: u8 = 0x1;
 pub const HW_MAX7219_REG_DIGIT_1: u8 = 0x2;
@@ -94,7 +95,7 @@ pub extern "C" fn ceammc_hw_max7219_new(
     num_displays: u8,
     spi: hw_spi_bus,
     cs: hw_spi_cs,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_max7219 {
     rpi_check!(null_mut(), {

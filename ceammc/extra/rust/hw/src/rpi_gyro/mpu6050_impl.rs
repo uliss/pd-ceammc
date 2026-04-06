@@ -4,6 +4,7 @@ use std::{
     time::{Duration, Instant},
 };
 
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error, info};
 use mpu6050_dmp::{
     accel::{Accel, AccelFullScale},
@@ -16,7 +17,7 @@ use mpu6050_dmp::{
 };
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     rpi_gyro::{hw_mpu6050_accel_fullscale, hw_mpu6050_gyro_fullscale, Mpu6050Worker},
     send_error, send_info, send_reply,
@@ -28,7 +29,7 @@ impl hw_mpu6050 {
     pub fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_msg: hw_msg_cb,
         on_data: hw_mpu6050_data_cb,
     ) -> Result<Self, CString> {

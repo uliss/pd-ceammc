@@ -5,9 +5,10 @@
 
 use std::ptr::null_mut;
 
+use ceammc_rs_msg::msg_notify;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb};
 
 #[cfg(target_os = "linux")]
 pub mod i2c_impl;
@@ -57,7 +58,7 @@ pub struct hw_i2c {
 #[no_mangle]
 pub extern "C" fn ceammc_hw_i2c_new(
     addr: u8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_i2c {
     rpi_check!(null_mut(), {

@@ -3,7 +3,8 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, HwThreadWorker, MakePdMessage};
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 use std::{
@@ -54,7 +55,7 @@ impl hw_nfc_pn532_cb {
 /// @return pointer to handle or nullptr on error
 pub extern "C" fn ceammc_hw_pn532_new(
     i2c_bus: i8, 
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
     on_data: hw_nfc_pn532_cb,
 ) -> *mut hw_nfc_pn532 {

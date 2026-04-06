@@ -3,11 +3,12 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    MakePdMessage, hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice, spi::{hw_spi_bus, hw_spi_cs}
+    MakePdMessage, hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_slice, spi::{hw_spi_bus, hw_spi_cs}
 };
 
 // mod led_fx;
@@ -66,7 +67,7 @@ pub struct hw_spi_ws2812 {
     tx: tokio::sync::mpsc::Sender<Request>,
     rx: tokio::sync::mpsc::Receiver<Reply>,
     on_msg: hw_msg_cb,
-    notify: hw_notify_cb,
+    notify: msg_notify,
 }
 
 #[no_mangle]
@@ -74,7 +75,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
     bus: hw_spi_bus,
     cs: hw_spi_cs,
     size: usize,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
     clear_on_exit: bool,
 ) -> *mut hw_spi_ws2812 {

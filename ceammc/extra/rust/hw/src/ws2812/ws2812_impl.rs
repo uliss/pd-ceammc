@@ -1,5 +1,6 @@
 use std::{ffi::CString, time::Duration};
 
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use palette::Srgb;
 use rgb::RGB8;
@@ -10,7 +11,7 @@ use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb,
     spi::{hw_spi_bus, hw_spi_cs},
     ws2812::Reply,
     MakePdMessage,
@@ -36,7 +37,7 @@ impl hw_spi_ws2812 {
         bus: hw_spi_bus,
         cs: hw_spi_cs,
         size: usize,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_msg: hw_msg_cb,
         clear_on_exit: bool,
     ) -> Result<Self, CString> {
@@ -269,7 +270,7 @@ impl hw_spi_ws2812 {
             return false;
         }
 
-        self.notify.notify();
+        self.notify.exec();
         true
     }
 
@@ -283,12 +284,12 @@ impl hw_spi_ws2812 {
         ws.send(req)
     }
 
-    async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: hw_notify_cb, err: &str) {
+    async fn send_error(tx: &tokio::sync::mpsc::Sender<Reply>, notify: msg_notify, err: &str) {
         error!("ws2812 write error: {err}");
 
         tx.try_send(Reply::pd_error(CString::new(err).unwrap_or_default()))
             .map(|_| {
-                notify.notify();
+                notify.exec();
             })
             .unwrap_or_else(|err| {
                 error!("send error: {err}");

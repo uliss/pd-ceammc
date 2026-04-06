@@ -1,5 +1,6 @@
 use std::{collections::HashMap, ffi::CString};
 
+use ceammc_rs_msg::msg_notify;
 use embedded_graphics::{
     image::{Image, ImageRaw},
     mono_font::{
@@ -22,7 +23,6 @@ use ssd1306::{
 };
 
 use crate::{
-    hw_notify_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     send_debug, send_error,
     spi::spi_impl::{i8_to_slave_select, i8_to_spi_bus},
@@ -36,7 +36,7 @@ impl hw_display_ssd1306 {
         display: &mut Ssd1306<DI, SIZE, BufferedGraphicsMode<SIZE>>,
         tx: &std::sync::mpsc::SyncSender<Reply>,
         rx: &std::sync::mpsc::Receiver<WorkerCommand<Request>>,
-        notify: hw_notify_cb,
+        notify: msg_notify,
     ) -> Result<(), String>
     where
         DI: WriteOnlyDataCommand,
@@ -163,7 +163,7 @@ impl hw_display_ssd1306 {
     pub fn new_i2c<SIZE: DisplaySize + Send + 'static>(
         args: DisplayI2cArgs,
         size: SIZE,
-        notify: hw_notify_cb,
+        notify: msg_notify,
     ) -> Result<Self, CString> {
         let (mut worker, rx, tx) = Ssd1306Worker::new(args.on_msg, None);
 

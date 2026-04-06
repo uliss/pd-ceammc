@@ -1,11 +1,12 @@
 use std::ffi::CString;
 
 use crate::{
-    hw_msg_cb, hw_notify_cb,
+    hw_msg_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     rpi_pwm_pca9685::{HW_PCA9685_MAX_FREQ_HZ, HW_PCA9685_MIN_FREQ_HZ, HW_PCA9685_OSC_VALUE},
     send_debug, send_error,
 };
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use pwm_pca9685::{Address, Channel, Pca9685, ProgrammableAddress};
 
@@ -91,7 +92,7 @@ impl FreqData {
 }
 
 impl hw_pca9685 {
-    pub fn new(i2c_bus: i8, i2c_addr: I2cAddress, notify: hw_notify_cb, on_msg: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(i2c_bus: i8, i2c_addr: I2cAddress, notify: msg_notify, on_msg: hw_msg_cb) -> Result<Self, CString> {
         let (mut worker, rx, tx) = Pca9685Worker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || -> Result<(), String> {

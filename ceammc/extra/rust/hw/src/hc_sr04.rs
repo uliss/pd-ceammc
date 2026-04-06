@@ -12,9 +12,10 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+use ceammc_rs_msg::msg_notify;
 use log::error;
 
-use crate::{hw_msg_cb, hw_notify_cb};
+use crate::{hw_msg_cb};
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -64,7 +65,7 @@ pub struct hw_gpio_sr04 {
 pub extern "C" fn ceammc_hw_gpio_sr04_new(
     trigger_pin: u8,
     echo_pin: u8,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
     on_data: hw_sr04_cb,
 ) -> *mut hw_gpio_sr04 {

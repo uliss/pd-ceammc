@@ -4,15 +4,13 @@ use std::{
     time::Duration,
 };
 
+use ceammc_rs_msg::msg_notify;
 use log::{debug, error};
 use rppal::gpio::{Event, Trigger};
 
 use crate::{
-    hc_sr04::{
-        Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL,
-        HW_SR04_MIN_POLL_INTERVAL,
-    },
-    hw_msg_cb, hw_notify_cb,
+    hc_sr04::{Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL, HW_SR04_MIN_POLL_INTERVAL},
+    hw_msg_cb,
 };
 
 use super::{hw_gpio_sr04, hw_sr04_cb};
@@ -21,7 +19,7 @@ impl hw_gpio_sr04 {
     pub fn new(
         trigger_pin: u8,
         echo_pin: u8,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         on_msg: hw_msg_cb,
         on_data: hw_sr04_cb,
     ) -> Result<Self, CString> {
@@ -66,8 +64,7 @@ impl hw_gpio_sr04 {
             echo_pin
                 .set_async_interrupt(Trigger::Both, None, move |ev| match ev.trigger {
                     Trigger::RisingEdge => {
-                        if prev_event.is_none()
-                            || prev_event.is_some_and(|event| event.trigger == Trigger::FallingEdge)
+                        if prev_event.is_none() || prev_event.is_some_and(|event| event.trigger == Trigger::FallingEdge)
                         {
                             prev_event.replace(ev);
                         } else {
@@ -129,16 +126,10 @@ impl hw_gpio_sr04 {
                         }
                         Request::OneShot => {
                             cycle_mode = false;
-                            Self::trig_fire(
-                                &mut trig_pin,
-                                &async_result2,
-                                notify,
-                                HW_SR04_DEF_POLL_INTERVAL,
-                            );
+                            Self::trig_fire(&mut trig_pin, &async_result2, notify, HW_SR04_DEF_POLL_INTERVAL);
                         }
                         Request::SetPollTime(msec) => {
-                            poll_interval_msec =
-                                msec.clamp(HW_SR04_MIN_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL);
+                            poll_interval_msec = msec.clamp(HW_SR04_MIN_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL);
                             debug!("set poll interval: {poll_interval_msec}");
                         }
                     },
@@ -172,7 +163,7 @@ impl hw_gpio_sr04 {
     fn trig_fire(
         pin: &mut rppal::gpio::OutputPin,
         var: &Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
-        notify: hw_notify_cb,
+        notify: msg_notify,
         poll_interval: u16,
     ) {
         // 10us impulse to start distance measure
@@ -206,7 +197,7 @@ impl hw_gpio_sr04 {
 
         if do_sync {
             // debug!("measure done");
-            notify.notify();
+            notify.exec();
             std::thread::sleep(Duration::from_millis(poll_interval as u64));
         }
     }

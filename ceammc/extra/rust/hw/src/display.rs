@@ -9,10 +9,11 @@ use std::{
     slice::from_raw_parts,
 };
 
+use ceammc_rs_msg::msg_notify;
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, hw_notify_cb, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{hw_msg_cb, hw_msg_level, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
@@ -59,7 +60,7 @@ pub struct DisplaySpiArgs {
     cs_pin: u8,
     rs_pin: u8,
     freq: u32,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 }
 
@@ -72,7 +73,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     freq: u32,
     width: u16,
     height: u16,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
@@ -116,7 +117,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
 pub struct DisplayI2cArgs {
     i2c_bus: i8,
     i2c_addr: I2cAddress,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 }
 
@@ -126,7 +127,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
     i2c_addr: i8,
     width: u16,
     height: u16,
-    notify: hw_notify_cb,
+    notify: msg_notify,
     on_msg: hw_msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {

@@ -4,23 +4,19 @@ use std::{
     time::Duration,
 };
 
+use ceammc_rs_msg::msg_notify;
 use dht11_gpio::{DHT11Controller, Sensor};
 use log::{debug, error};
 
 use crate::{
     dht11::{Reply, Request},
-    hw_msg_cb, hw_notify_cb, MakePdMessage,
+    hw_msg_cb, MakePdMessage,
 };
 
 use super::{hw_dht11_cb, hw_gpio_dht11};
 
 impl hw_gpio_dht11 {
-    pub fn new(
-        pin: u8,
-        notify: hw_notify_cb,
-        on_msg: hw_msg_cb,
-        on_data: hw_dht11_cb,
-    ) -> Result<Self, CString> {
+    pub fn new(pin: u8, notify: msg_notify, on_msg: hw_msg_cb, on_data: hw_dht11_cb) -> Result<Self, CString> {
         let result = Arc::new(Mutex::new(None));
         let result2 = result.clone();
 
@@ -31,11 +27,10 @@ impl hw_gpio_dht11 {
 
             let dht11 = DHT11Controller::new(pin);
             if let Err(err) = &dht11 {
-                if let Err(err) = result2.lock().and_then(|mut x| {
-                    Ok(x.replace(Reply::pd_error(
-                        CString::new(err.to_string()).unwrap_or_default(),
-                    )))
-                }) {
+                if let Err(err) = result2
+                    .lock()
+                    .and_then(|mut x| Ok(x.replace(Reply::pd_error(CString::new(err.to_string()).unwrap_or_default()))))
+                {
                     error!("{err}");
                 }
                 return;
@@ -88,26 +83,20 @@ impl hw_gpio_dht11 {
         }
     }
 
-    fn proc_sensor_data(
-        sensor: &mut DHT11Controller,
-        result: &Arc<Mutex<Option<Reply>>>,
-        notify: &hw_notify_cb,
-    ) {
+    fn proc_sensor_data(sensor: &mut DHT11Controller, result: &Arc<Mutex<Option<Reply>>>, notify: &msg_notify) {
         let reply = sensor
             .read_sensor_data()
             .map(|res| {
                 debug!("measure done t={}°C h={}", res.temperature, res.humidity);
                 Reply::Measure(res.temperature, res.humidity)
             })
-            .unwrap_or_else(|err| {
-                Reply::pd_error(CString::new(err.to_string()).unwrap_or_default())
-            });
+            .unwrap_or_else(|err| Reply::pd_error(CString::new(err.to_string()).unwrap_or_default()));
 
         result
             .lock()
             .and_then(|mut m| {
                 m.replace(reply);
-                notify.notify();
+                notify.exec();
                 Ok(())
             })
             .unwrap_or_else(|err| {
