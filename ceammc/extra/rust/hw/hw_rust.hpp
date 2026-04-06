@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include "ceammc_rs_msg.hpp"
 
 
 constexpr static const int32_t ceammc_JOB_ERROR = -1;
