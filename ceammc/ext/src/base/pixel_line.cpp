@@ -201,14 +201,14 @@ void PixelLineLayer::shift(std::int16_t steps, const PixelAbsSlice& slice)
     if (steps < 0) {
         const auto offset = (-steps) % N;
         auto result = data_
-            | boost::adaptors::sliced(slice.begin(), slice.end() - slice.begin())
+            | boost::adaptors::sliced(slice.begin(), slice.end())
             | boost::adaptors::strided(slice.step());
 
         std::rotate(result.begin(), result.begin() + offset, result.end());
     } else if (steps > 0) {
         const auto offset = steps % N;
         auto result = data_
-            | boost::adaptors::sliced(slice.begin(), slice.end() - slice.begin())
+            | boost::adaptors::sliced(slice.begin(), slice.end())
             | boost::adaptors::strided(slice.step());
 
         std::rotate(result.begin(), result.end() - offset, result.end());
