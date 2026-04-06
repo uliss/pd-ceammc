@@ -1,6 +1,7 @@
 add_subdirectory(arduino)
 
-add_library(ceammc_hw STATIC mod_hw.cpp hw_rpi_device.h)
+add_library(ceammc_hw STATIC mod_hw.cpp hw_rpi_device.h hw_rpi_spi.h
+                             hw_rpi_spi.cpp)
 
 function(ceammc_hw_external name)
   target_sources(ceammc_hw PRIVATE "hw_${name}.h" "hw_${name}.cpp")
@@ -45,8 +46,10 @@ target_link_libraries(ceammc_hw PRIVATE serial readerwriterqueue hw_arduino
 # gamepad
 target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
 if(WITH_GAMEPAD)
-  target_include_directories(ceammc_hw
-                             PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw)
+  target_include_directories(
+    ceammc_hw
+    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg)
   target_link_libraries(ceammc_hw PRIVATE hw_rust)
   target_compile_definitions(ceammc_hw PRIVATE WITH_GAMEPAD)
 
