@@ -3,9 +3,9 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_msg_level, HwThreadWorker, MakePdMessage};
+use crate::{HwThreadWorker, MakePdMessage};
 use arrayvec::ArrayVec;
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 use std::{
@@ -25,7 +25,7 @@ pub const HW_GPIO_MAX_PIN_COUNT_REQUEST: usize = 16;
 
 #[derive(PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     PinLevel(u8, bool),
     Pins(Vec<u8>),
 }
@@ -114,7 +114,7 @@ mod gpio_impl;
 /// @param on_pin_poll - called on pin poll event
 #[no_mangle]
 pub extern "C" fn ceammc_hw_gpio_new(
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     notify: msg_notify,
     on_pin: hw_gpio_pin_cb,
     on_pin_list: hw_gpio_pin_list_cb,

@@ -9,11 +9,11 @@ use std::{
     slice::from_raw_parts,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 type Ssd1306Worker = HwThreadWorker<Request, Reply>;
 
@@ -47,7 +47,7 @@ pub enum Request {
 
 #[derive(PdMessage, Debug)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
 }
 
 pub struct hw_display_ssd1306 {
@@ -61,7 +61,7 @@ pub struct DisplaySpiArgs {
     rs_pin: u8,
     freq: u32,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 }
 
 #[no_mangle]
@@ -74,7 +74,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
     width: u16,
     height: u16,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
         use ssd1306::size::*;
@@ -100,7 +100,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_spi(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_msg.error(msg.as_str());
+                on_msg.error_str(msg);
                 return null_mut();
             }
         } {
@@ -118,7 +118,7 @@ pub struct DisplayI2cArgs {
     i2c_bus: i8,
     i2c_addr: I2cAddress,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 }
 
 #[no_mangle]
@@ -128,7 +128,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
     width: u16,
     height: u16,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_display_ssd1306 {
     rpi_check!(null_mut(), {
         use ssd1306::size::*;
@@ -151,7 +151,7 @@ pub extern "C" fn ceammc_hw_display_ssd1306_new_i2c(
                 let msg = format!(
                     "unsupported display size: {width}x{height}. Supported size are: 128x64, 128x32, 96x16, 72x40, 64x48, 64x32"
                 );
-                on_msg.error(msg.as_str());
+                on_msg.error_str(msg);
                 return null_mut();
             }
         } {

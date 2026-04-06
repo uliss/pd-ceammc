@@ -3,8 +3,8 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use crate::{hw_msg_cb, hw_msg_level, i2c::I2cAddress, HwThreadWorker, MakePdMessage};
-use ceammc_rs_msg::msg_notify;
+use crate::{i2c::I2cAddress, HwThreadWorker, MakePdMessage};
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 use std::{
@@ -34,7 +34,7 @@ pub const HW_RPI_MPR121_DEFAULT_RELEASE_THRESHOLD: u8 = 6;
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     AllTouches {
         touched: u16,
         previous: u16,
@@ -98,7 +98,7 @@ pub extern "C" fn ceammc_hw_sensor_mpr121_new(
     i2c_addr: i8,
     irq_pin: *const u8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     on_reply: hw_mpr121_reply_cb,
 ) -> *mut hw_sensor_mpr121 {
     rpi_check!(null_mut(), {

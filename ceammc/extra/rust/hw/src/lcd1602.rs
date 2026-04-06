@@ -8,11 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{i2c::I2cAddress, ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod lcd1602_impl;
@@ -40,7 +40,7 @@ pub enum Request {
 
 #[derive(PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
 }
 
 type Hd44780Worker = HwThreadWorker<Request, Reply>;
@@ -55,7 +55,7 @@ pub extern "C" fn ceammc_hw_hd44780_new(
     i2c_addr: i8,
     rows: u8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_hd44780 {
     rpi_check!(null_mut(), {
         match hw_hd44780::new(i2c_bus, I2cAddress::new(i2c_addr), rows, on_msg, notify) {

@@ -4,12 +4,12 @@ use std::{
     time::Duration,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use vl53l0x::VL53L0x;
 
 use super::{hw_sensor_vl53l0x, hw_sensor_vl53l0x_data_cb, LaserSensorWorker, Request};
-use crate::{hw_msg_cb, i2c::I2cAddress, send_debug, send_error, send_reply, vl53l0x::Reply};
+use crate::{i2c::I2cAddress, send_debug, send_error, send_reply, vl53l0x::Reply};
 
 impl hw_sensor_vl53l0x {
     pub fn new(
@@ -17,7 +17,7 @@ impl hw_sensor_vl53l0x {
         i2c_addr: I2cAddress,
         notify: msg_notify,
         on_data: hw_sensor_vl53l0x_data_cb,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
     ) -> Result<Self, CString> {
         let (mut worker, rx, tx) = LaserSensorWorker::new(on_msg, None);
 

@@ -1,11 +1,10 @@
 use std::{ffi::CString, path::Path};
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use rppal::i2c::I2c;
 
 use super::hw_i2c;
-use crate::hw_msg_cb;
 
 pub enum DetectMethod {
     QuickWrite,
@@ -142,7 +141,7 @@ pub fn create_i2c_bus(bus: i8) -> Result<I2c, String> {
 }
 
 impl hw_i2c {
-    pub fn new(addr: u8, _notify: msg_notify, on_msg: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(addr: u8, _notify: msg_notify, on_msg: msg_cb) -> Result<Self, CString> {
         let (tx, rx) = std::sync::mpsc::channel();
 
         std::thread::spawn(move || -> Result<(), String> {

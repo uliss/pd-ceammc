@@ -8,13 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    hw_msg_cb, hw_msg_level, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
-};
+use crate::{i2c::I2cAddress, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod ads1115_impl;
@@ -67,7 +65,7 @@ pub enum Request {
 
 #[derive(PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     Measure(u8, i16),
     MeasureAll((i16, i16, i16, i16)),
 }
@@ -78,18 +76,11 @@ pub extern "C" fn ceammc_hw_ads1115_new(
     i2c_addr: i8,
     mode: hw_i2c_ads1115_measure_mode,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     on_data: hw_i2c_ads1115_data_cb,
 ) -> *mut hw_i2c_ads1115 {
     rpi_check!(null_mut(), {
-        match hw_i2c_ads1115::new(
-            i2c_bus,
-            I2cAddress::new(i2c_addr),
-            mode,
-            notify,
-            on_msg,
-            on_data,
-        ) {
+        match hw_i2c_ads1115::new(i2c_bus, I2cAddress::new(i2c_addr), mode, notify, on_msg, on_data) {
             Ok(adc) => return Box::into_raw(Box::new(adc)),
             Err(err) => {
                 error!("{}", err.to_str().unwrap_or_default());
@@ -135,9 +126,6 @@ pub extern "C" fn ceammc_hw_ads1115_process_reply(adc: *mut hw_i2c_ads1115) -> b
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_ads1115_set_input_range(
-    adc: *mut hw_i2c_ads1115,
-    range: hw_i2c_ads1115_range,
-) -> bool {
+pub extern "C" fn ceammc_hw_ads1115_set_input_range(adc: *mut hw_i2c_ads1115, range: hw_i2c_ads1115_range) -> bool {
     rpi_check!({ hw_i2c_ads1115::send_request_ptr(adc, Request::SetFullScaleRange(range)) });
 }

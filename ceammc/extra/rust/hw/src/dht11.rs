@@ -12,11 +12,11 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, MakePdMessage};
+use crate::MakePdMessage;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -36,7 +36,7 @@ impl hw_dht11_cb {
 #[derive(PdMessage)]
 pub enum Reply {
     Measure(f64, f64),
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
 }
 
 pub enum Request {
@@ -47,7 +47,7 @@ pub enum Request {
 pub struct hw_gpio_dht11 {
     result: Arc<Mutex<Option<Reply>>>,
     tx: std::sync::mpsc::Sender<Request>,
-    on_err: hw_msg_cb,
+    on_err: msg_cb,
     on_data: hw_dht11_cb,
 }
 
@@ -60,7 +60,7 @@ pub struct hw_gpio_dht11 {
 pub extern "C" fn ceammc_hw_gpio_dht11_new(
     pin: u8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     on_data: hw_dht11_cb,
 ) -> *mut hw_gpio_dht11 {
     rpi_check!(null_mut(), {

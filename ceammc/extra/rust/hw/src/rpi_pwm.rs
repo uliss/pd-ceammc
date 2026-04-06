@@ -5,11 +5,11 @@
 
 use std::{ffi::CString, ptr::null_mut};
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, HwThreadWorker, MakePdMessage};
+use crate::{HwThreadWorker, MakePdMessage};
 
 pub const HW_RPI_PWM_MIN_CHAN: i8 = -1;
 pub const HW_RPI_PWM_MAX_CHAN: i8 = 3;
@@ -31,7 +31,7 @@ pub enum Request {
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
 }
 
 type PwmWorker = HwThreadWorker<Request, Reply>;
@@ -48,11 +48,7 @@ pub enum hw_rpi_pwm_polarity {
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_new(
-    channel: i8,
-    notify: msg_notify,
-    on_msg: hw_msg_cb,
-) -> *mut hw_rpi_pwm {
+pub extern "C" fn ceammc_hw_rpi_pwm_new(channel: i8, notify: msg_notify, on_msg: msg_cb) -> *mut hw_rpi_pwm {
     rpi_check!(null_mut(), {
         if channel == HW_RPI_PWM_NONE_CHAN {
             return null_mut();
@@ -89,20 +85,12 @@ pub extern "C" fn ceammc_hw_rpi_pwm_enable(pwm: *const hw_rpi_pwm, state: bool) 
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(
-    pwm: *const hw_rpi_pwm,
-    freq_hz: f64,
-    duty_cycle: f64,
-) -> bool {
+pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(pwm: *const hw_rpi_pwm, freq_hz: f64, duty_cycle: f64) -> bool {
     rpi_check!({ hw_rpi_pwm::send_request_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_set_pwm(
-    pwm: *const hw_rpi_pwm,
-    period_ms: f64,
-    width_ms: f64,
-) -> bool {
+pub extern "C" fn ceammc_hw_rpi_pwm_set_pwm(pwm: *const hw_rpi_pwm, period_ms: f64, width_ms: f64) -> bool {
     rpi_check!({ hw_rpi_pwm::send_request_ptr(pwm, Request::SetPwm(period_ms, width_ms)) });
 }
 
@@ -117,17 +105,11 @@ pub extern "C" fn ceammc_hw_rpi_pwm_set_pulse_width(pwm: *const hw_rpi_pwm, widt
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_set_duty_cycle(
-    pwm: *const hw_rpi_pwm,
-    duty_cycle: f64,
-) -> bool {
+pub extern "C" fn ceammc_hw_rpi_pwm_set_duty_cycle(pwm: *const hw_rpi_pwm, duty_cycle: f64) -> bool {
     rpi_check!({ hw_rpi_pwm::send_request_ptr(pwm, Request::SetDutyCycle(duty_cycle)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_rpi_pwm_set_polarity(
-    pwm: *const hw_rpi_pwm,
-    polarity: hw_rpi_pwm_polarity,
-) -> bool {
+pub extern "C" fn ceammc_hw_rpi_pwm_set_polarity(pwm: *const hw_rpi_pwm, polarity: hw_rpi_pwm_polarity) -> bool {
     rpi_check!({ hw_rpi_pwm::send_request_ptr(pwm, Request::SetPolarity(polarity)) });
 }

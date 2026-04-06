@@ -5,10 +5,8 @@
 
 use std::ptr::null_mut;
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::error;
-
-use crate::{hw_msg_cb};
 
 #[cfg(target_os = "linux")]
 pub mod i2c_impl;
@@ -52,15 +50,11 @@ pub enum Request {
 pub struct hw_i2c {
     // result: Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
     _tx: std::sync::mpsc::Sender<Request>,
-    _on_err: hw_msg_cb,
+    _on_err: msg_cb,
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_i2c_new(
-    addr: u8,
-    notify: msg_notify,
-    on_msg: hw_msg_cb,
-) -> *mut hw_i2c {
+pub extern "C" fn ceammc_hw_i2c_new(addr: u8, notify: msg_notify, on_msg: msg_cb) -> *mut hw_i2c {
     rpi_check!(null_mut(), {
         match hw_i2c::new(addr, notify, on_msg) {
             Ok(i2c) => return Box::into_raw(Box::new(i2c)),

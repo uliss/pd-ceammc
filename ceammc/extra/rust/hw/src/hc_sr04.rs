@@ -12,10 +12,8 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::error;
-
-use crate::{hw_msg_cb};
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -51,7 +49,7 @@ pub enum Request {
 pub struct hw_gpio_sr04 {
     result: Arc<(Mutex<Option<Reply>>, std::sync::Condvar)>,
     tx: std::sync::mpsc::Sender<Request>,
-    on_err: hw_msg_cb,
+    on_err: msg_cb,
     on_data: hw_sr04_cb,
 }
 
@@ -66,7 +64,7 @@ pub extern "C" fn ceammc_hw_gpio_sr04_new(
     trigger_pin: u8,
     echo_pin: u8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     on_data: hw_sr04_cb,
 ) -> *mut hw_gpio_sr04 {
     rpi_check!(null_mut(), {
@@ -111,10 +109,7 @@ pub extern "C" fn ceammc_hw_gpio_sr04_poll(sr04: *const hw_gpio_sr04, state: boo
 /// @param sr04 - pointer to SR04 struct
 /// @param poll_interval - polling interval (msec)
 #[no_mangle]
-pub extern "C" fn ceammc_hw_gpio_sr04_set_poll_interval(
-    sr04: *const hw_gpio_sr04,
-    poll_interval: u16,
-) -> bool {
+pub extern "C" fn ceammc_hw_gpio_sr04_set_poll_interval(sr04: *const hw_gpio_sr04, poll_interval: u16) -> bool {
     rpi_check!({ hw_gpio_sr04::send_ptr(sr04, Request::SetPollTime(poll_interval)) });
 }
 

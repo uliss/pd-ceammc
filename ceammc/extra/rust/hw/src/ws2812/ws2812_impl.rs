@@ -1,6 +1,6 @@
 use std::{ffi::CString, time::Duration};
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use palette::Srgb;
 use rgb::RGB8;
@@ -11,7 +11,6 @@ use smart_leds_trait::SmartLedsWrite;
 use ws2812_spi::prerendered::Ws2812;
 
 use crate::{
-    hw_msg_cb,
     spi::{hw_spi_bus, hw_spi_cs},
     ws2812::Reply,
     MakePdMessage,
@@ -38,7 +37,7 @@ impl hw_spi_ws2812 {
         cs: hw_spi_cs,
         size: usize,
         notify: msg_notify,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
         clear_on_exit: bool,
     ) -> Result<Self, CString> {
         let (tx, mut rx) = tokio::sync::mpsc::channel(16);
@@ -306,7 +305,7 @@ impl hw_spi_ws2812 {
         while let Ok(rep) = ws.rx.try_recv() {
             match rep {
                 Reply::Message(level, str) => {
-                    ws.on_msg.exec(level, str.to_str().unwrap());
+                    ws.on_msg.exec_cstr(str, level);
                 }
                 Reply::Done => {}
             }

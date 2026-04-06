@@ -3,12 +3,14 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    MakePdMessage, hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_slice, spi::{hw_spi_bus, hw_spi_cs}
+    hw_bits, hw_color_rgb8, hw_indexes, hw_slice,
+    spi::{hw_spi_bus, hw_spi_cs},
+    MakePdMessage,
 };
 
 // mod led_fx;
@@ -59,14 +61,14 @@ pub enum Request {
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     Done,
 }
 
 pub struct hw_spi_ws2812 {
     tx: tokio::sync::mpsc::Sender<Request>,
     rx: tokio::sync::mpsc::Receiver<Reply>,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     notify: msg_notify,
 }
 
@@ -76,7 +78,7 @@ pub extern "C" fn ceammc_hw_spi_ws2812_new(
     cs: hw_spi_cs,
     size: usize,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     clear_on_exit: bool,
 ) -> *mut hw_spi_ws2812 {
     rpi_check!(null_mut(), {

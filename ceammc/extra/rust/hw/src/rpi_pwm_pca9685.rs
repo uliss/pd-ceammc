@@ -5,14 +5,11 @@
 
 use std::{f32, ffi::CString, ptr::null_mut};
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    hw_msg_cb, hw_msg_level, i2c::I2cAddress, rpi_pwm::hw_rpi_pwm_polarity,
-    HwThreadWorker, MakePdMessage,
-};
+use crate::{i2c::I2cAddress, rpi_pwm::hw_rpi_pwm_polarity, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod pca9685_impl;
@@ -52,7 +49,7 @@ pub enum Request {
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
 }
 
 type Pca9685Worker = HwThreadWorker<Request, Reply>;
@@ -66,7 +63,7 @@ pub extern "C" fn ceammc_hw_pca9685_new(
     i2c_bus: i8,
     i2c_addr: i8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_pca9685 {
     rpi_check!(null_mut(), {
         match hw_pca9685::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg) {
@@ -105,12 +102,7 @@ pub extern "C" fn ceammc_hw_pca9685_set_freq(pwm: *const hw_pca9685, freq_hz: f3
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_set_on_off(
-    pwm: *const hw_pca9685,
-    chan: u8,
-    on: u16,
-    off: u16,
-) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_set_on_off(pwm: *const hw_pca9685, chan: u8, on: u16, off: u16) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::SetChanOnOff(chan, on, off)) });
 }
 
@@ -126,18 +118,11 @@ pub extern "C" fn ceammc_hw_pca9685_set_pulse_width(
     width_ms: f32,
     phase: f32,
 ) -> bool {
-    rpi_check!({
-        hw_pca9685::send_request_ptr(pwm, Request::SetChanPulseWidth(chan, width_ms, phase))
-    });
+    rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::SetChanPulseWidth(chan, width_ms, phase)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_set_const(
-    pwm: *const hw_pca9685,
-    chan: u8,
-    value: bool,
-    delay: f32,
-) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_set_const(pwm: *const hw_pca9685, chan: u8, value: bool, delay: f32) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::SetChanConst(chan, value, delay)) });
 }
 
@@ -161,21 +146,14 @@ pub extern "C" fn ceammc_hw_pca9685_set_duty_cycle(
             Request::SetChanDutyCycle(
                 chan,
                 duty_cycle,
-                if phase.is_null() {
-                    None
-                } else {
-                    Some(unsafe { *phase })
-                },
+                if phase.is_null() { None } else { Some(unsafe { *phase }) },
             ),
         )
     });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pca9685_set_polarity(
-    pwm: *const hw_pca9685,
-    polarity: hw_rpi_pwm_polarity,
-) -> bool {
+pub extern "C" fn ceammc_hw_pca9685_set_polarity(pwm: *const hw_pca9685, polarity: hw_rpi_pwm_polarity) -> bool {
     rpi_check!({ hw_pca9685::send_request_ptr(pwm, Request::SetPolarity(polarity)) });
 }
 

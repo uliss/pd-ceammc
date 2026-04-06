@@ -1,10 +1,9 @@
 use std::ffi::CString;
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error, warn};
 
 use crate::{
-    hw_msg_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     lcd1602::Reply,
     send_debug, send_error,
@@ -96,7 +95,7 @@ impl hw_hd44780 {
         i2c_bus: i8,
         i2c_addr: I2cAddress,
         rows: u8,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
         notify: msg_notify,
     ) -> Result<Self, CString> {
         // const LCD_ADDRESS: u8 = 0x27; // Address depends on hardware, see link below

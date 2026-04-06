@@ -4,23 +4,19 @@ use std::{
     time::Duration,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use rppal::gpio::{Event, Trigger};
 
-use crate::{
-    hc_sr04::{Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL, HW_SR04_MIN_POLL_INTERVAL},
-    hw_msg_cb,
-};
-
 use super::{hw_gpio_sr04, hw_sr04_cb};
+use crate::hc_sr04::{Reply, Request, HW_SR04_DEF_POLL_INTERVAL, HW_SR04_MAX_POLL_INTERVAL, HW_SR04_MIN_POLL_INTERVAL};
 
 impl hw_gpio_sr04 {
     pub fn new(
         trigger_pin: u8,
         echo_pin: u8,
         notify: msg_notify,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
         on_data: hw_sr04_cb,
     ) -> Result<Self, CString> {
         let result = Arc::new((Mutex::new(None), Condvar::new()));
@@ -205,7 +201,7 @@ impl hw_gpio_sr04 {
     pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
-            self.on_err.error(err.to_string().as_str());
+            self.on_err.error_str(err.to_string());
             false
         } else {
             true
@@ -235,7 +231,7 @@ impl hw_gpio_sr04 {
                 }
             },
             Err(err) => {
-                self.on_err.error(err.to_string().as_str());
+                self.on_err.error_str(err.to_string());
             }
         }
     }

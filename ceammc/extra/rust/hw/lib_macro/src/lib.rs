@@ -9,15 +9,15 @@ pub fn impl_make_message_macro(input: TokenStream) -> TokenStream {
     let gen = quote! {
         impl MakePdMessage<#name> for #name {
             fn pd_error(msg: CString) -> #name {
-                #name::Message(hw_msg_level::Error, msg)
+                #name::Message(ceammc_rs_msg::msg_level::Error, msg)
             }
 
             fn pd_debug(msg: CString) -> #name {
-                #name::Message(hw_msg_level::Debug, msg)
+                #name::Message(ceammc_rs_msg::msg_level::Debug, msg)
             }
 
             fn pd_info(msg: CString) -> #name {
-                #name::Message(hw_msg_level::Info, msg)
+                #name::Message(ceammc_rs_msg::msg_level::Post, msg)
             }
         }
     };

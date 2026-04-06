@@ -261,12 +261,6 @@ enum class ceammc_hw_mpu6050_gyro_fullscale {
     Deg2000 = 3,
 };
 
-enum class ceammc_hw_msg_level {
-    Error,
-    Debug,
-    Info,
-};
-
 enum class ceammc_hw_pca8695_prog_address {
     Subaddress1,
     Subaddress2,
@@ -344,14 +338,6 @@ struct ceammc_hw_sensor_vl53l0x;
 struct ceammc_hw_spi;
 
 struct ceammc_hw_spi_ws2812;
-
-/// error callback
-struct ceammc_hw_msg_cb {
-    /// pointer to user data (can be NULL)
-    void *user;
-    /// can be NULL
-    void (*cb)(void *user, ceammc_hw_msg_level level, const char *cb);
-};
 
 struct ceammc_hw_i2c_ads1115_data_cb {
     void *user;
@@ -552,7 +538,7 @@ ceammc_hw_i2c_ads1115 *ceammc_hw_ads1115_new(int8_t i2c_bus,
                                              int8_t i2c_addr,
                                              ceammc_hw_i2c_ads1115_measure_mode mode,
                                              ceammc_msg_notify notify,
-                                             ceammc_hw_msg_cb on_msg,
+                                             ceammc_msg_cb on_msg,
                                              ceammc_hw_i2c_ads1115_data_cb on_data);
 
 bool ceammc_hw_ads1115_poll(ceammc_hw_i2c_ads1115 *adc, bool state);
@@ -579,7 +565,7 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_i2c(int8_t i2c_bus,
                                                              uint16_t width,
                                                              uint16_t height,
                                                              ceammc_msg_notify notify,
-                                                             ceammc_hw_msg_cb on_msg);
+                                                             ceammc_msg_cb on_msg);
 
 ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
                                                              uint8_t dc_pin,
@@ -589,7 +575,7 @@ ceammc_hw_display_ssd1306 *ceammc_hw_display_ssd1306_new_spi(int8_t spi_bus,
                                                              uint16_t width,
                                                              uint16_t height,
                                                              ceammc_msg_notify notify,
-                                                             ceammc_hw_msg_cb on_msg);
+                                                             ceammc_msg_cb on_msg);
 
 bool ceammc_hw_display_ssd1306_proc_reply(const ceammc_hw_display_ssd1306 *display);
 
@@ -684,7 +670,7 @@ bool ceammc_hw_gpio_dht11_measure(const ceammc_hw_gpio_dht11 *dht);
 /// @param on_data - data callback
 ceammc_hw_gpio_dht11 *ceammc_hw_gpio_dht11_new(uint8_t pin,
                                                ceammc_msg_notify notify,
-                                               ceammc_hw_msg_cb on_msg,
+                                               ceammc_msg_cb on_msg,
                                                ceammc_hw_dht11_cb on_data);
 
 /// poll request
@@ -715,7 +701,7 @@ bool ceammc_hw_gpio_list_pins(ceammc_hw_gpio *gp);
 /// @param on_pin - called on pin value output
 /// @param on_pin_list - called on pin list reply
 /// @param on_pin_poll - called on pin poll event
-ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_hw_msg_cb on_msg,
+ceammc_hw_gpio *ceammc_hw_gpio_new(ceammc_msg_cb on_msg,
                                    ceammc_msg_notify notify,
                                    ceammc_hw_gpio_pin_cb on_pin,
                                    ceammc_hw_gpio_pin_list_cb on_pin_list,
@@ -755,7 +741,7 @@ ceammc_hw_gpio_rotenc *ceammc_hw_gpio_rotenc_new(int8_t dt,
                                                  ceammc_msg_notify notify,
                                                  ceammc_hw_gpio_rotenc_data on_data,
                                                  ceammc_hw_gpio_rotenc_click on_click,
-                                                 ceammc_hw_msg_cb on_msg);
+                                                 ceammc_msg_cb on_msg);
 
 bool ceammc_hw_gpio_rotenc_process_events(ceammc_hw_gpio_rotenc *enc);
 
@@ -821,7 +807,7 @@ bool ceammc_hw_gpio_sr04_measure(const ceammc_hw_gpio_sr04 *sr04);
 ceammc_hw_gpio_sr04 *ceammc_hw_gpio_sr04_new(uint8_t trigger_pin,
                                              uint8_t echo_pin,
                                              ceammc_msg_notify notify,
-                                             ceammc_hw_msg_cb on_msg,
+                                             ceammc_msg_cb on_msg,
                                              ceammc_hw_sr04_cb on_data);
 
 /// set polling in cycle
@@ -887,7 +873,7 @@ ceammc_hw_hd44780 *ceammc_hw_hd44780_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          uint8_t rows,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg);
+                                         ceammc_msg_cb on_msg);
 
 /// process hd44780 events
 /// @param lcd - pointer to HD44780 struct
@@ -917,7 +903,7 @@ bool ceammc_hw_hd44780_write_text(ceammc_hw_hd44780 *lcd, const char *txt);
 /// @param i2c - pointer to i2c struct
 void ceammc_hw_i2c_free(ceammc_hw_i2c *i2c);
 
-ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_msg_notify notify, ceammc_hw_msg_cb on_msg);
+ceammc_hw_i2c *ceammc_hw_i2c_new(uint8_t addr, ceammc_msg_notify notify, ceammc_msg_cb on_msg);
 
 void ceammc_hw_infrared_free(ceammc_hw_infrared *ir);
 
@@ -925,7 +911,7 @@ bool ceammc_hw_infrared_free_process_reply(const ceammc_hw_infrared *ir);
 
 ceammc_hw_infrared *ceammc_hw_infrared_new(uint8_t pin,
                                            ceammc_msg_notify notify,
-                                           ceammc_hw_msg_cb on_msg,
+                                           ceammc_msg_cb on_msg,
                                            ceammc_hw_infrared_key_cb on_key);
 
 bool ceammc_hw_infrared_set_protocol(const ceammc_hw_infrared *ir, const char *proto);
@@ -961,7 +947,7 @@ ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t num_displays,
                                          ceammc_hw_spi_bus spi,
                                          ceammc_hw_spi_cs cs,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg);
+                                         ceammc_msg_cb on_msg);
 
 /// set max7219 power on/off
 /// @param max7219 - pointer to max7219 struct
@@ -1065,7 +1051,7 @@ void ceammc_hw_mpu6050_free(ceammc_hw_mpu6050 *mpu);
 ceammc_hw_mpu6050 *ceammc_hw_mpu6050_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg,
+                                         ceammc_msg_cb on_msg,
                                          ceammc_hw_mpu6050_data_cb on_data);
 
 /// turn on/off mpu6050 polling
@@ -1109,7 +1095,7 @@ void ceammc_hw_pca9685_free(ceammc_hw_pca9685 *pwm);
 ceammc_hw_pca9685 *ceammc_hw_pca9685_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg);
+                                         ceammc_msg_cb on_msg);
 
 bool ceammc_hw_pca9685_proc_reply(const ceammc_hw_pca9685 *pwm);
 
@@ -1161,13 +1147,13 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 /// @return pointer to handle or nullptr on error
 ceammc_hw_nfc_pn532 *ceammc_hw_pn532_new(int8_t i2c_bus,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg,
+                                         ceammc_msg_cb on_msg,
                                          ceammc_hw_nfc_pn532_cb on_data);
 
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
-                             ceammc_hw_msg_cb on_msg);
+                             ceammc_msg_cb on_msg);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 
@@ -1177,7 +1163,7 @@ void ceammc_hw_rpi_pwm_free(ceammc_hw_rpi_pwm *pwm);
 
 ceammc_hw_rpi_pwm *ceammc_hw_rpi_pwm_new(int8_t channel,
                                          ceammc_msg_notify notify,
-                                         ceammc_hw_msg_cb on_msg);
+                                         ceammc_msg_cb on_msg);
 
 bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
 
@@ -1219,7 +1205,7 @@ ceammc_hw_sensor_mpr121 *ceammc_hw_sensor_mpr121_new(int8_t i2c_bus,
                                                      int8_t i2c_addr,
                                                      const uint8_t *irq_pin,
                                                      ceammc_msg_notify notify,
-                                                     ceammc_hw_msg_cb on_msg,
+                                                     ceammc_msg_cb on_msg,
                                                      ceammc_hw_mpr121_reply_cb on_reply);
 
 /// process mpr121 replies
@@ -1254,7 +1240,7 @@ ceammc_hw_sensor_vl53l0x *ceammc_hw_sensor_vl53l0x_new(int8_t i2c_bus,
                                                        int8_t i2c_addr,
                                                        ceammc_msg_notify notify,
                                                        ceammc_hw_sensor_vl53l0x_data_cb on_data,
-                                                       ceammc_hw_msg_cb on_msg);
+                                                       ceammc_msg_cb on_msg);
 
 bool ceammc_hw_sensor_vl53l0x_poll(const ceammc_hw_sensor_vl53l0x *display, bool state);
 
@@ -1333,7 +1319,7 @@ ceammc_hw_spi_ws2812 *ceammc_hw_spi_ws2812_new(ceammc_hw_spi_bus bus,
                                                ceammc_hw_spi_cs cs,
                                                size_t size,
                                                ceammc_msg_notify notify,
-                                               ceammc_hw_msg_cb on_msg,
+                                               ceammc_msg_cb on_msg,
                                                bool clear_on_exit);
 
 /// process events

@@ -8,11 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{hw_msg_cb, hw_msg_level, ptr_to_cstr, HwThreadWorker, MakePdMessage};
+use crate::{ptr_to_cstr, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod infrared_impl;
@@ -26,7 +26,7 @@ pub enum Request {
 
 #[derive(PdMessage, Debug)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     Key(CString, i64),
 }
 
@@ -47,7 +47,7 @@ pub struct hw_infrared {
 pub extern "C" fn ceammc_hw_infrared_new(
     pin: u8,
     notify: msg_notify,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     on_key: hw_infrared_key_cb,
 ) -> *mut hw_infrared {
     rpi_check!(null_mut(), {

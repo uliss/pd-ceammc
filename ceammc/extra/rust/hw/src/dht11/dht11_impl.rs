@@ -4,19 +4,19 @@ use std::{
     time::Duration,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use dht11_gpio::{DHT11Controller, Sensor};
 use log::{debug, error};
 
 use crate::{
     dht11::{Reply, Request},
-    hw_msg_cb, MakePdMessage,
+    MakePdMessage,
 };
 
 use super::{hw_dht11_cb, hw_gpio_dht11};
 
 impl hw_gpio_dht11 {
-    pub fn new(pin: u8, notify: msg_notify, on_msg: hw_msg_cb, on_data: hw_dht11_cb) -> Result<Self, CString> {
+    pub fn new(pin: u8, notify: msg_notify, on_msg: msg_cb, on_data: hw_dht11_cb) -> Result<Self, CString> {
         let result = Arc::new(Mutex::new(None));
         let result2 = result.clone();
 
@@ -76,7 +76,7 @@ impl hw_gpio_dht11 {
     pub fn send(&self, req: Request) -> bool {
         if let Err(err) = self.tx.send(req) {
             error!("{err}");
-            self.on_err.error(err.to_string().as_str());
+            self.on_err.error_str(err.to_string());
             false
         } else {
             true
@@ -111,12 +111,12 @@ impl hw_gpio_dht11 {
                     Reply::Measure(temp, hum) => {
                         self.on_data.exec(*temp, *hum);
                     }
-                    Reply::Message(level, msg) => self.on_err.exec_raw(*level, msg.as_ptr()),
+                    Reply::Message(level, msg) => self.on_err.exec_cstr(msg, *level),
                 },
-                None => self.on_err.error("None"),
+                None => self.on_err.error_str("None"),
             },
             Err(err) => {
-                self.on_err.error(err.to_string().as_str());
+                self.on_err.error_str(err.to_string());
             }
         }
     }

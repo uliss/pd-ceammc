@@ -1,12 +1,12 @@
 use std::ffi::CString;
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use max7219::{connectors::SpiConnector, DataError};
 use rppal::spi::Spi;
 
 use super::{hw_max7219, hw_max7219_string_align, hw_spi_bus, hw_spi_cs, Address, Max2719Worker, Request};
-use crate::{hw_msg_cb, send_error};
+use crate::send_error;
 
 fn map_char(c: char) -> u8 {
     match c as char {
@@ -279,7 +279,7 @@ impl hw_max7219 {
         bus: hw_spi_bus,
         cs: hw_spi_cs,
         notify: msg_notify,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
     ) -> Result<Self, CString> {
         let (mut worker, rx, tx) = Max2719Worker::new(on_msg, None);
 

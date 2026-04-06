@@ -1,14 +1,14 @@
 use std::ffi::CString;
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use rppal::gpio::Gpio;
 
 use super::{hw_infrared, hw_infrared_key_cb, InfraredWorker, Reply, Request};
-use crate::{hw_msg_cb, infrared::irp::get_decoder};
+use crate::infrared::irp::get_decoder;
 
 impl hw_infrared {
-    pub fn new(pin: u8, notify: msg_notify, on_msg: hw_msg_cb, on_key: hw_infrared_key_cb) -> Result<Self, CString> {
+    pub fn new(pin: u8, notify: msg_notify, on_msg: msg_cb, on_key: hw_infrared_key_cb) -> Result<Self, CString> {
         let (mut worker, rx, tx) = InfraredWorker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || {

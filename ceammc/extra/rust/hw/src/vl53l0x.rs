@@ -8,13 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{
-    hw_msg_cb, hw_msg_level, i2c::I2cAddress, HwThreadWorker, MakePdMessage,
-};
+use crate::{i2c::I2cAddress, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod vl53l0x_impl;
@@ -28,7 +26,7 @@ pub enum Request {
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     Distance(u16),
 }
 
@@ -53,7 +51,7 @@ pub extern "C" fn ceammc_hw_sensor_vl53l0x_new(
     i2c_addr: i8,
     notify: msg_notify,
     on_data: hw_sensor_vl53l0x_data_cb,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_sensor_vl53l0x {
     rpi_check!(null_mut(), {
         match hw_sensor_vl53l0x::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_data, on_msg) {
@@ -87,17 +85,11 @@ pub extern "C" fn ceammc_hw_sensor_vl53l0x_read_mm(display: *const hw_sensor_vl5
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_sensor_vl53l0x_poll(
-    display: *const hw_sensor_vl53l0x,
-    state: bool,
-) -> bool {
+pub extern "C" fn ceammc_hw_sensor_vl53l0x_poll(display: *const hw_sensor_vl53l0x, state: bool) -> bool {
     rpi_check!({ hw_sensor_vl53l0x::send_request(display, Request::Poll(state)) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_sensor_vl53l0x_set_address(
-    display: *const hw_sensor_vl53l0x,
-    addr: u8,
-) -> bool {
+pub extern "C" fn ceammc_hw_sensor_vl53l0x_set_address(display: *const hw_sensor_vl53l0x, addr: u8) -> bool {
     rpi_check!({ hw_sensor_vl53l0x::send_request(display, Request::SetAddress(addr)) });
 }

@@ -1,85 +1,12 @@
 use std::{
     ffi::{CStr, CString},
-    os::raw::{c_char, c_void},
+    os::raw::c_char,
     thread::JoinHandle,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use log::{debug, error, info};
 pub mod gamepad;
-
-#[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub enum hw_msg_level {
-    Error,
-    Debug,
-    Info,
-}
-
-#[repr(C)]
-#[allow(non_camel_case_types)]
-#[derive(Clone, Copy)]
-/// error callback
-pub struct hw_msg_cb {
-    /// pointer to user data (can be NULL)
-    user: *mut c_void,
-    /// can be NULL
-    cb: Option<extern "C" fn(user: *mut c_void, level: hw_msg_level, cb: *const c_char)>,
-}
-
-impl hw_msg_cb {
-    pub fn exec(&self, level: hw_msg_level, msg: &str) {
-        self.cb.map(|f| {
-            let msg = CString::new(msg).unwrap_or_default();
-            f(self.user, level, msg.as_ptr());
-        });
-    }
-
-    pub fn error(&self, msg: &str) {
-        self.exec(hw_msg_level::Error, msg)
-    }
-
-    pub fn debug(&self, msg: &str) {
-        self.exec(hw_msg_level::Debug, msg)
-    }
-
-    pub fn info(&self, msg: &str) {
-        self.exec(hw_msg_level::Info, msg)
-    }
-
-    pub fn exec_raw(&self, level: hw_msg_level, msg: *const c_char) {
-        self.cb.map(|f| {
-            if !msg.is_null() {
-                f(self.user, level, msg);
-            }
-        });
-    }
-
-    pub fn error_raw(&self, msg: *const c_char) {
-        self.exec_raw(hw_msg_level::Error, msg)
-    }
-
-    pub fn debug_raw(&self, msg: *const c_char) {
-        self.exec_raw(hw_msg_level::Debug, msg)
-    }
-
-    pub fn info_raw(&self, msg: *const c_char) {
-        self.exec_raw(hw_msg_level::Info, msg)
-    }
-
-    pub fn error_cstr(&self, msg: CString) {
-        self.exec_raw(hw_msg_level::Error, msg.as_ptr())
-    }
-
-    pub fn debug_cstr(&self, msg: CString) {
-        self.exec_raw(hw_msg_level::Debug, msg.as_ptr())
-    }
-
-    pub fn info_cstr(&self, msg: CString) {
-        self.exec_raw(hw_msg_level::Info, msg.as_ptr())
-    }
-}
 
 pub fn str_to_cstr<T>(s: T) -> CString
 where
@@ -191,7 +118,7 @@ pub enum WorkerCommand<T> {
 pub struct HwThreadWorker<Request, Reply> {
     rx: std::sync::mpsc::Receiver<Reply>,
     tx: std::sync::mpsc::SyncSender<WorkerCommand<Request>>,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
     join_handle: Option<JoinHandle<()>>,
 }
 
@@ -201,7 +128,7 @@ where
     Reply: MakePdMessage<Reply>,
 {
     pub fn new(
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
         size: Option<usize>,
     ) -> (
         Self,
@@ -262,28 +189,17 @@ where
     }
 
     // should be called only in the main caller thread!
-    pub fn pd_message(&self, level: hw_msg_level, msg: &CString) {
-        self.on_msg.exec_raw(level, msg.as_ptr());
+    pub fn pd_message(&self, level: msg_level, msg: &CString) {
+        self.on_msg.exec_cstr(msg, level);
     }
 
     pub fn send_request(&self, req: Request) -> bool {
         if let Err(err) = self.tx.try_send(WorkerCommand::Command(req)) {
             log::error!("{err}");
-            self.on_msg.exec(hw_msg_level::Error, "device is closed");
+            self.on_msg.error_str("device is closed");
             false
         } else {
             true
-        }
-    }
-
-    pub fn send_request_ptr(x: *const Self, req: Request) -> bool {
-        if x.is_null() {
-            error!("NULL pointer");
-            false
-        } else {
-            let x = unsafe { &*x };
-
-            x.send_request(req)
         }
     }
 
@@ -293,17 +209,6 @@ where
         }
 
         true
-    }
-
-    pub fn process_reply_ptr(x: *const Self, fx: &dyn Fn(Reply) -> ()) -> bool {
-        if x.is_null() {
-            error!("NULL pointer");
-            false
-        } else {
-            let x = unsafe { &*x };
-
-            x.process_reply(fx)
-        }
     }
 }
 

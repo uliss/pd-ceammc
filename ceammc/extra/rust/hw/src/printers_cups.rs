@@ -1,6 +1,7 @@
 use crate::printers::hw_printer_state;
 use crate::printers::PrinterInfo;
 use crate::printers::PrinterList;
+use ceammc_rs_msg::msg_cb;
 use cups_sys::*;
 use std::ffi::CStr;
 use std::ffi::CString;
@@ -25,9 +26,7 @@ fn to_str(s: *mut c_char) -> String {
     if s.is_null() {
         return String::new();
     } else {
-        unsafe { CStr::from_ptr(s).to_str() }
-            .unwrap_or_default()
-            .to_string()
+        unsafe { CStr::from_ptr(s).to_str() }.unwrap_or_default().to_string()
     }
 }
 
@@ -125,23 +124,17 @@ pub fn get_default_printer() -> Option<PrinterInfo> {
     res
 }
 
-use crate::hw_msg_cb;
 use crate::printers::hw_print_options;
 use std::path::Path;
 
-pub fn print_file(
-    printer: *const c_char,
-    path: &str,
-    opts: &hw_print_options,
-    on_msg: hw_msg_cb,
-) -> i32 {
+pub fn print_file(printer: *const c_char, path: &str, opts: &hw_print_options, on_msg: msg_cb) -> i32 {
     // get printer name
     let printer = if !printer.is_null() {
         unsafe { CStr::from_ptr(printer).to_owned() }
     } else {
         let def = unsafe { cupsGetDefault() };
         if def.is_null() {
-            on_msg.error(format!("can't get default printer").as_str());
+            on_msg.error_str(format!("can't get default printer"));
             return crate::printers::JOB_ERROR;
         } else {
             unsafe { CStr::from_ptr(def).to_owned() }
@@ -151,15 +144,11 @@ pub fn print_file(
     // check path
     let path = Path::new(path);
     if !path.exists() {
-        on_msg.error(format!("file not found: {path:?}").as_str());
+        on_msg.error_str(format!("file not found: {path:?}"));
         return crate::printers::JOB_ERROR;
     }
 
-    let basename = path
-        .file_name()
-        .unwrap_or_default()
-        .to_str()
-        .unwrap_or_default();
+    let basename = path.file_name().unwrap_or_default().to_str().unwrap_or_default();
     let path = CString::new(path.to_str().unwrap_or_default()).unwrap_or_default();
 
     let job_title = CString::new(format!("PureData print job: '{basename}'")).unwrap_or_default();
@@ -197,7 +186,9 @@ pub fn print_file(
 
     if job_id == 0 {
         let err = unsafe { cupsLastErrorString() };
-        on_msg.error_raw(err);
+        if !err.is_null() {
+            on_msg.error_cstr(CString::from(unsafe { CStr::from_ptr(err) }));
+        }
     }
 
     job_id

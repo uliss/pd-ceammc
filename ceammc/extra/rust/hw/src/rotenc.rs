@@ -8,11 +8,11 @@ use std::{
     ptr::null_mut,
 };
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_level, msg_notify};
 use lib_macro::PdMessage;
 use log::error;
 
-use crate::{gpio::HW_GPIO_PIN_NONE, hw_msg_cb, hw_msg_level, HwThreadWorker, MakePdMessage};
+use crate::{gpio::HW_GPIO_PIN_NONE, HwThreadWorker, MakePdMessage};
 
 #[cfg(target_os = "linux")]
 mod rotenc_impl;
@@ -29,7 +29,7 @@ pub enum Request {
 
 #[derive(Debug, PdMessage)]
 pub enum Reply {
-    Message(hw_msg_level, CString),
+    Message(msg_level, CString),
     Click(bool),
     Data(f64, i8),
 }
@@ -70,7 +70,7 @@ pub extern "C" fn ceammc_hw_gpio_rotenc_new(
     notify: msg_notify,
     on_data: hw_gpio_rotenc_data,
     on_click: hw_gpio_rotenc_click,
-    on_msg: hw_msg_cb,
+    on_msg: msg_cb,
 ) -> *mut hw_gpio_rotenc {
     rpi_check!(null_mut(), {
         if dt == HW_GPIO_PIN_NONE || clk == HW_GPIO_PIN_NONE {

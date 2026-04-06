@@ -4,13 +4,12 @@ use std::{
 };
 
 use ads1x1x::{channel, Ads1x1x, FullScaleRange, TargetAddr};
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use pwm_pca9685::nb::block;
 
 use crate::{
     ads1115::{Reply, Request, HW_ADC_ADS1115_MAX_POLL_TIME_MSEC, HW_ADC_ADS1115_MIN_POLL_TIME_MSEC},
-    hw_msg_cb,
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     send_debug, send_error, send_reply, WorkerCommand,
 };
@@ -37,7 +36,7 @@ impl hw_i2c_ads1115 {
         i2c_addr: I2cAddress,
         mode: hw_i2c_ads1115_measure_mode,
         notify: msg_notify,
-        on_msg: hw_msg_cb,
+        on_msg: msg_cb,
         on_data: hw_i2c_ads1115_data_cb,
     ) -> Result<Self, CString> {
         let (mut worker, rx, tx) = Ads1115Worker::new(on_msg, Some(32));

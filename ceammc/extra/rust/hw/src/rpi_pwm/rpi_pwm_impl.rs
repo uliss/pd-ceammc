@@ -1,11 +1,10 @@
 use std::{ffi::CString, time::Duration};
 
-use ceammc_rs_msg::msg_notify;
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use log::{debug, error};
 use rppal::{gpio::Gpio, pwm::Pwm, system::DeviceInfo};
 
 use crate::{
-    hw_msg_cb,
     rpi_pwm::{Reply, Request},
     send_error, str_to_cstr,
 };
@@ -17,7 +16,7 @@ fn msec_to_pwm_time(msec: f64) -> Duration {
 }
 
 impl hw_rpi_pwm {
-    pub fn new(channel: i8, notify: msg_notify, on_msg: hw_msg_cb) -> Result<Self, CString> {
+    pub fn new(channel: i8, notify: msg_notify, on_msg: msg_cb) -> Result<Self, CString> {
         let channel = match channel {
             0 => rppal::pwm::Channel::Pwm0,
             1 => rppal::pwm::Channel::Pwm1,
