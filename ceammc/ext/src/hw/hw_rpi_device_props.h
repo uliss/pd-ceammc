@@ -1,15 +1,24 @@
-#ifndef RUST_DISPATCHED_OBJECT_H
-#define RUST_DISPATCHED_OBJECT_H
+/*****************************************************************************
+ * Copyright 2026 Serge Poltavski. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#ifndef HW_RPI_DEVICE_PROPS_H
+#define HW_RPI_DEVICE_PROPS_H
 
-#include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
+#include "ceammc_property.h"
 #include "ceammc_property_enum.h"
 #include "hw_rust.hpp"
 
-#define CEAMMC_OBJECT_ADD_METHOD(obj, cls, method) obj.addMethod(#method, &cls::m_##method);
-
 namespace ceammc {
-
 class SpiBusProperty : public IntProperty {
 public:
     explicit SpiBusProperty(const char* name, ceammc_hw_spi_bus def = ceammc_hw_spi_bus::NONE)
@@ -104,7 +113,7 @@ public:
 
 class GpioPinProperty : public IntProperty {
 public:
-    GpioPinProperty(const char* name)
+    explicit GpioPinProperty(const char* name)
         : IntProperty(name, ceammc_HW_GPIO_DEF_PIN)
     {
         setInitOnly();
@@ -123,101 +132,6 @@ public:
             return true;
     }
 };
+} // namespace ceammc
 
-template <class T>
-class RustDispatchedObject : public DispatchedObject<T> {
-public:
-    RustDispatchedObject(const PdArgs& args)
-        : DispatchedObject<T>(args)
-    {
-    }
-
-protected:
-    ceammc_hw_notify_cb on_notify() const
-    {
-        return {
-            this->subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); }
-        };
-    }
-
-    ceammc_hw_msg_cb on_message()
-    {
-        return { static_cast<void*>(this),
-            [](void* user, ceammc_hw_msg_level level, const char* msg) {
-                auto obj = static_cast<typeof(this)>(user);
-                switch (level) {
-                case ceammc_hw_msg_level::Debug:
-                    Debug(obj) << msg;
-                    break;
-                case ceammc_hw_msg_level::Info:
-                    Post(obj) << msg;
-                    break;
-                default:
-                    Error(obj) << msg;
-                    break;
-                }
-            } };
-    }
-
-    I2cBusProperty* addI2cBusProperty()
-    {
-        auto prop = new I2cBusProperty("@i2c_bus");
-        prop->setInitOnly();
-        this->addProperty(prop);
-        return prop;
-    }
-
-    I2cAddrProperty* addI2cAddrProperty()
-    {
-        auto prop = new I2cAddrProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
-        prop->setInitOnly();
-        this->addProperty(prop);
-        return prop;
-    }
-
-    IntProperty* addPwmChanProperty()
-    {
-        auto prop = new IntProperty("@pwm_ch", ceammc_HW_RPI_PWM_NONE_CHAN);
-        prop->setInitOnly();
-        prop->checkClosedRange(ceammc_HW_RPI_PWM_MIN_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
-        this->addProperty(prop);
-        return prop;
-    }
-
-    SpiBusProperty* addSpiBusProperty()
-    {
-        auto prop = new SpiBusProperty("@spi_bus", ceammc_hw_spi_bus::NONE);
-        prop->setInitOnly();
-        this->addProperty(prop);
-        return prop;
-    }
-
-    SpiCsPinProperty* addSpiCsProperty()
-    {
-        auto prop = new SpiCsPinProperty("@spi_cs", ceammc_hw_spi_cs::CS0);
-        prop->setInitOnly();
-        this->addProperty(prop);
-        return prop;
-    }
-
-    IntProperty* addSpiFreqProperty()
-    {
-        auto prop = new IntProperty("@spi_freq", 1000000);
-        prop->setUnitsHz();
-        prop->setInitOnly();
-        prop->checkClosedRange(100000, 10000000);
-        this->addProperty(prop);
-        return prop;
-    }
-
-    GpioPinProperty* addGpioPinProperty(const char* name)
-    {
-        auto prop = new GpioPinProperty(name);
-        this->addProperty(prop);
-        return prop;
-    }
-};
-
-}
-
-#endif // RUST_DISPATCHED_OBJECT_H
+#endif // HW_RPI_DEVICE_PROPS_H

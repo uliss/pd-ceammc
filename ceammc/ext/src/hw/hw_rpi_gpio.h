@@ -16,10 +16,10 @@
 
 #include "ceammc_object.h"
 #include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
+#include "ceammc_rs_msg_object.h"
 using namespace ceammc;
 
-class HwRpiGpio : public RustDispatchedObject<BaseObject> {
+class HwRpiGpio : public RustMessageObject<BaseObject> {
     ceammc_hw_gpio* gpio_ { nullptr };
 
 public:

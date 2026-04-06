@@ -29,7 +29,7 @@ void set_pins(ArrayPins& arr, const AtomListView& lv)
 } // namespace
 
 HwRpiGpio::HwRpiGpio(const PdArgs& args)
-    : RustDispatchedObject<BaseObject>(args)
+    : RustMessageObject<BaseObject>(args)
 {
     createOutlet();
 

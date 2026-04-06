@@ -36,7 +36,7 @@ bool ceammc_misc_whisper_clear(ceammc_misc_whisper *wh);
 
 /// create whisper handle
 /// @param model_path - full path to model
-/// @param notify - nofity caller callback
+/// @param notify - notify caller callback
 /// @param on_msg - message from whisper
 /// @param on_data - data from whisper
 ceammc_misc_whisper *ceammc_misc_whisper_create(const char *model_path,

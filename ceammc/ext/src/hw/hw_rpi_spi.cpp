@@ -34,7 +34,7 @@ HwSpi::HwRpiDevice::Device HwSpi::createDevice()
 {
     return Device(ceammc_hw_spi_new(spi_->bus(),
                       cs_->pin(),
-                      { this->subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } },
+                      on_message(),
                       { this, [](void* user, ceammc_msg_level level, const char* msg) {} },
                       {
                           static_cast<void*>(this),

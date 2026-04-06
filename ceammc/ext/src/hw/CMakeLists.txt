@@ -1,7 +1,8 @@
 add_subdirectory(arduino)
 
 add_library(ceammc_hw STATIC mod_hw.cpp hw_rpi_device.h hw_rpi_spi.h
-                             hw_rpi_spi.cpp)
+                             hw_rpi_spi.cpp
+                             hw_rpi_device_props.h)
 
 function(ceammc_hw_external name)
   target_sources(ceammc_hw PRIVATE "hw_${name}.h" "hw_${name}.cpp")

@@ -14,12 +14,13 @@
 #ifndef HW_RPI_DEVICE_H
 #define HW_RPI_DEVICE_H
 
-#include "rust_dispatched_object.h"
+#include "ceammc_rs_msg_object.h"
+#include "hw_rpi_device_props.h"
 
 namespace ceammc {
 
 template <typename HardwareHandle>
-class HwRpiDevice : public RustDispatchedObject<BaseObject> {
+class HwRpiDevice : public RustMessageObject<BaseObject> {
 public:
     using FreeDeviceFn = void (*)(HardwareHandle*);
     using Device = std::unique_ptr<HardwareHandle, FreeDeviceFn>;
@@ -29,7 +30,7 @@ public:
 
 public:
     HwRpiDevice(FreeDeviceFn fn, const PdArgs& args)
-        : RustDispatchedObject<BaseObject>(args)
+        : RustMessageObject<BaseObject>(args)
         , hw_(nullptr, fn)
         , free_fn_(fn)
     {
@@ -85,6 +86,64 @@ public:
     Device nullDevice() const
     {
         return Device(nullptr, free_fn_);
+    }
+
+    SpiBusProperty* addSpiBusProperty()
+    {
+        auto prop = new SpiBusProperty("@spi_bus", ceammc_hw_spi_bus::NONE);
+        prop->setInitOnly();
+        this->addProperty(prop);
+        return prop;
+    }
+
+    SpiCsPinProperty* addSpiCsProperty()
+    {
+        auto prop = new SpiCsPinProperty("@spi_cs", ceammc_hw_spi_cs::CS0);
+        prop->setInitOnly();
+        this->addProperty(prop);
+        return prop;
+    }
+
+    IntProperty* addSpiFreqProperty()
+    {
+        auto prop = new IntProperty("@spi_freq", 1000000);
+        prop->setUnitsHz();
+        prop->setInitOnly();
+        prop->checkClosedRange(100000, 10000000);
+        this->addProperty(prop);
+        return prop;
+    }
+
+    GpioPinProperty* addGpioPinProperty(const char* name)
+    {
+        auto prop = new GpioPinProperty(name);
+        this->addProperty(prop);
+        return prop;
+    }
+
+    I2cBusProperty* addI2cBusProperty()
+    {
+        auto prop = new I2cBusProperty("@i2c_bus");
+        prop->setInitOnly();
+        this->addProperty(prop);
+        return prop;
+    }
+
+    I2cAddrProperty* addI2cAddrProperty()
+    {
+        auto prop = new I2cAddrProperty("@i2c_addr", ceammc_HW_I2C_DEFAULT_ADDR);
+        prop->setInitOnly();
+        this->addProperty(prop);
+        return prop;
+    }
+
+    IntProperty* addPwmChanProperty()
+    {
+        auto prop = new IntProperty("@pwm_ch", ceammc_HW_RPI_PWM_NONE_CHAN);
+        prop->setInitOnly();
+        prop->checkClosedRange(ceammc_HW_RPI_PWM_MIN_CHAN, ceammc_HW_RPI_PWM_MAX_CHAN);
+        this->addProperty(prop);
+        return prop;
     }
 
 private:
