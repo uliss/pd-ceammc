@@ -109,6 +109,7 @@ ceammc_hw_external(rpi_spi_max7219)
 ceammc_hw_external(rpi_spi_ws2812)
 
 pd_method_args(ceammc_hw hw_rpi_sensor_mpr121)
+pd_method_args(ceammc_hw hw_rpi_spi)
 pd_method_args(ceammc_hw hw_rpi_spi_ws2812)
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hw_rpi_spi.h"
 #include "ceammc_factory.h"
+#include "hw_rpi_spi_args.hpp"
 
 namespace ceammc {
 
@@ -47,10 +48,29 @@ HwSpi::HwRpiDevice::Device HwSpi::createDevice()
         &ceammc_hw_spi_free);
 }
 
+/// @function "write and receieve data from SPI at once" {
+///     #recv_size int ? "receive result expected length" { default: 0, check: >= 0 }
+///     @send? "data to transfer" { #data byte+ "byte values" {} }
+/// }
+void HwSpi::m_transfer(t_symbol* s, const AtomListView& lv)
+{
+    m_transfer_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    std::vector<std::uint8_t> data;
+    data.reserve(args.prop_send.data.size());
+    for (auto& a : args.prop_send.data)
+        data.push_back(a.asInt());
+
+    // ceammc_hw_spi_transter(device(), args.recv_size, data.data(), data.size());
+}
+
 void setup_hw_rpi_spi()
 {
     ObjectFactory<HwSpi> obj("hw.rpi.spi");
     obj.addAlias("hw.spi");
+    obj.addMethod("transfer", &HwSpi::m_transfer);
 }
 
 } // namespace ceammc

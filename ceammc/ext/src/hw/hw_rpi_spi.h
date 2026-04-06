@@ -26,6 +26,8 @@ public:
     explicit HwSpi(const PdArgs& args);
     bool notify(int code) final;
     Device createDevice() final;
+
+    void m_transfer(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_spi();
