@@ -40,9 +40,21 @@ HwSpi::HwRpiDevice::Device HwSpi::createDevice()
                       {
                           static_cast<void*>(this),
                           [](void* user, bool result) {
+                              auto obj = static_cast<HwSpi*>(user);
+                              if (obj)
+                                  obj->anyTo(0, gensym("loopback"), Atom(result));
                           },
                           [](void* user, const std::uint8_t* data, size_t size) {
+                              auto obj = static_cast<HwSpi*>(user);
+                              if (obj) {
+                                  AtomList rx;
+                                  rx.reserve(size);
+                                  for (size_t i = 0; i < size; i++) {
+                                      rx.push_back(data[i]);
+                                  }
 
+                                  obj->anyTo(0, gensym("rx_data"), rx.view());
+                              }
                           },
                       }),
         &ceammc_hw_spi_free);
@@ -63,7 +75,7 @@ void HwSpi::m_transfer(t_symbol* s, const AtomListView& lv)
     for (auto& a : args.prop_send.data)
         data.push_back(a.asInt());
 
-    // ceammc_hw_spi_transter(device(), args.recv_size, data.data(), data.size());
+    ceammc_hw_spi_transfer(device(), args.recv_size, data.data(), data.size());
 }
 
 void setup_hw_rpi_spi()
