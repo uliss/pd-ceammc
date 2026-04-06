@@ -79,7 +79,7 @@ pub extern "C" fn ceammc_hw_spi_new(
 ) -> *mut hw_spi {
     rpi_check!(null_mut(), {
         match hw_spi::new(bus, cs, notify, on_msg, on_data) {
-            Ok(pwm) => return Box::into_raw(Box::new(pwm)),
+            Ok(spi) => return Box::into_raw(Box::new(spi)),
             Err(err) => {
                 if !err.is_empty() {
                     on_msg.error_cstr(err);

@@ -212,7 +212,7 @@ fn process(model: &Path, channel: &ClientChannelBounded<Request, Reply>) -> Resu
         time_start.elapsed().as_millis()
     ))?;
 
-    channel.recv(&mut |req| {
+    channel.recv_loop(&mut |req| {
         match req {
             Request::AppendBuf64(data) => {
                 samples.extend_from_slice(&data);
@@ -352,7 +352,7 @@ impl misc_whisper {
             false
         } else {
             let wh = unsafe { &*wh };
-            wh.obj.recv(|rep| match rep {
+            wh.obj.recv_loop(|rep| match rep {
                 Reply::Text(txt) => wh.on_data.exec(&txt),
             });
 
