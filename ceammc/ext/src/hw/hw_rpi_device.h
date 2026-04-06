@@ -17,6 +17,8 @@
 #include "ceammc_rs_msg_object.h"
 #include "hw_rpi_device_props.h"
 
+#define CEAMMC_OBJECT_ADD_METHOD(obj, cls, method) obj.addMethod(#method, &cls::m_##method);
+
 namespace ceammc {
 
 template <typename HardwareHandle>

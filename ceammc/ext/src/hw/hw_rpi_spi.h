@@ -27,8 +27,9 @@ public:
     bool notify(int code) final;
     Device createDevice() final;
 };
+
 void setup_hw_rpi_spi();
 
-}
+} // namespace ceammc
 
 #endif // HW_RPI_SPI_H

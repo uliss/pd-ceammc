@@ -3,8 +3,6 @@
 
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
-#include "hw_rust.hpp"
-#include "rust_dispatched_object.h"
 using namespace ceammc;
 
 class HwRpiSensorMpu6050 : public HwRpiDevice<ceammc_hw_mpu6050> {

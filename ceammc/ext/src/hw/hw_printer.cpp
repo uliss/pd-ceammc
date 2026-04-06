@@ -62,17 +62,17 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
             &job.opts,
             {
                 this,
-                [](void* user, ceammc_hw_msg_level level, const char* msg) {
+                [](void* user, ceammc_msg_level level, const char* msg) {
                     auto this_ = static_cast<HwPrinter*>(user);
                     if (this_) {
                         switch (level) {
-                        case ceammc_hw_msg_level::Error:
+                        case ceammc_msg_level::Error:
                             this_->workerThreadError(msg);
                             break;
-                        case ceammc_hw_msg_level::Debug:
+                        case ceammc_msg_level::Debug:
                             this_->workerThreadDebug(msg);
                             break;
-                        case ceammc_hw_msg_level::Info:
+                        case ceammc_msg_level::Post:
                         default:
                             this_->workerThreadPost(msg);
                             break;

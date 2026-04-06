@@ -34,8 +34,8 @@ HwSpi::HwRpiDevice::Device HwSpi::createDevice()
 {
     return Device(ceammc_hw_spi_new(spi_->bus(),
                       cs_->pin(),
+                      on_notify(),
                       on_message(),
-                      { this, [](void* user, ceammc_msg_level level, const char* msg) {} },
                       {
                           static_cast<void*>(this),
                           [](void* user, bool result) {
