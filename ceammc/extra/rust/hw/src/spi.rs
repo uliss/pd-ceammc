@@ -29,22 +29,29 @@ pub enum hw_spi_cs {
 #[derive(Debug)]
 pub enum Request {
     LoopbackTest,
+    Transfer { tx_data: Vec<u8>, rx_size: usize },
 }
 
 #[derive(Debug)]
 pub enum Reply {
     Loopback(bool),
+    ReceivedData(Vec<u8>),
 }
 
 #[repr(C)]
 pub struct hw_spi_cb {
     user: *mut c_void,
     loopback_cb: extern "C" fn(user: *mut c_void, result: bool),
+    received_cb: extern "C" fn(user: *mut c_void, data: *const u8, size: usize),
 }
 
 impl hw_spi_cb {
     pub fn loopback(&self, result: bool) {
         (self.loopback_cb)(self.user, result)
+    }
+
+    pub fn received(&self, data: &Vec<u8>) {
+        (self.received_cb)(self.user, data.as_ptr(), data.len())
     }
 }
 

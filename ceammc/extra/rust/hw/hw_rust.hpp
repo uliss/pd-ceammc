@@ -519,6 +519,7 @@ struct ceammc_hw_sensor_vl53l0x_data_cb {
 struct ceammc_hw_spi_cb {
     void *user;
     void (*loopback_cb)(void *user, bool result);
+    void (*received_cb)(void *user, const uint8_t *data, size_t size);
 };
 
 struct ceammc_hw_slice {

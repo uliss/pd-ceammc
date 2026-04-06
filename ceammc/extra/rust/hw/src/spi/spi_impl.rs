@@ -104,6 +104,13 @@ impl hw_spi {
                                         channel.send_data(Reply::Loopback(true)).to_worker_result()?;
                                     }
                                 }
+                                Request::Transfer { tx_data, rx_size } => {
+                                    let mut rx_data = vec![0u8; rx_size];
+                                    spi.transfer(&mut rx_data, &tx_data).map_err(|e| e.to_string())?;
+                                    channel
+                                        .send_data(Reply::ReceivedData(rx_data.to_vec()))
+                                        .to_worker_result()?;
+                                }
                             }
 
                             Ok(())
@@ -132,6 +139,9 @@ impl hw_spi {
         let spi = unsafe { &*spi };
         spi.obj.recv(|rep| match rep {
             Reply::Loopback(result) => spi.cb.loopback(result),
+            Reply::ReceivedData(items) => {
+                spi.cb.received(&items);
+            }
         });
         true
     }
