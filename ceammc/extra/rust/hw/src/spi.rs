@@ -118,3 +118,26 @@ pub extern "C" fn ceammc_hw_spi_loopback_test(spi: *mut hw_spi) -> bool {
         return hw_spi::send_request(spi, Request::LoopbackTest);
     });
 }
+
+#[no_mangle]
+/// transfer bytes
+/// @param spi - device handle (nullable)
+/// @param rx_size - received size
+/// @param tx_data - pointer to data (nullable)
+/// @param len - data length
+pub extern "C" fn ceammc_hw_spi_transfer(spi: *mut hw_spi, rx_size: usize, tx_data: *const u8, len: usize) -> bool {
+    rpi_check!(false, {
+        if tx_data.is_null() {
+            return false;
+        }
+
+        let tx_data = unsafe { std::slice::from_raw_parts(tx_data, len) };
+        return hw_spi::send_request(
+            spi,
+            Request::Transfer {
+                tx_data: tx_data.to_vec(),
+                rx_size: rx_size,
+            },
+        );
+    });
+}

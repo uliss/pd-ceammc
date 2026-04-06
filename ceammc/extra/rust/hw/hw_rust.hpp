@@ -1275,6 +1275,13 @@ ceammc_hw_spi *ceammc_hw_spi_new(ceammc_hw_spi_bus bus,
 /// @param spi - spi pointer (nullable)
 bool ceammc_hw_spi_process_reply(ceammc_hw_spi *spi);
 
+/// transfer bytes
+/// @param spi - device handle (nullable)
+/// @param rx_size - received size
+/// @param tx_data - pointer to data (nullable)
+/// @param len - data length
+bool ceammc_hw_spi_transfer(ceammc_hw_spi *spi, size_t rx_size, const uint8_t *tx_data, size_t len);
+
 /// apply fx to specified slice
 bool ceammc_hw_spi_ws2812_apply_fx(ceammc_hw_spi_ws2812 *ws,
                                    ceammc_hw_led_fx fx,
