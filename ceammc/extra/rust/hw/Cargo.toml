@@ -60,6 +60,7 @@ mpu6050-dmp = "0.6.1"                                      # gyro+accelerometer
 mpr121-hal = { path = "../extra/mpr121-hal" }
 pn532 = "0.5.0" 
 users = "0.11"
+ceammc_rs_msg = { path = "../msg" }
 
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }

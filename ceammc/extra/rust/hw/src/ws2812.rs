@@ -7,9 +7,7 @@ use lib_macro::PdMessage;
 use std::{ffi::CString, ptr::null_mut};
 
 use crate::{
-    hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice,
-    max7219::{hw_spi_bus, hw_spi_cs},
-    MakePdMessage,
+    MakePdMessage, hw_bits, hw_color_rgb8, hw_indexes, hw_msg_cb, hw_msg_level, hw_notify_cb, hw_slice, spi::{hw_spi_bus, hw_spi_cs}
 };
 
 // mod led_fx;

@@ -11,7 +11,7 @@ use ws2812_spi::prerendered::Ws2812;
 
 use crate::{
     hw_msg_cb, hw_notify_cb,
-    max7219::{hw_spi_bus, hw_spi_cs},
+    spi::{hw_spi_bus, hw_spi_cs},
     ws2812::Reply,
     MakePdMessage,
 };
