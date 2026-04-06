@@ -34,6 +34,10 @@ void setup_hw_rpi_sensor_vl53l0x();
 void setup_hw_rpi_spi_max7219();
 void setup_hw_rpi_spi_ws2812();
 
+namespace ceammc {
+void setup_hw_rpi_spi();
+}
+
 void ceammc_hw_setup()
 {
     hw_setup_arduino();
@@ -60,6 +64,7 @@ void ceammc_hw_setup()
     setup_hw_rpi_sensor_mpu6050();
     setup_hw_rpi_sensor_sr04();
     setup_hw_rpi_sensor_vl53l0x();
+    setup_hw_rpi_spi();
     setup_hw_rpi_spi_max7219();
     setup_hw_rpi_spi_ws2812();
 
