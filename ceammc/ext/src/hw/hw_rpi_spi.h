@@ -28,6 +28,7 @@ public:
     Device createDevice() final;
 
     void m_transfer(t_symbol* s, const AtomListView& lv);
+    void m_loopback_test(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_spi();

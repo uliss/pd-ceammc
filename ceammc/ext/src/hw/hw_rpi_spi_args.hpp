@@ -170,6 +170,40 @@ void m_transfer_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_transfer_args_info());
 }
+struct m_loopback_test_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // methods
+    static const char* usage() {
+        return "usage: [loopback_test(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[loopback_test( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_loopback_test_args_info() {
+    return "perform the loopback test, before doing it you should shortcut MOSI and MISO pins";
+}
+void m_loopback_test_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_loopback_test_args_info());
+}
 } // namespace 
 
 #endif // HW_RPI_SPI_ARGS_HPP_

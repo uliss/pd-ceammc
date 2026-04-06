@@ -78,11 +78,23 @@ void HwSpi::m_transfer(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_transfer(device(), args.recv_size, data.data(), data.size());
 }
 
+/// @function "perform the loopback test, before doing it you should shortcut MOSI and MISO pins" {
+/// }
+void HwSpi::m_loopback_test(t_symbol* s, const AtomListView& lv)
+{
+    m_loopback_test_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    ceammc_hw_spi_loopback_test(device());
+}
+
 void setup_hw_rpi_spi()
 {
     ObjectFactory<HwSpi> obj("hw.rpi.spi");
     obj.addAlias("hw.spi");
     obj.addMethod("transfer", &HwSpi::m_transfer);
+    obj.addMethod("loopback_test", &HwSpi::m_loopback_test);
 }
 
 } // namespace ceammc
