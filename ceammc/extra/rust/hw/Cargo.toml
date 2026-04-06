@@ -66,7 +66,7 @@ users = "0.11"
 [target.'cfg(windows)'.dependencies]
 winprint = { version = "0.2.0" }
 printers = { version = "2.3.0", default-features = false, features = [] }
+walkdir = "2.5.0"
 
 [build-dependencies]
 cbindgen = "0.28.0"
-walkdir = "2.5.0"
