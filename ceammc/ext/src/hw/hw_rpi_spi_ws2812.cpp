@@ -23,7 +23,7 @@ void process_rgb(ceammc_hw_color_rgb8& c, const T& args)
 }
 
 template <typename T>
-const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, size_t size, const T& args)
+const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, const T& args)
 {
     const ceammc_hw_slice* slice_ptr = nullptr;
 
@@ -38,7 +38,7 @@ const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, size_t size, const 
         if (args.prop_lslice.length < 1) {
             slice.last = -1;
         } else {
-            slice.last = args.prop_lslice.start + size - 1;
+            slice.last = args.prop_lslice.start + args.prop_lslice.length;
         }
 
         slice.step = args.prop_lslice.step;
@@ -169,7 +169,7 @@ void HwSpiWs2812::m_write(t_symbol* s, const AtomListView& lv)
 ///  @lslice !(@slice) "length-based pixel slice" {
 ///     #start  int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
 ///     #length int ?   "slice length. If ommitted means position from the end of the buffer"  { default: 0, check: >0 }
-///     #step  int ?    "step between pixels"  { default: 1 check: > 0 }
+///     #step   int ?    "step between pixels"  { default: 1 check: > 0 }
 ///  }
 ///  @slice !(@lslice) "range-based pixel slice" {
 ///     #first int [1] "start index, can be negative. If negative: means position from the end of the buffer" {}
@@ -190,7 +190,7 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     process_rgb(color, args);
 
     ceammc_hw_slice slice;
-    ceammc_hw_spi_ws2812_fill_slice(device(), color, process_slice(slice, size_->value(), args));
+    ceammc_hw_spi_ws2812_fill_slice(device(), color, process_slice(slice, args));
 }
 
 /// @function "fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1" {
@@ -357,7 +357,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_hw_slice slice;
-    ceammc_hw_spi_ws2812_apply_fx(device(), fx, process_slice(slice, size_->value(), args));
+    ceammc_hw_spi_ws2812_apply_fx(device(), fx, process_slice(slice, args));
 }
 
 /// @function "rotate internal pixel buffer" [{
