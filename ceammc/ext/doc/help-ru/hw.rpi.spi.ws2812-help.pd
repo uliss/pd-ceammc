@@ -26,6 +26,7 @@ Pi;
 #X obj 50 384 system.colorpanel @d;
 #X msg 270 384 fill @lslice 1 7 @color cyan \, bang;
 #X msg 270 413 fill_pixels @indexes 1 2 3 @color yellow \, bang;
+#X msg 69 442 clear;
 #X msg 270 442 fill_bits @bits 0 1 0 1 0 1 @color blue \, bang;
 #X obj 50 470 msg fill @color;
 #X msg 270 470 fx rainbow \, bang;
@@ -36,7 +37,6 @@ Pi;
 #X msg 59 528 brightness 10 \, bang;
 #X msg 270 528 set_pixel \$1 @color random \, bang;
 #X msg 520 528 fx meteor \, bang;
-#X msg 59 571 clear;
 #X msg 270 571 rotate 1 \, bang;
 #X obj 50 600 hw.rpi.spi.ws2812 @size 16 @spi_bus 0;
 #X obj 50 643 ui.link @title 'Connection_Scheme' @url
@@ -283,25 +283,34 @@ ZWVuLCBsaW1lLCBtYWdlbnRhLCBuYXZ5LCBvbGl2ZSwgb3JhbmdlLCBwaW5rLCBwdXJwbGUsIHJl
 ZCwgd2hpdGUsIHllbGxvdywgcmFuZG9tLiA=
 >QGNvbG9yIENvbG9yKGRhdGEpOiDRhtCy0LXRgtC+0LLQvtC5INGC0LjQvyDQtNCw0L3QvdGL0YU=
 ;
-#X obj 20 1941 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1946 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 1931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1931 write;
+#X text 270 1931 записать список цветов пикселей на ленту. Аргументы:;
+#X obj 300 1956 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1956 COLORS: cписок цветов в формате целых чисел Int24\.
+Тип: list.;
+#X obj 300 1994 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1994 [@offset=0]: смещение относительно начала ленты. Тип:
+int. Минимальное значение: 0\.;
+#X obj 20 2052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2057 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1947 1\.;
-#X text 170 1947 bang:;
-#X text 270 1947 сбросить значения пикселей на ленту.;
-#X obj 20 1982 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1987 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2058 1\.;
+#X text 170 2058 bang:;
+#X text 270 2058 сбросить значения пикселей на ленту.;
+#X obj 20 2093 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2098 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1988 1\.;
-#X text 270 1988 ничего не выводит.;
+#X text 130 2099 1\.;
+#X text 270 2099 ничего не выводит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2041 библиотека: ceammc v0.9.8;
-#N canvas 10 2060 400 290 info 0;
+#X obj 1 2149 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2152 библиотека: ceammc v0.9.8;
+#N canvas 10 2171 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -325,24 +334,24 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2060 pd info;
+#X restore 10 2171 pd info;
 #X connect 11 0 13 0;
 #X connect 10 0 15 0;
-#X connect 15 0 19 0;
-#X connect 19 0 22 0;
-#X connect 21 0 24 0;
-#X connect 23 0 26 0;
+#X connect 15 0 20 0;
+#X connect 20 0 23 0;
+#X connect 22 0 25 0;
 #X connect 24 0 27 0;
-#X connect 28 0 30 0;
+#X connect 25 0 28 0;
 #X connect 29 0 30 0;
-#X connect 22 0 30 0;
+#X connect 23 0 30 0;
 #X connect 12 0 30 0;
 #X connect 14 0 30 0;
 #X connect 16 0 30 0;
-#X connect 20 0 30 0;
-#X connect 25 0 30 0;
+#X connect 21 0 30 0;
 #X connect 26 0 30 0;
-#X connect 13 0 30 0;
 #X connect 27 0 30 0;
+#X connect 13 0 30 0;
+#X connect 28 0 30 0;
 #X connect 17 0 30 0;
+#X connect 19 0 30 0;
 #X connect 18 0 30 0;

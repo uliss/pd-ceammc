@@ -226,6 +226,20 @@
           <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
       </method>
+      <method name="write">
+        <info>
+          <tr lang="en">write the list of pixel colors to the tape</tr>
+          <tr lang="ru">записать список цветов пикселей на ленту</tr>
+        </info>
+        <param name="COLORS" type="list" min-count="1" required="true">
+          <tr lang="en">list of colors in Int24 integer format</tr>
+          <tr lang="ru">cписок цветов в формате целых чисел Int24</tr>
+        </param>
+        <param name="@offset" type="int" default="0" minvalue="0">
+          <tr lang="en">offset relative to the beginning of the strip</tr>
+          <tr lang="ru">смещение относительно начала ленты</tr>
+        </param>
+      </method>
     </methods>
     <inlets>
       <inlet>
@@ -254,7 +268,7 @@
 |
 |                      [fill_pixels @indexes 1 2 3  @color yellow, bang #j(
 |
-|                      [fill_bits @bits 0 1 0 1 0 1  @color blue, bang #k(
+| [clear #l(           [fill_bits @bits 0 1 0 1 0 1  @color blue, bang #k(
 |
 [msg fill @color]      [fx rainbow #e(           [T]
 |                                                |
@@ -263,14 +277,14 @@
  [brightness #f(       [set_pixel #g(            [fx meteor, bang #i(
 
 
- [clear(               [rotate 1, bang(
- |                     |
+                       [rotate 1, bang(
+                       |
 [hw.rpi.spi.ws2812 @size 16 #x]
 
 
 [ui.link @url=ceammc://img/conn_ws2812.png @title='Connection_Scheme']
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x] [X i->x]
-[X j->x] [X k->x]
+[X j->x] [X k->x] [X l->x]
 #e , bang
 #x @spi_bus 0
 #f 10, bang
