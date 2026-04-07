@@ -32,7 +32,7 @@ with \, two types of ranges are used: @slice and @lslice.;
 #X obj 50 484 msg.after 0 bang;
 #X floatatom 270 484 5 0 0 0 - - -;
 #X obj 520 484 metro 50;
-#X msg 59 513 brightness 32 \, bang;
+#X msg 59 513 brightness 10 \, bang;
 #X msg 270 513 set_pixel \$1 @color random \, bang;
 #X msg 520 513 fx meteor \, bang;
 #X msg 59 556 clear;

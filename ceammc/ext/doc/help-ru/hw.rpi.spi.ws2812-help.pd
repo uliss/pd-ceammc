@@ -33,7 +33,7 @@ Pi;
 #X obj 50 499 msg.after 0 bang;
 #X floatatom 270 499 5 0 0 0 - - -;
 #X obj 520 499 metro 50;
-#X msg 59 528 brightness 32 \, bang;
+#X msg 59 528 brightness 10 \, bang;
 #X msg 270 528 set_pixel \$1 @color random \, bang;
 #X msg 520 528 fx meteor \, bang;
 #X msg 59 571 clear;

@@ -273,7 +273,7 @@
 [X j->x] [X k->x]
 #e , bang
 #x @spi_bus 0
-#f 32, bang
+#f 10, bang
 #g $1 @color random, bang
 ]]>
       </pdascii>
