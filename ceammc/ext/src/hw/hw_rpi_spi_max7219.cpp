@@ -27,6 +27,7 @@ HwSpiMax7219::HwSpiMax7219(const PdArgs& args)
 
     spi_bus_ = addSpiBusProperty();
     spi_cs_ = addSpiCsProperty();
+    spi_freq_ = addSpiFreqProperty();
 }
 
 bool HwSpiMax7219::notify(int code)
@@ -283,6 +284,7 @@ HwSpiMax7219::HwRpiDevice::Device HwSpiMax7219::createDevice()
     return Device(ceammc_hw_max7219_new(displays_->value(),
                       spi_bus_->bus(),
                       spi_cs_->pin(),
+                      spi_freq_->value(),
                       on_notify(),
                       on_message()),
         freeDeviceFn());

@@ -223,7 +223,7 @@ impl LedDisplay {
         Ok(())
     }
 
-    fn new(count: u8, bus: hw_spi_bus, cs: hw_spi_cs) -> Result<Self, String> {
+    fn new(count: u8, bus: hw_spi_bus, cs: hw_spi_cs, clock_speed: u32) -> Result<Self, String> {
         // const MOSI_PIN: u8 = 10; // [DATA] BCM GPIO 10 (physical pin 19)
         // const SCLK_PIN: u8 = 11; // [CLK]  BCM GPIO 11 (physical pin 23)
         // const CS_PIN: u8 = 8; //    [CS]   SS:   Ss0 BCM GPIO 8 (physical pin 24)
@@ -245,7 +245,7 @@ impl LedDisplay {
                 hw_spi_cs::CS2 => rppal::spi::SlaveSelect::Ss2,
                 hw_spi_cs::CS3 => rppal::spi::SlaveSelect::Ss3,
             },
-            10_000_000,
+            clock_speed,
             rppal::spi::Mode::Mode0,
         )
         .map_err(|err| {
@@ -278,13 +278,14 @@ impl hw_max7219 {
         displays: u8,
         bus: hw_spi_bus,
         cs: hw_spi_cs,
+        clock_speed: u32,
         notify: msg_notify,
         on_msg: msg_cb,
     ) -> Result<Self, CString> {
         let (mut worker, rx, tx) = Max2719Worker::new(on_msg, None);
 
         worker.spawn(tx.clone(), notify, move || {
-            let mut led_display = LedDisplay::new(displays, bus, cs)?;
+            let mut led_display = LedDisplay::new(displays, bus, cs, clock_speed)?;
 
             led_display.write(Address::All, Request::PowerOn(true))?;
 

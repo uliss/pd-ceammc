@@ -10,6 +10,7 @@ class HwSpiMax7219 : public HwRpiDevice<ceammc_hw_max7219> {
     IntProperty* displays_ { nullptr };
     SpiBusProperty* spi_bus_ { nullptr };
     SpiCsPinProperty* spi_cs_ { nullptr };
+    IntProperty* spi_freq_ { nullptr };
 
 public:
     explicit HwSpiMax7219(const PdArgs& args);

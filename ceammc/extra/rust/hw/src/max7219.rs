@@ -85,6 +85,7 @@ pub struct hw_max7219 {
 /// @param num_displays - number of connected lcd modules (1-8)
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
+/// @param clock_speed - clock speed in Hz
 /// @param notify - notify callback
 /// @param on_msg - message callback
 /// @return pointer to max7219 on NULL on error
@@ -99,11 +100,12 @@ pub extern "C" fn ceammc_hw_max7219_new(
     num_displays: u8,
     spi: hw_spi_bus,
     cs: hw_spi_cs,
+    clock_speed: u32,
     notify: msg_notify,
     on_msg: msg_cb,
 ) -> *mut hw_max7219 {
     rpi_check!(null_mut(), {
-        match hw_max7219::new(num_displays, spi, cs, notify, on_msg) {
+        match hw_max7219::new(num_displays, spi, cs, clock_speed, notify, on_msg) {
             Ok(max2719) => return Box::into_raw(Box::new(max2719)),
             Err(err) => {
                 if !err.is_empty() {

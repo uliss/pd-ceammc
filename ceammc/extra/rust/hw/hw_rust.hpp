@@ -934,6 +934,7 @@ bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, int32_t addr, uint8_t in
 /// @param num_displays - number of connected lcd modules (1-8)
 /// @param spi - RPi SPI bus
 /// @param cs - RPi chip select
+/// @param clock_speed - clock speed in Hz
 /// @param notify - notify callback
 /// @param on_msg - message callback
 /// @return pointer to max7219 on NULL on error
@@ -946,6 +947,7 @@ bool ceammc_hw_max7219_intensity(ceammc_hw_max7219 *mx, int32_t addr, uint8_t in
 ceammc_hw_max7219 *ceammc_hw_max7219_new(uint8_t num_displays,
                                          ceammc_hw_spi_bus spi,
                                          ceammc_hw_spi_cs cs,
+                                         uint32_t clock_speed,
                                          ceammc_msg_notify notify,
                                          ceammc_msg_cb on_msg);
 
