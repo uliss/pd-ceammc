@@ -80,7 +80,7 @@ void m_write_all_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_write_all_args_info());
 }
-struct m_write_pin_args {
+struct m_write_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
     t_int pin {0}; // pin index
@@ -121,7 +121,7 @@ struct m_write_pin_args {
         return "VALUE (new value), bool";
     }
     static const char* usage() {
-        return "usage: [write_pin PIN VALUE(";
+        return "usage: [write PIN VALUE(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -140,11 +140,11 @@ struct m_write_pin_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[write_pin( argument #0 'PIN' is required:";
+                    Error(obj) << "[write( argument #0 'PIN' is required:";
                     Post(obj) << " - " << arg_pin_info();
                     output_usage(obj);
                 } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[write_pin( argument #0 'PIN' check failed, expected:";
+                    Error(obj) << "[write( argument #0 'PIN' check failed, expected:";
                     Post(obj) << " - " << arg_pin_info();
                     output_usage_verbose(obj);
                 }
@@ -157,11 +157,11 @@ struct m_write_pin_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[write_pin( argument #1 'VALUE' is required:";
+                    Error(obj) << "[write( argument #1 'VALUE' is required:";
                     Post(obj) << " - " << arg_value_info();
                     output_usage(obj);
                 } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[write_pin( argument #1 'VALUE' check failed, expected:";
+                    Error(obj) << "[write( argument #1 'VALUE' check failed, expected:";
                     Post(obj) << " - " << arg_value_info();
                     output_usage_verbose(obj);
                 }
@@ -171,7 +171,7 @@ struct m_write_pin_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << "[write_pin( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                Error(obj) << "[write( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                 output_usage(obj);
             }
             return false;
@@ -180,12 +180,12 @@ struct m_write_pin_args {
     }
 };
 
-const char* m_write_pin_args_info() {
+const char* m_write_args_info() {
     return "write pin value";
 }
-void m_write_pin_args_info_output(const BaseObject* obj) {
+void m_write_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_write_pin_args_info());
+        PD_NORMAL, "%s", m_write_args_info());
 }
 struct m_input_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };

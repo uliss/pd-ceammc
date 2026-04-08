@@ -89,9 +89,9 @@ void HwRpiGpioPcf8574::m_write_all(t_symbol* s, const AtomListView& lv)
 ///     #pin   int  "pin index" { check: [0..7] }
 ///     #value bool "new value" {}
 /// }
-void HwRpiGpioPcf8574::m_write_pin(t_symbol* s, const AtomListView& lv)
+void HwRpiGpioPcf8574::m_write(t_symbol* s, const AtomListView& lv)
 {
-    m_write_pin_args args;
+    m_write_args args;
     if (!args.parse_args(lv, this))
         return;
 
@@ -169,7 +169,7 @@ void setup_hw_rpi_gpio_pcf8574()
     obj.addMethod("read_all", &HwRpiGpioPcf8574::m_read_all);
     obj.addMethod("output", &HwRpiGpioPcf8574::m_output);
     obj.addMethod("write_all", &HwRpiGpioPcf8574::m_write_all);
-    obj.addMethod("write_pin", &HwRpiGpioPcf8574::m_write_pin);
+    obj.addMethod("write", &HwRpiGpioPcf8574::m_write);
 }
 
 } // namespace ceammc
