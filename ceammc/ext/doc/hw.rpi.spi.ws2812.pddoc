@@ -17,7 +17,15 @@
       <since>0.9.8</since>
     </meta>
     <info>
-      <par style="important">
+      <par style="critical">
+        <tr lang="en">Attention! The order of connecting the strip: first ground(!), then power (+5V), then the data pin, this is necessary to protect the first LED from burning out. It is recommended to install a 300-500 Ohm resistor in the Data circuit.</tr>
+        <tr lang="ru">Внимание! Порядок подключения ленты: сначала земля(!), потом питание (+5В), потом пин данных: это нужно для защиты первого светодиода от выгорания. В цепь данных рекомендуется устанавливать резистор 300-500 Ом.</tr>
+      </par>
+      <par style="critical">
+        <tr lang="en">The disconnection procedure is strictly reverse: first the data pin, then the +5V power, and then ground.</tr>
+        <tr lang="ru">Порядок отключения строго обратный: сначала пин данных, потом питание +5В, а затем земля.</tr>
+      </par>
+      <par style="warning">
         <tr lang="en">When using the object, you need to specify the number of the SPI (@spi_bus
         property).</tr>
         <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI (свойство
