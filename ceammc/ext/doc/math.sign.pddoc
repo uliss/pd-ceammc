@@ -22,8 +22,8 @@
         <tr lang="ru">Возвращает:</tr>
       </par>
       <par indent="1" space-bottom="-7">
-          <tr lang="en">-1, if x &lt; 0</tr>
-          <tr lang="ru">-1, если x &lt; 0</tr>
+        <tr lang="en">-1, if x &lt; 0</tr>
+        <tr lang="ru">-1, если x &lt; 0</tr>
       </par>
       <par indent="1" space-bottom="-7">
         <tr lang="en">±0, if x == ±0</tr>

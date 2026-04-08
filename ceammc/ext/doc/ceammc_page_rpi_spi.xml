@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page output="ceammc_rpi_spi-info.pd">
+  <title>
+    <tr lang="en">SPI (Serial Peripheral Interface)</tr>
+    <tr lang="ru">SPI (Последовательный периферийный интерфейс)</tr>
+  </title>
+  <sections>
+    <h2>
+      <tr lang="en">General information</tr>
+      <tr lang="ru">Общая информация</tr>
+    </h2>
+    <par indent="1" style="info">
+      <tr lang="en">SPI (Serial Peripheral Interface) is a synchronous serial interface designed
+      for high-speed data exchange between a microcontroller (the master device) and peripheral
+      devices (the slave devices).</tr>
+      <tr lang="ru">SPI (Serial Peripheral Interface) — это синхронный последовательный интерфейс,
+      предназначенный для высокоскоростного обмена данными между микроконтроллером (ведущим
+      устройством, Master) и периферийными устройствами (ведомыми, Slave).</tr>
+    </par>
+    <par indent="1" style="info">
+      <tr lang="en">The range of SPI applications on the Raspberry Pi 4/5 is extremely wide. Thanks
+      to its high speed, the interface is used for connecting TFT displays, where fast frame
+      rendering is required, as well as for high-precision ADCs (analog-to-digital converters),
+      since the Pi itself has no analog inputs. In industrial prototyping, SPI is valued for the
+      determinism and reliability of the connection.</tr>
+      <tr lang="ru">Спектр применения SPI на Raspberry Pi 4/5 чрезвычайно широк. Благодаря высокой
+      скорости, интерфейс используется для подключения TFT-дисплеев, где требуется быстрая
+      отрисовка кадров, а также для высокоточных АЦП (аналогово-цифровых преобразователей), так как
+      у самого Pi нет аналоговых входов. В промышленном прототипировании SPI ценится за
+      детерминированность и надежность соединения</tr>
+    </par>
+    <par indent="1">
+      <tr lang="en">On the RPi4 and RPi5, the number of SPI buses reaches seven (from SPI0 to
+      SPI6), however by default they are disabled. The use of certain buses may conflict with other
+      functions (HDMI, cameras)</tr>
+      <tr lang="ru">На RPi4 и RPi5 количество шин SPI достигает семи (от SPI0 до SPI6), однако по
+      умолчанию они отключены. Использование некоторых шин может конфликтовать с другими функциями
+      (HDMI, камеры)</tr>
+    </par>
+    <par indent="1">
+      <tr lang="en">Standard SPI connection requires four lines: SCLK (clock line), MOSI (master
+      out, slave in), MISO (master in, slave out), and CS (chip select), which the Master uses to
+      activate a specific device</tr>
+      <tr lang="ru">Стандартное подключение по SPI требует четыре линии: SCLK (тактовая линия),
+      MOSI (ведущий передает, ведомый принимает: master out, slave in), MISO (ведущий принимает,
+      ведомый передает: master in, slave out) и CS (выбор кристалла, чип-селект), которую Master
+      использует для активации конкретного устройства</tr>
+    </par>
+    <h2>
+      <tr lang="en">Usage information</tr>
+      <tr lang="ru">Информация об использовании</tr>
+    </h2>
+    <par indent="1">
+      <tr lang="en">The main difference between the available buses lies in their implementation
+      and performance. The SPI0 bus is a "full-featured" one and supports all standard operating
+      modes (Mode 0-3), has hardware FIFO buffers and DMA support. It is ideal for high-load
+      tasks.</tr>
+      <tr lang="ru">Основное различие между доступными шинами заключается в их реализации и
+      производительности. Шина SPI0 является "полноценной" и поддерживает все стандартные режимы
+      работы (Mode 0-3), имеет аппаратные FIFO буферы и поддержку DMA. Она идеально подходит для
+      высоконагруженных задач.</tr>
+    </par>
+    <par indent="1">
+      <tr lang="en">The remaining buses (SPI1, SPI2, as well as SPI3-6) are considered "auxiliary"
+      (mini SPI). They have a smaller buffer, do not support DMA, and may require more processor
+      time at high frequencies. In addition, auxiliary buses may not support some modes, for
+      example, Mode 1 or Mode 3.</tr>
+      <tr lang="ru">Остальные шины (SPI1, SPI2, а также SPI3-6) считаются "вспомогательными" (mini
+      SPI). Они имеют меньший буфер, не поддерживают DMA и могут требовать больше процессорного
+      времени при высоких частотах. Кроме того, вспомогательные шины могут не поддерживать
+      некоторые режимы, например, Mode 1 или Mode 3.</tr>
+    </par>
+    <par indent="1">
+      <tr lang="en">When choosing a bus for a project, it is important to consider this: any bus
+      will work for simple sensors, but for a high-speed display or data collection, it is better
+      to use SPI0.</tr>
+      <tr lang="ru">При выборе шины для проекта важно учитывать это: для простых датчиков подойдет
+      любая, а для высокоскоростного дисплея или сбора данных лучше использовать SPI0.</tr>
+    </par>
+    <h2>
+      <tr lang="en">Configuration</tr>
+      <tr lang="ru">Настройка</tr>
+    </h2>
+    <par indent="1">
+      <tr lang="en">Setting up SPI on the Raspberry Pi starts with its activation, as the interface
+      is disabled by default. The standard method is using the raspi-config utility. In the
+      terminal, it is necessary to run sudo raspi-config, then go to "Interface Options" and enable
+      SPI. After rebooting, device files /dev/spidev0.0 and /dev/spidev0.1 will appear in the
+      system.</tr>
+      <tr lang="ru">Настройка SPI на Raspberry Pi начинается с его активации, так как по умолчанию
+      интерфейс отключен. Стандартный способ — использование утилиты raspi-config. В терминале
+      необходимо выполнить sudo raspi-config, затем перейти в "Interface Options" и включить SPI.
+      После перезагрузки в системе появятся файлы устройств /dev/spidev0.0 и /dev/spidev0.1.</tr>
+    </par>
+    <par indent="1">
+      <tr lang="en">To enable additional buses (for example, SPI1 or SPI3 on the RPi5), manual
+      editing of the /boot/firmware/config.txt file is required. By adding a line like
+      dtoverlay=spi1-3cs (where 3cs means the number of Chip Select lines), the user activates the
+      desired interface with the required number of slots for connecting devices.</tr>
+      <tr lang="ru">Для включения дополнительных шин (например, SPI1 или SPI3 на RPi5) требуется
+      ручное редактирование файла /boot/firmware/config.txt. Добавив строку типа dtoverlay=spi1-3cs
+      (где 3cs означает количество линий Chip Select), пользователь активирует нужный интерфейс с
+      необходимым количеством слотов для подключения устройств.</tr>
+    </par>
+  </sections>
+</page>
