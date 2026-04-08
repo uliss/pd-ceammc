@@ -71,6 +71,9 @@ void HwRpiGpioPcf8574::m_set_all(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
+    if (!check_connected(true, s))
+        return;
+
     ceammc_hw_pcf8674_set_all(device(), args.value);
 }
 
