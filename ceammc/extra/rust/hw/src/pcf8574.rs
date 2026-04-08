@@ -3,20 +3,14 @@
 #![cfg_attr(not(target_os = "linux"), allow(dead_code))]
 #![allow(non_camel_case_types)]
 
+use crate::gpio::hw_gpio_mode;
 use crate::i2c::I2cAddress;
 use ceammc_rs_msg::{msg_cb, msg_notify};
 use std::ffi::c_void;
 use std::ptr::null_mut;
 
-#[derive(Clone, Copy, PartialEq)]
-#[repr(C)]
-pub enum hw_pcf8574_pin_mode {
-    Input,
-    Output,
-}
-
 pub enum Request {
-    ConfigPin(u8, hw_pcf8574_pin_mode),
+    ConfigPin(u8, hw_gpio_mode),
     WriteAllPins(u8),
     WritePin { pin: u8, value: bool },
     ReadPin(u8),
@@ -127,7 +121,7 @@ pub extern "C" fn ceammc_hw_pcf8674_write_pin(dev: *mut hw_pcf8574, pin: u8, val
 /// @param dev - device handle
 /// @param pin - pin index
 /// @param mode - pin mode
-pub extern "C" fn ceammc_hw_pcf8674_config_pin(dev: *mut hw_pcf8574, pin: u8, mode: hw_pcf8574_pin_mode) -> bool {
+pub extern "C" fn ceammc_hw_pcf8674_config_pin(dev: *mut hw_pcf8574, pin: u8, mode: hw_gpio_mode) -> bool {
     rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::ConfigPin(pin, mode)) });
 }
 

@@ -6,8 +6,8 @@ use pcf857x::PinFlag;
 use pcf857x::{Pcf8574, SlaveAddr};
 use rppal::gpio::Gpio;
 
+use crate::gpio::hw_gpio_mode;
 use crate::i2c::i2c_impl::try_i2c_device;
-use crate::pcf8574::hw_pcf8574_pin_mode;
 use crate::{
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
     pcf8574::{hw_pcf8574, hw_pcf8574_cb, Reply, Request},
@@ -43,7 +43,7 @@ fn from_i2c_addr(addr: u8) -> Result<SlaveAddr, String> {
 }
 
 struct PinConfig {
-    modes: [hw_pcf8574_pin_mode; 8],
+    modes: [hw_gpio_mode; 8],
     raw_output: u8,
 }
 
@@ -65,15 +65,15 @@ fn to_pin_flag(pin: u8) -> Option<PinFlag> {
 impl PinConfig {
     fn new() -> Self {
         Self {
-            modes: [hw_pcf8574_pin_mode::Output; 8],
+            modes: [hw_gpio_mode::Output; 8],
             raw_output: 0,
         }
     }
 
-    fn pin_input_flag(pin: u8, mode: &hw_pcf8574_pin_mode) -> Option<PinFlag> {
+    fn pin_input_flag(pin: u8, mode: &hw_gpio_mode) -> Option<PinFlag> {
         match mode {
-            hw_pcf8574_pin_mode::Input => to_pin_flag(pin),
-            hw_pcf8574_pin_mode::Output => None,
+            hw_gpio_mode::Input => to_pin_flag(pin),
+            hw_gpio_mode::Output => None,
         }
     }
 
@@ -94,7 +94,7 @@ impl PinConfig {
     fn input_mask(&self) -> u8 {
         let mut res = 0;
         for i in 0..self.modes.len() {
-            if self.modes[i] == hw_pcf8574_pin_mode::Input {
+            if self.modes[i] == hw_gpio_mode::Input {
                 res |= 0x1 << i;
             }
         }
@@ -102,7 +102,7 @@ impl PinConfig {
         res
     }
 
-    fn set_mode(&mut self, pin: u8, mode: hw_pcf8574_pin_mode) -> bool {
+    fn set_mode(&mut self, pin: u8, mode: hw_gpio_mode) -> bool {
         let pin: usize = pin.into();
         if pin < self.modes.len() {
             self.modes[pin] = mode;
@@ -118,7 +118,7 @@ impl PinConfig {
             return Err(format!("invalid pin: {pin}"));
         }
 
-        if self.modes[pin] != hw_pcf8574_pin_mode::Output {
+        if self.modes[pin] != hw_gpio_mode::Output {
             return Err(format!("pin [{pin}] is not configured for output"));
         }
 
@@ -265,10 +265,10 @@ mod test {
         let mut cfg = PinConfig::new();
         assert_eq!(cfg.raw_output, 0b0000_0000);
         assert_eq!(cfg.input_mask(), 0b0000_0000);
-        cfg.set_mode(0, hw_pcf8574_pin_mode::Output);
+        cfg.set_mode(0, hw_gpio_mode::Output);
         assert_eq!(cfg.raw_output, 0b0000_0000);
         assert_eq!(cfg.input_mask(), 0b0000_0000);
-        cfg.set_mode(0, hw_pcf8574_pin_mode::Input);
+        cfg.set_mode(0, hw_gpio_mode::Input);
         assert_eq!(cfg.raw_output, 0b0000_0000);
         assert_eq!(cfg.input_mask(), 0b0000_0001);
         assert!(cfg.write(0, true).is_err());
@@ -277,7 +277,7 @@ mod test {
         assert_eq!(cfg.write(2, false), Ok(0b0000_0011));
         assert_eq!(cfg.write(1, false), Ok(0b0000_0001));
         assert_eq!(cfg.pin_flags(), Some(PinFlag::P0));
-        cfg.set_mode(7, hw_pcf8574_pin_mode::Input);
+        cfg.set_mode(7, hw_gpio_mode::Input);
         assert_eq!(cfg.write(1, true), Ok(0b1000_0011));
         assert_eq!(cfg.pin_flags(), Some(PinFlag::P0 | PinFlag::P7));
     }

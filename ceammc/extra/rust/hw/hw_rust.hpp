@@ -268,11 +268,6 @@ enum class ceammc_hw_pca8695_prog_address {
     AllCall,
 };
 
-enum class ceammc_hw_pcf8574_pin_mode {
-    Input,
-    Output,
-};
-
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -1179,9 +1174,7 @@ bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf8574 *dev);
 /// @param dev - device handle
 /// @param pin - pin index
 /// @param mode - pin mode
-bool ceammc_hw_pcf8674_config_pin(ceammc_hw_pcf8574 *dev,
-                                  uint8_t pin,
-                                  ceammc_hw_pcf8574_pin_mode mode);
+bool ceammc_hw_pcf8674_config_pin(ceammc_hw_pcf8574 *dev, uint8_t pin, ceammc_hw_gpio_mode mode);
 
 /// free device
 /// @param dev - device handle (nullable)

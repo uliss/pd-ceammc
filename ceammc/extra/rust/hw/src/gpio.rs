@@ -90,6 +90,7 @@ pub enum hw_gpio_bias {
 }
 
 #[repr(C)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum hw_gpio_mode {
     Output,
     Input,
