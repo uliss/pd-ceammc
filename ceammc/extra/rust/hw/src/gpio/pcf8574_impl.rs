@@ -25,6 +25,39 @@ fn to_i2c_addr(addr: &SlaveAddr) -> u16 {
     }
 }
 
+fn from_i2c_addr(addr: u8) -> Result<SlaveAddr, String> {
+    let x = match addr {
+        0x20 => SlaveAddr::Default,
+        0x21 => SlaveAddr::Alternative(false, false, true),
+        0x22 => SlaveAddr::Alternative(false, true, false),
+        0x23 => SlaveAddr::Alternative(false, true, true),
+        0x24 => SlaveAddr::Alternative(true, false, false),
+        0x25 => SlaveAddr::Alternative(true, false, true),
+        0x26 => SlaveAddr::Alternative(true, true, false),
+        0x27 => SlaveAddr::Alternative(true, true, true),
+        _ => return Err(format!("invalid i2c address: 0x{addr:02x}")),
+    };
+    Ok(x)
+}
+
+fn pin_flags(mask: u8) -> Option<PinFlag> {
+    let mut flags = vec![];
+    flags.reserve(8);
+    match mask {
+        x if x & 0b0000_0001 > 0 => flags.push(PinFlag::P0),
+        x if x & 0b0000_0010 > 0 => flags.push(PinFlag::P1),
+        x if x & 0b0000_0100 > 0 => flags.push(PinFlag::P2),
+        x if x & 0b0000_1000 > 0 => flags.push(PinFlag::P3),
+        x if x & 0b0001_0000 > 0 => flags.push(PinFlag::P4),
+        x if x & 0b0010_0000 > 0 => flags.push(PinFlag::P5),
+        x if x & 0b0100_0000 > 0 => flags.push(PinFlag::P6),
+        x if x & 0b1000_0000 > 0 => flags.push(PinFlag::P7),
+        _ => {}
+    }
+
+    flags.iter().copied().reduce(|x, y| x | y)
+}
+
 impl hw_pcf8574 {
     pub fn new(
         i2c_bus: i8,
@@ -41,27 +74,16 @@ impl hw_pcf8574 {
                     I2cAddress::Alt => SlaveAddr::Alternative(true, false, false),
                     I2cAddress::Auto => SlaveAddr::Default,
                     I2cAddress::Invalid(_) => Err(format!("invalid i2c address"))?,
-                    I2cAddress::Addr(val) => match val {
-                        0x20 => SlaveAddr::Default,
-                        0x21 => SlaveAddr::Alternative(false, false, true),
-                        0x22 => SlaveAddr::Alternative(false, true, false),
-                        0x23 => SlaveAddr::Alternative(false, true, true),
-                        0x24 => SlaveAddr::Alternative(true, false, false),
-                        0x25 => SlaveAddr::Alternative(true, false, true),
-                        0x26 => SlaveAddr::Alternative(true, true, false),
-                        0x27 => SlaveAddr::Alternative(true, true, true),
-                        _ => Err(format!("invalid i2c address: 0x{val:02x}"))?,
-                    },
+                    I2cAddress::Addr(val) => from_i2c_addr(val)?,
                 };
 
-                try_i2c_device(
-                    &mut i2c,
-                    to_i2c_addr(&addr),
-                    crate::i2c::i2c_impl::DetectMethod::ReceiveByte,
-                )?;
+                let i2c_addr = to_i2c_addr(&addr);
+                try_i2c_device(&mut i2c, i2c_addr, crate::i2c::i2c_impl::DetectMethod::ReceiveByte)?;
 
                 let mut device = Pcf8574::new(i2c, addr);
-                channel.send_debug(format!("connected to i2c pcf8574 device with addr: {addr:?} ..."))?;
+                channel.send_debug(format!(
+                    "connected to i2c pcf8574 device with addr: 0x{i2c_addr:02x} ({addr:?})"
+                ))?;
 
                 if let Err(err) = channel.recv_loop(&mut |req| {
                     match req {
@@ -69,20 +91,7 @@ impl hw_pcf8574 {
                             device.set(pins).map_err(|err| format!("{err:?}"))?;
                         }
                         Request::GetPins { mask } => {
-                            let mut flags = vec![];
-                            match mask {
-                                x if x & 0b0000_0001 > 0 => flags.push(PinFlag::P0),
-                                x if x & 0b0000_0010 > 0 => flags.push(PinFlag::P1),
-                                x if x & 0b0000_0100 > 0 => flags.push(PinFlag::P2),
-                                x if x & 0b0000_1000 > 0 => flags.push(PinFlag::P3),
-                                x if x & 0b0001_0000 > 0 => flags.push(PinFlag::P4),
-                                x if x & 0b0010_0000 > 0 => flags.push(PinFlag::P5),
-                                x if x & 0b0100_0000 > 0 => flags.push(PinFlag::P6),
-                                x if x & 0b1000_0000 > 0 => flags.push(PinFlag::P7),
-                                _ => {}
-                            }
-
-                            if let Some(pin_mask) = flags.iter().copied().reduce(|x, y| x | y) {
+                            if let Some(pin_mask) = pin_flags(mask) {
                                 let state = device.get(pin_mask).map_err(|err| format!("{err:?}"))?;
                                 channel.send_data(Reply::InputPins { mask, state }).to_worker_result()?;
                             }
