@@ -192,6 +192,8 @@ impl hw_pcf8574 {
                 }
 
                 if let Err(err) = to_client.recv_loop(&mut |req| {
+                    debug!("request: {req:?}");
+
                     match req {
                         Request::WriteAllPins(pins) => {
                             let bits = pin_config.write_all(pins);

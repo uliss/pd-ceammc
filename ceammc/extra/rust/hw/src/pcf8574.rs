@@ -9,6 +9,7 @@ use ceammc_rs_msg::{msg_cb, msg_notify};
 use std::ffi::c_void;
 use std::ptr::null_mut;
 
+#[derive(Debug)]
 pub enum Request {
     ConfigPin(u8, hw_gpio_mode),
     WriteAllPins(u8),
