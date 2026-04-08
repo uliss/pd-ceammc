@@ -173,7 +173,7 @@ where
     Reply: Send + 'static,
 {
     to_worker: std::sync::mpsc::SyncSender<RequestMessage<Request>>,
-    from_client: std::sync::mpsc::Receiver<ReplyMessage<Reply>>,
+    to_client: std::sync::mpsc::Receiver<ReplyMessage<Reply>>,
 }
 
 impl<Request, Reply> WorkerChannelBounded<Request, Reply>
@@ -266,7 +266,10 @@ where
         while let Ok(req) = self.from_worker.recv() {
             match req {
                 RequestMessage::Message(req) => (on_request)(req)?,
-                RequestMessage::Quit => break,
+                RequestMessage::Quit => {
+                    log::debug!("quit");
+                    break;
+                }
             }
         }
 
@@ -301,7 +304,7 @@ where
 
         let to_worker = WorkerChannelBounded {
             to_worker: req_tx,
-            from_client: rep_rx,
+            to_client: rep_rx,
         };
 
         let from_worker = ClientChannelBounded {
@@ -420,7 +423,7 @@ where
         F: Fn(Reply),
     {
         loop {
-            match self.channel.from_client.try_recv() {
+            match self.channel.to_client.try_recv() {
                 Ok(data) => match data {
                     ReplyMessage::Message(worker_message) => self.on_msg.exec(&worker_message),
                     ReplyMessage::Data(data) => (on_data)(data),
