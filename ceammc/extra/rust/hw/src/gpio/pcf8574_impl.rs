@@ -112,7 +112,7 @@ impl PinConfig {
         }
     }
 
-    fn write(&mut self, pin: u8, value: bool) -> Result<u8, String> {
+    fn write_pin(&mut self, pin: u8, value: bool) -> Result<u8, String> {
         let pin: usize = pin.into();
         if pin >= self.modes.len() {
             return Err(format!("invalid pin: {pin}"));
@@ -130,6 +130,11 @@ impl PinConfig {
         }
 
         Ok(self.raw_output)
+    }
+
+    fn write_all(&mut self, pins: u8) -> u8 {
+        self.raw_output = pins | self.input_mask();
+        self.raw_output
     }
 }
 
@@ -183,7 +188,8 @@ impl hw_pcf8574 {
                 if let Err(err) = channel.recv_loop(&mut |req| {
                     match req {
                         Request::WriteAllPins(pins) => {
-                            device.set(pins).map_err(|err| format!("{err:?}"))?;
+                            let bits = pin_config.write_all(pins);
+                            device.set(bits).map_err(|err| format!("{err:?}"))?;
                         }
                         Request::ConfigPin(pin, mode) => {
                             if !pin_config.set_mode(pin, mode) {
@@ -212,7 +218,7 @@ impl hw_pcf8574 {
                             }
                         }
                         Request::WritePin { pin, value } => {
-                            let bits = pin_config.write(pin, value)?;
+                            let bits = pin_config.write_pin(pin, value)?;
                             device.set(bits).map_err(|err| format!("{err:?}"))?;
                             debug!("write: {bits:08b}");
                         }
@@ -271,14 +277,16 @@ mod test {
         cfg.set_mode(0, hw_gpio_mode::Input);
         assert_eq!(cfg.raw_output, 0b0000_0000);
         assert_eq!(cfg.input_mask(), 0b0000_0001);
-        assert!(cfg.write(0, true).is_err());
-        assert_eq!(cfg.write(1, true), Ok(0b0000_0011));
-        assert_eq!(cfg.write(2, true), Ok(0b0000_0111));
-        assert_eq!(cfg.write(2, false), Ok(0b0000_0011));
-        assert_eq!(cfg.write(1, false), Ok(0b0000_0001));
+        assert!(cfg.write_pin(0, true).is_err());
+        assert_eq!(cfg.write_pin(1, true), Ok(0b0000_0011));
+        assert_eq!(cfg.write_pin(2, true), Ok(0b0000_0111));
+        assert_eq!(cfg.write_pin(2, false), Ok(0b0000_0011));
+        assert_eq!(cfg.write_pin(1, false), Ok(0b0000_0001));
         assert_eq!(cfg.pin_flags(), Some(PinFlag::P0));
         cfg.set_mode(7, hw_gpio_mode::Input);
-        assert_eq!(cfg.write(1, true), Ok(0b1000_0011));
+        assert_eq!(cfg.write_pin(1, true), Ok(0b1000_0011));
         assert_eq!(cfg.pin_flags(), Some(PinFlag::P0 | PinFlag::P7));
+        assert_eq!(cfg.write_all(0xff), 0b1111_1111);
+        assert_eq!(cfg.write_all(0x0), 0b1000_0001);
     }
 }
