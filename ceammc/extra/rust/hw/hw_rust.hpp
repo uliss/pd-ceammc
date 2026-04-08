@@ -329,6 +329,10 @@ struct ceammc_hw_nfc_pn532;
 
 struct ceammc_hw_pca9685;
 
+/// The PCF8574 is an 8-bit I/O expander for I²C-bus.
+/// It supports up to 8 devices on the same bus via programmable addresses.
+struct ceammc_hw_pcf_8574;
+
 struct ceammc_hw_rpi_pwm;
 
 struct ceammc_hw_sensor_mpr121;
@@ -1140,6 +1144,14 @@ bool ceammc_hw_pca9685_set_pulse_width(const ceammc_hw_pca9685 *pwm,
 bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_pca8695_prog_address addr_type,
                                      uint8_t i2c_addr);
+
+/// process replies from worker
+/// @param dev - device handle (nullable)
+bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf_8574 *dev);
+
+/// free device
+/// @param dev - device handle (nullable)
+void ceammc_hw_pcf8674_free(ceammc_hw_pcf_8574 *dev);
 
 /// create new pn532 device handle
 /// @i2c_bus - i2c bus number
