@@ -70,27 +70,27 @@ impl PinConfig {
         }
     }
 
-    fn pin_input_flag(pin: u8, mode: &hw_gpio_mode) -> Option<PinFlag> {
+    fn input_flag(pin: u8, mode: &hw_gpio_mode) -> Option<PinFlag> {
         match mode {
             hw_gpio_mode::Input => to_pin_flag(pin),
             hw_gpio_mode::Output => None,
         }
     }
 
-    fn pin_flag(&self, pin: u8) -> Option<PinFlag> {
+    fn pin_input_flag(&self, pin: u8) -> Option<PinFlag> {
         let idx: usize = pin.into();
         if idx <= self.modes.len() {
-            Self::pin_input_flag(pin, &self.modes[idx])
+            Self::input_flag(pin, &self.modes[idx])
         } else {
             None
         }
     }
 
-    fn pin_flags(&self) -> Option<PinFlag> {
+    fn pin_input_flags(&self) -> Option<PinFlag> {
         self.modes
             .iter()
             .enumerate()
-            .map(|(i, pin)| Self::pin_input_flag(i as u8, pin))
+            .map(|(i, pin)| Self::input_flag(i as u8, pin))
             .reduce(|a, b| match (a, b) {
                 (None, None) => None,
                 (None, Some(b)) => Some(b),
@@ -213,15 +213,15 @@ impl hw_pcf8574 {
                                 to_client.send_error(format!("invalid pin: {pin}"))?
                             }
                         }
-                        Request::ReadPin(pin) => match pin_config.pin_flag(pin) {
+                        Request::ReadPin(pin) => match pin_config.pin_input_flag(pin) {
                             Some(mask) => {
                                 let state = read_pin(pin, device.get(mask).map_err(|err| format!("{err:?}"))?);
                                 to_client.send_data(Reply::ReadPin { pin, state }).to_worker_result()?;
                             }
                             None => to_client.send_error(format!("pin [{pin}] is not configured for read"))?,
                         },
-                        Request::ReadAllPins => {
-                            if let Some(mask) = pin_config.pin_flags() {
+                        Request::ReadAllPins => match pin_config.pin_input_flags() {
+                            Some(mask) => {
                                 let state = device.get(mask).map_err(|err| format!("{err:?}"))?;
                                 to_client
                                     .send_data(Reply::ReadAll {
@@ -229,15 +229,16 @@ impl hw_pcf8574 {
                                         state,
                                     })
                                     .to_worker_result()?;
-                            } else {
-                                to_client.send_error(format!("no pins are configured for read"))?;
                             }
-                        }
-                        Request::WritePin { pin, value } => {
-                            let bits = pin_config.write_pin(pin, value)?;
-                            device.set(bits).map_err(|err| format!("{err:?}"))?;
-                            debug!("write: {bits:08b}");
-                        }
+                            None => to_client.send_error(format!("no pins are configured for read"))?,
+                        },
+                        Request::WritePin { pin, value } => match pin_config.write_pin(pin, value) {
+                            Ok(bits) => {
+                                device.set(bits).map_err(|err| format!("{err:?}"))?;
+                                debug!("write: {bits:08b}");
+                            }
+                            Err(err) => to_client.send_error(err)?,
+                        },
                     }
                     Ok(())
                 }) {
@@ -298,10 +299,10 @@ mod test {
         assert_eq!(cfg.write_pin(2, true), Ok(0b0000_0111));
         assert_eq!(cfg.write_pin(2, false), Ok(0b0000_0011));
         assert_eq!(cfg.write_pin(1, false), Ok(0b0000_0001));
-        assert_eq!(cfg.pin_flags(), Some(PinFlag::P0));
+        assert_eq!(cfg.pin_input_flags(), Some(PinFlag::P0));
         cfg.set_mode(7, hw_gpio_mode::Input);
         assert_eq!(cfg.write_pin(1, true), Ok(0b1000_0011));
-        assert_eq!(cfg.pin_flags(), Some(PinFlag::P0 | PinFlag::P7));
+        assert_eq!(cfg.pin_input_flags(), Some(PinFlag::P0 | PinFlag::P7));
         assert_eq!(cfg.write_all(0xff), 0b1111_1111);
         assert_eq!(cfg.write_all(0x0), 0b1000_0001);
     }
