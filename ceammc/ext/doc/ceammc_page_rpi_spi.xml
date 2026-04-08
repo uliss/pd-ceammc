@@ -102,5 +102,61 @@
       (где 3cs означает количество линий Chip Select), пользователь активирует нужный интерфейс с
       необходимым количеством слотов для подключения устройств.</tr>
     </par>
+    <h2>
+      <tr lang="en">Pinout</tr>
+      <tr lang="ru">Распиновка</tr>
+    </h2>
+    <h2>
+      <tr lang="en">SPI0</tr>
+      <tr lang="ru">SPI0</tr>
+    </h2>
+    <par indent="2">
+      <tr lang="en">[19] MOSI: GPIO 10</tr>
+      <tr lang="ru">[19] MOSI: GPIO 10</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[21] MISO: GPIO 9</tr>
+      <tr lang="ru">[21] MISO: GPIO 9</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[23] SCLK: GPIO 11</tr>
+      <tr lang="ru">[23] SCLK: GPIO 11</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[24] CE0: GPIO 8</tr>
+      <tr lang="ru">[24] CE0: GPIO 8</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[26] CE1: GPIO 7</tr>
+      <tr lang="ru">[26] CE1: GPIO 7</tr>
+    </par>
+    <h2>
+      <tr lang="en">SPI1</tr>
+      <tr lang="ru">SPI1</tr>
+    </h2>
+    <par indent="2">
+      <tr lang="en">[38] MOSI: GPIO 20</tr>
+      <tr lang="ru">[38] MOSI: GPIO 20</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[35] MISO: GPIO 19</tr>
+      <tr lang="ru">[35] MISO: GPIO 19</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[40] SCLK: GPIO 21</tr>
+      <tr lang="ru">[40] SCLK: GPIO 21</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[12] CE0: GPIO 18</tr>
+      <tr lang="ru">[12] CE0: GPIO 18</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[11] CE1: GPIO 17</tr>
+      <tr lang="ru">[11] CE1: GPIO 17</tr>
+    </par>
+    <par indent="2">
+      <tr lang="en">[36] CE2: GPIO 16</tr>
+      <tr lang="ru">[36] CE2: GPIO 16</tr>
+    </par>
   </sections>
 </page>

@@ -53,4 +53,21 @@ SPI3 на RPi5) требуется ручное редактирование ф�
 Добавив строку типа dtoverlay=spi1-3cs (где 3cs означает количество
 линий Chip Select) \, пользователь активирует нужный интерфейс с необходимым
 количеством слотов для подключения устройств., f 79;
-#X obj 1 1024 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1004 cnv 5 400 28 empty empty Распиновка 4 14 0 16 -70738
+-262144 0;
+#X obj 20 1052 cnv 5 400 28 empty empty SPI0 4 14 0 16 -70738 -262144
+0;
+#X text 60 1100 [19] MOSI: GPIO 10, f 78;
+#X text 60 1130 [21] MISO: GPIO 9, f 78;
+#X text 60 1160 [23] SCLK: GPIO 11, f 78;
+#X text 60 1190 [24] CE0: GPIO 8, f 78;
+#X text 60 1220 [26] CE1: GPIO 7, f 78;
+#X obj 20 1250 cnv 5 400 28 empty empty SPI1 4 14 0 16 -70738 -262144
+0;
+#X text 60 1298 [38] MOSI: GPIO 20, f 78;
+#X text 60 1328 [35] MISO: GPIO 19, f 78;
+#X text 60 1358 [40] SCLK: GPIO 21, f 78;
+#X text 60 1388 [12] CE0: GPIO 18, f 78;
+#X text 60 1418 [11] CE1: GPIO 17, f 78;
+#X text 60 1448 [36] CE2: GPIO 16, f 78;
+#X obj 1 1498 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
