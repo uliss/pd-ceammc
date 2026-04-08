@@ -1,0 +1,55 @@
+#N canvas 0 0 700 500 12;
+#X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
+-104026 -4096 0;
+#X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 61 cnv 5 450 32 empty empty SPI\ (Serial\ Peripheral\
+Interface) 4 16 0 17 -262144 -104026 0;
+#X obj 20 124 cnv 5 400 28 empty empty General\ information 4 14 0 16
+-70738 -262144 0;
+#X text 50 172 SPI (Serial Peripheral Interface) is a synchronous serial
+interface designed for high-speed data exchange between a microcontroller
+(the master device) and peripheral devices (the slave devices)., f 79;
+#X obj 40 172 cnv 1 2 55 empty empty empty 17 7 0 10 -158925 -1 0;
+#X text 50 232 The range of SPI applications on the Raspberry Pi 4/5
+is extremely wide. Thanks to its high speed \, the interface is used
+for connecting TFT displays \, where fast frame rendering is required
+\, as well as for high-precision ADCs (analog-to-digital converters)
+\, since the Pi itself has no analog inputs. In industrial prototyping
+\, SPI is valued for the determinism and reliability of the connection., f 79;
+#X obj 40 232 cnv 1 2 101 empty empty empty 17 7 0 10 -158925 -1 0;
+#X text 50 338 On the RPi4 and RPi5 \, the number of SPI buses reaches
+seven (from SPI0 to SPI6) \, however by default they are disabled.
+The use of certain buses may conflict with other functions (HDMI \,
+cameras), f 79;
+#X text 50 398 Standard SPI connection requires four lines: SCLK (clock
+line) \, MOSI (master out \, slave in) \, MISO (master in \, slave
+out) \, and CS (chip select) \, which the Master uses to activate a
+specific device, f 79;
+#X obj 20 458 cnv 5 400 28 empty empty Usage\ information 4 14 0 16
+-70738 -262144 0;
+#X text 50 506 The main difference between the available buses lies
+in their implementation and performance. The SPI0 bus is a "full-featured"
+one and supports all standard operating modes (Mode 0-3) \, has hardware
+FIFO buffers and DMA support. It is ideal for high-load tasks., f 79;
+#X text 50 581 The remaining buses (SPI1 \, SPI2 \, as well as SPI3-6)
+are considered "auxiliary" (mini SPI). They have a smaller buffer \,
+do not support DMA \, and may require more processor time at high frequencies.
+In addition \, auxiliary buses may not support some modes \, for example
+\, Mode 1 or Mode 3\., f 79;
+#X text 50 656 When choosing a bus for a project \, it is important
+to consider this: any bus will work for simple sensors \, but for a
+high-speed display or data collection \, it is better to use SPI0\., f 79;
+#X obj 20 716 cnv 5 400 28 empty empty Configuration 4 14 0 16 -70738
+-262144 0;
+#X text 50 764 Setting up SPI on the Raspberry Pi starts with its activation
+\, as the interface is disabled by default. The standard method is
+using the raspi-config utility. In the terminal \, it is necessary
+to run sudo raspi-config \, then go to "Interface Options" and enable
+SPI. After rebooting \, device files /dev/spidev0.0 and /dev/spidev0.1
+will appear in the system., f 79;
+#X text 50 854 To enable additional buses (for example \, SPI1 or SPI3
+on the RPi5) \, manual editing of the /boot/firmware/config.txt file
+is required. By adding a line like dtoverlay=spi1-3cs (where 3cs means
+the number of Chip Select lines) \, the user activates the desired
+interface with the required number of slots for connecting devices., f 79;
+#X obj 1 964 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;

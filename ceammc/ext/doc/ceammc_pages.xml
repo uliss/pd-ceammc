@@ -5,4 +5,5 @@
   <xi:include href="ceammc_page_functions.xml" parse="xml" />
   <xi:include href="ceammc_page_rpi_objects.xml" parser="xml" />
   <xi:include href="ceammc_page_rpi_stepper.xml" parser="xml" />
+  <xi:include href="ceammc_page_rpi_spi.xml" parser="xml" />
 </pddoc-pages>
