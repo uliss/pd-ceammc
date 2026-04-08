@@ -95,4 +95,14 @@ impl hw_pcf_8574 {
         });
         true
     }
+
+    pub fn send_request_ptr(dev: *mut Self, req: Request) -> bool {
+        if dev.is_null() {
+            error!("NULL device pointer");
+            return false;
+        }
+
+        let dev = unsafe { &*dev };
+        true
+    }
 }

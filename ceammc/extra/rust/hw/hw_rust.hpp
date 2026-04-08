@@ -478,6 +478,11 @@ struct ceammc_hw_mpu6050_data_cb {
     void (*cb_gyro)(void *user, float x, float y, float z);
 };
 
+struct ceammc_hw_pcf_8574_cb {
+    void *user;
+    void (*on_input)(void *user, uint8_t mask, uint8_t state);
+};
+
 struct ceammc_hw_nfc_pn532_cb {
     void *user;
     void (*on_all_keys)(void *user, uint16_t state);
@@ -1145,6 +1150,19 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
                                      ceammc_hw_pca8695_prog_address addr_type,
                                      uint8_t i2c_addr);
 
+/// create new GPIO expander device
+/// @param i2c_bus - i2c bus number
+/// @param i2c_addr - i2c device address
+/// @param notify - caller notify callback
+/// @param on_msg - caller callback on message from worker
+/// @param on_data - caller callback on data from worker
+/// @return pointer to device or nullptr on error
+ceammc_hw_pcf_8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
+                                          int8_t i2c_addr,
+                                          ceammc_msg_notify notify,
+                                          ceammc_msg_cb on_msg,
+                                          ceammc_hw_pcf_8574_cb on_data);
+
 /// process replies from worker
 /// @param dev - device handle (nullable)
 bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf_8574 *dev);
@@ -1152,6 +1170,8 @@ bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf_8574 *dev);
 /// free device
 /// @param dev - device handle (nullable)
 void ceammc_hw_pcf8674_free(ceammc_hw_pcf_8574 *dev);
+
+bool ceammc_hw_pcf8674_set_all(ceammc_hw_pcf_8574 *dev, uint8_t value);
 
 /// create new pn532 device handle
 /// @i2c_bus - i2c bus number

@@ -1,3 +1,8 @@
+#![cfg_attr(not(target_os = "linux"), allow(unused_imports))]
+#![cfg_attr(not(target_os = "linux"), allow(unused_variables))]
+#![cfg_attr(not(target_os = "linux"), allow(dead_code))]
+#![allow(non_camel_case_types)]
+
 use crate::i2c::I2cAddress;
 use ceammc_rs_msg::{msg_cb, msg_notify};
 use std::ffi::c_void;
@@ -12,7 +17,7 @@ pub enum Reply {
     InputPins { mask: u8, state: u8 },
 }
 
-#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct hw_pcf_8574_cb {
     user: *mut c_void,
     on_input: extern "C" fn(user: *mut c_void, mask: u8, state: u8),
@@ -24,7 +29,6 @@ impl hw_pcf_8574_cb {
     }
 }
 
-#[allow(non_camel_case_types)]
 /// The PCF8574 is an 8-bit I/O expander for I²C-bus.
 /// It supports up to 8 devices on the same bus via programmable addresses.
 pub struct hw_pcf_8574 {
@@ -40,7 +44,7 @@ pub struct hw_pcf_8574 {
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
 /// @return pointer to device or nullptr on error
-pub fn ceammc_hw_pcf8574_new(
+pub extern "C" fn ceammc_hw_pcf8574_new(
     i2c_bus: i8,
     i2c_addr: i8,
     notify: msg_notify,
@@ -74,4 +78,9 @@ pub extern "C" fn ceammc_hw_pcf8674_free(dev: *mut hw_pcf_8574) {
 /// @param dev - device handle (nullable)
 pub extern "C" fn ceammc_hw_pcf8574_process_reply(dev: *mut hw_pcf_8574) -> bool {
     rpi_check!({ hw_pcf_8574::process_reply_ptr(dev) });
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_pcf8674_set_all(dev: *mut hw_pcf_8574, value: u8) -> bool {
+    rpi_check!({ hw_pcf_8574::send_request_ptr(dev, Request::SetPins(value)) });
 }
