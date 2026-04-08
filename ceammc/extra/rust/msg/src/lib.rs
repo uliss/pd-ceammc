@@ -1,5 +1,6 @@
 use std::{
     ffi::{c_char, c_void, CStr, CString},
+    sync::mpsc::SyncSender,
     thread::JoinHandle,
 };
 
@@ -322,6 +323,47 @@ where
             log::debug!("worker is started");
 
             if let Err(err) = cb(&to_client) {
+                match to_client.send_msg(WorkerMessage::error(&err)) {
+                    SendState::Ok => {
+                        log::error!("worker error: {err}")
+                    }
+                    SendState::NoSpace => {
+                        log::error!("no space in caller channel");
+                        log::error!("worker error: {err}")
+                    }
+                    SendState::Disconnected => {
+                        log::error!("client is disconnected");
+                        log::error!("{err}")
+                    }
+                }
+            }
+
+            log::debug!("worker is finished")
+        });
+
+        Self {
+            channel: to_worker,
+            worker_handle,
+            on_msg,
+        }
+    }
+
+    pub fn start_worker2<F>(cb: F, size: usize, notify: msg_notify, on_msg: msg_cb) -> Self
+    where
+        F: Fn(
+                &ClientChannelBounded<Request, Reply>,
+                SyncSender<RequestMessage<Request>>,
+            ) -> Result<(), String>
+            + Send
+            + 'static,
+    {
+        let (to_worker, to_client) = Self::make_channel(size, notify);
+        let sender2 = to_worker.clone_sender();
+
+        let worker_handle = std::thread::spawn(move || {
+            log::debug!("worker is started");
+
+            if let Err(err) = cb(&to_client, sender2) {
                 match to_client.send_msg(WorkerMessage::error(&err)) {
                     SendState::Ok => {
                         log::error!("worker error: {err}")

@@ -151,8 +151,8 @@ impl hw_pcf8574 {
         on_msg: msg_cb,
         on_data: hw_pcf8574_cb,
     ) -> Result<Self, CString> {
-        let worker = ceammc_rs_msg::Client::<Request, Reply>::start_worker(
-            move |channel| {
+        let worker = ceammc_rs_msg::Client::<Request, Reply>::start_worker2(
+            move |to_client, to_worker| {
                 let mut pin_config = PinConfig::new();
 
                 let mut i2c = create_i2c_bus(i2c_bus)?;
@@ -168,24 +168,30 @@ impl hw_pcf8574 {
                 try_i2c_device(&mut i2c, i2c_addr, crate::i2c::i2c_impl::DetectMethod::ReceiveByte)?;
 
                 let mut device = Pcf8574::new(i2c, addr);
-                channel.send_debug(format!(
+                to_client.send_debug(format!(
                     "connected to i2c pcf8574 device with addr: 0x{i2c_addr:02x} ({addr:?})"
                 ))?;
 
                 let mut gpio_pin = None;
                 if let Some(pin) = pin_interrupt {
-                    channel.send_debug(format!("using GPIO interrupt pin: {pin}"))?;
+                    to_client.send_debug(format!("using GPIO interrupt pin: {pin}"))?;
                     let gpio = Gpio::new().map_err(|err| err.to_string())?;
                     let pin = gpio.get(pin).map_err(|err| err.to_string())?.into_input_pullup();
                     gpio_pin = Some(pin);
                 }
 
                 if let Some(mut pin) = gpio_pin {
-                    pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, |_| {})
-                        .map_err(|err| err.to_string())?;
+                    pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_| {
+                        if let Err(err) =
+                            to_worker.try_send(ceammc_rs_msg::RequestMessage::Message(Request::ReadAllPins))
+                        {
+                            error!("{err}")
+                        }
+                    })
+                    .map_err(|err| err.to_string())?;
                 }
 
-                if let Err(err) = channel.recv_loop(&mut |req| {
+                if let Err(err) = to_client.recv_loop(&mut |req| {
                     match req {
                         Request::WriteAllPins(pins) => {
                             let bits = pin_config.write_all(pins);
@@ -193,28 +199,28 @@ impl hw_pcf8574 {
                         }
                         Request::ConfigPin(pin, mode) => {
                             if !pin_config.set_mode(pin, mode) {
-                                channel.send_error(format!("invalid pin: {pin}"))?
+                                to_client.send_error(format!("invalid pin: {pin}"))?
                             }
                         }
                         Request::ReadPin(pin) => {
                             if let Some(mask) = to_pin_flag(pin) {
                                 let state = read_pin(pin, device.get(mask).map_err(|err| format!("{err:?}"))?);
-                                channel.send_data(Reply::ReadPin { pin, state }).to_worker_result()?;
+                                to_client.send_data(Reply::ReadPin { pin, state }).to_worker_result()?;
                             } else {
-                                channel.send_error(format!("pin [{pin}] is not configured for read"))?;
+                                to_client.send_error(format!("pin [{pin}] is not configured for read"))?;
                             }
                         }
                         Request::ReadAllPins => {
                             if let Some(mask) = pin_config.pin_flags() {
                                 let state = device.get(mask).map_err(|err| format!("{err:?}"))?;
-                                channel
+                                to_client
                                     .send_data(Reply::ReadAll {
                                         mask: pin_config.input_mask(),
                                         state,
                                     })
                                     .to_worker_result()?;
                             } else {
-                                channel.send_error(format!("no pins are configured for read"))?;
+                                to_client.send_error(format!("no pins are configured for read"))?;
                             }
                         }
                         Request::WritePin { pin, value } => {
@@ -225,7 +231,7 @@ impl hw_pcf8574 {
                     }
                     Ok(())
                 }) {
-                    channel.send_error(err)?;
+                    to_client.send_error(err)?;
                 }
                 Ok(())
             },
