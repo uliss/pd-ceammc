@@ -18,7 +18,7 @@
 namespace ceammc {
 
 HwRpiGpioPcf8574::HwRpiGpioPcf8574(const PdArgs& args)
-    : HwRpiDevice<ceammc_hw_pcf_8574>(&ceammc_hw_pcf8674_free, args)
+    : HwRpiDevice<ceammc_hw_pcf8574>(&ceammc_hw_pcf8674_free, args)
 {
     createOutlet();
 
@@ -71,7 +71,7 @@ void HwRpiGpioPcf8574::m_set_all(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    // ceammc_hw_pcf_123 sd;
+    ceammc_hw_pcf8674_set_all(device(), args.value);
 }
 
 void setup_hw_rpi_gpio_pcf8574()

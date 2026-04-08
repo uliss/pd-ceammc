@@ -7,16 +7,16 @@ use pcf857x::{Pcf8574, SlaveAddr};
 
 use crate::{
     i2c::{i2c_impl::create_i2c_bus, I2cAddress},
-    pcf8574::{hw_pcf_8574, hw_pcf_8574_cb, Reply, Request},
+    pcf8574::{hw_pcf8574, hw_pcf8574_cb, Reply, Request},
 };
 
-impl hw_pcf_8574 {
+impl hw_pcf8574 {
     pub fn new(
         i2c_bus: i8,
         i2c_addr: I2cAddress,
         notify: msg_notify,
         on_msg: msg_cb,
-        on_data: hw_pcf_8574_cb,
+        on_data: hw_pcf8574_cb,
     ) -> Result<Self, CString> {
         let worker = ceammc_rs_msg::Client::<Request, Reply>::start_worker(
             move |channel| {
@@ -103,6 +103,6 @@ impl hw_pcf_8574 {
         }
 
         let dev = unsafe { &*dev };
-        true
+        dev.worker.send(req)
     }
 }

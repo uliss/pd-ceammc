@@ -18,12 +18,12 @@ pub enum Reply {
 }
 
 #[repr(C)]
-pub struct hw_pcf_8574_cb {
+pub struct hw_pcf8574_cb {
     user: *mut c_void,
     on_input: extern "C" fn(user: *mut c_void, mask: u8, state: u8),
 }
 
-impl hw_pcf_8574_cb {
+impl hw_pcf8574_cb {
     pub fn input_pins(&self, mask: u8, state: u8) {
         (self.on_input)(self.user, mask, state)
     }
@@ -31,9 +31,9 @@ impl hw_pcf_8574_cb {
 
 /// The PCF8574 is an 8-bit I/O expander for I²C-bus.
 /// It supports up to 8 devices on the same bus via programmable addresses.
-pub struct hw_pcf_8574 {
+pub struct hw_pcf8574 {
     pub worker: ceammc_rs_msg::Client<Request, Reply>,
-    pub cb: hw_pcf_8574_cb,
+    pub cb: hw_pcf8574_cb,
 }
 
 #[no_mangle]
@@ -49,10 +49,10 @@ pub extern "C" fn ceammc_hw_pcf8574_new(
     i2c_addr: i8,
     notify: msg_notify,
     on_msg: msg_cb,
-    on_data: hw_pcf_8574_cb,
-) -> *mut hw_pcf_8574 {
+    on_data: hw_pcf8574_cb,
+) -> *mut hw_pcf8574 {
     rpi_check!(null_mut(), {
-        match hw_pcf_8574::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_data) {
+        match hw_pcf8574::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_data) {
             Ok(adc) => return Box::into_raw(Box::new(adc)),
             Err(err) => {
                 on_msg.error_cstr(err);
@@ -65,7 +65,7 @@ pub extern "C" fn ceammc_hw_pcf8574_new(
 #[no_mangle]
 /// free device
 /// @param dev - device handle (nullable)
-pub extern "C" fn ceammc_hw_pcf8674_free(dev: *mut hw_pcf_8574) {
+pub extern "C" fn ceammc_hw_pcf8674_free(dev: *mut hw_pcf8574) {
     rpi_check!((), {
         if !dev.is_null() {
             drop(unsafe { Box::from_raw(dev) })
@@ -76,11 +76,11 @@ pub extern "C" fn ceammc_hw_pcf8674_free(dev: *mut hw_pcf_8574) {
 #[no_mangle]
 /// process replies from worker
 /// @param dev - device handle (nullable)
-pub extern "C" fn ceammc_hw_pcf8574_process_reply(dev: *mut hw_pcf_8574) -> bool {
-    rpi_check!({ hw_pcf_8574::process_reply_ptr(dev) });
+pub extern "C" fn ceammc_hw_pcf8574_process_reply(dev: *mut hw_pcf8574) -> bool {
+    rpi_check!({ hw_pcf8574::process_reply_ptr(dev) });
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pcf8674_set_all(dev: *mut hw_pcf_8574, value: u8) -> bool {
-    rpi_check!({ hw_pcf_8574::send_request_ptr(dev, Request::SetPins(value)) });
+pub extern "C" fn ceammc_hw_pcf8674_set_all(dev: *mut hw_pcf8574, value: u8) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::SetPins(value)) });
 }

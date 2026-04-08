@@ -331,7 +331,7 @@ struct ceammc_hw_pca9685;
 
 /// The PCF8574 is an 8-bit I/O expander for I²C-bus.
 /// It supports up to 8 devices on the same bus via programmable addresses.
-struct ceammc_hw_pcf_8574;
+struct ceammc_hw_pcf8574;
 
 struct ceammc_hw_rpi_pwm;
 
@@ -478,7 +478,7 @@ struct ceammc_hw_mpu6050_data_cb {
     void (*cb_gyro)(void *user, float x, float y, float z);
 };
 
-struct ceammc_hw_pcf_8574_cb {
+struct ceammc_hw_pcf8574_cb {
     void *user;
     void (*on_input)(void *user, uint8_t mask, uint8_t state);
 };
@@ -1157,21 +1157,21 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
 /// @return pointer to device or nullptr on error
-ceammc_hw_pcf_8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
-                                          int8_t i2c_addr,
-                                          ceammc_msg_notify notify,
-                                          ceammc_msg_cb on_msg,
-                                          ceammc_hw_pcf_8574_cb on_data);
+ceammc_hw_pcf8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
+                                         int8_t i2c_addr,
+                                         ceammc_msg_notify notify,
+                                         ceammc_msg_cb on_msg,
+                                         ceammc_hw_pcf8574_cb on_data);
 
 /// process replies from worker
 /// @param dev - device handle (nullable)
-bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf_8574 *dev);
+bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf8574 *dev);
 
 /// free device
 /// @param dev - device handle (nullable)
-void ceammc_hw_pcf8674_free(ceammc_hw_pcf_8574 *dev);
+void ceammc_hw_pcf8674_free(ceammc_hw_pcf8574 *dev);
 
-bool ceammc_hw_pcf8674_set_all(ceammc_hw_pcf_8574 *dev, uint8_t value);
+bool ceammc_hw_pcf8674_set_all(ceammc_hw_pcf8574 *dev, uint8_t value);
 
 /// create new pn532 device handle
 /// @i2c_bus - i2c bus number
