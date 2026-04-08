@@ -38,6 +38,7 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
         ceammc_hw_pcf8574_new(
             bus,
             i2c_addr_->value(),
+            nullptr,
             on_notify(),
             on_message(),
             {
@@ -74,7 +75,7 @@ void HwRpiGpioPcf8574::m_set_all(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true, s))
         return;
 
-    ceammc_hw_pcf8674_set_all(device(), args.value);
+    ceammc_hw_pcf8674_write_all(device(), args.value);
 }
 
 void setup_hw_rpi_gpio_pcf8574()

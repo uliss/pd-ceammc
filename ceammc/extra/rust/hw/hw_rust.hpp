@@ -268,6 +268,11 @@ enum class ceammc_hw_pca8695_prog_address {
     AllCall,
 };
 
+enum class ceammc_hw_pcf8574_pin_mode {
+    Input,
+    Output,
+};
+
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -480,7 +485,8 @@ struct ceammc_hw_mpu6050_data_cb {
 
 struct ceammc_hw_pcf8574_cb {
     void *user;
-    void (*on_input)(void *user, uint8_t mask, uint8_t state);
+    void (*on_read_all)(void *user, uint8_t mask, uint8_t state);
+    void (*on_read_pin)(void *user, uint8_t pin, bool state);
 };
 
 struct ceammc_hw_nfc_pn532_cb {
@@ -1153,12 +1159,14 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 /// create new GPIO expander device
 /// @param i2c_bus - i2c bus number
 /// @param i2c_addr - i2c device address
+/// @param pin_interrupt - interrupt GPIO pin
 /// @param notify - caller notify callback
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
 /// @return pointer to device or nullptr on error
 ceammc_hw_pcf8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
+                                         const uint8_t *pin_interrupt,
                                          ceammc_msg_notify notify,
                                          ceammc_msg_cb on_msg,
                                          ceammc_hw_pcf8574_cb on_data);
@@ -1167,11 +1175,37 @@ ceammc_hw_pcf8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
 /// @param dev - device handle (nullable)
 bool ceammc_hw_pcf8574_process_reply(ceammc_hw_pcf8574 *dev);
 
+/// configure pin mode
+/// @param dev - device handle
+/// @param pin - pin index
+/// @param mode - pin mode
+bool ceammc_hw_pcf8674_config_pin(ceammc_hw_pcf8574 *dev,
+                                  uint8_t pin,
+                                  ceammc_hw_pcf8574_pin_mode mode);
+
 /// free device
 /// @param dev - device handle (nullable)
 void ceammc_hw_pcf8674_free(ceammc_hw_pcf8574 *dev);
 
-bool ceammc_hw_pcf8674_set_all(ceammc_hw_pcf8574 *dev, uint8_t value);
+/// read all device pins configured for input
+/// @param dev - device handle (nullable)
+bool ceammc_hw_pcf8674_read_all(ceammc_hw_pcf8574 *dev);
+
+/// read specified pin value
+/// @param dev - device handle (nullable)
+/// @param pin - pin index
+bool ceammc_hw_pcf8674_read_pin(ceammc_hw_pcf8574 *dev, uint8_t pin);
+
+/// write value to all pins configured for output
+/// @param dev - device handle (nullable)
+/// @param value - value for all pins
+bool ceammc_hw_pcf8674_write_all(ceammc_hw_pcf8574 *dev, uint8_t value);
+
+/// write value to all pins configured for output
+/// @param dev - device handle (nullable)
+/// @param pin - pin index
+/// @param value - value
+bool ceammc_hw_pcf8674_write_pin(ceammc_hw_pcf8574 *dev, uint8_t pin, bool value);
 
 /// create new pn532 device handle
 /// @i2c_bus - i2c bus number

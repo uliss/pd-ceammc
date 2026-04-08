@@ -8,24 +8,40 @@ use ceammc_rs_msg::{msg_cb, msg_notify};
 use std::ffi::c_void;
 use std::ptr::null_mut;
 
+#[derive(Clone, Copy, PartialEq)]
+#[repr(C)]
+pub enum hw_pcf8574_pin_mode {
+    Input,
+    Output,
+}
+
 pub enum Request {
-    SetPins(u8),
-    GetPins { mask: u8 },
+    ConfigPin(u8, hw_pcf8574_pin_mode),
+    WriteAllPins(u8),
+    WritePin { pin: u8, value: bool },
+    ReadPin(u8),
+    ReadAllPins,
 }
 
 pub enum Reply {
-    InputPins { mask: u8, state: u8 },
+    ReadAll { mask: u8, state: u8 },
+    ReadPin { pin: u8, state: bool },
 }
 
 #[repr(C)]
 pub struct hw_pcf8574_cb {
     user: *mut c_void,
-    on_input: extern "C" fn(user: *mut c_void, mask: u8, state: u8),
+    on_read_all: extern "C" fn(user: *mut c_void, mask: u8, state: u8),
+    on_read_pin: extern "C" fn(user: *mut c_void, pin: u8, state: bool),
 }
 
 impl hw_pcf8574_cb {
-    pub fn input_pins(&self, mask: u8, state: u8) {
-        (self.on_input)(self.user, mask, state)
+    pub fn read_all(&self, mask: u8, state: u8) {
+        (self.on_read_all)(self.user, mask, state)
+    }
+
+    pub fn read_pin(&self, pin: u8, state: bool) {
+        (self.on_read_pin)(self.user, pin, state)
     }
 }
 
@@ -40,6 +56,7 @@ pub struct hw_pcf8574 {
 /// create new GPIO expander device
 /// @param i2c_bus - i2c bus number
 /// @param i2c_addr - i2c device address
+/// @param pin_interrupt - interrupt GPIO pin
 /// @param notify - caller notify callback
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
@@ -47,12 +64,20 @@ pub struct hw_pcf8574 {
 pub extern "C" fn ceammc_hw_pcf8574_new(
     i2c_bus: i8,
     i2c_addr: i8,
+    pin_interrupt: Option<&u8>,
     notify: msg_notify,
     on_msg: msg_cb,
     on_data: hw_pcf8574_cb,
 ) -> *mut hw_pcf8574 {
     rpi_check!(null_mut(), {
-        match hw_pcf8574::new(i2c_bus, I2cAddress::new(i2c_addr), notify, on_msg, on_data) {
+        match hw_pcf8574::new(
+            i2c_bus,
+            I2cAddress::new(i2c_addr),
+            pin_interrupt.cloned(),
+            notify,
+            on_msg,
+            on_data,
+        ) {
             Ok(adc) => return Box::into_raw(Box::new(adc)),
             Err(err) => {
                 on_msg.error_cstr(err);
@@ -81,6 +106,42 @@ pub extern "C" fn ceammc_hw_pcf8574_process_reply(dev: *mut hw_pcf8574) -> bool 
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_hw_pcf8674_set_all(dev: *mut hw_pcf8574, value: u8) -> bool {
-    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::SetPins(value)) });
+/// write value to all pins configured for output
+/// @param dev - device handle (nullable)
+/// @param value - value for all pins
+pub extern "C" fn ceammc_hw_pcf8674_write_all(dev: *mut hw_pcf8574, value: u8) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::WriteAllPins(value)) });
+}
+
+#[no_mangle]
+/// write value to all pins configured for output
+/// @param dev - device handle (nullable)
+/// @param pin - pin index
+/// @param value - value
+pub extern "C" fn ceammc_hw_pcf8674_write_pin(dev: *mut hw_pcf8574, pin: u8, value: bool) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::WritePin { pin, value }) });
+}
+
+#[no_mangle]
+/// configure pin mode
+/// @param dev - device handle
+/// @param pin - pin index
+/// @param mode - pin mode
+pub extern "C" fn ceammc_hw_pcf8674_config_pin(dev: *mut hw_pcf8574, pin: u8, mode: hw_pcf8574_pin_mode) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::ConfigPin(pin, mode)) });
+}
+
+#[no_mangle]
+/// read all device pins configured for input
+/// @param dev - device handle (nullable)
+pub extern "C" fn ceammc_hw_pcf8674_read_all(dev: *mut hw_pcf8574) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::ReadAllPins) });
+}
+
+#[no_mangle]
+/// read specified pin value
+/// @param dev - device handle (nullable)
+/// @param pin - pin index
+pub extern "C" fn ceammc_hw_pcf8674_read_pin(dev: *mut hw_pcf8574, pin: u8) -> bool {
+    rpi_check!({ hw_pcf8574::send_request_ptr(dev, Request::ReadPin(pin)) });
 }
