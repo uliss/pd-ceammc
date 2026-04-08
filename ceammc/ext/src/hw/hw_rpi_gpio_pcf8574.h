@@ -27,7 +27,12 @@ public:
     Device createDevice() final;
     bool notify(int code) final;
 
-    void m_set_all(t_symbol* s, const AtomListView& lv);
+    void m_input(t_symbol* s, const AtomListView& lv);
+    void m_output(t_symbol* s, const AtomListView& lv);
+    void m_read_all(t_symbol* s, const AtomListView& lv);
+    void m_read(t_symbol* s, const AtomListView& lv);
+    void m_write_all(t_symbol* s, const AtomListView& lv);
+    void m_write_pin(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_hw_rpi_gpio_pcf8574();

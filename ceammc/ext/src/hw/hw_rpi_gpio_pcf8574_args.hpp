@@ -9,7 +9,7 @@
 using namespace ceammc;
 
 namespace {
-struct m_set_all_args {
+struct m_write_all_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
     std::uint8_t value {0}; // pins output value
@@ -32,7 +32,7 @@ struct m_set_all_args {
         return "VALUE (pins output value), byte[0..255] range";
     }
     static const char* usage() {
-        return "usage: [set_all VALUE(";
+        return "usage: [write_all VALUE(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -50,11 +50,11 @@ struct m_set_all_args {
         } else {
             if (print_err) {
                 if (matched == NOT_ENOUGH_ARGS) {
-                    Error(obj) << "[set_all( argument #0 'VALUE' is required:";
+                    Error(obj) << "[write_all( argument #0 'VALUE' is required:";
                     Post(obj) << " - " << arg_value_info();
                     output_usage(obj);
                 } else if (matched == INVALID_VALUE) {
-                    Error(obj) << "[set_all( argument #0 'VALUE' check failed, expected:";
+                    Error(obj) << "[write_all( argument #0 'VALUE' check failed, expected:";
                     Post(obj) << " - " << arg_value_info();
                     output_usage_verbose(obj);
                 }
@@ -64,7 +64,7 @@ struct m_set_all_args {
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
-                Error(obj) << "[set_all( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                Error(obj) << "[write_all( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                 output_usage(obj);
             }
             return false;
@@ -73,12 +73,366 @@ struct m_set_all_args {
     }
 };
 
-const char* m_set_all_args_info() {
-    return "set all expander pins output value";
+const char* m_write_all_args_info() {
+    return "write value to all pins configured for output";
 }
-void m_set_all_args_info_output(const BaseObject* obj) {
+void m_write_all_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_set_all_args_info());
+        PD_NORMAL, "%s", m_write_all_args_info());
+}
+struct m_write_pin_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int pin {0}; // pin index
+    bool value {false}; // new value
+    // methods
+    int process_pin(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        pin = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isBool()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        value = lv[0].asT<bool>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_pin_info() {
+        return "PIN (pin index), int in [0..7] range";
+    }
+    static const char* arg_value_info() {
+        return "VALUE (new value), bool";
+    }
+    static const char* usage() {
+        return "usage: [write_pin PIN VALUE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_pin_info();
+        Post(obj) << " - " << arg_value_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_pin(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[write_pin( argument #0 'PIN' is required:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[write_pin( argument #0 'PIN' check failed, expected:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_value(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[write_pin( argument #1 'VALUE' is required:";
+                    Post(obj) << " - " << arg_value_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[write_pin( argument #1 'VALUE' check failed, expected:";
+                    Post(obj) << " - " << arg_value_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[write_pin( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_write_pin_args_info() {
+    return "write pin value";
+}
+void m_write_pin_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_write_pin_args_info());
+}
+struct m_input_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int pin {0}; // pin index
+    // methods
+    int process_pin(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        pin = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_pin_info() {
+        return "PIN (pin index), int in [0..7] range";
+    }
+    static const char* usage() {
+        return "usage: [input PIN(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_pin_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_pin(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[input( argument #0 'PIN' is required:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[input( argument #0 'PIN' check failed, expected:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[input( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_input_args_info() {
+    return "configure pin for input";
+}
+void m_input_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_input_args_info());
+}
+struct m_output_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int pin {0}; // pin index
+    // methods
+    int process_pin(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        pin = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_pin_info() {
+        return "PIN (pin index), int in [0..7] range";
+    }
+    static const char* usage() {
+        return "usage: [output PIN(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_pin_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_pin(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[output( argument #0 'PIN' is required:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[output( argument #0 'PIN' check failed, expected:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[output( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_output_args_info() {
+    return "configure pin for output";
+}
+void m_output_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_output_args_info());
+}
+struct m_read_all_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // methods
+    static const char* usage() {
+        return "usage: [read_all(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[read_all( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_read_all_args_info() {
+    return "read all pins configured for input";
+}
+void m_read_all_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_read_all_args_info());
+}
+struct m_read_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int pin {0}; // pin index
+    // methods
+    int process_pin(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        pin = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_pin_info() {
+        return "PIN (pin index), int in [0..7] range";
+    }
+    static const char* usage() {
+        return "usage: [read PIN(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_pin_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_pin(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[read( argument #0 'PIN' is required:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[read( argument #0 'PIN' check failed, expected:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[read( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_read_args_info() {
+    return "read pin value";
+}
+void m_read_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_read_args_info());
 }
 } // namespace 
 

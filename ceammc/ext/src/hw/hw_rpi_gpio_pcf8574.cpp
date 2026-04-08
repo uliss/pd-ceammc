@@ -41,8 +41,7 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
             nullptr,
             on_notify(),
             on_message(),
-            {
-                this,
+            { this,
                 [](void* user, std::uint8_t mask, std::uint8_t state) {
                     auto obj = static_cast<HwRpiGpioPcf8574*>(user);
                     if (obj) {
@@ -53,7 +52,15 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
                         }
                     }
                 },
-            }),
+                [](void* user, std::uint8_t pin, bool state) {
+                    auto obj = static_cast<HwRpiGpioPcf8574*>(user);
+                    if (obj) {
+                        AtomArray<2> data;
+                        data[0] = pin;
+                        data[1] = state;
+                        obj->anyTo(0, gensym("pin"), data.view());
+                    }
+                } }),
         &ceammc_hw_pcf8674_free,
     };
 }
@@ -63,12 +70,12 @@ bool HwRpiGpioPcf8574::notify(int /*code*/)
     return ceammc_hw_pcf8574_process_reply(device());
 }
 
-/// @function "set all expander pins output value" {
+/// @function "write value to all pins configured for output" {
 ///     #value byte "pins output value" {}
 /// }
-void HwRpiGpioPcf8574::m_set_all(t_symbol* s, const AtomListView& lv)
+void HwRpiGpioPcf8574::m_write_all(t_symbol* s, const AtomListView& lv)
 {
-    m_set_all_args args;
+    m_write_all_args args;
     if (!args.parse_args(lv, this))
         return;
 
@@ -78,10 +85,91 @@ void HwRpiGpioPcf8574::m_set_all(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pcf8674_write_all(device(), args.value);
 }
 
+/// @function "write pin value" {
+///     #pin   int  "pin index" { check: [0..7] }
+///     #value bool "new value" {}
+/// }
+void HwRpiGpioPcf8574::m_write_pin(t_symbol* s, const AtomListView& lv)
+{
+    m_write_pin_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_pcf8674_write_pin(device(), args.pin, args.value);
+}
+
+/// @function "configure pin for input" {
+///     #pin int "pin index" { check: [0..7] }
+/// }
+void HwRpiGpioPcf8574::m_input(t_symbol* s, const AtomListView& lv)
+{
+    m_input_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_pcf8674_config_pin(device(), args.pin, ceammc_hw_gpio_mode::Input);
+}
+
+/// @function "configure pin for output" {
+///     #pin int "pin index" { check: [0..7] }
+/// }
+void HwRpiGpioPcf8574::m_output(t_symbol* s, const AtomListView& lv)
+{
+    m_output_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_pcf8674_config_pin(device(), args.pin, ceammc_hw_gpio_mode::Output);
+}
+
+/// @function "read all pins configured for input" {
+/// }
+void HwRpiGpioPcf8574::m_read_all(t_symbol* s, const AtomListView& lv)
+{
+    m_read_all_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_pcf8674_read_all(device());
+}
+
+/// @function "read pin value" {
+///     #pin int "pin index" { check: [0..7] }
+/// }
+void HwRpiGpioPcf8574::m_read(t_symbol* s, const AtomListView& lv)
+{
+    m_read_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!check_connected(true, s))
+        return;
+
+    ceammc_hw_pcf8674_read_pin(device(), args.pin);
+}
+
 void setup_hw_rpi_gpio_pcf8574()
 {
     ObjectFactory<HwRpiGpioPcf8574> obj("hw.rpi.gpio.pcf8574");
-    obj.addMethod("set_all", &HwRpiGpioPcf8574::m_set_all);
+
+    obj.addMethod("input", &HwRpiGpioPcf8574::m_input);
+    obj.addMethod("read", &HwRpiGpioPcf8574::m_read);
+    obj.addMethod("read_all", &HwRpiGpioPcf8574::m_read_all);
+    obj.addMethod("output", &HwRpiGpioPcf8574::m_output);
+    obj.addMethod("write_all", &HwRpiGpioPcf8574::m_write_all);
+    obj.addMethod("write_pin", &HwRpiGpioPcf8574::m_write_pin);
 }
 
 } // namespace ceammc
