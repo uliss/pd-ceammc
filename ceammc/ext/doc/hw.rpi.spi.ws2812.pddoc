@@ -51,7 +51,7 @@
         <tr lang="ru">Для указания группы пикселей, с которой собираемся работать, используются два
         вида диапазонов: @slice и @lslice.</tr>
       </par>
-      <a href="ceammc_rpi_spi-info.pd">SPI</a>
+      <a href="ceammc_rpi_spi-info.pd">SPI information</a>
     </info>
     <properties>
       <!-- @clear -->
