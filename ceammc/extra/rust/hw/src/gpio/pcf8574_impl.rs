@@ -77,6 +77,15 @@ impl PinConfig {
         }
     }
 
+    fn pin_flag(&self, pin: u8) -> Option<PinFlag> {
+        let idx: usize = pin.into();
+        if idx <= self.modes.len() {
+            Self::pin_input_flag(pin, &self.modes[idx])
+        } else {
+            None
+        }
+    }
+
     fn pin_flags(&self) -> Option<PinFlag> {
         self.modes
             .iter()
@@ -204,14 +213,13 @@ impl hw_pcf8574 {
                                 to_client.send_error(format!("invalid pin: {pin}"))?
                             }
                         }
-                        Request::ReadPin(pin) => {
-                            if let Some(mask) = to_pin_flag(pin) {
+                        Request::ReadPin(pin) => match pin_config.pin_flag(pin) {
+                            Some(mask) => {
                                 let state = read_pin(pin, device.get(mask).map_err(|err| format!("{err:?}"))?);
                                 to_client.send_data(Reply::ReadPin { pin, state }).to_worker_result()?;
-                            } else {
-                                to_client.send_error(format!("pin [{pin}] is not configured for read"))?;
                             }
-                        }
+                            None => to_client.send_error(format!("pin [{pin}] is not configured for read"))?,
+                        },
                         Request::ReadAllPins => {
                             if let Some(mask) = pin_config.pin_flags() {
                                 let state = device.get(mask).map_err(|err| format!("{err:?}"))?;
