@@ -35,6 +35,7 @@ void setup_hw_rpi_spi_max7219();
 void setup_hw_rpi_spi_ws2812();
 
 namespace ceammc {
+void setup_hw_rpi_gpio_pcf8574();
 void setup_hw_rpi_spi();
 }
 
@@ -53,6 +54,7 @@ void ceammc_hw_setup()
     setup_hw_rpi_adc_ads1115();
     setup_hw_rpi_display_hd44780();
     setup_hw_rpi_display_ssd1306();
+    setup_hw_rpi_gpio_pcf8574();
     setup_hw_rpi_gpio();
     setup_hw_rpi_i2c_pca9685();
     setup_hw_rpi_nfc_pn532();
