@@ -84,7 +84,7 @@ pub extern "C" fn ceammc_misc_whisper_create(
 /// @param wh - whisper pointer (nullable)
 pub extern "C" fn ceammc_misc_whisper_free(wh: *mut misc_whisper) {
     if !wh.is_null() {
-        unsafe { Box::from_raw(wh) }.quit()
+        drop(unsafe { Box::from_raw(wh) })
     }
 }
 
@@ -341,10 +341,6 @@ impl misc_whisper {
         );
 
         Self { obj, on_data }
-    }
-
-    fn quit(self) {
-        self.obj.stop_worker();
     }
 
     fn process_reply_ptr(wh: *mut misc_whisper) -> bool {

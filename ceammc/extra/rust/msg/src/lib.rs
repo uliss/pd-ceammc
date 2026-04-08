@@ -283,7 +283,7 @@ where
     Reply: Send + 'static,
 {
     channel: WorkerChannelBounded<Request, Reply>,
-    worker_handle: JoinHandle<()>,
+    worker_handle: Option<JoinHandle<()>>,
     on_msg: msg_cb,
 }
 
@@ -346,7 +346,7 @@ where
 
         Self {
             channel: to_worker,
-            worker_handle,
+            worker_handle: Some(worker_handle),
             on_msg,
         }
     }
@@ -387,20 +387,22 @@ where
 
         Self {
             channel: to_worker,
-            worker_handle,
+            worker_handle: Some(worker_handle),
             on_msg,
         }
     }
 
-    pub fn stop_worker(self) {
+    fn stop_worker(&mut self) {
         match self.channel.quit() {
             SendState::Ok => {}
             SendState::NoSpace => self.on_msg.error_str("no space in worker channel"),
             SendState::Disconnected => self.on_msg.error_str("worker disconnected"),
         }
 
-        if let Err(err) = self.worker_handle.join() {
-            self.on_msg.error_str(format!("{err:?}"));
+        if let Some(handle) = self.worker_handle.take() {
+            if let Err(err) = handle.join() {
+                self.on_msg.error_str(format!("{err:?}"));
+            }
         }
     }
 
@@ -457,5 +459,15 @@ pub fn ptr_to_array<T: Clone>(data: *const T, len: usize) -> Vec<T> {
         vec![]
     } else {
         unsafe { std::slice::from_raw_parts(data, len) }.to_vec()
+    }
+}
+
+impl<Request, Reply> Drop for Client<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Send + 'static,
+{
+    fn drop(&mut self) {
+        self.stop_worker();
     }
 }
