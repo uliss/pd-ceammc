@@ -14,6 +14,7 @@
 #ifndef HW_RPI_GPIO_PCF8574_H
 #define HW_RPI_GPIO_PCF8574_H
 
+#include "ceammc_clock.h"
 #include "hw_rpi_device.h"
 
 namespace ceammc {
@@ -23,18 +24,24 @@ class HwRpiGpioPcf8574 : public HwRpiDevice<ceammc_hw_pcf8574> {
     I2cAddrProperty* i2c_addr_ { nullptr };
     BoolProperty* clear_on_close_ { nullptr };
     GpioPinProperty* irq_ { nullptr };
+    BoolProperty* inverted_ { nullptr };
+    std::array<ClockLambdaFunction, 8> clk_;
 
 public:
     explicit HwRpiGpioPcf8574(const PdArgs& args);
     Device createDevice() final;
     bool notify(int code) final;
 
+    void m_impulse(t_symbol* s, const AtomListView& lv);
     void m_input(t_symbol* s, const AtomListView& lv);
     void m_output(t_symbol* s, const AtomListView& lv);
     void m_read_all(t_symbol* s, const AtomListView& lv);
     void m_read(t_symbol* s, const AtomListView& lv);
     void m_write_all(t_symbol* s, const AtomListView& lv);
     void m_write(t_symbol* s, const AtomListView& lv);
+
+private:
+    void impulse_off(std::uint8_t pin);
 };
 
 void setup_hw_rpi_gpio_pcf8574();

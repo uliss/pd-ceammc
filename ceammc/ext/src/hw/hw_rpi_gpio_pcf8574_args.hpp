@@ -9,6 +9,113 @@
 using namespace ceammc;
 
 namespace {
+struct m_impulse_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_int pin {0}; // pin index
+    t_float length {0}; // pulse length
+    // methods
+    int process_pin(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 7))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        pin = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    int process_length(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isFloat() && (0.01 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 100))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        length = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_pin_info() {
+        return "PIN (pin index), int in [0..7] range";
+    }
+    static const char* arg_length_info() {
+        return "LENGTH (pulse length), float in [0.01..100] range";
+    }
+    static const char* usage() {
+        return "usage: [impulse PIN LENGTH(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_pin_info();
+        Post(obj) << " - " << arg_length_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_pin(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[impulse( argument #0 'PIN' is required:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[impulse( argument #0 'PIN' check failed, expected:";
+                    Post(obj) << " - " << arg_pin_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_length(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[impulse( argument #1 'LENGTH' is required:";
+                    Post(obj) << " - " << arg_length_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[impulse( argument #1 'LENGTH' check failed, expected:";
+                    Post(obj) << " - " << arg_length_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[impulse( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_impulse_args_info() {
+    return "send impulse of pecified length to pin";
+}
+void m_impulse_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_impulse_args_info());
+}
 struct m_write_all_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args
