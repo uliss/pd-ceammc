@@ -52,6 +52,7 @@ pub struct hw_pcf8574 {
 /// @param i2c_bus - i2c bus number
 /// @param i2c_addr - i2c device address
 /// @param pin_interrupt - interrupt GPIO pin
+/// @param clear_on_exit - set pins to low after exit
 /// @param notify - caller notify callback
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
@@ -60,6 +61,7 @@ pub extern "C" fn ceammc_hw_pcf8574_new(
     i2c_bus: i8,
     i2c_addr: i8,
     pin_interrupt: Option<&u8>,
+    clear_on_exit: bool,
     notify: msg_notify,
     on_msg: msg_cb,
     on_data: hw_pcf8574_cb,
@@ -69,6 +71,7 @@ pub extern "C" fn ceammc_hw_pcf8574_new(
             i2c_bus,
             I2cAddress::new(i2c_addr),
             pin_interrupt.cloned(),
+            clear_on_exit,
             notify,
             on_msg,
             on_data,

@@ -156,6 +156,7 @@ impl hw_pcf8574 {
         i2c_bus: i8,
         i2c_addr: I2cAddress,
         pin_interrupt: Option<u8>,
+        clear_on_exit: bool,
         notify: msg_notify,
         on_msg: msg_cb,
         on_data: hw_pcf8574_cb,
@@ -244,6 +245,11 @@ impl hw_pcf8574 {
                 }) {
                     to_client.send_error(err)?;
                 }
+
+                if clear_on_exit {
+                    let _ = device.set(0b0000_0000);
+                }
+
                 Ok(())
             },
             32,

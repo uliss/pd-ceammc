@@ -24,6 +24,8 @@ HwRpiGpioPcf8574::HwRpiGpioPcf8574(const PdArgs& args)
 
     i2c_addr_ = addI2cAddrProperty();
     i2c_bus_ = addI2cBusProperty();
+    clear_on_close_ = new BoolProperty("@clear", true);
+    addProperty(clear_on_close_);
 }
 
 HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
@@ -39,6 +41,7 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
             bus,
             i2c_addr_->value(),
             nullptr,
+            clear_on_close_->value(),
             on_notify(),
             on_message(),
             { this,

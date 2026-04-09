@@ -21,6 +21,7 @@ namespace ceammc {
 class HwRpiGpioPcf8574 : public HwRpiDevice<ceammc_hw_pcf8574> {
     I2cBusProperty* i2c_bus_ { nullptr };
     I2cAddrProperty* i2c_addr_ { nullptr };
+    BoolProperty* clear_on_close_ { nullptr };
 
 public:
     explicit HwRpiGpioPcf8574(const PdArgs& args);

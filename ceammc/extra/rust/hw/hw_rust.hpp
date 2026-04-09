@@ -1155,6 +1155,7 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 /// @param i2c_bus - i2c bus number
 /// @param i2c_addr - i2c device address
 /// @param pin_interrupt - interrupt GPIO pin
+/// @param clear_on_exit - set pins to low after exit
 /// @param notify - caller notify callback
 /// @param on_msg - caller callback on message from worker
 /// @param on_data - caller callback on data from worker
@@ -1162,6 +1163,7 @@ bool ceammc_hw_pca9685_use_prog_addr(const ceammc_hw_pca9685 *pwm,
 ceammc_hw_pcf8574 *ceammc_hw_pcf8574_new(int8_t i2c_bus,
                                          int8_t i2c_addr,
                                          const uint8_t *pin_interrupt,
+                                         bool clear_on_exit,
                                          ceammc_msg_notify notify,
                                          ceammc_msg_cb on_msg,
                                          ceammc_hw_pcf8574_cb on_data);
