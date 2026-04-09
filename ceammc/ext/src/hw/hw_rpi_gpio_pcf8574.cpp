@@ -181,7 +181,8 @@ void HwRpiGpioPcf8574::m_output(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true, s))
         return;
 
-    ceammc_hw_pcf8674_config_pin(device(), args.pin, ceammc_hw_gpio_mode::Output);
+    ceammc_hw_pcf8674_config_pin(device(), args.pin, ceammc_hw_gpio_mode::Output)
+        && ceammc_hw_pcf8674_write_pin(device(), args.pin, false);
 }
 
 /// @function "read all pins configured for input" {
