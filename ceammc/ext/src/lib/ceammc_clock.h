@@ -13,15 +13,22 @@ class ClockLambdaFunction {
     bool is_active_ = { false };
 
     ClockLambdaFunction(const ClockLambdaFunction&) = delete;
-    ClockLambdaFunction(ClockLambdaFunction&&) = delete;
     ClockLambdaFunction& operator=(const ClockLambdaFunction&) = delete;
 
 public:
-    ClockLambdaFunction(std::function<void()> fn)
+    explicit ClockLambdaFunction(const std::function<void()>& fn)
         : fn_(fn)
         , clock_(nullptr)
     {
         clock_ = clock_new(static_cast<void*>(this), reinterpret_cast<t_method>(tick));
+    }
+
+    ClockLambdaFunction(ClockLambdaFunction&& clock)
+        : fn_(std::move(clock.fn_))
+        , clock_(std::move(clock.clock_))
+    {
+        clock.fn_ = nullptr;
+        clock.clock_ = nullptr;
     }
 
     /** unset clock if active */
