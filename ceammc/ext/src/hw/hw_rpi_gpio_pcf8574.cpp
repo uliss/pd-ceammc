@@ -53,11 +53,14 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
                 [](void* user, std::uint8_t mask, std::uint8_t state) {
                     auto obj = static_cast<HwRpiGpioPcf8574*>(user);
                     if (obj) {
-                        auto sel = gensym("pin");
+                        AtomArray<8> data;
                         for (int i = 0; i < 8; i++) {
                             if (((0x1 << i) & mask))
-                                obj->anyTo(0, sel, Atom((0x1 << i) & state));
+                                data[i] = Atom((0x1 << i) & state);
+                            else
+                                data[i] = 0.0;
                         }
+                        obj->anyTo(0, gensym("pins"), data.view());
                     }
                 },
                 [](void* user, std::uint8_t pin, bool state) {
