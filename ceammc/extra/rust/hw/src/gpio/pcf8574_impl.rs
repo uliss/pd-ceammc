@@ -191,7 +191,8 @@ impl hw_pcf8574 {
                 }
 
                 if let Some(mut pin) = gpio_pin {
-                    pin.set_async_interrupt(rppal::gpio::Trigger::FallingEdge, None, move |_| {
+                    pin.set_async_interrupt(rppal::gpio::Trigger::Both, None, move |_| {
+                        debug!("IRQ");
                         if let Err(err) =
                             to_worker.try_send(ceammc_rs_msg::RequestMessage::Message(Request::ReadAllPins))
                         {
