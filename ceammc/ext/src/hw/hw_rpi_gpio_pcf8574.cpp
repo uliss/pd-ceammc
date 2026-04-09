@@ -24,7 +24,7 @@ HwRpiGpioPcf8574::HwRpiGpioPcf8574(const PdArgs& args)
 
     i2c_addr_ = addI2cAddrProperty();
     i2c_bus_ = addI2cBusProperty();
-    interrupt_ = addGpioPinProperty("int");
+    irq_ = addGpioPinProperty("@irq");
 
     clear_on_close_ = new BoolProperty("@clear", true);
     addProperty(clear_on_close_);
@@ -38,8 +38,8 @@ HwRpiGpioPcf8574::HwRpiDevice::Device HwRpiGpioPcf8574::createDevice()
         return nullDevice();
     }
 
-    std::uint8_t pin = interrupt_->value();
-    auto pin_ptr = interrupt_->isNone() ? nullptr : &pin;
+    std::uint8_t pin = irq_->value();
+    auto pin_ptr = irq_->isNone() ? nullptr : &pin;
 
     return {
         ceammc_hw_pcf8574_new(
