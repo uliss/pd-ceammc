@@ -66,6 +66,7 @@ target_include_directories(ceammc_net
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
 )
 
 # http
