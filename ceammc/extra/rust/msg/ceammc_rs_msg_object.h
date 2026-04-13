@@ -5,6 +5,8 @@
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_rs_msg.hpp"
 
+#include <memory>
+
 namespace ceammc {
 
 template <class T>
@@ -53,6 +55,45 @@ protected:
             },
         };
     }
+};
+
+template <typename T, typename ffiType>
+class RustFfiObject : public RustMessageObject<T> {
+public:
+    using FreeDeviceFn = void (*)(ffiType*);
+    using Pointer = std::unique_ptr<ffiType, FreeDeviceFn>;
+
+public:
+    RustFfiObject(FreeDeviceFn free, const PdArgs& args)
+        : RustMessageObject<T>(args)
+        , handle_(nullptr, free)
+        , free_fn_(free)
+    {
+    }
+
+    virtual bool checkFfiObject(bool print_error, t_symbol* s)
+    {
+        if (!handle_ && print_error) {
+            if (s && s != &s_)
+                METHOD_ERR(s) << "device is not connected";
+            else
+                OBJ_ERR << "device is not connected";
+        }
+
+        return handle_.get();
+    }
+
+    void createObject(ffiType* obj)
+    {
+        handle_ = Pointer(obj, free_fn_);
+    }
+
+    ffiType* ffiObject() { return handle_.get(); }
+    const ffiType* ffiObject() const { return handle_.get(); }
+
+private:
+    Pointer handle_;
+    FreeDeviceFn free_fn_;
 };
 } // namespace ceammc
 

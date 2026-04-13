@@ -1,6 +1,6 @@
 [package]
 name = "ceammc_rs_msg"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 
 [lib]
@@ -11,3 +11,11 @@ cbindgen = "0.28.0"
 
 [dependencies]
 log = "0.4.29"
+tokio = { version = "1.42", features = [
+    "rt",
+    "rt-multi-thread",
+    "sync",
+    "fs",
+    "macros",
+] }
+tokio-util = "0.7.18"

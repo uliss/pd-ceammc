@@ -1,8 +1,13 @@
 use std::{
     ffi::{c_char, c_void, CStr, CString},
+    future::Future,
     sync::mpsc::SyncSender,
     thread::JoinHandle,
 };
+
+use log::debug;
+use tokio::select;
+use tokio_util::sync::CancellationToken;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -444,6 +449,289 @@ where
     }
 }
 
+pub struct TokioWorkerChannel<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Send + 'static,
+{
+    to_worker: tokio::sync::mpsc::Sender<RequestMessage<Request>>,
+    from_worker: tokio::sync::mpsc::Receiver<ReplyMessage<Reply>>,
+}
+
+impl<Request, Reply> TokioWorkerChannel<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Send + 'static,
+{
+    pub fn send(&self, req: Request) -> SendState {
+        if let Err(err) = self.to_worker.try_send(RequestMessage::Message(req)) {
+            match err {
+                tokio::sync::mpsc::error::TrySendError::Full(_) => SendState::NoSpace,
+                tokio::sync::mpsc::error::TrySendError::Closed(_) => SendState::Disconnected,
+            }
+        } else {
+            SendState::Ok
+        }
+    }
+
+    pub fn quit(&self) -> SendState {
+        if let Err(err) = self.to_worker.try_send(RequestMessage::Quit) {
+            match err {
+                tokio::sync::mpsc::error::TrySendError::Full(_) => SendState::NoSpace,
+                tokio::sync::mpsc::error::TrySendError::Closed(_) => SendState::Disconnected,
+            }
+        } else {
+            SendState::Ok
+        }
+    }
+}
+
+#[derive(Clone)]
+pub struct TokioToClient<Reply>
+where
+    Reply: Send + 'static,
+{
+    sender: tokio::sync::mpsc::Sender<ReplyMessage<Reply>>,
+    notify: msg_notify,
+}
+
+impl<Reply> TokioToClient<Reply>
+where
+    Reply: Send + 'static,
+{
+    pub fn send(&self, msg: ReplyMessage<Reply>) -> SendState {
+        if let Err(err) = self.sender.try_send(msg) {
+            log::error!("worker send error: {err}");
+            match err {
+                tokio::sync::mpsc::error::TrySendError::Full(_) => {
+                    self.notify.exec();
+                    SendState::NoSpace
+                }
+                tokio::sync::mpsc::error::TrySendError::Closed(_) => SendState::Disconnected,
+            }
+        } else {
+            self.notify.exec();
+            SendState::Ok
+        }
+    }
+
+    pub fn send_msg(&self, msg: WorkerMessage) -> SendState {
+        self.send(ReplyMessage::Message(msg))
+    }
+}
+
+pub struct TokioClientChannel<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Clone + Send + 'static,
+{
+    to_client: TokioToClient<Reply>,
+    from_client: tokio::sync::mpsc::Receiver<RequestMessage<Request>>,
+}
+
+impl<Request, Reply> TokioClientChannel<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Clone + Send + 'static,
+{
+    pub fn send(&self, msg: ReplyMessage<Reply>) -> SendState {
+        self.to_client.send(msg)
+    }
+
+    pub fn send_msg(&self, msg: WorkerMessage) -> SendState {
+        self.to_client.send(ReplyMessage::Message(msg))
+    }
+
+    pub fn send_debug<T: AsRef<str>>(&self, msg: T) -> SendState {
+        self.to_client.send_msg(WorkerMessage::debug(msg))
+    }
+
+    pub async fn recv_loop<F>(&mut self, on_request: &mut F) -> Result<(), String>
+    where
+        F: AsyncFnMut(Request) -> Result<(), String>,
+    {
+        while let Some(req) = self.from_client.recv().await {
+            match req {
+                RequestMessage::Message(req) => (on_request)(req).await?,
+                RequestMessage::Quit => {
+                    log::debug!("quit");
+                    break;
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    pub fn clone_sender(&self) -> TokioToClient<Reply> {
+        self.to_client.clone()
+    }
+
+    pub async fn spawn<F>(&self, task: F) -> tokio::task::JoinHandle<F::Output>
+    where
+        F: Future + Send + 'static,
+        F::Output: Send + 'static,
+    {
+        tokio::spawn(task)
+    }
+}
+
+pub struct TokioClient<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Clone + Send + 'static,
+{
+    channel: TokioWorkerChannel<Request, Reply>,
+    worker_handle: Option<JoinHandle<()>>,
+    on_msg: msg_cb,
+    cancel_token: CancellationToken,
+}
+
+impl<Request, Reply> TokioClient<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Clone + Send + 'static,
+{
+    pub fn make_channel(
+        size: usize,
+        notify: msg_notify,
+    ) -> (
+        TokioWorkerChannel<Request, Reply>,
+        TokioClientChannel<Request, Reply>,
+    ) {
+        let (req_tx, req_rx) = tokio::sync::mpsc::channel(size);
+        let (rep_tx, rep_rx) = tokio::sync::mpsc::channel(size);
+
+        let worker_channel = TokioWorkerChannel {
+            to_worker: req_tx,
+            from_worker: rep_rx,
+        };
+
+        let client_channel = TokioClientChannel {
+            to_client: TokioToClient {
+                sender: rep_tx,
+                notify,
+            },
+            from_client: req_rx,
+        };
+
+        (worker_channel, client_channel)
+    }
+
+    pub fn start_worker<F>(
+        num_threads: Option<u8>,
+        cb: F,
+        size: usize,
+        notify: msg_notify,
+        on_msg: msg_cb,
+    ) -> Self
+    where
+        F: AsyncFnOnce(TokioClientChannel<Request, Reply>) -> Result<(), String> + Send + 'static,
+    {
+        let (worker, client) = Self::make_channel(size, notify);
+        let cancel_0 = CancellationToken::new();
+        let cancel_1 = cancel_0.clone();
+
+        let worker_handle = std::thread::spawn(move || {
+            log::debug!("worker is started");
+
+            let mut runtime_builder = if num_threads.is_some() {
+                tokio::runtime::Builder::new_multi_thread()
+            } else {
+                tokio::runtime::Builder::new_current_thread()
+            };
+
+            runtime_builder.enable_all();
+
+            if let Some(num) = num_threads {
+                if num > 0 {
+                    debug!("set tokio multithread runtime with {num} worker threads");
+                    runtime_builder.worker_threads(num.into());
+                } else {
+                    debug!("set tokio multithread runtime with default number of worker threads");
+                }
+            } else {
+                debug!("set tokio current thread runtime");
+            }
+
+            match runtime_builder.build() {
+                Ok(rt) => {
+                    log::debug!("tokio create");
+                    rt.block_on(async move {
+                        let err_channel = client.clone_sender();
+                        log::debug!("tokio start");
+
+                        select! {
+                            Err(err) = cb(client) => {
+                                log::error!("worker error: {err}");
+                                 match err_channel.send_msg(WorkerMessage::error(&err)) {
+                                    SendState::Ok => {}
+                                    SendState::NoSpace => {
+                                        log::error!("no space in caller channel");
+                                    }
+                                    SendState::Disconnected => {
+                                        log::error!("client is disconnected");
+                                    }
+                                }
+                            }
+                            _ = cancel_0.cancelled() => {
+                                log::debug!("tokio cancelled");
+                            }
+                        }
+                    });
+                    log::debug!("tokio done");
+                }
+                Err(err) => {
+                    log::error!("can't create tokio runtime: {err}")
+                }
+            }
+
+            log::debug!("worker is finished")
+        });
+
+        Self {
+            channel: worker,
+            worker_handle: Some(worker_handle),
+            on_msg,
+            cancel_token: cancel_1,
+        }
+    }
+
+    fn stop_worker(&mut self) {
+        self.cancel_token.cancel();
+
+        match self.channel.quit() {
+            SendState::Ok => {}
+            SendState::NoSpace => self.on_msg.error_str("no space in worker channel"),
+            SendState::Disconnected => self.on_msg.error_str("worker disconnected"),
+        }
+
+        if let Some(handle) = self.worker_handle.take() {
+            if let Err(err) = handle.join() {
+                self.on_msg.error_str(format!("{err:?}"));
+            }
+        }
+    }
+
+    pub fn recv_loop<F>(&mut self, on_data: F)
+    where
+        F: Fn(Reply),
+    {
+        while let Some(rep) = self.channel.from_worker.blocking_recv() {
+            match rep {
+                ReplyMessage::Message(msg) => {
+                    self.on_msg.exec(&msg);
+                }
+                ReplyMessage::Data(reply) => on_data(reply),
+            }
+        }
+    }
+
+    pub fn send(&self, req: Request) -> SendState {
+        self.channel.send(req)
+    }
+}
+
 pub fn cstr_to_string(str: *const c_char) -> Option<String> {
     if str.is_null() {
         None
@@ -466,6 +754,16 @@ impl<Request, Reply> Drop for Client<Request, Reply>
 where
     Request: Send + 'static,
     Reply: Send + 'static,
+{
+    fn drop(&mut self) {
+        self.stop_worker();
+    }
+}
+
+impl<Request, Reply> Drop for TokioClient<Request, Reply>
+where
+    Request: Send + 'static,
+    Reply: Clone + Send + 'static,
 {
     fn drop(&mut self) {
         self.stop_worker();
