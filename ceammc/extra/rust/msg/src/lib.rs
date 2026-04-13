@@ -109,6 +109,7 @@ impl msg_cb {
     }
 }
 
+#[derive(Debug)]
 pub struct WorkerMessage {
     pub msg: CString,
     pub level: msg_level,
@@ -518,6 +519,10 @@ where
     pub fn send_msg(&self, msg: WorkerMessage) -> SendState {
         self.send(ReplyMessage::Message(msg))
     }
+
+    pub fn send_data(&self, data: Reply) -> SendState {
+        self.send(ReplyMessage::Data(data))
+    }
 }
 
 pub struct TokioClientChannel<Request, Reply>
@@ -536,6 +541,10 @@ where
 {
     pub fn send(&self, msg: ReplyMessage<Reply>) -> SendState {
         self.to_client.send(msg)
+    }
+
+    pub fn send_data(&self, data: Reply) -> SendState {
+        self.to_client.send_data(data)
     }
 
     pub fn send_msg(&self, msg: WorkerMessage) -> SendState {
@@ -717,7 +726,7 @@ where
     where
         F: Fn(Reply),
     {
-        while let Some(rep) = self.channel.from_worker.blocking_recv() {
+        while let Ok(rep) = self.channel.from_worker.try_recv() {
             match rep {
                 ReplyMessage::Message(msg) => {
                     self.on_msg.exec(&msg);
