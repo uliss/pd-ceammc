@@ -66,7 +66,6 @@ target_include_directories(ceammc_net
     PRIVATE
         ${PROJECT_BINARY_DIR} # for config.h
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
 )
 
 # http
@@ -125,6 +124,19 @@ if(WITH_WEBSOCKET)
         find_package(OpenSSL REQUIRED)
         target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
     endif()
+endif()
+
+# esphome
+target_sources(ceammc_net PRIVATE net_esphome_client.h net_esphome_client.cpp)
+if(WITH_ESPHOME)
+    target_compile_definitions(ceammc_net PRIVATE WITH_ESPHOME)
+    target_link_libraries(ceammc_net PRIVATE net_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+        )
+    pd_method_args(ceammc_net net_esphome_client)
 endif()
 
 
