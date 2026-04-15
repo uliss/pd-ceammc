@@ -407,6 +407,13 @@ impl esphome_client {
 }
 
 #[no_mangle]
+/// create new esphome client
+/// @param addr - esphome device ip address or server name
+/// @param port - esphome device port (6053 by default)
+/// @param notify - client notification from worker
+/// @param on_msg - client callback for messages from worker
+/// @param on_data - client callback for data from worker
+/// @return pointer to handle or nullptr on error
 pub extern "C" fn ceammc_esphome_client_new(
     addr: *const c_char,
     port: u16,
@@ -426,6 +433,8 @@ pub extern "C" fn ceammc_esphome_client_new(
 }
 
 #[no_mangle]
+/// close and free connection to epshome device
+/// @param cli - esphome device handle (nullable)
 pub extern "C" fn ceammc_esphome_client_free(cli: *mut esphome_client) {
     if !cli.is_null() {
         let _ = unsafe { Box::from_raw(cli) };
@@ -433,11 +442,16 @@ pub extern "C" fn ceammc_esphome_client_free(cli: *mut esphome_client) {
 }
 
 #[no_mangle]
+/// process replies from esphome device
+/// @param cli - esphome device handle
 pub extern "C" fn ceammc_esphome_client_process(cli: *mut esphome_client) -> bool {
     esphome_client::process_reply_ptr(cli)
 }
 
 #[no_mangle]
+/// send ping to the connected esphome device
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_ping(cli: *mut esphome_client) -> bool {
     esphome_client::send_request(cli, Request::Ping)
 }
@@ -453,6 +467,11 @@ pub extern "C" fn ceammc_esphome_client_list_entities(cli: *mut esphome_client) 
 }
 
 #[no_mangle]
+/// turn on/off esphome device switch
+/// @param cli - esphome device handle
+/// @param key - internal esphome switch id
+/// @param state - switch state
+/// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_switch(
     cli: *mut esphome_client,
     key: u32,

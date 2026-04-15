@@ -338,22 +338,41 @@ struct ceammc_ws_server_result_cb {
 
 extern "C" {
 
+/// close and free connection to epshome device
+/// @param cli - esphome device handle (nullable)
 void ceammc_esphome_client_free(ceammc_esphome_client *cli);
 
 bool ceammc_esphome_client_list_entities(ceammc_esphome_client *cli);
 
+/// create new esphome client
+/// @param addr - esphome device ip address or server name
+/// @param port - esphome device port (6053 by default)
+/// @param notify - client notification from worker
+/// @param on_msg - client callback for messages from worker
+/// @param on_data - client callback for data from worker
+/// @return pointer to handle or nullptr on error
 ceammc_esphome_client *ceammc_esphome_client_new(const char *addr,
                                                  uint16_t port,
                                                  ceammc_msg_notify notify,
                                                  ceammc_msg_cb on_msg,
                                                  ceammc_esphome_client_cb on_data);
 
+/// send ping to the connected esphome device
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
 bool ceammc_esphome_client_ping(ceammc_esphome_client *cli);
 
+/// process replies from esphome device
+/// @param cli - esphome device handle
 bool ceammc_esphome_client_process(ceammc_esphome_client *cli);
 
 bool ceammc_esphome_client_subscribe(ceammc_esphome_client *cli);
 
+/// turn on/off esphome device switch
+/// @param cli - esphome device handle
+/// @param key - internal esphome switch id
+/// @param state - switch state
+/// @return true on sucess, false on error (if device is disconnected etc.)
 bool ceammc_esphome_client_switch(ceammc_esphome_client *cli, uint32_t key, bool state);
 
 bool ceammc_esphome_client_text(ceammc_esphome_client *cli, uint32_t key, const char *text);
