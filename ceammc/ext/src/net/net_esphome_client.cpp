@@ -32,19 +32,15 @@ namespace ceammc {
 namespace {
     ceammc_esphome_client_cb on_data(void* user)
     {
-        return {
+        return ceammc_esphome_client_cb {
             user,
             [](void* user) {
                 ESPHOME_CAST();
                 obj->anyTo(0, gensym("pong"), AtomListView());
             },
-            [](void* user, std::uint32_t key, bool state, std::uint32_t device) {
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_switch_state state) {
                 ESPHOME_CAST();
-                AtomArray<3> data;
-                data[0] = gensym(fmt::format("0x{:08x}", key).c_str());
-                data[1] = state;
-                data[2] = device;
-                obj->anyTo(0, gensym("switch"), data.view());
+                obj->onState(id, state);
             },
             [](void* user, std::uint32_t key, bool state, std::uint32_t device, bool missing_state) {
                 ESPHOME_CAST();
@@ -55,19 +51,94 @@ namespace {
                 data[3] = missing_state;
                 obj->anyTo(0, gensym("binary"), data.view());
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_text_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
+            [](void* user, const ceammc_esphome_switch_info* s) {
+                ESPHOME_CAST();
+                obj->onSwitchInfo(EsphomeEntityPtr { new EsphomeSwitch(*s) });
+            },
+            [](void* user, const ceammc_esphome_text_info* t) {
+                ESPHOME_CAST();
+                obj->onTextInfo(EsphomeEntityPtr { new EsphomeText(*t) });
+            },
+
         };
     }
 } // namespace
+
+EsphomeEntityBase::EsphomeEntityBase(const ceammc_esphome_entity_id& id, const char* object_id)
+    : id_(id)
+    , object_id_(gensym(object_id))
+{
+}
+
+EsphomeEntityBase::EsphomeEntityBase(const EsphomeEntityBase& x)
+    : id_(x.id_)
+    , object_id_(x.object_id_)
+{
+}
+
+std::size_t EsphomeEntityIdHash::operator()(const ceammc_esphome_entity_id& id) const
+{
+    std::size_t seed = 0;
+    boost::hash_combine(seed, id.id);
+    boost::hash_combine(seed, id.device_id);
+    return seed;
+}
+
+bool EsphomeEntityEqual::operator()(const ceammc_esphome_entity_id& a, const ceammc_esphome_entity_id& b) const
+{
+    return a.id == b.id && a.device_id == b.device_id;
+}
+
+#define MSYM_INIT(obj, name) name(gensym(obj.name))
+#define M_INIT(obj, name) name(obj.name)
+
+EsphomeSwitch::EsphomeSwitch(const ceammc_esphome_switch_info& s)
+    : EsphomeEntityBase(s.id, s.object_id)
+    , MSYM_INIT(s, name)
+    , MSYM_INIT(s, icon)
+    , MSYM_INIT(s, device_class)
+    , M_INIT(s, entity_category)
+    , M_INIT(s, assumed_state)
+    , M_INIT(s, disabled_by_default)
+{
+}
+
+std::unique_ptr<EsphomeEntityBase> EsphomeSwitch::clone() const
+{
+    return std::unique_ptr<EsphomeEntityBase> { new EsphomeSwitch(*this) };
+}
+
+EsphomeText::EsphomeText(const ceammc_esphome_text_info& t)
+    : EsphomeEntityBase(t.id, t.object_id)
+    , MSYM_INIT(t, name)
+    , MSYM_INIT(t, icon)
+    , MSYM_INIT(t, pattern)
+    , M_INIT(t, entity_category)
+    , M_INIT(t, min_length)
+    , M_INIT(t, max_length)
+    , M_INIT(t, mode)
+    , M_INIT(t, disabled_by_default)
+{
+}
+
+std::unique_ptr<EsphomeEntityBase> EsphomeText::clone() const
+{
+    return std::unique_ptr<EsphomeEntityBase> { new EsphomeText(*this) };
+}
 
 NetEsphomeClient::NetEsphomeClient(const PdArgs& args)
     : RustFfiObject<BaseObject, ceammc_esphome_client>(&ceammc_esphome_client_free, args)
 {
     createOutlet();
 
-    addr_ = new SymbolProperty("@addr", &s_);
+    addr_ = new SymbolProperty { "@addr", &s_ };
     addProperty(addr_);
 
-    port_ = new IntProperty("@port", 6053);
+    port_ = new IntProperty { "@port", ceammc_ESPHOME_DEFAULT_PORT };
     port_->checkClosedRange(1, std::numeric_limits<std::uint16_t>::max());
     addProperty(port_);
 }
@@ -135,7 +206,7 @@ void NetEsphomeClient::m_switch(t_symbol* s, const AtomListView& lv)
     if (!checkFfiObject(true, s))
         return;
 
-    std::string key = args.key->s_name;
+    std::string const key = args.key->s_name;
     std::uint32_t id = 0;
     if (!key.empty()) {
         try {
@@ -161,7 +232,7 @@ void NetEsphomeClient::m_text(t_symbol* s, const AtomListView& lv)
     if (!checkFfiObject(true, s))
         return;
 
-    std::string key = args.key->s_name;
+    std::string const key = args.key->s_name;
     std::uint32_t id = 0;
     if (!key.empty()) {
         try {
@@ -172,6 +243,33 @@ void NetEsphomeClient::m_text(t_symbol* s, const AtomListView& lv)
     }
 
     ceammc_esphome_client_text(ffiObject(), id, args.text->s_name);
+}
+
+void NetEsphomeClient::onSwitchInfo(EsphomeEntityPtr&& info)
+{
+    switches_.addInfo(std::move(info));
+}
+
+void NetEsphomeClient::onTextInfo(EsphomeEntityPtr&& info)
+{
+    texts_.addInfo(std::move(info));
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state)
+{
+    auto oid = switches_.setState(id, state);
+    if (oid) {
+        anyTo(0, oid, Atom(state.value));
+    }
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state)
+{
+    const EsphomeTextState xstate { gensym(state.value), state.missing_state };
+    auto oid = texts_.setState(id, xstate);
+    if (oid) {
+        anyTo(0, oid, Atom(xstate.value));
+    }
 }
 
 void setup_net_esphome_client()
