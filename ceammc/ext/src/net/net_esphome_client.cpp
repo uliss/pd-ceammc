@@ -83,14 +83,14 @@ EsphomeEntityBase::EsphomeEntityBase(const EsphomeEntityBase& x)
 std::size_t EsphomeEntityIdHash::operator()(const ceammc_esphome_entity_id& id) const
 {
     std::size_t seed = 0;
-    boost::hash_combine(seed, id.id);
+    boost::hash_combine(seed, id.key);
     boost::hash_combine(seed, id.device_id);
     return seed;
 }
 
 bool EsphomeEntityEqual::operator()(const ceammc_esphome_entity_id& a, const ceammc_esphome_entity_id& b) const
 {
-    return a.id == b.id && a.device_id == b.device_id;
+    return a.key == b.key && a.device_id == b.device_id;
 }
 
 #define MSYM_INIT(obj, name) name(gensym(obj.name))
@@ -206,14 +206,10 @@ void NetEsphomeClient::m_switch(t_symbol* s, const AtomListView& lv)
     if (!checkFfiObject(true, s))
         return;
 
-    std::string const key = args.key->s_name;
-    std::uint32_t id = 0;
-    if (!key.empty()) {
-        try {
-            id = std::stoul(key.substr(1));
-        } catch (...) {
-            id = 0;
-        }
+    auto id = switches_.findId(args.key);
+    if (!id) {
+        METHOD_ERR(s) << fmt::format("switch with id '{}' not found", args.key->s_name);
+        return;
     }
 
     ceammc_esphome_client_switch(ffiObject(), id, args.state);
@@ -232,14 +228,10 @@ void NetEsphomeClient::m_text(t_symbol* s, const AtomListView& lv)
     if (!checkFfiObject(true, s))
         return;
 
-    std::string const key = args.key->s_name;
-    std::uint32_t id = 0;
-    if (!key.empty()) {
-        try {
-            id = std::stoul(key.substr(1));
-        } catch (...) {
-            id = 0;
-        }
+    auto id = texts_.findId(args.key);
+    if (!id) {
+        METHOD_ERR(s) << fmt::format("switch with id '{}' not found", args.key->s_name);
+        return;
     }
 
     ceammc_esphome_client_text(ffiObject(), id, args.text->s_name);

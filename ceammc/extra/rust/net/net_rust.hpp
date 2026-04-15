@@ -78,7 +78,7 @@ struct ceammc_ws_client;
 struct ceammc_ws_server;
 
 struct ceammc_esphome_entity_id {
-    uint32_t id;
+    uint32_t key;
     uint32_t device_id;
 };
 
@@ -418,12 +418,16 @@ bool ceammc_esphome_client_subscribe(ceammc_esphome_client *cli);
 
 /// turn on/off esphome device switch
 /// @param cli - esphome device handle
-/// @param key - internal esphome switch id
+/// @param id - internal esphome switch id
 /// @param state - switch state
 /// @return true on sucess, false on error (if device is disconnected etc.)
-bool ceammc_esphome_client_switch(ceammc_esphome_client *cli, uint32_t key, bool state);
+bool ceammc_esphome_client_switch(ceammc_esphome_client *cli,
+                                  ceammc_esphome_entity_id id,
+                                  bool state);
 
-bool ceammc_esphome_client_text(ceammc_esphome_client *cli, uint32_t key, const char *text);
+bool ceammc_esphome_client_text(ceammc_esphome_client *cli,
+                                ceammc_esphome_entity_id id,
+                                const char *text);
 
 /// get array data
 /// @param array - pointer to array data (non NULL!)

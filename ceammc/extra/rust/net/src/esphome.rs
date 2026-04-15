@@ -20,7 +20,7 @@ pub const ESPHOME_DEFAULT_PORT: u16 = 6053;
 #[repr(C)]
 #[derive(Debug, Clone)]
 pub struct esphome_entity_id {
-    id: u32,
+    key: u32,
     device_id: u32,
 }
 
@@ -83,8 +83,8 @@ enum Request {
     Ping,
     SubscribeStates,
     ListEntities,
-    Switch(u32, bool),
-    Text(u32, String),
+    Switch(esphome_entity_id, bool),
+    Text(esphome_entity_id, String),
 }
 
 #[derive(Clone, Debug)]
@@ -157,7 +157,7 @@ async fn process_message_from_device(
         EspHomeMessage::SensorStateResponse(sensor_state_response) => todo!(),
         EspHomeMessage::ListEntitiesSwitchResponse(sw) => Ok(Some(Reply::SwitchInfo {
             id: esphome_entity_id {
-                id: sw.key,
+                key: sw.key,
                 device_id: sw.device_id,
             },
             name: cstr_from_string(sw.name),
@@ -170,7 +170,7 @@ async fn process_message_from_device(
         })),
         EspHomeMessage::SwitchStateResponse(x) => Ok(Some(Reply::SwitchState(
             esphome_entity_id {
-                id: x.key,
+                key: x.key,
                 device_id: x.device_id,
             },
             esphome_switch_state { value: x.state },
@@ -181,7 +181,7 @@ async fn process_message_from_device(
         }
         EspHomeMessage::TextSensorStateResponse(txt) => Ok(Some(Reply::TextState(
             esphome_entity_id {
-                id: txt.key,
+                key: txt.key,
                 device_id: txt.device_id,
             },
             TextState {
@@ -273,7 +273,7 @@ async fn process_message_from_device(
         }
         EspHomeMessage::ListEntitiesTextResponse(txt) => Ok(Some(Reply::TextInfo {
             id: esphome_entity_id {
-                id: txt.key,
+                key: txt.key,
                 device_id: txt.device_id,
             },
             object_id: cstr_from_string(txt.object_id),
@@ -517,22 +517,22 @@ impl esphome_client {
                                     .await
                                     .map_err(|err| err.to_string())?;
                             }
-                            Request::Switch(key, state) => {
+                            Request::Switch(id, state) => {
                                 let command =
                                     EspHomeMessage::SwitchCommandRequest(SwitchCommandRequest {
-                                        key,
+                                        key: id.key,
                                         state,
-                                        device_id: 0,
+                                        device_id: id.device_id,
                                     });
 
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
                             }
-                            Request::Text(key, state) => {
+                            Request::Text(id, state) => {
                                 let command =
                                     EspHomeMessage::TextCommandRequest(TextCommandRequest {
-                                        key,
+                                        key: id.key,
                                         state,
-                                        device_id: 0,
+                                        device_id: id.device_id,
                                     });
 
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
@@ -626,25 +626,25 @@ pub extern "C" fn ceammc_esphome_client_list_entities(cli: *mut esphome_client) 
 #[no_mangle]
 /// turn on/off esphome device switch
 /// @param cli - esphome device handle
-/// @param key - internal esphome switch id
+/// @param id - internal esphome switch id
 /// @param state - switch state
 /// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_switch(
     cli: *mut esphome_client,
-    key: u32,
+    id: esphome_entity_id,
     state: bool,
 ) -> bool {
-    esphome_client::send_request(cli, Request::Switch(key, state))
+    esphome_client::send_request(cli, Request::Switch(id, state))
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_esphome_client_text(
     cli: *mut esphome_client,
-    key: u32,
+    id: esphome_entity_id,
     text: *const c_char,
 ) -> bool {
     match ceammc_rs_msg::cstr_to_string(text) {
-        Some(text) => esphome_client::send_request(cli, Request::Text(key, text)),
+        Some(text) => esphome_client::send_request(cli, Request::Text(id, text)),
         None => false,
     }
 }

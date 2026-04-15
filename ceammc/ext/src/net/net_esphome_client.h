@@ -45,7 +45,7 @@ public:
     virtual ~EsphomeEntityBase() = default;
 
     t_symbol* object_id() { return object_id_; }
-    ceammc_esphome_entity_id id() const { return id_; }
+    const ceammc_esphome_entity_id& id() const { return id_; }
     virtual EsphomeEntityPtr clone() const = 0;
 };
 
@@ -116,6 +116,12 @@ struct EsphomeEntities {
         }
     }
 
+    const ceammc_esphome_entity_id* findId(t_symbol* object_id) const
+    {
+        auto it = entities.find(object_id);
+        return it == entities.end() ? nullptr : &it->second->id();
+    }
+
     void clear()
     {
         entities.clear();
@@ -148,8 +154,6 @@ public:
     void onTextInfo(EsphomeEntityPtr&& info);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);
-
-    void setSwitch(t_symbol* id, bool value);
 };
 
 void setup_net_esphome_client();
