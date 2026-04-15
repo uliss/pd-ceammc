@@ -751,6 +751,13 @@ pub fn cstr_to_string(str: *const c_char) -> Option<String> {
     }
 }
 
+pub fn cstr_from_string<T>(str: T) -> CString
+where
+    T: AsRef<str>,
+{
+    CString::new(str.as_ref()).unwrap_or_default()
+}
+
 pub fn ptr_to_array<T: Clone>(data: *const T, len: usize) -> Vec<T> {
     if data.is_null() || len == 0 {
         vec![]
