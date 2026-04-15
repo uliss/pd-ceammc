@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include "ceammc_rs_msg.hpp"
 
 
 enum class ceammc_http_client_param_type {
@@ -58,6 +59,8 @@ enum class ceammc_ws_client_selector {
     EXCEPT,
 };
 
+struct ceammc_esphome_client;
+
 struct ceammc_freesound_array_data;
 
 struct ceammc_freesound_client;
@@ -71,6 +74,18 @@ struct ceammc_telegram_bot_client;
 struct ceammc_ws_client;
 
 struct ceammc_ws_server;
+
+struct ceammc_esphome_client_cb {
+    void *user;
+    void (*on_pong)(void *user);
+    void (*on_switch)(void *user, uint32_t key, bool state, uint32_t device_id);
+    void (*on_binary)(void *user, uint32_t key, bool state, uint32_t device_id, bool missing_state);
+    void (*on_text)(void *user,
+                    uint32_t key,
+                    const char *state,
+                    uint32_t device_id,
+                    bool missing_state);
+};
 
 union ceammc_t_pd_rust_word {
     float w_float;
@@ -322,6 +337,26 @@ struct ceammc_ws_server_result_cb {
 
 
 extern "C" {
+
+void ceammc_esphome_client_free(ceammc_esphome_client *cli);
+
+bool ceammc_esphome_client_list_entities(ceammc_esphome_client *cli);
+
+ceammc_esphome_client *ceammc_esphome_client_new(const char *addr,
+                                                 uint16_t port,
+                                                 ceammc_msg_notify notify,
+                                                 ceammc_msg_cb on_msg,
+                                                 ceammc_esphome_client_cb on_data);
+
+bool ceammc_esphome_client_ping(ceammc_esphome_client *cli);
+
+bool ceammc_esphome_client_process(ceammc_esphome_client *cli);
+
+bool ceammc_esphome_client_subscribe(ceammc_esphome_client *cli);
+
+bool ceammc_esphome_client_switch(ceammc_esphome_client *cli, uint32_t key, bool state);
+
+bool ceammc_esphome_client_text(ceammc_esphome_client *cli, uint32_t key, const char *text);
 
 /// get array data
 /// @param array - pointer to array data (non NULL!)

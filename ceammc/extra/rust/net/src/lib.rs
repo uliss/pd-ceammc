@@ -1,3 +1,4 @@
+pub mod esphome;
 pub mod freesound;
 pub mod http_req;
 pub mod mqtt;
