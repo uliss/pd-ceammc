@@ -5,9 +5,7 @@
 # for detailed documentation of every option here.
 
 
-
 language = "C++"
-
 
 
 ############## Options for Wrapping the Contents of the Header #################
@@ -27,8 +25,6 @@ no_includes = true
 after_includes = ""
 
 
-
-
 ############################ Code Style Options ################################
 
 braces = "SameLine"
@@ -37,17 +33,14 @@ tab_width = 4
 documentation = true
 documentation_style = "auto"
 documentation_length = "full"
-line_endings = "LF" # also "CR", "CRLF", "Native"
-
-
+line_endings = "LF"           # also "CR", "CRLF", "Native"
 
 
 ############################# Codegen Options ##################################
 
 style = "both"
-sort_by = "Name" # default for `fn.sort_by` and `const.sort_by`
+sort_by = "Name"       # default for `fn.sort_by` and `const.sort_by`
 usize_is_size_t = true
-
 
 
 [defines]
@@ -55,18 +48,23 @@ usize_is_size_t = true
 # "feature = serde" = "DEFINE_SERDE"
 
 
-
 [export]
 include = []
 exclude = []
 prefix = "ceammc_"
-item_types = ["enums", "structs", "functions", "typedefs", "opaque", "unions"]
+item_types = [
+    "enums",
+    "constants",
+    "structs",
+    "functions",
+    "typedefs",
+    "opaque",
+    "unions",
+]
 renaming_overrides_prefixing = false
 
 
-
 [export.rename]
-
 
 
 [export.body]
@@ -85,8 +83,6 @@ args = "auto"
 sort_by = "Name"
 
 
-
-
 [struct]
 rename_fields = "None"
 # must_use = "MUST_USE_STRUCT"
@@ -97,8 +93,6 @@ derive_lt = false
 derive_lte = false
 derive_gt = false
 derive_gte = false
-
-
 
 
 [enum]
@@ -116,22 +110,14 @@ enum_class = true
 private_default_tagged_enum_constructor = false
 
 
-
-
 [const]
 allow_static_const = false
 allow_constexpr = true
 sort_by = "Name"
 
 
-
-
 [macro_expansion]
 bitflags = false
-
-
-
-
 
 
 ############## Options for How Your Rust library Should Be Parsed ##############
@@ -142,7 +128,6 @@ include = ["image"]
 exclude = ["WebPQuality_MIN"]
 clean = false
 extra_bindings = []
-
 
 
 [parse.expand]
