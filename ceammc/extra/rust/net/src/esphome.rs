@@ -626,25 +626,25 @@ pub extern "C" fn ceammc_esphome_client_list_entities(cli: *mut esphome_client) 
 #[no_mangle]
 /// turn on/off esphome device switch
 /// @param cli - esphome device handle
-/// @param id - internal esphome switch id
+/// @param id - internal esphome switch id (not null!)
 /// @param state - switch state
 /// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_switch(
     cli: *mut esphome_client,
-    id: esphome_entity_id,
+    id: &esphome_entity_id,
     state: bool,
 ) -> bool {
-    esphome_client::send_request(cli, Request::Switch(id, state))
+    esphome_client::send_request(cli, Request::Switch(id.clone(), state))
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_esphome_client_text(
     cli: *mut esphome_client,
-    id: esphome_entity_id,
+    id: &esphome_entity_id,
     text: *const c_char,
 ) -> bool {
     match ceammc_rs_msg::cstr_to_string(text) {
-        Some(text) => esphome_client::send_request(cli, Request::Text(id, text)),
+        Some(text) => esphome_client::send_request(cli, Request::Text(id.clone(), text)),
         None => false,
     }
 }

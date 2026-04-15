@@ -230,7 +230,7 @@ void NetEsphomeClient::m_text(t_symbol* s, const AtomListView& lv)
 
     auto id = texts_.findId(args.key);
     if (!id) {
-        METHOD_ERR(s) << fmt::format("switch with id '{}' not found", args.key->s_name);
+        METHOD_ERR(s) << fmt::format("text with id '{}' not found", args.key->s_name);
         return;
     }
 

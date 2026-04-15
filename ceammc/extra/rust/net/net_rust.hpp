@@ -418,15 +418,15 @@ bool ceammc_esphome_client_subscribe(ceammc_esphome_client *cli);
 
 /// turn on/off esphome device switch
 /// @param cli - esphome device handle
-/// @param id - internal esphome switch id
+/// @param id - internal esphome switch id (not null!)
 /// @param state - switch state
 /// @return true on sucess, false on error (if device is disconnected etc.)
 bool ceammc_esphome_client_switch(ceammc_esphome_client *cli,
-                                  ceammc_esphome_entity_id id,
+                                  const ceammc_esphome_entity_id *id,
                                   bool state);
 
 bool ceammc_esphome_client_text(ceammc_esphome_client *cli,
-                                ceammc_esphome_entity_id id,
+                                const ceammc_esphome_entity_id *id,
                                 const char *text);
 
 /// get array data
