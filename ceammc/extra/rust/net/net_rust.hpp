@@ -8,6 +8,8 @@
 #include "ceammc_rs_msg.hpp"
 
 
+constexpr const uint16_t ceammc_ESPHOME_DEFAULT_PORT = 6053;
+
 enum class ceammc_http_client_param_type {
     /// header key/value
     Header,
@@ -75,16 +77,62 @@ struct ceammc_ws_client;
 
 struct ceammc_ws_server;
 
+struct ceammc_esphome_entity_id {
+    uint32_t id;
+    uint32_t device_id;
+};
+
+struct ceammc_esphome_switch_state {
+    bool value;
+};
+
+struct ceammc_esphome_text_state {
+    const char *value;
+    bool missing_state;
+};
+
+struct ceammc_esphome_switch_info {
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *device_class;
+    ceammc_esphome_entity_id id;
+    int32_t entity_category;
+    bool assumed_state;
+    bool disabled_by_default;
+};
+
+struct ceammc_esphome_text_info {
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    /// valid within callback only
+    const char *pattern;
+    ceammc_esphome_entity_id id;
+    int32_t entity_category;
+    uint32_t min_length;
+    uint32_t max_length;
+    int32_t mode;
+    bool disabled_by_default;
+};
+
 struct ceammc_esphome_client_cb {
     void *user;
     void (*on_pong)(void *user);
-    void (*on_switch)(void *user, uint32_t key, bool state, uint32_t device_id);
+    void (*on_switch_state)(void *user,
+                            ceammc_esphome_entity_id key,
+                            ceammc_esphome_switch_state state);
     void (*on_binary)(void *user, uint32_t key, bool state, uint32_t device_id, bool missing_state);
-    void (*on_text)(void *user,
-                    uint32_t key,
-                    const char *state,
-                    uint32_t device_id,
-                    bool missing_state);
+    void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
+    void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
+    void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
 };
 
 union ceammc_t_pd_rust_word {

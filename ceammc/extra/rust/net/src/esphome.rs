@@ -10,13 +10,76 @@ use ::esphome_client::{
     },
     EspHomeClient,
 };
-use ceammc_rs_msg::{msg_cb, msg_notify, SendState};
+use ceammc_rs_msg::{cstr_from_string, msg_cb, msg_notify, SendState};
 use log::{debug, error};
 use tokio::task::JoinHandle;
 use tokio_util::sync::CancellationToken;
 
+pub const ESPHOME_DEFAULT_PORT: u16 = 6053;
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_entity_id {
+    id: u32,
+    device_id: u32,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_switch_state {
+    value: bool,
+}
+
+#[repr(C)]
+pub struct esphome_text_state {
+    value: *const c_char,
+    missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_switch_info {
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    device_class: *const c_char,
+    id: esphome_entity_id,
+    entity_category: i32,
+    assumed_state: bool,
+    disabled_by_default: bool,
+}
+
+#[derive(Debug, Clone)]
+struct TextState {
+    value: CString,
+    missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_text_info {
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    /// valid within callback only
+    pattern: *const c_char,
+    id: esphome_entity_id,
+    entity_category: i32,
+    min_length: u32,
+    max_length: u32,
+    mode: i32,
+    disabled_by_default: bool,
+}
+
 #[derive(Debug)]
-pub enum Request {
+enum Request {
     Ping,
     SubscribeStates,
     ListEntities,
@@ -25,20 +88,38 @@ pub enum Request {
 }
 
 #[derive(Clone, Debug)]
-pub enum Reply {
+enum Reply {
     Pong,
-    SwitchState(u32, bool, u32),
+    SwitchState(esphome_entity_id, esphome_switch_state),
+    TextState(esphome_entity_id, TextState),
+    ListEntitiesEnd,
     BinaryState {
         key: u32,
         state: bool,
         device_id: u32,
         missing_state: bool,
     },
-    TextState {
-        key: u32,
-        text: CString,
-        missing_state: bool,
-        device_id: u32,
+    SwitchInfo {
+        id: esphome_entity_id,
+        name: CString,
+        icon: CString,
+        object_id: CString,
+        device_class: CString,
+        entity_category: i32,
+        assumed_state: bool,
+        disabled_by_default: bool,
+    },
+    TextInfo {
+        id: esphome_entity_id,
+        object_id: CString,
+        name: CString,
+        icon: CString,
+        pattern: CString,
+        disabled_by_default: bool,
+        entity_category: i32,
+        min_length: u32,
+        max_length: u32,
+        mode: i32,
     },
 }
 
@@ -53,7 +134,7 @@ async fn process_message_from_device(
         // EspHomeMessage::DisconnectResponse(disconnect_response) => todo!(),
         EspHomeMessage::PingResponse(_) => Ok(Some(Reply::Pong)),
         EspHomeMessage::DeviceInfoResponse(device_info_response) => todo!(),
-        EspHomeMessage::ListEntitiesDoneResponse(list_entities_done_response) => Ok(None),
+        EspHomeMessage::ListEntitiesDoneResponse(_) => Ok(Some(Reply::ListEntitiesEnd)),
         EspHomeMessage::ListEntitiesBinarySensorResponse(list_entities_binary_sensor_response) => {
             Ok(None)
         }
@@ -74,20 +155,40 @@ async fn process_message_from_device(
         EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
         EspHomeMessage::ListEntitiesSensorResponse(list_entities_sensor_response) => Ok(None),
         EspHomeMessage::SensorStateResponse(sensor_state_response) => todo!(),
-        EspHomeMessage::ListEntitiesSwitchResponse(list_entities_switch_response) => todo!(),
-        EspHomeMessage::SwitchStateResponse(x) => {
-            Ok(Some(Reply::SwitchState(x.key, x.state, x.device_id)))
-        }
+        EspHomeMessage::ListEntitiesSwitchResponse(sw) => Ok(Some(Reply::SwitchInfo {
+            id: esphome_entity_id {
+                id: sw.key,
+                device_id: sw.device_id,
+            },
+            name: cstr_from_string(sw.name),
+            icon: cstr_from_string(sw.icon),
+            object_id: cstr_from_string(sw.object_id),
+            device_class: cstr_from_string(sw.device_class),
+            entity_category: sw.entity_category,
+            assumed_state: sw.assumed_state,
+            disabled_by_default: sw.disabled_by_default,
+        })),
+        EspHomeMessage::SwitchStateResponse(x) => Ok(Some(Reply::SwitchState(
+            esphome_entity_id {
+                id: x.key,
+                device_id: x.device_id,
+            },
+            esphome_switch_state { value: x.state },
+        ))),
         EspHomeMessage::ListEntitiesTextSensorResponse(txt) => {
             log::debug!("{txt:?}");
             Ok(None)
         }
-        EspHomeMessage::TextSensorStateResponse(txt) => Ok(Some(Reply::TextState {
-            key: txt.key,
-            text: CString::new(txt.state).unwrap_or_default(),
-            missing_state: txt.missing_state,
-            device_id: txt.device_id,
-        })),
+        EspHomeMessage::TextSensorStateResponse(txt) => Ok(Some(Reply::TextState(
+            esphome_entity_id {
+                id: txt.key,
+                device_id: txt.device_id,
+            },
+            TextState {
+                value: cstr_from_string(txt.state),
+                missing_state: txt.missing_state,
+            },
+        ))),
         EspHomeMessage::SubscribeLogsResponse(subscribe_logs_response) => todo!(),
         EspHomeMessage::NoiseEncryptionSetKeyResponse(noise_encryption_set_key_response) => todo!(),
         EspHomeMessage::HomeassistantActionResponse(homeassistant_action_response) => todo!(),
@@ -170,10 +271,21 @@ async fn process_message_from_device(
         EspHomeMessage::AlarmControlPanelStateResponse(alarm_control_panel_state_response) => {
             todo!()
         }
-        EspHomeMessage::ListEntitiesTextResponse(txt) => {
-            debug!("{txt:?}");
-            Ok(None)
-        }
+        EspHomeMessage::ListEntitiesTextResponse(txt) => Ok(Some(Reply::TextInfo {
+            id: esphome_entity_id {
+                id: txt.key,
+                device_id: txt.device_id,
+            },
+            object_id: cstr_from_string(txt.object_id),
+            name: cstr_from_string(txt.name),
+            icon: cstr_from_string(txt.icon),
+            disabled_by_default: txt.disabled_by_default,
+            entity_category: txt.entity_category,
+            min_length: txt.min_length,
+            max_length: txt.max_length,
+            pattern: cstr_from_string(txt.pattern),
+            mode: txt.mode,
+        })),
         EspHomeMessage::TextStateResponse(txt) => {
             debug!("{txt:?}");
             Ok(None)
@@ -198,7 +310,8 @@ async fn process_message_from_device(
 pub struct esphome_client_cb {
     user: *mut c_void,
     on_pong: extern "C" fn(user: *mut c_void),
-    on_switch: extern "C" fn(user: *mut c_void, key: u32, state: bool, device_id: u32),
+    on_switch_state:
+        extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_switch_state),
     on_binary: extern "C" fn(
         user: *mut c_void,
         key: u32,
@@ -206,13 +319,9 @@ pub struct esphome_client_cb {
         device_id: u32,
         missing_state: bool,
     ),
-    on_text: extern "C" fn(
-        user: *mut c_void,
-        key: u32,
-        state: *const c_char,
-        device_id: u32,
-        missing_state: bool,
-    ),
+    on_text: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_text_state),
+    on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
+    on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
 }
 
 impl esphome_client_cb {
@@ -220,16 +329,28 @@ impl esphome_client_cb {
         (self.on_pong)(self.user)
     }
 
-    fn switch(&self, key: u32, state: bool, device_id: u32) {
-        (self.on_switch)(self.user, key, state, device_id)
+    fn state_switch(&self, key: esphome_entity_id, state: esphome_switch_state) {
+        (self.on_switch_state)(self.user, key, state)
+    }
+
+    fn text(&self, key: esphome_entity_id, state: TextState) {
+        let state = esphome_text_state {
+            value: state.value.as_ptr(),
+            missing_state: state.missing_state,
+        };
+        (self.on_text)(self.user, key, state)
     }
 
     fn binary(&self, key: u32, state: bool, device_id: u32, missing_state: bool) {
         (self.on_binary)(self.user, key, state, device_id, missing_state)
     }
 
-    fn text(&self, key: u32, state: CString, device_id: u32, missing_state: bool) {
-        (self.on_text)(self.user, key, state.as_ptr(), device_id, missing_state)
+    fn info_switch(&self, info: esphome_switch_info) {
+        (self.on_info_switch)(self.user, &info)
+    }
+
+    fn info_text(&self, info: esphome_text_info) {
+        (self.on_info_text)(self.user, &info)
     }
 }
 
@@ -248,21 +369,57 @@ impl esphome_client {
             let cli = unsafe { &mut *cli };
             cli.obj.recv_loop(|reply| match reply {
                 Reply::Pong => cli.on_data.pong(),
-                Reply::SwitchState(key, state, device_id) => {
-                    cli.on_data.switch(key, state, device_id)
-                }
+                Reply::SwitchState(key, state) => cli.on_data.state_switch(key, state),
                 Reply::BinaryState {
                     key,
                     state,
                     device_id,
                     missing_state,
                 } => cli.on_data.binary(key, state, device_id, missing_state),
-                Reply::TextState {
-                    key,
-                    text,
-                    missing_state,
-                    device_id,
-                } => cli.on_data.text(key, text, device_id, missing_state),
+                Reply::TextState(key, state) => cli.on_data.text(key, state),
+                Reply::SwitchInfo {
+                    id,
+                    name,
+                    icon,
+                    object_id,
+                    device_class,
+                    entity_category,
+                    assumed_state,
+                    disabled_by_default,
+                } => cli.on_data.info_switch(esphome_switch_info {
+                    id,
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    object_id: object_id.as_ptr(),
+                    device_class: device_class.as_ptr(),
+                    entity_category,
+                    assumed_state,
+                    disabled_by_default,
+                }),
+                Reply::TextInfo {
+                    id,
+                    object_id,
+                    name,
+                    icon,
+                    disabled_by_default,
+                    entity_category,
+                    min_length,
+                    max_length,
+                    pattern,
+                    mode,
+                } => cli.on_data.info_text(esphome_text_info {
+                    id,
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    object_id: object_id.as_ptr(),
+                    entity_category,
+                    disabled_by_default,
+                    pattern: pattern.as_ptr(),
+                    min_length,
+                    max_length,
+                    mode,
+                }),
+                Reply::ListEntitiesEnd => {}
             });
             true
         }
