@@ -5,8 +5,8 @@ use std::{
 
 use ::esphome_client::{
     types::{
-        EspHomeMessage, ListEntitiesRequest, PingRequest, SubscribeStatesRequest,
-        SwitchCommandRequest, TextCommandRequest,
+        DeviceInfoRequest, EspHomeMessage, ListEntitiesRequest, PingRequest,
+        SubscribeStatesRequest, SwitchCommandRequest, TextCommandRequest,
     },
     EspHomeClient,
 };
@@ -133,6 +133,7 @@ pub struct esphome_text_info {
 #[derive(Debug)]
 enum Request {
     Ping,
+    DeviceInfo,
     SubscribeStates,
     ListEntities,
     Switch(esphome_entity_id, bool),
@@ -681,6 +682,11 @@ impl esphome_client {
 
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
                             }
+                            Request::DeviceInfo => {
+                                let command =
+                                    EspHomeMessage::DeviceInfoRequest(DeviceInfoRequest {});
+                                dev_tx.send(command).await.map_err(|err| err.to_string())?;
+                            }
                         }
                         Ok(())
                     })
@@ -755,6 +761,14 @@ pub extern "C" fn ceammc_esphome_client_process(cli: *mut esphome_client) -> boo
 /// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_ping(cli: *mut esphome_client) -> bool {
     esphome_client::send_request(cli, Request::Ping)
+}
+
+#[no_mangle]
+/// device info request
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
+pub extern "C" fn ceammc_esphome_client_device_info(cli: *mut esphome_client) -> bool {
+    esphome_client::send_request(cli, Request::DeviceInfo)
 }
 
 #[no_mangle]

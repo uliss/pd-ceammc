@@ -434,6 +434,11 @@ struct ceammc_ws_server_result_cb {
 
 extern "C" {
 
+/// device info request
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_esphome_client_device_info(ceammc_esphome_client *cli);
+
 /// close and free connection to epshome device
 /// @param cli - esphome device handle (nullable)
 void ceammc_esphome_client_free(ceammc_esphome_client *cli);
