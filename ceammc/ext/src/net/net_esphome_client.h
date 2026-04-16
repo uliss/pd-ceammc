@@ -67,6 +67,18 @@ struct EsphomeSwitch : public EsphomeEntityBase {
     std::unique_ptr<EsphomeEntityBase> clone() const final;
 };
 
+struct EsphomeBinary : public EsphomeEntityBase {
+    t_symbol* name { &s_ };
+    t_symbol* icon { &s_ };
+    t_symbol* device_class { &s_ };
+    int32_t entity_category {};
+    bool disabled_by_default {};
+    bool is_status_binary_sensor {};
+
+    explicit EsphomeBinary(const ceammc_esphome_binary_info& s);
+    std::unique_ptr<EsphomeEntityBase> clone() const final;
+};
+
 struct EsphomeTextState {
     t_symbol* value { &s_ };
     bool missing_value {};
@@ -134,6 +146,7 @@ class NetEsphomeClient : public RustFfiObject<BaseObject, ceammc_esphome_client>
     SymbolProperty* addr_ { nullptr };
     IntProperty* port_ { nullptr };
 
+    EsphomeEntities<ceammc_esphome_binary_state> bins_;
     EsphomeEntities<ceammc_esphome_switch_state> switches_;
     EsphomeEntities<EsphomeTextState> texts_;
 
@@ -152,8 +165,10 @@ public:
 public:
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
+    void onBinaryInfo(EsphomeEntityPtr&& info);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);
+    void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
 };
 
 void setup_net_esphome_client();

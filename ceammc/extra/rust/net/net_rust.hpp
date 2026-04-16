@@ -86,6 +86,11 @@ struct ceammc_esphome_switch_state {
     bool value;
 };
 
+struct ceammc_esphome_binary_state {
+    bool value;
+    bool missing_state;
+};
+
 struct ceammc_esphome_text_state {
     const char *value;
     bool missing_state;
@@ -123,16 +128,59 @@ struct ceammc_esphome_text_info {
     bool disabled_by_default;
 };
 
+struct ceammc_esphome_binary_info {
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *device_class;
+    ceammc_esphome_entity_id id;
+    int32_t entity_category;
+    bool disabled_by_default;
+    bool is_status_binary_sensor;
+};
+
+struct ceammc_esphome_device_info {
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *mac_address;
+    /// valid within callback only
+    const char *esphome_version;
+    /// valid within callback only
+    const char *compilation_time;
+    /// valid within callback only
+    const char *model;
+    /// valid within callback only
+    const char *project_name;
+    /// valid within callback only
+    const char *project_version;
+    /// valid within callback only
+    const char *manufacturer;
+    /// valid within callback only
+    const char *friendly_name;
+    /// valid within callback only
+    const char *suggested_area;
+    /// valid within callback only
+    const char *bluetooth_mac_address;
+    uint32_t webserver_port;
+};
+
 struct ceammc_esphome_client_cb {
     void *user;
     void (*on_pong)(void *user);
     void (*on_switch_state)(void *user,
                             ceammc_esphome_entity_id key,
                             ceammc_esphome_switch_state state);
-    void (*on_binary)(void *user, uint32_t key, bool state, uint32_t device_id, bool missing_state);
+    void (*on_binary)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_binary_state state);
     void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
+    void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
+    void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
 };
 
 union ceammc_t_pd_rust_word {

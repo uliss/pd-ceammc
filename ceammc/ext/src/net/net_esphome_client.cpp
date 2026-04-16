@@ -42,14 +42,9 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
-            [](void* user, std::uint32_t key, bool state, std::uint32_t device, bool missing_state) {
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_binary_state state) {
                 ESPHOME_CAST();
-                AtomArray<4> data;
-                data[0] = gensym(fmt::format("0x{:08x}", key).c_str());
-                data[1] = state;
-                data[2] = device;
-                data[3] = missing_state;
-                obj->anyTo(0, gensym("binary"), data.view());
+                obj->onState(id, state);
             },
             [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_text_state state) {
                 ESPHOME_CAST();
@@ -62,6 +57,10 @@ namespace {
             [](void* user, const ceammc_esphome_text_info* t) {
                 ESPHOME_CAST();
                 obj->onTextInfo(EsphomeEntityPtr { new EsphomeText(*t) });
+            },
+            [](void* user, const ceammc_esphome_binary_info* b) {
+                ESPHOME_CAST();
+                obj->onBinaryInfo(EsphomeEntityPtr { new EsphomeBinary(*b) });
             },
 
         };
@@ -110,6 +109,22 @@ EsphomeSwitch::EsphomeSwitch(const ceammc_esphome_switch_info& s)
 std::unique_ptr<EsphomeEntityBase> EsphomeSwitch::clone() const
 {
     return std::unique_ptr<EsphomeEntityBase> { new EsphomeSwitch(*this) };
+}
+
+EsphomeBinary::EsphomeBinary(const ceammc_esphome_binary_info& s)
+    : EsphomeEntityBase(s.id, s.object_id)
+    , MSYM_INIT(s, name)
+    , MSYM_INIT(s, icon)
+    , MSYM_INIT(s, device_class)
+    , M_INIT(s, entity_category)
+    , M_INIT(s, disabled_by_default)
+    , M_INIT(s, is_status_binary_sensor)
+{
+}
+
+std::unique_ptr<EsphomeEntityBase> EsphomeBinary::clone() const
+{
+    return std::unique_ptr<EsphomeEntityBase> { new EsphomeBinary(*this) };
 }
 
 EsphomeText::EsphomeText(const ceammc_esphome_text_info& t)
@@ -247,6 +262,11 @@ void NetEsphomeClient::onTextInfo(EsphomeEntityPtr&& info)
     texts_.addInfo(std::move(info));
 }
 
+void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
+{
+    bins_.addInfo(std::move(info));
+}
+
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state)
 {
     auto oid = switches_.setState(id, state);
@@ -261,6 +281,14 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
     auto oid = texts_.setState(id, xstate);
     if (oid) {
         anyTo(0, oid, Atom(xstate.value));
+    }
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state)
+{
+    auto oid = bins_.setState(id, state);
+    if (oid) {
+        anyTo(0, oid, Atom(state.value));
     }
 }
 

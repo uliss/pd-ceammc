@@ -26,6 +26,13 @@ pub struct esphome_entity_id {
 
 #[repr(C)]
 #[derive(Debug, Clone)]
+pub struct esphome_binary_state {
+    value: bool,
+    missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
 pub struct esphome_switch_state {
     value: bool,
 }
@@ -51,6 +58,51 @@ pub struct esphome_switch_info {
     entity_category: i32,
     assumed_state: bool,
     disabled_by_default: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_binary_info {
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    device_class: *const c_char,
+    id: esphome_entity_id,
+    entity_category: i32,
+    disabled_by_default: bool,
+    is_status_binary_sensor: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_device_info {
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    mac_address: *const c_char,
+    /// valid within callback only
+    esphome_version: *const c_char,
+    /// valid within callback only
+    compilation_time: *const c_char,
+    /// valid within callback only
+    model: *const c_char,
+    /// valid within callback only
+    project_name: *const c_char,
+    /// valid within callback only
+    project_version: *const c_char,
+    /// valid within callback only
+    manufacturer: *const c_char,
+    /// valid within callback only
+    friendly_name: *const c_char,
+    /// valid within callback only
+    suggested_area: *const c_char,
+    /// valid within callback only
+    bluetooth_mac_address: *const c_char,
+    webserver_port: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -90,14 +142,19 @@ enum Request {
 #[derive(Clone, Debug)]
 enum Reply {
     Pong,
+    ListEntitiesEnd,
+    BinaryState(esphome_entity_id, esphome_binary_state),
     SwitchState(esphome_entity_id, esphome_switch_state),
     TextState(esphome_entity_id, TextState),
-    ListEntitiesEnd,
-    BinaryState {
-        key: u32,
-        state: bool,
-        device_id: u32,
-        missing_state: bool,
+    BinaryInfo {
+        id: esphome_entity_id,
+        name: CString,
+        icon: CString,
+        object_id: CString,
+        device_class: CString,
+        is_status_binary_sensor: bool,
+        disabled_by_default: bool,
+        entity_category: i32,
     },
     SwitchInfo {
         id: esphome_entity_id,
@@ -121,6 +178,20 @@ enum Reply {
         max_length: u32,
         mode: i32,
     },
+    DeviceInfo {
+        name: CString,
+        mac_address: CString,
+        esphome_version: CString,
+        compilation_time: CString,
+        model: CString,
+        project_name: CString,
+        project_version: CString,
+        manufacturer: CString,
+        friendly_name: CString,
+        suggested_area: CString,
+        bluetooth_mac_address: CString,
+        webserver_port: u32,
+    },
 }
 
 async fn process_message_from_device(
@@ -133,17 +204,44 @@ async fn process_message_from_device(
         // EspHomeMessage::AuthenticationResponse(authentication_response) => todo!(),
         // EspHomeMessage::DisconnectResponse(disconnect_response) => todo!(),
         EspHomeMessage::PingResponse(_) => Ok(Some(Reply::Pong)),
-        EspHomeMessage::DeviceInfoResponse(device_info_response) => todo!(),
-        EspHomeMessage::ListEntitiesDoneResponse(_) => Ok(Some(Reply::ListEntitiesEnd)),
-        EspHomeMessage::ListEntitiesBinarySensorResponse(list_entities_binary_sensor_response) => {
-            Ok(None)
-        }
-        EspHomeMessage::BinarySensorStateResponse(x) => Ok(Some(Reply::BinaryState {
-            key: x.key,
-            state: x.state,
-            device_id: x.device_id,
-            missing_state: x.missing_state,
+        EspHomeMessage::DeviceInfoResponse(dev) => Ok(Some(Reply::DeviceInfo {
+            name: cstr_from_string(dev.name),
+            mac_address: cstr_from_string(dev.mac_address),
+            esphome_version: cstr_from_string(dev.esphome_version),
+            compilation_time: cstr_from_string(dev.compilation_time),
+            model: cstr_from_string(dev.model),
+            project_name: cstr_from_string(dev.project_name),
+            project_version: cstr_from_string(dev.project_version),
+            manufacturer: cstr_from_string(dev.manufacturer),
+            friendly_name: cstr_from_string(dev.friendly_name),
+            suggested_area: cstr_from_string(dev.suggested_area),
+            bluetooth_mac_address: cstr_from_string(dev.bluetooth_mac_address),
+            webserver_port: dev.webserver_port,
         })),
+        EspHomeMessage::ListEntitiesDoneResponse(_) => Ok(Some(Reply::ListEntitiesEnd)),
+        EspHomeMessage::ListEntitiesBinarySensorResponse(bin) => Ok(Some(Reply::BinaryInfo {
+            id: esphome_entity_id {
+                key: bin.key,
+                device_id: bin.device_id,
+            },
+            name: cstr_from_string(bin.name),
+            icon: cstr_from_string(bin.icon),
+            object_id: cstr_from_string(bin.object_id),
+            device_class: cstr_from_string(bin.device_class),
+            is_status_binary_sensor: bin.is_status_binary_sensor,
+            disabled_by_default: bin.disabled_by_default,
+            entity_category: bin.entity_category,
+        })),
+        EspHomeMessage::BinarySensorStateResponse(bin) => Ok(Some(Reply::BinaryState(
+            esphome_entity_id {
+                key: bin.key,
+                device_id: bin.device_id,
+            },
+            esphome_binary_state {
+                value: bin.state,
+                missing_state: bin.missing_state,
+            },
+        ))),
         EspHomeMessage::ListEntitiesCoverResponse(list_entities_cover_response) => todo!(),
         EspHomeMessage::CoverStateResponse(cover_state_response) => todo!(),
         EspHomeMessage::ListEntitiesFanResponse(list_entities_fan_response) => todo!(),
@@ -312,16 +410,13 @@ pub struct esphome_client_cb {
     on_pong: extern "C" fn(user: *mut c_void),
     on_switch_state:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_switch_state),
-    on_binary: extern "C" fn(
-        user: *mut c_void,
-        key: u32,
-        state: bool,
-        device_id: u32,
-        missing_state: bool,
-    ),
+    on_binary:
+        extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_binary_state),
     on_text: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_text_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
+    on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
+    on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
 }
 
 impl esphome_client_cb {
@@ -341,8 +436,16 @@ impl esphome_client_cb {
         (self.on_text)(self.user, key, state)
     }
 
-    fn binary(&self, key: u32, state: bool, device_id: u32, missing_state: bool) {
-        (self.on_binary)(self.user, key, state, device_id, missing_state)
+    fn binary(&self, key: esphome_entity_id, state: esphome_binary_state) {
+        (self.on_binary)(self.user, key, state)
+    }
+
+    fn info_binary(&self, info: esphome_binary_info) {
+        (self.on_info_binary)(self.user, &info)
+    }
+
+    fn info_device(&self, info: esphome_device_info) {
+        (self.on_info_device)(self.user, &info)
     }
 
     fn info_switch(&self, info: esphome_switch_info) {
@@ -370,12 +473,7 @@ impl esphome_client {
             cli.obj.recv_loop(|reply| match reply {
                 Reply::Pong => cli.on_data.pong(),
                 Reply::SwitchState(key, state) => cli.on_data.state_switch(key, state),
-                Reply::BinaryState {
-                    key,
-                    state,
-                    device_id,
-                    missing_state,
-                } => cli.on_data.binary(key, state, device_id, missing_state),
+                Reply::BinaryState(key, state) => cli.on_data.binary(key, state),
                 Reply::TextState(key, state) => cli.on_data.text(key, state),
                 Reply::SwitchInfo {
                     id,
@@ -420,6 +518,52 @@ impl esphome_client {
                     mode,
                 }),
                 Reply::ListEntitiesEnd => {}
+                Reply::BinaryInfo {
+                    id,
+                    name,
+                    icon,
+                    object_id,
+                    device_class,
+                    is_status_binary_sensor,
+                    disabled_by_default,
+                    entity_category,
+                } => cli.on_data.info_binary(esphome_binary_info {
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    object_id: object_id.as_ptr(),
+                    device_class: device_class.as_ptr(),
+                    id,
+                    entity_category,
+                    disabled_by_default,
+                    is_status_binary_sensor,
+                }),
+                Reply::DeviceInfo {
+                    name,
+                    mac_address,
+                    esphome_version,
+                    compilation_time,
+                    model,
+                    project_name,
+                    project_version,
+                    manufacturer,
+                    friendly_name,
+                    suggested_area,
+                    bluetooth_mac_address,
+                    webserver_port,
+                } => cli.on_data.info_device(esphome_device_info {
+                    name: name.as_ptr(),
+                    mac_address: mac_address.as_ptr(),
+                    esphome_version: esphome_version.as_ptr(),
+                    compilation_time: compilation_time.as_ptr(),
+                    model: model.as_ptr(),
+                    project_name: project_name.as_ptr(),
+                    project_version: project_version.as_ptr(),
+                    manufacturer: manufacturer.as_ptr(),
+                    friendly_name: friendly_name.as_ptr(),
+                    suggested_area: suggested_area.as_ptr(),
+                    bluetooth_mac_address: bluetooth_mac_address.as_ptr(),
+                    webserver_port,
+                }),
             });
             true
         }
