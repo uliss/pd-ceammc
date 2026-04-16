@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_dict.h"
 #ifndef WITH_ESPHOME
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetEsphomeClient, 1, 1, "compiled without EspHome support");
@@ -62,7 +63,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onBinaryInfo(EsphomeEntityPtr { new EsphomeBinary(*b) });
             },
-
+            [](void* user, const ceammc_esphome_device_info* dev) {
+                ESPHOME_CAST();
+                obj->onDeviceInfo(*dev);
+            },
         };
     }
 } // namespace
@@ -252,6 +256,14 @@ void NetEsphomeClient::m_text(t_symbol* s, const AtomListView& lv)
     ceammc_esphome_client_text(ffiObject(), id, args.text->s_name);
 }
 
+void NetEsphomeClient::m_device_info(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkFfiObject(true, s))
+        return;
+
+    ceammc_esphome_client_device_info(ffiObject());
+}
+
 void NetEsphomeClient::onSwitchInfo(EsphomeEntityPtr&& info)
 {
     switches_.addInfo(std::move(info));
@@ -265,6 +277,29 @@ void NetEsphomeClient::onTextInfo(EsphomeEntityPtr&& info)
 void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
 {
     bins_.addInfo(std::move(info));
+}
+
+void NetEsphomeClient::onDeviceInfo(const ceammc_esphome_device_info& info)
+{
+    DataTypeDict dict;
+
+#define DICT_KEY(name) dict.insert(#name, gensym(info.name))
+    DICT_KEY(name);
+    DICT_KEY(mac_address);
+    DICT_KEY(esphome_version);
+    DICT_KEY(compilation_time);
+    DICT_KEY(model);
+    DICT_KEY(project_name);
+    DICT_KEY(project_version);
+    DICT_KEY(manufacturer);
+    DICT_KEY(friendly_name);
+    DICT_KEY(suggested_area);
+    DICT_KEY(bluetooth_mac_address);
+#undef DICT_KEY
+
+    dict.insert("webserver_port", Atom(info.webserver_port));
+
+    anyTo(0, gensym("device"), DataAtom<DataTypeDict>(std::move(dict)));
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state)
@@ -302,6 +337,7 @@ void setup_net_esphome_client()
     obj.addMethod("subscribe", &NetEsphomeClient::m_subscribe);
     obj.addMethod("switch", &NetEsphomeClient::m_switch);
     obj.addMethod("text", &NetEsphomeClient::m_text);
+    obj.addMethod("device?", &NetEsphomeClient::m_device_info);
 }
 
 } // namespace ceammc

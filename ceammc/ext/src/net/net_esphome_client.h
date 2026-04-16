@@ -161,11 +161,13 @@ public:
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_switch(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
+    void m_device_info(t_symbol* s, const AtomListView& lv);
 
 public:
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
     void onBinaryInfo(EsphomeEntityPtr&& info);
+    void onDeviceInfo(const ceammc_esphome_device_info& info);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
