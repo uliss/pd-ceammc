@@ -86,6 +86,27 @@ pub struct esphome_binary_info {
 
 #[repr(C)]
 #[derive(Debug, Clone)]
+pub struct esphome_sensor_info {
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    /// valid within callback only
+    unit_of_measurement: *const c_char,
+    /// valid within callback only
+    device_class: *const c_char,
+    id: esphome_entity_id,
+    accuracy_decimals: i32,
+    state_class: i32,
+    entity_category: i32,
+    disabled_by_default: bool,
+    force_update: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
 pub struct esphome_device_info {
     /// valid within callback only
     name: *const c_char,
@@ -188,6 +209,19 @@ enum Reply {
         max_length: u32,
         mode: i32,
     },
+    SensorInfo {
+        id: esphome_entity_id,
+        object_id: CString,
+        name: CString,
+        icon: CString,
+        unit_of_measurement: CString,
+        accuracy_decimals: i32,
+        force_update: bool,
+        device_class: CString,
+        state_class: i32,
+        disabled_by_default: bool,
+        entity_category: i32,
+    },
     DeviceInfo {
         name: CString,
         mac_address: CString,
@@ -210,8 +244,6 @@ async fn process_message_from_device(
     let msg = msg.map_err(|err| err.to_string())?;
 
     match msg {
-        // EspHomeMessage::HelloResponse(hello_response) => todo!(),
-        // EspHomeMessage::AuthenticationResponse(authentication_response) => todo!(),
         // EspHomeMessage::DisconnectResponse(disconnect_response) => todo!(),
         EspHomeMessage::PingResponse(_) => Ok(Some(Reply::Pong)),
         EspHomeMessage::DeviceInfoResponse(dev) => Ok(Some(Reply::DeviceInfo {
@@ -261,7 +293,25 @@ async fn process_message_from_device(
             Ok(None)
         }
         EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
-        EspHomeMessage::ListEntitiesSensorResponse(list_entities_sensor_response) => Ok(None),
+        EspHomeMessage::ListEntitiesSensorResponse(sensor) => {
+            //
+            Ok(Some(Reply::SensorInfo {
+                id: esphome_entity_id {
+                    key: sensor.key,
+                    device_id: sensor.device_id,
+                },
+                object_id: cstr_from_string(sensor.object_id),
+                name: cstr_from_string(sensor.name),
+                icon: cstr_from_string(sensor.icon),
+                unit_of_measurement: cstr_from_string(sensor.unit_of_measurement),
+                accuracy_decimals: sensor.accuracy_decimals,
+                force_update: sensor.force_update,
+                device_class: cstr_from_string(sensor.device_class),
+                state_class: sensor.state_class,
+                disabled_by_default: sensor.disabled_by_default,
+                entity_category: sensor.entity_category,
+            }))
+        }
         EspHomeMessage::SensorStateResponse(sensor) => Ok(Some(Reply::SensorState(
             esphome_entity_id {
                 key: sensor.key,
@@ -437,6 +487,7 @@ pub struct esphome_client_cb {
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
+    on_info_sensor: extern "C" fn(user: *mut c_void, info: &esphome_sensor_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
     on_connection: extern "C" fn(user: *mut c_void, state: bool),
 }
@@ -480,6 +531,10 @@ impl esphome_client_cb {
 
     fn info_text(&self, info: esphome_text_info) {
         (self.on_info_text)(self.user, &info)
+    }
+
+    fn info_sensor(&self, info: esphome_sensor_info) {
+        (self.on_info_sensor)(self.user, &info)
     }
 
     fn connected(&self, state: bool) {
@@ -596,6 +651,31 @@ impl esphome_client {
                     webserver_port,
                 }),
                 Reply::Connected(state) => cli.on_data.connected(state),
+                Reply::SensorInfo {
+                    id,
+                    object_id,
+                    name,
+                    icon,
+                    unit_of_measurement,
+                    accuracy_decimals,
+                    force_update,
+                    device_class,
+                    state_class,
+                    disabled_by_default,
+                    entity_category,
+                } => cli.on_data.info_sensor(esphome_sensor_info {
+                    object_id: object_id.as_ptr(),
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    unit_of_measurement: unit_of_measurement.as_ptr(),
+                    device_class: device_class.as_ptr(),
+                    accuracy_decimals,
+                    state_class,
+                    entity_category,
+                    disabled_by_default,
+                    force_update,
+                    id,
+                }),
             });
             true
         }

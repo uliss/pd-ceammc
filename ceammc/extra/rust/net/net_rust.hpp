@@ -148,6 +148,25 @@ struct ceammc_esphome_binary_info {
     bool is_status_binary_sensor;
 };
 
+struct ceammc_esphome_sensor_info {
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    /// valid within callback only
+    const char *unit_of_measurement;
+    /// valid within callback only
+    const char *device_class;
+    ceammc_esphome_entity_id id;
+    int32_t accuracy_decimals;
+    int32_t state_class;
+    int32_t entity_category;
+    bool disabled_by_default;
+    bool force_update;
+};
+
 struct ceammc_esphome_device_info {
     /// valid within callback only
     const char *name;
@@ -186,6 +205,7 @@ struct ceammc_esphome_client_cb {
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
+    void (*on_info_sensor)(void *user, const ceammc_esphome_sensor_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
     void (*on_connection)(void *user, bool state);
 };

@@ -71,6 +71,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onBinaryInfo(EsphomeEntityPtr { new EsphomeBinary(*b) });
             },
+            [](void* user, const ceammc_esphome_sensor_info* s) {
+                ESPHOME_CAST();
+                obj->onSensorInfo(EsphomeEntityPtr { new EsphomeSensor(*s) });
+            },
             [](void* user, const ceammc_esphome_device_info* dev) {
                 ESPHOME_CAST();
                 obj->onDeviceInfo(*dev);
@@ -159,6 +163,25 @@ EsphomeText::EsphomeText(const ceammc_esphome_text_info& t)
 std::unique_ptr<EsphomeEntityBase> EsphomeText::clone() const
 {
     return std::unique_ptr<EsphomeEntityBase> { new EsphomeText(*this) };
+}
+
+EsphomeSensor::EsphomeSensor(const ceammc_esphome_sensor_info& s)
+    : EsphomeEntityBase(s.id, s.object_id)
+    , MSYM_INIT(s, name)
+    , MSYM_INIT(s, icon)
+    , MSYM_INIT(s, device_class)
+    , MSYM_INIT(s, unit_of_measurement)
+    , M_INIT(s, accuracy_decimals)
+    , M_INIT(s, state_class)
+    , M_INIT(s, entity_category)
+    , M_INIT(s, disabled_by_default)
+    , M_INIT(s, force_update)
+{
+}
+
+std::unique_ptr<EsphomeEntityBase> EsphomeSensor::clone() const
+{
+    return std::unique_ptr<EsphomeEntityBase> { new EsphomeSensor(*this) };
 }
 
 NetEsphomeClient::NetEsphomeClient(const PdArgs& args)
@@ -289,6 +312,11 @@ void NetEsphomeClient::onTextInfo(EsphomeEntityPtr&& info)
 void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
 {
     bins_.addInfo(std::move(info));
+}
+
+void NetEsphomeClient::onSensorInfo(EsphomeEntityPtr&& info)
+{
+    sensors_.addInfo(std::move(info));
 }
 
 void NetEsphomeClient::onDeviceInfo(const ceammc_esphome_device_info& info)

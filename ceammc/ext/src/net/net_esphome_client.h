@@ -79,6 +79,21 @@ struct EsphomeBinary : public EsphomeEntityBase {
     std::unique_ptr<EsphomeEntityBase> clone() const final;
 };
 
+struct EsphomeSensor : public EsphomeEntityBase {
+    t_symbol* name { &s_ };
+    t_symbol* icon { &s_ };
+    t_symbol* device_class { &s_ };
+    t_symbol* unit_of_measurement { &s_ };
+    int32_t accuracy_decimals;
+    int32_t state_class;
+    int32_t entity_category;
+    bool disabled_by_default;
+    bool force_update;
+
+    explicit EsphomeSensor(const ceammc_esphome_sensor_info& s);
+    std::unique_ptr<EsphomeEntityBase> clone() const final;
+};
+
 struct EsphomeTextState {
     t_symbol* value { &s_ };
     bool missing_value {};
@@ -165,9 +180,10 @@ public:
     void m_device_info(t_symbol* s, const AtomListView& lv);
 
 public:
+    void onBinaryInfo(EsphomeEntityPtr&& info);
+    void onSensorInfo(EsphomeEntityPtr&& info);
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
-    void onBinaryInfo(EsphomeEntityPtr&& info);
     void onDeviceInfo(const ceammc_esphome_device_info& info);
 
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
