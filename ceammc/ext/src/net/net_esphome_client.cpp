@@ -17,6 +17,7 @@
 CONTROL_OBJECT_STUB(NetEsphomeClient, 1, 1, "compiled without EspHome support");
 OBJECT_STUB_SETUP(NetEsphomeClient, net_esphome_client, "net.esphome.client");
 #else
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 #include "net_esphome_client.h"
@@ -28,6 +29,9 @@ OBJECT_STUB_SETUP(NetEsphomeClient, net_esphome_client, "net.esphome.client");
     if (!obj)                                        \
         return;
 
+CEAMMC_DEFINE_SYM(pong)
+CEAMMC_DEFINE_SYM(connected)
+
 namespace ceammc {
 
 namespace {
@@ -37,7 +41,7 @@ namespace {
             user,
             [](void* user) {
                 ESPHOME_CAST();
-                obj->anyTo(0, gensym("pong"), AtomListView());
+                obj->anyTo(0, sym_pong(), AtomListView());
             },
             [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_switch_state state) {
                 ESPHOME_CAST();
@@ -67,6 +71,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onDeviceInfo(*dev);
             },
+            [](void* user, bool state) {
+                ESPHOME_CAST();
+                obj->anyTo(0, sym_connected(), Atom(state));
+            }
         };
     }
 } // namespace

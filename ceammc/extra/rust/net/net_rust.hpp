@@ -181,6 +181,7 @@ struct ceammc_esphome_client_cb {
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
+    void (*on_connection)(void *user, bool state);
 };
 
 union ceammc_t_pd_rust_word {

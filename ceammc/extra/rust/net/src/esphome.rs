@@ -143,6 +143,7 @@ enum Request {
 #[derive(Clone, Debug)]
 enum Reply {
     Pong,
+    Connected(bool),
     ListEntitiesEnd,
     BinaryState(esphome_entity_id, esphome_binary_state),
     SwitchState(esphome_entity_id, esphome_switch_state),
@@ -418,6 +419,7 @@ pub struct esphome_client_cb {
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
+    on_connection: extern "C" fn(user: *mut c_void, state: bool),
 }
 
 impl esphome_client_cb {
@@ -455,6 +457,10 @@ impl esphome_client_cb {
 
     fn info_text(&self, info: esphome_text_info) {
         (self.on_info_text)(self.user, &info)
+    }
+
+    fn connected(&self, state: bool) {
+        (self.on_connection)(self.user, state)
     }
 }
 
@@ -565,6 +571,7 @@ impl esphome_client {
                     bluetooth_mac_address: bluetooth_mac_address.as_ptr(),
                     webserver_port,
                 }),
+                Reply::Connected(state) => cli.on_data.connected(state),
             });
             true
         }
@@ -598,7 +605,9 @@ impl esphome_client {
             None,
             async move |mut channel| {
                 let addr = format!("{addr}:{port}");
-                debug!("connecting to {addr} ...");
+                channel
+                    .send_debug(format!("connecting to {addr} ..."))
+                    .to_worker_result()?;
 
                 let mut client = EspHomeClient::builder()
                     .address(&addr)
@@ -607,7 +616,12 @@ impl esphome_client {
                     .await
                     .map_err(|err| err.to_string())?;
 
-                debug!("connected ...");
+                channel
+                    .send_debug(format!("connected ..."))
+                    .to_worker_result()?;
+                channel
+                    .send_data(Reply::Connected(true))
+                    .to_worker_result()?;
 
                 let cancel_dev1 = CancellationToken::new();
                 let cancel_dev2 = cancel_dev1.clone();
@@ -697,6 +711,10 @@ impl esphome_client {
 
                 cancel_dev2.cancel();
                 dev_task.await.map_err(|err| err.to_string())??;
+
+                channel
+                    .send_data(Reply::Connected(false))
+                    .to_worker_result()?;
 
                 Ok(())
             },
