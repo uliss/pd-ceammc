@@ -5,8 +5,8 @@ use std::{
 
 use ::esphome_client::{
     types::{
-        DeviceInfoRequest, EspHomeMessage, ListEntitiesRequest, PingRequest,
-        SubscribeStatesRequest, SwitchCommandRequest, TextCommandRequest,
+        DeviceInfoRequest, EspHomeMessage, GetTimeRequest, ListEntitiesRequest, PingRequest,
+        SubscribeStatesRequest, SwitchCommandRequest, TextCommandRequest, TimeCommandRequest,
     },
     EspHomeClient,
 };
@@ -56,6 +56,7 @@ pub struct esphome_time_state {
     pub hour: u32,
     pub minute: u32,
     pub second: u32,
+    /// unused when set time
     pub missing_state: bool,
 }
 
@@ -187,8 +188,10 @@ enum Request {
     DeviceInfo,
     SubscribeStates,
     ListEntities,
+    GetTime,
     Switch(esphome_entity_id, bool),
     Text(esphome_entity_id, String),
+    Time(esphome_entity_id, esphome_time_state),
 }
 
 #[derive(Clone, Debug)]
@@ -823,7 +826,6 @@ impl esphome_client {
                                 if let Some(reply) = process_message_from_device(msg).await? {
                                     debug!("{reply:?}");
                                     to_client.send_data(reply).to_worker_result()?;
-                                    debug!("done");
                                 }
                             },
                             Some(msg) = dev_rx.recv() => {
@@ -885,6 +887,21 @@ impl esphome_client {
                             Request::DeviceInfo => {
                                 let command =
                                     EspHomeMessage::DeviceInfoRequest(DeviceInfoRequest {});
+                                dev_tx.send(command).await.map_err(|err| err.to_string())?;
+                            }
+                            Request::Time(id, time) => {
+                                let command =
+                                    EspHomeMessage::TimeCommandRequest(TimeCommandRequest {
+                                        key: id.key,
+                                        hour: time.hour,
+                                        minute: time.minute,
+                                        second: time.second,
+                                        device_id: id.device_id,
+                                    });
+                                dev_tx.send(command).await.map_err(|err| err.to_string())?;
+                            }
+                            Request::GetTime => {
+                                let command = EspHomeMessage::GetTimeRequest(GetTimeRequest {});
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
                             }
                         }
@@ -1009,4 +1026,26 @@ pub extern "C" fn ceammc_esphome_client_text(
         Some(text) => esphome_client::send_request(cli, Request::Text(id.clone(), text)),
         None => false,
     }
+}
+
+#[no_mangle]
+/// set esphome device time
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param time - new time
+/// @return true on sucess, false on error (if device is disconnected etc.)
+pub extern "C" fn ceammc_esphome_client_set_time(
+    cli: *mut esphome_client,
+    id: &esphome_entity_id,
+    time: esphome_time_state,
+) -> bool {
+    esphome_client::send_request(cli, Request::Time(id.clone(), time))
+}
+
+#[no_mangle]
+/// get esphome device time
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
+pub extern "C" fn ceammc_esphome_client_get_time(cli: *mut esphome_client) -> bool {
+    esphome_client::send_request(cli, Request::GetTime)
 }

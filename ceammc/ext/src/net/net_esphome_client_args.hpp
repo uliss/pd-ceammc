@@ -294,6 +294,185 @@ void m_text_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_text_args_info());
 }
+struct m_set_time_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_symbol* key {&s_}; // sensor ID
+    std::uint8_t hour {0}; // hour
+    std::uint8_t min {0}; // minute
+    std::uint8_t second {0}; // second
+    // methods
+    int process_key(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isSymbol()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        key = lv[0].asT<t_symbol*>();
+        // number of matched items
+        return 1;
+    }
+    int process_hour(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        hour = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    int process_min(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        min = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    int process_second(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        second = lv[0].asT<t_int>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_key_info() {
+        return "KEY (sensor ID), symbol";
+    }
+    static const char* arg_hour_info() {
+        return "HOUR (hour), byte[0..255] range";
+    }
+    static const char* arg_min_info() {
+        return "MIN (minute), byte[0..255] range";
+    }
+    static const char* arg_second_info() {
+        return "SECOND (second), byte[0..255] range";
+    }
+    static const char* usage() {
+        return "usage: [time KEY HOUR MIN SECOND(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_key_info();
+        Post(obj) << " - " << arg_hour_info();
+        Post(obj) << " - " << arg_min_info();
+        Post(obj) << " - " << arg_second_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_key(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[time( argument #0 'KEY' is required:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[time( argument #0 'KEY' check failed, expected:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_hour(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[time( argument #1 'HOUR' is required:";
+                    Post(obj) << " - " << arg_hour_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[time( argument #1 'HOUR' check failed, expected:";
+                    Post(obj) << " - " << arg_hour_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_min(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[time( argument #2 'MIN' is required:";
+                    Post(obj) << " - " << arg_min_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[time( argument #2 'MIN' check failed, expected:";
+                    Post(obj) << " - " << arg_min_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_second(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[time( argument #3 'SECOND' is required:";
+                    Post(obj) << " - " << arg_second_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[time( argument #3 'SECOND' check failed, expected:";
+                    Post(obj) << " - " << arg_second_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[time( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_set_time_args_info() {
+    return "set esphome time";
+}
+void m_set_time_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_set_time_args_info());
+}
 } // namespace 
 
 #endif // NET_ESPHOME_CLIENT_ARGS_HPP_

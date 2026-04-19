@@ -321,6 +321,44 @@ void NetEsphomeClient::m_device_info(t_symbol* s, const AtomListView& lv)
     ceammc_esphome_client_device_info(ffiObject());
 }
 
+void NetEsphomeClient::m_get_time(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkFfiObject(true, s))
+        return;
+
+    ceammc_esphome_client_get_time(ffiObject());
+}
+
+/// @function "set esphome time" {
+///     #key    symbol  "sensor ID" {}
+///     #hour   byte    "hour"      {}
+///     #min    byte    "minute"    {}
+///     #second byte    "second"    {}
+/// }
+void NetEsphomeClient::m_set_time(t_symbol* s, const AtomListView& lv)
+{
+    m_set_time_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!checkFfiObject(true, s))
+        return;
+
+    auto id = time_.findId(args.key);
+    if (!id) {
+        METHOD_ERR(s) << fmt::format("time with id '{}' not found", args.key->s_name);
+        return;
+    }
+
+    const ceammc_esphome_time_state time {
+        args.hour,
+        args.min,
+        args.second,
+        false, // unused
+    };
+    ceammc_esphome_client_set_time(ffiObject(), id, time);
+}
+
 void NetEsphomeClient::onSwitchInfo(EsphomeEntityPtr&& info)
 {
     switches_.addInfo(std::move(info));
@@ -416,10 +454,13 @@ void setup_net_esphome_client()
 
     obj.addMethod("connect", &NetEsphomeClient::m_connect);
     obj.addMethod("entities", &NetEsphomeClient::m_entities);
+    obj.addMethod("get_time", &NetEsphomeClient::m_get_time);
     obj.addMethod("ping", &NetEsphomeClient::m_ping);
     obj.addMethod("subscribe", &NetEsphomeClient::m_subscribe);
     obj.addMethod("switch", &NetEsphomeClient::m_switch);
     obj.addMethod("text", &NetEsphomeClient::m_text);
+    obj.addMethod("time", &NetEsphomeClient::m_set_time);
+
     obj.addMethod("device?", &NetEsphomeClient::m_device_info);
 }
 

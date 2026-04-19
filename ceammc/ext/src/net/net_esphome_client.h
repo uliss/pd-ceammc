@@ -189,6 +189,8 @@ public:
     void m_switch(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
     void m_device_info(t_symbol* s, const AtomListView& lv);
+    void m_get_time(t_symbol* s, const AtomListView& lv);
+    void m_set_time(t_symbol* s, const AtomListView& lv);
 
 public:
     void onBinaryInfo(EsphomeEntityPtr&& info);

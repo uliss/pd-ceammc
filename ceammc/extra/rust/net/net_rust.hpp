@@ -105,6 +105,7 @@ struct ceammc_esphome_time_state {
     uint32_t hour;
     uint32_t minute;
     uint32_t second;
+    /// unused when set time
     bool missing_state;
 };
 
@@ -491,6 +492,11 @@ bool ceammc_esphome_client_device_info(ceammc_esphome_client *cli);
 /// @param cli - esphome device handle (nullable)
 void ceammc_esphome_client_free(ceammc_esphome_client *cli);
 
+/// get esphome device time
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_esphome_client_get_time(ceammc_esphome_client *cli);
+
 bool ceammc_esphome_client_list_entities(ceammc_esphome_client *cli);
 
 /// create new esphome client
@@ -514,6 +520,15 @@ bool ceammc_esphome_client_ping(ceammc_esphome_client *cli);
 /// process replies from esphome device
 /// @param cli - esphome device handle
 bool ceammc_esphome_client_process(ceammc_esphome_client *cli);
+
+/// set esphome device time
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param time - new time
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_esphome_client_set_time(ceammc_esphome_client *cli,
+                                    const ceammc_esphome_entity_id *id,
+                                    ceammc_esphome_time_state time);
 
 bool ceammc_esphome_client_subscribe(ceammc_esphome_client *cli);
 
