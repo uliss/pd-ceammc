@@ -52,6 +52,15 @@ pub struct esphome_sensor_state {
 
 #[repr(C)]
 #[derive(Debug, Clone)]
+pub struct esphome_time_state {
+    pub hour: u32,
+    pub minute: u32,
+    pub second: u32,
+    pub missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
 pub struct esphome_switch_info {
     /// valid within callback only
     name: *const c_char,
@@ -103,6 +112,20 @@ pub struct esphome_sensor_info {
     entity_category: i32,
     disabled_by_default: bool,
     force_update: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_time_info {
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    id: esphome_entity_id,
+    entity_category: i32,
+    disabled_by_default: bool,
 }
 
 #[repr(C)]
@@ -177,6 +200,7 @@ enum Reply {
     SwitchState(esphome_entity_id, esphome_switch_state),
     SensorState(esphome_entity_id, esphome_sensor_state),
     TextState(esphome_entity_id, TextState),
+    TimeState(esphome_entity_id, esphome_time_state),
     BinaryInfo {
         id: esphome_entity_id,
         name: CString,
@@ -219,6 +243,14 @@ enum Reply {
         force_update: bool,
         device_class: CString,
         state_class: i32,
+        disabled_by_default: bool,
+        entity_category: i32,
+    },
+    TimeInfo {
+        id: esphome_entity_id,
+        object_id: CString,
+        name: CString,
+        icon: CString,
         disabled_by_default: bool,
         entity_category: i32,
     },
@@ -459,13 +491,37 @@ async fn process_message_from_device(
         }
         EspHomeMessage::ListEntitiesDateResponse(list_entities_date_response) => todo!(),
         EspHomeMessage::DateStateResponse(date_state_response) => todo!(),
-        EspHomeMessage::ListEntitiesTimeResponse(list_entities_time_response) => todo!(),
-        EspHomeMessage::TimeStateResponse(time_state_response) => todo!(),
+        EspHomeMessage::ListEntitiesTimeResponse(time) => Ok(Some(Reply::TimeInfo {
+            id: esphome_entity_id {
+                key: time.key,
+                device_id: time.device_id,
+            },
+            object_id: cstr_from_string(time.object_id),
+            name: cstr_from_string(time.name),
+            icon: cstr_from_string(time.icon),
+            disabled_by_default: time.disabled_by_default,
+            entity_category: time.entity_category,
+        })),
+        EspHomeMessage::TimeStateResponse(time) => Ok(Some(Reply::TimeState(
+            esphome_entity_id {
+                key: time.key,
+                device_id: time.device_id,
+            },
+            esphome_time_state {
+                hour: time.hour,
+                minute: time.minute,
+                second: time.second,
+                missing_state: time.missing_state,
+            },
+        ))),
         EspHomeMessage::ListEntitiesEventResponse(list_entities_event_response) => todo!(),
         EspHomeMessage::EventResponse(event_response) => todo!(),
         EspHomeMessage::ListEntitiesValveResponse(list_entities_valve_response) => todo!(),
         EspHomeMessage::ValveStateResponse(valve_state_response) => todo!(),
-        EspHomeMessage::ListEntitiesDateTimeResponse(list_entities_date_time_response) => todo!(),
+        EspHomeMessage::ListEntitiesDateTimeResponse(list_entities_date_time_response) => {
+            //
+            Ok(None)
+        }
         EspHomeMessage::DateTimeStateResponse(date_time_state_response) => todo!(),
         EspHomeMessage::ListEntitiesUpdateResponse(list_entities_update_response) => todo!(),
         EspHomeMessage::UpdateStateResponse(update_state_response) => todo!(),
@@ -484,10 +540,12 @@ pub struct esphome_client_cb {
     on_text: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_text_state),
     on_sensor:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_sensor_state),
+    on_time: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_time_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
     on_info_sensor: extern "C" fn(user: *mut c_void, info: &esphome_sensor_info),
+    on_info_time: extern "C" fn(user: *mut c_void, info: &esphome_time_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
     on_connection: extern "C" fn(user: *mut c_void, state: bool),
 }
@@ -511,6 +569,10 @@ impl esphome_client_cb {
 
     fn sensor(&self, key: esphome_entity_id, state: esphome_sensor_state) {
         (self.on_sensor)(self.user, key, state)
+    }
+
+    fn time(&self, key: esphome_entity_id, state: esphome_time_state) {
+        (self.on_time)(self.user, key, state)
     }
 
     fn binary(&self, key: esphome_entity_id, state: esphome_binary_state) {
@@ -537,6 +599,10 @@ impl esphome_client_cb {
         (self.on_info_sensor)(self.user, &info)
     }
 
+    fn info_time(&self, info: esphome_time_info) {
+        (self.on_info_time)(self.user, &info)
+    }
+
     fn connected(&self, state: bool) {
         (self.on_connection)(self.user, state)
     }
@@ -561,6 +627,7 @@ impl esphome_client {
                 Reply::BinaryState(key, state) => cli.on_data.binary(key, state),
                 Reply::TextState(key, state) => cli.on_data.text(key, state),
                 Reply::SensorState(key, state) => cli.on_data.sensor(key, state),
+                Reply::TimeState(key, state) => cli.on_data.time(key, state),
                 Reply::SwitchInfo {
                     id,
                     name,
@@ -675,6 +742,21 @@ impl esphome_client {
                     disabled_by_default,
                     force_update,
                     id,
+                }),
+                Reply::TimeInfo {
+                    id,
+                    object_id,
+                    name,
+                    icon,
+                    disabled_by_default,
+                    entity_category,
+                } => cli.on_data.info_time(esphome_time_info {
+                    object_id: object_id.as_ptr(),
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    id,
+                    entity_category,
+                    disabled_by_default,
                 }),
             });
             true

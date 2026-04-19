@@ -113,6 +113,16 @@ struct EsphomeText : public EsphomeEntityBase {
     std::unique_ptr<EsphomeEntityBase> clone() const final;
 };
 
+struct EsphomeTime : public EsphomeEntityBase {
+    t_symbol* name { &s_ };
+    t_symbol* icon { &s_ };
+    int32_t entity_category {};
+    bool disabled_by_default {};
+
+    explicit EsphomeTime(const ceammc_esphome_time_info& t);
+    std::unique_ptr<EsphomeEntityBase> clone() const final;
+};
+
 template <typename State>
 struct EsphomeEntities {
     std::unordered_map<t_symbol*, EsphomeEntityPtr> entities;
@@ -164,6 +174,7 @@ class NetEsphomeClient : public RustFfiObject<BaseObject, ceammc_esphome_client>
     EsphomeEntities<ceammc_esphome_binary_state> bins_;
     EsphomeEntities<ceammc_esphome_sensor_state> sensors_;
     EsphomeEntities<ceammc_esphome_switch_state> switches_;
+    EsphomeEntities<ceammc_esphome_time_state> time_;
     EsphomeEntities<EsphomeTextState> texts_;
 
 public:
@@ -184,12 +195,14 @@ public:
     void onSensorInfo(EsphomeEntityPtr&& info);
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
+    void onTimeInfo(EsphomeEntityPtr&& info);
     void onDeviceInfo(const ceammc_esphome_device_info& info);
 
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);
+    void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_time_state& state);
 };
 
 void setup_net_esphome_client();

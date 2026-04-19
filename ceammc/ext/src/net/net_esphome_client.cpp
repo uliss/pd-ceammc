@@ -59,6 +59,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_time_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
             [](void* user, const ceammc_esphome_switch_info* s) {
                 ESPHOME_CAST();
                 obj->onSwitchInfo(EsphomeEntityPtr { new EsphomeSwitch(*s) });
@@ -74,6 +78,10 @@ namespace {
             [](void* user, const ceammc_esphome_sensor_info* s) {
                 ESPHOME_CAST();
                 obj->onSensorInfo(EsphomeEntityPtr { new EsphomeSensor(*s) });
+            },
+            [](void* user, const ceammc_esphome_time_info* t) {
+                ESPHOME_CAST();
+                obj->onTimeInfo(EsphomeEntityPtr { new EsphomeTime(*t) });
             },
             [](void* user, const ceammc_esphome_device_info* dev) {
                 ESPHOME_CAST();
@@ -163,6 +171,20 @@ EsphomeText::EsphomeText(const ceammc_esphome_text_info& t)
 std::unique_ptr<EsphomeEntityBase> EsphomeText::clone() const
 {
     return std::unique_ptr<EsphomeEntityBase> { new EsphomeText(*this) };
+}
+
+EsphomeTime::EsphomeTime(const ceammc_esphome_time_info& t)
+    : EsphomeEntityBase(t.id, t.object_id)
+    , MSYM_INIT(t, name)
+    , MSYM_INIT(t, icon)
+    , M_INIT(t, entity_category)
+    , M_INIT(t, disabled_by_default)
+{
+}
+
+std::unique_ptr<EsphomeEntityBase> EsphomeTime::clone() const
+{
+    return std::unique_ptr<EsphomeEntityBase> { new EsphomeTime(*this) };
 }
 
 EsphomeSensor::EsphomeSensor(const ceammc_esphome_sensor_info& s)
@@ -309,6 +331,11 @@ void NetEsphomeClient::onTextInfo(EsphomeEntityPtr&& info)
     texts_.addInfo(std::move(info));
 }
 
+void NetEsphomeClient::onTimeInfo(EsphomeEntityPtr&& info)
+{
+    time_.addInfo(std::move(info));
+}
+
 void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
 {
     bins_.addInfo(std::move(info));
@@ -355,6 +382,18 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
     auto oid = texts_.setState(id, xstate);
     if (oid)
         anyTo(0, oid, Atom(xstate.value));
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_time_state& state)
+{
+    auto oid = time_.setState(id, state);
+    if (oid) {
+        AtomArray<3> data;
+        data[0] = state.hour;
+        data[1] = state.minute;
+        data[2] = state.second;
+        anyTo(0, oid, data.view());
+    }
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state)

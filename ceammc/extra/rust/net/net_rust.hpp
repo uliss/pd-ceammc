@@ -101,6 +101,13 @@ struct ceammc_esphome_sensor_state {
     bool missing_state;
 };
 
+struct ceammc_esphome_time_state {
+    uint32_t hour;
+    uint32_t minute;
+    uint32_t second;
+    bool missing_state;
+};
+
 struct ceammc_esphome_switch_info {
     /// valid within callback only
     const char *name;
@@ -167,6 +174,18 @@ struct ceammc_esphome_sensor_info {
     bool force_update;
 };
 
+struct ceammc_esphome_time_info {
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    ceammc_esphome_entity_id id;
+    int32_t entity_category;
+    bool disabled_by_default;
+};
+
 struct ceammc_esphome_device_info {
     /// valid within callback only
     const char *name;
@@ -202,10 +221,12 @@ struct ceammc_esphome_client_cb {
     void (*on_binary)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_binary_state state);
     void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
     void (*on_sensor)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_sensor_state state);
+    void (*on_time)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_time_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
     void (*on_info_sensor)(void *user, const ceammc_esphome_sensor_info *info);
+    void (*on_info_time)(void *user, const ceammc_esphome_time_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
     void (*on_connection)(void *user, bool state);
 };
