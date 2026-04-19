@@ -96,6 +96,11 @@ struct ceammc_esphome_text_state {
     bool missing_state;
 };
 
+struct ceammc_esphome_sensor_state {
+    float value;
+    bool missing_state;
+};
+
 struct ceammc_esphome_switch_info {
     /// valid within callback only
     const char *name;
@@ -177,6 +182,7 @@ struct ceammc_esphome_client_cb {
                             ceammc_esphome_switch_state state);
     void (*on_binary)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_binary_state state);
     void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
+    void (*on_sensor)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_sensor_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);

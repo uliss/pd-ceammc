@@ -45,6 +45,13 @@ pub struct esphome_text_state {
 
 #[repr(C)]
 #[derive(Debug, Clone)]
+pub struct esphome_sensor_state {
+    value: f32,
+    missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
 pub struct esphome_switch_info {
     /// valid within callback only
     name: *const c_char,
@@ -147,6 +154,7 @@ enum Reply {
     ListEntitiesEnd,
     BinaryState(esphome_entity_id, esphome_binary_state),
     SwitchState(esphome_entity_id, esphome_switch_state),
+    SensorState(esphome_entity_id, esphome_sensor_state),
     TextState(esphome_entity_id, TextState),
     BinaryInfo {
         id: esphome_entity_id,
@@ -254,7 +262,16 @@ async fn process_message_from_device(
         }
         EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
         EspHomeMessage::ListEntitiesSensorResponse(list_entities_sensor_response) => Ok(None),
-        EspHomeMessage::SensorStateResponse(sensor_state_response) => todo!(),
+        EspHomeMessage::SensorStateResponse(sensor) => Ok(Some(Reply::SensorState(
+            esphome_entity_id {
+                key: sensor.key,
+                device_id: sensor.device_id,
+            },
+            esphome_sensor_state {
+                value: sensor.state,
+                missing_state: sensor.missing_state,
+            },
+        ))),
         EspHomeMessage::ListEntitiesSwitchResponse(sw) => Ok(Some(Reply::SwitchInfo {
             id: esphome_entity_id {
                 key: sw.key,
@@ -415,6 +432,8 @@ pub struct esphome_client_cb {
     on_binary:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_binary_state),
     on_text: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_text_state),
+    on_sensor:
+        extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_sensor_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
@@ -437,6 +456,10 @@ impl esphome_client_cb {
             missing_state: state.missing_state,
         };
         (self.on_text)(self.user, key, state)
+    }
+
+    fn sensor(&self, key: esphome_entity_id, state: esphome_sensor_state) {
+        (self.on_sensor)(self.user, key, state)
     }
 
     fn binary(&self, key: esphome_entity_id, state: esphome_binary_state) {
@@ -482,6 +505,7 @@ impl esphome_client {
                 Reply::SwitchState(key, state) => cli.on_data.state_switch(key, state),
                 Reply::BinaryState(key, state) => cli.on_data.binary(key, state),
                 Reply::TextState(key, state) => cli.on_data.text(key, state),
+                Reply::SensorState(key, state) => cli.on_data.sensor(key, state),
                 Reply::SwitchInfo {
                     id,
                     name,

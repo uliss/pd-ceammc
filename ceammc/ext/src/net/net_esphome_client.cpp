@@ -55,6 +55,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_sensor_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
             [](void* user, const ceammc_esphome_switch_info* s) {
                 ESPHOME_CAST();
                 obj->onSwitchInfo(EsphomeEntityPtr { new EsphomeSwitch(*s) });
@@ -313,26 +317,30 @@ void NetEsphomeClient::onDeviceInfo(const ceammc_esphome_device_info& info)
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state)
 {
     auto oid = switches_.setState(id, state);
-    if (oid) {
+    if (oid)
         anyTo(0, oid, Atom(state.value));
-    }
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state)
 {
     const EsphomeTextState xstate { gensym(state.value), state.missing_state };
     auto oid = texts_.setState(id, xstate);
-    if (oid) {
+    if (oid)
         anyTo(0, oid, Atom(xstate.value));
-    }
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state)
 {
     auto oid = bins_.setState(id, state);
-    if (oid) {
+    if (oid)
         anyTo(0, oid, Atom(state.value));
-    }
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state)
+{
+    auto oid = sensors_.setState(id, state);
+    if (oid)
+        anyTo(0, oid, Atom(state.value));
 }
 
 void setup_net_esphome_client()
