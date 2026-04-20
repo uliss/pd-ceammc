@@ -18,6 +18,7 @@
 #include "ceammc_rs_msg_object.h"
 #include "net_rust.hpp"
 
+#include <functional>
 #include <unordered_map>
 
 namespace ceammc {
@@ -96,6 +97,19 @@ struct EsphomeEntities {
         return it == entities.end() ? nullptr : &it->second->id();
     }
 
+    template <typename Info>
+    const Info* findInfo(t_symbol* object_id) const
+    {
+        auto it = entities.find(object_id);
+        return it == entities.end() ? nullptr : dynamic_cast<const Info*>(it->second.get());
+    }
+
+    void foreachEntity(const std::function<void(t_symbol*, const EsphomeEntityPtr&)>& fn) const
+    {
+        for (auto& e : entities)
+            fn(e.first, e.second);
+    }
+
     void clear()
     {
         entities.clear();
@@ -109,6 +123,7 @@ class NetEsphomeClient : public RustFfiObject<BaseObject, ceammc_esphome_client>
     IntProperty* port_ { nullptr };
 
     EsphomeEntities<ceammc_esphome_binary_state> bins_;
+    EsphomeEntities<ceammc_esphome_number_state> numbers_;
     EsphomeEntities<ceammc_esphome_sensor_state> sensors_;
     EsphomeEntities<ceammc_esphome_switch_state> switches_;
     EsphomeEntities<ceammc_esphome_time_state> time_;
@@ -118,10 +133,12 @@ public:
     explicit NetEsphomeClient(const PdArgs& args);
 
     bool notify(int code) final;
+    void dump() const final;
 
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_entities(t_symbol* s, const AtomListView& lv);
     void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_number(t_symbol* s, const AtomListView& lv);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_switch(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
@@ -131,13 +148,16 @@ public:
 
 public:
     void onBinaryInfo(EsphomeEntityPtr&& info);
+    void onNumberInfo(EsphomeEntityPtr&& info);
     void onSensorInfo(EsphomeEntityPtr&& info);
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
     void onTimeInfo(EsphomeEntityPtr&& info);
+
     void onDeviceInfo(const ceammc_esphome_device_info& info);
 
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
+    void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);

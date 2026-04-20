@@ -101,6 +101,11 @@ struct ceammc_esphome_sensor_state {
     bool missing_state;
 };
 
+struct ceammc_esphome_number_state {
+    float value;
+    bool missing_state;
+};
+
 struct ceammc_esphome_time_state {
     uint32_t hour;
     uint32_t minute;
@@ -242,6 +247,7 @@ struct ceammc_esphome_client_cb {
     void (*on_binary)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_binary_state state);
     void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
     void (*on_sensor)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_sensor_state state);
+    void (*on_number)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_number_state state);
     void (*on_time)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_time_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
@@ -532,6 +538,15 @@ ceammc_esphome_client *ceammc_esphome_client_new(const char *addr,
                                                  ceammc_msg_notify notify,
                                                  ceammc_msg_cb on_msg,
                                                  ceammc_esphome_client_cb on_data);
+
+/// set esphome device number state
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param state - new state
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_esphome_client_number(ceammc_esphome_client *cli,
+                                  const ceammc_esphome_entity_id *id,
+                                  float state);
 
 /// send ping to the connected esphome device
 /// @param cli - esphome device handle

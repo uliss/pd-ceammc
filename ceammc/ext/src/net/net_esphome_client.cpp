@@ -171,6 +171,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_number_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
             [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_time_state state) {
                 ESPHOME_CAST();
                 obj->onState(id, state);
@@ -193,7 +197,7 @@ namespace {
             },
             [](void* user, const ceammc_esphome_number_info* s) {
                 ESPHOME_CAST();
-                obj->onSensorInfo(EsphomeEntityPtr { new EsphomeNumber(*s) });
+                obj->onNumberInfo(EsphomeEntityPtr { new EsphomeNumber(*s) });
             },
             [](void* user, const ceammc_esphome_time_info* t) {
                 ESPHOME_CAST();
@@ -254,6 +258,36 @@ bool NetEsphomeClient::notify(int /*code*/)
     return ceammc_esphome_client_process(ffiObject());
 }
 
+void NetEsphomeClient::dump() const
+{
+    RustFfiObject<BaseObject, ceammc_esphome_client>::dump();
+
+    bins_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': binary", id->s_name);
+        });
+
+    numbers_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': number", id->s_name);
+        });
+
+    texts_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': text", id->s_name);
+        });
+
+    sensors_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': sensor", id->s_name);
+        });
+
+    time_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': time", id->s_name);
+        });
+}
+
 /// @function "connect to / disconnect from esphome device" {
 ///     #state bool "state" { default: true }
 /// }
@@ -289,6 +323,37 @@ void NetEsphomeClient::m_ping(t_symbol* s, const AtomListView& lv)
         return;
 
     ceammc_esphome_client_ping(ffiObject());
+}
+
+/// @function "set esphome number state" {
+///     #key    symbol  "number ID"     { }
+///     #state  float   "number state"  {}
+/// }
+void NetEsphomeClient::m_number(t_symbol* s, const AtomListView& lv)
+{
+    m_number_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!checkFfiObject(true, s))
+        return;
+
+    auto id = numbers_.findId(args.key);
+    if (!id) {
+        METHOD_ERR(s) << fmt::format("number with id '{}' not found", args.key->s_name);
+        return;
+    }
+
+    auto info = numbers_.findInfo<EsphomeNumber>(args.key);
+    if (info) {
+        if (info->min_value > args.state || args.state > info->max_value) {
+            METHOD_ERR(s) << fmt::format("invalid value: {}, expected value in [{}..{}] range",
+                args.state, info->min_value, info->max_value);
+            return;
+        }
+    }
+
+    ceammc_esphome_client_number(ffiObject(), id, args.state);
 }
 
 void NetEsphomeClient::m_subscribe(t_symbol* s, const AtomListView& lv)
@@ -409,6 +474,11 @@ void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
     bins_.addInfo(std::move(info));
 }
 
+void NetEsphomeClient::onNumberInfo(EsphomeEntityPtr&& info)
+{
+    numbers_.addInfo(std::move(info));
+}
+
 void NetEsphomeClient::onSensorInfo(EsphomeEntityPtr&& info)
 {
     sensors_.addInfo(std::move(info));
@@ -471,6 +541,13 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
         anyTo(0, oid, Atom(state.value));
 }
 
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state)
+{
+    auto oid = numbers_.setState(id, state);
+    if (oid)
+        anyTo(0, oid, Atom(state.value));
+}
+
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state)
 {
     auto oid = sensors_.setState(id, state);
@@ -485,6 +562,7 @@ void setup_net_esphome_client()
     obj.addMethod("connect", &NetEsphomeClient::m_connect);
     obj.addMethod("entities", &NetEsphomeClient::m_entities);
     obj.addMethod("get_time", &NetEsphomeClient::m_get_time);
+    obj.addMethod("number", &NetEsphomeClient::m_number);
     obj.addMethod("ping", &NetEsphomeClient::m_ping);
     obj.addMethod("subscribe", &NetEsphomeClient::m_subscribe);
     obj.addMethod("switch", &NetEsphomeClient::m_switch);

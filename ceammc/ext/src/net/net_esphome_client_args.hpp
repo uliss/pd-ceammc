@@ -80,6 +80,113 @@ void m_connect_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_connect_args_info());
 }
+struct m_number_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_symbol* key {&s_}; // number ID
+    t_float state {0}; // number state
+    // methods
+    int process_key(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isSymbol()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        key = lv[0].asT<t_symbol*>();
+        // number of matched items
+        return 1;
+    }
+    int process_state(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isFloat()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        state = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_key_info() {
+        return "KEY (number ID), symbol";
+    }
+    static const char* arg_state_info() {
+        return "STATE (number state), float";
+    }
+    static const char* usage() {
+        return "usage: [number KEY STATE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_key_info();
+        Post(obj) << " - " << arg_state_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_key(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[number( argument #0 'KEY' is required:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[number( argument #0 'KEY' check failed, expected:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        matched = process_state(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[number( argument #1 'STATE' is required:";
+                    Post(obj) << " - " << arg_state_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[number( argument #1 'STATE' check failed, expected:";
+                    Post(obj) << " - " << arg_state_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[number( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_number_args_info() {
+    return "set esphome number state";
+}
+void m_number_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_number_args_info());
+}
 struct m_switch_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args

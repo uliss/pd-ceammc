@@ -5,8 +5,9 @@ use std::{
 
 use ::esphome_client::{
     types::{
-        DeviceInfoRequest, EspHomeMessage, GetTimeRequest, ListEntitiesRequest, PingRequest,
-        SubscribeStatesRequest, SwitchCommandRequest, TextCommandRequest, TimeCommandRequest,
+        DeviceInfoRequest, EspHomeMessage, GetTimeRequest, ListEntitiesRequest,
+        NumberCommandRequest, PingRequest, SubscribeStatesRequest, SwitchCommandRequest,
+        TextCommandRequest, TimeCommandRequest,
     },
     EspHomeClient,
 };
@@ -46,6 +47,13 @@ pub struct esphome_text_state {
 #[repr(C)]
 #[derive(Debug, Clone)]
 pub struct esphome_sensor_state {
+    value: f32,
+    missing_state: bool,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone)]
+pub struct esphome_number_state {
     value: f32,
     missing_state: bool,
 }
@@ -214,6 +222,7 @@ enum Request {
     Switch(esphome_entity_id, bool),
     Text(esphome_entity_id, String),
     Time(esphome_entity_id, esphome_time_state),
+    Number(esphome_entity_id, f32),
 }
 
 #[derive(Clone, Debug)]
@@ -226,6 +235,7 @@ enum Reply {
     SensorState(esphome_entity_id, esphome_sensor_state),
     TextState(esphome_entity_id, TextState),
     TimeState(esphome_entity_id, esphome_time_state),
+    NumberState(esphome_entity_id, esphome_number_state),
     BinaryInfo {
         id: esphome_entity_id,
         name: CString,
@@ -454,7 +464,16 @@ async fn process_message_from_device(
             entity_category: num.entity_category,
             mode: num.mode,
         })),
-        EspHomeMessage::NumberStateResponse(number_state_response) => todo!(),
+        EspHomeMessage::NumberStateResponse(num) => Ok(Some(Reply::NumberState(
+            esphome_entity_id {
+                key: num.key,
+                device_id: num.device_id,
+            },
+            esphome_number_state {
+                value: num.state,
+                missing_state: num.missing_state,
+            },
+        ))),
         EspHomeMessage::ListEntitiesSelectResponse(list_entities_select_response) => todo!(),
         EspHomeMessage::SelectStateResponse(select_state_response) => todo!(),
         EspHomeMessage::ListEntitiesSirenResponse(list_entities_siren_response) => todo!(),
@@ -592,6 +611,8 @@ pub struct esphome_client_cb {
     on_text: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_text_state),
     on_sensor:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_sensor_state),
+    on_number:
+        extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_number_state),
     on_time: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_time_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
@@ -630,6 +651,10 @@ impl esphome_client_cb {
 
     fn binary(&self, key: esphome_entity_id, state: esphome_binary_state) {
         (self.on_binary)(self.user, key, state)
+    }
+
+    fn number(&self, key: esphome_entity_id, state: esphome_number_state) {
+        (self.on_number)(self.user, key, state)
     }
 
     fn info_binary(&self, info: esphome_binary_info) {
@@ -685,6 +710,7 @@ impl esphome_client {
                 Reply::TextState(key, state) => cli.on_data.text(key, state),
                 Reply::SensorState(key, state) => cli.on_data.sensor(key, state),
                 Reply::TimeState(key, state) => cli.on_data.time(key, state),
+                Reply::NumberState(key, state) => cli.on_data.number(key, state),
                 Reply::SwitchInfo {
                     id,
                     name,
@@ -985,6 +1011,15 @@ impl esphome_client {
                                 let command = EspHomeMessage::GetTimeRequest(GetTimeRequest {});
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
                             }
+                            Request::Number(id, state) => {
+                                let command =
+                                    EspHomeMessage::NumberCommandRequest(NumberCommandRequest {
+                                        key: id.key,
+                                        state,
+                                        device_id: id.device_id,
+                                    });
+                                dev_tx.send(command).await.map_err(|err| err.to_string())?;
+                            }
                         }
                         Ok(())
                     })
@@ -1129,4 +1164,18 @@ pub extern "C" fn ceammc_esphome_client_set_time(
 /// @return true on sucess, false on error (if device is disconnected etc.)
 pub extern "C" fn ceammc_esphome_client_get_time(cli: *mut esphome_client) -> bool {
     esphome_client::send_request(cli, Request::GetTime)
+}
+
+#[no_mangle]
+/// set esphome device number state
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param state - new state
+/// @return true on sucess, false on error (if device is disconnected etc.)
+pub extern "C" fn ceammc_esphome_client_number(
+    cli: *mut esphome_client,
+    id: &esphome_entity_id,
+    state: f32,
+) -> bool {
+    esphome_client::send_request(cli, Request::Number(id.clone(), state))
 }
