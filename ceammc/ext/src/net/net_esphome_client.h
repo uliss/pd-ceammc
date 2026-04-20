@@ -55,72 +55,9 @@ struct EsphomeEntityState {
     State state;
 };
 
-struct EsphomeSwitch : public EsphomeEntityBase {
-    t_symbol* name { &s_ };
-    t_symbol* icon { &s_ };
-    t_symbol* device_class { &s_ };
-    int32_t entity_category {};
-    bool assumed_state {};
-    bool disabled_by_default {};
-
-    explicit EsphomeSwitch(const ceammc_esphome_switch_info& s);
-    std::unique_ptr<EsphomeEntityBase> clone() const final;
-};
-
-struct EsphomeBinary : public EsphomeEntityBase {
-    t_symbol* name { &s_ };
-    t_symbol* icon { &s_ };
-    t_symbol* device_class { &s_ };
-    int32_t entity_category {};
-    bool disabled_by_default {};
-    bool is_status_binary_sensor {};
-
-    explicit EsphomeBinary(const ceammc_esphome_binary_info& s);
-    std::unique_ptr<EsphomeEntityBase> clone() const final;
-};
-
-struct EsphomeSensor : public EsphomeEntityBase {
-    t_symbol* name { &s_ };
-    t_symbol* icon { &s_ };
-    t_symbol* device_class { &s_ };
-    t_symbol* unit_of_measurement { &s_ };
-    int32_t accuracy_decimals;
-    int32_t state_class;
-    int32_t entity_category;
-    bool disabled_by_default;
-    bool force_update;
-
-    explicit EsphomeSensor(const ceammc_esphome_sensor_info& s);
-    std::unique_ptr<EsphomeEntityBase> clone() const final;
-};
-
 struct EsphomeTextState {
     t_symbol* value { &s_ };
     bool missing_value {};
-};
-
-struct EsphomeText : public EsphomeEntityBase {
-    t_symbol* name { &s_ };
-    t_symbol* icon { &s_ };
-    t_symbol* pattern { &s_ };
-    int32_t entity_category {};
-    uint32_t min_length {};
-    uint32_t max_length {};
-    int32_t mode {};
-    bool disabled_by_default {};
-
-    explicit EsphomeText(const ceammc_esphome_text_info& t);
-    std::unique_ptr<EsphomeEntityBase> clone() const final;
-};
-
-struct EsphomeTime : public EsphomeEntityBase {
-    t_symbol* name { &s_ };
-    t_symbol* icon { &s_ };
-    int32_t entity_category {};
-    bool disabled_by_default {};
-
-    explicit EsphomeTime(const ceammc_esphome_time_info& t);
-    std::unique_ptr<EsphomeEntityBase> clone() const final;
 };
 
 template <typename State>

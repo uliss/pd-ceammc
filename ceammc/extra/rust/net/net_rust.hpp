@@ -175,6 +175,26 @@ struct ceammc_esphome_sensor_info {
     bool force_update;
 };
 
+struct ceammc_esphome_number_info {
+    /// valid within callback only
+    const char *object_id;
+    /// valid within callback only
+    const char *name;
+    /// valid within callback only
+    const char *icon;
+    /// valid within callback only
+    const char *unit_of_measurement;
+    const char *device_class;
+    /// valid within callback only
+    ceammc_esphome_entity_id id;
+    float min_value;
+    float max_value;
+    float step;
+    int32_t entity_category;
+    int32_t mode;
+    bool disabled_by_default;
+};
+
 struct ceammc_esphome_time_info {
     /// valid within callback only
     const char *object_id;
@@ -227,6 +247,7 @@ struct ceammc_esphome_client_cb {
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
     void (*on_info_sensor)(void *user, const ceammc_esphome_sensor_info *info);
+    void (*on_info_number)(void *user, const ceammc_esphome_number_info *info);
     void (*on_info_time)(void *user, const ceammc_esphome_time_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
     void (*on_connection)(void *user, bool state);

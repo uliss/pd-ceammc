@@ -32,7 +32,119 @@ OBJECT_STUB_SETUP(NetEsphomeClient, net_esphome_client, "net.esphome.client");
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(connected)
 
+// dark magic
+#define APPLY_TO_EACH_1(action, x) action(x)
+#define APPLY_TO_EACH_2(action, x, ...) \
+    action(x)                           \
+        APPLY_TO_EACH_1(action, __VA_ARGS__)
+#define APPLY_TO_EACH_3(action, x, ...) \
+    action(x)                           \
+        APPLY_TO_EACH_2(action, __VA_ARGS__)
+#define APPLY_TO_EACH_4(action, x, ...) \
+    action(x)                           \
+        APPLY_TO_EACH_3(action, __VA_ARGS__)
+#define APPLY_TO_EACH_5(action, x, ...) \
+    action(x)                           \
+        APPLY_TO_EACH_4(action, __VA_ARGS__)
+
+#define GET_APPLY_MACRO(_1, _2, _3, _4, _5, NAME, ...) NAME
+#define FOR_EACH_SYMBOL(action, ...)                               \
+    GET_APPLY_MACRO(__VA_ARGS__, APPLY_TO_EACH_5, APPLY_TO_EACH_4, \
+        APPLY_TO_EACH_3, APPLY_TO_EACH_2, APPLY_TO_EACH_1)         \
+    (action, __VA_ARGS__)
+
+#define UNWRAP_ARGS(...) __VA_ARGS__
+
+#define DECLARE_SYM(x) t_symbol* x { &s_ };
+#define DECLARE_TYPED(type, name) type name {};
+
+#define COPY_SYM(x) \
+    , x { gensym(obj.x) }
+#define COPY_TYPED(_, x) \
+    , x { obj.x }
+
+#define PAIR_COUNT_(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, N, ...) N
+#define PAIR_COUNT(...) PAIR_COUNT_(__VA_ARGS__, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1)
+#define APPLY_PAIR_1(action, a, b) action(a, b)
+#define APPLY_PAIR_2(action, a, b, ...) \
+    action(a, b)                        \
+        APPLY_PAIR_1(action, __VA_ARGS__)
+#define APPLY_PAIR_3(action, a, b, ...) \
+    action(a, b)                        \
+        APPLY_PAIR_2(action, __VA_ARGS__)
+#define APPLY_PAIR_4(action, a, b, ...) \
+    action(a, b)                        \
+        APPLY_PAIR_3(action, __VA_ARGS__)
+#define APPLY_PAIR_5(action, a, b, ...) \
+    action(a, b)                        \
+        APPLY_PAIR_4(action, __VA_ARGS__)
+#define APPLY_PAIR_6(action, a, b, ...) \
+    action(a, b)                        \
+        APPLY_PAIR_5(action, __VA_ARGS__)
+
+#define CONCAT_PAIR(a, b) a##b
+#define APPLY_PAIR_N(N, action, ...) CONCAT_PAIR(APPLY_PAIR_, N)(action, __VA_ARGS__)
+
+#define GET_PAIR_MACRO(cnt) APPLY_PAIR_##cnt
+#define FOR_EACH_PAIR(action, ...) \
+    APPLY_PAIR_N(PAIR_COUNT(__VA_ARGS__), action, __VA_ARGS__)
+
+#define DEFINE_STRUCT(name, info, symbols, others)                         \
+    struct name : public EsphomeEntityBase {                               \
+        FOR_EACH_SYMBOL(DECLARE_SYM, UNWRAP_ARGS symbols)                  \
+        FOR_EACH_PAIR(DECLARE_TYPED, UNWRAP_ARGS others)                   \
+        explicit name(const info& obj)                                     \
+            : EsphomeEntityBase(obj.id, obj.object_id)                     \
+                  FOR_EACH_SYMBOL(COPY_SYM, UNWRAP_ARGS symbols)           \
+                      FOR_EACH_PAIR(COPY_TYPED, UNWRAP_ARGS others)        \
+        {                                                                  \
+        }                                                                  \
+        std::unique_ptr<EsphomeEntityBase> clone() const final             \
+        {                                                                  \
+            return std::unique_ptr<EsphomeEntityBase> { new name(*this) }; \
+        }                                                                  \
+    }
+
 namespace ceammc {
+
+DEFINE_STRUCT(EsphomeSwitch, ceammc_esphome_switch_info,
+    (name, icon, device_class),
+    (int32_t, entity_category, bool, assumed_state, bool, disabled_by_default));
+
+DEFINE_STRUCT(EsphomeTime, ceammc_esphome_time_info,
+    (name, icon),
+    (int32_t, entity_category, bool, disabled_by_default));
+
+DEFINE_STRUCT(EsphomeNumber, ceammc_esphome_number_info,
+    (name, icon, unit_of_measurement, device_class),
+    (float, min_value,
+        float, max_value,
+        float, step,
+        int32_t, entity_category,
+        int32_t, mode,
+        bool, disabled_by_default));
+
+DEFINE_STRUCT(EsphomeBinary, ceammc_esphome_binary_info,
+    (name, icon, device_class),
+    (int32_t, entity_category,
+        bool, is_status_binary_sensor,
+        bool, disabled_by_default));
+
+DEFINE_STRUCT(EsphomeSensor, ceammc_esphome_sensor_info,
+    (name, icon, device_class, unit_of_measurement),
+    (int32_t, entity_category,
+        int32_t, accuracy_decimals,
+        int32_t, state_class,
+        bool, disabled_by_default,
+        bool, force_update));
+
+DEFINE_STRUCT(EsphomeText, ceammc_esphome_text_info,
+    (name, icon, pattern),
+    (int32_t, entity_category,
+        uint32_t, min_length,
+        uint32_t, max_length,
+        int32_t, mode,
+        bool, disabled_by_default));
 
 namespace {
     ceammc_esphome_client_cb on_data(void* user)
@@ -79,6 +191,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onSensorInfo(EsphomeEntityPtr { new EsphomeSensor(*s) });
             },
+            [](void* user, const ceammc_esphome_number_info* s) {
+                ESPHOME_CAST();
+                obj->onSensorInfo(EsphomeEntityPtr { new EsphomeNumber(*s) });
+            },
             [](void* user, const ceammc_esphome_time_info* t) {
                 ESPHOME_CAST();
                 obj->onTimeInfo(EsphomeEntityPtr { new EsphomeTime(*t) });
@@ -118,92 +234,6 @@ std::size_t EsphomeEntityIdHash::operator()(const ceammc_esphome_entity_id& id) 
 bool EsphomeEntityEqual::operator()(const ceammc_esphome_entity_id& a, const ceammc_esphome_entity_id& b) const
 {
     return a.key == b.key && a.device_id == b.device_id;
-}
-
-#define MSYM_INIT(obj, name) name(gensym(obj.name))
-#define M_INIT(obj, name) name(obj.name)
-
-EsphomeSwitch::EsphomeSwitch(const ceammc_esphome_switch_info& s)
-    : EsphomeEntityBase(s.id, s.object_id)
-    , MSYM_INIT(s, name)
-    , MSYM_INIT(s, icon)
-    , MSYM_INIT(s, device_class)
-    , M_INIT(s, entity_category)
-    , M_INIT(s, assumed_state)
-    , M_INIT(s, disabled_by_default)
-{
-}
-
-std::unique_ptr<EsphomeEntityBase> EsphomeSwitch::clone() const
-{
-    return std::unique_ptr<EsphomeEntityBase> { new EsphomeSwitch(*this) };
-}
-
-EsphomeBinary::EsphomeBinary(const ceammc_esphome_binary_info& s)
-    : EsphomeEntityBase(s.id, s.object_id)
-    , MSYM_INIT(s, name)
-    , MSYM_INIT(s, icon)
-    , MSYM_INIT(s, device_class)
-    , M_INIT(s, entity_category)
-    , M_INIT(s, disabled_by_default)
-    , M_INIT(s, is_status_binary_sensor)
-{
-}
-
-std::unique_ptr<EsphomeEntityBase> EsphomeBinary::clone() const
-{
-    return std::unique_ptr<EsphomeEntityBase> { new EsphomeBinary(*this) };
-}
-
-EsphomeText::EsphomeText(const ceammc_esphome_text_info& t)
-    : EsphomeEntityBase(t.id, t.object_id)
-    , MSYM_INIT(t, name)
-    , MSYM_INIT(t, icon)
-    , MSYM_INIT(t, pattern)
-    , M_INIT(t, entity_category)
-    , M_INIT(t, min_length)
-    , M_INIT(t, max_length)
-    , M_INIT(t, mode)
-    , M_INIT(t, disabled_by_default)
-{
-}
-
-std::unique_ptr<EsphomeEntityBase> EsphomeText::clone() const
-{
-    return std::unique_ptr<EsphomeEntityBase> { new EsphomeText(*this) };
-}
-
-EsphomeTime::EsphomeTime(const ceammc_esphome_time_info& t)
-    : EsphomeEntityBase(t.id, t.object_id)
-    , MSYM_INIT(t, name)
-    , MSYM_INIT(t, icon)
-    , M_INIT(t, entity_category)
-    , M_INIT(t, disabled_by_default)
-{
-}
-
-std::unique_ptr<EsphomeEntityBase> EsphomeTime::clone() const
-{
-    return std::unique_ptr<EsphomeEntityBase> { new EsphomeTime(*this) };
-}
-
-EsphomeSensor::EsphomeSensor(const ceammc_esphome_sensor_info& s)
-    : EsphomeEntityBase(s.id, s.object_id)
-    , MSYM_INIT(s, name)
-    , MSYM_INIT(s, icon)
-    , MSYM_INIT(s, device_class)
-    , MSYM_INIT(s, unit_of_measurement)
-    , M_INIT(s, accuracy_decimals)
-    , M_INIT(s, state_class)
-    , M_INIT(s, entity_category)
-    , M_INIT(s, disabled_by_default)
-    , M_INIT(s, force_update)
-{
-}
-
-std::unique_ptr<EsphomeEntityBase> EsphomeSensor::clone() const
-{
-    return std::unique_ptr<EsphomeEntityBase> { new EsphomeSensor(*this) };
 }
 
 NetEsphomeClient::NetEsphomeClient(const PdArgs& args)

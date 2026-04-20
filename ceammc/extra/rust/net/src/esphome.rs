@@ -61,7 +61,7 @@ pub struct esphome_time_state {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct esphome_switch_info {
     /// valid within callback only
     name: *const c_char,
@@ -78,7 +78,7 @@ pub struct esphome_switch_info {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct esphome_binary_info {
     /// valid within callback only
     name: *const c_char,
@@ -95,7 +95,7 @@ pub struct esphome_binary_info {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct esphome_sensor_info {
     /// valid within callback only
     object_id: *const c_char,
@@ -116,7 +116,7 @@ pub struct esphome_sensor_info {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct esphome_time_info {
     /// valid within callback only
     object_id: *const c_char,
@@ -130,7 +130,29 @@ pub struct esphome_time_info {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
+pub struct esphome_number_info {
+    /// valid within callback only
+    object_id: *const c_char,
+    /// valid within callback only
+    name: *const c_char,
+    /// valid within callback only
+    icon: *const c_char,
+    /// valid within callback only
+    unit_of_measurement: *const c_char,
+    device_class: *const c_char,
+    /// valid within callback only
+    id: esphome_entity_id,
+    min_value: f32,
+    max_value: f32,
+    step: f32,
+    entity_category: i32,
+    mode: i32,
+    disabled_by_default: bool,
+}
+
+#[repr(C)]
+#[derive(Debug)]
 pub struct esphome_device_info {
     /// valid within callback only
     name: *const c_char,
@@ -164,7 +186,7 @@ struct TextState {
 }
 
 #[repr(C)]
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct esphome_text_info {
     /// valid within callback only
     object_id: *const c_char,
@@ -257,6 +279,20 @@ enum Reply {
         disabled_by_default: bool,
         entity_category: i32,
     },
+    NumberInfo {
+        id: esphome_entity_id,
+        object_id: CString,
+        name: CString,
+        icon: CString,
+        unit_of_measurement: CString,
+        device_class: CString,
+        min_value: f32,
+        max_value: f32,
+        step: f32,
+        disabled_by_default: bool,
+        entity_category: i32,
+        mode: i32,
+    },
     DeviceInfo {
         name: CString,
         mac_address: CString,
@@ -328,25 +364,22 @@ async fn process_message_from_device(
             Ok(None)
         }
         EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
-        EspHomeMessage::ListEntitiesSensorResponse(sensor) => {
-            //
-            Ok(Some(Reply::SensorInfo {
-                id: esphome_entity_id {
-                    key: sensor.key,
-                    device_id: sensor.device_id,
-                },
-                object_id: cstr_from_string(sensor.object_id),
-                name: cstr_from_string(sensor.name),
-                icon: cstr_from_string(sensor.icon),
-                unit_of_measurement: cstr_from_string(sensor.unit_of_measurement),
-                accuracy_decimals: sensor.accuracy_decimals,
-                force_update: sensor.force_update,
-                device_class: cstr_from_string(sensor.device_class),
-                state_class: sensor.state_class,
-                disabled_by_default: sensor.disabled_by_default,
-                entity_category: sensor.entity_category,
-            }))
-        }
+        EspHomeMessage::ListEntitiesSensorResponse(sensor) => Ok(Some(Reply::SensorInfo {
+            id: esphome_entity_id {
+                key: sensor.key,
+                device_id: sensor.device_id,
+            },
+            object_id: cstr_from_string(sensor.object_id),
+            name: cstr_from_string(sensor.name),
+            icon: cstr_from_string(sensor.icon),
+            unit_of_measurement: cstr_from_string(sensor.unit_of_measurement),
+            accuracy_decimals: sensor.accuracy_decimals,
+            force_update: sensor.force_update,
+            device_class: cstr_from_string(sensor.device_class),
+            state_class: sensor.state_class,
+            disabled_by_default: sensor.disabled_by_default,
+            entity_category: sensor.entity_category,
+        })),
         EspHomeMessage::SensorStateResponse(sensor) => Ok(Some(Reply::SensorState(
             esphome_entity_id {
                 key: sensor.key,
@@ -404,7 +437,23 @@ async fn process_message_from_device(
         EspHomeMessage::CameraImageResponse(camera_image_response) => todo!(),
         EspHomeMessage::ListEntitiesClimateResponse(list_entities_climate_response) => todo!(),
         EspHomeMessage::ClimateStateResponse(climate_state_response) => todo!(),
-        EspHomeMessage::ListEntitiesNumberResponse(list_entities_number_response) => todo!(),
+        EspHomeMessage::ListEntitiesNumberResponse(num) => Ok(Some(Reply::NumberInfo {
+            id: esphome_entity_id {
+                key: num.key,
+                device_id: num.device_id,
+            },
+            object_id: cstr_from_string(num.object_id),
+            name: cstr_from_string(num.name),
+            icon: cstr_from_string(num.icon),
+            unit_of_measurement: cstr_from_string(num.unit_of_measurement),
+            device_class: cstr_from_string(num.device_class),
+            min_value: num.min_value,
+            max_value: num.max_value,
+            step: num.step,
+            disabled_by_default: num.disabled_by_default,
+            entity_category: num.entity_category,
+            mode: num.mode,
+        })),
         EspHomeMessage::NumberStateResponse(number_state_response) => todo!(),
         EspHomeMessage::ListEntitiesSelectResponse(list_entities_select_response) => todo!(),
         EspHomeMessage::SelectStateResponse(select_state_response) => todo!(),
@@ -548,6 +597,7 @@ pub struct esphome_client_cb {
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
     on_info_sensor: extern "C" fn(user: *mut c_void, info: &esphome_sensor_info),
+    on_info_number: extern "C" fn(user: *mut c_void, info: &esphome_number_info),
     on_info_time: extern "C" fn(user: *mut c_void, info: &esphome_time_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
     on_connection: extern "C" fn(user: *mut c_void, state: bool),
@@ -604,6 +654,10 @@ impl esphome_client_cb {
 
     fn info_time(&self, info: esphome_time_info) {
         (self.on_info_time)(self.user, &info)
+    }
+
+    fn info_number(&self, info: esphome_number_info) {
+        (self.on_info_number)(self.user, &info)
     }
 
     fn connected(&self, state: bool) {
@@ -759,6 +813,33 @@ impl esphome_client {
                     icon: icon.as_ptr(),
                     id,
                     entity_category,
+                    disabled_by_default,
+                }),
+                Reply::NumberInfo {
+                    id,
+                    object_id,
+                    name,
+                    icon,
+                    unit_of_measurement,
+                    device_class,
+                    min_value,
+                    max_value,
+                    step,
+                    disabled_by_default,
+                    entity_category,
+                    mode,
+                } => cli.on_data.info_number(esphome_number_info {
+                    object_id: object_id.as_ptr(),
+                    name: name.as_ptr(),
+                    icon: icon.as_ptr(),
+                    unit_of_measurement: unit_of_measurement.as_ptr(),
+                    device_class: device_class.as_ptr(),
+                    id,
+                    min_value,
+                    max_value,
+                    step,
+                    entity_category,
+                    mode,
                     disabled_by_default,
                 }),
             });
