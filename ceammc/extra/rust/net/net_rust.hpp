@@ -106,6 +106,11 @@ struct ceammc_esphome_number_state {
     bool missing_state;
 };
 
+struct ceammc_esphome_select_state {
+    const char *value;
+    bool missing_state;
+};
+
 struct ceammc_esphome_time_state {
     uint32_t hour;
     uint32_t minute;
@@ -200,6 +205,17 @@ struct ceammc_esphome_number_info {
     bool disabled_by_default;
 };
 
+struct ceammc_esphome_select_info {
+    ceammc_esphome_entity_id id;
+    const char *object_id;
+    const char *name;
+    const char *icon;
+    const char *const *options;
+    size_t options_len;
+    bool disabled_by_default;
+    int32_t entity_category;
+};
+
 struct ceammc_esphome_time_info {
     /// valid within callback only
     const char *object_id;
@@ -248,12 +264,14 @@ struct ceammc_esphome_client_cb {
     void (*on_text)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_text_state state);
     void (*on_sensor)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_sensor_state state);
     void (*on_number)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_number_state state);
+    void (*on_select)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_select_state state);
     void (*on_time)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_time_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);
     void (*on_info_binary)(void *user, const ceammc_esphome_binary_info *info);
     void (*on_info_sensor)(void *user, const ceammc_esphome_sensor_info *info);
     void (*on_info_number)(void *user, const ceammc_esphome_number_info *info);
+    void (*on_info_select)(void *user, const ceammc_esphome_select_info *info);
     void (*on_info_time)(void *user, const ceammc_esphome_time_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
     void (*on_connection)(void *user, bool state);

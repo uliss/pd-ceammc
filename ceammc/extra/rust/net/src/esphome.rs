@@ -59,6 +59,13 @@ pub struct esphome_number_state {
 }
 
 #[repr(C)]
+#[derive(Debug)]
+pub struct esphome_select_state {
+    value: *const c_char,
+    missing_state: bool,
+}
+
+#[repr(C)]
 #[derive(Debug, Clone)]
 pub struct esphome_time_state {
     pub hour: u32,
@@ -161,6 +168,19 @@ pub struct esphome_number_info {
 
 #[repr(C)]
 #[derive(Debug)]
+pub struct esphome_select_info {
+    id: esphome_entity_id,
+    object_id: *const c_char,
+    name: *const c_char,
+    icon: *const c_char,
+    options: *const *const c_char,
+    options_len: usize,
+    disabled_by_default: bool,
+    entity_category: i32,
+}
+
+#[repr(C)]
+#[derive(Debug)]
 pub struct esphome_device_info {
     /// valid within callback only
     name: *const c_char,
@@ -236,6 +256,7 @@ enum Reply {
     TextState(esphome_entity_id, TextState),
     TimeState(esphome_entity_id, esphome_time_state),
     NumberState(esphome_entity_id, esphome_number_state),
+    SelectState(esphome_entity_id, CString, bool),
     BinaryInfo {
         id: esphome_entity_id,
         name: CString,
@@ -302,6 +323,15 @@ enum Reply {
         disabled_by_default: bool,
         entity_category: i32,
         mode: i32,
+    },
+    SelectInfo {
+        id: esphome_entity_id,
+        object_id: CString,
+        name: CString,
+        icon: CString,
+        options: Vec<CString>,
+        disabled_by_default: bool,
+        entity_category: i32,
     },
     DeviceInfo {
         name: CString,
@@ -474,8 +504,26 @@ async fn process_message_from_device(
                 missing_state: num.missing_state,
             },
         ))),
-        EspHomeMessage::ListEntitiesSelectResponse(list_entities_select_response) => todo!(),
-        EspHomeMessage::SelectStateResponse(select_state_response) => todo!(),
+        EspHomeMessage::ListEntitiesSelectResponse(sel) => Ok(Some(Reply::SelectInfo {
+            id: esphome_entity_id {
+                key: sel.key,
+                device_id: sel.device_id,
+            },
+            object_id: cstr_from_string(sel.object_id),
+            name: cstr_from_string(sel.name),
+            icon: cstr_from_string(sel.icon),
+            options: sel.options.iter().map(|x| cstr_from_string(x)).collect(),
+            disabled_by_default: sel.disabled_by_default,
+            entity_category: sel.entity_category,
+        })),
+        EspHomeMessage::SelectStateResponse(sel) => Ok(Some(Reply::SelectState(
+            esphome_entity_id {
+                key: sel.key,
+                device_id: sel.device_id,
+            },
+            cstr_from_string(sel.state),
+            sel.missing_state,
+        ))),
         EspHomeMessage::ListEntitiesSirenResponse(list_entities_siren_response) => todo!(),
         EspHomeMessage::SirenStateResponse(siren_state_response) => todo!(),
         EspHomeMessage::ListEntitiesLockResponse(list_entities_lock_response) => todo!(),
@@ -613,12 +661,15 @@ pub struct esphome_client_cb {
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_sensor_state),
     on_number:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_number_state),
+    on_select:
+        extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_select_state),
     on_time: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_time_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
     on_info_binary: extern "C" fn(user: *mut c_void, info: &esphome_binary_info),
     on_info_sensor: extern "C" fn(user: *mut c_void, info: &esphome_sensor_info),
     on_info_number: extern "C" fn(user: *mut c_void, info: &esphome_number_info),
+    on_info_select: extern "C" fn(user: *mut c_void, info: &esphome_select_info),
     on_info_time: extern "C" fn(user: *mut c_void, info: &esphome_time_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
     on_connection: extern "C" fn(user: *mut c_void, state: bool),
@@ -657,6 +708,17 @@ impl esphome_client_cb {
         (self.on_number)(self.user, key, state)
     }
 
+    fn select(&self, key: esphome_entity_id, state: CString, missing_state: bool) {
+        (self.on_select)(
+            self.user,
+            key,
+            esphome_select_state {
+                value: state.as_ptr(),
+                missing_state,
+            },
+        )
+    }
+
     fn info_binary(&self, info: esphome_binary_info) {
         (self.on_info_binary)(self.user, &info)
     }
@@ -685,6 +747,10 @@ impl esphome_client_cb {
         (self.on_info_number)(self.user, &info)
     }
 
+    fn info_select(&self, info: esphome_select_info) {
+        (self.on_info_select)(self.user, &info)
+    }
+
     fn connected(&self, state: bool) {
         (self.on_connection)(self.user, state)
     }
@@ -711,6 +777,9 @@ impl esphome_client {
                 Reply::SensorState(key, state) => cli.on_data.sensor(key, state),
                 Reply::TimeState(key, state) => cli.on_data.time(key, state),
                 Reply::NumberState(key, state) => cli.on_data.number(key, state),
+                Reply::SelectState(key, state, missing_state) => {
+                    cli.on_data.select(key, state, missing_state)
+                }
                 Reply::SwitchInfo {
                     id,
                     name,
@@ -868,6 +937,31 @@ impl esphome_client {
                     mode,
                     disabled_by_default,
                 }),
+                Reply::SelectInfo {
+                    id,
+                    object_id,
+                    name,
+                    icon,
+                    options,
+                    disabled_by_default,
+                    entity_category,
+                } => {
+                    let ptrs: Vec<*const c_char> = options
+                        .iter()
+                        .map(|s| s.as_ptr() as *const c_char)
+                        .collect();
+
+                    cli.on_data.info_select(esphome_select_info {
+                        id,
+                        object_id: object_id.as_ptr(),
+                        name: name.as_ptr(),
+                        icon: icon.as_ptr(),
+                        options: ptrs.as_ptr(),
+                        options_len: ptrs.len(),
+                        disabled_by_default,
+                        entity_category,
+                    })
+                }
             });
             true
         }

@@ -146,6 +146,22 @@ DEFINE_STRUCT(EsphomeText, ceammc_esphome_text_info,
         int32_t, mode,
         bool, disabled_by_default));
 
+DEFINE_STRUCT(EsphomeSelectBase, ceammc_esphome_select_info,
+    (name, icon),
+    (int32_t, entity_category,
+        bool, disabled_by_default));
+
+struct EsphomeSelect : public EsphomeSelectBase {
+    std::vector<t_symbol*> options;
+    explicit EsphomeSelect(const ceammc_esphome_select_info& info)
+        : EsphomeSelectBase(info)
+    {
+        options.resize(info.options_len);
+        for (size_t i = 0; i < info.options_len; i++)
+            options.push_back(gensym(info.options[i]));
+    }
+};
+
 namespace {
     ceammc_esphome_client_cb on_data(void* user)
     {
@@ -175,6 +191,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_select_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
             [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_time_state state) {
                 ESPHOME_CAST();
                 obj->onState(id, state);
@@ -195,9 +215,13 @@ namespace {
                 ESPHOME_CAST();
                 obj->onSensorInfo(EsphomeEntityPtr { new EsphomeSensor(*s) });
             },
-            [](void* user, const ceammc_esphome_number_info* s) {
+            [](void* user, const ceammc_esphome_number_info* n) {
                 ESPHOME_CAST();
-                obj->onNumberInfo(EsphomeEntityPtr { new EsphomeNumber(*s) });
+                obj->onNumberInfo(EsphomeEntityPtr { new EsphomeNumber(*n) });
+            },
+            [](void* user, const ceammc_esphome_select_info* s) {
+                ESPHOME_CAST();
+                obj->onSelectInfo(EsphomeEntityPtr { new EsphomeSelect(*s) });
             },
             [](void* user, const ceammc_esphome_time_info* t) {
                 ESPHOME_CAST();
@@ -267,7 +291,7 @@ void NetEsphomeClient::dump() const
             OBJ_POST << fmt::format("\t'{}': binary", id->s_name);
         });
 
-    numbers_.foreachEntity(
+    nums_.foreachEntity(
         [this](t_symbol* id, const EsphomeEntityPtr& e) {
             OBJ_POST << fmt::format("\t'{}': number", id->s_name);
         });
@@ -338,13 +362,13 @@ void NetEsphomeClient::m_number(t_symbol* s, const AtomListView& lv)
     if (!checkFfiObject(true, s))
         return;
 
-    auto id = numbers_.findId(args.key);
+    auto id = nums_.findId(args.key);
     if (!id) {
         METHOD_ERR(s) << fmt::format("number with id '{}' not found", args.key->s_name);
         return;
     }
 
-    auto info = numbers_.findInfo<EsphomeNumber>(args.key);
+    auto info = nums_.findInfo<EsphomeNumber>(args.key);
     if (info) {
         if (info->min_value > args.state || args.state > info->max_value) {
             METHOD_ERR(s) << fmt::format("invalid value: {}, expected value in [{}..{}] range",
@@ -476,7 +500,12 @@ void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
 
 void NetEsphomeClient::onNumberInfo(EsphomeEntityPtr&& info)
 {
-    numbers_.addInfo(std::move(info));
+    nums_.addInfo(std::move(info));
+}
+
+void NetEsphomeClient::onSelectInfo(EsphomeEntityPtr&& info)
+{
+    sels_.addInfo(std::move(info));
 }
 
 void NetEsphomeClient::onSensorInfo(EsphomeEntityPtr&& info)
@@ -543,9 +572,17 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state)
 {
-    auto oid = numbers_.setState(id, state);
+    auto oid = nums_.setState(id, state);
     if (oid)
         anyTo(0, oid, Atom(state.value));
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_select_state& state)
+{
+    const EsphomeSelectState xstate { gensym(state.value), state.missing_state };
+    auto oid = sels_.setState(id, xstate);
+    if (oid)
+        anyTo(0, oid, Atom(xstate.value));
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state)

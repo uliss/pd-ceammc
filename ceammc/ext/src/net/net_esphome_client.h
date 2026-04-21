@@ -61,6 +61,11 @@ struct EsphomeTextState {
     bool missing_value {};
 };
 
+struct EsphomeSelectState {
+    t_symbol* value { &s_ };
+    bool missing_value {};
+};
+
 template <typename State>
 struct EsphomeEntities {
     std::unordered_map<t_symbol*, EsphomeEntityPtr> entities;
@@ -123,7 +128,8 @@ class NetEsphomeClient : public RustFfiObject<BaseObject, ceammc_esphome_client>
     IntProperty* port_ { nullptr };
 
     EsphomeEntities<ceammc_esphome_binary_state> bins_;
-    EsphomeEntities<ceammc_esphome_number_state> numbers_;
+    EsphomeEntities<ceammc_esphome_number_state> nums_;
+    EsphomeEntities<EsphomeSelectState> sels_;
     EsphomeEntities<ceammc_esphome_sensor_state> sensors_;
     EsphomeEntities<ceammc_esphome_switch_state> switches_;
     EsphomeEntities<ceammc_esphome_time_state> time_;
@@ -149,6 +155,7 @@ public:
 public:
     void onBinaryInfo(EsphomeEntityPtr&& info);
     void onNumberInfo(EsphomeEntityPtr&& info);
+    void onSelectInfo(EsphomeEntityPtr&& info);
     void onSensorInfo(EsphomeEntityPtr&& info);
     void onSwitchInfo(EsphomeEntityPtr&& info);
     void onTextInfo(EsphomeEntityPtr&& info);
@@ -158,6 +165,7 @@ public:
 
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state);
+    void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_select_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_switch_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_text_state& state);
