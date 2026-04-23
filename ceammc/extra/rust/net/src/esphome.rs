@@ -5,9 +5,9 @@ use std::{
 
 use ::esphome_client::{
     types::{
-        DeviceInfoRequest, EntityCategory, EspHomeMessage, GetTimeRequest, ListEntitiesRequest,
-        NumberCommandRequest, PingRequest, SubscribeStatesRequest, SwitchCommandRequest,
-        TextCommandRequest, TimeCommandRequest,
+        ColorMode, DeviceInfoRequest, EntityCategory, EspHomeMessage, GetTimeRequest,
+        ListEntitiesRequest, NumberCommandRequest, PingRequest, SubscribeStatesRequest,
+        SwitchCommandRequest, TextCommandRequest, TimeCommandRequest,
     },
     EspHomeClient,
 };
@@ -35,6 +35,59 @@ pub enum esphome_category {
     None,
     Config,
     Diagnostic,
+}
+
+#[repr(u8)]
+#[derive(Debug, Clone)]
+#[allow(non_camel_case_types)]
+pub enum esphome_color_mode {
+    Unknown,
+    OnOff,
+    LegacyBrightness,
+    Brightness,
+    White,
+    ColorTemperature,
+    ColdWarmWhite,
+    Rgb,
+    RgbWhite,
+    RgbColorTemperature,
+    RgbColdWarmWhite,
+}
+
+macro_rules! const_from_enum {
+    ($variant:ident, $variant2:ident) => {
+        const $variant2: i32 = ColorMode::$variant as i32;
+    };
+}
+
+impl From<i32> for esphome_color_mode {
+    fn from(value: i32) -> Self {
+        const_from_enum!(Unknown, UNKNOWN);
+        const_from_enum!(OnOff, ONOFF);
+        const_from_enum!(LegacyBrightness, LEGACYBRIGHTNESS);
+        const_from_enum!(Brightness, BRIGHTNESS);
+        const_from_enum!(White, WHITE);
+        const_from_enum!(ColorTemperature, COLORTEMPERATURE);
+        const_from_enum!(ColdWarmWhite, COLDWARMWHITE);
+        const_from_enum!(Rgb, RGB);
+        const_from_enum!(RgbWhite, RGBWHITE);
+        const_from_enum!(RgbColorTemperature, RGBCOLORTEMPERATURE);
+        const_from_enum!(RgbColdWarmWhite, RGBCOLDWARMWHITE);
+
+        match value {
+            ONOFF => Self::OnOff,
+            LEGACYBRIGHTNESS => Self::LegacyBrightness,
+            BRIGHTNESS => Self::Brightness,
+            WHITE => Self::White,
+            COLORTEMPERATURE => Self::ColorTemperature,
+            COLDWARMWHITE => Self::ColdWarmWhite,
+            RGB => Self::Rgb,
+            RGBWHITE => Self::RgbWhite,
+            RGBCOLORTEMPERATURE => Self::RgbColorTemperature,
+            RGBCOLDWARMWHITE => Self::RgbColdWarmWhite,
+            _ => Self::Unknown,
+        }
+    }
 }
 
 impl From<i32> for esphome_category {
@@ -87,6 +140,39 @@ pub struct esphome_number_state {
 pub struct esphome_select_state {
     value: *const c_char,
     missing_state: bool,
+}
+
+#[derive(Debug, Clone)]
+struct LightState {
+    effect: CString,
+    brightness: f32,
+    color_brightness: f32,
+    red: f32,
+    green: f32,
+    blue: f32,
+    white: f32,
+    color_temperature: f32,
+    cold_white: f32,
+    warm_white: f32,
+    state: bool,
+    color_mode: esphome_color_mode,
+}
+
+#[repr(C)]
+#[derive(Debug)]
+pub struct esphome_light_state {
+    effect: *const c_char,
+    brightness: f32,
+    color_brightness: f32,
+    red: f32,
+    green: f32,
+    blue: f32,
+    white: f32,
+    color_temperature: f32,
+    cold_white: f32,
+    warm_white: f32,
+    state: bool,
+    color_mode: esphome_color_mode,
 }
 
 #[repr(C)]
@@ -210,7 +296,7 @@ pub struct esphome_light_info {
     icon: *const c_char,
     object_id: *const c_char,
     id: esphome_entity_id,
-    color_modes: *const i32,
+    color_modes: *const esphome_color_mode,
     color_modes_len: usize,
     effects: *const *const c_char,
     effects_len: usize,
@@ -298,6 +384,7 @@ enum Reply {
     TimeState(esphome_entity_id, esphome_time_state),
     NumberState(esphome_entity_id, esphome_number_state),
     SelectState(esphome_entity_id, CString, bool),
+    LightState(esphome_entity_id, LightState),
     BinaryInfo {
         id: esphome_entity_id,
         name: CString,
@@ -323,7 +410,7 @@ enum Reply {
         name: CString,
         icon: CString,
         object_id: CString,
-        supported_color_modes: Vec<i32>,
+        supported_color_modes: Vec<esphome_color_mode>,
         effects: Vec<CString>,
         min_mireds: f32,
         max_mireds: f32,
@@ -460,14 +547,37 @@ async fn process_message_from_device(
             name: cstr_from_string(light.name),
             icon: cstr_from_string(light.icon),
             object_id: cstr_from_string(light.object_id),
-            supported_color_modes: light.supported_color_modes,
+            supported_color_modes: light
+                .supported_color_modes
+                .iter()
+                .map(|x| (*x).into())
+                .collect(),
             effects: vcstr_from_vstring(light.effects),
             min_mireds: light.min_mireds,
             max_mireds: light.max_mireds,
             entity_category: light.entity_category,
             disabled_by_default: light.disabled_by_default,
         })),
-        EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
+        EspHomeMessage::LightStateResponse(light) => Ok(Some(Reply::LightState(
+            esphome_entity_id {
+                key: light.key,
+                device_id: light.device_id,
+            },
+            LightState {
+                effect: cstr_from_string(light.effect),
+                brightness: light.brightness,
+                color_brightness: light.color_brightness,
+                red: light.red,
+                green: light.green,
+                blue: light.blue,
+                white: light.white,
+                color_temperature: light.color_temperature,
+                cold_white: light.cold_white,
+                warm_white: light.warm_white,
+                state: light.state,
+                color_mode: light.color_mode.into(),
+            },
+        ))),
         EspHomeMessage::ListEntitiesSensorResponse(sensor) => Ok(Some(Reply::SensorInfo {
             id: esphome_entity_id {
                 key: sensor.key,
@@ -727,6 +837,7 @@ pub struct esphome_client_cb {
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_number_state),
     on_select:
         extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_select_state),
+    on_light: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_light_state),
     on_time: extern "C" fn(user: *mut c_void, key: esphome_entity_id, state: esphome_time_state),
     on_info_switch: extern "C" fn(user: *mut c_void, info: &esphome_switch_info),
     on_info_text: extern "C" fn(user: *mut c_void, info: &esphome_text_info),
@@ -782,6 +893,25 @@ impl esphome_client_cb {
                 missing_state,
             },
         )
+    }
+
+    fn light(&self, key: esphome_entity_id, state: LightState) {
+        let st = esphome_light_state {
+            effect: state.effect.as_ptr(),
+            brightness: state.brightness,
+            color_brightness: state.color_brightness,
+            red: state.red,
+            green: state.green,
+            blue: state.blue,
+            white: state.white,
+            color_temperature: state.color_temperature,
+            cold_white: state.cold_white,
+            warm_white: state.warm_white,
+            state: state.state,
+            color_mode: state.color_mode,
+        };
+
+        (self.on_light)(self.user, key, st)
     }
 
     fn info_binary(&self, info: esphome_binary_info) {
@@ -849,6 +979,7 @@ impl esphome_client {
                 Reply::SelectState(key, state, missing_state) => {
                     cli.on_data.select(key, state, missing_state)
                 }
+                Reply::LightState(key, state) => cli.on_data.light(key, state),
                 Reply::SwitchInfo {
                     id,
                     name,

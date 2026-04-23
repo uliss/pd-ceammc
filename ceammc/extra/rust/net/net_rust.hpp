@@ -17,6 +17,20 @@ enum class ceammc_esphome_category : uint8_t {
     Diagnostic,
 };
 
+enum class ceammc_esphome_color_mode : uint8_t {
+    Unknown,
+    OnOff,
+    LegacyBrightness,
+    Brightness,
+    White,
+    ColorTemperature,
+    ColdWarmWhite,
+    Rgb,
+    RgbWhite,
+    RgbColorTemperature,
+    RgbColdWarmWhite,
+};
+
 enum class ceammc_http_client_param_type {
     /// header key/value
     Header,
@@ -116,6 +130,21 @@ struct ceammc_esphome_number_state {
 struct ceammc_esphome_select_state {
     const char *value;
     bool missing_state;
+};
+
+struct ceammc_esphome_light_state {
+    const char *effect;
+    float brightness;
+    float color_brightness;
+    float red;
+    float green;
+    float blue;
+    float white;
+    float color_temperature;
+    float cold_white;
+    float warm_white;
+    bool state;
+    ceammc_esphome_color_mode color_mode;
 };
 
 struct ceammc_esphome_time_state {
@@ -228,7 +257,7 @@ struct ceammc_esphome_light_info {
     const char *icon;
     const char *object_id;
     ceammc_esphome_entity_id id;
-    const int32_t *color_modes;
+    const ceammc_esphome_color_mode *color_modes;
     size_t color_modes_len;
     const char *const *effects;
     size_t effects_len;
@@ -287,6 +316,7 @@ struct ceammc_esphome_client_cb {
     void (*on_sensor)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_sensor_state state);
     void (*on_number)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_number_state state);
     void (*on_select)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_select_state state);
+    void (*on_light)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_light_state state);
     void (*on_time)(void *user, ceammc_esphome_entity_id key, ceammc_esphome_time_state state);
     void (*on_info_switch)(void *user, const ceammc_esphome_switch_info *info);
     void (*on_info_text)(void *user, const ceammc_esphome_text_info *info);

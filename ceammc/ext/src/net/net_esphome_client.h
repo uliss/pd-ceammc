@@ -128,6 +128,7 @@ class NetEsphomeClient : public RustFfiObject<BaseObject, ceammc_esphome_client>
     IntProperty* port_ { nullptr };
 
     EsphomeEntities<ceammc_esphome_binary_state> bins_;
+    EsphomeEntities<ceammc_esphome_light_state> lights_;
     EsphomeEntities<ceammc_esphome_number_state> nums_;
     EsphomeEntities<EsphomeSelectState> sels_;
     EsphomeEntities<ceammc_esphome_sensor_state> sensors_;
@@ -154,6 +155,7 @@ public:
 
 public:
     void onBinaryInfo(EsphomeEntityPtr&& info);
+    void onLightInfo(EsphomeEntityPtr&& info);
     void onNumberInfo(EsphomeEntityPtr&& info);
     void onSelectInfo(EsphomeEntityPtr&& info);
     void onSensorInfo(EsphomeEntityPtr&& info);
@@ -164,6 +166,7 @@ public:
     void onDeviceInfo(const ceammc_esphome_device_info& info);
 
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_binary_state& state);
+    void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_light_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_select_state& state);
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_sensor_state& state);

@@ -146,6 +146,30 @@ DEFINE_STRUCT(EsphomeText, ceammc_esphome_text_info,
         int32_t, mode,
         bool, disabled_by_default));
 
+DEFINE_STRUCT(EsphomeLightBase, ceammc_esphome_light_info,
+    (name, icon),
+    (ceammc_esphome_category, entity_category,
+        float, min_mireds,
+        float, max_mireds,
+        bool, disabled_by_default));
+
+struct EsphomeLight : public EsphomeLightBase {
+    std::vector<ceammc_esphome_color_mode> color_modes;
+    std::vector<t_symbol*> effects;
+
+    explicit EsphomeLight(const ceammc_esphome_light_info& info)
+        : EsphomeLightBase(info)
+    {
+        effects.resize(info.effects_len);
+        for (size_t i = 0; i < info.effects_len; i++)
+            effects.push_back(gensym(info.effects[i]));
+
+        color_modes.resize(info.color_modes_len);
+        for (size_t i = 0; i < info.color_modes_len; i++)
+            color_modes.push_back(info.color_modes[i]);
+    }
+};
+
 DEFINE_STRUCT(EsphomeSelectBase, ceammc_esphome_select_info,
     (name, icon),
     (ceammc_esphome_category, entity_category,
@@ -195,6 +219,10 @@ namespace {
                 ESPHOME_CAST();
                 obj->onState(id, state);
             },
+            [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_light_state state) {
+                ESPHOME_CAST();
+                obj->onState(id, state);
+            },
             [](void* user, ceammc_esphome_entity_id id, ceammc_esphome_time_state state) {
                 ESPHOME_CAST();
                 obj->onState(id, state);
@@ -222,6 +250,10 @@ namespace {
             [](void* user, const ceammc_esphome_select_info* s) {
                 ESPHOME_CAST();
                 obj->onSelectInfo(EsphomeEntityPtr { new EsphomeSelect(*s) });
+            },
+            [](void* user, const ceammc_esphome_light_info* l) {
+                ESPHOME_CAST();
+                obj->onLightInfo(EsphomeEntityPtr { new EsphomeLight(*l) });
             },
             [](void* user, const ceammc_esphome_time_info* t) {
                 ESPHOME_CAST();
@@ -498,6 +530,11 @@ void NetEsphomeClient::onBinaryInfo(EsphomeEntityPtr&& info)
     bins_.addInfo(std::move(info));
 }
 
+void NetEsphomeClient::onLightInfo(EsphomeEntityPtr&& info)
+{
+    lights_.addInfo(std::move(info));
+}
+
 void NetEsphomeClient::onNumberInfo(EsphomeEntityPtr&& info)
 {
     nums_.addInfo(std::move(info));
@@ -568,6 +605,13 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
     auto oid = bins_.setState(id, state);
     if (oid)
         anyTo(0, oid, Atom(state.value));
+}
+
+void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_light_state& state)
+{
+    auto oid = lights_.setState(id, state);
+    if (oid)
+        anyTo(0, oid, Atom(state.state));
 }
 
 void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_number_state& state)
