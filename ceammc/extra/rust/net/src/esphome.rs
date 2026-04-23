@@ -6,14 +6,14 @@ use std::{
 use ::esphome_client::{
     types::{
         ColorMode, DeviceInfoRequest, EntityCategory, EspHomeMessage, GetTimeRequest,
-        ListEntitiesRequest, NumberCommandRequest, PingRequest, SubscribeStatesRequest,
-        SwitchCommandRequest, TextCommandRequest, TimeCommandRequest,
+        LightCommandRequest, ListEntitiesRequest, NumberCommandRequest, PingRequest,
+        SubscribeStatesRequest, SwitchCommandRequest, TextCommandRequest, TimeCommandRequest,
     },
     EspHomeClient,
 };
 use ceammc_rs_msg::{
-    cstr_from_string, ffi_from_vcstr, msg_cb, msg_notify, vcstr_from_vstring, NumThreads,
-    SendState, TokioClient, TokioRtShutdown,
+    cstr_from_ptr, cstr_from_string, ffi_from_vcstr, msg_cb, msg_notify, vcstr_from_vstring,
+    NumThreads, SendState, TokioClient, TokioRtShutdown,
 };
 use log::{debug, error};
 use tokio::task::JoinHandle;
@@ -38,7 +38,7 @@ pub enum esphome_category {
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum esphome_color_mode {
     Unknown,
@@ -54,38 +54,66 @@ pub enum esphome_color_mode {
     RgbColdWarmWhite,
 }
 
-macro_rules! const_from_enum {
-    ($variant:ident, $variant2:ident) => {
-        const $variant2: i32 = ColorMode::$variant as i32;
-    };
+macro_rules! const_to_colormode {
+    ($value:expr, $($variant:ident),* $(,)?) => {{
+        $(
+            const $variant: i32 = ColorMode::$variant as i32;
+        )*
+
+        match $value {
+            $(
+                $variant => Self::$variant,
+            )*
+            _ => Self::Unknown,
+        }
+    }};
 }
 
 impl From<i32> for esphome_color_mode {
+    #[allow(non_upper_case_globals)]
     fn from(value: i32) -> Self {
-        const_from_enum!(OnOff, ONOFF);
-        const_from_enum!(LegacyBrightness, LEGACYBRIGHTNESS);
-        const_from_enum!(Brightness, BRIGHTNESS);
-        const_from_enum!(White, WHITE);
-        const_from_enum!(ColorTemperature, COLORTEMPERATURE);
-        const_from_enum!(ColdWarmWhite, COLDWARMWHITE);
-        const_from_enum!(Rgb, RGB);
-        const_from_enum!(RgbWhite, RGBWHITE);
-        const_from_enum!(RgbColorTemperature, RGBCOLORTEMPERATURE);
-        const_from_enum!(RgbColdWarmWhite, RGBCOLDWARMWHITE);
+        const_to_colormode!(
+            value,
+            OnOff,
+            LegacyBrightness,
+            Brightness,
+            White,
+            ColorTemperature,
+            ColdWarmWhite,
+            Rgb,
+            RgbWhite,
+            RgbColorTemperature,
+            RgbColdWarmWhite
+        )
+    }
+}
 
-        match value {
-            ONOFF => Self::OnOff,
-            LEGACYBRIGHTNESS => Self::LegacyBrightness,
-            BRIGHTNESS => Self::Brightness,
-            WHITE => Self::White,
-            COLORTEMPERATURE => Self::ColorTemperature,
-            COLDWARMWHITE => Self::ColdWarmWhite,
-            RGB => Self::Rgb,
-            RGBWHITE => Self::RgbWhite,
-            RGBCOLORTEMPERATURE => Self::RgbColorTemperature,
-            RGBCOLDWARMWHITE => Self::RgbColdWarmWhite,
-            _ => Self::Unknown,
+macro_rules! colormode_to_const {
+    ($value:expr, $($variant:ident),* $(,)?) => {
+        match $value {
+            $(
+                esphome_color_mode::$variant => ColorMode::$variant as i32,
+            )*
         }
+    };
+}
+
+impl Into<i32> for esphome_color_mode {
+    fn into(self) -> i32 {
+        colormode_to_const!(
+            self,
+            Unknown,
+            OnOff,
+            LegacyBrightness,
+            Brightness,
+            White,
+            ColorTemperature,
+            ColdWarmWhite,
+            Rgb,
+            RgbWhite,
+            RgbColorTemperature,
+            RgbColdWarmWhite
+        )
     }
 }
 
@@ -175,6 +203,25 @@ pub struct esphome_light_state {
     warm_white: f32,
     state: bool,
     color_mode: esphome_color_mode,
+}
+
+impl Into<LightState> for esphome_light_state {
+    fn into(self) -> LightState {
+        LightState {
+            effect: cstr_from_ptr(self.effect),
+            brightness: self.brightness,
+            color_brightness: self.color_brightness,
+            red: self.red,
+            green: self.green,
+            blue: self.blue,
+            white: self.white,
+            color_temperature: self.color_temperature,
+            cold_white: self.cold_white,
+            warm_white: self.warm_white,
+            state: self.state,
+            color_mode: self.color_mode,
+        }
+    }
 }
 
 #[repr(C)]
@@ -381,6 +428,7 @@ enum Request {
     Text(esphome_entity_id, String),
     Time(esphome_entity_id, esphome_time_state),
     Number(esphome_entity_id, f32),
+    Light(esphome_entity_id, LightState),
 }
 
 #[derive(Clone, Debug)]
@@ -1358,6 +1406,46 @@ impl esphome_client {
                                     });
                                 dev_tx.send(command).await.map_err(|err| err.to_string())?;
                             }
+                            Request::Light(id, state) => {
+                                let command =
+                                    EspHomeMessage::LightCommandRequest(LightCommandRequest {
+                                        key: id.key,
+                                        state: state.state,
+                                        device_id: id.device_id,
+                                        has_state: state.color_mode == esphome_color_mode::OnOff,
+                                        has_brightness: state.color_mode
+                                            == esphome_color_mode::Brightness,
+                                        brightness: state.brightness,
+                                        has_color_mode: state.color_mode
+                                            != esphome_color_mode::Unknown,
+                                        color_mode: state.color_mode.into(),
+                                        has_color_brightness: state.color_mode
+                                            == esphome_color_mode::Brightness,
+                                        color_brightness: state.color_brightness,
+                                        has_rgb: state.color_mode == esphome_color_mode::Rgb,
+                                        red: state.red,
+                                        green: state.green,
+                                        blue: state.blue,
+                                        has_white: state.color_mode == esphome_color_mode::White,
+                                        white: state.white,
+                                        has_color_temperature: state.color_mode
+                                            == esphome_color_mode::ColorTemperature,
+                                        color_temperature: state.color_temperature,
+                                        has_cold_white: state.color_mode
+                                            == esphome_color_mode::ColdWarmWhite,
+                                        cold_white: state.cold_white,
+                                        has_warm_white: state.color_mode
+                                            == esphome_color_mode::ColdWarmWhite,
+                                        warm_white: state.warm_white,
+                                        has_transition_length: false,
+                                        transition_length: 0,
+                                        has_flash_length: false,
+                                        flash_length: 0,
+                                        has_effect: !state.effect.is_empty(),
+                                        effect: state.effect.into_string().unwrap_or_default(),
+                                    });
+                                dev_tx.send(command).await.map_err(|err| err.to_string())?;
+                            }
                         }
                         Ok(())
                     })
@@ -1515,4 +1603,18 @@ pub extern "C" fn ceammc_esphome_client_number(
     state: f32,
 ) -> bool {
     esphome_client::send_request(cli, Request::Number(id.clone(), state))
+}
+
+#[no_mangle]
+/// set esphome device light state
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param state - new light state
+/// @return true on sucess, false on error (if device is disconnected etc.)
+pub extern "C" fn ceammc_esphome_client_light(
+    cli: *mut esphome_client,
+    id: &esphome_entity_id,
+    state: esphome_light_state,
+) -> bool {
+    esphome_client::send_request(cli, Request::Light(id.clone(), state.into()))
 }

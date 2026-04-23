@@ -103,6 +103,22 @@ struct ceammc_esphome_entity_id {
     uint32_t device_id;
 };
 
+struct ceammc_esphome_light_state {
+    /// valid within callback only
+    const char *effect;
+    float brightness;
+    float color_brightness;
+    float red;
+    float green;
+    float blue;
+    float white;
+    float color_temperature;
+    float cold_white;
+    float warm_white;
+    bool state;
+    ceammc_esphome_color_mode color_mode;
+};
+
 struct ceammc_esphome_switch_state {
     bool value;
 };
@@ -132,22 +148,6 @@ struct ceammc_esphome_select_state {
     /// valid within callback only
     const char *value;
     bool missing_state;
-};
-
-struct ceammc_esphome_light_state {
-    /// valid within callback only
-    const char *effect;
-    float brightness;
-    float color_brightness;
-    float red;
-    float green;
-    float blue;
-    float white;
-    float color_temperature;
-    float cold_white;
-    float warm_white;
-    bool state;
-    ceammc_esphome_color_mode color_mode;
 };
 
 struct ceammc_esphome_time_state {
@@ -606,6 +606,15 @@ void ceammc_esphome_client_free(ceammc_esphome_client *cli);
 /// @param cli - esphome device handle
 /// @return true on sucess, false on error (if device is disconnected etc.)
 bool ceammc_esphome_client_get_time(ceammc_esphome_client *cli);
+
+/// set esphome device light state
+/// @param cli - esphome device handle
+/// @param id - internal esphome sensor id (not null!)
+/// @param state - new light state
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_esphome_client_light(ceammc_esphome_client *cli,
+                                 const ceammc_esphome_entity_id *id,
+                                 ceammc_esphome_light_state state);
 
 bool ceammc_esphome_client_list_entities(ceammc_esphome_client *cli);
 
