@@ -39,11 +39,11 @@ pub enum esphome_category {
 
 impl From<i32> for esphome_category {
     fn from(value: i32) -> Self {
-        let cfg = EntityCategory::Config as i32;
-        let diag = EntityCategory::Diagnostic as i32;
+        const CFG: i32 = EntityCategory::Config as i32;
+        const DIAG: i32 = EntityCategory::Diagnostic as i32;
         match value {
-            cfg => Self::Config,
-            diag => Self::Diagnostic,
+            CFG => Self::Config,
+            DIAG => Self::Diagnostic,
             _ => Self::None,
         }
     }
