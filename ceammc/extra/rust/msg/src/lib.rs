@@ -802,6 +802,14 @@ where
     CString::new(str.as_ref()).unwrap_or_default()
 }
 
+pub fn cstr_from_ptr(ptr: *const c_char) -> CString {
+    if ptr.is_null() {
+        CString::default()
+    } else {
+        unsafe { CStr::from_ptr(ptr) }.to_owned()
+    }
+}
+
 pub fn vcstr_from_vstring<S, T>(vec: T) -> Vec<CString>
 where
     S: AsRef<str>,

@@ -91,7 +91,7 @@ dependencies = [
 
 [[package]]
 name = "ceammc_rs_msg"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "cbindgen",
  "log",
