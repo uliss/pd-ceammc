@@ -109,30 +109,30 @@ namespace ceammc {
 
 DEFINE_STRUCT(EsphomeSwitch, ceammc_esphome_switch_info,
     (name, icon, device_class),
-    (int32_t, entity_category, bool, assumed_state, bool, disabled_by_default));
+    (ceammc_esphome_category, entity_category, bool, assumed_state, bool, disabled_by_default));
 
 DEFINE_STRUCT(EsphomeTime, ceammc_esphome_time_info,
     (name, icon),
-    (int32_t, entity_category, bool, disabled_by_default));
+    (ceammc_esphome_category, entity_category, bool, disabled_by_default));
 
 DEFINE_STRUCT(EsphomeNumber, ceammc_esphome_number_info,
     (name, icon, unit_of_measurement, device_class),
     (float, min_value,
         float, max_value,
         float, step,
-        int32_t, entity_category,
+        ceammc_esphome_category, entity_category,
         int32_t, mode,
         bool, disabled_by_default));
 
 DEFINE_STRUCT(EsphomeBinary, ceammc_esphome_binary_info,
     (name, icon, device_class),
-    (int32_t, entity_category,
+    (ceammc_esphome_category, entity_category,
         bool, is_status_binary_sensor,
         bool, disabled_by_default));
 
 DEFINE_STRUCT(EsphomeSensor, ceammc_esphome_sensor_info,
     (name, icon, device_class, unit_of_measurement),
-    (int32_t, entity_category,
+    (ceammc_esphome_category, entity_category,
         int32_t, accuracy_decimals,
         int32_t, state_class,
         bool, disabled_by_default,
@@ -140,7 +140,7 @@ DEFINE_STRUCT(EsphomeSensor, ceammc_esphome_sensor_info,
 
 DEFINE_STRUCT(EsphomeText, ceammc_esphome_text_info,
     (name, icon, pattern),
-    (int32_t, entity_category,
+    (ceammc_esphome_category, entity_category,
         uint32_t, min_length,
         uint32_t, max_length,
         int32_t, mode,
@@ -148,7 +148,7 @@ DEFINE_STRUCT(EsphomeText, ceammc_esphome_text_info,
 
 DEFINE_STRUCT(EsphomeSelectBase, ceammc_esphome_select_info,
     (name, icon),
-    (int32_t, entity_category,
+    (ceammc_esphome_category, entity_category,
         bool, disabled_by_default));
 
 struct EsphomeSelect : public EsphomeSelectBase {

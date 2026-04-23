@@ -10,6 +10,13 @@
 
 constexpr const uint16_t ceammc_ESPHOME_DEFAULT_PORT = 6053;
 
+/// esphome entity category
+enum class ceammc_esphome_category : uint8_t {
+    None,
+    Config,
+    Diagnostic,
+};
+
 enum class ceammc_http_client_param_type {
     /// header key/value
     Header,
@@ -129,7 +136,7 @@ struct ceammc_esphome_switch_info {
     /// valid within callback only
     const char *device_class;
     ceammc_esphome_entity_id id;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     bool assumed_state;
     bool disabled_by_default;
 };
@@ -144,7 +151,7 @@ struct ceammc_esphome_text_info {
     /// valid within callback only
     const char *pattern;
     ceammc_esphome_entity_id id;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     uint32_t min_length;
     uint32_t max_length;
     int32_t mode;
@@ -161,7 +168,7 @@ struct ceammc_esphome_binary_info {
     /// valid within callback only
     const char *device_class;
     ceammc_esphome_entity_id id;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     bool disabled_by_default;
     bool is_status_binary_sensor;
 };
@@ -180,7 +187,7 @@ struct ceammc_esphome_sensor_info {
     ceammc_esphome_entity_id id;
     int32_t accuracy_decimals;
     int32_t state_class;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     bool disabled_by_default;
     bool force_update;
 };
@@ -200,7 +207,7 @@ struct ceammc_esphome_number_info {
     float min_value;
     float max_value;
     float step;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     int32_t mode;
     bool disabled_by_default;
 };
@@ -212,8 +219,23 @@ struct ceammc_esphome_select_info {
     const char *icon;
     const char *const *options;
     size_t options_len;
+    ceammc_esphome_category entity_category;
     bool disabled_by_default;
-    int32_t entity_category;
+};
+
+struct ceammc_esphome_light_info {
+    const char *name;
+    const char *icon;
+    const char *object_id;
+    ceammc_esphome_entity_id id;
+    const int32_t *color_modes;
+    size_t color_modes_len;
+    const char *const *effects;
+    size_t effects_len;
+    float min_mireds;
+    float max_mireds;
+    ceammc_esphome_category entity_category;
+    bool disabled_by_default;
 };
 
 struct ceammc_esphome_time_info {
@@ -224,7 +246,7 @@ struct ceammc_esphome_time_info {
     /// valid within callback only
     const char *icon;
     ceammc_esphome_entity_id id;
-    int32_t entity_category;
+    ceammc_esphome_category entity_category;
     bool disabled_by_default;
 };
 
@@ -272,6 +294,7 @@ struct ceammc_esphome_client_cb {
     void (*on_info_sensor)(void *user, const ceammc_esphome_sensor_info *info);
     void (*on_info_number)(void *user, const ceammc_esphome_number_info *info);
     void (*on_info_select)(void *user, const ceammc_esphome_select_info *info);
+    void (*on_info_light)(void *user, const ceammc_esphome_light_info *info);
     void (*on_info_time)(void *user, const ceammc_esphome_time_info *info);
     void (*on_info_device)(void *user, const ceammc_esphome_device_info *info);
     void (*on_connection)(void *user, bool state);

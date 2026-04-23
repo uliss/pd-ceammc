@@ -5,15 +5,15 @@ use std::{
 
 use ::esphome_client::{
     types::{
-        DeviceInfoRequest, EspHomeMessage, GetTimeRequest, ListEntitiesRequest,
+        DeviceInfoRequest, EntityCategory, EspHomeMessage, GetTimeRequest, ListEntitiesRequest,
         NumberCommandRequest, PingRequest, SubscribeStatesRequest, SwitchCommandRequest,
         TextCommandRequest, TimeCommandRequest,
     },
     EspHomeClient,
 };
 use ceammc_rs_msg::{
-    cstr_from_string, msg_cb, msg_notify, vcstr_from_vstring, NumThreads, SendState, TokioClient,
-    TokioRtShutdown,
+    cstr_from_string, ffi_from_vcstr, msg_cb, msg_notify, vcstr_from_vstring, NumThreads,
+    SendState, TokioClient, TokioRtShutdown,
 };
 use log::{debug, error};
 use tokio::task::JoinHandle;
@@ -25,6 +25,28 @@ pub const ESPHOME_DEFAULT_PORT: u16 = 6053;
 pub struct esphome_entity_id {
     key: u32,
     device_id: u32,
+}
+
+#[repr(u8)]
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+/// esphome entity category
+pub enum esphome_category {
+    None,
+    Config,
+    Diagnostic,
+}
+
+impl From<i32> for esphome_category {
+    fn from(value: i32) -> Self {
+        let cfg = EntityCategory::Config as i32;
+        let diag = EntityCategory::Diagnostic as i32;
+        match value {
+            cfg => Self::Config,
+            diag => Self::Diagnostic,
+            _ => Self::None,
+        }
+    }
 }
 
 #[repr(C)]
@@ -89,7 +111,7 @@ pub struct esphome_switch_info {
     /// valid within callback only
     device_class: *const c_char,
     id: esphome_entity_id,
-    entity_category: i32,
+    entity_category: esphome_category,
     assumed_state: bool,
     disabled_by_default: bool,
 }
@@ -106,7 +128,7 @@ pub struct esphome_binary_info {
     /// valid within callback only
     device_class: *const c_char,
     id: esphome_entity_id,
-    entity_category: i32,
+    entity_category: esphome_category,
     disabled_by_default: bool,
     is_status_binary_sensor: bool,
 }
@@ -127,7 +149,7 @@ pub struct esphome_sensor_info {
     id: esphome_entity_id,
     accuracy_decimals: i32,
     state_class: i32,
-    entity_category: i32,
+    entity_category: esphome_category,
     disabled_by_default: bool,
     force_update: bool,
 }
@@ -142,7 +164,7 @@ pub struct esphome_time_info {
     /// valid within callback only
     icon: *const c_char,
     id: esphome_entity_id,
-    entity_category: i32,
+    entity_category: esphome_category,
     disabled_by_default: bool,
 }
 
@@ -163,7 +185,7 @@ pub struct esphome_number_info {
     min_value: f32,
     max_value: f32,
     step: f32,
-    entity_category: i32,
+    entity_category: esphome_category,
     mode: i32,
     disabled_by_default: bool,
 }
@@ -177,8 +199,25 @@ pub struct esphome_select_info {
     icon: *const c_char,
     options: *const *const c_char,
     options_len: usize,
+    entity_category: esphome_category,
     disabled_by_default: bool,
-    entity_category: i32,
+}
+
+#[repr(C)]
+#[derive(Debug)]
+pub struct esphome_light_info {
+    name: *const c_char,
+    icon: *const c_char,
+    object_id: *const c_char,
+    id: esphome_entity_id,
+    color_modes: *const i32,
+    color_modes_len: usize,
+    effects: *const *const c_char,
+    effects_len: usize,
+    min_mireds: f32,
+    max_mireds: f32,
+    entity_category: esphome_category,
+    disabled_by_default: bool,
 }
 
 #[repr(C)]
@@ -227,7 +266,7 @@ pub struct esphome_text_info {
     /// valid within callback only
     pattern: *const c_char,
     id: esphome_entity_id,
-    entity_category: i32,
+    entity_category: esphome_category,
     min_length: u32,
     max_length: u32,
     mode: i32,
@@ -695,6 +734,7 @@ pub struct esphome_client_cb {
     on_info_sensor: extern "C" fn(user: *mut c_void, info: &esphome_sensor_info),
     on_info_number: extern "C" fn(user: *mut c_void, info: &esphome_number_info),
     on_info_select: extern "C" fn(user: *mut c_void, info: &esphome_select_info),
+    on_info_light: extern "C" fn(user: *mut c_void, info: &esphome_light_info),
     on_info_time: extern "C" fn(user: *mut c_void, info: &esphome_time_info),
     on_info_device: extern "C" fn(user: *mut c_void, info: &esphome_device_info),
     on_connection: extern "C" fn(user: *mut c_void, state: bool),
@@ -776,6 +816,10 @@ impl esphome_client_cb {
         (self.on_info_select)(self.user, &info)
     }
 
+    fn info_light(&self, info: esphome_light_info) {
+        (self.on_info_light)(self.user, &info)
+    }
+
     fn connected(&self, state: bool) {
         (self.on_connection)(self.user, state)
     }
@@ -820,7 +864,7 @@ impl esphome_client {
                     icon: icon.as_ptr(),
                     object_id: object_id.as_ptr(),
                     device_class: device_class.as_ptr(),
-                    entity_category,
+                    entity_category: entity_category.into(),
                     assumed_state,
                     disabled_by_default,
                 }),
@@ -840,7 +884,7 @@ impl esphome_client {
                     name: name.as_ptr(),
                     icon: icon.as_ptr(),
                     object_id: object_id.as_ptr(),
-                    entity_category,
+                    entity_category: entity_category.into(),
                     disabled_by_default,
                     pattern: pattern.as_ptr(),
                     min_length,
@@ -863,7 +907,7 @@ impl esphome_client {
                     object_id: object_id.as_ptr(),
                     device_class: device_class.as_ptr(),
                     id,
-                    entity_category,
+                    entity_category: entity_category.into(),
                     disabled_by_default,
                     is_status_binary_sensor,
                 }),
@@ -915,7 +959,7 @@ impl esphome_client {
                     device_class: device_class.as_ptr(),
                     accuracy_decimals,
                     state_class,
-                    entity_category,
+                    entity_category: entity_category.into(),
                     disabled_by_default,
                     force_update,
                     id,
@@ -932,7 +976,7 @@ impl esphome_client {
                     name: name.as_ptr(),
                     icon: icon.as_ptr(),
                     id,
-                    entity_category,
+                    entity_category: entity_category.into(),
                     disabled_by_default,
                 }),
                 Reply::NumberInfo {
@@ -958,7 +1002,7 @@ impl esphome_client {
                     min_value,
                     max_value,
                     step,
-                    entity_category,
+                    entity_category: entity_category.into(),
                     mode,
                     disabled_by_default,
                 }),
@@ -971,20 +1015,16 @@ impl esphome_client {
                     disabled_by_default,
                     entity_category,
                 } => {
-                    let ptrs: Vec<*const c_char> = options
-                        .iter()
-                        .map(|s| s.as_ptr() as *const c_char)
-                        .collect();
-
+                    let options = ffi_from_vcstr(&options);
                     cli.on_data.info_select(esphome_select_info {
                         id,
                         object_id: object_id.as_ptr(),
                         name: name.as_ptr(),
                         icon: icon.as_ptr(),
-                        options: ptrs.as_ptr(),
-                        options_len: ptrs.len(),
+                        options: options.as_ptr(),
+                        options_len: options.len(),
                         disabled_by_default,
-                        entity_category,
+                        entity_category: entity_category.into(),
                     })
                 }
                 Reply::LightInfo {
@@ -998,7 +1038,23 @@ impl esphome_client {
                     max_mireds,
                     entity_category,
                     disabled_by_default,
-                } => todo!(),
+                } => {
+                    let fx = ffi_from_vcstr(&effects);
+                    cli.on_data.info_light(esphome_light_info {
+                        name: name.as_ptr(),
+                        icon: icon.as_ptr(),
+                        object_id: object_id.as_ptr(),
+                        id,
+                        color_modes: supported_color_modes.as_ptr(),
+                        color_modes_len: supported_color_modes.len(),
+                        effects: fx.as_ptr(),
+                        effects_len: fx.len(),
+                        min_mireds,
+                        max_mireds,
+                        entity_category: entity_category.into(),
+                        disabled_by_default,
+                    })
+                }
             });
             true
         }
