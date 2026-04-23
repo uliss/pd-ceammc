@@ -807,7 +807,39 @@ where
     S: AsRef<str>,
     T: AsRef<[S]>,
 {
-    vec.as_ref().iter().map(|x| cstr_from_string(x)).collect()
+    let mut res = Vec::with_capacity(vec.as_ref().len());
+    for x in vec.as_ref() {
+        res.push(cstr_from_string(x));
+    }
+    res
+}
+
+pub struct CStringPtrList<'a> {
+    ptrs: Vec<*const c_char>,
+    _lifetime: std::marker::PhantomData<&'a CString>,
+}
+
+impl<'a> CStringPtrList<'a> {
+    pub fn as_ptr(&self) -> *const *const c_char {
+        self.ptrs.as_ptr()
+    }
+
+    pub fn len(&self) -> usize {
+        self.ptrs.len()
+    }
+}
+
+pub fn ffi_from_vcstr<'a>(vec: &'a [CString]) -> CStringPtrList<'a> {
+    let mut res = Vec::with_capacity(vec.as_ref().len());
+
+    for x in vec.as_ref() {
+        res.push(x.as_ptr());
+    }
+
+    CStringPtrList {
+        ptrs: res,
+        _lifetime: std::marker::PhantomData,
+    }
 }
 
 pub fn ptr_to_array<T: Clone>(data: *const T, len: usize) -> Vec<T> {
