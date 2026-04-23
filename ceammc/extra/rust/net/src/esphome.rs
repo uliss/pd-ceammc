@@ -62,7 +62,6 @@ macro_rules! const_from_enum {
 
 impl From<i32> for esphome_color_mode {
     fn from(value: i32) -> Self {
-        const_from_enum!(Unknown, UNKNOWN);
         const_from_enum!(OnOff, ONOFF);
         const_from_enum!(LegacyBrightness, LEGACYBRIGHTNESS);
         const_from_enum!(Brightness, BRIGHTNESS);
@@ -117,6 +116,7 @@ pub struct esphome_switch_state {
 
 #[repr(C)]
 pub struct esphome_text_state {
+    /// valid within callback only
     value: *const c_char,
     missing_state: bool,
 }
@@ -138,6 +138,7 @@ pub struct esphome_number_state {
 #[repr(C)]
 #[derive(Debug)]
 pub struct esphome_select_state {
+    /// valid within callback only
     value: *const c_char,
     missing_state: bool,
 }
@@ -161,6 +162,7 @@ struct LightState {
 #[repr(C)]
 #[derive(Debug)]
 pub struct esphome_light_state {
+    /// valid within callback only
     effect: *const c_char,
     brightness: f32,
     color_brightness: f32,
@@ -280,9 +282,13 @@ pub struct esphome_number_info {
 #[derive(Debug)]
 pub struct esphome_select_info {
     id: esphome_entity_id,
+    /// valid within callback only
     object_id: *const c_char,
+    /// valid within callback only
     name: *const c_char,
+    /// valid within callback only
     icon: *const c_char,
+    /// valid within callback only
     options: *const *const c_char,
     options_len: usize,
     entity_category: esphome_category,
@@ -292,12 +298,17 @@ pub struct esphome_select_info {
 #[repr(C)]
 #[derive(Debug)]
 pub struct esphome_light_info {
+    /// valid within callback only
     name: *const c_char,
+    /// valid within callback only
     icon: *const c_char,
+    /// valid within callback only
     object_id: *const c_char,
     id: esphome_entity_id,
+    /// valid within callback only
     color_modes: *const esphome_color_mode,
     color_modes_len: usize,
+    /// valid within callback only
     effects: *const *const c_char,
     effects_len: usize,
     min_mireds: f32,

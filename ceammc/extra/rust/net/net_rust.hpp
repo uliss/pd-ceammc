@@ -113,6 +113,7 @@ struct ceammc_esphome_binary_state {
 };
 
 struct ceammc_esphome_text_state {
+    /// valid within callback only
     const char *value;
     bool missing_state;
 };
@@ -128,11 +129,13 @@ struct ceammc_esphome_number_state {
 };
 
 struct ceammc_esphome_select_state {
+    /// valid within callback only
     const char *value;
     bool missing_state;
 };
 
 struct ceammc_esphome_light_state {
+    /// valid within callback only
     const char *effect;
     float brightness;
     float color_brightness;
@@ -243,9 +246,13 @@ struct ceammc_esphome_number_info {
 
 struct ceammc_esphome_select_info {
     ceammc_esphome_entity_id id;
+    /// valid within callback only
     const char *object_id;
+    /// valid within callback only
     const char *name;
+    /// valid within callback only
     const char *icon;
+    /// valid within callback only
     const char *const *options;
     size_t options_len;
     ceammc_esphome_category entity_category;
@@ -253,12 +260,17 @@ struct ceammc_esphome_select_info {
 };
 
 struct ceammc_esphome_light_info {
+    /// valid within callback only
     const char *name;
+    /// valid within callback only
     const char *icon;
+    /// valid within callback only
     const char *object_id;
     ceammc_esphome_entity_id id;
+    /// valid within callback only
     const ceammc_esphome_color_mode *color_modes;
     size_t color_modes_len;
+    /// valid within callback only
     const char *const *effects;
     size_t effects_len;
     float min_mireds;
