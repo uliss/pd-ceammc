@@ -596,6 +596,27 @@ where
     cancel_token: CancellationToken,
 }
 
+pub enum NumThreads {
+    Current,
+    Auto,
+    Num1,
+    Num2,
+    Num3,
+    Num4,
+}
+
+impl NumThreads {
+    fn threads(&self) -> Option<usize> {
+        match self {
+            NumThreads::Num1 => Some(1),
+            NumThreads::Num2 => Some(2),
+            NumThreads::Num3 => Some(3),
+            NumThreads::Num4 => Some(4),
+            _ => None,
+        }
+    }
+}
+
 impl<Request, Reply> TokioClient<Request, Reply>
 where
     Request: Send + 'static,
@@ -628,14 +649,16 @@ where
     }
 
     pub fn start_worker<F>(
-        num_threads: Option<u8>,
+        num_threads: NumThreads,
         cb: F,
         size: usize,
         notify: msg_notify,
         on_msg: msg_cb,
     ) -> Self
     where
-        F: AsyncFnOnce(TokioClientChannel<Request, Reply>) -> Result<(), String> + Send + 'static,
+        F: AsyncFnOnce(TokioClientChannel<Request, Reply>, CancellationToken) -> Result<(), String>
+            + Send
+            + 'static,
     {
         let (worker, client) = Self::make_channel(size, notify);
         let cancel_0 = CancellationToken::new();
@@ -644,24 +667,23 @@ where
         let worker_handle = std::thread::spawn(move || {
             log::debug!("worker is started");
 
-            let mut runtime_builder = if num_threads.is_some() {
-                tokio::runtime::Builder::new_multi_thread()
-            } else {
-                tokio::runtime::Builder::new_current_thread()
+            let mut runtime_builder = match num_threads {
+                NumThreads::Current => {
+                    debug!("set tokio current thread runtime");
+                    tokio::runtime::Builder::new_current_thread()
+                }
+                _ => {
+                    debug!("set tokio multithread runtime");
+                    tokio::runtime::Builder::new_multi_thread()
+                }
             };
 
-            runtime_builder.enable_all();
-
-            if let Some(num) = num_threads {
-                if num > 0 {
-                    debug!("set tokio multithread runtime with {num} worker threads");
-                    runtime_builder.worker_threads(num.into());
-                } else {
-                    debug!("set tokio multithread runtime with default number of worker threads");
-                }
-            } else {
-                debug!("set tokio current thread runtime");
+            if let Some(num) = num_threads.threads() {
+                debug!("use {num} worker threads");
+                runtime_builder.worker_threads(num);
             }
+
+            runtime_builder.enable_all();
 
             match runtime_builder.build() {
                 Ok(rt) => {
@@ -671,7 +693,7 @@ where
                         log::debug!("tokio start");
 
                         select! {
-                            Err(err) = cb(client) => {
+                            Err(err) = cb(client, cancel_0.clone()) => {
                                 log::error!("worker error: {err}");
                                  match err_channel.send_msg(WorkerMessage::error(&err)) {
                                     SendState::Ok => {}
@@ -689,6 +711,7 @@ where
                         }
                     });
                     log::debug!("tokio done");
+                    rt.shutdown_timeout(std::time::Duration::from_millis(1));
                 }
                 Err(err) => {
                     log::error!("can't create tokio runtime: {err}")

@@ -11,10 +11,9 @@ use ::esphome_client::{
     },
     EspHomeClient,
 };
-use ceammc_rs_msg::{cstr_from_string, msg_cb, msg_notify, SendState};
+use ceammc_rs_msg::{cstr_from_string, msg_cb, msg_notify, NumThreads, SendState, TokioClient};
 use log::{debug, error};
 use tokio::task::JoinHandle;
-use tokio_util::sync::CancellationToken;
 
 pub const ESPHOME_DEFAULT_PORT: u16 = 6053;
 
@@ -991,20 +990,29 @@ impl esphome_client {
         on_data: esphome_client_cb,
     ) -> Self {
         let addr = addr.to_string_lossy().to_string();
-        let obj = ceammc_rs_msg::TokioClient::<Request, Reply>::start_worker(
-            None,
-            async move |mut channel| {
+        let obj = TokioClient::<Request, Reply>::start_worker(
+            NumThreads::Current,
+            async move |mut channel, cancel| {
                 let addr = format!("{addr}:{port}");
                 channel
                     .send_debug(format!("connecting to {addr} ..."))
                     .to_worker_result()?;
 
-                let mut client = EspHomeClient::builder()
+                let client;
+                let cancel_connect = cancel.clone();
+                tokio::select! {
+                    _ = cancel_connect.cancelled() => {
+                        return Ok(())
+                    },
+                    cli = EspHomeClient::builder()
                     .address(&addr)
                     // .key(KEY)
-                    .connect()
-                    .await
-                    .map_err(|err| err.to_string())?;
+                    .connect() => {
+                        client = Some(cli.map_err(|err| err.to_string())?);
+                    },
+                }
+
+                let mut client = client.ok_or("can't create client")?;
 
                 channel
                     .send_debug(format!("connected ..."))
@@ -1013,12 +1021,10 @@ impl esphome_client {
                     .send_data(Reply::Connected(true))
                     .to_worker_result()?;
 
-                let cancel_dev1 = CancellationToken::new();
-                let cancel_dev2 = cancel_dev1.clone();
                 let (dev_tx, mut dev_rx) = tokio::sync::mpsc::channel(24);
 
                 let to_client = channel.clone_sender();
-
+                let cancel_dev = cancel.clone();
                 let dev_task: JoinHandle<Result<(), String>> = tokio::spawn(async move {
                     debug!("esphome device thread start");
                     loop {
@@ -1032,7 +1038,7 @@ impl esphome_client {
                             Some(msg) = dev_rx.recv() => {
                                 client.try_write(msg).await.map_err(|err| err.to_string())?;
                             },
-                            _ = cancel_dev1.cancelled() => break,
+                            _ = cancel_dev.cancelled() => break,
                         }
                     }
                     debug!("esphome device thread done");
@@ -1122,7 +1128,7 @@ impl esphome_client {
                     error!("{err}")
                 }
 
-                cancel_dev2.cancel();
+                cancel.cancel();
                 dev_task.await.map_err(|err| err.to_string())??;
 
                 channel
