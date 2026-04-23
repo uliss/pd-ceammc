@@ -11,7 +11,10 @@ use ::esphome_client::{
     },
     EspHomeClient,
 };
-use ceammc_rs_msg::{cstr_from_string, msg_cb, msg_notify, NumThreads, SendState, TokioClient};
+use ceammc_rs_msg::{
+    cstr_from_string, msg_cb, msg_notify, vcstr_from_vstring, NumThreads, SendState, TokioClient,
+    TokioRtShutdown,
+};
 use log::{debug, error};
 use tokio::task::JoinHandle;
 
@@ -276,6 +279,18 @@ enum Reply {
         assumed_state: bool,
         disabled_by_default: bool,
     },
+    LightInfo {
+        id: esphome_entity_id,
+        name: CString,
+        icon: CString,
+        object_id: CString,
+        supported_color_modes: Vec<i32>,
+        effects: Vec<CString>,
+        min_mireds: f32,
+        max_mireds: f32,
+        entity_category: i32,
+        disabled_by_default: bool,
+    },
     TextInfo {
         id: esphome_entity_id,
         object_id: CString,
@@ -398,10 +413,21 @@ async fn process_message_from_device(
         EspHomeMessage::CoverStateResponse(cover_state_response) => todo!(),
         EspHomeMessage::ListEntitiesFanResponse(list_entities_fan_response) => todo!(),
         EspHomeMessage::FanStateResponse(fan_state_response) => todo!(),
-        EspHomeMessage::ListEntitiesLightResponse(light) => {
-            debug!("{light:?}");
-            Ok(None)
-        }
+        EspHomeMessage::ListEntitiesLightResponse(light) => Ok(Some(Reply::LightInfo {
+            id: esphome_entity_id {
+                key: light.key,
+                device_id: light.device_id,
+            },
+            name: cstr_from_string(light.name),
+            icon: cstr_from_string(light.icon),
+            object_id: cstr_from_string(light.object_id),
+            supported_color_modes: light.supported_color_modes,
+            effects: vcstr_from_vstring(light.effects),
+            min_mireds: light.min_mireds,
+            max_mireds: light.max_mireds,
+            entity_category: light.entity_category,
+            disabled_by_default: light.disabled_by_default,
+        })),
         EspHomeMessage::LightStateResponse(light_state_response) => Ok(None),
         EspHomeMessage::ListEntitiesSensorResponse(sensor) => Ok(Some(Reply::SensorInfo {
             id: esphome_entity_id {
@@ -511,7 +537,7 @@ async fn process_message_from_device(
             object_id: cstr_from_string(sel.object_id),
             name: cstr_from_string(sel.name),
             icon: cstr_from_string(sel.icon),
-            options: sel.options.iter().map(|x| cstr_from_string(x)).collect(),
+            options: vcstr_from_vstring(&sel.options),
             disabled_by_default: sel.disabled_by_default,
             entity_category: sel.entity_category,
         })),
@@ -961,6 +987,18 @@ impl esphome_client {
                         entity_category,
                     })
                 }
+                Reply::LightInfo {
+                    id,
+                    name,
+                    icon,
+                    object_id,
+                    supported_color_modes,
+                    effects,
+                    min_mireds,
+                    max_mireds,
+                    entity_category,
+                    disabled_by_default,
+                } => todo!(),
             });
             true
         }
@@ -992,6 +1030,8 @@ impl esphome_client {
         let addr = addr.to_string_lossy().to_string();
         let obj = TokioClient::<Request, Reply>::start_worker(
             NumThreads::Current,
+            TokioRtShutdown::NoWait,
+            32,
             async move |mut channel, cancel| {
                 let addr = format!("{addr}:{port}");
                 channel
@@ -1137,7 +1177,6 @@ impl esphome_client {
 
                 Ok(())
             },
-            32,
             notify,
             on_msg,
         );

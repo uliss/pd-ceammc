@@ -3,6 +3,7 @@ use std::{
     future::Future,
     sync::mpsc::SyncSender,
     thread::JoinHandle,
+    time::Duration,
 };
 
 use log::debug;
@@ -617,6 +618,22 @@ impl NumThreads {
     }
 }
 
+pub enum TokioRtShutdown {
+    Wait,
+    NoWait,
+    TimeOutMsec(u8),
+}
+
+impl TokioRtShutdown {
+    fn time(&self) -> Option<Duration> {
+        match self {
+            TokioRtShutdown::Wait => None,
+            TokioRtShutdown::TimeOutMsec(msec) => Some(Duration::from_millis((*msec).into())),
+            TokioRtShutdown::NoWait => Some(Duration::from_nanos(0)),
+        }
+    }
+}
+
 impl<Request, Reply> TokioClient<Request, Reply>
 where
     Request: Send + 'static,
@@ -650,8 +667,9 @@ where
 
     pub fn start_worker<F>(
         num_threads: NumThreads,
-        cb: F,
+        shutdown: TokioRtShutdown,
         size: usize,
+        cb: F,
         notify: msg_notify,
         on_msg: msg_cb,
     ) -> Self
@@ -710,8 +728,11 @@ where
                             }
                         }
                     });
+                    log::debug!("tokio shutdown");
+                    if let Some(dur) = shutdown.time() {
+                        rt.shutdown_timeout(dur);
+                    }
                     log::debug!("tokio done");
-                    rt.shutdown_timeout(std::time::Duration::from_millis(1));
                 }
                 Err(err) => {
                     log::error!("can't create tokio runtime: {err}")
@@ -779,6 +800,14 @@ where
     T: AsRef<str>,
 {
     CString::new(str.as_ref()).unwrap_or_default()
+}
+
+pub fn vcstr_from_vstring<S, T>(vec: T) -> Vec<CString>
+where
+    S: AsRef<str>,
+    T: AsRef<[S]>,
+{
+    vec.as_ref().iter().map(|x| cstr_from_string(x)).collect()
 }
 
 pub fn ptr_to_array<T: Clone>(data: *const T, len: usize) -> Vec<T> {
