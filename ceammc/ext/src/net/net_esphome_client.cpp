@@ -168,6 +168,11 @@ struct EsphomeLight : public EsphomeLightBase {
         for (size_t i = 0; i < info.color_modes_len; i++)
             color_modes.push_back(info.color_modes[i]);
     }
+
+    bool supportsMode(ceammc_esphome_color_mode mode) const
+    {
+        return std::find(color_modes.begin(), color_modes.end(), mode) != color_modes.end();
+    }
 };
 
 DEFINE_STRUCT(EsphomeSelectBase, ceammc_esphome_select_info,
@@ -379,6 +384,52 @@ void NetEsphomeClient::m_ping(t_symbol* s, const AtomListView& lv)
         return;
 
     ceammc_esphome_client_ping(ffiObject());
+}
+
+/// @function "set esphome light state" {
+///     #key    symbol  "light ID"     { }
+///     @state?         "on/off state"      { #value bool ""  {} }
+///     @brightness?    "set brightness"    { #value float "" { check: [0..1] } }
+/// }
+void NetEsphomeClient::m_light(t_symbol* s, const AtomListView& lv)
+{
+    m_light_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    if (!checkFfiObject(true, s))
+        return;
+
+    auto info = lights_.findInfo<EsphomeLight>(args.key);
+    if (!info) {
+        METHOD_ERR(s) << fmt::format("light with id '{}' not found", args.key->s_name);
+        return;
+    }
+
+#define CHECK_COLOR_MODE(m)                                                                          \
+    const auto mode = ceammc_esphome_color_mode::m;                                                  \
+    if (!info->supportsMode(mode)) {                                                                 \
+        METHOD_ERR(s) << fmt::format("light '{}' not supports " #m " color mode", args.key->s_name); \
+        return;                                                                                      \
+    }
+
+    if (args.prop_state) {
+        CHECK_COLOR_MODE(OnOff);
+        ceammc_esphome_light_state state {};
+        state.state = args.prop_state.value;
+        state.color_mode = mode;
+        ceammc_esphome_client_light(ffiObject(), &info->id(), state);
+    }
+
+    if (args.prop_brightness) {
+        CHECK_COLOR_MODE(Brightness);
+        ceammc_esphome_light_state state {};
+        state.brightness = args.prop_brightness.value;
+        state.color_mode = mode;
+        ceammc_esphome_client_light(ffiObject(), &info->id(), state);
+    }
+
+#undef CHECK_COLOR_MODE
 }
 
 /// @function "set esphome number state" {
@@ -643,6 +694,7 @@ void setup_net_esphome_client()
     obj.addMethod("connect", &NetEsphomeClient::m_connect);
     obj.addMethod("entities", &NetEsphomeClient::m_entities);
     obj.addMethod("get_time", &NetEsphomeClient::m_get_time);
+    obj.addMethod("light", &NetEsphomeClient::m_light);
     obj.addMethod("number", &NetEsphomeClient::m_number);
     obj.addMethod("ping", &NetEsphomeClient::m_ping);
     obj.addMethod("subscribe", &NetEsphomeClient::m_subscribe);

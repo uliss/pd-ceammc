@@ -80,6 +80,237 @@ void m_connect_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
         PD_NORMAL, "%s", m_connect_args_info());
 }
+struct m_light_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_symbol* key {&s_}; // light ID
+    // props
+    enum class PropProcessState { Ok, NotFound, InvalidValue };
+    // types
+    struct prop_state_t {
+        int _count {0};
+        bool value {false}; // 
+        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!lv[0].isBool()) {
+                return INVALID_VALUE;
+            }
+            // set value
+            value = lv[0].asT<bool>();
+            // number of matched items
+            return 1;
+        }
+        operator bool() const {
+            return _count > 0;
+        }
+        static const char* arg_value_info() {
+            return "VALUE (), bool";
+        }
+        static const char* info() {
+            return "@state VALUE (on/off state)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_value(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[light @state( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    struct prop_brightness_t {
+        int _count {0};
+        t_float value {0}; // 
+        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
+                return INVALID_VALUE;
+            }
+            // set value
+            value = lv[0].asT<t_float>();
+            // number of matched items
+            return 1;
+        }
+        operator bool() const {
+            return _count > 0;
+        }
+        static const char* arg_value_info() {
+            return "VALUE (), float in [0..1] range";
+        }
+        static const char* info() {
+            return "@brightness VALUE (set brightness)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_value(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[light @brightness( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    // vars
+    prop_state_t prop_state; // on/off state
+    prop_brightness_t prop_brightness; // set brightness
+    // methods
+    int process_key(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isSymbol()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        key = lv[0].asT<t_symbol*>();
+        // number of matched items
+        return 1;
+    }
+    PropProcessState process_prop_state (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@state"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_state.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_state._count++;
+        return PropProcessState::Ok;
+    }
+    PropProcessState process_prop_brightness (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@brightness"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_brightness.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_brightness._count++;
+        return PropProcessState::Ok;
+    }
+    static const char* arg_key_info() {
+        return "KEY (light ID), symbol";
+    }
+    static const char* usage() {
+        return "usage: [light KEY @state? @brightness?(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_key_info();
+        Post(obj) << " - " << prop_state_t::info();
+        Post(obj) << " - " << prop_brightness_t::info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_key(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[light( argument #0 'KEY' is required:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[light( argument #0 'KEY' check failed, expected:";
+                    Post(obj) << " - " << arg_key_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[light( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        // check properties
+        PropProcessState prop_st = PropProcessState::Ok;
+        prop_st = process_prop_state(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[light( invalid value for @state property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_state_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_state._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @state properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @state are expected";
+                }
+                return false;
+            }
+        }
+        prop_st = process_prop_brightness(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[light( invalid value for @brightness property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_brightness_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_brightness._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @brightness properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @brightness are expected";
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+const char* m_light_args_info() {
+    return "set esphome light state";
+}
+void m_light_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_light_args_info());
+}
 struct m_number_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
     // args

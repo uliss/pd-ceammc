@@ -145,6 +145,7 @@ public:
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_entities(t_symbol* s, const AtomListView& lv);
     void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_light(t_symbol* s, const AtomListView& lv);
     void m_number(t_symbol* s, const AtomListView& lv);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_switch(t_symbol* s, const AtomListView& lv);
