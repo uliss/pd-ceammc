@@ -11,11 +11,11 @@ constexpr int MAX_PIXEL_COUNT = 4096;
 template <typename T>
 void process_rgb(ceammc_hw_color_rgb8& c, const T& args)
 {
-    if (args.prop_color._count) {
+    if (args.prop_color) {
         c.red = args.prop_color.color.red8();
         c.green = args.prop_color.color.green8();
         c.blue = args.prop_color.color.blue8();
-    } else if (args.prop_color8._count) {
+    } else if (args.prop_color8) {
         c.red = args.prop_color8.red;
         c.green = args.prop_color8.green;
         c.blue = args.prop_color8.blue;
@@ -27,12 +27,12 @@ const ceammc_hw_slice* process_slice(ceammc_hw_slice& slice, const T& args)
 {
     const ceammc_hw_slice* slice_ptr = nullptr;
 
-    if (args.prop_slice._count) {
+    if (args.prop_slice) {
         slice_ptr = &slice;
         slice.first = args.prop_slice.first;
         slice.last = args.prop_slice.last;
         slice.step = args.prop_slice.step;
-    } else if (args.prop_lslice._count) {
+    } else if (args.prop_lslice) {
         slice_ptr = &slice;
         slice.first = args.prop_lslice.start;
         if (args.prop_lslice.length < 1) {
