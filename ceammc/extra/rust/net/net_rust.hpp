@@ -10,6 +10,8 @@
 
 constexpr const uint16_t ceammc_ESPHOME_DEFAULT_PORT = 6053;
 
+constexpr const uint16_t ceammc_WLED_UDP_DEFAULT_PORT = 21324;
+
 /// esphome entity category
 enum class ceammc_esphome_category : uint8_t {
     None,
@@ -93,6 +95,8 @@ struct ceammc_http_client;
 struct ceammc_mqtt_client;
 
 struct ceammc_telegram_bot_client;
+
+struct ceammc_wled_udp;
 
 struct ceammc_ws_client;
 
@@ -530,6 +534,17 @@ struct ceammc_telegram_bot_result_cb {
                      uint32_t file_duration,
                      uint64_t file_size,
                      const char *title);
+};
+
+struct ceammc_wled_color {
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+};
+
+struct ceammc_wled_pixel_color {
+    ceammc_wled_color color;
+    uint8_t index;
 };
 
 struct ceammc_ws_client_init {
@@ -1024,6 +1039,42 @@ bool ceammc_telegram_bot_send_voice(ceammc_telegram_bot_client *cli,
 /// send text message from telegram bot
 /// @param cli - pointer to telegram bot
 bool ceammc_telegram_bot_whoami(ceammc_telegram_bot_client *cli);
+
+/// fill wled pixels
+/// @param cli - esphome device handle
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_wled_udp_fill(ceammc_wled_udp *cli,
+                          ceammc_wled_color color,
+                          uint16_t from,
+                          uint16_t len,
+                          uint8_t timeout);
+
+/// close and free wled device
+/// @param cli - wled device handle (nullable)
+void ceammc_wled_udp_free(ceammc_wled_udp *cli);
+
+/// create new wled UDP client
+/// @param addr - wled device ip address or server name
+/// @param port - wled device port
+/// @param notify - client notification from worker
+/// @param on_msg - client callback for messages from worker
+/// @param on_data - client callback for data from worker
+/// @return pointer to handle or nullptr on error
+ceammc_wled_udp *ceammc_wled_udp_new(const char *addr,
+                                     uint16_t port,
+                                     ceammc_msg_notify notify,
+                                     ceammc_msg_cb on_msg);
+
+/// send wled pixels
+/// @param cli - esphome device handle
+/// @param data - pointer to pixel data (nullable)
+/// @param len - pixels count
+/// @param timeout - wled timeout
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_wled_udp_set_pixels(ceammc_wled_udp *cli,
+                                const ceammc_wled_pixel_color *data,
+                                size_t len,
+                                uint8_t timeout);
 
 /// close websocket client connection
 /// @param cli - pointer to websocket client

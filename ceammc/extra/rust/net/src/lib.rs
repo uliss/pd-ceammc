@@ -5,6 +5,7 @@ pub mod mqtt;
 pub mod service;
 pub mod telegram_bot;
 pub mod utils;
+pub mod wled;
 pub mod ws_cli;
 pub mod ws_srv;
 

@@ -4,6 +4,7 @@
 
 namespace ceammc {
 void setup_net_esphome_client();
+void setup_net_wled_udp();
 }
 
 extern void setup_net_artnet_send();
@@ -24,6 +25,7 @@ void ceammc_net_setup()
     ceammc_net_logger_init();
 
     ceammc::setup_net_esphome_client();
+    ceammc::setup_net_wled_udp();
     setup_net_artnet_send();
     setup_net_freesound();
     setup_net_host();

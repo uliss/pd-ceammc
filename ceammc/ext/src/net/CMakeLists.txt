@@ -139,5 +139,18 @@ if(WITH_ESPHOME)
     pd_method_args(ceammc_net net_esphome_client)
 endif()
 
+# wled
+target_sources(ceammc_net PRIVATE net_wled.h net_wled.cpp)
+if(WITH_WLED)
+    target_compile_definitions(ceammc_net PRIVATE WITH_WLED)
+    target_link_libraries(ceammc_net PRIVATE net_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+        )
+    pd_method_args(ceammc_net net_wled)
+endif()
+
 
 
