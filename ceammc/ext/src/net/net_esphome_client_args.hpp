@@ -142,7 +142,7 @@ struct m_light_args {
                 return NOT_ENOUGH_ARGS;
             }
             // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
+            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 100))) {
                 return INVALID_VALUE;
             }
             // set value
@@ -154,7 +154,7 @@ struct m_light_args {
             return _count > 0;
         }
         static const char* arg_value_info() {
-            return "VALUE (), float in [0..1] range";
+            return "VALUE (), float in [0..100] range";
         }
         static const char* info() {
             return "@brightness VALUE (set brightness)";

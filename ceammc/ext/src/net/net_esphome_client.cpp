@@ -338,6 +338,11 @@ void NetEsphomeClient::dump() const
             OBJ_POST << fmt::format("\t'{}': text", id->s_name);
         });
 
+    lights_.foreachEntity(
+        [this](t_symbol* id, const EsphomeEntityPtr& e) {
+            OBJ_POST << fmt::format("\t'{}': light", id->s_name);
+        });
+
     sensors_.foreachEntity(
         [this](t_symbol* id, const EsphomeEntityPtr& e) {
             OBJ_POST << fmt::format("\t'{}': sensor", id->s_name);
@@ -389,7 +394,7 @@ void NetEsphomeClient::m_ping(t_symbol* s, const AtomListView& lv)
 /// @function "set esphome light state" {
 ///     #key    symbol  "light ID"     { }
 ///     @state?         "on/off state"      { #value bool ""  {} }
-///     @brightness?    "set brightness"    { #value float "" { check: [0..1] } }
+///     @brightness?    "set brightness"    { #value float "" { check: [0..100] } }
 /// }
 void NetEsphomeClient::m_light(t_symbol* s, const AtomListView& lv)
 {
@@ -414,10 +419,9 @@ void NetEsphomeClient::m_light(t_symbol* s, const AtomListView& lv)
     }
 
     if (args.prop_state) {
-        CHECK_COLOR_MODE(OnOff);
         ceammc_esphome_light_state state {};
         state.state = args.prop_state.value;
-        state.color_mode = mode;
+        state.color_mode = ceammc_esphome_color_mode::OnOff;
         ceammc_esphome_client_light(ffiObject(), &info->id(), state);
     }
 
