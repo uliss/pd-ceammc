@@ -217,6 +217,9 @@ struct m_set_pixel_args {
             // number of matched items
             return 1;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_red_info() {
             return "RED (red color component), byte[0..255] range";
         }
@@ -299,6 +302,9 @@ struct m_set_pixel_args {
             } else {
                 return INVALID_VALUE;
             }
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_color_info() {
             return "COLOR (pixel color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
@@ -499,6 +505,9 @@ struct m_write_args {
             // number of matched items
             return 1;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_value_info() {
             return "VALUE (value), int >= 0";
         }
@@ -680,6 +689,9 @@ struct m_fill_args {
                 return INVALID_VALUE;
             }
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_color_info() {
             return "COLOR (fill color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
@@ -752,6 +764,9 @@ struct m_fill_args {
             blue = lv[0].asT<t_int>();
             // number of matched items
             return 1;
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_red_info() {
             return "RED (red color component), byte[0..255] range";
@@ -844,6 +859,9 @@ struct m_fill_args {
             // number of matched items
             return take_count;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_start_info() {
             return "START (start index, can be negative. If negative: means position from the end of the buffer), int";
         }
@@ -934,6 +952,9 @@ struct m_fill_args {
             }
             // number of matched items
             return take_count;
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_first_info() {
             return "FIRST (start index, can be negative. If negative: means position from the end of the buffer), int";
@@ -1242,6 +1263,9 @@ struct m_fill_bits_args {
             // number of matched items
             return 1;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_value_info() {
             return "VALUE (offset), int > 0";
         }
@@ -1306,6 +1330,9 @@ struct m_fill_bits_args {
             } else {
                 return INVALID_VALUE;
             }
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_color_info() {
             return "COLOR (), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
@@ -1379,6 +1406,9 @@ struct m_fill_bits_args {
             blue = lv[0].asT<t_int>();
             // number of matched items
             return 1;
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_red_info() {
             return "RED (red color component), byte[0..255] range";
@@ -1706,6 +1736,9 @@ struct m_fill_pixels_args {
                 return INVALID_VALUE;
             }
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_color_info() {
             return "COLOR (color), colorRGB color in various formats: float RBG triplet, hex string, named color or color data atom";
         }
@@ -1778,6 +1811,9 @@ struct m_fill_pixels_args {
             blue = lv[0].asT<t_int>();
             // number of matched items
             return 1;
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_red_info() {
             return "RED (red color component), byte[0..255] range";
@@ -2065,6 +2101,9 @@ struct m_fx_args {
             // number of matched items
             return take_count;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_first_info() {
             return "FIRST (start index, can be negative. If negative: means position from the end of the buffer), int";
         }
@@ -2155,6 +2194,9 @@ struct m_fx_args {
             }
             // number of matched items
             return take_count;
+        }
+        operator bool() const {
+            return _count > 0;
         }
         static const char* arg_start_info() {
             return "START (start index, can be negative. If negative: means position from the end of the buffer), int";

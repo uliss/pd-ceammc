@@ -128,7 +128,7 @@ void HwSpiWs2812::m_set_pixel(t_symbol* s, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    ceammc_hw_color_rgb8 color;
+    ceammc_hw_color_rgb8 color {};
     process_rgb(color, args);
 
     if (!check_connected(true, s))
@@ -186,10 +186,10 @@ void HwSpiWs2812::m_fill(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true, s))
         return;
 
-    ceammc_hw_color_rgb8 color;
+    ceammc_hw_color_rgb8 color {};
     process_rgb(color, args);
 
-    ceammc_hw_slice slice;
+    ceammc_hw_slice slice {};
     ceammc_hw_spi_ws2812_fill_slice(device(), color, process_slice(slice, args));
 }
 
@@ -216,7 +216,7 @@ void HwSpiWs2812::m_fill_bits(t_symbol* s, const AtomListView& lv)
     if (!check_connected(true, s))
         return;
 
-    ceammc_hw_color_rgb8 color;
+    ceammc_hw_color_rgb8 color {};
     process_rgb(color, args);
 
     boost::container::small_vector<std::uint8_t, 128> data;
@@ -224,7 +224,7 @@ void HwSpiWs2812::m_fill_bits(t_symbol* s, const AtomListView& lv)
         data.push_back(a.asBool());
     }
 
-    ceammc_hw_bits bits;
+    ceammc_hw_bits bits {};
     bits.data = data.data();
     bits.size = data.size();
     bits.offset = args.prop_offset.value;
@@ -260,7 +260,7 @@ void HwSpiWs2812::m_fill_pixels(t_symbol* s, const AtomListView& lv)
         data.push_back(a.asInt());
     }
 
-    ceammc_hw_indexes pixels;
+    ceammc_hw_indexes pixels {};
     pixels.data = data.data();
     pixels.size = data.size();
 
@@ -356,7 +356,7 @@ void HwSpiWs2812::m_fx(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    ceammc_hw_slice slice;
+    ceammc_hw_slice slice {};
     ceammc_hw_spi_ws2812_apply_fx(device(), fx, process_slice(slice, args));
 }
 
