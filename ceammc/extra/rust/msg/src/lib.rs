@@ -532,7 +532,7 @@ where
     Reply: Clone + Send + 'static,
 {
     to_client: TokioToClient<Reply>,
-    from_client: tokio::sync::mpsc::Receiver<RequestMessage<Request>>,
+    pub from_client: tokio::sync::mpsc::Receiver<RequestMessage<Request>>,
 }
 
 impl<Request, Reply> TokioClientChannel<Request, Reply>
@@ -567,6 +567,33 @@ where
                     log::debug!("quit");
                     break;
                 }
+            }
+        }
+
+        Ok(())
+    }
+
+    pub async fn recv_loop_timeout<F, Ft>(
+        &mut self,
+        timeout: Duration,
+        on_request: &mut F,
+        on_timetout: &mut Ft,
+    ) -> Result<(), String>
+    where
+        F: AsyncFnMut(Request) -> Result<(), String>,
+        Ft: AsyncFnMut() -> Result<(), String>,
+    {
+        loop {
+            match tokio::time::timeout(timeout, self.from_client.recv()).await {
+                Ok(Some(req)) => match req {
+                    RequestMessage::Message(req) => (on_request)(req).await?,
+                    RequestMessage::Quit => {
+                        log::debug!("quit");
+                        break;
+                    }
+                },
+                Ok(None) => break,
+                Err(_err) => on_timetout().await?,
             }
         }
 
@@ -782,6 +809,20 @@ where
 
     pub fn send(&self, req: Request) -> SendState {
         self.channel.send(req)
+    }
+
+    pub fn send_checked(&self, req: Request, on_msg: &msg_cb) -> bool {
+        match self.channel.send(req) {
+            SendState::NoSpace => {
+                on_msg.error_str("no space left in worker channel");
+                false
+            }
+            SendState::Disconnected => {
+                on_msg.error_str("worker is disconnected");
+                false
+            }
+            SendState::Ok => true,
+        }
     }
 }
 

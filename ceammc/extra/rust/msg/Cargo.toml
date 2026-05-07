@@ -1,6 +1,6 @@
 [package]
 name = "ceammc_rs_msg"
-version = "0.5.1"
+version = "0.5.2"
 edition = "2021"
 
 [lib]
@@ -17,5 +17,6 @@ tokio = { version = "1.42", features = [
     "sync",
     "fs",
     "macros",
+    "time",
 ] }
 tokio-util = "0.7.18"
