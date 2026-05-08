@@ -29,6 +29,7 @@ public:
     bool notify(int code) final;
 
     void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_fill(t_symbol* s, const AtomListView& lv);
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
 };
 
