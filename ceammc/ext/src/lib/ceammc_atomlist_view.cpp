@@ -306,7 +306,7 @@ AtomListView AtomListView::arguments(size_t from) const
 
 AtomListView AtomListView::properties() const
 {
-    if(!data_)
+    if (!data_)
         return {};
 
     for (size_t i = 0; i < n_; i++) {
@@ -551,4 +551,4 @@ std::ostream& operator<<(std::ostream& os, const AtomListView& l)
     return os;
 }
 
-}
+} // namespace ceammc
