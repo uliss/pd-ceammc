@@ -1,13 +1,12 @@
 #include "list_unpack.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <cstdio>
 
-constexpr size_t MIN_OUTLETS = 1;
-constexpr size_t MAX_OUTLETS = 32;
-constexpr size_t DEFAULT_OUTLETS = 1;
+std::array<std::string, ListUnpack::MAX_OUTLETS> ListUnpack::outlets_info_;
 
 ListUnpack::ListUnpack(const PdArgs& a)
     : BaseObject(a)
@@ -32,18 +31,13 @@ void ListUnpack::onDataT(const MListAtom& ml)
 
 const char* ListUnpack::annotateOutlet(size_t n) const
 {
-    static std::vector<std::string> out_info_;
+    return n < outlets_info_.size() ? outlets_info_[n].c_str() : "?";
+}
 
-    if (n >= out_info_.size()) {
-        out_info_.reserve(n + 1 - out_info_.size());
-        char buf[32];
-        for (size_t i = out_info_.size(); i <= n; i++) {
-            sprintf(buf, "\\[%d\\]", (int)i);
-            out_info_.push_back(buf);
-        }
-    }
-
-    return out_info_[n].c_str();
+void ListUnpack::initOutletsInfo()
+{
+    for (size_t i = 0; i < MAX_OUTLETS; i++)
+        outlets_info_[i] = fmt::format("\\[{}\\]", i);
 }
 
 void setup_list_unpack()
@@ -57,5 +51,6 @@ void setup_list_unpack()
     obj.setCategory("list");
     obj.setSinceVersion(0, 3);
 
+    ListUnpack::initOutletsInfo();
     ListUnpack::setInletsInfo(obj.classPointer(), { "list or Mlist" });
 }

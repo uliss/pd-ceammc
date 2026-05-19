@@ -28,6 +28,20 @@ public:
     void onDataT(const MListAtom& ml);
 
     const char* annotateOutlet(size_t n) const final;
+
+public:
+    enum {
+        MIN_OUTLETS = 1,
+        MAX_OUTLETS = 32,
+        DEFAULT_OUTLETS = 1,
+    };
+
+public:
+    static void
+    initOutletsInfo();
+
+private:
+    static std::array<std::string, MAX_OUTLETS> outlets_info_;
 };
 
 void setup_list_unpack();
