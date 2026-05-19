@@ -497,7 +497,7 @@ TEST_CASE("AtomListView", "core")
     {
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current", LF(100, 200, 300));
         char buf[32];
-        sprintf(buf, "%d", cnv->dollarZero());
+        snprintf(buf, sizeof(buf), "%d", cnv->dollarZero());
 
         AtomList res;
         REQUIRE(AtomListView(L()).expandDollarArgs(cnv->pd_canvas(), res));
