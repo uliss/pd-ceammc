@@ -53,6 +53,11 @@ std::string AbstractData::toJsonString() const
     return "null";
 }
 
+bool AbstractData::fromJsonString(const std::string& str)
+{
+    return false;
+}
+
 bool AbstractData::setFromDataString(const std::string& str)
 {
     Atom data;

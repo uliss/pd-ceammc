@@ -82,6 +82,11 @@ public:
     virtual std::string toJsonString() const;
 
     /**
+     * Parse json string and set object value
+     */
+    virtual bool fromJsonString(const std::string& str);
+
+    /**
      * Set data from string constructor
      * @return false on error
      */

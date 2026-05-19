@@ -19,7 +19,6 @@
 #include "ceammc_maybe.h"
 
 #include <map>
-#include <type_traits>
 
 namespace ceammc {
 
@@ -183,10 +182,13 @@ public:
      */
     void clear() noexcept { dict_.clear(); }
 
+    /**
+     * same as toJsonString() method but with more options
+     */
     MaybeString toJSON(int indent = -1, bool compressSingleList = true) const;
 
     /** parse json string and set dict value */
-    bool fromJsonString(const std::string& str);
+    bool fromJsonString(const std::string& str) override;
 
     bool read(const std::string& path);
     bool write(const std::string& path) const;
