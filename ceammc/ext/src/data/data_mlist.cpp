@@ -24,6 +24,11 @@ DataMList::DataMList(const PdArgs& args)
     createOutlet();
 }
 
+void DataMList::m_store_json(t_symbol* s, const AtomListView& lv)
+{
+    auto json = value_->atomRef()->toJsonString({});
+}
+
 void setup_data_mlist()
 {
     ListIFaceFactory<DataMList> obj("data.mlist");

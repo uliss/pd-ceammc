@@ -483,29 +483,29 @@ TEST_CASE("PropertyInfo", "[core]")
 
             DataTypeDict d;
             REQUIRE(pi.getDict(d));
-            REQUIRE(*d.toJSON()
+            REQUIRE(d.toJsonString({})
                 == R"({"access":"readwrite","name":"@float","type":"float","view":"slider","visibility":"public"})");
 
             pi.setAccess(PropValueAccess::READONLY);
             REQUIRE(pi.getDict(d));
-            REQUIRE(*d.toJSON()
+            REQUIRE(d.toJsonString({})
                 == R"({"access":"readonly","name":"@float","type":"float","view":"slider","visibility":"public"})");
 
             pi.setDefault(100);
             REQUIRE(pi.getDict(d));
-            REQUIRE(*d.toJSON()
+            REQUIRE(d.toJsonString({})
                 == R"({"access":"readonly","default":100,"name":"@float","type":"float","view":"slider","visibility":"public"})");
 
             pi.setUnits(PropValueUnits::BPM);
             REQUIRE(pi.getDict(d));
-            REQUIRE(*d.toJSON()
+            REQUIRE(d.toJsonString({})
                 == R"({"access":"readonly","default":100,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
 
             pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
             REQUIRE(pi.setMinFloat(-10));
 
             REQUIRE(pi.getDict(d));
-            REQUIRE(*d.toJSON()
+            REQUIRE(d.toJsonString({})
                 == R"({"access":"readonly","constraints":">=","default":100,"min":-10,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
         }
     }

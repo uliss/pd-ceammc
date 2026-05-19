@@ -55,7 +55,7 @@ public:
     DataTypeMList(const DataTypeMList& mlist);
     DataTypeMList(DataTypeMList&& mlist) noexcept;
     DataTypeMList& operator=(const DataTypeMList& mlist);
-    DataTypeMList& operator=(DataTypeMList&& mlist);
+    DataTypeMList& operator=(DataTypeMList&& mlist) noexcept;
 
     DataTypeId type() const noexcept final;
 
@@ -73,7 +73,13 @@ public:
      * Returns JSON representation of string
      *  - [1,2,3] etc...
      */
-    std::string toJsonString() const final;
+    std::string toJsonString(const json::JsonWriteOpts& opts) const final;
+
+    /**
+     * Parse json string and set mlist value
+     * @return true on success
+     */
+    bool fromJsonString(const std::string& str) final;
 
     std::string toListStringContent() const noexcept final;
     std::string toDictStringContent() const noexcept final;

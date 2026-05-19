@@ -16,7 +16,7 @@
 #include "data_mlist.h"
 #include "test_data_base.h"
 
-#include <stdio.h>
+#include <cstdio>
 
 #define REQUIRE_SIZE(obj, n) REQUIRE_PROPERTY(t, @size, float(n));
 #define REQUIRE_NOT_EMPTY(obj) REQUIRE_PROPERTY(t, @empty, 0.f);

@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "datatype_path.h"
 #include "ceammc_abstractdata.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
@@ -151,7 +150,7 @@ namespace path {
         return true;
     }
 
-    std::string DataTypePath::toJsonString() const
+    std::string DataTypePath::toJsonString(const json::JsonWriteOpts& opts) const
     {
         if (path_)
             return fmt::format("\"{}\"", string::escape_for_json(path_->string()));

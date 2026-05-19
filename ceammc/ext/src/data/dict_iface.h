@@ -160,7 +160,7 @@ public:
 
     bool proto_write(const std::string& path) const override
     {
-        return dict()->writeJson(path);
+        return dict()->writeJson(path, {});
     }
 
     bool proto_choose(Atom& key) const override

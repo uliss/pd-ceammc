@@ -23,7 +23,7 @@ using namespace ceammc;
 
 class ProtoMpv : public BaseObject {
     SymbolProperty* mpv_ipc_path_;
-    std::atomic_bool sig_quit_;
+    std::atomic_bool sig_quit_{};
     mpv::MpvIpcFuture ipc_result_;
     mpv::StringQueue queue_to_mpv_;
     mpv::StringQueue queue_from_mpv_;

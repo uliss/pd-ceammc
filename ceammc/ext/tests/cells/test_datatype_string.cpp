@@ -329,13 +329,13 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("json")
     {
-        REQUIRE(DSTR("simple").toJsonString() == "\"simple\"");
-        REQUIRE(DSTR("a b c").toJsonString() == "\"a b c\"");
-        REQUIRE(DSTR("a\nb").toJsonString() == "\"a\\nb\"");
-        REQUIRE(DSTR("a\tb").toJsonString() == "\"a\\tb\"");
-        REQUIRE(DSTR(R"( a\b )").toJsonString() == R"(" a\\b ")");
-        REQUIRE(DSTR(R"( a"b )").toJsonString() == R"(" a\"b ")");
-        REQUIRE(DSTR(R"( a\"b )").toJsonString() == R"(" a\\\"b ")");
+        REQUIRE(DSTR("simple").toJsonString({}) == "\"simple\"");
+        REQUIRE(DSTR("a b c").toJsonString({}) == "\"a b c\"");
+        REQUIRE(DSTR("a\nb").toJsonString({}) == "\"a\\nb\"");
+        REQUIRE(DSTR("a\tb").toJsonString({}) == "\"a\\tb\"");
+        REQUIRE(DSTR(R"( a\b )").toJsonString({}) == R"(" a\\b ")");
+        REQUIRE(DSTR(R"( a"b )").toJsonString({}) == R"(" a\"b ")");
+        REQUIRE(DSTR(R"( a\"b )").toJsonString({}) == R"(" a\\\"b ")");
     }
 
     SECTION("StringAtom")

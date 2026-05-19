@@ -15,9 +15,12 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_filesystem.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/core.h"
+
+#include <fstream>
 
 namespace ceammc {
 
@@ -45,17 +48,48 @@ std::string AbstractData::toString() const
 
 std::string AbstractData::toJsonObject() const
 {
-    return fmt::format(R"({{"datatype":"{}","value":{}}})", typeName().c_str(), toJsonString());
+    return fmt::format(R"({{"datatype":"{}","value":{}}})", typeName().c_str(), toJsonString({}));
 }
 
-std::string AbstractData::toJsonString() const
+std::string AbstractData::toJsonString(const json::JsonWriteOpts&) const
 {
     return "null";
 }
 
 bool AbstractData::fromJsonString(const std::string& str)
 {
+    LIB_ERR << fmt::format("{}: not implemented", __FUNCTION__);
     return false;
+}
+
+bool AbstractData::readJson(const std::string& path)
+{
+    auto res = fs::readFileContent(path.c_str());
+    RuntimeError err;
+    if (res.matchError(err)) {
+        LIB_ERR << err.what();
+        return false;
+    }
+
+    if (!fromJsonString(res.value())) {
+        LIB_ERR << fmt::format("can not parse JSON file: '{}'", path);
+        return false;
+    }
+
+    return false;
+}
+
+bool AbstractData::writeJson(const std::string& path, const json::JsonWriteOpts& opts) const
+{
+    std::ofstream ofs(path.c_str());
+    // can't open
+    if (!ofs) {
+        LIB_ERR << fmt::format("{}: can't open file: '{}'", __FUNCTION__, path);
+        return false;
+    }
+
+    ofs << toJsonString(opts);
+    return true;
 }
 
 bool AbstractData::setFromDataString(const std::string& str)
@@ -167,6 +201,17 @@ bool AbstractData::parse(const AtomListView& lv, int dataType, Atom& res)
 DataTypeName AbstractData::findTypeName(DataTypeId dataType)
 {
     return DataStorage::instance().nameByType(dataType);
+}
+
+DataTypeId AbstractData::registerNewType(const char* name, Atom (*list_fn)(const AtomListView&), Atom (*dict_fn)(const DictAtom&))
+{
+    auto id = DataStorage::instance().typeByName(name);
+    if (id == data::DATA_INVALID) {
+        id = DataStorage::instance().registerNewType(name, list_fn, dict_fn);
+        if (id == data::DATA_INVALID)
+            LIB_ERR << fmt::format("can't register datatype: {}", name);
+    }
+    return id;
 }
 
 } // namespace ceammc

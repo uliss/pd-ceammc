@@ -183,13 +183,7 @@ void ProtoMpv::onDataT(const DictAtom& dict)
         return;
     }
 
-    auto json = dict->toJSON();
-    if (!json) {
-        OBJ_ERR << "invalid dict given";
-        return;
-    }
-
-    write(json.value().c_str());
+    write(dict->toJsonString({}).c_str());
 }
 
 bool ProtoMpv::write(const char* str)

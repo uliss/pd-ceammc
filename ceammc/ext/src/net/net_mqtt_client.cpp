@@ -182,7 +182,7 @@ void NetMqttClient::m_publish(t_symbol* s, const AtomListView& lv)
         if (payload.isAtom() && !payload.isData())
             msg = json::to_json_string(payload[0]);
         else if (payload.isData())
-            msg = payload[0].asData()->toJsonString();
+            msg = payload[0].asData()->toJsonString({});
         else
             msg = json::to_json_string(payload);
 

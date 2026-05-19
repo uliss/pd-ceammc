@@ -87,7 +87,7 @@ TEST_CASE("data.dict", "[externals]")
             DataTypeDict t("[a: ([b: c d] [e: f])]");
             REQUIRE(t.size() == 1);
             REQUIRE(t.contains("a"));
-            REQUIRE(*t.toJSON(-1) == "{\"a\":[{\"b\":[\"c\",\"d\"]},{\"e\":\"f\"}]}");
+            REQUIRE(t.toJsonString({}) == "{\"a\":[{\"b\":[\"c\",\"d\"]},{\"e\":\"f\"}]}");
         }
     }
 

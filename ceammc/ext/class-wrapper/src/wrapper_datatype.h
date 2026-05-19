@@ -65,7 +65,7 @@ public:
     /**
      * Move assign
      */
-    AbstractDataWrapper& operator=(AbstractDataWrapper&& v);
+    AbstractDataWrapper& operator=(AbstractDataWrapper&& v) noexcept;
 
     /**
      * Polymorphic clone function
@@ -91,7 +91,7 @@ public:
     /**
      * Polymorphic convertsion to json string
      */
-    std::string toJsonString() const final { return value_.toJsonString(); }
+    std::string toJsonString(const json::JsonWriteOpts& opts) const final { return value_.toJsonString(); }
 
     std::string toListStringContent() const override { return value_.toString(); }
     std::string toDictStringContent() const override { return "value: " + value_.toString(); }
@@ -178,7 +178,7 @@ AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(const AbstractDataWrap
 }
 
 template <typename T>
-AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& v)
+AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& v) noexcept
 {
     if (&v == this)
         return *this;

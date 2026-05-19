@@ -21,7 +21,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 
 namespace ceammc {
 
@@ -67,7 +66,7 @@ public:
     DataTypeString(DataTypeString&& d) noexcept;
     // assign
     DataTypeString& operator=(const DataTypeString& s);
-    DataTypeString& operator=(DataTypeString&& s);
+    DataTypeString& operator=(DataTypeString&& s) noexcept;
 
     /**
      * Polymorphic copy creation
@@ -86,7 +85,7 @@ public:
     /**
      * Polymorphic JSON string representation (quoted escaped string)
      */
-    std::string toJsonString() const final;
+    std::string toJsonString(const json::JsonWriteOpts& opts) const final;
 
     std::string toListStringContent() const final;
     std::string toDictStringContent() const final;

@@ -19,7 +19,7 @@ void to_json(nlohmann::json& out, const Atom& atom)
         else if (atom.isA<DataTypeDict>())
             out = nlohmann::json(*atom.asD<DataTypeDict>());
         else if (atom.isData())
-            out = nlohmann::json::parse(atom.asData()->toJsonString());
+            out = nlohmann::json::parse(atom.asData()->toJsonString({}));
         else
             out = nlohmann::json();
 

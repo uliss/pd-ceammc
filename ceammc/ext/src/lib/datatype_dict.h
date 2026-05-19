@@ -101,7 +101,7 @@ public:
     /**
      * Output as JSON string
      */
-    std::string toJsonString() const final;
+    std::string toJsonString(const json::JsonWriteOpts& opts) const final;
 
     std::string toListStringContent() const final;
     std::string toDictStringContent() const final;
@@ -182,23 +182,8 @@ public:
      */
     void clear() noexcept { dict_.clear(); }
 
-    /**
-     * same as toJsonString() method but with more options
-     */
-    MaybeString toJSON(int indent = -1, bool compressSingleList = true) const;
-
     /** parse json string and set dict value */
     bool fromJsonString(const std::string& str) override;
-
-    /**
-     * read the data from the json file
-     */
-    bool readJson(const std::string& path);
-
-    /**
-     * write the data into the json file
-     */
-    bool writeJson(const std::string& path) const;
 
     /**
      * Randomly choose key from dict

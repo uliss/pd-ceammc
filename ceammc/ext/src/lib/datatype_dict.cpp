@@ -13,9 +13,7 @@
  *****************************************************************************/
 #include "datatype_dict.h"
 #include "ceammc_data.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
-#include "ceammc_filesystem.h"
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
@@ -24,7 +22,6 @@
 #include "fmt/core.h"
 
 #include <ctime>
-#include <fstream>
 #include <random>
 
 constexpr const char* TYPE_NAME = "Dict";
@@ -94,9 +91,9 @@ std::string DataTypeDict::toString() const
     return fmt::format("[{}]", toDictStringContent());
 }
 
-std::string DataTypeDict::toJsonString() const
+std::string DataTypeDict::toJsonString(const json::JsonWriteOpts& opts) const
 {
-    return json::to_json_string(*this);
+    return json::to_json_string(*this, opts);
 }
 
 std::string DataTypeDict::toListStringContent() const
@@ -247,23 +244,11 @@ bool DataTypeDict::remove(t_symbol* key)
     return true;
 }
 
-MaybeString DataTypeDict::toJSON(int indent, bool compressSingleList) const
-{
-    if (dict_.empty())
-        return {};
-
-    json::JsonWriteOpts opts;
-    opts.indent = indent;
-    opts.compressSingleList = compressSingleList;
-
-    return json::to_json_string(*this, opts);
-}
-
 bool DataTypeDict::fromJsonString(const std::string& str)
 {
-    using json = nlohmann::json;
+    using js = nlohmann::json;
     try {
-        const json j = json::parse(str);
+        const auto j = js::parse(str);
 
         if (j.empty())
             return false;
@@ -271,45 +256,11 @@ bool DataTypeDict::fromJsonString(const std::string& str)
         dict_.clear();
         dict_ = j.get<decltype(dict_)>();
 
-    } catch (json::exception& e) {
+    } catch (js::exception& e) {
         std::cerr << "[dict] JSON exception: " << e.what() << ", while parsing: " << str;
         return false;
     }
 
-    return true;
-}
-
-bool DataTypeDict::readJson(const std::string& path)
-{
-    auto res = fs::readFileContent(path.c_str());
-    RuntimeError err;
-    if (res.matchError(err)) {
-        LIB_ERR << err.what();
-        return false;
-    }
-
-    if (!fromJsonString(res.value())) {
-        LIB_ERR << "can not parse JSON file: " << path;
-        return false;
-    }
-
-    return true;
-}
-
-bool DataTypeDict::writeJson(const std::string& path) const
-{
-    std::ofstream ofs(path.c_str());
-    // can't open
-    if (!ofs) {
-        LIB_ERR << "can not open file: " << path;
-        return false;
-    }
-
-    auto res = toJSON(4);
-    if (!res)
-        return false;
-
-    ofs << *res;
     return true;
 }
 

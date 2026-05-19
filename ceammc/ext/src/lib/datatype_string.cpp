@@ -13,9 +13,7 @@
  *****************************************************************************/
 #include "datatype_string.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
-#include "ceammc_log.h"
 #include "ceammc_string.h"
 #include "fmt/core.h"
 #include "lex/parser_strings.h"
@@ -98,7 +96,7 @@ DataTypeString& DataTypeString::operator=(const DataTypeString& s)
     return *this;
 }
 
-DataTypeString& DataTypeString::operator=(DataTypeString&& s)
+DataTypeString& DataTypeString::operator=(DataTypeString&& s) noexcept
 {
     if (&s != this)
         str_ = std::move(s.str_);
@@ -167,7 +165,7 @@ DataTypeString* DataTypeString::clone() const
     return new DataTypeString(str_);
 }
 
-std::string DataTypeString::toJsonString() const
+std::string DataTypeString::toJsonString(const json::JsonWriteOpts&) const
 {
     return fmt::format("\"{}\"", string::escape_for_json(str_));
 }
@@ -287,7 +285,7 @@ bool DataTypeString::isEqual(const AbstractData* d) const noexcept
     if (this == d)
         return true;
 
-    const DataTypeString* cmp = d->as<DataTypeString>();
+    const auto* cmp = d->as<DataTypeString>();
 
     static_assert(noexcept(operator==(*cmp)), "noexcept required");
 

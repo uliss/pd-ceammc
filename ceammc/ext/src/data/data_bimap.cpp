@@ -21,7 +21,7 @@
 
 #include "json/json.hpp"
 
-using json = nlohmann::json;
+using js = nlohmann::json;
 
 DataBiMapBase::DataBiMapBase(const PdArgs& args)
     : EditorObject<FilesystemIFace<BaseObject>>(args)
@@ -132,11 +132,11 @@ bool DataBiMapBase::proto_write(const std::string& path) const
             auto& l = kv.left;
             auto& r = kv.right;
 
-            json jl, jr;
+            js jl, jr;
             to_json(jl, l);
             to_json(jr, r);
 
-            ofs << "  " << json::array({ jl, jr }).dump();
+            ofs << "  " << js::array({ jl, jr }).dump();
         }
         ofs << "\n]\n";
         return true;
@@ -160,7 +160,7 @@ bool DataBiMapBase::proto_read(const std::string& path)
     auto& str = res.value();
 
     try {
-        json j = json::parse(str);
+        auto j = js::parse(str);
 
         if (j.empty())
             return false;
@@ -192,7 +192,7 @@ bool DataBiMapBase::proto_read(const std::string& path)
 
         return true;
 
-    } catch (json::exception& e) {
+    } catch (js::exception& e) {
         OBJ_ERR << fmt::format("JSON exception: '{}', while parsing: '{}'", e.what(), str);
         return false;
     }

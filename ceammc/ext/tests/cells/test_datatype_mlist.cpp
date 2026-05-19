@@ -131,11 +131,30 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         using MA = MListAtom;
 
-        REQUIRE(ML().toJsonString() == "[]");
-        REQUIRE(ML(1).toJsonString() == "[1]");
-        REQUIRE(ML(1, "abc").toJsonString() == "[1,\"abc\"]");
-        REQUIRE(ML(1, "abc", Atom()).toJsonString() == "[1,\"abc\",null]");
-        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).toJsonString() == "[1,\"abc\",null,[3,2,1]]");
+        REQUIRE(ML().toJsonString({}) == "[]");
+        REQUIRE(ML(1).toJsonString({}) == "[1]");
+        REQUIRE(ML(1, "abc").toJsonString({}) == "[1,\"abc\"]");
+        REQUIRE(ML(1, "abc", Atom()).toJsonString({}) == "[1,\"abc\",null]");
+        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).toJsonString({}) == "[1,\"abc\",null,[3,2,1]]");
+    }
+
+    SECTION("json")
+    {
+        auto ml = ML();
+        REQUIRE(ml.fromJsonString(ML().toJsonString({})));
+        REQUIRE(ml == ML());
+        REQUIRE(ml.fromJsonString(ML(1).toJsonString({})));
+        REQUIRE(ml == ML(1));
+        REQUIRE(ml.fromJsonString(ML(1, 2).toJsonString({})));
+        REQUIRE(ml == ML(1, 2));
+        REQUIRE(ml.fromJsonString(ML("a", "b").toJsonString({})));
+        REQUIRE(ml == ML("a", "b"));
+
+        // invalid
+        REQUIRE_FALSE(ml.fromJsonString("\""));
+        REQUIRE_FALSE(ml.fromJsonString("123"));
+        REQUIRE_FALSE(ml.fromJsonString("true"));
+        REQUIRE_FALSE(ml.fromJsonString("{}"));
     }
 
     SECTION("parse<->parse")

@@ -32,7 +32,7 @@ public:
     bool isEqual(const AbstractData* d) const noexcept override;
     bool isLess(const AbstractData* d) const noexcept override;
 
-    std::string toJsonString() const override;
+    std::string toJsonString(const ceammc::json::JsonWriteOpts& opts) const override;
     ceammc::DataTypeId type() const noexcept override;
     IntData* clone() const override;
     std::string toListStringContent() const override;

@@ -101,7 +101,7 @@ bool IntData::set(const AbstractData* d) noexcept
     return setDataT<IntData>(d);
 }
 
-std::string IntData::toJsonString() const
+std::string IntData::toJsonString(const ceammc::json::JsonWriteOpts& opts) const
 {
     return toListStringContent();
 }
@@ -112,13 +112,13 @@ IntData* IntData::clone() const { return new IntData(v_); }
 
 class TestInt : public ceammc::BaseObject {
 public:
-    TestInt(const ceammc::PdArgs& a)
+    explicit TestInt(const ceammc::PdArgs& a)
         : ceammc::BaseObject(a)
     {
         createOutlet();
     }
 
-    void onFloat(t_float f)
+    void onFloat(t_float f) override
     {
         atomTo(0, new IntData(f));
     }
@@ -126,7 +126,7 @@ public:
 
 void IntData::init()
 {
-    ceammc::ObjectFactory<TestInt> obj("test.int");
+    const ceammc::ObjectFactory<TestInt> obj("test.int");
 }
 
 ceammc::DataTypeId IntData::staticType()
@@ -157,7 +157,7 @@ void StrData::setValue(const std::string& v) { v_ = v; }
 
 bool StrData::isEqual(const ceammc::AbstractData* d) const noexcept
 {
-    const StrData* dt = d->as<StrData>();
+    const auto dt = d->as<StrData>();
     if (!dt)
         return false;
 

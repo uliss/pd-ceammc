@@ -12,13 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "wrapper_macros.h"
-#include "test_wrapper_base.h"
 #include "datatype_dict.h"
+#include "test_wrapper_base.h"
+#include "wrapper_macros.h"
 
 using namespace wrapper;
-
-
 
 TEST_CASE("wrapper_class", "[class-wrapper]")
 {

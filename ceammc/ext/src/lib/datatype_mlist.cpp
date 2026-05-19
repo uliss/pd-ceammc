@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "ceammc_datastorage.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
+#include "datatype_json.h"
 #include "fmt/core.h"
 
 #include <algorithm>
@@ -61,7 +61,7 @@ DataTypeMList& DataTypeMList::operator=(const DataTypeMList& mlist)
     return *this;
 }
 
-DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
+DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist) noexcept
 {
     if (this == &mlist)
         return *this;
@@ -89,9 +89,30 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
     return mlist->data_ == data_;
 }
 
-std::string DataTypeMList::toJsonString() const
+std::string DataTypeMList::toJsonString(const json::JsonWriteOpts& opts) const
 {
-    return ceammc::json::to_json_string(*this);
+    return ceammc::json::to_json_string(*this, opts);
+}
+
+bool DataTypeMList::fromJsonString(const std::string& str)
+{
+    using js = nlohmann::json;
+    try {
+        const auto j = js::parse(str);
+        if (!j.is_array()) {
+            LIB_ERR << fmt::format("JSON array is expected, got: {}", j.type_name());
+            return false;
+        }
+
+        data_.clear();
+        data_ = j.get<decltype(data_)>();
+
+    } catch (js::exception& e) {
+        LIB_ERR << fmt::format("[mlist] JSON exception: '{}', while parsing: {}", e.what(), str);
+        return false;
+    }
+
+    return true;
 }
 
 std::string DataTypeMList::toListStringContent() const noexcept
@@ -175,7 +196,7 @@ DataTypeMList DataTypeMList::rotateLeft(int steps) const
     if (size() < 2 || steps == 0)
         return *this;
 
-    int sz = int(size());
+    const auto sz = static_cast<int>(size());
     steps = steps % sz;
     if (steps < 0)
         steps += sz;
@@ -246,4 +267,4 @@ std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)
     return os << d.toString();
 }
 
-}
+} // namespace ceammc

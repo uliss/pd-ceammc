@@ -205,42 +205,29 @@ TEST_CASE("DataTypeDict", "[core]")
         using IntA = DataAtom<IntData>;
 
         DataTypeDict src;
-        REQUIRE(!src.toJSON());
 
         src.insert("a", A("a b c"));
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"a\":\"a b c\"}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"a\":\"a b c\"}");
 
         src.clear();
         src.insert("b", 1000);
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"b\":1000}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"b\":1000}");
 
         src.clear();
         src.insert("c", LF(1, 2, 3));
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"c\":[1,2,3]}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"c\":[1,2,3]}");
 
         src.clear();
         src.insert("d", LA(100.5, "ABC"));
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"d\":[100.5,\"ABC\"]}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"d\":[100.5,\"ABC\"]}");
 
         src.clear();
         src.insert("e", LA(IntA(-1), "ABC"));
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"e\":[-1,\"ABC\"]}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"e\":[-1,\"ABC\"]}");
 
         src.clear();
         src.insert("f", LA(MListAtom(1, 2), "ABC"));
-        REQUIRE(src.toJSON());
-        REQUIRE(*src.toJSON() == "{\"f\":[[1,2],\"ABC\"]}");
-        REQUIRE(src.toJsonString() == *src.toJSON());
+        REQUIRE(src.toJsonString({}) == "{\"f\":[[1,2],\"ABC\"]}");
     }
 
     SECTION("fromJSON")
@@ -379,20 +366,20 @@ TEST_CASE("DataTypeDict", "[core]")
     //    {
     //        DataTypeDict d;
 
-    //        REQUIRE(d.toJSON() == boost::none);
+    //        REQUIRE(d.toJsonString({}) == boost::none);
     //        d.insert("a", "abc");
-    //        REQUIRE(*d.toJSON() == "{\"a\":\"abc\"}");
+    //        REQUIRE(*d.toJsonString({}) == "{\"a\":\"abc\"}");
     //        d.insert("f", 200);
-    //        REQUIRE(*d.toJSON() == "{\"a\":\"abc\",\"f\":200.0}");
+    //        REQUIRE(*d.toJsonString({}) == "{\"a\":\"abc\",\"f\":200.0}");
 
     //        d.clear();
     //        d.insert(A("l"), LA(1, 2, "a space"));
-    //        REQUIRE(*d.toJSON() == "{\"l\":[1.0,2.0,\"a space\"]}");
+    //        REQUIRE(*d.toJsonString({}) == "{\"l\":[1.0,2.0,\"a space\"]}");
 
     //        d.clear();
     //        DataPtr dict_data(new DataTypeDict("[a:abc]"));
     //        d.insert(A("d"), DataAtom(dict_data));
-    //        REQUIRE(*d.toJSON() == "{\"d\":{\"a\":\"abc\"}}");
+    //        REQUIRE(*d.toJsonString({}) == "{\"d\":{\"a\":\"abc\"}}");
     //    }
 
     SECTION("fromList")

@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_json.h"
 
 namespace ceammc {
 
@@ -79,12 +80,22 @@ public:
     /**
      * Returns object value as JSON string
      */
-    virtual std::string toJsonString() const;
+    virtual std::string toJsonString(const json::JsonWriteOpts& opts) const;
 
     /**
      * Parse json string and set object value
      */
     virtual bool fromJsonString(const std::string& str);
+
+    /**
+     * Read the data from the json file
+     */
+    virtual bool readJson(const std::string& path);
+
+    /**
+     * Write the data into the json file
+     */
+    bool writeJson(const std::string& path, const json::JsonWriteOpts& opts) const;
 
     /**
      * Set data from string constructor
@@ -192,7 +203,17 @@ public:
     template <typename T>
     bool parseT(const AtomListView& lv, Atom& res) { return parse(lv, T::staticType(), res); }
 
+    /**
+     * Find datatype name by given datatype id
+     */
     static DataTypeName findTypeName(DataTypeId dataType);
+
+    /**
+     * Register new data type
+     * @param name
+     * @return new datatype id or DataTypeId::INVALID on error
+     */
+    static DataTypeId registerNewType(const char* name, Atom (*list_fn)(const AtomListView&), Atom (*dict_fn)(const DictAtom&));
 };
 
 template <class T>
@@ -217,20 +238,15 @@ const T* AbstractData::as() const
 }
 }
 
-#define CEAMMC_REGISTER_DATATYPE(name, list_fn, dict_fn)                                      \
-    {                                                                                         \
-        static auto static_id_ = data::DATA_INVALID;                                          \
-        if (static_id_ == data::DATA_INVALID) {                                               \
-            auto id = DataStorage::instance().typeByName(name);                               \
-            if (id != data::DATA_INVALID) {                                                   \
-                static_id_ = id;                                                              \
-            } else {                                                                          \
-                static_id_ = DataStorage::instance().registerNewType(name, list_fn, dict_fn); \
-                if (static_id_ == data::DATA_INVALID)                                         \
-                    LIB_ERR << "can't register type: " << name;                               \
-            }                                                                                 \
-        }                                                                                     \
-        return static_id_;                                                                    \
+#define CEAMMC_REGISTER_DATATYPE(name, list_fn, dict_fn)                     \
+    {                                                                        \
+        static auto static_id_ = data::DATA_INVALID;                         \
+        if (static_id_ == data::DATA_INVALID) {                              \
+            auto id = AbstractData::registerNewType(name, list_fn, dict_fn); \
+            if (id != data::DATA_INVALID)                                    \
+                static_id_ = id;                                             \
+        }                                                                    \
+        return static_id_;                                                   \
     }
 
 #endif // CEAMMC_ABSTRACTDATA_H
