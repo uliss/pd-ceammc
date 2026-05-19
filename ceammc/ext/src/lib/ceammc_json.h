@@ -32,8 +32,8 @@ namespace json {
     std::string to_json_string(const DataTypeString& str, const JsonWriteOpts& opt = JsonWriteOpts());
     std::string to_json_string(const DataTypeMList& ml, const JsonWriteOpts& opt = JsonWriteOpts());
     std::string to_json_string(const DataTypeDict& dict, const JsonWriteOpts& opt = JsonWriteOpts());
-}
 
-}
+} // namespace json
+} // namespace ceammc
 
 #endif // CEAMMC_JSON_H
