@@ -116,7 +116,7 @@ std::string DataTypeDict::toListStringContent() const
         }
 
         // replace traling space to closing bracket
-        if (buf.size() > 0 && buf.back() == ' ')
+        if (!buf.empty() && buf.back() == ' ')
             buf.back() = ')';
         else
             buf.push_back(')');
@@ -127,7 +127,7 @@ std::string DataTypeDict::toListStringContent() const
     }
 
     // remove last space
-    if (res.size() > 0)
+    if (!res.empty())
         res.pop_back();
 
     return std::string(res.data(), res.size());
@@ -154,7 +154,7 @@ std::string DataTypeDict::toDictStringContent() const
     }
 
     // remove last space
-    if (res.size() > 0)
+    if (!res.empty())
         res.pop_back();
 
     return std::string(res.data(), res.size());
@@ -185,7 +185,7 @@ bool DataTypeDict::operator==(const DataTypeDict& d) const noexcept
     return dict_ == d.dict_;
 }
 
-void DataTypeDict::removeIf(std::function<bool(t_symbol*)> key_pred)
+void DataTypeDict::removeIf(const std::function<bool(t_symbol*)>& key_pred)
 {
     for (auto it = dict_.cbegin(); it != dict_.cend(); /* increment in loop body */) {
         if (key_pred(it->first))
@@ -263,8 +263,7 @@ bool DataTypeDict::fromJSON(const std::string& str)
 {
     using json = nlohmann::json;
     try {
-
-        json j = json::parse(str);
+        const json j = json::parse(str);
 
         if (j.empty())
             return false;
@@ -320,7 +319,7 @@ bool DataTypeDict::choose(Atom& key) const noexcept
         return false;
 
     const auto N = dict_.size();
-    std::mt19937 gen(time(0));
+    std::mt19937 gen(time(nullptr));
     const auto offset = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
     auto it = dict_.begin();
 

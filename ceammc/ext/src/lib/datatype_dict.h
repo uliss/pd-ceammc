@@ -169,7 +169,7 @@ public:
     /**
      * Remove dict entries by key predicate
      */
-    void removeIf(std::function<bool(t_symbol*)> key_pred);
+    void removeIf(const std::function<bool(t_symbol*)>& key_pred);
 
     /**
      * Tries to remove specified key
