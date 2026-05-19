@@ -274,4 +274,33 @@ TEST_CASE("data.mlist", "[externals]")
         Ext t("data.mlist");
         Ext t_alias("ml");
     }
+
+
+    SECTION("at")
+    {
+        Obj t("data.mlist");
+        WHEN_CALL_N(t, at, 0.0);
+        REQUIRE_NO_MSG(t);
+
+        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
+        REQUIRE_PROPERTY_FLOAT(t, @size, 4);
+
+        WHEN_CALL_N(t, at, 0.0);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        WHEN_CALL_N(t, at, 1);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        WHEN_CALL_N(t, at, 2);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        WHEN_CALL_N(t, at, 3);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
+        WHEN_CALL_N(t, at, -1);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
+        WHEN_CALL_N(t, at, -2);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        WHEN_CALL_N(t, at, -3);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        WHEN_CALL_N(t, at, -4);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+    }
 }

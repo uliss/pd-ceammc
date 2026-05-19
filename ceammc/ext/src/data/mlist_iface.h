@@ -7,6 +7,7 @@
 #include "datatype_mlist.h"
 
 #include <ctime>
+#include <cstdint>
 #include <random>
 
 using namespace ceammc;
@@ -164,7 +165,7 @@ public:
 
     bool proto_at(int idx, Atom& res) const override
     {
-        const auto N = mlist()->size();
+        const std::int64_t N = mlist()->size();
         if (idx < -N || idx >= N)
             return false;
 
