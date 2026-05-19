@@ -190,8 +190,15 @@ public:
     /** parse json string and set dict value */
     bool fromJsonString(const std::string& str) override;
 
-    bool read(const std::string& path);
-    bool write(const std::string& path) const;
+    /**
+     * read the data from the json file
+     */
+    bool readJson(const std::string& path);
+
+    /**
+     * write the data into the json file
+     */
+    bool writeJson(const std::string& path) const;
 
     /**
      * Randomly choose key from dict

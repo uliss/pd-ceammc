@@ -160,7 +160,7 @@ public:
 
     bool proto_write(const std::string& path) const override
     {
-        return dict()->write(path);
+        return dict()->writeJson(path);
     }
 
     bool proto_choose(Atom& key) const override
@@ -171,7 +171,7 @@ public:
     bool proto_read(const std::string& path) override
     {
         dict().detachData();
-        return dict()->read(path);
+        return dict()->readJson(path);
     }
 
     virtual const DictAtom& dict() const = 0;

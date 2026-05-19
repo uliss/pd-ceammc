@@ -279,7 +279,7 @@ bool DataTypeDict::fromJsonString(const std::string& str)
     return true;
 }
 
-bool DataTypeDict::read(const std::string& path)
+bool DataTypeDict::readJson(const std::string& path)
 {
     auto res = fs::readFileContent(path.c_str());
     RuntimeError err;
@@ -296,7 +296,7 @@ bool DataTypeDict::read(const std::string& path)
     return true;
 }
 
-bool DataTypeDict::write(const std::string& path) const
+bool DataTypeDict::writeJson(const std::string& path) const
 {
     std::ofstream ofs(path.c_str());
     // can't open
