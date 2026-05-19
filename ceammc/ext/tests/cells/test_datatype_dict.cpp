@@ -164,18 +164,18 @@ TEST_CASE("DataTypeDict", "[core]")
         CHECK(d0.contains("int_data"));
         CHECK(d0.contains("str_data"));
 
-        //#ifdef __APPLE__
-        //        REQUIRE(d0.toString() == "[l2: a b "
-        //                                 "none: NONE "
-        //                                 "s0: string "
-        //                                 "s1: \"a string\" "
-        //                                 "f0: -10 "
-        //                                 "f1: 1234.5 "
-        //                                 "int_data: 100 "
-        //                                 "str_data: \"string with spaces\" "
-        //                                 "l0: "
-        //                                 "l1: 1]");
-        //#endif
+        // #ifdef __APPLE__
+        //         REQUIRE(d0.toString() == "[l2: a b "
+        //                                  "none: NONE "
+        //                                  "s0: string "
+        //                                  "s1: \"a string\" "
+        //                                  "f0: -10 "
+        //                                  "f1: 1234.5 "
+        //                                  "int_data: 100 "
+        //                                  "str_data: \"string with spaces\" "
+        //                                  "l0: "
+        //                                  "l1: 1]");
+        // #endif
     }
 
     SECTION("remove")
@@ -210,79 +210,85 @@ TEST_CASE("DataTypeDict", "[core]")
         src.insert("a", A("a b c"));
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"a\":\"a b c\"}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
 
         src.clear();
         src.insert("b", 1000);
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"b\":1000}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
 
         src.clear();
         src.insert("c", LF(1, 2, 3));
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"c\":[1,2,3]}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
 
         src.clear();
         src.insert("d", LA(100.5, "ABC"));
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"d\":[100.5,\"ABC\"]}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
 
         src.clear();
         src.insert("e", LA(IntA(-1), "ABC"));
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"e\":[-1,\"ABC\"]}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
 
         src.clear();
         src.insert("f", LA(MListAtom(1, 2), "ABC"));
         REQUIRE(src.toJSON());
         REQUIRE(*src.toJSON() == "{\"f\":[[1,2],\"ABC\"]}");
+        REQUIRE(src.toJsonString() == *src.toJSON());
     }
 
     SECTION("fromJSON")
     {
         DataTypeDict src;
-        REQUIRE(src.fromJSON("") == false);
+        REQUIRE(src.fromJsonString("") == false);
 
-        REQUIRE(src.fromJSON("{\"a\":1024}"));
+        REQUIRE(src.fromJsonString("{\"a\":1024}"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == LF(1024));
 
-        REQUIRE(src.fromJSON("{\"a\":\"ABC\"}"));
+        REQUIRE(src.fromJsonString("{\"a\":\"ABC\"}"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == LA("ABC"));
 
-        REQUIRE(src.fromJSON("{\"a\":[]}"));
+        REQUIRE(src.fromJsonString("{\"a\":[]}"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == L());
 
-        REQUIRE(src.fromJSON("{\"a\":[1,2,3]}"));
+        REQUIRE(src.fromJsonString("{\"a\":[1,2,3]}"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == LF(1, 2, 3));
 
-        REQUIRE(src.fromJSON(R"({"a": {}})"));
+        REQUIRE(src.fromJsonString(R"({"a": {}})"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == AtomList(DictAtom()));
 
-        REQUIRE(src.fromJSON(R"({"a": {"b": -1234}})"));
+        REQUIRE(src.fromJsonString(R"({"a": {"b": -1234}})"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == AtomList(DictAtom("[b: -1234]")));
 
-        REQUIRE(src.fromJSON(R"({"A": {"B": {"C": 1234}}})"));
+        REQUIRE(src.fromJsonString(R"({"A": {"B": {"C": 1234}}})"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("A"));
         REQUIRE(src.at("A") == AtomList(DictAtom("[B: [C: 1234]]")));
 
-        REQUIRE(src.fromJSON(R"({"a": [[]]})"));
+        REQUIRE(src.fromJsonString(R"({"a": [[]]})"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == parseDataString("(())").result());
 
-        REQUIRE(src.fromJSON(R"({"a": [{},{}]})"));
+        REQUIRE(src.fromJsonString(R"({"a": [{},{}]})"));
         REQUIRE(src.size() == 1);
         REQUIRE(src.contains("a"));
         REQUIRE(src.at("a") == parseDataString("([] [])").result());

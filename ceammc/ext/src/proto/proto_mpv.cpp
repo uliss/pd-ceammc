@@ -26,7 +26,7 @@ ProtoMpv::ProtoMpv(const PdArgs& args)
         std::string msg;
         while (queue_from_mpv_.try_dequeue(msg)) {
             DictAtom res;
-            if (res->fromJSON(msg))
+            if (res->fromJsonString(msg))
                 atomTo(0, res);
         }
 

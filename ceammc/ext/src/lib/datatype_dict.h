@@ -184,7 +184,9 @@ public:
     void clear() noexcept { dict_.clear(); }
 
     MaybeString toJSON(int indent = -1, bool compressSingleList = true) const;
-    bool fromJSON(const std::string& str);
+
+    /** parse json string and set dict value */
+    bool fromJsonString(const std::string& str);
 
     bool read(const std::string& path);
     bool write(const std::string& path) const;

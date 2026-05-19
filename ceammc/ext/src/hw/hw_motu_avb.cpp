@@ -268,7 +268,7 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     if (res) {
                         if (res->status == 200) {
                             DataTypeDict resp;
-                            if (resp.fromJSON(res->body)) {
+                            if (resp.fromJsonString(res->body)) {
                                 outPipe().enqueue(resp);
                                 TDBG("HTTP ok");
                             } else {

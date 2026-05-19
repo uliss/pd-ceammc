@@ -259,7 +259,7 @@ MaybeString DataTypeDict::toJSON(int indent, bool compressSingleList) const
     return json::to_json_string(*this, opts);
 }
 
-bool DataTypeDict::fromJSON(const std::string& str)
+bool DataTypeDict::fromJsonString(const std::string& str)
 {
     using json = nlohmann::json;
     try {
@@ -288,7 +288,7 @@ bool DataTypeDict::read(const std::string& path)
         return false;
     }
 
-    if (!fromJSON(res.value())) {
+    if (!fromJsonString(res.value())) {
         LIB_ERR << "can not parse JSON file: " << path;
         return false;
     }
