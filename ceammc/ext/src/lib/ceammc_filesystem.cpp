@@ -81,5 +81,5 @@ namespace fs {
         return writeFileContent(path, data.c_str(), data.length(), overwrite);
     }
 
-}
-}
+} // namespace fs
+} // namespace ceammc
