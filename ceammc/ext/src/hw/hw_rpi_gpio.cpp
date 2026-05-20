@@ -217,7 +217,7 @@ void HwRpiGpio::on_pin_value(void* data, std::uint8_t pin, bool value)
     if (!obj)
         return;
 
-    AtomArray<2> atoms { static_cast<t_float>(pin), static_cast<t_float>(value) };
+    const AtomArray<2> atoms { static_cast<t_float>(pin), static_cast<t_float>(value) };
     obj->anyTo(0, gensym("pin"), atoms.view());
 }
 
