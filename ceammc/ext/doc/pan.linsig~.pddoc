@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">two channel linear panner with the signal control</tr>
-        <tr lang="ru">двухканальное линейное панорамирование управляемое сигналом</tr>
+        <tr lang="en">two-channel linear panner with signal control</tr>
+        <tr lang="ru">двухканальный линейный панорамный регулятор с управлением сигналом</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,13 +24,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in minvalue="-1" maxvalue="1">
           <tr lang="en">pan position</tr>
-          <tr lang="ru" finished="false">положение</tr>
+          <tr lang="ru">позиция панорамирования</tr>
         </in>
       </inlet>
     </inlets>
@@ -38,13 +38,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output channel</tr>
-          <tr lang="ru" finished="false">левый выходной канал</tr>
+          <tr lang="ru">левый выходной канал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output channel</tr>
-          <tr lang="ru" finished="false">правильный выходной канал</tr>
+          <tr lang="ru">правый выходной канал</tr>
         </out>
       </outlet>
     </outlets>

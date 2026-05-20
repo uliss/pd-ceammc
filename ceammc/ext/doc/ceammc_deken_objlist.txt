@@ -1196,7 +1196,7 @@ hoa.3d.process~	patcher loader for multichannel processing / загрузчик 
 hoa.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
 hoa.2d.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
 pan.cos~	two-channel equal power sine/cosine panner / двухканальный панорамный регулятор равной мощности на основе синуса/косинуса
-pan.linsig~	two channel linear panner with the signal control / двухканальное линейное панорамирование управляемое сигналом
+pan.linsig~	two-channel linear panner with signal control / двухканальный линейный панорамный регулятор с управлением сигналом
 pan.lin~	two-channel linear panner / двухканальный линейный панорамный регулятор
 ceammc/pan~	two-channel linear panner / двухканальный линейный панорамный регулятор
 pan~	two-channel linear panner / двухканальный линейный панорамный регулятор

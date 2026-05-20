@@ -77,7 +77,7 @@ object;
 #X obj 30 785 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
 #X text 220 782 two-channel equal power sine/cosine panner;
 #X obj 30 810 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
-#X text 220 807 two channel linear panner with the signal control;
+#X text 220 807 two-channel linear panner with signal control;
 #X obj 30 835 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
 #X text 220 832 two-channel linear panner;
 #X obj 30 860 ui.link @title [pan.spread~] @url pan.spread~-help.pd;

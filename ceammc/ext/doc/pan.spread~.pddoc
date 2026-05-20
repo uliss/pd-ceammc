@@ -35,8 +35,10 @@
       </property>
       <!-- @compensate -->
       <property name="@compensate" type="bool" default="0">
-        <tr lang="en">compensates the output level: divides the amplitude by the number of input channels.</tr>
-        <tr lang="ru">компенсирует выходной уровень: делит амплитуду на количество входных каналов.</tr>
+        <tr lang="en">compensates the output level: divides the amplitude by the number of input
+        channels.</tr>
+        <tr lang="ru">компенсирует выходной уровень: делит амплитуду на количество входных
+        каналов.</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
@@ -45,8 +47,10 @@
       </property>
       <!-- @spread -->
       <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">when @spread = 0, all channels are in the center; when @spread = 1, they have maximum distribution.</tr>
-        <tr lang="ru">при @spread = 0 все каналы находятся в центре; при @spread = 1 они имеют максимальное распределение.</tr>
+        <tr lang="en">when @spread = 0, all channels are in the center; when @spread = 1, they have
+        maximum distribution.</tr>
+        <tr lang="ru">при @spread = 0 все каналы находятся в центре; при @spread = 1 они имеют
+        максимальное распределение.</tr>
       </property>
     </properties>
     <inlets dynamic="true">

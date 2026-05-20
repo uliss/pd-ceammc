@@ -2321,7 +2321,7 @@
     <entry name="pan.cos~" descr="two-channel equal power sine/cosine panner" ref_view="link">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
     </entry>
-    <entry name="pan.linsig~" descr="two channel linear panner with the signal control" ref_view="link">
+    <entry name="pan.linsig~" descr="two-channel linear panner with signal control" ref_view="link">
       <xi:include href="pan.linsig~.pddoc" parse="xml"/>
     </entry>
     <entry name="pan.lin~" descr="two-channel linear panner" ref_view="link">

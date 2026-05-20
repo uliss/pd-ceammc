@@ -84,28 +84,28 @@ hoa.3d.wider~-help.pd;
 #X text 220 902 двухканальный панорамный регулятор равной мощности
 на основе синуса/косинуса;
 #X obj 30 945 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
-#X text 220 942 двухканальное линейное панорамирование управляемое
+#X text 220 942 двухканальный линейный панорамный регулятор с управлением
 сигналом;
-#X obj 30 970 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
-#X text 220 967 двухканальный линейный панорамный регулятор;
-#X obj 30 995 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
-#X text 220 992 распределяет входные каналы по стереополю;
-#X obj 30 1020 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#X text 220 1017 двухканальный панорамный регулятор равной мощности
+#X obj 30 985 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
+#X text 220 982 двухканальный линейный панорамный регулятор;
+#X obj 30 1010 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
+#X text 220 1007 распределяет входные каналы по стереополю;
+#X obj 30 1035 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
+#X text 220 1032 двухканальный панорамный регулятор равной мощности
 на основе квадратного корня;
-#X obj 30 1060 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
-#X text 220 1057 GMEM SPAT: управление 4-х канальным пространственным
+#X obj 30 1075 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
+#X text 220 1072 GMEM SPAT: управление 4-х канальным пространственным
 звуком;
-#X obj 30 1085 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
-#X text 220 1082 GMEM SPAT: управление 8 канальным пространственным
+#X obj 30 1100 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
+#X text 220 1097 GMEM SPAT: управление 8 канальным пространственным
 звуком;
-#X obj 30 1110 ui.link @title [spat.zita6x8~] @url
+#X obj 30 1125 ui.link @title [spat.zita6x8~] @url
 spat.zita6x8~-help.pd;
-#X text 220 1107 управление пространственным звуком с 6 входными источниками
+#X text 220 1122 управление пространственным звуком с 6 входными источниками
 на 8 выходных каналов;
-#X obj 30 1150 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
-#X text 220 1147 8-канальная пространственная реверберация;
+#X obj 30 1165 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
+#X text 220 1162 8-канальная пространственная реверберация;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1172 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1182 library: ceammc;
+#X obj 1 1187 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1197 library: ceammc;

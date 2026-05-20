@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 306 50 cnv 1 459 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 311 50 двухканальное линейное панорамирование управляемое сигналом;
+#X obj 321 50 cnv 1 444 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 326 50 двухканальный линейный панорамный регулятор с управлением
+сигналом;
 #X obj 1 1 cnv 5 765 40 empty empty pan.linsig~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 pan.linsig~;
@@ -16,19 +17,19 @@
 0;
 #X text 130 290 1\.;
 #X text 170 290 ~;
-#X text 270 290 input signal.;
+#X text 270 290 входной сигнал.;
 #X text 130 315 2\.;
 #X text 170 315 ~;
-#X text 270 315 pan position. Диапазон: [-1\..1].;
+#X text 270 315 позиция панорамирования. Диапазон: [-1\..1].;
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 355 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 356 1\.;
 #X text 170 356 ~;
-#X text 270 356 left output channel.;
+#X text 270 356 левый выходной канал.;
 #X text 130 376 2\.;
 #X text 170 376 ~;
-#X text 270 376 right output channel.;
+#X text 270 376 правый выходной канал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
