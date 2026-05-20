@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">the multidimensional list container</tr>
-        <tr lang="ru">многомерный список</tr>
+        <tr lang="en">multidimensional list container</tr>
+        <tr lang="ru">контейнер многомерного списка</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,23 +27,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and 3</tr>
-        <!-- old: Синтаксис: значения разделены пространствами: (1 2
-                3) - список 1, 2 и 3 -->
-        <tr lang="ru" finished="false">Синтаксис: значения разделены пространствами: (1 2 3) -
-        список 1, 2 и 3</tr>
+        <tr lang="en">Syntax: values are separated by spaces: (1 2 3) is a list of 1, 2, and 3.</tr>
+        <tr lang="ru">Синтаксис: значения разделяются пробелами: (1 2 3) — это список из 1, 2 и 3.</tr>
       </par>
       <par>
         <tr lang="en">Nested lists: (1 2 3 (nested list values))</tr>
-        <!-- old: Вложенные списки: (1 2 3 (значения вложенного
-                списка)) -->
-        <tr lang="ru" finished="false">Вложенные списки: (1 2 3 (значения вложенного списка))</tr>
+        <tr lang="ru">Вложенные списки: (1 2 3 (значения вложенного списка))</tr>
       </par>
       <par>
         <tr lang="en">Symbols with spaces: ("single item list")</tr>
-        <!-- old: Символы с пробелами: («список отдельных
-                пунктов») -->
-        <tr lang="ru" finished="false">Символы с пробелами: («список отдельных пунктов»)</tr>
+        <tr lang="ru">Символы с пробелами: ("список из одного элемента")</tr>
       </par>
     </info>
     <mouse>
@@ -51,212 +44,201 @@
     </mouse>
     <arguments>
       <argument name="VALUE" type="atom">
-        <tr lang="en">initial list values in (). For example: (1 2 3 (1 2) 4)</tr>
-        <!-- old: Начальные значения списка в (). Например: (1 2 3 (1
-                2) 4) -->
-        <tr lang="ru" finished="false">Начальные значения списка в (). Например: (1 2 3 (1 2)
-        4)</tr>
+        <tr lang="en">initial list values in parentheses. For example: (1 2 3 (1 2) 4)</tr>
+        <tr lang="ru">начальные значения списка в круглых скобках. Например: (1 2 3 (1 2) 4)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" access="readonly" default="1">
-        <tr lang="en">1 if list is empty, otherwise 0</tr>
-        <tr lang="ru" finished="false">1 если список пуст, в противном случае 0</tr>
+        <tr lang="en">1 if the list is empty, otherwise 0</tr>
+        <tr lang="ru">1, если список пуст, иначе 0</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" access="readonly" minvalue="0" default="0">
-        <tr lang="en">number of elements in list</tr>
-        <tr lang="ru" finished="false">Количество элементов в списке</tr>
+        <tr lang="en">number of elements in the list</tr>
+        <tr lang="ru">количество элементов в списке</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="atom" default="[]">
         <tr lang="en">mlist value</tr>
-        <tr lang="ru" finished="false">значение</tr>
+        <tr lang="ru">значение mlist</tr>
       </property>
     </properties>
     <methods>
       <!-- (....) -->
       <method name="(....)" example="true">
         <info>
-          <tr lang="en">sets new list without output</tr>
-          <tr lang="ru" finished="false">Новый список без выхода</tr>
+          <tr lang="en">sets a new list without output</tr>
+          <tr lang="ru">устанавливает новый список без вывода</tr>
         </info>
       </method>
       <!-- append -->
       <method name="append">
         <info>
-          <tr lang="en">adds values to the end of the list</tr>
-          <tr lang="ru" finished="false">Добавить значения в конец списка</tr>
+          <tr lang="en">adds a value to the end of the list</tr>
+          <tr lang="ru">добавляет значение в конец списка</tr>
         </info>
         <param name="VAL" type="atom" required="true">
-          <tr lang="en">appended value</tr>
-          <tr lang="ru" finished="false">добавленная стоимость</tr>
+          <tr lang="en">value to append</tr>
+          <tr lang="ru">добавляемое значение</tr>
         </param>
       </method>
       <!-- at -->
       <method name="at">
         <info>
-          <tr lang="en">outputs atom at the specified position</tr>
-          <tr lang="ru" finished="false">выходы атома в указанном положении</tr>
+          <tr lang="en">outputs the element at the specified position</tr>
+          <tr lang="ru">выводит элемент в указанной позиции</tr>
         </info>
         <param name="IDX" type="int" required="true">
-          <tr lang="en">position (negative indexes are supported: -1 means last element)</tr>
-          <!-- old: позиция (поддерживаются отрицательные индексы:
-                    -1 означает последний элемент) -->
-          <tr lang="ru" finished="false">позиция (поддерживаются отрицательные индексы: -1 означает
-          последний элемент)</tr>
+          <tr lang="en">position (negative indices are supported; -1 means the last element)</tr>
+          <tr lang="ru">позиция (поддерживаются отрицательные индексы; -1 означает последний элемент)</tr>
         </param>
       </method>
       <!-- back -->
       <method name="back">
         <info>
-          <tr lang="en">output last list element</tr>
-          <tr lang="ru" finished="false">выходной элемент последнего списка</tr>
+          <tr lang="en">outputs the last element of the list</tr>
+          <tr lang="ru">выводит последний элемент списка</tr>
         </info>
       </method>
       <!-- choose -->
       <method name="choose">
         <info>
-          <tr lang="en">choose random element in list and output it</tr>
-          <!-- old: Выберите случайный элемент в списке и выведите
-                    его -->
-          <tr lang="ru" finished="false">Выберите случайный элемент в списке и выведите его</tr>
+          <tr lang="en">selects a random element from the list and outputs it</tr>
+          <tr lang="ru">выбирает случайный элемент из списка и выводит его</tr>
         </info>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">removes all list elements</tr>
-          <tr lang="ru" finished="false">Удалить все элементы списка</tr>
+          <tr lang="en">removes all elements from the list</tr>
+          <tr lang="ru">удаляет все элементы из списка</tr>
         </info>
       </method>
       <!-- dump -->
       <method name="dump">
         <info>
-          <tr lang="en">dump object info to Pd window</tr>
-          <tr lang="ru" finished="false">Сбросить информацию об объекте в окно Pd</tr>
+          <tr lang="en">outputs object information to the Pd window</tr>
+          <tr lang="ru">выводит информацию об объекте в окно Pd</tr>
         </info>
       </method>
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fills with specified value</tr>
-          <tr lang="ru" finished="false">заполнения с заданным значением</tr>
+          <tr lang="en">fills the list with a specified value</tr>
+          <tr lang="ru">заполняет список указанным значением</tr>
         </info>
         <param name="VAL" type="atom" required="true">
           <tr lang="en">fill value</tr>
-          <tr lang="ru" finished="false">заполняемость</tr>
+          <tr lang="ru">значение для заполнения</tr>
         </param>
       </method>
       <!-- front -->
       <method name="front">
         <info>
-          <tr lang="en">output first list element</tr>
-          <tr lang="ru" finished="false">выходной первый элемент списка</tr>
+          <tr lang="en">outputs the first element of the list</tr>
+          <tr lang="ru">выводит первый элемент списка</tr>
         </info>
       </method>
       <!-- insert -->
       <method name="insert">
         <info>
-          <tr lang="en">inserts values to the specified position</tr>
-          <tr lang="ru" finished="false">вставляет значения в указанное положение</tr>
+          <tr lang="en">inserts a value at the specified position</tr>
+          <tr lang="ru">вставляет значение в указанную позицию</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">insert position</tr>
-          <tr lang="ru" finished="false">вставить положение</tr>
+          <tr lang="ru">позиция для вставки</tr>
         </param>
         <param name="VAL" type="atom" required="true">
-          <tr lang="en">value</tr>
-          <tr lang="ru" finished="false">ценность</tr>
+          <tr lang="en">value to insert</tr>
+          <tr lang="ru">вставляемое значение</tr>
         </param>
       </method>
       <!-- pop -->
       <method name="pop">
         <info>
-          <tr lang="en">removes last list element</tr>
-          <tr lang="ru" finished="false">Удалить элемент последнего списка</tr>
+          <tr lang="en">removes the last element from the list</tr>
+          <tr lang="ru">удаляет последний элемент из списка</tr>
         </info>
       </method>
       <!-- prepend -->
       <method name="prepend">
         <info>
-          <tr lang="en">inserts values to the list beginning</tr>
-          <tr lang="ru" finished="false">вставляет значения в начало списка</tr>
+          <tr lang="en">inserts a value at the beginning of the list</tr>
+          <tr lang="ru">вставляет значение в начало списка</tr>
         </info>
         <param name="VAL" type="atom" required="true">
-          <tr lang="en">prepended value</tr>
-          <tr lang="ru" finished="false">Предполагаемая стоимость</tr>
+          <tr lang="en">value to prepend</tr>
+          <tr lang="ru">добавляемое значение (в начало)</tr>
         </param>
       </method>
       <!-- remove -->
       <method name="remove">
         <info>
-          <tr lang="en">removes specified element</tr>
-          <tr lang="ru" finished="false">удаляет указанный элемент</tr>
+          <tr lang="en">removes the element at the specified index</tr>
+          <tr lang="ru">удаляет элемент по указанному индексу</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">element index</tr>
-          <tr lang="ru" finished="false">Элементный индекс</tr>
+          <tr lang="ru">индекс элемента</tr>
         </param>
       </method>
       <!-- reverse -->
       <method name="reverse">
         <info>
-          <tr lang="en">reverses list</tr>
-          <tr lang="ru" finished="false">обратный список</tr>
+          <tr lang="en">reverses the order of the list</tr>
+          <tr lang="ru">изменяет порядок списка на обратный</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">sets new list without output</tr>
-          <tr lang="ru" finished="false">Новый список без выхода</tr>
+          <tr lang="en">sets a new list without output</tr>
+          <tr lang="ru">устанавливает новый список без вывода</tr>
         </info>
         <param name="LIST" type="list" required="true">
           <tr lang="en">new list content</tr>
-          <tr lang="ru" finished="false">Новый список контента</tr>
+          <tr lang="ru">новое содержимое списка</tr>
         </param>
       </method>
       <!-- shuffle -->
       <method name="shuffle">
         <info>
-          <tr lang="en">put elements in random order</tr>
-          <tr lang="ru" finished="false">Поставить элементы в случайном порядке</tr>
+          <tr lang="en">randomly reorders the elements</tr>
+          <tr lang="ru">перемешивает элементы в случайном порядке</tr>
         </info>
       </method>
       <!-- sort -->
       <method name="sort">
         <info>
-          <tr lang="en">sorts list</tr>
-          <tr lang="ru" finished="false">сортировать список</tr>
+          <tr lang="en">sorts the list</tr>
+          <tr lang="ru">сортирует список</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current list value</tr>
-          <tr lang="ru" finished="false">выходной текущий список</tr>
+          <tr lang="en">outputs the current list value</tr>
+          <tr lang="ru">выводит текущее значение списка</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set new list with single symbol element and output</tr>
-          <!-- old: установить новый список с одним элементом
-                    символа и выходом -->
-          <tr lang="ru" finished="false">установить новый список с одним элементом символа и
-          выходом</tr>
+          <tr lang="en">sets a new list with a single symbol element and outputs it</tr>
+          <tr lang="ru">устанавливает новый список с одним символьным элементом и выводит его</tr>
         </in>
         <in on="list">
-          <tr lang="en">sets new list and output it</tr>
-          <tr lang="ru" finished="false">Устанавливает новый список и выводит его</tr>
+          <tr lang="en">sets a new list and outputs it</tr>
+          <tr lang="ru">устанавливает новый список и выводит его</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output list or list elements</tr>
-          <tr lang="ru" finished="false">выходной список или элементы списка</tr>
+          <tr lang="en">outputs a list or list elements</tr>
+          <tr lang="ru">выводит список или элементы списка</tr>
         </out>
       </outlet>
     </outlets>

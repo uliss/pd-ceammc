@@ -25,7 +25,7 @@
 #X obj 30 345 ui.link @title [data.list] @url data.list-help.pd;
 #X text 220 342 the list container;
 #X obj 30 370 ui.link @title [data.mlist] @url data.mlist-help.pd;
-#X text 220 367 the multidimensional list container;
+#X text 220 367 multidimensional list container;
 #X obj 30 395 ui.link @title [data.path] @url data.path-help.pd;
 #X text 220 392 filesystem path datatype;
 #X obj 30 420 ui.link @title [data.set] @url data.set-help.pd;

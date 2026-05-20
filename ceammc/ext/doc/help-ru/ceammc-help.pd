@@ -412,7 +412,7 @@ music.voice2midi-help.pd;
 #X obj 30 4321 ui.link @title [data.list] @url data.list-help.pd;
 #X text 200 4318 cписок;
 #X obj 30 4346 ui.link @title [data.mlist] @url data.mlist-help.pd;
-#X text 200 4343 многомерный список;
+#X text 200 4343 контейнер многомерного списка;
 #X obj 30 4371 ui.link @title [data.path] @url data.path-help.pd;
 #X text 200 4368 тип данных: путь в файловой системе;
 #X obj 30 4396 ui.link @title [data.set] @url data.set-help.pd;

@@ -397,7 +397,7 @@ music.voice2midi-help.pd;
 #X obj 30 4051 ui.link @title [data.list] @url data.list-help.pd;
 #X text 200 4048 the list container;
 #X obj 30 4076 ui.link @title [data.mlist] @url data.mlist-help.pd;
-#X text 200 4073 the multidimensional list container;
+#X text 200 4073 multidimensional list container;
 #X obj 30 4101 ui.link @title [data.path] @url data.path-help.pd;
 #X text 200 4098 filesystem path datatype;
 #X obj 30 4126 ui.link @title [data.set] @url data.set-help.pd;

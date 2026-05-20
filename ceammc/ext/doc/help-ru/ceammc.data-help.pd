@@ -25,7 +25,7 @@
 #X obj 30 345 ui.link @title [data.list] @url data.list-help.pd;
 #X text 220 342 cписок;
 #X obj 30 370 ui.link @title [data.mlist] @url data.mlist-help.pd;
-#X text 220 367 многомерный список;
+#X text 220 367 контейнер многомерного списка;
 #X obj 30 395 ui.link @title [data.path] @url data.path-help.pd;
 #X text 220 392 тип данных: путь в файловой системе;
 #X obj 30 420 ui.link @title [data.set] @url data.set-help.pd;

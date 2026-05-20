@@ -426,7 +426,7 @@
     <entry name="data.list" descr="the list container" ref_view="link">
       <xi:include href="data.list.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.mlist" descr="the multidimensional list container" ref_view="link">
+    <entry name="data.mlist" descr="multidimensional list container" ref_view="link">
       <xi:include href="data.mlist.pddoc" parse="xml"/>
     </entry>
     <entry name="data.path" descr="filesystem path datatype" ref_view="link">

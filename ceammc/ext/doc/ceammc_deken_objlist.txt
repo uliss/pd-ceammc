@@ -305,11 +305,11 @@ data.int	a multi-functional integer object / многофункциональн�
 .int	a multi-functional integer object / многофункциональный объект целого числа
 .i	a multi-functional integer object / многофункциональный объект целого числа
 data.list	the list container / cписок
-data.mlist	the multidimensional list container / многомерный список
-ceammc/mlist	the multidimensional list container / многомерный список
-mlist	the multidimensional list container / многомерный список
-ceammc/ml	the multidimensional list container / многомерный список
-ml	the multidimensional list container / многомерный список
+data.mlist	multidimensional list container / контейнер многомерного списка
+ceammc/mlist	multidimensional list container / контейнер многомерного списка
+mlist	multidimensional list container / контейнер многомерного списка
+ceammc/ml	multidimensional list container / контейнер многомерного списка
+ml	multidimensional list container / контейнер многомерного списка
 data.path	filesystem path datatype / тип данных: путь в файловой системе
 data.set	the set: container that store only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
 data.set2list	converts the set to the list / преобразует множество в список
