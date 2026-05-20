@@ -5,155 +5,154 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.gpio 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 hw.rpi.gpio;
-#X obj 230 78 cnv 1 535 175 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Контакты GPIO забираются в эксклюзивное владение: только
 один объект может читать или выводить значение на контакт. Оправляйте
-сообщение [release( чтобы отказаться от владения контактом. То есть
-вы можете создавать любое количество объектов [hw.rpi.gpio];
-#X obj 230 88 cnv 1 2 75 empty empty empty 17 7 0 10 -221520 -1 0;
-#X text 240 168 То есть вы можете создавать любое количество объектов
+сообщение [release( чтобы отказаться от владения контактом.;
+#X obj 230 88 cnv 1 2 60 empty empty empty 17 7 0 10 -221520 -1 0;
+#X text 240 153 То есть вы можете создавать любое количество объектов
 [hw.rpi.gpio] \, но доступ к определенному контакту будет только у
-одного из этих объектов (перовому \, который этот контакт захватил);
-#X obj 230 173 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
-#X obj 50 301 loadbang;
-#X msg 50 330 input 17 \, pull_up 17 \, output 18;
-#X msg 69 359 read 17;
-#X obj 261 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 299 359 toggle 18;
-#X obj 69 388 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 261 388 write 18 \$1;
-#X msg 69 417 poll 17 \$1;
-#X msg 261 417 read 18;
-#X msg 69 445 reset 17;
-#X msg 261 445 soft_pwm 18 500 100;
-#X msg 501 445 soft_pwm_freq 18 4 0.5;
-#X msg 261 474 clear_pwm 18;
-#X msg 261 503 reset 18;
-#X obj 50 532 hw.rpi.gpio;
-#X obj 50 561 route pin;
-#X obj 50 589 ui.dt;
-#X obj 50 618 ui.link @title 'Connection_Scheme' @url
+одного из этих объектов (первому \, который этот контакт захватил);
+#X obj 230 158 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
+#X obj 50 286 loadbang;
+#X msg 50 315 input 17 \, pull_up 17 \, output 18;
+#X msg 69 344 read 17;
+#X obj 261 344 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 299 344 toggle 18;
+#X obj 69 373 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 261 373 write 18 \$1;
+#X msg 69 402 poll 17 \$1;
+#X msg 261 402 read 18;
+#X msg 69 430 reset 17;
+#X msg 261 430 soft_pwm 18 500 100;
+#X msg 501 430 soft_pwm_freq 18 4 0.5;
+#X msg 261 459 clear_pwm 18;
+#X msg 261 488 reset 18;
+#X obj 50 517 hw.rpi.gpio;
+#X obj 50 546 route pin;
+#X obj 50 574 ui.dt;
+#X obj 50 603 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_gpio1.png;
-#X obj 50 647 ui.link @title 'GPIO_control' @url
+#X obj 50 632 ui.link @title 'GPIO_control' @url
 ceammc://hw.rpi.gpio-example.pd;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 709 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 694 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 710 clear_pwm;
-#X text 270 710 сбросить настройки ШИМ для GPIO контакта. Аргументы:;
-#X obj 300 735 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 735 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 768 impulse;
-#X text 270 768 отправить одиночный импульс указанной длительности.
+#X msg 130 695 clear_pwm;
+#X text 270 695 сбросить настройки ШИМ для GPIO контакта. Аргументы:;
+#X obj 300 720 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 720 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 753 impulse;
+#X text 270 753 отправить одиночный импульс указанной длительности.
 Аргументы:;
-#X obj 300 808 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 808 LENGTH: длина импульса. Тип: int. Диапазон: [0.001\..100].
+#X obj 300 793 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 793 LENGTH: длина импульса. Тип: int. Диапазон: [0.001\..100].
 Единицы: 'ms'.;
-#X obj 250 856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 856 input;
-#X text 270 856 установить GPIO контакт в режим ввода. Аргументы:;
-#X obj 300 881 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 881 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 914 output;
-#X text 270 914 установить GPIO контакт в режим вывода. Аргументы:;
-#X obj 300 939 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 939 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 972 poll;
-#X text 270 972 включить/выключить отслеживание значения GPIO контакта.
+#X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 841 input;
+#X text 270 841 установить GPIO контакт в режим ввода. Аргументы:;
+#X obj 300 866 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 866 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 899 output;
+#X text 270 899 установить GPIO контакт в режим вывода. Аргументы:;
+#X obj 300 924 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 924 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 957 poll;
+#X text 270 957 включить/выключить отслеживание значения GPIO контакта.
 Аргументы:;
-#X obj 300 1012 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1012 PIN: номер контакта GPIO. Тип: int.;
-#X obj 300 1035 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1035 STATE: состояние мониторинга. 1: включить. 0: выключить.
+#X obj 300 997 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 997 PIN: номер контакта GPIO. Тип: int.;
+#X obj 300 1020 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1020 STATE: состояние мониторинга. 1: включить. 0: выключить.
 Тип: bool.;
-#X obj 300 1073 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1073 [DEBOUNCE=10]: время подавления дребезга. Тип: float.
+#X obj 300 1058 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1058 [DEBOUNCE=10]: время подавления дребезга. Тип: float.
 Минимальное значение: 0\. Единицы: 'ms'.;
-#X obj 250 1121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1121 pull_down;
-#X text 270 1121 подтянуть внутренние резисторы пина к низкому уровню.
+#X obj 250 1106 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1106 pull_down;
+#X text 270 1106 подтянуть внутренние резисторы пина к низкому уровню.
 Аргументы:;
-#X obj 300 1161 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1161 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 1194 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1194 pull_up;
-#X text 270 1194 подтянуть внутренние резисторы пина к высокому уровню.
+#X obj 300 1146 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1146 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 1179 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1179 pull_up;
+#X text 270 1179 подтянуть внутренние резисторы пина к высокому уровню.
 Аргументы:;
-#X obj 300 1234 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1234 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 1267 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1267 read;
-#X text 270 1267 прочитать текущее значение на контакте GPIO. Аргументы:;
-#X obj 300 1292 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1292 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 1325 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1325 reset;
-#X text 270 1325 сбросить контакт(ы) GPIO в начальное состояние. Аргументы:;
-#X obj 300 1350 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1350 PIN: номер контакта GPIO. Тип: list. Диапазон: [1\..16].;
-#X obj 250 1383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1383 soft_pwm;
-#X text 270 1383 установить контакт GPIO в режим программной ШИМ. Аргументы:;
-#X obj 300 1408 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1408 PIN: номер контакта GPIO. Тип: int.;
-#X obj 300 1431 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1431 PERIOD: длина полного периода. Тип: float. Минимальное
+#X obj 300 1219 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1219 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 1252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1252 read;
+#X text 270 1252 прочитать текущее значение на контакте GPIO. Аргументы:;
+#X obj 300 1277 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1277 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 1310 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1310 reset;
+#X text 270 1310 сбросить контакт(ы) GPIO в начальное состояние. Аргументы:;
+#X obj 300 1335 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1335 PIN: номер контакта GPIO. Тип: list. Диапазон: [1\..16].;
+#X obj 250 1368 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1368 soft_pwm;
+#X text 270 1368 установить контакт GPIO в режим программной ШИМ. Аргументы:;
+#X obj 300 1393 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1393 PIN: номер контакта GPIO. Тип: int.;
+#X obj 300 1416 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1416 PERIOD: длина полного периода. Тип: float. Минимальное
 значение: 0\. Единицы: 'ms'.;
-#X obj 300 1469 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1469 DUTY: продолжительность рабочего цикла. Тип: float.
+#X obj 300 1454 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1454 DUTY: продолжительность рабочего цикла. Тип: float.
 Минимальное значение: 0\. Единицы: 'ms'.;
-#X obj 250 1517 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1517 soft_pwm_freq;
-#X text 270 1517 установить программную частоту ШИМ для контакта GPIO.
+#X obj 250 1502 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1502 soft_pwm_freq;
+#X text 270 1502 установить программную частоту ШИМ для контакта GPIO.
 Аргументы:;
-#X obj 300 1557 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1557 PIN: номер контакта GPIO. Тип: int.;
-#X obj 300 1580 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1580 FREQ: частота. Тип: float. Минимальное значение: 0\.
+#X obj 300 1542 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1542 PIN: номер контакта GPIO. Тип: int.;
+#X obj 300 1565 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1565 FREQ: частота. Тип: float. Минимальное значение: 0\.
 Единицы: 'Hz'.;
-#X obj 300 1618 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1618 DUTY: продолжительность рабочего цикла. Тип: float.
+#X obj 300 1603 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1603 DUTY: продолжительность рабочего цикла. Тип: float.
 Диапазон: [0\..1].;
-#X obj 250 1666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1666 toggle;
-#X text 270 1666 переключить выходное значение контакта GPIO. Аргументы:;
-#X obj 300 1691 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1691 PIN: номер контакта GPIO. Тип: int.;
-#X obj 250 1724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1724 used_pins;
-#X text 270 1724 выводит список использованных контактов GPIO. Отправляет
+#X obj 250 1651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1651 toggle;
+#X text 270 1651 переключить выходное значение контакта GPIO. Аргументы:;
+#X obj 300 1676 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1676 PIN: номер контакта GPIO. Тип: int.;
+#X obj 250 1709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1709 used_pins;
+#X text 270 1709 выводит список использованных контактов GPIO. Отправляет
 сообщение в формате: [pins КОНТАКТ...( в первый выход.;
-#X obj 250 1789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1789 write;
-#X text 270 1789 устанавить значение на GPIO выводе. Аргументы:;
-#X obj 300 1814 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1814 PIN: номер контакта GPIO. Тип: int.;
-#X obj 300 1837 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1837 VALUE: значение. Тип: bool.;
-#X obj 20 1880 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1885 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 1774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1774 write;
+#X text 270 1774 устанавить значение на GPIO выводе. Аргументы:;
+#X obj 300 1799 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1799 PIN: номер контакта GPIO. Тип: int.;
+#X obj 300 1822 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1822 VALUE: значение. Тип: bool.;
+#X obj 20 1865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1870 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1886 1\.;
-#X text 270 1886 вход для управляющих сообщений.;
-#X obj 20 1921 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1926 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1871 1\.;
+#X text 270 1871 вход для управляющих сообщений.;
+#X obj 20 1906 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1911 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1927 1\.;
-#X msg 170 1927 pin;
-#X text 270 1927 состояние контакта: [pin КОНТАКТ СОСТОЯНИЕ(.;
-#X msg 170 1952 pins;
-#X text 270 1952 список контактов: [pins КОНТАКТ КОНТАКТ...(.;
+#X text 130 1912 1\.;
+#X msg 170 1912 pin;
+#X text 270 1912 состояние контакта: [pin КОНТАКТ СОСТОЯНИЕ(.;
+#X msg 170 1937 pins;
+#X text 270 1937 список контактов: [pins КОНТАКТ КОНТАКТ...(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 2002 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2005 библиотека: ceammc v0.9.8;
-#N canvas 10 2024 400 290 info 0;
+#X obj 1 1987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1990 библиотека: ceammc v0.9.8;
+#N canvas 10 2009 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -177,7 +176,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2024 pd info;
+#X restore 10 2009 pd info;
 #X connect 9 0 10 0;
 #X connect 12 0 15 0;
 #X connect 14 0 16 0;

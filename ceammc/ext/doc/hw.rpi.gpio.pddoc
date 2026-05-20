@@ -22,15 +22,14 @@
         the value of a pin. Send the message [release( to relinquish ownership of the pin.</tr>
         <tr lang="ru">Контакты GPIO забираются в эксклюзивное владение: только один объект может
         читать или выводить значение на контакт. Оправляйте сообщение [release( чтобы отказаться от
-        владения контактом. То есть вы можете создавать любое количество объектов
-        [hw.rpi.gpio]</tr>
+        владения контактом.</tr>
       </par>
       <par style="info">
         <tr lang="en">That is, you can create any number of objects [hw.rpi.gpio], but access to a
         specific pin will be available only to one of these objects (the first one that captured
         this pin)</tr>
         <tr lang="ru">То есть вы можете создавать любое количество объектов [hw.rpi.gpio], но
-        доступ к определенному контакту будет только у одного из этих объектов (перовому, который
+        доступ к определенному контакту будет только у одного из этих объектов (первому, который
         этот контакт захватил)</tr>
       </par>
     </info>
