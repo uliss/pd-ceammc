@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">two channel linear panner</tr>
-        <tr lang="ru">двухканальное линейное панорамирование</tr>
+        <tr lang="en">two-channel linear panner</tr>
+        <tr lang="ru">двухканальный линейный панорамный регулятор</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -26,42 +26,44 @@
     </meta>
     <info>
       <par style="info">
-        <tr lang="en">The signal is lowered as it pans from left (or right) to center using a
-        straight line from ±1 (left or right) to 0.0 (center) for a 6dB reduction in the
+        <tr lang="en">The signal level decreases as it pans from left (or right) to center using a
+        straight line from ±1 (left or right) to 0.0 (center), resulting in a 6dB reduction in the
         middle.</tr>
-        <tr lang="ru">Сигнал уменьшается по мере его панорамирования с левого (или правого) канала
-        в центр, при помощи прямой линии от ±1 (лево или право) до 0.0 (центр), приводя к снижению
-        на 6 дБ в середине.</tr>
+        <tr lang="ru">Уровень сигнала уменьшается по мере его панорамирования из левого (или
+        правого) канала в центр по прямой линии от ±1 (лево или право) до 0.0 (центр), что приводит
+        к снижению на 6 дБ в середине.</tr>
       </par>
       <par style="important">
         <tr lang="en">A problem inherent to linear panning is that the perceived volume of the
         signal drops in the middle. [pan.sqrt~] solves this by taking the square root of the linear
-        scaling factor going from 1 (left or right) to √0.5 (~=0.707) in the center, which is about
-        3dB reduction.</tr>
+        scaling factor, which goes from 1 (left or right) to √0.5 (~0.707) in the center, resulting
+        in about a 3dB reduction.</tr>
         <tr lang="ru">Проблема, присущая линейному панорамированию, заключается в том, что
-        воспринимаемый уровень сигнала падает посередине. [pan.sqrt~] решает эту проблему,
-        используя квадратный корень из линейного коэффициента масштабирования, изменяющегося от 1
-        (лево или право) до √0.5 (~=0.707) в центре, что приводит к снижению уровня примерно на 3
+        воспринимаемая громкость сигнала падает в центре. [pan.sqrt~] решает эту проблему,
+        используя квадратный корень из линейного коэффициента масштабирования, который изменяется
+        от 1 (лево или право) до √0.5 (~0.707) в центре, что приводит к снижению примерно на 3
         дБ.</tr>
       </par>
     </info>
     <arguments>
       <argument name="POS" type="float" minvalue="-1" maxvalue="1">
-        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 - право</tr>
+        <tr lang="en">panning position. -1 means left, 0 means center, +1 means right.</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает левый канал, 0 — центр, +1 — правый
+        канал.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pos -->
       <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">
-        <tr lang="en">panning position. -1 means left, 0 - center, +1 - right</tr>
-        <tr lang="ru">позиция панорамирования. -1 означает лево, 0 - центр, +1 - право</tr>
+        <tr lang="en">panning position. -1 means left, 0 means center, +1 means right.</tr>
+        <tr lang="ru">позиция панорамирования. -1 означает левый канал, 0 — центр, +1 — правый
+        канал.</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
       access="initonly">
-        <tr lang="en">smoothing the control signal to avoid zipping-noise</tr>
-        <tr lang="ru">сглаживание управляющего сигнала, чтобы избежать щелкающего шума</tr>
+        <tr lang="en">smoothing of the control signal to avoid zipper noise.</tr>
+        <tr lang="ru">сглаживание управляющего сигнала для предотвращения шума квантования.</tr>
       </property>
     </properties>
     <inlets>

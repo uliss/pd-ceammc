@@ -2324,7 +2324,7 @@
     <entry name="pan.linsig~" descr="two channel linear panner with the signal control" ref_view="link">
       <xi:include href="pan.linsig~.pddoc" parse="xml"/>
     </entry>
-    <entry name="pan.lin~" descr="two channel linear panner" ref_view="link">
+    <entry name="pan.lin~" descr="two-channel linear panner" ref_view="link">
       <xi:include href="pan.lin~.pddoc" parse="xml"/>
     </entry>
     <entry name="pan.spread~" descr="spreads input channels across the stereo field" ref_view="link">

@@ -1197,9 +1197,9 @@ hoa.scope~	a 2d ambisonic harmonic scope / отображение сфериче
 hoa.2d.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
 pan.cos~	two channel equal power sine/cosine panner / двухканальное косинусное панорамирование равной мощности
 pan.linsig~	two channel linear panner with the signal control / двухканальное линейное панорамирование управляемое сигналом
-pan.lin~	two channel linear panner / двухканальное линейное панорамирование
-ceammc/pan~	two channel linear panner / двухканальное линейное панорамирование
-pan~	two channel linear panner / двухканальное линейное панорамирование
+pan.lin~	two-channel linear panner / двухканальный линейный панорамный регулятор
+ceammc/pan~	two-channel linear panner / двухканальный линейный панорамный регулятор
+pan~	two-channel linear panner / двухканальный линейный панорамный регулятор
 pan.spread~	spreads input channels across the stereo field / распределяет входные каналы по стереополю
 pan.sqrt~	two channel equal power square root panner / двухканальное квадратичное панорамирование равной мощности
 spat.pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком

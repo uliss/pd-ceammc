@@ -41,7 +41,8 @@
         </in>
         <in on="list">
           <tr lang="en">appends all list elements to the message content and then outputs it</tr>
-          <tr lang="ru">добавляет все элементы списка к содержимому сообщения и затем выводит его</tr>
+          <tr lang="ru">добавляет все элементы списка к содержимому сообщения и затем выводит
+          его</tr>
         </in>
         <in on="float">
           <tr lang="en">appends a float number to the message content and then outputs it</tr>

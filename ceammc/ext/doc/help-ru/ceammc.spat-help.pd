@@ -86,7 +86,7 @@ hoa.3d.wider~-help.pd;
 #X text 220 927 двухканальное линейное панорамирование управляемое
 сигналом;
 #X obj 30 955 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
-#X text 220 952 двухканальное линейное панорамирование;
+#X text 220 952 двухканальный линейный панорамный регулятор;
 #X obj 30 980 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 220 977 распределяет входные каналы по стереополю;
 #X obj 30 1005 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;

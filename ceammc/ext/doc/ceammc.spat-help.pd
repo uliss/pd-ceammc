@@ -79,7 +79,7 @@ object;
 #X obj 30 810 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
 #X text 220 807 two channel linear panner with the signal control;
 #X obj 30 835 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
-#X text 220 832 two channel linear panner;
+#X text 220 832 two-channel linear panner;
 #X obj 30 860 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 220 857 spreads input channels across the stereo field;
 #X obj 30 885 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;

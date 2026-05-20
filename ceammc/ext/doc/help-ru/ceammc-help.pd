@@ -2133,7 +2133,7 @@ hoa.process~-help.pd;
 #X text 200 22366 двухканальное линейное панорамирование управляемое
 сигналом;
 #X obj 30 22394 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
-#X text 200 22391 двухканальное линейное панорамирование;
+#X text 200 22391 двухканальный линейный панорамный регулятор;
 #X obj 30 22419 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 200 22416 распределяет входные каналы по стереополю;
 #X obj 30 22444 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
