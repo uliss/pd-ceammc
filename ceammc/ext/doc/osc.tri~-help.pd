@@ -22,7 +22,7 @@
 #X text 130 400 1\.;
 #X text 170 400 float;
 #X obj 268 401 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 400 FREQ(Hz): See @freq. Type: float. Range: [0.0\..22050];
+#X text 270 400 FREQ(Hz): see @freq. Type: float. Range: [0.0\..22050];
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 440 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -51,13 +51,13 @@ properties to /ID/osc_tri/PROP_NAME osc address \, if empty bind to
 #X text 270 616 frequency in Hz.;
 #X text 130 641 2\.;
 #X text 170 641 bang:;
-#X text 270 641 reset phase.;
+#X text 270 641 reset the phase.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 681 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 682 1\.;
 #X text 170 682 ~;
-#X text 270 682 output signal in [1 \, -1] range.;
+#X text 270 682 output signal in the range [-1 \, 1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

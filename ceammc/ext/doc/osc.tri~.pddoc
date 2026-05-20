@@ -23,8 +23,8 @@
     </meta>
     <arguments>
       <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-        <tr lang="en">See @freq</tr>
-        <tr lang="ru" finished="false">См. @freq</tr>
+        <tr lang="en">see @freq</tr>
+        <tr lang="ru">см. @freq</tr>
       </argument>
     </arguments>
     <properties>
@@ -34,28 +34,28 @@
       <!-- @freq -->
       <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">frequency in Hz</tr>
-          <tr lang="ru" finished="false">частота в Гц</tr>
+          <tr lang="ru">частота в Гц</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset phase</tr>
-          <tr lang="ru" finished="false">фаза сброса</tr>
+          <tr lang="en">reset the phase</tr>
+          <tr lang="ru">сбросить фазу</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">output signal in [1, -1] range</tr>
-          <tr lang="ru" finished="false">выходной сигнал в [1, -1] диапазоне</tr>
+          <tr lang="en">output signal in the range [-1, 1]</tr>
+          <tr lang="ru">выходной сигнал в диапазоне [-1, 1]</tr>
         </out>
       </outlet>
     </outlets>
