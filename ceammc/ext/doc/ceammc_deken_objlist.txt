@@ -609,9 +609,9 @@ hw.kbd_light	controlling the keyboard backlight on some devices / управле
 hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
 hw.printer	basic document printing support / базовая поддержка печати документов
 hw.rpi.adc.ads1115	driver for 16-bit ADC on ADS1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry Pi
-hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
-hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
-hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
+hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
+hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
+hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
 hw.rpi.display.ssd1306	driver for OLED display on ssd1306 chip for Raspberry Pi / драйвер для OLED дисплея на чипе ssd1306 для Raspberry Pi
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
 hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi

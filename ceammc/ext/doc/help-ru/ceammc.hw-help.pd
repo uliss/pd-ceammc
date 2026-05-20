@@ -26,8 +26,8 @@ hw.rpi.adc.ads1115-help.pd;
 Pi;
 #X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
-#X text 220 342 драйвер для ЖКИ дисплея (1602 или 2004 модуль) для
-Raspberry Pi;
+#X text 220 342 драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry
+Pi;
 #X obj 30 385 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
 #X text 220 382 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
