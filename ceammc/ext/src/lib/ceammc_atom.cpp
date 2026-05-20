@@ -33,7 +33,7 @@ struct t_ref {
     uint32_t counter;
 };
 
-//#define TRACE_DATA 1
+// #define TRACE_DATA 1
 #ifdef TRACE_DATA
 #define TRACE(fn)                     \
     {                                 \
@@ -49,17 +49,20 @@ static_assert(sizeof(Atom) == sizeof(t_atom), "Atom and t_atom size mismatch");
 constexpr t_atomtype TYPE_DATA = static_cast<t_atomtype>(A_CANT + 1);
 
 Atom::Atom() noexcept
+    : t_atom()
 {
     a_type = A_NULL;
 }
 
 Atom::Atom(t_float v) noexcept
+    : t_atom()
 {
     a_type = A_FLOAT;
     a_w.w_float = v;
 }
 
 Atom::Atom(t_symbol* s) noexcept
+    : t_atom()
 {
     a_type = A_SYMBOL;
     a_w.w_symbol = s;
@@ -84,6 +87,7 @@ Atom::Atom(const t_atom& a)
 }
 
 Atom::Atom(AbstractData* d)
+    : t_atom()
 {
     if (d == nullptr) {
         LIB_ERR << "attempt to create NULL dataatom: " << __FUNCTION__;
@@ -104,6 +108,7 @@ Atom::Atom(AbstractData* d)
 }
 
 Atom::Atom(const Atom& x)
+    : t_atom()
 {
     if (x.a_type == TYPE_DATA) {
         a_type = TYPE_DATA;
@@ -425,7 +430,7 @@ Atom::Type Atom::type() const noexcept
 {
     switch (a_type) {
     case A_SYMBOL:
-        if (a_w.w_symbol == 0)
+        if (a_w.w_symbol == nullptr)
             return NONE;
 
         return (a_w.w_symbol->s_name[0] == PROP_PREFIX) ? PROPERTY : SYMBOL;
@@ -540,7 +545,7 @@ size_t Atom::asSizeT(size_t def) const noexcept
     if (!isFloat())
         return def;
 
-    t_float v = a_w.w_float;
+    const auto v = a_w.w_float;
     return (v < 0) ? def : static_cast<size_t>(v);
 }
 
@@ -660,10 +665,10 @@ bool Atom::operator<(const Atom& b) const noexcept
             if (a_w.w_symbol == b.a_w.w_symbol)
                 return false;
 
-            if (a_w.w_symbol == 0 || b.a_w.w_symbol == 0)
+            if (a_w.w_symbol == nullptr || b.a_w.w_symbol == nullptr)
                 return false;
 
-            if (a_w.w_symbol->s_name == 0 || b.a_w.w_symbol->s_name == 0)
+            if (a_w.w_symbol->s_name == nullptr || b.a_w.w_symbol->s_name == nullptr)
                 return false;
 
             return strcmp(a_w.w_symbol->s_name, b.a_w.w_symbol->s_name) < 0;
@@ -892,4 +897,4 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
 
     return os;
 }
-}
+} // namespace ceammc
