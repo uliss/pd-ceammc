@@ -1056,7 +1056,7 @@
     <entry name="hw.rpi.display.hd44780" descr="LCD display driver for Raspberry Pi (1602 or 2004 module)" ref_view="link">
       <xi:include href="hw.rpi.display.hd44780.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.display.ssd1306" descr="driver for OLED display on ssd1306 chip for Raspberry Pi" ref_view="link">
+    <entry name="hw.rpi.display.ssd1306" descr="driver for OLED display on SSD1306 chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.display.ssd1306.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.gpio" descr="GPIO control for Raspberry Pi" ref_view="link">

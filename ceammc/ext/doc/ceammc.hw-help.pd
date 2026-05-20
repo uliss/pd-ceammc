@@ -29,7 +29,7 @@ hw.rpi.display.hd44780-help.pd;
 #X text 220 342 LCD display driver for Raspberry Pi (1602 or 2004 module);
 #X obj 30 370 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 220 367 driver for OLED display on ssd1306 chip for Raspberry
+#X text 220 367 driver for OLED display on SSD1306 chip for Raspberry
 Pi;
 #X obj 30 395 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
 #X text 220 392 GPIO control for Raspberry Pi;

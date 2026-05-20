@@ -30,7 +30,7 @@ hw.rpi.display.hd44780-help.pd;
 Pi;
 #X obj 30 385 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 220 382 драйвер для OLED дисплея на чипе ssd1306 для Raspberry
+#X text 220 382 драйвер для OLED-дисплея на чипе SSD1306 для Raspberry
 Pi;
 #X obj 30 410 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
 #X text 220 407 управление GPIO на Raspberry Pi;

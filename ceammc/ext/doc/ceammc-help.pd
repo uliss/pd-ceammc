@@ -924,7 +924,7 @@ hw.rpi.display.hd44780-help.pd;
 module);
 #X obj 30 9597 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 200 9594 driver for OLED display on ssd1306 chip for Raspberry
+#X text 200 9594 driver for OLED display on SSD1306 chip for Raspberry
 Pi;
 #X obj 30 9622 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
 #X text 200 9619 GPIO control for Raspberry Pi;

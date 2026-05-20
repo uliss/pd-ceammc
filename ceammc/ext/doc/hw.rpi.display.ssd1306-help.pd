@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 329 50 cnv 1 436 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 334 50 driver for OLED display on ssd1306 chip for Raspberry
+#X text 334 50 driver for OLED display on SSD1306 chip for Raspberry
 Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.display.ssd1306 20 20 0 20
 -104026 -4096 0;
@@ -9,8 +9,8 @@ Pi;
 #X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Both I²C and SPI connections are supported. I²C connection
 is not fast.;
-#X text 240 123 Note: you should send [flush( message to transfer internal
-pixel buffer to the device;
+#X text 240 123 Note: you should send the [flush( message to transfer
+the internal pixel buffer to the device.;
 #X text 50 226 I²C connection example:;
 #X obj 50 255 ui.hrd @nitems 4;
 #X text 203 255 click several times!;
@@ -51,9 +51,9 @@ i2c \, spi. Type: symbol.;
 #X obj 735 678 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 676 @i2c_addr;
-#X text 270 676 (initonly) I²C address. Also 'default' value is accepted
-(for addr 0x3c) and 'alt' (for addr 0x3d). Type: int. Default value:
--1\. Range: [-4\..119].;
+#X text 270 676 (initonly) I²C address. The 'default' value is also
+accepted (for addr 0x3c) and 'alt' (for addr 0x3d). Type: int. Default
+value: -1\. Range: [-4\..119].;
 #X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 733 @i2c_bus;
 #X text 270 733 (initonly) I²C bus. Type: atom. Default value: none.
@@ -93,8 +93,8 @@ value: -1\. Range: [-1\..127].;
 #X text 270 1073 set display brightness. Arguments are:;
 #X obj 300 1098 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1098 LEVEL: brightness level from 0 (lowest) to 4 (brightest).
-Normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3 \,
-4\.;
+The normal level is 2\. Type: int. Allowed values: 0 \, 1 \, 2 \, 3
+\, 4\.;
 #X obj 250 1161 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1161 clear;
 #X text 270 1161 clear the display contents and optionally send the
@@ -107,7 +107,7 @@ Type: bool.;
 #X text 270 1249 send the internal buffer to the device.;
 #X obj 250 1284 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1284 font;
-#X text 270 1284 set current font. Arguments are:;
+#X text 270 1284 set the current font. Arguments are:;
 #X obj 300 1309 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1309 FONT: font name. Type: symbol.;
 #X obj 250 1342 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -122,12 +122,13 @@ Type: bool.;
 #X text 300 1425 VALUE: value. Type: bool.;
 #X obj 250 1458 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1458 pixel;
-#X text 270 1458 draw pixel. Arguments are:;
+#X text 270 1458 draw a pixel. Arguments are:;
 #X obj 300 1483 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1483 X: X coord (from the left). Type: int. Min value:
+#X text 300 1483 X: X coordinate (from the left). Type: int. Min value:
 0\.;
 #X obj 300 1506 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1506 Y: Y coord (from the top). Type: int. Min value: 0\.;
+#X text 300 1506 Y: Y coordinate (from the top). Type: int. Min value:
+0\.;
 #X obj 300 1529 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1529 VALUE: pixel value. Type: bool.;
 #X obj 250 1562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -153,7 +154,7 @@ SPI). Arguments are:;
 #X text 300 1779 Y: top text Y coordinate. Type: int.;
 #X obj 250 1812 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1812 write bitmap;
-#X text 270 1812 write bitmap to the display buffer. Arguments are:;
+#X text 270 1812 write a bitmap to the display buffer. Arguments are:;
 #X obj 300 1837 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1837 X: bitmap X coordinate. Type: int.;
 #X obj 300 1860 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -165,10 +166,10 @@ SPI). Arguments are:;
 #X text 300 1906 PIXELS: list of pixels (0 or 1). Type: list.;
 #X obj 250 1939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1939 write bytes;
-#X text 270 1939 write raw byte list to the display buffer and move
-internal cursor position. Arguments are:;
+#X text 270 1939 write a raw byte list to the display buffer and move
+the internal cursor position. Arguments are:;
 #X obj 300 1979 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1979 BYTES: list of bytes (integers in 0\..255 range).
+#X text 300 1979 BYTES: list of bytes (integers in the 0\..255 range).
 Each byte describes a single column of 8 pixels in height. Type: list.;
 #X obj 20 2052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2057 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
