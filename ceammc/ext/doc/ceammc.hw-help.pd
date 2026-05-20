@@ -35,7 +35,7 @@ Pi;
 #X text 220 392 GPIO control for Raspberry Pi;
 #X obj 30 420 ui.link @title [hw.rpi.i2c.pca9685] @url
 hw.rpi.i2c.pca9685-help.pd;
-#X text 220 417 driver for 16-channel 12-bit PWM module on PCA9685
+#X text 220 417 driver for a 16-channel 12-bit PWM module on the PCA9685
 chip for Raspberry Pi;
 #X obj 30 460 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
 #X text 220 457 hardware PWM output for Raspberry Pi;

@@ -966,7 +966,7 @@ Pi;
 #X text 200 10189 управление GPIO на Raspberry Pi;
 #X obj 30 10217 ui.link @title [hw.rpi.i2c.pca9685] @url
 hw.rpi.i2c.pca9685-help.pd;
-#X text 200 10214 драйвер для 16-канального 12-битного ШИМ модуля на
+#X text 200 10214 драйвер для 16-канального 12-битного ШИМ-модуля на
 чипе PCA9685 для Raspberry Pi;
 #X obj 30 10257 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
 #X text 200 10254 аппаратный ШИМ (PWM) для Raspberry Pi;

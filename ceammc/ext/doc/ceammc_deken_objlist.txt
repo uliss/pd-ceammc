@@ -614,8 +614,8 @@ hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module)
 hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
 hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер для OLED-дисплея на чипе SSD1306 для Raspberry Pi
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
-hw.rpi.i2c.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
-hw.rpi.pwm.pca9685	driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.i2c.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
 hw.rpi.pwm	hardware PWM output for Raspberry Pi / аппаратный ШИМ (PWM) для Raspberry Pi
 hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
 hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi

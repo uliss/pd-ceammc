@@ -1062,7 +1062,7 @@
     <entry name="hw.rpi.gpio" descr="GPIO control for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.gpio.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.i2c.pca9685" descr="driver for 16-channel 12-bit PWM module on PCA9685 chip for Raspberry Pi" ref_view="link">
+    <entry name="hw.rpi.i2c.pca9685" descr="driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.i2c.pca9685.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.pwm" descr="hardware PWM output for Raspberry Pi" ref_view="link">
