@@ -60,8 +60,7 @@ hw.rpi.sensor.mpu6050-help.pd;
 #X text 220 627 MPU-6050 — гироскоп и акселерометр для Raspberry Pi;
 #X obj 30 655 ui.link @title [hw.rpi.sensor.sr04] @url
 hw.rpi.sensor.sr04-help.pd;
-#X text 220 652 HC-SR04 ультразвуковой датчик расстояния для Raspberry
-Pi;
+#X text 220 652 ультразвуковой дальномер HC-SR04 для Raspberry Pi;
 #X obj 30 680 ui.link @title [hw.rpi.sensor.vl53l0x] @url
 hw.rpi.sensor.vl53l0x-help.pd;
 #X text 220 677 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
