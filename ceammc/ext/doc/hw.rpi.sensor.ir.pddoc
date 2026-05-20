@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin — it is *impossible* to use it in other objects simultaneously with this one.</tr>
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакт GPIO @pin — использовать его в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin — it
+        is *impossible* to use it in other objects simultaneously with this one.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакт GPIO @pin —
+        использовать его в других объектах одновременно с этим *невозможно*.</tr>
       </par>
     </info>
     <arguments>
@@ -36,8 +38,10 @@
       </property>
       <!-- @proto -->
       <property name="@proto" type="symbol" default="NEC">
-        <tr lang="en">protocol name. You must disable and re-enable sensor polling for the change to take effect.</tr>
-        <tr lang="ru">название протокола. Чтобы изменение вступило в силу, необходимо выключить и снова включить опрос датчика.</tr>
+        <tr lang="en">protocol name. You must disable and re-enable sensor polling for the change
+        to take effect.</tr>
+        <tr lang="ru">название протокола. Чтобы изменение вступило в силу, необходимо выключить и
+        снова включить опрос датчика.</tr>
       </property>
     </properties>
     <methods>

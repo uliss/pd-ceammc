@@ -18,24 +18,38 @@
     </meta>
     <info>
       <par style="critical">
-        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!), then power (+5V), then the data pin. This is necessary to protect the first LED from burning out. It is recommended to install a 300-500 Ohm resistor in the data circuit.</tr>
-        <tr lang="ru">Внимание! Правильный порядок подключения ленты: сначала земля (!), затем питание (+5 В), затем контакт данных. Это необходимо для защиты первого светодиода от выгорания. В цепь данных рекомендуется устанавливать резистор 300-500 Ом.</tr>
+        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!), then
+        power (+5V), then the data pin. This is necessary to protect the first LED from burning
+        out. It is recommended to install a 300-500 Ohm resistor in the data circuit.</tr>
+        <tr lang="ru">Внимание! Правильный порядок подключения ленты: сначала земля (!), затем
+        питание (+5 В), затем контакт данных. Это необходимо для защиты первого светодиода от
+        выгорания. В цепь данных рекомендуется устанавливать резистор 300-500 Ом.</tr>
       </par>
       <par style="critical">
-        <tr lang="en">The disconnection procedure is strictly the reverse: first disconnect the data pin, then the +5V power, and finally ground.</tr>
-        <tr lang="ru">Порядок отключения строго обратный: сначала отключите контакт данных, затем питание +5 В, и наконец землю.</tr>
+        <tr lang="en">The disconnection procedure is strictly the reverse: first disconnect the
+        data pin, then the +5V power, and finally ground.</tr>
+        <tr lang="ru">Порядок отключения строго обратный: сначала отключите контакт данных, затем
+        питание +5 В, и наконец землю.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">When using the object, you need to specify the SPI bus number (the @spi_bus property).</tr>
-        <tr lang="ru">При использовании объекта необходимо указать номер шины SPI (свойство @spi_bus).</tr>
+        <tr lang="en">When using the object, you need to specify the SPI bus number (the @spi_bus
+        property).</tr>
+        <tr lang="ru">При использовании объекта необходимо указать номер шины SPI (свойство
+        @spi_bus).</tr>
       </par>
       <par style="info">
-        <tr lang="en">The object uses an internal pixel buffer, which you work with by sending messages to the object. After finishing work with the pixel buffer, it needs to be sent to the LED strip using a bang or the [flush( command.</tr>
-        <tr lang="ru">Объект использует внутренний буфер пикселей, с которым вы работаете, отправляя сообщения объекту. После завершения работы с буфером пикселей его необходимо отправить на светодиодную ленту с помощью bang или команды [flush(.</tr>
+        <tr lang="en">The object uses an internal pixel buffer, which you work with by sending
+        messages to the object. After finishing work with the pixel buffer, it needs to be sent to
+        the LED strip using a bang or the [flush( command.</tr>
+        <tr lang="ru">Объект использует внутренний буфер пикселей, с которым вы работаете,
+        отправляя сообщения объекту. После завершения работы с буфером пикселей его необходимо
+        отправить на светодиодную ленту с помощью bang или команды [flush(.</tr>
       </par>
       <par>
-        <tr lang="en">To specify the group of pixels we are going to work with, two types of ranges are used: @slice and @lslice.</tr>
-        <tr lang="ru">Для указания группы пикселей, с которой мы собираемся работать, используются два типа диапазонов: @slice и @lslice.</tr>
+        <tr lang="en">To specify the group of pixels we are going to work with, two types of ranges
+        are used: @slice and @lslice.</tr>
+        <tr lang="ru">Для указания группы пикселей, с которой мы собираемся работать, используются
+        два типа диапазонов: @slice и @lslice.</tr>
       </par>
       <a href="ceammc_rpi_spi-info.pd">SPI information</a>
     </info>
@@ -47,8 +61,10 @@
       </property>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
+        from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0:
+        отключается от устройства.</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
@@ -59,13 +75,17 @@
       <!-- @spi_bus -->
       <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
       access="initonly">
-        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform any actions.</tr>
-        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не выполняет никаких действий.</tr>
+        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform
+        any actions.</tr>
+        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не выполняет никаких
+        действий.</tr>
       </property>
       <!-- @spi_cs -->
       <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">
-        <tr lang="en">SPI CS (chip select/enable). In most cases you do not need to set this property because LED strips do not use the CS pin.</tr>
-        <tr lang="ru">индекс SPI CS (chip select/enable). В большинстве случаев вам не нужно устанавливать это свойство, потому что светодиодные ленты не используют контакт CS.</tr>
+        <tr lang="en">SPI CS (chip select/enable). In most cases you do not need to set this
+        property because LED strips do not use the CS pin.</tr>
+        <tr lang="ru">индекс SPI CS (chip select/enable). В большинстве случаев вам не нужно
+        устанавливать это свойство, потому что светодиодные ленты не используют контакт CS.</tr>
       </property>
     </properties>
     <methods>
@@ -83,8 +103,10 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize them with the strip</tr>
-          <tr lang="ru">установить чёрный цвет для всех пикселей во внутреннем буфере и опционально синхронизировать их с лентой</tr>
+          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize
+          them with the strip</tr>
+          <tr lang="ru">установить чёрный цвет для всех пикселей во внутреннем буфере и опционально
+          синхронизировать их с лентой</tr>
         </info>
         <param name="flush" type="bool" default="1">
           <tr lang="en">if equal to 1: output the internal buffer to the device</tr>
@@ -121,8 +143,10 @@
       <!-- fill_bits -->
       <method name="fill_bits">
         <info>
-          <tr lang="en">fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1</tr>
-          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для которых соответствующий бит во входном списке установлен в 1</tr>
+          <tr lang="en">fill only those pixels in the internal buffer with the specified color for
+          which the corresponding bit in the input list is set to 1</tr>
+          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для
+          которых соответствующий бит во входном списке установлен в 1</tr>
         </info>
         <param name="@offset" type="int" minvalue="0" default="0">
           <tr lang="en">bit list offset</tr>

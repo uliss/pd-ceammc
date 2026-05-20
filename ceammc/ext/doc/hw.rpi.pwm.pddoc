@@ -37,14 +37,14 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и
-        настроить их.</tr>
+        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и настроить
+        их.</tr>
       </par>
       <par>
         <tr lang="en">Note: the Raspberry Pi's analog audio output uses both PWM channels. Playing
         audio and simultaneously accessing a PWM channel may cause issues.</tr>
-        <tr lang="ru">Примечание: аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ. Воспроизведение
-        звука и одновременное обращение к каналу ШИМ может вызвать проблемы.</tr>
+        <tr lang="ru">Примечание: аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ.
+        Воспроизведение звука и одновременное обращение к каналу ШИМ может вызвать проблемы.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>
@@ -78,8 +78,8 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и
-        настроить их.</tr>
+        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и настроить
+        их.</tr>
       </par>
       <par>
         <tr lang="en">~</tr>

@@ -7,8 +7,10 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi</tr>
-        <tr lang="ru">драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi</tr>
+        <tr lang="en">driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry
+        Pi</tr>
+        <tr lang="ru">драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry
+        Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -29,20 +31,38 @@
         <tr lang="ru">*Управление сервоприводами*</tr>
       </par>
       <par>
-        <tr lang="en">Many digital servos run on a 20ms pulse width (50Hz update frequency) based duty cycle and do not utilize the entire pulse width for their control.</tr>
-        <tr lang="ru">Многие цифровые сервоприводы работают на основе рабочего цикла с шириной импульса 20 мс (частота обновления 50 Гц) и не используют всю ширину импульса для своего управления.</tr>
+        <tr lang="en">Many digital servos run on a 20ms pulse width (50Hz update frequency) based
+        duty cycle and do not utilize the entire pulse width for their control.</tr>
+        <tr lang="ru">Многие цифровые сервоприводы работают на основе рабочего цикла с шириной
+        импульса 20 мс (частота обновления 50 Гц) и не используют всю ширину импульса для своего
+        управления.</tr>
       </par>
       <par>
-        <tr lang="en">Typically, 2.5% of the 20ms pulse width (0.5ms) represents a -90° offset, and 12.5% of the 20ms pulse width (2.5ms) represents a +90° offset.</tr>
-        <tr lang="ru">Как правило, 2,5% ширины импульса 20 мс (0,5 мс) представляет собой поворот -90°, а 12,5% ширины импульса 20 мс (2,5 мс) представляет собой поворот +90°.</tr>
+        <tr lang="en">Typically, 2.5% of the 20ms pulse width (0.5ms) represents a -90° offset, and
+        12.5% of the 20ms pulse width (2.5ms) represents a +90° offset.</tr>
+        <tr lang="ru">Как правило, 2,5% ширины импульса 20 мс (0,5 мс) представляет собой поворот
+        -90°, а 12,5% ширины импульса 20 мс (2,5 мс) представляет собой поворот +90°.</tr>
       </par>
       <par style="important">
-        <tr lang="en">Be aware that driving some 180° servos too far past their -90°/+90° operational range can cause a small plastic limiter pin to break off and get stuck inside the servo's gearing, which could potentially cause the servo to become jammed and no longer function.</tr>
-        <tr lang="ru">Имейте в виду, что установка некоторых 180-градусных сервоприводов слишком далеко за пределы их рабочего диапазона -90°/+90° может привести к тому, что небольшой пластиковый штифт-ограничитель отломится и застрянет внутри зубчатой передачи сервопривода, что потенциально может привести к тому, что сервопривод застрянет и перестанет функционировать.</tr>
+        <tr lang="en">Be aware that driving some 180° servos too far past their -90°/+90°
+        operational range can cause a small plastic limiter pin to break off and get stuck inside
+        the servo's gearing, which could potentially cause the servo to become jammed and no longer
+        function.</tr>
+        <tr lang="ru">Имейте в виду, что установка некоторых 180-градусных сервоприводов слишком
+        далеко за пределы их рабочего диапазона -90°/+90° может привести к тому, что небольшой
+        пластиковый штифт-ограничитель отломится и застрянет внутри зубчатой передачи сервопривода,
+        что потенциально может привести к тому, что сервопривод застрянет и перестанет
+        функционировать.</tr>
       </par>
       <par>
-        <tr lang="en">Continuous servos operate in much the same fashion as 180° servos, but instead of the 2.5%/12.5% pulse width controlling a -90°/+90° offset, it controls a -1x/+1x speed multiplier, with 0x being parked/no movement and -1x/+1x being maximum speed in either direction.</tr>
-        <tr lang="ru">Непрерывные сервоприводы работают во многом так же, как сервоприводы 180°, но вместо того, чтобы ширина импульса 2,5%/12,5% управляла смещением -90°/+90°, она управляет множителем скорости -1x/+1x, где 0x означает остановку/отсутствие движения, а -1x/+1x — максимальную скорость в любом направлении.</tr>
+        <tr lang="en">Continuous servos operate in much the same fashion as 180° servos, but
+        instead of the 2.5%/12.5% pulse width controlling a -90°/+90° offset, it controls a -1x/+1x
+        speed multiplier, with 0x being parked/no movement and -1x/+1x being maximum speed in
+        either direction.</tr>
+        <tr lang="ru">Непрерывные сервоприводы работают во многом так же, как сервоприводы 180°, но
+        вместо того, чтобы ширина импульса 2,5%/12,5% управляла смещением -90°/+90°, она управляет
+        множителем скорости -1x/+1x, где 0x означает остановку/отсутствие движения, а -1x/+1x —
+        максимальную скорость в любом направлении.</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
@@ -58,8 +78,10 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">connection mode. When set to 1: tries to connect to the device on the I²C bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">режим подключения. При установке в 1: пытается подключиться к устройству на шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">connection mode. When set to 1: tries to connect to the device on the I²C
+        bus. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">режим подключения. При установке в 1: пытается подключиться к устройству на
+        шине I²C. При установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
@@ -127,8 +149,11 @@
       <!-- enable -->
       <method name="enable">
         <info>
-          <tr lang="en">enable/disable the device. The disabled state is equivalent to sleep: the device keeps all current PWM settings but does not respond to new settings.</tr>
-          <tr lang="ru">включить/отключить устройство. Отключенное состояние эквивалентно режиму сна: устройство сохраняет все текущие настройки ШИМ, но не реагирует на новые настройки.</tr>
+          <tr lang="en">enable/disable the device. The disabled state is equivalent to sleep: the
+          device keeps all current PWM settings but does not respond to new settings.</tr>
+          <tr lang="ru">включить/отключить устройство. Отключенное состояние эквивалентно режиму
+          сна: устройство сохраняет все текущие настройки ШИМ, но не реагирует на новые
+          настройки.</tr>
         </info>
         <param name="STATE" type="bool" default="1">
           <tr lang="en">new state</tr>
@@ -138,8 +163,10 @@
       <!-- enable_restart_and_disable -->
       <method name="enable_restart_and_disable">
         <info>
-          <tr lang="en">put the controller to sleep while keeping the PWM register contents in preparation for a future restart.</tr>
-          <tr lang="ru">перевести контроллер в режим сна, сохраняя содержимое регистра ШИМ для подготовки к будущему перезапуску.</tr>
+          <tr lang="en">put the controller to sleep while keeping the PWM register contents in
+          preparation for a future restart.</tr>
+          <tr lang="ru">перевести контроллер в режим сна, сохраняя содержимое регистра ШИМ для
+          подготовки к будущему перезапуску.</tr>
         </info>
       </method>
       <!-- freq -->
@@ -200,8 +227,10 @@
       <!-- restart -->
       <method name="restart">
         <info>
-          <tr lang="en">re-enable the controller after a sleep with restart enabled so that previously active PWM channels are restarted.</tr>
-          <tr lang="ru">повторно включить контроллер после режима сна с включенным перезапуском, чтобы ранее активные каналы ШИМ были перезапущены.</tr>
+          <tr lang="en">re-enable the controller after a sleep with restart enabled so that
+          previously active PWM channels are restarted.</tr>
+          <tr lang="ru">повторно включить контроллер после режима сна с включенным перезапуском,
+          чтобы ранее активные каналы ШИМ были перезапущены.</tr>
         </info>
       </method>
       <!-- set_raw -->

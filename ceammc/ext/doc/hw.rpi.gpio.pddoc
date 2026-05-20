@@ -21,16 +21,16 @@
         <tr lang="en">GPIO pins are taken into exclusive ownership: only one entity can read or set
         the value of a pin. Send the [release( message to relinquish ownership of the pin.</tr>
         <tr lang="ru">Контакты GPIO забираются в эксклюзивное владение: только один объект может
-        читать или устанавливать значение на контакте. Отправляйте сообщение [release(, чтобы отказаться от
-        владения контактом.</tr>
+        читать или устанавливать значение на контакте. Отправляйте сообщение [release(, чтобы
+        отказаться от владения контактом.</tr>
       </par>
       <par style="info">
         <tr lang="en">That is, you can create any number of [hw.rpi.gpio] objects, but access to a
-        specific pin will be available only to one of them (the first one that captured
-        this pin).</tr>
+        specific pin will be available only to one of them (the first one that captured this
+        pin).</tr>
         <tr lang="ru">То есть вы можете создавать любое количество объектов [hw.rpi.gpio], но
-        доступ к определённому контакту будет только у одного из них (первого, который
-        захватил этот контакт).</tr>
+        доступ к определённому контакту будет только у одного из них (первого, который захватил
+        этот контакт).</tr>
       </par>
     </info>
     <methods>
@@ -194,10 +194,10 @@
       <!-- used_pins -->
       <method name="used_pins">
         <info>
-          <tr lang="en">display a list of used GPIO pins. Sends a message in the format: [pins
-          PIN ...( to the first outlet.</tr>
-          <tr lang="ru">выводит список используемых контактов GPIO. Отправляет сообщение в
-          формате: [pins КОНТАКТ ...( на первый выход.</tr>
+          <tr lang="en">display a list of used GPIO pins. Sends a message in the format: [pins PIN
+          ...( to the first outlet.</tr>
+          <tr lang="ru">выводит список используемых контактов GPIO. Отправляет сообщение в формате:
+          [pins КОНТАКТ ...( на первый выход.</tr>
         </info>
       </method>
       <!-- write -->

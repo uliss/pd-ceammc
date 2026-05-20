@@ -62,8 +62,8 @@
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. Also the 'default' value is accepted (for address 0x48) and 'alt'
-        (for address 0x49)</tr>
+        <tr lang="en">I²C address. Also the 'default' value is accepted (for address 0x48) and
+        'alt' (for address 0x49)</tr>
         <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
         (для адреса 0x49)</tr>
       </property>
@@ -87,16 +87,18 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="single" enum="diff single" access="initonly">
-        <tr lang="en">measurement mode. If 'single' - measures the level between A0, A1, A2, A3 and GND.
-        If 'diff' - differential measurement between A0 and A1, A0 and A3, A1 and A3, A2 and A3.</tr>
+        <tr lang="en">measurement mode. If 'single' - measures the level between A0, A1, A2, A3 and
+        GND. If 'diff' - differential measurement between A0 and A1, A0 and A3, A1 and A3, A2 and
+        A3.</tr>
         <tr lang="ru">режим измерения. Если "single" — измеряет уровень между A0, A1, A2, A3 и GND.
         Если "diff" — дифференциальное измерение между A0 и A1, A0 и A3, A1 и A3, A2 и A3.</tr>
       </property>
       <!-- @norm -->
       <property name="@norm" type="bool" default="0" access="readwrite">
-        <tr lang="en">normalization. If 1: normalizes output into the range specified by the @out_min and @out_max properties.</tr>
-        <tr lang="ru">нормализация. Если 1: нормализует выходные значения в диапазон, заданный свойствами
-        @out_min и @out_max.</tr>
+        <tr lang="en">normalization. If 1: normalizes output into the range specified by the
+        @out_min and @out_max properties.</tr>
+        <tr lang="ru">нормализация. Если 1: нормализует выходные значения в диапазон, заданный
+        свойствами @out_min и @out_max.</tr>
       </property>
       <!-- @out_max -->
       <property name="@out_max" type="float" default="1.0" access="readwrite">

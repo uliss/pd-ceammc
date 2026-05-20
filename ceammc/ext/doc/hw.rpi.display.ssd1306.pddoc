@@ -19,11 +19,14 @@
     <info>
       <par>
         <tr lang="en">Both I²C and SPI connections are supported. I²C connection is not fast.</tr>
-        <tr lang="ru">Поддерживаются подключение по I²C и SPI. Подключение через I²C не является высокоскоростным.</tr>
+        <tr lang="ru">Поддерживаются подключение по I²C и SPI. Подключение через I²C не является
+        высокоскоростным.</tr>
       </par>
       <par>
-        <tr lang="en">Note: you should send the [flush( message to transfer the internal pixel buffer to the device.</tr>
-        <tr lang="ru">Примечание: необходимо отправить сообщение [flush( для передачи внутреннего буфера пикселей на устройство.</tr>
+        <tr lang="en">Note: you should send the [flush( message to transfer the internal pixel
+        buffer to the device.</tr>
+        <tr lang="ru">Примечание: необходимо отправить сообщение [flush( для передачи внутреннего
+        буфера пикселей на устройство.</tr>
       </par>
     </info>
     <arguments>
@@ -36,8 +39,10 @@
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The 'default' value is also accepted (for addr 0x3c) and 'alt' (for addr 0x3d).</tr>
-        <tr lang="ru">Адрес I²C. Также принимаются значения «default» (для адреса 0x3c) и «alt» (для адреса 0x3d).</tr>
+        <tr lang="en">I²C address. The 'default' value is also accepted (for addr 0x3c) and 'alt'
+        (for addr 0x3d).</tr>
+        <tr lang="ru">Адрес I²C. Также принимаются значения «default» (для адреса 0x3c) и «alt»
+        (для адреса 0x3d).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -94,15 +99,19 @@
           <tr lang="ru">установить яркость дисплея</tr>
         </info>
         <param name="LEVEL" type="int" enum="0 1 2 3 4" required="true">
-          <tr lang="en">brightness level from 0 (lowest) to 4 (brightest). The normal level is 2.</tr>
-          <tr lang="ru">уровень яркости от 0 (самый низкий) до 4 (самый яркий). Нормальный уровень — 2.</tr>
+          <tr lang="en">brightness level from 0 (lowest) to 4 (brightest). The normal level is
+          2.</tr>
+          <tr lang="ru">уровень яркости от 0 (самый низкий) до 4 (самый яркий). Нормальный уровень
+          — 2.</tr>
         </param>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear the display contents and optionally send the internal buffer to the device</tr>
-          <tr lang="ru">очистить содержимое дисплея и опционально отправить внутренний буфер на устройство</tr>
+          <tr lang="en">clear the display contents and optionally send the internal buffer to the
+          device</tr>
+          <tr lang="ru">очистить содержимое дисплея и опционально отправить внутренний буфер на
+          устройство</tr>
         </info>
         <param name="FLUSH" type="bool" default="0" required="false">
           <tr lang="en">if 1: send the internal buffer to the device</tr>
@@ -235,12 +244,16 @@
       <!-- write bytes -->
       <method name="write bytes">
         <info>
-          <tr lang="en">write a raw byte list to the display buffer and move the internal cursor position</tr>
-          <tr lang="ru">записать список байтов в буфер дисплея и переместить внутреннюю позицию курсора</tr>
+          <tr lang="en">write a raw byte list to the display buffer and move the internal cursor
+          position</tr>
+          <tr lang="ru">записать список байтов в буфер дисплея и переместить внутреннюю позицию
+          курсора</tr>
         </info>
         <param name="BYTES" type="list" required="true">
-          <tr lang="en">list of bytes (integers in the 0..255 range). Each byte describes a single column of 8 pixels in height.</tr>
-          <tr lang="ru">список байтов (целые числа в диапазоне 0..255). Каждый байт описывает один столбец высотой 8 пикселей.</tr>
+          <tr lang="en">list of bytes (integers in the 0..255 range). Each byte describes a single
+          column of 8 pixels in height.</tr>
+          <tr lang="ru">список байтов (целые числа в диапазоне 0..255). Каждый байт описывает один
+          столбец высотой 8 пикселей.</tr>
         </param>
       </method>
     </methods>

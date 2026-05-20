@@ -39,10 +39,10 @@
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The values 'default' (for addr 0x27) and 'alt' (for addr 0x3f) are also
-        accepted.</tr>
-        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для адреса 0x27) и 'alt' (для
-        адреса 0x3f).</tr>
+        <tr lang="en">I²C address. The values 'default' (for addr 0x27) and 'alt' (for addr 0x3f)
+        are also accepted.</tr>
+        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для адреса 0x27) и 'alt'
+        (для адреса 0x3f).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -71,7 +71,8 @@
       <!-- char -->
       <method name="char">
         <info>
-          <tr lang="en">write a character to the display and move the cursor to the next position</tr>
+          <tr lang="en">write a character to the display and move the cursor to the next
+          position</tr>
           <tr lang="ru">записать символ на дисплей и переместить курсор в следующую позицию</tr>
         </info>
         <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">

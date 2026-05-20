@@ -18,16 +18,24 @@
     </meta>
     <info>
       <par style="critical">
-        <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
-        <tr lang="ru">**Примечание:** Ультразвуковой датчик HC-SR04 требует питания 5 В, но входы GPIO Raspberry Pi работают при 3.3 В.</tr>
+        <tr lang="en">**Note:** The HC-SR04 ultrasonic sensor requires a 5V power supply, but the
+        Raspberry Pi's GPIO inputs operate at 3.3V.</tr>
+        <tr lang="ru">**Примечание:** Ультразвуковой датчик HC-SR04 требует питания 5 В, но входы
+        GPIO Raspberry Pi работают при 3.3 В.</tr>
       </par>
       <par style="critical" space-top="-15">
-        <tr lang="en">Therefore, you need to use a level converter from 5V to 3.3V, otherwise you can damage the Raspberry Pi!</tr>
-        <tr lang="ru">Поэтому необходимо использовать преобразователь уровней с 5 В на 3.3 В, иначе можно повредить Raspberry Pi! Преобразователь уровней можно сделать на основе резистивного делителя или использовать готовые модули.</tr>
+        <tr lang="en">Therefore, you need to use a level converter from 5V to 3.3V, otherwise you
+        can damage the Raspberry Pi!</tr>
+        <tr lang="ru">Поэтому необходимо использовать преобразователь уровней с 5 В на 3.3 В, иначе
+        можно повредить Raspberry Pi! Преобразователь уровней можно сделать на основе резистивного
+        делителя или использовать готовые модули.</tr>
       </par>
       <par style="important">
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @trig_pin and @echo_pin — it is *impossible* to use them in other objects simultaneously with this one.</tr>
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @trig_pin и @echo_pin — использовать их в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @trig_pin
+        and @echo_pin — it is *impossible* to use them in other objects simultaneously with this
+        one.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @trig_pin
+        и @echo_pin — использовать их в других объектах одновременно с этим *невозможно*.</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
@@ -37,24 +45,29 @@
     <arguments>
       <argument name="TRIG_PIN" type="int" minvalue="-1" maxvalue="255">
         <tr lang="en">trigger GPIO pin number. A value of -1 means not to use the GPIO pin.</tr>
-        <tr lang="ru">номер триггерного контакта GPIO. Значение -1 означает не использовать данный контакт GPIO.</tr>
+        <tr lang="ru">номер триггерного контакта GPIO. Значение -1 означает не использовать данный
+        контакт GPIO.</tr>
       </argument>
       <argument name="ECHO_PIN" type="int" minvalue="-1" maxvalue="255">
         <tr lang="en">echo GPIO pin number. A value of -1 means not to use the GPIO pin.</tr>
-        <tr lang="ru">номер эхо-контакта GPIO. Значение -1 означает не использовать данный контакт GPIO.</tr>
+        <tr lang="ru">номер эхо-контакта GPIO. Значение -1 означает не использовать данный контакт
+        GPIO.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @echo_pin -->
       <property name="@echo_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
         <tr lang="en">echo GPIO pin number. A value of -1 means not to use the GPIO pin.</tr>
-        <tr lang="ru">номер эхо-контакта GPIO. Значение -1 означает не использовать данный контакт GPIO.</tr>
+        <tr lang="ru">номер эхо-контакта GPIO. Значение -1 означает не использовать данный контакт
+        GPIO.</tr>
       </property>
       <!-- @poll_interval -->
       <property name="@poll_interval" type="int" default="20" minvalue="10" maxvalue="1000"
@@ -66,7 +79,8 @@
       <property name="@trig_pin" type="int" default="-1" minvalue="-1" maxvalue="255"
       access="initonly">
         <tr lang="en">trigger GPIO pin number. A value of -1 means not to use the GPIO pin.</tr>
-        <tr lang="ru">номер триггерного контакта GPIO. Значение -1 означает не использовать данный контакт GPIO.</tr>
+        <tr lang="ru">номер триггерного контакта GPIO. Значение -1 означает не использовать данный
+        контакт GPIO.</tr>
       </property>
     </properties>
     <methods>

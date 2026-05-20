@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The MPU-6050 is a 6-axis (combines a 3-axis gyroscope and a 3-axis accelerometer) motion tracking device.</tr>
-        <tr lang="ru">MPU-6050 — это 6-осевое устройство отслеживания движения (объединяет 3-осевой гироскоп и 3-осевой акселерометр).</tr>
+        <tr lang="en">The MPU-6050 is a 6-axis (combines a 3-axis gyroscope and a 3-axis
+        accelerometer) motion tracking device.</tr>
+        <tr lang="ru">MPU-6050 — это 6-осевое устройство отслеживания движения (объединяет 3-осевой
+        гироскоп и 3-осевой акселерометр).</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
@@ -29,14 +31,20 @@
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0: disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
+        disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При
+        установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x68), and the value 'alt' means the alternative I²C address (0x69, when pin AD0 is pulled high).</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства (0x68), а значение «alt» — альтернативный адрес I²C (0x69, когда пин AD0 подтянут к высокому уровню).</tr>
+        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x68),
+        and the value 'alt' means the alternative I²C address (0x69, when pin AD0 is pulled
+        high).</tr>
+        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства
+        (0x68), а значение «alt» — альтернативный адрес I²C (0x69, когда пин AD0 подтянут к
+        высокому уровню).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -50,7 +58,8 @@
       <method name="calibrate">
         <info>
           <tr lang="en">calibrate the sensor. Place it still with the Z axis pointing down.</tr>
-          <tr lang="ru">калибровка датчика. Поместите его неподвижно так, чтобы ось Z указывала вниз.</tr>
+          <tr lang="ru">калибровка датчика. Поместите его неподвижно так, чтобы ось Z указывала
+          вниз.</tr>
         </info>
       </method>
       <!-- poll -->
@@ -84,7 +93,8 @@
           <tr lang="ru">[temp CELSIUS( — температура в градусах Цельсия</tr>
         </out>
         <out name="gyro" type="any">
-          <tr lang="en">[gyro X Y Z( — gyroscope readings (rotation speed) along the X, Y, Z axes</tr>
+          <tr lang="en">[gyro X Y Z( — gyroscope readings (rotation speed) along the X, Y, Z
+          axes</tr>
           <tr lang="ru">[gyro X Y Z( — показания гироскопа (скорость вращения) по осям X, Y, Z</tr>
         </out>
         <out name="accel" type="any">
