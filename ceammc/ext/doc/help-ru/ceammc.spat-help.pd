@@ -90,21 +90,21 @@ hoa.3d.wider~-help.pd;
 #X obj 30 980 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 220 977 распределяет входные каналы по стереополю;
 #X obj 30 1005 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#X text 220 1002 двухканальное квадратичное панорамирование равной
-мощности;
-#X obj 30 1030 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
-#X text 220 1027 GMEM SPAT: управление 4-х канальным пространственным
+#X text 220 1002 двухканальный панорамный регулятор равной мощности
+на основе квадратного корня;
+#X obj 30 1045 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
+#X text 220 1042 GMEM SPAT: управление 4-х канальным пространственным
 звуком;
-#X obj 30 1055 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
-#X text 220 1052 GMEM SPAT: управление 8 канальным пространственным
+#X obj 30 1070 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
+#X text 220 1067 GMEM SPAT: управление 8 канальным пространственным
 звуком;
-#X obj 30 1080 ui.link @title [spat.zita6x8~] @url
+#X obj 30 1095 ui.link @title [spat.zita6x8~] @url
 spat.zita6x8~-help.pd;
-#X text 220 1077 управление пространственным звуком с 6 входными источниками
+#X text 220 1092 управление пространственным звуком с 6 входными источниками
 на 8 выходных каналов;
-#X obj 30 1120 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
-#X text 220 1117 8-канальная пространственная реверберация;
+#X obj 30 1135 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
+#X text 220 1132 8-канальная пространственная реверберация;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1142 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1152 library: ceammc;
+#X obj 1 1157 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1167 library: ceammc;

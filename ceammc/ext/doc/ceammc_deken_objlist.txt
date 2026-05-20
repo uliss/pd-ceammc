@@ -1201,7 +1201,7 @@ pan.lin~	two-channel linear panner / двухканальный линейный
 ceammc/pan~	two-channel linear panner / двухканальный линейный панорамный регулятор
 pan~	two-channel linear panner / двухканальный линейный панорамный регулятор
 pan.spread~	spreads input channels across the stereo field / распределяет входные каналы по стереополю
-pan.sqrt~	two channel equal power square root panner / двухканальное квадратичное панорамирование равной мощности
+pan.sqrt~	two-channel equal power square root panner / двухканальный панорамный регулятор равной мощности на основе квадратного корня
 spat.pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком
 ceammc/pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком
 pan4~	GMEM SPAT: 4-outputs spatializer / GMEM SPAT: управление 4-х канальным пространственным звуком

@@ -2330,7 +2330,7 @@
     <entry name="pan.spread~" descr="spreads input channels across the stereo field" ref_view="link">
       <xi:include href="pan.spread~.pddoc" parse="xml"/>
     </entry>
-    <entry name="pan.sqrt~" descr="two channel equal power square root panner" ref_view="link">
+    <entry name="pan.sqrt~" descr="two-channel equal power square root panner" ref_view="link">
       <xi:include href="pan.sqrt~.pddoc" parse="xml"/>
     </entry>
     <entry name="spat.pan4~" descr="GMEM SPAT: 4-outputs spatializer" ref_view="link">

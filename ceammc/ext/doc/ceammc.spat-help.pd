@@ -83,7 +83,7 @@ object;
 #X obj 30 860 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 220 857 spreads input channels across the stereo field;
 #X obj 30 885 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#X text 220 882 two channel equal power square root panner;
+#X text 220 882 two-channel equal power square root panner;
 #X obj 30 910 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
 #X text 220 907 GMEM SPAT: 4-outputs spatializer;
 #X obj 30 935 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;

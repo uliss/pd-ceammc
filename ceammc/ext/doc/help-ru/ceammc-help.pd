@@ -2137,352 +2137,352 @@ hoa.process~-help.pd;
 #X obj 30 22419 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
 #X text 200 22416 распределяет входные каналы по стереополю;
 #X obj 30 22444 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#X text 200 22441 двухканальное квадратичное панорамирование равной
-мощности;
-#X obj 30 22469 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
-#X text 200 22466 GMEM SPAT: управление 4-х канальным пространственным
+#X text 200 22441 двухканальный панорамный регулятор равной мощности
+на основе квадратного корня;
+#X obj 30 22484 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
+#X text 200 22481 GMEM SPAT: управление 4-х канальным пространственным
 звуком;
-#X obj 30 22494 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
-#X text 200 22491 GMEM SPAT: управление 8 канальным пространственным
+#X obj 30 22509 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
+#X text 200 22506 GMEM SPAT: управление 8 канальным пространственным
 звуком;
-#X obj 30 22519 ui.link @title [spat.zita6x8~] @url
+#X obj 30 22534 ui.link @title [spat.zita6x8~] @url
 spat.zita6x8~-help.pd;
-#X text 200 22516 управление пространственным звуком с 6 входными источниками
+#X text 200 22531 управление пространственным звуком с 6 входными источниками
 на 8 выходных каналов;
-#X obj 30 22559 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
-#X text 200 22556 8-канальная пространственная реверберация;
+#X obj 30 22574 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
+#X text 200 22571 8-канальная пространственная реверберация;
 #X obj 488 21513 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 493 21513 работа с пространственным звуком;
-#X obj 20 22581 cnv 5 68 32 empty empty string 4 16 0 17 -262144
+#X obj 20 22596 cnv 5 68 32 empty empty string 4 16 0 17 -262144
 -49933 0;
-#X obj 20 22623 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 22637 ui.link @title [string] @url string-help.pd;
-#X text 200 22634 создание строки;
-#X obj 30 22662 ui.link @title [string.contains] @url
+#X obj 20 22638 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 22652 ui.link @title [string] @url string-help.pd;
+#X text 200 22649 создание строки;
+#X obj 30 22677 ui.link @title [string.contains] @url
 string.contains-help.pd;
-#X text 200 22659 проверяет \, содержит ли строка указанную подстроку;
-#X obj 30 22687 ui.link @title [string.ends_with] @url
+#X text 200 22674 проверяет \, содержит ли строка указанную подстроку;
+#X obj 30 22702 ui.link @title [string.ends_with] @url
 string.ends_with-help.pd;
-#X text 200 22684 проверяет \, заканчивается ли строка указанной подстрокой;
-#X obj 30 22712 ui.link @title [string.equal] @url
+#X text 200 22699 проверяет \, заканчивается ли строка указанной подстрокой;
+#X obj 30 22727 ui.link @title [string.equal] @url
 string.equal-help.pd;
-#X text 200 22709 проверка строк или символов на равенство;
-#X obj 30 22737 ui.link @title [string.format] @url
+#X text 200 22724 проверка строк или символов на равенство;
+#X obj 30 22752 ui.link @title [string.format] @url
 string.format-help.pd;
-#X text 200 22734 форматирует строку в стиле функции printf;
-#X obj 30 22762 ui.link @title [string.join] @url string.join-help.pd;
-#X text 200 22759 объединяет список в строку с указанным разделителем
+#X text 200 22749 форматирует строку в стиле функции printf;
+#X obj 30 22777 ui.link @title [string.join] @url string.join-help.pd;
+#X text 200 22774 объединяет список в строку с указанным разделителем
 элементов;
-#X obj 30 22787 ui.link @title [string.length] @url
+#X obj 30 22802 ui.link @title [string.length] @url
 string.length-help.pd;
-#X text 200 22784 количество символов в строке (с поддержкой Unicode);
-#X obj 30 22812 ui.link @title [string.match] @url
+#X text 200 22799 количество символов в строке (с поддержкой Unicode);
+#X obj 30 22827 ui.link @title [string.match] @url
 string.match-help.pd;
-#X text 200 22809 проверка соответствия строки регулярному выражению;
-#X obj 30 22837 ui.link @title [string.remove] @url
+#X text 200 22824 проверка соответствия строки регулярному выражению;
+#X obj 30 22852 ui.link @title [string.remove] @url
 string.remove-help.pd;
-#X text 200 22834 удаляет подстроку из входной строки;
-#X obj 30 22862 ui.link @title [string.replace] @url
+#X text 200 22849 удаляет подстроку из входной строки;
+#X obj 30 22877 ui.link @title [string.replace] @url
 string.replace-help.pd;
-#X text 200 22859 замена одной строки на другую во входной строке;
-#X obj 30 22887 ui.link @title [string.split] @url
+#X text 200 22874 замена одной строки на другую во входной строке;
+#X obj 30 22902 ui.link @title [string.split] @url
 string.split-help.pd;
-#X text 200 22884 разбивает строку или символ в список по разделителю;
-#X obj 30 22912 ui.link @title [string.starts_with] @url
+#X text 200 22899 разбивает строку или символ в список по разделителю;
+#X obj 30 22927 ui.link @title [string.starts_with] @url
 string.starts_with-help.pd;
-#X text 200 22909 проверка \, начинается ли строка с определенной подстроки;
-#X obj 30 22937 ui.link @title [string.substr] @url
+#X text 200 22924 проверка \, начинается ли строка с определенной подстроки;
+#X obj 30 22952 ui.link @title [string.substr] @url
 string.substr-help.pd;
-#X text 200 22934 извлечение подстроки из входной строки;
-#X obj 30 22962 ui.link @title [string2symbol] @url
+#X text 200 22949 извлечение подстроки из входной строки;
+#X obj 30 22977 ui.link @title [string2symbol] @url
 string2symbol-help.pd;
-#X text 200 22959 преобразует строку в символ;
-#X obj 520 22591 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 22974 преобразует строку в символ;
+#X obj 520 22606 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 525 22591 работа с типом данных String;
-#X obj 20 22984 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
+#X text 525 22606 работа с типом данных String;
+#X obj 20 22999 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
 -49933 0;
-#X obj 20 23026 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 23040 ui.link @title [symbol.equal] @url
+#X obj 20 23041 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 23055 ui.link @title [symbol.equal] @url
 symbol.equal-help.pd;
-#X text 200 23037 проверка символов на равенство;
-#X obj 30 23065 ui.link @title [symbol.length] @url
+#X text 200 23052 проверка символов на равенство;
+#X obj 30 23080 ui.link @title [symbol.length] @url
 symbol.length-help.pd;
-#X text 200 23062 выводит число символов в символьном типе (с поддержкой
+#X text 200 23077 выводит число символов в символьном типе (с поддержкой
 Unicode);
-#X obj 30 23105 ui.link @title [symbol.num_compare] @url
+#X obj 30 23120 ui.link @title [symbol.num_compare] @url
 symbol.num_compare-help.pd;
-#X text 200 23102 цифровое сравнение символов;
-#X obj 30 23130 ui.link @title [symbol2any] @url symbol2any-help.pd;
-#X text 200 23127 преобразует символ или строку в сообщение;
-#X obj 30 23155 ui.link @title [symbol2intlist] @url
+#X text 200 23117 цифровое сравнение символов;
+#X obj 30 23145 ui.link @title [symbol2any] @url symbol2any-help.pd;
+#X text 200 23142 преобразует символ или строку в сообщение;
+#X obj 30 23170 ui.link @title [symbol2intlist] @url
 symbol2intlist-help.pd;
-#X text 200 23152 преобразует символьный тип в список кодов составляющих
+#X text 200 23167 преобразует символьный тип в список кодов составляющих
 его символов;
-#X obj 596 22994 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
+#X obj 596 23009 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 601 22994 работа с символами;
-#X obj 20 23192 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
+#X text 601 23009 работа с символами;
+#X obj 20 23207 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
 0;
-#X obj 20 23234 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 23248 ui.link @title [synth.bee3~] @url synth.bee3~-help.pd;
-#X text 200 23245 FM-синтезатор в духе органа Хэммонда;
-#X obj 30 23273 ui.link @title [synth.birds~] @url
+#X obj 20 23249 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 23263 ui.link @title [synth.bee3~] @url synth.bee3~-help.pd;
+#X text 200 23260 FM-синтезатор в духе органа Хэммонда;
+#X obj 30 23288 ui.link @title [synth.birds~] @url
 synth.birds~-help.pd;
-#X text 200 23270 генератор пения птиц;
-#X obj 30 23298 ui.link @title [synth.church_bell~] @url
+#X text 200 23285 генератор пения птиц;
+#X obj 30 23313 ui.link @title [synth.church_bell~] @url
 synth.church_bell~-help.pd;
-#X text 200 23295 модовая модель церковного колокола;
-#X obj 30 23323 ui.link @title [synth.clap~] @url synth.clap~-help.pd;
-#X text 200 23320 синтезатор хлопка ладонями на основе библиотеки языка
+#X text 200 23310 модовая модель церковного колокола;
+#X obj 30 23338 ui.link @title [synth.clap~] @url synth.clap~-help.pd;
+#X text 200 23335 синтезатор хлопка ладонями на основе библиотеки языка
 Faust;
-#X obj 30 23348 ui.link @title [synth.dubdub~] @url
+#X obj 30 23363 ui.link @title [synth.dubdub~] @url
 synth.dubdub~-help.pd;
-#X text 200 23345 простой синтезатор на основе пилообразной волны \,
+#X text 200 23360 простой синтезатор на основе пилообразной волны \,
 фильтруемой резонансным фильтром нижних частот;
-#X obj 30 23388 ui.link @title [synth.dx7~] @url synth.dx7~-help.pd;
-#X text 200 23385 реализация синтезатора DX7 из библиотеки Faust;
-#X obj 30 23413 ui.link @title [synth.eguitar~] @url
+#X obj 30 23403 ui.link @title [synth.dx7~] @url synth.dx7~-help.pd;
+#X text 200 23400 реализация синтезатора DX7 из библиотеки Faust;
+#X obj 30 23428 ui.link @title [synth.eguitar~] @url
 synth.eguitar~-help.pd;
-#X text 200 23410 простая модель электрогитары со стальными струнами;
-#X obj 30 23438 ui.link @title [synth.english_bell~] @url
+#X text 200 23425 простая модель электрогитары со стальными струнами;
+#X obj 30 23453 ui.link @title [synth.english_bell~] @url
 synth.english_bell~-help.pd;
-#X text 200 23435 модовый синтез модели английского церковного колокола;
-#X obj 30 23463 ui.link @title [synth.fgrain~] @url
+#X text 200 23450 модовый синтез модели английского церковного колокола;
+#X obj 30 23478 ui.link @title [synth.fgrain~] @url
 synth.fgrain~-help.pd;
-#X text 200 23460 файловый гранулятор из библиотеки STK;
-#X obj 30 23488 ui.link @title [synth.french_bell~] @url
+#X text 200 23475 файловый гранулятор из библиотеки STK;
+#X obj 30 23503 ui.link @title [synth.french_bell~] @url
 synth.french_bell~-help.pd;
-#X text 200 23485 модовый синтез модели французского церковного колокола;
-#X obj 30 23513 ui.link @title [synth.german_bell~] @url
+#X text 200 23500 модовый синтез модели французского церковного колокола;
+#X obj 30 23528 ui.link @title [synth.german_bell~] @url
 synth.german_bell~-help.pd;
-#X text 200 23510 модовый синтез немецкой модели колокола;
-#X obj 30 23538 ui.link @title [synth.glass_harm~] @url
+#X text 200 23525 модовый синтез немецкой модели колокола;
+#X obj 30 23553 ui.link @title [synth.glass_harm~] @url
 synth.glass_harm~-help.pd;
-#X text 200 23535 нелинейная волноводная модель стеклянной гармоники;
-#X obj 30 23563 ui.link @title [synth.glitch~] @url
+#X text 200 23550 нелинейная волноводная модель стеклянной гармоники;
+#X obj 30 23578 ui.link @title [synth.glitch~] @url
 synth.glitch~-help.pd;
-#X text 200 23560 глитч-синтезатор от naivesound;
-#X obj 30 23588 ui.link @title [synth.harpsichord~] @url
+#X text 200 23575 глитч-синтезатор от naivesound;
+#X obj 30 23603 ui.link @title [synth.harpsichord~] @url
 synth.harpsichord~-help.pd;
-#X text 200 23585 синтезатор клавесина на основе техники волноводного
+#X text 200 23600 синтезатор клавесина на основе техники волноводного
 синтеза;
-#X obj 30 23613 ui.link @title [synth.hat~] @url synth.hat~-help.pd;
-#X text 200 23610 синтезатор хай-хэта из библиотеки Faust;
-#X obj 30 23638 ui.link @title [synth.kick2~] @url
+#X obj 30 23628 ui.link @title [synth.hat~] @url synth.hat~-help.pd;
+#X text 200 23625 синтезатор хай-хэта из библиотеки Faust;
+#X obj 30 23653 ui.link @title [synth.kick2~] @url
 synth.kick2~-help.pd;
-#X text 200 23635 синтезатор бочки из библиотеки Faust;
-#X obj 30 23663 ui.link @title [synth.kick~] @url synth.kick~-help.pd;
-#X text 200 23660 синтезатор бочки из проекта Guitarix;
-#X obj 30 23688 ui.link @title [synth.ks~] @url synth.ks~-help.pd;
-#X text 200 23685 синтезатор колебаний струны по алгоритму Каплуса-Стронга;
-#X obj 30 23713 ui.link @title [synth.marimba~] @url
+#X text 200 23650 синтезатор бочки из библиотеки Faust;
+#X obj 30 23678 ui.link @title [synth.kick~] @url synth.kick~-help.pd;
+#X text 200 23675 синтезатор бочки из проекта Guitarix;
+#X obj 30 23703 ui.link @title [synth.ks~] @url synth.ks~-help.pd;
+#X text 200 23700 синтезатор колебаний струны по алгоритму Каплуса-Стронга;
+#X obj 30 23728 ui.link @title [synth.marimba~] @url
 synth.marimba~-help.pd;
-#X text 200 23710 простая физическая модель маримбы \, реализующая
+#X text 200 23725 простая физическая модель маримбы \, реализующая
 звуковой брусок \, соединенный с трубой;
-#X obj 30 23753 ui.link @title [synth.metro~] @url
+#X obj 30 23768 ui.link @title [synth.metro~] @url
 synth.metro~-help.pd;
-#X text 200 23750 готовый к использованию синтезатор метронома;
-#X obj 30 23778 ui.link @title [synth.piano~] @url
+#X text 200 23765 готовый к использованию синтезатор метронома;
+#X obj 30 23793 ui.link @title [synth.piano~] @url
 synth.piano~-help.pd;
-#X text 200 23775 фортепиано на основе техники связанного волноводного
+#X text 200 23790 фортепиано на основе техники связанного волноводного
 синтеза;
-#X obj 30 23803 ui.link @title [synth.rhodey~] @url
+#X obj 30 23818 ui.link @title [synth.rhodey~] @url
 synth.rhodey~-help.pd;
-#X text 200 23800 FM-синтезатор в стиле Fender Rhodes piano из библиотеки
+#X text 200 23815 FM-синтезатор в стиле Fender Rhodes piano из библиотеки
 STK;
-#X obj 30 23828 ui.link @title [synth.risset_arp~] @url
+#X obj 30 23843 ui.link @title [synth.risset_arp~] @url
 synth.risset_arp~-help.pd;
-#X text 200 23825 эффект арпеджио Жан-Клода Риссе;
-#X obj 30 23853 ui.link @title [synth.risset_bell~] @url
+#X text 200 23840 эффект арпеджио Жан-Клода Риссе;
+#X obj 30 23868 ui.link @title [synth.risset_bell~] @url
 synth.risset_bell~-help.pd;
-#X text 200 23850 колокол Жан-Клода Риссе;
-#X obj 30 23878 ui.link @title [synth.risset_tone~] @url
+#X text 200 23865 колокол Жан-Клода Риссе;
+#X obj 30 23893 ui.link @title [synth.risset_tone~] @url
 synth.risset_tone~-help.pd;
-#X text 200 23875 бесконечное глиссандо Жан-Клода Риссе;
-#X obj 30 23903 ui.link @title [synth.russian_bell~] @url
+#X text 200 23890 бесконечное глиссандо Жан-Клода Риссе;
+#X obj 30 23918 ui.link @title [synth.russian_bell~] @url
 synth.russian_bell~-help.pd;
-#X text 200 23900 модовый синтез модели русского церковного колокола;
-#X obj 30 23928 ui.link @title [synth.shakers~] @url
+#X text 200 23915 модовый синтез модели русского церковного колокола;
+#X obj 30 23943 ui.link @title [synth.shakers~] @url
 synth.shakers~-help.pd;
-#X text 200 23925 различные перкуссионные звуки из библиотеки STK;
-#X obj 30 23953 ui.link @title [synth.sitar~] @url
+#X text 200 23940 различные перкуссионные звуки из библиотеки STK;
+#X obj 30 23968 ui.link @title [synth.sitar~] @url
 synth.sitar~-help.pd;
-#X text 200 23950 синтезатор ситара из библиотеки STK;
-#X obj 30 23978 ui.link @title [synth.snare~] @url
+#X text 200 23965 синтезатор ситара из библиотеки STK;
+#X obj 30 23993 ui.link @title [synth.snare~] @url
 synth.snare~-help.pd;
-#X text 200 23975 синтезатор малого барабана из проекта Guitarix;
-#X obj 30 24003 ui.link @title [synth.standard_bell~] @url
+#X text 200 23990 синтезатор малого барабана из проекта Guitarix;
+#X obj 30 24018 ui.link @title [synth.standard_bell~] @url
 synth.standard_bell~-help.pd;
-#X text 200 24000 модовый синтез стандартной модели колокола;
-#X obj 30 24028 ui.link @title [synth.tube_bell~] @url
+#X text 200 24015 модовый синтез стандартной модели колокола;
+#X obj 30 24043 ui.link @title [synth.tube_bell~] @url
 synth.tube_bell~-help.pd;
-#X text 200 24025 FM-синтезатор оркестрового колокола из библиотеки
+#X text 200 24040 FM-синтезатор оркестрового колокола из библиотеки
 STK;
-#X obj 30 24053 ui.link @title [synth.voice_fofc~] @url
+#X obj 30 24068 ui.link @title [synth.voice_fofc~] @url
 synth.voice_fofc~-help.pd;
-#X text 200 24050 простой формантный/вокальный синтезатор с банком
+#X text 200 24065 простой формантный/вокальный синтезатор с банком
 фильтров FOF-цикла.;
-#X obj 30 24093 ui.link @title [synth.voice_fofs~] @url
+#X obj 30 24108 ui.link @title [synth.voice_fofs~] @url
 synth.voice_fofs~-help.pd;
-#X text 200 24090 простой формантный/вокальный синтезатор со сглаженным
+#X text 200 24105 простой формантный/вокальный синтезатор со сглаженным
 банком фильтров FOF;
-#X obj 30 24133 ui.link @title [synth.wurley~] @url
+#X obj 30 24148 ui.link @title [synth.wurley~] @url
 synth.wurley~-help.pd;
-#X text 200 24130 FM-синтезатор электро-фортепиано в стиле Wurlitzer;
-#X obj 619 23202 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 24145 FM-синтезатор электро-фортепиано в стиле Wurlitzer;
+#X obj 619 23217 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 624 23202 звуковой синтез;
-#X obj 20 24155 cnv 5 69 32 empty empty system 4 16 0 17 -262144
+#X text 624 23217 звуковой синтез;
+#X obj 20 24170 cnv 5 69 32 empty empty system 4 16 0 17 -262144
 -49933 0;
-#X obj 20 24197 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 24211 ui.link @title [system.colorpanel] @url
+#X obj 20 24212 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 24226 ui.link @title [system.colorpanel] @url
 system.colorpanel-help.pd;
-#X text 200 24208 системный диалог выбора цвета;
-#X obj 30 24236 ui.link @title [system.command] @url
+#X text 200 24223 системный диалог выбора цвета;
+#X obj 30 24251 ui.link @title [system.command] @url
 system.command-help.pd;
-#X text 200 24233 запуск цепочек команд с перенаправлением вывода в
+#X text 200 24248 запуск цепочек команд с перенаправлением вывода в
 Unix и Windows;
-#X obj 30 24276 ui.link @title [system.cursor] @url
+#X obj 30 24291 ui.link @title [system.cursor] @url
 system.cursor-help.pd;
-#X text 200 24273 выводит положение курсора \, нажатия кнопок мыши
+#X text 200 24288 выводит положение курсора \, нажатия кнопок мыши
 и колеса прокрутки;
-#X obj 30 24316 ui.link @title [system.exec] @url system.exec-help.pd;
-#X text 200 24313 запуск внешней команды в отдельном процессе;
-#X obj 30 24341 ui.link @title [system.exit] @url system.exit-help.pd;
-#X text 200 24338 завершает PureData;
-#X obj 30 24366 ui.link @title [system.getenv] @url
+#X obj 30 24331 ui.link @title [system.exec] @url system.exec-help.pd;
+#X text 200 24328 запуск внешней команды в отдельном процессе;
+#X obj 30 24356 ui.link @title [system.exit] @url system.exit-help.pd;
+#X text 200 24353 завершает PureData;
+#X obj 30 24381 ui.link @title [system.getenv] @url
 system.getenv-help.pd;
-#X text 200 24363 выводит системные переменные окружения;
-#X obj 30 24391 ui.link @title [system.hostname] @url
+#X text 200 24378 выводит системные переменные окружения;
+#X obj 30 24406 ui.link @title [system.hostname] @url
 system.hostname-help.pd;
-#X text 200 24388 выводит имя хоста системы;
-#X obj 30 24416 ui.link @title [system.info] @url system.info-help.pd;
-#X text 200 24413 получение информации о системе: ЦПУ и температура;
-#X obj 30 24441 ui.link @title [system.memsize] @url
+#X text 200 24403 выводит имя хоста системы;
+#X obj 30 24431 ui.link @title [system.info] @url system.info-help.pd;
+#X text 200 24428 получение информации о системе: ЦПУ и температура;
+#X obj 30 24456 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
-#X text 200 24438 возвращает размер физической памяти (ОЗУ) в байтах;
-#X obj 30 24466 ui.link @title [system.memused] @url
+#X text 200 24453 возвращает размер физической памяти (ОЗУ) в байтах;
+#X obj 30 24481 ui.link @title [system.memused] @url
 system.memused-help.pd;
-#X text 200 24463 выводит использование физической памяти процессом
+#X text 200 24478 выводит использование физической памяти процессом
 - текущее и пиковое;
-#X obj 30 24506 ui.link @title [system.screen_size] @url
+#X obj 30 24521 ui.link @title [system.screen_size] @url
 system.screen_size-help.pd;
-#X text 200 24503 выводит размер активного экрана в пикселях;
-#X obj 20 24528 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
-#X obj 20 24570 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 24584 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 200 24581 выводит пустое событие временной шкалы;
-#X obj 30 24609 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 24606 определяет секцию на временной шкале;
-#X obj 30 24634 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
-#X text 200 24631 планировщик событий временной шкалы;
-#X obj 30 24659 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
-#X text 200 24656 переключатель на временной шкале;
-#X obj 30 24684 ui.link @title [tl.transport] @url
+#X text 200 24518 выводит размер активного экрана в пикселях;
+#X obj 20 24543 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
+#X obj 20 24585 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 24599 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 200 24596 выводит пустое событие временной шкалы;
+#X obj 30 24624 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 200 24621 определяет секцию на временной шкале;
+#X obj 30 24649 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
+#X text 200 24646 планировщик событий временной шкалы;
+#X obj 30 24674 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
+#X text 200 24671 переключатель на временной шкале;
+#X obj 30 24699 ui.link @title [tl.transport] @url
 tl.transport-help.pd;
-#X text 200 24681 управление временной шкалой;
-#X obj 588 24538 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 24696 управление временной шкалой;
+#X obj 588 24553 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 593 24538 работа с таймлайном;
-#X obj 20 24706 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
-#X obj 20 24748 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 24762 ui.link @title [ui.aview] @url ui.aview-help.pd;
-#X text 200 24759 отображение массива с курсором и выбором диапазона;
-#X obj 30 24787 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 200 24784 кнопка отправляющая пустое событие (bang);
-#X obj 30 24812 ui.link @title [ui.button] @url ui.button-help.pd;
-#X text 200 24809 виджет кнопки c двумя состояниями;
-#X obj 30 24837 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
-#X text 200 24834 холст для рисования;
-#X obj 30 24862 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
-#X text 200 24859 многоканальный круговой измеритель уровня сигнала;
-#X obj 30 24887 ui.link @title [ui.colorpanel] @url
+#X text 593 24553 работа с таймлайном;
+#X obj 20 24721 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
+#X obj 20 24763 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 24777 ui.link @title [ui.aview] @url ui.aview-help.pd;
+#X text 200 24774 отображение массива с курсором и выбором диапазона;
+#X obj 30 24802 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 200 24799 кнопка отправляющая пустое событие (bang);
+#X obj 30 24827 ui.link @title [ui.button] @url ui.button-help.pd;
+#X text 200 24824 виджет кнопки c двумя состояниями;
+#X obj 30 24852 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
+#X text 200 24849 холст для рисования;
+#X obj 30 24877 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
+#X text 200 24874 многоканальный круговой измеритель уровня сигнала;
+#X obj 30 24902 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 24884 виджет выбора цвета;
-#X obj 30 24912 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 200 24909 виджет дисплей;
-#X obj 30 24937 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
-#X text 200 24934 виджет для включения или выключения обработки звука;
-#X obj 30 24962 ui.link @title [ui.env] @url ui.env-help.pd;
-#X text 200 24959 редактор огибающей;
-#X obj 30 24987 ui.link @title [ui.filter] @url ui.filter-help.pd;
-#X text 200 24984 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
-#X obj 30 25012 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
-#X text 200 25009 виджет звукового фильтра;
-#X obj 30 25037 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
-#X text 200 25034 контроль громкости стерео;
-#X obj 30 25062 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 200 25059 контроль громкости;
-#X obj 30 25087 ui.link @title [ui.icon] @url ui.icon-help.pd;
-#X text 200 25084 простая иконка с возможностями нажатия;
-#X obj 30 25112 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
-#X text 200 25109 виджет увеличения или уменьшения значения;
-#X obj 30 25137 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 200 25134 виджет клавиатуры;
-#X obj 30 25162 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 200 25159 виджет ручки;
-#X obj 30 25187 ui.link @title [ui.label] @url ui.label-help.pd;
-#X text 200 25184 простой виджет надписи;
-#X obj 30 25212 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
-#X text 200 25209 черно-белый растровый дисплей;
-#X obj 30 25237 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 200 25234 виджет гиперссылки;
-#X obj 30 25262 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 25259 матрица переключателей;
-#X obj 30 25287 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 200 25284 выпадающее меню;
-#X obj 30 25312 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 200 25309 пиковый и RMS уровень сигнала;
-#X obj 30 25337 ui.link @title [ui.midi] @url ui.midi-help.pd;
-#X text 200 25334 окно просмотра MIDI сообщений;
-#X obj 30 25362 ui.link @title [ui.mouse_filter] @url
+#X text 200 24899 виджет выбора цвета;
+#X obj 30 24927 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 200 24924 виджет дисплей;
+#X obj 30 24952 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
+#X text 200 24949 виджет для включения или выключения обработки звука;
+#X obj 30 24977 ui.link @title [ui.env] @url ui.env-help.pd;
+#X text 200 24974 редактор огибающей;
+#X obj 30 25002 ui.link @title [ui.filter] @url ui.filter-help.pd;
+#X text 200 24999 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
+#X obj 30 25027 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
+#X text 200 25024 виджет звукового фильтра;
+#X obj 30 25052 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
+#X text 200 25049 контроль громкости стерео;
+#X obj 30 25077 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
+#X text 200 25074 контроль громкости;
+#X obj 30 25102 ui.link @title [ui.icon] @url ui.icon-help.pd;
+#X text 200 25099 простая иконка с возможностями нажатия;
+#X obj 30 25127 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
+#X text 200 25124 виджет увеличения или уменьшения значения;
+#X obj 30 25152 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 200 25149 виджет клавиатуры;
+#X obj 30 25177 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 200 25174 виджет ручки;
+#X obj 30 25202 ui.link @title [ui.label] @url ui.label-help.pd;
+#X text 200 25199 простой виджет надписи;
+#X obj 30 25227 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
+#X text 200 25224 черно-белый растровый дисплей;
+#X obj 30 25252 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 200 25249 виджет гиперссылки;
+#X obj 30 25277 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 200 25274 матрица переключателей;
+#X obj 30 25302 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 200 25299 выпадающее меню;
+#X obj 30 25327 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 200 25324 пиковый и RMS уровень сигнала;
+#X obj 30 25352 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 25349 окно просмотра MIDI сообщений;
+#X obj 30 25377 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 25359 фильтр событий мыши из UI объектов;
-#X obj 30 25387 ui.link @title [ui.mouse_route] @url
+#X text 200 25374 фильтр событий мыши из UI объектов;
+#X obj 30 25402 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 25384 маршрутизация событий мыши от UI объектов;
-#X obj 30 25412 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 25409 числовой бокс;
-#X obj 30 25437 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 25434 просмотр числовых значений сигнала;
-#X obj 30 25462 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 25459 построитель графика для сигналов;
-#X obj 30 25487 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 25484 2D слайдер в полярных координатах;
-#X obj 30 25512 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 25509 менеджер пресетов;
-#X obj 30 25537 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 25534 радиопереключатель с возможностью множественного
+#X text 200 25399 маршрутизация событий мыши от UI объектов;
+#X obj 30 25427 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 25424 числовой бокс;
+#X obj 30 25452 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 25449 просмотр числовых значений сигнала;
+#X obj 30 25477 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 25474 построитель графика для сигналов;
+#X obj 30 25502 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 25499 2D слайдер в полярных координатах;
+#X obj 30 25527 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 25524 менеджер пресетов;
+#X obj 30 25552 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 25549 радиопереключатель с возможностью множественного
 выбора;
-#X obj 30 25562 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 25559 двухдиапазонный слайдер;
-#X obj 30 25587 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 25584 виджет просмотра формы волны;
-#X obj 30 25612 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 25609 виджет слайдера (ползунка);
-#X obj 30 25637 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 25634 2D виджет слайдера;
-#X obj 30 25662 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 25659 виджет многоползункового слайдера;
-#X obj 30 25687 ui.link @title [ui.spectroscope~] @url
+#X obj 30 25577 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 25574 двухдиапазонный слайдер;
+#X obj 30 25602 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 25599 виджет просмотра формы волны;
+#X obj 30 25627 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 25624 виджет слайдера (ползунка);
+#X obj 30 25652 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 25649 2D виджет слайдера;
+#X obj 30 25677 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 25674 виджет многоползункового слайдера;
+#X obj 30 25702 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 25684 виджет просмотрщика спектра;
-#X obj 30 25712 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 25709 список текстовых кнопок или текстовых переключателей;
-#X obj 30 25737 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 25734 cовременный виджет переключателя;
-#X obj 397 24716 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 25699 виджет просмотрщика спектра;
+#X obj 30 25727 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 25724 список текстовых кнопок или текстовых переключателей;
+#X obj 30 25752 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 25749 cовременный виджет переключателя;
+#X obj 397 24731 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 402 24716 объекты графического интерфейса пользователя;
+#X text 402 24731 объекты графического интерфейса пользователя;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 25759 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 25759 version: v0.9.8 \, license: GPL3;
-#X obj 20 25787 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 25774 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 25774 version: v0.9.8 \, license: GPL3;
+#X obj 20 25802 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 25811 ui.link @title Generated with pddoc v0.16.0 @url
+#X obj 20 25826 ui.link @title Generated with pddoc v0.16.0 @url
 https://github.com/uliss/pddoc;
-#X obj 670 25774 loadmsg 0;
-#X obj 670 25809 switch~;
+#X obj 670 25789 loadmsg 0;
+#X obj 670 25824 switch~;
 #X connect 1874 0 1875 0;
