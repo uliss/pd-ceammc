@@ -7,78 +7,79 @@
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [net.osc.r] @url net.osc.receive-help.pd;
 #X obj 631 8 net.osc.receive;
-#X text 50 118 default OSC server: osc.udp://:9000;
-#X obj 434 118 net.osc.server TCP osc.tcp://:9001;
-#X obj 50 147 net.osc.receive /x;
-#X obj 434 147 net.osc.receive /y TCP;
-#X obj 50 176 ui.dt;
-#X obj 434 176 ui.dt;
-#X msg 50 219 send /x 1 2 3 4;
-#X msg 222 219 send /* 4 3 2 1;
-#X msg 434 219 send /y ABC;
-#X obj 50 248 net.osc.send osc.udp://:9000;
-#X obj 434 248 net.osc.send osc.tcp://:9001;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 строка типов OSC: 'i' (int32) \, 'f' (float32) \, 's'/'S'
+(строка) \, 'b' (blob) \, 'h' (int64) \, 'd' (float64) \, 'c' (char)
+\, 'm' (MIDI) \, 'T' (истина) \, 'F' (ложь) \, 'N' (nil) \, 'I' (бесконечность);
+#X text 50 216 default OSC server: osc.udp://:9000;
+#X obj 434 216 net.osc.server TCP osc.tcp://:9001;
+#X obj 50 245 net.osc.receive /x;
+#X obj 434 245 net.osc.receive /y TCP;
+#X obj 50 274 ui.dt;
+#X obj 434 274 ui.dt;
+#X msg 50 317 send /x 1 2 3 4;
+#X msg 222 317 send /* 4 3 2 1;
+#X msg 434 317 send /y ABC;
+#X obj 50 346 net.osc.send osc.udp://:9000;
+#X obj 434 346 net.osc.send osc.tcp://:9001;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 401 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 306 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 404 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 304 1\.;
-#X text 170 304 symbol;
-#X obj 268 305 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 304 PATH: OSC-путь для прослушивания. Тип: symbol.;
-#X text 130 329 2\.;
-#X text 170 329 symbol;
-#X obj 268 330 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 329 SERVER: имя OSC-сервера. Тип: symbol.;
-#X text 130 354 3\.;
-#X text 170 354 symbol;
-#X obj 268 355 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 354 TYPES: ожидаемая строка типов OSC. Тип: symbol.;
-#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 394 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 402 1\.;
+#X text 170 402 symbol;
+#X obj 268 403 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 402 PATH: OSC-путь для прослушивания. Тип: symbol.;
+#X text 130 427 2\.;
+#X text 170 427 symbol;
+#X obj 268 428 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 427 SERVER: имя OSC-сервера. Тип: symbol.;
+#X text 130 452 3\.;
+#X text 170 452 symbol;
+#X obj 268 453 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 452 TYPES: ожидаемая строка типов OSC. Тип: symbol.;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 492 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 397 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 495 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 395 @path;
-#X text 270 395 OSC-путь для прослушивания. Тип: symbol.;
-#X obj 250 425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 425 @server;
-#X text 270 425 Имя OSC-сервера. Тип: symbol. Значение по умолчанию:
+#X msg 130 493 @path;
+#X text 270 493 OSC-путь для прослушивания. Тип: symbol.;
+#X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 523 @server;
+#X text 270 523 Имя OSC-сервера. Тип: symbol. Значение по умолчанию:
 default.;
-#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 455 @types;
-#X text 270 455 Ожидаемая строка типов OSC. Тип: symbol. Значение по
+#X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 553 @types;
+#X text 270 553 Ожидаемая строка типов OSC. Тип: symbol. Значение по
 умолчанию: none.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 512 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 611 1\.;
+#X text 270 611 управляющий вход.;
+#X text 130 636 2\.;
+#X text 170 636 symbol:;
+#X text 270 636 установить OSC-путь для прослушивания.;
+#X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 676 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 539 1\.;
-#X text 270 539 управляющий вход.;
-#X text 130 564 2\.;
-#X text 170 564 symbol:;
-#X text 270 564 установить OSC-путь для прослушивания.;
-#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 604 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 605 1\.;
-#X text 270 605 выход OSC-сообщений.;
+#X text 130 677 1\.;
+#X text 270 677 выход OSC-сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 655 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 658 библиотека: ceammc v0.9.8;
-#X text 410 670 смотрите также:;
-#X obj 531 673 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 727 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 730 библиотека: ceammc v0.9.8;
+#X text 410 742 смотрите также:;
+#X obj 531 745 ui.link @background_color 0.78431 0.78431 0.78431
 @title [net.osc.server] @url net.osc.server-help.pd;
-#X obj 650 673 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 745 ui.link @background_color 0.78431 0.78431 0.78431
 @title [net.osc.send] @url net.osc.send-help.pd;
-#N canvas 10 677 400 290 info 0;
+#N canvas 10 749 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,9 +103,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 677 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 15 0;
+#X restore 10 749 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;

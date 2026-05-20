@@ -23,6 +23,16 @@
         <alias>net.osc.r</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">OSC type string: 'i' (int32), 'f' (float32), 's'/'S' (string), 'b' (blob),
+        'h' (int64), 'd' (float64), 'c' (char), 'm' (MIDI), 'T' (true), 'F' (false), 'N' (nil), 'I'
+        (inf)</tr>
+        <tr lang="ru">строка типов OSC: 'i' (int32), 'f' (float32), 's'/'S' (строка), 'b' (blob),
+        'h' (int64), 'd' (float64), 'c' (char), 'm' (MIDI), 'T' (истина), 'F' (ложь), 'N' (nil),
+        'I' (бесконечность)</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="PATH" type="symbol">
         <tr lang="en">OSC path to listen to</tr>
@@ -54,7 +64,6 @@
         <tr lang="ru">ожидаемая строка типов OSC</tr>
       </property>
     </properties>
-    <methods />
     <inlets>
       <inlet>
         <in>
