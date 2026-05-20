@@ -104,6 +104,8 @@ normal. Разрешённые значения: normal \, bold.;
 #X obj 20 1177 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1178 1\.;
+#X text 170 1178 int:;
+#X text 270 1178 если 1: запускает обработку звука \, если 0: останавливает.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

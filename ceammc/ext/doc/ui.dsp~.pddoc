@@ -69,7 +69,12 @@
       </method>
     </methods>
     <inlets>
-      <inlet />
+      <inlet>
+        <in on="int">
+          <tr lang="en">if 1: starts audio processing, if 0: stops audio processing.</tr>
+          <tr lang="ru">если 1: запускает обработку звука, если 0: останавливает.</tr>
+        </in>
+      </inlet>
     </inlets>
     <example>
       <pdascii>

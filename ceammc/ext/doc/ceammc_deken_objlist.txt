@@ -1366,6 +1366,12 @@ ui.n~	number viewport for signals / просмотр числовых значе
 ui.plot~	signal plotter / построитель графика для сигналов
 ui.polar	2D slider in polar coordinates / 2D слайдер в полярных координатах
 ui.preset	preset manager / менеджер пресетов
+ui.radio	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.radio*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.hrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
+ui.vrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
 ui.rslider	two range slider / двухдиапазонный слайдер
 ui.rsl	two range slider / двухдиапазонный слайдер
 ui.scope~	waveform signal scope widget / виджет просмотра формы волны

@@ -100,6 +100,9 @@ value: 30 30\.;
 #X obj 20 1120 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1121 1\.;
+#X text 170 1121 int:;
+#X text 270 1121 if 1: starts audio processing \, if 0: stops audio
+processing.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

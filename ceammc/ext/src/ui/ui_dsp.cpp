@@ -51,6 +51,14 @@ void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long
         m_start(AtomList());
 }
 
+void UIDsp::onFloat(t_float f)
+{
+    if (f == 0.0)
+        m_stop({});
+    else
+        m_start({});
+}
+
 void UIDsp::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (s == sym_dsp() && lst.size() > 0 && lst[0].isFloat()) {
@@ -97,6 +105,7 @@ void UIDsp::setup()
     obj.hideLabelInner();
 
     obj.useAny();
+    obj.useFloat();
     obj.usePopup();
     obj.setDefaultSize(30, 30);
     obj.useMouseEvents(UI_MOUSE_DOWN);
