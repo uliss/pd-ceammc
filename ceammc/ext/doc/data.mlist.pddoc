@@ -27,8 +27,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Syntax: values are separated by spaces: (1 2 3) is a list of 1, 2, and 3.</tr>
-        <tr lang="ru">Синтаксис: значения разделяются пробелами: (1 2 3) — это список из 1, 2 и 3.</tr>
+        <tr lang="en">Syntax: values are separated by spaces: (1 2 3) is a list of 1, 2, and
+        3.</tr>
+        <tr lang="ru">Синтаксис: значения разделяются пробелами: (1 2 3) — это список из 1, 2 и
+        3.</tr>
       </par>
       <par>
         <tr lang="en">Nested lists: (1 2 3 (nested list values))</tr>
@@ -91,8 +93,9 @@
           <tr lang="ru">выводит элемент в указанной позиции</tr>
         </info>
         <param name="IDX" type="int" required="true">
-          <tr lang="en">position (negative indices are supported; -1 means the last element)</tr>
-          <tr lang="ru">позиция (поддерживаются отрицательные индексы; -1 означает последний элемент)</tr>
+          <tr lang="en">position (negative indices are supported: -1 means the last element)</tr>
+          <tr lang="ru">позиция (поддерживаются отрицательные индексы: -1 означает последний
+          элемент)</tr>
         </param>
       </method>
       <!-- back -->

@@ -53,8 +53,12 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
-        <tr lang="en">counter repeat mode. If 'wrap': after reaching the final value, it starts a new count from the initial value. If 'fold': after reaching the final value, it starts counting in the opposite direction.</tr>
-        <tr lang="ru">режим повтора счётчика. Если 'wrap': после достижения конечного значения начинает новый отсчёт с начального значения. Если 'fold': после достижения конечного значения начинает отсчёт в обратном направлении.</tr>
+        <tr lang="en">counter repeat mode. If 'wrap': after reaching the final value, it starts a
+        new count from the initial value. If 'fold': after reaching the final value, it starts
+        counting in the opposite direction.</tr>
+        <tr lang="ru">режим повтора счётчика. Если 'wrap': после достижения конечного значения
+        начинает новый отсчёт с начального значения. Если 'fold': после достижения конечного
+        значения начинает отсчёт в обратном направлении.</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
@@ -105,8 +109,10 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">resets the counter to the start value and resets the repeat counter to 0</tr>
-          <tr lang="ru">сбрасывает счётчик до начального значения и сбрасывает счётчик повторений в 0</tr>
+          <tr lang="en">resets the counter to the start value and resets the repeat counter to
+          0</tr>
+          <tr lang="ru">сбрасывает счётчик до начального значения и сбрасывает счётчик повторений в
+          0</tr>
         </info>
       </method>
     </methods>
@@ -138,7 +144,8 @@
         </out>
         <out type="any">
           <tr lang="en">[done( after the last repetition (if the number of repeats is limited)</tr>
-          <tr lang="ru">[done( после последнего повторения (если количество повторений ограничено)</tr>
+          <tr lang="ru">[done( после последнего повторения (если количество повторений
+          ограничено)</tr>
         </out>
       </outlet>
     </outlets>

@@ -71,8 +71,10 @@
       </property>
       <!-- @url -->
       <property name="@url" type="atom" default="udp:9000" access="initonly">
-        <tr lang="en">OSC server URL in the form: PROTO:PORT (udp:12345), or just PORT, or osc.PROTO://:PORT (e.g., osc.tcp://:9001).</tr>
-        <tr lang="ru">URL OSC-сервера в формате: PROTO:PORT (udp:12345), или просто PORT, или osc.PROTO://:PORT (например, osc.tcp://:9001).</tr>
+        <tr lang="en">OSC server URL in the form: PROTO:PORT (udp:12345), or just PORT, or
+        osc.PROTO://:PORT (e.g., osc.tcp://:9001).</tr>
+        <tr lang="ru">URL OSC-сервера в формате: PROTO:PORT (udp:12345), или просто PORT, или
+        osc.PROTO://:PORT (например, osc.tcp://:9001).</tr>
       </property>
     </properties>
     <methods>

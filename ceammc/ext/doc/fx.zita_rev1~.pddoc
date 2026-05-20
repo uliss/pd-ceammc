@@ -40,17 +40,22 @@
         <tr lang="ru">флаг обхода. Если true: пропускает обработанный сигнал.</tr>
       </property>
       <!-- @damp_hf -->
-      <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000" units="hertz">
-        <tr lang="en">frequency (in Hz) at which the high-frequency T60 is half the mid-band T60</tr>
-        <tr lang="ru">частота (в Гц), на которой высокочастотный T60 составляет половину среднечастотного T60</tr>
+      <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
+      units="hertz">
+        <tr lang="en">frequency (in Hz) at which the high-frequency T60 is half the mid-band
+        T60</tr>
+        <tr lang="ru">частота (в Гц), на которой высокочастотный T60 составляет половину
+        среднечастотного T60</tr>
       </property>
       <!-- @decay_low -->
-      <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3" units="second">
+      <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
+      units="second">
         <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band</tr>
         <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне</tr>
       </property>
       <!-- @decay_mid -->
-      <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2" units="second">
+      <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
+      units="second">
         <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band</tr>
         <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне</tr>
       </property>
@@ -60,17 +65,24 @@
         <tr lang="ru">соотношение между исходным сигналом (dry) и обработанным сигналом (wet)</tr>
       </property>
       <!-- @fr_ldecay -->
-      <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="40" units="second">
-        <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band (in freeze mode)</tr>
-        <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне (в режиме заморозки)</tr>
+      <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="40"
+      units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band (in freeze
+        mode)</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне (в режиме
+        заморозки)</tr>
       </property>
       <!-- @fr_mdecay -->
-      <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40" units="second">
-        <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band (in freeze mode)</tr>
-        <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне (в режиме заморозки)</tr>
+      <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40"
+      units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band (in freeze
+        mode)</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне (в режиме
+        заморозки)</tr>
       </property>
       <!-- @fr_time -->
-      <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100" units="millisecond">
+      <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
+      units="millisecond">
         <tr lang="en">freeze tail duration</tr>
         <tr lang="ru">длительность хвоста в режиме заморозки</tr>
       </property>
@@ -80,14 +92,18 @@
         <tr lang="ru">заморозить хвост реверберации</tr>
       </property>
       <!-- @freq_low -->
-      <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200" units="hertz">
+      <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
+      units="hertz">
         <tr lang="en">crossover frequency (in Hz) separating low and mid frequencies</tr>
         <tr lang="ru">частота кроссовера (в Гц), разделяющая низкие и средние частоты</tr>
       </property>
       <!-- @predelay -->
-      <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40" units="millisecond">
-        <tr lang="en">a delay applied to the 'wet' signal. Large values give the impression of a larger room.</tr>
-        <tr lang="ru">задержка, применяемая к сигналу 'wet'. Большие значения создают ощущение более крупного помещения.</tr>
+      <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
+      units="millisecond">
+        <tr lang="en">a delay applied to the 'wet' signal. Large values give the impression of a
+        larger room.</tr>
+        <tr lang="ru">задержка, применяемая к сигналу 'wet'. Большие значения создают ощущение
+        более крупного помещения.</tr>
       </property>
     </properties>
     <methods>

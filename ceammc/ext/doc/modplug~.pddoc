@@ -70,7 +70,8 @@
       <method name="stop">
         <info>
           <tr lang="en">stop playback and move the play position to the end of the file</tr>
-          <tr lang="ru">остановить воспроизведение и переместить позицию воспроизведения в конец файла</tr>
+          <tr lang="ru">остановить воспроизведение и переместить позицию воспроизведения в конец
+          файла</tr>
         </info>
       </method>
     </methods>
