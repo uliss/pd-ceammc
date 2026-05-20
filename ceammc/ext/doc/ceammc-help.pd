@@ -2068,7 +2068,7 @@ hoa.process~-help.pd;
 #X obj 30 21384 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
 #X text 200 21381 two-channel equal power sine/cosine panner;
 #X obj 30 21409 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
-#X text 200 21406 two channel linear panner with the signal control;
+#X text 200 21406 two-channel linear panner with signal control;
 #X obj 30 21434 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
 #X text 200 21431 two-channel linear panner;
 #X obj 30 21459 ui.link @title [pan.spread~] @url pan.spread~-help.pd;

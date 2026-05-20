@@ -37,7 +37,7 @@ Default value: 1 1 1\. Item type: float. Item range: [0\..1].;
 #X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 529 @h;
 #X text 270 529 Alias for @mode hex. Sets the color output mode as
-a character in #RRGGBB format.;
+a symbol in #RRGGBB format.;
 #X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 571 @hex;
 #X text 270 571 Current color value in #RRGGBB format. Type: symbol.
@@ -63,23 +63,23 @@ Allowed values: float \, int \, hex \, data.;
 0;
 #X text 130 800 1\.;
 #X text 170 800 bang:;
-#X text 270 800 opens colorpanel dialog.;
+#X text 270 800 opens the color panel dialog.;
 #X text 170 825 symbol:;
-#X text 270 825 opens colorpanel dialog with selected color. The hex
-format #RRGGBB is expected.;
+#X text 270 825 opens the color panel dialog with the selected color.
+The hex format #RRGGBB is expected.;
 #X text 170 865 list:;
-#X text 270 865 opens colorpanel with selected color. RGB color triplet
-expected in float [0\..1] or int [0\..255] range \, depending from
-@mode property.;
+#X text 270 865 opens the color panel dialog with the selected color.
+An RGB color triplet is expected in the float [0\..1] or int [0\..255]
+range \, depending on the @mode property.;
 #X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 935 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 936 1\.;
 #X text 170 936 symbol:;
-#X text 270 936 hex color in format #RRGGBB.;
+#X text 270 936 hex color in #RRGGBB format.;
 #X text 170 961 list:;
-#X text 270 961 RGB color triplet in float [0\..1] or int [0\..255]
-range depending from @mode property.;
+#X text 270 961 RGB color triplet in the float [0\..1] or int [0\..255]
+range depending on the @mode property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
