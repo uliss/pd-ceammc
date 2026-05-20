@@ -27,7 +27,7 @@
         режиме.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Attention: for some displays, a 3.3V power supply may be insufficient; their
+        <tr lang="en">Attention: for some displays, a 3.3V power supply may be insufficient: their
         backlight lights up, but the characters are not displayed. Check the information for the
         specific model before connecting.</tr>
         <tr lang="ru">Внимание: для некоторых дисплеев напряжения питания 3.3 В может быть
@@ -149,7 +149,7 @@
           <tr lang="ru">переместить курсор горизонтально</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
-          <tr lang="en">relative cursor shift. Negative values move the cursor leftwards; positive
+          <tr lang="en">relative cursor shift. Negative values move the cursor leftwards, positive
           values move it rightwards.</tr>
           <tr lang="ru">относительный сдвиг курсора. Отрицательные значения перемещают курсор
           влево, положительные — вправо.</tr>
@@ -163,7 +163,7 @@
           содержимого)</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
-          <tr lang="en">relative shift. Negative values move the content to the left; positive
+          <tr lang="en">relative shift. Negative values move the content to the left, positive
           values move it to the right.</tr>
           <tr lang="ru">относительный сдвиг. Отрицательные значения перемещают содержимое влево,
           положительные — вправо.</tr>
