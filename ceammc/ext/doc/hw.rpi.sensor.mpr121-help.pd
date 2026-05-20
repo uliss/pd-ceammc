@@ -7,13 +7,13 @@ low power consumption and automatic calibration.;
 -104026 -4096 0;
 #X obj 595 11 hw.rpi.sensor.mpr121;
 #X obj 230 93 cnv 1 535 160 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 The MPR121 is sutable for proximity detection and touch
+#X text 240 98 The MPR121 is suitable for proximity detection and touch
 sensing applications \, offering built-in electrode configuration \,
 adjustable thresholds \, and filtering to ensure reliable performance
 in noisy environments.;
 #X text 240 168 If the @irq property is specified \, the sensor operates
 in external interrupt mode \, and the specified GPIO pin is taken for
-exclusive use and is unavailable to other objects;
+exclusive use and is unavailable to other objects.;
 #X obj 230 173 cnv 1 2 60 empty empty empty 17 7 0 10 -260289 -1 0;
 #X obj 50 301 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 330 @connect \$1;
@@ -38,9 +38,9 @@ ceammc://img/conn_mpr121_irq.png;
 #X obj 735 726 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 724 @i2c_addr;
-#X text 270 724 (initonly) I²C address. Also 'default' value is accepted
-(for address 0x5A) and 'alt' (for address 0x5B). Type: int. Default
-value: -1\. Range: [-4\..119].;
+#X text 270 724 (initonly) I²C address. The 'default' value is also
+accepted (for address 0x5A) and 'alt' (for address 0x5B). Type: int.
+Default value: -1\. Range: [-4\..119].;
 #X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 781 @i2c_bus;
 #X text 270 781 (initonly) I²C bus. Type: atom. Default value: none.
@@ -68,11 +68,11 @@ list. Default value: 12 6\. Item count: [2\..2]. Item range: [0\..255].;
 -49933 0;
 #X msg 130 1067 baseline;
 #X text 270 1067 reads the baseline data for the channel. Note that
-this has only a resolution of 8bit.;
+this has only 8-bit resolution.;
 #X obj 250 1117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1117 filtered;
 #X text 270 1117 reads the filtered data from touch channels. Noise
-gets filtered out by the chip.;
+is filtered out by the chip.;
 #X obj 250 1167 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1167 reset;
 #X text 270 1167 performs a software reset on the device.;
@@ -81,16 +81,16 @@ gets filtered out by the chip.;
 -49933 0;
 #X text 130 1218 1\.;
 #X text 170 1218 bang:;
-#X text 270 1218 perform a single poll of electrodes.;
+#X text 270 1218 perform a single poll of all electrodes.;
 #X obj 20 1253 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1258 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1259 1\.;
 #X text 170 1259 list:;
-#X text 270 1259 list of two elements: SENSOR_INDEX STATE(0|1).;
+#X text 270 1259 list of two elements: SENSOR_INDEX STATE (0 or 1).;
 #X text 130 1279 2\.;
 #X msg 170 1279 touches;
-#X text 270 1279 all sensors touch state as 10-bit integer.;
+#X text 270 1279 all sensors touch state as a 10-bit integer.;
 #X msg 170 1304 baseline;
 #X text 270 1304 baseline data for the channel \, list: CHANNEL VALUE.;
 #X msg 170 1329 filtered;

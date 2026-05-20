@@ -53,7 +53,7 @@ hw.rpi.sensor.ir-help.pd;
 Pi;
 #X obj 30 590 ui.link @title [hw.rpi.sensor.mpr121] @url
 hw.rpi.sensor.mpr121-help.pd;
-#X text 220 587 12-канальный I²C-контроллер емкостного сенсора с низким
+#X text 220 587 12-канальный I²C-контроллер ёмкостного сенсора с низким
 энергопотреблением и автоматической калибровкой.;
 #X obj 30 630 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
