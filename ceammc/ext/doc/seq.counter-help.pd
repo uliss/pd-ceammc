@@ -42,18 +42,18 @@
 #X obj 735 411 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 409 @fold;
-#X text 270 409 The alias to @mode fold.;
+#X text 270 409 Alias for @mode fold.;
 #X obj 250 439 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 439 @from;
-#X text 270 439 The start value. Setting this property resets @i to
-0\. Type: int. Default value: 0\.;
+#X text 270 439 Start value. Setting this property resets @i to 0\.
+Type: int. Default value: 0\.;
 #X obj 250 481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 481 @i;
 #X text 270 481 Current iteration index within the cycle. Type: int.
 Default value: 0\.;
 #X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @inf;
-#X text 270 523 Alias to @r -1 \, repeats infinitely.;
+#X text 270 523 Alias for @r -1 (repeat infinitely).;
 #X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 553 @mode;
 #X text 270 553 Counter repeat mode. If 'wrap': after reaching the
@@ -63,17 +63,17 @@ direction. Type: symbol. Default value: wrap. Allowed values: wrap
 \, fold.;
 #X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 640 @once;
-#X text 270 640 Alias to @r 1 \, one pass with no repeats.;
+#X text 270 640 Alias for @r 1 (one pass with no repeats).;
 #X obj 250 670 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 670 @r;
-#X text 270 670 The number of repeats. If -1: to repeat infinitely.
-Type: int. Default value: -1\. Min value: -1\.;
+#X text 270 670 Number of repeats. If -1: repeat infinitely. Type:
+int. Default value: -1\. Min value: -1\.;
 #X obj 250 712 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 712 @to;
 #X text 270 712 End value (inclusive). Type: int. Default value: 0\.;
 #X obj 250 742 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 742 @wrap;
-#X text 270 742 Alias to @mode wrap.;
+#X text 270 742 Alias for @mode wrap.;
 #X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 772 @ri?;
 #X text 270 772 (readonly) Cycle repetition number. Type: int. Default
@@ -94,8 +94,8 @@ next value.;
 value.;
 #X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 972 reset;
-#X text 270 972 reset the counter to the start value and reset a repeat
-counter to 0\.;
+#X text 270 972 resets the counter to the start value and resets the
+repeat counter to 0\.;
 #X obj 20 1032 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1037 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
@@ -105,18 +105,18 @@ counter to 0\.;
 the counter.;
 #X text 130 1063 2\.;
 #X text 170 1063 bang:;
-#X text 270 1063 reset the counter to the start value.;
+#X text 270 1063 resets the counter to the start value.;
 #X obj 20 1098 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1103 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1104 1\.;
 #X text 170 1104 int:;
-#X text 270 1104 the counter value.;
+#X text 270 1104 counter value.;
 #X text 130 1124 2\.;
 #X text 170 1124 int:;
-#X text 270 1124 number of full counter cycles.;
-#X text 270 1149 [done (after the last repetition (if there is a limited
-number of them).;
+#X text 270 1124 number of complete counter cycles.;
+#X text 270 1149 [done( after the last repetition (if the number of
+repeats is limited).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

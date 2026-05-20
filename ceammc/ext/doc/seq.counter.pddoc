@@ -33,13 +33,13 @@
     <properties>
       <!-- @fold -->
       <property name="@fold" type="alias">
-        <tr lang="en">the alias to @mode fold</tr>
-        <tr lang="ru">сокращение: @mode fold</tr>
+        <tr lang="en">alias for @mode fold</tr>
+        <tr lang="ru">сокращение для @mode fold</tr>
       </property>
       <!-- @from -->
       <property name="@from" type="int" default="0">
-        <tr lang="en">the start value. Setting this property resets @i to 0</tr>
-        <tr lang="ru">начальное значение. Установка этого свойства сбрасывает @i до 0</tr>
+        <tr lang="en">start value. Setting this property resets @i to 0.</tr>
+        <tr lang="ru">начальное значение. Установка этого свойства сбрасывает @i в 0.</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" default="0">
@@ -48,32 +48,28 @@
       </property>
       <!-- @inf -->
       <property name="@inf" type="alias">
-        <tr lang="en">alias to @r -1, repeats infinitely</tr>
-        <tr lang="ru">сокращение: @r -1, повторять бесконечно</tr>
+        <tr lang="en">alias for @r -1 (repeat infinitely)</tr>
+        <tr lang="ru">сокращение для @r -1 (повторять бесконечно)</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="wrap fold" default="wrap">
-        <tr lang="en">counter repeat mode. If 'wrap': after reaching the final value, it starts a
-        new count from the initial value. If 'fold': after reaching the final value, it starts
-        counting in the opposite direction.</tr>
-        <tr lang="ru">режим повтора счетчика. Если 'wrap': после достижения финального значения,
-        начинает новый счет с начального значения. Если 'fold': после достижения финального
-        значения, начинает счет в обратном направлении.</tr>
+        <tr lang="en">counter repeat mode. If 'wrap': after reaching the final value, it starts a new count from the initial value. If 'fold': after reaching the final value, it starts counting in the opposite direction.</tr>
+        <tr lang="ru">режим повтора счётчика. Если 'wrap': после достижения конечного значения начинает новый отсчёт с начального значения. Если 'fold': после достижения конечного значения начинает отсчёт в обратном направлении.</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
-        <tr lang="en">alias to @r 1, one pass with no repeats</tr>
-        <tr lang="ru">сокращение: @r 1, один проход без повторов</tr>
+        <tr lang="en">alias for @r 1 (one pass with no repeats)</tr>
+        <tr lang="ru">сокращение для @r 1 (один проход без повторений)</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" default="-1" minvalue="-1">
-        <tr lang="en">the number of repeats. If -1: to repeat infinitely.</tr>
+        <tr lang="en">number of repeats. If -1: repeat infinitely.</tr>
         <tr lang="ru">количество повторений. Если -1: повторять бесконечно.</tr>
       </property>
       <!-- @ri -->
       <property name="@ri" type="int" access="readonly" default="0">
         <tr lang="en">cycle repetition number</tr>
-        <tr lang="ru">номер повтора всего цикла</tr>
+        <tr lang="ru">номер повторения цикла</tr>
       </property>
       <!-- @to -->
       <property name="@to" type="int" default="0">
@@ -83,12 +79,12 @@
       <!-- @value -->
       <property name="@value" type="int" default="0" access="readonly">
         <tr lang="en">current counter value</tr>
-        <tr lang="ru">текущее значение счетчика</tr>
+        <tr lang="ru">текущее значение счётчика</tr>
       </property>
       <!-- @wrap -->
       <property name="@wrap" type="alias">
-        <tr lang="en">alias to @mode wrap</tr>
-        <tr lang="ru">сокращение: @mode wrap</tr>
+        <tr lang="en">alias for @mode wrap</tr>
+        <tr lang="ru">сокращение для @mode wrap</tr>
       </property>
     </properties>
     <methods>
@@ -96,22 +92,21 @@
       <method name="next">
         <info>
           <tr lang="en">first increments the counter, then outputs the resulting next value</tr>
-          <tr lang="ru">сначала увеличивает счетчик, потом выводит полученное новое значение</tr>
+          <tr lang="ru">сначала увеличивает счётчик, затем выводит полученное новое значение</tr>
         </info>
       </method>
       <!-- prev -->
       <method name="prev">
         <info>
           <tr lang="en">first decrements the counter, then outputs the resulting value</tr>
-          <tr lang="ru">сначала уменьшает счётчик, затем выводит полученное новое значение</tr>
+          <tr lang="ru">сначала уменьшает счётчик, затем выводит полученное значение</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset the counter to the start value and reset a repeat counter to 0</tr>
-          <tr lang="ru">сбросить счётчик до начального значения и сбросить счётчик повторов на
-          0</tr>
+          <tr lang="en">resets the counter to the start value and resets the repeat counter to 0</tr>
+          <tr lang="ru">сбрасывает счётчик до начального значения и сбрасывает счётчик повторений в 0</tr>
         </info>
       </method>
     </methods>
@@ -119,32 +114,31 @@
       <inlet>
         <in on="bang">
           <tr lang="en">first outputs the current value, then increments the counter</tr>
-          <tr lang="ru">сначала выводит текущее значение, затем увеличивает счетчик</tr>
+          <tr lang="ru">сначала выводит текущее значение, затем увеличивает счётчик</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset the counter to the start value</tr>
-          <tr lang="ru">сбросить счетчик на начальное значение</tr>
+          <tr lang="en">resets the counter to the start value</tr>
+          <tr lang="ru">сбрасывает счётчик на начальное значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="int">
-          <tr lang="en">the counter value</tr>
-          <tr lang="ru">значение счетчика</tr>
+          <tr lang="en">counter value</tr>
+          <tr lang="ru">значение счётчика</tr>
         </out>
       </outlet>
       <outlet>
         <out type="int">
-          <tr lang="en">number of full counter cycles</tr>
-          <tr lang="ru">число повторов полного цикла счетчика</tr>
+          <tr lang="en">number of complete counter cycles</tr>
+          <tr lang="ru">количество полных циклов счётчика</tr>
         </out>
         <out type="any">
-          <tr lang="en">[done (after the last repetition (if there is a limited number of
-          them)</tr>
-          <tr lang="ru">[done( после последнего повтора (если их ограниченное количество)</tr>
+          <tr lang="en">[done( after the last repetition (if the number of repeats is limited)</tr>
+          <tr lang="ru">[done( после последнего повторения (если количество повторений ограничено)</tr>
         </out>
       </outlet>
     </outlets>
