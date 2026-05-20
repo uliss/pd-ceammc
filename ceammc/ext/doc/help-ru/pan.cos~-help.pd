@@ -1,77 +1,81 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 двухканальное косинусное панорамирование равной мощности;
+#X obj 299 50 cnv 1 466 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 304 50 двухканальный панорамный регулятор равной мощности на
+основе синуса/косинуса;
 #X obj 1 1 cnv 5 765 40 empty empty pan.cos~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 pan.cos~;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Two channel equal power panner. The center pan position
-is boosted by 3 dB compared to linear panning \, and the total power
-at every pan position is 0 dB.;
-#X obj 146 201 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
+#X obj 230 93 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Двухканальный панорамный регулятор равной мощности.
+Позиция центра панорамирования усилена на 3 дБ по сравнению с линейным
+панорамированием \, а общая мощность в каждой позиции панорамирования
+составляет 0 дБ.;
+#X obj 146 231 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
-#X obj 146 230 lin->lin 0 127 -1 1;
-#X obj 50 259 sig~ 1;
-#X floatatom 146 259 5 0 0 0 - - -;
-#X obj 50 288 pan.cos~;
-#X obj 50 317 env~;
-#X obj 136 317 env~;
-#X floatatom 50 345 5 0 0 0 - - -;
-#X floatatom 136 345 5 0 0 0 - - -;
-#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 382 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 146 260 lin->lin 0 127 -1 1;
+#X obj 50 289 sig~ 1;
+#X floatatom 146 289 5 0 0 0 - - -;
+#X obj 50 318 pan.cos~;
+#X obj 50 347 env~;
+#X obj 136 347 env~;
+#X floatatom 50 375 5 0 0 0 - - -;
+#X floatatom 136 375 5 0 0 0 - - -;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 412 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 385 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 383 1\.;
-#X text 170 383 float;
-#X obj 268 384 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 383 POS: panning position. -1 means left \, 0 - center
-\, +1 - right. Тип: float. Диапазон: [-1\..1];
-#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 438 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 413 1\.;
+#X text 170 413 float;
+#X obj 268 414 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 413 POS: позиция панорамирования. -1 означает левый канал
+\, 0 — центр \, +1 — правый канал. Тип: float. Диапазон: [-1\..1];
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 483 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 486 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 439 @smooth;
-#X text 270 439 (при инициализации) Smooth control signal to avoid
-zipping-noise. Тип: int. Значение по умолчанию: 20\. Диапазон: [0\..100].;
-#X obj 250 496 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 496 @pos;
-#X text 270 496 Panning position. -1 means left \, 0 - center \, +1
-- right. Тип: float. Значение по умолчанию: 0\. Диапазон: [-1\..1].;
-#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 568 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 484 @smooth;
+#X text 270 484 (при инициализации) Сглаживание управляющего сигнала
+для предотвращения шума квантования. Тип: int. Значение по умолчанию:
+20\. Диапазон: [0\..100].;
+#X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 541 @pos;
+#X text 270 541 Позиция панорамирования. -1 означает левый канал \,
+0 — центр \, +1 — правый канал. Тип: float. Значение по умолчанию:
+0\. Диапазон: [-1\..1].;
+#X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 613 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 569 1\.;
-#X text 170 569 ~;
-#X text 270 569 input signal.;
-#X text 130 594 2\.;
-#X text 170 594 float:;
-#X text 270 594 pan position. Диапазон: [-1\..1].;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 634 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 614 1\.;
+#X text 170 614 ~;
+#X text 270 614 входной сигнал.;
+#X text 130 639 2\.;
+#X text 170 639 float:;
+#X text 270 639 позиция панорамирования. Диапазон: [-1\..1].;
+#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 679 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 635 1\.;
-#X text 170 635 ~;
-#X text 270 635 left output channel.;
-#X text 130 655 2\.;
-#X text 170 655 ~;
-#X text 270 655 right output channel.;
+#X text 130 680 1\.;
+#X text 170 680 ~;
+#X text 270 680 левый выходной канал.;
+#X text 130 700 2\.;
+#X text 170 700 ~;
+#X text 270 700 правый выходной канал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 705 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 708 библиотека: ceammc v0.9.8;
-#X text 475 720 смотрите также:;
-#X obj 596 723 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 750 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 753 библиотека: ceammc v0.9.8;
+#X text 475 765 смотрите также:;
+#X obj 596 768 ui.link @background_color 0.78431 0.78431 0.78431
 @title [pan.lin~] @url pan.lin~-help.pd;
-#X obj 672 723 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 768 ui.link @background_color 0.78431 0.78431 0.78431
 @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#N canvas 10 727 400 290 info 0;
+#N canvas 10 772 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,7 +99,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 727 pd info;
+#X restore 10 772 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

@@ -75,7 +75,7 @@ object;
 #X obj 30 760 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
 #X text 220 757 a 2d ambisonic harmonic scope;
 #X obj 30 785 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
-#X text 220 782 two channel equal power sine/cosine panner;
+#X text 220 782 two-channel equal power sine/cosine panner;
 #X obj 30 810 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
 #X text 220 807 two channel linear panner with the signal control;
 #X obj 30 835 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
