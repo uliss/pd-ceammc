@@ -176,9 +176,9 @@
       <!-- hold -->
       <method name="hold">
         <info>
-          <tr lang="en">hold (sustain) pedal. When active, note release is ignored; when set to
+          <tr lang="en">hold (sustain) pedal. When active, note release is ignored, when set to
           off, releases all held notes.</tr>
-          <tr lang="ru">педаль демпфера (hold/sustain). При активации отпускание нот игнорируется;
+          <tr lang="ru">педаль демпфера (hold/sustain). При активации отпускание нот игнорируется,
           при выключении отпускает все удерживаемые ноты.</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
@@ -364,9 +364,9 @@
       <!-- sostenuto -->
       <method name="sostenuto">
         <info>
-          <tr lang="en">sostenuto (middle) pedal. Holds notes pressed before pedal activation; new
+          <tr lang="en">sostenuto (middle) pedal. Holds notes pressed before pedal activation: new
           notes are unaffected. Releases held notes when set to off.</tr>
-          <tr lang="ru">педаль sostenuto (средняя). Удерживает ноты, нажатые до активации педали;
+          <tr lang="ru">педаль sostenuto (средняя). Удерживает ноты, нажатые до активации педали:
           новые ноты не затрагиваются. При выключении отпускает удерживаемые ноты.</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
