@@ -948,8 +948,8 @@ midi.vramp	apply crescendo or diminuendo for notes flow / применяет cre
 midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
 click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
-fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
-ceammc/fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
+fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (FluidSynth)
+ceammc/fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (FluidSynth)
 modplug~	MOD file player / проигрыватель MOD-файлов
 ceammc/modplug~	MOD file player / проигрыватель MOD-файлов
 qrcode	QR code generator / генератор QR кода

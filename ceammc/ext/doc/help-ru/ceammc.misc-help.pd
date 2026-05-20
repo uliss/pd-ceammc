@@ -5,7 +5,7 @@
 #X obj 30 120 ui.link @title [click~] @url click~-help.pd;
 #X text 220 117 выводит единичный импульс при пустом входном событии;
 #X obj 30 145 ui.link @title [fluid~] @url fluid~-help.pd;
-#X text 220 142 плеер для семплов FluidSynth SoundFont 2;
+#X text 220 142 проигрыватель SoundFont 2 (FluidSynth);
 #X obj 30 170 ui.link @title [modplug~] @url modplug~-help.pd;
 #X text 220 167 проигрыватель MOD-файлов;
 #X obj 30 195 ui.link @title [qrcode] @url qrcode-help.pd;

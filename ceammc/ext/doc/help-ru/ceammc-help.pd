@@ -1587,7 +1587,7 @@ midi.sustain-help.pd;
 #X obj 30 16781 ui.link @title [click~] @url click~-help.pd;
 #X text 200 16778 выводит единичный импульс при пустом входном событии;
 #X obj 30 16806 ui.link @title [fluid~] @url fluid~-help.pd;
-#X text 200 16803 плеер для семплов FluidSynth SoundFont 2;
+#X text 200 16803 проигрыватель SoundFont 2 (FluidSynth);
 #X obj 30 16831 ui.link @title [modplug~] @url modplug~-help.pd;
 #X text 200 16828 проигрыватель MOD-файлов;
 #X obj 30 16856 ui.link @title [qrcode] @url qrcode-help.pd;
