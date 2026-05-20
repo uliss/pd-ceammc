@@ -962,11 +962,11 @@ hw.rpi.sensor.vl53l0x-help.pd;
 chip for Raspberry Pi;
 #X obj 30 9932 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 200 9929 LED matrix driver based on max7219 chip for Raspberry
+#X text 200 9929 LED matrix driver based on the MAX7219 chip for Raspberry
 Pi;
 #X obj 30 9957 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 200 9954 ws2812 LED strip driver for Raspberry Pi;
+#X text 200 9954 WS2812 LED strip driver for Raspberry Pi;
 #X obj 30 9982 ui.link @title [hw.serial] @url hw.serial-help.pd;
 #X text 200 9979 serial port device;
 #X obj 511 9301 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;

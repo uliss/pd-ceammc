@@ -1002,7 +1002,7 @@ hw.rpi.spi.max7219-help.pd;
 Pi;
 #X obj 30 10512 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 200 10509 драйвер для светодиодной ленты ws2812 для Raspberry
+#X text 200 10509 драйвер для светодиодной ленты WS2812 для Raspberry
 Pi;
 #X obj 30 10537 ui.link @title [hw.serial] @url hw.serial-help.pd;
 #X text 200 10534 серийный порт устройства;

@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">ws2812 LED strip driver for Raspberry Pi</tr>
-        <tr lang="ru">драйвер для светодиодной ленты ws2812 для Raspberry Pi</tr>
+        <tr lang="en">WS2812 LED strip driver for Raspberry Pi</tr>
+        <tr lang="ru">драйвер для светодиодной ленты WS2812 для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,74 +18,54 @@
     </meta>
     <info>
       <par style="critical">
-        <tr lang="en">Attention! The order of connecting the strip: first ground(!), then power
-        (+5V), then the data pin, this is necessary to protect the first LED from burning out. It
-        is recommended to install a 300-500 Ohm resistor in the Data circuit.</tr>
-        <tr lang="ru">Внимание! Порядок подключения ленты: сначала земля(!), потом питание (+5В),
-        потом пин данных: это нужно для защиты первого светодиода от выгорания. В цепь данных
-        рекомендуется устанавливать резистор 300-500 Ом.</tr>
+        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!), then power (+5V), then the data pin. This is necessary to protect the first LED from burning out. It is recommended to install a 300-500 Ohm resistor in the data circuit.</tr>
+        <tr lang="ru">Внимание! Правильный порядок подключения ленты: сначала земля (!), затем питание (+5 В), затем контакт данных. Это необходимо для защиты первого светодиода от выгорания. В цепь данных рекомендуется устанавливать резистор 300-500 Ом.</tr>
       </par>
       <par style="critical">
-        <tr lang="en">The disconnection procedure is strictly reverse: first the data pin, then the
-        +5V power, and then ground.</tr>
-        <tr lang="ru">Порядок отключения строго обратный: сначала пин данных, потом питание +5В, а
-        затем земля.</tr>
+        <tr lang="en">The disconnection procedure is strictly the reverse: first disconnect the data pin, then the +5V power, and finally ground.</tr>
+        <tr lang="ru">Порядок отключения строго обратный: сначала отключите контакт данных, затем питание +5 В, и наконец землю.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">When using the object, you need to specify the number of the SPI (@spi_bus
-        property).</tr>
-        <tr lang="ru">При использовании объекта нужно указать номер используемой шины SPI (свойство
-        @spi_bus).</tr>
+        <tr lang="en">When using the object, you need to specify the SPI bus number (the @spi_bus property).</tr>
+        <tr lang="ru">При использовании объекта необходимо указать номер шины SPI (свойство @spi_bus).</tr>
       </par>
       <par style="info">
-        <tr lang="en">The object uses an internal pixel buffer, with the colors of which it works
-        by sending messages to the object. After finishing work with the pixel buffer, it needs to
-        be sent to the LED strip using a bang or the [flush( command.</tr>
-        <tr lang="ru">Объект использует внутренний буфер пикселей, с цветами которых работают при
-        помощи отправки сообщений объекту. После окончания работы с пискельным буфером его нужно
-        передать на светодиодную ленту при помощи bang или команды [flush(</tr>
+        <tr lang="en">The object uses an internal pixel buffer, which you work with by sending messages to the object. After finishing work with the pixel buffer, it needs to be sent to the LED strip using a bang or the [flush( command.</tr>
+        <tr lang="ru">Объект использует внутренний буфер пикселей, с которым вы работаете, отправляя сообщения объекту. После завершения работы с буфером пикселей его необходимо отправить на светодиодную ленту с помощью bang или команды [flush(.</tr>
       </par>
       <par>
-        <tr lang="en">To specify the group of pixels we are going to work with, two types of ranges
-        are used: @slice and @lslice.</tr>
-        <tr lang="ru">Для указания группы пикселей, с которой собираемся работать, используются два
-        вида диапазонов: @slice и @lslice.</tr>
+        <tr lang="en">To specify the group of pixels we are going to work with, two types of ranges are used: @slice and @lslice.</tr>
+        <tr lang="ru">Для указания группы пикселей, с которой мы собираемся работать, используются два типа диапазонов: @slice и @lslice.</tr>
       </par>
       <a href="ceammc_rpi_spi-info.pd">SPI information</a>
     </info>
     <properties>
       <!-- @clear -->
       <property name="@clear" type="bool" default="1">
-        <tr lang="en">turn off all pixels when an object is removed</tr>
+        <tr lang="en">turn off all pixels when the object is deleted</tr>
         <tr lang="ru">выключать все пиксели при удалении объекта</tr>
       </property>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
-        from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При установке в 0:
-        отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
       access="initonly">
-        <tr lang="en">number of leds in the strip</tr>
+        <tr lang="en">number of LEDs in the strip</tr>
         <tr lang="ru">количество светодиодов в ленте</tr>
       </property>
       <!-- @spi_bus -->
       <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
       access="initonly">
-        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform
-        any actions.</tr>
-        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не производит никаких
-        действий.</tr>
+        <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform any actions.</tr>
+        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не выполняет никаких действий.</tr>
       </property>
       <!-- @spi_cs -->
       <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">
-        <tr lang="en">SPI CS (chip select/enable). In most cases you don't need to set this
-        property, because LED strips are not using CS pin.</tr>
-        <tr lang="ru">SPI CS (chip select/enable) индекс. В большинстве случаев вам не нужно
-        устанавливать это свойство, потому что светодиодные ленты не используют пин CS</tr>
+        <tr lang="en">SPI CS (chip select/enable). In most cases you do not need to set this property because LED strips do not use the CS pin.</tr>
+        <tr lang="ru">индекс SPI CS (chip select/enable). В большинстве случаев вам не нужно устанавливать это свойство, потому что светодиодные ленты не используют контакт CS.</tr>
       </property>
     </properties>
     <methods>
@@ -93,7 +73,7 @@
       <method name="brightness">
         <info>
           <tr lang="en">set pixel brightness</tr>
-          <tr lang="ru">установить якрость пикселей</tr>
+          <tr lang="ru">установить яркость пикселей</tr>
         </info>
         <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">brightness level</tr>
@@ -103,10 +83,8 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize
-          it with the strip</tr>
-          <tr lang="ru">установить в черный цвет все пиксели во внутреннем буфере и опционально
-          синхронихзировать его с лентой</tr>
+          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize them with the strip</tr>
+          <tr lang="ru">установить чёрный цвет для всех пикселей во внутреннем буфере и опционально синхронизировать их с лентой</tr>
         </info>
         <param name="flush" type="bool" default="1">
           <tr lang="en">if equal to 1: output the internal buffer to the device</tr>
@@ -116,7 +94,7 @@
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fill pixels with the color</tr>
+          <tr lang="en">fill pixels with a color</tr>
           <tr lang="ru">заполнить пиксели цветом</tr>
         </info>
         <param name="@color ..." type="list">
@@ -125,17 +103,17 @@
           <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
         <param name="@color8 ..." type="list">
-          <tr lang="en">RGB int color</tr>
-          <tr lang="ru">RGB целочисленный цвет</tr>
+          <tr lang="en">RGB integer color</tr>
+          <tr lang="ru">целочисленный RGB-цвет</tr>
           <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
         <param name="@slice FIRST LAST? STEP?" type="list">
           <tr lang="en">range slice of pixels</tr>
-          <tr lang="ru">дипазонный срез пикселей</tr>
+          <tr lang="ru">диапазонный срез пикселей</tr>
           <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
         <param name="@lslice START LENGTH? STEP?" type="list">
-          <tr lang="en">slice of pixels</tr>
+          <tr lang="en">slice of pixels by length</tr>
           <tr lang="ru">срез пикселей по длине</tr>
           <xi:include href="props_lslice_verbose.xml" parse="xml" />
         </param>
@@ -143,10 +121,8 @@
       <!-- fill_bits -->
       <method name="fill_bits">
         <info>
-          <tr lang="en">fill only those pixels in the internal buffer with the specified color for
-          which the corresponding bit in the input list is set to 1</tr>
-          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для
-          которых соответствующий бит во входном списке установлен в 1</tr>
+          <tr lang="en">fill only those pixels in the internal buffer with the specified color for which the corresponding bit in the input list is set to 1</tr>
+          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для которых соответствующий бит во входном списке установлен в 1</tr>
         </info>
         <param name="@offset" type="int" minvalue="0" default="0">
           <tr lang="en">bit list offset</tr>
@@ -162,8 +138,8 @@
           <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
         <param name="@color8 ..." type="list">
-          <tr lang="en">RGB int color</tr>
-          <tr lang="ru">RGB целочисленный цвет</tr>
+          <tr lang="en">RGB integer color</tr>
+          <tr lang="ru">целочисленный RGB-цвет</tr>
           <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
       </method>
@@ -174,7 +150,7 @@
           <tr lang="ru">заполнить указанные пиксели указанным цветом</tr>
         </info>
         <param name="@indexes" type="list">
-          <tr lang="en">list of pixel indexes</tr>
+          <tr lang="en">list of pixel indices</tr>
           <tr lang="ru">список индексов пикселей</tr>
         </param>
         <param name="@color ..." type="list">
@@ -183,8 +159,8 @@
           <xi:include href="props_verbose_color0.xml" parse="xml" />
         </param>
         <param name="@color8 ..." type="list">
-          <tr lang="en">RGB int color</tr>
-          <tr lang="ru">RGB целочисленный цвет</tr>
+          <tr lang="en">RGB integer color</tr>
+          <tr lang="ru">целочисленный RGB-цвет</tr>
           <xi:include href="props_verbose_color8.xml" parse="xml" />
         </param>
       </method>
@@ -198,7 +174,7 @@
       <!-- fx -->
       <method name="fx">
         <info>
-          <tr lang="en">apply color effect function</tr>
+          <tr lang="en">apply a color effect function</tr>
           <tr lang="ru">применить функцию цветового эффекта</tr>
         </info>
         <param name="NAME" type="symbol"
@@ -209,11 +185,11 @@
         </param>
         <param name="@slice FIRST LAST? STEP?" type="list">
           <tr lang="en">range slice of pixels</tr>
-          <tr lang="ru">дипазонный срез пикселей</tr>
+          <tr lang="ru">диапазонный срез пикселей</tr>
           <xi:include href="props_slice_verbose.xml" parse="xml" />
         </param>
         <param name="@lslice START LENGTH? STEP?" type="list">
-          <tr lang="en">slice of pixels</tr>
+          <tr lang="en">slice of pixels by length</tr>
           <tr lang="ru">срез пикселей по длине</tr>
           <xi:include href="props_lslice_verbose.xml" parse="xml" />
         </param>
@@ -221,18 +197,18 @@
       <!-- rotate -->
       <method name="rotate">
         <info>
-          <tr lang="en">shift all pixel by specified step</tr>
+          <tr lang="en">shift all pixels by the specified step</tr>
           <tr lang="ru">сдвинуть все пиксели на указанный шаг</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">shift amount</tr>
-          <tr lang="ru">значение шага</tr>
+          <tr lang="ru">величина сдвига</tr>
         </param>
       </method>
       <!-- set_pixel -->
       <method name="set_pixel">
         <info>
-          <tr lang="en">set single pixel color</tr>
+          <tr lang="en">set a single pixel color</tr>
           <tr lang="ru">установить цвет отдельного пикселя</tr>
         </info>
         <param name="@color ..." type="list">
@@ -244,12 +220,12 @@
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write the list of pixel colors to the tape</tr>
+          <tr lang="en">write the list of pixel colors to the strip</tr>
           <tr lang="ru">записать список цветов пикселей на ленту</tr>
         </info>
         <param name="COLORS" type="list" min-count="1" required="true">
           <tr lang="en">list of colors in Int24 integer format</tr>
-          <tr lang="ru">cписок цветов в формате целых чисел Int24</tr>
+          <tr lang="ru">список цветов в формате целых чисел Int24</tr>
         </param>
         <param name="@offset" type="int" default="0" minvalue="0">
           <tr lang="en">offset relative to the beginning of the strip</tr>
@@ -261,7 +237,7 @@
       <inlet>
         <in on="bang">
           <tr lang="en">flush pixels to the strip</tr>
-          <tr lang="ru">сбросить значения пикселей на ленту</tr>
+          <tr lang="ru">отправить пиксели на ленту</tr>
         </in>
       </inlet>
     </inlets>
