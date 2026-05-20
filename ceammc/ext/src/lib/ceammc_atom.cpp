@@ -108,7 +108,7 @@ Atom::Atom(AbstractData* d)
 }
 
 Atom::Atom(const Atom& x)
-    : t_atom()
+    : t_atom(x)
 {
     if (x.a_type == TYPE_DATA) {
         a_type = TYPE_DATA;
