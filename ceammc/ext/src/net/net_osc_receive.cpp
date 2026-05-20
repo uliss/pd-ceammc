@@ -103,6 +103,11 @@ namespace net {
 
         Property::PropSymbolCheckFn fn = [this](t_symbol* new_path) -> bool {
             auto osc = OscServerList::instance().findByName(server_->value());
+            if (osc.expired()) {
+                OBJ_ERR << fmt::format("OSC server not found: '{}'", server_->value()->s_name);
+                return false;
+            }
+
             if (!unsubscribe(osc, path_->value()))
                 return false;
 
@@ -160,8 +165,8 @@ namespace net {
 
         subscribe(osc, path_->value());
     }
-}
-}
+} // namespace net
+} // ceammc
 
 void setup_net_osc_receive()
 {
