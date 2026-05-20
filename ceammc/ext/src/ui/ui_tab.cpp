@@ -412,7 +412,7 @@ void UITab::m_insert(const AtomListView& lv)
         return;
     }
 
-    int idx = lv[0].asFloat(-1);
+    const int idx = lv[0].asFloat(-1);
     if (idx < 0) {
         UI_ERR << "insert: invalid index " << lv[0];
         return;

@@ -18,6 +18,8 @@
 #include "global_base.h"
 #include "mlist_iface.h"
 
+using namespace ceammc;
+
 using GlobalMListBase = EditorDataT<DataMListIFace<GlobalBase<MListAtom>>, DataTypeMList>;
 
 class GlobalMList : public GlobalMListBase {

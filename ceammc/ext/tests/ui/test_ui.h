@@ -34,7 +34,7 @@ class TestUIPtr {
     T* obj;
 
 public:
-    TestUIPtr(const char* name, const AtomList& args = L())
+    explicit TestUIPtr(const char* name, const AtomList& args = L())
     {
         obj = F::alloc(gensym(name), args.size(), args.toPdData());
         REQUIRE(obj);

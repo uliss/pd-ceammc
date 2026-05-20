@@ -19,6 +19,8 @@
 #include "editor_data.h"
 #include "mlist_iface.h"
 
+using namespace ceammc;
+
 using DataMListBase = EditorDataT<DataMListIFace<BaseObject>, DataTypeMList>;
 using MListProperty = DataPropertyT<DataTypeMList>;
 
@@ -36,9 +38,6 @@ public:
     const MListAtom& mlist() const final { return value_->atomRef(); }
 
     EditorTitleString editorTitle() const final { return "MList"; }
-
-    void m_load_json(t_symbol* s, const AtomListView& lv);
-    void m_store_json(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_data_mlist();

@@ -6,17 +6,17 @@
 #include "data_protocol.h"
 #include "datatype_mlist.h"
 
-#include <ctime>
 #include <cstdint>
+#include <ctime>
 #include <random>
 
-using namespace ceammc;
+namespace ceammc {
 
 template <class T>
-class DataMListIFace : public ListIFace<T> {
+class DataMListIFace : public FilesystemIFace<ListIFace<T>> {
 public:
     DataMListIFace(const PdArgs& a)
-        : ListIFace<T>(a)
+        : FilesystemIFace<ListIFace<T>>(a)
     {
     }
 
@@ -178,8 +178,34 @@ public:
         std::fill(mlist()->begin(), mlist()->end(), v);
     }
 
+    bool proto_write(const std::string& path) const override
+    {
+        return mlist()->writeJson(path, {});
+    }
+
+    bool proto_read(const std::string& path) override
+    {
+        mlist().detachData();
+        return mlist()->readJson(path);
+    }
+
     virtual const MListAtom& mlist() const = 0;
     virtual MListAtom& mlist() = 0;
 };
+
+template <typename T>
+class MListIFaceFactory : public ListIFaceFactory<T> {
+public:
+    MListIFaceFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+        : ListIFaceFactory<T>(name, flags)
+    {
+        protocol::Reader<ObjectFactory, T> reader(*this);
+        protocol::Writer<ObjectFactory, T> writer(*this);
+
+        this->template processData<DataTypeMList>();
+    }
+};
+
+} // namespace ceammc
 
 #endif

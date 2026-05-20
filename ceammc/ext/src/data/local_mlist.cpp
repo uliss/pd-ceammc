@@ -12,9 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "local_mlist.h"
-#include "ceammc_factory.h"
-#include "data_protocol.h"
-#include "datatype_mlist.h"
 
 LocalMList::LocalMList(const PdArgs& args)
     : LocalMListBase(args)
@@ -29,8 +26,7 @@ EditorTitleString LocalMList::editorTitle() const
 
 void setup_local_mlist()
 {
-    ListIFaceFactory<LocalMList> obj("local.mlist");
-    obj.processData<DataTypeMList>();
+    MListIFaceFactory<LocalMList> obj("local.mlist");
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 
@@ -38,5 +34,5 @@ void setup_local_mlist()
 
     obj.setDescription("local named mlist object");
     obj.setCategory("local");
-    obj.setKeywords({"mlist", "local", "global"});
+    obj.setKeywords({ "mlist", "local", "global" });
 }

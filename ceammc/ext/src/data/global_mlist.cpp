@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "global_mlist.h"
-#include "ceammc_factory.h"
 
 GlobalMList::GlobalMList(const PdArgs& args)
     : GlobalMListBase(args)
@@ -27,8 +26,7 @@ EditorTitleString GlobalMList::editorTitle() const
 
 void setup_global_mlist()
 {
-    ListIFaceFactory<GlobalMList> obj("global.mlist");
-    obj.processData<DataTypeMList>();
+    MListIFaceFactory<GlobalMList> obj("global.mlist");
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 

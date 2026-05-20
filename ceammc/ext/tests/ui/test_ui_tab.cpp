@@ -262,7 +262,7 @@ TEST_CASE("ui.tab", "[ui.tab]")
         t <<= LA("insert", -1, "A");
         REQUIRE_UI_FLOAT_PROPERTY(t, "count", 0);
 
-        t <<= LA("insert", 0.f, "A");
+        t <<= LA("insert", 0., "A");
         REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A"));
         REQUIRE_UI_FLOAT_PROPERTY(t, "count", 1);
 

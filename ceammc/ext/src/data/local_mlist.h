@@ -18,6 +18,8 @@
 #include "local_base.h"
 #include "mlist_iface.h"
 
+using namespace ceammc;
+
 using LocalMListBase = EditorDataT<DataMListIFace<LocalBase<MListAtom>>, DataTypeMList>;
 
 class LocalMList : public LocalMListBase {
