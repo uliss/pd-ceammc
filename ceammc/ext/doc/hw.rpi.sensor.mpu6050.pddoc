@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">MPU-6050 gyroscope and accelerometer for Raspberry Pi</tr>
-        <tr lang="ru">MPU-6050 гироскоп и датчик ускорения для Raspberry Pi</tr>
+        <tr lang="ru">MPU-6050 — гироскоп и акселерометр для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,32 +18,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The MPU-6050 is a 6-axis (combines 3-axis Gyroscope, 3-axis Accelerometer)
-        motion tracking device.</tr>
-        <tr lang="ru">MPU-6050 представляет собой 6-осевое (комбинирует 3-осевой гироскоп и
-        3-осевой акселерометр) устройство отслеживания движения.</tr>
+        <tr lang="en">The MPU-6050 is a 6-axis (combines a 3-axis gyroscope and a 3-axis accelerometer) motion tracking device.</tr>
+        <tr lang="ru">MPU-6050 — это 6-осевое устройство отслеживания движения (объединяет 3-осевой гироскоп и 3-осевой акселерометр).</tr>
       </par>
       <par style="info">
-        <tr lang="en">To connect to the device, set the @connect property to 1</tr>
-        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1</tr>
+        <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
+        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
       </par>
     </info>
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
-        disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
-        установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The value 'default' means default device I²C address (0x68),
-        value 'alt': alternative I2C address (0x69, when pin AD0 pull high).</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает адрес I²C устройства по умолчанию
-        (0x68), значение «alt»: альтернативный адрес I2C (0x69, когда пин AD0 подтянут
-        наверх).</tr>
+        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x68), and the value 'alt' means the alternative I²C address (0x69, when pin AD0 is pulled high).</tr>
+        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства (0x68), а значение «alt» — альтернативный адрес I²C (0x69, когда пин AD0 подтянут к высокому уровню).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -56,16 +49,15 @@
       <!-- calibrate -->
       <method name="calibrate">
         <info>
-          <tr lang="en">calibrate the sensor. Place it still so that the Z axis is pointing
-          down.</tr>
-          <tr lang="ru">калибровать датчик. Поместите его так, чтобы ось Z указывала вниз.</tr>
+          <tr lang="en">calibrate the sensor. Place it still with the Z axis pointing down.</tr>
+          <tr lang="ru">калибровка датчика. Поместите его неподвижно так, чтобы ось Z указывала вниз.</tr>
         </info>
       </method>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn on/off the sensor pollingg</tr>
-          <tr lang="ru">включить/выключить опрос сенсора</tr>
+          <tr lang="en">turn sensor polling on/off</tr>
+          <tr lang="ru">включить/выключить опрос датчика</tr>
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">state</tr>
@@ -77,28 +69,27 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out name="ypr" type="any">
-          <tr lang="en">[ypr YAW PITCH ROLL( incline angles (yaw, pitch, roll)</tr>
-          <tr lang="ru">[ypr YAW PITCH ROLL( углы наклона (рыскание/курс, тангаж, крен)</tr>
+          <tr lang="en">[ypr YAW PITCH ROLL( — incline angles (yaw, pitch, roll)</tr>
+          <tr lang="ru">[ypr YAW PITCH ROLL( — углы наклона (рыскание/курс, тангаж, крен)</tr>
         </out>
         <out name="temp" type="any">
-          <tr lang="en">[temp CELSIUS(</tr>
-          <tr lang="ru">[temp CELSIUS( - температура в градусах цельсия</tr>
+          <tr lang="en">[temp CELSIUS( — temperature in degrees Celsius</tr>
+          <tr lang="ru">[temp CELSIUS( — температура в градусах Цельсия</tr>
         </out>
         <out name="gyro" type="any">
-          <tr lang="en">[gyro X Y Z( - gyroscope readings (rotation speed) along the X, Y, Z
-          axes</tr>
-          <tr lang="ru">[gyro X Y Z( - показания гироскопа (cкорость вращения) по осям X, Y, Z</tr>
+          <tr lang="en">[gyro X Y Z( — gyroscope readings (rotation speed) along the X, Y, Z axes</tr>
+          <tr lang="ru">[gyro X Y Z( — показания гироскопа (скорость вращения) по осям X, Y, Z</tr>
         </out>
         <out name="accel" type="any">
-          <tr lang="en">[accel X Y Z(</tr>
-          <tr lang="ru">[accel X Y Z( - ускорения по осям X Y Z</tr>
+          <tr lang="en">[accel X Y Z( — accelerometer readings along the X, Y, Z axes</tr>
+          <tr lang="ru">[accel X Y Z( — показания акселерометра по осям X, Y, Z</tr>
         </out>
       </outlet>
     </outlets>
