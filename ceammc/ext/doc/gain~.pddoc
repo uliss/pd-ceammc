@@ -22,24 +22,24 @@
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="16">
         <tr lang="en">number of inputs/outputs</tr>
-        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+        <tr lang="ru">количество входов/выходов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @db -->
       <property name="@db" type="list" minvalue="-144" default="-144">
-        <tr lang="en">gain decibel (dbfs) values</tr>
-        <tr lang="ru" finished="false">значение decibel (dbfs)</tr>
+        <tr lang="en">gain values in decibels (dBFS)</tr>
+        <tr lang="ru">значения усиления в децибелах (dBFS)</tr>
       </property>
       <!-- @smooth_time -->
       <property name="@smooth_time" type="float" minvalue="1" default="20" units="millisecond">
-        <tr lang="en">gain change smooth time</tr>
-        <tr lang="ru" finished="false">Изменение плавного времени</tr>
+        <tr lang="en">smoothing time for control signal changes</tr>
+        <tr lang="ru">время сглаживания управляющего сигнала</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="list" minvalue="0" default="0">
         <tr lang="en">gain amplitude values</tr>
-        <tr lang="ru" finished="false">значения амплитуды усиления</tr>
+        <tr lang="ru">значения амплитуды усиления</tr>
       </property>
     </properties>
     <methods>
@@ -47,91 +47,87 @@
       <method name="+">
         <info>
           <tr lang="en">increase gain amplitude</tr>
-          <tr lang="ru" finished="false">увеличение амплитуды усиления</tr>
+          <tr lang="ru">увеличить амплитуду усиления</tr>
         </info>
         <param name="VALS" type="list">
           <tr lang="en">values for each input channel</tr>
-          <tr lang="ru" finished="false">значения для каждого входного канала</tr>
+          <tr lang="ru">значения для каждого входного канала</tr>
         </param>
       </method>
       <!-- +all -->
       <method name="+all">
         <info>
           <tr lang="en">increase gain amplitude for all inputs</tr>
-          <!-- old: увеличение амплитуды усиления для всех
-                    входов -->
-          <tr lang="ru" finished="false">увеличение амплитуды усиления для всех входов</tr>
+          <tr lang="ru">увеличить амплитуду усиления для всех входов</tr>
         </info>
         <param name="V" type="float" required="true">
-          <tr lang="en">single value for each input channel</tr>
-          <tr lang="ru" finished="false">Одно значение для каждого входного канала</tr>
+          <tr lang="en">value for all input channel</tr>
+          <tr lang="ru">значение для всех входных каналов</tr>
         </param>
       </method>
       <!-- +db -->
       <method name="+db">
         <info>
-          <tr lang="en">increase gain in db</tr>
-          <tr lang="ru" finished="false">Увеличение прибыли в db</tr>
+          <tr lang="en">increase gain in decibels</tr>
+          <tr lang="ru">увеличить усиление в децибелах</tr>
         </info>
         <param name="VALS" type="list">
           <tr lang="en">values for each input channel</tr>
-          <tr lang="ru" finished="false">значения для каждого входного канала</tr>
+          <tr lang="ru">значения для каждого входного канала</tr>
         </param>
       </method>
       <method name="-">
         <info>
           <tr lang="en">decrease gain amplitude</tr>
-          <tr lang="ru" finished="false">уменьшение амплитуды усиления</tr>
+          <tr lang="ru">уменьшить амплитуду усиления</tr>
         </info>
         <param name="VALS" type="list">
           <tr lang="en">values for each input channel</tr>
-          <tr lang="ru" finished="false">значения для каждого входного канала</tr>
+          <tr lang="ru">значения для каждого входного канала</tr>
         </param>
       </method>
       <!-- -all -->
       <method name="-all">
         <info>
           <tr lang="en">decrease gain amplitude for all inputs</tr>
-          <!-- old: Уменьшение амплитуды усиления для всех
-                    входов -->
-          <tr lang="ru" finished="false">Уменьшение амплитуды усиления для всех входов</tr>
+          <tr lang="ru">уменьшить амплитуду усиления для всех входов</tr>
         </info>
         <param name="V" type="float" required="true">
-          <tr lang="en">single value for each input channel</tr>
-          <tr lang="ru" finished="false">Одно значение для каждого входного канала</tr>
+          <tr lang="en">value for all input channel</tr>
+          <tr lang="ru">значение для всех входных каналов</tr>
         </param>
       </method>
       <!-- -db -->
       <method name="-db">
         <info>
-          <tr lang="en">decrease gain in db</tr>
-          <tr lang="ru" finished="false">снижение прибыли в дб</tr>
+          <tr lang="en">decrease gain in decibels</tr>
+          <tr lang="ru">уменьшить усиление в децибелах</tr>
         </info>
         <param name="VALS" type="list">
           <tr lang="en">values for each input channel</tr>
-          <tr lang="ru" finished="false">значения для каждого входного канала</tr>
+          <tr lang="ru">значения для каждого входного канала</tr>
         </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">set gain amplitude for all inputs</tr>
-          <tr lang="ru" finished="false">амплитуда усиления для всех входов</tr>
+          <tr lang="ru">установить амплитуду усиления для всех входов</tr>
         </info>
         <param name="V" type="float" required="true" minvalue="0">
           <tr lang="en">new gain value</tr>
-          <tr lang="ru" finished="false">Новая прибыль</tr>
+          <tr lang="ru">новое значение усиления</tr>
         </param>
       </method>
       <!-- set_db -->
       <method name="set_db">
         <info>
-          <tr lang="en">set gain in db for all inputs</tr>
-          <tr lang="ru" finished="false">Установить прирост в db для всех входов</tr>
+          <tr lang="en">set gain in decibels for all inputs</tr>
+          <tr lang="ru">установить усиление в децибелах для всех входов</tr>
         </info>
         <param name="V" type="float" required="true" minvalue="-144">
-          <tr lang="en">new gain value</tr>
-          <tr lang="ru" finished="false">Новая прибыль</tr>
+          <tr lang="en">new gain value (in dB)</tr>
+          <tr lang="ru">новое значение усиления (в дБ)</tr>
         </param>
       </method>
     </methods>
@@ -139,19 +135,19 @@
       <inlet type="audio" number="1">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control" number="n">
         <in on="float">
           <tr lang="en">set gain for all inputs</tr>
-          <tr lang="ru" finished="false">Set gain для всех входов</tr>
+          <tr lang="ru">установить усиление для всех входов</tr>
         </in>
       </inlet>
     </inlets>
@@ -159,19 +155,19 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

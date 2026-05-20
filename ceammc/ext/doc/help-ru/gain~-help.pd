@@ -29,99 +29,103 @@
 #X text 130 416 1\.;
 #X text 170 416 int;
 #X obj 268 417 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 416 N: number of inputs/outputs. Тип: int. Диапазон: [1\..16];
+#X text 270 416 N: количество входов/выходов. Тип: int. Диапазон: [1\..16];
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 456 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 459 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 457 @db;
-#X text 270 457 Gain decibel (dbfs) values. Тип: list. Значение по
-умолчанию: -144\. Минимальное значение элемента: -144\.;
-#X obj 250 499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 499 @smooth_time;
-#X text 270 499 Gain change smooth time. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 20\. Минимальное значение: 1\.;
-#X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 541 @value;
-#X text 270 541 Gain amplitude values. Тип: list. Значение по умолчанию:
-0\. Минимальное значение элемента: 0\.;
-#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 598 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 270 457 Значения усиления в децибелах (dBFS). Тип: list. Значение
+по умолчанию: -144\. Минимальное значение элемента: -144\.;
+#X obj 250 514 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 514 @smooth_time;
+#X text 270 514 Время сглаживания управляющего сигнала. Тип: float.
+Единицы: 'ms'. Значение по умолчанию: 20\. Минимальное значение: 1\.;
+#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 571 @value;
+#X text 270 571 Значения амплитуды усиления. Тип: list. Значение по
+умолчанию: 0\. Минимальное значение элемента: 0\.;
+#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 628 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 599 set;
-#X text 270 599 set gain amplitude for all inputs. Аргументы:;
-#X obj 300 624 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 624 V: new gain value. Тип: float. Минимальное значение:
-0\.;
-#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 657 set_db;
-#X text 270 657 set gain in db for all inputs. Аргументы:;
-#X obj 300 682 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 682 V: new gain value. Тип: float. Минимальное значение:
--144\.;
-#X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 715 +;
-#X text 270 715 increase gain amplitude. Аргументы:;
-#X obj 300 740 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 740 [VALS]: values for each input channel. Тип: list.;
-#X obj 250 773 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 773 +all;
-#X text 270 773 increase gain amplitude for all inputs. Аргументы:;
-#X obj 300 798 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 798 V: single value for each input channel. Тип: float.;
-#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 831 +db;
-#X text 270 831 increase gain in db. Аргументы:;
-#X obj 300 856 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 856 [VALS]: values for each input channel. Тип: list.;
-#X obj 250 889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 889 -;
-#X text 270 889 decrease gain amplitude. Аргументы:;
-#X obj 300 914 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 914 [VALS]: values for each input channel. Тип: list.;
-#X obj 250 947 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 947 -all;
-#X text 270 947 decrease gain amplitude for all inputs. Аргументы:;
-#X obj 300 972 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 972 V: single value for each input channel. Тип: float.;
-#X obj 250 1005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1005 -db;
-#X text 270 1005 decrease gain in db. Аргументы:;
-#X obj 300 1030 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1030 [VALS]: values for each input channel. Тип: list.;
-#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1078 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 629 set;
+#X text 270 629 установить амплитуду усиления для всех входов. Аргументы:;
+#X obj 300 654 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 654 V: новое значение усиления. Тип: float. Минимальное
+значение: 0\.;
+#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 702 set_db;
+#X text 270 702 установить усиление в децибелах для всех входов. Аргументы:;
+#X obj 300 727 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 727 V: новое значение усиления (в дБ). Тип: float. Минимальное
+значение: -144\.;
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 775 +;
+#X text 270 775 увеличить амплитуду усиления. Аргументы:;
+#X obj 300 800 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 800 [VALS]: значения для каждого входного канала. Тип:
+list.;
+#X obj 250 833 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 833 +all;
+#X text 270 833 увеличить амплитуду усиления для всех входов. Аргументы:;
+#X obj 300 858 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 858 V: значение для всех входных каналов. Тип: float.;
+#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 891 +db;
+#X text 270 891 увеличить усиление в децибелах. Аргументы:;
+#X obj 300 916 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 916 [VALS]: значения для каждого входного канала. Тип:
+list.;
+#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 949 -;
+#X text 270 949 уменьшить амплитуду усиления. Аргументы:;
+#X obj 300 974 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 974 [VALS]: значения для каждого входного канала. Тип:
+list.;
+#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1007 -all;
+#X text 270 1007 уменьшить амплитуду усиления для всех входов. Аргументы:;
+#X obj 300 1032 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1032 V: значение для всех входных каналов. Тип: float.;
+#X obj 250 1065 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1065 -db;
+#X text 270 1065 уменьшить усиление в децибелах. Аргументы:;
+#X obj 300 1090 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1090 [VALS]: значения для каждого входного канала. Тип:
+list.;
+#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1138 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1079 1\.;
-#X text 170 1079 ~;
-#X text 270 1079 input signal.;
-#X text 130 1104 ...;
-#X text 170 1104 ~;
-#X text 270 1104 input signal.;
-#X text 130 1129 n.;
-#X text 170 1129 float:;
-#X text 270 1129 set gain for all inputs.;
-#X obj 20 1164 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1169 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1139 1\.;
+#X text 170 1139 ~;
+#X text 270 1139 входной сигнал.;
+#X text 130 1164 ...;
+#X text 170 1164 ~;
+#X text 270 1164 входной сигнал.;
+#X text 130 1189 n.;
+#X text 170 1189 float:;
+#X text 270 1189 установить усиление для всех входов.;
+#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1229 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1170 1\.;
-#X text 170 1170 ~;
-#X text 270 1170 output signal.;
-#X text 130 1190 ...;
-#X text 170 1190 ~;
-#X text 270 1190 output signal.;
-#X text 130 1210 n.;
-#X text 170 1210 ~;
-#X text 270 1210 output signal.;
+#X text 130 1230 1\.;
+#X text 170 1230 ~;
+#X text 270 1230 выходной сигнал.;
+#X text 130 1250 ...;
+#X text 170 1250 ~;
+#X text 270 1250 выходной сигнал.;
+#X text 130 1270 n.;
+#X text 170 1270 ~;
+#X text 270 1270 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1260 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1263 библиотека: ceammc v0.9.8;
-#N canvas 10 1282 400 290 info 0;
+#X obj 1 1320 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1323 библиотека: ceammc v0.9.8;
+#N canvas 10 1342 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,7 +149,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1282 pd info;
+#X restore 10 1342 pd info;
 #X connect 5 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;

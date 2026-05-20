@@ -870,7 +870,7 @@ signal is analyzed using a 32-band filter bank;
 #X text 200 9038 digitized CryBaby wah pedal;
 #X obj 30 9066 ui.link @title [fx.zita_rev1~] @url
 fx.zita_rev1~-help.pd;
-#X text 200 9063 zita stereo reverb;
+#X text 200 9063 Zita stereo reverb;
 #X obj 573 8105 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 578 8105 various sound effects;
 #X obj 20 9088 cnv 5 69 32 empty empty global 4 16 0 17 -262144 -49933
