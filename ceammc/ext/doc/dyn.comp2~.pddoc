@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">stereo dynamic range compressor</tr>
-        <tr lang="ru">стерео-компрессор</tr>
+        <tr lang="ru">стерео-компрессор динамического диапазона</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,7 +27,7 @@
     <arguments>
       <argument name="RATIO" type="float" minvalue="1" maxvalue="16">
         <tr lang="en">compression ratio (1 = no compression, &gt;1 means compression)</tr>
-        <tr lang="ru">соотношение сжатия (1 = без компрессии, &gt;1 означает компрессию)</tr>
+        <tr lang="ru">коэффициент сжатия (1 = без компрессии, &gt;1 означает компрессию)</tr>
       </argument>
       <argument name="THRESHOLD" type="float" minvalue="-90" maxvalue="0" units="decibel">
         <tr lang="en">level threshold above which compression kicks in</tr>
@@ -36,14 +36,14 @@
       <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
         <tr lang="en">attack time - the time that elapses between exceeding the threshold and when
         the compression ratio is reached</tr>
-        <tr lang="ru">время, которое проходит между превышением порогового значения и моментом
-        достижения заданного уровня компрессии</tr>
+        <tr lang="ru">время атаки — время, которое проходит между превышением порога и достижением
+        заданного коэффициента сжатия</tr>
       </argument>
       <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-        <tr lang="en">release time - the time of decay that elapses between when the input signal
-        level drops below the threshold and when the compressor stops attenuating the signal</tr>
-        <tr lang="ru">время спада, которое проходит между тем, как уровень входного сигнала упал
-        ниже порога, и моментом, когда компрессор перестаёт ослаблять сигнал</tr>
+        <tr lang="en">release time - the time that elapses between when the input signal level
+        drops below the threshold and when the compressor stops attenuating the signal</tr>
+        <tr lang="ru">время восстановления — время, которое проходит между падением уровня входного
+        сигнала ниже порога и моментом, когда компрессор перестаёт ослаблять сигнал</tr>
       </argument>
     </arguments>
     <properties>
@@ -53,81 +53,65 @@
       <!-- @attack -->
       <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
       maxvalue="100">
-        <tr lang="en">time constant when level &amp; compression going up</tr>
-        <!-- old: Постоянная времени, когда уровень и сжатие
-                растут -->
-        <tr lang="ru" finished="false">Постоянная времени, когда уровень и сжатие растут</tr>
+        <tr lang="en">time constant when level and compression are increasing</tr>
+        <tr lang="ru">постоянная времени, когда уровень и сжатие увеличиваются</tr>
       </property>
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypasses the effected signal.</tr>
+        <tr lang="ru">флаг обхода. Если true: обходит обработанный сигнал.</tr>
       </property>
       <!-- @gain -->
       <property name="@gain" type="float" units="decibel" default="0" minvalue="-18" maxvalue="18">
-        <tr lang="en">make up gain: applied to the signal after the compression takes place</tr>
-        <!-- old: прирост макияжа: применяется к сигналу после
-                сжатия -->
-        <tr lang="ru" finished="false">прирост макияжа: применяется к сигналу после сжатия</tr>
+        <tr lang="en">make-up gain: applied to the signal after compression takes place.</tr>
+        <tr lang="ru">компенсационное усиление: применяется к сигналу после компрессии.</tr>
       </property>
       <!-- @level -->
       <property name="@level" type="float" default="0" minvalue="0" maxvalue="1" access="readonly">
-        <tr lang="en">current level of compression</tr>
-        <tr lang="ru" finished="false">текущий уровень сжатия</tr>
+        <tr lang="en">current compression level</tr>
+        <tr lang="ru">текущий уровень сжатия</tr>
       </property>
       <!-- @ratio -->
       <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="16">
         <tr lang="en">compression ratio (1 = no compression, &gt;1 means compression)</tr>
-        <!-- old: Соотношение сжатия (1 = не сжатие, >1 означает
-                сжатие) -->
-        <tr lang="ru" finished="false">Соотношение сжатия (1 = не сжатие, &gt;1 означает
-        сжатие)</tr>
+        <tr lang="ru">коэффициент сжатия (1 = без компрессии, &gt;1 означает компрессию)</tr>
       </property>
       <!-- @refresh -->
       <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
       units="millisecond">
-        <tr lang="en">compression level output time interval. If 0 - no output</tr>
-        <!-- old: выходной интервал уровня сжатия. Если 0 - выход
-                отсутствует -->
-        <tr lang="ru" finished="false">выходной интервал уровня сжатия. Если 0 - выход
-        отсутствует</tr>
+        <tr lang="en">compression level output interval. If 0: no output.</tr>
+        <tr lang="ru">интервал вывода уровня сжатия. Если 0: вывод отсутствует.</tr>
       </property>
       <!-- @release -->
       <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
       maxvalue="500">
-        <tr lang="en">release time = time constant coming out of compression</tr>
-        <!-- old: Время высвобождения = постоянная времени, выходящая
-                из сжатия -->
-        <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая из
-        сжатия</tr>
+        <tr lang="en">release time — time constant when coming out of compression.</tr>
+        <tr lang="ru">время восстановления — постоянная времени при выходе из компрессии.</tr>
       </property>
       <!-- @threshold -->
       <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
       maxvalue="0">
         <tr lang="en">level threshold above which compression kicks in</tr>
-        <tr lang="ru" finished="false">порог уровня, выше которого компрессия вводится</tr>
+        <tr lang="ru">порог уровня, выше которого начинается компрессия</tr>
       </property>
     </properties>
     <methods>
       <!-- preset -->
       <method name="preset">
         <info>
-          <tr lang="en">choose predefined preset</tr>
-          <tr lang="ru" finished="false">Выберите предварительно заданный</tr>
+          <tr lang="en">choose a predefined preset</tr>
+          <tr lang="ru">выбрать предустановленный набор параметров</tr>
         </info>
         <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
-          <tr lang="en">name</tr>
-          <tr lang="ru" finished="false">имя</tr>
+          <tr lang="en">preset name</tr>
+          <tr lang="ru">имя предустановки</tr>
         </param>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="en">reset to the initial state</tr>
+          <tr lang="ru">сбросить в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -135,13 +119,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">left input signal</tr>
-          <tr lang="ru" finished="false">левый входной сигнал</tr>
+          <tr lang="ru">левый входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">right input signal</tr>
-          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+          <tr lang="ru">правый входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -149,19 +133,19 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output signal</tr>
-          <tr lang="ru" finished="false">левый выходной сигнал</tr>
+          <tr lang="ru">левый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output signal</tr>
-          <tr lang="ru" finished="false">правильный выходной сигнал</tr>
+          <tr lang="ru">правый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">float: output current compression level in [0..1]</tr>
-          <tr lang="ru" finished="false">Поплавок: уровень сжатия выходного тока в [0,1]</tr>
+          <tr lang="en">float: outputs the current compression level in the range [0..1]</tr>
+          <tr lang="ru">float: выводит текущий уровень сжатия в диапазоне [0..1]</tr>
         </out>
       </outlet>
     </outlets>

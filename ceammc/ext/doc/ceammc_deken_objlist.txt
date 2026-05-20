@@ -342,7 +342,7 @@ set.intersect	intersection of sets / пересечение множеств
 set.size	outputs the number of elements in a set / выводит количество элементов в множестве
 set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
 set.union	union of sets / объединение множеств
-dyn.comp2~	stereo dynamic range compressor / стерео-компрессор
+dyn.comp2~	stereo dynamic range compressor / стерео-компрессор динамического диапазона
 dyn.comp_peak2~	stereo peak feed forward compressor with channel linking / пиковый стерео-компрессор прямой топологии
 comp.peak2~	stereo peak feed forward compressor with channel linking / пиковый стерео-компрессор прямой топологии
 dyn.comp_peak~	mono dynamic range peak feed forward compressor / пиковый моно-компрессор прямой топологии

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 634 50 стерео-компрессор;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 стерео-компрессор динамического диапазона;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 dyn.comp2~;
@@ -36,7 +36,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 130 439 1\.;
 #X text 170 439 float;
 #X obj 268 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 439 RATIO: соотношение сжатия (1 = без компрессии \, >1
+#X text 270 439 RATIO: коэффициент сжатия (1 = без компрессии \, >1
 означает компрессию). Тип: float. Диапазон: [1\..16];
 #X text 130 479 2\.;
 #X text 170 479 float;
@@ -46,14 +46,14 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 130 519 3\.;
 #X text 170 519 float;
 #X obj 268 520 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 519 ATTACK(ms): время \, которое проходит между превышением
-порогового значения и моментом достижения заданного уровня компрессии.
+#X text 270 519 ATTACK(ms): время атаки — время \, которое проходит
+между превышением порога и достижением заданного коэффициента сжатия.
 Тип: float. Диапазон: [0.1\..100];
 #X text 130 574 4\.;
 #X text 170 574 float;
 #X obj 268 575 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 574 RELEASE(ms): время спада \, которое проходит между
-тем \, как уровень входного сигнала упал ниже порога \, и моментом
+#X text 270 574 RELEASE(ms): время восстановления — время \, которое
+проходит между падением уровня входного сигнала ниже порога и моментом
 \, когда компрессор перестаёт ослаблять сигнал. Тип: float. Диапазон:
 [1\..500];
 #X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
@@ -75,69 +75,70 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 по умолчанию: 1\.;
 #X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 804 @attack;
-#X text 270 804 Time constant when level & compression going up. Тип:
-float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
+#X text 270 804 Постоянная времени \, когда уровень и сжатие увеличиваются.
+Тип: float. Единицы: 'ms'. Значение по умолчанию: 10\. Диапазон: [0.1\..100].;
 #X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 861 @bypass;
-#X text 270 861 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
+#X text 270 861 Флаг обхода. Если true: обходит обработанный сигнал.
+Тип: bool. Значение по умолчанию: 0\.;
 #X obj 250 903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 903 @gain;
-#X text 270 903 Make up gain: applied to the signal after the compression
-takes place. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\.
-Диапазон: [-18\..18].;
+#X text 270 903 Компенсационное усиление: применяется к сигналу после
+компрессии. Тип: float. Единицы: 'db'. Значение по умолчанию: 0\. Диапазон:
+[-18\..18].;
 #X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 960 @ratio;
-#X text 270 960 Compression ratio (1 = no compression \, >1 means compression).
-Тип: float. Значение по умолчанию: 1\. Диапазон: [1\..16].;
+#X text 270 960 Коэффициент сжатия (1 = без компрессии \, >1 означает
+компрессию). Тип: float. Значение по умолчанию: 1\. Диапазон: [1\..16].;
 #X obj 250 1017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1017 @refresh;
-#X text 270 1017 Compression level output time interval. If 0 - no
-output. Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон:
-[0\..1000].;
+#X text 270 1017 Интервал вывода уровня сжатия. Если 0: вывод отсутствует.
+Тип: int. Единицы: 'ms'. Значение по умолчанию: 100\. Диапазон: [0\..1000].;
 #X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1074 @release;
-#X text 270 1074 Release time = time constant coming out of compression.
-Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Диапазон: [1\..500].;
+#X text 270 1074 Время восстановления — постоянная времени при выходе
+из компрессии. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\.
+Диапазон: [1\..500].;
 #X obj 250 1131 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1131 @threshold;
-#X text 270 1131 Level threshold above which compression kicks in.
+#X text 270 1131 Порог уровня \, выше которого начинается компрессия.
 Тип: float. Единицы: 'db'. Значение по умолчанию: -10\. Диапазон: [-90\..0].;
 #X obj 250 1188 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1188 @level?;
-#X text 270 1188 (только чтение) Current level of compression. Тип:
-float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
+#X text 270 1188 (только чтение) Текущий уровень сжатия. Тип: float.
+Значение по умолчанию: 0\. Диапазон: [0\..1].;
 #X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1245 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1246 preset;
-#X text 270 1246 choose predefined preset. Аргументы:;
+#X text 270 1246 выбрать предустановленный набор параметров. Аргументы:;
 #X obj 300 1271 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1271 PRESET: name. Тип: symbol. Разрешённые значения: vocal
-\, drums \, bass \, strings.;
+#X text 300 1271 PRESET: имя предустановки. Тип: symbol. Разрешённые
+значения: vocal \, drums \, bass \, strings.;
 #X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1319 reset;
-#X text 270 1319 reset to initial state.;
+#X text 270 1319 сбросить в начальное состояние.;
 #X obj 20 1364 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1369 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 1370 1\.;
 #X text 170 1370 ~;
-#X text 270 1370 left input signal.;
+#X text 270 1370 левый входной сигнал.;
 #X text 130 1395 2\.;
 #X text 170 1395 ~;
-#X text 270 1395 right input signal.;
+#X text 270 1395 правый входной сигнал.;
 #X obj 20 1430 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1435 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1436 1\.;
 #X text 170 1436 ~;
-#X text 270 1436 left output signal.;
+#X text 270 1436 левый выходной сигнал.;
 #X text 130 1456 2\.;
 #X text 170 1456 ~;
-#X text 270 1456 right output signal.;
+#X text 270 1456 правый выходной сигнал.;
 #X text 130 1476 3\.;
-#X text 270 1476 float: output current compression level in [0\..1].;
+#X text 270 1476 float: выводит текущий уровень сжатия в диапазоне
+[0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

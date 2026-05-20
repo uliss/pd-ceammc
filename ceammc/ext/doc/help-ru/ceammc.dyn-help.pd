@@ -5,7 +5,7 @@
 #X obj 443 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 448 50 работа с динамическим диапазоном звука;
 #X obj 30 120 ui.link @title [dyn.comp2~] @url dyn.comp2~-help.pd;
-#X text 220 117 стерео-компрессор;
+#X text 220 117 стерео-компрессор динамического диапазона;
 #X obj 30 145 ui.link @title [dyn.comp_peak2~] @url
 dyn.comp_peak2~-help.pd;
 #X text 220 142 пиковый стерео-компрессор прямой топологии;

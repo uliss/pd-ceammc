@@ -482,7 +482,7 @@ set.intersect-help.pd;
 #X obj 20 5073 cnv 5 38 32 empty empty dyn 4 16 0 17 -262144 -49933 0;
 #X obj 20 5115 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 5129 ui.link @title [dyn.comp2~] @url dyn.comp2~-help.pd;
-#X text 200 5126 стерео-компрессор;
+#X text 200 5126 стерео-компрессор динамического диапазона;
 #X obj 30 5154 ui.link @title [dyn.comp_peak2~] @url
 dyn.comp_peak2~-help.pd;
 #X text 200 5151 пиковый стерео-компрессор прямой топологии;
