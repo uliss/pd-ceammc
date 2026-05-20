@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 626 50 zita stereo reverb;
+#X text 626 50 Zita stereo reverb;
 #X obj 1 1 cnv 5 765 40 empty empty fx.zita_rev1~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 fx.zita_rev1~;
@@ -40,18 +40,18 @@
 #X text 130 592 1\.;
 #X text 170 592 float;
 #X obj 268 593 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 592 DECAY_LOW(sec): time (in seconds) to decay 60dB in
-low-frequency band. Type: float. Range: [1\..60];
+#X text 270 592 DECAY_LOW(sec): time (in seconds) for a 60dB decay
+in the low-frequency band. Type: float. Range: [1\..60];
 #X text 130 632 2\.;
 #X text 170 632 float;
 #X obj 268 633 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 632 DECAY_MID(sec): time (in seconds) to decay 60dB in
-mid-frequency band. Type: float. Range: [1\..60];
+#X text 270 632 DECAY_MID(sec): time (in seconds) for a 60dB decay
+in the mid-frequency band. Type: float. Range: [1\..60];
 #X text 130 672 3\.;
 #X text 170 672 float;
 #X obj 268 673 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 672 DRYWET: ratio between source signal (dry) and processed
-signal (wet). Type: float. Range: [0\..1];
+#X text 270 672 DRYWET: ratio between the source signal (dry) and the
+processed signal (wet). Type: float. Range: [0\..1];
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 727 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
@@ -70,82 +70,84 @@ to /fx_zita_rev1/PROP_NAME. Type: symbol.;
 1\.;
 #X obj 250 845 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 845 @bypass;
-#X text 270 845 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 270 845 Bypass flag. If true: bypasses the processed signal.
+Type: bool. Default value: 0\.;
 #X obj 250 887 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 887 @damp_hf;
-#X text 270 887 Frequency (Hz) at which the high-frequency T60 is half
-the middle-band's T60\. Type: float. Units: 'Hz'. Default value: 6000\.
+#X text 270 887 Frequency (in Hz) at which the high-frequency T60 is
+half the mid-band T60\. Type: float. Units: 'Hz'. Default value: 6000\.
 Range: [1500\..47040].;
 #X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 944 @decay_low;
-#X text 270 944 Time (in seconds) to decay 60dB in low-frequency band.
-Type: float. Units: 'sec'. Default value: 3\. Range: [1\..60].;
+#X text 270 944 Time (in seconds) for a 60dB decay in the low-frequency
+band. Type: float. Units: 'sec'. Default value: 3\. Range: [1\..60].;
 #X obj 250 1001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1001 @decay_mid;
-#X text 270 1001 Time (in seconds) to decay 60dB in mid-frequency band.
-Type: float. Units: 'sec'. Default value: 2\. Range: [1\..60].;
+#X text 270 1001 Time (in seconds) for a 60dB decay in the mid-frequency
+band. Type: float. Units: 'sec'. Default value: 2\. Range: [1\..60].;
 #X obj 250 1058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1058 @drywet;
-#X text 270 1058 Ratio between source signal (dry) and processed signal
-(wet). Type: float. Default value: 1\. Range: [0\..1].;
-#X obj 250 1100 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1100 @fr_ldecay;
-#X text 270 1100 Time (in seconds) to decay 60dB in low-frequency band.
-Type: float. Units: 'sec'. Default value: 40\. Range: [0\..60].;
-#X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1157 @fr_mdecay;
-#X text 270 1157 Time (in seconds) to decay 60dB in mid-frequency band.
-Type: float. Units: 'sec'. Default value: 40\. Range: [0\..60].;
-#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1214 @fr_time;
-#X text 270 1214 Length of freeze tail. Type: float. Units: 'ms'. Default
+#X text 270 1058 Ratio between the source signal (dry) and the processed
+signal (wet). Type: float. Default value: 1\. Range: [0\..1].;
+#X obj 250 1115 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1115 @fr_ldecay;
+#X text 270 1115 Time (in seconds) for a 60dB decay in the low-frequency
+band (in freeze mode). Type: float. Units: 'sec'. Default value: 40\.
+Range: [0\..60].;
+#X obj 250 1172 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1172 @fr_mdecay;
+#X text 270 1172 Time (in seconds) for a 60dB decay in the mid-frequency
+band (in freeze mode). Type: float. Units: 'sec'. Default value: 40\.
+Range: [0\..60].;
+#X obj 250 1229 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1229 @fr_time;
+#X text 270 1229 Freeze tail duration. Type: float. Units: 'ms'. Default
 value: 100\. Range: [0\..1000].;
-#X obj 250 1256 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1256 @freeze;
-#X text 270 1256 Freeze reverberation tail. Type: bool. Default value:
+#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1271 @freeze;
+#X text 270 1271 Freeze the reverb tail. Type: bool. Default value:
 0\.;
-#X obj 250 1286 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1286 @freq_low;
-#X text 270 1286 Crossover frequency (Hz) separating low and middle
+#X obj 250 1301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1301 @freq_low;
+#X text 270 1301 Crossover frequency (in Hz) separating low and mid
 frequencies. Type: float. Units: 'Hz'. Default value: 200\. Range:
 [50\..1000].;
-#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1343 @predelay;
-#X text 270 1343 A delay operating on the 'wet' signal. Large values
-will provide the impression of a larger room. Type: float. Units: 'ms'.
-Default value: 40\. Range: [0\..100].;
-#X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1415 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1358 @predelay;
+#X text 270 1358 A delay applied to the 'wet' signal. Large values
+give the impression of a larger room. Type: float. Units: 'ms'. Default
+value: 40\. Range: [0\..100].;
+#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1430 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1416 reset;
-#X text 270 1416 same as reset.;
-#X obj 20 1461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1466 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1431 reset;
+#X text 270 1431 resets the reverb state.;
+#X obj 20 1476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1481 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1467 1\.;
-#X text 170 1467 ~;
-#X text 270 1467 left channel.;
-#X text 130 1492 2\.;
-#X text 170 1492 ~;
-#X text 270 1492 right channel.;
-#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1532 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1482 1\.;
+#X text 170 1482 ~;
+#X text 270 1482 left channel input.;
+#X text 130 1507 2\.;
+#X text 170 1507 ~;
+#X text 270 1507 right channel input.;
+#X obj 20 1542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1547 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1533 1\.;
-#X text 170 1533 ~;
-#X text 270 1533 output left.;
-#X text 130 1553 2\.;
-#X text 170 1553 ~;
-#X text 270 1553 output right.;
+#X text 130 1548 1\.;
+#X text 170 1548 ~;
+#X text 270 1548 left channel output.;
+#X text 130 1568 2\.;
+#X text 170 1568 ~;
+#X text 270 1568 right channel output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1603 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1606 library: ceammc v0.9.8;
-#N canvas 10 1625 400 290 info 0;
+#X obj 1 1618 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1621 library: ceammc v0.9.8;
+#N canvas 10 1640 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -169,7 +171,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1625 pd info;
+#X restore 10 1640 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;

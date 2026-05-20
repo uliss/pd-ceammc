@@ -92,7 +92,7 @@ fx.rb_pitchshift~-help.pd;
 #X text 220 1007 педаль CryBaby WahWah;
 #X obj 30 1035 ui.link @title [fx.zita_rev1~] @url
 fx.zita_rev1~-help.pd;
-#X text 220 1032 zita стерео ревербератор;
+#X text 220 1032 стереоревербератор Zita;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1057 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -999,7 +999,7 @@
     <entry name="fx.wahwah~" descr="digitized CryBaby wah pedal" ref_view="link">
       <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.zita_rev1~" descr="zita stereo reverb" ref_view="link">
+    <entry name="fx.zita_rev1~" descr="Zita stereo reverb" ref_view="link">
       <xi:include href="fx.zita_rev1~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_fx.xml" parse="xml"/>

@@ -592,7 +592,7 @@ fx.tapiir~	multi-tap delay / многоуровневая задержка
 fx.tremolo~	tremolo effect from Guitarix project / эффект тремоло от проекта Guitarix
 fx.vocoder~	simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank / простой вокодер, в котором спектр модулирующего сигнала анализируется с помощью 32-диапазонного фильтра
 fx.wahwah~	digitized CryBaby wah pedal / педаль CryBaby WahWah
-fx.zita_rev1~	zita stereo reverb / zita стерео ревербератор
+fx.zita_rev1~	Zita stereo reverb / стереоревербератор Zita
 global.dict	global named dictionary / глобальный именованный словарь
 global.json	global named dictionary / глобальный именованный словарь
 global.float	global named float object / глобальной именованное число с плавающей точкой

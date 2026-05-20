@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">zita stereo reverb</tr>
-        <tr lang="ru">zita стерео ревербератор</tr>
+        <tr lang="en">Zita stereo reverb</tr>
+        <tr lang="ru">стереоревербератор Zita</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,25 +18,16 @@
     </meta>
     <arguments>
       <argument name="DECAY_LOW" type="float" minvalue="1" maxvalue="60" units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в низкочастотном
-                диапазоне -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
-        диапазоне</tr>
+        <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне</tr>
       </argument>
       <argument name="DECAY_MID" type="float" minvalue="1" maxvalue="60" units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в диапазоне средних
-                частот -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
-        частот</tr>
+        <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне</tr>
       </argument>
       <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-        <tr lang="en">ratio between source signal (dry) and processed signal (wet)</tr>
-        <!-- old: Соотношение между исходным сигналом (сухим) и
-                обработанным сигналом (мокрым) -->
-        <tr lang="ru" finished="false">Соотношение между исходным сигналом (сухим) и обработанным
-        сигналом (мокрым)</tr>
+        <tr lang="en">ratio between the source signal (dry) and the processed signal (wet)</tr>
+        <tr lang="ru">соотношение между исходным сигналом (dry) и обработанным сигналом (wet)</tr>
       </argument>
     </arguments>
     <properties>
@@ -45,131 +36,94 @@
       <xi:include href="props_active.xml" />
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypasses the processed signal.</tr>
+        <tr lang="ru">флаг обхода. Если true: пропускает обработанный сигнал.</tr>
       </property>
       <!-- @damp_hf -->
-      <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
-      units="hertz">
-        <tr lang="en">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
-        T60</tr>
-        <!-- old: Частота (Гц), при которой высокочастотный T60
-                составляет половину T60 среднего диапазона -->
-        <tr lang="ru" finished="false">Частота (Гц), при которой высокочастотный T60 составляет
-        половину T60 среднего диапазона</tr>
+      <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000" units="hertz">
+        <tr lang="en">frequency (in Hz) at which the high-frequency T60 is half the mid-band T60</tr>
+        <tr lang="ru">частота (в Гц), на которой высокочастотный T60 составляет половину среднечастотного T60</tr>
       </property>
       <!-- @decay_low -->
-      <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
-      units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в низкочастотном
-                диапазоне -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
-        диапазоне</tr>
+      <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3" units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне</tr>
       </property>
       <!-- @decay_mid -->
-      <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2"
-      units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в диапазоне средних
-                частот -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
-        частот</tr>
+      <property name="@decay_mid" type="float" minvalue="1" maxvalue="60" default="2" units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">Ratio between source signal (dry) and processed signal (wet)</tr>
-        <!-- old: Соотношение между исходным сигналом (сухим) и
-                обработанным сигналом (мокрым) -->
-        <tr lang="ru" finished="false">Соотношение между исходным сигналом (сухим) и обработанным
-        сигналом (мокрым)</tr>
+        <tr lang="en">ratio between the source signal (dry) and the processed signal (wet)</tr>
+        <tr lang="ru">соотношение между исходным сигналом (dry) и обработанным сигналом (wet)</tr>
       </property>
       <!-- @fr_ldecay -->
-      <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="40"
-      units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in low-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в низкочастотном
-                диапазоне -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в низкочастотном
-        диапазоне</tr>
+      <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="40" units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the low-frequency band (in freeze mode)</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в низкочастотном диапазоне (в режиме заморозки)</tr>
       </property>
       <!-- @fr_mdecay -->
-      <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40"
-      units="second">
-        <tr lang="en">time (in seconds) to decay 60dB in mid-frequency band</tr>
-        <!-- old: время (в секундах) распада 60dB в диапазоне средних
-                частот -->
-        <tr lang="ru" finished="false">время (в секундах) распада 60dB в диапазоне средних
-        частот</tr>
+      <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40" units="second">
+        <tr lang="en">time (in seconds) for a 60dB decay in the mid-frequency band (in freeze mode)</tr>
+        <tr lang="ru">время (в секундах) спада на 60 дБ в среднечастотном диапазоне (в режиме заморозки)</tr>
       </property>
       <!-- @fr_time -->
-      <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
-      units="millisecond">
-        <tr lang="en">length of freeze tail</tr>
-        <tr lang="ru" finished="false">Длина замораживающего хвоста</tr>
+      <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100" units="millisecond">
+        <tr lang="en">freeze tail duration</tr>
+        <tr lang="ru">длительность хвоста в режиме заморозки</tr>
       </property>
       <!-- @freeze -->
       <property name="@freeze" type="bool" default="0">
-        <tr lang="en">freeze reverberation tail</tr>
-        <tr lang="ru" finished="false">замораживание реверберации хвоста</tr>
+        <tr lang="en">freeze the reverb tail</tr>
+        <tr lang="ru">заморозить хвост реверберации</tr>
       </property>
       <!-- @freq_low -->
-      <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
-      units="hertz">
-        <tr lang="en">Crossover frequency (Hz) separating low and middle frequencies</tr>
-        <!-- old: Перекрестная частота (Гц), разделяющая низкие и
-                средние частоты -->
-        <tr lang="ru" finished="false">Перекрестная частота (Гц), разделяющая низкие и средние
-        частоты</tr>
+      <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200" units="hertz">
+        <tr lang="en">crossover frequency (in Hz) separating low and mid frequencies</tr>
+        <tr lang="ru">частота кроссовера (в Гц), разделяющая низкие и средние частоты</tr>
       </property>
       <!-- @predelay -->
-      <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
-      units="millisecond">
-        <tr lang="en">a delay operating on the 'wet' signal. Large values will provide the
-        impression of a larger room</tr>
-        <!-- old: Задержка работы по сигналу «мокрый». Большие
-                значения обеспечат впечатление большой комнаты -->
-        <tr lang="ru" finished="false">Задержка работы по сигналу «мокрый». Большие значения
-        обеспечат впечатление большой комнаты</tr>
+      <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40" units="millisecond">
+        <tr lang="en">a delay applied to the 'wet' signal. Large values give the impression of a larger room.</tr>
+        <tr lang="ru">задержка, применяемая к сигналу 'wet'. Большие значения создают ощущение более крупного помещения.</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">same as reset</tr>
-          <tr lang="ru" finished="false">То же самое, что Reset</tr>
+          <tr lang="en">resets the reverb state</tr>
+          <tr lang="ru">сбрасывает состояние ревербератора</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">left channel</tr>
-          <tr lang="ru" finished="false">левый канал</tr>
+          <tr lang="en">left channel input</tr>
+          <tr lang="ru">левый входной канал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
-          <tr lang="en">right channel</tr>
-          <tr lang="ru" finished="false">Правый канал</tr>
+          <tr lang="en">right channel input</tr>
+          <tr lang="ru">правый входной канал</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">output left</tr>
-          <tr lang="ru" finished="false">выходной остаток</tr>
+          <tr lang="en">left channel output</tr>
+          <tr lang="ru">левый выходной канал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">output right</tr>
-          <tr lang="ru" finished="false">выходное право</tr>
+          <tr lang="en">right channel output</tr>
+          <tr lang="ru">правый выходной канал</tr>
         </out>
       </outlet>
     </outlets>
