@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">receiving messages from the OSC protocol</tr>
-        <tr lang="ru">получение сообщений протокола OSC</tr>
+        <tr lang="en">receives messages via the OSC protocol</tr>
+        <tr lang="ru">получение сообщений по протоколу OSC</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,55 +25,55 @@
     </meta>
     <arguments>
       <argument name="PATH" type="symbol">
-        <tr lang="en">OSC path to listen</tr>
-        <tr lang="ru" finished="false">Путь к прослушиванию</tr>
+        <tr lang="en">OSC path to listen to</tr>
+        <tr lang="ru">OSC-путь для прослушивания</tr>
       </argument>
       <argument name="SERVER" type="symbol">
         <tr lang="en">OSC server name</tr>
-        <tr lang="ru" finished="false">Название сервера SC</tr>
+        <tr lang="ru">имя OSC-сервера</tr>
       </argument>
       <argument name="TYPES" type="symbol">
         <tr lang="en">expected OSC type string</tr>
-        <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
+        <tr lang="ru">ожидаемая строка типов OSC</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @path -->
       <property name="@path" type="symbol" default="">
-        <tr lang="en">OSC listen path</tr>
-        <tr lang="ru" finished="false">Слушать Path</tr>
+        <tr lang="en">OSC path to listen to</tr>
+        <tr lang="ru">OSC-путь для прослушивания</tr>
       </property>
       <!-- @server -->
       <property name="@server" type="symbol" default="default">
         <tr lang="en">OSC server name</tr>
-        <tr lang="ru" finished="false">Название сервера SC</tr>
+        <tr lang="ru">имя OSC-сервера</tr>
       </property>
       <!-- @types -->
       <property name="@types" type="symbol" default="none">
         <tr lang="en">expected OSC type string</tr>
-        <tr lang="ru" finished="false">ожидаемая строка типа OSC</tr>
+        <tr lang="ru">ожидаемая строка типов OSC</tr>
       </property>
     </properties>
     <methods />
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">message input</tr>
-          <tr lang="ru" finished="false">ввод сообщения</tr>
+          <tr lang="en">control input</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set OSC listen path</tr>
-          <tr lang="ru" finished="false">Установить путь прослушивания</tr>
+          <tr lang="en">set the OSC listen path</tr>
+          <tr lang="ru">установить OSC-путь для прослушивания</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">OSC output</tr>
-          <tr lang="ru" finished="false">выпуск ОСК</tr>
+          <tr lang="en">OSC message output</tr>
+          <tr lang="ru">выход OSC-сообщений</tr>
         </out>
       </outlet>
     </outlets>

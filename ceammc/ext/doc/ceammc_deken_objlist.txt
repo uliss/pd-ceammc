@@ -996,8 +996,8 @@ http.send	HTTP request sender / отправляет HTTP запросы
 net.mdns	MDNS service discovery / обнаружение служб MDNS
 net.mqtt.client	MQTT client / MQTT клиент
 mqtt.client	MQTT client / MQTT клиент
-net.osc.receive	receiving messages from the OSC protocol / получение сообщений протокола OSC
-net.osc.r	receiving messages from the OSC protocol / получение сообщений протокола OSC
+net.osc.receive	receives messages via the OSC protocol / получение сообщений по протоколу OSC
+net.osc.r	receives messages via the OSC protocol / получение сообщений по протоколу OSC
 net.osc.send	sending messages via the OSC protocol / отправка сообщений протокола OSC
 net.osc.s	sending messages via the OSC protocol / отправка сообщений протокола OSC
 net.osc.server	OSC server start and control / запуск и управление OSC-сервером

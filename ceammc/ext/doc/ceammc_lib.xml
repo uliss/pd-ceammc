@@ -1837,7 +1837,7 @@
     <entry name="net.mqtt.client" descr="MQTT client" ref_view="link">
       <xi:include href="net.mqtt.client.pddoc" parse="xml"/>
     </entry>
-    <entry name="net.osc.receive" descr="receiving messages from the OSC protocol" ref_view="link">
+    <entry name="net.osc.receive" descr="receives messages via the OSC protocol" ref_view="link">
       <xi:include href="net.osc.receive.pddoc" parse="xml"/>
     </entry>
     <entry name="net.osc.send" descr="sending messages via the OSC protocol" ref_view="link">

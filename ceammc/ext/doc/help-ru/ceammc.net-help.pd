@@ -25,7 +25,7 @@ net.mqtt.client-help.pd;
 #X text 220 267 MQTT клиент;
 #X obj 30 295 ui.link @title [net.osc.receive] @url
 net.osc.receive-help.pd;
-#X text 220 292 получение сообщений протокола OSC;
+#X text 220 292 получение сообщений по протоколу OSC;
 #X obj 30 320 ui.link @title [net.osc.send] @url net.osc.send-help.pd;
 #X text 220 317 отправка сообщений протокола OSC;
 #X obj 30 345 ui.link @title [net.osc.server] @url

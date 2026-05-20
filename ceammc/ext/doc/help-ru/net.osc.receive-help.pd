@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 511 50 получение сообщений протокола OSC;
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 489 50 получение сообщений по протоколу OSC;
 #X obj 1 1 cnv 5 765 40 empty empty net.osc.receive 20 20 0 20 -104026
 -4096 0;
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -26,29 +26,29 @@
 #X text 130 304 1\.;
 #X text 170 304 symbol;
 #X obj 268 305 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 304 PATH: OSC path to listen. Тип: symbol.;
+#X text 270 304 PATH: OSC-путь для прослушивания. Тип: symbol.;
 #X text 130 329 2\.;
 #X text 170 329 symbol;
 #X obj 268 330 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 329 SERVER: OSC server name. Тип: symbol.;
+#X text 270 329 SERVER: имя OSC-сервера. Тип: symbol.;
 #X text 130 354 3\.;
 #X text 170 354 symbol;
 #X obj 268 355 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 354 TYPES: expected OSC type string. Тип: symbol.;
+#X text 270 354 TYPES: ожидаемая строка типов OSC. Тип: symbol.;
 #X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 394 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 397 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 395 @path;
-#X text 270 395 OSC listen path. Тип: symbol.;
+#X text 270 395 OSC-путь для прослушивания. Тип: symbol.;
 #X obj 250 425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 425 @server;
-#X text 270 425 OSC server name. Тип: symbol. Значение по умолчанию:
+#X text 270 425 Имя OSC-сервера. Тип: symbol. Значение по умолчанию:
 default.;
 #X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 455 @types;
-#X text 270 455 Expected OSC type string. Тип: symbol. Значение по
+#X text 270 455 Ожидаемая строка типов OSC. Тип: symbol. Значение по
 умолчанию: none.;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 512 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
@@ -57,15 +57,15 @@ default.;
 #X obj 20 538 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 539 1\.;
-#X text 270 539 message input.;
+#X text 270 539 управляющий вход.;
 #X text 130 564 2\.;
 #X text 170 564 symbol:;
-#X text 270 564 set OSC listen path.;
+#X text 270 564 установить OSC-путь для прослушивания.;
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 604 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 605 1\.;
-#X text 270 605 OSC output.;
+#X text 270 605 выход OSC-сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
