@@ -129,7 +129,7 @@
         <param name="relative" type="symbol" enum="before after" required="false">
           <tr lang="en">create relative event before or after target event</tr>
           <tr lang="ru" finished="false">создать относительное событие до или после целевого
-          события;</tr>
+          события</tr>
         </param>
         <param name="REL_EVENT" type="symbol" required="false">
           <tr lang="en">relative event name</tr>

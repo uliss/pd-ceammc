@@ -76,9 +76,9 @@
       </property>
       <!-- @float_width -->
       <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
-        <tr lang="en">number of digits after the decimal point. If -1: skip trailing zeros; if 0:
+        <tr lang="en">number of digits after the decimal point. If -1: skip trailing zeros, if 0:
         output as integers.</tr>
-        <tr lang="ru">количество цифр после десятичной точки. Если -1: отбрасывать незначащие нули;
+        <tr lang="ru">количество цифр после десятичной точки. Если -1: отбрасывать незначащие нули,
         если 0: выводить как целые числа.</tr>
       </property>
       <!-- @hex -->

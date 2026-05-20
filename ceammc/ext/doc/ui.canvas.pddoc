@@ -544,7 +544,7 @@
           <tr lang="en">starts new subpath, means no line connection between last point and new
           subpath shape</tr>
           <tr lang="ru" finished="false">запускает новый субпат, означает отсутствие линейной связи
-          между последней точкой и новой формой субпата;</tr>
+          между последней точкой и новой формой субпата</tr>
         </info>
       </method>
       <!-- polar -->

@@ -163,8 +163,8 @@
       <!-- interp -->
       <method name="interp">
         <info>
-          <tr lang="en">for this object acts as *load*; no interpolation is performed.</tr>
-          <tr lang="ru">для этого объекта действует как *load*; интерполяция не выполняется.</tr>
+          <tr lang="en">for this object acts as *load*: no interpolation is performed.</tr>
+          <tr lang="ru">для этого объекта действует как *load*: интерполяция не выполняется.</tr>
         </info>
       </method>
       <!-- load -->

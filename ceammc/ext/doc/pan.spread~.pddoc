@@ -47,9 +47,9 @@
       </property>
       <!-- @spread -->
       <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">when @spread = 0, all channels are in the center; when @spread = 1, they have
+        <tr lang="en">when @spread = 0, all channels are in the center, when @spread = 1, they have
         maximum distribution.</tr>
-        <tr lang="ru">при @spread = 0 все каналы находятся в центре; при @spread = 1 они имеют
+        <tr lang="ru">при @spread = 0 все каналы находятся в центре, при @spread = 1 они имеют
         максимальное распределение.</tr>
       </property>
     </properties>

@@ -32,11 +32,11 @@
         <tr lang="en">The center of the density function, mu, is the mean of the random variable.
         The spread of the density function is measured by a parameter called *standard deviation*
         or sigma. 68.26% of all results will occur in the interval with width +-SIGMA, centered by
-        the mean; the random variable is unbounded, both as above and below the mean.</tr>
+        the mean: the random variable is unbounded, both as above and below the mean.</tr>
         <tr lang="ru" finished="false">Центр функции плотности, mu, является средним значением
         случайной переменной. Распределение функции плотности измеряется параметром, называемым
         стандартным отклонением или сигмой. 68,26% всех результатов будет происходить в интервале с
-        шириной +-SIGMA, центрированной на среднее; случайная величина не ограничена, как выше, так
+        шириной +-SIGMA, центрированной на среднее: случайная величина не ограничена, как выше, так
         и ниже среднего.</tr>
       </par>
       <par>

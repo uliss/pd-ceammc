@@ -195,7 +195,7 @@
         <info>
           <tr lang="en">enable or disable legato/smooth transitions between consecutive notes</tr>
           <tr lang="ru" finished="false">включить или отключить легато/гладкий переход между
-          последовательными нотами;</tr>
+          последовательными нотами</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">MIDI channel, ignored</tr>

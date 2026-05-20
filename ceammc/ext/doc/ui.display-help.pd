@@ -67,89 +67,89 @@ bool. Default value: 0\.;
 #X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 794 @float_width;
 #X text 270 794 Number of digits after the decimal point. If -1: skip
-trailing zeros; if 0: output as integers. Type: int. Default value:
+trailing zeros \, if 0: output as integers. Type: int. Default value:
 -1\. Range: [-1\..17].;
-#X obj 250 866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 866 @hex;
-#X text 270 866 Output integers in hexadecimal format. Type: bool.
+#X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 851 @hex;
+#X text 270 851 Output integers in hexadecimal format. Type: bool.
 Default value: 0\.;
-#X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 908 @hex_width;
-#X text 270 908 Hexadecimal output format width. Type: int. Default
+#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 893 @hex_width;
+#X text 270 893 Hexadecimal output format width. Type: int. Default
 value: 2\. Range: [0\..16].;
-#X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 950 @receive;
-#X text 270 950 Source of message receive. Type: symbol. Default value:
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 935 @receive;
+#X text 270 935 Source of message receive. Type: symbol. Default value:
 (null).;
-#X obj 250 992 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 992 @active_color;
-#X text 270 992 Element active color (list of red \, green \, blue
+#X obj 250 977 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 977 @active_color;
+#X text 270 977 Element active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X obj 250 1034 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1034 @background_color;
-#X text 270 1034 Element background color (list of red \, green \,
+#X obj 250 1019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1019 @background_color;
+#X text 270 1019 Element background color (list of red \, green \,
 blue values in the 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X obj 250 1091 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1091 @border_color;
-#X text 270 1091 Border color (list of red \, green \, blue values
+#X obj 250 1076 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1076 @border_color;
+#X text 270 1076 Border color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1133 @text_color;
-#X text 270 1133 Text color (list of red \, green \, blue values in
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1118 @text_color;
+#X text 270 1118 Text color (list of red \, green \, blue values in
 the 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1175 @fontname;
-#X text 270 1175 Font name. Type: symbol. Default value: Helvetica.
+#X obj 250 1160 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1160 @fontname;
+#X text 270 1160 Font name. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1217 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1217 @fontsize;
-#X text 270 1217 Font size. Type: int. Default value: 11\. Range: [4\..100].;
-#X obj 250 1247 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1247 @fontslant;
-#X text 270 1247 Font slant. Type: symbol. Default value: roman. Allowed
+#X obj 250 1202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1202 @fontsize;
+#X text 270 1202 Font size. Type: int. Default value: 11\. Range: [4\..100].;
+#X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1232 @fontslant;
+#X text 270 1232 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1289 @fontweight;
-#X text 270 1289 Font weight. Type: symbol. Default value: normal.
+#X obj 250 1274 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1274 @fontweight;
+#X text 270 1274 Font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X obj 250 1331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1331 @pinned;
-#X text 270 1331 Pin mode. If set to 1 \, it places the element at
+#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1316 @pinned;
+#X text 270 1316 Pin mode. If set to 1 \, it places the element at
 the furthest level on the canvas behind other elements. Type: bool.
 Default value: 0\.;
-#X obj 250 1388 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1388 @size;
-#X text 270 1388 Object size (width \, height pair). Type: list. Default
+#X obj 250 1373 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1373 @size;
+#X text 270 1373 Object size (width \, height pair). Type: list. Default
 value: 80 18\.;
-#X obj 20 1440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1445 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1430 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1446 pos;
-#X text 270 1446 set UI element position. Arguments are:;
-#X obj 300 1471 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1471 X: top left x-coord. Type: float.;
-#X obj 300 1494 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1494 Y: top right y-coord. Type: float.;
-#X obj 250 1527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1527 dump;
-#X text 270 1527 dumps all object info to the Pd console window.;
-#X obj 20 1572 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1577 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1431 pos;
+#X text 270 1431 set UI element position. Arguments are:;
+#X obj 300 1456 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1456 X: top left x-coord. Type: float.;
+#X obj 300 1479 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1479 Y: top right y-coord. Type: float.;
+#X obj 250 1512 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1512 dump;
+#X text 270 1512 dumps all object info to the Pd console window.;
+#X obj 20 1557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1562 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1578 1\.;
-#X text 270 1578 accepts any message and displays it.;
+#X text 130 1563 1\.;
+#X text 270 1563 accepts any message and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1633 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1636 library: ceammc v0.9.8;
-#X text 640 1648 see also:;
-#X obj 715 1651 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1618 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1621 library: ceammc v0.9.8;
+#X text 640 1633 see also:;
+#X obj 715 1636 ui.link @background_color 0.78431 0.78431 0.78431
 @title [msg] @url msg-help.pd;
-#N canvas 10 1655 400 290 info 0;
+#N canvas 10 1640 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -173,7 +173,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1655 pd info;
+#X restore 10 1640 pd info;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;
