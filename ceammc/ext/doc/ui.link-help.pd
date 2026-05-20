@@ -6,65 +6,64 @@
 0;
 #X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.link] @url ui.link-help.pd;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Link allows to open external URLs \, not only Pd patches
-but all kind of URL supported by your OS. If relative file path is
-given \, it searched in current directory \, then Pd doc directory
-and Pd external directories;
-#X text 50 216 [ui.link @url vu-help.pd @title VU-help];
-#X obj 50 245 ui.link @title VU-help @url vu-help.pd;
-#X text 50 274 [ui.link @url http://puredata.info @title puredata.info];
-#X obj 50 303 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 365 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Link allows opening external URLs \, not only Pd patches
+but all kinds of URLs supported by your OS. If a relative file path
+is given \, it is searched for in the current directory \, then the
+Pd doc directory and Pd external directories.;
+#X text 50 231 [ui.link @url vu-help.pd @title VU-help];
+#X obj 50 260 ui.link @title VU-help @url vu-help.pd;
+#X text 50 289 [ui.link @url http://puredata.info @title puredata.info];
+#X obj 50 318 ui.link @title puredata.info @url http://puredata.info;
+#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 380 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 400 Left-click;
-#X text 310 400 open link target.;
-#X text 130 420 Right-click + ⌥;
-#X text 310 420 open properties dialog.;
-#X text 130 440 Right-click + ⇧;
-#X text 310 440 open object help.;
-#X text 130 460 Right-click + ⌥;
-#X text 310 460 open properties dialog.;
-#X text 81 460 [Edit];
-#X text 130 480 Right-click + ⇧;
-#X text 310 480 open the object help.;
-#X text 81 480 [Edit];
-#X text 130 500 Right-click;
-#X text 310 500 opens Pd popup menu.;
-#X text 81 500 [Edit];
-#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 535 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 415 Left-click;
+#X text 310 415 open link target.;
+#X text 130 435 Right-click + ⌥;
+#X text 310 435 open properties dialog.;
+#X text 130 455 Right-click + ⇧;
+#X text 310 455 open object help.;
+#X text 130 475 Right-click + ⌥;
+#X text 310 475 open properties dialog.;
+#X text 81 475 [Edit];
+#X text 130 495 Right-click + ⇧;
+#X text 310 495 open the object help.;
+#X text 81 495 [Edit];
+#X text 130 515 Right-click;
+#X text 310 515 opens Pd popup menu.;
+#X text 81 515 [Edit];
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 550 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 538 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 553 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 536 1\.;
-#X text 170 536 symbol;
-#X obj 268 537 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 536 URL: @url property value. Type: symbol.;
-#X text 130 561 2\.;
-#X text 170 561 symbol;
-#X obj 268 562 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 561 TITLE: @title property value. Type: symbol.;
-#X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 601 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 551 1\.;
+#X text 170 551 symbol;
+#X obj 268 552 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 551 URL: @url property value. Type: symbol.;
+#X text 130 576 2\.;
+#X text 170 576 symbol;
+#X obj 268 577 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 576 TITLE: @title property value. Type: symbol.;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 616 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 604 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 619 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 602 @title;
-#X text 270 602 Link title. Type: symbol. Default value: <no title>.;
-#X obj 250 632 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 632 @url;
-#X text 270 632 Destination url. Type: symbol. Default value: <no url>.;
-#X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 662 @hover_color;
-#X text 270 662 Color when mouse pointer is over element (list of red
-\, green \, blue values in 0-1 range). Type: list. Default value: 1
-0 0.5 1\.;
+#X msg 130 617 @title;
+#X text 270 617 Link title. Type: symbol. Default value: <no title>.;
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 647 @url;
+#X text 270 647 Destination url. Type: symbol. Default value: <no url>.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 @hover_color;
+#X text 270 677 RGB color when mouse pointer is over the link. Type:
+list. Default value: 1 0 0.5 1\. Item range: [0\..1].;
 #X obj 250 719 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 719 @link_color;
-#X text 270 719 Link color (list of red \, green \, blue values in
-0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
+#X text 270 719 RGB link color. Type: list. Default value: 0 0.625
+0.75 1\. Item range: [0\..1].;
 #X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 761 @fontname;
 #X text 270 761 Font name. Type: symbol. Default value: Helvetica.
@@ -93,7 +92,7 @@ value: 0\.;
 #X obj 300 1015 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1015 X: top left x-coord. Type: float.;
 #X obj 300 1038 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1038 Y: top right y-coord. Type: float.;
+#X text 300 1038 Y: top left y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
