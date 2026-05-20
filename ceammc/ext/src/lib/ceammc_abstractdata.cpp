@@ -76,7 +76,7 @@ bool AbstractData::readJson(const std::string& path)
         return false;
     }
 
-    return false;
+    return true;
 }
 
 bool AbstractData::writeJson(const std::string& path, const json::JsonWriteOpts& opts) const
