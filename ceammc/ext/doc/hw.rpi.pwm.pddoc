@@ -13,7 +13,7 @@
       <license>GPL3 or later</license>
       <library>ceammc</library>
       <category>hw</category>
-      <keywords>pwm hawdware rpi raspberry</keywords>
+      <keywords>pwm hardware rpi raspberry</keywords>
       <since>0.9.8</since>
     </meta>
     <info>
@@ -37,13 +37,13 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как включить и
+        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и
         настроить их.</tr>
       </par>
       <par>
-        <tr lang="en">Note: the Raspberry Pi?s analog audio output uses both PWM channels. Playing
+        <tr lang="en">Note: the Raspberry Pi's analog audio output uses both PWM channels. Playing
         audio and simultaneously accessing a PWM channel may cause issues.</tr>
-        <tr lang="ru">Аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ. Воспроизведение
+        <tr lang="ru">Примечание: аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ. Воспроизведение
         звука и одновременное обращение к каналу ШИМ может вызвать проблемы.</tr>
       </par>
       <par>
@@ -52,10 +52,10 @@
       </par>
       <par>
         <tr lang="en">|| Raspberry Pi 5 and later</tr>
-        <tr lang="ru">Raspberry Pi 5 и выше</tr>
+        <tr lang="ru">|| Raspberry Pi 5 и выше</tr>
       </par>
       <par>
-        <tr lang="en">The Raspberry Pi 5 support 4 hardware PWM channels. By default, the channels
+        <tr lang="en">The Raspberry Pi 5 supports 4 hardware PWM channels. By default, the channels
         are mapped as follows:</tr>
         <tr lang="ru">Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ. По умолчанию каналы
         отображаются следующим образом:</tr>
@@ -78,7 +78,7 @@
       </par>
       <par>
         <tr lang="en">Consult the official documentation on how to enable and configure these.</tr>
-        <tr lang="ru">Проконсультируйтесь с официальной документацией о том, как включить и
+        <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и
         настроить их.</tr>
       </par>
       <par>
@@ -89,33 +89,30 @@
         <tr lang="en">Some of the GPIO pins capable of supporting hardware PWM can also be
         configured for use with other peripherals. Be careful not to enable two peripherals on the
         same pin at the same time.</tr>
-        <tr lang="ru">Некоторые из контактов GPIO, способных поддерживать аппаратную ШИМ, также
+        <tr lang="ru">Некоторые из контактов GPIO, способных поддерживать аппаратный ШИМ, также
         могут быть настроены для использования с другими периферийными устройствами. Будьте
-        осторожны, чтобы не включить два периферийных устройства на одном и том же контакте
-        одновременно.</tr>
+        осторожны и не включайте два периферийных устройства на одном контакте одновременно.</tr>
       </par>
     </info>
     <arguments>
       <argument name="PWM_CH" type="int" minvalue="-1" maxvalue="3">
-        <tr lang="en">PWM channel. See @ch</tr>
-        <tr lang="ru">канал ШИМ. См. @ch</tr>
+        <tr lang="en">PWM channel. See @ch.</tr>
+        <tr lang="ru">канал ШИМ. См. @ch.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pwm_ch -->
       <property name="@pwm_ch" type="int" default="-1" minvalue="-1" maxvalue="3"
       access="initonly">
-        <tr lang="en">PWM channel. Valid values are: 0-3. If equals -1: no PWM channel
-        selected.</tr>
-        <tr lang="ru">канал ШИМ. Действительные значения: 0-3. Если равно -1: канал ШИМ не
-        выбран.</tr>
+        <tr lang="en">PWM channel. If equal to -1: no PWM channel is selected.</tr>
+        <tr lang="ru">канал ШИМ. Если равно -1: канал ШИМ не выбран.</tr>
       </property>
     </properties>
     <methods>
       <!-- duty -->
       <method name="duty">
         <info>
-          <tr lang="en">set duty cycle</tr>
+          <tr lang="en">set the duty cycle</tr>
           <tr lang="ru">установить рабочий цикл</tr>
         </info>
         <param name="DUTY" type="float" minvalue="0" maxvalue="1" required="true">
@@ -126,8 +123,8 @@
       <!-- enable -->
       <method name="enable">
         <info>
-          <tr lang="en">enable PWM. By default it is disabled.</tr>
-          <tr lang="ru">Включить ШИМ. По умолчанию он отключен.</tr>
+          <tr lang="en">enable PWM. By default, it is disabled.</tr>
+          <tr lang="ru">включить ШИМ. По умолчанию он отключен.</tr>
         </info>
         <param name="ENABLE" type="bool" required="true">
           <tr lang="en">value</tr>
@@ -137,7 +134,7 @@
       <!-- freq -->
       <method name="freq">
         <info>
-          <tr lang="en">set frequency</tr>
+          <tr lang="en">set the frequency</tr>
           <tr lang="ru">установить частоту</tr>
         </info>
         <param name="FREQ" type="float" minvalue="0" units="hertz" required="true">
@@ -152,8 +149,8 @@
       <!-- period -->
       <method name="period">
         <info>
-          <tr lang="en">set period. Expected width&lt;=period.</tr>
-          <tr lang="ru">установить период цикла ШИМ. Ожидаемая ширина ШИМ &lt;=период.</tr>
+          <tr lang="en">set the period. Expected width &lt;=period.</tr>
+          <tr lang="ru">установить период. Ожидаемая ширина &lt;=периоду.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
@@ -163,19 +160,19 @@
       <!-- polarity -->
       <method name="polarity">
         <info>
-          <tr lang="en">set output polarity</tr>
+          <tr lang="en">set the output polarity</tr>
           <tr lang="ru">установить выходную полярность</tr>
         </info>
         <param name="INVERTED" type="bool" required="true">
-          <tr lang="en">new value. If true: polarity is inverted</tr>
-          <tr lang="ru">новое значение. Если true: полярность перевернута</tr>
+          <tr lang="en">new value. If true: the polarity is inverted.</tr>
+          <tr lang="ru">новое значение. Если true: полярность инвертирована.</tr>
         </param>
       </method>
       <!-- pwm -->
       <method name="pwm">
         <info>
-          <tr lang="en">set period and pulse width. Expected width&lt;=period.</tr>
-          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина &lt;=период.</tr>
+          <tr lang="en">set the period and pulse width. Expected width &lt;=period.</tr>
+          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина &lt;=периоду.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
@@ -189,8 +186,8 @@
       <!-- width -->
       <method name="width">
         <info>
-          <tr lang="en">set pulse width. Expected width&lt;=period.</tr>
-          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;= период.</tr>
+          <tr lang="en">set the pulse width. Expected width &lt;=period.</tr>
+          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;=периоду.</tr>
         </info>
         <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">pulse width</tr>
