@@ -19,60 +19,53 @@
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="16">
         <tr lang="en">number of input channels</tr>
-        <tr lang="ru" finished="false">Количество входных каналов</tr>
+        <tr lang="ru">количество входных каналов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @center -->
       <property name="@center" type="float" minvalue="-0.5" maxvalue="0.5" default="0">
-        <tr lang="en">shift the centre of the distribution</tr>
-        <tr lang="ru" finished="false">Смещение центра распределения</tr>
+        <tr lang="en">shifts the center of the distribution</tr>
+        <tr lang="ru">смещение центра распределения</tr>
       </property>
       <!-- @coeffs -->
       <property name="@coeffs" type="list" access="readonly" default="">
         <tr lang="en">list of gain pairs</tr>
-        <tr lang="ru" finished="false">Список пар усиления</tr>
+        <tr lang="ru">список пар коэффициентов усиления</tr>
       </property>
       <!-- @compensate -->
       <property name="@compensate" type="bool" default="0">
-        <tr lang="en">compensate output level: divide amplitude to number of input channels</tr>
-        <!-- old: компенсировать выходной уровень: разделить амплитуду
-                на количество входных каналов -->
-        <tr lang="ru" finished="false">компенсировать выходной уровень: разделить амплитуду на
-        количество входных каналов</tr>
+        <tr lang="en">compensates the output level: divides the amplitude by the number of input channels.</tr>
+        <tr lang="ru">компенсирует выходной уровень: делит амплитуду на количество входных каналов.</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" maxvalue="16" default="2" access="initonly">
         <tr lang="en">number of input channels</tr>
-        <tr lang="ru" finished="false">Количество входных каналов</tr>
+        <tr lang="ru">количество входных каналов</tr>
       </property>
       <!-- @spread -->
       <property name="@spread" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">for @spread = 0, all channels are in the centre, for 1, they have maximum
-        distribution</tr>
-        <!-- old: для @spread = 0, все каналы находятся в центре, для
-                1, они имеют максимальное распределение -->
-        <tr lang="ru" finished="false">для @spread = 0, все каналы находятся в центре, для 1, они
-        имеют максимальное распределение</tr>
+        <tr lang="en">when @spread = 0, all channels are in the center; when @spread = 1, they have maximum distribution.</tr>
+        <tr lang="ru">при @spread = 0 все каналы находятся в центре; при @spread = 1 они имеют максимальное распределение.</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet type="audio" number="1">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -80,13 +73,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output channel</tr>
-          <tr lang="ru" finished="false">левый выходной канал</tr>
+          <tr lang="ru">левый выходной канал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output channel</tr>
-          <tr lang="ru" finished="false">правильный выходной канал</tr>
+          <tr lang="ru">правый выходной канал</tr>
         </out>
       </outlet>
     </outlets>
