@@ -916,7 +916,7 @@ hw.kbd_light-help.pd;
 #X text 200 9519 basic document printing support;
 #X obj 30 9547 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 200 9544 driver for 16-bit ADC on ads1115 chip for Raspberry
+#X text 200 9544 driver for 16-bit ADC on ADS1115 chip for Raspberry
 Pi;
 #X obj 30 9572 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;

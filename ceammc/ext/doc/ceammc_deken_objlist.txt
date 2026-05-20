@@ -608,7 +608,7 @@ hw.gamepad	gamepad controller / геймпад контроллеры
 hw.kbd_light	controlling the keyboard backlight on some devices / управление подсветкой клавиатуры на некоторых устройствах
 hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
 hw.printer	basic document printing support / базовая поддержка печати документов
-hw.rpi.adc.ads1115	driver for 16-bit ADC on ads1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi
+hw.rpi.adc.ads1115	driver for 16-bit ADC on ADS1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry Pi
 hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
 hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi
 hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖКИ дисплея (1602 или 2004 модуль) для Raspberry Pi

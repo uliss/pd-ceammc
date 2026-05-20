@@ -952,7 +952,7 @@ hw.kbd_light-help.pd;
 #X text 200 10074 базовая поддержка печати документов;
 #X obj 30 10102 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 200 10099 драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
+#X text 200 10099 драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry
 Pi;
 #X obj 30 10127 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;

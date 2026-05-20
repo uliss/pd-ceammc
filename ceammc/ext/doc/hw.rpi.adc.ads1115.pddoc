@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">driver for 16-bit ADC on ads1115 chip for Raspberry Pi</tr>
-        <tr lang="ru">драйвер для 16-битного АЦП на чипе ads1115 для Raspberry Pi</tr>
+        <tr lang="en">driver for 16-bit ADC on ADS1115 chip for Raspberry Pi</tr>
+        <tr lang="ru">драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,31 +19,31 @@
     <info>
       <par>
         <tr lang="en">Full-scale range settings:</tr>
-        <tr lang="ru">Настройки полного диапазона значений</tr>
+        <tr lang="ru">Настройки полного диапазона значений:</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 6144mV, range ±6.144V, 1-bit: 0.1875mV</tr>
-        <tr lang="ru">- @fsr 6144мВ, диапазон ±6.144V, 1-бит: 0.1875мВ</tr>
+        <tr lang="en">- @fsr 6144mV, range ±6.144V, 1 bit: 0.1875mV</tr>
+        <tr lang="ru">- @fsr 6144мВ, диапазон ±6.144В, 1 бит: 0.1875мВ</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 4096mV, range ±4.096V, 1-bit: 0.125mV</tr>
-        <tr lang="ru">- @fsr 4096мВ, диапазон ±4.096V, 1-бит: 0.125мВ</tr>
+        <tr lang="en">- @fsr 4096mV, range ±4.096V, 1 bit: 0.125mV</tr>
+        <tr lang="ru">- @fsr 4096мВ, диапазон ±4.096В, 1 бит: 0.125мВ</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 2048mV, range ±2.048V, 1-bit: 0.0625mV</tr>
-        <tr lang="ru">- @fsr 2048мВ, диапазон ±2.048V, 1-бит: 0.0625мВ</tr>
+        <tr lang="en">- @fsr 2048mV, range ±2.048V, 1 bit: 0.0625mV</tr>
+        <tr lang="ru">- @fsr 2048мВ, диапазон ±2.048В, 1 бит: 0.0625мВ</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 1024mV, range ±1.024V, 1-bit: 0.03125mV</tr>
-        <tr lang="ru">- @fsr 1024мВ, диапазон ±1.024V, 1-бит: 0.03125мВ</tr>
+        <tr lang="en">- @fsr 1024mV, range ±1.024V, 1 bit: 0.03125mV</tr>
+        <tr lang="ru">- @fsr 1024мВ, диапазон ±1.024В, 1 бит: 0.03125мВ</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 512mV, range ±0.512V, 1-bit: 0.015625mV</tr>
-        <tr lang="ru">- @fsr 512мВ, диапазон ±0.512V, 1-бит: 0.015625мВ</tr>
+        <tr lang="en">- @fsr 512mV, range ±0.512V, 1 bit: 0.015625mV</tr>
+        <tr lang="ru">- @fsr 512мВ, диапазон ±0.512В, 1 бит: 0.015625мВ</tr>
       </par>
       <par>
-        <tr lang="en">- @fsr 256mV, range ±0.256V, 1-bit: 0.0078125mV</tr>
-        <tr lang="ru">- @fsr 256мВ, диапазон ±0.256V, 1-бит: 0.0078125мВ</tr>
+        <tr lang="en">- @fsr 256mV, range ±0.256V, 1 bit: 0.0078125mV</tr>
+        <tr lang="ru">- @fsr 256мВ, диапазон ±0.256В, 1 бит: 0.0078125мВ</tr>
       </par>
     </info>
     <arguments>
@@ -62,7 +62,7 @@
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. Also 'default' value is accepted (for address 0x48) and 'alt'
+        <tr lang="en">I²C address. Also the 'default' value is accepted (for address 0x48) and 'alt'
         (for address 0x49)</tr>
         <tr lang="ru">Адрес I²C. Также принимается значение «default» (для адреса 0x48) и «alt»
         (для адреса 0x49)</tr>
@@ -82,26 +82,25 @@
       <!-- @in_min -->
       <property name="@in_min" type="float" minvalue="0.0" maxvalue="6144.0" default="0.0"
       access="readwrite">
-        <tr lang="en">input minimal value in millivolts</tr>
+        <tr lang="en">input minimum value in millivolts</tr>
         <tr lang="ru">минимальное входное значение в милливольтах</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="single" enum="diff single" access="initonly">
-        <tr lang="en">measure mode. If 'single' - measures a level between A0, A1, A2, A3 and GND.
-        If 'diff' - differential measure between A0 and A1, A0 and A3, A1 and A3, A2 and A3.</tr>
-        <tr lang="ru">режим измерения. Если "single" - измеряет уровени между A0, A1, A2, A3 и GND.
-        Если "diff" - измеряет разницу между А0 и А1, А0 и А3, А1 и А3, А2 и А3.</tr>
+        <tr lang="en">measurement mode. If 'single' - measures the level between A0, A1, A2, A3 and GND.
+        If 'diff' - differential measurement between A0 and A1, A0 and A3, A1 and A3, A2 and A3.</tr>
+        <tr lang="ru">режим измерения. Если "single" — измеряет уровень между A0, A1, A2, A3 и GND.
+        Если "diff" — дифференциальное измерение между A0 и A1, A0 и A3, A1 и A3, A2 и A3.</tr>
       </property>
       <!-- @norm -->
       <property name="@norm" type="bool" default="0" access="readwrite">
-        <tr lang="en">normalization. If 1: normalize output into specified by @out_min @out_max
-        properties range.</tr>
-        <tr lang="ru">нормализация. Если 1: нормализовать выходные значения в заданном свойствами
-        @out_min @out_max диапазоне.</tr>
+        <tr lang="en">normalization. If 1: normalizes output into the range specified by the @out_min and @out_max properties.</tr>
+        <tr lang="ru">нормализация. Если 1: нормализует выходные значения в диапазон, заданный свойствами
+        @out_min и @out_max.</tr>
       </property>
       <!-- @out_max -->
       <property name="@out_max" type="float" default="1.0" access="readwrite">
-        <tr lang="en">output max value</tr>
+        <tr lang="en">output maximum value</tr>
         <tr lang="ru">выходное максимальное значение</tr>
       </property>
       <!-- @out_min -->
@@ -112,7 +111,7 @@
       <!-- @poll_time -->
       <property name="@poll_time" type="float" minvalue="5.0" maxvalue="250.0" default="20.0"
       units="millisecond" access="initonly">
-        <tr lang="en">polling measure time</tr>
+        <tr lang="en">polling measurement time</tr>
         <tr lang="ru">время между измерениями</tr>
       </property>
     </properties>
@@ -121,11 +120,10 @@
       <method name="measure">
         <info>
           <tr lang="en">single measurement request</tr>
-          <tr lang="ru">запрос однкратного измерения</tr>
+          <tr lang="ru">запрос однократного измерения</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="3">
-          <tr lang="en">the channel to measure. If omitted: perform measurements on all
-          channels</tr>
+          <tr lang="en">channel to measure. If omitted: performs measurements on all channels</tr>
           <tr lang="ru">канал измерения. Если пропущено: выполнить измерения по всем каналам</tr>
         </param>
       </method>

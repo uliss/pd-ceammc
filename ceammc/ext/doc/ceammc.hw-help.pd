@@ -22,7 +22,7 @@
 #X text 220 292 basic document printing support;
 #X obj 30 320 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 220 317 driver for 16-bit ADC on ads1115 chip for Raspberry
+#X text 220 317 driver for 16-bit ADC on ADS1115 chip for Raspberry
 Pi;
 #X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;

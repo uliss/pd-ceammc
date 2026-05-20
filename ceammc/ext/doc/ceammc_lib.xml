@@ -1050,7 +1050,7 @@
     <entry name="hw.printer" descr="basic document printing support" ref_view="link">
       <xi:include href="hw.printer.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.adc.ads1115" descr="driver for 16-bit ADC on ads1115 chip for Raspberry Pi" ref_view="link">
+    <entry name="hw.rpi.adc.ads1115" descr="driver for 16-bit ADC on ADS1115 chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.adc.ads1115.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.display.hd44780" descr="LCD display driver for Raspberry Pi (1602 or 2004 module)" ref_view="link">

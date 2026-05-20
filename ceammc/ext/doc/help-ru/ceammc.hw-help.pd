@@ -22,7 +22,7 @@
 #X text 220 292 базовая поддержка печати документов;
 #X obj 30 320 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 220 317 драйвер для 16-битного АЦП на чипе ads1115 для Raspberry
+#X text 220 317 драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry
 Pi;
 #X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
