@@ -1086,7 +1086,7 @@
     <entry name="hw.rpi.sensor.sr04" descr="HC-SR04 ultrasonic ranging module for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.sr04.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.sensor.vl53l0x" descr="time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi" ref_view="link">
+    <entry name="hw.rpi.sensor.vl53l0x" descr="time-of-flight (ToF) laser-ranging sensor on the VL53L0X chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.vl53l0x.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.spi.max7219" descr="LED matrix driver based on max7219 chip for Raspberry Pi" ref_view="link">

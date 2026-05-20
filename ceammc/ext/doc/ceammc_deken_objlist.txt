@@ -623,7 +623,7 @@ hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (и
 hw.rpi.sensor.mpr121	12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration. / 12-канальный I²C-контроллер ёмкостного сенсора с низким энергопотреблением и автоматической калибровкой.
 hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi / MPU-6050 — гироскоп и акселерометр для Raspberry Pi
 hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / ультразвуковой дальномер HC-SR04 для Raspberry Pi
-hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
+hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on the VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
 hw.rpi.spi.max7219	LED matrix driver based on max7219 chip for Raspberry Pi / драйвер для LED матрицы на чипе max7219 для Raspberry Pi
 hw.rpi.spi.ws2812	ws2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты ws2812 для Raspberry Pi
 hw.serial	serial port device / серийный порт устройства

@@ -1,16 +1,16 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 291 50 cnv 1 474 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 296 50 time-of-flight (ToF) laser-ranging sensor on VL53L0X
+#X text 296 50 time-of-flight (ToF) laser-ranging sensor on the VL53L0X
 chip for Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.vl53l0x 20 20 0 20
 -104026 -4096 0;
 #X obj 587 11 hw.rpi.sensor.vl53l0x;
 #X obj 230 93 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Device can measure absolute distances up to 2m;
+#X text 240 98 The device can measure absolute distances up to 2m.;
 #X obj 230 103 cnv 1 2 15 empty empty empty 17 7 0 10 -158925 -1 0;
 #X text 240 123 To connect to the device \, set the @connect property
-to 1;
+to 1\.;
 #X obj 230 128 cnv 1 2 15 empty empty empty 17 7 0 10 -260289 -1 0;
 #X obj 50 211 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X text 78 211 <- connect;
@@ -31,8 +31,9 @@ ceammc://img/conn_vl53l0x.png;
 #X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 447 @i2c_addr;
-#X text 270 447 (initonly) I²C address. The value 'default' means default
-device I²C address (0x29). Type: int. Default value: -1\. Range: [-4\..119].;
+#X text 270 447 (initonly) I²C address. The value 'default' means the
+default device I²C address (0x29). Type: int. Default value: -1\. Range:
+[-4\..119].;
 #X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 504 @i2c_bus;
 #X text 270 504 (initonly) I²C bus. Type: atom. Default value: none.
@@ -46,13 +47,13 @@ value: 0\.;
 #X obj 20 618 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 619 address;
-#X text 270 619 set sensor I²C address. Note that the address resets
+#X text 270 619 set the sensor I²C address. Note that the address resets
 when the device is powered off. Arguments are:;
 #X obj 300 659 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 659 ADDR: new I²C address. Type: int. Range: [8\..119].;
 #X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 692 poll;
-#X text 270 692 turn on/off continuous sensor polling. Arguments are:;
+#X text 270 692 turn continuous sensor polling on/off. Arguments are:;
 #X obj 300 717 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 717 STATE: polling state. Type: bool.;
 #X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
@@ -60,7 +61,7 @@ when the device is powered off. Arguments are:;
 0;
 #X text 130 766 1\.;
 #X text 170 766 bang:;
-#X text 270 766 single measurement of distance.;
+#X text 270 766 perform a single distance measurement.;
 #X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 806 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

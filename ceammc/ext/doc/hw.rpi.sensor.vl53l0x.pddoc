@@ -7,8 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">time-of-flight (ToF) laser-ranging sensor on VL53L0X chip for Raspberry
-        Pi</tr>
+        <tr lang="en">time-of-flight (ToF) laser-ranging sensor on the VL53L0X chip for Raspberry Pi</tr>
         <tr lang="ru">лазерный дальномер на чипе VL53L0X для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
@@ -19,28 +18,25 @@
     </meta>
     <info>
       <par style="info">
-        <tr lang="en">Device can measure absolute distances up to 2m</tr>
+        <tr lang="en">The device can measure absolute distances up to 2m.</tr>
         <tr lang="ru">Устройство может измерять абсолютные расстояния до 2 м.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">To connect to the device, set the @connect property to 1</tr>
-        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1</tr>
+        <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
+        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
       </par>
     </info>
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
-        disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству на шине I²C. При
-        установке в 0: отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The value 'default' means default device I²C address (0x29)</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает адрес I²C устройства по умолчанию
-        (0x29)</tr>
+        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x29).</tr>
+        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства (0x29).</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -53,21 +49,19 @@
       <!-- address -->
       <method name="address">
         <info>
-          <tr lang="en">set sensor I²C address. Note that the address resets when the device is
-          powered off</tr>
-          <tr lang="ru">установка I²C адреса. Обратите внимание, что адрес сбрасывается, когда
-          устройство выключено</tr>
+          <tr lang="en">set the sensor I²C address. Note that the address resets when the device is powered off.</tr>
+          <tr lang="ru">установить I²C-адрес датчика. Обратите внимание, что адрес сбрасывается при выключении устройства.</tr>
         </info>
         <param name="ADDR" type="int" minvalue="8" maxvalue="119" required="true">
           <tr lang="en">new I²C address</tr>
-          <tr lang="ru">новый I²C адрес</tr>
+          <tr lang="ru">новый I²C-адрес</tr>
         </param>
       </method>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn on/off continuous sensor polling</tr>
-          <tr lang="ru">включить/выключить непрерывный опрос сенсора</tr>
+          <tr lang="en">turn continuous sensor polling on/off</tr>
+          <tr lang="ru">включить/выключить непрерывный опрос датчика</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">polling state</tr>
@@ -78,8 +72,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">single measurement of distance</tr>
-          <tr lang="ru">однократное измерение расстояния</tr>
+          <tr lang="en">perform a single distance measurement</tr>
+          <tr lang="ru">выполнить однократное измерение расстояния</tr>
         </in>
       </inlet>
     </inlets>
