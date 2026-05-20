@@ -1596,7 +1596,7 @@ midi.sustain-help.pd;
 risset.gliss-help.pd;
 #X text 200 16878 калькулятор для глиссандо Шеппарда/Риссе;
 #X obj 30 16906 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 200 16903 плеер семплов в формате SFZ;
+#X text 200 16903 проигрыватель сэмплов в формате SFZ;
 #X obj 30 16931 ui.link @title [speech.flite] @url
 speech.flite-help.pd;
 #X text 200 16928 рендеринг синтезатора речи в массив;

@@ -955,8 +955,8 @@ ceammc/modplug~	MOD file player / плеер файлов MOD
 qrcode	QR code generator / генератор QR кода
 ceammc/qrcode	QR code generator / генератор QR кода
 risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе
-sfizz~	SFZ format sample player / плеер семплов в формате SFZ
-ceammc/sfizz~	SFZ format sample player / плеер семплов в формате SFZ
+sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
+ceammc/sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 speech.flite	render speech to array / рендеринг синтезатора речи в массив
 speech.flite~	Flite text to speech synthesis / синтезатор речи Flite
 speech.rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice

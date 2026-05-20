@@ -5,7 +5,7 @@
 #X text 135 178 save and activate tuning at bank:1 \, preset:1;
 #X obj 20 207 midiin;
 #X msg 135 207 1 1 0 0 -50 0 0 0 0 0 0 0 0 -50;
-#X text 269 235 restore 12TFT;
+#X text 269 235 restore 12TET;
 #X obj 20 264 msg midi;
 #X obj 135 264 msg tune:12;
 #X msg 269 264 tunesel 0 0;

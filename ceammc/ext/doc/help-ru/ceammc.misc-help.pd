@@ -13,7 +13,7 @@
 #X obj 30 220 ui.link @title [risset.gliss] @url risset.gliss-help.pd;
 #X text 220 217 калькулятор для глиссандо Шеппарда/Риссе;
 #X obj 30 245 ui.link @title [sfizz~] @url sfizz~-help.pd;
-#X text 220 242 плеер семплов в формате SFZ;
+#X text 220 242 проигрыватель сэмплов в формате SFZ;
 #X obj 30 270 ui.link @title [speech.flite] @url speech.flite-help.pd;
 #X text 220 267 рендеринг синтезатора речи в массив;
 #X obj 30 295 ui.link @title [speech.flite~] @url
