@@ -1089,7 +1089,7 @@
     <entry name="hw.rpi.sensor.vl53l0x" descr="time-of-flight (ToF) laser-ranging sensor on the VL53L0X chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.vl53l0x.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.spi.max7219" descr="LED matrix driver based on max7219 chip for Raspberry Pi" ref_view="link">
+    <entry name="hw.rpi.spi.max7219" descr="LED matrix driver based on the MAX7219 chip for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.spi.max7219.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.spi.ws2812" descr="ws2812 LED strip driver for Raspberry Pi" ref_view="link">

@@ -66,7 +66,7 @@ hw.rpi.sensor.vl53l0x-help.pd;
 chip for Raspberry Pi;
 #X obj 30 705 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 220 702 LED matrix driver based on max7219 chip for Raspberry
+#X text 220 702 LED matrix driver based on the MAX7219 chip for Raspberry
 Pi;
 #X obj 30 730 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;

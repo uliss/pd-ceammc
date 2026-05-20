@@ -998,7 +998,7 @@ hw.rpi.sensor.vl53l0x-help.pd;
 Pi;
 #X obj 30 10487 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 200 10484 драйвер для LED матрицы на чипе max7219 для Raspberry
+#X text 200 10484 драйвер для LED-матрицы на чипе MAX7219 для Raspberry
 Pi;
 #X obj 30 10512 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
