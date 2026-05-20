@@ -99,7 +99,8 @@
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
           <tr lang="en">if 1: set the center of the circle, not the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра окружности, а не верхнего левого угла</tr>
+          <tr lang="ru">если 1: использовать координату центра окружности, а не верхнего левого
+          угла</tr>
         </param>
       </method>
       <!-- clear -->
@@ -121,7 +122,8 @@
         </param>
         <param name="H" type="int" required="true">
           <tr lang="en">column height (can be negative to draw in the opposite direction)</tr>
-          <tr lang="ru">высота столбца (может быть отрицательной для рисования в противоположном направлении)</tr>
+          <tr lang="ru">высота столбца (может быть отрицательной для рисования в противоположном
+          направлении)</tr>
         </param>
         <param name="DY" type="int" required="true">
           <tr lang="en">y offset</tr>
@@ -152,7 +154,8 @@
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
           <tr lang="en">if 1: set the center of the ellipse, not the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра эллипса, а не верхнего левого угла</tr>
+          <tr lang="ru">если 1: использовать координату центра эллипса, а не верхнего левого
+          угла</tr>
         </param>
       </method>
       <!-- fill -->
@@ -200,14 +203,17 @@
       <method name="get matrix">
         <info>
           <tr lang="en">output bitmap content as a [matrix NROWS NCOLS DATA...( message</tr>
-          <tr lang="ru">вывести содержимое растрового изображения в виде сообщения [matrix NROWS NCOLS DATA...(</tr>
+          <tr lang="ru">вывести содержимое растрового изображения в виде сообщения [matrix NROWS
+          NCOLS DATA...(</tr>
         </info>
       </method>
       <!-- get submatrix -->
       <method name="get submatrix">
         <info>
-          <tr lang="en">output submatrix bitmap content as a [matrix NROWS NCOLS DATA...( message</tr>
-          <tr lang="ru">вывести содержимое субматрицы растрового изображения в виде сообщения [matrix NROWS NCOLS DATA...(</tr>
+          <tr lang="en">output submatrix bitmap content as a [matrix NROWS NCOLS DATA...(
+          message</tr>
+          <tr lang="ru">вывести содержимое субматрицы растрового изображения в виде сообщения
+          [matrix NROWS NCOLS DATA...(</tr>
         </info>
         <param name="NROWS" type="int" required="true">
           <tr lang="en">number of rows in the matrix</tr>
@@ -336,7 +342,8 @@
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
           <tr lang="en">if 1: set the center of the rectangle, not the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего левого угла</tr>
+          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего левого
+          угла</tr>
         </param>
       </method>
       <!-- row -->
@@ -397,7 +404,8 @@
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
           <tr lang="en">if 1: set the center of the sector, not the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра сектора, а не верхнего левого угла</tr>
+          <tr lang="ru">если 1: использовать координату центра сектора, а не верхнего левого
+          угла</tr>
         </param>
       </method>
       <!-- set list -->
