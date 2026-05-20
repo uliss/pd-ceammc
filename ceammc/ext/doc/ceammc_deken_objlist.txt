@@ -1324,16 +1324,16 @@ ui.cmeter~	multichannel circular signal meter / многоканальный к�
 ui.cm~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
 hoa.2d.meter~	multichannel circular signal meter / многоканальный круговой измеритель уровня сигнала
 ui.colorpanel	Color chooser widget / виджет выбора цвета
-ui.display	display widget / виджет дисплей
-ui.d	display widget / виджет дисплей
-ui.dt	display widget / виджет дисплей
+ui.display	display widget / виджет отображения
+ui.d	display widget / виджет отображения
+ui.dt	display widget / виджет отображения
 ui.dsp~	widget to switch DSP on or off / виджет для включения или выключения обработки звука
 ui.env	envelope editor / редактор огибающей
 ui.filter	filter widget for calculating [flt.biquad~] coefficients / виджет-калькулятор коэффициентов для фильтра [flt.biquad~]
 ui.filter~	sound filter widget / виджет звукового фильтра
-ui.gain2~	stereo gain control / контроль громкости стерео
-ui.hgain2~	stereo gain control / контроль громкости стерео
-ui.vgain2~	stereo gain control / контроль громкости стерео
+ui.gain2~	stereo gain control / стерео-регулятор громкости
+ui.hgain2~	stereo gain control / стерео-регулятор громкости
+ui.vgain2~	stereo gain control / стерео-регулятор громкости
 ui.gain~	gain control / контроль громкости
 ui.hgain~	gain control / контроль громкости
 ui.vgain~	gain control / контроль громкости
@@ -1366,12 +1366,6 @@ ui.n~	number viewport for signals / просмотр числовых значе
 ui.plot~	signal plotter / построитель графика для сигналов
 ui.polar	2D slider in polar coordinates / 2D слайдер в полярных координатах
 ui.preset	preset manager / менеджер пресетов
-ui.radio	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
-ui.radio*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
-ui.hrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
-ui.hrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
-ui.vrd	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
-ui.vrd*	radio toggle with multiselect option / радиопереключатель с возможностью множественного выбора
 ui.rslider	two range slider / двухдиапазонный слайдер
 ui.rsl	two range slider / двухдиапазонный слайдер
 ui.scope~	waveform signal scope widget / виджет просмотра формы волны

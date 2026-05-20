@@ -2403,7 +2403,7 @@ tl.transport-help.pd;
 ui.colorpanel-help.pd;
 #X text 200 24929 виджет выбора цвета;
 #X obj 30 24957 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 200 24954 виджет дисплей;
+#X text 200 24954 виджет отображения;
 #X obj 30 24982 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
 #X text 200 24979 виджет для включения или выключения обработки звука;
 #X obj 30 25007 ui.link @title [ui.env] @url ui.env-help.pd;
@@ -2413,7 +2413,7 @@ ui.colorpanel-help.pd;
 #X obj 30 25057 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
 #X text 200 25054 виджет звукового фильтра;
 #X obj 30 25082 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
-#X text 200 25079 контроль громкости стерео;
+#X text 200 25079 стерео-регулятор громкости;
 #X obj 30 25107 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
 #X text 200 25104 контроль громкости;
 #X obj 30 25132 ui.link @title [ui.icon] @url ui.icon-help.pd;
@@ -2454,36 +2454,33 @@ ui.mouse_route-help.pd;
 #X text 200 25529 2D слайдер в полярных координатах;
 #X obj 30 25557 ui.link @title [ui.preset] @url ui.preset-help.pd;
 #X text 200 25554 менеджер пресетов;
-#X obj 30 25582 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 25579 радиопереключатель с возможностью множественного
-выбора;
-#X obj 30 25607 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 25604 двухдиапазонный слайдер;
-#X obj 30 25632 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 25629 виджет просмотра формы волны;
-#X obj 30 25657 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 25654 виджет слайдера (ползунка);
-#X obj 30 25682 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 25679 2D виджет слайдера;
-#X obj 30 25707 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 25704 виджет многоползункового слайдера;
-#X obj 30 25732 ui.link @title [ui.spectroscope~] @url
+#X obj 30 25582 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 25579 двухдиапазонный слайдер;
+#X obj 30 25607 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 25604 виджет просмотра формы волны;
+#X obj 30 25632 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 25629 виджет слайдера (ползунка);
+#X obj 30 25657 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 25654 2D виджет слайдера;
+#X obj 30 25682 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 25679 виджет многоползункового слайдера;
+#X obj 30 25707 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 25729 виджет просмотрщика спектра;
-#X obj 30 25757 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 25754 список текстовых кнопок или текстовых переключателей;
-#X obj 30 25782 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 25779 cовременный виджет переключателя;
+#X text 200 25704 виджет просмотрщика спектра;
+#X obj 30 25732 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 25729 список текстовых кнопок или текстовых переключателей;
+#X obj 30 25757 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 25754 cовременный виджет переключателя;
 #X obj 397 24761 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 402 24761 объекты графического интерфейса пользователя;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 25804 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 25804 version: v0.9.8 \, license: GPL3;
-#X obj 20 25832 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 25779 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 25779 version: v0.9.8 \, license: GPL3;
+#X obj 20 25807 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 25856 ui.link @title Generated with pddoc v0.16.0 @url
+#X obj 20 25831 ui.link @title Generated with pddoc v0.16.0 @url
 https://github.com/uliss/pddoc;
-#X obj 670 25819 loadmsg 0;
-#X obj 670 25854 switch~;
-#X connect 1874 0 1875 0;
+#X obj 670 25794 loadmsg 0;
+#X obj 670 25829 switch~;
+#X connect 1872 0 1873 0;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">stereo gain control</tr>
-        <tr lang="ru">контроль громкости стерео</tr>
+        <tr lang="ru">стерео-регулятор громкости</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -55,166 +55,163 @@
       <!-- @amp -->
       <property name="@amp" type="float" default="0">
         <tr lang="en">gain as amplitude ratio</tr>
-        <tr lang="ru" finished="false">коэффициент усиления как амплитуда</tr>
+        <tr lang="ru">коэффициент усиления как отношение амплитуд</tr>
       </property>
       <!-- @db -->
       <property name="@db" type="float" units="decibel" default="-60">
-        <tr lang="en">gain in dbfs scale</tr>
-        <tr lang="ru" finished="false">Прибыль по шкале dbfs</tr>
+        <tr lang="en">gain in dBFS scale</tr>
+        <tr lang="ru">усиление в шкале dBFS</tr>
       </property>
       <!-- @knob_color -->
       <property name="@knob_color" type="list" default="0 0.75 1 1">
-        <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">цвет ручки (список красных, зеленых, синих значений в
-        диапазоне 0-1)</tr>
+        <tr lang="en">knob color (list of red, green, blue values in the 0-1 range)</tr>
+        <tr lang="ru">цвет ручки (список значений красного, зелёного, синего в диапазоне 0-1)</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0" units="decibel">
         <tr lang="en">maximum gain value</tr>
-        <tr lang="ru" finished="false">Максимальная прибыль</tr>
+        <tr lang="ru">максимальное значение усиления</tr>
       </property>
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
-        <tr lang="en">binded MIDI controller number. -1 means not binded to any controller.</tr>
-        <tr lang="ru" finished="false">Связанный номер контроллера MIDI. -1 означает, что он не
-        связан с каким-либо контроллером.</tr>
+        <tr lang="en">bound MIDI controller number. -1 means not bound to any controller.</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает отсутствие привязки.</tr>
       </property>
       <!-- @midi_pickup -->
       <property name="@midi_pickup" type="bool" default="1">
-        <tr lang="en">pickup current value. If slider is binded to value, first time you should
-        pass over this value to make binding. It prevents from sudden value change on first control
-        change</tr>
-        <tr lang="ru" finished="false">Текущая стоимость пикапа. Если слайдер привязывается к
-        значению, сначала вы должны пройти через это значение, чтобы сделать связывание. Это
-        предотвращает внезапное изменение стоимости при первом изменении управления.</tr>
+        <tr lang="en">pickup current value. If the slider is bound to a value, you must first pass
+        over this value to make the binding. This prevents sudden value changes on the first
+        control change.</tr>
+        <tr lang="ru">подхват текущего значения. Если слайдер привязан к значению, вы должны
+        сначала пройти через это значение, чтобы установить привязку. Это предотвращает резкое
+        изменение значения при первом изменении управления.</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60" units="decibel">
-        <tr lang="en">minimal gain value</tr>
-        <tr lang="ru" finished="false">Минимальная стоимость прироста</tr>
+        <tr lang="en">minimum gain value</tr>
+        <tr lang="ru">минимальное значение усиления</tr>
       </property>
       <!-- @mouse_events -->
       <property name="@mouse_events" type="bool" default="0">
-        <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
-        @mouse_drag events</tr>
-        <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе @mouse_down,
-        @mouse_up и @mouse_drag события</tr>
+        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and
+        @mouse_drag events.</tr>
+        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down,
+        @mouse_up и @mouse_drag.</tr>
       </property>
       <!-- @output_value -->
       <property name="@output_value" type="bool" default="0">
-        <tr lang="en">flag to output @db property after each knob move</tr>
-        <tr lang="ru" finished="false">Флаг для вывода свойств @db после каждого перемещения
-        ручки</tr>
+        <tr lang="en">flag to output the @db property after each knob movement</tr>
+        <tr lang="ru">флаг вывода свойства @db после каждого движения ручки</tr>
       </property>
       <!-- @relative -->
       <property name="@relative" type="bool" default="1">
-        <tr lang="en">relative input mode. When set do not jump to value on click.</tr>
-        <tr lang="ru" finished="false">Режим относительного ввода. При установке не прыгайте до
-        значения на клик.</tr>
+        <tr lang="en">relative input mode. When set, does not jump to the value on click.</tr>
+        <tr lang="ru">режим относительного ввода. При установке не перескакивает к значению по
+        клику.</tr>
       </property>
       <!-- @show_range -->
       <property name="@show_range" type="bool" default="1">
-        <tr lang="en">if show slider range</tr>
-        <tr lang="ru" finished="false">Если показать диапазон слайдеров</tr>
+        <tr lang="en">show slider range</tr>
+        <tr lang="ru">показывать диапазон слайдера</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" default="15 120">
         <tr lang="en">object size (width, height pair)</tr>
-        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+        <tr lang="ru">размер объекта (пара: ширина высота)</tr>
       </property>
     </properties>
     <methods>
       <!-- + N -->
       <method name="+ N">
         <info>
-          <tr lang="en">increase current gain by N db</tr>
-          <tr lang="ru" finished="false">Увеличение текущего прироста N db</tr>
+          <tr lang="en">increase current gain by N dB</tr>
+          <tr lang="ru">увеличить текущее усиление на N дБ</tr>
         </info>
       </method>
       <!-- ++ -->
       <method name="++">
         <info>
-          <tr lang="en">decrease current gain by 1 db</tr>
-          <tr lang="ru" finished="false">снижение текущего прироста на 1 дб</tr>
+          <tr lang="en">increase current gain by 1 dB</tr>
+          <tr lang="ru">увеличить текущее усиление на 1 дБ</tr>
         </info>
       </method>
       <!-- - N -->
       <method name="- N">
         <info>
-          <tr lang="en">decrease current gain by N db</tr>
-          <tr lang="ru" finished="false">Уменьшение текущего прироста N db</tr>
+          <tr lang="en">decrease current gain by N dB</tr>
+          <tr lang="ru">уменьшить текущее усиление на N дБ</tr>
         </info>
       </method>
       <method name="--">
         <info>
-          <tr lang="en">decrease current gain by 1 db</tr>
-          <tr lang="ru" finished="false">снижение текущего прироста на 1 дб</tr>
+          <tr lang="en">decrease current gain by 1 dB</tr>
+          <tr lang="ru">уменьшить текущее усиление на 1 дБ</tr>
         </info>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clears specified preset</tr>
-          <tr lang="ru" finished="false">заданный заранее</tr>
+          <tr lang="en">clear the specified preset</tr>
+          <tr lang="ru">очистить указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
       <!-- interp -->
       <method name="interp">
         <info>
-          <tr lang="en">interplolates between presets</tr>
-          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+          <tr lang="en">interpolate between presets</tr>
+          <tr lang="ru">интерполировать между пресетами</tr>
         </info>
         <param name="IDX" type="float" required="true">
-          <tr lang="en">preset fraction index</tr>
-          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+          <tr lang="en">preset fractional index</tr>
+          <tr lang="ru">дробный индекс пресета</tr>
         </param>
       </method>
       <!-- load -->
       <method name="load">
         <info>
-          <tr lang="en">loads specified preset</tr>
-          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+          <tr lang="en">load the specified preset</tr>
+          <tr lang="ru">загрузить указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
       <!-- pos -->
       <method name="pos">
         <info>
           <tr lang="en">set UI element position</tr>
-          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+          <tr lang="ru">установить положение элемента интерфейса</tr>
         </info>
         <param name="X" type="float" required="true">
-          <tr lang="en">top left x-coord</tr>
-          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+          <tr lang="en">top-left x-coordinate</tr>
+          <tr lang="ru">координата x верхнего левого угла</tr>
         </param>
         <param name="Y" type="float" required="true">
-          <tr lang="en">top right y-coord</tr>
-          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+          <tr lang="en">top-left y-coordinate</tr>
+          <tr lang="ru">координата y верхнего левого угла</tr>
         </param>
       </method>
       <!-- set N -->
       <method name="set N">
         <info>
-          <tr lang="en">set current gain to N db</tr>
-          <tr lang="ru" finished="false">Установить текущую прибыль на N db</tr>
+          <tr lang="en">set current gain to N dB</tr>
+          <tr lang="ru">установить текущее усиление в N дБ</tr>
         </info>
       </method>
       <!-- store -->
       <method name="store">
         <info>
-          <tr lang="en">stores specified preset</tr>
-          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+          <tr lang="en">store the specified preset</tr>
+          <tr lang="ru">сохранить указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
     </methods>
@@ -222,17 +219,17 @@
       <inlet type="audio">
         <in>
           <tr lang="en">left input signal</tr>
-          <tr lang="ru" finished="false">левый входной сигнал</tr>
+          <tr lang="ru">левый входной сигнал</tr>
         </in>
         <in on="bang">
-          <tr lang="en">output current gain @db property</tr>
-          <tr lang="ru" finished="false">выходной текущий прирост @db свойство</tr>
+          <tr lang="en">output the current gain @db property</tr>
+          <tr lang="ru">вывести текущее значение усиления (@db)</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">right input signal</tr>
-          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+          <tr lang="ru">правый входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -240,13 +237,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output signal</tr>
-          <tr lang="ru" finished="false">левый выходной сигнал</tr>
+          <tr lang="ru">левый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output signal</tr>
-          <tr lang="ru" finished="false">правильный выходной сигнал</tr>
+          <tr lang="ru">правый выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

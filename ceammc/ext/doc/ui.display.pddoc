@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">display widget</tr>
-        <tr lang="ru">виджет дисплей</tr>
+        <tr lang="ru">виджет отображения</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -26,9 +26,8 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">[ui.dt] is the alias for [ui.display @display_type 1]</tr>
-        <tr lang="ru" finished="false">[ui.dt] является псевдонимом для [ui.display @display_type
-        1]</tr>
+        <tr lang="en">[ui.dt] is an alias for [ui.display @display_type 1]</tr>
+        <tr lang="ru">[ui.dt] является псевдонимом для [ui.display @display_type 1]</tr>
       </par>
     </info>
     <mouse>
@@ -54,51 +53,53 @@
       <xi:include href="props_ui_receive.xml" />
       <!-- @auto_size -->
       <property name="@auto_size" type="bool" default="1">
-        <tr lang="en">flag if automatically resize contents to feet incoming message</tr>
-        <tr lang="ru" finished="false">флаг, если автоматически изменить размер содержимого для ног
-        входящего сообщения</tr>
+        <tr lang="en">flag to automatically resize contents to fit the incoming message</tr>
+        <tr lang="ru">флаг автоматического изменения размера содержимого под входящее
+        сообщение</tr>
       </property>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
-        в диапазоне 0-1)</tr>
+        <tr lang="en">element background color (list of red, green, blue values in the 0-1
+        range)</tr>
+        <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего в диапазоне
+        0-1)</tr>
       </property>
       <!-- @display_events -->
       <property name="@display_events" type="bool" default="1">
         <tr lang="en">flag for blinking on incoming messages</tr>
-        <tr lang="ru" finished="false">Флаг для мигания на входящих сообщениях</tr>
+        <tr lang="ru">флаг мигания при входящих сообщениях</tr>
       </property>
       <!-- @display_type -->
       <property name="@display_type" type="bool" default="0">
-        <tr lang="en">flag for displaying incoming message type</tr>
-        <tr lang="ru" finished="false">Флаг для отображения входящего типа сообщения</tr>
+        <tr lang="en">flag for displaying the incoming message type</tr>
+        <tr lang="ru">флаг отображения типа входящего сообщения</tr>
       </property>
       <!-- @float_width -->
       <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
-        <tr lang="en">number of digits after floating point. If -1: skip trailing zeroes, if 0 -
-        output as integers</tr>
-        <tr lang="ru" finished="false">Количество цифр после плавающей точки. Если -1: пропустить
-        нулевые значения, если 0 - выход в виде целых чисел</tr>
+        <tr lang="en">number of digits after the decimal point. If -1: skip trailing zeros; if 0:
+        output as integers.</tr>
+        <tr lang="ru">количество цифр после десятичной точки. Если -1: отбрасывать незначащие нули;
+        если 0: выводить как целые числа.</tr>
       </property>
       <!-- @hex -->
       <property name="@hex" type="bool" default="0">
-        <tr lang="en">output integers in hex format</tr>
-        <tr lang="ru" finished="false">выходные целые числа в формате hex</tr>
+        <tr lang="en">output integers in hexadecimal format</tr>
+        <tr lang="ru">выводить целые числа в шестнадцатеричном формате</tr>
       </property>
       <!-- @hex_width -->
       <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">
-        <tr lang="en">hex output format width</tr>
-        <tr lang="ru" finished="false">Ширина выходного формата</tr>
+        <tr lang="en">hexadecimal output format width</tr>
+        <tr lang="ru">ширина шестнадцатеричного вывода</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" default="80 18">
         <tr lang="en">object size (width, height pair)</tr>
-        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+        <tr lang="ru">размер объекта (пара: ширина высота)</tr>
       </property>
       <!-- @text_color -->
       <property name="@text_color" type="list" default="0 0 0 1">
-        <tr lang="en">text color (list of red, green, blue values in 0-1 range)</tr>
+        <tr lang="en">text color (list of red, green, blue values in the 0-1 range)</tr>
+        <tr lang="ru">цвет текста (список значений красного, зелёного, синего в диапазоне 0-1)</tr>
       </property>
     </properties>
     <methods>
@@ -108,8 +109,8 @@
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">accepts any messages and displays it</tr>
-          <tr lang="ru" finished="false">принимает любые сообщения и отображает их</tr>
+          <tr lang="en">accepts any message and displays it</tr>
+          <tr lang="ru">принимает любые сообщения и отображает их</tr>
         </in>
       </inlet>
     </inlets>

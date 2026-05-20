@@ -61,7 +61,7 @@ follows mouse pointer.;
 0\.;
 #X obj 250 673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 673 @db;
-#X text 270 673 Gain in dbfs scale. Type: float. Units: 'db'. Default
+#X text 270 673 Gain in dBFS scale. Type: float. Units: 'db'. Default
 value: -60\.;
 #X obj 250 715 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 715 @max;
@@ -69,31 +69,31 @@ value: -60\.;
 value: 0\. Range: [-12\..12].;
 #X obj 250 757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 757 @min;
-#X text 270 757 Minimal gain value. Type: int. Units: 'db'. Default
+#X text 270 757 Minimum gain value. Type: int. Units: 'db'. Default
 value: -60\. Range: [-90\..-15].;
 #X obj 250 799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 799 @mouse_events;
-#X text 270 799 Mouse events output mode. If on outputs @mouse_down
+#X text 270 799 Mouse events output mode. If on \, outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X obj 250 856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 856 @output_value;
-#X text 270 856 Flag to output @db property after each knob move. Type:
-bool. Default value: 0\.;
+#X text 270 856 Flag to output the @db property after each knob movement.
+Type: bool. Default value: 0\.;
 #X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 898 @receive;
 #X text 270 898 Source of message receive. Type: symbol. Default value:
 (null).;
 #X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 940 @relative;
-#X text 270 940 Relative input mode. When set do not jump to value
-on click. Type: bool. Default value: 1\.;
+#X text 270 940 Relative input mode. When set \, does not jump to the
+value on click. Type: bool. Default value: 1\.;
 #X obj 250 982 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 982 @send;
 #X text 270 982 Address for sending messages. Type: symbol. Default
 value: (null).;
 #X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1024 @show_range;
-#X text 270 1024 If show slider range. Type: bool. Default value: 1\.;
+#X text 270 1024 Show slider range. Type: bool. Default value: 1\.;
 #X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1054 @midi_channel;
 #X text 270 1054 MIDI channel binding. If set to 0 \, it binds to all
@@ -102,14 +102,14 @@ of the first Pd MIDI device \, [17\..32] to the channels of the second
 \, and so on. Type: int. Default value: 0\. Range: [0\..255].;
 #X obj 250 1141 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1141 @midi_control;
-#X text 270 1141 Binded MIDI controller number. -1 means not binded
-to any controller. Type: int. Default value: -1\. Range: [-1\..127].;
+#X text 270 1141 Bound MIDI controller number. -1 means not bound to
+any controller. Type: int. Default value: -1\. Range: [-1\..127].;
 #X obj 250 1198 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1198 @midi_pickup;
-#X text 270 1198 Pickup current value. If slider is binded to value
-\, first time you should pass over this value to make binding. It prevents
-from sudden value change on first control change. Type: bool. Default
-value: 1\.;
+#X text 270 1198 Pickup current value. If the slider is bound to a
+value \, you must first pass over this value to make the binding. This
+prevents sudden value changes on the first control change. Type: bool.
+Default value: 1\.;
 #X obj 250 1270 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1270 @background_color;
 #X text 270 1270 Element background color (list of red \, green \,
@@ -122,7 +122,7 @@ in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X obj 250 1369 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1369 @knob_color;
 #X text 270 1369 Knob color (list of red \, green \, blue values in
-0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+the 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X obj 250 1411 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1411 @fontname;
 #X text 270 1411 Font name. Type: symbol. Default value: Helvetica.
@@ -155,46 +155,46 @@ value: 15 120\.;
 #X obj 20 1723 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1724 clear;
-#X text 270 1724 clears specified preset. Arguments are:;
+#X text 270 1724 clear the specified preset. Arguments are:;
 #X obj 300 1749 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1749 IDX: preset index. Type: int.;
 #X obj 250 1782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1782 interp;
-#X text 270 1782 interplolates between presets. Arguments are:;
+#X text 270 1782 interpolate between presets. Arguments are:;
 #X obj 300 1807 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1807 IDX: preset fraction index. Type: float.;
+#X text 300 1807 IDX: preset fractional index. Type: float.;
 #X obj 250 1840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1840 load;
-#X text 270 1840 loads specified preset. Arguments are:;
+#X text 270 1840 load the specified preset. Arguments are:;
 #X obj 300 1865 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1865 IDX: preset index. Type: int.;
 #X obj 250 1898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1898 pos;
 #X text 270 1898 set UI element position. Arguments are:;
 #X obj 300 1923 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1923 X: top left x-coord. Type: float.;
+#X text 300 1923 X: top-left x-coordinate. Type: float.;
 #X obj 300 1946 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1946 Y: top right y-coord. Type: float.;
+#X text 300 1946 Y: top-left y-coordinate. Type: float.;
 #X obj 250 1979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1979 set N;
-#X text 270 1979 set current gain to N db.;
+#X text 270 1979 set current gain to N dB.;
 #X obj 250 2014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2014 store;
-#X text 270 2014 stores specified preset. Arguments are:;
+#X text 270 2014 store the specified preset. Arguments are:;
 #X obj 300 2039 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 2039 IDX: preset index. Type: int.;
 #X obj 250 2072 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2072 + N;
-#X text 270 2072 increase current gain by N db.;
+#X text 270 2072 increase current gain by N dB.;
 #X obj 250 2107 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2107 ++;
-#X text 270 2107 decrease current gain by 1 db.;
+#X text 270 2107 increase current gain by 1 dB.;
 #X obj 250 2142 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2142 - N;
-#X text 270 2142 decrease current gain by N db.;
+#X text 270 2142 decrease current gain by N dB.;
 #X obj 250 2177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 2177 --;
-#X text 270 2177 decrease current gain by 1 db.;
+#X text 270 2177 decrease current gain by 1 dB.;
 #X obj 20 2222 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2227 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
@@ -202,7 +202,7 @@ value: 15 120\.;
 #X text 170 2228 ~;
 #X text 270 2228 left input signal.;
 #X text 170 2253 bang:;
-#X text 270 2253 output current gain @db property.;
+#X text 270 2253 output the current gain @db property.;
 #X text 130 2278 2\.;
 #X text 170 2278 ~;
 #X text 270 2278 right input signal.;
