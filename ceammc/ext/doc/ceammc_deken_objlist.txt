@@ -958,7 +958,7 @@ risset.gliss	Sheppard/Risset glissando calculator / калькулятор дл�
 sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 ceammc/sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 speech.flite	render speech to array / рендеринг синтезатора речи в массив
-speech.flite~	Flite text to speech synthesis / синтезатор речи Flite
+speech.flite~	Flite text-to-speech synthesis / синтезатор речи Flite
 speech.rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 ceammc/rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice

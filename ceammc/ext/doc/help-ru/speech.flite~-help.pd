@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 645 11 speech.flite~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Speaks floats \, symbols and list to wavetables using
-flite TTS engine.;
+#X text 240 83 Озвучивает числа \, символы и списки с помощью движка
+синтеза речи Flite.;
 #X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 215 metro 1000;
 #X obj 184 215 ui.menu kal16 slt rms awb;
@@ -28,39 +28,40 @@ flite TTS engine.;
 #X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 444 @pitch;
-#X text 270 444 Voice pitch (-1 - default value). Тип: float. Значение
-по умолчанию: -1\.;
+#X text 270 444 Высота голоса (-1 означает значение по умолчанию).
+Тип: float. Значение по умолчанию: -1\.;
 #X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 486 @speed;
-#X text 270 486 Speaking speed. Тип: float. Значение по умолчанию:
-1\. Диапазон: [0.5\..4].;
+#X text 270 486 Скорость речи. Тип: float. Значение по умолчанию: 1\.
+Диапазон: [0.5\..4].;
 #X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 528 @voice;
-#X text 270 528 Default voice. Тип: symbol. Значение по умолчанию:
+#X text 270 528 Голос по умолчанию. Тип: symbol. Значение по умолчанию:
 kal16\. Разрешённые значения: kal16 \, slt \, rms \, awb.;
 #X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 585 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 586 stop;
-#X text 270 586 stops speech and clear speech queue.;
+#X text 270 586 останавливает речь и очищает очередь произнесения.;
 #X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 636 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 637 1\.;
 #X text 170 637 float:;
-#X text 270 637 speak number.;
+#X text 270 637 произнести число.;
 #X text 170 662 symbol:;
-#X text 270 662 speak text.;
+#X text 270 662 произнести текст.;
 #X text 170 687 list:;
-#X text 270 687 speak text.;
+#X text 270 687 произнести текст из списка слов.;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 727 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 728 1\.;
 #X text 170 728 ~;
-#X text 270 728 output signal.;
+#X text 270 728 выходной аудиосигнал.;
 #X text 130 748 2\.;
-#X text 270 748 float: number of sentences left to speak.;
+#X text 170 748 int:;
+#X text 270 748 количество предложений \, оставшихся в очереди.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

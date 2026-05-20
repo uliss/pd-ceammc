@@ -1548,7 +1548,7 @@ speech.flite-help.pd;
 #X text 200 16208 render speech to array;
 #X obj 30 16236 ui.link @title [speech.flite~] @url
 speech.flite~-help.pd;
-#X text 200 16233 Flite text to speech synthesis;
+#X text 200 16233 Flite text-to-speech synthesis;
 #X obj 30 16261 ui.link @title [speech.rhvoice~] @url
 speech.rhvoice~-help.pd;
 #X text 200 16258 RHVoice text to speech synthesis;

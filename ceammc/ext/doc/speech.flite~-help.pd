@@ -1,13 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 535 50 Flite text to speech synthesis;
+#X text 535 50 Flite text-to-speech synthesis;
 #X obj 1 1 cnv 5 765 40 empty empty speech.flite~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 speech.flite~;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Speaks floats \, symbols and list to wavetables using
-flite TTS engine.;
+#X text 240 83 Speaks floats \, symbols \, and lists as audio using
+the Flite TTS engine.;
 #X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 215 metro 1000;
 #X obj 184 215 ui.menu kal16 slt rms awb;
@@ -28,8 +28,8 @@ flite TTS engine.;
 #X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 444 @pitch;
-#X text 270 444 Voice pitch (-1 - default value). Type: float. Default
-value: -1\.;
+#X text 270 444 Voice pitch (-1 means default value). Type: float.
+Default value: -1\.;
 #X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 486 @speed;
 #X text 270 486 Speaking speed. Type: float. Default value: 1\. Range:
@@ -42,25 +42,26 @@ Allowed values: kal16 \, slt \, rms \, awb.;
 #X obj 20 585 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 586 stop;
-#X text 270 586 stops speech and clear speech queue.;
+#X text 270 586 stops speech and clears the speech queue.;
 #X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 636 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 130 637 1\.;
 #X text 170 637 float:;
-#X text 270 637 speak number.;
+#X text 270 637 speak a number.;
 #X text 170 662 symbol:;
 #X text 270 662 speak text.;
 #X text 170 687 list:;
-#X text 270 687 speak text.;
+#X text 270 687 speak text as a list of words.;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 727 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 728 1\.;
 #X text 170 728 ~;
-#X text 270 728 output signal.;
+#X text 270 728 output audio signal.;
 #X text 130 748 2\.;
-#X text 270 748 float: number of sentences left to speak.;
+#X text 170 748 int:;
+#X text 270 748 number of sentences remaining in the queue.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

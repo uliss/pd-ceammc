@@ -1768,7 +1768,7 @@
     <entry name="speech.flite" descr="render speech to array" ref_view="link">
       <xi:include href="speech.flite.pddoc" parse="xml"/>
     </entry>
-    <entry name="speech.flite~" descr="Flite text to speech synthesis" ref_view="link">
+    <entry name="speech.flite~" descr="Flite text-to-speech synthesis" ref_view="link">
       <xi:include href="speech.flite~.pddoc" parse="xml"/>
     </entry>
     <entry name="speech.rhvoice~" descr="RHVoice text to speech synthesis" ref_view="link">
