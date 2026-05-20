@@ -7,12 +7,12 @@
 #X obj 660 11 hw.rpi.gpio;
 #X obj 230 78 cnv 1 535 145 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 GPIO pins are taken into exclusive ownership: only one
-entity can read or set the value of a pin. Send the message [release(
+entity can read or set the value of a pin. Send the [release( message
 to relinquish ownership of the pin.;
 #X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
-#X text 240 138 That is \, you can create any number of objects [hw.rpi.gpio]
-\, but access to a specific pin will be available only to one of these
-objects (the first one that captured this pin);
+#X text 240 138 That is \, you can create any number of [hw.rpi.gpio]
+objects \, but access to a specific pin will be available only to one
+of them (the first one that captured this pin).;
 #X obj 230 143 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
 #X obj 50 271 loadbang;
 #X msg 50 300 input 17 \, pull_up 17 \, output 18;
@@ -39,7 +39,7 @@ ceammc://hw.rpi.gpio-example.pd;
 #X obj 20 679 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 680 clear_pwm;
-#X text 270 680 clear PWM settings for GPIO pin. Arguments are:;
+#X text 270 680 clear PWM settings for a GPIO pin. Arguments are:;
 #X obj 300 705 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 705 PIN: GPIO pin number. Type: int.;
 #X obj 250 738 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -66,7 +66,8 @@ are:;
 #X obj 300 952 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 952 PIN: GPIO pin number. Type: int.;
 #X obj 300 975 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 975 STATE: poll state. 1: enable. 0: disable. Type: bool.;
+#X text 300 975 STATE: poll state: 1 = enable \, 0 = disable. Type:
+bool.;
 #X obj 300 998 cnv 1 101 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 998 [DEBOUNCE=10]: debounce time. Type: float. Min value:
 0\. Units: 'ms'.;
@@ -93,7 +94,7 @@ are:;
 #X text 270 1250 reset the GPIO pin(s) to their initial state. Arguments
 are:;
 #X obj 300 1275 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1275 PIN: GPIO pin number. Type: list. Range: [1\..16].;
+#X text 300 1275 PIN: GPIO pin number(s). Type: list. Range: [1\..16].;
 #X obj 250 1308 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1308 soft_pwm;
 #X text 270 1308 set the GPIO pin to software PWM mode. Arguments are:;
@@ -107,7 +108,7 @@ are:;
 Units: 'ms'.;
 #X obj 250 1442 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1442 soft_pwm_freq;
-#X text 270 1442 set software PWM frequency for GPIO pin. Arguments
+#X text 270 1442 set software PWM frequency for a GPIO pin. Arguments
 are:;
 #X obj 300 1467 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1467 PIN: GPIO pin number. Type: int.;
@@ -115,7 +116,7 @@ are:;
 #X text 300 1490 FREQ: frequency. Type: float. Min value: 0\. Units:
 'Hz'.;
 #X obj 300 1513 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1513 DUTY: duty cycle length. Type: float. Range: [0\..1].;
+#X text 300 1513 DUTY: duty cycle (0\..1). Type: float. Range: [0\..1].;
 #X obj 250 1546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1546 toggle;
 #X text 270 1546 toggle the GPIO pin output value. Arguments are:;
@@ -124,7 +125,7 @@ are:;
 #X obj 250 1604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1604 used_pins;
 #X text 270 1604 display a list of used GPIO pins. Sends a message
-in the format: [pins PIN...( to the first output.;
+in the format: [pins PIN ...( to the first outlet.;
 #X obj 250 1654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1654 write;
 #X text 270 1654 set a value on a GPIO pin. Arguments are:;
@@ -144,7 +145,7 @@ in the format: [pins PIN...( to the first output.;
 #X msg 170 1792 pin;
 #X text 270 1792 pin state: [pin PIN STATE(.;
 #X msg 170 1817 pins;
-#X text 270 1817 pin list: [pins PIN PIN...(.;
+#X text 270 1817 pin list: [pins PIN PIN ...(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
