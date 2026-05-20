@@ -30,7 +30,7 @@ net.osc.receive-help.pd;
 #X text 220 317 отправка сообщений протокола OSC;
 #X obj 30 345 ui.link @title [net.osc.server] @url
 net.osc.server-help.pd;
-#X text 220 342 управление сервером OSC;
+#X text 220 342 запуск и управление OSC-сервером;
 #X obj 30 370 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
 #X text 220 367 WebSocket клиент;

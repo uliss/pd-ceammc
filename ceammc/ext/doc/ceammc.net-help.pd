@@ -30,7 +30,7 @@ net.osc.receive-help.pd;
 #X text 220 317 sending messages via the OSC protocol;
 #X obj 30 345 ui.link @title [net.osc.server] @url
 net.osc.server-help.pd;
-#X text 220 342 OSC server control;
+#X text 220 342 OSC server start and control;
 #X obj 30 370 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
 #X text 220 367 WebSocket client;

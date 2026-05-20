@@ -1843,7 +1843,7 @@
     <entry name="net.osc.send" descr="sending messages via the OSC protocol" ref_view="link">
       <xi:include href="net.osc.send.pddoc" parse="xml"/>
     </entry>
-    <entry name="net.osc.server" descr="OSC server control" ref_view="link">
+    <entry name="net.osc.server" descr="OSC server start and control" ref_view="link">
       <xi:include href="net.osc.server.pddoc" parse="xml"/>
     </entry>
     <entry name="net.ws.client" descr="WebSocket client" ref_view="link">

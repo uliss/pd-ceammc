@@ -1000,8 +1000,8 @@ net.osc.receive	receiving messages from the OSC protocol / получение с
 net.osc.r	receiving messages from the OSC protocol / получение сообщений протокола OSC
 net.osc.send	sending messages via the OSC protocol / отправка сообщений протокола OSC
 net.osc.s	sending messages via the OSC protocol / отправка сообщений протокола OSC
-net.osc.server	OSC server control / управление сервером OSC
-net.osc	OSC server control / управление сервером OSC
+net.osc.server	OSC server start and control / запуск и управление OSC-сервером
+net.osc	OSC server start and control / запуск и управление OSC-сервером
 net.ws.client	WebSocket client / WebSocket клиент
 net.ws.server	WebSocket server / WebSocket сервер
 noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
