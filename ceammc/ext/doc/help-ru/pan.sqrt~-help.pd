@@ -15,8 +15,8 @@
 #X text 240 199 Проблема \, присущая линейному панорамированию \, заключается
 в том \, что воспринимаемая громкость сигнала падает в центре. [pan.sqrt~]
 решает эту проблему.;
-#X obj 50 317 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
--262144 -1 -1 0 0;
+#X obj 146 317 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
+10 -262144 -1 -1 0 0;
 #X obj 146 346 lin->lin 0 127 -1 1;
 #X obj 50 375 sig~ 1;
 #X floatatom 146 375 5 0 0 0 - - -;
@@ -104,6 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 858 pd info;
+#X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 11 1;
