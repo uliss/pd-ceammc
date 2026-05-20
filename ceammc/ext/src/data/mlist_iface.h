@@ -180,12 +180,14 @@ public:
 
     bool proto_write(const std::string& path) const override
     {
-        return mlist()->writeJson(path, {});
+        return mlist()->writeJson(path, { 4, true });
     }
 
     bool proto_read(const std::string& path) override
     {
-        mlist().detachData();
+        if (!mlist().detachData())
+            return false;
+
         return mlist()->readJson(path);
     }
 
