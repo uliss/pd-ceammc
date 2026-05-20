@@ -26,56 +26,46 @@
         <tr lang="ru">Диапазон влажности: 20-90%RH ±5%RH</tr>
       </par>
       <par style="important">
-        <tr lang="en">When using a 3.5V voltage supply cable length shall not be greater than 20cm.
-        Otherwise, the line voltage drop will cause the sensor power supply shortage, caused by
-        measurement error</tr>
-        <tr lang="ru">При использовании кабеля питания напряжением 3.5В его длина не должна
-        превышать 20см. В противном случае падение напряжения на линии приведет к недостаточному
-        питанию датчика и вызовет ошибки измерения.</tr>
+        <tr lang="en">When using a 3.5V power supply, the cable length should not exceed 20cm. Otherwise, the voltage drop across the line will cause insufficient power to the sensor, resulting in measurement errors.</tr>
+        <tr lang="ru">При использовании источника питания напряжением 3.5 В длина кабеля не должна превышать 20 см. В противном случае падение напряжения на линии приведёт к недостаточному питанию датчика и вызовет ошибки измерения.</tr>
       </par>
       <par style="important">
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакт @pin:
-        использовать его в других объектах одновременно с этим *невозможно*.</tr>
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin, - it
-        is *impossible* to use them in other objects simultaneously with this one.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin — it is *impossible* to use it in other objects simultaneously with this one.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакт GPIO @pin — использовать его в других объектах одновременно с этим *невозможно*.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Before connecting, carefully check the sensor pins: some sensors have a
-        different pin layout than shown in the wiring diagram!</tr>
-        <tr lang="ru">Перед подключением внимательно изучите выводы сенсора: бывают сенсоры с
-        другим порядком контактов, чем на схеме подключения!</tr>
+        <tr lang="en">Before connecting, carefully check the sensor pins: some sensors have a different pin layout than the one shown in the wiring diagram!</tr>
+        <tr lang="ru">Перед подключением внимательно изучите выводы датчика: некоторые датчики имеют другую распиновку, чем на схеме подключения!</tr>
       </par>
       <par style="info">
-        <tr lang="en">To connect to the device, set the @connect property to 1</tr>
-        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1</tr>
+        <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
+        <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
       </par>
     </info>
     <arguments>
       <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
-        <tr lang="en">GPIO pin to connect. See @pin</tr>
-        <tr lang="ru">GPIO пин для подключения. См. @pin</tr>
+        <tr lang="en">GPIO pin to connect. See @pin.</tr>
+        <tr lang="ru">контакт GPIO для подключения. См. @pin.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
-        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
-        from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При установке в 0:
-        отключается от устройства.</tr>
+        <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects from the device.</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0: отключается от устройства.</tr>
       </property>
       <!-- @pin -->
       <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127" access="initonly">
         <tr lang="en">GPIO connection pin</tr>
-        <tr lang="ru">пин соединения GPIO</tr>
+        <tr lang="ru">контакт GPIO для подключения</tr>
       </property>
     </properties>
     <methods>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn the sensor polling on/off</tr>
-          <tr lang="ru">включить/выключить автоматический опрос сенсора</tr>
+          <tr lang="en">turn sensor polling on/off</tr>
+          <tr lang="ru">включить/выключить автоматический опрос датчика</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">poll state</tr>
@@ -87,15 +77,15 @@
       <inlet>
         <in on="bang">
           <tr lang="en">take a single measurement</tr>
-          <tr lang="ru">произвести однократное измерение</tr>
+          <tr lang="ru">выполнить однократное измерение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="list">
-          <tr lang="en">TEMPERATURE(in Celsius) HUMIDITY</tr>
-          <tr lang="ru">ТЕМПЕРАТУРА (в Цельсиях) ВЛАЖНОСТЬ</tr>
+          <tr lang="en">TEMPERATURE (in Celsius) HUMIDITY</tr>
+          <tr lang="ru">ТЕМПЕРАТУРА (в градусах Цельсия) ВЛАЖНОСТЬ</tr>
         </out>
       </outlet>
     </outlets>
