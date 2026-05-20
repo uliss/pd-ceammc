@@ -1617,7 +1617,7 @@ net.osc.send-help.pd;
 #X text 200 16957 sending messages via the OSC protocol;
 #X obj 30 16985 ui.link @title [net.osc.server] @url
 net.osc.server-help.pd;
-#X text 200 16982 OSC server control;
+#X text 200 16982 OSC server start and control;
 #X obj 30 17010 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
 #X text 200 17007 WebSocket client;

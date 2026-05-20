@@ -29,8 +29,8 @@
         <tr lang="ru">имя OSC-сервера (для использования с другими объектами)</tr>
       </argument>
       <argument name="URL" type="atom">
-        <tr lang="en">OSC server URL (e.g., udp:12345); see the @url property.</tr>
-        <tr lang="ru">URL OSC-сервера (например, udp:12345); см. свойство @url.</tr>
+        <tr lang="en">OSC server URL (e.g., udp:12345), see the @url property.</tr>
+        <tr lang="ru">URL OSC-сервера (например, udp:12345), см. свойство @url.</tr>
       </argument>
     </arguments>
     <properties>

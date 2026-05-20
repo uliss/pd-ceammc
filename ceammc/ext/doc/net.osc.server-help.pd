@@ -29,81 +29,81 @@ Type: symbol.;
 #X text 130 387 2\.;
 #X text 170 387 atom;
 #X obj 268 388 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 387 URL: OSC server URL (e.g. \, udp:12345); see the @url
-property. Type: atom.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 457 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 270 387 URL: OSC server URL (e.g. \, udp:12345) \, see the
+@url property. Type: atom.;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 442 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 460 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 445 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 458 @name;
-#X text 270 458 (initonly) OSC server name. Type: symbol. Default value:
+#X msg 130 443 @name;
+#X text 270 443 (initonly) OSC server name. Type: symbol. Default value:
 default.;
-#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 500 @url;
-#X text 270 500 (initonly) OSC server URL in the form: PROTO:PORT (udp:12345)
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 485 @url;
+#X text 270 485 (initonly) OSC server URL in the form: PROTO:PORT (udp:12345)
 \, or just PORT \, or osc.PROTO://:PORT (e.g. \, osc.tcp://:9001).
 Type: atom. Default value: udp:9000\.;
-#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 557 @auto_start;
-#X text 270 557 Automatically start the server upon creation. Type:
+#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 542 @auto_start;
+#X text 270 542 Automatically start the server upon creation. Type:
 bool. Default value: 1\.;
-#X obj 250 599 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 599 @dump;
-#X text 270 599 Log incoming messages to the Pd window. Type: bool.
+#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 584 @dump;
+#X text 270 584 Log incoming messages to the Pd window. Type: bool.
 Default value: 0\.;
-#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 641 @host?;
-#X text 270 641 (readonly) OSC server host. Type: symbol.;
-#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 671 @path?;
-#X text 270 671 (readonly) OSC server local socket path (for UNIX domain
+#X obj 250 626 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 626 @host?;
+#X text 270 626 (readonly) OSC server host. Type: symbol.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 656 @path?;
+#X text 270 656 (readonly) OSC server local socket path (for UNIX domain
 sockets). Type: symbol.;
-#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 713 @port?;
-#X text 270 713 (readonly) OSC server port. Type: int. Default value:
+#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 698 @port?;
+#X text 270 698 (readonly) OSC server port. Type: int. Default value:
 9000\.;
-#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 743 @proto?;
-#X text 270 743 (readonly) OSC server protocol (udp or tcp). Type:
+#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 728 @proto?;
+#X text 270 728 (readonly) OSC server protocol (udp or tcp). Type:
 symbol. Default value: udp.;
-#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 800 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 785 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 801 start;
-#X text 270 801 start the OSC server. Arguments are:;
-#X obj 300 826 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 826 [VAL]: 1: start \, 0: stop. Type: int. Allowed values:
+#X msg 130 786 start;
+#X text 270 786 start the OSC server. Arguments are:;
+#X obj 300 811 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 811 [VAL]: 1: start \, 0: stop. Type: int. Allowed values:
 0 \, 1\.;
-#X obj 250 859 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 859 stop;
-#X text 270 859 stop the OSC server. Arguments are:;
-#X obj 300 884 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 884 [VAL]: 1: stop \, 0: start. Type: int. Allowed values:
+#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 844 stop;
+#X text 270 844 stop the OSC server. Arguments are:;
+#X obj 300 869 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 869 [VAL]: 1: stop \, 0: start. Type: int. Allowed values:
 0 \, 1\.;
-#X obj 20 927 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 932 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 917 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 933 1\.;
-#X text 270 933 control input.;
-#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 973 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 918 1\.;
+#X text 270 918 control input.;
+#X obj 20 953 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 958 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 974 1\.;
-#X text 270 974 control output.;
+#X text 130 959 1\.;
+#X text 270 959 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1024 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1027 library: ceammc v0.9.8;
-#X text 448 1039 see also:;
-#X obj 523 1042 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1009 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1012 library: ceammc v0.9.8;
+#X text 448 1024 see also:;
+#X obj 523 1027 ui.link @background_color 0.78431 0.78431 0.78431
 @title [net.osc.send] @url net.osc.send-help.pd;
-#X obj 628 1042 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 628 1027 ui.link @background_color 0.78431 0.78431 0.78431
 @title [net.osc.receive] @url net.osc.receive-help.pd;
-#N canvas 10 1046 400 290 info 0;
+#N canvas 10 1031 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,7 +127,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1046 pd info;
+#X restore 10 1031 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 10 0;
 #X connect 8 0 10 0;
