@@ -18,30 +18,26 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакт @pin:
-        использовать его в других объектах одновременно с этим *невозможно*.</tr>
-        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin, - it
-        is *impossible* to use them in other objects simultaneously with this one.</tr>
+        <tr lang="en">When created, the object takes exclusive ownership of the GPIO pin @pin — it is *impossible* to use it in other objects simultaneously with this one.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакт GPIO @pin — использовать его в других объектах одновременно с этим *невозможно*.</tr>
       </par>
     </info>
     <arguments>
       <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
-        <tr lang="en">GPIO connection pin. See @pin</tr>
-        <tr lang="ru">пин соединения GPIO. См. @pin</tr>
+        <tr lang="en">GPIO connection pin. See @pin.</tr>
+        <tr lang="ru">контакт GPIO для подключения. См. @pin.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pin -->
       <property name="@pin" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
         <tr lang="en">connection GPIO pin</tr>
-        <tr lang="ru">пин соединения GPIO</tr>
+        <tr lang="ru">контакт GPIO для подключения</tr>
       </property>
       <!-- @proto -->
       <property name="@proto" type="symbol" default="NEC">
-        <tr lang="en">protocol name. You must disable/enable sensor polling for the change to take
-        effect</tr>
-        <tr lang="ru">название протокола. Вы должны выключить/включить опрос датчика, чтобы
-        изменение этого свойства вступило в силу</tr>
+        <tr lang="en">protocol name. You must disable and re-enable sensor polling for the change to take effect.</tr>
+        <tr lang="ru">название протокола. Чтобы изменение вступило в силу, необходимо выключить и снова включить опрос датчика.</tr>
       </property>
     </properties>
     <methods>
@@ -49,7 +45,7 @@
       <method name="poll">
         <info>
           <tr lang="en">start/stop IR sensor polling</tr>
-          <tr lang="ru" finished="false">Start/Stop IR-сенсор</tr>
+          <tr lang="ru">запустить/остановить опрос ИК-датчика</tr>
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">state</tr>
@@ -68,8 +64,8 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">pressed infrared remote keys accoring to protocol</tr>
-          <tr lang="ru">нажатые кнопки ИК-пультов управления согласно протоколу</tr>
+          <tr lang="en">pressed infrared remote keys according to the protocol</tr>
+          <tr lang="ru">нажатые кнопки ИК-пульта согласно протоколу</tr>
         </out>
       </outlet>
     </outlets>

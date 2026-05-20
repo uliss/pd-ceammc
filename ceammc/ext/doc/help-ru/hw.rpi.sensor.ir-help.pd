@@ -8,7 +8,7 @@ Pi;
 #X obj 624 11 hw.rpi.sensor.ir;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 При создании объект забирает в эксклюзивное владение
-GPIO контакт @pin: использовать его в других объектах одновременно
+контакт GPIO @pin — использовать его в других объектах одновременно
 с этим *невозможно*.;
 #X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
 #X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -31,26 +31,26 @@ ceammc://img/conn_infrared.png;
 #X text 130 451 1\.;
 #X text 170 451 int;
 #X obj 268 452 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 451 PIN: пин соединения GPIO. См. @pin. Тип: int. Диапазон:
-[-1\..127];
+#X text 270 451 PIN: контакт GPIO для подключения. См. @pin. Тип: int.
+Диапазон: [-1\..127];
 #X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 506 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 509 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 507 @pin;
-#X text 270 507 (при инициализации) Пин соединения GPIO. Тип: int.
-Значение по умолчанию: -1\. Диапазон: [-1\..127].;
+#X text 270 507 (при инициализации) Контакт GPIO для подключения. Тип:
+int. Значение по умолчанию: -1\. Диапазон: [-1\..127].;
 #X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 549 @proto;
-#X text 270 549 Название протокола. Вы должны выключить/включить опрос
-датчика \, чтобы изменение этого свойства вступило в силу. Тип: symbol.
+#X text 270 549 Название протокола. Чтобы изменение вступило в силу
+\, необходимо выключить и снова включить опрос датчика. Тип: symbol.
 Значение по умолчанию: NEC.;
 #X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 621 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 622 poll;
-#X text 270 622 start/stop IR sensor polling. Аргументы:;
+#X text 270 622 запустить/остановить опрос ИК-датчика. Аргументы:;
 #X obj 300 647 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 647 VALUE: состояние. Тип: bool.;
 #X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
@@ -62,7 +62,7 @@ ceammc://img/conn_infrared.png;
 #X obj 20 736 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 737 1\.;
-#X text 270 737 нажатые кнопки ИК-пультов управления согласно протоколу.;
+#X text 270 737 нажатые кнопки ИК-пульта согласно протоколу.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
