@@ -1589,7 +1589,7 @@ midi.sustain-help.pd;
 #X obj 30 16806 ui.link @title [fluid~] @url fluid~-help.pd;
 #X text 200 16803 плеер для семплов FluidSynth SoundFont 2;
 #X obj 30 16831 ui.link @title [modplug~] @url modplug~-help.pd;
-#X text 200 16828 плеер файлов MOD;
+#X text 200 16828 проигрыватель MOD-файлов;
 #X obj 30 16856 ui.link @title [qrcode] @url qrcode-help.pd;
 #X text 200 16853 генератор QR кода;
 #X obj 30 16881 ui.link @title [risset.gliss] @url

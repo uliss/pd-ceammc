@@ -950,8 +950,8 @@ click~	outputs a single impulse on a bang input / выводит единичн�
 ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
 ceammc/fluid~	FluidSynth SoundFont 2 player / плеер для семплов FluidSynth SoundFont 2
-modplug~	MOD file player / плеер файлов MOD
-ceammc/modplug~	MOD file player / плеер файлов MOD
+modplug~	MOD file player / проигрыватель MOD-файлов
+ceammc/modplug~	MOD file player / проигрыватель MOD-файлов
 qrcode	QR code generator / генератор QR кода
 ceammc/qrcode	QR code generator / генератор QR кода
 risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе

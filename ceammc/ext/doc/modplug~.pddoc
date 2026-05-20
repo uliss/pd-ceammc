@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">MOD file player</tr>
-        <tr lang="ru">плеер файлов MOD</tr>
+        <tr lang="ru">проигрыватель MOD-файлов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,68 +22,63 @@
     <properties>
       <!-- @done -->
       <property name="@done" type="symbol" default="">
-        <tr lang="en">function called with bang when playing is finished</tr>
-        <!-- old: Функция, называемая челкой, когда игра
-                закончена -->
-        <tr lang="ru" finished="false">Функция, называемая челкой, когда игра закончена</tr>
+        <tr lang="en">function called with a bang when playback finishes</tr>
+        <tr lang="ru">функция, вызываемая с bang по завершении воспроизведения</tr>
       </property>
       <!-- @len -->
       <property name="@len" type="float" access="readonly" units="millisecond" default="0">
-        <tr lang="en">length of mod file</tr>
-        <tr lang="ru" finished="false">Длина файла mod</tr>
+        <tr lang="en">length of the MOD file in milliseconds</tr>
+        <tr lang="ru">длина MOD-файла в миллисекундах</tr>
       </property>
       <!-- @name -->
       <property name="@name" type="symbol" default="" access="readonly">
-        <tr lang="en">mod name</tr>
-        <tr lang="ru" finished="false">название мод</tr>
+        <tr lang="en">MOD file name</tr>
+        <tr lang="ru">имя MOD-файла</tr>
       </property>
       <!-- @play -->
       <property name="@play" type="bool" default="0">
-        <tr lang="en">play state</tr>
-        <tr lang="ru" finished="false">Игровое государство</tr>
+        <tr lang="en">playback state (1 = playing, 0 = stopped)</tr>
+        <tr lang="ru">состояние воспроизведения (1 = играет, 0 = остановлено)</tr>
       </property>
       <!-- @pos -->
       <property name="@pos" type="float" units="millisecond" default="-1">
-        <tr lang="en">position in mod file</tr>
-        <tr lang="ru" finished="false">Положение в файле mod</tr>
+        <tr lang="en">current playback position in milliseconds</tr>
+        <tr lang="ru">текущая позиция воспроизведения в миллисекундах</tr>
       </property>
       <!-- @rpos -->
       <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">
-        <tr lang="en">relative position in mod file</tr>
-        <tr lang="ru" finished="false">Относительная позиция в файле mod</tr>
+        <tr lang="en">relative playback position (0..1)</tr>
+        <tr lang="ru">относительная позиция воспроизведения (0..1)</tr>
       </property>
     </properties>
     <methods>
       <!-- pause -->
       <method name="pause">
         <info>
-          <tr lang="en">pause playing</tr>
-          <tr lang="ru" finished="false">играть паузу</tr>
+          <tr lang="en">pause playback</tr>
+          <tr lang="ru">приостановить воспроизведение</tr>
         </info>
       </method>
       <!-- play -->
       <method name="play">
         <info>
-          <tr lang="en">play mod file</tr>
-          <tr lang="ru" finished="false">play mod файл</tr>
+          <tr lang="en">start playback</tr>
+          <tr lang="ru">запустить воспроизведение</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop playing and move play position to the end of file</tr>
-          <!-- old: Прекратите играть и переместите игровую позицию
-                    в конец файла -->
-          <tr lang="ru" finished="false">Прекратите играть и переместите игровую позицию в конец
-          файла</tr>
+          <tr lang="en">stop playback and move the play position to the end of the file</tr>
+          <tr lang="ru">остановить воспроизведение и переместить позицию воспроизведения в конец файла</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">load mod file</tr>
-          <tr lang="ru" finished="false">Скачать файл load mod</tr>
+          <tr lang="en">load a MOD file</tr>
+          <tr lang="ru">загрузить MOD-файл</tr>
         </in>
       </inlet>
     </inlets>
@@ -91,13 +86,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left channel and property output</tr>
-          <tr lang="ru" finished="false">Левый канал и выход собственности</tr>
+          <tr lang="ru">левый канал и вывод свойств</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right channel</tr>
-          <tr lang="ru" finished="false">Правый канал</tr>
+          <tr lang="ru">правый канал</tr>
         </out>
       </outlet>
     </outlets>
