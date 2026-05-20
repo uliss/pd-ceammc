@@ -26,7 +26,8 @@
       </par>
       <par>
         <tr lang="en">The default soundfont is WaveSine.sf2, a simple sine synthesizer.</tr>
-        <tr lang="ru">Звуковой шрифт по умолчанию — WaveSine.sf2, простой синусоидальный синтезатор.</tr>
+        <tr lang="ru">Звуковой шрифт по умолчанию — WaveSine.sf2, простой синусоидальный
+        синтезатор.</tr>
       </par>
     </info>
     <mouse>
@@ -99,7 +100,8 @@
       <!-- @sf -->
       <property name="@sf" type="symbol" default="default">
         <tr lang="en">soundfont path. Use **default** to load the default soundfont.</tr>
-        <tr lang="ru">путь к звуковому шрифту. Используйте **default** для загрузки шрифта по умолчанию.</tr>
+        <tr lang="ru">путь к звуковому шрифту. Используйте **default** для загрузки шрифта по
+        умолчанию.</tr>
       </property>
       <!-- @soundfonts -->
       <property name="@soundfonts" type="list" access="readonly" default="">
@@ -112,7 +114,8 @@
         <tr lang="ru">версия FluidSynth</tr>
       </property>
       <!-- @volume -->
-      <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0" units="decibel">
+      <property name="@volume" type="float" minvalue="-60" maxvalue="20" default="0"
+      units="decibel">
         <tr lang="en">output volume (same as @gain but in dB)</tr>
         <tr lang="ru">выходная громкость (то же, что и @gain, но в дБ)</tr>
       </property>
@@ -136,8 +139,10 @@
       <!-- bank -->
       <method name="bank">
         <info>
-          <tr lang="en">select the instrument bank number on a MIDI channel. Does not change the instrument; use the *prog* message to do that.</tr>
-          <tr lang="ru">выбирает номер банка инструментов на MIDI-канале. Не меняет инструмент — для этого используйте сообщение *prog*.</tr>
+          <tr lang="en">select the instrument bank number on a MIDI channel. Does not change the
+          instrument: use the *prog* message to do that.</tr>
+          <tr lang="ru">выбирает номер банка инструментов на MIDI-канале. Не меняет инструмент —
+          для этого используйте сообщение *prog*.</tr>
         </info>
         <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
           <tr lang="en">MIDI channel. If zero or omitted, applies to all channels.</tr>
@@ -230,15 +235,19 @@
       <!-- gen -->
       <method name="gen">
         <info>
-          <tr lang="en">set a SoundFont generator (effect) value on a MIDI channel in real time. Expected format: CHANNEL PARAM VALUE or PARAM VALUE.</tr>
-          <tr lang="ru">устанавливает значение генератора SoundFont (эффекта) на MIDI-канале в реальном времени. Ожидаемый формат: CHANNEL PARAM VALUE или PARAM VALUE.</tr>
+          <tr lang="en">set a SoundFont generator (effect) value on a MIDI channel in real time.
+          Expected format: CHANNEL PARAM VALUE or PARAM VALUE.</tr>
+          <tr lang="ru">устанавливает значение генератора SoundFont (эффекта) на MIDI-канале в
+          реальном времени. Ожидаемый формат: CHANNEL PARAM VALUE или PARAM VALUE.</tr>
         </info>
       </method>
       <!-- hold -->
       <method name="hold">
         <info>
-          <tr lang="en">hold (sustain) pedal. When active, note release is ignored; when set to off, releases all held notes.</tr>
-          <tr lang="ru">педаль демпфера (hold/sustain). При активации отпускание нот игнорируется; при выключении отпускает все удерживаемые ноты.</tr>
+          <tr lang="en">hold (sustain) pedal. When active, note release is ignored, when set to
+          off, releases all held notes.</tr>
+          <tr lang="ru">педаль демпфера (hold/sustain). При активации отпускание нот игнорируется,
+          при выключении отпускает все удерживаемые ноты.</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="16" default="0" required="true">
           <tr lang="en">MIDI channel. If zero or omitted, applies to all channels.</tr>
@@ -252,8 +261,10 @@
       <!-- legato -->
       <method name="legato">
         <info>
-          <tr lang="en">enable or disable legato (smooth transitions between consecutive notes)</tr>
-          <tr lang="ru">включить или выключить легато (плавные переходы между последовательными нотами)</tr>
+          <tr lang="en">enable or disable legato (smooth transitions between consecutive
+          notes)</tr>
+          <tr lang="ru">включить или выключить легато (плавные переходы между последовательными
+          нотами)</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">MIDI channel. If zero or omitted, applies to all channels.</tr>
@@ -317,7 +328,8 @@
         </param>
         <param name="PAN" type="float" minvalue="0" maxvalue="16383" required="true">
           <tr lang="en">pan value: 0 = left, 8192 (0x2000) = center, 16383 (0x3fff) = right</tr>
-          <tr lang="ru">значение панорамы: 0 = лево, 8192 (0x2000) = центр, 16383 (0x3fff) = право</tr>
+          <tr lang="ru">значение панорамы: 0 = лево, 8192 (0x2000) = центр, 16383 (0x3fff) =
+          право</tr>
         </param>
       </method>
       <!-- pan:f -->
@@ -347,14 +359,18 @@
         </param>
         <param name="PAN" type="float" minvalue="-8192" maxvalue="8191" required="true">
           <tr lang="en">pan value: -8192 (-0x2000) = left, 0 = center, 8191 (0x1fff) = right</tr>
-          <tr lang="ru">значение панорамы: -8192 (-0x2000) = лево, 0 = центр, 8191 (0x1fff) = право</tr>
+          <tr lang="ru">значение панорамы: -8192 (-0x2000) = лево, 0 = центр, 8191 (0x1fff) =
+          право</tr>
         </param>
       </method>
       <!-- panic -->
       <method name="panic">
         <info>
-          <tr lang="en">send the MIDI system reset command (the big red 'panic' button). Turns off all notes, resets controllers, and restores the initial basic channel configuration.</tr>
-          <tr lang="ru">отправить команду сброса MIDI (большая красная кнопка 'panic'). Выключает все ноты, сбрасывает контроллеры и восстанавливает начальную базовую конфигурацию каналов.</tr>
+          <tr lang="en">send the MIDI system reset command (the big red 'panic' button). Turns off
+          all notes, resets controllers, and restores the initial basic channel configuration.</tr>
+          <tr lang="ru">отправить команду сброса MIDI (большая красная кнопка 'panic'). Выключает
+          все ноты, сбрасывает контроллеры и восстанавливает начальную базовую конфигурацию
+          каналов.</tr>
         </info>
       </method>
       <!-- polytouch -->
@@ -439,8 +455,10 @@
       <!-- sostenuto -->
       <method name="sostenuto">
         <info>
-          <tr lang="en">sostenuto (middle) pedal. Holds notes pressed before pedal activation; new notes are unaffected. Releases held notes when set to off.</tr>
-          <tr lang="ru">педаль sostenuto (средняя). Удерживает ноты, нажатые до активации педали; новые ноты не затрагиваются. При выключении отпускает удерживаемые ноты.</tr>
+          <tr lang="en">sostenuto (middle) pedal. Holds notes pressed before pedal activation: new
+          notes are unaffected. Releases held notes when set to off.</tr>
+          <tr lang="ru">педаль sostenuto (средняя). Удерживает ноты, нажатые до активации педали:
+          новые ноты не затрагиваются. При выключении отпускает удерживаемые ноты.</tr>
         </info>
         <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">MIDI channel. If zero or omitted, applies to all channels.</tr>
@@ -455,7 +473,8 @@
       <method name="sound_off">
         <info>
           <tr lang="en">immediately stop all notes on a MIDI channel (skip the release phase)</tr>
-          <tr lang="ru">немедленно остановить все ноты на MIDI-канале (пропустить фазу затухания)</tr>
+          <tr lang="ru">немедленно остановить все ноты на MIDI-канале (пропустить фазу
+          затухания)</tr>
         </info>
         <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
           <tr lang="en">MIDI channel. If zero or omitted, applies to all channels.</tr>
@@ -484,7 +503,8 @@
       <method name="tune:12">
         <info>
           <tr lang="en">set and activate an octave tuning program in cent deviations</tr>
-          <tr lang="ru">установить и активировать программу настройки октавы в отклонениях центов</tr>
+          <tr lang="ru">установить и активировать программу настройки октавы в отклонениях
+          центов</tr>
         </info>
         <param name="BANK" type="int" required="true" minvalue="1" maxvalue="256">
           <tr lang="en">tuning bank (not related to the MIDI instrument bank)</tr>
@@ -496,7 +516,8 @@
         </param>
         <param name="TUNES" type="list" required="true">
           <tr lang="en">list of scale deviations from 12TET in cents</tr>
-          <tr lang="ru">список отклонений от 12-тоновой равномерной темперации (12TET) в центах</tr>
+          <tr lang="ru">список отклонений от 12-тоновой равномерной темперации (12TET) в
+          центах</tr>
         </param>
       </method>
       <!-- tune:c -->
