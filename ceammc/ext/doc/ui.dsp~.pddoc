@@ -40,7 +40,7 @@
       <!-- @size -->
       <property name="@size" type="list" default="30 30">
         <tr lang="en">object size (width, height pair)</tr>
-        <tr lang="ru">размер объекта (пара: ШИРИНА ВЫСОТА)</tr>
+        <tr lang="ru">размер объекта (пара: ширина высота)</tr>
       </property>
     </properties>
     <methods>
@@ -49,22 +49,22 @@
       <!-- settings -->
       <method name="settings">
         <info>
-          <tr lang="en">opens audio settings dialog</tr>
-          <tr lang="ru" finished="false">Открывает диалог настроек аудио</tr>
+          <tr lang="en">opens the audio settings dialog</tr>
+          <tr lang="ru">открывает диалоговое окно настроек аудио</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
           <tr lang="en">starts audio processing</tr>
-          <tr lang="ru" finished="false">Начинается обработка аудио</tr>
+          <tr lang="ru">запускает обработку аудио</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
           <tr lang="en">stops audio processing</tr>
-          <tr lang="ru" finished="false">Прекратить обработку аудио</tr>
+          <tr lang="ru">останавливает обработку аудио</tr>
         </info>
       </method>
     </methods>

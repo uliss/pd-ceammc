@@ -86,7 +86,7 @@ value: 30 30\.;
 #X text 300 932 Y: top right y-coord. Type: float.;
 #X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 965 settings;
-#X text 270 965 opens audio settings dialog.;
+#X text 270 965 opens the audio settings dialog.;
 #X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1000 start;
 #X text 270 1000 starts audio processing.;

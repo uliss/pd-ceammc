@@ -77,7 +77,7 @@ normal. Разрешённые значения: normal \, bold.;
 по умолчанию: 0\.;
 #X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 883 @size;
-#X text 270 883 Размер объекта (пара: ШИРИНА ВЫСОТА). Тип: list. Значение
+#X text 270 883 Размер объекта (пара: ширина высота). Тип: list. Значение
 по умолчанию: 30 30\.;
 #X obj 20 935 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 940 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
@@ -90,13 +90,13 @@ normal. Разрешённые значения: normal \, bold.;
 #X text 300 989 Y: верхняя правая Y-coord. Тип: float.;
 #X obj 250 1022 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1022 settings;
-#X text 270 1022 opens audio settings dialog.;
+#X text 270 1022 открывает диалоговое окно настроек аудио.;
 #X obj 250 1057 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1057 start;
-#X text 270 1057 starts audio processing.;
+#X text 270 1057 запускает обработку аудио.;
 #X obj 250 1092 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1092 stop;
-#X text 270 1092 stops audio processing.;
+#X text 270 1092 останавливает обработку аудио.;
 #X obj 250 1127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1127 dump;
 #X text 270 1127 выводит всю информацию об объекте в окно консоли Pd.;
