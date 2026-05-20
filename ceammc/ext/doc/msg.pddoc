@@ -36,32 +36,30 @@
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">appends all elements to the message content, and then outputs it</tr>
-          <tr lang="ru">добавляет все элементы к содержимому сообщения, а затем выводит его</tr>
+          <tr lang="en">appends all elements to the message content and then outputs it</tr>
+          <tr lang="ru">добавляет все элементы к содержимому сообщения и затем выводит его</tr>
         </in>
         <in on="list">
-          <tr lang="en">appends all list elements to the message content, and then outputs it</tr>
-          <tr lang="ru">добавляет все элементы списка к содержимому сообщения, а затем выводит
-          его</tr>
+          <tr lang="en">appends all list elements to the message content and then outputs it</tr>
+          <tr lang="ru">добавляет все элементы списка к содержимому сообщения и затем выводит его</tr>
         </in>
         <in on="float">
-          <tr lang="en">appends a float number to the content of the message, and then outputs
-          it</tr>
-          <tr lang="ru">добавляет число к содержимому сообщения, а затем выводит его</tr>
+          <tr lang="en">appends a float number to the message content and then outputs it</tr>
+          <tr lang="ru">добавляет число к содержимому сообщения и затем выводит его</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">appends a symbol to the content of the message, and then outputs it</tr>
-          <tr lang="ru">добавляет символ к содержимому сообщения, а затем выводит его</tr>
+          <tr lang="en">appends a symbol to the message content and then outputs it</tr>
+          <tr lang="ru">добавляет символ к содержимому сообщения и затем выводит его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">change the message selector</tr>
-          <tr lang="ru">изменить селектор сообщения</tr>
+          <tr lang="en">changes the message selector</tr>
+          <tr lang="ru">изменяет селектор сообщения</tr>
         </in>
         <in on="list">
-          <tr lang="en">change the message selector and first atoms</tr>
-          <tr lang="ru">изменить селектор сообщения и первые элементы</tr>
+          <tr lang="en">changes the message selector and the first atoms</tr>
+          <tr lang="ru">изменяет селектор сообщения и первые элементы</tr>
         </in>
       </inlet>
     </inlets>
@@ -69,7 +67,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">message output</tr>
-          <tr lang="ru">вывод сообщений</tr>
+          <tr lang="ru">вывод сообщения</tr>
         </out>
       </outlet>
     </outlets>
