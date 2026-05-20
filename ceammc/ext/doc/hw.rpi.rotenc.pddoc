@@ -18,11 +18,11 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение GPIO контакты @btn, @clk
-        и @dt: использовать их в других объектах одновременно с этим *невозможно*.</tr>
         <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn,
-        @clk and @dt - it is *impossible* to use them in other objects simultaneously with this
+        @clk and @dt — it is *impossible* to use them in other objects simultaneously with this
         one.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @btn,
+        @clk и @dt — использовать их в других объектах одновременно с этим *невозможно*.</tr>
       </par>
     </info>
     <properties>
@@ -40,7 +40,7 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
         from the device.</tr>
-        <tr lang="ru">При установке в 1: пробует подключиться к устройству. При установке в 0:
+        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0:
         отключается от устройства.</tr>
       </property>
       <!-- @dt -->
@@ -50,17 +50,17 @@
       </property>
       <!-- @init -->
       <property name="@init" type="float" default="0" access="initonly">
-        <tr lang="en">init encoder value</tr>
+        <tr lang="en">initial encoder value</tr>
         <tr lang="ru">начальное значение энкодера</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="100">
-        <tr lang="en">max encoder value</tr>
+        <tr lang="en">maximum encoder value</tr>
         <tr lang="ru">максимальное значение энкодера</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="-100">
-        <tr lang="en">min encoder value</tr>
+        <tr lang="en">minimum encoder value</tr>
         <tr lang="ru">минимальное значение энкодера</tr>
       </property>
       <!-- @step -->
@@ -73,21 +73,21 @@
       <!-- get -->
       <method name="get">
         <info>
-          <tr lang="en">request current value output</tr>
-          <tr lang="ru">запросить текущее значение</tr>
+          <tr lang="en">request the current value to be output</tr>
+          <tr lang="ru">запросить текущее значение для вывода</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset current value to @init</tr>
-          <tr lang="ru">сброс текущего значения на @init</tr>
+          <tr lang="en">reset the current value to @init</tr>
+          <tr lang="ru">сбросить текущее значение на @init</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">set current value without output</tr>
+          <tr lang="en">set the current value without output</tr>
           <tr lang="ru">установить новое текущее значение без его вывода</tr>
         </info>
         <param name="VAL" type="float" required="true">
@@ -99,21 +99,21 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current value</tr>
+          <tr lang="en">output the current value</tr>
           <tr lang="ru">вывести текущее значение</tr>
         </in>
         <in on="float">
-          <tr lang="en">set current value and output</tr>
+          <tr lang="en">set the current value and output it</tr>
           <tr lang="ru">установить новое текущее значение и вывести его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset value to @init</tr>
-          <tr lang="ru">сбросить текущее значение на @init</tr>
+          <tr lang="en">reset the value to @init</tr>
+          <tr lang="ru">сбросить значение на @init</tr>
         </in>
         <in on="float">
-          <tr lang="en">set current value without output</tr>
+          <tr lang="en">set the current value without output</tr>
           <tr lang="ru">установить новое текущее значение без его вывода</tr>
         </in>
       </inlet>
@@ -127,7 +127,7 @@
       </outlet>
       <outlet>
         <out name="dir" type="any">
-          <tr lang="en">turn direction: -1 or 1</tr>
+          <tr lang="en">rotation direction: -1 or 1</tr>
           <tr lang="ru">направление вращения: -1 или 1</tr>
         </out>
         <out name="btn" type="any">
