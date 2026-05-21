@@ -71,7 +71,7 @@ impl hw_rpi_pwm {
                         // this depends from PWM clock divider
                         // we assume divider equal 384
                         // gpio pwmc 384
-                        pwm.set_frequency(1000.0 * freq, duty)
+                        pwm.set_frequency(freq, duty)
                             .or_else(|err| send_error(&tx, notify, &err.to_string()).to_err())?;
                     }
                     Request::SetPeriod(msec) => pwm
