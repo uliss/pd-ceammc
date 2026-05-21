@@ -1232,6 +1232,11 @@ bool ceammc_hw_rpi_pwm_proc_reply(const ceammc_hw_rpi_pwm *pwm);
 
 bool ceammc_hw_rpi_pwm_set_duty_cycle(const ceammc_hw_rpi_pwm *pwm, double duty_cycle);
 
+/// set pwm frequency
+/// @param pwm - pointer to pwm handle
+/// @param freq_hz - frequency in Hz
+/// @param duty_cycle - duty cycle in [0,1] range
+/// @return true on sucess, false on error
 bool ceammc_hw_rpi_pwm_set_freq(const ceammc_hw_rpi_pwm *pwm, double freq_hz, double duty_cycle);
 
 bool ceammc_hw_rpi_pwm_set_period(const ceammc_hw_rpi_pwm *pwm, double period_ms);

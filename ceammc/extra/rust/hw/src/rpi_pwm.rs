@@ -85,6 +85,11 @@ pub extern "C" fn ceammc_hw_rpi_pwm_enable(pwm: *const hw_rpi_pwm, state: bool) 
 }
 
 #[no_mangle]
+/// set pwm frequency
+/// @param pwm - pointer to pwm handle
+/// @param freq_hz - frequency in Hz
+/// @param duty_cycle - duty cycle in [0,1] range
+/// @return true on sucess, false on error
 pub extern "C" fn ceammc_hw_rpi_pwm_set_freq(pwm: *const hw_rpi_pwm, freq_hz: f64, duty_cycle: f64) -> bool {
     rpi_check!({ hw_rpi_pwm::send_request_ptr(pwm, Request::SetFreq(freq_hz, duty_cycle)) });
 }
