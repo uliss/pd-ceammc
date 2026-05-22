@@ -1,13 +1,12 @@
-dev targets: 
+Development targets (dev_*):
+
   * dev_dpkg          - reinstall dpkg package (no build)
   * dev_package       - rebuild and reinstall dpkg package
-  * dev_touch_version - touch external info file, to update compilation date/time in load message
-  * dev_faust         - list all faust targets
-  * dev_tcl           - copy tcl files to install tcl directory
+  * dev_touch_version - touch external info file, to update compilation date/time in the load message
+  * dev_faust         - list all Faust targets
+  * dev_tcl           - copy tcl files to the Pd tcl installation directory
   * dev_pd            - copy pd executable to install bin directory
-  * dev_copyright     - update debian copyright file with decopy utility
-  * dev_run           - (fast) build ceammc external, copy it to the install directory, then run pd-ceammc
-  * dev_open          - (slow) build ceammc package, install it, then run pd-ceammc
-  * dev_pkg_version   - update deb package version according to git describe
-
-
+  * dev_copyright     - update debian/copyright file using the decopy utility
+  * dev_run           - (fast) build the ceammc external, copy it to the install directory, then run pd-ceammc
+  * dev_open          - (slow) build the ceammc package, install it, then run pd-ceammc
+  * dev_pkg_version   - update Debian package version according to git describe
