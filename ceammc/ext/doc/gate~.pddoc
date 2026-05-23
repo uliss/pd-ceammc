@@ -22,11 +22,11 @@
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="64">
         <tr lang="en">number of inputs/outputs</tr>
-        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+        <tr lang="ru">количество входов/выходов</tr>
       </argument>
       <argument name="INIT" type="bool">
         <tr lang="en">initial open/close state for all slots</tr>
-        <tr lang="ru" finished="false">начальное состояние open/close для всех слотов</tr>
+        <tr lang="ru">начальное состояние (открыт/закрыт) для всех слотов</tr>
       </argument>
     </arguments>
     <properties>
@@ -35,48 +35,47 @@
         <tr lang="en">init state for all slots. If true: all slots are open.</tr>
         <!-- old: Состояние init для всех слотов. Если это правда, все
                 слоты открыты. -->
-        <tr lang="ru" finished="false">Состояние init для всех слотов. Если это правда, все слоты
-        открыты.</tr>
+        <tr lang="ru">начальное состояние для всех слотов. Если true — все слоты открыты.</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="1" default="1" maxvalue="64" access="initonly">
-        <tr lang="en">number of [in|out]puts.</tr>
-        <tr lang="ru" finished="false">Количество [внутренних] выходов.</tr>
+        <tr lang="en">number of inputs/outputs.</tr>
+        <tr lang="ru">количество входов/выходов.</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="float" minvalue="0" default="50" maxvalue="1000"
       units="millisecond">
-        <tr lang="en">gain change smooth time</tr>
-        <tr lang="ru" finished="false">Изменение плавного времени</tr>
+        <tr lang="en">gain change smoothing time</tr>
+        <tr lang="ru">время сглаживания изменения усиления</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet type="audio" number="1">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
-          <tr lang="en">... input signal</tr>
-          <tr lang="ru" finished="false">... входной сигнал</tr>
+          <tr lang="en">input signal ...</tr>
+          <tr lang="ru">входной сигнал ...</tr>
         </in>
       </inlet>
       <inlet type="control" number="n">
         <in>
           <tr lang="en">n-th input signal</tr>
-          <tr lang="ru" finished="false">n-й входной сигнал</tr>
+          <tr lang="ru">n-й входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control" number="n+1">
         <in on="bool">
           <tr lang="en">on/off all channels</tr>
-          <tr lang="ru" finished="false">Все каналы включены/выключены</tr>
+          <tr lang="ru">включить/выключить все каналы</tr>
         </in>
         <in on="list">
-          <tr lang="en">list of 1|0, on/off specified channels only</tr>
-          <tr lang="ru" finished="false">список 1 | 0, только по указанным каналам</tr>
+          <tr lang="en">list of 1/0, on/off specified channels only</tr>
+          <tr lang="ru">список из 1 и 0 для включения/выключения только указанных каналов</tr>
         </in>
       </inlet>
     </inlets>
@@ -84,19 +83,19 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">first output signal</tr>
-          <tr lang="ru" finished="false">Первый выходной сигнал</tr>
+          <tr lang="ru">первый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
-          <tr lang="en">... output signal</tr>
-          <tr lang="ru" finished="false">... выходной сигнал</tr>
+          <tr lang="en">output signal ...</tr>
+          <tr lang="ru">выходной сигнал ...</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th output signal</tr>
-          <tr lang="ru" finished="false">n-й выходной сигнал</tr>
+          <tr lang="ru">n-й выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>
