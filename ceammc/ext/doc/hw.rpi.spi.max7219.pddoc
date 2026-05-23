@@ -263,40 +263,67 @@
     <example>
       <pdascii>
 <![CDATA[
-/*#7-segment only*/       /*#both*/     [clear #a(   [get matrix(
-                                                     |
-[F]                       [T]           [T]          [ui.matrix 8 8 #o]
-|                         |             |
-[write int $1 #b(         [power $1 #e( [test $1 #f 0(
+ [clear #a(                       [get matrix(
+                                  |
+[T]           [T]                 [ui.matrix 8 8 #o]
+|             |
+[power $1 #e( [test $1 #f 0(
 
-[write float -10.25 3 #c( [write reg 2 15 0 #h(
+              [write reg 2 15 0 #h(
 
-[write hex 355 #d(        [write bytes -1 255 0 255 #g(
+              [write bytes -1 255 0 255 #g(
 
-[write str DSP 0 left #j(      [F min=0 max=15]      [route matrix #p0]
-                               |                     |
-[write str DSP 255 center #k(  [intensity $1 #m(     [msg write matrix #p]
+              [F min=0 max=15]    [route matrix #p0]
+              |                   |
+              [intensity $1 #m(   [msg write matrix #p]
 
-[write str DSP 1 right #l(     /*matrix only*/
-
-  [T]                          [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
-  |                            |
-  [@connect $1 #r(             [bitmap 32 8]
-                               |
-                               [msg write #q]
+  [T]               [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
+  |                 |
+  [@connect $1 #r(  [bitmap 32 8]
+                    |
+                    [msg write #q]
 
 
-
-[hw.rpi.spi.max7219 4 #x]/*← for 7-segment display change number of displays (4) to 1!*/
-
-[hw.rpi.spi.max7219-spi]
+[hw.rpi.spi.max7219 4 #x]
 
 [ui.link @url=ceammc://img/conn_max7219a.png @title='Connection_Matrix']
 
-[ui.link @url=ceammc://img/conn_max7219b.png @title='Connection_Digits']
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]  [X g->x] [X h->x]
-[X j->x] [X k->x] [X l->x] [X m->x] [X o->p0] [X p->x] [X q->x] [X r->x]
+[hw.rpi.spi.max7219-7segm]
+
+[hw.rpi.spi.max7219-spi]
+[X a->x] [X e->x] [X f->x]  [X g->x] [X h->x]
+[X m->x] [X o->p0] [X p->x] [X q->x] [X r->x]
 #x @spi_bus 0
+]]>
+      </pdascii>
+      <pdascii id="7segm">
+<![CDATA[
+/*#7-segment display*/    [clear #a(
+
+[F]                       [T]           [T]
+|                         |             |
+[write int $1 #b(         [power $1 #e( [test $1 #f 0(
+
+[write float -10.25 3 #c(
+
+[write hex 355 #d(
+
+[write str DSP 0 left #j(      [F min=0 max=15]
+                               |
+[write str DSP 255 center #k(  [intensity $1 #m(
+
+[write str DSP 1 right #l(
+
+  [T]
+  |
+  [@connect $1 #r(
+
+[hw.rpi.spi.max7219 1 #x]
+
+[ui.link @url=ceammc://img/conn_max7219b.png @title='Connection_Digits']
+
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
+[X m->x] [X r->x]
 ]]>
       </pdascii>
       <pdascii id="spi">
