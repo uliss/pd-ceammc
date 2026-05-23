@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">High-pass fourth order Butterworth filter</tr>
-        <tr lang="ru">ФВЧ Баттерворта четвертого порядка</tr>
+        <tr lang="ru">ФВЧ Баттерворта четвёртого порядка</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,28 +27,22 @@
         <tr lang="en">A high-pass filter is an electronic filter that passes signals with a
         frequency higher than a certain cutoff frequency and attenuates signals with frequencies
         lower than the cutoff frequency.</tr>
-        <!-- old: Фильтр высокого пропуска представляет собой
-                электронный фильтр, который передает сигналы с частотой выше определенной частоты
-                отсечения и ослабляет сигналы с частотами ниже частоты отсечения. -->
-        <tr lang="ru" finished="false">Фильтр высокого пропуска представляет собой электронный
-        фильтр, который передает сигналы с частотой выше определенной частоты отсечения и ослабляет
-        сигналы с частотами ниже частоты отсечения.</tr>
+        <tr lang="ru">Фильтр высоких частот — это электронный фильтр,
+        который пропускает сигналы с частотой выше определённой частоты среза и ослабляет сигналы
+        с частотами ниже частоты среза.</tr>
       </par>
       <par>
         <tr lang="en">Butterworth filter is a type of filter designed to have a frequency response
         as flat as possible in the passband.</tr>
-        <!-- old: Фильтр Баттерворта — это тип фильтра,
-                предназначенный для того, чтобы иметь как можно более плоскую частотную реакцию в
-                полосе пропускания. -->
-        <tr lang="ru" finished="false">Фильтр Баттерворта — это тип фильтра, предназначенный для
-        того, чтобы иметь как можно более плоскую частотную реакцию в полосе пропускания.</tr>
+        <tr lang="ru">Фильтр Баттерворта — это тип фильтра, АЧХ которого
+        максимально гладкая в полосе пропускания.</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
     </info>
     <arguments>
       <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">
         <tr lang="en">cutoff frequency</tr>
-        <tr lang="ru" finished="false">частота отключения</tr>
+        <tr lang="ru" finished="false">частота среза</tr>
       </argument>
     </arguments>
     <properties>
@@ -59,7 +53,7 @@
       <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
       default="10000">
         <tr lang="en">cutoff frequency</tr>
-        <tr lang="ru" finished="false">частота отключения</tr>
+        <tr lang="ru">частота среза</tr>
       </property>
     </properties>
     <methods>
@@ -67,7 +61,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset filter state</tr>
-          <tr lang="ru" finished="false">состояние фильтра сброса</tr>
+          <tr lang="ru">сбросить состояние фильтра</tr>
         </info>
       </method>
     </methods>
@@ -75,13 +69,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set frequency</tr>
-          <tr lang="ru" finished="false">установленная частота</tr>
+          <tr lang="ru">установить частоту</tr>
         </in>
       </inlet>
     </inlets>
@@ -89,7 +83,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">filtered signal</tr>
-          <tr lang="ru" finished="false">фильтрованный сигнал</tr>
+          <tr lang="ru">отфильтрованный сигнал</tr>
         </out>
       </outlet>
     </outlets>

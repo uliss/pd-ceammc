@@ -543,7 +543,7 @@ flt.freqz	compute the frequency response of a digital filter / вычисляе�
 flt.freqz~	compute the frequency response of a digital filter / вычисляет частотный отклик цифрового фильтра
 flt.highshelf~	gain boost|cut above some frequency / усиление или ослабление частот выше указанной
 flt.hpf12~	high-pass second order Butterworth filter / ФВЧ Баттерворта второго порядка
-flt.hpf24~	High-pass fourth order Butterworth filter / ФВЧ Баттерворта четвертого порядка
+flt.hpf24~	High-pass fourth order Butterworth filter / ФВЧ Баттерворта четвёртого порядка
 flt.lowshelf~	gain boost|cut below some frequency / усиление или ослабление частот ниже указанной
 flt.lpf12~	Low-pass second order Butterworth filter / ФНЧ Баттерворта второго порядка
 flt.lpf24~	Low-pass fourth order Butterworth filter / ФНЧ Баттерворта четвертого порядка

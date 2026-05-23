@@ -783,7 +783,7 @@ flt.highshelf~-help.pd;
 #X obj 30 8353 ui.link @title [flt.hpf12~] @url flt.hpf12~-help.pd;
 #X text 200 8350 ФВЧ Баттерворта второго порядка;
 #X obj 30 8378 ui.link @title [flt.hpf24~] @url flt.hpf24~-help.pd;
-#X text 200 8375 ФВЧ Баттерворта четвертого порядка;
+#X text 200 8375 ФВЧ Баттерворта четвёртого порядка;
 #X obj 30 8403 ui.link @title [flt.lowshelf~] @url
 flt.lowshelf~-help.pd;
 #X text 200 8400 усиление или ослабление частот ниже указанной;
