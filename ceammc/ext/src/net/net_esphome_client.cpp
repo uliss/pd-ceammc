@@ -24,6 +24,8 @@ OBJECT_STUB_SETUP(NetEsphomeClient, net_esphome_client, "net.esphome.client");
 #include "net_esphome_client_args.hpp"
 #include "net_rust.hpp"
 
+#include <boost/container_hash/hash.hpp>
+
 #define ESPHOME_CAST()                               \
     auto obj = static_cast<NetEsphomeClient*>(user); \
     if (!obj)                                        \
