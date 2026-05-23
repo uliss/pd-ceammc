@@ -286,7 +286,7 @@
 
 [hw.rpi.spi.max7219 4 #x]
 
-[ui.link @url=ceammc://img/conn_max7219a.png @title='Connection_Matrix']
+[ui.link @url=ceammc://img/conn_max7219.png @title='Connection_Matrix']
 
 [hw.rpi.spi.max7219-7segm]
 

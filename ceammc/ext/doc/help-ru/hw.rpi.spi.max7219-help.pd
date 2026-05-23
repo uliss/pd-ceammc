@@ -39,7 +39,7 @@ write_bits и write_reg будут работать ожидаемым обра�
 #X obj 242 626 msg write;
 #X obj 50 669 hw.rpi.spi.max7219 4 @spi_bus 0;
 #X obj 50 697 ui.link @title 'Connection_Matrix' @url
-ceammc://img/conn_max7219a.png;
+ceammc://img/conn_max7219.png;
 #X obj 50 726 hw.rpi.spi.max7219-7segm;
 #X obj 50 755 hw.rpi.spi.max7219-spi;
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;

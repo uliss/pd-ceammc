@@ -38,7 +38,7 @@ character set: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu;
 #X obj 242 611 msg write;
 #X obj 50 654 hw.rpi.spi.max7219 4 @spi_bus 0;
 #X obj 50 682 ui.link @title 'Connection_Matrix' @url
-ceammc://img/conn_max7219a.png;
+ceammc://img/conn_max7219.png;
 #X obj 50 711 hw.rpi.spi.max7219-7segm;
 #X obj 50 740 hw.rpi.spi.max7219-spi;
 #X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
