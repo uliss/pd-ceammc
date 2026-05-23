@@ -787,7 +787,7 @@ flt.speaker~-help.pd;
 fx.dattorro~-help.pd;
 #X text 200 8198 Dattorro reverb;
 #X obj 30 8226 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
-#X text 200 8223 smooth delay with a feedback control;
+#X text 200 8223 smooth delay with feedback control;
 #X obj 30 8251 ui.link @title [fx.distortion1~] @url
 fx.distortion1~-help.pd;
 #X text 200 8248 distortion #1 from Guitarix effects set;

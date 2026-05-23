@@ -557,8 +557,8 @@ flt.speaker~	speaker emulation band-pass filter / полосовой фильт�
 fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
 fx.dattorro~	Dattorro reverb / реверберация Dattorro
-fx.delay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
-fx.sdelay~	smooth delay with a feedback control / плавный дилей с контролем обратной связи
+fx.delay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
+fx.sdelay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
 fx.distortion1~	distortion #1 from Guitarix effects set / дисторшн №1 из набора эффектов Guitarix
 fx.distortion2~	distortion #2 from Guitarix effects set / дисторшн №2 из набора эффектов Guitarix
 fx.distortion3~	simple distortion #3 from Guitarix effects set / простой дисторшн №3 из набора эффектов Guitarix

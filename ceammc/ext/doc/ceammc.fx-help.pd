@@ -11,7 +11,7 @@
 #X obj 30 170 ui.link @title [fx.dattorro~] @url fx.dattorro~-help.pd;
 #X text 220 167 Dattorro reverb;
 #X obj 30 195 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
-#X text 220 192 smooth delay with a feedback control;
+#X text 220 192 smooth delay with feedback control;
 #X obj 30 220 ui.link @title [fx.distortion1~] @url
 fx.distortion1~-help.pd;
 #X text 220 217 distortion #1 from Guitarix effects set;

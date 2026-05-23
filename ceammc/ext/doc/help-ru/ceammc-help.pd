@@ -822,7 +822,7 @@ flt.speaker~-help.pd;
 fx.dattorro~-help.pd;
 #X text 200 8753 реверберация Dattorro;
 #X obj 30 8781 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
-#X text 200 8778 плавный дилей с контролем обратной связи;
+#X text 200 8778 плавный дилей с регулировкой обратной связи;
 #X obj 30 8806 ui.link @title [fx.distortion1~] @url
 fx.distortion1~-help.pd;
 #X text 200 8803 дисторшн №1 из набора эффектов Guitarix;

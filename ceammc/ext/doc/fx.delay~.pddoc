@@ -8,8 +8,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">smooth delay with a feedback control</tr>
-        <tr lang="ru">плавный дилей с контролем обратной связи</tr>
+        <tr lang="en">smooth delay with feedback control</tr>
+        <tr lang="ru">плавный дилей с регулировкой обратной связи</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,20 +27,18 @@
       <par>
         <tr lang="en">delay that doesn't click and doesn't transpose when the delay time is
         changed</tr>
-        <!-- old: задержка, которая не нажимает и не переносится при
-                изменении времени задержки -->
-        <tr lang="ru" finished="false">задержка, которая не нажимает и не переносится при изменении
+        <tr lang="ru">дилей без щелчков и без транспозиции при изменении
         времени задержки</tr>
       </par>
     </info>
     <arguments>
       <argument name="DELAY" type="float" minvalue="0" maxvalue="6000" units="millisecond">
         <tr lang="en">delay time</tr>
-        <tr lang="ru" finished="false">задержка времени</tr>
+        <tr lang="ru">время задержки</tr>
       </argument>
       <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="1">
         <tr lang="en">feedback coefficient</tr>
-        <tr lang="ru" finished="false">коэффициент обратной связи</tr>
+        <tr lang="ru">коэффициент обратной связи</tr>
       </argument>
     </arguments>
     <properties>
@@ -50,89 +48,77 @@
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
         <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="ru">флаг обхода. Если true — сигнал проходит без обработки.</tr>
       </property>
       <!-- @c_attack -->
       <property name="@c_attack" type="float" minvalue="0.1" maxvalue="100" default="10"
       units="millisecond">
         <tr lang="en">feedback compression attack time</tr>
-        <tr lang="ru" finished="false">Время атаки сжатия с обратной связью</tr>
+        <tr lang="ru">время атаки компрессора обратной связи</tr>
       </property>
       <!-- @c_release -->
       <property name="@c_release" type="float" minvalue="1" maxvalue="500" default="50"
       units="millisecond">
         <tr lang="en">feedback compression release time</tr>
-        <tr lang="ru" finished="false">Время сжатия с обратной связью</tr>
+        <tr lang="ru">время восстановления компрессора обратной связи</tr>
       </property>
       <!-- @c_thresh -->
       <property name="@c_thresh" type="float" minvalue="-60" maxvalue="0" default="0"
       units="decibel">
         <tr lang="en">feedback compression threshold level</tr>
-        <tr lang="ru" finished="false">пороговый уровень сжатия обратной связи</tr>
+        <tr lang="ru">пороговый уровень компрессора обратной связи</tr>
       </property>
       <!-- @compress -->
       <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
         <tr lang="en">feedback compression factor. 0: means no compression, 1: limit feedback
         level.</tr>
-        <!-- old: Фактор сжатия обратной связи. 0: означает отсутствие
-                сжатия, 1: предельный уровень обратной связи. -->
-        <tr lang="ru" finished="false">Фактор сжатия обратной связи. 0: означает отсутствие сжатия,
-        1: предельный уровень обратной связи.</tr>
+        <tr lang="ru">коэффициент сжатия обратной связи. 0 — без сжатия,
+        1 — ограничение уровня обратной связи.</tr>
       </property>
       <!-- @delay -->
       <property name="@delay" type="float" minvalue="0" maxvalue="6000" units="millisecond"
       default="1">
         <tr lang="en">echo time</tr>
-        <tr lang="ru" finished="false">время эхо</tr>
+        <tr lang="ru">время эха</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
         <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
-        - dry signal, 1 - wet.</tr>
-        <!-- old: пропорция смеси между исходным (сухим) и «влажным»
-                сигналами. 0 - сухой сигнал, 1 - влажный. -->
-        <tr lang="ru" finished="false">пропорция смеси между исходным (сухим) и «влажным»
-        сигналами. 0 - сухой сигнал, 1 - влажный.</tr>
+        = dry signal, 1 = wet.</tr>
+        <tr lang="ru">пропорция смеси между исходным (dry) и обработанным (wet)
+        сигналами. 0 — только исходный сигнал, 1 — только обработанный.</tr>
       </property>
       <!-- @f_hpf -->
       <property name="@f_hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
       default="300">
         <tr lang="en">feedback high-pass filter cutoff frequency</tr>
-        <tr lang="ru" finished="false">Высокочастотный фильтр High-pass</tr>
+        <tr lang="ru">частота среза фильтра верхних частот обратной связи</tr>
       </property>
       <!-- @f_lpf -->
       <property name="@f_lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
       default="9000">
         <tr lang="en">feedback low-pass filter cutoff frequency</tr>
-        <tr lang="ru" finished="false">частота отсечения фильтра нижних частот</tr>
+        <tr lang="ru">частота среза фильтра нижних частот обратной связи</tr>
       </property>
       <!-- @feedback -->
       <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">
         <tr lang="en">feedback coefficient</tr>
-        <tr lang="ru" finished="false">коэффициент обратной связи</tr>
+        <tr lang="ru">коэффициент обратной связи</tr>
       </property>
       <!-- @filter -->
       <property name="@filter" type="bool" default="0">
         <tr lang="en">if true - apply filter to feedback signal</tr>
         <!-- old: Если это правда - нанесите фильтр на сигнал обратной
                 связи -->
-        <tr lang="ru" finished="false">Если это правда - нанесите фильтр на сигнал обратной
-        связи</tr>
+        <tr lang="ru">если true — применять фильтр к сигналу обратной связи</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="float" default="50" minvalue="0" maxvalue="500"
       units="millisecond">
         <tr lang="en">interpolation time on delay time change, that prevents click and transpose,
         if equal to 0 produces artifacts on delay change</tr>
-        <!-- old: время интерполяции при изменении времени задержки,
-                которое предотвращает щелчок и транспонирование, если равно 0 производит артефакты
-                при изменении задержки -->
-        <tr lang="ru" finished="false">время интерполяции при изменении времени задержки, которое
-        предотвращает щелчок и транспонирование, если равно 0 производит артефакты при изменении
-        задержки</tr>
+        <tr lang="ru">время интерполяции при изменении времени задержки. Предотвращает
+        щелчки и транспозицию. При значении 0 возникают артефакты.</tr>
       </property>
     </properties>
     <methods>
@@ -140,7 +126,7 @@
       <method name="reset">
         <info>
           <tr lang="en">clears delay line</tr>
-          <tr lang="ru" finished="false">Очистить линию задержки</tr>
+          <tr lang="ru">очистить линию задержки</tr>
         </info>
       </method>
     </methods>
@@ -148,13 +134,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set delay time</tr>
-          <tr lang="ru" finished="false">установить время задержки</tr>
+          <tr lang="ru">установить время задержки</tr>
         </in>
       </inlet>
     </inlets>
@@ -162,7 +148,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

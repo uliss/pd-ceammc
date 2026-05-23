@@ -900,7 +900,7 @@
     <entry name="fx.dattorro~" descr="Dattorro reverb" ref_view="link">
       <xi:include href="fx.dattorro~.pddoc" parse="xml"/>
     </entry>
-    <entry name="fx.delay~" descr="smooth delay with a feedback control" ref_view="link">
+    <entry name="fx.delay~" descr="smooth delay with feedback control" ref_view="link">
       <xi:include href="fx.delay~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.distortion1~" descr="distortion #1 from Guitarix effects set" ref_view="link">
