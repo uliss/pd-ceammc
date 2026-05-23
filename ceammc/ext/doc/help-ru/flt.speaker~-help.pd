@@ -1,113 +1,115 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 504 50 полосовой фильтр-эмуляция динамика;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 473 50 полосовой фильтр для эмуляции динамика;
 #X obj 1 1 cnv 5 765 40 empty empty flt.speaker~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 flt.speaker~;
-#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Low-frequency speaker model = +12 dB/octave slope breaking
-to flat near @f1\.;
-#X text 240 123 Implemented using two dc blockers in series.;
-#X text 240 148 High-frequency model = -24 dB/octave slope implemented
-using a fourth-order Butterworth lowpass.;
-#X listbox 50 251 20 0 0 0 - - -;
-#X msg 338 266 bang;
-#X text 434 266 plot response;
-#X msg 50 295 @f1 \$1 \, @f2 \$2;
-#X obj 338 295 click~;
-#X obj 50 323 flt.speaker~ 1000 4000;
-#X obj 50 352 plot.response~ @sr 1 @db 1;
-#X obj 50 381 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Модель динамика в области низких частот: подъём +12
+дБ/октава с выходом на равномерную АЧХ вблизи @f1\.;
+#X text 240 123 Реализовано с помощью двух последовательных фильтров
+подавления постоянной составляющей.;
+#X text 240 163 Модель динамика в области высоких частот: спад -24
+дБ/октава \, реализованный с помощью фильтра низких частот Баттерворта
+четвёртого порядка.;
+#X listbox 50 281 20 0 0 0 - - -;
+#X msg 338 296 bang;
+#X text 434 296 plot response;
+#X msg 50 325 @f1 \$1 \, @f2 \$2;
+#X obj 338 325 click~;
+#X obj 50 353 flt.speaker~ 1000 4000;
+#X obj 50 382 plot.response~ @sr 1 @db 1;
+#X obj 50 411 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
-#X obj 50 597 ui.dsp~;
-#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 652 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 627 ui.dsp~;
+#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 682 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 655 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 685 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 653 1\.;
-#X text 170 653 float;
-#X obj 268 654 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 653 F1(Hz): lower band frequency. Тип: float. Диапазон:
+#X text 130 683 1\.;
+#X text 170 683 float;
+#X obj 268 684 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 683 F1(Hz): нижняя граничная частота. Тип: float. Диапазон:
 [20\..1000];
-#X text 130 693 2\.;
-#X text 170 693 float;
-#X obj 268 694 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 693 F2(Hz): high band frequency. Тип: float. Диапазон:
+#X text 130 723 2\.;
+#X text 170 723 float;
+#X obj 268 724 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 723 F2(Hz): верхняя граничная частота. Тип: float. Диапазон:
 [1000\..20000];
-#X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 748 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 778 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 751 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 781 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 749 @id;
-#X text 270 749 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 779 @id;
+#X text 270 779 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/flt_speaker/ИМЯ_СВОЙСТВА \, в противном случае к /flt_speaker/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 836 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 836 @osc;
-#X text 270 836 (при инициализации) Имя OSC сервера. Тип: symbol.;
 #X obj 250 866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 866 @active;
-#X text 270 866 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X msg 130 866 @osc;
+#X text 270 866 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 896 @active;
+#X text 270 896 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 908 @bypass;
-#X text 270 908 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 950 @drywet;
-#X text 270 950 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-1\. Диапазон: [0\..1].;
-#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1007 @f1;
-#X text 270 1007 Lower band frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 130\. Диапазон: [20\..1000].;
-#X obj 250 1049 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1049 @f2;
-#X text 270 1049 High band frequency. Тип: float. Единицы: 'Hz'. Значение
-по умолчанию: 5000\. Диапазон: [1000\..20000].;
-#X obj 250 1091 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1091 @gain;
-#X text 270 1091 Filter gain. Тип: float. Единицы: 'db'. Значение по
-умолчанию: 0\. Диапазон: [-30\..30].;
-#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1148 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 938 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 938 @bypass;
+#X text 270 938 Флаг обхода обработки. Если true — сигнал проходит
+без изменений. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 980 @drywet;
+#X text 270 980 Пропорция смеси между исходным (dry) и обработанным
+(wet) сигналами. 0 — сухой сигнал \, 1 — влажный. Тип: float. Значение
+по умолчанию: 1\. Диапазон: [0\..1].;
+#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1037 @f1;
+#X text 270 1037 Нижняя граничная частота. Тип: float. Единицы: 'Hz'.
+Значение по умолчанию: 130\. Диапазон: [20\..1000].;
+#X obj 250 1079 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1079 @f2;
+#X text 270 1079 Верхняя граничная частота. Тип: float. Единицы: 'Hz'.
+Значение по умолчанию: 5000\. Диапазон: [1000\..20000].;
+#X obj 250 1121 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1121 @gain;
+#X text 270 1121 Усиление фильтра. Тип: float. Единицы: 'db'. Значение
+по умолчанию: 0\. Диапазон: [-30\..30].;
+#X obj 20 1173 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1178 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1149 reset;
-#X text 270 1149 reset filter state.;
-#X obj 20 1194 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1199 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1179 reset;
+#X text 270 1179 сбросить состояние фильтра.;
+#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1229 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1200 1\.;
-#X text 170 1200 ~;
-#X text 270 1200 input signal.;
-#X text 130 1225 2\.;
-#X text 170 1225 float:;
-#X text 270 1225 set @f1 property.;
-#X text 130 1250 3\.;
-#X text 170 1250 float:;
-#X text 270 1250 set @f2 property.;
-#X obj 20 1285 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1290 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1230 1\.;
+#X text 170 1230 ~;
+#X text 270 1230 входной сигнал.;
+#X text 130 1255 2\.;
+#X text 170 1255 float:;
+#X text 270 1255 установить свойство @f1\.;
+#X text 130 1280 3\.;
+#X text 170 1280 float:;
+#X text 270 1280 установить свойство @f2\.;
+#X obj 20 1315 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1320 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1291 1\.;
-#X text 170 1291 ~;
-#X text 270 1291 filtered signal.;
+#X text 130 1321 1\.;
+#X text 170 1321 ~;
+#X text 270 1321 отфильтрованный сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1341 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1344 библиотека: ceammc v0.9.8;
-#X text 544 1356 смотрите также:;
-#X obj 665 1359 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1371 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1374 библиотека: ceammc v0.9.8;
+#X text 544 1386 смотрите также:;
+#X obj 665 1389 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flt.bpf24~] @url flt.bpf24~-help.pd;
-#N canvas 10 1363 400 290 info 0;
+#N canvas 10 1393 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -131,7 +133,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1363 pd info;
+#X restore 10 1393 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;

@@ -809,7 +809,7 @@ flt.resonlp~-help.pd;
 #X text 200 8600 простой резонансный ФНЧ;
 #X obj 30 8628 ui.link @title [flt.speaker~] @url
 flt.speaker~-help.pd;
-#X text 200 8625 полосовой фильтр-эмуляция динамика;
+#X text 200 8625 полосовой фильтр для эмуляции динамика;
 #X obj 680 7447 cnv 1 60 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 685 7447 фильтры;
 #X obj 20 8650 cnv 5 28 32 empty empty fx 4 16 0 17 -262144 -49933 0;

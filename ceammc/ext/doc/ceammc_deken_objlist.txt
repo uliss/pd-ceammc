@@ -553,7 +553,7 @@ flt.notch~	band-rejection filter / режекторный фильтр
 flt.resonbp~	simple resonant bandpass filter / простой резонансный полосовой фильтр
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
-flt.speaker~	speaker emulation band-pass filter / полосовой фильтр-эмуляция динамика
+flt.speaker~	speaker emulation band-pass filter / полосовой фильтр для эмуляции динамика
 fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
 fx.dattorro~	Dattorro reverb / реверберация Dattorro

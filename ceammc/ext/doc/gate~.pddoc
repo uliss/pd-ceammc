@@ -33,8 +33,6 @@
       <!-- @init -->
       <property name="@init" type="bool" access="initonly" default="true">
         <tr lang="en">init state for all slots. If true: all slots are open.</tr>
-        <!-- old: Состояние init для всех слотов. Если это правда, все
-                слоты открыты. -->
         <tr lang="ru">начальное состояние для всех слотов. Если true — все слоты открыты.</tr>
       </property>
       <!-- @n -->

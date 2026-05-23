@@ -6,11 +6,11 @@
 -4096 0;
 #X obj 652 11 flt.speaker~;
 #X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Low-frequency speaker model = +12 dB/octave slope breaking
+#X text 240 83 Low-frequency speaker model: +12 dB/octave slope breaking
 to flat near @f1\.;
-#X text 240 123 Implemented using two dc blockers in series.;
-#X text 240 148 High-frequency model = -24 dB/octave slope implemented
-using a fourth-order Butterworth lowpass.;
+#X text 240 123 Implemented using two DC blockers in series.;
+#X text 240 148 High-frequency model: -24 dB/octave slope implemented
+using a fourth-order Butterworth lowpass filter.;
 #X listbox 50 251 20 0 0 0 - - -;
 #X msg 338 266 bang;
 #X text 434 266 plot response;
@@ -57,7 +57,7 @@ bool. Default value: 0\.;
 #X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 893 @drywet;
 #X text 270 893 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+(wet) signals. 0 = dry signal \, 1 = wet. Type: float. Default value:
 1\. Range: [0\..1].;
 #X obj 250 950 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 950 @f1;
