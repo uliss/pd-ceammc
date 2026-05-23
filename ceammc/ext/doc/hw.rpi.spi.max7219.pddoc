@@ -263,27 +263,26 @@
     <example>
       <pdascii>
 <![CDATA[
- [clear #a(                       [get matrix(
-                                  |
-[T]           [T]                 [ui.matrix 8 8 #o]
-|             |
-[power $1 #e( [test $1 #f 0(
-
-              [write reg 2 15 0 #h(
-
-              [write bytes -1 255 0 255 #g(
-
-              [F min=0 max=15]    [route matrix #p0]
-              |                   |
-              [intensity $1 #m(   [msg write matrix #p]
-
-  [T]               [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
-  |                 |
-  [@connect $1 #r(  [bitmap 32 8]
-                    |
-                    [msg write #q]
-
-
+[T]                                 [get matrix(
+|                                   |
+[@connect $1(                       [ui.matrix 8 8 #o]
+|
+| [T]           [write bytes -1 255 0 255 #g(
+| |
+| [power $1 #e( [write reg 2 15 0 #h(
+|
+| [T]
+| |
+| [test $1 #f 0( [F min=0 max=15]   [route matrix #p0]
+|                |                  |
+| [clear #a(     [intensity $1 #m(  [msg write matrix #p]
+|
+|                [font FONT_4x6, text 1 6 ЦЭАМ, get matrix(
+|                |
+|                [bitmap 32 8]
+|                |
+|                [msg write #q]
+|
 [hw.rpi.spi.max7219 4 #x]
 
 [ui.link @url=ceammc://img/conn_max7219.png @title='Connection_Matrix']
@@ -298,32 +297,34 @@
       </pdascii>
       <pdascii id="7segm">
 <![CDATA[
-/*#7-segment display*/    [clear #a(
+/*#7-segment display*/
 
-[F]                       [T]           [T]
-|                         |             |
-[write int $1 #b(         [power $1 #e( [test $1 #f 0(
-
-[write float -10.25 3 #c(
-
-[write hex 355 #d(
-
-[write str DSP 0 left #j(      [F min=0 max=15]
-                               |
-[write str DSP 255 center #k(  [intensity $1 #m(
-
-[write str DSP 1 right #l(
-
-  [T]
-  |
-  [@connect $1 #r(
-
+[T]
+|
+[@connect $1 #r(   [T]            [T]
+|                  |              |
+| [F]              [power $1 #e(  [test $1 #f 0(
+| |
+| [write int $1 #b(
+|
+| [write float -10.25 3 #c(
+|
+| [write hex 355 #d(
+|
+| [write str DSP 0 left #j(      [F min=0 max=15]
+|                                |
+| [write str DSP 255 center #k(  [intensity $1 #m(
+|
+| [write str DSP 1 right #l(
+|
+| [clear #a(
+|
 [hw.rpi.spi.max7219 1 #x]
 
 [ui.link @url=ceammc://img/conn_max7219b.png @title='Connection_Digits']
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
-[X m->x] [X r->x]
+[X m->x] [X r->x] [X j->x] [X k->x] [X l->x]
 #x @spi_bus 0
 ]]>
       </pdascii>
