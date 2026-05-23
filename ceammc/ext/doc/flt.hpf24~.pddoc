@@ -42,7 +42,7 @@
     <arguments>
       <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">
         <tr lang="en">cutoff frequency</tr>
-        <tr lang="ru" finished="false">частота среза</tr>
+        <tr lang="ru">частота среза</tr>
       </argument>
     </arguments>
     <properties>
