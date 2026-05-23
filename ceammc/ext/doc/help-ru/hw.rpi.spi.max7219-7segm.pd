@@ -16,7 +16,7 @@
 #X msg 20 250 write str DSP 1 right;
 #X obj 39 279 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 39 308 @connect \$1;
-#X obj 20 336 hw.rpi.spi.max7219 1;
+#X obj 20 336 hw.rpi.spi.max7219 1 @spi_bus 0;
 #X obj 20 365 ui.link @title 'Connection_Digits' @url
 ceammc://img/conn_max7219b.png;
 #X connect 2 0 5 0;

@@ -324,6 +324,7 @@
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
 [X m->x] [X r->x]
+#x @spi_bus 0
 ]]>
       </pdascii>
       <pdascii id="spi">
