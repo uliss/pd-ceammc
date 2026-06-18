@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hw_rpi_pwm_servo.h"
+#include "hw_rpi_gpio_servo.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "hw_rpi_pwm_servo_args.hpp"
@@ -31,7 +31,7 @@ constexpr t_float DEF_FREQ = 50;
 
 namespace ceammc {
 
-HwPvmServo::HwPvmServo(const PdArgs& args)
+HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_gpio>(&ceammc_hw_gpio_free, args)
 {
     createOutlet();
@@ -53,12 +53,11 @@ HwPvmServo::HwPvmServo(const PdArgs& args)
 
     pin_ = addGpioPinProperty("@pin");
     pin_->setArgIndex(0);
-    addProperty(pin_);
 }
 
-HwPvmServo::Device HwPvmServo::createDevice()
+HwRpiGpioServo::Device HwRpiGpioServo::createDevice()
 {
-    HwPvmServo::Device dev {
+    HwRpiGpioServo::Device dev {
         ceammc_hw_gpio_new(
             on_message(),
             on_notify(), //
@@ -76,7 +75,7 @@ HwPvmServo::Device HwPvmServo::createDevice()
     return dev;
 }
 
-bool HwPvmServo::notify(int)
+bool HwRpiGpioServo::notify(int)
 {
     ceammc_hw_gpio_process_events(device());
     return true;
@@ -93,7 +92,7 @@ bool HwPvmServo::notify(int)
 ///         #value float "phase value" { check: [0..1] }
 ///     }
 /// }
-void HwPvmServo::m_angle(t_symbol* sel, const AtomListView& lv)
+void HwRpiGpioServo::m_angle(t_symbol* sel, const AtomListView& lv)
 {
     if (!check_connected(true, sel))
         return;
@@ -123,7 +122,7 @@ void HwPvmServo::m_angle(t_symbol* sel, const AtomListView& lv)
 ///         #value float "phase value" { check: [-1..1] }
 ///     }
 /// }
-void HwPvmServo::m_rotate(t_symbol* sel, const AtomListView& lv)
+void HwRpiGpioServo::m_rotate(t_symbol* sel, const AtomListView& lv)
 {
     if (!check_connected(true, sel))
         return;
@@ -142,32 +141,34 @@ void HwPvmServo::m_rotate(t_symbol* sel, const AtomListView& lv)
     }
 }
 
-void HwPvmServo::setAngle(t_float angle_deg)
+void HwRpiGpioServo::setAngle(t_float angle_deg)
 {
     angle_ = angle_deg;
     ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
 }
 
-void HwPvmServo::rotate(t_float angle_deg)
+void HwRpiGpioServo::rotate(t_float angle_deg)
 {
     setAngle(clip<t_float, 0, 180>(angle_ + angle_deg));
 }
 
-t_float HwPvmServo::pulseValue() const
+t_float HwRpiGpioServo::pulseValue() const
 {
     return convert::lin2lin_clip<t_float>(angle_, 0, 180, min_pulse_->value(), max_pulse_->value());
 }
 
-t_float HwPvmServo::pulsePeriod() const
+t_float HwRpiGpioServo::pulsePeriod() const
 {
     return 1000 / freq_->value();
 }
 
-void setup_hw_rpi_pwm_servo()
+void setup_hw_rpi_gpio_servo()
 {
-    ObjectFactory<HwPvmServo> obj("hw.rpi.gpio");
-    obj.addMethod("angle", &HwPvmServo::m_angle);
-    obj.addMethod("rotate", &HwPvmServo::m_rotate);
+    ObjectFactory<HwRpiGpioServo> obj("hw.rpi.gpio.servo");
+    obj.addAlias("hw.rpi.servo");
+
+    obj.addMethod("angle", &HwRpiGpioServo::m_angle);
+    obj.addMethod("rotate", &HwRpiGpioServo::m_rotate);
 }
 
 } // namespace ceammc

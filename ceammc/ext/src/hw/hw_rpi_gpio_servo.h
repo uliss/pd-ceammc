@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HW_RPI_PWM_SERVO_H
-#define HW_RPI_PWM_SERVO_H
+#ifndef HW_RPI_GPIO_SERVO_H
+#define HW_RPI_GPIO_SERVO_H
 
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
@@ -21,7 +21,7 @@
 
 namespace ceammc {
 
-class HwPvmServo : public HwRpiDevice<ceammc_hw_gpio> {
+class HwRpiGpioServo : public HwRpiDevice<ceammc_hw_gpio> {
     FloatProperty* min_pulse_ { nullptr };
     FloatProperty* max_pulse_ { nullptr };
     FloatProperty* freq_ { nullptr };
@@ -29,7 +29,7 @@ class HwPvmServo : public HwRpiDevice<ceammc_hw_gpio> {
     t_float angle_ { 0 };
 
 public:
-    explicit HwPvmServo(const PdArgs& args);
+    explicit HwRpiGpioServo(const PdArgs& args);
 
     Device createDevice() override;
     bool notify(int) override;
@@ -44,8 +44,8 @@ private:
     t_float pulsePeriod() const;
 };
 
-void setup_hw_rpi_pwm_servo();
+void setup_hw_rpi_gpio_servo();
 
 } // namespace ceammc
 
-#endif // HW_RPI_PWM_SERVO_H
+#endif // HW_RPI_GPIO_SERVO_H

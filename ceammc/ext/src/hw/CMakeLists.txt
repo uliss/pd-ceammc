@@ -97,10 +97,10 @@ ceammc_hw_external(rpi_display_hd44780)
 ceammc_hw_external(rpi_display_ssd1306)
 ceammc_hw_external(rpi_gpio)
 ceammc_hw_external(rpi_gpio_pcf8574)
+ceammc_hw_external(rpi_gpio_servo)
 ceammc_hw_external(rpi_i2c_pca9685)
 ceammc_hw_external(rpi_nfc_pn532)
 ceammc_hw_external(rpi_pwm)
-ceammc_hw_external(rpi_pwm_servo)
 ceammc_hw_external(rpi_rotenc)
 ceammc_hw_external(rpi_sensor_dht11)
 ceammc_hw_external(rpi_sensor_ir)
@@ -112,10 +112,11 @@ ceammc_hw_external(rpi_spi_max7219)
 ceammc_hw_external(rpi_spi_ws2812)
 
 pd_method_args(ceammc_hw hw_rpi_gpio_pcf8574)
+pd_method_args(ceammc_hw hw_rpi_gpio_servo)
 pd_method_args(ceammc_hw hw_rpi_sensor_mpr121)
 pd_method_args(ceammc_hw hw_rpi_spi)
 pd_method_args(ceammc_hw hw_rpi_spi_ws2812)
-pd_method_args(ceammc_hw hw_rpi_pwm_servo)
+
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES
 # udmx_handle.cpp) ceammc_hw_external(udmx) target_link_libraries(ceammc_hw

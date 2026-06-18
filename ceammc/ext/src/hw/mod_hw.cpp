@@ -37,6 +37,7 @@ void setup_hw_rpi_spi_ws2812();
 namespace ceammc {
 void setup_hw_rpi_gpio_pcf8574();
 void setup_hw_rpi_spi();
+void setup_hw_rpi_gpio_servo();
 }
 
 void ceammc_hw_setup()
@@ -59,6 +60,7 @@ void ceammc_hw_setup()
     setup_hw_rpi_i2c_pca9685();
     setup_hw_rpi_nfc_pn532();
     setup_hw_rpi_pwm();
+    setup_hw_rpi_gpio_servo();
     setup_hw_rpi_rotenc();
     setup_hw_rpi_sensor_dht11();
     setup_hw_rpi_sensor_ir();
