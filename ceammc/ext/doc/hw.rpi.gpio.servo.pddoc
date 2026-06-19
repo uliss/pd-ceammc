@@ -169,7 +169,7 @@
 |
 |
 |
-[hw.rpi.servo #x]
+[hw.rpi.servo 17 #x]
 
 [ui.link @url=ceammc://img/conn_servo_0.png @title='Connection_Scheme']
 

@@ -57,6 +57,11 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
 
 HwRpiGpioServo::Device HwRpiGpioServo::createDevice()
 {
+    if (pin_->isNone()) {
+        OBJ_ERR << "pin is not specified";
+        return nullDevice();
+    }
+
     HwRpiGpioServo::Device dev {
         ceammc_hw_gpio_new(
             on_message(),
