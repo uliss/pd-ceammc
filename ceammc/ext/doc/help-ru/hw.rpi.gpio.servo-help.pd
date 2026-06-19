@@ -26,105 +26,103 @@ Pi;
 #X msg 309 374 angle_phase \$1;
 #X obj 50 432 hw.rpi.servo;
 #X obj 50 461 ui.link @title 'Connection_Scheme' @url
-ceammc://img/conn_gpio1.png;
-#X obj 50 489 ui.link @title 'GPIO_control' @url
-ceammc://hw.rpi.gpio-example.pd;
-#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 551 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+ceammc://img/conn_servo_0.png;
+#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 523 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 554 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 526 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 552 1\.;
-#X text 170 552 int;
-#X obj 268 553 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 552 PIN: используемый GPIO контакт. См. свойство @pin.
+#X text 130 524 1\.;
+#X text 170 524 int;
+#X obj 268 525 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 524 PIN: используемый GPIO контакт. См. свойство @pin.
 Тип: int. Диапазон: [-1\..127];
-#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 607 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 579 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 610 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 608 @pin;
-#X text 270 608 (при инициализации) Используемый GPIO контакт. Тип:
+#X msg 130 580 @pin;
+#X text 270 580 (при инициализации) Используемый GPIO контакт. Тип:
 int. Значение по умолчанию: -1\. Диапазон: [-1\..127].;
-#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 650 @connect;
-#X text 270 650 При установке в 1: пытается подключиться к Raspberry
+#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 622 @connect;
+#X text 270 622 При установке в 1: пытается подключиться к Raspberry
 GPIO и забрать контакт в эксклюзивное владение. При установке в 0:
 отключается от GPIO и прекращает владение контакт. Тип: bool. Значение
 по умолчанию: 0\.;
-#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 722 @freq;
-#X text 270 722 Частота ШИМ. Тип: float. Единицы: 'Hz'. Значение по
+#X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 694 @freq;
+#X text 270 694 Частота ШИМ. Тип: float. Единицы: 'Hz'. Значение по
 умолчанию: 50.0\. Диапазон: [30.0\..100.0].;
-#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 764 @max_pulse;
-#X text 270 764 Максимальная ширина импульса ШИМ \, соответствующая
+#X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 736 @max_pulse;
+#X text 270 736 Максимальная ширина импульса ШИМ \, соответствующая
 повороту на 180 градусов. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 2.125\. Диапазон: [1.5\..3.0].;
-#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 821 @min_pulse;
-#X text 270 821 Минимальная ширина импульса ШИМ \, соответствующая
+#X obj 250 793 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 793 @min_pulse;
+#X text 270 793 Минимальная ширина импульса ШИМ \, соответствующая
 повороту на 0 градусов. Тип: float. Единицы: 'ms'. Значение по умолчанию:
 0.5125\. Диапазон: [0.5\..1.5].;
-#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 893 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 860 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 865 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 894 angle;
-#X text 270 894 установить сервопривод в указанный угол в градусах.
+#X msg 130 866 angle;
+#X text 270 866 установить сервопривод в указанный угол в градусах.
 Аргументы:;
-#X obj 300 934 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 934 ANGLE: угол в градусах. Тип: float. Диапазон: [0\..180].
+#X obj 300 906 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 906 ANGLE: угол в градусах. Тип: float. Диапазон: [0\..180].
 Единицы: 'deg'.;
-#X obj 250 982 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 982 angle_phase;
-#X text 270 982 установить сервопривод в указанную фазу. Аргументы:;
-#X obj 300 1007 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1007 VALUE: значение фазы. Тип: float. Диапазон: [0\..1].;
-#X obj 250 1040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1040 angle_rad;
-#X text 270 1040 установить сервопривод в указанный угол в радианах.
+#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 954 angle_phase;
+#X text 270 954 установить сервопривод в указанную фазу. Аргументы:;
+#X obj 300 979 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 979 VALUE: значение фазы. Тип: float. Диапазон: [0\..1].;
+#X obj 250 1012 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1012 angle_rad;
+#X text 270 1012 установить сервопривод в указанный угол в радианах.
 Аргументы:;
-#X obj 300 1080 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1080 ANGLE: угол в радианах. Тип: float. Диапазон: [0\..1π].
+#X obj 300 1052 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1052 ANGLE: угол в радианах. Тип: float. Диапазон: [0\..1π].
 Единицы: 'rad'.;
-#X obj 250 1128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1128 rotate;
-#X text 270 1128 повернуть сервопривод на указанный угол в градусах.
+#X obj 250 1100 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1100 rotate;
+#X text 270 1100 повернуть сервопривод на указанный угол в градусах.
 Аргументы:;
-#X obj 300 1168 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1168 ANGLE: угол в градусах. Тип: float. Диапазон: [-180\..180].
+#X obj 300 1140 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1140 ANGLE: угол в градусах. Тип: float. Диапазон: [-180\..180].
 Единицы: 'deg'.;
-#X obj 250 1216 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1216 rotate_phase;
-#X text 270 1216 повернуть сервопривод на указанное значение фазы.
+#X obj 250 1188 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1188 rotate_phase;
+#X text 270 1188 повернуть сервопривод на указанное значение фазы.
 Аргументы:;
-#X obj 300 1241 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1241 VALUE: значение фазы. Тип: float. Диапазон: [-1\..1].;
-#X obj 250 1274 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1274 rotate_rad;
-#X text 270 1274 повернуть сервопривод на указанный угол в радианах.
+#X obj 300 1213 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1213 VALUE: значение фазы. Тип: float. Диапазон: [-1\..1].;
+#X obj 250 1246 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1246 rotate_rad;
+#X text 270 1246 повернуть сервопривод на указанный угол в радианах.
 Аргументы:;
-#X obj 300 1314 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1314 ANGLE: угол в радианах. Тип: float. Диапазон: [-1π..1π].
+#X obj 300 1286 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1286 ANGLE: угол в радианах. Тип: float. Диапазон: [-1π..1π].
 Единицы: 'rad'.;
-#X obj 20 1372 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1377 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1344 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1349 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1378 1\.;
-#X text 270 1378 вход для управляющих сообщений.;
-#X obj 20 1413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1418 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1350 1\.;
+#X text 270 1350 вход для управляющих сообщений.;
+#X obj 20 1385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1390 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1419 1\.;
+#X text 130 1391 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1469 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1472 библиотека: ceammc v0.9.8;
-#N canvas 10 1491 400 290 info 0;
+#X obj 1 1441 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1444 библиотека: ceammc v0.9.8;
+#N canvas 10 1463 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -148,7 +146,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1491 pd info;
+#X restore 10 1463 pd info;
 #X connect 8 0 9 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

@@ -171,9 +171,7 @@
 |
 [hw.rpi.servo #x]
 
-[ui.link @url=ceammc://img/conn_gpio1.png @title='Connection_Scheme']
-
-[ui.link @url=ceammc://hw.rpi.gpio-example.pd @title='GPIO_control']
+[ui.link @url=ceammc://img/conn_servo_0.png @title='Connection_Scheme']
 
 [X a->x] [X b->x] [X c->x]
 ]]>
