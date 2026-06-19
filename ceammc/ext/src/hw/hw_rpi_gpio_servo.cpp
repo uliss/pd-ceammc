@@ -14,7 +14,7 @@
 #include "hw_rpi_gpio_servo.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "hw_rpi_pwm_servo_args.hpp"
+#include "hw_rpi_gpio_servo_args.hpp"
 
 namespace {
 constexpr t_float MIN_PULSE_MIN = 0.5;
@@ -81,64 +81,94 @@ bool HwRpiGpioServo::notify(int)
     return true;
 }
 
-/// @function "set absolute servo position" {
-///     @deg    ^(@rad, @phase) "" {
-///         #angle float "angle in degrees" { check: [0..180] }
-///     }
-///     @rad    ^(@deg, @phase) "" {
-///         #angle float "angle in radians" { check: [0..3.1415926] }
-///     }
-///     @phase  ^(@deg, @rad) "" {
-///         #value float "phase value" { check: [0..1] }
-///     }
+/// @function "set absolute servo angle" {
+///     #angle float "angle in degrees" { check: [0..180] }
 /// }
-void HwRpiGpioServo::m_angle(t_symbol* sel, const AtomListView& lv)
+void HwRpiGpioServo::m_angle_deg(t_symbol* sel, const AtomListView& lv)
 {
     if (!check_connected(true, sel))
         return;
 
-    m_angle_args args;
+    m_angle_deg_args args;
     if (!args.parse_args(lv, this))
         return;
 
-    if (args.prop_deg)
-        setAngle(args.prop_deg.angle);
-    else if (args.prop_rad)
-        setAngle(convert::rad2degree(args.prop_rad.angle));
-    else if (args.prop_phase)
-        setAngle(convert::lin2lin<t_float, 0, 1>(args.prop_phase, 0, 180));
-    else {
-    }
+    setAngle(args.angle);
+}
+
+/// @function "set absolute servo angle" {
+///     #angle float "angle in radians" { check: [0..3.1415926] }
+/// }
+void HwRpiGpioServo::m_angle_rad(t_symbol* sel, const AtomListView& lv)
+{
+    if (!check_connected(true, sel))
+        return;
+
+    m_angle_rad_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    setAngle(convert::rad2degree(args.angle));
+}
+
+/// @function "set absolute servo angle" {
+///     #phase float "phase value" { check: [0..1] }
+/// }
+void HwRpiGpioServo::m_angle_phase(t_symbol* sel, const AtomListView& lv)
+{
+    if (!check_connected(true, sel))
+        return;
+
+    m_angle_phase_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    setAngle(convert::lin2lin_clip<t_float>(args.phase, 0, 1, 0, 180));
 }
 
 /// @function "rotate current servo position" {
-///     @deg    ^(@rad, @phase) "" {
-///         #angle float "angle in degrees" { check: [-180..180] }
-///     }
-///     @rad    ^(@deg, @phase) "" {
-///         #angle float "angle in radians" { check: [-3.1415926..3.1415926] }
-///     }
-///     @phase  "" {
-///         #value float "phase value" { check: [-1..1] }
-///     }
+///     #angle float "angle in degrees" { check: [-180..180] }
 /// }
-void HwRpiGpioServo::m_rotate(t_symbol* sel, const AtomListView& lv)
+void HwRpiGpioServo::m_rotate_deg(t_symbol* sel, const AtomListView& lv)
 {
     if (!check_connected(true, sel))
         return;
 
-    m_rotate_args args;
+    m_rotate_deg_args args;
     if (!args.parse_args(lv, this))
         return;
 
-    if (args.prop_deg)
-        rotate(args.prop_deg.angle);
-    else if (args.prop_rad)
-        rotate(convert::rad2degree(args.prop_rad.angle));
-    else if (args.prop_phase)
-        setAngle(convert::lin2lin<t_float, -1, 1>(args.prop_phase, -180, 180));
-    else {
-    }
+    rotate(args.angle);
+}
+
+/// @function "rotate current servo position" {
+///     #angle float "angle in degrees" { check: [-3.1415926..3.1415926] }
+/// }
+void HwRpiGpioServo::m_rotate_rad(t_symbol* sel, const AtomListView& lv)
+{
+    if (!check_connected(true, sel))
+        return;
+
+    m_rotate_rad_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    rotate(convert::rad2degree(args.angle));
+}
+
+/// @function "rotate current servo position" {
+///     #phase float "angle in degrees" { check: [-1..1] }
+/// }
+void HwRpiGpioServo::m_rotate_phase(t_symbol* sel, const AtomListView& lv)
+{
+    if (!check_connected(true, sel))
+        return;
+
+    m_rotate_phase_args args;
+    if (!args.parse_args(lv, this))
+        return;
+
+    rotate(convert::lin2lin_clip<t_float>(args.phase, -1, 1, -180, 180));
 }
 
 void HwRpiGpioServo::setAngle(t_float angle_deg)
@@ -167,8 +197,13 @@ void setup_hw_rpi_gpio_servo()
     ObjectFactory<HwRpiGpioServo> obj("hw.rpi.gpio.servo");
     obj.addAlias("hw.rpi.servo");
 
-    obj.addMethod("angle", &HwRpiGpioServo::m_angle);
-    obj.addMethod("rotate", &HwRpiGpioServo::m_rotate);
+    obj.addMethod("angle", &HwRpiGpioServo::m_angle_deg);
+    obj.addMethod("angle_rad", &HwRpiGpioServo::m_angle_rad);
+    obj.addMethod("angle_phase", &HwRpiGpioServo::m_angle_phase);
+
+    obj.addMethod("rotate", &HwRpiGpioServo::m_rotate_deg);
+    obj.addMethod("rotate_rad", &HwRpiGpioServo::m_rotate_rad);
+    obj.addMethod("rotate_phase", &HwRpiGpioServo::m_rotate_phase);
 }
 
 } // namespace ceammc

@@ -34,8 +34,12 @@ public:
     Device createDevice() override;
     bool notify(int) override;
 
-    void m_angle(t_symbol* sel, const AtomListView& lv);
-    void m_rotate(t_symbol* sel, const AtomListView& lv);
+    void m_angle_deg(t_symbol* sel, const AtomListView& lv);
+    void m_angle_rad(t_symbol* sel, const AtomListView& lv);
+    void m_angle_phase(t_symbol* sel, const AtomListView& lv);
+    void m_rotate_deg(t_symbol* sel, const AtomListView& lv);
+    void m_rotate_rad(t_symbol* sel, const AtomListView& lv);
+    void m_rotate_phase(t_symbol* sel, const AtomListView& lv);
 
 private:
     void setAngle(t_float angle_deg);

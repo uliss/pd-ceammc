@@ -9,238 +9,58 @@
 using namespace ceammc;
 
 namespace {
-struct m_angle_args {
+struct m_angle_deg_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
-    // props
-    enum class PropProcessState { Ok, NotFound, InvalidValue };
-    // types
-    struct prop_deg_t {
-        int _count {0};
-        t_float angle {0}; // angle in degrees
-        int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 180))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            angle = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* arg_angle_info() {
-            return "ANGLE (angle in degrees), float in [0..180] range";
-        }
-        static const char* info() {
-            return "@deg ANGLE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_angle(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[angle @deg( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    struct prop_rad_t {
-        int _count {0};
-        t_float angle {0}; // angle in radians
-        int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 3.1415926))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            angle = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* arg_angle_info() {
-            return "ANGLE (angle in radians), float in [0..3.1415926] range";
-        }
-        static const char* info() {
-            return "@rad ANGLE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_angle(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[angle @rad( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    struct prop_phase_t {
-        int _count {0};
-        t_float value {0}; // phase value
-        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            value = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* arg_value_info() {
-            return "VALUE (phase value), float in [0..1] range";
-        }
-        static const char* info() {
-            return "@phase VALUE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_value(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[angle @phase( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    // vars
-    prop_deg_t prop_deg; // 
-    prop_rad_t prop_rad; // 
-    prop_phase_t prop_phase; // 
+    // args
+    t_float angle {0}; // angle in degrees
     // methods
-    PropProcessState process_prop_deg (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@deg"), prop)) {
-            return PropProcessState::NotFound;
+    int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
         }
-        if (!prop_deg.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
+        // check values
+        if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 180))) {
+            return INVALID_VALUE;
         }
-        prop_deg._count++;
-        return PropProcessState::Ok;
+        // set value
+        angle = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
     }
-    PropProcessState process_prop_rad (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@rad"), prop)) {
-            return PropProcessState::NotFound;
-        }
-        if (!prop_rad.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
-        }
-        prop_rad._count++;
-        return PropProcessState::Ok;
-    }
-    PropProcessState process_prop_phase (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@phase"), prop)) {
-            return PropProcessState::NotFound;
-        }
-        if (!prop_phase.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
-        }
-        prop_phase._count++;
-        return PropProcessState::Ok;
+    static const char* arg_angle_info() {
+        return "ANGLE (angle in degrees), float in [0..180] range";
     }
     static const char* usage() {
-        return "usage: [angle ^@deg ^@rad ^@phase(";
+        return "usage: [angle ANGLE(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
         Error(obj) << usage() << " where:";
-        Post(obj) << " - " << prop_deg_t::info();
-        Post(obj) << " - " << prop_rad_t::info();
-        Post(obj) << " - " << prop_phase_t::info();
-    }
-    bool check_xor_props(const BaseObject* obj, bool print_err) const {
-        if (prop_phase._count > 0 && prop_deg._count > 0) {
-            if (print_err) {
-                Error(obj) << "[angle( the properties @phase and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_phase._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[angle( one of this properties is required: @phase or @deg";
-            }
-            return false;
-        }
-        if (prop_rad._count > 0 && prop_deg._count > 0) {
-            if (print_err) {
-                Error(obj) << "[angle( the properties @rad and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_rad._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[angle( one of this properties is required: @rad or @deg";
-            }
-            return false;
-        }
-        if (prop_phase._count > 0 && prop_rad._count > 0) {
-            if (print_err) {
-                Error(obj) << "[angle( the properties @phase and @rad cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_phase._count == 0 && prop_rad._count == 0) {
-            if (print_err) {
-                Error(obj) << "[angle( one of this properties is required: @phase or @rad";
-            }
-            return false;
-        }
-        return true;
+        Post(obj) << " - " << arg_angle_info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
+        matched = process_angle(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[angle( argument #0 'ANGLE' is required:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[angle( argument #0 'ANGLE' check failed, expected:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
@@ -249,305 +69,211 @@ struct m_angle_args {
             }
             return false;
         }
-        // check properties
-        PropProcessState prop_st = PropProcessState::Ok;
-        prop_st = process_prop_deg(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
-            if (print_err) {
-                Error(obj) << "[angle( invalid value for @deg property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_deg_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_deg._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @deg properties are specified";
-                    Error(obj) << "only 1 ^(@rad @phase) entries for property @deg are expected";
-                }
-                return false;
-            }
-        }
-        prop_st = process_prop_rad(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
-            if (print_err) {
-                Error(obj) << "[angle( invalid value for @rad property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_rad_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_rad._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @rad properties are specified";
-                    Error(obj) << "only 1 ^(@deg @phase) entries for property @rad are expected";
-                }
-                return false;
-            }
-        }
-        prop_st = process_prop_phase(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
-            if (print_err) {
-                Error(obj) << "[angle( invalid value for @phase property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_phase_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_phase._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @phase properties are specified";
-                    Error(obj) << "only 1 ^(@deg @rad) entries for property @phase are expected";
-                }
-                return false;
-            }
-        }
-        if (!check_xor_props(obj, print_err)) {
-            return false;
-        }
         return true;
     }
 };
 
-const char* m_angle_args_info() {
-    return "set absolute servo position";
+const char* m_angle_deg_args_info() {
+    return "set absolute servo angle";
 }
-void m_angle_args_info_output(const BaseObject* obj) {
+void m_angle_deg_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_angle_args_info());
+        PD_NORMAL, "%s", m_angle_deg_args_info());
 }
-struct m_rotate_args {
+struct m_angle_rad_args {
     enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
-    // props
-    enum class PropProcessState { Ok, NotFound, InvalidValue };
-    // types
-    struct prop_deg_t {
-        int _count {0};
-        t_float angle {0}; // angle in degrees
-        int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (-180 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 180))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            angle = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* arg_angle_info() {
-            return "ANGLE (angle in degrees), float in [-180..180] range";
-        }
-        static const char* info() {
-            return "@deg ANGLE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_angle(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[rotate @deg( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    struct prop_rad_t {
-        int _count {0};
-        t_float angle {0}; // angle in radians
-        int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (-3.1415926 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 3.1415926))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            angle = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* arg_angle_info() {
-            return "ANGLE (angle in radians), float in [-3.1415926..3.1415926] range";
-        }
-        static const char* info() {
-            return "@rad ANGLE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_angle(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[rotate @rad( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    struct prop_phase_t {
-        int _count {0};
-        t_float value {0}; // phase value
-        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            // check size
-            if (lv.size() < 1) {
-                return NOT_ENOUGH_ARGS;
-            }
-            // check values
-            if (!(lv[0].isFloat() && (-1 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
-                return INVALID_VALUE;
-            }
-            // set value
-            value = lv[0].asT<t_float>();
-            // number of matched items
-            return 1;
-        }
-        static const char* arg_value_info() {
-            return "VALUE (phase value), float in [-1..1] range";
-        }
-        static const char* info() {
-            return "@phase VALUE ()";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            matched = process_value(left_args, obj, print_err);
-            if (matched >= 0) {
-                left_args = left_args.subView(matched);
-            } else {
-                return false;
-            }
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[rotate @phase( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
-    // vars
-    prop_deg_t prop_deg; // 
-    prop_rad_t prop_rad; // 
-    prop_phase_t prop_phase; // 
+    // args
+    t_float angle {0}; // angle in radians
     // methods
-    PropProcessState process_prop_deg (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@deg"), prop)) {
-            return PropProcessState::NotFound;
+    int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
         }
-        if (!prop_deg.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
+        // check values
+        if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 3.1415926))) {
+            return INVALID_VALUE;
         }
-        prop_deg._count++;
-        return PropProcessState::Ok;
+        // set value
+        angle = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
     }
-    PropProcessState process_prop_rad (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@rad"), prop)) {
-            return PropProcessState::NotFound;
-        }
-        if (!prop_rad.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
-        }
-        prop_rad._count++;
-        return PropProcessState::Ok;
-    }
-    PropProcessState process_prop_phase (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@phase"), prop)) {
-            return PropProcessState::NotFound;
-        }
-        if (!prop_phase.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
-        }
-        prop_phase._count++;
-        return PropProcessState::Ok;
+    static const char* arg_angle_info() {
+        return "ANGLE (angle in radians), float in [0..3.1415926] range";
     }
     static const char* usage() {
-        return "usage: [rotate ^@deg ^@rad @phase(";
+        return "usage: [angle_rad ANGLE(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
     }
     static void output_usage_verbose(const BaseObject* obj) {
         Error(obj) << usage() << " where:";
-        Post(obj) << " - " << prop_deg_t::info();
-        Post(obj) << " - " << prop_rad_t::info();
-        Post(obj) << " - " << prop_phase_t::info();
+        Post(obj) << " - " << arg_angle_info();
     }
-    bool check_xor_props(const BaseObject* obj, bool print_err) const {
-        if (prop_rad._count > 0 && prop_deg._count > 0) {
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_angle(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
             if (print_err) {
-                Error(obj) << "[rotate( the properties @rad and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_rad._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( one of this properties is required: @rad or @deg";
-            }
-            return false;
-        }
-        if (prop_phase._count > 0 && prop_deg._count > 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( the properties @phase and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_phase._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( one of this properties is required: @phase or @deg";
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[angle_rad( argument #0 'ANGLE' is required:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[angle_rad( argument #0 'ANGLE' check failed, expected:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage_verbose(obj);
+                }
             }
             return false;
         }
-        if (prop_phase._count > 0 && prop_rad._count > 0) {
+        // check extra arguments
+        if (left_args.size()) {
             if (print_err) {
-                Error(obj) << "[rotate( the properties @phase and @rad cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_phase._count == 0 && prop_rad._count == 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( one of this properties is required: @phase or @rad";
+                Error(obj) << "[angle_rad( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
             return false;
         }
         return true;
     }
+};
+
+const char* m_angle_rad_args_info() {
+    return "set absolute servo angle";
+}
+void m_angle_rad_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_angle_rad_args_info());
+}
+struct m_angle_phase_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_float phase {0}; // phase value
+    // methods
+    int process_phase(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isFloat() && (0 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        phase = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_phase_info() {
+        return "PHASE (phase value), float in [0..1] range";
+    }
+    static const char* usage() {
+        return "usage: [angle_phase PHASE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_phase_info();
+    }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
         AtomListView left_args = lv.arguments();
+        matched = process_phase(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[angle_phase( argument #0 'PHASE' is required:";
+                    Post(obj) << " - " << arg_phase_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[angle_phase( argument #0 'PHASE' check failed, expected:";
+                    Post(obj) << " - " << arg_phase_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[angle_phase( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_angle_phase_args_info() {
+    return "set absolute servo angle";
+}
+void m_angle_phase_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_angle_phase_args_info());
+}
+struct m_rotate_deg_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_float angle {0}; // angle in degrees
+    // methods
+    int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isFloat() && (-180 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 180))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        angle = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_angle_info() {
+        return "ANGLE (angle in degrees), float in [-180..180] range";
+    }
+    static const char* usage() {
+        return "usage: [rotate ANGLE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_angle_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_angle(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[rotate( argument #0 'ANGLE' is required:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[rotate( argument #0 'ANGLE' check failed, expected:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
         // check extra arguments
         if (left_args.size()) {
             if (print_err) {
@@ -556,84 +282,158 @@ struct m_rotate_args {
             }
             return false;
         }
-        // check properties
-        PropProcessState prop_st = PropProcessState::Ok;
-        prop_st = process_prop_deg(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
+        return true;
+    }
+};
+
+const char* m_rotate_deg_args_info() {
+    return "rotate current servo position";
+}
+void m_rotate_deg_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_rotate_deg_args_info());
+}
+struct m_rotate_rad_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_float angle {0}; // angle in degrees
+    // methods
+    int process_angle(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isFloat() && (-3.1415926 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 3.1415926))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        angle = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_angle_info() {
+        return "ANGLE (angle in degrees), float in [-3.1415926..3.1415926] range";
+    }
+    static const char* usage() {
+        return "usage: [rotate_rad ANGLE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_angle_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_angle(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
             if (print_err) {
-                Error(obj) << "[rotate( invalid value for @deg property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_deg_t::info();
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[rotate_rad( argument #0 'ANGLE' is required:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[rotate_rad( argument #0 'ANGLE' check failed, expected:";
+                    Post(obj) << " - " << arg_angle_info();
+                    output_usage_verbose(obj);
+                }
             }
             return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_deg._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @deg properties are specified";
-                    Error(obj) << "only 1 ^(@rad @phase) entries for property @deg are expected";
-                }
-                return false;
-            }
         }
-        prop_st = process_prop_rad(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
+        // check extra arguments
+        if (left_args.size()) {
             if (print_err) {
-                Error(obj) << "[rotate( invalid value for @rad property, expected:";
+                Error(obj) << "[rotate_rad( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
             }
-            if (print_err) {
-                Post(obj) << prop_rad_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_rad._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @rad properties are specified";
-                    Error(obj) << "only 1 ^(@deg @phase) entries for property @rad are expected";
-                }
-                return false;
-            }
-        }
-        prop_st = process_prop_phase(lv, obj, print_err);
-        if (prop_st == PropProcessState::NotFound) {
-            if (prop_phase._count < 1) {
-                if (print_err) {
-                    Error(obj) << "[rotate( property @phase is required";;
-                    Post(obj) << " - " << prop_phase_t::info();
-                }
-                return false;
-            }
-        }
-        if (prop_st == PropProcessState::InvalidValue) {
-            if (print_err) {
-                Error(obj) << "[rotate( invalid value for @phase property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_phase_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_phase._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @phase properties are specified";
-                    Error(obj) << "only 1 entries for property @phase are expected";
-                }
-                return false;
-            }
-        }
-        if (!check_xor_props(obj, print_err)) {
             return false;
         }
         return true;
     }
 };
 
-const char* m_rotate_args_info() {
+const char* m_rotate_rad_args_info() {
     return "rotate current servo position";
 }
-void m_rotate_args_info_output(const BaseObject* obj) {
+void m_rotate_rad_args_info_output(const BaseObject* obj) {
     logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
-        PD_NORMAL, "%s", m_rotate_args_info());
+        PD_NORMAL, "%s", m_rotate_rad_args_info());
+}
+struct m_rotate_phase_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_float phase {0}; // angle in degrees
+    // methods
+    int process_phase(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!(lv[0].isFloat() && (-1 <= lv[0].asT<t_float>()) && (lv[0].asT<t_float>() <= 1))) {
+            return INVALID_VALUE;
+        }
+        // set value
+        phase = lv[0].asT<t_float>();
+        // number of matched items
+        return 1;
+    }
+    static const char* arg_phase_info() {
+        return "PHASE (angle in degrees), float in [-1..1] range";
+    }
+    static const char* usage() {
+        return "usage: [rotate_phase PHASE(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_phase_info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_phase(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[rotate_phase( argument #0 'PHASE' is required:";
+                    Post(obj) << " - " << arg_phase_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[rotate_phase( argument #0 'PHASE' check failed, expected:";
+                    Post(obj) << " - " << arg_phase_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[rotate_phase( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        return true;
+    }
+};
+
+const char* m_rotate_phase_args_info() {
+    return "rotate current servo position";
+}
+void m_rotate_phase_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_rotate_phase_args_info());
 }
 } // namespace 
 
