@@ -286,6 +286,7 @@ ceammc/tee~
 ceammc/timeline
 ceammc/vline->env
 ceammc/vline2env
+ceammc/whisper~
 ceammc/win
 ceammc/window
 ceammc/xdac~
@@ -654,6 +655,8 @@ hw.rpi.display.lcd1602
 hw.rpi.display.lcd2004
 hw.rpi.display.ssd1306
 hw.rpi.gpio
+hw.rpi.gpio.pcf8574
+hw.rpi.gpio.servo
 hw.rpi.i2c.pca9685
 hw.rpi.nfc.pn532
 hw.rpi.pwm
@@ -665,9 +668,12 @@ hw.rpi.sensor.mpr121
 hw.rpi.sensor.mpu6050
 hw.rpi.sensor.sr04
 hw.rpi.sensor.vl53l0x
+hw.rpi.servo
+hw.rpi.spi
 hw.rpi.spi.max7219
 hw.rpi.spi.ws2812
 hw.serial
+hw.spi
 int->bits
 is_any
 is_bang
@@ -992,6 +998,7 @@ mux~
 nb
 nbtn
 net.artnet.send
+net.esphome.client
 net.freesound
 net.host->ip
 net.host2ip
@@ -1006,6 +1013,7 @@ net.osc.s
 net.osc.send
 net.osc.server
 net.telegram.bot
+net.wled
 net.ws.client
 net.ws.server
 nmenu
@@ -1100,6 +1108,7 @@ piece.nono.quando.h4~
 piece.nono.quando.vocoder~
 piece.stok_solo~
 pitch->midi
+pix.line
 pi~
 plot.geomspace~
 plot.hist~
@@ -1233,6 +1242,7 @@ spat.zita8~
 speech.flite
 speech.flite~
 speech.rhvoice~
+speech.whisper~
 speedlim
 split
 split~
@@ -1412,6 +1422,7 @@ ui.vsl
 ui.vsliders
 vline->env
 vline2env
+whisper~
 win
 window
 xdac~

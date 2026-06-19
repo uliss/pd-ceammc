@@ -23,16 +23,19 @@
       <par>
         <tr lang="en">Low-frequency speaker model: +12 dB/octave slope breaking to flat near
         @f1.</tr>
-        <tr lang="ru">Модель динамика в области низких частот: подъём +12 дБ/октава с выходом на равномерную АЧХ вблизи @f1.</tr>
+        <tr lang="ru">Модель динамика в области низких частот: подъём +12 дБ/октава с выходом на
+        равномерную АЧХ вблизи @f1.</tr>
       </par>
       <par>
         <tr lang="en">Implemented using two DC blockers in series.</tr>
-        <tr lang="ru">Реализовано с помощью двух последовательных фильтров подавления постоянной составляющей.</tr>
+        <tr lang="ru">Реализовано с помощью двух последовательных фильтров подавления постоянной
+        составляющей.</tr>
       </par>
       <par>
         <tr lang="en">High-frequency model: -24 dB/octave slope implemented using a fourth-order
         Butterworth lowpass filter.</tr>
-        <tr lang="ru">Модель динамика в области высоких частот: спад -24 дБ/октава, реализованный с помощью фильтра низких частот Баттерворта четвёртого порядка.</tr>
+        <tr lang="ru">Модель динамика в области высоких частот: спад -24 дБ/октава, реализованный с
+        помощью фильтра низких частот Баттерворта четвёртого порядка.</tr>
       </par>
     </info>
     <arguments>
@@ -58,7 +61,8 @@
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
         <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
         = dry signal, 1 = wet.</tr>
-        <tr lang="ru">пропорция смеси между исходным (dry) и обработанным (wet) сигналами. 0 — сухой сигнал, 1 — влажный.</tr>
+        <tr lang="ru">пропорция смеси между исходным (dry) и обработанным (wet) сигналами. 0 —
+        сухой сигнал, 1 — влажный.</tr>
       </property>
       <!-- @f1 -->
       <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130" units="hertz">

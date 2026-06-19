@@ -27,8 +27,7 @@
       <par>
         <tr lang="en">delay that doesn't click and doesn't transpose when the delay time is
         changed</tr>
-        <tr lang="ru">дилей без щелчков и без транспозиции при изменении
-        времени задержки</tr>
+        <tr lang="ru">дилей без щелчков и без транспозиции при изменении времени задержки</tr>
       </par>
     </info>
     <arguments>
@@ -72,8 +71,8 @@
       <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
         <tr lang="en">feedback compression factor. 0: means no compression, 1: limit feedback
         level.</tr>
-        <tr lang="ru">коэффициент сжатия обратной связи. 0 — без сжатия,
-        1 — ограничение уровня обратной связи.</tr>
+        <tr lang="ru">коэффициент сжатия обратной связи. 0 — без сжатия, 1 — ограничение уровня
+        обратной связи.</tr>
       </property>
       <!-- @delay -->
       <property name="@delay" type="float" minvalue="0" maxvalue="6000" units="millisecond"
@@ -85,8 +84,8 @@
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
         <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
         = dry signal, 1 = wet.</tr>
-        <tr lang="ru">пропорция смеси между исходным (dry) и обработанным (wet)
-        сигналами. 0 — только исходный сигнал, 1 — только обработанный.</tr>
+        <tr lang="ru">пропорция смеси между исходным (dry) и обработанным (wet) сигналами. 0 —
+        только исходный сигнал, 1 — только обработанный.</tr>
       </property>
       <!-- @f_hpf -->
       <property name="@f_hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
@@ -117,8 +116,8 @@
       units="millisecond">
         <tr lang="en">interpolation time on delay time change, that prevents click and transpose,
         if equal to 0 produces artifacts on delay change</tr>
-        <tr lang="ru">время интерполяции при изменении времени задержки. Предотвращает
-        щелчки и транспозицию. При значении 0 возникают артефакты.</tr>
+        <tr lang="ru">время интерполяции при изменении времени задержки. Предотвращает щелчки и
+        транспозицию. При значении 0 возникают артефакты.</tr>
       </property>
     </properties>
     <methods>

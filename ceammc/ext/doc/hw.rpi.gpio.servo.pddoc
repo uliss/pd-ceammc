@@ -21,10 +21,10 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">The specified GPIO pin is taken into exclusive ownership:
-        only one entity can operate a servo motor through this pin.</tr>
-        <tr lang="ru">указанный вывод GPIO забирается в эксклюзивное владение: только один объект может
-        работать с сервоприводом через этот вывод.</tr>
+        <tr lang="en">The specified GPIO pin is taken into exclusive ownership: only one entity can
+        operate a servo motor through this pin.</tr>
+        <tr lang="ru">указанный вывод GPIO забирается в эксклюзивное владение: только один объект
+        может работать с сервоприводом через этот вывод.</tr>
       </par>
     </info>
     <arguments>
@@ -33,6 +33,41 @@
         <tr lang="ru">используемый GPIO контакт. См. свойство @pin</tr>
       </argument>
     </arguments>
+    <properties>
+      <!-- @connect -->
+      <property name="@connect" type="bool" default="0" access="readwrite">
+        <tr lang="en">When set to 1: tries to connect to the Raspberry Pi GPIO and acquire
+        exclusive ownership of the pin. When set to 0: disconnects from the GPIO and releases
+        ownership of the pin</tr>
+        <tr lang="ru">При установке в 1: пытается подключиться к Raspberry GPIO и забрать контакт в
+        эксклюзивное владение. При установке в 0: отключается от GPIO и прекращает владение
+        контакт.</tr>
+      </property>
+      <!-- @freq -->
+      <property name="@freq" type="float" minvalue="30.0" maxvalue="100.0" default="50.0"
+      units="hertz" access="readwrite">
+        <tr lang="en">PWM frequency</tr>
+        <tr lang="ru">частота ШИМ</tr>
+      </property>
+      <!-- @max_pulse -->
+      <property name="@max_pulse" type="float" minvalue="1.5" maxvalue="3.0" default="2.125"
+      units="millisecond" access="readwrite">
+        <tr lang="en">maximum PWM pulse width corresponding to a 180-degree rotation.</tr>
+        <tr lang="ru">максимальная ширина импульса ШИМ, соответствующая повороту на 180
+        градусов</tr>
+      </property>
+      <!-- @min_pulse -->
+      <property name="@min_pulse" type="float" minvalue="0.5" maxvalue="1.5" default="0.5125"
+      units="millisecond" access="readwrite">
+        <tr lang="en">minimum PWM pulse width corresponding to a 0-degree rotation.</tr>
+        <tr lang="ru">минимальная ширина импульса ШИМ, соответствующая повороту на 0 градусов</tr>
+      </property>
+      <!-- @pin -->
+      <property name="@pin" type="int" minvalue="-1" maxvalue="127" default="-1" access="initonly">
+        <tr lang="en">used GPIO pin</tr>
+        <tr lang="ru">используемый GPIO контакт.</tr>
+      </property>
+    </properties>
     <methods>
       <!-- angle -->
       <method name="angle">
@@ -40,20 +75,10 @@
           <tr lang="en">set the servo to the specified angle in degrees</tr>
           <tr lang="ru">установить сервопривод в указанный угол в градусах</tr>
         </info>
-        <param name="ANGLE" type="float" required="true" units="degree" minvalue="0" maxvalue="180">
+        <param name="ANGLE" type="float" required="true" units="degree" minvalue="0"
+        maxvalue="180">
           <tr lang="en">angle in degrees</tr>
           <tr lang="ru">угол в градусах</tr>
-        </param>
-      </method>
-      <!-- angle_rad -->
-      <method name="angle_rad">
-        <info>
-          <tr lang="en">set the servo to the specified angle in radians</tr>
-          <tr lang="ru">установить сервопривод в указанный угол в радианах</tr>
-        </info>
-        <param name="ANGLE" type="float" required="true" units="radian" minvalue="0" maxvalue="1π">
-          <tr lang="en">angle in radians</tr>
-          <tr lang="ru">угол в радианах</tr>
         </param>
       </method>
       <!-- angle_phase -->
@@ -67,26 +92,27 @@
           <tr lang="ru">значение фазы</tr>
         </param>
       </method>
+      <!-- angle_rad -->
+      <method name="angle_rad">
+        <info>
+          <tr lang="en">set the servo to the specified angle in radians</tr>
+          <tr lang="ru">установить сервопривод в указанный угол в радианах</tr>
+        </info>
+        <param name="ANGLE" type="float" required="true" units="radian" minvalue="0" maxvalue="1π">
+          <tr lang="en">angle in radians</tr>
+          <tr lang="ru">угол в радианах</tr>
+        </param>
+      </method>
       <!-- rotate -->
       <method name="rotate">
         <info>
           <tr lang="en">rotate the servo to the specified angle in degrees.</tr>
           <tr lang="ru">повернуть сервопривод на указанный угол в градусах</tr>
         </info>
-        <param name="ANGLE" type="float" required="true" units="degree" minvalue="-180" maxvalue="180">
+        <param name="ANGLE" type="float" required="true" units="degree" minvalue="-180"
+        maxvalue="180">
           <tr lang="en">angle in degrees</tr>
           <tr lang="ru">угол в градусах</tr>
-        </param>
-      </method>
-      <!-- rotate_rad -->
-      <method name="rotate_rad">
-        <info>
-          <tr lang="en">rotate the servo to the specified angle in radians</tr>
-          <tr lang="ru">повернуть сервопривод на указанный угол в радианах</tr>
-        </info>
-        <param name="ANGLE" type="float" required="true" units="radian" minvalue="-1π" maxvalue="1π">
-          <tr lang="en">angle in radians</tr>
-          <tr lang="ru">угол в радианах</tr>
         </param>
       </method>
       <!-- rotate_phase -->
@@ -100,6 +126,18 @@
           <tr lang="ru">значение фазы</tr>
         </param>
       </method>
+      <!-- rotate_rad -->
+      <method name="rotate_rad">
+        <info>
+          <tr lang="en">rotate the servo to the specified angle in radians</tr>
+          <tr lang="ru">повернуть сервопривод на указанный угол в радианах</tr>
+        </info>
+        <param name="ANGLE" type="float" required="true" units="radian" minvalue="-1π"
+        maxvalue="1π">
+          <tr lang="en">angle in radians</tr>
+          <tr lang="ru">угол в радианах</tr>
+        </param>
+      </method>
     </methods>
     <inlets>
       <inlet>
@@ -110,7 +148,7 @@
       </inlet>
     </inlets>
     <outlets>
-      <outlet/>
+      <outlet />
     </outlets>
     <example>
       <pdascii>
@@ -138,7 +176,6 @@
 [ui.link @url=ceammc://hw.rpi.gpio-example.pd @title='GPIO_control']
 
 [X a->x] [X b->x] [X c->x]
-
 ]]>
       </pdascii>
     </example>
