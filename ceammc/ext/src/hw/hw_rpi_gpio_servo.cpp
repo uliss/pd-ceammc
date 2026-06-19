@@ -118,7 +118,7 @@ void HwRpiGpioServo::m_angle(t_symbol* sel, const AtomListView& lv)
 ///     @rad    ^(@deg, @phase) "" {
 ///         #angle float "angle in radians" { check: [-3.1415926..3.1415926] }
 ///     }
-///     @phase  ^(@deg, @rad) "" {
+///     @phase  "" {
 ///         #value float "phase value" { check: [-1..1] }
 ///     }
 /// }
