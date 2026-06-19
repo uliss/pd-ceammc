@@ -23,7 +23,7 @@ only one entity can operate a servo motor through this pin.;
 #X obj 309 345 ui.hsl @show_value 1;
 #X msg 98 374 rotate \$1;
 #X msg 309 374 angle_phase \$1;
-#X obj 50 432 hw.rpi.servo;
+#X obj 50 432 hw.rpi.servo 17;
 #X obj 50 461 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_servo_0.png;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
