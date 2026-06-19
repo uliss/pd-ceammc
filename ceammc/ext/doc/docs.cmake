@@ -328,6 +328,7 @@ set(DOC_FILES
     hw.rpi.display.hd44780
     hw.rpi.display.ssd1306
     hw.rpi.gpio
+    hw.rpi.gpio.servo
     hw.rpi.i2c.pca9685
     hw.rpi.pwm
     hw.rpi.rotenc

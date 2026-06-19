@@ -1,0 +1,135 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 servo control via GPIO pins on Raspberry Pi;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.gpio.servo 20 20 0 20
+-104026 -4096 0;
+#X obj 502 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hw.rpi.servo] @url hw.rpi.gpio.servo-help.pd;
+#X obj 617 8 hw.rpi.gpio.servo;
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The specified GPIO pin is taken into exclusive ownership:
+only one entity can operate a servo motor through this pin.;
+#X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
+#X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 230 @connect \$1;
+#X msg 98 273 0;
+#X msg 136 273 180;
+#X msg 194 273 90;
+#X msg 242 273 45;
+#X msg 98 302 angle \$1;
+#X msg 98 345 -15;
+#X msg 155 345 15;
+#X obj 309 345 ui.hsl @show_value 1;
+#X msg 98 374 rotate \$1;
+#X msg 309 374 angle_phase \$1;
+#X obj 50 432 hw.rpi.servo;
+#X obj 50 461 ui.link @title 'Connection_Scheme' @url
+ceammc://img/conn_gpio1.png;
+#X obj 50 489 ui.link @title 'GPIO_control' @url
+ceammc://hw.rpi.gpio-example.pd;
+#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 551 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 554 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.args-info.pd;
+#X text 130 552 1\.;
+#X text 170 552 int;
+#X obj 268 553 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 552 PIN: connected GPIO pin. See @pin property. Type: int.
+Range: [-1\..127];
+#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 607 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 608 angle;
+#X text 270 608 set the servo to the specified angle in degrees. Arguments
+are:;
+#X obj 300 648 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 648 ANGLE: angle in degrees. Type: float. Range: [0\..180].
+Units: 'deg'.;
+#X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 696 angle_phase;
+#X text 270 696 set the servo to the specified phase position. Arguments
+are:;
+#X obj 300 721 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 721 VALUE: phase value. Type: float. Range: [0\..1].;
+#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 754 angle_rad;
+#X text 270 754 set the servo to the specified angle in radians. Arguments
+are:;
+#X obj 300 794 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 794 ANGLE: angle in radians. Type: float. Range: [0\..1π].
+Units: 'rad'.;
+#X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 842 rotate;
+#X text 270 842 rotate the servo to the specified angle in degrees.
+Arguments are:;
+#X obj 300 882 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 882 ANGLE: angle in degrees. Type: float. Range: [-180\..180].
+Units: 'deg'.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 930 rotate_phase;
+#X text 270 930 rotate the servo to the specified phase value. Arguments
+are:;
+#X obj 300 955 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 955 VALUE: phase value. Type: float. Range: [-1\..1].;
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 988 rotate_rad;
+#X text 270 988 rotate the servo to the specified angle in radians.
+Arguments are:;
+#X obj 300 1028 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1028 ANGLE: angle in radians. Type: float. Range: [-1π..1π].
+Units: 'rad'.;
+#X obj 20 1086 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1091 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1092 1\.;
+#X text 270 1092 control message input.;
+#X obj 20 1127 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1132 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1133 1\.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1183 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1186 library: ceammc v0.9.8;
+#N canvas 10 1205 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.8;
+#X text 10 54 object:;
+#X text 120 54 hw.rpi.gpio.servo;
+#X text 10 76 category:;
+#X text 120 76 hw;
+#X text 10 98 since:;
+#X text 120 98 0.9.8;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 display \, gpio \, raspberry \, servo \, pwm;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1205 pd info;
+#X connect 8 0 9 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 9 0 20 0;
+#X connect 19 0 20 0;
+#X connect 14 0 20 0;
+#X connect 18 0 20 0;
