@@ -21,7 +21,7 @@ constexpr t_float MIN_PULSE_MIN = 0.5;
 constexpr t_float MIN_PULSE_DEF = 0.5125;
 constexpr t_float MIN_PULSE_MAX = 1.5;
 constexpr t_float MAX_PULSE_MIN = 1.5;
-constexpr t_float MAX_PULSE_DEF = 2.5;
+constexpr t_float MAX_PULSE_DEF = 2.125;
 constexpr t_float MAX_PULSE_MAX = 3.0;
 
 constexpr t_float MIN_FREQ = 30;
