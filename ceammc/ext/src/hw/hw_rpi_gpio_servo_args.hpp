@@ -203,17 +203,6 @@ struct m_angle_args {
         Post(obj) << " - " << prop_phase_t::info();
     }
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
-        if (prop_rad._count > 0 && prop_deg._count > 0) {
-            if (print_err) {
-                Error(obj) << "[angle( the properties @rad and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_rad._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[angle( one of this properties is required: @rad or @deg";
-            }
-            return false;
-        }
         if (prop_phase._count > 0 && prop_rad._count > 0) {
             if (print_err) {
                 Error(obj) << "[angle( the properties @phase and @rad cannot be used at the same time";
@@ -222,6 +211,17 @@ struct m_angle_args {
         } else if (prop_phase._count == 0 && prop_rad._count == 0) {
             if (print_err) {
                 Error(obj) << "[angle( one of this properties is required: @phase or @rad";
+            }
+            return false;
+        }
+        if (prop_rad._count > 0 && prop_deg._count > 0) {
+            if (print_err) {
+                Error(obj) << "[angle( the properties @rad and @deg cannot be used at the same time";
+            }
+            return false;
+        } else if (prop_rad._count == 0 && prop_deg._count == 0) {
+            if (print_err) {
+                Error(obj) << "[angle( one of this properties is required: @rad or @deg";
             }
             return false;
         }
@@ -513,17 +513,6 @@ struct m_rotate_args {
         Post(obj) << " - " << prop_phase_t::info();
     }
     bool check_xor_props(const BaseObject* obj, bool print_err) const {
-        if (prop_phase._count > 0 && prop_deg._count > 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( the properties @phase and @deg cannot be used at the same time";
-            }
-            return false;
-        } else if (prop_phase._count == 0 && prop_deg._count == 0) {
-            if (print_err) {
-                Error(obj) << "[rotate( one of this properties is required: @phase or @deg";
-            }
-            return false;
-        }
         if (prop_phase._count > 0 && prop_rad._count > 0) {
             if (print_err) {
                 Error(obj) << "[rotate( the properties @phase and @rad cannot be used at the same time";
@@ -532,6 +521,17 @@ struct m_rotate_args {
         } else if (prop_phase._count == 0 && prop_rad._count == 0) {
             if (print_err) {
                 Error(obj) << "[rotate( one of this properties is required: @phase or @rad";
+            }
+            return false;
+        }
+        if (prop_phase._count > 0 && prop_deg._count > 0) {
+            if (print_err) {
+                Error(obj) << "[rotate( the properties @phase and @deg cannot be used at the same time";
+            }
+            return false;
+        } else if (prop_phase._count == 0 && prop_deg._count == 0) {
+            if (print_err) {
+                Error(obj) << "[rotate( one of this properties is required: @phase or @deg";
             }
             return false;
         }
