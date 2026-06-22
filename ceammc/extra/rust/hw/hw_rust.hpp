@@ -299,6 +299,13 @@ enum class ceammc_hw_spi_cs {
     CS3,
 };
 
+enum class ceammc_hw_trajectory_result {
+    Working,
+    Finished,
+    Error,
+    NullPtr,
+};
+
 struct ceammc_hw_display_ssd1306;
 
 /// gamepad opaque type
@@ -342,6 +349,8 @@ struct ceammc_hw_sensor_vl53l0x;
 struct ceammc_hw_spi;
 
 struct ceammc_hw_spi_ws2812;
+
+struct ceammc_hw_trajectory;
 
 struct ceammc_hw_i2c_ads1115_data_cb {
     void *user;
@@ -1430,6 +1439,43 @@ bool ceammc_hw_spi_ws2812_write_pixels(const ceammc_hw_spi_ws2812 *ws,
                                        const uint32_t *colors,
                                        size_t length,
                                        size_t offset);
+
+/// get current trajectory input values
+/// @param traj - pointer to trajectory struct
+/// @param pos - write current input position at this address (not NULL!)
+/// @param vel - writes current input velocity at this address (not NULL!)
+/// @param accel - writes current input acceleration at this address (not NULL!)
+bool ceammc_hw_trajectory_current_input(ceammc_hw_trajectory *traj,
+                                        double *pos,
+                                        double *vel,
+                                        double *accel);
+
+/// free trajectory struct
+/// @param traj - pointer to trajectory struct
+void ceammc_hw_trajectory_free(ceammc_hw_trajectory *traj);
+
+/// create trajectory struct
+/// @param delta_time_ms - calculation step in milliseconds
+ceammc_hw_trajectory *ceammc_hw_trajectory_new(double delta_time_ms);
+
+/// set trajectory constraints
+/// @param traj - pointer to trajectory struct
+/// @param vel - maximum velocity
+/// @param accel - maximum accelration
+/// @param jerk - maximum jerk
+bool ceammc_hw_trajectory_set_limits(ceammc_hw_trajectory *traj,
+                                     double vel,
+                                     double accel,
+                                     double jerk);
+
+/// set trajectory target position
+/// @param traj - pointer to trajectory struct
+/// @param pos - target position
+bool ceammc_hw_trajectory_set_target_pos(ceammc_hw_trajectory *traj, double pos);
+
+/// update trajectory (calculate next step)
+/// @param traj - pointer to trajectory struct
+ceammc_hw_trajectory_result ceammc_hw_trajectory_update(ceammc_hw_trajectory *traj);
 
 }  // extern "C"
 

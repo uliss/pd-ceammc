@@ -14,6 +14,7 @@
 #ifndef HW_RPI_GPIO_SERVO_H
 #define HW_RPI_GPIO_SERVO_H
 
+#include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rpi_device_props.h"
@@ -26,7 +27,13 @@ class HwRpiGpioServo : public HwRpiDevice<ceammc_hw_gpio> {
     FloatProperty* max_pulse_ { nullptr };
     FloatProperty* freq_ { nullptr };
     GpioPinProperty* pin_ { nullptr };
+    BoolProperty* smooth_traj_ { nullptr };
+    FloatProperty* max_vel_ { nullptr };
     t_float angle_ { 0 };
+
+    using TrajPtr = std::unique_ptr<ceammc_hw_trajectory, decltype(&ceammc_hw_trajectory_free)>;
+    TrajPtr traj_;
+    ClockLambdaFunction traj_clock_;
 
 public:
     explicit HwRpiGpioServo(const PdArgs& args);

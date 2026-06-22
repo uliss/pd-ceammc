@@ -14,6 +14,7 @@
 #include "hw_rpi_gpio_servo.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 #include "hw_rpi_gpio_servo_args.hpp"
 
 namespace {
@@ -27,12 +28,48 @@ constexpr t_float MAX_PULSE_MAX = 3.0;
 constexpr t_float MIN_FREQ = 30;
 constexpr t_float MAX_FREQ = 100;
 constexpr t_float DEF_FREQ = 50;
+
+constexpr t_float TRAJECTORY_CALC_STEP = 20; // msec
+constexpr t_float TRAJECTORY_MAX_VEL_DEF = 60;
+constexpr t_float TRAJECTORY_MAX_VEL_MIN = 1;
+constexpr t_float TRAJECTORY_MAX_VEL_MAX = 1000;
+
+constexpr int SERVO_RANGE = 180;
 } // namespace
 
 namespace ceammc {
 
 HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
     : HwRpiDevice<ceammc_hw_gpio>(&ceammc_hw_gpio_free, args)
+    , traj_(nullptr, &ceammc_hw_trajectory_free)
+    , traj_clock_([this]() {
+        if (!traj_)
+            return;
+
+        switch (ceammc_hw_trajectory_update(traj_.get())) {
+        case ceammc_hw_trajectory_result::Working: {
+            OBJ_DBG << "traj calc working";
+            double pos = 0, vel = 0, accel = 0;
+            if (ceammc_hw_trajectory_current_input(traj_.get(), &pos, &vel, &accel)) {
+                OBJ_DBG << fmt::format("pos = {}, vel = {}, accel = {}", pos, vel, accel);
+                traj_clock_.delay(TRAJECTORY_CALC_STEP);
+            }
+        } break;
+        case ceammc_hw_trajectory_result::Finished: {
+            OBJ_DBG << "traj calc done";
+            double pos = 0, vel = 0, accel = 0;
+            if (ceammc_hw_trajectory_current_input(traj_.get(), &pos, &vel, &accel)) {
+                OBJ_DBG << fmt::format("pos = {}, vel = {}, accel = {}", pos, vel, accel);
+            }
+        } break;
+        case ceammc_hw_trajectory_result::Error:
+            OBJ_ERR << "traj calc error";
+            break;
+        case ceammc_hw_trajectory_result::NullPtr:
+            OBJ_ERR << "null ptr";
+            break;
+        }
+    })
 {
     createOutlet();
 
@@ -53,6 +90,20 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
 
     pin_ = addGpioPinProperty("@pin");
     pin_->setArgIndex(0);
+
+    smooth_traj_ = new BoolProperty("@smooth", true);
+    addProperty(smooth_traj_);
+
+    max_vel_ = new FloatProperty("@max_vel", TRAJECTORY_MAX_VEL_DEF);
+    max_vel_->checkClosedRange(TRAJECTORY_MAX_VEL_MIN, TRAJECTORY_MAX_VEL_MAX);
+    max_vel_->setSuccessFn([this](Property*) {
+        if (traj_)
+            ceammc_hw_trajectory_set_limits(traj_.get(), max_vel_->value(), 100, 100);
+    });
+    addProperty(max_vel_);
+
+    traj_.reset(ceammc_hw_trajectory_new(TRAJECTORY_CALC_STEP));
+    ceammc_hw_trajectory_set_limits(traj_.get(), TRAJECTORY_MAX_VEL_DEF, 100, 100);
 }
 
 HwRpiGpioServo::Device HwRpiGpioServo::createDevice()
@@ -128,7 +179,7 @@ void HwRpiGpioServo::m_angle_phase(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    setAngle(convert::lin2lin_clip<t_float>(args.phase, 0, 1, 0, 180));
+    setAngle(convert::lin2lin_clip<t_float>(args.phase, 0, 1, 0, SERVO_RANGE));
 }
 
 /// @function "rotate current servo position" {
@@ -173,23 +224,30 @@ void HwRpiGpioServo::m_rotate_phase(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    rotate(convert::lin2lin_clip<t_float>(args.phase, -1, 1, -180, 180));
+    rotate(convert::lin2lin_clip<t_float>(args.phase, -1, 1, -SERVO_RANGE, SERVO_RANGE));
 }
 
 void HwRpiGpioServo::setAngle(t_float angle_deg)
 {
     angle_ = angle_deg;
-    ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
+
+    if (smooth_traj_->value()) {
+        ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
+        traj_clock_.exec();
+    } else {
+        ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
+    }
+    ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
 }
 
 void HwRpiGpioServo::rotate(t_float angle_deg)
 {
-    setAngle(clip<t_float, 0, 180>(angle_ + angle_deg));
+    setAngle(clip<t_float, 0, SERVO_RANGE>(angle_ + angle_deg));
 }
 
 t_float HwRpiGpioServo::pulseValue() const
 {
-    return convert::lin2lin_clip<t_float>(angle_, 0, 180, min_pulse_->value(), max_pulse_->value());
+    return convert::lin2lin_clip<t_float>(angle_, 0, SERVO_RANGE, min_pulse_->value(), max_pulse_->value());
 }
 
 t_float HwRpiGpioServo::pulsePeriod() const

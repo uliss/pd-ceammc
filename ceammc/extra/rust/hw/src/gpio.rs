@@ -110,6 +110,8 @@ mod gpio_impl;
 #[cfg(target_os = "linux")]
 mod pcf8574_impl;
 
+mod trajectory_planner;
+
 /// create new gpio
 /// @param on_msg - callback for output messages
 /// @param notify - notification update callback
