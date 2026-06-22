@@ -27,7 +27,6 @@ pub struct hw_trajectory {
     otg: TrajPlanner,
     input: Input,
     output: Output,
-    last_result: hw_trajectory_result,
 }
 
 #[repr(C)]
@@ -45,7 +44,6 @@ impl hw_trajectory {
             otg: TrajPlanner::new(None, delta_time_ms * 0.001),
             input: Input::new(None),
             output: Output::new(None),
-            last_result: hw_trajectory_result::Finished,
         }
     }
 
@@ -58,15 +56,12 @@ impl hw_trajectory {
     fn new_output(&self, pos: &mut f64, vel: &mut f64, accel: &mut f64, jerk: &mut f64) {
         *pos = self.output.new_position[0];
         *vel = self.output.new_velocity[0];
-        *accel =  self.output.new_acceleration[0];
-        *jerk =  self.output.new_jerk[0];
+        *accel = self.output.new_acceleration[0];
+        *jerk = self.output.new_jerk[0];
     }
 
     fn set_target_pos(&mut self, pos: f64) {
-        // if self.last_result == Finished {
-            self.output.time = 0.0;
-        // }
-
+        self.output.time = 0.0;
         self.input.target_position[0] = pos;
         self.input.target_velocity[0] = 0.0;
     }
@@ -90,7 +85,7 @@ impl hw_trajectory {
     }
 
     fn update(&mut self) -> hw_trajectory_result {
-        self.last_result = match self.otg.update(&self.input, &mut self.output) {
+        match self.otg.update(&self.input, &mut self.output) {
             Ok(res) => match res {
                 RuckigResult::Working => {
                     self.output.pass_to_input(&mut self.input);
@@ -103,9 +98,7 @@ impl hw_trajectory {
                 log::error!("{err}");
                 hw_trajectory_result::Error
             }
-        };
-
-        self.last_result
+        }
     }
 }
 
