@@ -51,6 +51,9 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
             OBJ_DBG << "traj calc working";
             double pos = 0, vel = 0, accel = 0;
             if (ceammc_hw_trajectory_current_input(traj_.get(), &pos, &vel, &accel)) {
+                angle_ = pos;
+                ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
+
                 OBJ_DBG << fmt::format("pos = {}, vel = {}, accel = {}", pos, vel, accel);
                 traj_clock_.delay(TRAJECTORY_CALC_STEP);
             }
@@ -237,7 +240,6 @@ void HwRpiGpioServo::setAngle(t_float angle_deg)
     } else {
         ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
     }
-    ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
 }
 
 void HwRpiGpioServo::rotate(t_float angle_deg)
