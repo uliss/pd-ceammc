@@ -49,6 +49,8 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
         if (!traj_)
             return;
 
+        ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
+
         switch (ceammc_hw_trajectory_update(traj_.get())) {
         case ceammc_hw_trajectory_result::Working: {
             double pos = 0, vel = 0, accel = 0, jerk = 0;
@@ -251,9 +253,7 @@ void HwRpiGpioServo::setAngle(t_float angle_deg)
     angle_ = angle_deg;
 
     if (smooth_traj_->value()) {
-        ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
-        if (!traj_clock_.isActive())
-            traj_clock_.delay(TRAJECTORY_CALC_STEP);
+        traj_clock_.delay(TRAJECTORY_CALC_STEP);
     } else {
         ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
     }
