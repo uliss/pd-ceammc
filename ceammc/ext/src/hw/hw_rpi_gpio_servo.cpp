@@ -30,15 +30,12 @@ constexpr t_float MAX_FREQ = 100;
 constexpr t_float DEF_FREQ = 50;
 
 constexpr t_float TRAJECTORY_CALC_STEP = 20; // msec
-constexpr t_float TRAJECTORY_VEL_DEF = 1000;
+constexpr t_float TRAJECTORY_VEL_DEF = 600;
 constexpr t_float TRAJECTORY_VEL_MIN = 10;
-constexpr t_float TRAJECTORY_VEL_MAX = 100000;
-constexpr t_float TRAJECTORY_ACC_DEF = 1000;
+constexpr t_float TRAJECTORY_ACC_DEF = 6000;
 constexpr t_float TRAJECTORY_ACC_MIN = 10;
-constexpr t_float TRAJECTORY_ACC_MAX = 100000;
-constexpr t_float TRAJECTORY_JERK_DEF = 1000;
+constexpr t_float TRAJECTORY_JERK_DEF = 60000;
 constexpr t_float TRAJECTORY_JERK_MIN = 10;
-constexpr t_float TRAJECTORY_JERK_MAX = 100000;
 
 constexpr int SERVO_RANGE = 180;
 } // namespace
@@ -104,23 +101,23 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
     addProperty(smooth_traj_);
 
     max_vel_ = new FloatProperty("@max_vel", TRAJECTORY_VEL_DEF);
-    max_vel_->checkClosedRange(TRAJECTORY_VEL_MIN, TRAJECTORY_VEL_MAX);
+    max_vel_->checkMinEq(TRAJECTORY_VEL_MIN);
     max_vel_->setSuccessFn([this](Property*) {
         ceammc_hw_trajectory_set_max_velocity(traj_.get(), max_vel_->value());
     });
     addProperty(max_vel_);
 
-    max_acc_ = new FloatProperty("@max_acc", TRAJECTORY_ACC_DEF);
-    max_acc_->checkClosedRange(TRAJECTORY_VEL_MIN, TRAJECTORY_ACC_MAX);
+    max_acc_ = new FloatProperty("@max_accel", TRAJECTORY_ACC_DEF);
+    max_acc_->checkMinEq(TRAJECTORY_ACC_MIN);
     max_acc_->setSuccessFn([this](Property*) {
         ceammc_hw_trajectory_set_max_accel(traj_.get(), max_acc_->value());
     });
     addProperty(max_acc_);
 
     max_jerk_ = new FloatProperty("@max_jerk", TRAJECTORY_JERK_DEF);
-    max_jerk_->checkClosedRange(TRAJECTORY_VEL_MIN, TRAJECTORY_ACC_MAX);
+    max_jerk_->checkMinEq(TRAJECTORY_JERK_MIN);
     max_jerk_->setSuccessFn([this](Property*) {
-        ceammc_hw_trajectory_set_max_accel(traj_.get(), max_jerk_->value());
+        ceammc_hw_trajectory_set_max_jerk(traj_.get(), max_jerk_->value());
     });
     addProperty(max_jerk_);
 
