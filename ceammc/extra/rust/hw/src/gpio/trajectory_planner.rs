@@ -118,18 +118,44 @@ pub extern "C" fn ceammc_hw_trajectory_free(traj: *mut hw_trajectory) {
     }
 }
 
-/// set trajectory constraints
+/// set trajectory max velocity
 /// @param traj - pointer to trajectory struct
 /// @param vel - maximum velocity
-/// @param accel - maximum accelration
-/// @param jerk - maximum jerk
 #[no_mangle]
-pub extern "C" fn ceammc_hw_trajectory_set_limits(traj: *mut hw_trajectory, vel: f64, accel: f64, jerk: f64) -> bool {
+pub extern "C" fn ceammc_hw_trajectory_set_max_velocity(traj: *mut hw_trajectory, vel: f64) -> bool {
     if traj.is_null() {
         false
     } else {
         let traj = unsafe { &mut *traj };
-        traj.set_limits(vel, accel, jerk);
+        traj.input.max_velocity[0] = vel;
+        true
+    }
+}
+
+/// set trajectory max accel
+/// @param traj - pointer to trajectory struct
+/// @param acc - maximum accelration
+#[no_mangle]
+pub extern "C" fn ceammc_hw_trajectory_set_max_accel(traj: *mut hw_trajectory, acc: f64) -> bool {
+    if traj.is_null() {
+        false
+    } else {
+        let traj = unsafe { &mut *traj };
+        traj.input.max_acceleration[0] = acc;
+        true
+    }
+}
+
+/// set trajectory max jerk
+/// @param traj - pointer to trajectory struct
+/// @param jerk - maximum jerk
+#[no_mangle]
+pub extern "C" fn ceammc_hw_trajectory_set_max_jerk(traj: *mut hw_trajectory, jerk: f64) -> bool {
+    if traj.is_null() {
+        false
+    } else {
+        let traj = unsafe { &mut *traj };
+        traj.input.max_jerk[0] = jerk;
         true
     }
 }

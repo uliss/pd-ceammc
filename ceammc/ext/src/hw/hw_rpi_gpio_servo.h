@@ -29,6 +29,8 @@ class HwRpiGpioServo : public HwRpiDevice<ceammc_hw_gpio> {
     GpioPinProperty* pin_ { nullptr };
     BoolProperty* smooth_traj_ { nullptr };
     FloatProperty* max_vel_ { nullptr };
+    FloatProperty* max_acc_ { nullptr };
+    FloatProperty* max_jerk_ { nullptr };
     t_float angle_ { 0 };
 
     using TrajPtr = std::unique_ptr<ceammc_hw_trajectory, decltype(&ceammc_hw_trajectory_free)>;

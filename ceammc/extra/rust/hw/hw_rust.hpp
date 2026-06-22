@@ -1458,15 +1458,20 @@ void ceammc_hw_trajectory_free(ceammc_hw_trajectory *traj);
 /// @param delta_time_ms - calculation step in milliseconds
 ceammc_hw_trajectory *ceammc_hw_trajectory_new(double delta_time_ms);
 
-/// set trajectory constraints
+/// set trajectory max accel
+/// @param traj - pointer to trajectory struct
+/// @param acc - maximum accelration
+bool ceammc_hw_trajectory_set_max_accel(ceammc_hw_trajectory *traj, double acc);
+
+/// set trajectory max jerk
+/// @param traj - pointer to trajectory struct
+/// @param jerk - maximum jerk
+bool ceammc_hw_trajectory_set_max_jerk(ceammc_hw_trajectory *traj, double jerk);
+
+/// set trajectory max velocity
 /// @param traj - pointer to trajectory struct
 /// @param vel - maximum velocity
-/// @param accel - maximum accelration
-/// @param jerk - maximum jerk
-bool ceammc_hw_trajectory_set_limits(ceammc_hw_trajectory *traj,
-                                     double vel,
-                                     double accel,
-                                     double jerk);
+bool ceammc_hw_trajectory_set_max_velocity(ceammc_hw_trajectory *traj, double vel);
 
 /// set trajectory target position
 /// @param traj - pointer to trajectory struct
