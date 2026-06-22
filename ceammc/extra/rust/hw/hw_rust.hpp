@@ -1458,6 +1458,18 @@ void ceammc_hw_trajectory_free(ceammc_hw_trajectory *traj);
 /// @param delta_time_ms - calculation step in milliseconds
 ceammc_hw_trajectory *ceammc_hw_trajectory_new(double delta_time_ms);
 
+/// get trajectory output new values
+/// @param traj - pointer to trajectory struct
+/// @param pos - write new output position at this address (not NULL!)
+/// @param vel - writes new output velocity at this address (not NULL!)
+/// @param accel - writes new output acceleration at this address (not NULL!)
+/// @param jerk - writes new output jerk at this address (not NULL!)
+bool ceammc_hw_trajectory_new_output(ceammc_hw_trajectory *traj,
+                                     double *pos,
+                                     double *vel,
+                                     double *accel,
+                                     double *jerk);
+
 /// set trajectory max accel
 /// @param traj - pointer to trajectory struct
 /// @param acc - maximum accelration

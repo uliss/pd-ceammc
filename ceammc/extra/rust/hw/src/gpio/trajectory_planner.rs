@@ -55,6 +55,13 @@ impl hw_trajectory {
         *accel = self.input.current_acceleration[0];
     }
 
+    fn new_output(&self, pos: &mut f64, vel: &mut f64, accel: &mut f64, jerk: &mut f64) {
+        *pos = self.output.new_position[0];
+        *vel = self.output.new_velocity[0];
+        *accel =  self.output.new_acceleration[0];
+        *jerk =  self.output.new_jerk[0];
+    }
+
     fn set_target_pos(&mut self, pos: f64) {
         if self.last_result == Finished {
             self.output.time = 0.0;
@@ -202,6 +209,29 @@ pub extern "C" fn ceammc_hw_trajectory_current_input(
     } else {
         let traj = unsafe { &*traj };
         traj.current_input(pos, vel, accel);
+        true
+    }
+}
+
+/// get trajectory output new values
+/// @param traj - pointer to trajectory struct
+/// @param pos - write new output position at this address (not NULL!)
+/// @param vel - writes new output velocity at this address (not NULL!)
+/// @param accel - writes new output acceleration at this address (not NULL!)
+/// @param jerk - writes new output jerk at this address (not NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_hw_trajectory_new_output(
+    traj: *mut hw_trajectory,
+    pos: &mut f64,
+    vel: &mut f64,
+    accel: &mut f64,
+    jerk: &mut f64,
+) -> bool {
+    if traj.is_null() {
+        true
+    } else {
+        let traj = unsafe { &*traj };
+        traj.new_output(pos, vel, accel, jerk);
         true
     }
 }
