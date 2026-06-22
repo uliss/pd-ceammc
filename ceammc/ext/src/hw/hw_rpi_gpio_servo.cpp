@@ -32,13 +32,13 @@ constexpr t_float DEF_FREQ = 50;
 constexpr t_float TRAJECTORY_CALC_STEP = 20; // msec
 constexpr t_float TRAJECTORY_VEL_DEF = 1000;
 constexpr t_float TRAJECTORY_VEL_MIN = 10;
-constexpr t_float TRAJECTORY_VEL_MAX = 10000;
+constexpr t_float TRAJECTORY_VEL_MAX = 100000;
 constexpr t_float TRAJECTORY_ACC_DEF = 1000;
 constexpr t_float TRAJECTORY_ACC_MIN = 10;
-constexpr t_float TRAJECTORY_ACC_MAX = 10000;
+constexpr t_float TRAJECTORY_ACC_MAX = 100000;
 constexpr t_float TRAJECTORY_JERK_DEF = 1000;
 constexpr t_float TRAJECTORY_JERK_MIN = 10;
-constexpr t_float TRAJECTORY_JERK_MAX = 10000;
+constexpr t_float TRAJECTORY_JERK_MAX = 100000;
 
 constexpr int SERVO_RANGE = 180;
 } // namespace

@@ -63,9 +63,9 @@ impl hw_trajectory {
     }
 
     fn set_target_pos(&mut self, pos: f64) {
-        if self.last_result == Finished {
+        // if self.last_result == Finished {
             self.output.time = 0.0;
-        }
+        // }
 
         self.input.target_position[0] = pos;
         self.input.target_velocity[0] = 0.0;
