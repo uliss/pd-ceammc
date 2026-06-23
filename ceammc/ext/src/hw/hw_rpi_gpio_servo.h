@@ -58,8 +58,11 @@ private:
     void rotateDegrees(t_float angle);
     t_float pulseValue() const;
     t_float pulsePeriod() const;
-    t_float currentAngleWithPrecision(t_float angle) const;
+    t_float angleWithPrecision(t_float angle) const;
     bool shouldUpdateTargetAngle(t_float angle) const;
+
+    void outputDone();
+    void outputCurrentAngle();
 };
 
 void setup_hw_rpi_gpio_servo();

@@ -41,7 +41,7 @@
         ownership of the pin</tr>
         <tr lang="ru">При установке в 1: пытается подключиться к Raspberry GPIO и забрать контакт в
         эксклюзивное владение. При установке в 0: отключается от GPIO и прекращает владение
-        контакт.</tr>
+        контактом.</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" minvalue="30.0" maxvalue="100.0" default="50.0"
@@ -49,12 +49,41 @@
         <tr lang="en">PWM frequency</tr>
         <tr lang="ru">частота ШИМ</tr>
       </property>
+      <!-- @max_accel -->
+      <property name="@max_accel" type="float" minvalue="10.0" default="6000.0" access="readwrite">
+        <tr lang="en">maximum acceleration (rate of change of velocity). A reasonable starting
+        value for initial tuning is 5–10 times the value of @max_vel. The final value should be
+        determined empirically, taking into account the moving mass and the drive's dynamic
+        response. Unit: °/s².</tr>
+        <tr lang="ru">максимальное ускорение (скорость изменения скорости). Ориентировочное
+        значение для начальной настройки — 5–10 × @max_vel. Окончательное значение подбирается
+        эмпирически исходя из массы подвижных частей и динамических характеристик привода. Ед.
+        изм.: °/с².</tr>
+      </property>
+      <!-- @max_jerk -->
+      <property name="@max_jerk" type="float" minvalue="10.0" default="60000.0" access="readwrite">
+        <tr lang="en">maximum jerk (rate of change of acceleration). Determines the smoothness of
+        motion start and stop. Higher values result in sharper motion, lower values produce
+        smoother motion. The value should be tuned empirically for the specific mechanical system
+        and dynamic requirements. Unit: °/s³.</tr>
+        <tr lang="ru">максимальный рывок (скорость изменения ускорения). Определяет плавность
+        начала и окончания движения. Высокие значения делают движение более резким, низкие — более
+        плавным. Значение подбирается эмпирически под конкретную механическую систему и требования
+        к динамике. Единицы: °/с³.</tr>
+      </property>
       <!-- @max_pulse -->
       <property name="@max_pulse" type="float" minvalue="1.5" maxvalue="3.0" default="2.125"
       units="millisecond" access="readwrite">
         <tr lang="en">maximum PWM pulse width corresponding to a 180-degree rotation.</tr>
         <tr lang="ru">максимальная ширина импульса ШИМ, соответствующая повороту на 180
         градусов</tr>
+      </property>
+      <!-- @max_vel -->
+      <property name="@max_vel" type="float" minvalue="10.0" default="600.0" access="readwrite">
+        <tr lang="en">maximum angular velocity of the servo, measured in °/s. For the SG90 model,
+        it reaches about 600°/s (this value may vary with the operating voltage).</tr>
+        <tr lang="ru">максимальная скорость вращение сервопривода в °/с. Для сервопривода SG90
+        ~600°/с (зависит от напряжения питания)</tr>
       </property>
       <!-- @min_pulse -->
       <property name="@min_pulse" type="float" minvalue="0.5" maxvalue="1.5" default="0.5125"
@@ -66,6 +95,17 @@
       <property name="@pin" type="int" minvalue="-1" maxvalue="127" default="-1" access="initonly">
         <tr lang="en">used GPIO pin</tr>
         <tr lang="ru">используемый GPIO контакт.</tr>
+      </property>
+      <!-- @precision -->
+      <property name="@precision" type="int" minvalue="0" maxvalue="3" default="1"
+      access="readwrite">
+        <tr lang="en">decimal precision used for angle values.</tr>
+        <tr lang="ru">точность (количество знаков после запятой) для значений угла.</tr>
+      </property>
+      <!-- @smooth -->
+      <property name="@smooth" type="bool" default="1" access="readwrite">
+        <tr lang="en">use trajectory smoothing.</tr>
+        <tr lang="ru">использовать сглаживание траектории движения</tr>
       </property>
     </properties>
     <methods>
@@ -148,7 +188,27 @@
       </inlet>
     </inlets>
     <outlets>
-      <outlet />
+      <outlet>
+        <out name="done" type="any">
+          <tr lang="en">This event fires when the servo movement command is finished. Note:
+          "finished" means the command has been sent and processed, not that the servo has
+          physically stopped moving. The servo may still be rotating (this is particularly
+          noticeable when @smooth = 0).</tr>
+          <tr lang="ru">выводится, когда команда движения сервопривода завершена. Важно: завершена
+          именно команда, а не движение. Сервопривод всё ещё может вращаться (особенно, если
+          @smooth = 0).</tr>
+        </out>
+        <out name="angle" type="any">
+          <tr lang="en">outputs the current rotation angle in degrees.</tr>
+          <tr lang="ru">выводит текищий угол поворота в градусах.</tr>
+        </out>
+        <out name="time" type="any">
+          <tr lang="en">outputs the current time position in milliseconds within the calculated
+          smoothed motion trajectory (only when @smooth = 1)</tr>
+          <tr lang="ru">выводит текущую позицию времени (в мс) внутри рассчитанной сглаженной
+          траектории. Работает только при включенном сглаживании (@smooth = 1)</tr>
+        </out>
+      </outlet>
     </outlets>
     <example>
       <pdascii>

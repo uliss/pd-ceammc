@@ -64,10 +64,10 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
         case ceammc_hw_trajectory_result::Working: {
             double pos = 0, vel = 0, accel = 0, jerk = 0, time = 0;
             if (ceammc_hw_trajectory_new_output(traj_.get(), &pos, &vel, &accel, &jerk, &time)) {
-                current_angle_deg_ = static_cast<t_float>(pos);
+                current_angle_deg_ = angleWithPrecision(static_cast<t_float>(pos));
                 updateServoAngle();
 
-                anyTo(0, gensym("angle"), Atom(current_angle_deg_));
+                outputCurrentAngle();
                 anyTo(0, gensym("time"), Atom(static_cast<t_float>(time)));
 
                 traj_clock_.delay(TRAJECTORY_CALC_STEP);
@@ -76,7 +76,7 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
         case ceammc_hw_trajectory_result::Finished: {
             constexpr auto INVALID_TARGET_VALUE = -1;
             target_angle_ = INVALID_TARGET_VALUE;
-            anyTo(0, gensym("done"), AtomList {});
+            outputDone();
         } break;
         case ceammc_hw_trajectory_result::Error:
             OBJ_ERR << "traj calc error";
@@ -264,7 +264,7 @@ void HwRpiGpioServo::m_rotate_phase(t_symbol* sel, const AtomListView& lv)
 
 void HwRpiGpioServo::setTargetAngle(t_float angle)
 {
-    const auto new_target_angle = currentAngleWithPrecision(angle);
+    const auto new_target_angle = angleWithPrecision(angle);
 
     if (smooth_traj_->value()) {
         if (!shouldUpdateTargetAngle(new_target_angle)) // for stability of ruckig trajectory calc
@@ -279,7 +279,8 @@ void HwRpiGpioServo::setTargetAngle(t_float angle)
         current_angle_deg_ = new_target_angle;
         target_angle_ = new_target_angle;
         updateServoAngle();
-        anyTo(0, gensym("done"), AtomList {});
+        outputCurrentAngle();
+        outputDone();
     }
 }
 
@@ -298,7 +299,7 @@ t_float HwRpiGpioServo::pulsePeriod() const
     return 1000 / freq_->value();
 }
 
-t_float HwRpiGpioServo::currentAngleWithPrecision(t_float angle) const
+t_float HwRpiGpioServo::angleWithPrecision(t_float angle) const
 {
     switch (precision_->value()) {
     case PRECISION_1:
@@ -324,6 +325,16 @@ bool HwRpiGpioServo::shouldUpdateTargetAngle(t_float angle) const
     default:
         return std::round(angle) != std::round(target_angle_);
     }
+}
+
+void HwRpiGpioServo::outputDone()
+{
+    anyTo(0, gensym("done"), AtomList {});
+}
+
+void HwRpiGpioServo::outputCurrentAngle()
+{
+    anyTo(0, gensym("angle"), Atom(current_angle_deg_));
 }
 
 void HwRpiGpioServo::updateServoAngle()
