@@ -33,7 +33,7 @@ constexpr t_float TRAJECTORY_VEL_DEF = 600;
 constexpr t_float TRAJECTORY_VEL_MIN = 10;
 constexpr t_float TRAJECTORY_ACC_DEF = 6000;
 constexpr t_float TRAJECTORY_ACC_MIN = 10;
-constexpr t_float TRAJECTORY_JERK_DEF = 60000;
+constexpr t_float TRAJECTORY_JERK_DEF = 20000;
 constexpr t_float TRAJECTORY_JERK_MIN = 10;
 
 constexpr int PRECISION_0 = 0;
@@ -74,7 +74,9 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
             }
         } break;
         case ceammc_hw_trajectory_result::Finished: {
-            target_angle_ = -1;
+            constexpr auto INVALID_TARGET_VALUE = -1;
+            target_angle_ = INVALID_TARGET_VALUE;
+            anyTo(0, gensym("done"), AtomList {});
         } break;
         case ceammc_hw_trajectory_result::Error:
             OBJ_ERR << "traj calc error";
