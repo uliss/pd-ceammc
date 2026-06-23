@@ -7,150 +7,157 @@
 #X obj 502 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hw.rpi.servo] @url hw.rpi.gpio.servo-help.pd;
 #X obj 617 8 hw.rpi.gpio.servo;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 145 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The specified GPIO pin is taken into exclusive ownership:
 only one entity can operate a servo motor through this pin.;
 #X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -221520 -1 0;
-#X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 230 @connect \$1;
-#X msg 98 273 0;
-#X msg 136 273 180;
-#X msg 194 273 90;
-#X msg 242 273 45;
-#X msg 98 302 angle \$1;
-#X msg 98 345 -15;
-#X msg 155 345 15;
-#X obj 309 345 ui.hsl @show_value 1;
-#X msg 98 374 rotate \$1;
-#X msg 309 374 angle_phase \$1;
-#X obj 50 432 hw.rpi.servo 17;
-#X obj 50 461 ui.link @title 'Connection_Scheme' @url
+#X text 240 138 The servo uses a smoothed trajectory by default \,
+ensuring jerk-free motion. This may reduce the top speed marginally.
+If you need maximum speed \, disable smoothing by setting @smooth =
+0\.;
+#X obj 230 143 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
+#X obj 50 271 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 184 271 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 300 @connect \$1;
+#X msg 184 300 @smooth \$1;
+#X msg 98 343 0;
+#X msg 136 343 180;
+#X msg 194 343 90;
+#X msg 242 343 45;
+#X msg 98 372 angle \$1;
+#X msg 98 415 -15;
+#X msg 155 415 15;
+#X obj 309 415 ui.hsl @show_value 1;
+#X msg 98 444 rotate \$1;
+#X msg 309 444 angle_phase \$1;
+#X obj 50 502 hw.rpi.servo 17;
+#X obj 50 531 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_servo_0.png;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 523 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 593 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 526 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 596 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 524 1\.;
-#X text 170 524 int;
-#X obj 268 525 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 524 PIN: connected GPIO pin. See @pin property. Type: int.
+#X text 130 594 1\.;
+#X text 170 594 int;
+#X obj 268 595 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 594 PIN: connected GPIO pin. See @pin property. Type: int.
 Range: [-1\..127];
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 652 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 580 @pin;
-#X text 270 580 (initonly) Used GPIO pin. Type: int. Default value:
+#X msg 130 650 @pin;
+#X text 270 650 (initonly) Used GPIO pin. Type: int. Default value:
 -1\. Range: [-1\..127].;
-#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 622 @connect;
-#X text 270 622 When set to 1: tries to connect to the Raspberry Pi
+#X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 692 @connect;
+#X text 270 692 When set to 1: tries to connect to the Raspberry Pi
 GPIO and acquire exclusive ownership of the pin. When set to 0: disconnects
 from the GPIO and releases ownership of the pin. Type: bool. Default
 value: 0\.;
-#X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 694 @freq;
-#X text 270 694 PWM frequency. Type: float. Units: 'Hz'. Default value:
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 764 @freq;
+#X text 270 764 PWM frequency. Type: float. Units: 'Hz'. Default value:
 50.0\. Range: [30.0\..100.0].;
-#X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 736 @max_accel;
-#X text 270 736 Maximum acceleration (rate of change of velocity).
+#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 806 @max_accel;
+#X text 270 806 Maximum acceleration (rate of change of velocity).
 A reasonable starting value for initial tuning is 5–10 times the value
 of @max_vel. The final value should be determined empirically \, taking
 into account the moving mass and the drive's dynamic response. Unit:
 °/s². Type: float. Default value: 6000.0\. Min value: 10.0\.;
-#X obj 250 839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 839 @max_jerk;
-#X text 270 839 Maximum jerk (rate of change of acceleration). Determines
+#X obj 250 909 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 909 @max_jerk;
+#X text 270 909 Maximum jerk (rate of change of acceleration). Determines
 the smoothness of motion start and stop. Higher values result in sharper
 motion \, lower values produce smoother motion. The value should be
 tuned empirically for the specific mechanical system and dynamic requirements.
 Unit: °/s³. Type: float. Default value: 60000.0\. Min value: 10.0\.;
-#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 957 @max_pulse;
-#X text 270 957 Maximum PWM pulse width corresponding to a 180-degree
+#X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1027 @max_pulse;
+#X text 270 1027 Maximum PWM pulse width corresponding to a 180-degree
 rotation. Type: float. Units: 'ms'. Default value: 2.125\. Range: [1.5\..3.0].;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 @max_vel;
-#X text 270 1014 Maximum angular velocity of the servo \, measured
+#X obj 250 1084 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1084 @max_vel;
+#X text 270 1084 Maximum angular velocity of the servo \, measured
 in °/s. For the SG90 model \, it reaches about 600°/s (this value may
 vary with the operating voltage). Type: float. Default value: 600.0\.
 Min value: 10.0\.;
-#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1086 @min_pulse;
-#X text 270 1086 Minimum PWM pulse width corresponding to a 0-degree
+#X obj 250 1156 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1156 @min_pulse;
+#X text 270 1156 Minimum PWM pulse width corresponding to a 0-degree
 rotation. Type: float. Units: 'ms'. Default value: 0.5125\. Range:
 [0.5\..1.5].;
-#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1143 @precision;
-#X text 270 1143 Decimal precision used for angle values. Type: int.
+#X obj 250 1213 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1213 @precision;
+#X text 270 1213 Decimal precision used for angle values. Type: int.
 Default value: 1\. Range: [0\..3].;
-#X obj 250 1185 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1185 @smooth;
-#X text 270 1185 Use trajectory smoothing. Type: bool. Default value:
+#X obj 250 1255 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1255 @smooth;
+#X text 270 1255 Use trajectory smoothing. Type: bool. Default value:
 1\.;
-#X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1230 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1300 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1231 angle;
-#X text 270 1231 set the servo to the specified angle in degrees. Arguments
+#X msg 130 1301 angle;
+#X text 270 1301 set the servo to the specified angle in degrees. Arguments
 are:;
-#X obj 300 1271 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1271 ANGLE: angle in degrees. Type: float. Range: [0\..180].
+#X obj 300 1341 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1341 ANGLE: angle in degrees. Type: float. Range: [0\..180].
 Units: 'deg'.;
-#X obj 250 1319 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1319 angle_phase;
-#X text 270 1319 set the servo to the specified phase position. Arguments
+#X obj 250 1389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1389 angle_phase;
+#X text 270 1389 set the servo to the specified phase position. Arguments
 are:;
-#X obj 300 1344 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1344 VALUE: phase value. Type: float. Range: [0\..1].;
-#X obj 250 1377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1377 angle_rad;
-#X text 270 1377 set the servo to the specified angle in radians. Arguments
+#X obj 300 1414 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1414 VALUE: phase value. Type: float. Range: [0\..1].;
+#X obj 250 1447 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1447 angle_rad;
+#X text 270 1447 set the servo to the specified angle in radians. Arguments
 are:;
-#X obj 300 1417 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1417 ANGLE: angle in radians. Type: float. Range: [0\..1π].
+#X obj 300 1487 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1487 ANGLE: angle in radians. Type: float. Range: [0\..1π].
 Units: 'rad'.;
-#X obj 250 1465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1465 rotate;
-#X text 270 1465 rotate the servo to the specified angle in degrees.
+#X obj 250 1535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1535 rotate;
+#X text 270 1535 rotate the servo to the specified angle in degrees.
 Arguments are:;
-#X obj 300 1505 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1505 ANGLE: angle in degrees. Type: float. Range: [-180\..180].
+#X obj 300 1575 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1575 ANGLE: angle in degrees. Type: float. Range: [-180\..180].
 Units: 'deg'.;
-#X obj 250 1553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1553 rotate_phase;
-#X text 270 1553 rotate the servo to the specified phase value. Arguments
+#X obj 250 1623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1623 rotate_phase;
+#X text 270 1623 rotate the servo to the specified phase value. Arguments
 are:;
-#X obj 300 1578 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1578 VALUE: phase value. Type: float. Range: [-1\..1].;
-#X obj 250 1611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1611 rotate_rad;
-#X text 270 1611 rotate the servo to the specified angle in radians.
+#X obj 300 1648 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1648 VALUE: phase value. Type: float. Range: [-1\..1].;
+#X obj 250 1681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1681 rotate_rad;
+#X text 270 1681 rotate the servo to the specified angle in radians.
 Arguments are:;
-#X obj 300 1651 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1651 ANGLE: angle in radians. Type: float. Range: [-1π..1π].
+#X obj 300 1721 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1721 ANGLE: angle in radians. Type: float. Range: [-1π..1π].
 Units: 'rad'.;
-#X obj 20 1709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1714 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1715 1\.;
-#X text 270 1715 control message input.;
-#X obj 20 1750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1755 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1785 1\.;
+#X text 270 1785 control message input.;
+#X obj 20 1820 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1825 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1756 1\.;
-#X msg 170 1756 done;
-#X text 270 1756 This event fires when the servo movement command is
+#X text 130 1826 1\.;
+#X msg 170 1826 done;
+#X text 270 1826 This event fires when the servo movement command is
 finished. Note: "finished" means the command has been sent and processed
 \, not that the servo has physically stopped moving. The servo may
 still be rotating (this is particularly noticeable when @smooth = 0).;
-#X msg 170 1841 angle;
-#X text 270 1841 outputs the current rotation angle in degrees.;
-#X msg 170 1866 time;
-#X text 270 1866 outputs the current time position in milliseconds
+#X msg 170 1911 angle;
+#X text 270 1911 outputs the current rotation angle in degrees.;
+#X msg 170 1936 time;
+#X text 270 1936 outputs the current time position in milliseconds
 within the calculated smoothed motion trajectory (only when @smooth
 = 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -158,9 +165,9 @@ within the calculated smoothed motion trajectory (only when @smooth
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1946 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1949 library: ceammc v0.9.8;
-#N canvas 10 1968 400 290 info 0;
+#X obj 1 2016 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2019 library: ceammc v0.9.8;
+#N canvas 10 2038 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -184,16 +191,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1968 pd info;
-#X connect 8 0 9 0;
-#X connect 10 0 14 0;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
+#X restore 10 2038 pd info;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 14 0 18 0;
 #X connect 15 0 18 0;
 #X connect 16 0 18 0;
-#X connect 17 0 19 0;
-#X connect 9 0 20 0;
-#X connect 19 0 20 0;
-#X connect 14 0 20 0;
-#X connect 18 0 20 0;
+#X connect 17 0 18 0;
+#X connect 19 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 23 0;
+#X connect 12 0 24 0;
+#X connect 23 0 24 0;
+#X connect 18 0 24 0;
+#X connect 22 0 24 0;
+#X connect 13 0 24 0;

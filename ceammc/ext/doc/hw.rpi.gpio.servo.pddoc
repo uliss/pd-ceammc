@@ -26,6 +26,14 @@
         <tr lang="ru">указанный вывод GPIO забирается в эксклюзивное владение: только один объект
         может работать с сервоприводом через этот вывод.</tr>
       </par>
+      <par style="info">
+        <tr lang="en">The servo uses a smoothed trajectory by default, ensuring jerk-free motion.
+        This may reduce the top speed marginally. If you need maximum speed, disable smoothing by
+        setting @smooth = 0.</tr>
+        <tr lang="ru">По умолчанию движение сервопривода выполняется по сглаженной траектории, что
+        позволяет исключить резкие рывки. При этом общая скорость несколько уступает максимально
+        возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
@@ -206,16 +214,16 @@
           <tr lang="en">outputs the current time position in milliseconds within the calculated
           smoothed motion trajectory (only when @smooth = 1)</tr>
           <tr lang="ru">выводит текущую позицию времени (в мс) внутри рассчитанной сглаженной
-          траектории. Работает только при включенном сглаживании (@smooth = 1)</tr>
+          траектории. Выводится только при включенном сглаживании (@smooth = 1)</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[T]
-|
-[@connect $1(
+[T]           [T]
+|             |
+[@connect $1( [@smooth $1 #d(
 |
 |
 |    [0( [180( [90( [45(
@@ -233,7 +241,7 @@
 
 [ui.link @url=ceammc://img/conn_servo_0.png @title='Connection_Scheme']
 
-[X a->x] [X b->x] [X c->x]
+[X a->x] [X b->x] [X c->x] [X d->x]
 ]]>
       </pdascii>
     </example>
