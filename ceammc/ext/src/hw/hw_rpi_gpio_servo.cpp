@@ -279,6 +279,7 @@ void HwRpiGpioServo::setTargetAngle(t_float angle)
         current_angle_deg_ = new_target_angle;
         target_angle_ = new_target_angle;
         updateServoAngle();
+        anyTo(0, gensym("done"), AtomList {});
     }
 }
 
