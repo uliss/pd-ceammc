@@ -252,7 +252,9 @@ void HwRpiGpioServo::setAngle(t_float angle_deg)
 
     if (smooth_traj_->value()) {
         ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
-        traj_clock_.exec();
+
+        if (!traj_clock_.isActive())
+            traj_clock_.delay(TRAJECTORY_CALC_STEP);
     } else {
         ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
     }

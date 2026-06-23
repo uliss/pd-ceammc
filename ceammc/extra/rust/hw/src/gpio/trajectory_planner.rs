@@ -64,6 +64,7 @@ impl hw_trajectory {
         self.output.time = 0.0;
         self.input.target_position[0] = pos;
         self.input.target_velocity[0] = 0.0;
+        self.input.target_acceleration[0] = 0.0;
     }
 
     fn set_limits(&mut self, vel: f64, accel: f64, jerk: f64) {
