@@ -37,6 +37,18 @@ constexpr t_float TRAJECTORY_ACC_MIN = 10;
 constexpr t_float TRAJECTORY_JERK_DEF = 60000;
 constexpr t_float TRAJECTORY_JERK_MIN = 10;
 
+constexpr int PRECISION_0 = 0;
+constexpr int PRECISION_1 = 1;
+constexpr int PRECISION_2 = 2;
+constexpr int PRECISION_3 = 3;
+constexpr int PRECISION_MIN = PRECISION_0;
+constexpr int PRECISION_MAX = PRECISION_3;
+constexpr int PRECISION_DEF = PRECISION_1;
+
+constexpr auto POW_10_1 = 10;
+constexpr auto POW_10_2 = 100;
+constexpr auto POW_10_3 = 1000;
+
 constexpr int SERVO_RANGE = 180;
 } // namespace
 
@@ -53,13 +65,12 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
         case ceammc_hw_trajectory_result::Working: {
             double pos = 0, vel = 0, accel = 0, jerk = 0, time = 0;
             if (ceammc_hw_trajectory_new_output(traj_.get(), &pos, &vel, &accel, &jerk, &time)) {
-                angle_ = pos;
-                ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
+                angle_ = toAnglePrecision(pos);
+                updateAnglePwm();
 
-                anyTo(0, gensym("angle"), Atom(angle_));
+                anyTo(0, gensym("angle"), Atom(angleInDegrees()));
                 anyTo(0, gensym("time"), Atom(time));
 
-                OBJ_DBG << fmt::format("traj: pos = {}, vel = {}, accel = {}, jerk = {}", pos, vel, accel, jerk);
                 traj_clock_.delay(TRAJECTORY_CALC_STEP);
             }
         } break;
@@ -97,6 +108,10 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
 
     pin_ = addGpioPinProperty("@pin");
     pin_->setArgIndex(0);
+
+    precision_ = new IntProperty("@precision", PRECISION_DEF);
+    precision_->checkClosedRange(PRECISION_MIN, PRECISION_MAX);
+    addProperty(precision_);
 
     smooth_traj_ = new BoolProperty("@smooth", true);
     addProperty(smooth_traj_);
@@ -171,7 +186,7 @@ void HwRpiGpioServo::m_angle_deg(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    setAngle(args.angle);
+    setAngleInDegrees(args.angle);
 }
 
 /// @function "set absolute servo angle" {
@@ -186,7 +201,7 @@ void HwRpiGpioServo::m_angle_rad(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    setAngle(convert::rad2degree(args.angle));
+    setAngleInDegrees(convert::rad2degree(args.angle));
 }
 
 /// @function "set absolute servo angle" {
@@ -201,7 +216,7 @@ void HwRpiGpioServo::m_angle_phase(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    setAngle(convert::lin2lin_clip<t_float>(args.phase, 0, 1, 0, SERVO_RANGE));
+    setAngleInDegrees(convert::lin2lin_clip<t_float>(args.phase, 0, 1, 0, SERVO_RANGE));
 }
 
 /// @function "rotate current servo position" {
@@ -216,7 +231,7 @@ void HwRpiGpioServo::m_rotate_deg(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    rotate(args.angle);
+    rotateDegrees(args.angle);
 }
 
 /// @function "rotate current servo position" {
@@ -231,7 +246,7 @@ void HwRpiGpioServo::m_rotate_rad(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    rotate(convert::rad2degree(args.angle));
+    rotateDegrees(convert::rad2degree(args.angle));
 }
 
 /// @function "rotate current servo position" {
@@ -246,36 +261,74 @@ void HwRpiGpioServo::m_rotate_phase(t_symbol* sel, const AtomListView& lv)
     if (!args.parse_args(lv, this))
         return;
 
-    rotate(convert::lin2lin_clip<t_float>(args.phase, -1, 1, -SERVO_RANGE, SERVO_RANGE));
+    rotateDegrees(convert::lin2lin_clip<float>(args.phase, -1, 1, -SERVO_RANGE, SERVO_RANGE));
 }
 
-void HwRpiGpioServo::setAngle(t_float angle_deg)
+t_float HwRpiGpioServo::angleInDegrees() const
 {
-    angle_ = angle_deg;
+    switch (precision_->value()) {
+    case PRECISION_1:
+        return static_cast<t_float>(angle_) / POW_10_1;
+    case PRECISION_2:
+        return static_cast<t_float>(angle_) / POW_10_2;
+    case PRECISION_3:
+        return static_cast<t_float>(angle_) / POW_10_3;
+    default:
+        return static_cast<t_float>(angle_);
+    }
+}
+
+void HwRpiGpioServo::setAngleInDegrees(t_float angle)
+{
+    const auto new_angle = toAnglePrecision(angle);
 
     if (smooth_traj_->value()) {
-        ceammc_hw_trajectory_set_target_pos(traj_.get(), angle_);
+        if (new_angle == angle_) // for stability of ruckig trajectory calc
+            return;
+
+        angle_ = new_angle;
+        ceammc_hw_trajectory_set_target_pos(traj_.get(), angleInDegrees());
 
         if (!traj_clock_.isActive())
             traj_clock_.delay(TRAJECTORY_CALC_STEP);
     } else {
-        ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
+        angle_ = new_angle;
+        updateAnglePwm();
     }
 }
 
-void HwRpiGpioServo::rotate(t_float angle_deg)
+void HwRpiGpioServo::rotateDegrees(t_float angle)
 {
-    setAngle(clip<t_float, 0, SERVO_RANGE>(angle_ + angle_deg));
+    setAngleInDegrees(clip<t_float, 0, SERVO_RANGE>(angleInDegrees() + angle));
 }
 
 t_float HwRpiGpioServo::pulseValue() const
 {
-    return convert::lin2lin_clip<t_float>(angle_, 0, SERVO_RANGE, min_pulse_->value(), max_pulse_->value());
+    return convert::lin2lin_clip<t_float>(angleInDegrees(), 0, SERVO_RANGE, min_pulse_->value(), max_pulse_->value());
 }
 
 t_float HwRpiGpioServo::pulsePeriod() const
 {
     return 1000 / freq_->value();
+}
+
+std::int32_t HwRpiGpioServo::toAnglePrecision(t_float angle) const
+{
+    switch (precision_->value()) {
+    case PRECISION_1:
+        return static_cast<std::int32_t>(std::round(angle * POW_10_1));
+    case PRECISION_2:
+        return static_cast<std::int32_t>(std::round(angle * POW_10_2));
+    case PRECISION_3:
+        return static_cast<std::int32_t>(std::round(angle * POW_10_3));
+    default:
+        return static_cast<std::int32_t>(std::round(angle));
+    }
+}
+
+void HwRpiGpioServo::updateAnglePwm()
+{
+    ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
 }
 
 void setup_hw_rpi_gpio_servo()
