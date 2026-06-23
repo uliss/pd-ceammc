@@ -56,6 +56,8 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
                 angle_ = pos;
                 ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
 
+                anyTo(0, gensym("angle"), Atom(angle_));
+
                 OBJ_DBG << fmt::format("traj: pos = {}, vel = {}, accel = {}, jerk = {}", pos, vel, accel, jerk);
                 traj_clock_.delay(TRAJECTORY_CALC_STEP);
             }
