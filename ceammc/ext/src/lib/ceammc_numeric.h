@@ -42,7 +42,7 @@ namespace math {
             * std::max(std::abs(x), std::abs(y))
             * ULP;
     }
-}
-}
+} // namespace math
+} // namespace ceammc
 
 #endif // CEAMMC_NUMERIC_H

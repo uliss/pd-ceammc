@@ -32,7 +32,8 @@ class HwRpiGpioServo : public HwRpiDevice<ceammc_hw_gpio> {
     FloatProperty* max_acc_ { nullptr };
     FloatProperty* max_jerk_ { nullptr };
     IntProperty* precision_ { nullptr };
-    std::int32_t angle_ { 0 };
+    t_float current_angle_deg_ { 0 };
+    t_float target_angle_ { 0 };
 
     using TrajPtr = std::unique_ptr<ceammc_hw_trajectory, decltype(&ceammc_hw_trajectory_free)>;
     TrajPtr traj_;
@@ -52,14 +53,13 @@ public:
     void m_rotate_phase(t_symbol* sel, const AtomListView& lv);
 
 private:
-    t_float angleInDegrees() const;
-    void setAngleInDegrees(t_float angle);
-    void updateAnglePwm();
-
+    void setTargetAngle(t_float angle);
+    void updateServoAngle();
     void rotateDegrees(t_float angle);
     t_float pulseValue() const;
     t_float pulsePeriod() const;
-    std::int32_t toAnglePrecision(t_float angle) const;
+    t_float currentAngleWithPrecision(t_float angle) const;
+    bool shouldUpdateTargetAngle(t_float angle) const;
 };
 
 void setup_hw_rpi_gpio_servo();
