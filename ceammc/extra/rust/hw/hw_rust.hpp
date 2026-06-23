@@ -1468,7 +1468,8 @@ bool ceammc_hw_trajectory_new_output(ceammc_hw_trajectory *traj,
                                      double *pos,
                                      double *vel,
                                      double *accel,
-                                     double *jerk);
+                                     double *jerk,
+                                     double *time);
 
 /// set trajectory max accel
 /// @param traj - pointer to trajectory struct

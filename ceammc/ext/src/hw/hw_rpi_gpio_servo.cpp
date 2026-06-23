@@ -51,12 +51,13 @@ HwRpiGpioServo::HwRpiGpioServo(const PdArgs& args)
 
         switch (ceammc_hw_trajectory_update(traj_.get())) {
         case ceammc_hw_trajectory_result::Working: {
-            double pos = 0, vel = 0, accel = 0, jerk = 0;
-            if (ceammc_hw_trajectory_new_output(traj_.get(), &pos, &vel, &accel, &jerk)) {
+            double pos = 0, vel = 0, accel = 0, jerk = 0, time = 0;
+            if (ceammc_hw_trajectory_new_output(traj_.get(), &pos, &vel, &accel, &jerk, &time)) {
                 angle_ = pos;
                 ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
 
                 anyTo(0, gensym("angle"), Atom(angle_));
+                anyTo(0, gensym("time"), Atom(time));
 
                 OBJ_DBG << fmt::format("traj: pos = {}, vel = {}, accel = {}, jerk = {}", pos, vel, accel, jerk);
                 traj_clock_.delay(TRAJECTORY_CALC_STEP);

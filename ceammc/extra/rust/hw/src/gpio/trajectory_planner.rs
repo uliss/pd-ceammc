@@ -53,11 +53,12 @@ impl hw_trajectory {
         *accel = self.input.current_acceleration[0];
     }
 
-    fn new_output(&self, pos: &mut f64, vel: &mut f64, accel: &mut f64, jerk: &mut f64) {
+    fn new_output(&self, pos: &mut f64, vel: &mut f64, accel: &mut f64, jerk: &mut f64, time: &mut f64) {
         *pos = self.output.new_position[0];
         *vel = self.output.new_velocity[0];
         *accel = self.output.new_acceleration[0];
         *jerk = self.output.new_jerk[0];
+        *time = self.output.time;
     }
 
     fn set_target_pos(&mut self, pos: f64) {
@@ -220,12 +221,13 @@ pub extern "C" fn ceammc_hw_trajectory_new_output(
     vel: &mut f64,
     accel: &mut f64,
     jerk: &mut f64,
+    time: &mut f64,
 ) -> bool {
     if traj.is_null() {
         true
     } else {
         let traj = unsafe { &*traj };
-        traj.new_output(pos, vel, accel, jerk);
+        traj.new_output(pos, vel, accel, jerk, time);
         true
     }
 }
