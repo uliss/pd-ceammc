@@ -17,15 +17,22 @@
       <since>0.9.8</since>
     </meta>
     <info>
-      <par>
-        <tr lang="en">|| Versions &lt;5.0</tr>
-        <tr lang="ru">|| Версии платы &lt;5.0</tr>
+      <par style="info">
+        <tr lang="en">Hardware PWM uses a dedicated module on the SoC for accurate signal
+        generation. Software PWM is handled by the CPU, so its timing can vary depending on system
+        load.</tr>
+        <tr lang="ru">Аппаратный ШИМ использует выделенный модуль для точной генерации, программный
+        — переключает пины силами CPU, что зависит от его загрузки.</tr>
+      </par>
+      <par style="important" space-top="10">
+        <tr lang="en">Versions &lt;5.0</tr>
+        <tr lang="ru">Версии платы &lt;5.0</tr>
       </par>
       <par>
-        <tr lang="en">The BCM283x SoC supports 2 hardware PWM channels. By default, the channels
-        are mapped as follows:</tr>
-        <tr lang="ru">BCM283x SoC поддерживает 2 аппаратных канала ШИМ. По умолчанию каналы
-        отображаются следующим образом:</tr>
+        <tr lang="en">Supports 2 hardware PWM channels. By default, the channels are mapped as
+        follows:</tr>
+        <tr lang="ru">Поддерживает 2 аппаратных канала ШИМ. По умолчанию каналы отображаются
+        следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12/GPIO18</tr>
@@ -46,19 +53,15 @@
         <tr lang="ru">Примечание: аналоговый аудиовыход Raspberry Pi использует оба канала ШИМ.
         Воспроизведение звука и одновременное обращение к каналу ШИМ может вызвать проблемы.</tr>
       </par>
-      <par>
-        <tr lang="en">~</tr>
-        <tr lang="ru">~</tr>
+      <par style="important" space-top="10">
+        <tr lang="en">Raspberry Pi 5 and later</tr>
+        <tr lang="ru">Raspberry Pi 5 и выше</tr>
       </par>
       <par>
-        <tr lang="en">|| Raspberry Pi 5 and later</tr>
-        <tr lang="ru">|| Raspberry Pi 5 и выше</tr>
-      </par>
-      <par>
-        <tr lang="en">The Raspberry Pi 5 supports 4 hardware PWM channels. By default, the channels
-        are mapped as follows:</tr>
-        <tr lang="ru">Raspberry Pi 5 поддерживает 4 аппаратных канала ШИМ. По умолчанию каналы
-        отображаются следующим образом:</tr>
+        <tr lang="en">Supports 4 hardware PWM channels. By default, the channels are mapped as
+        follows:</tr>
+        <tr lang="ru">Поддерживает 4 аппаратных канала ШИМ. По умолчанию каналы отображаются
+        следующим образом:</tr>
       </par>
       <par>
         <tr lang="en">• PWM0 = GPIO12</tr>
@@ -81,11 +84,7 @@
         <tr lang="ru">Обратитесь к официальной документации, чтобы узнать, как включить и настроить
         их.</tr>
       </par>
-      <par>
-        <tr lang="en">~</tr>
-        <tr lang="ru">~</tr>
-      </par>
-      <par>
+      <par style="important" space-top="10">
         <tr lang="en">Some of the GPIO pins capable of supporting hardware PWM can also be
         configured for use with other peripherals. Be careful not to enable two peripherals on the
         same pin at the same time.</tr>
@@ -150,7 +149,7 @@
       <method name="period">
         <info>
           <tr lang="en">set the period. Expected width &lt;=period.</tr>
-          <tr lang="ru">установить период. Ожидаемая ширина &lt;=периоду.</tr>
+          <tr lang="ru">установить период. Ожидаемая ширина меньше или равна периоду.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
@@ -172,7 +171,8 @@
       <method name="pwm">
         <info>
           <tr lang="en">set the period and pulse width. Expected width &lt;=period.</tr>
-          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина &lt;=периоду.</tr>
+          <tr lang="ru">установить период и ширину импульса. Ожидаемая ширина импульса меньше или
+          равна периоду.</tr>
         </info>
         <param name="PERIOD" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">the whole cycle period</tr>
@@ -187,7 +187,8 @@
       <method name="width">
         <info>
           <tr lang="en">set the pulse width. Expected width &lt;=period.</tr>
-          <tr lang="ru">установить ширину импульса. Ожидаемая ширина &lt;=периоду.</tr>
+          <tr lang="ru">установить ширину импульса. Ожидаемая ширина импульса меньше или равна
+          периоду.</tr>
         </info>
         <param name="WIDTH" type="float" minvalue="0" units="msec" required="true">
           <tr lang="en">pulse width</tr>
@@ -214,31 +215,35 @@
     <example>
       <pdascii>
 <![CDATA[
-[T]
+[T]                [T]
+|                  |
+[@connect $1(      [enable $1 #a(
 |
-[enable $1 #a(
-
-
-  [ui.hsl #b]        [ui.hsl #d]
-  |                  |
-  [freq $1 0.5 #c(   [pwm 20 $1 #e(
-
-
+|
+| [ui.hsl #c]      [ui.hsl #d]
+| |                |
+| [freq $1 0.5 #e( [pwm 20 $1 #f(
+|
+|
 [hw.rpi.pwm @pwm_ch 0 #x]
 
+[T]
+|
+[@connect $1 #g(
 
-[T]                  [ui.hsl #f]
-|                    |
-[enable $1 #a(       [pwm 20 $1 #g(
-|
-|
+  [T]              [ui.hsl #h]
+  |                |
+  [enable $1(      [pwm 20 $1 #i(
+  |
+  |
 [hw.rpi.pwm @pwm_ch 1 #y]
 
 [ui.link @url=ceammc://img/conn_pwm.png @title='Connection_scheme']
-[X a->x] [X c->x] [X e->x] [X g->y]
-#b @show_value 1 @min 50 @max 500
+[X a->x] [X e->x] [X f->x]
+[X g->y] [X i->y]
+#c @show_value 1 @min 50 @max 500
 #d @show_value 1 @min 0 @max 20
-#f @show_value 1 @min 1 @max 2
+#h @show_value 1 @min 1 @max 2
 ]]>
       </pdascii>
     </example>
