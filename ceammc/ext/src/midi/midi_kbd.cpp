@@ -12,14 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_kbd.h"
+#include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 #include "kbd_names.h"
 #include "kbd_querty.h"
-
-#include <boost/container/small_vector.hpp>
 
 #include <codecvt>
 #include <limits>
