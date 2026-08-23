@@ -21,6 +21,12 @@
 
 #include <cstring>
 
+// Check if compiling on an Apple platform
+#if defined(__APPLE__) && defined(__MACH__)
+#include <Availability.h>
+#endif
+
+
 using namespace ceammc;
 using namespace ceammc::sound;
 
@@ -200,7 +206,14 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
             REQUIRE(sf.probe(TEST_DATA_DIR "/test_data0.wav"));
             REQUIRE(sf.probe(TEST_DATA_DIR "/mp3/test_1ch_44100_192.mp3"));
             REQUIRE(sf.probe(TEST_DATA_DIR "/snd_mono_48k.flac"));
+
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= 260000
+            REQUIRE(sf.probe(TEST_DATA_DIR "/snd_stereo_44k.ogg"));
+#else
             REQUIRE_FALSE(sf.probe(TEST_DATA_DIR "/snd_stereo_44k.ogg"));
+#endif
+#endif
         }
 
         SECTION("mp3 mono")
