@@ -12,10 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "duration_to_time.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
-
-#include <boost/container/small_vector.hpp>
 
 using SmallAtomVec = boost::container::small_vector<Atom, 16>;
 using DurationVec = boost::container::small_vector<music::Duration, 16>;
