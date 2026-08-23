@@ -18,6 +18,17 @@
 #include <array>
 #include <initializer_list>
 
+// Check if compiling on an Apple platform
+#if defined(__APPLE__) && defined(__MACH__)
+#include <Availability.h>
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= 260000
+// boost include fix
+#include <utility> // NOLINT(misc-include-cleaner)
+#endif
+#endif
+#endif
+
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
 #include <boost/iterator/filter_iterator.hpp>
