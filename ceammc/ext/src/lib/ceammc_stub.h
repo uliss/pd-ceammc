@@ -45,14 +45,14 @@ public:
 #define CONTROL_OBJECT_STUB(class_name, in, out, msg) \
     AUDIO_OBJECT_STUB(class_name, 0, 0, in, out, msg)
 
-#define OBJECT_STUB_SETUP(class_name, fn, obj_name, ...)       \
-    extern void setup_##fn()                                   \
-    {                                                          \
-        ceammc::SoundExternalFactory<class_name> obj(obj_name, \
-            ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);          \
-        std::vector<const char*> aliases = { __VA_ARGS__ };    \
-        for (auto a : aliases)                                 \
-            obj.addAlias(a);                                   \
+#define OBJECT_STUB_SETUP(class_name, fn, obj_name, ...)          \
+    extern void setup_##fn()                                      \
+    {                                                             \
+        ceammc::SoundExternalFactory<class_name> obj(obj_name,    \
+            ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);             \
+        const std::vector<const char*> aliases = { __VA_ARGS__ }; \
+        for (auto a : aliases)                                    \
+            obj.addAlias(a);                                      \
     }
 
 #endif // CEAMMC_STUB_H
