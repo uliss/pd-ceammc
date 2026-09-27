@@ -1,65 +1,82 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 300 50 cnv 1 465 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 305 50 upon receiving the index \, the state of individual
-outputs is established as a radio switch;
+#X obj 606 50 cnv 1 159 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 611 50 non GUI radio switch;
 #X obj 1 1 cnv 5 765 40 empty empty radio 20 20 0 20 -104026 -4096 0;
 #X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/radio] @url radio-help.pd;
 #X obj 704 8 radio;
-#X obj 50 118 ui.radio @nitems 4;
-#X msg 78 176 reset;
-#X obj 50 205 radio 4;
-#X obj 50 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 98 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 155 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 222 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 276 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A non-GUI radio switch. When an index is received on
+the inlet \, the corresponding outlet is set to 1 and all the others
+are set to 0\. This is the control-level equivalent of the [hradio]
+GUI object.;
+#X text 240 153 Typical use cases: switching between exclusive processing
+modes (reverb / delay / dry) \, selecting one active preset bank \,
+multiplexing one of several control or audio streams \, routing a signal
+to one of several channels \, driving a simple state machine (record
+/ play / stop) \, gating events \, or triggering different algorithms
+depending on the selected mode.;
+#X text 240 269 Note: [radio] is designed for cases where exactly one
+option must be active at a time. If several states should be active
+simultaneously \, use regular [toggle] or [select] objects instead.;
+#X obj 50 402 ui.radio @nitems 4;
+#X msg 78 431 0;
+#X msg 146 431 1;
+#X msg 213 431 2;
+#X msg 280 431 3;
+#X msg 78 460 reset;
+#X obj 50 489 radio 4;
+#X obj 50 518 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 98 518 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 155 518 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 222 518 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 555 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 274 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 558 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 272 1\.;
-#X text 170 272 int;
-#X obj 268 273 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 272 N: number of outlets. Type: int. Range: [2\..24];
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 312 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 556 1\.;
+#X text 170 556 int;
+#X obj 268 557 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 556 N: number of outlets. Type: int. Range: [2\..24];
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 596 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 315 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 599 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 313 @n;
-#X text 270 313 (initonly) Number of outlets. Type: int. Default value:
+#X msg 130 597 @n;
+#X text 270 597 (initonly) Number of outlets. Type: int. Default value:
 2\. Range: [2\..24].;
-#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 370 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 371 reset;
-#X text 270 371 output zeroes to all outlets.;
-#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 421 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 655 reset;
+#X text 270 655 outputs zero to all outlets.;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 705 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 422 1\.;
-#X text 170 422 float:;
-#X text 270 422 index.;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 462 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 706 1\.;
+#X text 170 706 float:;
+#X text 270 706 index.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 746 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 463 1\.;
-#X text 270 463 first output.;
-#X text 130 483 n.;
-#X text 270 483 first output.;
+#X text 130 747 1\.;
+#X text 270 747 first output.;
+#X text 130 767 n.;
+#X text 270 767 n-th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 533 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 536 library: ceammc v0.9.8;
-#X text 619 548 see also:;
-#X obj 694 551 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 817 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 820 library: ceammc v0.9.8;
+#X text 619 832 see also:;
+#X obj 694 835 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hradio] @url hradio-help.pd;
-#N canvas 10 555 400 290 info 0;
+#N canvas 10 839 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -83,10 +100,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 555 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 7 1 9 0;
-#X connect 7 2 10 0;
-#X connect 7 3 11 0;
+#X restore 10 839 pd info;
+#X connect 9 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
+#X connect 15 2 18 0;
+#X connect 15 3 19 0;
+#X connect 10 0 15 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;

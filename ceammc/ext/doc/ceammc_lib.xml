@@ -181,7 +181,7 @@
     <entry name="obj.props" descr="Extract object properties from the connected object" ref_view="link">
       <xi:include href="obj.props.pddoc" parse="xml"/>
     </entry>
-    <entry name="radio" descr="upon receiving the index, the state of individual outputs is established as a radio switch" ref_view="link">
+    <entry name="radio" descr="non GUI radio switch" ref_view="link">
       <xi:include href="radio.pddoc" parse="xml"/>
     </entry>
     <entry name="split~" descr="parametrized multichannel signal splitter" ref_view="link">

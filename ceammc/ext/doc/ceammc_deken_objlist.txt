@@ -87,8 +87,8 @@ ceammc/mix~	multichannel signal mixer / многоканальный микше�
 nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
-radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
-ceammc/radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
+radio	non GUI radio switch / радиопереключатель без графического интерфейса
+ceammc/radio	non GUI radio switch / радиопереключатель без графического интерфейса
 split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
 ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
 spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние

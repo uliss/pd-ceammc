@@ -7,10 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">upon receiving the index, the state of individual outputs is established as a
-        radio switch</tr>
-        <tr lang="ru">при поступлении индекса устанавлиет состояние отдельных выходов как
-        радиопереключатель</tr>
+        <tr lang="en">non GUI radio switch</tr>
+        <tr lang="ru">радиопереключатель без графического интерфейса</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,25 +22,56 @@
         <alias>ceammc/radio</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A non-GUI radio switch. When an index is received on the inlet, the
+        corresponding outlet is set to 1 and all the others are set to 0. This is the control-level
+        equivalent of the [hradio] GUI object.</tr>
+        <tr lang="ru">Радиопереключатель без графического интерфейса. При получении индекса на
+        вход соответствующий выход устанавливается в 1, а все остальные — в 0. Это
+        управляющий аналог GUI-объекта [hradio].</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases: switching between exclusive processing modes (reverb /
+        delay / dry), selecting one active preset bank, multiplexing one of several control or
+        audio streams, routing a signal to one of several channels, driving a simple state machine
+        (record / play / stop), gating events, or triggering different algorithms depending on the
+        selected mode.</tr>
+        <tr lang="ru">Типичные сценарии применения: переключение взаимоисключающих режимов
+        обработки (reverb / delay / dry), выбор одного активного банка пресетов, мультиплексирование
+        одного из нескольких потоков управления или аудио, маршрутизация сигнала в один из
+        нескольких каналов, работа простой машины состояний (запись / воспроизведение /
+        остановка), управление воротами для событий или запуск разных алгоритмов в зависимости
+        от выбранного режима.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: [radio] is designed for cases where exactly one option must be active
+        at a time. If several states should be active simultaneously, use regular [toggle] or
+        [select] objects instead.</tr>
+        <tr lang="ru">Примечание: [radio] предназначен для случаев, когда активным должен быть
+        ровно один вариант. Если нужно, чтобы одновременно были активны несколько состояний,
+        используйте обычные объекты [toggle] или [select].</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="24">
         <tr lang="en">number of outlets</tr>
-        <tr lang="ru" finished="false">количество торговых точек</tr>
+        <tr lang="ru">число выходов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" maxvalue="24" default="2" access="initonly">
         <tr lang="en">number of outlets</tr>
-        <tr lang="ru" finished="false">количество торговых точек</tr>
+        <tr lang="ru">число выходов</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">output zeroes to all outlets</tr>
-          <tr lang="ru" finished="false">нулевой выход для всех точек</tr>
+          <tr lang="en">outputs zero to all outlets</tr>
+          <tr lang="ru">выводит 0 на все выходы</tr>
         </info>
       </method>
     </methods>
@@ -50,7 +79,7 @@
       <inlet>
         <in on="float">
           <tr lang="en">index</tr>
-          <tr lang="ru" finished="false">индекс</tr>
+          <tr lang="ru">индекс</tr>
         </in>
       </inlet>
     </inlets>
@@ -58,13 +87,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">first output</tr>
-          <tr lang="ru" finished="false">первый выход</tr>
+          <tr lang="ru">первый выход</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
-          <tr lang="en">first output</tr>
-          <tr lang="ru" finished="false">первый выход</tr>
+          <tr lang="en">n-th output</tr>
+          <tr lang="ru">n-й выход</tr>
         </out>
       </outlet>
     </outlets>
@@ -73,13 +102,15 @@
 <![CDATA[
 [ui.radio @nitems 4]
 |
-|
+|  [0 #a( [1 #b( [2 #c( [3 #d(
 |
 |  [reset(
 |  |
-[radio           4]
+[radio           4 #z]
 |   ^|   ^^|   ^^^|
 [T]  [T]   [T]    [T]
+
+[X a->z] [X b->z] [X c->z] [X d->z]
 ]]>
       </pdascii>
     </example>

@@ -52,27 +52,26 @@ metro.wchoice-help.pd;
 #X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
 #X text 220 627 извлекает свойства из подключенного объекта;
 #X obj 30 655 ui.link @title [radio] @url radio-help.pd;
-#X text 220 652 при поступлении индекса устанавлиет состояние отдельных
-выходов как радиопереключатель;
-#X obj 30 695 ui.link @title [split~] @url split~-help.pd;
-#X text 220 692 параметризованный многоканальный сплиттер сигналов;
-#X obj 30 720 ui.link @title [spring] @url spring-help.pd;
-#X text 220 717 ведет себя как пружина \, возвращающаяся в первоначальное
+#X text 220 652 радиопереключатель без графического интерфейса;
+#X obj 30 680 ui.link @title [split~] @url split~-help.pd;
+#X text 220 677 параметризованный многоканальный сплиттер сигналов;
+#X obj 30 705 ui.link @title [spring] @url spring-help.pd;
+#X text 220 702 ведет себя как пружина \, возвращающаяся в первоначальное
 состояние;
-#X obj 30 760 ui.link @title [sync] @url sync-help.pd;
-#X text 220 757 синхронизация нескольких значений без переполнения
+#X obj 30 745 ui.link @title [sync] @url sync-help.pd;
+#X text 220 742 синхронизация нескольких значений без переполнения
 стека из-за петель;
-#X obj 30 800 ui.link @title [window] @url window-help.pd;
-#X text 220 797 возвращает значение оконной функции;
-#X obj 30 825 ui.link @title [xdac~] @url xdac~-help.pd;
-#X text 220 822 [dac~] с диапазонами каналов;
-#X obj 30 850 ui.link @title [xfade2~] @url xfade2~-help.pd;
-#X text 220 847 многоканальный кроссфейд для стерео сигналов;
-#X obj 30 875 ui.link @title [xfade~] @url xfade~-help.pd;
-#X text 220 872 многоканальный кроссфейд;
-#X obj 30 900 ui.link @title [z~] @url z~-help.pd;
-#X text 220 897 целочисленная задержка сэмплов;
+#X obj 30 785 ui.link @title [window] @url window-help.pd;
+#X text 220 782 возвращает значение оконной функции;
+#X obj 30 810 ui.link @title [xdac~] @url xdac~-help.pd;
+#X text 220 807 [dac~] с диапазонами каналов;
+#X obj 30 835 ui.link @title [xfade2~] @url xfade2~-help.pd;
+#X text 220 832 многоканальный кроссфейд для стерео сигналов;
+#X obj 30 860 ui.link @title [xfade~] @url xfade~-help.pd;
+#X text 220 857 многоканальный кроссфейд;
+#X obj 30 885 ui.link @title [z~] @url z~-help.pd;
+#X text 220 882 целочисленная задержка сэмплов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
-#X obj 1 922 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 932 library: ceammc;
+#X obj 1 907 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 917 library: ceammc;
