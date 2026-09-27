@@ -6,95 +6,100 @@ object;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.current 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 canvas.current;
-#X msg 50 118 @name?;
-#X msg 155 118 @dir?;
-#X msg 261 118 @width?;
-#X msg 69 147 @root?;
-#X msg 174 147 @args?;
-#X msg 280 147 @abstraction?;
-#X msg 98 176 @x?;
-#X msg 194 176 @y?;
-#X msg 299 176 @height?;
-#X obj 117 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object provides information about the canvas (window
+or subpatch) that contains it. A bang outputs a dictionary with all
+available properties. A property name (such as @name \, @width \, @height)
+sent to the inlet outputs the value of that single property.;
+#X msg 50 231 @name?;
+#X msg 155 231 @dir?;
+#X msg 261 231 @width?;
+#X msg 69 260 @root?;
+#X msg 174 260 @args?;
+#X msg 280 260 @abstraction?;
+#X msg 98 289 @x?;
+#X msg 194 289 @y?;
+#X msg 299 289 @height?;
+#X obj 117 318 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 234 canvas.current;
-#X obj 50 262 ui.display @display_type 1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 347 canvas.current;
+#X obj 50 375 ui.display @display_type 1;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 430 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @abstraction?;
-#X text 270 318 (readonly) 1 if canvas is abstraction. Type: bool.
-Default value: 1\.;
-#X obj 250 360 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 360 @args?;
-#X text 270 360 (readonly) Canvas creation arguments. Type: list.;
-#X obj 250 390 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 390 @dir?;
-#X text 270 390 (readonly) Canvas directory (only if top level or abstraction).
-Type: symbol. Default value: /.;
-#X obj 250 432 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 432 @height?;
-#X text 270 432 (readonly) Canvas height (window or GOP). Type: int.
-Default value: 400\.;
-#X obj 250 474 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 474 @name?;
-#X text 270 474 (readonly) Canvas name. Type: symbol. Default value:
-test_canvas.;
-#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 516 @paths?;
-#X text 270 516 (readonly) Canvas search paths. Type: list.;
-#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 546 @root?;
-#X text 270 546 (readonly) 1 if canvas is top-level (window). Type:
+#X msg 130 431 @abstraction?;
+#X text 270 431 (readonly) 1 if the canvas is an abstraction. Type:
 bool. Default value: 1\.;
-#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 588 @width?;
-#X text 270 588 (readonly) Canvas width (window or GOP). Type: int.
+#X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 473 @args?;
+#X text 270 473 (readonly) Canvas creation arguments. Type: list.;
+#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 503 @dir?;
+#X text 270 503 (readonly) Canvas directory (only for top-level canvas
+or abstraction). Type: symbol. Default value: /.;
+#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 545 @height?;
+#X text 270 545 (readonly) Canvas height (window or GOP). Type: int.
+Default value: 400\.;
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 587 @name?;
+#X text 270 587 (readonly) Canvas name. Type: symbol. Default value:
+test_canvas.;
+#X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 629 @paths?;
+#X text 270 629 (readonly) Canvas search paths. Type: list.;
+#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 659 @root?;
+#X text 270 659 (readonly) 1 if the canvas is top-level (window). Type:
+bool. Default value: 1\.;
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @width?;
+#X text 270 701 (readonly) Canvas width (window or GOP). Type: int.
 Default value: 600\.;
-#X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 630 @x?;
-#X text 270 630 (readonly) Canvas x-pos (window or GOP). Type: int.
-Default value: 0\.;
-#X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 672 @y?;
-#X text 270 672 (readonly) Canvas y-pos (window or GOP). Type: int.
-Default value: 0\.;
-#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 714 @font?;
-#X text 270 714 (readonly) Canvas font size. Type: int. Default value:
+#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 743 @x?;
+#X text 270 743 (readonly) Canvas x-position (window or GOP). Type:
+int. Default value: 0\.;
+#X obj 250 785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 785 @y?;
+#X text 270 785 (readonly) Canvas y-position (window or GOP). Type:
+int. Default value: 0\.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 827 @font?;
+#X text 270 827 (readonly) Canvas font size. Type: int. Default value:
 10\.;
-#X obj 250 744 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 744 @size?;
-#X text 270 744 (readonly) Canvas dimensions. If root canvas (window)
-return window size \, if subpatch return Graph on Parent size. Type:
-list. Default value: 600 400\.;
-#X obj 20 811 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 816 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 857 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 857 @size?;
+#X text 270 857 (readonly) Canvas dimensions. If the root canvas (window)
+— returns the window size. If a subpatch — returns the Graph on Parent
+size. Type: list. Default value: 600 400\.;
+#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 944 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 817 1\.;
-#X text 270 817 property request.;
-#X text 170 842 bang:;
-#X text 270 842 output dict with all properties.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 882 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 945 1\.;
+#X text 270 945 property request.;
+#X text 170 970 bang:;
+#X text 270 970 output a dict with all properties.;
+#X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1010 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 883 1\.;
-#X text 270 883 dict or property output.;
+#X text 130 1011 1\.;
+#X text 270 1011 dict or property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 933 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 936 library: ceammc v0.9.8;
-#X text 500 948 see also:;
-#X obj 575 951 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1061 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1064 library: ceammc v0.9.8;
+#X text 500 1076 see also:;
+#X obj 575 1079 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.args] @url patch.args-help.pd;
-#X obj 665 951 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 1079 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.top] @url canvas.top-help.pd;
-#N canvas 10 955 400 290 info 0;
+#N canvas 10 1083 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,15 +123,15 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 955 pd info;
-#X connect 4 0 14 0;
-#X connect 7 0 14 0;
-#X connect 10 0 14 0;
-#X connect 13 0 14 0;
-#X connect 5 0 14 0;
-#X connect 8 0 14 0;
-#X connect 11 0 14 0;
-#X connect 6 0 14 0;
-#X connect 9 0 14 0;
-#X connect 12 0 14 0;
-#X connect 14 0 15 0;
+#X restore 10 1083 pd info;
+#X connect 6 0 16 0;
+#X connect 9 0 16 0;
+#X connect 12 0 16 0;
+#X connect 15 0 16 0;
+#X connect 7 0 16 0;
+#X connect 10 0 16 0;
+#X connect 13 0 16 0;
+#X connect 8 0 16 0;
+#X connect 11 0 16 0;
+#X connect 14 0 16 0;
+#X connect 16 0 17 0;

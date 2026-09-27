@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">get the information about the current canvas of the object</tr>
-        <tr lang="ru">получение информации о текущем холста объекта</tr>
+        <tr lang="ru">получение информации о текущем холсте объекта</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,26 +20,38 @@
       </also>
       <since>0.4</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object provides information about the canvas (window or subpatch) that
+        contains it. A bang outputs a dictionary with all available properties. A property name
+        (such as @name, @width, @height) sent to the inlet outputs the value of that single
+        property.</tr>
+        <tr lang="ru">Объект предоставляет информацию о холсте (окне или субпатче), который его
+        содержит. Bang выводит словарь со всеми доступными свойствами. Имя свойства (например,
+        @name, @width, @height), отправленное на вход, выводит значение только этого
+        свойства.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @abstraction -->
       <property name="@abstraction" type="bool" access="readonly" default="1">
-        <tr lang="en">1 if canvas is abstraction</tr>
-        <tr lang="ru">1 если холст является абстракцией</tr>
+        <tr lang="en">1 if the canvas is an abstraction</tr>
+        <tr lang="ru">1, если холст является абстракцией</tr>
       </property>
       <!-- @args -->
       <property name="@args" type="list" access="readonly" default="">
         <tr lang="en">canvas creation arguments</tr>
-        <tr lang="ru">аргументы при создании холста</tr>
+        <tr lang="ru">аргументы создания холста</tr>
       </property>
       <!-- @dir -->
       <property name="@dir" type="symbol" access="readonly" default="/">
-        <tr lang="en">canvas directory (only if top level or abstraction)</tr>
-        <tr lang="ru">директория холста (только если холст верхнего уровеня или абстракция)</tr>
+        <tr lang="en">canvas directory (only for top-level canvas or abstraction)</tr>
+        <tr lang="ru">директория холста (только для холста верхнего уровня или абстракции)</tr>
       </property>
       <!-- @font -->
       <property name="@font" type="int" access="readonly" default="10">
         <tr lang="en">canvas font size</tr>
-        <tr lang="ru">размер шрифта у холста</tr>
+        <tr lang="ru">размер шрифта холста</tr>
       </property>
       <!-- @height -->
       <property name="@height" type="int" access="readonly" default="400">
@@ -54,19 +66,19 @@
       <!-- @paths -->
       <property name="@paths" type="list" access="readonly" default="">
         <tr lang="en">canvas search paths</tr>
-        <tr lang="ru">поисковые пути у холста</tr>
+        <tr lang="ru">поисковые пути холста</tr>
       </property>
       <!-- @root -->
       <property name="@root" type="bool" access="readonly" default="1">
-        <tr lang="en">1 if canvas is top-level (window)</tr>
-        <tr lang="ru">1 если холст верхнего уровня (окно)</tr>
+        <tr lang="en">1 if the canvas is top-level (window)</tr>
+        <tr lang="ru">1, если холст верхнего уровня (окно)</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" access="readonly" default="600 400">
-        <tr lang="en">canvas dimensions. If root canvas (window) return window size, if subpatch
-        return Graph on Parent size</tr>
-        <tr lang="ru">размер холста. Если корневой холст (окно) возвращает размер окна, если
-        субпатч возвращает размер Graph on Parent</tr>
+        <tr lang="en">canvas dimensions. If the root canvas (window) — returns the window size. If
+        a subpatch — returns the Graph on Parent size</tr>
+        <tr lang="ru">размеры холста. Если корневой холст (окно) — возвращает размер окна. Если
+        субпатч — возвращает размер Graph on Parent</tr>
       </property>
       <!-- @width -->
       <property name="@width" type="int" access="readonly" default="600">
@@ -75,12 +87,12 @@
       </property>
       <!-- @x -->
       <property name="@x" type="int" access="readonly" default="0">
-        <tr lang="en">canvas x-pos (window or GOP)</tr>
+        <tr lang="en">canvas x-position (window or GOP)</tr>
         <tr lang="ru">x-позиция холста (окна или GOP)</tr>
       </property>
       <!-- @y -->
       <property name="@y" type="int" access="readonly" default="0">
-        <tr lang="en">canvas y-pos (window or GOP)</tr>
+        <tr lang="en">canvas y-position (window or GOP)</tr>
         <tr lang="ru">y-позиция холста (окна или GOP)</tr>
       </property>
     </properties>
@@ -88,11 +100,11 @@
       <inlet>
         <in>
           <tr lang="en">property request</tr>
-          <tr lang="ru" finished="false">имущественный запрос</tr>
+          <tr lang="ru">запрос свойства</tr>
         </in>
         <in on="bang">
-          <tr lang="en">output dict with all properties</tr>
-          <tr lang="ru" finished="false">выходной дикт со всеми свойствами</tr>
+          <tr lang="en">output a dict with all properties</tr>
+          <tr lang="ru">выводит словарь со всеми свойствами</tr>
         </in>
       </inlet>
     </inlets>
@@ -100,7 +112,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">dict or property output</tr>
-          <tr lang="ru" finished="false">диктовка или вывод собственности</tr>
+          <tr lang="ru">вывод словаря или значения свойства</tr>
         </out>
       </outlet>
     </outlets>
