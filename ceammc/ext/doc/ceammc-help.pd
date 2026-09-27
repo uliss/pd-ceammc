@@ -427,9 +427,9 @@ list;
 #X text 200 4348 output the dictionary size (number of key/value pairs);
 #X obj 30 4376 ui.link @title [dict.to_list] @url
 dict.to_list-help.pd;
-#X text 200 4373 converts dictionary to plain list;
+#X text 200 4373 converts a dictionary to a plain list;
 #X obj 30 4401 ui.link @title [dict.values] @url dict.values-help.pd;
-#X text 200 4398 output the dictionary values as MList;
+#X text 200 4398 output the dictionary values as an MList;
 #X obj 30 4426 ui.link @title [global.bimap] @url
 global.bimap-help.pd;
 #X text 200 4423 global bidirectional map;
