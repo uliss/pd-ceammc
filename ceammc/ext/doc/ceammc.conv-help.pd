@@ -28,7 +28,7 @@ conv.bits2note-help.pd;
 #X obj 30 320 ui.link @title [conv.bits2pos] @url
 conv.bits2pos-help.pd;
 #X text 220 317 converts the list of bits into the list of checked
-bit position;
+bit positions;
 #X obj 30 360 ui.link @title [conv.bpm2hz] @url conv.bpm2hz-help.pd;
 #X text 220 357 converts BPM tempo into a frequency in hertz;
 #X obj 30 385 ui.link @title [conv.bpm2ms] @url conv.bpm2ms-help.pd;

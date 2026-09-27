@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">converts the list of bits into the list of checked bit position</tr>
+        <tr lang="en">converts the list of bits into the list of checked bit positions</tr>
         <tr lang="ru">преобразует список битов в список позиций установленных битов</tr>
       </description>
       <license>GPL3 or later</license>
@@ -25,12 +25,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: byte default the least significant bit is the rightmost, this can be
-        changed with @rev property</tr>
-        <!-- old: Примечание: по умолчанию байт наименее значимый бит
-                является самым правильным, это может быть изменено свойством @rev -->
-        <tr lang="ru" finished="false">Примечание: по умолчанию байт наименее значимый бит является
-        самым правильным, это может быть изменено свойством @rev</tr>
+        <tr lang="en">The object takes a list of bits (0s and 1s) and outputs a list of positions
+        of the bits that are set to 1. By default, positions are counted from the rightmost element
+        of the input list, so the least significant bit is the rightmost. This can be changed with
+        the @rev property, which reverses the bit order.</tr>
+        <tr lang="ru">Объект принимает список битов (0 и 1) и выводит список позиций битов,
+        установленных в 1. По умолчанию позиции отсчитываются от самого правого элемента входного
+        списка — таким образом, младший значащий бит находится справа. Это можно изменить
+        свойством @rev, которое инвертирует порядок битов.</tr>
       </par>
     </info>
     <properties>
@@ -44,7 +46,7 @@
       <inlet>
         <in on="list">
           <tr lang="en">input bit list</tr>
-          <tr lang="ru" finished="false">Список входных бит</tr>
+          <tr lang="ru">входной список битов</tr>
         </in>
       </inlet>
     </inlets>
@@ -52,7 +54,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of bit positions</tr>
-          <tr lang="ru" finished="false">Список битовых позиций</tr>
+          <tr lang="ru">список позиций битов</tr>
         </out>
       </outlet>
     </outlets>

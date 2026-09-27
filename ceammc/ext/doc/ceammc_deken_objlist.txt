@@ -139,9 +139,9 @@ bits->int	convert list of bits to integer / преобразует список 
 conv.bits2note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
 ceammc/bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
 bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
-conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
-ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
-bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+conv.bits2pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
+ceammc/bits->pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
+bits->pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
 conv.bpm2hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
 ceammc/bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
 bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах

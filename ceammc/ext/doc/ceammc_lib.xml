@@ -255,7 +255,7 @@
     <entry name="conv.bits2note" descr="convert list of bits into note, velocity pairs" ref_view="link">
       <xi:include href="conv.bits2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bits2pos" descr="converts the list of bits into the list of checked bit position" ref_view="link">
+    <entry name="conv.bits2pos" descr="converts the list of bits into the list of checked bit positions" ref_view="link">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.bpm2hz" descr="converts BPM tempo into a frequency in hertz" ref_view="link">
