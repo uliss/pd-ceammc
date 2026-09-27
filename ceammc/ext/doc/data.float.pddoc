@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">a multi-functional float object</tr>
-        <tr lang="ru">многофункциональный объект числа с плавающей точкой</tr>
+        <tr lang="ru">многофункциональный объект для работы с числами с плавающей точкой</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,76 +25,97 @@
     </meta>
     <arguments>
       <argument name="VALUE" type="float">
-        <tr lang="en">set initial value</tr>
-        <tr lang="ru" finished="false">заданная начальная величина</tr>
+        <tr lang="en">set the initial value</tr>
+        <tr lang="ru">задать начальное значение</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @value -->
       <property name="@value" type="float" access="readonly" default="0">
         <tr lang="en">current value</tr>
-        <tr lang="ru" finished="false">Текущая стоимость</tr>
+        <tr lang="ru">текущее значение</tr>
       </property>
     </properties>
     <methods>
       <!-- * -->
       <method name="*">
         <info>
-          <tr lang="en">multiply to, no output</tr>
-          <tr lang="ru" finished="false">Умножить на, не выход</tr>
+          <tr lang="en">multiply the stored value by the given number, no output</tr>
+          <tr lang="ru">умножить хранимое значение на заданное число, без вывода</tr>
         </info>
+        <param type="float">
+          <tr lang="en">multiplier</tr>
+          <tr lang="ru">множитель</tr>
+        </param>
       </method>
       <!-- + -->
       <method name="+">
         <info>
-          <tr lang="en">add to float, no output</tr>
-          <tr lang="ru" finished="false">Добавить в Float, нет выхода</tr>
+          <tr lang="en">add the given number to the stored value, no output</tr>
+          <tr lang="ru">прибавить заданное число к хранимому значению, без вывода</tr>
         </info>
+        <param type="float">
+          <tr lang="en">addend</tr>
+          <tr lang="ru">слагаемое</tr>
+        </param>
       </method>
+      <!-- - -->
       <method name="-">
         <info>
-          <tr lang="en">subtract from float, no output</tr>
-          <tr lang="ru" finished="false">вычитать из флоата, не выходя</tr>
+          <tr lang="en">subtract the given number from the stored value, no output</tr>
+          <tr lang="ru">вычесть заданное число из хранимого значения, без вывода</tr>
         </info>
+        <param type="float">
+          <tr lang="en">subtrahend</tr>
+          <tr lang="ru">вычитаемое</tr>
+        </param>
       </method>
       <!-- / -->
       <method name="/">
         <info>
-          <tr lang="en">divide by, no output</tr>
-          <tr lang="ru" finished="false">делить на, не выход</tr>
+          <tr lang="en">divide the stored value by the given number, no output</tr>
+          <tr lang="ru">разделить хранимое значение на заданное число, без вывода</tr>
         </info>
+        <param type="float">
+          <tr lang="en">divisor</tr>
+          <tr lang="ru">делитель</tr>
+        </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">sets new value without output</tr>
-          <tr lang="ru" finished="false">Новая стоимость без выхода</tr>
+          <tr lang="en">set a new value without output</tr>
+          <tr lang="ru">установить новое значение без вывода</tr>
         </info>
+        <param type="float">
+          <tr lang="en">new value</tr>
+          <tr lang="ru">новое значение</tr>
+        </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="en">output the stored value</tr>
+          <tr lang="ru">вывести хранимое значение</tr>
         </in>
         <in on="float">
-          <tr lang="en">set new value and outputs</tr>
-          <tr lang="ru" finished="false">установить новые значения и выходы</tr>
+          <tr lang="en">set a new value and output it</tr>
+          <tr lang="ru">установить новое значение и вывести его</tr>
         </in>
       </inlet>
       <inlet>
         <in>
-          <tr lang="en">set new value without output</tr>
-          <tr lang="ru" finished="false">установить новую стоимость без выхода</tr>
+          <tr lang="en">set a new value without output</tr>
+          <tr lang="ru">установить новое значение без вывода</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">set output</tr>
-          <tr lang="ru" finished="false">заданный выход</tr>
+          <tr lang="en">value output</tr>
+          <tr lang="ru">вывод значения</tr>
         </out>
       </outlet>
     </outlets>

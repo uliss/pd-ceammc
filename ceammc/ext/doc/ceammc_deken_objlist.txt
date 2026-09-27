@@ -298,9 +298,9 @@ data.dict	the dictionary container: stores key-value pairs / контейнер 
 ceammc/dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
 dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
 data.fifo	FIFO (First In First Out) - the queue data container / FIFO (First In First Out) — контейнер данных «очередь»
-data.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
-.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
-.f	a multi-functional float object / многофункциональный объект числа с плавающей точкой
+data.float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
+.float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
+.f	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
 data.int	a multi-functional integer object / многофункциональный объект целого числа
 .int	a multi-functional integer object / многофункциональный объект целого числа
 .i	a multi-functional integer object / многофункциональный объект целого числа

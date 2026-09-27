@@ -1,7 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 373 50 многофункциональный объект числа с плавающей точкой;
+#X obj 307 50 cnv 1 458 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 312 50 многофункциональный объект для работы с числами с плавающей
+точкой;
 #X obj 1 1 cnv 5 765 40 empty empty data.float 20 20 0 20 -104026
 -4096 0;
 #X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -26,58 +27,72 @@
 #X text 130 300 1\.;
 #X text 170 300 float;
 #X obj 268 301 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 300 VALUE: set initial value. Тип: float.;
+#X text 270 300 VALUE: задать начальное значение. Тип: float.;
 #X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 340 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 343 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 341 @value?;
-#X text 270 341 (только чтение) Current value. Тип: float. Значение
+#X text 270 341 (только чтение) Текущее значение. Тип: float. Значение
 по умолчанию: 0\.;
 #X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 398 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 399 set;
-#X text 270 399 sets new value without output.;
-#X obj 250 434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 434 *;
-#X text 270 434 multiply to \, no output.;
-#X obj 250 469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 469 +;
-#X text 270 469 add to float \, no output.;
-#X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 504 -;
-#X text 270 504 subtract from float \, no output.;
-#X obj 250 539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 539 /;
-#X text 270 539 divide by \, no output.;
-#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 589 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 399 установить новое значение без вывода. Аргументы:;
+#X obj 300 424 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 424 [anonym]: новое значение. Тип: float.;
+#X obj 250 457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 457 *;
+#X text 270 457 умножить хранимое значение на заданное число \, без
+вывода. Аргументы:;
+#X obj 300 497 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 497 [anonym]: множитель. Тип: float.;
+#X obj 250 530 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 530 +;
+#X text 270 530 прибавить заданное число к хранимому значению \, без
+вывода. Аргументы:;
+#X obj 300 570 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 570 [anonym]: слагаемое. Тип: float.;
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 603 -;
+#X text 270 603 вычесть заданное число из хранимого значения \, без
+вывода. Аргументы:;
+#X obj 300 643 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 643 [anonym]: вычитаемое. Тип: float.;
+#X obj 250 676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 676 /;
+#X text 270 676 разделить хранимое значение на заданное число \, без
+вывода. Аргументы:;
+#X obj 300 716 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 716 [anonym]: делитель. Тип: float.;
+#X obj 20 759 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 764 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 590 1\.;
-#X text 170 590 bang:;
-#X text 270 590 output value.;
-#X text 170 615 float:;
-#X text 270 615 set new value and outputs.;
-#X text 130 640 2\.;
-#X text 270 640 set new value without output.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 680 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 765 1\.;
+#X text 170 765 bang:;
+#X text 270 765 вывести хранимое значение.;
+#X text 170 790 float:;
+#X text 270 790 установить новое значение и вывести его.;
+#X text 130 815 2\.;
+#X text 270 815 установить новое значение без вывода.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 855 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 681 1\.;
-#X text 270 681 set output.;
+#X text 130 856 1\.;
+#X text 270 856 вывод значения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 731 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 734 библиотека: ceammc v0.9.8;
-#X text 558 746 смотрите также:;
-#X obj 679 749 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 906 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 909 библиотека: ceammc v0.9.8;
+#X text 558 921 смотрите также:;
+#X obj 679 924 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.int] @url data.int-help.pd;
-#N canvas 10 753 400 290 info 0;
+#N canvas 10 928 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 753 pd info;
+#X restore 10 928 pd info;
 #X connect 6 0 13 0;
 #X connect 7 0 13 0;
 #X connect 9 0 13 0;
