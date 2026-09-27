@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">fills the array with the window function</tr>
-        <tr lang="ru">заполнение массива оконной функцией</tr>
+        <tr lang="ru">заполняет массив оконной функцией</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,22 +19,67 @@
       </also>
       <since>0.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object fills the specified array with the selected window function. The
+        window type can be set with the @type property, by one of the corresponding methods (hann,
+        hamming, blackman, etc.), or by sending a bang after setting the type. When the array is
+        filled, a bang is sent out through the outlet.</tr>
+        <tr lang="ru">Объект заполняет указанный массив выбранной оконной функцией. Тип окна можно
+        задать свойством @type, одним из соответствующих методов (hann, hamming, blackman и
+        т. д.) или отправить bang после установки типа. Когда массив заполнен, через выход
+        отправляется bang.</tr>
+      </par>
+      <par>
+        <tr lang="en">Window functions in brief: 'rect' — rectangular window, all samples equal
+        to 1, minimal main-lobe width but high side lobes (use for transient or when the signal
+        already fits the array length). 'tri' — triangular window, simple linear taper to zero at
+        both ends. 'welch' — parabolic taper, similar to tri but smoother. 'sine' — sine window,
+        smooth taper, good general-purpose choice. 'hann' — Hann window, raised cosine, one of the
+        most common choices for spectral analysis and FFT processing. 'hamming' — Hamming window,
+        similar to Hann but with a small non-zero offset at the edges, slightly lower first side
+        lobe. 'blackman' — Blackman window, lower side lobes than Hann/Hamming, at the cost of a
+        wider main lobe (good for accurate amplitude measurements). 'blackman-harris' — even lower
+        side lobes, excellent for high-dynamic-range spectral analysis. 'nuttall' — Nuttall window,
+        similar to Blackman-Harris with very low side lobes. 'flattop' — flat-top window, very wide
+        main lobe but extremely flat top, best for accurate amplitude measurements of specific
+        spectral peaks. 'gauss' — Gaussian window, smooth, adjustable via the standard deviation,
+        often used for time-frequency analysis (STFT, spectrograms).</tr>
+        <tr lang="ru">Оконные функции кратко: 'rect' — прямоугольное окно, все семплы равны 1,
+        минимальная ширина главного лепестка, но высокие боковые лепестки (применяется для
+        транзиентов или когда сигнал уже укладывается в длину массива). 'tri' — треугольное окно,
+        простое линейное сужение к нулю с обоих концов. 'welch' — параболическое сужение, похоже
+        на tri, но более гладкое. 'sine' — синусоидальное окно, гладкое сужение, хороший
+        универсальный выбор. 'hann' — окно Ханна, приподнятый косинус, один из самых
+        распространённых выборов для спектрального анализа и обработки FFT. 'hamming' — окно
+        Хэмминга, похоже на Hann, но с небольшим ненулевым смещением на краях и чуть более низким
+        первым боковым лепестком. 'blackman' — окно Блэкмана, боковые лепестки ниже, чем у
+        Hann/Hamming, ценой более широкого главного лепестка (подходит для точных измерений
+        амплитуды). 'blackman-harris' — ещё более низкие боковые лепестки, отлично подходит для
+        спектрального анализа с большим динамическим диапазоном. 'nuttall' — окно Наттолла,
+        похоже на Blackman-Harris с очень низкими боковыми лепестками. 'flattop' — окно FlatTop,
+        очень широкий главный лепесток, но чрезвычайно плоская вершина, лучше всего подходит для
+        точных измерений амплитуды конкретных спектральных пиков. 'gauss' — окно Гаусса, гладкое,
+        настраивается через стандартное отклонение, часто используется для время-частотного
+        анализа (STFT, спектрограммы).</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to fill with the window</tr>
+        <tr lang="ru">имя массива, заполняемого оконной функцией</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to fill with the window</tr>
+        <tr lang="ru">имя массива, заполняемого оконной функцией</tr>
       </property>
       <!-- @redraw -->
       <property name="@redraw" type="bool" default="1">
-        <tr lang="en">redraw after array change</tr>
-        <tr lang="ru">перерисовать после изменения массива</tr>
+        <tr lang="en">redraw the array after each change</tr>
+        <tr lang="ru">перерисовывать массив после каждого изменения</tr>
       </property>
       <!-- @type -->
       <property name="@type" type="symbol"
@@ -48,71 +93,71 @@
       <!-- blackman -->
       <method name="blackman">
         <info>
-          <tr lang="en">generate blackman window</tr>
-          <tr lang="ru">создать окно Blackman</tr>
+          <tr lang="en">generates a Blackman window</tr>
+          <tr lang="ru">создаёт окно Блэкмана</tr>
         </info>
       </method>
       <!-- blackman-harris -->
       <method name="blackman-harris">
         <info>
-          <tr lang="en">generate blackman-harris window</tr>
-          <tr lang="ru">создать окно Blackman Harris</tr>
+          <tr lang="en">generates a Blackman-Harris window</tr>
+          <tr lang="ru">создаёт окно Блэкмана — Харриса</tr>
         </info>
       </method>
       <!-- fit -->
       <method name="fit">
         <info>
-          <tr lang="en">normalize the array y-bounds to 0..1 range</tr>
-          <tr lang="ru">уместить значения массива в диапазон 0..1</tr>
+          <tr lang="en">normalizes the array y-bounds to the 0..1 range</tr>
+          <tr lang="ru">нормализует диапазон значений массива к диапазону 0..1</tr>
         </info>
       </method>
       <!-- flattop -->
       <method name="flattop">
         <info>
-          <tr lang="en">generate flattop window</tr>
-          <tr lang="ru">генерировать окно FlatTop</tr>
+          <tr lang="en">generates a flattop window</tr>
+          <tr lang="ru">создаёт окно FlatTop</tr>
         </info>
       </method>
       <!-- gauss -->
       <method name="gauss">
         <info>
-          <tr lang="en">generate gauss window</tr>
-          <tr lang="ru">cоздать окно Gauss</tr>
+          <tr lang="en">generates a Gaussian window</tr>
+          <tr lang="ru">создаёт окно Гаусса</tr>
         </info>
       </method>
       <!-- hamming -->
       <method name="hamming">
         <info>
-          <tr lang="en">generate hamming window</tr>
-          <tr lang="ru">cоздать окно Hamming</tr>
+          <tr lang="en">generates a Hamming window</tr>
+          <tr lang="ru">создаёт окно Хэмминга</tr>
         </info>
       </method>
       <!-- hann -->
       <method name="hann">
         <info>
-          <tr lang="en">generate hann window</tr>
-          <tr lang="ru">cоздать окно Hann</tr>
+          <tr lang="en">generates a Hann window</tr>
+          <tr lang="ru">создаёт окно Ханна</tr>
         </info>
       </method>
       <!-- nuttall -->
       <method name="nuttall">
         <info>
-          <tr lang="en">generate nuttall window</tr>
-          <tr lang="ru">cоздать окно Nuttall</tr>
+          <tr lang="en">generates a Nuttall window</tr>
+          <tr lang="ru">создаёт окно Наттолла</tr>
         </info>
       </method>
       <!-- rect -->
       <method name="rect">
         <info>
-          <tr lang="en">generate rectangular window</tr>
-          <tr lang="ru">генерировать прямоугольное окно</tr>
+          <tr lang="en">generates a rectangular window</tr>
+          <tr lang="ru">создаёт прямоугольное окно</tr>
         </info>
       </method>
       <!-- resize -->
       <method name="resize">
         <info>
-          <tr lang="en">resize array to given size</tr>
-          <tr lang="ru">изменить размер массива на указанный</tr>
+          <tr lang="en">resizes the array to the given size</tr>
+          <tr lang="ru">изменяет размер массива до указанного</tr>
         </info>
         <param name="N" type="int" minvalue="0">
           <tr lang="en">new size</tr>
@@ -122,38 +167,38 @@
       <!-- sine -->
       <method name="sine">
         <info>
-          <tr lang="en">generate sine window</tr>
-          <tr lang="ru">генерировать синусоидальное окно</tr>
+          <tr lang="en">generates a sine window</tr>
+          <tr lang="ru">создаёт синусоидальное окно</tr>
         </info>
       </method>
       <!-- tri -->
       <method name="tri">
         <info>
-          <tr lang="en">generate triangular window</tr>
-          <tr lang="ru">генерировать треугольное окно</tr>
+          <tr lang="en">generates a triangular window</tr>
+          <tr lang="ru">создаёт треугольное окно</tr>
         </info>
       </method>
       <!-- welch -->
       <method name="welch">
         <info>
-          <tr lang="en">generate welch window</tr>
-          <tr lang="ru">генерировать окно Уэлча</tr>
+          <tr lang="en">generates a Welch window</tr>
+          <tr lang="ru">создаёт окно Уэлча</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">fill the array with a window values</tr>
-          <tr lang="ru">заполняет массив значениями окна</tr>
+          <tr lang="en">fills the array with the window values</tr>
+          <tr lang="ru">заполняет массив значениями выбранного окна</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="bang">
-          <tr lang="en">on finish</tr>
-          <tr lang="ru">при завершении</tr>
+          <tr lang="en">sent when the fill is finished</tr>
+          <tr lang="ru">отправляется по завершении заполнения</tr>
         </out>
       </outlet>
     </outlets>

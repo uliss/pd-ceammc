@@ -73,7 +73,7 @@ array.variance-help.pd;
 #X text 220 797 простой плеер массивов для использования с объектом
 [vline~];
 #X obj 30 825 ui.link @title [array.window] @url array.window-help.pd;
-#X text 220 822 заполнение массива оконной функцией;
+#X text 220 822 заполняет массив оконной функцией;
 #X obj 30 850 ui.link @title [plot.geomspace~] @url
 plot.geomspace~-help.pd;
 #X text 220 847 выводит последовательность равномерно распределенных

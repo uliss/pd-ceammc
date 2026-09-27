@@ -95,7 +95,7 @@ array.variance-help.pd;
 [vline~];
 #X obj 30 1099 ui.link @title [array.window] @url
 array.window-help.pd;
-#X text 200 1096 заполнение массива оконной функцией;
+#X text 200 1096 заполняет массив оконной функцией;
 #X obj 30 1124 ui.link @title [plot.geomspace~] @url
 plot.geomspace~-help.pd;
 #X text 200 1121 выводит последовательность равномерно распределенных
