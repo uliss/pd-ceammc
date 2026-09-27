@@ -404,7 +404,7 @@ music.voice2midi-help.pd;
 #X text 200 4123 the set: a container that stores only unique elements;
 #X obj 30 4151 ui.link @title [data.set2list] @url
 data.set2list-help.pd;
-#X text 200 4148 converts the set to the list;
+#X text 200 4148 converts a set to a list;
 #X obj 30 4176 ui.link @title [dict.contains] @url
 dict.contains-help.pd;
 #X text 200 4173 check if the dictionary contains the key;
