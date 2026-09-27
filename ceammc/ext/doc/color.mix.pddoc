@@ -16,53 +16,67 @@
       <keywords>data color</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object mixes two colors and outputs the result. The mixing ratio is set
+        with a float on the left inlet (0 - first color, 1 - second color, values in between give a
+        smooth blend). The two source colors are set with the C0 and C1 arguments, via the @c0 and
+        @c1 properties, or through the middle and right inlets.</tr>
+        <tr lang="ru">Объект смешивает два цвета и выводит результат. Пропорция смешивания задаётся
+        числом с плавающей точкой на левом входе (0 — первый цвет, 1 — второй цвет, промежуточные
+        значения дают плавный переход). Исходные цвета задаются аргументами C0 и C1, через свойства
+        @c0 и @c1 или через средний и правый входы.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="C0" type="atom">
-        <tr lang="en">first color</tr>
-        <tr lang="ru" finished="false">Первый цвет</tr>
+        <tr lang="en">first color to mix</tr>
+        <tr lang="ru">первый цвет для смешивания</tr>
       </argument>
       <argument name="C1" type="atom">
-        <tr lang="en">second value</tr>
-        <tr lang="ru" finished="false">второе значение</tr>
+        <tr lang="en">second color to mix</tr>
+        <tr lang="ru">второй цвет для смешивания</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @c0 -->
       <property name="@c0" type="atom">
-        <tr lang="en">first color</tr>
-        <tr lang="ru" finished="false">Первый цвет</tr>
+        <tr lang="en">first color to mix</tr>
+        <tr lang="ru">первый цвет для смешивания</tr>
       </property>
       <!-- @c1 -->
       <property name="@c1" type="atom">
-        <tr lang="en">second color</tr>
-        <tr lang="ru" finished="false">Второй цвет</tr>
+        <tr lang="en">second color to mix</tr>
+        <tr lang="ru">второй цвет для смешивания</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float" minvalue="0" maxvalue="1">
-          <tr lang="en">calculate color mix and output</tr>
-          <tr lang="ru" finished="false">Рассчитать цветовую смесь и выход</tr>
+          <tr lang="en">mixing ratio: 0 gives the first color, 1 gives the second color. On receipt,
+          the object calculates the mix and outputs the resulting color</tr>
+          <tr lang="ru">пропорция смешивания: 0 — первый цвет, 1 — второй цвет. При получении
+          объект вычисляет смесь и выводит результирующий цвет</tr>
         </in>
       </inlet>
       <inlet>
         <in on="data:color">
-          <tr lang="en">set color and output</tr>
-          <tr lang="ru" finished="false">Установить цвет и выход</tr>
+          <tr lang="en">set the first color and output</tr>
+          <tr lang="ru">установить первый цвет и вывести</tr>
         </in>
       </inlet>
       <inlet>
         <in on="data:color">
-          <tr lang="en">set color without output</tr>
-          <tr lang="ru" finished="false">цвет без выхода</tr>
+          <tr lang="en">set the second color without output</tr>
+          <tr lang="ru">установить второй цвет без вывода</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="data:color">
           <tr lang="en">data:color output</tr>
-          <tr lang="ru" finished="false">Данные: Цветовой выход</tr>
+          <tr lang="ru">вывод data:color</tr>
         </out>
       </outlet>
     </outlets>
