@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">creates dictionary from the list</tr>
-        <tr lang="ru">создает словарь из списка</tr>
+        <tr lang="en">creates a dictionary from a list</tr>
+        <tr lang="ru">создаёт словарь из списка</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,34 +25,36 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Convertion depends on property @step, which means a length of key/value pair.
-        First element of the pair becames a key, and other elements becames value.</tr>
-        <!-- old: Конвертация зависит от свойства @step, что означает
-                длину пары ключ/значение. Первый элемент пары становится ключом, а другие элементы
-                — ценностью. -->
-        <tr lang="ru" finished="false">Конвертация зависит от свойства @step, что означает длину
-        пары ключ/значение. Первый элемент пары становится ключом, а другие элементы —
-        ценностью.</tr>
+        <tr lang="en">Conversion depends on the @step property, which sets the length of a
+        key/value pair. The first element of each group becomes the key, and the remaining elements
+        become the value.</tr>
+        <tr lang="ru">Преобразование зависит от свойства @step, которое задаёт длину пары
+        ключ/значение. Первый элемент каждой группы становится ключом, а остальные элементы —
+        значением.</tr>
       </par>
     </info>
     <arguments>
       <argument name="STEP" type="int" minvalue="2">
-        <tr lang="en">key/value length in input list</tr>
-        <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
+        <tr lang="en">key/value length in the input list. Default is 2 (one key, one value per
+        pair)</tr>
+        <tr lang="ru">длина пары ключ/значение во входном списке. По умолчанию 2 (один ключ, одно
+        значение на пару)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @step -->
       <property name="@step" type="int" minvalue="2" default="2">
-        <tr lang="en">key/value length in input list</tr>
-        <tr lang="ru" finished="false">длина ключа/значения во входном списке</tr>
+        <tr lang="en">key/value length in the input list. Can be set at creation time or changed
+        later</tr>
+        <tr lang="ru">длина пары ключ/значение во входном списке. Может быть задана при создании
+        объекта или изменена позже</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">input</tr>
-          <tr lang="ru" finished="false">ввод</tr>
+          <tr lang="en">input list to convert into a dictionary</tr>
+          <tr lang="ru">входной список для преобразования в словарь</tr>
         </in>
       </inlet>
     </inlets>
@@ -60,7 +62,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">dict output</tr>
-          <tr lang="ru" finished="false">выход диктовки</tr>
+          <tr lang="ru">вывод словаря</tr>
         </out>
       </outlet>
     </outlets>

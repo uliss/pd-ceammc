@@ -43,7 +43,7 @@ dict.contains-help.pd;
 цепочки (side-chain);
 #X obj 30 565 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
-#X text 220 562 создает словарь из списка;
+#X text 220 562 создаёт словарь из списка;
 #X obj 30 590 ui.link @title [dict.get] @url dict.get-help.pd;
 #X text 220 587 выводит значения словаря по предварительно заданному
 списку ключей;

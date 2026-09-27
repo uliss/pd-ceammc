@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 573 50 создает словарь из списка;
+#X text 573 50 создаёт словарь из списка;
 #X obj 1 1 cnv 5 765 40 empty empty dict.from_list 20 20 0 20 -104026
 -4096 0;
 #X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,9 +10,9 @@
 [list->dict] @url dict.from_list-help.pd;
 #X obj 638 8 dict.from_list;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Convertion depends on property @step \, which means
-a length of key/value pair. First element of the pair becames a key
-\, and other elements becames value.;
+#X text 240 83 Преобразование зависит от свойства @step \, которое
+задаёт длину пары ключ/значение. Первый элемент каждой группы становится
+ключом \, а остальные элементы — значением.;
 #X msg 50 201 list a b c d e f g h j k;
 #X obj 50 259 list->dict;
 #X obj 309 259 list->dict 3;
@@ -26,37 +26,39 @@ a length of key/value pair. First element of the pair becames a key
 #X text 130 344 1\.;
 #X text 170 344 int;
 #X obj 268 345 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 344 STEP: key/value length in input list. Тип: int. Минимальное
+#X text 270 344 STEP: длина пары ключ/значение во входном списке. По
+умолчанию 2 (один ключ \, одно значение на пару). Тип: int. Минимальное
 значение: 2\.;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 399 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 414 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 402 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 417 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 400 @step;
-#X text 270 400 Key/value length in input list. Тип: int. Значение
+#X msg 130 415 @step;
+#X text 270 415 Длина пары ключ/значение во входном списке. Может быть
+задана при создании объекта или изменена позже. Тип: int. Значение
 по умолчанию: 2\. Минимальное значение: 2\.;
-#X obj 20 452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 457 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 502 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 458 1\.;
-#X text 270 458 input.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 498 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 503 1\.;
+#X text 270 503 входной список для преобразования в словарь.;
+#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 543 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 499 1\.;
-#X text 270 499 dict output.;
+#X text 130 544 1\.;
+#X text 270 544 вывод словаря.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 552 библиотека: ceammc v0.9.8;
-#X text 551 564 смотрите также:;
-#X obj 672 567 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 597 библиотека: ceammc v0.9.8;
+#X text 551 609 смотрите также:;
+#X obj 672 612 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.dict] @url data.dict-help.pd;
-#N canvas 10 571 400 290 info 0;
+#N canvas 10 616 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -80,7 +82,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 571 pd info;
+#X restore 10 616 pd info;
 #X connect 8 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
