@@ -311,7 +311,7 @@ mlist	multidimensional list container / контейнер многомерно�
 ceammc/ml	multidimensional list container / контейнер многомерного списка
 ml	multidimensional list container / контейнер многомерного списка
 data.path	filesystem path datatype / тип данных: путь в файловой системе
-data.set	the set: container that store only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
+data.set	the set: a container that stores only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
 data.set2list	converts the set to the list / преобразует множество в список
 ceammc/set->list	converts the set to the list / преобразует множество в список
 set->list	converts the set to the list / преобразует множество в список

@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">the set: container that store only unique elements</tr>
+        <tr lang="en">the set: a container that stores only unique elements</tr>
         <tr lang="ru">множество: контейнер, в котором хранятся только уникальные элементы</tr>
       </description>
       <license>GPL3 or later</license>
@@ -26,67 +26,67 @@
     <arguments>
       <argument name="X" type="any">
         <tr lang="en">set elements</tr>
-        <tr lang="ru" finished="false">заданные элементы</tr>
+        <tr lang="ru">элементы множества</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" access="readonly" default="1">
-        <tr lang="en">1 if list is empty, otherwise 0</tr>
-        <tr lang="ru" finished="false">1 если список пуст, в противном случае 0</tr>
+        <tr lang="en">1 if the set is empty, otherwise 0</tr>
+        <tr lang="ru">1, если множество пусто, иначе 0</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" access="readonly" minvalue="0" default="0">
-        <tr lang="en">number of elements in list</tr>
-        <tr lang="ru" finished="false">Количество элементов в списке</tr>
+        <tr lang="en">number of elements in the set</tr>
+        <tr lang="ru">количество элементов во множестве</tr>
       </property>
     </properties>
     <methods>
       <!-- add -->
       <method name="add">
         <info>
-          <tr lang="en">add values to the set</tr>
-          <tr lang="ru" finished="false">Добавить значения в набор</tr>
+          <tr lang="en">adds values to the set</tr>
+          <tr lang="ru">добавляет значения во множество</tr>
         </info>
         <param name="VAL" type="list" required="true">
           <tr lang="en">added values</tr>
-          <tr lang="ru" finished="false">добавленные значения</tr>
+          <tr lang="ru">добавляемые значения</tr>
         </param>
       </method>
       <!-- choose -->
       <method name="choose">
         <info>
-          <tr lang="en">choose random element and output it</tr>
-          <tr lang="ru" finished="false">Выберите случайный элемент и выведите его</tr>
+          <tr lang="en">chooses a random element and outputs it</tr>
+          <tr lang="ru">выбирает случайный элемент и выводит его</tr>
         </info>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
           <tr lang="en">removes all set elements</tr>
-          <tr lang="ru" finished="false">удаляет все заданные элементы</tr>
+          <tr lang="ru">удаляет все элементы множества</tr>
         </info>
       </method>
       <!-- remove -->
       <method name="remove">
         <info>
-          <tr lang="en">remove elements from the set</tr>
-          <tr lang="ru" finished="false">Удалить элементы из набора</tr>
+          <tr lang="en">removes elements from the set</tr>
+          <tr lang="ru">удаляет элементы из множества</tr>
         </info>
         <param name="VAL" type="list" required="true">
           <tr lang="en">elements</tr>
-          <tr lang="ru" finished="false">элементы</tr>
+          <tr lang="ru">элементы</tr>
         </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">sets new set content without output</tr>
-          <tr lang="ru" finished="false">устанавливает новый контент без вывода</tr>
+          <tr lang="ru">устанавливает новое содержимое множества без вывода</tr>
         </info>
         <param name="LIST" type="list" required="true">
           <tr lang="en">new set content</tr>
-          <tr lang="ru" finished="false">Новый контент</tr>
+          <tr lang="ru">новое содержимое множества</tr>
         </param>
       </method>
     </methods>
@@ -94,29 +94,23 @@
       <inlet>
         <in on="bang">
           <tr lang="en">output set content</tr>
-          <tr lang="ru" finished="false">выходные значения</tr>
+          <tr lang="ru">вывести содержимое множества</tr>
         </in>
         <in on="float">
-          <tr lang="en">adds new element to set, no output</tr>
-          <!-- old: Добавление нового элемента в набор, отсутствие
-                    выхода -->
-          <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие выхода</tr>
+          <tr lang="en">adds a new element to the set, no output</tr>
+          <tr lang="ru">добавляет новый элемент во множество, без вывода</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">adds new element to set, no output</tr>
-          <!-- old: Добавление нового элемента в набор, отсутствие
-                    выхода -->
-          <tr lang="ru" finished="false">Добавление нового элемента в набор, отсутствие выхода</tr>
+          <tr lang="en">adds a new element to the set, no output</tr>
+          <tr lang="ru">добавляет новый элемент во множество, без вывода</tr>
         </in>
         <in on="list">
-          <tr lang="en">adds new elements to set, no output</tr>
-          <!-- old: Добавление новых элементов в набор, отсутствие
-                    выхода -->
-          <tr lang="ru" finished="false">Добавление новых элементов в набор, отсутствие выхода</tr>
+          <tr lang="en">adds new elements to the set, no output</tr>
+          <tr lang="ru">добавляет новые элементы во множество, без вывода</tr>
         </in>
         <in on="data:set">
           <tr lang="en">set new set content and output</tr>
-          <tr lang="ru" finished="false">установить новый контент и выход</tr>
+          <tr lang="ru">установить новое содержимое множества и вывести</tr>
         </in>
       </inlet>
     </inlets>
@@ -124,7 +118,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">set output</tr>
-          <tr lang="ru" finished="false">заданный выход</tr>
+          <tr lang="ru">вывод множества</tr>
         </out>
       </outlet>
     </outlets>

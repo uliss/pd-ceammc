@@ -401,7 +401,7 @@ music.voice2midi-help.pd;
 #X obj 30 4101 ui.link @title [data.path] @url data.path-help.pd;
 #X text 200 4098 filesystem path datatype;
 #X obj 30 4126 ui.link @title [data.set] @url data.set-help.pd;
-#X text 200 4123 the set: container that store only unique elements;
+#X text 200 4123 the set: a container that stores only unique elements;
 #X obj 30 4151 ui.link @title [data.set2list] @url
 data.set2list-help.pd;
 #X text 200 4148 converts the set to the list;

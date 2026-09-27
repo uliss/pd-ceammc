@@ -29,7 +29,7 @@
 #X obj 30 395 ui.link @title [data.path] @url data.path-help.pd;
 #X text 220 392 filesystem path datatype;
 #X obj 30 420 ui.link @title [data.set] @url data.set-help.pd;
-#X text 220 417 the set: container that store only unique elements;
+#X text 220 417 the set: a container that stores only unique elements;
 #X obj 30 445 ui.link @title [data.set2list] @url
 data.set2list-help.pd;
 #X text 220 442 converts the set to the list;

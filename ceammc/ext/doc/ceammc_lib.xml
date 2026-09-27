@@ -432,7 +432,7 @@
     <entry name="data.path" descr="filesystem path datatype" ref_view="link">
       <xi:include href="data.path.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set" descr="the set: container that store only unique elements" ref_view="link">
+    <entry name="data.set" descr="the set: a container that stores only unique elements" ref_view="link">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
     <entry name="data.set2list" descr="converts the set to the list" ref_view="link">
