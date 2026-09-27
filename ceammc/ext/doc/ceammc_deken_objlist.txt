@@ -133,12 +133,12 @@ bar->ms	calculates bar and beat duration / вычисляет продолжит
 conv.bits2bang	convert list of bits to bang events / преобразует список битов в события bang
 ceammc/bits->bang	convert list of bits to bang events / преобразует список битов в события bang
 bits->bang	convert list of bits to bang events / преобразует список битов в события bang
-conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
-ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
-bits->int	convert list of bits to integer / преобразовать список битов в целое число
-conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
-ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
-bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
+conv.bits2int	convert list of bits to integer / преобразует список битов в целое число
+ceammc/bits->int	convert list of bits to integer / преобразует список битов в целое число
+bits->int	convert list of bits to integer / преобразует список битов в целое число
+conv.bits2note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
+ceammc/bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
+bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
 conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
 ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
 bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов

@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 316 50 cnv 1 449 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 321 50 конвертирует список битов в пары: номер ноты \, сила
-нажатия;
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 320 50 преобразует список битов в пары «номер ноты \, сила
+нажатия»;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2note 20 20 0 20 -104026
 -4096 0;
 #X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,76 +10,84 @@
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [bits->note] @url conv.bits2note-help.pd;
 #X obj 638 8 conv.bits2note;
-#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 In default mode: output NOTE VEL pair to corresponding
-bit index outlet. If bit is on: velocity is @vel \, otherwise 0;
-#X text 240 138 In @poly mode: output VOICE NOTE VEL triplet to first
-outlet;
-#X msg 50 226 bang;
-#X obj 50 255 ui.hrd* 4;
-#X obj 174 255 ui.tab tie off raw;
-#X msg 174 284 @mode \$2;
-#X obj 50 313 bits->note 60 70 80 90 @vel 100;
-#X obj 50 342 ui.d @auto_size 0 @size 50 18;
-#X obj 146 342 ui.d @auto_size 0 @size 50 18;
-#X obj 242 342 ui.d @auto_size 0 @size 50 18;
-#X obj 338 342 ui.d @auto_size 0 @size 50 18;
-#X msg 50 385 bang;
-#X obj 50 413 ui.hrd* 4;
-#X obj 174 413 ui.tab tie off raw;
-#X msg 174 442 @mode \$2;
-#X obj 50 471 bits->note 60 70 80 90 @vel 100 @poly;
-#X obj 50 500 ui.dt;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 555 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 206 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает список битов (0 и 1) и превращает каждый
+бит в событие ноты \, используя номера нот из аргумента KEYS (или свойства
+@keys). В режиме по умолчанию каждому биту соответствует отдельный
+выход \, и на этот выход отправляется пара (NOTE VEL). Если бит равен
+1 \, скорость равна @vel; если бит равен 0 \, скорость равна 0 (выключение
+ноты).;
+#X text 240 199 В режиме @poly используется один выход \, и вместо
+пары (NOTE VEL) отправляется триплет (VOICE NOTE VEL) — это удобно
+при работе с объектом [clone] \, где VOICE идентифицирует экземпляр
+клона.;
+#X msg 50 332 bang;
+#X obj 50 361 ui.hrd* 4;
+#X obj 174 361 ui.tab tie off raw;
+#X msg 174 390 @mode \$2;
+#X obj 50 419 bits->note 60 70 80 90 @vel 100;
+#X obj 50 448 ui.d @auto_size 0 @size 50 18;
+#X obj 146 448 ui.d @auto_size 0 @size 50 18;
+#X obj 242 448 ui.d @auto_size 0 @size 50 18;
+#X obj 338 448 ui.d @auto_size 0 @size 50 18;
+#X msg 50 491 bang;
+#X obj 50 519 ui.hrd* 4;
+#X obj 174 519 ui.tab tie off raw;
+#X msg 174 548 @mode \$2;
+#X obj 50 577 bits->note 60 70 80 90 @vel 100 @poly;
+#X obj 50 606 ui.dt;
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 661 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 558 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 664 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 556 1\.;
-#X text 170 556 list;
-#X obj 268 557 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 556 KEYS: список нотных значений. Тип: list.;
-#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 596 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 662 1\.;
+#X text 170 662 list;
+#X obj 268 663 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 662 KEYS: список номеров нот \, привязанных к битам. Тип:
+list.;
+#X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 702 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 599 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 705 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 597 @keys;
-#X text 270 597 (при инициализации) Список нотных значений. Тип: list.;
-#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 627 @poly;
-#X text 270 627 Полифонический режим для использования с [clone] объектом.
+#X msg 130 703 @keys;
+#X text 270 703 (при инициализации) Список номеров нот \, привязанных
+к битам. Тип: list.;
+#X obj 250 745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 745 @poly;
+#X text 270 745 Полифонический режим для использования с объектом [clone].
 Значение по умолчанию: 0\.;
-#X obj 250 669 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 669 @mode;
-#X text 270 669 Режим для повторяющихся нот. Если «off» — отсылает
-событие выключения ноты перед повторной нотой \, если «tie» — игнорирует
-повторяющиеся ноты \, если «raw» — всегда отправлять события включения/выключения.
-Тип: symbol. Значение по умолчанию: off. Разрешённые значения: off
-\, tie \, raw.;
-#X obj 250 772 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 772 @vel;
-#X text 270 772 Выходная сила нажатия ноты. Тип: float. Значение по
+#X obj 250 787 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 787 @mode;
+#X text 270 787 Режим для повторяющихся нот. Если 'off': перед повторным
+запуском отправляется событие выключения ноты. Если 'tie': повторяющиеся
+события игнорируются. Если 'raw': всегда отправляются события включения
+и выключения. Тип: symbol. Значение по умолчанию: off. Разрешённые
+значения: off \, tie \, raw.;
+#X obj 250 890 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 890 @vel;
+#X text 270 890 Сила нажатия ноты на выходе. Тип: float. Значение по
 умолчанию: 90\. Диапазон: [0\..127].;
-#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 829 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 947 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 830 1\.;
-#X text 170 830 list:;
-#X text 270 830 input bit list.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 870 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 948 1\.;
+#X text 170 948 list:;
+#X text 270 948 входной список битов.;
+#X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 988 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 871 1\.;
-#X text 270 871 output.;
+#X text 130 989 1\.;
+#X text 270 989 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 924 библиотека: ceammc v0.9.8;
-#N canvas 10 943 400 290 info 0;
+#X obj 1 1039 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1042 библиотека: ceammc v0.9.8;
+#N canvas 10 1061 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 943 pd info;
+#X restore 10 1061 pd info;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
 #X connect 10 0 13 0;

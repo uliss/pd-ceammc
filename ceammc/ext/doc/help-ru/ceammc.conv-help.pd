@@ -21,11 +21,11 @@ conv.bits2bang-help.pd;
 #X text 220 242 преобразует список битов в события bang;
 #X obj 30 270 ui.link @title [conv.bits2int] @url
 conv.bits2int-help.pd;
-#X text 220 267 преобразовать список битов в целое число;
+#X text 220 267 преобразует список битов в целое число;
 #X obj 30 295 ui.link @title [conv.bits2note] @url
 conv.bits2note-help.pd;
-#X text 220 292 конвертирует список битов в пары: номер ноты \, сила
-нажатия;
+#X text 220 292 преобразует список битов в пары «номер ноты \, сила
+нажатия»;
 #X obj 30 320 ui.link @title [conv.bits2pos] @url
 conv.bits2pos-help.pd;
 #X text 220 317 преобразует список битов в список позиций установленных
