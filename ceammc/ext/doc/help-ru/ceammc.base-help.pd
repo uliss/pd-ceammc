@@ -60,8 +60,8 @@ metro.wchoice-help.pd;
 #X text 220 717 ведет себя как пружина \, возвращающаяся в первоначальное
 состояние;
 #X obj 30 760 ui.link @title [sync] @url sync-help.pd;
-#X text 220 757 синхронизация нескольких значений без переполняющих
-стек петель;
+#X text 220 757 синхронизация нескольких значений без переполнения
+стека из-за петель;
 #X obj 30 800 ui.link @title [window] @url window-help.pd;
 #X text 220 797 возвращает значение оконной функции;
 #X obj 30 825 ui.link @title [xdac~] @url xdac~-help.pd;

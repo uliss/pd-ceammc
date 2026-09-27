@@ -1,68 +1,85 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 330 50 cnv 1 435 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 синхронизация нескольких значений без переполняющих
-стек петель;
+#X text 335 50 синхронизация нескольких значений без переполнения стека
+из-за петель;
 #X obj 1 1 cnv 5 765 40 empty empty sync 20 20 0 20 -104026 -4096 0;
 #X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/sync] @url sync-help.pd;
 #X obj 711 8 sync;
-#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 The value send to inlet repeated to all outlets except
-from the current one. This prevents infinite loops;
-#X text 50 201 simple example;
-#X floatatom 50 230 5 0 0 0 - - -;
-#X obj 136 230 sync;
-#X floatatom 232 230 5 0 0 0 - - -;
-#X text 50 259 more complex;
-#X floatatom 50 288 5 0 0 0 - - -;
-#X floatatom 126 288 5 0 0 0 - - -;
-#X floatatom 203 288 5 0 0 0 - - -;
-#X obj 50 317 sync 3, f 22;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 372 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 441 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Значение \, отправленное на один вход \, повторяется
+на всех остальных выходах \, кроме того \, который связан с этим входом.
+Это предотвращает бесконечные петли.;
+#X text 240 153 Проблема: когда два или более GUI-объекта (слайдеры
+\, числовые поля \, крутилки) должны показывать одно и то же значение
+и при этом изменять друг друга \, прямое двунаправленное соединение
+приводит к бесконечной петле — A отправляет в B \, B отправляет обратно
+в A \, A снова отправляет в B \, и так до переполнения стека Pd. Объект
+[sync] решает эту задачу: он запоминает \, с какого входа пришло значение
+\, и передаёт его на все остальные выходы \, кроме парного. Так цепочка
+естественно завершается \, а оба элемента остаются синхронизированными.;
+#X text 240 314 Типичные сценарии применения:;
+#X text 250 339 • Связанные слайдеры — например \, слайдеры L и R стереобаланса:
+перемещение одного должно обновлять другой без бесконечной петли.;
+#X text 250 394 • Крутилка + числовое поле — [ui.knob] и [floatatom]
+\, отображающие один и тот же параметр и обновляющие друг друга.;
+#X text 250 449 • MIDI-контроллер и GUI — физическая ручка на MIDI-контроллере
+и [ui.knob] в патче: MIDI-вход идёт через [sync] в GUI \, а изменения
+в GUI возвращаются через [sync] в MIDI-выход.;
+#X text 50 582 simple example;
+#X floatatom 50 611 5 0 0 0 - - -;
+#X obj 136 611 sync;
+#X floatatom 232 611 5 0 0 0 - - -;
+#X text 50 640 more complex;
+#X floatatom 50 669 5 0 0 0 - - -;
+#X floatatom 126 669 5 0 0 0 - - -;
+#X floatatom 203 669 5 0 0 0 - - -;
+#X obj 50 698 sync 3, f 22;
+#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 753 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 756 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 373 1\.;
-#X text 170 373 int;
-#X obj 268 374 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 373 N: number of synchronized values. Тип: int. Диапазон:
+#X text 130 754 1\.;
+#X text 170 754 int;
+#X obj 268 755 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 754 N: число синхронизированных значений. Тип: int. Диапазон:
 [2\..8];
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 809 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 812 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @n;
-#X text 270 414 (при инициализации) Number of synced values. Тип: int.
-Значение по умолчанию: 2\. Диапазон: [2\..8].;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 810 @n;
+#X text 270 810 (при инициализации) Число синхронизированных значений.
+Тип: int. Значение по умолчанию: 2\. Диапазон: [2\..8].;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 882 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 270 472 first synchronized input.;
-#X text 130 497 ...;
-#X text 270 497 ... synchronized input.;
-#X text 130 522 n.;
-#X text 270 522 n-th synchronized input.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 562 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 883 1\.;
+#X text 270 883 первый синхронизированный вход.;
+#X text 130 908 ...;
+#X text 270 908 ... синхронизированный вход.;
+#X text 130 933 n.;
+#X text 270 933 n-й синхронизированный вход.;
+#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 973 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 563 1\.;
-#X text 270 563 first synchronized output.;
-#X text 130 583 ...;
-#X text 270 583 ... synchronized output.;
-#X text 130 603 n.;
-#X text 270 603 n-th synchronized output.;
+#X text 130 974 1\.;
+#X text 270 974 первый синхронизированный выход.;
+#X text 130 994 ...;
+#X text 270 994 ... синхронизированный выход.;
+#X text 130 1014 n.;
+#X text 270 1014 n-й синхронизированный выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 656 библиотека: ceammc v0.9.8;
-#N canvas 10 675 400 290 info 0;
+#X obj 1 1064 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1067 библиотека: ceammc v0.9.8;
+#N canvas 10 1086 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,14 +103,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 675 pd info;
-#X connect 12 0 15 0;
-#X connect 15 0 12 0;
-#X connect 13 0 15 1;
-#X connect 15 1 13 0;
-#X connect 14 0 15 2;
-#X connect 15 2 14 0;
-#X connect 8 0 9 0;
-#X connect 9 0 8 0;
-#X connect 9 1 10 0;
-#X connect 10 0 9 1;
+#X restore 10 1086 pd info;
+#X connect 17 0 20 0;
+#X connect 20 0 17 0;
+#X connect 18 0 20 1;
+#X connect 20 1 18 0;
+#X connect 19 0 20 2;
+#X connect 20 2 19 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 14 1 15 0;
+#X connect 15 0 14 1;

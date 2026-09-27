@@ -178,8 +178,8 @@ metro.wchoice-help.pd;
 #X text 200 1974 ведет себя как пружина \, возвращающаяся в первоначальное
 состояние;
 #X obj 30 2017 ui.link @title [sync] @url sync-help.pd;
-#X text 200 2014 синхронизация нескольких значений без переполняющих
-стек петель;
+#X text 200 2014 синхронизация нескольких значений без переполнения
+стека из-за петель;
 #X obj 30 2057 ui.link @title [window] @url window-help.pd;
 #X text 200 2054 возвращает значение оконной функции;
 #X obj 30 2082 ui.link @title [xdac~] @url xdac~-help.pd;

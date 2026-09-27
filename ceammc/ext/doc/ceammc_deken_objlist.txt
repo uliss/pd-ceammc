@@ -93,8 +93,8 @@ split~	parametrized multichannel signal splitter / параметризован�
 ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
 spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
 ceammc/spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
-sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
-ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
+ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
 window	returns the value of the window function / возвращает значение оконной функции
 ceammc/window	returns the value of the window function / возвращает значение оконной функции
 ceammc/win	returns the value of the window function / возвращает значение оконной функции
