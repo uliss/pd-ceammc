@@ -8,7 +8,7 @@
 #X text 220 117 BPM calculator;
 #X obj 30 145 ui.link @title [array.circular] @url
 array.circular-help.pd;
-#X text 220 142 read/write to the array as circular buffer;
+#X text 220 142 read/write to the array as a circular buffer;
 #X obj 30 170 ui.link @title [array.circular~] @url
 array.circular~-help.pd;
 #X text 220 167 read/write the signal into the array like in a circular

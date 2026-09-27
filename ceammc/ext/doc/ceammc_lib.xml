@@ -25,7 +25,7 @@
     <entry name="array.bpm" descr="BPM calculator" ref_view="link">
       <xi:include href="array.bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.circular" descr="read/write to the array as circular buffer" ref_view="link">
+    <entry name="array.circular" descr="read/write to the array as a circular buffer" ref_view="link">
       <xi:include href="array.circular.pddoc" parse="xml"/>
     </entry>
     <entry name="array.circular~" descr="read/write the signal into the array like in a circular buffer" ref_view="link">

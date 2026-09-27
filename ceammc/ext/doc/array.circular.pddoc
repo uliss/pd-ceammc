@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">read/write to the array as circular buffer</tr>
-        <tr lang="ru">чтение/запись в массив, как в кольцевой буфер</tr>
+        <tr lang="en">read/write to the array as a circular buffer</tr>
+        <tr lang="ru">чтение/запись в массив как в кольцевой буфер</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,29 +19,42 @@
         <see>array.circular~</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object treats the specified array as a circular (ring) buffer. When a
+        float is received on the inlet, it is pushed to the end of the buffer, and the oldest
+        (front) element is popped and output. The buffer size is determined by the size of the
+        array.</tr>
+        <tr lang="ru">Объект рассматривает указанный массив как кольцевой (циклический) буфер.
+        Когда на вход поступает число, оно добавляется в конец буфера, а самый старый (передний)
+        элемент извлекается и выводится. Размер буфера определяется размером массива.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used as a circular buffer</tr>
+        <tr lang="ru">имя массива, используемого как кольцевой буфер</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used as a circular buffer</tr>
+        <tr lang="ru">имя массива, используемого как кольцевой буфер</tr>
       </property>
       <!-- @redraw -->
       <property name="@redraw" type="bool" default="1">
-        <tr lang="en">array redraw after change</tr>
-        <tr lang="ru">перерисовка массива после изменения</tr>
+        <tr lang="en">redraw the array after each change</tr>
+        <tr lang="ru">перерисовывать массив после каждого изменения</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">push back new float</tr>
-          <tr lang="ru">добавляет новое число в конец массива</tr>
+          <tr lang="en">push a new float to the back of the buffer. The oldest element is shifted
+          out and sent to the outlet</tr>
+          <tr lang="ru">добавить новое число в конец буфера. Самый старый элемент при этом
+          вытесняется и отправляется на выход</tr>
         </in>
       </inlet>
     </inlets>
@@ -49,7 +62,7 @@
       <outlet>
         <out type="float">
           <tr lang="en">popped front element</tr>
-          <tr lang="ru">вытолкнутый передний элемент массива</tr>
+          <tr lang="ru">вытесненный передний элемент</tr>
         </out>
       </outlet>
     </outlets>

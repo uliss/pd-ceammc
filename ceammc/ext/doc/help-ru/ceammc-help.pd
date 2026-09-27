@@ -28,7 +28,7 @@ an.pitchtrack~-help.pd;
 #X text 200 391 вычисление BPM;
 #X obj 30 419 ui.link @title [array.circular] @url
 array.circular-help.pd;
-#X text 200 416 чтение/запись в массив \, как в кольцевой буфер;
+#X text 200 416 чтение/запись в массив как в кольцевой буфер;
 #X obj 30 444 ui.link @title [array.circular~] @url
 array.circular~-help.pd;
 #X text 200 441 чтение/запись сигнала в массив \, как в кольцевой буфер;
