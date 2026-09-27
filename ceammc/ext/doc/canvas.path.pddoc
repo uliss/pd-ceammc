@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">output the current canvas file system full path of the object</tr>
-        <tr lang="ru">выводит полный путь холста в файловой системе у объекта</tr>
+        <tr lang="ru">выводит полный путь холста объекта в файловой системе</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,19 +20,31 @@
       </also>
       <since>0.8</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object outputs the full file system path of the canvas (window or
+        subpatch) that contains it. On bang the path is sent out through the outlet as a symbol.
+        This is useful, for example, for resolving paths to files located next to the patch that
+        contains the object.</tr>
+        <tr lang="ru">Объект выводит полный путь в файловой системе до холста (окна или субпатча),
+        который его содержит. По bang путь отправляется через выход в виде символа. Это полезно,
+        например, для построения путей к файлам, расположенным рядом с патчем, содержащим
+        объект.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current canvas fullpath</tr>
-          <tr lang="ru" finished="false">выходной ток canvas fullpath</tr>
+          <tr lang="en">outputs the current canvas full path</tr>
+          <tr lang="ru">выводит полный путь текущего холста</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">current canvas fullpath as symbol</tr>
-          <tr lang="ru" finished="false">Текущий холст Fullpath как символ</tr>
+          <tr lang="en">current canvas full path as a symbol</tr>
+          <tr lang="ru">полный путь текущего холста в виде символа</tr>
         </out>
       </outlet>
     </outlets>

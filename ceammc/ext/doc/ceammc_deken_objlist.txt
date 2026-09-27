@@ -1044,7 +1044,7 @@ ceammc/canvas.active	checks if the canvas of the object is on the top and active
 canvas.current	get the information about the current canvas of the object / получение информации о текущем холсте объекта
 canvas.dir	outputs the current canvas directory of the object and the nesting level / выводит директорию холста у объекта и уровень его вложенности
 canvas.name	output the current canvas name of the object / выводит имя текущего холста объекта
-canvas.path	output the current canvas file system full path of the object / выводит полный путь холста в файловой системе у объекта
+canvas.path	output the current canvas file system full path of the object / выводит полный путь холста объекта в файловой системе
 canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта
 patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
