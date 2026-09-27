@@ -40,7 +40,7 @@
     <entry name="array.do" descr="iterate and modify the array content via the side-chain" ref_view="link">
       <xi:include href="array.do.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.each" descr="process each array elements via side-chain" ref_view="link">
+    <entry name="array.each" descr="process each array element via side-chain" ref_view="link">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
     <entry name="array.fill" descr="fill the array with the single value, pattern or function" ref_view="link">

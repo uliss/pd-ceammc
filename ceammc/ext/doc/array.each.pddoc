@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">process each array elements via side-chain</tr>
-        <tr lang="ru">обработка каждого элемента массива через боковую цепь</tr>
+        <tr lang="en">process each array element via side-chain</tr>
+        <tr lang="ru">обработка каждого элемента массива через боковую цепочку</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,53 +19,67 @@
       </also>
       <since>0.3</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object iterates over the samples of the specified array and sends each
+        sample to the side-chain (the float outlet) one by one. The processed value returned to the
+        right inlet replaces the current sample in the array. When all samples have been processed,
+        a bang is sent out to the first outlet.</tr>
+        <tr lang="ru">Объект перебирает семплы указанного массива и по одному отправляет каждый
+        семпл в боковую цепочку (выход числа). Обработанное значение, возвращённое в правый вход,
+        заменяет текущий семпл в массиве. Когда все семплы обработаны, на первый выход
+        отправляется bang.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to process</tr>
+        <tr lang="ru">имя массива для обработки</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to process</tr>
+        <tr lang="ru">имя массива для обработки</tr>
       </property>
       <!-- @redraw -->
       <property name="@redraw" type="bool" default="1">
-        <tr lang="en">redraw after array change</tr>
-        <tr lang="ru">перерисовать после изменения массива</tr>
+        <tr lang="en">redraw the array after change</tr>
+        <tr lang="ru">перерисовывать массив после изменения</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">starts processing</tr>
-          <tr lang="ru">начинает обработку</tr>
+          <tr lang="ru">запускает обработку</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set the new array, then process each element</tr>
-          <tr lang="ru">установить новый массив, затем обработать его</tr>
+          <tr lang="en">sets a new array, then processes each element</tr>
+          <tr lang="ru">устанавливает новый массив, затем обрабатывает каждый элемент</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">processed float value from side-chain</tr>
-          <tr lang="ru">обработанное значение из боковой цепи</tr>
+          <tr lang="en">processed float value returned from the side-chain. Replaces the current
+          sample in the array</tr>
+          <tr lang="ru">обработанное значение, возвращённое из боковой цепочки. Заменяет текущий
+          семпл в массиве</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="bang">
-          <tr lang="en">on iteration done</tr>
-          <tr lang="ru">при завершении итерации</tr>
+          <tr lang="en">sent when the iteration is finished</tr>
+          <tr lang="ru">отправляется по завершении обхода</tr>
         </out>
       </outlet>
       <outlet>
         <out type="float">
-          <tr lang="en">array sample value</tr>
-          <tr lang="ru">значение семпла массива</tr>
+          <tr lang="en">array sample value sent to the side-chain</tr>
+          <tr lang="ru">значение семпла массива, отправляемое в боковую цепочку</tr>
         </out>
       </outlet>
     </outlets>

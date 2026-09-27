@@ -40,7 +40,7 @@ array.convolve-help.pd;
 #X obj 30 504 ui.link @title [array.do] @url array.do-help.pd;
 #X text 200 501 iterate and modify the array content via the side-chain;
 #X obj 30 529 ui.link @title [array.each] @url array.each-help.pd;
-#X text 200 526 process each array elements via side-chain;
+#X text 200 526 process each array element via side-chain;
 #X obj 30 554 ui.link @title [array.fill] @url array.fill-help.pd;
 #X text 200 551 fill the array with the single value \, pattern or
 function;
