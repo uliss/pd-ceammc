@@ -27,7 +27,7 @@ algorithm;
 #X text 200 361 BPM calculator;
 #X obj 30 389 ui.link @title [array.circular] @url
 array.circular-help.pd;
-#X text 200 386 read/write to the array as circular buffer;
+#X text 200 386 read/write to the array as a circular buffer;
 #X obj 30 414 ui.link @title [array.circular~] @url
 array.circular~-help.pd;
 #X text 200 411 read/write the signal into the array like in a circular

@@ -11,7 +11,7 @@ array.circular-help.pd;
 #X text 220 142 чтение/запись в массив как в кольцевой буфер;
 #X obj 30 170 ui.link @title [array.circular~] @url
 array.circular~-help.pd;
-#X text 220 167 чтение/запись сигнала в массив \, как в кольцевой буфер;
+#X text 220 167 чтение/запись сигнала в массив как в кольцевой буфер;
 #X obj 30 195 ui.link @title [array.convolve] @url
 array.convolve-help.pd;
 #X text 220 192 FFT свертка массива;
