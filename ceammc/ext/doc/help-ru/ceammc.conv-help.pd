@@ -93,8 +93,8 @@ conv.midi2freq-help.pd;
 #X obj 30 955 ui.link @title [conv.ms2bpm] @url conv.ms2bpm-help.pd;
 #X text 220 952 преобразует период в миллисекундах в темп BPM;
 #X obj 30 980 ui.link @title [conv.ms2samp] @url conv.ms2samp-help.pd;
-#X text 220 977 преобразовать время в миллисекундах в количество семплов
-в соответствии с текущей скоростью семплирования;
+#X text 220 977 преобразует время в миллисекундах в количество семплов
+в соответствии с текущей частотой дискретизации;
 #X obj 30 1020 ui.link @title [conv.ms2samp~] @url
 conv.ms2samp~-help.pd;
 #X text 220 1017 преобразовать время в миллисекундах в количество семплов

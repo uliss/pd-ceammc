@@ -219,9 +219,9 @@ m->f	advanced MIDI pitch conversion to a frequency / расширенное пр
 conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
 ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
 ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
-conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
+ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
+ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
 conv.ms2samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ceammc/ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
