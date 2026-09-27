@@ -1638,7 +1638,7 @@ speech.whisper~-help.pd;
 #X obj 20 17333 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 17347 ui.link @title [rhythm.euclid] @url
 rhythm.euclid-help.pd;
-#X text 200 17344 генератор эвклидовых паттернов;
+#X text 200 17344 генератор ритмических паттернов по алгоритму Евклида;
 #X obj 30 17372 ui.link @title [rhythm.hexbeat] @url
 rhythm.hexbeat-help.pd;
 #X text 200 17369 генератор ритмического паттерна по шестнадцатиричным

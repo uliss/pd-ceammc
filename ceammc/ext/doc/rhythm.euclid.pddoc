@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Euclid pattern generator</tr>
-        <tr lang="ru">генератор эвклидовых паттернов</tr>
+        <tr lang="ru">генератор ритмических паттернов по алгоритму Евклида</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,74 +18,98 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: fast Bresenham algorithm is used</tr>
-        <tr lang="ru" finished="false">Примечание: используется быстрый алгоритм Брезенхэма</tr>
+        <tr lang="en">Generates a Euclidean rhythm: distributes a given number of beats as evenly
+        as possible across a sequence of a given length. For example, 3 beats over 8 steps produce
+        the classic "x..x..x." pattern. An offset shifts the entire pattern by the given number of
+        steps.</tr>
+        <tr lang="ru">Генерирует эвклидов ритм: распределяет заданное число ударных долей
+        настолько равномерно, насколько возможно, по последовательности заданной длины.
+        Например, 3 доли на 8 шагов дают классический паттерн «x..x..x.». Смещение (offset)
+        сдвигает весь паттерн на заданное число шагов.</tr>
+      </par>
+      <par>
+        <tr lang="en">Euclidean rhythms are widely used in electronic music and algorithmic
+        composition to obtain natural-sounding, well-balanced rhythmic patterns from just two
+        numbers — the number of beats and the total length. Many traditional rhythms (for example,
+        the bossa nova clave or various African bell patterns) are Euclidean and can be reproduced
+        with this object.</tr>
+        <tr lang="ru">Эвклидовы ритмы широко применяются в электронной музыке и алгоритмической
+        композиции: они позволяют получить естественно звучащие, хорошо сбалансированные
+        ритмические паттерны из всего двух чисел — числа долей и общей длины. Многие
+        традиционные ритмы (например, боссанова-клава или африканские ритмы колокольчиков)
+        являются эвклидовыми и воспроизводятся этим объектом.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: a fast Bresenham-based algorithm is used internally, so even long
+        sequences (up to 8192 steps) are computed quickly.</tr>
+        <tr lang="ru">Примечание: внутри используется быстрый алгоритм на основе Брезенхэма,
+        поэтому даже длинные последовательности (до 8192 шагов) вычисляются быстро.</tr>
       </par>
     </info>
     <arguments>
       <argument name="BEATS" type="int" minvalue="0" maxvalue="8192">
         <tr lang="en">number of beats inside the sequence</tr>
-        <tr lang="ru" finished="false">Количество ударов внутри последовательности</tr>
+        <tr lang="ru">число ударных долей в последовательности</tr>
       </argument>
       <argument name="N" type="int" minvalue="1" maxvalue="8192">
         <tr lang="en">the whole sequence length</tr>
-        <tr lang="ru" finished="false">Вся длина последовательности</tr>
+        <tr lang="ru">общая длина последовательности</tr>
       </argument>
       <argument name="OFFSET" type="int">
         <tr lang="en">sequence offset</tr>
-        <tr lang="ru" finished="false">последовательность смещения</tr>
+        <tr lang="ru">смещение последовательности</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @beats -->
       <property name="@beats" type="int" default="3" minvalue="0" maxvalue="8192">
         <tr lang="en">number of beats inside the sequence</tr>
-        <tr lang="ru" finished="false">Количество ударов внутри последовательности</tr>
+        <tr lang="ru">число ударных долей в последовательности</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" default="8" minvalue="1" maxvalue="8192">
         <tr lang="en">the whole sequence length</tr>
-        <tr lang="ru" finished="false">Вся длина последовательности</tr>
+        <tr lang="ru">общая длина последовательности</tr>
       </property>
       <!-- @offset -->
       <property name="@offset" type="int" default="0">
         <tr lang="en">sequence offset</tr>
-        <tr lang="ru" finished="false">последовательность смещения</tr>
+        <tr lang="ru">смещение последовательности</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output generated sequence</tr>
-          <tr lang="ru" finished="false">генерируемая последовательность</tr>
+          <tr lang="en">outputs the generated sequence</tr>
+          <tr lang="ru">выводит сгенерированную последовательность</tr>
         </in>
         <in on="int">
-          <tr lang="en">set number of beats in the sequence</tr>
-          <tr lang="ru" finished="false">установленное количество ударов в последовательности</tr>
+          <tr lang="en">sets the number of beats in the sequence</tr>
+          <tr lang="ru">задаёт число ударных долей в последовательности</tr>
         </in>
         <in on="list">
           <tr lang="en">list: BEATS LENGTH OFFSET?</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Beats Length Offset?</tr>
+          <tr lang="ru">список: BEATS LENGTH OFFSET?</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
-          <tr lang="en">set sequence lenghth</tr>
-          <tr lang="ru" finished="false">установленная последовательность</tr>
+          <tr lang="en">sets the sequence length</tr>
+          <tr lang="ru">задаёт длину последовательности</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
-          <tr lang="en">set sequence offset</tr>
-          <tr lang="ru" finished="false">Смещение последовательности</tr>
+          <tr lang="en">sets the sequence offset</tr>
+          <tr lang="ru">задаёт смещение последовательности</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">converted value</tr>
-          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+          <tr lang="en">generated sequence</tr>
+          <tr lang="ru">сгенерированная последовательность</tr>
         </out>
       </outlet>
     </outlets>

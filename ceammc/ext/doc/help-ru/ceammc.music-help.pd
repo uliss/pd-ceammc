@@ -4,7 +4,7 @@
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 120 ui.link @title [rhythm.euclid] @url
 rhythm.euclid-help.pd;
-#X text 220 117 генератор эвклидовых паттернов;
+#X text 220 117 генератор ритмических паттернов по алгоритму Евклида;
 #X obj 30 145 ui.link @title [rhythm.hexbeat] @url
 rhythm.hexbeat-help.pd;
 #X text 220 142 генератор ритмического паттерна по шестнадцатиричным
