@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 443 50 конвертирует список битов в пустые события;
+#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 466 50 преобразует список битов в события bang;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2bang 20 20 0 20 -104026
 -4096 0;
 #X obj 388 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,74 +9,78 @@
 #X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [bits->bang] @url conv.bits2bang-help.pd;
 #X obj 639 8 conv.bits2bang;
-#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 in default mode if bit is on - sends bang to corresponding
-outlet;
-#X text 240 123 in @poly mode if bit is on - send list (BIT_IDX bang)
-to single outlet;
-#X msg 50 226 random;
-#X obj 50 255 ui.hrd* @nitems 4;
-#X obj 50 284 bits->bang 4;
-#X obj 50 313 osc~ 400;
-#X obj 174 313 osc~ 800;
-#X obj 299 313 osc~ 1200;
-#X obj 424 313 osc~ 1600;
-#X obj 50 342 env.ar~ 50 500;
-#X obj 174 342 env.ar~ 50 500;
-#X obj 299 342 env.ar~ 50 500;
-#X obj 424 342 env.ar~ 50 500;
-#X obj 50 370 pan.spread~ 4, f 54;
-#X obj 50 399 ui.hgain2~;
-#X obj 50 428 dac~;
-#X text 50 457 Poly version;
-#X obj 50 486 ui.hrd* 4;
-#X obj 50 514 bits->bang @poly;
-#X obj 50 543 clone conv.bits2bang-osc~ 4 400 800 1200 1600;
-#X obj 50 572 ui.hgain~;
-#X obj 50 601 dac~;
-#X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 656 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 191 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает список битов (0 и 1) и генерирует события
+bang для каждого бита \, установленного в 1\. В режиме по умолчанию
+каждому биту соответствует отдельный выход \, и bang отправляется на
+выход \, соответствующий каждому биту со значением 1\. Если установлен
+флаг @rev \, порядок битов перед обработкой инвертируется.;
+#X text 240 184 В режиме @poly используется один выход \, и вместо
+простого bang отправляется список (BIT_INDEX bang) — это удобно при
+работе с объектом [clone] \, где индекс определяет экземпляр клона.;
+#X msg 50 317 random;
+#X obj 50 346 ui.hrd* @nitems 4;
+#X obj 50 375 bits->bang 4;
+#X obj 50 404 osc~ 400;
+#X obj 174 404 osc~ 800;
+#X obj 299 404 osc~ 1200;
+#X obj 424 404 osc~ 1600;
+#X obj 50 433 env.ar~ 50 500;
+#X obj 174 433 env.ar~ 50 500;
+#X obj 299 433 env.ar~ 50 500;
+#X obj 424 433 env.ar~ 50 500;
+#X obj 50 461 pan.spread~ 4, f 54;
+#X obj 50 490 ui.hgain2~;
+#X obj 50 519 dac~;
+#X text 50 548 Poly version;
+#X obj 50 577 ui.hrd* 4;
+#X obj 50 605 bits->bang @poly;
+#X obj 50 634 clone conv.bits2bang-osc~ 4 400 800 1200 1600;
+#X obj 50 663 ui.hgain~;
+#X obj 50 692 dac~;
+#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 747 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 659 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 750 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 657 1\.;
-#X text 170 657 int;
-#X obj 268 658 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 657 N: количество выходов. Тип: int. Диапазон: [1\..64];
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 697 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 748 1\.;
+#X text 170 748 int;
+#X obj 268 749 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 748 N: количество выходов. Тип: int. Диапазон: [1\..64];
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 788 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 700 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 791 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 698 @n;
-#X text 270 698 (при инициализации) Количество выходов. Тип: int. Значение
+#X msg 130 789 @n;
+#X text 270 789 (при инициализации) Количество выходов. Тип: int. Значение
 по умолчанию: 8\. Диапазон: [1\..64].;
-#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 740 @poly;
-#X text 270 740 Полифонический режим для использования с объектом [clone].;
-#X obj 250 770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 770 @rev;
-#X text 270 770 Обратный порядок битов. Тип: bool. Значение по умолчанию:
+#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 831 @poly;
+#X text 270 831 Полифонический режим для использования с объектом [clone].;
+#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 861 @rev;
+#X text 270 861 Обратный порядок битов. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 815 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 906 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 816 1\.;
-#X text 170 816 list:;
-#X text 270 816 input bit list.;
-#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 856 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 907 1\.;
+#X text 170 907 list:;
+#X text 270 907 входной список битов.;
+#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 947 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 857 1\.;
-#X text 270 857 output.;
+#X text 130 948 1\.;
+#X text 270 948 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 907 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 910 библиотека: ceammc v0.9.8;
-#N canvas 10 929 400 290 info 0;
+#X obj 1 998 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1001 библиотека: ceammc v0.9.8;
+#N canvas 10 1020 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 929 pd info;
+#X restore 10 1020 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 12 0 16 0;

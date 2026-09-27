@@ -130,9 +130,9 @@ amp->dbfs~	convert from the amplitude to a decibel full scale / преобраз
 conv.bar2ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
 ceammc/bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
 bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
-conv.bits2bang	convert list of bits to bang events / конвертирует список битов в пустые события
-ceammc/bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
-bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
+conv.bits2bang	convert list of bits to bang events / преобразует список битов в события bang
+ceammc/bits->bang	convert list of bits to bang events / преобразует список битов в события bang
+bits->bang	convert list of bits to bang events / преобразует список битов в события bang
 conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
 ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
 bits->int	convert list of bits to integer / преобразовать список битов в целое число

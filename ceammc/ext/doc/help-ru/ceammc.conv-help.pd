@@ -18,7 +18,7 @@ conv.amp2dbfs~-help.pd;
 #X text 220 217 вычисляет продолжительность такта и ударной доли;
 #X obj 30 245 ui.link @title [conv.bits2bang] @url
 conv.bits2bang-help.pd;
-#X text 220 242 конвертирует список битов в пустые события;
+#X text 220 242 преобразует список битов в события bang;
 #X obj 30 270 ui.link @title [conv.bits2int] @url
 conv.bits2int-help.pd;
 #X text 220 267 преобразовать список битов в целое число;
