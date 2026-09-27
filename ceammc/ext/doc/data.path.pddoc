@@ -58,7 +58,8 @@
       <method name="permissions">
         <info>
           <tr lang="en">requests path permissions. Outputs a [permissions VALUE( message</tr>
-          <tr lang="ru">запрашивает права доступа к пути. Выводит сообщение [permissions VALUE(</tr>
+          <tr lang="ru">запрашивает права доступа к пути. Выводит сообщение [permissions
+          VALUE(</tr>
         </info>
       </method>
       <!-- size -->
@@ -71,8 +72,8 @@
       <!-- type -->
       <method name="type">
         <info>
-          <tr lang="en">requests the path type. Outputs a [type TYPE( message, where type is one of:
-          regular, dir, symlink, char, block, fifo, socket</tr>
+          <tr lang="en">requests the path type. Outputs a [type TYPE( message, where type is one
+          of: regular, dir, symlink, char, block, fifo, socket</tr>
           <tr lang="ru">запрашивает тип пути. Выводит сообщение [type TYPE(, где тип — один из:
           regular, dir, symlink, char, block, fifo, socket</tr>
         </info>

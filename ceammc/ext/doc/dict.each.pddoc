@@ -35,18 +35,16 @@
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">dictionary to process. Triggers iteration
-          over its values</tr>
-          <tr lang="ru">словарь для обработки. Запускает перебор его
-          значений</tr>
+          <tr lang="en">dictionary to process. Triggers iteration over its values</tr>
+          <tr lang="ru">словарь для обработки. Запускает перебор его значений</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">new value returned from the side-chain. Replaces the current value in the
           dictionary</tr>
-          <tr lang="ru">новое значение, возвращённое из боковой цепочки. Заменяет текущее значение в
-          словаре</tr>
+          <tr lang="ru">новое значение, возвращённое из боковой цепочки. Заменяет текущее значение
+          в словаре</tr>
         </in>
       </inlet>
     </inlets>

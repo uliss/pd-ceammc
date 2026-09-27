@@ -43,7 +43,7 @@
           <tr lang="en">multiply the stored value by the given number, no output</tr>
           <tr lang="ru">умножить хранимое значение на заданное число, без вывода</tr>
         </info>
-        <param type="int" name="X" required="true">
+        <param name="X" type="int" required="true">
           <tr lang="en">multiplier</tr>
           <tr lang="ru">множитель</tr>
         </param>
@@ -54,18 +54,17 @@
           <tr lang="en">add the given number to the stored value, no output</tr>
           <tr lang="ru">прибавить заданное число к хранимому значению, без вывода</tr>
         </info>
-        <param type="int" name="X" required="true">
+        <param name="X" type="int" required="true">
           <tr lang="en">addend</tr>
           <tr lang="ru">слагаемое</tr>
         </param>
       </method>
-      <!-- - -->
       <method name="-">
         <info>
           <tr lang="en">subtract the given number from the stored value, no output</tr>
           <tr lang="ru">вычесть заданное число из хранимого значения, без вывода</tr>
         </info>
-        <param type="int" name="X" required="true">
+        <param name="X" type="int" required="true">
           <tr lang="en">subtrahend</tr>
           <tr lang="ru">вычитаемое</tr>
         </param>
@@ -76,7 +75,7 @@
           <tr lang="en">divide the stored value by the given number, no output</tr>
           <tr lang="ru">разделить хранимое значение на заданное число, без вывода</tr>
         </info>
-        <param type="int" name="X" required="true">
+        <param name="X" type="int" required="true">
           <tr lang="en">divisor</tr>
           <tr lang="ru">делитель</tr>
         </param>
@@ -87,7 +86,7 @@
           <tr lang="en">set a new value without output</tr>
           <tr lang="ru">установить новое значение без вывода</tr>
         </info>
-        <param type="int" name="X" required="true">
+        <param name="X" type="int" required="true">
           <tr lang="en">new value</tr>
           <tr lang="ru">новое значение</tr>
         </param>

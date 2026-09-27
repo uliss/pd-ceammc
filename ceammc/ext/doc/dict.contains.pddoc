@@ -22,10 +22,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object takes a dictionary on the left inlet and a list of keys to check on
-        the right inlet (or via the KEYS argument). For every key in the list it outputs 1 if the
-        dictionary contains that key, and 0 otherwise. The result is a list of 1s and 0s in the same
-        order as the checked keys.</tr>
+        <tr lang="en">The object takes a dictionary on the left inlet and a list of keys to check
+        on the right inlet (or via the KEYS argument). For every key in the list it outputs 1 if
+        the dictionary contains that key, and 0 otherwise. The result is a list of 1s and 0s in the
+        same order as the checked keys.</tr>
         <tr lang="ru">Объект принимает словарь в левый вход, а список проверяемых ключей — в правый
         вход (или через аргумент KEYS). Для каждого ключа из списка выводится 1, если словарь
         содержит этот ключ, и 0 в противном случае. Результат — список из 1 и 0 в том же порядке,

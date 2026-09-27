@@ -31,10 +31,10 @@
     <inlets>
       <inlet>
         <in on="data">
-          <tr lang="en">dictionary to extract keys from. On receipt,
-          the object immediately outputs the list of keys</tr>
-          <tr lang="ru">словарь, из которого нужно извлечь ключи. При
-          получении объект сразу выводит список ключей</tr>
+          <tr lang="en">dictionary to extract keys from. On receipt, the object immediately outputs
+          the list of keys</tr>
+          <tr lang="ru">словарь, из которого нужно извлечь ключи. При получении объект сразу
+          выводит список ключей</tr>
         </in>
       </inlet>
     </inlets>
