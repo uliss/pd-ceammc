@@ -252,9 +252,9 @@ rad->phase~	convert radians value to phase [0-1) / преобразование 
 conv.rgb2hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
 ceammc/rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
 rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
-conv.samp2ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-ceammc/samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.samp2ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
+ceammc/samp->ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
+samp->ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
 conv.samp2ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 ceammc/samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
