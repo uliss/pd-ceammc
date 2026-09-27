@@ -5,55 +5,66 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 dict.contains;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает словарь в левый вход \, а список проверяемых
+ключей — в правый вход (или через аргумент KEYS). Для каждого ключа
+из списка выводится 1 \, если словарь содержит этот ключ \, и 0 в противном
+случае. Результат — список из 1 и 0 в том же порядке \, что и проверяемые
+ключи.;
+#X obj 50 247 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.dict \[a: 1 b: 2 c: 3 d: 4\];
-#X obj 50 176 dict.contains c d e;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 276 data.dict \[a: 1 b: 2 c: 3 d: 4\];
+#X obj 50 305 dict.contains c d e;
+#X obj 50 334 ui.dt;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 list;
-#X obj 268 262 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 KEYS: checked keys. Тип: list.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 390 1\.;
+#X text 170 390 list;
+#X obj 268 391 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 390 KEYS: список ключей для проверки в словаре. Для каждого
+ключа в выводе появляется соответствующая 1 или 0\. Тип: list.;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 460 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 463 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 302 @keys;
-#X text 270 302 Checked keys. Тип: list.;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 461 @keys;
+#X text 270 461 Текущий список проверяемых ключей. Может быть задан
+при создании объекта или изменён позже. Тип: list.;
+#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 518 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 348 1\.;
-#X text 170 348 data:;
-#X text 270 348 Data.dict expected.;
-#X text 130 373 2\.;
-#X text 170 373 list:;
-#X text 270 373 set searched keys.;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 519 1\.;
+#X text 170 519 data:;
+#X text 270 519 словарь для проверки (ожидается значение data.dict).
+При получении словаря объект сразу выводит результат проверки для текущего
+списка ключей.;
+#X text 130 574 2\.;
+#X text 170 574 list:;
+#X text 270 574 задать список ключей \, наличие которых нужно проверить
+в словаре.;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 629 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 414 1\.;
-#X text 270 414 output list of 1 and 0\. One means dict contains key
-\, zero - not.;
+#X text 130 630 1\.;
+#X text 270 630 выводит список из 1 и 0\. Единица означает \, что словарь
+содержит ключ \, ноль — не содержит.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 468 520 смотрите также:;
-#X obj 589 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 695 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 698 библиотека: ceammc v0.9.8;
+#X text 468 710 смотрите также:;
+#X obj 589 713 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.dict] @url data.dict-help.pd;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 713 ui.link @background_color 0.78431 0.78431 0.78431
 @title [dict.keys] @url dict.keys-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 717 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -77,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 717 pd info;
 #X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
