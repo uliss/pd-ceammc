@@ -27,8 +27,8 @@
         "ratio" control, it uses a strength parameter, which makes it easy to use the object as a
         gentle expander or as a full-fledged noise gate (with high strength values).</tr>
         <tr lang="ru">Монофонический нисходящий экспандер. В отличие от компрессора, который
-        снижает уровень громких сигналов выше порога, экспандер снижает уровень тихих сигналов
-        ниже порога, тем самым увеличивая динамический диапазон материала. Вместо традиционного
+        снижает уровень громких сигналов выше порога, экспандер снижает уровень тихих сигналов ниже
+        порога, тем самым увеличивая динамический диапазон материала. Вместо традиционного
         управления «ratio» (степень сжатия) используется параметр силы (strength), что позволяет
         применять объект и как мягкий экспандер, и как полноценный шумовой гейт (при больших
         значениях силы).</tr>
@@ -78,13 +78,12 @@
       </property>
       <!-- @knee -->
       <property name="@knee" type="float" units="decibel" default="3" minvalue="0" maxvalue="6">
-        <tr lang="en">a gradual increase in gain reduction around the threshold: below
-        thresh − (knee / 2) there is no gain reduction, above thresh + (knee / 2) the gain
-        reduction is the same as without a knee, and in between there is a gradual increase in
-        gain reduction</tr>
+        <tr lang="en">a gradual increase in gain reduction around the threshold: below thresh −
+        (knee / 2) there is no gain reduction, above thresh + (knee / 2) the gain reduction is the
+        same as without a knee, and in between there is a gradual increase in gain reduction</tr>
         <tr lang="ru">плавное увеличение снижения усиления вблизи порога: ниже thresh − (knee / 2)
-        снижения усиления нет, выше thresh + (knee / 2) снижение усиления такое же, как и без
-        knee, а между ними происходит плавное увеличение снижения усиления</tr>
+        снижения усиления нет, выше thresh + (knee / 2) снижение усиления такое же, как и без knee,
+        а между ними происходит плавное увеличение снижения усиления</tr>
       </property>
       <!-- @level -->
       <property name="@level" type="float" units="decibel" default="0" minvalue="0" maxvalue="90"
@@ -119,8 +118,8 @@
       <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
       maxvalue="0">
         <tr lang="en">level threshold below which the expander kicks in (100 dB = max level)</tr>
-        <tr lang="ru">пороговый уровень, ниже которого срабатывает экспандер (100 дБ —
-        максимальный уровень)</tr>
+        <tr lang="ru">пороговый уровень, ниже которого срабатывает экспандер (100 дБ — максимальный
+        уровень)</tr>
       </property>
     </properties>
     <methods>

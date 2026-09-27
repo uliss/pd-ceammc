@@ -24,14 +24,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A mono peak compressor with feed-forward topology. Instead of the
-        traditional "ratio" control, it uses a strength parameter, which makes it easy to use the
-        object both as a regular compressor and as a hard limiter or overcompressor (when strength
-        is greater than 1).</tr>
+        <tr lang="en">A mono peak compressor with feed-forward topology. Instead of the traditional
+        "ratio" control, it uses a strength parameter, which makes it easy to use the object both
+        as a regular compressor and as a hard limiter or overcompressor (when strength is greater
+        than 1).</tr>
         <tr lang="ru">Монофонический пиковый компрессор с прямой топологией (feed-forward). Вместо
-        традиционного управления «ratio» (степень сжатия) используется параметр силы
-        (strength), что позволяет применять объект и как обычный компрессор, и как жёсткий
-        ограничитель или сверхкомпрессор (при strength больше 1).</tr>
+        традиционного управления «ratio» (степень сжатия) используется параметр силы (strength),
+        что позволяет применять объект и как обычный компрессор, и как жёсткий ограничитель или
+        сверхкомпрессор (при strength больше 1).</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
       compression</a>
@@ -50,16 +50,16 @@
       <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
         <tr lang="en">attack time — the time that elapses between exceeding the threshold and the
         moment when the target compression level is reached</tr>
-        <tr lang="ru">время атаки — время, которое проходит между превышением порогового значения
-        и моментом достижения заданного уровня компрессии</tr>
+        <tr lang="ru">время атаки — время, которое проходит между превышением порогового значения и
+        моментом достижения заданного уровня компрессии</tr>
       </argument>
       <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
         <tr lang="en">release time — the decay time that elapses between the input signal level
         dropping below the threshold and the moment when the compressor stops attenuating the
         signal</tr>
         <tr lang="ru">время восстановления — время спада, которое проходит между моментом, когда
-        уровень входного сигнала упал ниже порога, и моментом, когда компрессор перестаёт
-        ослаблять сигнал</tr>
+        уровень входного сигнала упал ниже порога, и моментом, когда компрессор перестаёт ослаблять
+        сигнал</tr>
       </argument>
     </arguments>
     <properties>
@@ -88,12 +88,11 @@
       <!-- @knee -->
       <property name="@knee" type="float" units="decibel" default="3" minvalue="0" maxvalue="24">
         <tr lang="en">a gradual increase in gain reduction around the threshold: below
-        thresh−(knee/2) there is no gain reduction, above thresh+(knee/2) the gain
-        reduction is the same as without a knee, and in between there is a gradual increase in
-        gain reduction</tr>
+        thresh−(knee/2) there is no gain reduction, above thresh+(knee/2) the gain reduction is the
+        same as without a knee, and in between there is a gradual increase in gain reduction</tr>
         <tr lang="ru">плавное увеличение снижения усиления вблизи порога: ниже thresh−(knee/2)
-        снижения усиления нет, выше thresh+(knee/2) снижение усиления такое же, как и без
-        knee, а между ними происходит плавное увеличение снижения усиления</tr>
+        снижения усиления нет, выше thresh+(knee/2) снижение усиления такое же, как и без knee, а
+        между ними происходит плавное увеличение снижения усиления</tr>
       </property>
       <!-- @level -->
       <property name="@level" type="float" default="0" minvalue="0" maxvalue="1" access="readonly">
@@ -123,8 +122,8 @@
       <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
       maxvalue="0">
         <tr lang="en">level threshold above which compression kicks in (100 dB = max level)</tr>
-        <tr lang="ru">пороговый уровень, выше которого начинается компрессия (100 дБ —
-        максимальный уровень)</tr>
+        <tr lang="ru">пороговый уровень, выше которого начинается компрессия (100 дБ — максимальный
+        уровень)</tr>
       </property>
     </properties>
     <methods>

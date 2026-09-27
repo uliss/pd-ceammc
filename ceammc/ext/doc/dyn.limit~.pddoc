@@ -27,11 +27,11 @@
         object emulates the behavior of that hardware unit: fast peak limiting with a
         program-dependent release. The limiter is intended to catch short peaks and prevent them
         from exceeding the threshold, rather than acting as a general-purpose compressor.</tr>
-        <tr lang="ru">Монофонический пиковый ограничитель, вдохновлённый классическим
-        UREI 1176LN Peak Limiter. Объект эмулирует поведение этого аппаратного устройства:
-        быстрое пиковое ограничение с зависящим от программы временем восстановления. Ограничитель
-        предназначен для перехвата коротких пиков и недопущения превышения ими порога, а не для
-        работы в качестве универсального компрессора.</tr>
+        <tr lang="ru">Монофонический пиковый ограничитель, вдохновлённый классическим UREI 1176LN
+        Peak Limiter. Объект эмулирует поведение этого аппаратного устройства: быстрое пиковое
+        ограничение с зависящим от программы временем восстановления. Ограничитель предназначен для
+        перехвата коротких пиков и недопущения превышения ими порога, а не для работы в качестве
+        универсального компрессора.</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
     </info>
