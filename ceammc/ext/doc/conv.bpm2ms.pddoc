@@ -26,19 +26,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Converts frequency from BPM (beats per minute) to period in ms. It is simple
-        as (60 / f) * 1000, but more readable.</tr>
-        <!-- old: Преобразует частоту от BPM (бит в минуту) до периода
-                в мс. Она проста как (60/f)*1000, но более читаема. -->
-        <tr lang="ru" finished="false">Преобразует частоту от BPM (бит в минуту) до периода в мс.
-        Она проста как (60/f)*1000, но более читаема.</tr>
+        <tr lang="en">The object converts a tempo value in BPM (beats per minute) to a beat period
+        in milliseconds. The conversion is simply (60 / BPM) * 1000, but the object makes the patch
+        more readable and self-documenting. The result can be used, for example, to drive a metro
+        or a delay line that is synchronized with the musical tempo.</tr>
+        <tr lang="ru">Объект преобразует значение темпа в BPM (удары в минуту) в период между
+        ударными долями в миллисекундах. Преобразование сводится к (60 / BPM) * 1000, но объект
+        делает патч более читаемым и самодокументируемым. Результат можно использовать, например,
+        для управления метрономом или линией задержки, синхронизированной с музыкальным
+        темпом.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">frequency in BPM</tr>
-          <tr lang="ru" finished="false">Частота в BPM</tr>
+          <tr lang="ru">частота в BPM</tr>
         </in>
       </inlet>
     </inlets>
@@ -46,7 +49,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">period in milliseconds</tr>
-          <tr lang="ru" finished="false">период в миллисекундах</tr>
+          <tr lang="ru">период в миллисекундах</tr>
         </out>
       </outlet>
     </outlets>
