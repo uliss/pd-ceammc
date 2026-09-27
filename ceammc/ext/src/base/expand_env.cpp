@@ -22,7 +22,7 @@ static t_symbol* expandEnv(t_symbol* s)
 
 ExpandEnv::ExpandEnv(const PdArgs& a)
     : BaseObject(a)
-    , expand_any_(0)
+    , expand_any_(nullptr)
 {
     createOutlet();
 
