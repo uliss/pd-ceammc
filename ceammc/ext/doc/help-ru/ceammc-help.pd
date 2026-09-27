@@ -514,7 +514,7 @@ dyn.expand2~-help.pd;
 #X text 200 5371 пиковый моно-ограничитель в стиле 1176LN;
 #X obj 30 5399 ui.link @title [dyn.softclip~] @url
 dyn.softclip~-help.pd;
-#X text 200 5396 мягкое клиппирование сигнала;
+#X text 200 5396 мягкое ограничение сигнала;
 #X obj 443 5053 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 448 5053 работа с динамическим диапазоном звука;
 #X obj 20 5421 cnv 5 39 32 empty empty env 4 16 0 17 -262144 -49933 0;

@@ -34,7 +34,7 @@ dyn.comp_up2~-help.pd;
 #X text 220 392 пиковый моно-ограничитель в стиле 1176LN;
 #X obj 30 420 ui.link @title [dyn.softclip~] @url
 dyn.softclip~-help.pd;
-#X text 220 417 мягкое клиппирование сигнала;
+#X text 220 417 мягкое ограничение сигнала;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::dyn 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

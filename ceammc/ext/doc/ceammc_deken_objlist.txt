@@ -358,7 +358,7 @@ dyn.gate2~	stereo signal gate / стерео-сигнальный гейт
 dyn.gate~	mono signal gate / моно-сигнальный гейт
 dyn.limit2~	stereo 1176LN Peak Limiter / пиковый стерео-ограничитель сигнала в схемотехнике 1176LN
 dyn.limit~	mono 1176LN Peak Limiter / пиковый моно-ограничитель в стиле 1176LN
-dyn.softclip~	soft signal clip / мягкое клиппирование сигнала
+dyn.softclip~	soft signal clip / мягкое ограничение сигнала
 env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (Attack, Decay, Sustain, Release)
 env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release
 env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
