@@ -20,19 +20,29 @@
         <see>dict.keys</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a dictionary on its inlet and outputs a single integer — the
+        total number of key/value pairs stored in it.</tr>
+        <tr lang="ru">Объект принимает словарь на вход и выводит одно целое число — общее количество
+        пар ключ/значение, хранящихся в нём.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
-        <in on="data">
-          <tr lang="en">data.dict</tr>
-          <tr lang="ru" finished="false">data.dict.</tr>
+        <in on="data:dict">
+          <tr lang="en">dictionary to measure. On receipt, the
+          object immediately outputs its size</tr>
+          <tr lang="ru">словарь, размер которого нужно измерить. При
+          получении объект сразу выводит его размер</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="int">
           <tr lang="en">size of dict</tr>
-          <tr lang="ru" finished="false">размер дикта</tr>
+          <tr lang="ru">размер словаря</tr>
         </out>
       </outlet>
     </outlets>
