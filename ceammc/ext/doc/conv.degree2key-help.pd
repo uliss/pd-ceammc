@@ -9,38 +9,80 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [degree->key] @url conv.degree2key-help.pd;
 #X obj 631 8 conv.degree2key;
-#X obj 230 78 cnv 1 535 176 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 941 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The object converts a scale degree to a key number (MIDI
 note number in the current octave) \, using the selected scale. A scale
 is defined as a sequence of intervals from the tonic \, and the degree
 is the index of a step on this scale. The scale can be set with the
 SCALE argument or the @scale property. The list of all supported scales
 is available in the @all property.;
-#X text 240 199 Note: some scales are not intended for the 12-tone
+#X text 240 199 Common Western modes and scales:;
+#X text 240 224 'major' — ionian mode. 'minor' — aeolian mode. 'ionian'
+\, 'dorian' \, 'phrygian' \, 'lydian' \, 'mixolydian' \, 'aeolian'
+\, 'locrian' — the seven modes of the diatonic scale. 'major_pentatonic'
+and 'minor_pentatonic' — five-note scales without semitones. 'whole'
+— whole-tone scale (six notes \, each a whole step apart). 'whole_leading'
+— whole tone plus leading tone (a seven-note symmetric scale). 'chromatic'
+— 12-tone chromatic scale. 'chromatic24' — 24-tone microchromatic scale
+(quarter tones).;
+#X text 240 370 Altered and synthetic Western scales: 'major_harmonic'
+\, 'major_melodic' \, 'major_locrian' \, 'major_neapolitan' \, 'minor_harmonic'
+\, 'minor_melodic' \, 'minor_melodic_desc' \, 'minor_hungarian' \,
+'minor_lydian' \, 'minor_neapolitan' \, 'minor_romanian' \, 'super_locrian'
+\, 'augmented' \, 'augmented2' \, 'diminished' \, 'diminished2' \,
+'bartok' \, 'hex_aeolian' \, 'hex_dorian' \, 'hex_major6' \, 'hex_major7'
+\, 'hex_phrygian' \, 'hex_sus' \, 'prometheus' \, 'scriabin' \, 'ritusen'
+— synthetic \, symmetric or altered scales used in classical \, jazz
+and contemporary music.;
+#X text 240 531 Middle Eastern and Central Asian maqams: 'ahirbhairav'
+\, 'ajam' \, 'atharKurd' \, 'bastanikar' \, 'bayati' \, 'farahfaza'
+\, 'hijaz' \, 'hijaz_desc' \, 'hijaz_kar' \, 'husseini' \, 'huzam'
+\, 'iraq' \, 'jiharkah' \, 'karjighar' \, 'kijaz_kar_kurd' \, 'kurd'
+\, 'mahur' \, 'murassah' \, 'mustar' \, 'nahawand' \, 'nahawand_desc'
+\, 'nairuz' \, 'nawa_athar' \, 'nikriz' \, 'rast' \, 'rast_desc' \,
+'saba' \, 'sikah' \, 'sikah_desc' \, 'suznak' \, 'ushaq_mashri' \,
+'yakah' \, 'yakah_desc' \, 'zamzam' \, 'zanjaran' — scales used in
+Arabic \, Turkish and Persian music (maqam system).;
+#X text 240 692 Indian ragas and Asian scales: 'bhairav' \, 'chinese'
+\, 'egyptian' \, 'gong' \, 'hindu' \, 'hirajoshi' \, 'indian' \, 'iwato'
+\, 'jiao' \, 'kumoi' \, 'marva' \, 'pelog' \, 'purvi' \, 'shang' \,
+'spanish' \, 'todi' \, 'yu' \, 'zhi' — scales from Indian raga tradition
+\, Chinese and Japanese (gagaku \, shakuhachi) \, and other Asian musical
+systems.;
+#X text 240 793 Partch scales: 'partch_o1' ... 'partch_o6' — Harry
+Partch's otonalities (major-type just-intonation scales) \, 'partch_u1'
+... 'partch_u6' — Partch's utonalities (minor-type just-intonation
+scales). These scales are not intended for the 12-tone equal temperament
+and sound best when played as just intonation.;
+#X text 240 894 Miscellaneous: 'enigmatic' — Verdi's enigmatic scale.
+'jiao' — one of the five Chinese pentatonic scales. 'shawq_afza' —
+an Arabic maqam with a distinctive augmented-second flavor.;
+#X text 240 964 Note: some scales are not intended for the 12-tone
 equal temperament.;
-#X msg 50 302 bang;
-#X obj 50 331 list.gen 11;
-#X obj 184 331 random.i 0 7;
-#X obj 50 360 degree->key @scale major;
-#X obj 69 389 ui.dt;
-#X obj 50 432 msg @v;
-#X obj 146 432 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 461 seq @t 120bpm @inf;
-#X obj 50 489 + 72;
-#X obj 50 518 mtof;
-#X obj 50 547 osc~;
-#X obj 203 547 ui.dsp~;
-#X obj 50 576 ui.hgain~;
-#X obj 50 605 dac~;
-#X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 660 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 50 1067 bang;
+#X obj 50 1096 list.gen 11;
+#X obj 184 1096 random.i 0 7;
+#X obj 50 1125 degree->key @scale major;
+#X obj 69 1154 ui.dt;
+#X obj 50 1197 msg @v;
+#X obj 146 1197 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 50 1226 seq @t 120bpm @inf;
+#X obj 50 1254 + 72;
+#X obj 50 1283 mtof;
+#X obj 50 1312 osc~;
+#X obj 203 1312 ui.dsp~;
+#X obj 50 1341 ui.hgain~;
+#X obj 50 1370 dac~;
+#X obj 20 1420 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1425 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 663 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1428 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 661 1\.;
-#X text 170 661 symbol;
-#X obj 268 662 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 661 SCALE: scale name. Allowed values: aeolian \, ahirbhairav
+#X text 130 1426 1\.;
+#X text 170 1426 symbol;
+#X obj 268 1427 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1426 SCALE: scale name. Allowed values: aeolian \, ahirbhairav
 \, ajam \, atharKurd \, augmented \, augmented2 \, bartok \, bastanikar
 \, bayati \, bhairav \, chinese \, chromatic \, chromatic24 \, diminished
 \, diminished2 \, dorian \, egyptian \, enigmatic \, farahfaza \, gong
@@ -60,13 +102,13 @@ partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
 \, sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi
 \, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
 yu \, zamzam \, zanjaran \, zhi. Type: symbol.;
-#X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1018 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 1778 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1783 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1021 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1786 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1019 @scale;
-#X text 270 1019 Scale name. Type: symbol. Default value: major. Allowed
+#X msg 130 1784 @scale;
+#X text 270 1784 Scale name. Type: symbol. Default value: major. Allowed
 values: aeolian \, ahirbhairav \, ajam \, atharKurd \, augmented \,
 augmented2 \, bartok \, bastanikar \, bayati \, bhairav \, chinese
 \, chromatic \, chromatic24 \, diminished \, diminished2 \, dorian
@@ -87,9 +129,9 @@ rast_desc \, ritusen \, saba \, scriabin \, shang \, shawq_afza \,
 sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi \,
 ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \, yu
 \, zamzam \, zanjaran \, zhi.;
-#X obj 250 1363 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1363 @all?;
-#X text 270 1363 (readonly) List of all supported scales. Type: list.
+#X obj 250 2128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2128 @all?;
+#X text 270 2128 (readonly) List of all supported scales. Type: list.
 Default value: aeolian ahirbhairav ajam atharKurd augmented augmented2
 bartok bastanikar bayati bhairav chinese chromatic chromatic24 diminished
 diminished2 dorian egyptian enigmatic farahfaza gong hex_aeolian hex_dorian
@@ -105,33 +147,33 @@ partch_u4 partch_u5 partch_u6 pelog phrygian prometheus purvi rast
 rast_desc ritusen saba scriabin shang shawq_afza sikah sikah_desc spanish
 super_locrian suznak todi ushaq_mashri whole whole_leading yakah yakah_desc
 yu zamzam zanjaran zhi.;
-#X obj 20 1687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1692 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 2452 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2457 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1693 random;
-#X text 270 1693 chooses a random degree from the current scale and
+#X msg 130 2458 random;
+#X text 270 2458 chooses a random degree from the current scale and
 converts it to a key.;
-#X obj 20 1753 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1758 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 2518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2523 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1759 1\.;
-#X text 170 1759 float:;
-#X text 270 1759 input value.;
-#X text 170 1784 list:;
-#X text 270 1784 input values.;
-#X obj 20 1819 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1824 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 2524 1\.;
+#X text 170 2524 float:;
+#X text 270 2524 input value.;
+#X text 170 2549 list:;
+#X text 270 2549 input values.;
+#X obj 20 2584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2589 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1825 1\.;
-#X text 270 1825 float or list of floats: converted value(s).;
+#X text 130 2590 1\.;
+#X text 270 2590 float or list of floats: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1875 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1878 library: ceammc v0.9.8;
-#N canvas 10 1897 400 290 info 0;
+#X obj 1 2640 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2643 library: ceammc v0.9.8;
+#N canvas 10 2662 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -155,18 +197,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1897 pd info;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 12 0 13 0;
-#X connect 12 0 14 0;
-#X connect 14 0 16 0;
-#X connect 15 0 16 0;
+#X restore 10 2662 pd info;
 #X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
+#X connect 17 0 19 0;
+#X connect 19 0 20 0;
 #X connect 19 0 21 0;
-#X connect 21 0 22 0;
-#X connect 21 0 22 1;
-#X connect 10 1 11 0;
-#X connect 11 0 10 1;
+#X connect 21 0 23 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 28 0;
+#X connect 28 0 29 0;
+#X connect 28 0 29 1;
+#X connect 17 1 18 0;
+#X connect 18 0 17 1;

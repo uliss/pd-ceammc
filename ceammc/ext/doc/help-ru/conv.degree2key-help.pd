@@ -9,38 +9,80 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [degree->key] @url conv.degree2key-help.pd;
 #X obj 631 8 conv.degree2key;
-#X obj 230 78 cnv 1 535 176 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 1001 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Объект преобразует ступень лада в номер клавиши (MIDI-номер
 ноты в текущей октаве) \, используя выбранный звукоряд. Звукоряд задаётся
 как последовательность интервалов от тоники \, а ступень — это индекс
 шага на этом звукоряде. Звукоряд можно задать аргументом SCALE или
 свойством @scale. Список всех поддерживаемых звукорядов доступен в
 свойстве @all.;
-#X text 240 199 Примечание: некоторые звукоряды не предназначены для
+#X text 240 199 Распространённые западные лады и звукоряды:;
+#X text 240 224 'major' — ионийский лад. 'minor' — эолийский лад. 'ionian'
+\, 'dorian' \, 'phrygian' \, 'lydian' \, 'mixolydian' \, 'aeolian'
+\, 'locrian' — семь ладов диатонического звукоряда. 'major_pentatonic'
+и 'minor_pentatonic' — пятинотные звукоряды без полутонов. 'whole'
+— целотоновый звукоряд (шесть нот \, каждая на целый тон). 'whole_leading'
+— целотоновый звукоряд с вводным тоном (семь нот \, симметричный звукоряд).
+'chromatic' — 12-ступенный хроматический звукоряд. 'chromatic24' —
+24-ступенный микрохроматический звукоряд (четвертитоны).;
+#X text 240 385 Альтерированные и синтетические западные звукоряды:
+'major_harmonic' \, 'major_melodic' \, 'major_locrian' \, 'major_neapolitan'
+\, 'minor_harmonic' \, 'minor_melodic' \, 'minor_melodic_desc' \, 'minor_hungarian'
+\, 'minor_lydian' \, 'minor_neapolitan' \, 'minor_romanian' \, 'super_locrian'
+\, 'augmented' \, 'augmented2' \, 'diminished' \, 'diminished2' \,
+'bartok' \, 'hex_aeolian' \, 'hex_dorian' \, 'hex_major6' \, 'hex_major7'
+\, 'hex_phrygian' \, 'hex_sus' \, 'prometheus' \, 'scriabin' \, 'ritusen'
+— синтетические \, симметричные или альтерированные звукоряды \, используемые
+в классической \, джазовой и современной музыке.;
+#X text 240 561 Ближневосточные и центрально-азиатские макамы: 'ahirbhairav'
+\, 'ajam' \, 'atharKurd' \, 'bastanikar' \, 'bayati' \, 'farahfaza'
+\, 'hijaz' \, 'hijaz_desc' \, 'hijaz_kar' \, 'husseini' \, 'huzam'
+\, 'iraq' \, 'jiharkah' \, 'karjighar' \, 'kijaz_kar_kurd' \, 'kurd'
+\, 'mahur' \, 'murassah' \, 'mustar' \, 'nahawand' \, 'nahawand_desc'
+\, 'nairuz' \, 'nawa_athar' \, 'nikriz' \, 'rast' \, 'rast_desc' \,
+'saba' \, 'sikah' \, 'sikah_desc' \, 'suznak' \, 'ushaq_mashri' \,
+'yakah' \, 'yakah_desc' \, 'zamzam' \, 'zanjaran' — звукоряды \, используемые
+в арабской \, турецкой и персидской музыке (система макам).;
+#X text 240 722 Индийские раги и азиатские звукоряды: 'bhairav' \,
+'chinese' \, 'egyptian' \, 'gong' \, 'hindu' \, 'hirajoshi' \, 'indian'
+\, 'iwato' \, 'jiao' \, 'kumoi' \, 'marva' \, 'pelog' \, 'purvi' \,
+'shang' \, 'spanish' \, 'todi' \, 'yu' \, 'zhi' — звукоряды из индийской
+традиции раги \, китайской и японской музыки (гагаку \, сякухати) и
+других азиатских музыкальных систем.;
+#X text 240 838 Звукоряды Парча: 'partch_o1' … 'partch_o6' — «отональности»
+Гарри Парча (мажорные звукоряды в чистого строе) \, 'partch_u1' … 'partch_u6'
+— «утональности» Парча (минорные звукоряды в чистом строе). Эти звукоряды
+не предназначены для 12-ступенного равномерно-темперированного строя
+и лучше всего звучат в чистом строе (just intonation).;
+#X text 240 954 Прочие: 'enigmatic' — «энигматический» звукоряд Верди.
+'jiao' — один из пяти китайских пентатонических звукорядов. 'shawq_afza'
+— арабский макам с характерным звучанием увеличенной секунды.;
+#X text 240 1024 Примечание: некоторые звукоряды не предназначены для
 12-ступенного равномерно-темперированного строя.;
-#X msg 50 302 bang;
-#X obj 50 331 list.gen 11;
-#X obj 184 331 random.i 0 7;
-#X obj 50 360 degree->key @scale major;
-#X obj 69 389 ui.dt;
-#X obj 50 432 msg @v;
-#X obj 146 432 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 461 seq @t 120bpm @inf;
-#X obj 50 489 + 72;
-#X obj 50 518 mtof;
-#X obj 50 547 osc~;
-#X obj 203 547 ui.dsp~;
-#X obj 50 576 ui.hgain~;
-#X obj 50 605 dac~;
-#X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 660 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 1127 bang;
+#X obj 50 1156 list.gen 11;
+#X obj 184 1156 random.i 0 7;
+#X obj 50 1185 degree->key @scale major;
+#X obj 69 1214 ui.dt;
+#X obj 50 1257 msg @v;
+#X obj 146 1257 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 50 1286 seq @t 120bpm @inf;
+#X obj 50 1314 + 72;
+#X obj 50 1343 mtof;
+#X obj 50 1372 osc~;
+#X obj 203 1372 ui.dsp~;
+#X obj 50 1401 ui.hgain~;
+#X obj 50 1430 dac~;
+#X obj 20 1480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1485 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 663 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1488 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 661 1\.;
-#X text 170 661 symbol;
-#X obj 268 662 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 661 SCALE: название звукоряда. Разрешённые значения: aeolian
+#X text 130 1486 1\.;
+#X text 170 1486 symbol;
+#X obj 268 1487 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1486 SCALE: название звукоряда. Разрешённые значения: aeolian
 \, ahirbhairav \, ajam \, atharKurd \, augmented \, augmented2 \, bartok
 \, bastanikar \, bayati \, bhairav \, chinese \, chromatic \, chromatic24
 \, diminished \, diminished2 \, dorian \, egyptian \, enigmatic \,
@@ -60,13 +102,13 @@ partch_u3 \, partch_u4 \, partch_u5 \, partch_u6 \, pelog \, phrygian
 \, shang \, shawq_afza \, sikah \, sikah_desc \, spanish \, super_locrian
 \, suznak \, todi \, ushaq_mashri \, whole \, whole_leading \, yakah
 \, yakah_desc \, yu \, zamzam \, zanjaran \, zhi. Тип: symbol.;
-#X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1018 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 1838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1843 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1021 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1846 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1019 @scale;
-#X text 270 1019 Название звукоряда. Тип: symbol. Значение по умолчанию:
+#X msg 130 1844 @scale;
+#X text 270 1844 Название звукоряда. Тип: symbol. Значение по умолчанию:
 major. Разрешённые значения: aeolian \, ahirbhairav \, ajam \, atharKurd
 \, augmented \, augmented2 \, bartok \, bastanikar \, bayati \, bhairav
 \, chinese \, chromatic \, chromatic24 \, diminished \, diminished2
@@ -87,9 +129,9 @@ partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
 \, sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi
 \, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
 yu \, zamzam \, zanjaran \, zhi.;
-#X obj 250 1378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1378 @all?;
-#X text 270 1378 (только чтение) Список всех поддерживаемых звукорядов.
+#X obj 250 2203 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2203 @all?;
+#X text 270 2203 (только чтение) Список всех поддерживаемых звукорядов.
 Тип: list. Значение по умолчанию: aeolian ahirbhairav ajam atharKurd
 augmented augmented2 bartok bastanikar bayati bhairav chinese chromatic
 chromatic24 diminished diminished2 dorian egyptian enigmatic farahfaza
@@ -106,34 +148,34 @@ pelog phrygian prometheus purvi rast rast_desc ritusen saba scriabin
 shang shawq_afza sikah sikah_desc spanish super_locrian suznak todi
 ushaq_mashri whole whole_leading yakah yakah_desc yu zamzam zanjaran
 zhi.;
-#X obj 20 1717 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1722 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 2542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2547 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1723 random;
-#X text 270 1723 выбирает случайную ступень текущего звукоряда и преобразует
+#X msg 130 2548 random;
+#X text 270 2548 выбирает случайную ступень текущего звукоряда и преобразует
 её в номер клавиши.;
-#X obj 20 1783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1788 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 2608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2613 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1789 1\.;
-#X text 170 1789 float:;
-#X text 270 1789 входное значение.;
-#X text 170 1814 list:;
-#X text 270 1814 входные значения.;
-#X obj 20 1849 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1854 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2614 1\.;
+#X text 170 2614 float:;
+#X text 270 2614 входное значение.;
+#X text 170 2639 list:;
+#X text 270 2639 входные значения.;
+#X obj 20 2674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2679 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1855 1\.;
-#X text 270 1855 число или список чисел: преобразованное значение (или
+#X text 130 2680 1\.;
+#X text 270 2680 число или список чисел: преобразованное значение (или
 значения).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1923 библиотека: ceammc v0.9.8;
-#N canvas 10 1942 400 290 info 0;
+#X obj 1 2745 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2748 библиотека: ceammc v0.9.8;
+#N canvas 10 2767 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -157,18 +199,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1942 pd info;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 12 0 13 0;
-#X connect 12 0 14 0;
-#X connect 14 0 16 0;
-#X connect 15 0 16 0;
+#X restore 10 2767 pd info;
 #X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
+#X connect 17 0 19 0;
+#X connect 19 0 20 0;
 #X connect 19 0 21 0;
-#X connect 21 0 22 0;
-#X connect 21 0 22 1;
-#X connect 10 1 11 0;
-#X connect 11 0 10 1;
+#X connect 21 0 23 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 28 0;
+#X connect 28 0 29 0;
+#X connect 28 0 29 1;
+#X connect 17 1 18 0;
+#X connect 18 0 17 1;

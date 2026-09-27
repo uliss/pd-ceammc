@@ -34,6 +34,88 @@
         доступен в свойстве @all.</tr>
       </par>
       <par>
+        <tr lang="en">Common Western modes and scales:</tr>
+        <tr lang="ru">Распространённые западные лады и звукоряды:</tr>
+      </par>
+      <par>
+        <tr lang="en">'major' — ionian mode. 'minor' — aeolian mode. 'ionian', 'dorian',
+        'phrygian', 'lydian', 'mixolydian', 'aeolian', 'locrian' — the seven modes of the diatonic
+        scale. 'major_pentatonic' and 'minor_pentatonic' — five-note scales without semitones.
+        'whole' — whole-tone scale (six notes, each a whole step apart). 'whole_leading' — whole
+        tone plus leading tone (a seven-note symmetric scale). 'chromatic' — 12-tone chromatic
+        scale. 'chromatic24' — 24-tone microchromatic scale (quarter tones).</tr>
+        <tr lang="ru">'major' — ионийский лад. 'minor' — эолийский лад. 'ionian', 'dorian',
+        'phrygian', 'lydian', 'mixolydian', 'aeolian', 'locrian' — семь ладов диатонического
+        звукоряда. 'major_pentatonic' и 'minor_pentatonic' — пятинотные звукоряды без
+        полутонов. 'whole' — целотоновый звукоряд (шесть нот, каждая на целый тон). 'whole_leading'
+        — целотоновый звукоряд с вводным тоном (семь нот, симметричный звукоряд). 'chromatic' —
+        12-ступенный хроматический звукоряд. 'chromatic24' — 24-ступенный микрохроматический
+        звукоряд (четвертитоны).</tr>
+      </par>
+      <par>
+        <tr lang="en">Altered and synthetic Western scales: 'major_harmonic', 'major_melodic',
+        'major_locrian', 'major_neapolitan', 'minor_harmonic', 'minor_melodic',
+        'minor_melodic_desc', 'minor_hungarian', 'minor_lydian', 'minor_neapolitan',
+        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished',
+        'diminished2', 'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7',
+        'hex_phrygian', 'hex_sus', 'prometheus', 'scriabin', 'ritusen' — synthetic, symmetric or
+        altered scales used in classical, jazz and contemporary music.</tr>
+        <tr lang="ru">Альтерированные и синтетические западные звукоряды: 'major_harmonic',
+        'major_melodic', 'major_locrian', 'major_neapolitan', 'minor_harmonic', 'minor_melodic',
+        'minor_melodic_desc', 'minor_hungarian', 'minor_lydian', 'minor_neapolitan',
+        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished',
+        'diminished2', 'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7',
+        'hex_phrygian', 'hex_sus', 'prometheus', 'scriabin', 'ritusen' — синтетические,
+        симметричные или альтерированные звукоряды, используемые в классической, джазовой и
+        современной музыке.</tr>
+      </par>
+      <par>
+        <tr lang="en">Middle Eastern and Central Asian maqams: 'ahirbhairav', 'ajam',
+        'atharKurd', 'bastanikar', 'bayati', 'farahfaza', 'hijaz', 'hijaz_desc', 'hijaz_kar',
+        'husseini', 'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd',
+        'mahur', 'murassah', 'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar',
+        'nikriz', 'rast', 'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri',
+        'yakah', 'yakah_desc', 'zamzam', 'zanjaran' — scales used in Arabic, Turkish and Persian
+        music (maqam system).</tr>
+        <tr lang="ru">Ближневосточные и центрально-азиатские макамы: 'ahirbhairav', 'ajam',
+        'atharKurd', 'bastanikar', 'bayati', 'farahfaza', 'hijaz', 'hijaz_desc', 'hijaz_kar',
+        'husseini', 'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd',
+        'mahur', 'murassah', 'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar',
+        'nikriz', 'rast', 'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri',
+        'yakah', 'yakah_desc', 'zamzam', 'zanjaran' — звукоряды, используемые в арабской,
+        турецкой и персидской музыке (система макам).</tr>
+      </par>
+      <par>
+        <tr lang="en">Indian ragas and Asian scales: 'bhairav', 'chinese', 'egyptian', 'gong',
+        'hindu', 'hirajoshi', 'indian', 'iwato', 'jiao', 'kumoi', 'marva', 'pelog', 'purvi',
+        'shang', 'spanish', 'todi', 'yu', 'zhi' — scales from Indian raga tradition, Chinese and
+        Japanese (gagaku, shakuhachi), and other Asian musical systems.</tr>
+        <tr lang="ru">Индийские раги и азиатские звукоряды: 'bhairav', 'chinese', 'egyptian',
+        'gong', 'hindu', 'hirajoshi', 'indian', 'iwato', 'jiao', 'kumoi', 'marva', 'pelog',
+        'purvi', 'shang', 'spanish', 'todi', 'yu', 'zhi' — звукоряды из индийской традиции раги,
+        китайской и японской музыки (гагаку, сякухати) и других азиатских музыкальных
+        систем.</tr>
+      </par>
+      <par>
+        <tr lang="en">Partch scales: 'partch_o1' ... 'partch_o6' — Harry Partch's otonalities
+        (major-type just-intonation scales), 'partch_u1' ... 'partch_u6' — Partch's utonalities
+        (minor-type just-intonation scales). These scales are not intended for the 12-tone equal
+        temperament and sound best when played as just intonation.</tr>
+        <tr lang="ru">Звукоряды Парча: 'partch_o1' … 'partch_o6' — «отональности» Гарри Парча
+        (мажорные звукоряды в чистого строе), 'partch_u1' … 'partch_u6' — «утональности» Парча
+        (минорные звукоряды в чистом строе). Эти звукоряды не предназначены для 12-ступенного
+        равномерно-темперированного строя и лучше всего звучат в чистом строе (just
+        intonation).</tr>
+      </par>
+      <par>
+        <tr lang="en">Miscellaneous: 'enigmatic' — Verdi's enigmatic scale. 'jiao' — one of the
+        five Chinese pentatonic scales. 'shawq_afza' — an Arabic maqam with a distinctive
+        augmented-second flavor.</tr>
+        <tr lang="ru">Прочие: 'enigmatic' — «энигматический» звукоряд Верди. 'jiao' — один из
+        пяти китайских пентатонических звукорядов. 'shawq_afza' — арабский макам с характерным
+        звучанием увеличенной секунды.</tr>
+      </par>
+      <par>
         <tr lang="en">Note: some scales are not intended for the 12-tone equal temperament.</tr>
         <tr lang="ru">Примечание: некоторые звукоряды не предназначены для 12-ступенного
         равномерно-темперированного строя.</tr>
