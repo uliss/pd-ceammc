@@ -8,8 +8,8 @@
       </authors>
       <description>
         <tr lang="en">convert samples to seconds according to sample rate</tr>
-        <tr lang="ru">преобразовывает семплы в секунды в соответствии со скоростью
-        семплирования</tr>
+        <tr lang="ru">преобразует количество семплов в секунды в соответствии с частотой
+        дискретизации</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,15 +24,23 @@
         <see>conv.sec2samp</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a number of samples to a time in seconds, based on the
+        current sample rate of the patch. This is the inverse operation of [conv.sec2samp].</tr>
+        <tr lang="ru">Объект преобразует количество семплов во время в секундах, исходя из текущей
+        частоты дискретизации патча. Это операция, обратная [conv.sec2samp].</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="int">
           <tr lang="en">number of samples</tr>
-          <tr lang="ru" finished="false">количество образцов</tr>
+          <tr lang="ru">количество семплов</tr>
         </in>
         <in on="list">
-          <tr lang="en">list of number of samples</tr>
-          <tr lang="ru" finished="false">Список количества образцов</tr>
+          <tr lang="en">list of numbers of samples</tr>
+          <tr lang="ru">список значений количества семплов</tr>
         </in>
       </inlet>
     </inlets>
@@ -40,7 +48,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">converted value (float or list)</tr>
-          <tr lang="ru" finished="false">конвертируемое значение (флот или список)</tr>
+          <tr lang="ru">преобразованное значение (число или список)</tr>
         </out>
       </outlet>
     </outlets>

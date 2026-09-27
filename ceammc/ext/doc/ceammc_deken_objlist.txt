@@ -258,9 +258,9 @@ samp->ms	converts samples to millisecond according sample rate / преобра�
 conv.samp2ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 ceammc/samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-conv.samp2sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-ceammc/samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+conv.samp2sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
+ceammc/samp->sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
+samp->sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
 conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM

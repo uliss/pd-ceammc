@@ -137,8 +137,8 @@ conv.samp2ms~-help.pd;
 со скоростью семплирования;
 #X obj 30 1365 ui.link @title [conv.samp2sec] @url
 conv.samp2sec-help.pd;
-#X text 220 1362 преобразовывает семплы в секунды в соответствии со
-скоростью семплирования;
+#X text 220 1362 преобразует количество семплов в секунды в соответствии
+с частотой дискретизации;
 #X obj 30 1405 ui.link @title [conv.sec2bpm] @url
 conv.sec2bpm-help.pd;
 #X text 220 1402 преобразует период в секундах в темп BPM;
