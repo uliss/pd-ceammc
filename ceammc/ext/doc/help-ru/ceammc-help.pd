@@ -304,7 +304,7 @@ conv.lin2lin~-help.pd;
 #X text 200 3225 отображает один линейный диапазон в другой для сигналов;
 #X obj 30 3253 ui.link @title [conv.list2props] @url
 conv.list2props-help.pd;
-#X text 200 3250 преобразует список в серию свойств-сообщений;
+#X text 200 3250 преобразует список в серию сообщений-свойств;
 #X obj 30 3278 ui.link @title [conv.midi2freq] @url
 conv.midi2freq-help.pd;
 #X text 200 3275 продвинутое преобразование MIDI нот в частоту в Гц;

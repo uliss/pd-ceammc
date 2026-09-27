@@ -86,7 +86,7 @@ conv.lin2lin~-help.pd;
 #X text 220 877 отображает один линейный диапазон в другой для сигналов;
 #X obj 30 905 ui.link @title [conv.list2props] @url
 conv.list2props-help.pd;
-#X text 220 902 преобразует список в серию свойств-сообщений;
+#X text 220 902 преобразует список в серию сообщений-свойств;
 #X obj 30 930 ui.link @title [conv.midi2freq] @url
 conv.midi2freq-help.pd;
 #X text 220 927 продвинутое преобразование MIDI нот в частоту в Гц;

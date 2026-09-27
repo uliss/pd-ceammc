@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts list to series of property messages</tr>
-        <tr lang="ru">преобразует список в серию свойств-сообщений</tr>
+        <tr lang="ru">преобразует список в серию сообщений-свойств</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,15 +22,29 @@
         <alias>any-&gt;props</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes an input list that contains a mixture of plain values and
+        property-like symbols (starting with @) and splits it into two streams: a sequence of
+        property messages (@prop followed by its values) sent to the first outlet, and a list of
+        the remaining non-property values sent to the second outlet. This is useful for parsing
+        lists that mix positional arguments with named options.</tr>
+        <tr lang="ru">Объект принимает входной список, содержащий смесь обычных значений и
+        символов-свойств (начинающихся с @), и разделяет его на два потока: последовательность
+        сообщений-свойств (@prop и следующие за ним значения) отправляется на первый выход, а
+        список оставшихся значений без свойств — на второй выход. Это удобно для разбора списков,
+        в которых позиционные аргументы перемешаны с именованными опциями.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">list of properties</tr>
-          <tr lang="ru" finished="false">Список свойств</tr>
+          <tr lang="en">list of values and properties</tr>
+          <tr lang="ru">список значений и свойств</tr>
         </in>
         <in on="any">
-          <tr lang="en">list of properties</tr>
-          <tr lang="ru" finished="false">Список свойств</tr>
+          <tr lang="en">message with values and properties</tr>
+          <tr lang="ru">сообщение со значениями и свойствами</tr>
         </in>
       </inlet>
     </inlets>
@@ -38,13 +52,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">sequence of @prop messages</tr>
-          <tr lang="ru" finished="false">Последовательность сообщений @prop</tr>
+          <tr lang="ru">последовательность сообщений @prop</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">list of non prop arguments</tr>
-          <tr lang="ru" finished="false">Список аргументов non prop</tr>
+          <tr lang="en">list of non-property arguments</tr>
+          <tr lang="ru">список аргументов без свойств</tr>
         </out>
       </outlet>
     </outlets>

@@ -206,11 +206,11 @@ ceammc/lin->lin~	converts from the one linear range to another for signals / о�
 lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-conv.list2props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-ceammc/list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-ceammc/any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
+conv.list2props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+ceammc/list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+ceammc/any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 conv.midi2freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
 ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
 midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
