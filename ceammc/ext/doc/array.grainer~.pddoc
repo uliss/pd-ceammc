@@ -61,6 +61,25 @@
         <tr lang="en">@tag — grain tag</tr>
         <tr lang="ru">@tag — метка гранулы</tr>
       </par>
+      <par>
+        <tr lang="en">How to choose a detection method: 'hfc' is best for percussive sounds such
+        as drums and other sharp transients. 'complex' works well for tonal instruments like piano
+        and strings, where onsets are less pronounced in amplitude but clear in phase and spectrum.
+        'specflux' is a good universal choice when the source material is mixed or unknown. 'energy'
+        is simple and fast, suitable for signals with clearly separated loud and quiet parts.
+        'phase' and 'wphase' are useful for sustained or legato material where amplitude changes are
+        minimal. 'specdiff', 'kl' and 'mkl' provide alternative spectral measures and can be tried
+        when the default methods do not give satisfactory results.</tr>
+        <tr lang="ru">Как выбрать метод детекции: 'hfc' лучше всего подходит для перкуссионных
+        звуков — барабанов и других резких транзиентов. 'complex' хорошо работает для тональных
+        инструментов, таких как фортепиано и струнные, где атаки слабо выражены по амплитуде, но
+        отчётливы по фазе и спектру. 'specflux' — хороший универсальный выбор, когда исходный
+        материал смешанный или неизвестен. 'energy' прост и быстр, подходит для сигналов с явно
+        выраженными громкими и тихими участками. 'phase' и 'wphase' полезны для протяжного или
+        легатного материала, где изменения амплитуды минимальны. 'specdiff', 'kl' и 'mkl' дают
+        альтернативные спектральные меры и могут быть испробованы, когда методы по умолчанию не
+        дают удовлетворительного результата.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
