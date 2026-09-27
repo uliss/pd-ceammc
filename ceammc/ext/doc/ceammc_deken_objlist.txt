@@ -353,7 +353,7 @@ dyn.comp_up~	mono upward compressor / восходящий моно-компре
 comp.up~	mono upward compressor / восходящий моно-компрессор
 dyn.comp~	mono dynamic range compressors / моно-компрессор
 dyn.expand2~	stereo dynamic range expander with channel linking / расширение динамического стерео-диапазона
-dyn.expand~	mono dynamic range expander / расширение динамического моно-диапазона
+dyn.expand~	mono dynamic range expander / монофонический экспандер динамического диапазона
 dyn.gate2~	stereo signal gate / стерео-сигнальный гейт
 dyn.gate~	mono signal gate / моно-сигнальный гейт
 dyn.limit2~	stereo 1176LN Peak Limiter / пиковый стерео-ограничитель сигнала в схемотехнике 1176LN

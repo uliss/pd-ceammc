@@ -22,7 +22,7 @@ dyn.comp_up2~-help.pd;
 #X obj 30 270 ui.link @title [dyn.expand2~] @url dyn.expand2~-help.pd;
 #X text 220 267 расширение динамического стерео-диапазона;
 #X obj 30 295 ui.link @title [dyn.expand~] @url dyn.expand~-help.pd;
-#X text 220 292 расширение динамического моно-диапазона;
+#X text 220 292 монофонический экспандер динамического диапазона;
 #X obj 30 320 ui.link @title [dyn.gate2~] @url dyn.gate2~-help.pd;
 #X text 220 317 стерео-сигнальный гейт;
 #X obj 30 345 ui.link @title [dyn.gate~] @url dyn.gate~-help.pd;

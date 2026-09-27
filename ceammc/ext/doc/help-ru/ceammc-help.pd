@@ -502,7 +502,7 @@ dyn.comp_up~-help.pd;
 dyn.expand2~-help.pd;
 #X text 200 5246 расширение динамического стерео-диапазона;
 #X obj 30 5274 ui.link @title [dyn.expand~] @url dyn.expand~-help.pd;
-#X text 200 5271 расширение динамического моно-диапазона;
+#X text 200 5271 монофонический экспандер динамического диапазона;
 #X obj 30 5299 ui.link @title [dyn.gate2~] @url dyn.gate2~-help.pd;
 #X text 200 5296 стерео-сигнальный гейт;
 #X obj 30 5324 ui.link @title [dyn.gate~] @url dyn.gate~-help.pd;
