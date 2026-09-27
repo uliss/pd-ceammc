@@ -72,7 +72,7 @@ conv.guido2note-help.pd;
 conv.int2bits-help.pd;
 #X text 220 737 преобразует целое число в список битов;
 #X obj 30 765 ui.link @title [conv.lab2rgb] @url conv.lab2rgb-help.pd;
-#X text 220 762 преобразование цветовых значений из LAB в RGB;
+#X text 220 762 преобразует цветовые значения из LAB в RGB;
 #X obj 30 790 ui.link @title [conv.lin2curve] @url
 conv.lin2curve-help.pd;
 #X text 220 787 отображает линейный диапазон в экспоненциальный с разрешенным

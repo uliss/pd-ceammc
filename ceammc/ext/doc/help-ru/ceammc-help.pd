@@ -288,7 +288,7 @@ conv.int2bits-help.pd;
 #X text 200 3085 преобразует целое число в список битов;
 #X obj 30 3113 ui.link @title [conv.lab2rgb] @url
 conv.lab2rgb-help.pd;
-#X text 200 3110 преобразование цветовых значений из LAB в RGB;
+#X text 200 3110 преобразует цветовые значения из LAB в RGB;
 #X obj 30 3138 ui.link @title [conv.lin2curve] @url
 conv.lin2curve-help.pd;
 #X text 200 3135 отображает линейный диапазон в экспоненциальный с
