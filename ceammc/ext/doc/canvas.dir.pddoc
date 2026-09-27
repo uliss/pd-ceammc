@@ -7,8 +7,9 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">outputs the current canvas directory of the object and nesting level</tr>
-        <tr lang="ru">выводит директорию холста у объекта и его уровень вложенности</tr>
+        <tr lang="en">outputs the current canvas directory of the object and the nesting
+        level</tr>
+        <tr lang="ru">выводит директорию холста у объекта и уровень его вложенности</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,38 +21,50 @@
       </also>
       <since>0.8</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object outputs the directory of the canvas that contains it, together
+        with the nesting level of that canvas. The first outlet sends the directory as a symbol and
+        the second outlet sends the nesting level as an integer. The behavior with abstractions is
+        controlled by the @abs property.</tr>
+        <tr lang="ru">Объект выводит директорию холста, который его содержит, а также уровень
+        вложенности этого холста. Из первого выхода отправляется директория в виде символа, из
+        второго — уровень вложенности в виде целого числа. Поведение при работе с абстракциями
+        управляется свойством @abs.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @abs -->
       <property name="@abs" type="bool" default="1">
-        <tr lang="en">abstraction mode. If 1: it outputs the abstraction catalog, if the object is
-        located within the abstraction, or the path of the top-level parent catalog of the canvas,
-        if the object was not created within the abstraction. If 0: output topmost parent canvas
-        directory even this object was create inside the abstrction subpatch.</tr>
+        <tr lang="en">abstraction mode. If 1: outputs the abstraction catalog if the object is
+        located within an abstraction, or the path of the top-level parent catalog of the canvas if
+        the object was not created within an abstraction. If 0: outputs the topmost parent canvas
+        directory even if the object was created inside an abstraction subpatch.</tr>
         <tr lang="ru">режим абстракции. Если 1: выводит каталог абстракции, если объект находится
         внутри абстракции, или путь верхнего родительского каталога холста, если объект не был
-        создан внутри абстракции. Если 0: выводит путь верхнего родительского каталога холста, даже
-        этот объект был создан внутри субпатча абстракции.</tr>
+        создан внутри абстракции. Если 0: выводит путь верхнего родительского каталога холста,
+        даже если объект был создан внутри субпатча абстракции.</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current canvas directory</tr>
-          <tr lang="ru" finished="false">Выход текущего каталога canvas</tr>
+          <tr lang="en">outputs the current canvas directory</tr>
+          <tr lang="ru">выводит текущую директорию холста</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">symbol: current canvas directory</tr>
-          <tr lang="ru" finished="false">Символ: текущий каталог canvas</tr>
+        <out type="symbol">
+          <tr lang="en">current canvas directory</tr>
+          <tr lang="ru">текущая директория холста</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">int: nesting level</tr>
-          <tr lang="ru" finished="false">Int: уровень гнездования</tr>
+        <out type="int">
+          <tr lang="en">nesting level</tr>
+          <tr lang="ru">уровень вложенности</tr>
         </out>
       </outlet>
     </outlets>

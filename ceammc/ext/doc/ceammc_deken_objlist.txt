@@ -1042,7 +1042,7 @@ osc.tri~	bandlimited triangle wave oscillator / осциллятор треуг�
 canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
 ceammc/canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
 canvas.current	get the information about the current canvas of the object / получение информации о текущем холсте объекта
-canvas.dir	outputs the current canvas directory of the object and nesting level / выводит директорию холста у объекта и его уровень вложенности
+canvas.dir	outputs the current canvas directory of the object and the nesting level / выводит директорию холста у объекта и уровень его вложенности
 canvas.name	output the current canvas name of the object / выводит имя текущего холста у объекта
 canvas.path	output the current canvas file system full path of the object / выводит полный путь холста в файловой системе у объекта
 canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта

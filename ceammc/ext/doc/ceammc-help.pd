@@ -1740,7 +1740,7 @@ canvas.current-help.pd;
 object;
 #X obj 30 18119 ui.link @title [canvas.dir] @url canvas.dir-help.pd;
 #X text 200 18116 outputs the current canvas directory of the object
-and nesting level;
+and the nesting level;
 #X obj 30 18159 ui.link @title [canvas.name] @url canvas.name-help.pd;
 #X text 200 18156 output the current canvas name of the object;
 #X obj 30 18184 ui.link @title [canvas.path] @url canvas.path-help.pd;
