@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert list of bits to integer</tr>
-        <tr lang="ru">преобразовать список битов в целое число</tr>
+        <tr lang="ru">преобразует список битов в целое число</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,12 +25,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: byte default the least significant bit is the rightmost, this can be
-        changed with @rev property</tr>
-        <!-- old: Примечание: по умолчанию байт наименее значимый бит
-                является самым правильным, это может быть изменено свойством @rev -->
-        <tr lang="ru" finished="false">Примечание: по умолчанию байт наименее значимый бит является
-        самым правильным, это может быть изменено свойством @rev</tr>
+        <tr lang="en">The object takes a list of bits (0s and 1s) and converts it to an integer
+        value. By default, the least significant bit is the rightmost element of the list, that is,
+        the bits are read from most significant on the left to least significant on the right. This
+        can be changed with the @rev property, which reverses the bit order.</tr>
+        <tr lang="ru">Объект принимает список битов (0 и 1) и преобразует его в целое число. По
+        умолчанию младший значащий бит — это самый правый элемент списка, то есть биты читаются
+        от старшего слева к младшему справа. Это можно изменить свойством @rev, которое
+        инвертирует порядок битов.</tr>
       </par>
     </info>
     <properties>
@@ -44,15 +46,15 @@
       <inlet>
         <in on="list">
           <tr lang="en">input bit list</tr>
-          <tr lang="ru" finished="false">Список входных бит</tr>
+          <tr lang="ru">входной список битов</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">list of bits</tr>
-          <tr lang="ru" finished="false">Список битов</tr>
+          <tr lang="en">integer value</tr>
+          <tr lang="ru">целое число</tr>
         </out>
       </outlet>
     </outlets>
