@@ -43,7 +43,7 @@
     <entry name="array.each" descr="process each array element via side-chain" ref_view="link">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.fill" descr="fill the array with the single value, pattern or function" ref_view="link">
+    <entry name="array.fill" descr="fill the array with a single value, pattern or function" ref_view="link">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
     <entry name="array.grainer~" descr="array granulator" ref_view="link">

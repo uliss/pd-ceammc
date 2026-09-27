@@ -5,142 +5,148 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.fill 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 array.fill;
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект заполняет указанный массив данными. Доступно
+несколько способов заполнения: одним значением \, повторяющимся шаблоном
+или сгенерированной волновой формой. По завершении заполнения на выход
+отправляется bang.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array afill 300 float 0;
 #X coords 0 1 300 -1 300 90 1;
-#X restore 50 118 graph;
-#X msg 50 219 fill 0.1;
-#X msg 213 219 gauss 0 0.4;
-#X msg 386 219 gauss 0.5 0.2;
-#X msg 50 248 fill -0.2 0 1 0.5 0.6;
-#X msg 328 248 uniform -0.2 0.5;
-#X msg 50 277 fill @from 50 0.5 0.6 0.7 0.7 0.8;
-#X msg 434 277 pulse 50 0.7 0.3;
-#X msg 50 305 fill @from 20 @to -10 -0.5;
-#X msg 366 305 saw 60 0.9;
-#X msg 530 305 tri 80 0.6;
-#X obj 155 334 ui.knob;
-#X msg 155 392 sin 100 0.8 \$1;
-#X obj 50 421 array.fill @array afill;
-#X obj 50 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 50 216 graph;
+#X msg 50 317 fill 0.1;
+#X msg 213 317 gauss 0 0.4;
+#X msg 386 317 gauss 0.5 0.2;
+#X msg 50 346 fill -0.2 0 1 0.5 0.6;
+#X msg 328 346 uniform -0.2 0.5;
+#X msg 50 375 fill @from 50 0.5 0.6 0.7 0.7 0.8;
+#X msg 434 375 pulse 50 0.7 0.3;
+#X msg 50 403 fill @from 20 @to -10 -0.5;
+#X msg 366 403 saw 60 0.9;
+#X msg 530 403 tri 80 0.6;
+#X obj 155 432 ui.knob;
+#X msg 155 490 sin 100 0.8 \$1;
+#X obj 50 519 array.fill @array afill;
+#X obj 50 547 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 486 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 584 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 489 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 587 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 487 1\.;
-#X text 170 487 symbol;
-#X obj 268 488 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 487 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 527 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 585 1\.;
+#X text 170 585 symbol;
+#X obj 268 586 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 585 ARRAY: имя массива для заполнения. Тип: symbol.;
+#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 625 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 530 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 628 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 528 @array;
-#X text 270 528 Имя массива. Тип: symbol.;
-#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 558 @redraw;
-#X text 270 558 Перерисовать после изменения массива. Тип: bool. Значение
+#X msg 130 626 @array;
+#X text 270 626 Имя массива для заполнения. Тип: symbol.;
+#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 656 @redraw;
+#X text 270 656 Перерисовывать массив после изменения. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 615 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 713 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 616 fill;
-#X text 270 616 заполнить весь массив заданным значением или шаблоном.
-Аргументы:;
-#X obj 300 656 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 656 [@from]: индекс начала заполнения. Если не указано
-\, используется 0\. Тип: int.;
-#X obj 300 694 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 694 [@to]: конечный индекс заполнения. Может быть отрицательным
-- для адресации с конца массива. Например: -1 означает последний элемент
-(не включая). Если не указана заполняет массив до конца. Тип: int.;
-#X obj 300 762 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 762 VAL1: первое значение. Тип: float.;
-#X obj 300 785 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 785 [VAL...]: другие значения... Тип: float.;
-#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 818 gauss;
-#X text 270 818 заполнить весь массив случайным значением с нормальным
+#X msg 130 714 fill;
+#X text 270 714 заполняет весь массив заданным значением или повторяющимся
+шаблоном. Аргументы:;
+#X obj 300 754 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 754 [@from]: начальный индекс диапазона заполнения. Если
+не указан \, используется 0\. Тип: int.;
+#X obj 300 792 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 792 [@to]: конечный индекс диапазона заполнения. Может
+быть отрицательным для адресации с конца массива. Например \, -1 означает
+последний элемент (не включая его). Если не указан \, используется
+длина массива. Тип: int.;
+#X obj 300 860 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 860 VAL1: первое значение. Тип: float.;
+#X obj 300 883 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 883 [VAL...]: дополнительные значения. Тип: float.;
+#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 916 gauss;
+#X text 270 916 заполняет весь массив случайными значениями с нормальным
 (гауссовым) распределением. Аргументы:;
-#X obj 300 858 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 858 [MEAN=0]: среднее значение. Тип: float.;
-#X obj 300 881 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 881 [SIGMA=1]: стандартное отклонение. Тип: float. Минимальное
+#X obj 300 956 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 956 [MEAN=0]: среднее значение. Тип: float.;
+#X obj 300 979 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 979 [SIGMA=1]: стандартное отклонение. Тип: float. Минимальное
 значение: 0\.;
-#X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 929 pulse;
-#X text 270 929 заполнить весь массив прямоугольной волной. Аргументы:;
-#X obj 300 954 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 954 T: период волны. Тип: float. Минимальное значение:
+#X obj 250 1027 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1027 pulse;
+#X text 270 1027 заполняет весь массив прямоугольной волной. Аргументы:;
+#X obj 300 1052 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1052 T: период волны. Тип: float. Минимальное значение:
 1\. Единицы: 'samp'.;
-#X obj 300 992 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 992 [A=1]: амплитуда волны. Тип: float.;
-#X obj 300 1015 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1015 [D=0.5]: процент заполнения. Тип: float. Диапазон:
+#X obj 300 1090 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1090 [A=1]: амплитуда волны. Тип: float.;
+#X obj 300 1113 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1113 [D=0.5]: коэффициент заполнения. Тип: float. Диапазон:
 [0.001\..0.999].;
-#X obj 250 1063 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1063 saw;
-#X text 270 1063 заполнить весь массив пилообразной волной. Аргументы:;
-#X obj 300 1088 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1088 T: период волны. Тип: float. Минимальное значение:
+#X obj 250 1161 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1161 saw;
+#X text 270 1161 заполняет весь массив пилообразной волной. Аргументы:;
+#X obj 300 1186 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1186 T: период волны. Тип: float. Минимальное значение:
 1\. Единицы: 'samp'.;
-#X obj 300 1126 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1126 [A=1]: амплитуда волны. Тип: float.;
-#X obj 300 1149 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1149 [PHASE=0]: фаза волны. Тип: float. Диапазон: [0\..1].;
-#X obj 250 1182 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1182 sin;
-#X text 270 1182 заполнить весь массив синусоидальной волной. Аргументы:;
-#X obj 300 1207 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1207 T: период волны. Должен быть >0\. Тип: float. Минимальное
+#X obj 300 1224 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1224 [A=1]: амплитуда волны. Тип: float.;
+#X obj 300 1247 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1247 [PHASE=0]: фаза волны. Тип: float. Диапазон: [0\..1].;
+#X obj 250 1280 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1280 sin;
+#X text 270 1280 заполняет весь массив синусоидальной волной. Аргументы:;
+#X obj 300 1305 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1305 T: период волны. Должен быть >0\. Тип: float. Минимальное
 значение: 0\. Единицы: 'samp'.;
-#X obj 300 1245 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1245 [A=1]: амплитуда. Тип: float.;
-#X obj 300 1268 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1268 [PHASE=0]: фаза в диапазоне 0\...1\. Тип: float. Диапазон:
+#X obj 300 1343 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1343 [A=1]: амплитуда. Тип: float.;
+#X obj 300 1366 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1366 [PHASE=0]: фаза в диапазоне 0\...1\. Тип: float. Диапазон:
 [0\..1].;
-#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1316 tri;
-#X text 270 1316 заполнить весь массив треугольной волной. Аргументы:;
-#X obj 300 1341 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1341 T: период волны. Тип: float. Минимальное значение:
+#X obj 250 1414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1414 tri;
+#X text 270 1414 заполняет весь массив треугольной волной. Аргументы:;
+#X obj 300 1439 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1439 T: период волны. Тип: float. Минимальное значение:
 1\. Единицы: 'samp'.;
-#X obj 300 1379 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1379 [AMP=1]: амплитуда волны. Тип: float.;
-#X obj 250 1412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1412 uniform;
-#X text 270 1412 заполнить весь массив случайным значением с равномерным
+#X obj 300 1477 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1477 [AMP=1]: амплитуда волны. Тип: float.;
+#X obj 250 1510 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1510 uniform;
+#X text 270 1510 заполняет весь массив случайными значениями с равномерным
 распределением. Аргументы:;
-#X obj 300 1452 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1452 [A=0]: минимальная значение. Тип: float.;
-#X obj 300 1475 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1475 [B=1]: максимальное значение. Тип: float.;
-#X obj 20 1518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1523 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1550 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1550 [A=0]: минимальное значение. Тип: float.;
+#X obj 300 1573 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1573 [B=1]: максимальное значение. Тип: float.;
+#X obj 20 1616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1621 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1524 1\.;
-#X text 170 1524 symbol:;
-#X text 270 1524 установить имя массива.;
-#X obj 20 1559 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1564 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1622 1\.;
+#X text 170 1622 symbol:;
+#X text 270 1622 устанавливает имя массива.;
+#X obj 20 1657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1662 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1565 1\.;
-#X text 170 1565 bang:;
-#X text 270 1565 после завершения операции.;
+#X text 130 1663 1\.;
+#X text 170 1663 bang:;
+#X text 270 1663 отправляется по завершении заполнения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1618 библиотека: ceammc v0.9.8;
-#X text 544 1630 смотрите также:;
-#X obj 665 1633 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1713 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1716 библиотека: ceammc v0.9.8;
+#X text 544 1728 смотрите также:;
+#X obj 665 1731 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.each] @url array.each-help.pd;
-#N canvas 10 1637 400 290 info 0;
+#N canvas 10 1735 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -164,17 +170,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1637 pd info;
-#X connect 15 0 16 0;
-#X connect 16 0 17 0;
+#X restore 10 1735 pd info;
 #X connect 17 0 18 0;
-#X connect 5 0 17 0;
-#X connect 8 0 17 0;
-#X connect 10 0 17 0;
-#X connect 12 0 17 0;
-#X connect 6 0 17 0;
-#X connect 7 0 17 0;
-#X connect 9 0 17 0;
-#X connect 11 0 17 0;
-#X connect 13 0 17 0;
-#X connect 14 0 17 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 7 0 19 0;
+#X connect 10 0 19 0;
+#X connect 12 0 19 0;
+#X connect 14 0 19 0;
+#X connect 8 0 19 0;
+#X connect 9 0 19 0;
+#X connect 11 0 19 0;
+#X connect 13 0 19 0;
+#X connect 15 0 19 0;
+#X connect 16 0 19 0;

@@ -13,7 +13,7 @@ array.convolve	FFT convolution of the array / FFT-свёртка массива
 array.copy	copy samples from one array to another / копирование семплов из одного массива в другой
 array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепочку
 array.each	process each array element via side-chain / обработка каждого элемента массива через боковую цепочку
-array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
+array.fill	fill the array with a single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
 array.grainer~	array granulator / гранулятор звуковой таблицы
 array.hist	calculate the array histogram / вычисление гистограммы массива
 array.histogram	calculate the array histogram / вычисление гистограммы массива

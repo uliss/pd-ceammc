@@ -23,8 +23,7 @@ array.convolve-help.pd;
 #X obj 30 285 ui.link @title [array.each] @url array.each-help.pd;
 #X text 220 282 process each array element via side-chain;
 #X obj 30 310 ui.link @title [array.fill] @url array.fill-help.pd;
-#X text 220 307 fill the array with the single value \, pattern or
-function;
+#X text 220 307 fill the array with a single value \, pattern or function;
 #X obj 30 335 ui.link @title [array.grainer~] @url
 array.grainer~-help.pd;
 #X text 220 332 array granulator;
