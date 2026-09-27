@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">FFT convolution of the array</tr>
-        <tr lang="ru">FFT свертка массива</tr>
+        <tr lang="ru">FFT-свёртка массива</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,38 +16,53 @@
       <keywords>array fft convolution</keywords>
       <since>0.9.5</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object performs an FFT convolution of the target array with an impulse
+        response array. The target array is set with the first argument (or the @array property),
+        and the impulse response is taken from the array given by the second argument (or the @ir
+        property). The convolution is started by a bang on the left inlet. When the process
+        finishes, a bang is sent out through the outlet. If the @norm flag is enabled, the impulse
+        response is normalized before convolution.</tr>
+        <tr lang="ru">Объект выполняет FFT-свёртку целевого массива с массивом импульсного отклика.
+        Целевой массив задаётся первым аргументом (или свойством @array), а импульсный отклик
+        берётся из массива, указанного вторым аргументом (или свойством @ir). Свёртка запускается
+        по bang на левом входе. Когда процесс завершается, через выход отправляется bang. Если
+        включён флаг @norm, импульсный отклик нормализуется перед свёрткой.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">target array</tr>
-        <tr lang="ru">целевой массив</tr>
+        <tr lang="en">name of the target array to write the convolution result into</tr>
+        <tr lang="ru">имя целевого массива, в который записывается результат свёртки</tr>
       </argument>
       <argument name="IR" type="symbol">
-        <tr lang="en">array with impulse response</tr>
-        <tr lang="ru">массив с импульсным откликом</tr>
+        <tr lang="en">name of the array that holds the impulse response</tr>
+        <tr lang="ru">имя массива, содержащего импульсный отклик</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">target array</tr>
-        <tr lang="ru">целевой массив</tr>
+        <tr lang="en">name of the target array to write the convolution result into</tr>
+        <tr lang="ru">имя целевого массива, в который записывается результат свёртки</tr>
       </property>
       <!-- @ir -->
       <property name="@ir" type="symbol" default="">
-        <tr lang="en">impulse response source array</tr>
-        <tr lang="ru">массив с импульсным откликом</tr>
+        <tr lang="en">name of the array that holds the impulse response</tr>
+        <tr lang="ru">имя массива, содержащего импульсный отклик</tr>
       </property>
       <!-- @norm -->
       <property name="@norm" type="bool" default="0">
-        <tr lang="en">impulse response normalization</tr>
-        <tr lang="ru">нормализация импульсного отклика</tr>
+        <tr lang="en">normalize the impulse response before convolution</tr>
+        <tr lang="ru">нормализовать импульсный отклик перед свёрткой</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">start convolution process</tr>
-          <tr lang="ru">начинает процесс свертки</tr>
+          <tr lang="en">starts the convolution process</tr>
+          <tr lang="ru">запускает процесс свёртки</tr>
         </in>
       </inlet>
       <inlet>
@@ -60,8 +75,8 @@
     <outlets>
       <outlet>
         <out type="bang">
-          <tr lang="en">on done</tr>
-          <tr lang="ru">при завершении свертки</tr>
+          <tr lang="en">sent when the convolution is finished</tr>
+          <tr lang="ru">отправляется по завершении свёртки</tr>
         </out>
       </outlet>
     </outlets>

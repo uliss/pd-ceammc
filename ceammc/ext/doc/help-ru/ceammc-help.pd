@@ -34,7 +34,7 @@ array.circular~-help.pd;
 #X text 200 441 чтение/запись сигнала в массив как в кольцевой буфер;
 #X obj 30 469 ui.link @title [array.convolve] @url
 array.convolve-help.pd;
-#X text 200 466 FFT свертка массива;
+#X text 200 466 FFT-свёртка массива;
 #X obj 30 494 ui.link @title [array.copy] @url array.copy-help.pd;
 #X text 200 491 копирование семплов из одного массива в другой;
 #X obj 30 519 ui.link @title [array.do] @url array.do-help.pd;

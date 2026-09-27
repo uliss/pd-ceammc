@@ -1,73 +1,85 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 619 50 FFT свертка массива;
+#X text 619 50 FFT-свёртка массива;
 #X obj 1 1 cnv 5 765 40 empty empty array.convolve 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 array.convolve;
+#X obj 230 78 cnv 1 535 151 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект выполняет FFT-свёртку целевого массива с массивом
+импульсного отклика. Целевой массив задаётся первым аргументом (или
+свойством @array) \, а импульсный отклик берётся из массива \, указанного
+вторым аргументом (или свойством @ir). Свёртка запускается по bang
+на левом входе. Когда процесс завершается \, через выход отправляется
+bang. Если включён флаг @norm \, импульсный отклик нормализуется перед
+свёрткой.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-CONV 100 float 0;
 #X coords 0 1 100 -1 200 130 1;
-#X restore 50 118 graph;
+#X restore 50 277 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-IR 10 float 0;
 #X coords 0 1 10 -1 40 130 1;
-#X restore 270 118 graph;
-#X obj 50 277 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 270 277 graph;
+#X obj 50 436 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 305 array.convolve A-CONV A-IR;
-#X obj 50 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 464 array.convolve A-CONV A-IR;
+#X obj 50 493 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 530 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 533 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 372 1\.;
-#X text 170 372 symbol;
-#X obj 268 373 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 372 ARRAY: целевой массив. Тип: symbol.;
-#X text 130 397 2\.;
-#X text 170 397 symbol;
-#X obj 268 398 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 397 IR: массив с импульсным откликом. Тип: symbol.;
-#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 437 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 531 1\.;
+#X text 170 531 symbol;
+#X obj 268 532 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 531 ARRAY: имя целевого массива \, в который записывается
+результат свёртки. Тип: symbol.;
+#X text 130 571 2\.;
+#X text 170 571 symbol;
+#X obj 268 572 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 571 IR: имя массива \, содержащего импульсный отклик. Тип:
+symbol.;
+#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 611 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 440 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 614 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 438 @array;
-#X text 270 438 Целевой массив. Тип: symbol.;
-#X obj 250 468 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 468 @ir;
-#X text 270 468 Массив с импульсным откликом. Тип: symbol.;
-#X obj 250 498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 498 @norm;
-#X text 270 498 Нормализация импульсного отклика. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 555 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 612 @array;
+#X text 270 612 Имя целевого массива \, в который записывается результат
+свёртки. Тип: symbol.;
+#X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 654 @ir;
+#X text 270 654 Имя массива \, содержащего импульсный отклик. Тип:
+symbol.;
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @norm;
+#X text 270 684 Нормализовать импульсный отклик перед свёрткой. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 741 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 556 1\.;
-#X text 170 556 bang:;
-#X text 270 556 начинает процесс свертки.;
-#X text 130 581 2\.;
-#X text 170 581 symbol:;
-#X text 270 581 устанавливает имя массива.;
-#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 621 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 742 1\.;
+#X text 170 742 bang:;
+#X text 270 742 запускает процесс свёртки.;
+#X text 130 767 2\.;
+#X text 170 767 symbol:;
+#X text 270 767 устанавливает имя массива.;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 622 1\.;
-#X text 170 622 bang:;
-#X text 270 622 при завершении свертки.;
+#X text 130 808 1\.;
+#X text 170 808 bang:;
+#X text 270 808 отправляется по завершении свёртки.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 675 библиотека: ceammc v0.9.8;
-#N canvas 10 694 400 290 info 0;
+#X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 861 библиотека: ceammc v0.9.8;
+#N canvas 10 880 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,6 +103,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 694 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 880 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
