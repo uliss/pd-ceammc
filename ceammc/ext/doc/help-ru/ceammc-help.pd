@@ -891,7 +891,7 @@ fx.rb_pitchshift~-help.pd;
 #X text 200 9388 ревербератор Шрёдера 1971 года;
 #X obj 30 9416 ui.link @title [fx.scramble~] @url
 fx.scramble~-help.pd;
-#X text 200 9413 скремблер задержанных звуковых фрагментов;
+#X text 200 9413 скремблирование задержанных звуковых фрагментов;
 #X obj 30 9441 ui.link @title [fx.shimmer~] @url fx.shimmer~-help.pd;
 #X text 200 9438 шиммер-эффект реверберации;
 #X obj 30 9466 ui.link @title [fx.stutter~] @url fx.stutter~-help.pd;

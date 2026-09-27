@@ -1,109 +1,117 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 446 50 cnv 1 319 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 451 50 скремблер задержанных звуковых фрагментов;
+#X obj 400 50 cnv 1 365 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 405 50 скремблирование задержанных звуковых фрагментов;
 #X obj 1 1 cnv 5 765 40 empty empty fx.scramble~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.scramble~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X obj 50 176 readsf~;
-#X obj 50 205 fx.scramble~;
-#X obj 50 234 ui.gain2~ @size 120 16;
-#X obj 299 234 ui.dsp~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Стереоэффект \, который скремблирует задержанные звуковые
+фрагменты: фрагменты входного сигнала записываются в линию задержки
+и затем воспроизводятся в перемешанном (случайном) порядке \, при этом
+для левого и правого каналов задаются свои частоты скремблирования
+и диапазоны задержки. Соотношение dry/wet \, обратная связь и обход
+управляются соответствующими свойствами.;
+#X msg 50 262 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 291 expand_env;
+#X obj 50 320 readsf~;
+#X obj 50 349 fx.scramble~;
+#X obj 50 378 ui.gain2~ @size 120 16;
+#X obj 299 378 ui.dsp~;
+#X obj 50 406 dac~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 float;
-#X obj 268 319 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 FREQ1(Hz): left channel scramble frequency. Тип: float.
-Диапазон: [0.25\..50];
-#X text 130 358 2\.;
-#X text 170 358 float;
-#X obj 268 359 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 FREQ2(Hz): right channel scramble frequency. Тип: float.
-Диапазон: [0.25\..50];
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 462 1\.;
+#X text 170 462 float;
+#X obj 268 463 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 462 FREQ1(Hz): частота скремблирования левого канала. Тип:
+float. Диапазон: [0.25\..50];
+#X text 130 502 2\.;
+#X text 170 502 float;
+#X obj 268 503 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 502 FREQ2(Hz): частота скремблирования правого канала.
+Тип: float. Диапазон: [0.25\..50];
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 557 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 560 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @id;
-#X text 270 414 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 558 @id;
+#X text 270 558 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_scramble/ИМЯ_СВОЙСТВА \, в противном случае к /fx_scramble/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 501 @osc;
-#X text 270 501 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 531 @active;
-#X text 270 531 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 645 @osc;
+#X text 270 645 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 675 @active;
+#X text 270 675 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @bypass;
-#X text 270 573 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 615 @dev;
-#X text 270 615 Scramble freq deviation. Тип: float. Значение по умолчанию:
-0.25\. Диапазон: [0\..1].;
-#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 657 @drywet;
-#X text 270 657 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: [0\..1].;
-#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 714 @feedback;
-#X text 270 714 Feedback coefficient. Тип: float. Значение по умолчанию:
-0.25\. Диапазон: [0\..0.99].;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 @freq1;
-#X text 270 756 Left channel scramble frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 7\. Диапазон: [0.25\..50].;
-#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 798 @freq2;
-#X text 270 798 Right channel scramble frequency. Тип: float. Единицы:
-'Hz'. Значение по умолчанию: 5\. Диапазон: [0.25\..50].;
-#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 855 @range;
-#X text 270 855 Scramble delay amount. Тип: float. Значение по умолчанию:
-0.5\. Диапазон: [0\..1].;
-#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 912 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 913 reset;
-#X text 270 913 reset to initial state.;
-#X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 963 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 964 1\.;
-#X text 170 964 ~;
-#X text 270 964 input signal.;
-#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1004 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 717 @bypass;
+#X text 270 717 Флаг обхода. Если истина — входной сигнал проходит
+без обработки \, минуя скремблирование. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 @dev;
+#X text 270 774 Отклонение частоты скремблирования. Тип: float. Значение
+по умолчанию: 0.25\. Диапазон: [0\..1].;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 816 @drywet;
+#X text 270 816 Доля микса между исходным (dry) и обработанным (wet)
+сигналами. 0 — исходный сигнал \, 1 — обработанный. Тип: float. Значение
+по умолчанию: 0.5\. Диапазон: [0\..1].;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 873 @feedback;
+#X text 270 873 Коэффициент обратной связи. Тип: float. Значение по
+умолчанию: 0.25\. Диапазон: [0\..0.99].;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 @freq1;
+#X text 270 915 Частота скремблирования левого канала. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 7\. Диапазон: [0.25\..50].;
+#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 972 @freq2;
+#X text 270 972 Частота скремблирования правого канала. Тип: float.
+Единицы: 'Hz'. Значение по умолчанию: 5\. Диапазон: [0.25\..50].;
+#X obj 250 1029 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1029 @range;
+#X text 270 1029 Величина задержки скремблирования. Тип: float. Значение
+по умолчанию: 0.5\. Диапазон: [0\..1].;
+#X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1086 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1005 1\.;
-#X text 170 1005 ~;
-#X text 270 1005 left output signal.;
-#X text 130 1025 2\.;
-#X text 170 1025 ~;
-#X text 270 1025 right output signal.;
+#X msg 130 1087 reset;
+#X text 270 1087 возвращает объект в начальное состояние.;
+#X obj 20 1132 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1137 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1138 1\.;
+#X text 170 1138 ~;
+#X text 270 1138 входной сигнал.;
+#X obj 20 1173 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1178 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1179 1\.;
+#X text 170 1179 ~;
+#X text 270 1179 левый выходной сигнал.;
+#X text 130 1199 2\.;
+#X text 170 1199 ~;
+#X text 270 1199 правый выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1075 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1078 библиотека: ceammc v0.9.8;
-#X text 551 1090 смотрите также:;
-#X obj 672 1093 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1252 библиотека: ceammc v0.9.8;
+#X text 551 1264 смотрите также:;
+#X obj 672 1267 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.delay~] @url fx.delay~-help.pd;
-#N canvas 10 1097 400 290 info 0;
+#N canvas 10 1271 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -127,11 +135,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1097 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 1271 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
-#X connect 7 1 8 1;
-#X connect 8 0 10 0;
-#X connect 8 1 10 1;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 10 0 12 0;
+#X connect 10 1 12 1;

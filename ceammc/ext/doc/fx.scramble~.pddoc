@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">scramble delayed sound fragments</tr>
-        <tr lang="ru">скремблер задержанных звуковых фрагментов</tr>
+        <tr lang="ru">скремблирование задержанных звуковых фрагментов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,14 +19,28 @@
         <see>fx.delay~</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A stereo effect that scrambles delayed sound fragments: fragments of the
+        input signal are captured into a delay line and then replayed in a scrambled (randomized)
+        order, with separate scramble frequencies and delay ranges for the left and right channels.
+        The dry/wet ratio, feedback and bypass are controlled by the corresponding
+        properties.</tr>
+        <tr lang="ru">Стереоэффект, который скремблирует задержанные звуковые фрагменты:
+        фрагменты входного сигнала записываются в линию задержки и затем воспроизводятся в
+        перемешанном (случайном) порядке, при этом для левого и правого каналов задаются свои
+        частоты скремблирования и диапазоны задержки. Соотношение dry/wet, обратная связь и
+        обход управляются соответствующими свойствами.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="FREQ1" type="float" minvalue="0.25" maxvalue="50" units="hertz">
         <tr lang="en">left channel scramble frequency</tr>
-        <tr lang="ru" finished="false">частота скремблирования левого канала</tr>
+        <tr lang="ru">частота скремблирования левого канала</tr>
       </argument>
       <argument name="FREQ2" type="float" minvalue="0.25" maxvalue="50" units="hertz">
         <tr lang="en">right channel scramble frequency</tr>
-        <tr lang="ru" finished="false">частота скремблирования правого канала</tr>
+        <tr lang="ru">частота скремблирования правого канала</tr>
       </argument>
     </arguments>
     <properties>
@@ -35,53 +49,50 @@
       <xi:include href="props_active.xml" />
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true — the input signal is passed through unchanged, without
+        scrambling</tr>
+        <tr lang="ru">флаг обхода. Если истина — входной сигнал проходит без обработки, минуя
+        скремблирование</tr>
       </property>
       <!-- @dev -->
       <property name="@dev" type="float" minvalue="0" maxvalue="1" default="0.25">
         <tr lang="en">scramble freq deviation</tr>
-        <tr lang="ru" finished="false">Отклонение freq</tr>
+        <tr lang="ru">отклонение частоты скремблирования</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
-        - dry signal, 1 - wet</tr>
-        <!-- old: пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
-        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and the effected (wet) signals.
+        0 — dry signal, 1 — wet signal</tr>
+        <tr lang="ru">доля микса между исходным (dry) и обработанным (wet) сигналами. 0 —
+        исходный сигнал, 1 — обработанный</tr>
       </property>
       <!-- @feedback -->
       <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.25">
         <tr lang="en">feedback coefficient</tr>
-        <tr lang="ru" finished="false">коэффициент обратной связи</tr>
+        <tr lang="ru">коэффициент обратной связи</tr>
       </property>
       <!-- @freq1 -->
       <property name="@freq1" type="float" minvalue="0.25" maxvalue="50" units="hertz" default="7">
         <tr lang="en">left channel scramble frequency</tr>
-        <tr lang="ru" finished="false">частота скремблирования левого канала</tr>
+        <tr lang="ru">частота скремблирования левого канала</tr>
       </property>
       <!-- @freq2 -->
       <property name="@freq2" type="float" minvalue="0.25" maxvalue="50" units="hertz" default="5">
         <tr lang="en">right channel scramble frequency</tr>
-        <tr lang="ru" finished="false">частота скремблирования правого канала</tr>
+        <tr lang="ru">частота скремблирования правого канала</tr>
       </property>
       <!-- @range -->
       <property name="@range" type="float" minvalue="0" maxvalue="1" default="0.5">
         <tr lang="en">scramble delay amount</tr>
-        <tr lang="ru" finished="false">Сумма задержки Scramble</tr>
+        <tr lang="ru">величина задержки скремблирования</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="en">resets the object to its initial state</tr>
+          <tr lang="ru">возвращает объект в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -89,7 +100,7 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -97,13 +108,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output signal</tr>
-          <tr lang="ru" finished="false">левый выходной сигнал</tr>
+          <tr lang="ru">левый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output signal</tr>
-          <tr lang="ru" finished="false">правильный выходной сигнал</tr>
+          <tr lang="ru">правый выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

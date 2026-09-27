@@ -585,7 +585,7 @@ fx.recho~	reversed echo effect / обратный эффект эха
 fx.ringmod~	ring modulator effect / кольцевой модулятор
 fx.room~	Gardner's room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
 fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
-fx.scramble~	scramble delayed sound fragments / скремблер задержанных звуковых фрагментов
+fx.scramble~	scramble delayed sound fragments / скремблирование задержанных звуковых фрагментов
 fx.shimmer~	shimmer reverb effect / шиммер-эффект реверберации
 fx.stutter~	stutter effect / эффект заикания
 fx.tapiir~	multi-tap delay / многоуровневая задержка

@@ -76,7 +76,7 @@ fx.rb_pitchshift~-help.pd;
 #X obj 30 820 ui.link @title [fx.satrev~] @url fx.satrev~-help.pd;
 #X text 220 817 ревербератор Шрёдера 1971 года;
 #X obj 30 845 ui.link @title [fx.scramble~] @url fx.scramble~-help.pd;
-#X text 220 842 скремблер задержанных звуковых фрагментов;
+#X text 220 842 скремблирование задержанных звуковых фрагментов;
 #X obj 30 870 ui.link @title [fx.shimmer~] @url fx.shimmer~-help.pd;
 #X text 220 867 шиммер-эффект реверберации;
 #X obj 30 895 ui.link @title [fx.stutter~] @url fx.stutter~-help.pd;
