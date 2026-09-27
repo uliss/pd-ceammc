@@ -409,7 +409,7 @@ music.voice2midi-help.pd;
 #X text 200 4268 многофункциональный объект для работы с числами с
 плавающей точкой;
 #X obj 30 4311 ui.link @title [data.int] @url data.int-help.pd;
-#X text 200 4308 многофункциональный объект целого числа;
+#X text 200 4308 многофункциональный объект для работы с целыми числами;
 #X obj 30 4336 ui.link @title [data.list] @url data.list-help.pd;
 #X text 200 4333 cписок;
 #X obj 30 4361 ui.link @title [data.mlist] @url data.mlist-help.pd;

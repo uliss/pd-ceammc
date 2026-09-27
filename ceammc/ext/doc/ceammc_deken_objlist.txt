@@ -301,9 +301,9 @@ data.fifo	FIFO (First In First Out) - the queue data container / FIFO (First In 
 data.float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
 .float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
 .f	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
-data.int	a multi-functional integer object / многофункциональный объект целого числа
-.int	a multi-functional integer object / многофункциональный объект целого числа
-.i	a multi-functional integer object / многофункциональный объект целого числа
+data.int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
+.int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
+.i	a multi-functional integer object / многофункциональный объект для работы с целыми числами
 data.list	the list container / cписок
 data.mlist	multidimensional list container / контейнер многомерного списка
 ceammc/mlist	multidimensional list container / контейнер многомерного списка
