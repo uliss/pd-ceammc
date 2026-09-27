@@ -19,14 +19,28 @@
         <alias>array.r</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object resamples the source array and writes the result into the
+        destination array. The resampling factor is set with the @ratio property (source size
+        divided by destination size) and the quality of the resampling is controlled with the
+        @quality property. When a bang is received, the resampling is started, and the number of
+        samples in the resulting array is sent to the outlet.</tr>
+        <tr lang="ru">Объект пересемплирует исходный массив и записывает результат в массив
+        назначения. Коэффициент пересемплирования задаётся свойством @ratio (размер исходного
+        массива, делённый на размер массива назначения), а качество пересемплирования — свойством
+        @quality. По bang запускается пересемплирование, а в выход отправляется число семплов в
+        результирующем массиве.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="SRC" type="symbol">
-        <tr lang="en">source array</tr>
-        <tr lang="ru">исходный массив</tr>
+        <tr lang="en">name of the source array</tr>
+        <tr lang="ru">имя исходного массива</tr>
       </argument>
       <argument name="DEST" type="symbol">
-        <tr lang="en">destination array</tr>
-        <tr lang="ru">массив результата</tr>
+        <tr lang="en">name of the destination array</tr>
+        <tr lang="ru">имя массива назначения</tr>
       </argument>
     </arguments>
     <properties>
@@ -37,8 +51,8 @@
       </property>
       <!-- @dest -->
       <property name="@dest" type="symbol" default="">
-        <tr lang="en">destination array</tr>
-        <tr lang="ru">массив назначения</tr>
+        <tr lang="en">name of the destination array</tr>
+        <tr lang="ru">имя массива назначения</tr>
       </property>
       <!-- @fast -->
       <property name="@fast" type="alias">
@@ -62,25 +76,25 @@
       </property>
       <!-- @quality -->
       <property name="@quality" type="symbol" enum="high fast low medium best" default="high">
-        <tr lang="en">resample quality</tr>
-        <tr lang="ru">качество ресемплинга</tr>
+        <tr lang="en">resampling quality</tr>
+        <tr lang="ru">качество пересемплирования</tr>
       </property>
       <!-- @ratio -->
       <property name="@ratio" type="float" minvalue="0" default="0">
-        <tr lang="en">resample ratio (src/dest)</tr>
-        <tr lang="ru">соотношение ресемплинга (src/dest)</tr>
+        <tr lang="en">resampling ratio (src/dest)</tr>
+        <tr lang="ru">коэффициент пересемплирования (src/dest)</tr>
       </property>
       <!-- @src -->
       <property name="@src" type="symbol" default="">
-        <tr lang="en">source array</tr>
-        <tr lang="ru">исходный массив</tr>
+        <tr lang="en">name of the source array</tr>
+        <tr lang="ru">имя исходного массива</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">starts resampling</tr>
-          <tr lang="ru">начинает ресемплинг</tr>
+          <tr lang="en">starts the resampling</tr>
+          <tr lang="ru">запускает пересемплирование</tr>
         </in>
       </inlet>
     </inlets>
@@ -88,7 +102,7 @@
       <outlet>
         <out type="int">
           <tr lang="en">number of samples after resampling</tr>
-          <tr lang="ru">число семплов после ресемплинга</tr>
+          <tr lang="ru">число семплов после пересемплирования</tr>
         </out>
       </outlet>
     </outlets>
