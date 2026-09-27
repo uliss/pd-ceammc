@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert radians value to phase [0-1)</tr>
-        <tr lang="ru">преобразование радианов в фазу [0-1)</tr>
+        <tr lang="ru">преобразует значение в радианах в фазу [0, 1)</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,23 +23,33 @@
         <alias>rad-&gt;phase</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts an angle in radians to a phase value in the range
+        [0, 1). A value of 0 radians maps to 0, a value of π maps to 0.5, and 2π wraps back to 0.
+        This is the inverse operation of [conv.phase2rad].</tr>
+        <tr lang="ru">Объект преобразует угол в радианах в значение фазы в диапазоне [0, 1).
+        Значение 0 радиан соответствует 0, значение π — 0.5, а 2π снова даёт 0. Это операция,
+        обратная [conv.phase2rad].</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="en">angle in radians</tr>
+          <tr lang="ru">угол в радианах</tr>
         </in>
         <in on="list">
-          <tr lang="en">input values</tr>
-          <tr lang="ru" finished="false">входные значения</tr>
+          <tr lang="en">list of angles in radians</tr>
+          <tr lang="ru">список углов в радианах</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">converted value</tr>
-          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+          <tr lang="en">phase value in the [0, 1) range</tr>
+          <tr lang="ru">значение фазы в диапазоне [0, 1)</tr>
         </out>
       </outlet>
     </outlets>

@@ -243,9 +243,9 @@ pitch->midi	converts SPN pitch to MIDI note number / преобразует вы
 conv.pol2car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
 ceammc/pol->car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
 pol->car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
-conv.rad2phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
-ceammc/rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
-rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+conv.rad2phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
+ceammc/rad->phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
+rad->phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
 conv.rad2phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 ceammc/rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)

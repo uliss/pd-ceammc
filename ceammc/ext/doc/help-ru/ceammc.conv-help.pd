@@ -119,7 +119,7 @@ conv.pol2car-help.pd;
 #X text 220 1182 преобразует полярные координаты в декартовы;
 #X obj 30 1210 ui.link @title [conv.rad2phase] @url
 conv.rad2phase-help.pd;
-#X text 220 1207 преобразование радианов в фазу [0-1);
+#X text 220 1207 преобразует значение в радианах в фазу [0 \, 1);
 #X obj 30 1235 ui.link @title [conv.rad2phase~] @url
 conv.rad2phase~-help.pd;
 #X text 220 1232 преобразование значения радианов в фазу [0-1);

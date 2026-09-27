@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 485 50 cnv 1 280 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 490 50 преобразование радианов в фазу [0-1);
+#X obj 416 50 cnv 1 349 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 421 50 преобразует значение в радианах в фазу [0 \, 1);
 #X obj 1 1 cnv 5 765 40 empty empty conv.rad2phase 20 20 0 20 -104026
 -4096 0;
 #X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,35 +9,39 @@
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [rad->phase] @url conv.rad2phase-help.pd;
 #X obj 638 8 conv.rad2phase;
-#X obj 50 118 ui.hsl @min 0 @max 7 @show_value 1;
-#X obj 50 147 rad->phase;
-#X obj 50 176 ui.knob;
-#X obj 50 234 phase->rad;
-#X floatatom 50 262 5 0 0 0 - - -;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 299 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует угол в радианах в значение фазы в
+диапазоне [0 \, 1). Значение 0 радиан соответствует 0 \, значение π
+— 0.5 \, а 2π снова даёт 0\. Это операция \, обратная [conv.phase2rad].;
+#X obj 50 216 ui.hsl @min 0 @max 7 @show_value 1;
+#X obj 50 245 rad->phase;
+#X obj 50 274 ui.knob;
+#X obj 50 332 phase->rad;
+#X floatatom 50 360 5 0 0 0 - - -;
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 397 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 300 1\.;
-#X text 170 300 float:;
-#X text 270 300 input value.;
-#X text 170 325 list:;
-#X text 270 325 input values.;
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 365 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 398 1\.;
+#X text 170 398 float:;
+#X text 270 398 угол в радианах.;
+#X text 170 423 list:;
+#X text 270 423 список углов в радианах.;
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 463 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 366 1\.;
-#X text 270 366 converted value.;
+#X text 130 464 1\.;
+#X text 270 464 значение фазы в диапазоне [0 \, 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 515 520 смотрите также:;
-#X obj 636 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 514 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 517 библиотека: ceammc v0.9.8;
+#X text 515 529 смотрите также:;
+#X obj 636 532 ui.link @background_color 0.78431 0.78431 0.78431
 @title [conv.phase2rad] @url conv.phase2rad-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 536 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -61,8 +65,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 536 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
