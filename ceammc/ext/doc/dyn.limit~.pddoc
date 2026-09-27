@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">mono 1176LN Peak Limiter</tr>
-        <tr lang="ru">пиковый моно-ограничитель сигнала в схемотехнике 1176LN</tr>
+        <tr lang="ru">пиковый моно-ограничитель в стиле 1176LN</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,6 +22,17 @@
       </also>
     </meta>
     <info>
+      <par>
+        <tr lang="en">A mono peak limiter inspired by the classic UREI 1176LN Peak Limiter. The
+        object emulates the behavior of that hardware unit: fast peak limiting with a
+        program-dependent release. The limiter is intended to catch short peaks and prevent them
+        from exceeding the threshold, rather than acting as a general-purpose compressor.</tr>
+        <tr lang="ru">Монофонический пиковый ограничитель, вдохновлённый классическим
+        UREI 1176LN Peak Limiter. Объект эмулирует поведение этого аппаратного устройства:
+        быстрое пиковое ограничение с зависящим от программы временем восстановления. Ограничитель
+        предназначен для перехвата коротких пиков и недопущения превышения ими порога, а не для
+        работы в качестве универсального компрессора.</tr>
+      </par>
       <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
     </info>
     <properties>
@@ -31,8 +42,8 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="en">resets the object to its initial state</tr>
+          <tr lang="ru">возвращает объект в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -40,7 +51,7 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -48,7 +59,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

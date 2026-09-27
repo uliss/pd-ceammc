@@ -31,7 +31,7 @@ dyn.comp_up2~-help.pd;
 #X text 220 367 пиковый стерео-ограничитель сигнала в схемотехнике
 1176LN;
 #X obj 30 395 ui.link @title [dyn.limit~] @url dyn.limit~-help.pd;
-#X text 220 392 пиковый моно-ограничитель сигнала в схемотехнике 1176LN;
+#X text 220 392 пиковый моно-ограничитель в стиле 1176LN;
 #X obj 30 420 ui.link @title [dyn.softclip~] @url
 dyn.softclip~-help.pd;
 #X text 220 417 мягкое клиппирование сигнала;
