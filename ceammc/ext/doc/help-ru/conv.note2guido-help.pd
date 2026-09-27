@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 475 50 cnv 1 290 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 480 50 преобразует MIDI ноту в Guido-нотацию;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 преобразует MIDI-номер ноты в нотацию GUIDO;
 #X obj 1 1 cnv 5 765 40 empty empty conv.note2guido 20 20 0 20 -104026
 -4096 0;
 #X obj 365 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,48 +9,54 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [note->guido] @url conv.note2guido-help.pd;
 #X obj 631 8 conv.note2guido;
-#X obj 50 118 ui.keyboard;
-#X msg 50 190 \$1;
-#X msg 98 190 60 61 62;
-#X msg 203 190 note 61 4.5;
-#X msg 338 190 note 61 4.25;
-#X obj 50 234 conv.note2guido;
-#X obj 50 262 ui.dt;
-#X obj 50 291 conv.note2guido-inscore;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует MIDI-номер ноты (высоту) вместе с
+длительностью в ноту \, записанную в нотации GUIDO. Результат отправляется
+из выхода в виде символа и может быть подан в другие объекты \, например
+[proto.inscore] или рендереры партитур. Значение высоты меньше 0 трактуется
+как пауза.;
+#X obj 50 247 ui.keyboard;
+#X msg 50 319 \$1;
+#X msg 98 319 60 61 62;
+#X msg 203 319 note 61 4.5;
+#X msg 338 319 note 61 4.25;
+#X obj 50 363 conv.note2guido;
+#X obj 50 391 ui.dt;
+#X obj 50 420 conv.note2guido-inscore;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 475 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 347 note;
-#X text 270 347 Аргументы:;
-#X obj 300 372 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 372 PITCH: note pitch (pitch <0 treated as rest). Тип:
-int.;
-#X obj 300 395 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 395 DUR: note duration. Тип: float.;
-#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 443 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 476 note;
+#X text 270 476 Аргументы:;
+#X obj 300 501 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 501 PITCH: высота ноты (значение < 0 трактуется как пауза).
+Тип: int.;
+#X obj 300 539 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 539 DUR: длительность ноты. Тип: float.;
+#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 587 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 444 1\.;
-#X text 170 444 float:;
-#X text 270 444 pitch.;
-#X text 170 469 list:;
-#X text 270 469 list of pitches.;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 509 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 588 1\.;
+#X text 170 588 float:;
+#X text 270 588 высота.;
+#X text 170 613 list:;
+#X text 270 613 список высот.;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 653 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 510 1\.;
-#X text 270 510 symbol: converted value.;
+#X text 130 654 1\.;
+#X text 270 654 символ: преобразованное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 560 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 563 библиотека: ceammc v0.9.8;
-#X text 522 575 смотрите также:;
-#X obj 643 578 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 704 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 707 библиотека: ceammc v0.9.8;
+#X text 522 719 смотрите также:;
+#X obj 643 722 ui.link @background_color 0.78431 0.78431 0.78431
 @title [proto.inscore] @url proto.inscore-help.pd;
-#N canvas 10 582 400 290 info 0;
+#N canvas 10 726 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -74,10 +80,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 582 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 726 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;

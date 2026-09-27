@@ -228,9 +228,9 @@ ms->samp~	convert time in milliseconds to number of samples according to current
 conv.ms2str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ceammc/ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
-conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
-ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
-note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
+conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
+ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
+note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
 conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
