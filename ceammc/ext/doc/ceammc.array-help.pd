@@ -60,7 +60,7 @@ array.stretch-help.pd;
 #X obj 30 685 ui.link @title [array.sum] @url array.sum-help.pd;
 #X text 220 682 calculates the sum of array elements;
 #X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
-#X text 220 707 calculates sum of squares of array elements;
+#X text 220 707 calculates the sum of squares of array elements;
 #X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
 #X text 220 732 triggered ramp index generator for the array;
 #X obj 30 760 ui.link @title [array.variance] @url

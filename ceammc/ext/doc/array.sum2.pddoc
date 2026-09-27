@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">calculates sum of squares of array elements</tr>
+        <tr lang="en">calculates the sum of squares of array elements</tr>
         <tr lang="ru">вычисляет сумму квадратов элементов массива</tr>
       </description>
       <license>GPL3 or later</license>
@@ -19,24 +19,34 @@
         <see>array.sum</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object computes the sum of squares of all samples in the specified array
+        and outputs it as a single float. This value is used, for example, when calculating the RMS
+        and variance of the array.</tr>
+        <tr lang="ru">Объект вычисляет сумму квадратов всех семплов указанного массива и выводит её
+        одним числом с плавающей точкой. Это значение используется, например, при вычислении RMS
+        и дисперсии массива.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs the sum of squares</tr>
-          <tr lang="ru">вычисляет и выводит сумму квадратов</tr>
+          <tr lang="en">calculates the sum of squares and outputs it</tr>
+          <tr lang="ru">вычисляет сумму квадратов и выводит её</tr>
         </in>
       </inlet>
     </inlets>
