@@ -6,349 +6,364 @@
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/bitmap] @url bitmap-help.pd;
 #X obj 696 8 bitmap;
-#X msg 50 118 clear;
-#X msg 261 118 rect 1 2 10 5;
-#X msg 453 118 mirror x;
-#X msg 69 147 fill 1;
-#X msg 261 147 clear \, ellipse 1 2 10 5;
-#X msg 69 176 invert;
-#X msg 261 176 clear \, text 1 6 Hi!;
-#X msg 69 205 fill_color 1;
-#X msg 261 205 clear \, line 0 7 15 0;
-#X msg 69 234 fill_color 0;
-#X msg 261 234 pixel 15 7;
-#X msg 69 262 stroke_width 1;
-#X msg 261 262 triangle 0 0 8 0 4 7;
-#X msg 69 291 stroke_width 2;
-#X msg 261 291 arc 1 1 6 0 270;
-#X msg 69 320 font FONT_4x6;
-#X msg 261 320 set list 0 1 0 1 0 1 1;
-#X msg 69 349 font FONT_5x7;
-#X msg 261 349 set matrix 3 3 1 0 1 0 1 0 1 0 1;
-#X msg 69 378 hshift 1;
-#X msg 261 378 set matrix_at 2 2 6 10 1 0 0 1;
-#X msg 69 406 hshift -1;
-#X msg 261 406 row 1 10 1;
-#X msg 434 406 save ~/bitmap.png;
-#X obj 50 478 msg.after bang;
-#X obj 50 507 bitmap 16 8;
-#X obj 50 536 ui.matrix 8 16;
-#X text 50 579 ...;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 631 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 282 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object stores a binary image as a 2D matrix of bits
+and provides a set of drawing \, transformation and I/O methods. The
+bitmap size is set with the W and H arguments (or the @w and @h properties)
+and cannot be changed after creation. Pixels can be drawn with drawing
+methods (line \, rect \, circle \, text and others) \, transformed
+(mirror \, shift \, invert) \, loaded from an image file or set from
+a list or matrix. The content can be output as a list or as a [matrix
+NROWS NCOLS DATA...( message \, saved as a PNG file \, and viewed in
+a separate window.;
+#X text 240 244 Colors: the bitmap is binary \, so pixels have only
+two possible values — 0 or 1\. Drawing methods use the fill color (@fill_color)
+or the stroke color (@stroke_color) if they draw outlines. Color can
+be 0 or 1 \, or -1 for "no color" (for fill_color and text_color).
+The method fill sets all pixels to a given value at once.;
+#X msg 50 408 clear;
+#X msg 261 408 rect 1 2 10 5;
+#X msg 453 408 mirror x;
+#X msg 69 437 fill 1;
+#X msg 261 437 clear \, ellipse 1 2 10 5;
+#X msg 69 466 invert;
+#X msg 261 466 clear \, text 1 6 Hi!;
+#X msg 69 495 fill_color 1;
+#X msg 261 495 clear \, line 0 7 15 0;
+#X msg 69 524 fill_color 0;
+#X msg 261 524 pixel 15 7;
+#X msg 69 552 stroke_width 1;
+#X msg 261 552 triangle 0 0 8 0 4 7;
+#X msg 69 581 stroke_width 2;
+#X msg 261 581 arc 1 1 6 0 270;
+#X msg 69 610 font FONT_4x6;
+#X msg 261 610 set list 0 1 0 1 0 1 1;
+#X msg 69 639 font FONT_5x7;
+#X msg 261 639 set matrix 3 3 1 0 1 0 1 0 1 0 1;
+#X msg 69 668 hshift 1;
+#X msg 261 668 set matrix_at 2 2 6 10 1 0 0 1;
+#X msg 69 696 hshift -1;
+#X msg 261 696 row 1 10 1;
+#X msg 434 696 save ~/bitmap.png;
+#X obj 50 768 msg.after bang;
+#X obj 50 797 bitmap 16 8;
+#X obj 50 826 ui.matrix 8 16;
+#X text 50 869 ...;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 921 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 666 Left-click + ⇧;
-#X text 310 666 open bitmap viewer window.;
-#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 701 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 956 Left-click + ⇧;
+#X text 310 956 open bitmap viewer window.;
+#X obj 20 986 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 991 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 704 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 994 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 702 1\.;
-#X text 170 702 int;
-#X obj 268 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 702 W: bitmap width in pixels \, see @w. Type: int. Range:
+#X text 130 992 1\.;
+#X text 170 992 int;
+#X obj 268 993 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 992 W: bitmap width in pixels \, see @w. Type: int. Range:
 [1\..256];
-#X text 130 742 2\.;
-#X text 170 742 int;
-#X obj 268 743 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 742 H: bitmap height in pixels \, see @h. Type: int. Range:
+#X text 130 1032 2\.;
+#X text 170 1032 int;
+#X obj 268 1033 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1032 H: bitmap height in pixels \, see @h. Type: int. Range:
 [1\..256];
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 797 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1087 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 800 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1090 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 798 @h;
-#X text 270 798 (initonly) Bitmap height in pixels. Type: int. Default
+#X msg 130 1088 @h;
+#X text 270 1088 (initonly) Bitmap height in pixels. Type: int. Default
 value: 8\. Range: [1\..256].;
-#X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 840 @w;
-#X text 270 840 (initonly) Bitmap width in pixels. Type: int. Default
+#X obj 250 1130 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1130 @w;
+#X text 270 1130 (initonly) Bitmap width in pixels. Type: int. Default
 value: 8\. Range: [1\..256].;
-#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 897 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1182 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1187 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 898 arc;
-#X text 270 898 draw an arc. Arguments are:;
-#X obj 300 923 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 923 X: x coordinate. Type: int.;
-#X obj 300 946 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 946 Y: y coordinate. Type: int.;
-#X obj 300 969 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 969 D: diameter. Type: int.;
-#X obj 300 992 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 992 START: start angle. 0 = top. Type: int. Units: 'deg'.;
-#X obj 300 1015 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1015 LEN: arc length \, counter-clockwise. Type: int. Units:
+#X msg 130 1188 arc;
+#X text 270 1188 draws an arc. Arguments are:;
+#X obj 300 1213 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1213 X: x coordinate. Type: int.;
+#X obj 300 1236 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1236 Y: y coordinate. Type: int.;
+#X obj 300 1259 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1259 D: diameter. Type: int.;
+#X obj 300 1282 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1282 START: start angle. 0 — top. Type: int. Units: 'deg'.;
+#X obj 300 1305 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1305 LEN: arc length \, counter-clockwise. Type: int. Units:
 'deg'.;
-#X obj 300 1038 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1038 [CENTER=0]: if 1: set the center of the arc \, not
-the top-left corner. Type: bool.;
-#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1086 circle;
-#X text 270 1086 draw a circle. Arguments are:;
-#X obj 300 1111 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1111 X: x coordinate. Type: int.;
-#X obj 300 1134 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1134 Y: y coordinate. Type: int.;
-#X obj 300 1157 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1157 D: diameter. Type: int.;
-#X obj 300 1180 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1180 [CENTER=0]: if 1: set the center of the circle \,
-not the top-left corner. Type: bool.;
-#X obj 250 1228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1228 clear;
-#X text 270 1228 clear the bitmap (set all pixels to 0).;
-#X obj 250 1263 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1263 column;
-#X text 270 1263 draw a column. Arguments are:;
-#X obj 300 1288 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1288 COL: column index. Type: int.;
-#X obj 300 1311 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1311 H: column height (can be negative to draw in the opposite
+#X obj 300 1328 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1328 [CENTER=0]: if 1: set the center of the arc instead
+of the top-left corner. Type: bool.;
+#X obj 250 1376 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1376 circle;
+#X text 270 1376 draws a circle. Arguments are:;
+#X obj 300 1401 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1401 X: x coordinate. Type: int.;
+#X obj 300 1424 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1424 Y: y coordinate. Type: int.;
+#X obj 300 1447 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1447 D: diameter. Type: int.;
+#X obj 300 1470 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1470 [CENTER=0]: if 1: set the center of the circle instead
+of the top-left corner. Type: bool.;
+#X obj 250 1518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1518 clear;
+#X text 270 1518 clears the bitmap (sets all pixels to 0).;
+#X obj 250 1553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1553 column;
+#X text 270 1553 draws a column. Arguments are:;
+#X obj 300 1578 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1578 COL: column index. Type: int.;
+#X obj 300 1601 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1601 H: column height (can be negative to draw in the opposite
 direction). Type: int.;
-#X obj 300 1349 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1349 DY: y offset. Type: int.;
-#X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1382 ellipse;
-#X text 270 1382 draw an ellipse. Arguments are:;
-#X obj 300 1407 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1407 X: x coordinate. Type: int.;
-#X obj 300 1430 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1430 Y: y coordinate. Type: int.;
-#X obj 300 1453 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1453 W: width. Type: int.;
-#X obj 300 1476 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1476 H: height. Type: int.;
-#X obj 300 1499 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1499 [CENTER=0]: if 1: set the center of the ellipse \,
-not the top-left corner. Type: bool.;
-#X obj 250 1547 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1547 fill;
-#X text 270 1547 set all pixels to a value. Arguments are:;
-#X obj 300 1572 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1572 [V=0]: value. Type: int.;
-#X obj 250 1605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1605 fill_color;
-#X text 270 1605 set the fill color. Arguments are:;
-#X obj 300 1630 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1630 [COLOR]: fill color (0 \, 1 \, or -1 for no color).
+#X obj 300 1639 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1639 DY: y offset. Type: int.;
+#X obj 250 1672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1672 ellipse;
+#X text 270 1672 draws an ellipse. Arguments are:;
+#X obj 300 1697 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1697 X: x coordinate. Type: int.;
+#X obj 300 1720 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1720 Y: y coordinate. Type: int.;
+#X obj 300 1743 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1743 W: width. Type: int.;
+#X obj 300 1766 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1766 H: height. Type: int.;
+#X obj 300 1789 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1789 [CENTER=0]: if 1: set the center of the ellipse instead
+of the top-left corner. Type: bool.;
+#X obj 250 1837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1837 fill;
+#X text 270 1837 sets all pixels to a value. Arguments are:;
+#X obj 300 1862 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1862 [V=0]: value. Type: int.;
+#X obj 250 1895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1895 fill_color;
+#X text 270 1895 sets the fill color. Arguments are:;
+#X obj 300 1920 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1920 [COLOR]: fill color (0 \, 1 \, or -1 for no color).
 Type: int.;
-#X obj 250 1663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1663 font;
-#X text 270 1663 set the font. Arguments are:;
-#X obj 300 1688 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1688 NAME: font name. Type: symbol. Allowed values: FONT_4X6
+#X obj 250 1953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1953 font;
+#X text 270 1953 sets the font. Arguments are:;
+#X obj 300 1978 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1978 NAME: font name. Type: symbol. Allowed values: FONT_4X6
 \, FONT_5X7 \, FONT_5X8 \, FONT_6X10 \, FONT_6X9\.;
-#X obj 250 1736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1736 get list;
-#X text 270 1736 output content as a list.;
-#X obj 250 1771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1771 get matrix;
-#X text 270 1771 output bitmap content as a [matrix NROWS NCOLS DATA...(
-message.;
-#X obj 250 1821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1821 get submatrix;
-#X text 270 1821 output submatrix bitmap content as a [matrix NROWS
-NCOLS DATA...( message. Arguments are:;
-#X obj 300 1861 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1861 NROWS: number of rows in the matrix. Type: int.;
-#X obj 300 1884 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1884 NCOLS: number of columns in the matrix. Type: int.;
-#X obj 300 1907 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1907 AT_ROW: starting row position. Type: int.;
-#X obj 300 1930 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1930 AT_COL: starting column position. Type: int.;
-#X obj 250 1963 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1963 hshift;
-#X text 270 1963 horizontal shift (rotate). Arguments are:;
-#X obj 300 1988 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1988 V: number of pixels to shift. Type: int.;
-#X obj 250 2021 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2021 invert;
-#X text 270 2021 invert all pixel values.;
-#X obj 250 2056 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2056 line;
-#X text 270 2056 draw a line. Arguments are:;
-#X obj 300 2081 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2081 X0: x0 coordinate. Type: int.;
-#X obj 300 2104 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2104 Y0: y0 coordinate. Type: int.;
-#X obj 300 2127 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2127 X1: x1 coordinate. Type: int.;
-#X obj 300 2150 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2150 Y1: y1 coordinate. Type: int.;
-#X obj 250 2183 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2183 load;
-#X text 270 2183 load an image into the bitmap. Arguments are:;
-#X obj 300 2208 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2208 FILE: image path \, relative or absolute. Type: symbol.;
-#X obj 300 2231 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2231 [SCALE=1]: image scale. Type: float. Min value: 0\.;
-#X obj 250 2264 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2264 mirror;
-#X text 270 2264 mirror the bitmap. Arguments are:;
-#X obj 300 2289 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2289 AXIS: mirror axis. Type: symbol. Allowed values: x
+#X obj 250 2026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2026 get list;
+#X text 270 2026 outputs the content as a list.;
+#X obj 250 2061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2061 get matrix;
+#X text 270 2061 outputs the bitmap content as a [matrix NROWS NCOLS
+DATA...( message.;
+#X obj 250 2111 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2111 get submatrix;
+#X text 270 2111 outputs a submatrix of the bitmap content as a [matrix
+NROWS NCOLS DATA...( message. Arguments are:;
+#X obj 300 2151 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2151 NROWS: number of rows in the matrix. Type: int.;
+#X obj 300 2174 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2174 NCOLS: number of columns in the matrix. Type: int.;
+#X obj 300 2197 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2197 AT_ROW: starting row position. Type: int.;
+#X obj 300 2220 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2220 AT_COL: starting column position. Type: int.;
+#X obj 250 2253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2253 hshift;
+#X text 270 2253 horizontal shift (rotate). Arguments are:;
+#X obj 300 2278 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2278 V: number of pixels to shift. Type: int.;
+#X obj 250 2311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2311 invert;
+#X text 270 2311 inverts all pixel values.;
+#X obj 250 2346 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2346 line;
+#X text 270 2346 draws a line. Arguments are:;
+#X obj 300 2371 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2371 X0: x0 coordinate. Type: int.;
+#X obj 300 2394 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2394 Y0: y0 coordinate. Type: int.;
+#X obj 300 2417 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2417 X1: x1 coordinate. Type: int.;
+#X obj 300 2440 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2440 Y1: y1 coordinate. Type: int.;
+#X obj 250 2473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2473 load;
+#X text 270 2473 loads an image into the bitmap. Arguments are:;
+#X obj 300 2498 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2498 FILE: image path \, relative or absolute. Type: symbol.;
+#X obj 300 2521 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2521 [SCALE=1]: image scale. Type: float. Min value: 0\.;
+#X obj 250 2554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2554 mirror;
+#X text 270 2554 mirrors the bitmap. Arguments are:;
+#X obj 300 2579 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2579 AXIS: mirror axis. Type: symbol. Allowed values: x
 \, y.;
-#X obj 250 2322 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2322 pixel;
-#X text 270 2322 set a pixel. Arguments are:;
-#X obj 300 2347 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2347 X: x coordinate. Type: int.;
-#X obj 300 2370 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2370 Y: y coordinate. Type: int.;
-#X obj 300 2393 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2393 [VAL=1]: pixel value. Type: bool.;
-#X obj 250 2426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2426 rect;
-#X text 270 2426 draw a rectangle. Arguments are:;
-#X obj 300 2451 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2451 X: x coordinate. Type: int.;
-#X obj 300 2474 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2474 Y: y coordinate. Type: int.;
-#X obj 300 2497 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2497 W: width. Type: int.;
-#X obj 300 2520 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2520 H: height. Type: int.;
-#X obj 300 2543 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2543 [CENTER=0]: if 1: set the center of the rectangle
-\, not the top-left corner. Type: bool.;
-#X obj 250 2591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2591 row;
-#X text 270 2591 draw a row. Arguments are:;
-#X obj 300 2616 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2616 ROW: row index. Type: int.;
-#X obj 300 2639 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2639 W: row width (can be negative to draw from right to
+#X obj 250 2612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2612 pixel;
+#X text 270 2612 sets a pixel. Arguments are:;
+#X obj 300 2637 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2637 X: x coordinate. Type: int.;
+#X obj 300 2660 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2660 Y: y coordinate. Type: int.;
+#X obj 300 2683 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2683 [VAL=1]: pixel value. Type: bool.;
+#X obj 250 2716 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2716 rect;
+#X text 270 2716 draws a rectangle. Arguments are:;
+#X obj 300 2741 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2741 X: x coordinate. Type: int.;
+#X obj 300 2764 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2764 Y: y coordinate. Type: int.;
+#X obj 300 2787 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2787 W: width. Type: int.;
+#X obj 300 2810 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2810 H: height. Type: int.;
+#X obj 300 2833 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2833 [CENTER=0]: if 1: set the center of the rectangle
+instead of the top-left corner. Type: bool.;
+#X obj 250 2881 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2881 row;
+#X text 270 2881 draws a row. Arguments are:;
+#X obj 300 2906 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2906 ROW: row index. Type: int.;
+#X obj 300 2929 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2929 W: row width (can be negative to draw from right to
 left). Type: int.;
-#X obj 300 2677 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2677 DX: x offset. Type: int.;
-#X obj 250 2710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2710 save;
-#X text 270 2710 save the bitmap to a PNG file. Arguments are:;
-#X obj 300 2735 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2735 [PATH]: file name \, absolute or relative. Type: symbol.;
-#X obj 250 2768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2768 sector;
-#X text 270 2768 draw a sector. Arguments are:;
-#X obj 300 2793 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2793 X: x coordinate. Type: int.;
-#X obj 300 2816 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2816 Y: y coordinate. Type: int.;
-#X obj 300 2839 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2839 D: diameter. Type: int.;
-#X obj 300 2862 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2862 START: start angle. 0 = top. Type: int. Units: 'deg'.;
-#X obj 300 2885 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2885 LEN: arc length \, counter-clockwise. Type: int. Units:
+#X obj 300 2967 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2967 DX: x offset. Type: int.;
+#X obj 250 3000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3000 save;
+#X text 270 3000 saves the bitmap to a PNG file. Arguments are:;
+#X obj 300 3025 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3025 [PATH]: file name \, absolute or relative. Type: symbol.;
+#X obj 250 3058 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3058 sector;
+#X text 270 3058 draws a sector. Arguments are:;
+#X obj 300 3083 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3083 X: x coordinate. Type: int.;
+#X obj 300 3106 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3106 Y: y coordinate. Type: int.;
+#X obj 300 3129 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3129 D: diameter. Type: int.;
+#X obj 300 3152 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3152 START: start angle. 0 — top. Type: int. Units: 'deg'.;
+#X obj 300 3175 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3175 LEN: arc length \, counter-clockwise. Type: int. Units:
 'deg'.;
-#X obj 300 2908 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2908 [CENTER=0]: if 1: set the center of the sector \,
-not the top-left corner. Type: bool.;
-#X obj 250 2956 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2956 set list;
-#X text 270 2956 set bitmap content from a list. Arguments are:;
-#X obj 300 2981 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2981 DATA: list of 0s and 1s. Type: list.;
-#X obj 250 3014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3014 set matrix;
-#X text 270 3014 set matrix data. Arguments are:;
-#X obj 300 3039 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3039 NROWS: number of rows in the matrix. Type: int. Min
+#X obj 300 3198 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3198 [CENTER=0]: if 1: set the center of the sector instead
+of the top-left corner. Type: bool.;
+#X obj 250 3246 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3246 set list;
+#X text 270 3246 sets the bitmap content from a list. Arguments are:;
+#X obj 300 3271 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3271 DATA: list of 0s and 1s. Type: list.;
+#X obj 250 3304 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3304 set matrix;
+#X text 270 3304 sets matrix data. Arguments are:;
+#X obj 300 3329 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3329 NROWS: number of rows in the matrix. Type: int. Min
 value: 1\.;
-#X obj 300 3077 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3077 NCOLS: number of columns in the matrix. Type: int.
+#X obj 300 3367 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3367 NCOLS: number of columns in the matrix. Type: int.
 Min value: 1\.;
-#X obj 300 3115 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3115 DATA: data. Type: list.;
-#X obj 250 3148 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3148 set matrix_at;
-#X text 270 3148 set matrix data at the specified position. Arguments
+#X obj 300 3405 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3405 DATA: data. Type: list.;
+#X obj 250 3438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3438 set matrix_at;
+#X text 270 3438 sets matrix data at the specified position. Arguments
 are:;
-#X obj 300 3173 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3173 NROWS: number of rows in the matrix. Type: int. Min
+#X obj 300 3463 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3463 NROWS: number of rows in the matrix. Type: int. Min
 value: 1\.;
-#X obj 300 3211 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3211 NCOLS: number of columns in the matrix. Type: int.
+#X obj 300 3501 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3501 NCOLS: number of columns in the matrix. Type: int.
 Min value: 1\.;
-#X obj 300 3249 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3249 AT_ROW: starting row position. Type: int.;
-#X obj 300 3272 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3272 AT_COL: starting column position. Type: int.;
-#X obj 300 3295 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3295 DATA: data. Type: list.;
-#X obj 250 3328 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3328 stroke_color;
-#X text 270 3328 set the stroke color. Arguments are:;
-#X obj 300 3353 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3353 [COLOR]: stroke color (0 or 1). Type: int.;
-#X obj 250 3386 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3386 stroke_width;
-#X text 270 3386 set the stroke width. Arguments are:;
-#X obj 300 3411 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3411 W: new width. Type: int. Min value: 0\.;
-#X obj 250 3444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3444 text;
-#X text 270 3444 draw text. Arguments are:;
-#X obj 300 3469 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3469 X: left x coordinate. Type: int.;
-#X obj 300 3492 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3492 Y: bottom y coordinate. Type: int.;
-#X obj 300 3515 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3515 TXT: text. Type: symbol.;
-#X obj 250 3548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3548 text_color;
-#X text 270 3548 set the text color. Arguments are:;
-#X obj 300 3573 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3573 [COLOR]: text color (0 \, 1 \, or -1 for no color).
+#X obj 300 3539 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3539 AT_ROW: starting row position. Type: int.;
+#X obj 300 3562 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3562 AT_COL: starting column position. Type: int.;
+#X obj 300 3585 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3585 DATA: data. Type: list.;
+#X obj 250 3618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3618 stroke_color;
+#X text 270 3618 sets the stroke color. Arguments are:;
+#X obj 300 3643 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3643 [COLOR]: stroke color (0 or 1). Type: int.;
+#X obj 250 3676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3676 stroke_width;
+#X text 270 3676 sets the stroke width. Arguments are:;
+#X obj 300 3701 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3701 W: new width. Type: int. Min value: 0\.;
+#X obj 250 3734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3734 text;
+#X text 270 3734 draws text. Arguments are:;
+#X obj 300 3759 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3759 X: left x coordinate. Type: int.;
+#X obj 300 3782 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3782 Y: bottom y coordinate. Type: int.;
+#X obj 300 3805 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3805 TXT: text. Type: symbol.;
+#X obj 250 3838 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3838 text_color;
+#X text 270 3838 sets the text color. Arguments are:;
+#X obj 300 3863 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3863 [COLOR]: text color (0 \, 1 \, or -1 for no color).
 Type: int.;
-#X obj 250 3606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3606 triangle;
-#X text 270 3606 draw a triangle. Arguments are:;
-#X obj 300 3631 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3631 X0: x0 coordinate. Type: int.;
-#X obj 300 3654 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3654 Y0: y0 coordinate. Type: int.;
-#X obj 300 3677 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3677 X1: x1 coordinate. Type: int.;
-#X obj 300 3700 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3700 Y1: y1 coordinate. Type: int.;
-#X obj 300 3723 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3723 X2: x2 coordinate. Type: int.;
-#X obj 300 3746 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3746 Y2: y2 coordinate. Type: int.;
-#X obj 250 3779 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3779 view;
-#X text 270 3779 open the bitmap viewer window.;
-#X obj 250 3814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3814 vshift;
-#X text 270 3814 vertical shift. Arguments are:;
-#X obj 300 3839 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3839 V: number of pixels to shift. Type: int.;
-#X obj 20 3882 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 3887 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 3896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3896 triangle;
+#X text 270 3896 draws a triangle. Arguments are:;
+#X obj 300 3921 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3921 X0: x0 coordinate. Type: int.;
+#X obj 300 3944 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3944 Y0: y0 coordinate. Type: int.;
+#X obj 300 3967 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3967 X1: x1 coordinate. Type: int.;
+#X obj 300 3990 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3990 Y1: y1 coordinate. Type: int.;
+#X obj 300 4013 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4013 X2: x2 coordinate. Type: int.;
+#X obj 300 4036 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4036 Y2: y2 coordinate. Type: int.;
+#X obj 250 4069 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4069 view;
+#X text 270 4069 opens the bitmap viewer window.;
+#X obj 250 4104 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4104 vshift;
+#X text 270 4104 vertical shift. Arguments are:;
+#X obj 300 4129 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4129 V: number of pixels to shift. Type: int.;
+#X obj 20 4172 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4177 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 3888 1\.;
-#X text 170 3888 bang:;
-#X text 270 3888 output as a list.;
-#X obj 20 3923 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 3928 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 4178 1\.;
+#X text 170 4178 bang:;
+#X text 270 4178 outputs the content as a list.;
+#X obj 20 4213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4218 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 3929 1\.;
-#X text 270 3929 output.;
+#X text 130 4219 1\.;
+#X text 270 4219 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 3979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3982 library: ceammc v0.9.8;
-#X text 597 3994 see also:;
-#X obj 672 3997 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 4269 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4272 library: ceammc v0.9.8;
+#X text 597 4284 see also:;
+#X obj 672 4287 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 4001 400 290 info 0;
+#N canvas 10 4291 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -372,30 +387,30 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4001 pd info;
-#X connect 29 0 30 0;
-#X connect 30 0 31 0;
-#X connect 5 0 29 0;
-#X connect 8 0 29 0;
-#X connect 10 0 29 0;
-#X connect 12 0 29 0;
-#X connect 14 0 29 0;
-#X connect 6 0 29 0;
-#X connect 9 0 29 0;
-#X connect 11 0 29 0;
-#X connect 13 0 29 0;
-#X connect 16 0 29 0;
-#X connect 18 0 29 0;
-#X connect 15 0 29 0;
-#X connect 17 0 29 0;
-#X connect 19 0 29 0;
-#X connect 20 0 29 0;
-#X connect 22 0 29 0;
-#X connect 24 0 29 0;
-#X connect 26 0 29 0;
-#X connect 21 0 29 0;
-#X connect 23 0 29 0;
-#X connect 25 0 29 0;
-#X connect 27 0 29 0;
-#X connect 7 0 29 0;
-#X connect 28 0 29 0;
+#X restore 10 4291 pd info;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 8 0 32 0;
+#X connect 11 0 32 0;
+#X connect 13 0 32 0;
+#X connect 15 0 32 0;
+#X connect 17 0 32 0;
+#X connect 9 0 32 0;
+#X connect 12 0 32 0;
+#X connect 14 0 32 0;
+#X connect 16 0 32 0;
+#X connect 19 0 32 0;
+#X connect 21 0 32 0;
+#X connect 18 0 32 0;
+#X connect 20 0 32 0;
+#X connect 22 0 32 0;
+#X connect 23 0 32 0;
+#X connect 25 0 32 0;
+#X connect 27 0 32 0;
+#X connect 29 0 32 0;
+#X connect 24 0 32 0;
+#X connect 26 0 32 0;
+#X connect 28 0 32 0;
+#X connect 30 0 32 0;
+#X connect 10 0 32 0;
+#X connect 31 0 32 0;

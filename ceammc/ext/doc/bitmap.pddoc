@@ -22,6 +22,35 @@
         <alias>ceammc/bitmap</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object stores a binary image as a 2D matrix of bits and provides a set of
+        drawing, transformation and I/O methods. The bitmap size is set with the W and H arguments
+        (or the @w and @h properties) and cannot be changed after creation. Pixels can be drawn
+        with drawing methods (line, rect, circle, text and others), transformed (mirror, shift,
+        invert), loaded from an image file or set from a list or matrix. The content can be output
+        as a list or as a [matrix NROWS NCOLS DATA...( message, saved as a PNG file, and viewed in
+        a separate window.</tr>
+        <tr lang="ru">Объект хранит бинарное изображение в виде 2D-матрицы битов и предоставляет
+        набор методов для рисования, преобразования и ввода-вывода. Размер изображения задаётся
+        аргументами W и H (или свойствами @w и @h) и не может быть изменён после создания.
+        Пиксели можно рисовать с помощью методов рисования (line, rect, circle, text и других),
+        преобразовывать (mirror, shift, invert), загружать из файла изображения или задавать из
+        списка либо матрицы. Содержимое можно вывести в виде списка или сообщения
+        [matrix NROWS NCOLS DATA...(, сохранить в файл PNG и просмотреть в отдельном окне.</tr>
+      </par>
+      <par>
+        <tr lang="en">Colors: the bitmap is binary, so pixels have only two possible values — 0 or
+        1. Drawing methods use the fill color (@fill_color) or the stroke color (@stroke_color) if
+        they draw outlines. Color can be 0 or 1, or -1 for "no color" (for fill_color and
+        text_color). The method fill sets all pixels to a given value at once.</tr>
+        <tr lang="ru">Цвета: изображение бинарное, поэтому пиксели могут принимать только два
+        значения — 0 или 1. Методы рисования используют цвет заливки (@fill_color) или цвет
+        обводки (@stroke_color), если они рисуют контуры. Цвет может быть 0 или 1, либо -1
+        («без цвета») — для fill_color и text_color. Метод fill устанавливает все пиксели в
+        заданное значение сразу.</tr>
+      </par>
+    </info>
     <mouse>
       <event type="left-click" editmode="false" keys="Shift">open bitmap viewer window</event>
     </mouse>
@@ -51,8 +80,8 @@
       <!-- arc -->
       <method name="arc">
         <info>
-          <tr lang="en">draw an arc</tr>
-          <tr lang="ru">нарисовать дугу</tr>
+          <tr lang="en">draws an arc</tr>
+          <tr lang="ru">рисует дугу</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -67,7 +96,7 @@
           <tr lang="ru">диаметр</tr>
         </param>
         <param name="START" type="int" required="true" units="degree">
-          <tr lang="en">start angle. 0 = top</tr>
+          <tr lang="en">start angle. 0 — top</tr>
           <tr lang="ru">начальный угол. 0 — верх</tr>
         </param>
         <param name="LEN" type="int" required="true" units="degree">
@@ -75,15 +104,15 @@
           <tr lang="ru">длина дуги, против часовой стрелки</tr>
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
-          <tr lang="en">if 1: set the center of the arc, not the top-left corner</tr>
+          <tr lang="en">if 1: set the center of the arc instead of the top-left corner</tr>
           <tr lang="ru">если 1: использовать координату центра дуги, а не верхнего левого угла</tr>
         </param>
       </method>
       <!-- circle -->
       <method name="circle">
         <info>
-          <tr lang="en">draw a circle</tr>
-          <tr lang="ru">нарисовать окружность</tr>
+          <tr lang="en">draws a circle</tr>
+          <tr lang="ru">рисует окружность</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -98,7 +127,7 @@
           <tr lang="ru">диаметр</tr>
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
-          <tr lang="en">if 1: set the center of the circle, not the top-left corner</tr>
+          <tr lang="en">if 1: set the center of the circle instead of the top-left corner</tr>
           <tr lang="ru">если 1: использовать координату центра окружности, а не верхнего левого
           угла</tr>
         </param>
@@ -106,15 +135,15 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear the bitmap (set all pixels to 0)</tr>
-          <tr lang="ru">очистить растровое изображение (установить все пиксели в 0)</tr>
+          <tr lang="en">clears the bitmap (sets all pixels to 0)</tr>
+          <tr lang="ru">очищает растровое изображение (устанавливает все пиксели в 0)</tr>
         </info>
       </method>
       <!-- column -->
       <method name="column">
         <info>
-          <tr lang="en">draw a column</tr>
-          <tr lang="ru">нарисовать столбец</tr>
+          <tr lang="en">draws a column</tr>
+          <tr lang="ru">рисует столбец</tr>
         </info>
         <param name="COL" type="int" required="true">
           <tr lang="en">column index</tr>
@@ -133,8 +162,8 @@
       <!-- ellipse -->
       <method name="ellipse">
         <info>
-          <tr lang="en">draw an ellipse</tr>
-          <tr lang="ru">нарисовать эллипс</tr>
+          <tr lang="en">draws an ellipse</tr>
+          <tr lang="ru">рисует эллипс</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -153,7 +182,7 @@
           <tr lang="ru">высота</tr>
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
-          <tr lang="en">if 1: set the center of the ellipse, not the top-left corner</tr>
+          <tr lang="en">if 1: set the center of the ellipse instead of the top-left corner</tr>
           <tr lang="ru">если 1: использовать координату центра эллипса, а не верхнего левого
           угла</tr>
         </param>
@@ -161,8 +190,8 @@
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">set all pixels to a value</tr>
-          <tr lang="ru">установить все пиксели в заданное значение</tr>
+          <tr lang="en">sets all pixels to a value</tr>
+          <tr lang="ru">устанавливает все пиксели в заданное значение</tr>
         </info>
         <param name="V" type="int" default="0">
           <tr lang="en">value</tr>
@@ -172,8 +201,8 @@
       <!-- fill_color -->
       <method name="fill_color">
         <info>
-          <tr lang="en">set the fill color</tr>
-          <tr lang="ru">установить цвет заливки</tr>
+          <tr lang="en">sets the fill color</tr>
+          <tr lang="ru">устанавливает цвет заливки</tr>
         </info>
         <param name="COLOR" type="int">
           <tr lang="en">fill color (0, 1, or -1 for no color)</tr>
@@ -183,8 +212,8 @@
       <!-- font -->
       <method name="font">
         <info>
-          <tr lang="en">set the font</tr>
-          <tr lang="ru">установить шрифт</tr>
+          <tr lang="en">sets the font</tr>
+          <tr lang="ru">устанавливает шрифт</tr>
         </info>
         <param name="NAME" type="symbol" required="true"
         enum="FONT_4X6 FONT_5X7 FONT_5X8 FONT_6X10 FONT_6X9">
@@ -195,24 +224,24 @@
       <!-- get list -->
       <method name="get list">
         <info>
-          <tr lang="en">output content as a list</tr>
-          <tr lang="ru">вывести содержимое в виде списка</tr>
+          <tr lang="en">outputs the content as a list</tr>
+          <tr lang="ru">выводит содержимое в виде списка</tr>
         </info>
       </method>
       <!-- get matrix -->
       <method name="get matrix">
         <info>
-          <tr lang="en">output bitmap content as a [matrix NROWS NCOLS DATA...( message</tr>
-          <tr lang="ru">вывести содержимое растрового изображения в виде сообщения [matrix NROWS
-          NCOLS DATA...(</tr>
+          <tr lang="en">outputs the bitmap content as a [matrix NROWS NCOLS DATA...( message</tr>
+          <tr lang="ru">выводит содержимое растрового изображения в виде сообщения
+          [matrix NROWS NCOLS DATA...(</tr>
         </info>
       </method>
       <!-- get submatrix -->
       <method name="get submatrix">
         <info>
-          <tr lang="en">output submatrix bitmap content as a [matrix NROWS NCOLS DATA...(
-          message</tr>
-          <tr lang="ru">вывести содержимое субматрицы растрового изображения в виде сообщения
+          <tr lang="en">outputs a submatrix of the bitmap content as a [matrix NROWS NCOLS
+          DATA...( message</tr>
+          <tr lang="ru">выводит субматрицу содержимого растрового изображения в виде сообщения
           [matrix NROWS NCOLS DATA...(</tr>
         </info>
         <param name="NROWS" type="int" required="true">
@@ -236,7 +265,7 @@
       <method name="hshift">
         <info>
           <tr lang="en">horizontal shift (rotate)</tr>
-          <tr lang="ru">горизонтальный сдвиг (поворот)</tr>
+          <tr lang="ru">горизонтальный сдвиг (циклический)</tr>
         </info>
         <param name="V" type="int" required="true">
           <tr lang="en">number of pixels to shift</tr>
@@ -246,15 +275,15 @@
       <!-- invert -->
       <method name="invert">
         <info>
-          <tr lang="en">invert all pixel values</tr>
-          <tr lang="ru">инвертировать все значения пикселей</tr>
+          <tr lang="en">inverts all pixel values</tr>
+          <tr lang="ru">инвертирует все значения пикселей</tr>
         </info>
       </method>
       <!-- line -->
       <method name="line">
         <info>
-          <tr lang="en">draw a line</tr>
-          <tr lang="ru">нарисовать линию</tr>
+          <tr lang="en">draws a line</tr>
+          <tr lang="ru">рисует линию</tr>
         </info>
         <param name="X0" type="int" required="true">
           <tr lang="en">x0 coordinate</tr>
@@ -276,8 +305,8 @@
       <!-- load -->
       <method name="load">
         <info>
-          <tr lang="en">load an image into the bitmap</tr>
-          <tr lang="ru">загрузить изображение</tr>
+          <tr lang="en">loads an image into the bitmap</tr>
+          <tr lang="ru">загружает изображение в растр</tr>
         </info>
         <param name="FILE" type="symbol" required="true">
           <tr lang="en">image path, relative or absolute</tr>
@@ -291,8 +320,8 @@
       <!-- mirror -->
       <method name="mirror">
         <info>
-          <tr lang="en">mirror the bitmap</tr>
-          <tr lang="ru">зеркально отразить растровое изображение</tr>
+          <tr lang="en">mirrors the bitmap</tr>
+          <tr lang="ru">зеркально отражает растровое изображение</tr>
         </info>
         <param name="AXIS" type="symbol" enum="x y" required="true">
           <tr lang="en">mirror axis</tr>
@@ -302,8 +331,8 @@
       <!-- pixel -->
       <method name="pixel">
         <info>
-          <tr lang="en">set a pixel</tr>
-          <tr lang="ru">установить пиксель</tr>
+          <tr lang="en">sets a pixel</tr>
+          <tr lang="ru">устанавливает пиксель</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -321,8 +350,8 @@
       <!-- rect -->
       <method name="rect">
         <info>
-          <tr lang="en">draw a rectangle</tr>
-          <tr lang="ru">нарисовать прямоугольник</tr>
+          <tr lang="en">draws a rectangle</tr>
+          <tr lang="ru">рисует прямоугольник</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -341,16 +370,16 @@
           <tr lang="ru">высота</tr>
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
-          <tr lang="en">if 1: set the center of the rectangle, not the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего левого
-          угла</tr>
+          <tr lang="en">if 1: set the center of the rectangle instead of the top-left corner</tr>
+          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего
+          левого угла</tr>
         </param>
       </method>
       <!-- row -->
       <method name="row">
         <info>
-          <tr lang="en">draw a row</tr>
-          <tr lang="ru">нарисовать строку</tr>
+          <tr lang="en">draws a row</tr>
+          <tr lang="ru">рисует строку</tr>
         </info>
         <param name="ROW" type="int" required="true">
           <tr lang="en">row index</tr>
@@ -368,8 +397,8 @@
       <!-- save -->
       <method name="save">
         <info>
-          <tr lang="en">save the bitmap to a PNG file</tr>
-          <tr lang="ru">сохранить растровое изображение в PNG-файл</tr>
+          <tr lang="en">saves the bitmap to a PNG file</tr>
+          <tr lang="ru">сохраняет растровое изображение в PNG-файл</tr>
         </info>
         <param name="PATH" type="symbol">
           <tr lang="en">file name, absolute or relative</tr>
@@ -379,8 +408,8 @@
       <!-- sector -->
       <method name="sector">
         <info>
-          <tr lang="en">draw a sector</tr>
-          <tr lang="ru">нарисовать сектор</tr>
+          <tr lang="en">draws a sector</tr>
+          <tr lang="ru">рисует сектор</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">x coordinate</tr>
@@ -395,7 +424,7 @@
           <tr lang="ru">диаметр</tr>
         </param>
         <param name="START" type="int" required="true" units="degree">
-          <tr lang="en">start angle. 0 = top</tr>
+          <tr lang="en">start angle. 0 — top</tr>
           <tr lang="ru">начальный угол. 0 — верх</tr>
         </param>
         <param name="LEN" type="int" required="true" units="degree">
@@ -403,7 +432,7 @@
           <tr lang="ru">длина дуги, против часовой стрелки</tr>
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
-          <tr lang="en">if 1: set the center of the sector, not the top-left corner</tr>
+          <tr lang="en">if 1: set the center of the sector instead of the top-left corner</tr>
           <tr lang="ru">если 1: использовать координату центра сектора, а не верхнего левого
           угла</tr>
         </param>
@@ -411,8 +440,8 @@
       <!-- set list -->
       <method name="set list">
         <info>
-          <tr lang="en">set bitmap content from a list</tr>
-          <tr lang="ru">установить содержимое растрового изображения из списка</tr>
+          <tr lang="en">sets the bitmap content from a list</tr>
+          <tr lang="ru">устанавливает содержимое растрового изображения из списка</tr>
         </info>
         <param name="DATA" type="list" required="true">
           <tr lang="en">list of 0s and 1s</tr>
@@ -422,8 +451,8 @@
       <!-- set matrix -->
       <method name="set matrix">
         <info>
-          <tr lang="en">set matrix data</tr>
-          <tr lang="ru">установить данные матрицы</tr>
+          <tr lang="en">sets matrix data</tr>
+          <tr lang="ru">устанавливает данные матрицы</tr>
         </info>
         <param name="NROWS" type="int" minvalue="1" required="true">
           <tr lang="en">number of rows in the matrix</tr>
@@ -441,8 +470,8 @@
       <!-- set matrix_at -->
       <method name="set matrix_at">
         <info>
-          <tr lang="en">set matrix data at the specified position</tr>
-          <tr lang="ru">установить данные матрицы в указанной позиции</tr>
+          <tr lang="en">sets matrix data at the specified position</tr>
+          <tr lang="ru">устанавливает данные матрицы в указанной позиции</tr>
         </info>
         <param name="NROWS" type="int" minvalue="1" required="true">
           <tr lang="en">number of rows in the matrix</tr>
@@ -468,8 +497,8 @@
       <!-- stroke_color -->
       <method name="stroke_color">
         <info>
-          <tr lang="en">set the stroke color</tr>
-          <tr lang="ru">установить цвет обводки</tr>
+          <tr lang="en">sets the stroke color</tr>
+          <tr lang="ru">устанавливает цвет обводки</tr>
         </info>
         <param name="COLOR" type="int">
           <tr lang="en">stroke color (0 or 1)</tr>
@@ -479,8 +508,8 @@
       <!-- stroke_width -->
       <method name="stroke_width">
         <info>
-          <tr lang="en">set the stroke width</tr>
-          <tr lang="ru">установить ширину обводки</tr>
+          <tr lang="en">sets the stroke width</tr>
+          <tr lang="ru">устанавливает ширину обводки</tr>
         </info>
         <param name="W" type="int" minvalue="0" required="true">
           <tr lang="en">new width</tr>
@@ -490,8 +519,8 @@
       <!-- text -->
       <method name="text">
         <info>
-          <tr lang="en">draw text</tr>
-          <tr lang="ru">нарисовать текст</tr>
+          <tr lang="en">draws text</tr>
+          <tr lang="ru">рисует текст</tr>
         </info>
         <param name="X" type="int" required="true">
           <tr lang="en">left x coordinate</tr>
@@ -509,8 +538,8 @@
       <!-- text_color -->
       <method name="text_color">
         <info>
-          <tr lang="en">set the text color</tr>
-          <tr lang="ru">установить цвет текста</tr>
+          <tr lang="en">sets the text color</tr>
+          <tr lang="ru">устанавливает цвет текста</tr>
         </info>
         <param name="COLOR" type="int">
           <tr lang="en">text color (0, 1, or -1 for no color)</tr>
@@ -520,8 +549,8 @@
       <!-- triangle -->
       <method name="triangle">
         <info>
-          <tr lang="en">draw a triangle</tr>
-          <tr lang="ru">нарисовать треугольник</tr>
+          <tr lang="en">draws a triangle</tr>
+          <tr lang="ru">рисует треугольник</tr>
         </info>
         <param name="X0" type="int" required="true">
           <tr lang="en">x0 coordinate</tr>
@@ -551,8 +580,8 @@
       <!-- view -->
       <method name="view">
         <info>
-          <tr lang="en">open the bitmap viewer window</tr>
-          <tr lang="ru">открыть окно просмотра растрового изображения</tr>
+          <tr lang="en">opens the bitmap viewer window</tr>
+          <tr lang="ru">открывает окно просмотра растрового изображения</tr>
         </info>
       </method>
       <!-- vshift -->
@@ -570,8 +599,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output as a list</tr>
-          <tr lang="ru">вывести в виде списка</tr>
+          <tr lang="en">outputs the content as a list</tr>
+          <tr lang="ru">выводит содержимое в виде списка</tr>
         </in>
       </inlet>
     </inlets>
