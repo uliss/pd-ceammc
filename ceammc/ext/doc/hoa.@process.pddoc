@@ -11,7 +11,7 @@
       </authors>
       <description>
         <tr lang="en">properties manager for [hoa.process~] object</tr>
-        <tr lang="ru">управление свойствами объекта [hoa.process~]</tr>
+        <tr lang="ru">менеджер свойств объекта [hoa.process~]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,85 +24,82 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">With [hoa.@process] you can get [hoa.process~] instance properties and
-        get/set properties declared via [prop.declare]</tr>
-        <!-- old: С [hoa.@process] вы можете получить свойства
-                экземпляра [hoa.process~] и получить / установить свойства, объявленные через
-                [prop.declare] -->
-        <tr lang="ru" finished="false">С [hoa.@process] вы можете получить свойства экземпляра
-        [hoa.process~] и получить / установить свойства, объявленные через [prop.declare]</tr>
+        <tr lang="en">With [hoa.@process] you can read the properties of a [hoa.process~] instance
+        and get or set custom properties declared via [prop.declare]. This is useful inside a patch
+        that is loaded by [hoa.process~] — it allows instances to be identified, to read their own
+        order/degree/index and to share parameters across instances.</tr>
+        <tr lang="ru">С помощью [hoa.@process] можно читать свойства экземпляра [hoa.process~], а
+        также получать и задавать пользовательские свойства, объявленные через [prop.declare].
+        Это удобно внутри патча, загружаемого [hoa.process~]: позволяет экземплярам
+        идентифицировать себя, читать собственные order/degree/index и обмениваться параметрами
+        между экземплярами.</tr>
       </par>
     </info>
     <properties>
       <!-- @hdegree -->
       <property name="@hdegree" type="int" access="readonly" default="0">
-        <tr lang="en">current harmonic degree in hoa.process~ instance (only in harmonics
+        <tr lang="en">current harmonic degree in the hoa.process~ instance (only in harmonics
         mode)</tr>
-        <!-- old: текущая степень гармоники в hoa.process~ example
-                (только в режиме гармоники) -->
-        <tr lang="ru" finished="false">текущая степень гармоники в hoa.process~ example (только в
-        режиме гармоники)</tr>
+        <tr lang="ru">текущая степень гармоники в экземпляре hoa.process~ (только в режиме
+        harmonics)</tr>
       </property>
       <!-- @horder -->
       <property name="@horder" type="int" access="readonly" default="0">
-        <tr lang="en">current harmonic order in hoa.process~ instance (only in harmonics mode)</tr>
-        <!-- old: текущий гармонический порядок в hoa.process~
-                instance (только в режиме гармоник) -->
-        <tr lang="ru" finished="false">текущий гармонический порядок в hoa.process~ instance
-        (только в режиме гармоник)</tr>
+        <tr lang="en">current harmonic order in the hoa.process~ instance (only in harmonics
+        mode)</tr>
+        <tr lang="ru">текущий порядок гармоники в экземпляре hoa.process~ (только в режиме
+        harmonics)</tr>
       </property>
       <!-- @index -->
       <property name="@index" type="int" access="readonly" default="0">
-        <tr lang="en">current instance index starting from 0</tr>
-        <tr lang="ru" finished="false">Текущий индекс экземпляра, начинающийся с 0</tr>
+        <tr lang="en">current instance index, starting from 0</tr>
+        <tr lang="ru">текущий индекс экземпляра, начиная с 0</tr>
       </property>
       <!-- @order -->
       <property name="@order" type="int" access="readonly" default="0">
-        <tr lang="en">order of parent hoa.process~</tr>
-        <tr lang="ru" finished="false">Порядок родительского hoa.process</tr>
+        <tr lang="en">order of the parent hoa.process~</tr>
+        <tr lang="ru">порядок родительского hoa.process~</tr>
       </property>
       <!-- @pmode -->
       <property name="@pmode" type="symbol" enum="2d 3d" access="readonly" default="">
-        <tr lang="en">amibisonic mode</tr>
-        <tr lang="ru" finished="false">амибизонный режим</tr>
+        <tr lang="en">ambisonic mode</tr>
+        <tr lang="ru">режим амбисоников</tr>
       </property>
       <!-- @ptype -->
       <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly"
       default="">
-        <tr lang="en">amibisonic type</tr>
-        <tr lang="ru" finished="false">амибизонный тип</tr>
+        <tr lang="en">ambisonic type</tr>
+        <tr lang="ru">тип амбисоников</tr>
       </property>
       <!-- @total -->
       <property name="@total" type="int" access="readonly" default="0">
         <tr lang="en">total number of hoa.process~ instances</tr>
-        <tr lang="ru" finished="false">Общее количество экземпляров hoa.process</tr>
+        <tr lang="ru">общее число экземпляров hoa.process~</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">set or request properties</tr>
-          <tr lang="ru" finished="false">устанавливать или запрашивать свойства</tr>
+          <tr lang="ru">задать или запросить свойства</tr>
         </in>
         <in on="bang">
-          <tr lang="en">if harmonics mode output list: @order @hdegree @horder, in planewaves:
-          @order @index @index</tr>
-          <!-- old: если гармоники режим вывода список: @order
-                    @hdegree @horder, в плоских волнах: @order @index @index -->
-          <tr lang="ru" finished="false">если гармоники режим вывода список: @order @hdegree
-          @horder, в плоских волнах: @order @index @index</tr>
+          <tr lang="en">in harmonics mode, outputs the list @order @hdegree @horder; in planewaves
+          mode, outputs @order @index @index</tr>
+          <tr lang="ru">в режиме harmonics выводит список @order @hdegree @horder; в режиме
+          planewaves — @order @index @index</tr>
         </in>
         <in on="float">
-          <tr lang="en">pass float message thru</tr>
-          <tr lang="ru" finished="false">Отправить сообщение Float Message</tr>
+          <tr lang="en">passes a float message through</tr>
+          <tr lang="ru">пропускает сообщение с числом без изменений</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">pass symbol message thru</tr>
-          <tr lang="ru" finished="false">Передайте символьное сообщение через</tr>
+          <tr lang="en">passes a symbol message through</tr>
+          <tr lang="ru">пропускает символьное сообщение без изменений</tr>
         </in>
         <in on="list">
-          <tr lang="en">pass list message thru</tr>
-          <tr lang="ru" finished="false">Обсуждение Pass List Message</tr>
+          <tr lang="en">passes a list message through</tr>
+          <tr lang="ru">пропускает сообщение-список без изменений</tr>
         </in>
       </inlet>
     </inlets>
@@ -110,7 +107,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">outputs properties</tr>
-          <tr lang="ru" finished="false">выводимые свойства</tr>
+          <tr lang="ru">выводит свойства</tr>
         </out>
       </outlet>
     </outlets>
