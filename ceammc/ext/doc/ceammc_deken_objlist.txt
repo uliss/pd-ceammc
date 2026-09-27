@@ -293,7 +293,7 @@ bimap	bidirectional map container / контейнер двунаправлен�
 data.color	color data type / тип данных «цвет»
 color	color data type / тип данных «цвет»
 ceammc/color	color data type / тип данных «цвет»
-data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
+data.copy	makes a copy of any data type: MList, Set etc. / создаёт копию любого типа данных: MList, Set и т.д.
 data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
 ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
 dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение

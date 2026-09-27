@@ -408,7 +408,7 @@
     <entry name="data.color" descr="color data type" ref_view="link">
       <xi:include href="data.color.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.copy" descr="makes a copy for any data type: MList, Set etc..." ref_view="link">
+    <entry name="data.copy" descr="makes a copy of any data type: MList, Set etc." ref_view="link">
       <xi:include href="data.copy.pddoc" parse="xml"/>
     </entry>
     <entry name="data.dict" descr="the dictionary container: stores key-values pairs" ref_view="link">

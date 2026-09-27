@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [data.color] @url data.color-help.pd;
 #X text 220 192 color data type;
 #X obj 30 220 ui.link @title [data.copy] @url data.copy-help.pd;
-#X text 220 217 makes a copy for any data type: MList \, Set etc...;
+#X text 220 217 makes a copy of any data type: MList \, Set etc.;
 #X obj 30 245 ui.link @title [data.dict] @url data.dict-help.pd;
 #X text 220 242 the dictionary container: stores key-values pairs;
 #X obj 30 270 ui.link @title [data.fifo] @url data.fifo-help.pd;

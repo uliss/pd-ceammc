@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [data.color] @url data.color-help.pd;
 #X text 220 192 тип данных «цвет»;
 #X obj 30 220 ui.link @title [data.copy] @url data.copy-help.pd;
-#X text 220 217 делает копии любых типов данных: MList \, Set и т.д.;
+#X text 220 217 создаёт копию любого типа данных: MList \, Set и т.д.;
 #X obj 30 245 ui.link @title [data.dict] @url data.dict-help.pd;
 #X text 220 242 контейнер словаря: хранит пары ключ-значение;
 #X obj 30 270 ui.link @title [data.fifo] @url data.fifo-help.pd;
