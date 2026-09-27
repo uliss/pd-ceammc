@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts hex symbol into an integer value</tr>
-        <tr lang="ru">конвертирует шестнадцатеричный символ в целочисленное значение</tr>
+        <tr lang="ru">преобразует шестнадцатеричный символ в целое число</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,22 +20,34 @@
         <alias>hex-&gt;int</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a hexadecimal value given as a symbol (with or without
+        the 0x prefix) into an integer. A single symbol or a list of symbols can be sent to the
+        inlet. By default the object reports parsing errors; if the @strict flag is set, parsing
+        errors are silently ignored.</tr>
+        <tr lang="ru">Объект преобразует шестнадцатеричное значение, заданное символом (с префиксом
+        0x или без него), в целое число. На вход можно подать один символ или список символов. По
+        умолчанию объект сообщает об ошибках разбора; если установлен флаг @strict, ошибки разбора
+        молча игнорируются.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @strict -->
       <property name="@strict" type="flag" access="initonly">
         <tr lang="en">ignore parsing errors</tr>
-        <tr lang="ru">игнорировать ошибки парсинга</tr>
+        <tr lang="ru">игнорировать ошибки разбора</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
         <in on="list">
           <tr lang="en">input values</tr>
-          <tr lang="ru" finished="false">входные значения</tr>
+          <tr lang="ru">входные значения</tr>
         </in>
       </inlet>
     </inlets>
@@ -43,7 +55,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">converted value: int</tr>
-          <tr lang="ru" finished="false">Преобразованная стоимость: int</tr>
+          <tr lang="ru">преобразованное значение: целое число</tr>
         </out>
       </outlet>
     </outlets>

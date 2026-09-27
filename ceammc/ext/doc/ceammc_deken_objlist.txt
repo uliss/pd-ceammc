@@ -178,9 +178,9 @@ edge->bang	edge detector for numeric stream / детектор перехода 
 conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-conv.hex2int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-ceammc/hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
+conv.hex2int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
+ceammc/hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
+hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
 conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
 ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
 hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB

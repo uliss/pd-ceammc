@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 358 50 конвертирует шестнадцатеричный символ в целочисленное
-значение;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 преобразует шестнадцатеричный символ в целое число;
 #X obj 1 1 cnv 5 765 40 empty empty conv.hex2int 20 20 0 20 -104026
 -4096 0;
 #X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,40 +9,46 @@
 #X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hex->int] @url conv.hex2int-help.pd;
 #X obj 653 8 conv.hex2int;
-#X msg 50 118 symbol 0xFF;
-#X obj 50 147 hex->int;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X msg 50 205 list 0xFF 0xFFFF DEADBEEF;
-#X obj 50 234 hex->int;
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует шестнадцатеричное значение \, заданное
+символом (с префиксом 0x или без него) \, в целое число. На вход можно
+подать один символ или список символов. По умолчанию объект сообщает
+об ошибках разбора; если установлен флаг @strict \, ошибки разбора
+молча игнорируются.;
+#X msg 50 247 symbol 0xFF;
+#X obj 50 276 hex->int;
+#X floatatom 50 305 5 0 0 0 - - -;
+#X msg 50 334 list 0xFF 0xFFFF DEADBEEF;
+#X obj 50 363 hex->int;
+#X obj 50 391 ui.dt;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 446 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @strict;
-#X text 270 318 Игнорировать ошибки парсинга.;
-#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 363 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 447 @strict;
+#X text 270 447 Игнорировать ошибки разбора.;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 492 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 364 1\.;
-#X text 170 364 symbol:;
-#X text 270 364 input value.;
-#X text 170 389 list:;
-#X text 270 389 input values.;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 429 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 493 1\.;
+#X text 170 493 symbol:;
+#X text 270 493 входное значение.;
+#X text 170 518 list:;
+#X text 270 518 входные значения.;
+#X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 558 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 430 1\.;
-#X text 270 430 converted value: int.;
+#X text 130 559 1\.;
+#X text 270 559 преобразованное значение: целое число.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 609 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 612 библиотека: ceammc v0.9.8;
+#N canvas 10 631 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -67,8 +72,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 631 pd info;
+#X connect 8 0 9 0;
 #X connect 9 0 10 0;
-#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
