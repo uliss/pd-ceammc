@@ -287,9 +287,9 @@ music.voice2midi	convert single voice music to list of MIDI pitches / конве
 music.v->m	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
 color.mix	color mixer / смешивание цветов
 color.scale	creation of the color scale / создание цветовой шкалы
-data.bimap	bidirectional map container / двунаправленное отображение
-ceammc/bimap	bidirectional map container / двунаправленное отображение
-bimap	bidirectional map container / двунаправленное отображение
+data.bimap	bidirectional map container / контейнер двунаправленного отображения
+ceammc/bimap	bidirectional map container / контейнер двунаправленного отображения
+bimap	bidirectional map container / контейнер двунаправленного отображения
 data.color	color data type / цветовой тип данных
 color	color data type / цветовой тип данных
 ceammc/color	color data type / цветовой тип данных

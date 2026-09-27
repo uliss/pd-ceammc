@@ -396,7 +396,7 @@ music.voice2midi-help.pd;
 #X obj 30 4121 ui.link @title [color.scale] @url color.scale-help.pd;
 #X text 200 4118 создание цветовой шкалы;
 #X obj 30 4146 ui.link @title [data.bimap] @url data.bimap-help.pd;
-#X text 200 4143 двунаправленное отображение;
+#X text 200 4143 контейнер двунаправленного отображения;
 #X obj 30 4171 ui.link @title [data.color] @url data.color-help.pd;
 #X text 200 4168 цветовой тип данных;
 #X obj 30 4196 ui.link @title [data.copy] @url data.copy-help.pd;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">bidirectional map container</tr>
-        <tr lang="ru">двунаправленное отображение</tr>
+        <tr lang="ru">контейнер двунаправленного отображения</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,9 +23,7 @@
     <info>
       <par>
         <tr lang="en">NOTE: all object inlets are 'hot'</tr>
-        <!-- old: ПРИМЕЧАНИЕ: все входы объекта являются
-                «горячими» -->
-        <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: все входы объекта являются «горячими»</tr>
+        <tr lang="ru">ПРИМЕЧАНИЕ: все входы объекта являются «горячими»</tr>
       </par>
     </info>
     <mouse>
@@ -33,141 +31,125 @@
     </mouse>
     <arguments>
       <argument name="VALUE" type="list">
-        <tr lang="en">initial value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
+        <tr lang="en">initial value, a list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
         etc.</tr>
-        <!-- old: начальное значение, список пар: LEFT_KEY1 RIGHT_KEY1
-                LEFT_KEY2 RIGHT_KEY2 и т.д. -->
-        <tr lang="ru" finished="false">начальное значение, список пар: LEFT_KEY1 RIGHT_KEY1
-        LEFT_KEY2 RIGHT_KEY2 и т.д.</tr>
+        <tr lang="ru">начальное значение, список пар: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
+        и т.д.</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" default="1" access="readonly">
-        <tr lang="en">true if empty</tr>
-        <tr lang="ru" finished="false">Правда, пустая</tr>
+        <tr lang="en">true if container is empty</tr>
+        <tr lang="ru">истина, если контейнер пустой</tr>
       </property>
       <!-- @keys_left -->
       <property name="@keys_left" type="list" default="" access="readonly">
         <tr lang="en">list of left map keys</tr>
-        <tr lang="ru" finished="false">Список левой карты ключей</tr>
+        <tr lang="ru">список левых ключей отображения</tr>
       </property>
       <!-- @keys_right -->
       <property name="@keys_right" type="list" default="" access="readonly">
         <tr lang="en">list of right map keys</tr>
-        <tr lang="ru" finished="false">Список правильных ключей карты</tr>
+        <tr lang="ru">список правых ключей отображения</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" default="0" access="readonly">
-        <tr lang="en">number of left-right pairs in map</tr>
-        <tr lang="ru" finished="false">Количество лево-правых пар на карте</tr>
+        <tr lang="en">number of left-right pairs in the map</tr>
+        <tr lang="ru">количество лево-правых пар в отображении</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="list" default="">
-        <tr lang="en">value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</tr>
-        <!-- old: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и
-                т.д. -->
-        <tr lang="ru" finished="false">LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и т.д.</tr>
+        <tr lang="en">value, a list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</tr>
+        <tr lang="ru">значение, список пар: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и т.д.</tr>
       </property>
     </properties>
     <methods>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear bidirectional map content</tr>
-          <tr lang="ru" finished="false">четкое двунаправленное содержание карты</tr>
+          <tr lang="en">clear the bidirectional map content</tr>
+          <tr lang="ru">очистить содержимое двунаправленного отображения</tr>
         </info>
       </method>
       <!-- insert -->
       <method name="insert">
         <info>
-          <tr lang="en">insert new left-right map entry</tr>
-          <tr lang="ru" finished="false">вставить новую лево-правую карту</tr>
+          <tr lang="en">insert a new left-right map entry</tr>
+          <tr lang="ru">вставить новую лево-правую пару в отображение</tr>
         </info>
         <param name="PAIR" type="list" required="true">
           <tr lang="en">list: LEFT_KEY RIGHT_KEY</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Left_KEY Right_KEY</tr>
+          <tr lang="ru">список: LEFT_KEY RIGHT_KEY</tr>
         </param>
       </method>
       <!-- read -->
       <method name="read">
         <info>
-          <tr lang="en">read bimap from JSON file. Array of array pairs expected.</tr>
-          <!-- old: Читать карту из файла JSON. Ожидалось множество
-                    пар массивов. -->
-          <tr lang="ru" finished="false">Читать карту из файла JSON. Ожидалось множество пар
-          массивов.</tr>
+          <tr lang="en">read the bimap from a JSON file. An array of array pairs is expected.</tr>
+          <tr lang="ru">прочитать отображение из файла JSON. Ожидается массив пар массивов.</tr>
         </info>
         <param name="FNAME" type="symbol" required="true">
-          <tr lang="en">path to file, absolute or relative</tr>
-          <tr lang="ru" finished="false">Путь к файлу, абсолютный или относительный</tr>
+          <tr lang="en">path to the file, absolute or relative</tr>
+          <tr lang="ru">путь к файлу, абсолютный или относительный</tr>
         </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">set bidirectional map content</tr>
-          <tr lang="ru" finished="false">двунаправленный контент карты</tr>
+          <tr lang="en">set the bidirectional map content</tr>
+          <tr lang="ru">установить содержимое двунаправленного отображения</tr>
         </info>
         <param name="DATA" type="list" required="true">
           <tr lang="en">new value list</tr>
-          <tr lang="ru" finished="false">Новый список ценностей</tr>
+          <tr lang="ru">новый список значений</tr>
         </param>
       </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write to JSON file, to overwrite existing file use @force flag</tr>
-          <!-- old: писать в файл JSON, перезаписывать существующий
-                    файл с помощью флага @force -->
-          <tr lang="ru" finished="false">писать в файл JSON, перезаписывать существующий файл с
-          помощью флага @force</tr>
+          <tr lang="en">write to a JSON file; to overwrite an existing file, use the @force
+          flag</tr>
+          <tr lang="ru">записать в файл JSON; чтобы перезаписать существующий файл, используйте
+          флаг @force</tr>
         </info>
         <param name="FNAME" type="symbol" required="true">
-          <tr lang="en">path to file, absolute or relative</tr>
-          <tr lang="ru" finished="false">Путь к файлу, абсолютный или относительный</tr>
+          <tr lang="en">path to the file, absolute or relative</tr>
+          <tr lang="ru">путь к файлу, абсолютный или относительный</tr>
         </param>
         <param name="@force" type="symbol" required="false">
           <tr lang="en">force flag to overwrite existing files</tr>
-          <!-- old: Заставить флаг перезаписывать существующие
-                    файлы -->
-          <tr lang="ru" finished="false">Заставить флаг перезаписывать существующие файлы</tr>
+          <tr lang="ru">флаг принудительной перезаписи существующих файлов</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="atom">
-          <tr lang="en">try to find left key in the map and output the right value on success</tr>
-          <!-- old: Попробуйте найти левый ключ на карте и вывести
-                    правильное значение успеха. -->
-          <tr lang="ru" finished="false">Попробуйте найти левый ключ на карте и вывести правильное
-          значение успеха.</tr>
+          <tr lang="en">try to find the left key in the map and output the right value on
+          success</tr>
+          <tr lang="ru">попытаться найти левый ключ в отображении и вывести правое значение в
+          случае успеха</tr>
         </in>
         <in on="list">
-          <tr lang="en">try to find each left key of the list in the map and output the result list
-          of right values</tr>
-          <!-- old: Попробуйте найти каждый левый ключ списка на
-                    карте и выведите список результатов правильных значений. -->
-          <tr lang="ru" finished="false">Попробуйте найти каждый левый ключ списка на карте и
-          выведите список результатов правильных значений.</tr>
+          <tr lang="en">try to find each left key of the list in the map and output the resulting
+          list of right values</tr>
+          <tr lang="ru">попытаться найти каждый левый ключ из списка в отображении и вывести
+          результирующий список правых значений</tr>
         </in>
       </inlet>
       <inlet>
         <in on="atom">
-          <tr lang="en">try to find right key in the map and output the left value on success</tr>
-          <!-- old: Попробуйте найти правильный ключ на карте и
-                    вывести левое значение успеха. -->
-          <tr lang="ru" finished="false">Попробуйте найти правильный ключ на карте и вывести левое
-          значение успеха.</tr>
+          <tr lang="en">try to find the right key in the map and output the left value on
+          success</tr>
+          <tr lang="ru">попытаться найти правый ключ в отображении и вывести левое значение в
+          случае успеха</tr>
         </in>
         <in on="list">
-          <tr lang="en">try to find each right key of the list in the map and output the result
+          <tr lang="en">try to find each right key of the list in the map and output the resulting
           list of left values</tr>
-          <!-- old: Попробуйте найти каждый правый ключ списка на
-                    карте и выведите список результатов левых значений. -->
-          <tr lang="ru" finished="false">Попробуйте найти каждый правый ключ списка на карте и
-          выведите список результатов левых значений.</tr>
+          <tr lang="ru">попытаться найти каждый правый ключ из списка в отображении и вывести
+          результирующий список левых значений</tr>
         </in>
       </inlet>
     </inlets>
@@ -175,13 +157,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">atom or list: right value output</tr>
-          <tr lang="ru" finished="false">Атом или список: выход правильного значения</tr>
+          <tr lang="ru">атом или список: вывод правого значения</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">atom or list: left value output</tr>
-          <tr lang="ru" finished="false">Атом или список: выходное значение слева</tr>
+          <tr lang="ru">атом или список: вывод левого значения</tr>
         </out>
       </outlet>
     </outlets>
