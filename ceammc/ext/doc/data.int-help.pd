@@ -40,32 +40,32 @@
 -49933 0;
 #X msg 130 387 set;
 #X text 270 387 set a new value without output. Arguments are:;
-#X obj 300 412 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 412 [X]: new value. Type: int.;
+#X obj 300 412 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 412 X: new value. Type: int.;
 #X obj 250 445 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 445 *;
 #X text 270 445 multiply the stored value by the given number \, no
 output. Arguments are:;
-#X obj 300 485 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 485 [X]: multiplier. Type: int.;
+#X obj 300 485 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 485 X: multiplier. Type: int.;
 #X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 518 +;
 #X text 270 518 add the given number to the stored value \, no output.
 Arguments are:;
-#X obj 300 558 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 558 [X]: addend. Type: int.;
+#X obj 300 558 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 558 X: addend. Type: int.;
 #X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 591 -;
 #X text 270 591 subtract the given number from the stored value \,
 no output. Arguments are:;
-#X obj 300 631 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 631 [X]: subtrahend. Type: int.;
+#X obj 300 631 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 631 X: subtrahend. Type: int.;
 #X obj 250 664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 664 /;
 #X text 270 664 divide the stored value by the given number \, no output.
 Arguments are:;
-#X obj 300 704 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 704 [X]: divisor. Type: int.;
+#X obj 300 704 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 704 X: divisor. Type: int.;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
