@@ -2077,7 +2077,7 @@ hoa.2d.recomposer~-help.pd;
 в круговые гармоники;
 #X obj 30 21759 ui.link @title [hoa.2d.rotate~] @url
 hoa.2d.rotate~-help.pd;
-#X text 200 21756 вращение двумерного амбисонического звукового поля;
+#X text 200 21756 вращение звукового поля двумерных амбисоников;
 #X obj 30 21784 ui.link @title [hoa.2d.space] @url
 hoa.2d.space-help.pd;
 #X text 200 21781 контроль амплитуды двумерных плоских волн;

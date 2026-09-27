@@ -1172,8 +1172,8 @@ hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / де
 hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция поля сферических гармоник в плоские волны
 hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
 hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
-hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
-hoa.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
+hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
+hoa.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
 hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
 hoa.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
 hoa.2d.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
