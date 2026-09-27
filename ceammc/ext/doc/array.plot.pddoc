@@ -19,73 +19,83 @@
       </also>
       <since>0.9.2</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object plots numerical data into the specified array. A single float
+        received on the left inlet is plotted into the array at the current write position. A list
+        causes the array to be resized to the list length, and all list values are plotted. The
+        right inlet controls the plotting of existing data: a bang plots all samples already in the
+        array, and a float plots the specified number of samples and resizes the array
+        accordingly.</tr>
+        <tr lang="ru">Объект строит график числовых данных в указанном массиве. Одно число,
+        поступившее на левый вход, записывается в массив в текущую позицию записи. Список
+        приводит к изменению размера массива по длине списка и построению графика всех значений
+        списка. Правый вход управляет построением графика уже имеющихся данных: bang строит
+        график всех семплов, уже находящихся в массиве, а число строит график указанного числа
+        семплов и соответствующим образом меняет размер массива.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to plot into</tr>
+        <tr lang="ru">имя массива для построения графика</tr>
       </argument>
       <argument name="YMIN" type="float" minvalue="-2048" maxvalue="2048">
         <tr lang="en">minimal y-axis value</tr>
-        <tr lang="ru">минимальное значение y-оси</tr>
+        <tr lang="ru">минимальное значение по оси Y</tr>
       </argument>
       <argument name="YMAX" type="float" minvalue="-2048" maxvalue="2048">
         <tr lang="en">maximum y-axis value</tr>
-        <tr lang="ru">максимальное значение y-оси</tr>
+        <tr lang="ru">максимальное значение по оси Y</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to plot into</tr>
+        <tr lang="ru">имя массива для построения графика</tr>
       </property>
       <!-- @nan -->
       <property name="@nan" type="float" default="+inf">
-        <tr lang="en">value to replace NaN on plot</tr>
-        <tr lang="ru">значение для замены NaN на графике</tr>
+        <tr lang="en">value used to replace NaN on the plot</tr>
+        <tr lang="ru">значение, которым заменяется NaN на графике</tr>
       </property>
       <!-- @yauto -->
       <property name="@yauto" type="bool" default="1">
-        <tr lang="en">calculate y-axis range automatically</tr>
-        <tr lang="ru">вычислить диапазон y-оси автоматически</tr>
+        <tr lang="en">calculate the y-axis range automatically</tr>
+        <tr lang="ru">вычислять диапазон по оси Y автоматически</tr>
       </property>
       <!-- @ymax -->
       <property name="@ymax" type="float" minvalue="-2048" maxvalue="2048" default="1">
         <tr lang="en">maximum y-axis value</tr>
-        <tr lang="ru">максимальное значение y-оси</tr>
+        <tr lang="ru">максимальное значение по оси Y</tr>
       </property>
       <!-- @ymin -->
       <property name="@ymin" type="float" minvalue="-2048" maxvalue="2048" default="-1">
         <tr lang="en">minimal y-axis value</tr>
-        <tr lang="ru">минимальное значение y-оси</tr>
+        <tr lang="ru">минимальное значение по оси Y</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">single input sample</tr>
-          <tr lang="ru" finished="false">единый входной образец</tr>
+          <tr lang="en">single input sample to plot</tr>
+          <tr lang="ru">одно входное значение для построения графика</tr>
         </in>
         <in on="list">
-          <tr lang="en">resizes array to list size and plot all list values</tr>
-          <!-- old: Resizes array to list size и нарисуйте все
-                    значения списка -->
-          <tr lang="ru" finished="false">Resizes array to list size и нарисуйте все значения
+          <tr lang="en">resizes the array to the list length and plots all list values</tr>
+          <tr lang="ru">изменяет размер массива по длине списка и строит график всех значений
           списка</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">plot all samples fitted to specified array</tr>
-          <!-- old: Все образцы, установленные на заданный
-                    массив -->
-          <tr lang="ru" finished="false">Все образцы, установленные на заданный массив</tr>
+          <tr lang="en">plots all samples already in the array</tr>
+          <tr lang="ru">строит график всех семплов, уже находящихся в массиве</tr>
         </in>
         <in on="float">
-          <tr lang="en">plot specified number of samples, resizes array</tr>
-          <!-- old: участок заданное количество образцов, размеры
-                    массива -->
-          <tr lang="ru" finished="false">участок заданное количество образцов, размеры массива</tr>
+          <tr lang="en">plots the specified number of samples and resizes the array</tr>
+          <tr lang="ru">строит график указанного числа семплов и изменяет размер массива</tr>
         </in>
       </inlet>
     </inlets>
@@ -93,15 +103,15 @@
       <outlet>
         <out type="any">
           <tr lang="en">bang on done</tr>
-          <tr lang="ru" finished="false">бахвальство</tr>
+          <tr lang="ru">bang по завершении</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[1 100 3(                         [array APLT size=10 w=300 h=160]
-|
+[1 100 3( [9 1 0.5(               [array APLT size=10 w=300 h=160]
+|         |
 [list.seq @closed 1]
 | |
 | [ui.dt]
