@@ -20,11 +20,21 @@
         <see>dict.values</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a dictionary on its inlet and outputs a flat list of all its
+        keys. The order of keys matches the order in which they appear in the dictionary.</tr>
+        <tr lang="ru">Объект принимает словарь на вход и выводит плоский список всех его ключей.
+        Порядок ключей соответствует порядку их следования в словаре.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="data">
-          <tr lang="en">data.dict</tr>
-          <tr lang="ru" finished="false">data.dict.</tr>
+          <tr lang="en">dictionary to extract keys from. On receipt,
+          the object immediately outputs the list of keys</tr>
+          <tr lang="ru">словарь, из которого нужно извлечь ключи. При
+          получении объект сразу выводит список ключей</tr>
         </in>
       </inlet>
     </inlets>
@@ -32,7 +42,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of dict keys</tr>
-          <tr lang="ru" finished="false">Список клавиш dict</tr>
+          <tr lang="ru">список ключей словаря</tr>
         </out>
       </outlet>
     </outlets>
