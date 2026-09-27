@@ -21,25 +21,33 @@
     </meta>
     <info>
       <wiki name="Variance">Variance</wiki>
+      <par>
+        <tr lang="en">The object computes the variance of all samples in the specified array and
+        outputs it as a single float. The variance shows how far the sample values are spread out
+        from their mean value and equals the square of the standard deviation.</tr>
+        <tr lang="ru">Объект вычисляет дисперсию всех семплов указанного массива и выводит её одним
+        числом с плавающей точкой. Дисперсия показывает, насколько значения семплов разбросаны
+        относительно их среднего значения, и равна квадрату стандартного отклонения.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs variance</tr>
-          <tr lang="ru">начинает вычисление и выводит результат</tr>
+          <tr lang="en">calculates the variance and outputs it</tr>
+          <tr lang="ru">вычисляет дисперсию и выводит её</tr>
         </in>
       </inlet>
     </inlets>
