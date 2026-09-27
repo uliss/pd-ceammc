@@ -25,68 +25,73 @@
 #X text 130 333 1\.;
 #X text 170 333 atom;
 #X obj 268 334 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 PATH: See @path. Тип: atom.;
+#X text 270 333 PATH: см. @path. Тип: atom.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 376 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 374 @async;
-#X text 270 374 Use async operations. Тип: bool. Значение по умолчанию:
+#X text 270 374 Использовать асинхронные операции. Тип: bool. Значение
+по умолчанию: 1\.;
+#X obj 250 416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 416 @norm;
+#X text 270 416 Нормализовать путь. Тип: bool. Значение по умолчанию:
 1\.;
-#X obj 250 404 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 404 @norm;
-#X text 270 404 Normalize path. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 434 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 434 @path;
-#X text 270 434 Current path value. Тип: atom.;
-#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 479 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 446 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 446 @path;
+#X text 270 446 Текущее значение пути. Тип: atom.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 480 exists;
-#X text 270 480 checks if path exists. Output [exists VALUE( message.;
-#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 515 info;
-#X text 270 515 request path information. Output [info DICT(.;
-#X obj 250 550 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 550 permissions;
-#X text 270 550 request path permissions. Output [permissions VALUE(.;
-#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 585 size;
-#X text 270 585 request file size in bytes. Output [size BYTES(.;
-#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 620 type;
-#X text 270 620 request path type. Output [type TYPE( message \, where
-type is one of: regular \, dir \, symlink \, char \, block \, fifo
-\, socket.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 492 exists;
+#X text 270 492 проверяет \, существует ли путь. Выводит сообщение
+[exists VALUE(.;
+#X obj 250 542 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 542 info;
+#X text 270 542 запрашивает информацию о пути. Выводит сообщение [info
+DICT(.;
+#X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 577 permissions;
+#X text 270 577 запрашивает права доступа к пути. Выводит сообщение
+[permissions VALUE(.;
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 627 size;
+#X text 270 627 запрашивает размер файла в байтах. Выводит сообщение
+[size BYTES(.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 type;
+#X text 270 677 запрашивает тип пути. Выводит сообщение [type TYPE(
+\, где тип — один из: regular \, dir \, symlink \, char \, block \,
+fifo \, socket.;
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 757 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 701 1\.;
-#X text 170 701 bang:;
-#X text 270 701 output current path.;
-#X text 170 726 symbol:;
-#X text 270 726 set current path and output.;
-#X text 170 751 data:;
-#X text 270 751 set current path and output.;
-#X text 130 776 2\.;
-#X text 170 776 symbol:;
-#X text 270 776 set current path and without output.;
-#X text 170 801 data:;
-#X text 270 801 set current path and without output.;
-#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 758 1\.;
+#X text 170 758 bang:;
+#X text 270 758 вывести текущий путь.;
+#X text 170 783 symbol:;
+#X text 270 783 установить текущий путь и вывести.;
+#X text 170 808 data:;
+#X text 270 808 установить текущий путь и вывести.;
+#X text 130 833 2\.;
+#X text 170 833 symbol:;
+#X text 270 833 установить текущий путь без вывода.;
+#X text 170 858 data:;
+#X text 270 858 установить текущий путь без вывода.;
+#X obj 20 893 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 898 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 842 1\.;
-#X text 270 842 data output.;
+#X text 130 899 1\.;
+#X text 270 899 вывод данных.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 895 библиотека: ceammc v0.9.8;
-#N canvas 10 914 400 290 info 0;
+#X obj 1 949 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 952 библиотека: ceammc v0.9.8;
+#N canvas 10 971 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 914 pd info;
+#X restore 10 971 pd info;
 #X connect 9 0 10 0;
 #X connect 4 0 12 0;
 #X connect 10 0 12 0;

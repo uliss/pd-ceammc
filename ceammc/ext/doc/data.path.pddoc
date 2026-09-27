@@ -18,101 +18,89 @@
     </meta>
     <arguments>
       <argument name="PATH" type="atom">
-        <tr lang="en">See @path</tr>
-        <tr lang="ru" finished="false">См. @path</tr>
+        <tr lang="en">see @path</tr>
+        <tr lang="ru">см. @path</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @async -->
       <property name="@async" type="bool" default="1">
-        <tr lang="en">use async operations</tr>
-        <tr lang="ru" finished="false">Использование операций Sync</tr>
+        <tr lang="en">use asynchronous operations</tr>
+        <tr lang="ru">использовать асинхронные операции</tr>
       </property>
       <!-- @norm -->
       <property name="@norm" type="bool" default="1">
-        <tr lang="en">normalize path</tr>
-        <tr lang="ru" finished="false">нормализовать путь</tr>
+        <tr lang="en">normalize the path</tr>
+        <tr lang="ru">нормализовать путь</tr>
       </property>
       <!-- @path -->
       <property name="@path" type="atom" default="">
         <tr lang="en">current path value</tr>
-        <tr lang="ru" finished="false">Текущая стоимость пути</tr>
+        <tr lang="ru">текущее значение пути</tr>
       </property>
     </properties>
     <methods>
       <!-- exists -->
       <method name="exists">
         <info>
-          <tr lang="en">checks if path exists. Output [exists VALUE( message</tr>
-          <!-- old: Проверить, существует ли путь. Результат
-                    [существует Ценность] -->
-          <tr lang="ru" finished="false">Проверить, существует ли путь. Результат [существует
-          Ценность]</tr>
+          <tr lang="en">checks whether the path exists. Outputs an [exists VALUE( message</tr>
+          <tr lang="ru">проверяет, существует ли путь. Выводит сообщение [exists VALUE(</tr>
         </info>
       </method>
       <!-- info -->
       <method name="info">
         <info>
-          <tr lang="en">request path information. Output [info DICT(</tr>
-          <!-- old: запросить информацию о пути. Выход [информация
-                    DICT() -->
-          <tr lang="ru" finished="false">запросить информацию о пути. Выход [информация DICT()</tr>
+          <tr lang="en">requests path information. Outputs an [info DICT( message</tr>
+          <tr lang="ru">запрашивает информацию о пути. Выводит сообщение [info DICT(</tr>
         </info>
       </method>
       <!-- permissions -->
       <method name="permissions">
         <info>
-          <tr lang="en">request path permissions. Output [permissions VALUE(</tr>
-          <!-- old: Запросить разрешения пути. Результат [разрешение
-                    Ценность() -->
-          <tr lang="ru" finished="false">Запросить разрешения пути. Результат [разрешение
-          Ценность()</tr>
+          <tr lang="en">requests path permissions. Outputs a [permissions VALUE( message</tr>
+          <tr lang="ru">запрашивает права доступа к пути. Выводит сообщение [permissions VALUE(</tr>
         </info>
       </method>
       <!-- size -->
       <method name="size">
         <info>
-          <tr lang="en">request file size in bytes. Output [size BYTES(</tr>
-          <!-- old: Запрос размера файла в байтах. Выход [размер
-                    BYTES() -->
-          <tr lang="ru" finished="false">Запрос размера файла в байтах. Выход [размер BYTES()</tr>
+          <tr lang="en">requests the file size in bytes. Outputs a [size BYTES( message</tr>
+          <tr lang="ru">запрашивает размер файла в байтах. Выводит сообщение [size BYTES(</tr>
         </info>
       </method>
       <!-- type -->
       <method name="type">
         <info>
-          <tr lang="en">request path type. Output [type TYPE( message, where type is one of:
+          <tr lang="en">requests the path type. Outputs a [type TYPE( message, where type is one of:
           regular, dir, symlink, char, block, fifo, socket</tr>
-          <!-- old: Тип пути запроса. Выход [тип TYPE(сообщение, где
-                    тип один из: обычный, dir, symlink, char, block, fifo, socket) -->
-          <tr lang="ru" finished="false">Тип пути запроса. Выход [тип TYPE(сообщение, где тип один
-          из: обычный, dir, symlink, char, block, fifo, socket)</tr>
+          <tr lang="ru">запрашивает тип пути. Выводит сообщение [type TYPE(, где тип — один из:
+          regular, dir, symlink, char, block, fifo, socket</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current path</tr>
-          <tr lang="ru" finished="false">Выходной текущий путь</tr>
+          <tr lang="en">output the current path</tr>
+          <tr lang="ru">вывести текущий путь</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set current path and output</tr>
-          <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
+          <tr lang="en">set the current path and output</tr>
+          <tr lang="ru">установить текущий путь и вывести</tr>
         </in>
         <in on="data">
-          <tr lang="en">set current path and output</tr>
-          <tr lang="ru" finished="false">Установить текущий путь и выход</tr>
+          <tr lang="en">set the current path and output</tr>
+          <tr lang="ru">установить текущий путь и вывести</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set current path and without output</tr>
-          <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
+          <tr lang="en">set the current path without output</tr>
+          <tr lang="ru">установить текущий путь без вывода</tr>
         </in>
         <in on="data">
-          <tr lang="en">set current path and without output</tr>
-          <tr lang="ru" finished="false">установить текущий путь и без выхода</tr>
+          <tr lang="en">set the current path without output</tr>
+          <tr lang="ru">установить текущий путь без вывода</tr>
         </in>
       </inlet>
     </inlets>
@@ -120,7 +108,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">data output</tr>
-          <tr lang="ru" finished="false">выход данных</tr>
+          <tr lang="ru">вывод данных</tr>
         </out>
       </outlet>
     </outlets>
