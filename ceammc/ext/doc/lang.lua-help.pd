@@ -5,97 +5,99 @@
 #X obj 1 1 cnv 5 765 40 empty empty lang.lua 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 lang.lua;
-#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Lua code is executed in separated thread in async mode.;
-#X text 240 108 Each lang.lua object has own independent context.;
-#X obj 50 196 loadmsg load lua/basic.lua;
-#X obj 69 225 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object embeds LuaJIT as a scripting language inside
+a Pd patch. Lua code is executed in a separate thread in async mode
+\, so it does not block Pd's main thread.;
+#X text 240 138 Each lang.lua object has its own independent Lua context.;
+#X obj 50 226 loadmsg load lua/basic.lua;
+#X obj 69 255 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 107 225 5 0 0 0 - - -;
-#X msg 155 225 1 2 3 4;
-#X symbolatom 251 225 5 0 0 0 - - -;
-#X msg 299 225 call fn ABC;
-#X obj 50 268 lang.lua @in 4 @out 3;
-#X obj 50 297 ui.dt;
-#X floatatom 146 297 5 0 0 0 - - -;
-#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 352 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X floatatom 107 255 5 0 0 0 - - -;
+#X msg 155 255 1 2 3 4;
+#X symbolatom 251 255 5 0 0 0 - - -;
+#X msg 299 255 call fn ABC;
+#X obj 50 298 lang.lua @in 4 @out 3;
+#X obj 50 327 ui.dt;
+#X floatatom 146 327 5 0 0 0 - - -;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 382 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 387 Left-click;
-#X text 310 387 open Lua code in the editor.;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 422 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 417 Left-click;
+#X text 310 417 open Lua code in the editor.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 452 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 425 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 455 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 423 1\.;
-#X text 170 423 int;
-#X obj 268 424 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 423 IN: number of inputs. Type: int. Range: [1\..16];
-#X text 130 448 2\.;
-#X text 170 448 int;
-#X obj 268 449 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 OUT: number of outputs. Type: int. Range: [1\..16];
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 488 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 453 1\.;
+#X text 170 453 int;
+#X obj 268 454 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 453 IN: number of inputs. Type: int. Range: [1\..16];
+#X text 130 478 2\.;
+#X text 170 478 int;
+#X obj 268 479 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 478 OUT: number of outputs. Type: int. Range: [1\..16];
+#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 518 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 491 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 521 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 489 @in;
-#X text 270 489 (initonly) Number of inputs. Type: int. Default value:
+#X msg 130 519 @in;
+#X text 270 519 (initonly) Number of inputs. Type: int. Default value:
 1\. Range: [1\..16].;
-#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 531 @out;
-#X text 270 531 (initonly) Number of outputs. Type: int. Default value:
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 561 @out;
+#X text 270 561 (initonly) Number of outputs. Type: int. Default value:
 1\. Range: [1\..16].;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 588 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 618 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 589 call;
-#X text 270 589 call lua function. Arguments are:;
-#X obj 300 614 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 614 FN: function name. Type: symbol.;
-#X obj 300 637 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 637 [ARGS]: function arguments. Type: list.;
-#X obj 250 670 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 670 eval;
-#X text 270 670 eval lua code. Arguments are:;
-#X obj 300 695 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 695 CODE: lua code. Type: list.;
-#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 728 load;
-#X text 270 728 load lua file and eval it. Arguments are:;
-#X obj 300 753 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 753 PATH: path to lua file. Type: list.;
-#X obj 250 786 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 786 quit;
-#X text 270 786 abort lua script execution.;
-#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 836 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 619 call;
+#X text 270 619 calls a Lua function by name. Arguments are:;
+#X obj 300 644 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 644 FN: function name. Type: symbol.;
+#X obj 300 667 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 667 [ARGS]: function arguments. Type: list.;
+#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 700 eval;
+#X text 270 700 evaluates Lua code. Arguments are:;
+#X obj 300 725 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 725 CODE: Lua code. Type: list.;
+#X obj 250 758 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 758 load;
+#X text 270 758 loads a Lua file and evaluates it. Arguments are:;
+#X obj 300 783 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 783 PATH: path to the Lua file. Type: list.;
+#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 816 quit;
+#X text 270 816 aborts Lua script execution.;
+#X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 866 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 837 1\.;
-#X text 270 837 first lua input.;
-#X text 130 862 ...;
-#X text 270 862 ... lua input.;
-#X text 130 887 n.;
-#X text 270 887 n-th lua input.;
-#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 927 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 867 1\.;
+#X text 270 867 first Lua input.;
+#X text 130 892 ...;
+#X text 270 892 ... Lua input.;
+#X text 130 917 n.;
+#X text 270 917 n-th Lua input.;
+#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 957 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 928 1\.;
-#X text 270 928 first lua output.;
-#X text 130 948 ...;
-#X text 270 948 ... lua output.;
-#X text 130 968 n.;
-#X text 270 968 n-th lua output.;
+#X text 130 958 1\.;
+#X text 270 958 first Lua output.;
+#X text 130 978 ...;
+#X text 270 978 ... Lua output.;
+#X text 130 998 n.;
+#X text 270 998 n-th Lua output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1021 library: ceammc v0.9.8;
-#N canvas 10 1040 400 290 info 0;
+#X obj 1 1048 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1051 library: ceammc v0.9.8;
+#N canvas 10 1070 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1040 pd info;
+#X restore 10 1070 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 1;

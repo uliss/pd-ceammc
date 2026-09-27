@@ -5,7 +5,7 @@
 #X obj 30 120 ui.link @title [lang.faust~] @url lang.faust~-help.pd;
 #X text 220 117 компиляция кода Faust DSP Language в реальном времени;
 #X obj 30 145 ui.link @title [lang.lua] @url lang.lua-help.pd;
-#X text 220 142 языковые привязки для Lua JIT;
+#X text 220 142 привязки языка Lua JIT;
 #X obj 30 170 ui.link @title [ui.faust~] @url ui.faust~-help.pd;
 #X text 220 167 виджет языка программирования Faust;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::lang 20 20 0 20 -104026

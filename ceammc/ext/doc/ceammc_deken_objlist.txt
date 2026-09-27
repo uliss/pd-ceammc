@@ -630,7 +630,7 @@ hw.rpi.spi.max7219	LED matrix driver based on the MAX7219 chip for Raspberry Pi 
 hw.rpi.spi.ws2812	WS2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты WS2812 для Raspberry Pi
 hw.serial	serial port device / серийный порт устройства
 lang.faust~	real-time compilation of Faust DSP Language code / компиляция кода Faust DSP Language в реальном времени
-lang.lua	Lua JIT language bindings / языковые привязки для Lua JIT
+lang.lua	Lua JIT language bindings / привязки языка Lua JIT
 ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
 lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [0,+1]
 lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
