@@ -20,7 +20,7 @@ hoa.2d.optim~-help.pd;
 #X text 220 217 инструмент оптимизации для двумерных амбисоников;
 #X obj 30 245 ui.link @title [hoa.2d.projector~] @url
 hoa.2d.projector~-help.pd;
-#X text 220 242 декомпозиция из сферических гармоник в плоские волны;
+#X text 220 242 декомпозиция поля сферических гармоник в плоские волны;
 #X obj 30 270 ui.link @title [hoa.2d.recomposer~] @url
 hoa.2d.recomposer~-help.pd;
 #X text 220 267 декомпозиция плоских двумерных волн в сферические гармоники;
