@@ -21,42 +21,66 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
-        <!-- old: Неинтерполирующий генератор, основанный на
-                разностных уравнениях: -->
-        <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на разностных
-        уравнениях:</tr>
+        <tr lang="en">A non-interpolating chaotic generator based on the standard map (also known
+        as the Chirikov–Taylor map), a two-dimensional discrete dynamical system. On each bang the
+        generator advances the map by one step and outputs the new x and y coordinates, mapped to
+        the [-1, 1] range. The map is widely used as a model of chaos in Hamiltonian systems.</tr>
+        <tr lang="ru">Неинтерполирующий хаотический генератор на основе стандартного отображения
+        (также известного как отображение Чирикова — Тейлора) — двумерной дискретной динамической
+        системы. На каждый bang генератор делает один шаг отображения и выводит новые координаты
+        x и y, приведённые к диапазону [-1, 1]. Отображение широко используется как модель хаоса
+        в гамильтоновых системах.</tr>
       </par>
       <par>
-        <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
-        <tr lang="ru" finished="false">y(n+1) = (y(n) + k* sin(x(n))) % 2pi</tr>
+        <tr lang="en">The map is defined by the difference equations:</tr>
+        <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
       <par>
-        <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
-        <tr lang="ru" finished="false">x(n+1) = (x(n) + y(n+1) % 2pi</tr>
+        <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) mod 2π</tr>
+        <tr lang="ru">y(n+1) = (y(n) + k * sin(x(n))) mod 2π</tr>
+      </par>
+      <par>
+        <tr lang="en">x(n+1) = (x(n) + y(n+1)) mod 2π</tr>
+        <tr lang="ru">x(n+1) = (x(n) + y(n+1)) mod 2π</tr>
+      </par>
+      <par>
+        <tr lang="en">The value of k controls the behavior of the map. For small k (roughly k &lt;
+        1) the trajectories are mostly regular (quasi-periodic or periodic), while for larger k the
+        system becomes increasingly chaotic. The default k = 1 puts the generator near the boundary
+        between regular and chaotic motion.</tr>
+        <tr lang="ru">Значение k управляет поведением отображения. При малых k (примерно k &lt; 1)
+        траектории в основном регулярные (квазипериодические или периодические), а при больших k
+        система становится всё более хаотичной. Значение по умолчанию k = 1 помещает генератор
+        вблизи границы между регулярным и хаотическим движением.</tr>
+      </par>
+      <par>
+        <tr lang="en">Since the values are not interpolated, driving the generator with a slow
+        metro produces a stepped chaotic control signal, useful for driving filters, pan positions
+        or pitches.</tr>
+        <tr lang="ru">Так как значения не интерполируются, управление генератором медленным metro
+        даёт ступенчатый хаотический сигнал, удобный для управления фильтрами, панорамой или
+        высотой тона.</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
       <par>
-        <tr lang="en">The properties of chaos of the standard map were established by Boris
-        Chirikov in 1969</tr>
-        <!-- old: Свойства хаоса стандартной карты были установлены
-                Борисом Чириковым в 1969 году. -->
-        <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены Борисом
+        <tr lang="en">The chaotic properties of the standard map were established by Boris Chirikov
+        in 1969.</tr>
+        <tr lang="ru">Хаотические свойства стандартного отображения были установлены Борисом
         Чириковым в 1969 году.</tr>
       </par>
     </info>
     <arguments>
       <argument name="K" type="float">
-        <tr lang="en">k value, default 1</tr>
-        <tr lang="ru" finished="false">k значение, по умолчанию 1</tr>
+        <tr lang="en">k value (default 1)</tr>
+        <tr lang="ru">значение k (по умолчанию 1)</tr>
       </argument>
       <argument name="X" type="float">
-        <tr lang="en">initial x value, default 0.5</tr>
-        <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,5</tr>
+        <tr lang="en">initial x value (default 0.5)</tr>
+        <tr lang="ru">начальное значение x (по умолчанию 0.5)</tr>
       </argument>
       <argument name="Y" type="float">
-        <tr lang="en">initial y value, default 0</tr>
-        <tr lang="ru" finished="false">начальное значение y, по умолчанию 0</tr>
+        <tr lang="en">initial y value (default 0)</tr>
+        <tr lang="ru">начальное значение y (по умолчанию 0)</tr>
       </argument>
     </arguments>
     <properties />
@@ -64,28 +88,28 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generates and outputs next x-value</tr>
-          <tr lang="ru" finished="false">генерирует и выводит следующее x-значение</tr>
+          <tr lang="en">generates and outputs the next x-value</tr>
+          <tr lang="ru">генерирует и выводит следующее значение x</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">set k value</tr>
-          <tr lang="ru" finished="false">значение k</tr>
+          <tr lang="en">sets the k value</tr>
+          <tr lang="ru">устанавливает значение k</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
-          <tr lang="ru" finished="false">выходы x-значения, отображаемые в [-1..1] диапазоне</tr>
+        <out type="float">
+          <tr lang="en">outputs the x-value mapped to the [-1, 1] range</tr>
+          <tr lang="ru">выводит значение x, приведённое к диапазону [-1, 1]</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
-          <tr lang="ru" finished="false">выходы y-значения, отображаемые в [-1..1] диапазоне</tr>
+        <out type="float">
+          <tr lang="en">outputs the y-value mapped to the [-1, 1] range</tr>
+          <tr lang="ru">выводит значение y, приведённое к диапазону [-1, 1]</tr>
         </out>
       </outlet>
     </outlets>
