@@ -10,8 +10,8 @@
         <author>Thomas Le Meur</author>
       </authors>
       <description>
-        <tr lang="en">2D decoder of higher order ambisonics</tr>
-        <tr lang="ru">двумерный кодировщик амбисоников высоких порядков</tr>
+        <tr lang="en">2D encoder of higher order ambisonics</tr>
+        <tr lang="ru">двумерный кодировщик амбисоников высших порядков</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,39 +27,37 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Creates the circular harmonics of a signal depending of a given order and a
+        <tr lang="en">Creates the circular harmonics of a signal according to a given order and a
         position on a circle given in radians (θ).</tr>
-        <!-- old: Создает круговые гармоники сигнала в зависимости от
-                заданного порядка и положения на круге, заданном в радианах (θ). -->
-        <tr lang="ru" finished="false">Создает круговые гармоники сигнала в зависимости от
-        заданного порядка и положения на круге, заданном в радианах (θ).</tr>
+        <tr lang="ru">Создаёт круговые гармоники сигнала в соответствии с заданным порядком
+        декомпозиции и позицией на окружности, заданной в радианах (θ).</tr>
       </par>
       <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
     </info>
     <arguments>
       <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @order -->
       <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">position on a circle in radians</tr>
-          <tr lang="ru" finished="false">Положение на круге в радианах</tr>
+          <tr lang="ru">позиция на окружности в радианах</tr>
         </in>
       </inlet>
     </inlets>
@@ -67,19 +65,19 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">first circular harmonics output</tr>
-          <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
+          <tr lang="ru">выход первой круговой гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... circular harmonics output</tr>
-          <tr lang="ru" finished="false">... круглые гармоники выход</tr>
+          <tr lang="ru">... выход круговой гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th circular harmonics output</tr>
-          <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
+          <tr lang="ru">выход n-й круговой гармоники</tr>
         </out>
       </outlet>
     </outlets>

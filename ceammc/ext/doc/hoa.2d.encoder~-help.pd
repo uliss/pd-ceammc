@@ -1,15 +1,15 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 476 50 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 481 50 2D decoder of higher order ambisonics;
+#X text 481 50 2D encoder of higher order ambisonics;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.encoder~ 20 20 0 20 -104026
 -4096 0;
 #X obj 515 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.encoder~] @url hoa.2d.encoder~-help.pd;
 #X obj 630 8 hoa.2d.encoder~;
 #X obj 230 78 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Creates the circular harmonics of a signal depending
-of a given order and a position on a circle given in radians (θ).;
+#X text 240 83 Creates the circular harmonics of a signal according
+to a given order and a position on a circle given in radians (θ).;
 #X obj 240 141 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.encoder~-help.pd;
 #X obj 50 225 lfo.square~ 1;

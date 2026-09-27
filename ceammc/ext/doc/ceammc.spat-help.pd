@@ -9,7 +9,7 @@ hoa.2d.decoder~-help.pd;
 #X text 220 117 2D decoder of higher order ambisonics;
 #X obj 30 145 ui.link @title [hoa.2d.encoder~] @url
 hoa.2d.encoder~-help.pd;
-#X text 220 142 2D decoder of higher order ambisonics;
+#X text 220 142 2D encoder of higher order ambisonics;
 #X obj 30 170 ui.link @title [hoa.2d.exchanger~] @url
 hoa.2d.exchanger~-help.pd;
 #X text 220 167 renumbers and normalizes the channels in 2d ambisonics;
