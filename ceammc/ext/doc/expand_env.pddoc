@@ -76,9 +76,9 @@
           <tr lang="ru">подставляет переменные внутри каждого символа списка</tr>
         </in>
         <in on="any">
-          <tr lang="en">expand variables inside each symbol of the message; if the @any flag was
+          <tr lang="en">expand variables inside each symbol of the message, if the @any flag was
           specified, also expand in the message selector</tr>
-          <tr lang="ru">подставляет переменные внутри каждого символа сообщения; если указан флаг
+          <tr lang="ru">подставляет переменные внутри каждого символа сообщения, если указан флаг
           @any, то также и в селекторе сообщения</tr>
         </in>
       </inlet>
