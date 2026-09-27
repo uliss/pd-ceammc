@@ -34,10 +34,10 @@
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">dictionary to extract values from. On
-          receipt, the object immediately outputs the MList of values</tr>
-          <tr lang="ru">словарь, из которого нужно извлечь значения.
-          При получении объект сразу выводит MList значений</tr>
+          <tr lang="en">dictionary to extract values from. On receipt, the object immediately
+          outputs the MList of values</tr>
+          <tr lang="ru">словарь, из которого нужно извлечь значения. При получении объект сразу
+          выводит MList значений</tr>
         </in>
       </inlet>
     </inlets>

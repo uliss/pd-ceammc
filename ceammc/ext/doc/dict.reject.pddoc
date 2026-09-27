@@ -22,17 +22,18 @@
     <info>
       <par>
         <tr lang="en">The object takes a dictionary and outputs a new dictionary without the keys
-        listed in KEYS (or set via the @keys property). All other keys are kept as is. </tr>
+        listed in KEYS (or set via the @keys property). All other keys are kept as is.</tr>
         <tr lang="ru">Объект принимает словарь и выводит новый словарь без ключей, перечисленных в
-        KEYS (или заданных через свойство @keys). Все остальные ключи сохраняются без изменений.</tr>
+        KEYS (или заданных через свойство @keys). Все остальные ключи сохраняются без
+        изменений.</tr>
       </par>
     </info>
     <arguments>
       <argument name="KEYS" type="list">
         <tr lang="en">list of keys to remove from the output dictionary. All other keys will be
         kept</tr>
-        <tr lang="ru">список ключей, которые нужно удалить из выходного словаря. Все остальные ключи
-        будут сохранены</tr>
+        <tr lang="ru">список ключей, которые нужно удалить из выходного словаря. Все остальные
+        ключи будут сохранены</tr>
       </argument>
     </arguments>
     <properties>
@@ -47,8 +48,8 @@
         <in on="data:dict">
           <tr lang="en">input dictionary. On receipt, the object immediately outputs a filtered
           dictionary with the specified keys removed</tr>
-          <tr lang="ru">входной словарь. При получении объект сразу выводит отфильтрованный
-          словарь с удалёнными указанными ключами</tr>
+          <tr lang="ru">входной словарь. При получении объект сразу выводит отфильтрованный словарь
+          с удалёнными указанными ключами</tr>
         </in>
       </inlet>
       <inlet>
