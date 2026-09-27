@@ -24,161 +24,166 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
-        <!-- old: Неинтерполирующий генератор, основанный на
-                разностных уравнениях: -->
-        <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на разностных
-        уравнениях:</tr>
+        <tr lang="en">A non-interpolating chaotic generator based on the Peter de Jong attractor,
+        a two-dimensional discrete dynamical system. On each bang the generator advances the map
+        by one step and outputs the new x and y coordinates.</tr>
+        <tr lang="ru">Неинтерполирующий хаотический генератор на основе аттрактора Питера де Йонга
+        — двумерной дискретной динамической системы. На каждый bang генератор делает один шаг
+        отображения и выводит новые координаты x и y.</tr>
+      </par>
+      <par>
+        <tr lang="en">The attractor is defined by the difference equations:</tr>
+        <tr lang="ru">Аттрактор задаётся разностными уравнениями:</tr>
       </par>
       <par>
         <tr lang="en">x[n+1] = sin(a * y[n]) - cos(b * x[n])</tr>
-        <tr lang="ru" finished="false">x[n+1] = sin(a * y[n]) — cos(b * x[n])</tr>
+        <tr lang="ru">x[n+1] = sin(a * y[n]) - cos(b * x[n])</tr>
       </par>
       <par>
         <tr lang="en">y[n+1] = sin(c * x[n]) - cos(d * y[n])</tr>
-        <tr lang="ru" finished="false">y[n+1] ] = sin(c * x[n]) - cos(d * y[n])</tr>
+        <tr lang="ru">y[n+1] = sin(c * x[n]) - cos(d * y[n])</tr>
+      </par>
+      <par>
+        <tr lang="en">The shape of the trajectory depends strongly on the parameters a, b, c and
+        d. The default values (a = 1.4, b = -2.3, c = 2.4, d = -2.1) produce a rich, structured
+        chaotic pattern. Other parameter sets give very different shapes — some are dense clouds,
+        others are ring-like or spiral structures.</tr>
+        <tr lang="ru">Форма траектории сильно зависит от параметров a, b, c и d. Значения по
+        умолчанию (a = 1.4, b = -2.3, c = 2.4, d = -2.1) дают богатый структурированный
+        хаотический узор. Другие наборы параметров дают совсем иные формы — от плотных облаков
+        до кольцевых или спиральных структур.</tr>
+      </par>
+      <par>
+        <tr lang="en">The output values are in the range of approximately -2 to 2 for both x and y.
+        Because interpolation is not used, the values jump between discrete points when driven by a
+        slow metro — this makes the object useful as a source of stepped chaotic control signals
+        for filters, pan positions or pitches.</tr>
+        <tr lang="ru">Выходные значения лежат примерно в диапазоне от -2 до 2 для x и y. Так как
+        интерполяция не используется, при медленном metro значения скачкообразно переходят между
+        дискретными точками — это делает объект удобным источником ступенчатых хаотических
+        управляющих сигналов для фильтров, панорамы или высоты тона.</tr>
       </par>
       <a href="http://paulbourke.net/fractals/peterdejong/">wiki: Peter de Jong Attractors</a>
     </info>
     <arguments>
       <argument name="A" type="float">
         <tr lang="en">a-value (default 1.4)</tr>
-        <tr lang="ru" finished="false">a-значение (дефолт 1.4)</tr>
+        <tr lang="ru">значение a (по умолчанию 1.4)</tr>
       </argument>
       <argument name="B" type="float">
         <tr lang="en">b-value (default -2.3)</tr>
-        <tr lang="ru" finished="false">b-значение (дефолт -2,3)</tr>
+        <tr lang="ru">значение b (по умолчанию -2.3)</tr>
       </argument>
       <argument name="C" type="float">
         <tr lang="en">c-value (default 2.4)</tr>
-        <tr lang="ru" finished="false">c - значение (по умолчанию 2.4)</tr>
+        <tr lang="ru">значение c (по умолчанию 2.4)</tr>
       </argument>
       <argument name="D" type="float">
         <tr lang="en">d-value (default -2.1)</tr>
-        <tr lang="ru" finished="false">d-значение (дефолт -2.1)</tr>
+        <tr lang="ru">значение d (по умолчанию -2.1)</tr>
       </argument>
       <argument name="X" type="float">
         <tr lang="en">x init value (default 0)</tr>
-        <tr lang="ru" finished="false">x init значение (по умолчанию 0)</tr>
+        <tr lang="ru">начальное значение x (по умолчанию 0)</tr>
       </argument>
       <argument name="Y" type="float">
         <tr lang="en">y init value (default 0)</tr>
-        <tr lang="ru" finished="false">y значение init (по умолчанию 0)</tr>
+        <tr lang="ru">начальное значение y (по умолчанию 0)</tr>
       </argument>
     </arguments>
     <methods>
       <!-- a -->
       <method name="a">
         <info>
-          <tr lang="en">set a-value, does not not change init state value</tr>
-          <!-- old: Устанавливает a-значение, не изменяет его
-                    состояние -->
-          <tr lang="ru" finished="false">Устанавливает a-значение, не изменяет его состояние</tr>
+          <tr lang="en">sets a-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает значение a, не изменяя начального состояния</tr>
         </info>
       </method>
       <!-- b -->
       <method name="b">
         <info>
-          <tr lang="en">set b-value, does not not change init state value</tr>
-          <!-- old: Устанавливает b-значение, не изменяет его
-                    состояние -->
-          <tr lang="ru" finished="false">Устанавливает b-значение, не изменяет его состояние</tr>
+          <tr lang="en">sets b-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает значение b, не изменяя начального состояния</tr>
         </info>
       </method>
       <!-- c -->
       <method name="c">
         <info>
-          <tr lang="en">set c-value, does not not change init state value</tr>
-          <!-- old: Устанавливается c-значение, не изменяется его
-                    состояние -->
-          <tr lang="ru" finished="false">Устанавливается c-значение, не изменяется его
-          состояние</tr>
+          <tr lang="en">sets c-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает значение c, не изменяя начального состояния</tr>
         </info>
       </method>
       <!-- d -->
       <method name="d">
         <info>
-          <tr lang="en">set d-value, does not not change init state value</tr>
-          <!-- old: заданная d-значение, не меняющая значения
-                    состояния -->
-          <tr lang="ru" finished="false">заданная d-значение, не меняющая значения состояния</tr>
+          <tr lang="en">sets d-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает значение d, не изменяя начального состояния</tr>
         </info>
       </method>
       <!-- om -->
       <method name="om">
         <info>
-          <tr lang="en">turn on/off method output mode. If true (1) outputs new generated value
-          after each a,b,d,e,x,y method call, if 0 - change values without output. Default is
-          0.</tr>
-          <!-- old: режим вывода метода включения/выключения. Если
-                    истинное (1) выводит новое сгенерированное значение после каждого вызова метода
-                    a,b,d,e,x,y, если 0 - изменяет значения без вывода. По умолчанию 0. -->
-          <tr lang="ru" finished="false">режим вывода метода включения/выключения. Если истинное
-          (1) выводит новое сгенерированное значение после каждого вызова метода a,b,d,e,x,y, если
-          0 - изменяет значения без вывода. По умолчанию 0.</tr>
+          <tr lang="en">turns the method output mode on or off. If true (1), outputs a new generated
+          value after each a, b, c, d, x, y method call. If 0, changes values without output.
+          Default is 0.</tr>
+          <tr lang="ru">включает или отключает режим вывода после вызова метода. Если истина (1),
+          после каждого вызова методов a, b, c, d, x, y выводится новое сгенерированное значение.
+          Если 0, значения изменяются без вывода. По умолчанию 0.</tr>
         </info>
         <param name="BOOL" type="int" required="true">
           <tr lang="en">output mode</tr>
-          <tr lang="ru" finished="false">выходной режим</tr>
+          <tr lang="ru">режим вывода</tr>
         </param>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">set to initial state</tr>
-          <tr lang="ru" finished="false">Установлено начальное состояние</tr>
+          <tr lang="en">sets the object to its initial state</tr>
+          <tr lang="ru">возвращает объект в начальное состояние</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">set A B C D E X Y values. Also updates init state vars.</tr>
-          <!-- old: установить значения A B C D E X Y. Обновление
-                    init state vars. -->
-          <tr lang="ru" finished="false">установить значения A B C D E X Y. Обновление init state
-          vars.</tr>
+          <tr lang="en">sets A B C D X Y values. Also updates the init state variables.</tr>
+          <tr lang="ru">устанавливает значения A B C D X Y. Также обновляет переменные начального
+          состояния.</tr>
         </info>
       </method>
       <!-- x -->
       <method name="x">
         <info>
-          <tr lang="en">set current x-value, does not not change init state value</tr>
-          <!-- old: Устанавливает текущее x-значение, не изменяет
-                    его состояние -->
-          <tr lang="ru" finished="false">Устанавливает текущее x-значение, не изменяет его
-          состояние</tr>
+          <tr lang="en">sets the current x-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает текущее значение x, не изменяя начального состояния</tr>
         </info>
       </method>
       <!-- y -->
       <method name="y">
         <info>
-          <tr lang="en">set current y-value, does not not change init state value</tr>
-          <!-- old: Устанавливает текущее значение y, не изменяет
-                    его состояние -->
-          <tr lang="ru" finished="false">Устанавливает текущее значение y, не изменяет его
-          состояние</tr>
+          <tr lang="en">sets the current y-value, does not change the init state value</tr>
+          <tr lang="ru">устанавливает текущее значение y, не изменяя начального состояния</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generate and output new value</tr>
-          <tr lang="ru" finished="false">генерировать и производить новую стоимость</tr>
+          <tr lang="en">generates and outputs a new value</tr>
+          <tr lang="ru">генерирует и выводит новое значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">new generated x-value</tr>
-          <tr lang="ru" finished="false">Новое генерируемое значение x</tr>
+          <tr lang="en">newly generated x-value</tr>
+          <tr lang="ru">новое сгенерированное значение x</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">new generated y-value</tr>
-          <tr lang="ru" finished="false">Новая генерируемая y-значение</tr>
+          <tr lang="en">newly generated y-value</tr>
+          <tr lang="ru">новое сгенерированное значение y</tr>
         </out>
       </outlet>
     </outlets>
