@@ -1,200 +1,208 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 446 50 cnv 1 319 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 451 50 контроль амплитуды двумерных плоских волн;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 управление амплитудой двумерных плоских волн;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.space 20 20 0 20 -104026
 -4096 0;
 #X obj 557 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.space] @url hoa.2d.space-help.pd;
 #X obj 650 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.2d.space] @url hoa.2d.space-help.pd;
-#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 The graphical user interface that facilitates the control
-of processing in the plane wave domain.;
-#X obj 240 126 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 184 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Графический элемент управления для работы в области
+плоских волн. Отображает амплитуды плоских волн в виде точек \, расположенных
+по окружности \, и позволяет изменять их мышью.;
+#X text 240 153 Для одного канала перетаскивайте мышью \, чтобы изменить
+амплитуду этого канала. Чтобы изменить сразу все каналы \, удерживайте
+Shift при перетаскивании. Чтобы повернуть все значения \, удерживайте
+Alt.;
+#X obj 240 226 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.space-help.pd;
-#X obj 50 210 hoa.2d.space 8 {0:;
-#X obj 50 369 ui.dt;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 424 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 50 310 hoa.2d.space 8 {0:;
+#X obj 50 469 ui.dt;
+#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 524 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 459 Mouse-drag;
-#X text 310 459 change the single amp value.;
-#X text 130 479 Mouse-drag + ⇧;
-#X text 310 479 change the all amp values.;
-#X text 130 499 Mouse-drag + ⌥;
-#X text 310 499 rotate all values.;
-#X text 130 519 Right-click;
-#X text 310 519 open popup menu.;
-#X text 130 539 Right-click + ⇧;
-#X text 310 539 open object help.;
-#X text 130 559 Right-click + ⌥;
-#X text 310 559 open properties dialog.;
-#X text 130 579 Mouse-drag + ⌘;
-#X text 310 579 change the single amp value.;
-#X text 65 579 [Правка];
-#X text 130 599 Right-click + ⇧;
-#X text 310 599 open object help.;
-#X text 65 599 [Правка];
-#X text 130 619 Right-click + ⌥;
-#X text 310 619 open properties dialog.;
-#X text 65 619 [Правка];
-#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 654 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 559 Mouse-drag;
+#X text 310 559 change the single amp value.;
+#X text 130 579 Mouse-drag + ⇧;
+#X text 310 579 change the all amp values.;
+#X text 130 599 Mouse-drag + ⌥;
+#X text 310 599 rotate all values.;
+#X text 130 619 Right-click;
+#X text 310 619 open popup menu.;
+#X text 130 639 Right-click + ⇧;
+#X text 310 639 open object help.;
+#X text 130 659 Right-click + ⌥;
+#X text 310 659 open properties dialog.;
+#X text 130 679 Mouse-drag + ⌘;
+#X text 310 679 change the single amp value.;
+#X text 65 679 [Правка];
+#X text 130 699 Right-click + ⇧;
+#X text 310 699 open object help.;
+#X text 65 699 [Правка];
+#X text 130 719 Right-click + ⌥;
+#X text 310 719 open properties dialog.;
+#X text 65 719 [Правка];
+#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 754 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 657 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 757 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 655 1\.;
-#X text 170 655 int;
-#X obj 268 656 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 655 N: number of planewave channels. Тип: int. Минимальное
+#X text 130 755 1\.;
+#X text 170 755 int;
+#X obj 268 756 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 755 N: число каналов плоских волн. Тип: int. Минимальное
 значение: 1\.;
-#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 710 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 810 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 713 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 813 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 711 @max;
-#X text 270 711 Maximum amp value. Тип: float. Значение по умолчанию:
-1\.;
-#X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 741 @min;
-#X text 270 741 Minimum amp value. Тип: float. Значение по умолчанию:
-0\.;
-#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 771 @nch;
-#X text 270 771 Number of channels. Тип: int. Значение по умолчанию:
-4\. Диапазон: [1\..128].;
-#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 813 @background_color;
-#X text 270 813 Element background color (list of red \, green \, blue
-values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
-1\.;
-#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 870 @border_color;
-#X text 270 870 Border color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0.6 0.6 0.6 1\.;
-#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 927 @label_color;
-#X text 270 927 Label color in RGB format within 0-1 range \, for example:
+#X msg 130 811 @max;
+#X text 270 811 Максимальное значение амплитуды. Тип: float. Значение
+по умолчанию: 1\.;
+#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 853 @min;
+#X text 270 853 Минимальное значение амплитуды. Тип: float. Значение
+по умолчанию: 0\.;
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 895 @nch;
+#X text 270 895 Число каналов. Тип: int. Значение по умолчанию: 4\.
+Диапазон: [1\..128].;
+#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 937 @background_color;
+#X text 270 937 Цвет фона элемента (список значений красного \, зелёного
+\, синего и альфа в диапазоне 0\..1). Тип: list. Значение по умолчанию:
+0.93 0.93 0.93 1\.;
+#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 994 @border_color;
+#X text 270 994 Цвет рамки (список значений красного \, зелёного \,
+синего и альфа в диапазоне 0\..1). Тип: list. Значение по умолчанию:
+0.6 0.6 0.6 1\.;
+#X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1051 @label_color;
+#X text 270 1051 Цвет подписи в формате RGB в диапазоне 0\..1 \, например:
 0.2 0.4 0.1\. Тип: list. Значение по умолчанию: 0 0 0 1\.;
-#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 984 @pt_color;
-#X text 270 984 Point color. Тип: list. Значение по умолчанию: 0 0
+#X obj 250 1108 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1108 @pt_color;
+#X text 270 1108 Цвет точки. Тип: list. Значение по умолчанию: 0 0
 0 1\.;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 @sp_color;
-#X text 270 1014 Space color. Тип: list. Значение по умолчанию: 0.27
-0.43 0.54 1\.;
-#X obj 250 1056 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1056 @label;
-#X text 270 1056 Label text. Тип: symbol. Значение по умолчанию: (null).;
-#X obj 250 1086 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1086 @label_align;
-#X text 270 1086 Label horizontal align. Тип: symbol. Значение по умолчанию:
-left. Разрешённые значения: left \, center \, right.;
-#X obj 250 1128 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1128 @label_inner;
-#X text 270 1128 Label position (1 - inner \, 0 - outer). Тип: bool.
-Значение по умолчанию: 0\.;
-#X obj 250 1170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1170 @label_margins;
-#X text 270 1170 Label offset in pixels. Тип: list. Значение по умолчанию:
-0 0\.;
-#X obj 250 1212 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1212 @label_side;
-#X text 270 1212 Label snap side. Тип: symbol. Значение по умолчанию:
-top. Разрешённые значения: left \, top \, right \, bottom.;
-#X obj 250 1254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1254 @label_valign;
-#X text 270 1254 Label vertical align. Тип: symbol. Значение по умолчанию:
-top. Разрешённые значения: top \, center \, bottom.;
-#X obj 250 1296 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1296 @fontname;
-#X text 270 1296 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
+#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1138 @sp_color;
+#X text 270 1138 Цвет пространства. Тип: list. Значение по умолчанию:
+0.27 0.43 0.54 1\.;
+#X obj 250 1180 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1180 @label;
+#X text 270 1180 Текст подписи. Тип: symbol. Значение по умолчанию:
+(null).;
+#X obj 250 1210 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1210 @label_align;
+#X text 270 1210 Горизонтальное выравнивание подписи. Тип: symbol.
+Значение по умолчанию: left. Разрешённые значения: left \, center \,
+right.;
+#X obj 250 1267 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1267 @label_inner;
+#X text 270 1267 Положение подписи (1 — внутри \, 0 — снаружи). Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 1309 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1309 @label_margins;
+#X text 270 1309 Смещение подписи в пикселях. Тип: list. Значение по
+умолчанию: 0 0\.;
+#X obj 250 1351 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1351 @label_side;
+#X text 270 1351 Сторона привязки подписи. Тип: symbol. Значение по
+умолчанию: top. Разрешённые значения: left \, top \, right \, bottom.;
+#X obj 250 1408 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1408 @label_valign;
+#X text 270 1408 Вертикальное выравнивание подписи. Тип: symbol. Значение
+по умолчанию: top. Разрешённые значения: top \, center \, bottom.;
+#X obj 250 1465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1465 @fontname;
+#X text 270 1465 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 1353 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1353 @fontsize;
-#X text 270 1353 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
-[4\..100].;
-#X obj 250 1395 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1395 @fontslant;
-#X text 270 1395 Font slant. Тип: symbol. Значение по умолчанию: roman.
-Разрешённые значения: roman \, italic.;
-#X obj 250 1437 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1437 @fontweight;
-#X text 270 1437 Font weight. Тип: symbol. Значение по умолчанию: normal.
-Разрешённые значения: normal \, bold.;
-#X obj 250 1479 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1479 @pinned;
-#X text 270 1479 Pin mode. if 1 - put element to the lowest level.
-Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 1521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1521 @presetname;
-#X text 270 1521 Preset name for using with [ui.preset]. Тип: symbol.
-Значение по умолчанию: (null).;
-#X obj 250 1563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1563 @receive;
-#X text 270 1563 Receive source. Тип: symbol. Значение по умолчанию:
+#X obj 250 1522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1522 @fontsize;
+#X text 270 1522 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
+Диапазон: [4\..100].;
+#X obj 250 1564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1564 @fontslant;
+#X text 270 1564 Наклон шрифта. Тип: symbol. Значение по умолчанию:
+roman. Разрешённые значения: roman \, italic.;
+#X obj 250 1606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1606 @fontweight;
+#X text 270 1606 Насыщенность шрифта. Тип: symbol. Значение по умолчанию:
+normal. Разрешённые значения: normal \, bold.;
+#X obj 250 1648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1648 @pinned;
+#X text 270 1648 Режим закрепления. Если 1 — поместить элемент на самый
+нижний слой. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 1690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1690 @presetname;
+#X text 270 1690 Имя пресета для использования с [ui.preset]. Тип:
+symbol. Значение по умолчанию: (null).;
+#X obj 250 1732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1732 @receive;
+#X text 270 1732 Источник приёма. Тип: symbol. Значение по умолчанию:
 (null).;
-#X obj 250 1593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1593 @send;
-#X text 270 1593 Send destination. Тип: symbol. Значение по умолчанию:
+#X obj 250 1762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1762 @send;
+#X text 270 1762 Назначение отправки. Тип: symbol. Значение по умолчанию:
 (null).;
-#X obj 250 1623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1623 @size;
-#X text 270 1623 Element size (width \, height pair). Тип: list. Значение
-по умолчанию: 120 120\.;
-#X obj 20 1675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1680 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1804 @size;
+#X text 270 1804 Размер элемента (пара ширина \, высота). Тип: list.
+Значение по умолчанию: 120 120\.;
+#X obj 20 1856 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1861 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1681 interp;
-#X text 270 1681 interplolates between presets. Аргументы:;
-#X obj 300 1706 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1706 IDX: preset fraction index. Тип: float.;
-#X obj 250 1739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1739 pos;
-#X text 270 1739 set UI element position. Аргументы:;
-#X obj 300 1764 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1764 X: top left x-coord. Тип: float.;
-#X obj 300 1787 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1787 Y: top right y-coord. Тип: float.;
-#X obj 250 1820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1820 clear;
-#X text 270 1820 clears specified preset. Аргументы:;
-#X obj 300 1845 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1845 IDX: preset index. Тип: int.;
-#X obj 250 1878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1878 load;
-#X text 270 1878 loads specified preset. Аргументы:;
-#X obj 300 1903 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1903 IDX: preset index. Тип: int.;
-#X obj 250 1936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1936 store;
-#X text 270 1936 stores specified preset. Аргументы:;
-#X obj 300 1961 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1961 IDX: preset index. Тип: int.;
-#X obj 250 1994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1994 dump;
-#X text 270 1994 dumps all object info to Pd console window.;
-#X obj 20 2039 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2044 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1862 interp;
+#X text 270 1862 интерполирует между пресетами. Аргументы:;
+#X obj 300 1887 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1887 IDX: дробный индекс пресета. Тип: float.;
+#X obj 250 1920 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1920 pos;
+#X text 270 1920 устанавливает положение элемента UI. Аргументы:;
+#X obj 300 1945 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1945 X: координата X верхнего левого угла. Тип: float.;
+#X obj 300 1968 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1968 Y: координата Y верхнего левого угла. Тип: float.;
+#X obj 250 2001 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2001 clear;
+#X text 270 2001 очищает указанный пресет. Аргументы:;
+#X obj 300 2026 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2026 IDX: индекс пресета. Тип: int.;
+#X obj 250 2059 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2059 load;
+#X text 270 2059 загружает указанный пресет. Аргументы:;
+#X obj 300 2084 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2084 IDX: индекс пресета. Тип: int.;
+#X obj 250 2117 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2117 store;
+#X text 270 2117 сохраняет указанный пресет. Аргументы:;
+#X obj 300 2142 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2142 IDX: индекс пресета. Тип: int.;
+#X obj 250 2175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2175 dump;
+#X text 270 2175 выводит всю информацию об объекте в окно консоли Pd.;
+#X obj 20 2220 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2225 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 2045 1\.;
-#X text 270 2045 list: amp values.;
-#X obj 20 2080 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 2085 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 2226 1\.;
+#X text 270 2226 список: значения амплитуды.;
+#X obj 20 2261 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2266 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 2086 1\.;
-#X text 270 2086 list: amp values.;
+#X text 130 2267 1\.;
+#X text 270 2267 список: значения амплитуды.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2136 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2139 библиотека: ceammc v0.9.8;
-#N canvas 10 2158 400 290 info 0;
+#X obj 1 2317 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2320 библиотека: ceammc v0.9.8;
+#N canvas 10 2339 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -219,5 +227,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2158 pd info;
-#X connect 8 0 9 0;
+#X restore 10 2339 pd info;
+#X connect 9 0 10 0;

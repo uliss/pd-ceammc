@@ -1174,8 +1174,8 @@ hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmon
 hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
 hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
 hoa.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
-hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
-hoa.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
+hoa.2d.space	2D planewaves amplitude control / управление амплитудой двумерных плоских волн
+hoa.space	2D planewaves amplitude control / управление амплитудой двумерных плоских волн
 hoa.2d.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
 hoa.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
 hoa.3d.decoder~	3D decoder of higher order ambisonics / трехмерный декодер амбисоников высоких порядков
