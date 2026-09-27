@@ -36,7 +36,7 @@ array.stddev	calculates standard deviation for array values / вычисляет
 array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменение высоты тона или скорости у массива
 array.sum	calculates the sum of array elements / вычисляет сумму элементов массива
 array.sum2	calculates the sum of squares of array elements / вычисляет сумму квадратов элементов массива
-array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
+array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейно нарастающего индекса для массива
 array.variance	calculates variance of array values / вычисляет дисперсию значений массива
 array.vplay	simple array player for using with the [vline~] object / простой плеер массивов для использования с объектом [vline~]
 array.window	fills the array with the window function / заполнение массива оконной функцией

@@ -64,34 +64,35 @@ array.stretch-help.pd;
 #X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
 #X text 220 707 вычисляет сумму квадратов элементов массива;
 #X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
-#X text 220 732 запускаемый генератор линейного индекса для массива;
-#X obj 30 760 ui.link @title [array.variance] @url
+#X text 220 732 запускаемый генератор линейно нарастающего индекса
+для массива;
+#X obj 30 775 ui.link @title [array.variance] @url
 array.variance-help.pd;
-#X text 220 757 вычисляет дисперсию значений массива;
-#X obj 30 785 ui.link @title [array.vplay] @url array.vplay-help.pd;
-#X text 220 782 простой плеер массивов для использования с объектом
+#X text 220 772 вычисляет дисперсию значений массива;
+#X obj 30 800 ui.link @title [array.vplay] @url array.vplay-help.pd;
+#X text 220 797 простой плеер массивов для использования с объектом
 [vline~];
-#X obj 30 810 ui.link @title [array.window] @url array.window-help.pd;
-#X text 220 807 заполнение массива оконной функцией;
-#X obj 30 835 ui.link @title [plot.geomspace~] @url
+#X obj 30 825 ui.link @title [array.window] @url array.window-help.pd;
+#X text 220 822 заполнение массива оконной функцией;
+#X obj 30 850 ui.link @title [plot.geomspace~] @url
 plot.geomspace~-help.pd;
-#X text 220 832 выводит последовательность равномерно распределенных
+#X text 220 847 выводит последовательность равномерно распределенных
 по логарифмической шкале чисел (геометрическая прогрессия);
-#X obj 30 890 ui.link @title [plot.hist~] @url plot.hist~-help.pd;
-#X text 220 887 вычисляет и выводит гистограмму входного сигнала;
-#X obj 30 915 ui.link @title [plot.linspace~] @url
+#X obj 30 905 ui.link @title [plot.hist~] @url plot.hist~-help.pd;
+#X text 220 902 вычисляет и выводит гистограмму входного сигнала;
+#X obj 30 930 ui.link @title [plot.linspace~] @url
 plot.linspace~-help.pd;
-#X text 220 912 выводит последовательность равномерно распределенных
+#X text 220 927 выводит последовательность равномерно распределенных
 в заданном интервале числе;
-#X obj 30 955 ui.link @title [plot.logspace~] @url
+#X obj 30 970 ui.link @title [plot.logspace~] @url
 plot.logspace~-help.pd;
-#X text 220 952 выводит последовательность равномерно распределенных
+#X text 220 967 выводит последовательность равномерно распределенных
 по логарифмической шкале чисел;
-#X obj 30 995 ui.link @title [plot.response~] @url
+#X obj 30 1010 ui.link @title [plot.response~] @url
 plot.response~-help.pd;
-#X text 220 992 выводит амплитудный \, фазовый и частотный отклики
+#X text 220 1007 выводит амплитудный \, фазовый и частотный отклики
 на входной сигнал;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1032 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1042 library: ceammc;
+#X obj 1 1047 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1057 library: ceammc;
