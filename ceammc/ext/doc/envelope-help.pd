@@ -11,387 +11,390 @@
 #X obj 631 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [env] @url envelope-help.pd;
 #X obj 681 8 envelope;
-#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Data type for sound envelope. Contains points specified
-by time and value. Points could have stop property - to execute oly
-part of envelope and stop on this point. So multisegment envelopes
-could be created;
-#X text 240 153 Point also has segment type property \, that defines
-following segment curve - it could be *step* \, *line* (default) or
-*exp* (exponential);
-#X text 240 208 Exponential segment also has curve property: if 0 -
-(linear) <0 (concave \, negatively curved) >0 (convex \, positively
-curved);
-#X msg 50 326 ar 100 200 \, bang;
-#X msg 232 326 exp 0 30 -2 1 100 -4 0 40 4 0.5 30 2 0 \, bang;
-#X msg 69 355 adsr 10 30 60 150 \, bang;
-#X msg 318 355 line 0.1 40 0.9 20 0.3 60 0 \, bang;
-#X msg 88 384 ear 10 -2 60 -2 \, bang;
-#X msg 318 384 sigmoid 0 40 14 1 100 8 0 \, bang;
-#X msg 107 413 eadsr 20 -5 70 -12 30 100 -7 \, bang;
-#X msg 462 413 sin2 0 80 1 80 0 \, bang;
-#X obj 50 442 envelope;
-#X obj 50 470 env->array env_arr;
+#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Data type for a sound envelope. It contains points defined
+by time and value. A point can have the stop property — this makes
+the envelope stop at that point instead of continuing \, so multi-segment
+envelopes can be created.;
+#X text 240 168 A point also has a segment type property that defines
+the following segment curve. It can be *step* \, *line* (default) or
+*exp* (exponential).;
+#X text 240 223 An exponential segment also has a curve property: 0
+(linear) \, <0 (concave \, negatively curved) \, >0 (convex \, positively
+curved).;
+#X msg 50 341 ar 100 200 \, bang;
+#X msg 232 341 exp 0 30 -2 1 100 -4 0 40 4 0.5 30 2 0 \, bang;
+#X msg 69 370 adsr 10 30 60 150 \, bang;
+#X msg 318 370 line 0.1 40 0.9 20 0.3 60 0 \, bang;
+#X msg 88 399 ear 10 -2 60 -2 \, bang;
+#X msg 318 399 sigmoid 0 40 14 1 100 8 0 \, bang;
+#X msg 107 428 eadsr 20 -5 70 -12 30 100 -7 \, bang;
+#X msg 462 428 sin2 0 80 1 80 0 \, bang;
+#X obj 50 457 envelope;
+#X obj 50 485 env->array env_arr;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_arr 100 float 0;
 #X coords 0 1 100 0 400 100 1;
-#X restore 50 513 graph;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 50 528 graph;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 653 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 668 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 651 1\.;
-#X text 170 651 list;
-#X obj 268 652 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 651 adsr: ADSR envelope: attack(ms) \, decay(ms) \, sustain(%)
-\, release(ms). Type: list.;
-#X text 130 691 2\.;
-#X text 170 691 list;
-#X obj 268 692 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 691 asr: ASR envelope: attack(ms) \, release(ms) - with
-sustain stop point. Type: list.;
-#X text 130 731 3\.;
-#X text 170 731 list;
-#X obj 268 732 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 731 ar: AR envelope: attack(ms) \, release(ms). Type: list.;
-#X text 130 756 4\.;
-#X text 170 756 list;
-#X obj 268 757 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 756 eadsr: exponential ADSR envelope: attack(ms) \, attack_curve
-\, decay(ms) \, decay_curve \, sustain(%) \, release(ms) \, release_curve.
+#X text 130 666 1\.;
+#X text 170 666 list;
+#X obj 268 667 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 666 adsr: ADSR envelope: attack (ms) \, decay (ms) \, sustain
+(%) \, release (ms). Type: list.;
+#X text 130 706 2\.;
+#X text 170 706 list;
+#X obj 268 707 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 706 asr: ASR envelope: attack (ms) \, release (ms) — with
+a sustain stop point. Type: list.;
+#X text 130 746 3\.;
+#X text 170 746 list;
+#X obj 268 747 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 746 ar: AR envelope: attack (ms) \, release (ms). Type:
+list.;
+#X text 130 771 4\.;
+#X text 170 771 list;
+#X obj 268 772 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 771 eadsr: exponential ADSR envelope: attack (ms) \, attack_curve
+\, decay (ms) \, decay_curve \, sustain (%) \, release (ms) \, release_curve.
 Type: list.;
-#X text 130 811 5\.;
-#X text 170 811 list;
-#X obj 268 812 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 811 easr: exponential ASR envelope: attack(ms) \, attack_curve
-\, release(ms) \, release_curve - with sustain stop point. Type: list.;
-#X text 130 866 6\.;
-#X text 170 866 list;
-#X obj 268 867 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 866 ear: exponential ASR envelope: attack(ms) \, attack_curve
-\, release(ms) \, release_curve - no sustain point. Type: list.;
-#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 936 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 826 5\.;
+#X text 170 826 list;
+#X obj 268 827 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 826 easr: exponential ASR envelope: attack (ms) \, attack_curve
+\, release (ms) \, release_curve — with a sustain stop point. Type:
+list.;
+#X text 130 881 6\.;
+#X text 170 881 list;
+#X obj 268 882 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 881 ear: exponential AR envelope: attack (ms) \, attack_curve
+\, release (ms) \, release_curve — no sustain point. Type: list.;
+#X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 951 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 939 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 954 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 937 @length?;
-#X text 270 937 (readonly) Total envelope time length. Type: float.
+#X msg 130 952 @length?;
+#X text 270 952 (readonly) Total envelope time length. Type: float.
 Units: 'ms'. Default value: 0\. Min value: 0\.;
-#X obj 250 979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 979 @npoints?;
-#X text 270 979 (readonly) Number of points. Type: int. Default value:
+#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 994 @npoints?;
+#X text 270 994 (readonly) Number of points. Type: int. Default value:
 0\. Min value: 0\.;
-#X obj 250 1021 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1021 @points?;
-#X text 270 1021 (readonly) List of point times (ms). Type: list.;
-#X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1051 @stops?;
-#X text 270 1051 (readonly) List of stop points. Type: list.;
-#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1081 @values?;
-#X text 270 1081 (readonly) List of point values. Type: list.;
-#X obj 20 1121 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1126 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1036 @points?;
+#X text 270 1036 (readonly) List of point times (ms). Type: list.;
+#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1066 @stops?;
+#X text 270 1066 (readonly) List of stop points. Type: list.;
+#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1096 @values?;
+#X text 270 1096 (readonly) List of point values. Type: list.;
+#X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1141 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1127 add_point;
-#X text 270 1127 add envelope point. Arguments are:;
-#X obj 300 1152 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1152 TIME: point time. Type: float. Min value: 0\. Units:
+#X msg 130 1142 add_point;
+#X text 270 1142 adds an envelope point. Arguments are:;
+#X obj 300 1167 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1167 TIME: point time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1175 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1175 VALUE: point value. Type: float.;
-#X obj 300 1198 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1198 [IS_STOP=0]: is stop point. Type: int. Allowed values:
+#X obj 300 1190 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1190 VALUE: point value. Type: float.;
+#X obj 300 1213 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1213 [IS_STOP=0]: is stop point. Type: int. Allowed values:
 0 \, 1\.;
-#X obj 300 1221 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1221 [TYPE=line]: segment type: step \, linear \, exponential
-\, sin^2 or sigmoid curve. Type: symbol. Allowed values: step \, line
+#X obj 300 1236 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1236 [TYPE=line]: segment type: step \, linear \, exponential
+\, sin² or sigmoid curve. Type: symbol. Allowed values: step \, line
 \, exp \, sin2 \, sigmoid.;
-#X obj 300 1274 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1274 [CURVE=1]: exponential curve degree: 0 (linear) <0
-(concave \, negatively curved) >0 (convex \, positively curved). Type:
-float.;
-#X obj 250 1337 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1337 add_seg;
-#X text 270 1337 add segment to the end of envelope. On empty envelope
-adds start point at 0ms and 0 value. Arguments are:;
-#X obj 300 1377 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1377 TYPE: segment type. Type: symbol. Allowed values:
+#X obj 300 1289 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1289 [CURVE=1]: exponential curve degree: 0 (linear) \,
+<0 (concave \, negatively curved) \, >0 (convex \, positively curved).
+Type: float.;
+#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1352 add_seg;
+#X text 270 1352 adds a segment to the end of the envelope. On an empty
+envelope \, adds a start point at 0 ms with value 0\. Arguments are:;
+#X obj 300 1407 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1407 TYPE: segment type. Type: symbol. Allowed values:
 step \, line \, sin2 \, exp \, sigmoid.;
-#X obj 300 1415 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1415 LENGTH: segment length. Type: float. Units: 'ms'.;
-#X obj 300 1438 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1438 VALUE: end segment value. Type: float.;
-#X obj 300 1461 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1461 [CURVE=0]: curve (for exp and sigmoid type). Type:
+#X obj 300 1445 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1445 LENGTH: segment length. Type: float. Units: 'ms'.;
+#X obj 300 1468 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1468 VALUE: end value of the segment. Type: float.;
+#X obj 300 1491 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1491 [CURVE=0]: curve (for exp and sigmoid types). Type:
 float.;
-#X obj 250 1494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1494 adsr;
-#X text 270 1494 creates ADSR envelope with one stop point. Arguments
+#X obj 250 1524 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1524 adsr;
+#X text 270 1524 creates an ADSR envelope with one stop point. Arguments
 are:;
-#X obj 300 1519 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1519 ATTACK: attack time. Type: float. Min value: 0\. Units:
+#X obj 300 1549 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1549 ATTACK: attack time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1542 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1542 DECAY: decay time. Type: float. Min value: 0\. Units:
+#X obj 300 1572 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1572 DECAY: decay time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1565 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1565 SUSTAIN: sustain level. Type: float. Range: [0\..100].
+#X obj 300 1595 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1595 SUSTAIN: sustain level. Type: float. Range: [0\..100].
 Units: '%'.;
-#X obj 300 1603 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1603 RELEASE: release time. Type: float. Min value: 0\.
+#X obj 300 1633 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1633 RELEASE: release time. Type: float. Min value: 0\.
 Units: 'ms'.;
-#X obj 250 1651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1651 ar;
-#X text 270 1651 creates AR envelope without stop points. Arguments
+#X obj 250 1681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1681 ar;
+#X text 270 1681 creates an AR envelope without stop points. Arguments
 are:;
-#X obj 300 1676 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1676 ATTACK: attack time. Type: float. Min value: 0\. Units:
+#X obj 300 1706 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1706 ATTACK: attack time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1699 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1699 RELEASE: release time. Type: float. Min value: 0\.
+#X obj 300 1729 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1729 RELEASE: release time. Type: float. Min value: 0\.
 Units: 'ms'.;
-#X obj 250 1747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1747 asr;
-#X text 270 1747 creates ASR envelope with one stop point. Arguments
+#X obj 250 1777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1777 asr;
+#X text 270 1777 creates an ASR envelope with one stop point. Arguments
 are:;
-#X obj 300 1772 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1772 ATTACK: attack time. Type: float. Min value: 0\. Units:
+#X obj 300 1802 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1802 ATTACK: attack time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1795 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1795 RELEASE: release time. Type: float. Min value: 0\.
+#X obj 300 1825 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1825 RELEASE: release time. Type: float. Min value: 0\.
 Units: 'ms'.;
-#X obj 250 1843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1843 clear;
-#X text 270 1843 remove all envelope points.;
-#X obj 250 1878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1878 eadsr;
-#X text 270 1878 creates exponential ADSR envelope with one stop point.
-Arguments are:;
-#X obj 300 1918 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1918 ATTACK: attack time. Type: float. Min value: 0\. Units:
+#X obj 250 1873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1873 clear;
+#X text 270 1873 removes all envelope points.;
+#X obj 250 1908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1908 eadsr;
+#X text 270 1908 creates an exponential ADSR envelope with one stop
+point. Arguments are:;
+#X obj 300 1948 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1948 ATTACK: attack time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1941 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1941 ATTACK_CURVE: attack segment curve. Type: float.;
-#X obj 300 1964 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1964 DECAY: decay time. Type: float. Min value: 0\. Units:
+#X obj 300 1971 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1971 ATTACK_CURVE: attack segment curve. Type: float.;
+#X obj 300 1994 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1994 DECAY: decay time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 1987 cnv 1 91 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1987 DECAY_CURVE: decay segment curve. Type: float.;
-#X obj 300 2010 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2010 SUSTAIN: sustain level. Type: float. Range: [0\..100].
+#X obj 300 2017 cnv 1 91 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2017 DECAY_CURVE: decay segment curve. Type: float.;
+#X obj 300 2040 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2040 SUSTAIN: sustain level. Type: float. Range: [0\..100].
 Units: '%'.;
-#X obj 300 2048 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2048 RELEASE: release time. Type: float. Min value: 0\.
+#X obj 300 2078 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2078 RELEASE: release time. Type: float. Min value: 0\.
 Units: 'ms'.;
-#X obj 300 2086 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2086 RELEASE_CURVE: release segment curve. Type: float.;
-#X obj 250 2119 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2119 ear;
-#X text 270 2119 creates exponential AR envelope without stop points.
+#X obj 300 2116 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2116 RELEASE_CURVE: release segment curve. Type: float.;
+#X obj 250 2149 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2149 ear;
+#X text 270 2149 creates an exponential AR envelope without stop points.
 Arguments are:;
-#X obj 300 2159 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2159 ATTACK: attack time. Type: float. Units: 'ms'.;
-#X obj 300 2182 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2182 ATTACK_CURVE: attack segment curve. Type: float.;
-#X obj 300 2205 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2205 RELEASE: release time. Type: float. Units: 'ms'.;
-#X obj 300 2228 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2228 RELEASE_CURVE: release segment curve. Type: float.;
-#X obj 250 2261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2261 easr;
-#X text 270 2261 creates exponential AR envelope with one stop point.
-Arguments are:;
-#X obj 300 2301 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2301 ATTACK: attack time. Type: float. Min value: 0\. Units:
+#X obj 300 2189 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2189 ATTACK: attack time. Type: float. Units: 'ms'.;
+#X obj 300 2212 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2212 ATTACK_CURVE: attack segment curve. Type: float.;
+#X obj 300 2235 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2235 RELEASE: release time. Type: float. Units: 'ms'.;
+#X obj 300 2258 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2258 RELEASE_CURVE: release segment curve. Type: float.;
+#X obj 250 2291 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2291 easr;
+#X text 270 2291 creates an exponential ASR envelope with one stop
+point. Arguments are:;
+#X obj 300 2331 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2331 ATTACK: attack time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 2324 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2324 ATTACK_CURVE: attack segment curve. Type: float.;
-#X obj 300 2347 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2347 RELEASE: release time. Type: float. Min value: 0\.
+#X obj 300 2354 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2354 ATTACK_CURVE: attack segment curve. Type: float.;
+#X obj 300 2377 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2377 RELEASE: release time. Type: float. Min value: 0\.
 Units: 'ms'.;
-#X obj 300 2385 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2385 RELEASE_CURVE: release segment curve. Type: float.;
-#X obj 250 2418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2418 exp;
-#X text 270 2418 creates exponential-segmented envelope with arbitrary
+#X obj 300 2415 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2415 RELEASE_CURVE: release segment curve. Type: float.;
+#X obj 250 2448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2448 exp;
+#X text 270 2448 creates an exponential-segmented envelope with an
+arbitrary number of segments. Arguments are:;
+#X obj 300 2488 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2488 VAL0: starting value. Type: float.;
+#X obj 300 2511 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2511 LEN0: segment length. Type: float. Min value: 1\.
+Units: 'ms'.;
+#X obj 300 2549 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2549 CURVE0: segment curve. Type: float.;
+#X obj 300 2572 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2572 VAL1: value. Type: float.;
+#X obj 300 2595 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2595 [LEN1]: segment length. Type: float.;
+#X obj 300 2618 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2618 [CURVE1]: segment curve. Type: float.;
+#X obj 300 2641 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2641 [VAL2]: value. Type: float.;
+#X obj 250 2674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2674 line;
+#X text 270 2674 creates a line-segmented envelope with an arbitrary
 number of segments. Arguments are:;
-#X obj 300 2458 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2458 VAL0: begin value. Type: float.;
-#X obj 300 2481 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2481 LEN0: line length. Type: float. Min value: 1\. Units:
+#X obj 300 2714 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2714 VAL0: starting value. Type: float.;
+#X obj 300 2737 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2737 LEN0: line length. Type: float. Min value: 1\. Units:
 'ms'.;
-#X obj 300 2504 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2504 CURVE0: segment curve. Type: float.;
-#X obj 300 2527 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2527 VAL1: value. Type: float.;
-#X obj 300 2550 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2550 [LEN1]: segment length. Type: float.;
-#X obj 300 2573 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2573 [CURVE1]: segment curve. Type: float.;
-#X obj 300 2596 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2596 [VAL2]: value. Type: float.;
-#X obj 250 2629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2629 line;
-#X text 270 2629 creates line-segmented envelope with arbitrary number
-of segments. Arguments are:;
-#X obj 300 2669 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2669 VAL0: begin value. Type: float.;
-#X obj 300 2692 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2692 LEN0: line length. Type: float. Min value: 1\. Units:
-'ms'.;
-#X obj 300 2715 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2715 VAL1: value. Type: float.;
-#X obj 300 2738 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2738 [LEN1]: segment length. Type: float.;
-#X obj 300 2761 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2761 [VAL2]: value. Type: float.;
-#X obj 250 2794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2794 remove_point;
-#X text 270 2794 remove envelope point by specified time. Arguments
+#X obj 300 2760 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2760 VAL1: value. Type: float.;
+#X obj 300 2783 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2783 [LEN1]: segment length. Type: float.;
+#X obj 300 2806 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2806 [VAL2]: value. Type: float.;
+#X obj 250 2839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2839 remove_point;
+#X text 270 2839 removes an envelope point by index. Arguments are:;
+#X obj 300 2864 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2864 IDX: point index. Type: int. Min value: 0\.;
+#X obj 250 2897 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2897 set_point;
+#X text 270 2897 sets the time \, value and stop flag of a point. Arguments
 are:;
-#X obj 300 2819 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2819 IDX: point index. Type: int. Min value: 0\.;
-#X obj 250 2852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2852 set_point;
-#X text 270 2852 set point time and value. Arguments are:;
-#X obj 300 2877 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2877 IDX: point index. Type: int. Min value: 0\.;
-#X obj 300 2900 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2900 TIME: point time. Type: float. Min value: 0\. Units:
+#X obj 300 2922 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2922 IDX: point index. Type: int. Min value: 0\.;
+#X obj 300 2945 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2945 TIME: point time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 300 2923 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2923 VALUE: point value. Type: int. Min value: 0\.;
-#X obj 300 2946 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2946 [IS_STOP=0]: stop point. Type: int. Allowed values:
+#X obj 300 2968 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2968 VALUE: point value. Type: int. Min value: 0\.;
+#X obj 300 2991 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2991 [IS_STOP=0]: stop point. Type: int. Allowed values:
 0 \, 1\.;
-#X obj 250 2979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2979 set_point_time;
-#X text 270 2979 set point time. Arguments are:;
-#X obj 300 3004 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3004 IDX: point index. Type: int. Min value: 0\.;
-#X obj 300 3027 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3027 TIME: point time. Type: float. Min value: 0\. Units:
+#X obj 250 3024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3024 set_point_time;
+#X text 270 3024 sets the point time. Arguments are:;
+#X obj 300 3049 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3049 IDX: point index. Type: int. Min value: 0\.;
+#X obj 300 3072 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3072 TIME: point time. Type: float. Min value: 0\. Units:
 'ms'.;
-#X obj 250 3060 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3060 set_point_value;
-#X text 270 3060 set point time. Arguments are:;
-#X obj 300 3085 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3085 IDX: point index. Type: int. Min value: 0\.;
-#X obj 300 3108 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3108 VALUE: point value. Type: int. Min value: 0\.;
-#X obj 250 3141 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3141 set_seg_type;
-#X text 270 3141 set segment type. Arguments are:;
-#X obj 300 3166 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3166 IDX: segment index \, starting from 0\. Type: int.
+#X obj 250 3105 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3105 set_point_value;
+#X text 270 3105 sets the point value. Arguments are:;
+#X obj 300 3130 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3130 IDX: point index. Type: int. Min value: 0\.;
+#X obj 300 3153 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3153 VALUE: point value. Type: int. Min value: 0\.;
+#X obj 250 3186 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3186 set_seg_type;
+#X text 270 3186 sets the segment type. Arguments are:;
+#X obj 300 3211 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3211 IDX: segment index \, starting from 0\. Type: int.
 Min value: 0\.;
-#X obj 300 3204 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3204 TYPE: segment type. Type: symbol. Allowed values:
+#X obj 300 3249 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3249 TYPE: segment type. Type: symbol. Allowed values:
 step \, line \, sin2 \, exp \, sigmoid.;
-#X obj 250 3252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3252 set_stop_point;
-#X text 270 3252 set stop-point. Arguments are:;
-#X obj 300 3277 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3277 IDX: point index. Type: int. Min value: 0\.;
-#X obj 300 3300 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3300 IS_STOP: stop point. Type: int. Allowed values: 0
+#X obj 250 3297 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3297 set_stop_point;
+#X text 270 3297 sets or clears the stop flag of a point. Arguments
+are:;
+#X obj 300 3322 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3322 IDX: point index. Type: int. Min value: 0\.;
+#X obj 300 3345 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3345 IS_STOP: stop point. Type: int. Allowed values: 0
 \, 1\.;
-#X obj 250 3333 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3333 sigmoid;
-#X text 270 3333 creates sigmoid-segmented envelope with arbitrary
+#X obj 250 3378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3378 sigmoid;
+#X text 270 3378 creates a sigmoid-segmented envelope with an arbitrary
 number of segments. Arguments are:;
-#X obj 300 3373 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3373 VAL0: begin value. Type: float.;
-#X obj 300 3396 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3396 LEN0: line length. Type: float. Min value: 1\. Units:
-'ms'.;
-#X obj 300 3419 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3419 CURVE0: segment curve. Type: float.;
-#X obj 300 3442 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3442 VAL1: value. Type: float.;
-#X obj 300 3465 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3465 [LEN1]: segment length. Type: float.;
-#X obj 300 3488 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3488 [CURVE1]: segment curve. Type: float.;
-#X obj 300 3511 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3511 [VAL2]: value. Type: float.;
-#X obj 250 3544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3544 sin2;
-#X text 270 3544 creates quadratic sine-segmented envelope with arbitrary
+#X obj 300 3418 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3418 VAL0: starting value. Type: float.;
+#X obj 300 3441 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3441 LEN0: segment length. Type: float. Min value: 1\.
+Units: 'ms'.;
+#X obj 300 3479 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3479 CURVE0: segment curve. Type: float.;
+#X obj 300 3502 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3502 VAL1: value. Type: float.;
+#X obj 300 3525 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3525 [LEN1]: segment length. Type: float.;
+#X obj 300 3548 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3548 [CURVE1]: segment curve. Type: float.;
+#X obj 300 3571 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3571 [VAL2]: value. Type: float.;
+#X obj 250 3604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3604 sin2;
+#X text 270 3604 creates a quadratic-sine-segmented envelope with an
+arbitrary number of segments. Arguments are:;
+#X obj 300 3644 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3644 VAL0: starting value. Type: float.;
+#X obj 300 3667 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3667 LEN0: segment length. Type: float. Min value: 1\.
+Units: 'ms'.;
+#X obj 300 3705 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3705 VAL1: value. Type: float.;
+#X obj 300 3728 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3728 [LEN1]: segment length. Type: float.;
+#X obj 300 3751 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3751 [VAL2]: value. Type: float.;
+#X obj 250 3784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3784 step;
+#X text 270 3784 creates a step-segmented envelope with an arbitrary
 number of segments. Arguments are:;
-#X obj 300 3584 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3584 VAL0: begin value. Type: float.;
-#X obj 300 3607 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3607 LEN0: line length. Type: float. Min value: 1\. Units:
+#X obj 300 3824 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3824 VAL0: starting value. Type: float.;
+#X obj 300 3847 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3847 LEN0: step length. Type: float. Min value: 1\. Units:
 'ms'.;
-#X obj 300 3630 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3630 VAL1: value. Type: float.;
-#X obj 300 3653 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3653 [LEN1]: segment length. Type: float.;
-#X obj 300 3676 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3676 [VAL2]: value. Type: float.;
-#X obj 250 3709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3709 step;
-#X text 270 3709 creates step-segmented envelope with arbitrary number
-of segments. Arguments are:;
-#X obj 300 3749 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3749 VAL0: begin value. Type: float.;
-#X obj 300 3772 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3772 LEN0: step length. Type: float. Min value: 1\. Units:
-'ms'.;
-#X obj 300 3795 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3795 VAL1: value. Type: float.;
-#X obj 300 3818 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3818 [LEN1]: segment length. Type: float.;
-#X obj 300 3841 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3841 [VAL2]: value. Type: float.;
-#X obj 250 3874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3874 *;
-#X text 270 3874 multiply all envelope points to specified value. Arguments
-are:;
-#X obj 300 3914 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3914 VALUE: value. Type: float.;
-#X obj 250 3947 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3947 +;
-#X text 270 3947 add specified value to all envelope points. Arguments
-are:;
-#X obj 300 3972 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3972 VALUE: value. Type: float.;
-#X obj 250 4005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4005 >>;
-#X text 270 4005 shift all envelope point by specified time in milliseconds.
+#X obj 300 3870 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3870 VAL1: value. Type: float.;
+#X obj 300 3893 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3893 [LEN1]: segment length. Type: float.;
+#X obj 300 3916 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3916 [VAL2]: value. Type: float.;
+#X obj 250 3949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3949 *;
+#X text 270 3949 multiplies all envelope points by the specified value.
 Arguments are:;
-#X obj 300 4045 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4045 SHIFT: value. Type: float. Units: 'ms'.;
-#X obj 20 4088 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4093 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 3989 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3989 VALUE: value. Type: float.;
+#X obj 250 4022 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4022 +;
+#X text 270 4022 adds the specified value to all envelope points. Arguments
+are:;
+#X obj 300 4062 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4062 VALUE: value. Type: float.;
+#X obj 250 4095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4095 >>;
+#X text 270 4095 shifts all envelope points by the specified time in
+milliseconds. Arguments are:;
+#X obj 300 4135 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4135 SHIFT: shift time. Type: float. Units: 'ms'.;
+#X obj 20 4178 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4183 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4094 1\.;
-#X text 170 4094 bang:;
-#X text 270 4094 outputs current envelope.;
-#X text 170 4119 data:;
-#X text 270 4119 set new envelope and output it.;
-#X obj 20 4154 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4159 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 4184 1\.;
+#X text 170 4184 bang:;
+#X text 270 4184 outputs the current envelope.;
+#X text 170 4209 data:;
+#X text 270 4209 sets a new envelope and outputs it.;
+#X obj 20 4244 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4249 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4160 1\.;
-#X text 270 4160 data output.;
+#X text 130 4250 1\.;
+#X text 270 4250 data output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 4210 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4213 library: ceammc v0.9.8;
-#X text 500 4225 see also:;
-#X obj 575 4228 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 4300 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4303 library: ceammc v0.9.8;
+#X text 500 4315 see also:;
+#X obj 575 4318 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->array] @url env->array-help.pd;
-#X obj 665 4228 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 4318 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->vline] @url env->vline-help.pd;
-#N canvas 10 4232 400 290 info 0;
+#N canvas 10 4322 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -415,7 +418,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4232 pd info;
+#X restore 10 4322 pd info;
 #X connect 11 0 19 0;
 #X connect 13 0 19 0;
 #X connect 15 0 19 0;
