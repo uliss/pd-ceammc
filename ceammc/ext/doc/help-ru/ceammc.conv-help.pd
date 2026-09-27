@@ -106,7 +106,8 @@ conv.note2guido-help.pd;
 #X text 220 1082 преобразует MIDI-номер ноты в нотацию GUIDO;
 #X obj 30 1110 ui.link @title [conv.phase2rad] @url
 conv.phase2rad-help.pd;
-#X text 220 1107 преобразует значение фазы [0-1] в радианы [0-2π];
+#X text 220 1107 преобразует значение фазы [0 \, 1] в радианы [0 \,
+2π];
 #X obj 30 1135 ui.link @title [conv.phase2rad~] @url
 conv.phase2rad~-help.pd;
 #X text 220 1132 преобразует значение фазы [0-1] в радианы [0-2π];

@@ -231,9 +231,9 @@ ms->str	formats time in milliseconds to symbol or string / форматируе�
 conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
 ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
 note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
-conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
+ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
+phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
 conv.phase2rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
