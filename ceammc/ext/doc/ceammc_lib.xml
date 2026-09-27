@@ -88,7 +88,7 @@
     <entry name="array.stretch" descr="the array time-stretch, pitch-shift or rate-change" ref_view="link">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.sum" descr="calculates sum of array elements" ref_view="link">
+    <entry name="array.sum" descr="calculates the sum of array elements" ref_view="link">
       <xi:include href="array.sum.pddoc" parse="xml"/>
     </entry>
     <entry name="array.sum2" descr="calculates sum of squares of array elements" ref_view="link">

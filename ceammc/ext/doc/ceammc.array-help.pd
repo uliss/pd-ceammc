@@ -58,7 +58,7 @@ array.resample-help.pd;
 array.stretch-help.pd;
 #X text 220 657 the array time-stretch \, pitch-shift or rate-change;
 #X obj 30 685 ui.link @title [array.sum] @url array.sum-help.pd;
-#X text 220 682 calculates sum of array elements;
+#X text 220 682 calculates the sum of array elements;
 #X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
 #X text 220 707 calculates sum of squares of array elements;
 #X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
