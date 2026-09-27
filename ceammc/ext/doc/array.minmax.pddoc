@@ -16,28 +16,38 @@
       <keywords>array minmax</keywords>
       <since>0.3</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object finds the minimum and maximum values in the specified array and
+        outputs them together with their positions. The first outlet outputs a list of two values:
+        MIN MAX. The second outlet outputs a list of their indexes: MIN_INDEX MAX_INDEX.</tr>
+        <tr lang="ru">Объект находит минимальное и максимальное значения в указанном массиве и
+        выводит их вместе с их позициями. Из первого выхода выводится список из двух значений:
+        MIN MAX. Из второго выхода выводится список их индексов: MIN_INDEX MAX_INDEX.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to search</tr>
+        <tr lang="ru">имя массива для поиска</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to search</tr>
+        <tr lang="ru">имя массива для поиска</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">perform search in current array</tr>
-          <tr lang="ru">ваполняет поиск в текущем массиве</tr>
+          <tr lang="en">performs the search in the current array</tr>
+          <tr lang="ru">выполняет поиск в текущем массиве</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set new array and perform search</tr>
-          <tr lang="ru">устанавливает новый массив, а затем выполняет поиск</tr>
+          <tr lang="en">sets a new array and performs the search</tr>
+          <tr lang="ru">устанавливает новый массив и выполняет поиск</tr>
         </in>
       </inlet>
     </inlets>
@@ -50,7 +60,7 @@
       </outlet>
       <outlet>
         <out type="list">
-          <tr lang="en">indexes of found values</tr>
+          <tr lang="en">indexes of the found values</tr>
           <tr lang="ru">индексы найденных значений</tr>
         </out>
       </outlet>
