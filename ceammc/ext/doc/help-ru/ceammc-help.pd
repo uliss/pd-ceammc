@@ -298,7 +298,7 @@ conv.lin2exp-help.pd;
 #X text 200 3175 отображает линейный диапазон в экспоненциальный;
 #X obj 30 3203 ui.link @title [conv.lin2lin] @url
 conv.lin2lin-help.pd;
-#X text 200 3200 отображает один линейный диапазон в другой;
+#X text 200 3200 преобразует один линейный диапазон в другой;
 #X obj 30 3228 ui.link @title [conv.lin2lin~] @url
 conv.lin2lin~-help.pd;
 #X text 200 3225 отображает один линейный диапазон в другой для сигналов;

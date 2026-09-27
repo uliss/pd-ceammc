@@ -196,11 +196,11 @@ lin->curve	map linear to exponential range with 0 allowed / отображает
 conv.lin2exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 ceammc/lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
-conv.lin2lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-ceammc/lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-ceammc/l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
-l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+conv.lin2lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+ceammc/lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+ceammc/l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
+l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
 conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
