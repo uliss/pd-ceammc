@@ -181,9 +181,9 @@ guido->note	convert the Guido notation into a MIDI pitch and duration / конв
 conv.hex2int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
 ceammc/hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
 hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
-conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
-ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
-hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
+conv.hsl2rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
+ceammc/hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
+hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
 conv.int2bits	convert integer to list of bits / конвертировать целое число в список битов
 ceammc/int->bits	convert integer to list of bits / конвертировать целое число в список битов
 int->bits	convert integer to list of bits / конвертировать целое число в список битов

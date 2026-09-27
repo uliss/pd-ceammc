@@ -67,7 +67,7 @@ conv.guido2note-help.pd;
 #X obj 30 690 ui.link @title [conv.hex2int] @url conv.hex2int-help.pd;
 #X text 220 687 преобразует шестнадцатеричный символ в целое число;
 #X obj 30 715 ui.link @title [conv.hsl2rgb] @url conv.hsl2rgb-help.pd;
-#X text 220 712 преобразование цветовых значений из HSL в RGB;
+#X text 220 712 преобразует цветовые значения из HSL в RGB;
 #X obj 30 740 ui.link @title [conv.int2bits] @url
 conv.int2bits-help.pd;
 #X text 220 737 конвертировать целое число в список битов;
