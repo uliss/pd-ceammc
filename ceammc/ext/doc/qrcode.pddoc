@@ -30,6 +30,40 @@
         и, через второй выход, размер (длину стороны) матрицы QR-кода. Качество кодирования
         управляется свойством @quality.</tr>
       </par>
+      <par>
+        <tr lang="en">Encoding quality (error correction level). Higher levels make the QR code
+        more resistant to damage, dirt or partial obscuring, but also increase the size of the
+        resulting matrix. The four levels are:</tr>
+        <tr lang="ru">Качество кодирования (уровень коррекции ошибок). Чем выше уровень, тем
+        устойчивее QR-код к повреждениям, загрязнениям и частичному перекрытию, но тем больше
+        размер итоговой матрицы. Доступны четыре уровня:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 'low' — about 7% of the code can be restored. Smallest matrix size, best
+        for clean digital display (screens, printing in ideal conditions).</tr>
+        <tr lang="ru">• 'low' — восстанавливается около 7% кода. Наименьший размер матрицы,
+        подходит для чистого цифрового отображения (экраны, печать в идеальных условиях).</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 'medium' — about 15% of the code can be restored. A good general-purpose
+        choice for most everyday use cases.</tr>
+        <tr lang="ru">• 'medium' — восстанавливается около 15% кода. Хороший универсальный выбор
+        для большинства повседневных задач.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 'quartile' — about 25% of the code can be restored. Balanced between
+        robustness and matrix size, suitable for industrial and printed labels.</tr>
+        <tr lang="ru">• 'quartile' — восстанавливается около 25% кода. Баланс между устойчивостью
+        и размером матрицы, подходит для промышленных и печатных этикеток.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 'high' — about 30% of the code can be restored. Maximum robustness,
+        recommended for codes that may be exposed to dirt, scratches or partial covering (for
+        example, on packaging or outdoor signage).</tr>
+        <tr lang="ru">• 'high' — восстанавливается около 30% кода. Максимальная устойчивость,
+        рекомендуется для кодов, которые могут подвергаться загрязнению, царапинам или
+        частичному перекрытию (например, на упаковке или уличных вывесках).</tr>
+      </par>
     </info>
     <arguments>
       <argument name="VALUE" type="symbol">
@@ -69,6 +103,34 @@
         <tr lang="ru">строковое значение</tr>
       </property>
     </properties>
+    <methods>
+      <!-- wifi -->
+      <method name="wifi">
+        <info>
+          <tr lang="en">builds a Wi-Fi string and encodes it as a
+          QR code.</tr>
+          <tr lang="ru">формирует строку Wi-Fi строку и кодирует её как QR-код.</tr>
+        </info>
+        <param name="@ssid" type="atom" required="true">
+          <tr lang="en">network name (SSID)</tr>
+          <tr lang="ru">имя сети (SSID)</tr>
+        </param>
+        <param name="@pass" type="atom" required="false">
+          <tr lang="en">network password. Not needed if the security type is nopass.</tr>
+          <tr lang="ru">пароль сети. Не нужен, если тип защиты — nopass.</tr>
+        </param>
+        <param name="@sec" type="symbol" enum="WPA WEP nopass" default="WPA" required="false">
+          <tr lang="en">security type: WPA (also covers WPA2 and WPA3), WEP (legacy) or nopass
+          (open network)</tr>
+          <tr lang="ru">тип защиты: WPA (включает WPA2 и WPA3), WEP (устаревший) или nopass
+          (открытая сеть)</tr>
+        </param>
+        <param name="@hidden" type="flag" required="false">
+          <tr lang="en">hidden network flag.</tr>
+          <tr lang="ru">флаг скрытой сети.</tr>
+        </param>
+      </method>
+    </methods>
     <inlets>
       <inlet>
         <in on="bang">
@@ -100,6 +162,9 @@
 <![CDATA[
 [S digits=15 #a]
 
+  [wifi @ssid SSID @pass 12345 @sec WPA #b(
+
+
 [symbol https://github.com/uliss/pure-data/releases(
 |
 [qrcode #x]                            [ui.lcd @receive qrcode @size 125 125 @nosave 1]
@@ -110,7 +175,7 @@
 |                |
 [s         qrcode]
 
-[X a->x]
+[X a->x] [X b->x]
 ]]>
       </pdascii>
     </example>

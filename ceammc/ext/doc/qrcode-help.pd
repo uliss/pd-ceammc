@@ -6,74 +6,108 @@
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/qrcode] @url qrcode-help.pd;
 #X obj 696 8 qrcode;
-#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 426 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Generates a QR code from the given string value. On
 a bang or on receiving a new symbol value \, outputs the QR code as
 a flat list of 1s and 0s (a black-and-white bitmap) and \, through
 the second outlet \, the size (side length) of the QR code matrix.
 The encoding quality is controlled by the @quality property.;
-#X symbolatom 50 247 15 0 0 0 - - -;
-#X msg 50 276 symbol https://github.com/uliss/pure-data/releases;
-#X obj 50 305 qrcode;
-#X obj 424 305 ui.lcd @receive qrcode @size 125 125 @nosave 1;
-#X msg 107 334 @cols \$1 \, @rows \$1 \, @size 125 125;
-#X obj 50 363 msg set list;
-#X obj 50 391 s qrcode;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 446 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 240 184 Encoding quality (error correction level). Higher levels
+make the QR code more resistant to damage \, dirt or partial obscuring
+\, but also increase the size of the resulting matrix. The four levels
+are:;
+#X text 250 254 • 'low' — about 7% of the code can be restored. Smallest
+matrix size \, best for clean digital display (screens \, printing
+in ideal conditions).;
+#X text 250 309 • 'medium' — about 15% of the code can be restored.
+A good general-purpose choice for most everyday use cases.;
+#X text 250 364 • 'quartile' — about 25% of the code can be restored.
+Balanced between robustness and matrix size \, suitable for industrial
+and printed labels.;
+#X text 250 419 • 'high' — about 30% of the code can be restored. Maximum
+robustness \, recommended for codes that may be exposed to dirt \,
+scratches or partial covering (for example \, on packaging or outdoor
+signage).;
+#X symbolatom 50 552 15 0 0 0 - - -;
+#X msg 69 581 wifi @ssid SSID @pass 12345 @sec WPA;
+#X msg 50 624 symbol https://github.com/uliss/pure-data/releases;
+#X obj 50 653 qrcode;
+#X obj 424 653 ui.lcd @receive qrcode @size 125 125 @nosave 1;
+#X msg 107 682 @cols \$1 \, @rows \$1 \, @size 125 125;
+#X obj 50 711 msg set list;
+#X obj 50 739 s qrcode;
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 794 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 797 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 447 1\.;
-#X text 170 447 symbol;
-#X obj 268 448 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 447 VALUE: initial string value. Type: symbol.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 795 1\.;
+#X text 170 795 symbol;
+#X obj 268 796 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 795 VALUE: initial string value. Type: symbol.;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 835 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 490 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 838 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 488 @high;
-#X text 270 488 Alias for @quality high.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @low;
-#X text 270 518 Alias for @quality low.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @medium;
-#X text 270 548 Alias for @quality medium.;
-#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 578 @quality;
-#X text 270 578 Encoding quality. Type: symbol. Default value: low.
+#X msg 130 836 @high;
+#X text 270 836 Alias for @quality high.;
+#X obj 250 866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 866 @low;
+#X text 270 866 Alias for @quality low.;
+#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 896 @medium;
+#X text 270 896 Alias for @quality medium.;
+#X obj 250 926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 926 @quality;
+#X text 270 926 Encoding quality. Type: symbol. Default value: low.
 Allowed values: low \, medium \, quartile \, high.;
-#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 620 @quartile;
-#X text 270 620 Alias for @quality quartile.;
-#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 650 @value;
-#X text 270 650 String value. Type: symbol.;
-#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 695 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 696 1\.;
-#X text 170 696 bang:;
-#X text 270 696 outputs encoded data.;
-#X text 170 721 symbol:;
-#X text 270 721 sets a new value and outputs encoded data.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 761 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 250 968 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 968 @quartile;
+#X text 270 968 Alias for @quality quartile.;
+#X obj 250 998 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 998 @value;
+#X text 270 998 String value. Type: symbol.;
+#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1043 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 762 1\.;
-#X text 270 762 list of 1s and 0s.;
-#X text 130 782 2\.;
-#X text 270 782 int: QR code size.;
+#X msg 130 1044 wifi;
+#X text 270 1044 builds a Wi-Fi string and encodes it as a QR code.
+Arguments are:;
+#X obj 300 1084 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1084 @ssid: network name (SSID). Type: atom.;
+#X obj 300 1107 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1107 [@pass]: network password. Not needed if the security
+type is nopass. Type: atom.;
+#X obj 300 1145 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1145 [@sec=WPA]: security type: WPA (also covers WPA2 and
+WPA3) \, WEP (legacy) or nopass (open network). Type: symbol. Allowed
+values: WPA \, WEP \, nopass.;
+#X obj 300 1198 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1198 [@hidden]: hidden network flag.;
+#X obj 20 1241 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1246 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1247 1\.;
+#X text 170 1247 bang:;
+#X text 270 1247 outputs encoded data.;
+#X text 170 1272 symbol:;
+#X text 270 1272 sets a new value and outputs encoded data.;
+#X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1313 1\.;
+#X text 270 1313 list of 1s and 0s.;
+#X text 130 1333 2\.;
+#X text 270 1333 int: QR code size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 835 library: ceammc v0.9.8;
-#N canvas 10 854 400 290 info 0;
+#X obj 1 1383 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1386 library: ceammc v0.9.8;
+#N canvas 10 1405 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,10 +131,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 854 pd info;
-#X connect 8 0 9 0;
-#X connect 9 1 11 0;
-#X connect 9 0 12 0;
-#X connect 12 0 13 0;
-#X connect 11 0 13 0;
-#X connect 7 0 9 0;
+#X restore 10 1405 pd info;
+#X connect 14 0 15 0;
+#X connect 15 1 17 0;
+#X connect 15 0 18 0;
+#X connect 18 0 19 0;
+#X connect 17 0 19 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
