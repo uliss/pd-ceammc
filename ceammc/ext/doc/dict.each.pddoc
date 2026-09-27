@@ -7,8 +7,9 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">map each value in dictionary with the side-chain function</tr>
-        <tr lang="ru">отображение каждого значения в словаре с помощью боковой цепи обработки</tr>
+        <tr lang="en">map each value in a dictionary with the side-chain function</tr>
+        <tr lang="ru">обрабатывает каждое значение словаря с помощью боковой цепочки
+        (side-chain)</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,31 +20,49 @@
         <see>data.dict</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object iterates over all values of the input dictionary and sends each
+        value to the side-chain (the right outlet) one by one. The processed value returned to the
+        right inlet replaces the original value in the dictionary. When all values have been
+        processed, the resulting dictionary is output from the left outlet.</tr>
+        <tr lang="ru">Объект перебирает все значения входного словаря и по одному отправляет каждое
+        значение в боковую цепочку (правый выход). Обработанное значение, возвращённое в правый
+        вход, заменяет исходное значение в словаре. Когда все значения обработаны, результирующий
+        словарь выводится из левого выхода.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">input dictionary</tr>
-          <tr lang="ru" finished="false">словарь входного словаря</tr>
+          <tr lang="en">dictionary to process. Triggers iteration
+          over its values</tr>
+          <tr lang="ru">словарь для обработки. Запускает перебор его
+          значений</tr>
         </in>
       </inlet>
       <inlet>
         <in>
-          <tr lang="en">new key value from sidechain</tr>
-          <tr lang="ru" finished="false">Новая ключевая ценность от Sidechain</tr>
+          <tr lang="en">new value returned from the side-chain. Replaces the current value in the
+          dictionary</tr>
+          <tr lang="ru">новое значение, возвращённое из боковой цепочки. Заменяет текущее значение в
+          словаре</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">processed dict</tr>
-          <tr lang="ru" finished="false">обработанный дикт</tr>
+          <tr lang="en">processed dictionary, output after all values have been handled by the
+          side-chain</tr>
+          <tr lang="ru">обработанный словарь; выводится после того, как все значения прошли через
+          боковую цепочку</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">send value to sidechain</tr>
-          <tr lang="ru" finished="false">Отправить ценность в Sidechain</tr>
+          <tr lang="en">sends each dictionary value to the side-chain for processing</tr>
+          <tr lang="ru">отправляет каждое значение словаря в боковую цепочку для обработки</tr>
         </out>
       </outlet>
     </outlets>

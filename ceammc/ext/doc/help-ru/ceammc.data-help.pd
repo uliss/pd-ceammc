@@ -39,8 +39,8 @@ data.set2list-help.pd;
 dict.contains-help.pd;
 #X text 220 497 проверка \, содержит ли словарь указанный ключ;
 #X obj 30 525 ui.link @title [dict.each] @url dict.each-help.pd;
-#X text 220 522 отображение каждого значения в словаре с помощью боковой
-цепи обработки;
+#X text 220 522 обрабатывает каждое значение словаря с помощью боковой
+цепочки (side-chain);
 #X obj 30 565 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
 #X text 220 562 создает словарь из списка;

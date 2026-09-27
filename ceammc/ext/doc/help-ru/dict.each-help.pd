@@ -1,42 +1,51 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 297 50 отображение каждого значения в словаре с помощью боковой
-цепи обработки;
+#X obj 345 50 cnv 1 420 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 350 50 обрабатывает каждое значение словаря с помощью боковой
+цепочки (side-chain);
 #X obj 1 1 cnv 5 765 40 empty empty dict.each 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 dict.each;
-#X msg 50 118 [a: 1 c: 2 e: 3] \, bang;
-#X obj 50 147 dict;
-#X obj 50 176 dict.each;
-#X obj 184 176 * 100;
-#X obj 50 205 ui.d;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 93 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект перебирает все значения входного словаря и по
+одному отправляет каждое значение в боковую цепочку (правый выход).
+Обработанное значение \, возвращённое в правый вход \, заменяет исходное
+значение в словаре. Когда все значения обработаны \, результирующий
+словарь выводится из левого выхода.;
+#X msg 50 262 [a: 1 c: 2 e: 3] \, bang;
+#X obj 50 291 dict;
+#X obj 50 320 dict.each;
+#X obj 184 320 * 100;
+#X obj 50 349 ui.d;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 404 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 261 1\.;
-#X text 170 261 data:dict:;
-#X text 270 261 input dictionary.;
-#X text 130 286 2\.;
-#X text 270 286 new key value from sidechain.;
-#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 326 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 405 1\.;
+#X text 170 405 data:dict:;
+#X text 270 405 словарь для обработки. Запускает перебор его значений.;
+#X text 130 430 2\.;
+#X text 270 430 новое значение \, возвращённое из боковой цепочки.
+Заменяет текущее значение в словаре.;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 485 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 327 1\.;
-#X text 270 327 processed dict.;
-#X text 130 347 2\.;
-#X text 270 347 send value to sidechain.;
+#X text 130 486 1\.;
+#X text 270 486 обработанный словарь; выводится после того \, как все
+значения прошли через боковую цепочку.;
+#X text 130 536 2\.;
+#X text 270 536 отправляет каждое значение словаря в боковую цепочку
+для обработки.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 551 520 смотрите также:;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 604 библиотека: ceammc v0.9.8;
+#X text 551 616 смотрите также:;
+#X obj 672 619 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.dict] @url data.dict-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 623 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -60,9 +69,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 8 0;
-#X connect 6 1 7 0;
-#X connect 7 0 6 1;
+#X restore 10 623 pd info;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 8 1 9 0;
+#X connect 9 0 8 1;

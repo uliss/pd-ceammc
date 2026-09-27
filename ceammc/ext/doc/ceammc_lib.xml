@@ -441,7 +441,7 @@
     <entry name="dict.contains" descr="check if the dictionary contains the key" ref_view="link">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.each" descr="map each value in dictionary with the side-chain function" ref_view="link">
+    <entry name="dict.each" descr="map each value in a dictionary with the side-chain function" ref_view="link">
       <xi:include href="dict.each.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.from_list" descr="creates dictionary from the list" ref_view="link">

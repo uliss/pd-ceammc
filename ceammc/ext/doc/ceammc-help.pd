@@ -409,7 +409,8 @@ data.set2list-help.pd;
 dict.contains-help.pd;
 #X text 200 4173 check if the dictionary contains the key;
 #X obj 30 4201 ui.link @title [dict.each] @url dict.each-help.pd;
-#X text 200 4198 map each value in dictionary with the side-chain function;
+#X text 200 4198 map each value in a dictionary with the side-chain
+function;
 #X obj 30 4226 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
 #X text 200 4223 creates dictionary from the list;

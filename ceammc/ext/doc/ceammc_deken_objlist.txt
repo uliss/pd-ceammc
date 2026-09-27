@@ -316,7 +316,7 @@ data.set2list	converts a set to a list / преобразует множеств
 ceammc/set->list	converts a set to a list / преобразует множество в список
 set->list	converts a set to a list / преобразует множество в список
 dict.contains	check if the dictionary contains the key / проверка, содержит ли словарь указанный ключ
-dict.each	map each value in dictionary with the side-chain function / отображение каждого значения в словаре с помощью боковой цепи обработки
+dict.each	map each value in a dictionary with the side-chain function / обрабатывает каждое значение словаря с помощью боковой цепочки (side-chain)
 dict.from_list	creates dictionary from the list / создает словарь из списка
 ceammc/list->dict	creates dictionary from the list / создает словарь из списка
 list->dict	creates dictionary from the list / создает словарь из списка

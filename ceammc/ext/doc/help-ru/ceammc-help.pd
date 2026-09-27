@@ -426,8 +426,8 @@ data.set2list-help.pd;
 dict.contains-help.pd;
 #X text 200 4473 проверка \, содержит ли словарь указанный ключ;
 #X obj 30 4501 ui.link @title [dict.each] @url dict.each-help.pd;
-#X text 200 4498 отображение каждого значения в словаре с помощью боковой
-цепи обработки;
+#X text 200 4498 обрабатывает каждое значение словаря с помощью боковой
+цепочки (side-chain);
 #X obj 30 4541 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
 #X text 200 4538 создает словарь из списка;

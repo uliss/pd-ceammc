@@ -37,7 +37,8 @@ data.set2list-help.pd;
 dict.contains-help.pd;
 #X text 220 467 check if the dictionary contains the key;
 #X obj 30 495 ui.link @title [dict.each] @url dict.each-help.pd;
-#X text 220 492 map each value in dictionary with the side-chain function;
+#X text 220 492 map each value in a dictionary with the side-chain
+function;
 #X obj 30 520 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
 #X text 220 517 creates dictionary from the list;
