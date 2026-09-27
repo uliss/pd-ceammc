@@ -1190,7 +1190,7 @@ hoa.@process	properties manager for [hoa.process~] object / управление
 hoa.in	message inlet for a patcher loaded by [hoa.process~] object / вход сообщений для патча, загружаемого объектом [hoa.process~]
 hoa.in~	signal inlet for a patcher loaded by [hoa.process~] object / сигнальный вход для патча, загружаемого объектом [hoa.process~]
 hoa.map.ui	a GUI to spatialize sources on a map / GUI для пространственного размещения источников
-hoa.out	message outlet for a patcher loaded by hoa.process~ / контрольный выход для патча, загружаемого объектом [hoa.process~]
+hoa.out	message outlet for a patcher loaded by hoa.process~ / выход сообщений для патча, загружаемого объектом [hoa.process~]
 hoa.out~	signal inlet for a patcher loaded by hoa.process~ / сигнальный выход для патча, загружаемого объектом [hoa.process~]
 hoa.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
 hoa.2d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки

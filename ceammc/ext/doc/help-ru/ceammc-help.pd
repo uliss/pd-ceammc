@@ -2121,7 +2121,7 @@ hoa.@process-help.pd;
 #X obj 30 22169 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
 #X text 200 22166 GUI для пространственного размещения источников;
 #X obj 30 22194 ui.link @title [hoa.out] @url hoa.out-help.pd;
-#X text 200 22191 контрольный выход для патча \, загружаемого объектом
+#X text 200 22191 выход сообщений для патча \, загружаемого объектом
 [hoa.process~];
 #X obj 30 22234 ui.link @title [hoa.out~] @url hoa.out~-help.pd;
 #X text 200 22231 сигнальный выход для патча \, загружаемого объектом

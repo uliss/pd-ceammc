@@ -48,20 +48,20 @@ by a hoa.process~ object.;
 0;
 #X text 130 516 1\.;
 #X text 170 516 bang:;
-#X text 270 516 output bang message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 516 outputs a bang message through the corresponding message
+outlet of the hoa.process~ object.;
 #X text 170 556 float:;
-#X text 270 556 output float message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 556 outputs a float message through the corresponding message
+outlet of the hoa.process~ object.;
 #X text 170 596 symbol:;
-#X text 270 596 output symbol message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 596 outputs a symbol message through the corresponding
+message outlet of the hoa.process~ object.;
 #X text 170 636 list:;
-#X text 270 636 output list message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 636 outputs a list message through the corresponding message
+outlet of the hoa.process~ object.;
 #X text 170 676 any:;
-#X text 270 676 output any message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 676 outputs any message through the corresponding message
+outlet of the hoa.process~ object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
