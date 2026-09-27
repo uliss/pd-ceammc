@@ -11,8 +11,7 @@
       </authors>
       <description>
         <tr lang="en">a 2D ambisonic multisource spatializer</tr>
-        <tr lang="ru">многоканальное управление пространственными источниками в двумерных
-        амбисониках</tr>
+        <tr lang="ru">многоканальный 2D-пространственный микшер для амбисоников</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,139 +24,134 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Encodes several sources in the circular harmonics domain with distance
-        compensation and muting system</tr>
-        <!-- old: Кодирует несколько источников в области круговых
-                гармоник с компенсацией расстояния и системой приглушения -->
-        <tr lang="ru" finished="false">Кодирует несколько источников в области круговых гармоник с
-        компенсацией расстояния и системой приглушения</tr>
+        <tr lang="en">Encodes several sources into the circular harmonics domain, with distance
+        compensation and a muting system.</tr>
+        <tr lang="ru">Кодирует несколько источников в область круговых гармоник с компенсацией
+        расстояния и системой приглушения.</tr>
       </par>
       <par>
-        <tr lang="en">If nsrc==1 radius and angle controlled with signal values</tr>
-        <!-- old: Если nsrc==1 радиус и угол, управляемые значениями
-                сигнала -->
-        <tr lang="ru" finished="false">Если nsrc==1 радиус и угол, управляемые значениями
-        сигнала</tr>
+        <tr lang="en">If nsrc is 1 (a single source), the radius and angle are controlled by signal
+        values on the second and third signal inlets. The behavior depends on the @mode property:
+        in 'pol' mode the signals are treated as radius and angle, and in 'car' mode as X and Y
+        coordinates.</tr>
+        <tr lang="ru">Если nsrc равен 1 (один источник), радиус и угол управляются значениями
+        сигнала на втором и третьем звуковых входах. Поведение зависит от свойства @mode: в
+        режиме 'pol' сигналы трактуются как радиус и угол, а в режиме 'car' — как координаты X и
+        Y.</tr>
       </par>
       <par>
-        <tr lang="en">Note: source indexes are 1-based.</tr>
-        <tr lang="ru" finished="false">Примечание: исходные индексы основаны на 1.</tr>
+        <tr lang="en">For multiple sources, positions can be set via the polar, cartesian or mute
+        messages (see the methods below). Source indexes are 1-based.</tr>
+        <tr lang="ru">При нескольких источниках позиции задаются сообщениями polar, cartesian или
+        mute (см. методы ниже). Индексы источников начинаются с 1.</tr>
       </par>
       <a href="hoa/hoa.2d.map~-help.pd">CICM documentation</a>
     </info>
     <arguments>
       <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </argument>
       <argument name="NSRC" type="int" minvalue="1">
         <tr lang="en">number of sources</tr>
-        <tr lang="ru" finished="false">Количество источников</tr>
+        <tr lang="ru">число источников</tr>
       </argument>
       <argument name="MODE" type="symbol" enum="pol car">
-        <tr lang="en">mode in signal control mode (with nsrc=1)</tr>
-        <tr lang="ru" finished="false">режим управления сигналом (с nsrc=1)</tr>
+        <tr lang="en">signal control mode (with nsrc = 1)</tr>
+        <tr lang="ru">режим управления сигналом (при nsrc = 1)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="pol car" default="pol">
-        <tr lang="en">signal control mode (with nsrc=1). If 'pol': second and third signal inlets
-        are treated as radius and angle values, if 'car': as X and Y coordinates</tr>
-        <!-- old: Режим управления сигналом (с nsrc=1). Если «пол»:
-                второй и третий входы сигнала рассматриваются как значения радиуса и угла, если
-                «автомобиль»: как координаты X и Y -->
-        <tr lang="ru" finished="false">Режим управления сигналом (с nsrc=1). Если «пол»: второй и
-        третий входы сигнала рассматриваются как значения радиуса и угла, если «автомобиль»: как
-        координаты X и Y</tr>
+        <tr lang="en">signal control mode (with nsrc = 1). If 'pol' — the second and third signal
+        inlets are treated as radius and angle values; if 'car' — as X and Y coordinates</tr>
+        <tr lang="ru">режим управления сигналом (при nsrc = 1). Если 'pol' — второй и третий
+        звуковые входы трактуются как значения радиуса и угла; если 'car' — как координаты X и
+        Y</tr>
       </property>
       <!-- @nsrc -->
       <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">
         <tr lang="en">number of input sources</tr>
-        <tr lang="ru" finished="false">Количество входных источников</tr>
+        <tr lang="ru">число входных источников</tr>
       </property>
       <!-- @order -->
       <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </property>
       <!-- @ramp -->
       <property name="@ramp" type="float" minvalue="0" default="100">
         <tr lang="en">ramp time</tr>
-        <tr lang="ru" finished="false">время</tr>
+        <tr lang="ru">время плавного перехода</tr>
       </property>
     </properties>
     <methods>
       <!-- car -->
       <method name="car">
         <info>
-          <tr lang="en">alias to 'cartesian' method</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Cartesian Method</tr>
+          <tr lang="en">alias for the 'cartesian' method</tr>
+          <tr lang="ru">сокращение для метода 'cartesian'</tr>
         </info>
       </method>
       <!-- cartesian -->
       <method name="cartesian">
         <info>
-          <tr lang="en">set source mapping in cartesian coordinates</tr>
-          <!-- old: картографирование источника в картезианских
-                    координатах -->
-          <tr lang="ru" finished="false">картографирование источника в картезианских
-          координатах</tr>
+          <tr lang="en">sets the source position in Cartesian coordinates</tr>
+          <tr lang="ru">устанавливает позицию источника в декартовых координатах</tr>
         </info>
         <param name="IDX" type="int" required="true" minvalue="1">
           <tr lang="en">source index. 1-based</tr>
-          <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
+          <tr lang="ru">индекс источника, начиная с 1</tr>
         </param>
         <param name="X" type="float" required="true">
-          <tr lang="en">x-coord</tr>
-          <tr lang="ru" finished="false">х-корд</tr>
+          <tr lang="en">x coordinate</tr>
+          <tr lang="ru">координата X</tr>
         </param>
-        <param name="X" type="float" required="true">
-          <tr lang="en">y-coord</tr>
-          <tr lang="ru" finished="false">y-coord</tr>
+        <param name="Y" type="float" required="true">
+          <tr lang="en">y coordinate</tr>
+          <tr lang="ru">координата Y</tr>
         </param>
       </method>
       <!-- mute -->
       <method name="mute">
         <info>
-          <tr lang="en">mute/unmute specified source</tr>
-          <tr lang="ru" finished="false">немой / немой указанный источник</tr>
+          <tr lang="en">mutes or unmutes the specified source</tr>
+          <tr lang="ru">включает или снимает заглушение указанного источника</tr>
         </info>
         <param name="IDX" type="int" required="true" minvalue="1">
           <tr lang="en">source index. 1-based</tr>
-          <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
+          <tr lang="ru">индекс источника, начиная с 1</tr>
         </param>
         <param name="STATE" type="int" required="true" enum="0 1">
           <tr lang="en">mute value</tr>
-          <tr lang="ru" finished="false">немая ценность</tr>
+          <tr lang="ru">значение заглушения</tr>
         </param>
       </method>
       <!-- pol -->
       <method name="pol">
         <info>
-          <tr lang="en">alias to 'polar' method</tr>
-          <tr lang="ru" finished="false">Название: «Полярный метод»</tr>
+          <tr lang="en">alias for the 'polar' method</tr>
+          <tr lang="ru">сокращение для метода 'polar'</tr>
         </info>
       </method>
       <!-- polar -->
       <method name="polar">
         <info>
-          <tr lang="en">set source mapping in polar coordinates</tr>
-          <!-- old: картирование источника в полярных
-                    координатах -->
-          <tr lang="ru" finished="false">картирование источника в полярных координатах</tr>
+          <tr lang="en">sets the source position in polar coordinates</tr>
+          <tr lang="ru">устанавливает позицию источника в полярных координатах</tr>
         </info>
         <param name="IDX" type="int" required="true" minvalue="1">
           <tr lang="en">source index. 1-based</tr>
-          <tr lang="ru" finished="false">Исходный индекс. 1 основанный</tr>
+          <tr lang="ru">индекс источника, начиная с 1</tr>
         </param>
         <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">
           <tr lang="en">radius</tr>
-          <tr lang="ru" finished="false">радиус</tr>
+          <tr lang="ru">радиус</tr>
         </param>
         <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π" units="radian">
           <tr lang="en">rotation angle</tr>
-          <tr lang="ru" finished="false">угол поворота</tr>
+          <tr lang="ru">угол поворота</tr>
         </param>
       </method>
     </methods>
@@ -165,25 +159,23 @@
       <inlet type="audio">
         <in>
           <tr lang="en">first source input</tr>
-          <tr lang="ru" finished="false">Первый источник ввода</tr>
+          <tr lang="ru">вход первого источника</tr>
         </in>
         <in on="list">
-          <tr lang="en">SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE</tr>
-          <!-- old: SRC_IDX Polar RADIUS AZIMUTH или SRC_IDX
-                    mute -->
-          <tr lang="ru" finished="false">SRC_IDX Polar RADIUS AZIMUTH или SRC_IDX mute</tr>
+          <tr lang="en">SRC_IDX polar RADIUS ANGLE, or SRC_IDX mute VALUE</tr>
+          <tr lang="ru">SRC_IDX polar RADIUS ANGLE или SRC_IDX mute VALUE</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">... source input</tr>
-          <tr lang="ru" finished="false">Источник ввода</tr>
+          <tr lang="ru">... вход источника</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">n-th source input</tr>
-          <tr lang="ru" finished="false">n-й исходный ввод</tr>
+          <tr lang="ru">вход n-го источника</tr>
         </in>
       </inlet>
     </inlets>
@@ -191,19 +183,19 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">first harmonic output</tr>
-          <tr lang="ru" finished="false">Первый гармонический выход</tr>
+          <tr lang="ru">выход первой гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... harmonic output</tr>
-          <tr lang="ru" finished="false">Гармонический выход</tr>
+          <tr lang="ru">... выход гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th harmonic output</tr>
-          <tr lang="ru" finished="false">n-й гармонический выход</tr>
+          <tr lang="ru">выход n-й гармоники</tr>
         </out>
       </outlet>
     </outlets>

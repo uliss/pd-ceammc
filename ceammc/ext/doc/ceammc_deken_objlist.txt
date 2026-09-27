@@ -1164,8 +1164,8 @@ hoa.2d.encoder~	2D encoder of higher order ambisonics / двумерный ко�
 hoa.encoder~	2D encoder of higher order ambisonics / двумерный кодировщик амбисоников высших порядков
 hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумеровывает и нормализует каналы в двумерных амбисониках
 hoa.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумеровывает и нормализует каналы в двумерных амбисониках
-hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
-hoa.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
+hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальный 2D-пространственный микшер для амбисоников
+hoa.map~	a 2D ambisonic multisource spatializer / многоканальный 2D-пространственный микшер для амбисоников
 hoa.2d.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
 hoa.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
 hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны

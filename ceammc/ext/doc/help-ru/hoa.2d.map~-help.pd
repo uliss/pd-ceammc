@@ -1,162 +1,167 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 322 50 cnv 1 443 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 327 50 многоканальное управление пространственными источниками
-в двумерных амбисониках;
+#X obj 322 50 cnv 1 443 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 327 50 многоканальный 2D-пространственный микшер для амбисоников;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.map~ 20 20 0 20 -104026
 -4096 0;
 #X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.map~] @url hoa.2d.map~-help.pd;
 #X obj 659 8 hoa.2d.map~;
-#X obj 230 93 cnv 1 535 134 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Encodes several sources in the circular harmonics domain
-with distance compensation and muting system;
-#X text 240 138 If nsrc==1 radius and angle controlled with signal
-values;
-#X text 240 163 Note: source indexes are 1-based.;
-#X obj 240 191 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 224 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Кодирует несколько источников в область круговых гармоник
+с компенсацией расстояния и системой приглушения.;
+#X text 240 123 Если nsrc равен 1 (один источник) \, радиус и угол
+управляются значениями сигнала на втором и третьем звуковых входах.
+Поведение зависит от свойства @mode: в режиме 'pol' сигналы трактуются
+как радиус и угол \, а в режиме 'car' — как координаты X и Y.;
+#X text 240 208 При нескольких источниках позиции задаются сообщениями
+polar \, cartesian или mute (см. методы ниже). Индексы источников начинаются
+с 1\.;
+#X obj 240 266 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.map~-help.pd;
-#X text 50 275 single source: signal controlled;
-#X obj 50 304 sig~ 1;
-#X floatatom 146 304 5 0 0 0 - - -;
-#X obj 242 304 phasor~ 0.2;
-#X obj 146 333 sig~ 1;
-#X obj 242 333 phase->rad~;
-#X obj 50 362 hoa.map~ 5 1, f 23;
-#X obj 50 391 hoa.scope~ 5 @gain 4 @size 164 164;
-#X text 50 563 multiple sources: control via properties;
-#X obj 50 592 msg.onload 1 1.57;
-#X obj 242 592 msg.onload 1 -1.57;
-#X obj 50 621 ui.polar @clockwise 0 @direction N @radians 1 @radius
+#X text 50 350 single source: signal controlled;
+#X obj 50 379 sig~ 1;
+#X floatatom 146 379 5 0 0 0 - - -;
+#X obj 242 379 phasor~ 0.2;
+#X obj 146 408 sig~ 1;
+#X obj 242 408 phase->rad~;
+#X obj 50 437 hoa.map~ 5 1, f 23;
+#X obj 50 466 hoa.scope~ 5 @gain 4 @size 164 164;
+#X text 50 638 multiple sources: control via properties;
+#X obj 50 667 msg.onload 1 1.57;
+#X obj 242 667 msg.onload 1 -1.57;
+#X obj 50 696 ui.polar @clockwise 0 @direction N @radians 1 @radius
 0.5;
-#X obj 242 621 ui.polar @clockwise 0 @direction N @radians 1 @radius
+#X obj 242 696 ui.polar @clockwise 0 @direction N @radians 1 @radius
 0.5;
-#X text 405 621 use Alt+drag to fix radius value;
-#X obj 414 678 ui.hrd @nitems 2 @mode 1;
-#X msg 414 707 1 \$1 \, 2 \$2;
-#X obj 50 736 msg polar 1;
-#X obj 242 736 msg polar 2;
-#X obj 414 736 msg mute;
-#X obj 59 765 sig~ 1;
-#X obj 213 765 sig~ -1;
-#X obj 414 765 hoa.map.ui;
-#X obj 50 794 hoa.2d.map~ 7 2, f 23;
-#X obj 50 823 hoa.scope~ 7 @gain 4 @size 164 164;
-#X obj 50 1010 ui.dsp~;
-#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1065 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 405 696 use Alt+drag to fix radius value;
+#X obj 414 753 ui.hrd @nitems 2 @mode 1;
+#X msg 414 782 1 \$1 \, 2 \$2;
+#X obj 50 811 msg polar 1;
+#X obj 242 811 msg polar 2;
+#X obj 414 811 msg mute;
+#X obj 59 840 sig~ 1;
+#X obj 213 840 sig~ -1;
+#X obj 414 840 hoa.map.ui;
+#X obj 50 869 hoa.2d.map~ 7 2, f 23;
+#X obj 50 898 hoa.scope~ 7 @gain 4 @size 164 164;
+#X obj 50 1085 ui.dsp~;
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1140 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1068 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1143 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 1066 1\.;
-#X text 170 1066 int;
-#X obj 268 1067 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1066 ORDER: the order of decomposition. Тип: int. Диапазон:
-[1\..63];
-#X text 130 1106 2\.;
-#X text 170 1106 int;
-#X obj 268 1107 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1106 NSRC: number of sources. Тип: int. Минимальное значение:
+#X text 130 1141 1\.;
+#X text 170 1141 int;
+#X obj 268 1142 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1141 ORDER: порядок декомпозиции. Тип: int. Диапазон: [1\..63];
+#X text 130 1166 2\.;
+#X text 170 1166 int;
+#X obj 268 1167 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1166 NSRC: число источников. Тип: int. Минимальное значение:
 1\.;
-#X text 130 1131 3\.;
-#X text 170 1131 symbol;
-#X obj 268 1132 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1131 MODE: mode in signal control mode (with nsrc=1). Разрешённые
+#X text 130 1191 3\.;
+#X text 170 1191 symbol;
+#X obj 268 1192 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1191 MODE: режим управления сигналом (при nsrc = 1). Разрешённые
 значения: pol \, car. Тип: symbol.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1186 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 1241 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1246 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1189 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1249 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 1187 @nsrc;
-#X text 270 1187 (при инициализации) Number of input sources. Тип:
+#X msg 130 1247 @nsrc;
+#X text 270 1247 (при инициализации) Число входных источников. Тип:
 int. Значение по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 250 1229 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1229 @order;
-#X text 270 1229 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
-#X obj 250 1271 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1271 @mode;
-#X text 270 1271 Signal control mode (with nsrc=1). If 'pol': second
-and third signal inlets are treated as radius and angle values \, if
-'car': as X and Y coordinates. Тип: symbol. Значение по умолчанию:
+#X obj 250 1289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1289 @order;
+#X text 270 1289 (при инициализации) Порядок декомпозиции. Тип: int.
+Значение по умолчанию: 1\. Диапазон: [1\..63].;
+#X obj 250 1331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1331 @mode;
+#X text 270 1331 Режим управления сигналом (при nsrc = 1). Если 'pol'
+— второй и третий звуковые входы трактуются как значения радиуса и
+угла; если 'car' — как координаты X и Y. Тип: symbol. Значение по умолчанию:
 pol. Разрешённые значения: pol \, car.;
-#X obj 250 1358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1358 @ramp;
-#X text 270 1358 Ramp time. Тип: float. Значение по умолчанию: 100\.
-Минимальное значение: 0\.;
-#X obj 20 1410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1415 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1418 @ramp;
+#X text 270 1418 Время плавного перехода. Тип: float. Значение по умолчанию:
+100\. Минимальное значение: 0\.;
+#X obj 20 1470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1475 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1416 car;
-#X text 270 1416 alias to 'cartesian' method.;
-#X obj 250 1451 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1451 cartesian;
-#X text 270 1451 set source mapping in cartesian coordinates. Аргументы:;
-#X obj 300 1476 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1476 IDX: source index. 1-based. Тип: int. Минимальное
+#X msg 130 1476 car;
+#X text 270 1476 сокращение для метода 'cartesian'.;
+#X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1511 cartesian;
+#X text 270 1511 устанавливает позицию источника в декартовых координатах.
+Аргументы:;
+#X obj 300 1551 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1551 IDX: индекс источника \, начиная с 1\. Тип: int. Минимальное
 значение: 1\.;
-#X obj 300 1514 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1514 X: x-coord. Тип: float.;
-#X obj 300 1537 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1537 X: y-coord. Тип: float.;
-#X obj 250 1570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1570 mute;
-#X text 270 1570 mute/unmute specified source. Аргументы:;
-#X obj 300 1595 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1595 IDX: source index. 1-based. Тип: int. Минимальное
+#X obj 300 1589 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1589 X: координата X. Тип: float.;
+#X obj 300 1612 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1612 Y: координата Y. Тип: float.;
+#X obj 250 1645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1645 mute;
+#X text 270 1645 включает или снимает заглушение указанного источника.
+Аргументы:;
+#X obj 300 1685 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1685 IDX: индекс источника \, начиная с 1\. Тип: int. Минимальное
 значение: 1\.;
-#X obj 300 1633 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1633 STATE: mute value. Тип: int. Разрешённые значения:
-0 \, 1\.;
-#X obj 250 1666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1666 pol;
-#X text 270 1666 alias to 'polar' method.;
-#X obj 250 1701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1701 polar;
-#X text 270 1701 set source mapping in polar coordinates. Аргументы:;
-#X obj 300 1726 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1726 IDX: source index. 1-based. Тип: int. Минимальное
+#X obj 300 1723 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1723 STATE: значение заглушения. Тип: int. Разрешённые
+значения: 0 \, 1\.;
+#X obj 250 1771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1771 pol;
+#X text 270 1771 сокращение для метода 'polar'.;
+#X obj 250 1806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1806 polar;
+#X text 270 1806 устанавливает позицию источника в полярных координатах.
+Аргументы:;
+#X obj 300 1846 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1846 IDX: индекс источника \, начиная с 1\. Тип: int. Минимальное
 значение: 1\.;
-#X obj 300 1764 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1764 RAD: radius. Тип: float. Диапазон: [0\..1].;
-#X obj 300 1787 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1787 ANG: rotation angle. Тип: float. Диапазон: [0\..2π].
+#X obj 300 1884 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1884 RAD: радиус. Тип: float. Диапазон: [0\..1].;
+#X obj 300 1907 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1907 ANG: угол поворота. Тип: float. Диапазон: [0\..2π].
 Единицы: 'rad'.;
-#X obj 20 1845 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1850 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1965 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1970 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1851 1\.;
-#X text 170 1851 ~;
-#X text 270 1851 first source input.;
-#X text 170 1876 list:;
-#X text 270 1876 SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE.;
-#X text 130 1901 ...;
-#X text 170 1901 ~;
-#X text 270 1901 ... source input.;
-#X text 130 1926 n.;
-#X text 170 1926 ~;
-#X text 270 1926 n-th source input.;
-#X obj 20 1961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1966 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1971 1\.;
+#X text 170 1971 ~;
+#X text 270 1971 вход первого источника.;
+#X text 170 1996 list:;
+#X text 270 1996 SRC_IDX polar RADIUS ANGLE или SRC_IDX mute VALUE.;
+#X text 130 2021 ...;
+#X text 170 2021 ~;
+#X text 270 2021 ... вход источника.;
+#X text 130 2046 n.;
+#X text 170 2046 ~;
+#X text 270 2046 вход n-го источника.;
+#X obj 20 2081 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2086 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1967 1\.;
-#X text 170 1967 ~;
-#X text 270 1967 first harmonic output.;
-#X text 130 1987 ...;
-#X text 170 1987 ~;
-#X text 270 1987 ... harmonic output.;
-#X text 130 2007 n.;
-#X text 170 2007 ~;
-#X text 270 2007 n-th harmonic output.;
+#X text 130 2087 1\.;
+#X text 170 2087 ~;
+#X text 270 2087 выход первой гармоники.;
+#X text 130 2107 ...;
+#X text 170 2107 ~;
+#X text 270 2107 ... выход гармоники.;
+#X text 130 2127 n.;
+#X text 170 2127 ~;
+#X text 270 2127 выход n-й гармоники.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2057 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2060 библиотека: ceammc v0.9.8;
-#N canvas 10 2079 400 290 info 0;
+#X obj 1 2177 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2180 библиотека: ceammc v0.9.8;
+#N canvas 10 2199 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -181,7 +186,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 2079 pd info;
+#X restore 10 2199 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 11 0 16 0;
