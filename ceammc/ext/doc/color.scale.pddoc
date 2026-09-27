@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">creation of the color scale</tr>
+        <tr lang="en">creation of a color scale</tr>
         <tr lang="ru">создание цветовой шкалы</tr>
       </description>
       <license>GPL3 or later</license>
@@ -16,62 +16,94 @@
       <keywords>data color scale</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object builds a color scale from a list of reference colors and outputs a
+        color at a given position on that scale. The position is set with a float on the inlet: 0
+        corresponds to the first color in the list, 1 to the last color, and values in between give
+        a smooth transition. The interpolation strategy is controlled by the @interp
+        property.</tr>
+        <tr lang="ru">Объект строит цветовую шкалу из списка опорных цветов и выводит цвет в
+        заданной точке этой шкалы. Позиция задаётся числом с плавающей точкой на входе: 0
+        соответствует первому цвету в списке, 1 — последнему, а промежуточные значения дают плавный
+        переход. Стратегия интерполяции задаётся свойством @interp.</tr>
+      </par>
+      <par>
+        <tr lang="en">Interpolation is performed by the colorm library. The @interp property
+        selects the hue interpolation strategy and accepts the following values: 'none' — colors are
+        interpolated directly in RGB, no hue correction is applied, 'short' — interpolation goes
+        along the shorter arc of the hue circle (default for most cases), 'long' — interpolation
+        goes along the longer arc of the hue circle, 'inc' — hue increases monotonically (clockwise
+        on the hue circle), 'dec' — hue decreases monotonically (counter-clockwise on the hue
+        circle).</tr>
+        <tr lang="ru">Интерполяция выполняется библиотекой colorm. Свойство @interp задаёт
+        стратегию интерполяции оттенка и принимает следующие значения: 'none' — цвета
+        интерполируются напрямую в RGB, без коррекции оттенка, 'short' — интерполяция идёт по
+        короткой дуге цветового круга (подходит для большинства случаев), 'long' — интерполяция
+        идёт по длинной дуге цветового круга, 'inc' — оттенок монотонно возрастает (по часовой
+        стрелке на цветовом круге), 'dec' — оттенок монотонно убывает (против часовой стрелки на
+        цветовом круге).</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="SCALE" type="list">
-        <tr lang="en">color list</tr>
-        <tr lang="ru" finished="false">Цветной список</tr>
+        <tr lang="en">list of reference colors that make up the scale</tr>
+        <tr lang="ru">список опорных цветов, из которых строится шкала</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @color -->
       <property name="@color" type="alias">
         <tr lang="en">alias to @mode color</tr>
-        <tr lang="ru" finished="false">Исполнитель: @mode Color</tr>
+        <tr lang="ru">псевдоним для @mode color</tr>
       </property>
       <!-- @hex -->
       <property name="@hex" type="alias">
         <tr lang="en">alias to @mode hex</tr>
-        <tr lang="ru" finished="false">Исполнитель: @mode hex</tr>
+        <tr lang="ru">псевдоним для @mode hex</tr>
       </property>
       <!-- @interp -->
       <property name="@interp" type="symbol" default="none" enum="none short long inc dec">
-        <tr lang="en">hue interpolation strategy</tr>
-        <tr lang="ru" finished="false">Стратегия интерполяции оттенков</tr>
+        <tr lang="en">hue interpolation strategy: 'none' — direct RGB interpolation, 'short' —
+        shorter hue arc, 'long' — longer hue arc, 'inc' — increasing hue, 'dec' — decreasing
+        hue</tr>
+        <tr lang="ru">стратегия интерполяции оттенка: 'none' — прямая интерполяция в RGB, 'short' —
+        короткая дуга оттенка, 'long' — длинная дуга оттенка, 'inc' — возрастающий оттенок,
+        'dec' — убывающий оттенок</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="color" enum="color hex rgb">
-        <tr lang="en">output mode: if 'color' - output as data:color type, if 'hex' - output as hex
-        value, if 'rgb' - RGB list</tr>
-        <!-- old: Режим вывода: если "цвет" - выход как данные: тип
-                цвета, если "хекс" - выход как шестнадцатеричное значение, если "ргб" - список
-                RGB -->
-        <tr lang="ru" finished="false">Режим вывода: если "цвет" - выход как данные: тип цвета,
-        если "хекс" - выход как шестнадцатеричное значение, если "ргб" - список RGB</tr>
+        <tr lang="en">output mode: 'color' — output as data:color type, 'hex' — output as a hex
+        value, 'rgb' — output as an RGB list</tr>
+        <tr lang="ru">режим вывода: 'color' — вывод в виде значения типа data:color, 'hex' — вывод в
+        виде hex-значения, 'rgb' — вывод в виде списка RGB</tr>
       </property>
       <!-- @rgb -->
       <property name="@rgb" type="alias">
         <tr lang="en">alias to @mode rgb</tr>
-        <tr lang="ru" finished="false">Оригинальное название: @mode rgb</tr>
+        <tr lang="ru">псевдоним для @mode rgb</tr>
       </property>
       <!-- @scale -->
       <property name="@scale" type="list" default="">
-        <tr lang="en">color list</tr>
-        <tr lang="ru" finished="false">Цветной список</tr>
+        <tr lang="en">list of reference colors that make up the scale</tr>
+        <tr lang="ru">список опорных цветов, из которых строится шкала</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float" minvalue="0" maxvalue="1">
-          <tr lang="en">calculate color scale hue and output</tr>
-          <tr lang="ru" finished="false">Вычислить цветовую шкалу оттенка и выхода</tr>
+          <tr lang="en">position on the scale: 0 gives the first color, 1 gives the last color. On
+          receipt, the object calculates the color at this position and outputs it</tr>
+          <tr lang="ru">позиция на шкале: 0 — первый цвет, 1 — последний цвет. При получении объект
+          вычисляет цвет в этой позиции и выводит его</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="data:color">
           <tr lang="en">data:color output</tr>
-          <tr lang="ru" finished="false">Данные: Цветовой выход</tr>
+          <tr lang="ru">вывод data:color</tr>
         </out>
       </outlet>
     </outlets>
