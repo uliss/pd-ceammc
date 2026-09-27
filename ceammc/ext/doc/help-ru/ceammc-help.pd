@@ -411,7 +411,7 @@ music.voice2midi-help.pd;
 #X obj 30 4311 ui.link @title [data.int] @url data.int-help.pd;
 #X text 200 4308 многофункциональный объект для работы с целыми числами;
 #X obj 30 4336 ui.link @title [data.list] @url data.list-help.pd;
-#X text 200 4333 cписок;
+#X text 200 4333 список;
 #X obj 30 4361 ui.link @title [data.mlist] @url data.mlist-help.pd;
 #X text 200 4358 контейнер многомерного списка;
 #X obj 30 4386 ui.link @title [data.path] @url data.path-help.pd;

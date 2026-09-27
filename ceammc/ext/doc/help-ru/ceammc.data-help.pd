@@ -24,7 +24,7 @@
 #X obj 30 335 ui.link @title [data.int] @url data.int-help.pd;
 #X text 220 332 многофункциональный объект для работы с целыми числами;
 #X obj 30 360 ui.link @title [data.list] @url data.list-help.pd;
-#X text 220 357 cписок;
+#X text 220 357 список;
 #X obj 30 385 ui.link @title [data.mlist] @url data.mlist-help.pd;
 #X text 220 382 контейнер многомерного списка;
 #X obj 30 410 ui.link @title [data.path] @url data.path-help.pd;

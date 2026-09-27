@@ -304,7 +304,7 @@ data.float	a multi-functional float object / многофункциональн�
 data.int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
 .int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
 .i	a multi-functional integer object / многофункциональный объект для работы с целыми числами
-data.list	the list container / cписок
+data.list	the list container / список
 data.mlist	multidimensional list container / контейнер многомерного списка
 ceammc/mlist	multidimensional list container / контейнер многомерного списка
 mlist	multidimensional list container / контейнер многомерного списка
