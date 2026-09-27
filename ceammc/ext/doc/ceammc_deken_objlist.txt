@@ -237,9 +237,9 @@ phase->rad	converts phase value [0-1] to radians [0-2π] / преобразуе�
 conv.phase2rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
-ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
-pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
+conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
+ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
+pitch->midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
 conv.pol2car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
 ceammc/pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
 pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские

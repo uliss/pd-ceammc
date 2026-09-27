@@ -113,7 +113,7 @@ conv.phase2rad~-help.pd;
 #X text 220 1132 преобразует значение фазы [0-1] в радианы [0-2π];
 #X obj 30 1160 ui.link @title [conv.pitch2midi] @url
 conv.pitch2midi-help.pd;
-#X text 220 1157 преобразует ноту в формате SPN в номер ноты MIDI;
+#X text 220 1157 преобразует высоту в нотации SPN в MIDI-номер ноты;
 #X obj 30 1185 ui.link @title [conv.pol2car] @url
 conv.pol2car-help.pd;
 #X text 220 1182 преобразование из полярных координат в картезианские;

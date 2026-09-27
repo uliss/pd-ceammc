@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts SPN pitch to MIDI note number</tr>
-        <tr lang="ru">преобразует ноту в формате SPN в номер ноты MIDI</tr>
+        <tr lang="ru">преобразует высоту в нотации SPN в MIDI-номер ноты</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,42 +22,43 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Convert Scientific Pitch Notation to MIDI note numbers. SPN consist of pitch
-        class (C, C#, D, Eb etc.) and octave (0-9). C4 is middle C (MIDI: 60). The rest symbol is R
-        (-1 output)</tr>
-        <!-- old: Преобразуйте научную нотацию к номерам заметок MIDI.
-                SPN состоит из класса шага (C, C#, D, Eb и т.д.) и октавы (0-9). C4 - средний C
-                (MIDI: 60). Остальные символы R (-1 выход) -->
-        <tr lang="ru" finished="false">Преобразуйте научную нотацию к номерам заметок MIDI. SPN
-        состоит из класса шага (C, C#, D, Eb и т.д.) и октавы (0-9). C4 - средний C (MIDI: 60).
-        Остальные символы R (-1 выход)</tr>
+        <tr lang="en">The object converts Scientific Pitch Notation (SPN) to a MIDI note number.
+        SPN consists of a pitch class (C, C#, D, Eb, etc.) and an octave number (0–9). For example,
+        C4 is middle C, which corresponds to MIDI note number 60. Sharps are written with '#', and
+        flats with 'b'. Double sharps are written as '##' (or 'x') and double flats as 'bb'. The
+        rest symbol 'R' is converted to the value -1.</tr>
+        <tr lang="ru">Объект преобразует ноту в научной нотации (SPN) в MIDI-номер ноты.
+        SPN состоит из класса высоты (C, C#, D, Eb и т. д.) и номера октавы (0–9). Например, C4 —
+        это средняя до (middle C), соответствующая MIDI-номеру 60. Диезы записываются как '#', а
+        бемоли — как 'b'. Двойные диезы — '##' (или 'x'), двойные бемоли — 'bb'. Символ паузы
+        'R' преобразуется в значение -1.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">Scientific Pitch Notation value</tr>
-          <tr lang="ru" finished="false">Научная нотация значение</tr>
+          <tr lang="en">SPN value</tr>
+          <tr lang="ru">значение SPN</tr>
         </in>
         <in on="list">
           <tr lang="en">list of SPN values</tr>
-          <tr lang="ru" finished="false">Список значений SPN</tr>
+          <tr lang="ru">список значений SPN</tr>
         </in>
         <in on="data:string">
           <tr lang="en">SPN value</tr>
-          <tr lang="ru" finished="false">Значение SPN</tr>
+          <tr lang="ru">значение SPN</tr>
         </in>
         <in on="data:mlist">
-          <tr lang="en">list SPN values</tr>
-          <tr lang="ru" finished="false">Список значений SPN</tr>
+          <tr lang="en">list of SPN values</tr>
+          <tr lang="ru">список значений SPN</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">MIDI note number or -1 on Rest</tr>
-          <tr lang="ru" finished="false">Номер ноты MIDI или -1 для отдыха</tr>
+          <tr lang="en">MIDI note number, or -1 for a rest</tr>
+          <tr lang="ru">MIDI-номер ноты или -1 для паузы</tr>
         </out>
       </outlet>
     </outlets>
