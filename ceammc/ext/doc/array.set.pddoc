@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">set the array content from the list data</tr>
-        <tr lang="ru">устанавливает содержание массива данными из списка</tr>
+        <tr lang="ru">устанавливает содержимое массива данными из списка</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,38 +23,50 @@
       </also>
       <since>0.4</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object resizes the specified array to the length of the incoming list and
+        writes all list values into it. If the @normalize flag is set, the input values are scaled
+        so that they fit into the 0..1 range. The @redraw property controls whether the array view
+        is redrawn after the content is updated.</tr>
+        <tr lang="ru">Объект изменяет размер указанного массива по длине входного списка и
+        записывает в него все значения списка. Если установлен флаг @normalize, входные значения
+        масштабируются так, чтобы они укладывались в диапазон 0..1. Свойство @redraw управляет
+        тем, перерисовывается ли отображение массива после обновления содержимого.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to fill with the list data</tr>
+        <tr lang="ru">имя массива, который заполняется данными из списка</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to fill with the list data</tr>
+        <tr lang="ru">имя массива, который заполняется данными из списка</tr>
       </property>
       <!-- @normalize -->
       <property name="@normalize" type="flag" default="0" access="initonly">
-        <tr lang="en">scale input values to fit them in [0, 1] range</tr>
-        <tr lang="ru">масштабировать входные значения, чтобы вместить их в [0, 1] диапазон</tr>
+        <tr lang="en">scale the input values to fit them into the 0..1 range</tr>
+        <tr lang="ru">масштабировать входные значения, чтобы уложить их в диапазон 0..1</tr>
       </property>
       <!-- @redraw -->
       <property name="@redraw" type="bool" default="1">
-        <tr lang="en">redraw array view</tr>
-        <tr lang="ru">перерисовать массив</tr>
+        <tr lang="en">redraw the array view after content update</tr>
+        <tr lang="ru">перерисовывать отображение массива после обновления содержимого</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">resizes array and sets its content</tr>
+          <tr lang="en">resizes the array and sets its content</tr>
           <tr lang="ru">изменяет размер массива и устанавливает его содержимое</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set the array name</tr>
-          <tr lang="ru">установить имя массива</tr>
+          <tr lang="en">sets the array name</tr>
+          <tr lang="ru">устанавливает имя массива</tr>
         </in>
       </inlet>
     </inlets>

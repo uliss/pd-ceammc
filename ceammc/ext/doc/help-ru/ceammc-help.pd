@@ -72,7 +72,7 @@ array.resample-help.pd;
 #X obj 30 844 ui.link @title [array.rms] @url array.rms-help.pd;
 #X text 200 841 вычисляет среднеквадратичное значение для массива;
 #X obj 30 869 ui.link @title [array.set] @url array.set-help.pd;
-#X text 200 866 устанавливает содержание массива данными из списка;
+#X text 200 866 устанавливает содержимое массива данными из списка;
 #X obj 30 894 ui.link @title [array.stddev] @url array.stddev-help.pd;
 #X text 200 891 вычисляет стандартное отклонение для значений массива;
 #X obj 30 919 ui.link @title [array.stretch] @url

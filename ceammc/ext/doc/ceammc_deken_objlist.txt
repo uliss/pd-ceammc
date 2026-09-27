@@ -29,9 +29,9 @@ array.rw~	simultaneous read/write signals to the array / одновременн�
 array.resample	resampling the array / пересемплирование массива
 array.r	resampling the array / пересемплирование массива
 array.rms	calculates the root-mean-square value for the array / вычисляет среднеквадратичное значение для массива
-array.set	set the array content from the list data / устанавливает содержание массива данными из списка
-ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
-list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+array.set	set the array content from the list data / устанавливает содержимое массива данными из списка
+ceammc/list->array	set the array content from the list data / устанавливает содержимое массива данными из списка
+list->array	set the array content from the list data / устанавливает содержимое массива данными из списка
 array.stddev	calculates standard deviation for array values / вычисляет стандартное отклонение для значений массива
 array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменение высоты тона или скорости у массива
 array.sum	calculates sum of array elements / вычисляет сумму элементов массива
