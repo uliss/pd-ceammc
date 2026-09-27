@@ -290,9 +290,9 @@ color.scale	creation of the color scale / создание цветовой шк
 data.bimap	bidirectional map container / контейнер двунаправленного отображения
 ceammc/bimap	bidirectional map container / контейнер двунаправленного отображения
 bimap	bidirectional map container / контейнер двунаправленного отображения
-data.color	color data type / цветовой тип данных
-color	color data type / цветовой тип данных
-ceammc/color	color data type / цветовой тип данных
+data.color	color data type / тип данных «цвет»
+color	color data type / тип данных «цвет»
+ceammc/color	color data type / тип данных «цвет»
 data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
 data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
 ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
