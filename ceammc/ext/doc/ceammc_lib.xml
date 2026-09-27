@@ -435,7 +435,7 @@
     <entry name="data.set" descr="the set: a container that stores only unique elements" ref_view="link">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set2list" descr="converts the set to the list" ref_view="link">
+    <entry name="data.set2list" descr="converts a set to a list" ref_view="link">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.contains" descr="check if the dictionary contains the key" ref_view="link">
