@@ -1170,8 +1170,8 @@ hoa.2d.optim~	a 2D ambisonic optimization tool / инструмент оптим
 hoa.optim~	a 2D ambisonic optimization tool / инструмент оптимизации для двумерных амбисоников
 hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция поля сферических гармоник в плоские волны
 hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция поля сферических гармоник в плоские волны
-hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
-hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
+hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
+hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
 hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
 hoa.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
 hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
