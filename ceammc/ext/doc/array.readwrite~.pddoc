@@ -13,7 +13,7 @@
       <license>GPL3 or later</license>
       <library>ceammc</library>
       <category>array</category>
-      <keywords>array ltc play</keywords>
+      <keywords>array read write</keywords>
       <since>0.9.7</since>
       <aliases>
         <alias>array.rw~</alias>
@@ -21,55 +21,62 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Performes these array operations in order: read, write, output</tr>
-        <tr lang="ru">Упорядоченное выполнение операций в следующем порядке: чтение, запись,
-        вывод</tr>
+        <tr lang="en">The object reads a signal from the array and writes a signal into the array
+        at the same time. On each audio block it performs the following operations in order: read,
+        write, output. The reading index, signal to write, and write index are provided on three
+        separate audio inlets. The value read from the array is mixed with the written signal
+        according to the @mix property and sent to the audio outlet.</tr>
+        <tr lang="ru">Объект одновременно читает сигнал из массива и записывает сигнал в массив.
+        На каждом аудиоблоке операции выполняются в следующем порядке: чтение, запись, вывод.
+        Индекс чтения, сигнал для записи и индекс записи подаются на три отдельных звуковых
+        входа. Считанное из массива значение смешивается с записываемым сигналом в соответствии
+        со свойством @mix и отправляется на звуковой выход.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to read from and write to</tr>
+        <tr lang="ru">имя массива для чтения и записи</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to read from and write to</tr>
+        <tr lang="ru">имя массива для чтения и записи</tr>
       </property>
       <!-- @mix -->
       <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">
-        <tr lang="en">mix amount between read signal and written</tr>
-        <tr lang="ru">микс между прочитанным сигналом и записанным</tr>
+        <tr lang="en">mix amount between the read signal and the written signal</tr>
+        <tr lang="ru">доля смешивания между считанным и записываемым сигналом</tr>
       </property>
     </properties>
     <methods>
       <!-- redraw -->
       <method name="redraw">
         <info>
-          <tr lang="en">redraw array</tr>
-          <tr lang="ru">перерисовать массив</tr>
+          <tr lang="en">redraws the array</tr>
+          <tr lang="ru">перерисовывает массив</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">reading index</tr>
-          <tr lang="ru">индекс чтения</tr>
+          <tr lang="en">reading index (in samples)</tr>
+          <tr lang="ru">индекс чтения (в семплах)</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
-          <tr lang="en">signal to write</tr>
-          <tr lang="ru">сигнал для записи</tr>
+          <tr lang="en">signal to write into the array</tr>
+          <tr lang="ru">сигнал для записи в массив</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
-          <tr lang="en">write index</tr>
-          <tr lang="ru">индекс записи</tr>
+          <tr lang="en">write index (in samples)</tr>
+          <tr lang="ru">индекс записи (в семплах)</tr>
         </in>
       </inlet>
     </inlets>
