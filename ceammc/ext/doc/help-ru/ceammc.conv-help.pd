@@ -44,7 +44,7 @@ conv.bits2pos-help.pd;
 #X text 220 472 преобразует из диапазона MIDI Control Change;
 #X obj 30 500 ui.link @title [conv.char2morse] @url
 conv.char2morse-help.pd;
-#X text 220 497 преобразует единичный символ в код Морзе;
+#X text 220 497 преобразует один символ в код Морзе;
 #X obj 30 525 ui.link @title [conv.color2rgba] @url
 conv.color2rgba-help.pd;
 #X text 220 522 преобразует именованный или шестнадцатеричный цвет

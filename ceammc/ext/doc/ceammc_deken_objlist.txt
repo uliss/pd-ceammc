@@ -157,9 +157,9 @@ car->pol	converts cartesian coords to polar / преобразует декар�
 conv.cc2amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
 ceammc/cc->amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
 cc->amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
-conv.char2morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
-ceammc/char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
-char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+conv.char2morse	converts the single character into the Morse code / преобразует один символ в код Морзе
+ceammc/char->morse	converts the single character into the Morse code / преобразует один символ в код Морзе
+char->morse	converts the single character into the Morse code / преобразует один символ в код Морзе
 conv.color2rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
 ceammc/color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
 color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
