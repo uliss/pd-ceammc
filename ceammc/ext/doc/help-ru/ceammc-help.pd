@@ -2083,7 +2083,7 @@ hoa.2d.space-help.pd;
 #X text 200 21781 управление амплитудой двумерных плоских волн;
 #X obj 30 21809 ui.link @title [hoa.2d.wider~] @url
 hoa.2d.wider~-help.pd;
-#X text 200 21806 двумерная симуляция дробного амбисонического порядка;
+#X text 200 21806 симулятор дробного порядка амбисоников для 2D;
 #X obj 30 21834 ui.link @title [hoa.3d.decoder~] @url
 hoa.3d.decoder~-help.pd;
 #X text 200 21831 трехмерный декодер амбисоников высоких порядков;

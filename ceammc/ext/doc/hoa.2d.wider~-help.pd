@@ -8,9 +8,10 @@
 [hoa.wider~] @url hoa.2d.wider~-help.pd;
 #X obj 645 8 hoa.2d.wider~;
 #X obj 230 78 cnv 1 535 114 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 hoa.2d.wider~ can be used to wide the diffusion of a
-localised sound. The order depending signals are weighted and appear
-in a logarithmic way to have linear changes.;
+#X text 240 83 hoa.2d.wider~ can be used to widen the diffusion of
+a localized sound. The order-dependent signals are weighted and follow
+a logarithmic curve \, so that changes in the widening parameter sound
+linear to the listener.;
 #X obj 240 156 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.wider~-help.pd;
 #X obj 50 240 lfo.square~ 1;
@@ -52,7 +53,7 @@ value: 1\. Range: [1\..63].;
 #X text 270 748 n-th input signal.;
 #X text 130 773 n+1\.;
 #X text 170 773 ~;
-#X text 270 773 widening signal in [0-1] range.;
+#X text 270 773 widening signal in the [0 \, 1] range.;
 #X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 813 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

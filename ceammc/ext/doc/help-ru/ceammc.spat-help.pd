@@ -32,7 +32,7 @@ hoa.2d.rotate~-help.pd;
 #X text 220 332 управление амплитудой двумерных плоских волн;
 #X obj 30 360 ui.link @title [hoa.2d.wider~] @url
 hoa.2d.wider~-help.pd;
-#X text 220 357 двумерная симуляция дробного амбисонического порядка;
+#X text 220 357 симулятор дробного порядка амбисоников для 2D;
 #X obj 30 385 ui.link @title [hoa.3d.decoder~] @url
 hoa.3d.decoder~-help.pd;
 #X text 220 382 трехмерный декодер амбисоников высоких порядков;
