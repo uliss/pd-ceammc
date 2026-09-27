@@ -151,9 +151,9 @@ bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобр
 conv.bpm2sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
 ceammc/bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
 bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
-conv.car2pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-ceammc/car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
+conv.car2pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
+ceammc/car->pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
+car->pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
 conv.cc2amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
 ceammc/cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
 cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change

@@ -39,7 +39,7 @@ conv.bits2pos-help.pd;
 #X text 220 407 преобразует темп BPM в период между ударными долями
 в секундах;
 #X obj 30 450 ui.link @title [conv.car2pol] @url conv.car2pol-help.pd;
-#X text 220 447 преобразует картезианские координаты в полярные;
+#X text 220 447 преобразует декартовы координаты в полярные;
 #X obj 30 475 ui.link @title [conv.cc2amp] @url conv.cc2amp-help.pd;
 #X text 220 472 конвертирует из диапазона MIDI Control Change;
 #X obj 30 500 ui.link @title [conv.char2morse] @url

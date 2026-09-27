@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 399 50 cnv 1 366 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 404 50 преобразует картезианские координаты в полярные;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 преобразует декартовы координаты в полярные;
 #X obj 1 1 cnv 5 765 40 empty empty conv.car2pol 20 20 0 20 -104026
 -4096 0;
 #X obj 430 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,42 +9,48 @@
 #X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [car->pol] @url conv.car2pol-help.pd;
 #X obj 653 8 conv.car2pol;
-#X obj 50 118 ui.slider2d @size 100 100;
-#X obj 203 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 203 205 @positive \$1;
-#X obj 50 234 car->pol;
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
--49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
-@title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @positive;
-#X text 270 318 Вывод в положительном диапазоне. Если 1: выходные значения
-находятся в [0 \, 2π) диапазоне \, в противном случае выходным диапазоном
-является [-π \, +π). Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 405 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 406 1\.;
-#X text 170 406 list:;
-#X text 270 406 x \, y coord pair.;
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует пару декартовых координат (x \, y)
+в полярные координаты (радиус \, угол). Радиус — это расстояние от
+начала координат \, а угол задаётся в радианах. По умолчанию угол лежит
+в диапазоне [-π \, +π]. Если установлен флаг @positive \, угол приводится
+к диапазону [0 \, 2π).;
+#X obj 50 247 ui.slider2d @size 100 100;
+#X obj 203 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 203 334 @positive \$1;
+#X obj 50 363 car->pol;
+#X obj 50 391 ui.dt;
 #X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 446 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 446 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 447 @positive;
+#X text 270 447 Выводить в положительном диапазоне. Если 1: выходной
+диапазон [0 \, 2π). В противном случае выходной диапазон [-π \, +π].
+Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 519 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 447 1\.;
-#X text 270 447 radius and angle (in radians) pair.;
+#X text 130 520 1\.;
+#X text 170 520 list:;
+#X text 270 520 пара координат x \, y.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 560 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 561 1\.;
+#X text 270 561 пара: радиус и угол (в радианах).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 529 520 смотрите также:;
-#X obj 650 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 611 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 614 библиотека: ceammc v0.9.8;
+#X text 529 626 смотрите также:;
+#X obj 650 629 ui.link @background_color 0.78431 0.78431 0.78431
 @title [conv.pol2car] @url conv.pol2car-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 633 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -68,8 +74,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 7 0 8 0;
-#X connect 6 0 9 0;
-#X connect 8 0 9 0;
+#X restore 10 633 pd info;
 #X connect 9 0 10 0;
+#X connect 8 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
