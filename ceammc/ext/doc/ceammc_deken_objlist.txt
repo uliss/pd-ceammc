@@ -1158,8 +1158,8 @@ ceammc/seq	basic sequence player / базовый секвенсер значе�
 seq	basic sequence player / базовый секвенсер значений
 snd.file	sound file loader with additional features / загрузчик звуковых файлов с дополнительными возможностями
 snd.play~	sound file player with additional capabilities / проигрыватель звуковых файлов с дополнительными возможностями
-hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
-hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
+hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высших порядков
+hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высших порядков
 hoa.2d.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
 hoa.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
 hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках

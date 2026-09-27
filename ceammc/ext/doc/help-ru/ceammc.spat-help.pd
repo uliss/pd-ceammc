@@ -6,7 +6,7 @@
 #X text 493 50 работа с пространственным звуком;
 #X obj 30 120 ui.link @title [hoa.2d.decoder~] @url
 hoa.2d.decoder~-help.pd;
-#X text 220 117 двумерный декодер амбисоников высоких порядков;
+#X text 220 117 двумерный декодер амбисоников высших порядков;
 #X obj 30 145 ui.link @title [hoa.2d.encoder~] @url
 hoa.2d.encoder~-help.pd;
 #X text 220 142 двумерный кодировщик амбисоников высоких порядков;

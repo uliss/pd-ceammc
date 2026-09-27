@@ -2054,7 +2054,7 @@ random.pw_lin-help.pd;
 #X obj 20 21555 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 21569 ui.link @title [hoa.2d.decoder~] @url
 hoa.2d.decoder~-help.pd;
-#X text 200 21566 двумерный декодер амбисоников высоких порядков;
+#X text 200 21566 двумерный декодер амбисоников высших порядков;
 #X obj 30 21594 ui.link @title [hoa.2d.encoder~] @url
 hoa.2d.encoder~-help.pd;
 #X text 200 21591 двумерный кодировщик амбисоников высоких порядков;
