@@ -292,7 +292,7 @@ conv.lab2rgb-help.pd;
 #X obj 30 3138 ui.link @title [conv.lin2curve] @url
 conv.lin2curve-help.pd;
 #X text 200 3135 отображает линейный диапазон в экспоненциальный с
-разрешенным 0;
+допустимым нулём;
 #X obj 30 3178 ui.link @title [conv.lin2exp] @url
 conv.lin2exp-help.pd;
 #X text 200 3175 отображает линейный диапазон в экспоненциальный;

@@ -75,8 +75,8 @@ conv.int2bits-help.pd;
 #X text 220 762 преобразует цветовые значения из LAB в RGB;
 #X obj 30 790 ui.link @title [conv.lin2curve] @url
 conv.lin2curve-help.pd;
-#X text 220 787 отображает линейный диапазон в экспоненциальный с разрешенным
-0;
+#X text 220 787 отображает линейный диапазон в экспоненциальный с допустимым
+нулём;
 #X obj 30 830 ui.link @title [conv.lin2exp] @url conv.lin2exp-help.pd;
 #X text 220 827 отображает линейный диапазон в экспоненциальный;
 #X obj 30 855 ui.link @title [conv.lin2lin] @url conv.lin2lin-help.pd;

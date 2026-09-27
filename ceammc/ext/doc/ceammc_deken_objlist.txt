@@ -190,9 +190,9 @@ int->bits	convert integer to list of bits / преобразует целое ч
 conv.lab2rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
 ceammc/lab->rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
 lab->rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
-conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
-ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
-lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
+ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
+lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
 conv.lin2exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 ceammc/lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный

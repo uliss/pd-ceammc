@@ -225,13 +225,13 @@ double ceammc::convert::lin2curve(double x, double x0, double x1, double y0, dou
 
 double ceammc::convert::lin2sin2(double x, double x0, double x1, double y0, double y1)
 {
-    double v = sin(M_PI_2 * (x - x0) / (x1 - x0));
+    double const v = sin(M_PI_2 * (x - x0) / (x1 - x0));
     return (v * v) * (y1 - y0) + y0;
 }
 
 double ceammc::convert::lin2sigmoid(double x, double x0, double x1, double y0, double y1, double skew)
 {
-    double v = 1 / (1 + pow(M_E, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
+    double const v = 1 / (1 + pow(M_E, (-skew) * ((x - x0) / (x1 - x0) - 0.5)));
     return v * (y1 - y0) + y0;
 }
 
