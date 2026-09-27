@@ -25,17 +25,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</tr>
-        <!-- old: Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 |
-                3 / 8bpm -->
-        <tr lang="ru" finished="false">Примеры значений темпа: 60, 120bpm, 90 | 4bpm, 80 | 3 /
-        8bpm</tr>
+        <tr lang="en">The object calculates the duration of a bar and a beat in milliseconds,
+        based on the current tempo (in BPM) and the current time signature. The result is output
+        from two outlets: the first outlet sends the bar duration, the second sends the beat
+        duration.</tr>
+        <tr lang="ru">Объект вычисляет продолжительность такта и ударной доли в миллисекундах на
+        основе текущего темпа (в BPM) и текущего тактового размера. Результат выводится из двух
+        выходов: из первого отправляется длительность такта, из второго — длительность ударной
+        доли.</tr>
       </par>
       <par>
-        <tr lang="en">Example time signature values: |3/8|, |1/4+3/16|</tr>
-        <!-- old: Примерные значения времени подписи: |3/8 |,
-                |1/4+3/16 | -->
-        <tr lang="ru" finished="false">Примерные значения времени подписи: |3/8 |, |1/4+3/16 |</tr>
+        <tr lang="en">Tempo values can be given as: 60, 120bpm, 90|4bpm, 80|3/8bpm. Time signature
+        values can be given as: |3/8|, |1/4+3/16|.</tr>
+        <tr lang="ru">Значения темпа можно задавать как: 60, 120bpm, 90|4bpm, 80|3/8bpm. Значения
+        тактового размера можно задавать как: |3/8|, |1/4+3/16|.</tr>
       </par>
     </info>
     <arguments>
@@ -63,46 +66,40 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output bar and beat duration</tr>
-          <tr lang="ru" finished="false">выходной бар и продолжительность бита</tr>
+          <tr lang="en">outputs the bar and beat duration</tr>
+          <tr lang="ru">выводит длительность такта и ударной доли</tr>
         </in>
         <in on="float">
-          <tr lang="en">set tempo BPM (in quarters) and output</tr>
-          <!-- old: установленный темп BPM (в кварталах) и
-                    выход -->
-          <tr lang="ru" finished="false">установленный темп BPM (в кварталах) и выход</tr>
+          <tr lang="en">sets the tempo BPM (in quarters) and outputs</tr>
+          <tr lang="ru">устанавливает темп BPM (в четвертях) и выводит</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set tempo BPM (like "120|8bpm") and output</tr>
-          <!-- old: установить темп BPM (например, «120 | 8bpm») и
-                    выход -->
-          <tr lang="ru" finished="false">установить темп BPM (например, «120 | 8bpm») и выход</tr>
+          <tr lang="en">sets the tempo BPM (like "120|8bpm") and outputs</tr>
+          <tr lang="ru">устанавливает темп BPM (например, "120|8bpm") и выводит</tr>
         </in>
         <in on="list">
-          <tr lang="en">set tempo BPM and time signature, then output</tr>
-          <!-- old: установить темп BPM и время подписи, затем
-                    выход -->
-          <tr lang="ru" finished="false">установить темп BPM и время подписи, затем выход</tr>
+          <tr lang="en">sets the tempo BPM and time signature, then outputs</tr>
+          <tr lang="ru">устанавливает темп BPM и тактовый размер, затем выводит</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set time signature</tr>
-          <tr lang="ru" finished="false">Время подписи</tr>
+          <tr lang="en">sets the time signature</tr>
+          <tr lang="ru">устанавливает тактовый размер</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">bar period in milliseconds</tr>
-          <tr lang="ru" finished="false">барный период в миллисекундах</tr>
+          <tr lang="ru">длительность такта в миллисекундах</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">beat period in milliseconds</tr>
-          <tr lang="ru" finished="false">период удара в миллисекундах</tr>
+          <tr lang="ru">длительность ударной доли в миллисекундах</tr>
         </out>
       </outlet>
     </outlets>
