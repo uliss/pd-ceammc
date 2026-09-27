@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">the dictionary container: stores key-values pairs</tr>
+        <tr lang="en">the dictionary container: stores key-value pairs</tr>
         <tr lang="ru">контейнер словаря: хранит пары ключ-значение</tr>
       </description>
       <license>GPL3 or later</license>
@@ -26,12 +26,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Syntax: [key1: value key2 : "with space"]. Nested dictionaries are supported:
-        [a: [A:1 B:2]]).</tr>
-        <!-- old: Синтаксис: [key1: value key2: "с пространством"].
-                Поддерживаются вложенные словари: [a: [A:1 B:2]]. -->
-        <tr lang="ru" finished="false">Синтаксис: [key1: value key2: "с пространством"].
-        Поддерживаются вложенные словари: [a: [A:1 B:2]].</tr>
+        <tr lang="en">Syntax: [key1: value key2: "with space"]. Nested dictionaries are supported:
+        [a: [A:1 B:2]].</tr>
+        <tr lang="ru">Синтаксис: [key1: value key2: "with space"]. Поддерживаются вложенные словари:
+        [a: [A:1 B:2]].</tr>
       </par>
     </info>
     <mouse>
@@ -40,18 +38,18 @@
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" access="readonly" default="1">
-        <tr lang="en">1 if dict is empty, otherwise 0</tr>
-        <tr lang="ru" finished="false">1 если дикт пуст, иначе 0</tr>
+        <tr lang="en">1 if the dict is empty, otherwise 0</tr>
+        <tr lang="ru">1, если словарь пуст, иначе 0</tr>
       </property>
       <!-- @keys -->
       <property name="@keys" type="list" access="readonly" default="">
-        <tr lang="en">keys of dictionary</tr>
-        <tr lang="ru" finished="false">Ключи словаря</tr>
+        <tr lang="en">keys of the dictionary</tr>
+        <tr lang="ru">ключи словаря</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" access="readonly" minvalue="0" default="0">
-        <tr lang="en">number of entries in dictionary</tr>
-        <tr lang="ru" finished="false">Количество записей в словаре</tr>
+        <tr lang="en">number of entries in the dictionary</tr>
+        <tr lang="ru">количество записей в словаре</tr>
       </property>
     </properties>
     <methods>
@@ -59,126 +57,120 @@
       <method name="[....]" example="true">
         <info>
           <tr lang="en">sets new content without output</tr>
-          <tr lang="ru" finished="false">Новый контент без вывода</tr>
+          <tr lang="ru">устанавливает новое содержимое без вывода</tr>
         </info>
       </method>
       <!-- add -->
       <method name="add">
         <info>
-          <tr lang="en">adds entry to dictionary</tr>
-          <tr lang="ru" finished="false">Добавить запись в словарь</tr>
+          <tr lang="en">adds an entry to the dictionary</tr>
+          <tr lang="ru">добавляет запись в словарь</tr>
         </info>
         <param name="KEY" type="symbol" required="true">
           <tr lang="en">entry key</tr>
-          <tr lang="ru" finished="false">Ключ входа</tr>
+          <tr lang="ru">ключ записи</tr>
         </param>
         <param name="VAL" type="list" required="true">
           <tr lang="en">single value or list</tr>
-          <tr lang="ru" finished="false">Единое значение или список</tr>
+          <tr lang="ru">одно значение или список</tr>
         </param>
       </method>
       <!-- choose -->
       <method name="choose">
         <info>
-          <tr lang="en">choose random key and output it</tr>
-          <tr lang="ru" finished="false">Выберите случайный ключ и выведите его</tr>
+          <tr lang="en">choose a random key and output it</tr>
+          <tr lang="ru">выбрать случайный ключ и вывести его</tr>
         </info>
       </method>
       <!-- clear -->
       <method name="clear">
         <info>
           <tr lang="en">removes all dict values. No output</tr>
-          <tr lang="ru" finished="false">удаляет все диктовые значения. Нет выхода</tr>
+          <tr lang="ru">удаляет все значения словаря. Без вывода</tr>
         </info>
       </method>
       <!-- get_key -->
       <method name="get_key">
         <info>
-          <tr lang="en">get entry from dictionary</tr>
-          <tr lang="ru" finished="false">Получить доступ к словарю</tr>
+          <tr lang="en">get an entry from the dictionary</tr>
+          <tr lang="ru">получить запись из словаря</tr>
         </info>
         <param name="KEY" type="symbol" required="true">
           <tr lang="en">entry key</tr>
-          <tr lang="ru" finished="false">Ключ входа</tr>
+          <tr lang="ru">ключ записи</tr>
         </param>
       </method>
       <!-- read -->
       <method name="read">
         <info>
-          <tr lang="en">read dict from JSON file</tr>
-          <tr lang="ru" finished="false">Читать дикт из файла JSON</tr>
+          <tr lang="en">read the dict from a JSON file</tr>
+          <tr lang="ru">прочитать словарь из файла JSON</tr>
         </info>
         <param name="PATH" type="symbol" required="true">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </param>
       </method>
       <!-- remove -->
       <method name="remove">
         <info>
-          <tr lang="en">remove entry from dictionary</tr>
-          <tr lang="ru" finished="false">Удалить запись из словаря</tr>
+          <tr lang="en">remove an entry from the dictionary</tr>
+          <tr lang="ru">удалить запись из словаря</tr>
         </info>
         <param name="KEY" type="symbol" required="true">
           <tr lang="en">entry key</tr>
-          <tr lang="ru" finished="false">Ключ входа</tr>
+          <tr lang="ru">ключ записи</tr>
         </param>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">set dict content without output</tr>
-          <tr lang="ru" finished="false">Настройка контента без вывода</tr>
+          <tr lang="ru">установить содержимое словаря без вывода</tr>
         </info>
       </method>
       <!-- set_key -->
       <method name="set_key">
         <info>
-          <tr lang="en">change entry in dictionary. If it's not exists, do nothing.</tr>
-          <!-- old: изменить запись в словаре. Если его нет, ничего
-                    не делай. -->
-          <tr lang="ru" finished="false">изменить запись в словаре. Если его нет, ничего не
-          делай.</tr>
+          <tr lang="en">change an entry in the dictionary. If it does not exist, do nothing.</tr>
+          <tr lang="ru">изменить запись в словаре. Если её нет, ничего не делать.</tr>
         </info>
         <param name="KEY" type="symbol" required="true">
           <tr lang="en">key</tr>
-          <tr lang="ru" finished="false">ключ</tr>
+          <tr lang="ru">ключ</tr>
         </param>
         <param name="VAL" type="list" required="true">
           <tr lang="en">single value or list</tr>
-          <tr lang="ru" finished="false">Единое значение или список</tr>
+          <tr lang="ru">одно значение или список</tr>
         </param>
       </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write dict as JSON file</tr>
-          <tr lang="ru" finished="false">Пишите дикт как файл JSON</tr>
+          <tr lang="en">write the dict as a JSON file</tr>
+          <tr lang="ru">записать словарь в виде файла JSON</tr>
         </info>
         <param name="PATH" type="symbol" required="true">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current dictionary value</tr>
-          <tr lang="ru" finished="false">выход текущей словарной стоимости</tr>
+          <tr lang="en">output the current dictionary value</tr>
+          <tr lang="ru">вывести текущее значение словаря</tr>
         </in>
         <in on="list">
-          <tr lang="en">set dict from list. Key-value pairs are expected. [1 2 3 4( becames dict
-          with keys: 1 and 3, values: 2 and 4. No output</tr>
-          <!-- old: Установить диктовку из списка. Ключ Ожидаются
-                    пары значений. [1 2 3 4(стали диктовать ключами: 1 и 3, значения: 2 и 4). Нет
-                    выхода -->
-          <tr lang="ru" finished="false">Установить диктовку из списка. Ключ Ожидаются пары
-          значений. [1 2 3 4(стали диктовать ключами: 1 и 3, значения: 2 и 4). Нет выхода</tr>
+          <tr lang="en">set the dict from a list. Key-value pairs are expected. [1 2 3 4( becomes a
+          dict with keys: 1 and 3, values: 2 and 4. No output</tr>
+          <tr lang="ru">установить словарь из списка. Ожидаются пары ключ-значение. [1 2 3 4(
+          становится словарём с ключами: 1 и 3, значениями: 2 и 4. Без вывода</tr>
         </in>
         <in on="data:dict">
-          <tr lang="en">set and output new dict</tr>
-          <tr lang="ru" finished="false">Установить и вывести новый дикт</tr>
+          <tr lang="en">set and output a new dict</tr>
+          <tr lang="ru">установить и вывести новый словарь</tr>
         </in>
       </inlet>
     </inlets>
@@ -186,7 +178,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output dictionary</tr>
-          <tr lang="ru" finished="false">выходной словарь</tr>
+          <tr lang="ru">выходной словарь</tr>
         </out>
       </outlet>
     </outlets>

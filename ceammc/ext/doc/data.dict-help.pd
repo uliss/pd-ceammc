@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 389 50 the dictionary container: stores key-values pairs;
+#X obj 391 50 cnv 1 374 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 396 50 the dictionary container: stores key-value pairs;
 #X obj 1 1 cnv 5 765 40 empty empty data.dict 20 20 0 20 -104026 -4096
 0;
 #X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,8 +10,8 @@
 [dict] @url data.dict-help.pd;
 #X obj 674 8 data.dict;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Syntax: [key1: value key2 : "with space"]. Nested dictionaries
-are supported: [a: [A:1 B:2]]).;
+#X text 240 83 Syntax: [key1: value key2: "with space"]. Nested dictionaries
+are supported: [a: [A:1 B:2]].;
 #X msg 50 186 bang;
 #X msg 117 186 [a: [K0: 1 2 3 K2: "a symbol"]] \, bang;
 #X msg 530 186 get_key a;
@@ -37,43 +37,43 @@ are supported: [a: [A:1 B:2]]).;
 #X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 485 @empty?;
-#X text 270 485 (readonly) 1 if dict is empty \, otherwise 0\. Type:
-bool. Default value: 1\.;
+#X text 270 485 (readonly) 1 if the dict is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 527 @keys?;
-#X text 270 527 (readonly) Keys of dictionary. Type: list.;
+#X text 270 527 (readonly) Keys of the dictionary. Type: list.;
 #X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 557 @size?;
-#X text 270 557 (readonly) Number of entries in dictionary. Type: int.
-Default value: 0\. Min value: 0\.;
+#X text 270 557 (readonly) Number of entries in the dictionary. Type:
+int. Default value: 0\. Min value: 0\.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 614 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 615 add;
-#X text 270 615 adds entry to dictionary. Arguments are:;
+#X text 270 615 adds an entry to the dictionary. Arguments are:;
 #X obj 300 640 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 640 KEY: entry key. Type: symbol.;
 #X obj 300 663 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 663 VAL: single value or list. Type: list.;
 #X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 696 choose;
-#X text 270 696 choose random key and output it.;
+#X text 270 696 choose a random key and output it.;
 #X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 731 clear;
 #X text 270 731 removes all dict values. No output.;
 #X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 766 get_key;
-#X text 270 766 get entry from dictionary. Arguments are:;
+#X text 270 766 get an entry from the dictionary. Arguments are:;
 #X obj 300 791 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 791 KEY: entry key. Type: symbol.;
 #X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 824 read;
-#X text 270 824 read dict from JSON file. Arguments are:;
+#X text 270 824 read the dict from a JSON file. Arguments are:;
 #X obj 300 849 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 849 PATH: file path. Type: symbol.;
 #X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 882 remove;
-#X text 270 882 remove entry from dictionary. Arguments are:;
+#X text 270 882 remove an entry from the dictionary. Arguments are:;
 #X obj 300 907 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 907 KEY: entry key. Type: symbol.;
 #X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -81,15 +81,15 @@ Default value: 0\. Min value: 0\.;
 #X text 270 940 set dict content without output.;
 #X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 975 set_key;
-#X text 270 975 change entry in dictionary. If it's not exists \, do
-nothing. Arguments are:;
+#X text 270 975 change an entry in the dictionary. If it does not exist
+\, do nothing. Arguments are:;
 #X obj 300 1015 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1015 KEY: key. Type: symbol.;
 #X obj 300 1038 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1038 VAL: single value or list. Type: list.;
 #X obj 250 1071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1071 write;
-#X text 270 1071 write dict as JSON file. Arguments are:;
+#X text 270 1071 write the dict as a JSON file. Arguments are:;
 #X obj 300 1096 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1096 PATH: file path. Type: symbol.;
 #X obj 250 1129 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
@@ -100,12 +100,13 @@ nothing. Arguments are:;
 -49933 0;
 #X text 130 1180 1\.;
 #X text 170 1180 bang:;
-#X text 270 1180 output current dictionary value.;
+#X text 270 1180 output the current dictionary value.;
 #X text 170 1205 list:;
-#X text 270 1205 set dict from list. Key-value pairs are expected.
-[1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
+#X text 270 1205 set the dict from a list. Key-value pairs are expected.
+[1 2 3 4( becomes a dict with keys: 1 and 3 \, values: 2 and 4\. No
+output.;
 #X text 170 1260 data:dict:;
-#X text 270 1260 set and output new dict.;
+#X text 270 1260 set and output a new dict.;
 #X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1300 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;

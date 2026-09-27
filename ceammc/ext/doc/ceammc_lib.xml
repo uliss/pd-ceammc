@@ -411,7 +411,7 @@
     <entry name="data.copy" descr="makes a copy of any data type: MList, Set etc." ref_view="link">
       <xi:include href="data.copy.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.dict" descr="the dictionary container: stores key-values pairs" ref_view="link">
+    <entry name="data.dict" descr="the dictionary container: stores key-value pairs" ref_view="link">
       <xi:include href="data.dict.pddoc" parse="xml"/>
     </entry>
     <entry name="data.fifo" descr="FIFO (First In First Out) - the queue data container" ref_view="link">
