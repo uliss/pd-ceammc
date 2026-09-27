@@ -28,7 +28,7 @@ array.readwrite~	simultaneous read/write signals to the array / одноврем
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.resample	resampling the array / пересемплирование массива
 array.r	resampling the array / пересемплирование массива
-array.rms	calculates the root-mean-square value for the array / вычисляет среднее квадратичное значение для массива
+array.rms	calculates the root-mean-square value for the array / вычисляет среднеквадратичное значение для массива
 array.set	set the array content from the list data / устанавливает содержание массива данными из списка
 ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
 list->array	set the array content from the list data / устанавливает содержание массива данными из списка
