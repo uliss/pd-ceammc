@@ -285,7 +285,7 @@ conv.hsl2rgb-help.pd;
 #X text 200 3060 преобразует цветовые значения из HSL в RGB;
 #X obj 30 3088 ui.link @title [conv.int2bits] @url
 conv.int2bits-help.pd;
-#X text 200 3085 конвертировать целое число в список битов;
+#X text 200 3085 преобразует целое число в список битов;
 #X obj 30 3113 ui.link @title [conv.lab2rgb] @url
 conv.lab2rgb-help.pd;
 #X text 200 3110 преобразование цветовых значений из LAB в RGB;

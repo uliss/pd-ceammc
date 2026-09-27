@@ -70,7 +70,7 @@ conv.guido2note-help.pd;
 #X text 220 712 преобразует цветовые значения из HSL в RGB;
 #X obj 30 740 ui.link @title [conv.int2bits] @url
 conv.int2bits-help.pd;
-#X text 220 737 конвертировать целое число в список битов;
+#X text 220 737 преобразует целое число в список битов;
 #X obj 30 765 ui.link @title [conv.lab2rgb] @url conv.lab2rgb-help.pd;
 #X text 220 762 преобразование цветовых значений из LAB в RGB;
 #X obj 30 790 ui.link @title [conv.lin2curve] @url

@@ -184,9 +184,9 @@ hex->int	converts hex symbol into an integer value / преобразует ше
 conv.hsl2rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
 ceammc/hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
 hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
-conv.int2bits	convert integer to list of bits / конвертировать целое число в список битов
-ceammc/int->bits	convert integer to list of bits / конвертировать целое число в список битов
-int->bits	convert integer to list of bits / конвертировать целое число в список битов
+conv.int2bits	convert integer to list of bits / преобразует целое число в список битов
+ceammc/int->bits	convert integer to list of bits / преобразует целое число в список битов
+int->bits	convert integer to list of bits / преобразует целое число в список битов
 conv.lab2rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
 ceammc/lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
 lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB

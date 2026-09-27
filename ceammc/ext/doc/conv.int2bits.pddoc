@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert integer to list of bits</tr>
-        <tr lang="ru">конвертировать целое число в список битов</tr>
+        <tr lang="ru">преобразует целое число в список битов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,38 +25,48 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: negative numbers converted using machine architecture, commonly two's
-        complement</tr>
-        <!-- old: Примечание: отрицательные числа, преобразованные с
-                использованием машинной архитектуры, обычно два дополнения -->
-        <tr lang="ru" finished="false">Примечание: отрицательные числа, преобразованные с
-        использованием машинной архитектуры, обычно два дополнения</tr>
+        <tr lang="en">The object converts an integer value to a list of bits. The length of the
+        output list is controlled by the SIZE argument or the @size property (1 to 32 bits,
+        default 32). By default the bits are listed from the most significant bit on the left to
+        the least significant bit on the right. If the @rev flag is set, the bit order is
+        reversed.</tr>
+        <tr lang="ru">Объект преобразует целое число в список битов. Длина выходного списка
+        задаётся аргументом SIZE или свойством @size (от 1 до 32 бит, по умолчанию 32). По
+        умолчанию биты идут от старшего слева к младшему справа. Если установлен флаг @rev,
+        порядок битов инвертируется.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: negative numbers are converted using the machine architecture's
+        representation, commonly two's complement.</tr>
+        <tr lang="ru">Примечание: отрицательные числа преобразуются с использованием представления,
+        принятого в архитектуре машины, — как правило, дополнительного кода (two's
+        complement).</tr>
       </par>
       <wiki name="Two%27s_complement">Two's complement</wiki>
     </info>
     <arguments>
       <argument name="SIZE" type="int" minvalue="1" maxvalue="32">
         <tr lang="en">output bit-length</tr>
-        <tr lang="ru">выходная длина в битах</tr>
+        <tr lang="ru">длина выхода в битах</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @rev -->
       <property name="@rev" type="bool" default="0">
         <tr lang="en">reversed bit order</tr>
-        <tr lang="ru" finished="false">Обратный порядок битов</tr>
+        <tr lang="ru">обратный порядок битов</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="32" default="32">
         <tr lang="en">output bit-length</tr>
-        <tr lang="ru" finished="false">выходная битовая длина</tr>
+        <tr lang="ru">длина выхода в битах</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
       </inlet>
     </inlets>
@@ -64,7 +74,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of bits</tr>
-          <tr lang="ru" finished="false">Список битов</tr>
+          <tr lang="ru">список битов</tr>
         </out>
       </outlet>
     </outlets>
