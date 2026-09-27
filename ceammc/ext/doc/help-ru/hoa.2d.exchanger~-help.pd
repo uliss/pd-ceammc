@@ -7,91 +7,116 @@
 #X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.exchanger~] @url hoa.2d.exchanger~-help.pd;
 #X obj 616 8 hoa.2d.exchanger~;
-#X obj 230 78 cnv 1 535 129 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 620 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Преобразует между различными схемами нумерации каналов
 и нормализации \, используемыми в двумерных амбисониках. Библиотека
 использует нормализацию SN2D и нумерацию ACN в качестве стандарта по
 умолчанию (см. учебные материалы CICM).;
-#X obj 240 171 ui.link @background_color 0.90196 0.90196 0.90196
+#X text 240 168 Поддерживаемые схемы нумерации:;
+#X text 250 193 • ACN (Ambisonic Channel Number — стандарт по умолчанию).
+Каналы упорядочены по возрастанию степени гармоники \, а внутри каждой
+степени — по возрастанию порядка. Это стандарт \, используемый большинством
+современных инструментов для амбисоников (IRCAM \, IEM \, Google \,
+Facebook).;
+#X text 250 278 • Furse-Malham (также известная как FuMa или B-format).
+Традиционный порядок \, использовавшийся в первых записях в формате
+B: W \, X \, Y \, Z \, R \, S \, T \, U \, ... В 2D-амбисониках используются
+только первые три канала (W \, X \, Y). Для преобразования из Furse-Malham
+используйте 'fromFurseMalham' \, для преобразования в неё — 'toFurseMalham'.;
+#X text 250 379 • SID (Single Index Designation — обозначение одним
+индексом). Схема \, в которой каждый канал идентифицируется одним целочисленным
+индексом \, вычисляемым из степени и порядка гармоники. Для преобразования
+из SID используйте 'fromSID' \, для преобразования в неё — 'toSID'.;
+#X text 240 464 Поддерживаемые схемы нормализации:;
+#X text 250 489 • SN2D (Schmidt semi-normalized 2D — полунормированная
+схема Шмидта для 2D \, по умолчанию). Полунормированное соглашение
+для двумерных амбисоников \, при котором сферические гармонические
+функции остаются ортогональными \, а направленность звукового поля
+сохраняется.;
+#X text 250 574 • MaxN (также известная как N3D или полная нормализация).
+Полная нормализация сферических гармоник \, часто применяемая при обработке
+амбисоников высших порядков. Для преобразования из MaxN используйте
+'fromMaxN' \, для преобразования в неё — 'toMaxN'.;
+#X obj 240 662 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.exchanger~-help.pd;
-#X obj 50 255 hoa.2d.exchanger~;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 310 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 746 hoa.2d.exchanger~;
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 801 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 313 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 804 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 311 1\.;
-#X text 170 311 int;
-#X obj 268 312 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 ORDER: порядок декомпозиции. Тип: int. Диапазон: [1\..63];
-#X text 130 336 2\.;
-#X text 170 336 symbol;
-#X obj 268 337 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 336 NUM: схема нумерации. Разрешённые значения: ACN \,
+#X text 130 802 1\.;
+#X text 170 802 int;
+#X obj 268 803 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 802 ORDER: порядок декомпозиции. Тип: int. Диапазон: [1\..63];
+#X text 130 827 2\.;
+#X text 170 827 symbol;
+#X obj 268 828 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 827 NUM: схема нумерации. Разрешённые значения: ACN \,
 fromFurseMalham \, fromSID \, toFurseMalham \, toSID. Тип: symbol.;
-#X text 130 376 3\.;
-#X text 170 376 symbol;
-#X obj 268 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 NORM: нормализация. Разрешённые значения: SN2D \, fromMaxN
+#X text 130 867 3\.;
+#X text 170 867 symbol;
+#X obj 268 868 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 867 NORM: нормализация. Разрешённые значения: SN2D \, fromMaxN
 \, toMaxN. Тип: symbol.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 922 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 434 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 925 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 432 @order;
-#X text 270 432 (при инициализации) Порядок декомпозиции. Тип: int.
+#X msg 130 923 @order;
+#X text 270 923 (при инициализации) Порядок декомпозиции. Тип: int.
 Значение по умолчанию: 1\. Диапазон: [1\..63].;
-#X obj 250 474 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 474 @fromB;
-#X text 270 474 Сокращение для @num fromFurseMalham и @norm fromMaxN.;
-#X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 504 @norm;
-#X text 270 504 Нормализация. Тип: symbol. Значение по умолчанию: SN2D.
+#X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 965 @fromB;
+#X text 270 965 Сокращение для @num fromFurseMalham и @norm fromMaxN.;
+#X obj 250 995 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 995 @norm;
+#X text 270 995 Нормализация. Тип: symbol. Значение по умолчанию: SN2D.
 Разрешённые значения: SN2D \, fromMaxN \, toMaxN.;
-#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 546 @num;
-#X text 270 546 Схема нумерации. Тип: symbol. Значение по умолчанию:
+#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1037 @num;
+#X text 270 1037 Схема нумерации. Тип: symbol. Значение по умолчанию:
 ACN. Разрешённые значения: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
-#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 603 @toB;
-#X text 270 603 Сокращение для @num toFurseMalham и @norm toMaxN.;
-#X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 648 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 1094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1094 @toB;
+#X text 270 1094 Сокращение для @num toFurseMalham и @norm toMaxN.;
+#X obj 20 1134 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1139 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 649 1\.;
-#X text 170 649 ~;
-#X text 270 649 первая входная гармоника.;
-#X text 130 674 ...;
-#X text 170 674 ~;
-#X text 270 674 ... входная гармоника.;
-#X text 130 699 n.;
-#X text 170 699 ~;
-#X text 270 699 n-я входная гармоника.;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 739 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 740 1\.;
-#X text 170 740 ~;
-#X text 270 740 выход первого громкоговорителя.;
-#X text 130 760 ...;
-#X text 170 760 ~;
-#X text 270 760 ... выход громкоговорителя.;
-#X text 130 780 n.;
-#X text 170 780 ~;
-#X text 270 780 выход n-го громкоговорителя.;
+#X text 130 1140 1\.;
+#X text 170 1140 ~;
+#X text 270 1140 первая входная гармоника.;
+#X text 130 1165 ...;
+#X text 170 1165 ~;
+#X text 270 1165 ... входная гармоника.;
+#X text 130 1190 n.;
+#X text 170 1190 ~;
+#X text 270 1190 n-я входная гармоника.;
+#X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1230 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1231 1\.;
+#X text 170 1231 ~;
+#X text 270 1231 выход первого громкоговорителя.;
+#X text 130 1251 ...;
+#X text 170 1251 ~;
+#X text 270 1251 ... выход громкоговорителя.;
+#X text 130 1271 n.;
+#X text 170 1271 ~;
+#X text 270 1271 выход n-го громкоговорителя.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 833 библиотека: ceammc v0.9.8;
-#X text 493 845 смотрите также:;
-#X obj 614 848 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1321 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1324 библиотека: ceammc v0.9.8;
+#X text 493 1336 смотрите также:;
+#X obj 614 1339 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.3d.exchanger~] @url hoa.3d.exchanger~-help.pd;
-#N canvas 10 852 400 290 info 0;
+#N canvas 10 1343 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -116,4 +141,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 852 pd info;
+#X restore 10 1343 pd info;

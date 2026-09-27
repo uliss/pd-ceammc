@@ -34,6 +34,61 @@
         используемыми в двумерных амбисониках. Библиотека использует нормализацию SN2D и
         нумерацию ACN в качестве стандарта по умолчанию (см. учебные материалы CICM).</tr>
       </par>
+      <par>
+        <tr lang="en">Supported numbering schemes:</tr>
+        <tr lang="ru">Поддерживаемые схемы нумерации:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• ACN (Ambisonic Channel Number, the default). Channels are ordered by
+        increasing harmonic degree and, within each degree, by increasing order. This is the
+        standard used by most modern ambisonics tools (IRCAM, IEM, Google, Facebook).</tr>
+        <tr lang="ru">• ACN (Ambisonic Channel Number — стандарт по умолчанию). Каналы
+        упорядочены по возрастанию степени гармоники, а внутри каждой степени — по возрастанию
+        порядка. Это стандарт, используемый большинством современных инструментов для
+        амбисоников (IRCAM, IEM, Google, Facebook).</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Furse-Malham (also known as FuMa or B-format). Traditional ordering used
+        in the original B-format recordings: W, X, Y, Z, R, S, T, U, ... Only the first three
+        channels (W, X, Y) are used for 2D. To convert from Furse-Malham, use
+        'fromFurseMalham'; to convert to it, use 'toFurseMalham'.</tr>
+        <tr lang="ru">• Furse-Malham (также известная как FuMa или B-format). Традиционный
+        порядок, использовавшийся в первых записях в формате B: W, X, Y, Z, R, S, T, U, ... В
+        2D-амбисониках используются только первые три канала (W, X, Y). Для преобразования из
+        Furse-Malham используйте 'fromFurseMalham', для преобразования в неё —
+        'toFurseMalham'.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• SID (Single Index Designation). A single-number indexing scheme where
+        each channel is identified by a unique integer index computed from the degree and order.
+        To convert from SID, use 'fromSID'; to convert to it, use 'toSID'.</tr>
+        <tr lang="ru">• SID (Single Index Designation — обозначение одним индексом). Схема, в
+        которой каждый канал идентифицируется одним целочисленным индексом, вычисляемым из
+        степени и порядка гармоники. Для преобразования из SID используйте 'fromSID', для
+        преобразования в неё — 'toSID'.</tr>
+      </par>
+      <par>
+        <tr lang="en">Supported normalization schemes:</tr>
+        <tr lang="ru">Поддерживаемые схемы нормализации:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• SN2D (Schmidt semi-normalized 2D, the default). Semi-normalized
+        convention for 2D ambisonics, which keeps the spherical harmonic functions orthogonal
+        while preserving the directivity pattern of the soundfield.</tr>
+        <tr lang="ru">• SN2D (Schmidt semi-normalized 2D — полунормированная схема Шмидта для 2D,
+        по умолчанию). Полунормированное соглашение для двумерных амбисоников, при котором
+        сферические гармонические функции остаются ортогональными, а направленность звукового
+        поля сохраняется.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• MaxN (also known as N3D or fully normalized). Full normalization of
+        spherical harmonics, often used in higher-order ambisonics processing. To convert from
+        MaxN, use 'fromMaxN'; to convert to it, use 'toMaxN'.</tr>
+        <tr lang="ru">• MaxN (также известная как N3D или полная нормализация). Полная
+        нормализация сферических гармоник, часто применяемая при обработке амбисоников высших
+        порядков. Для преобразования из MaxN используйте 'fromMaxN', для преобразования в неё —
+        'toMaxN'.</tr>
+      </par>
       <a href="hoa/hoa.2d.exchanger~-help.pd">CICM documentation</a>
     </info>
     <arguments>

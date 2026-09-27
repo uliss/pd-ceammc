@@ -7,91 +7,114 @@
 #X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.exchanger~] @url hoa.2d.exchanger~-help.pd;
 #X obj 616 8 hoa.2d.exchanger~;
-#X obj 230 78 cnv 1 535 114 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 590 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Converts between different channel numbering and normalization
 schemes used in 2D ambisonics. The library uses SN2D normalization
 and ACN numbering as its default standard (see the CICM tutorials).;
-#X obj 240 156 ui.link @background_color 0.90196 0.90196 0.90196
+#X text 240 153 Supported numbering schemes:;
+#X text 250 178 • ACN (Ambisonic Channel Number \, the default). Channels
+are ordered by increasing harmonic degree and \, within each degree
+\, by increasing order. This is the standard used by most modern ambisonics
+tools (IRCAM \, IEM \, Google \, Facebook).;
+#X text 250 263 • Furse-Malham (also known as FuMa or B-format). Traditional
+ordering used in the original B-format recordings: W \, X \, Y \, Z
+\, R \, S \, T \, U \, ... Only the first three channels (W \, X \,
+Y) are used for 2D. To convert from Furse-Malham \, use 'fromFurseMalham';
+to convert to it \, use 'toFurseMalham'.;
+#X text 250 364 • SID (Single Index Designation). A single-number indexing
+scheme where each channel is identified by a unique integer index computed
+from the degree and order. To convert from SID \, use 'fromSID'; to
+convert to it \, use 'toSID'.;
+#X text 240 449 Supported normalization schemes:;
+#X text 250 474 • SN2D (Schmidt semi-normalized 2D \, the default).
+Semi-normalized convention for 2D ambisonics \, which keeps the spherical
+harmonic functions orthogonal while preserving the directivity pattern
+of the soundfield.;
+#X text 250 544 • MaxN (also known as N3D or fully normalized). Full
+normalization of spherical harmonics \, often used in higher-order
+ambisonics processing. To convert from MaxN \, use 'fromMaxN'; to convert
+to it \, use 'toMaxN'.;
+#X obj 240 632 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.exchanger~-help.pd;
-#X obj 50 240 hoa.2d.exchanger~;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 295 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 716 hoa.2d.exchanger~;
+#X obj 20 766 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 771 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 298 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 774 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 296 1\.;
-#X text 170 296 int;
-#X obj 268 297 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 296 ORDER: the order of decomposition. Type: int. Range:
+#X text 130 772 1\.;
+#X text 170 772 int;
+#X obj 268 773 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 772 ORDER: the order of decomposition. Type: int. Range:
 [1\..63];
-#X text 130 321 2\.;
-#X text 170 321 symbol;
-#X obj 268 322 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 321 NUM: numbering scheme. Allowed values: ACN \, fromFurseMalham
+#X text 130 797 2\.;
+#X text 170 797 symbol;
+#X obj 268 798 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 797 NUM: numbering scheme. Allowed values: ACN \, fromFurseMalham
 \, fromSID \, toFurseMalham \, toSID. Type: symbol.;
-#X text 130 361 3\.;
-#X text 170 361 symbol;
-#X obj 268 362 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 361 NORM: normalization. Allowed values: SN2D \, fromMaxN
+#X text 130 837 3\.;
+#X text 170 837 symbol;
+#X obj 268 838 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 837 NORM: normalization. Allowed values: SN2D \, fromMaxN
 \, toMaxN. Type: symbol.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 416 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 892 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 419 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 895 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 417 @order;
-#X text 270 417 (initonly) The order of decomposition. Type: int. Default
+#X msg 130 893 @order;
+#X text 270 893 (initonly) The order of decomposition. Type: int. Default
 value: 1\. Range: [1\..63].;
-#X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 459 @fromB;
-#X text 270 459 Alias for @num fromFurseMalham and @norm fromMaxN.;
-#X obj 250 489 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 489 @norm;
-#X text 270 489 Normalization. Type: symbol. Default value: SN2D. Allowed
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 935 @fromB;
+#X text 270 935 Alias for @num fromFurseMalham and @norm fromMaxN.;
+#X obj 250 965 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 965 @norm;
+#X text 270 965 Normalization. Type: symbol. Default value: SN2D. Allowed
 values: SN2D \, fromMaxN \, toMaxN.;
-#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 531 @num;
-#X text 270 531 Numbering scheme. Type: symbol. Default value: ACN.
+#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1007 @num;
+#X text 270 1007 Numbering scheme. Type: symbol. Default value: ACN.
 Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 \, toSID.;
-#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 588 @toB;
-#X text 270 588 Alias for @num toFurseMalham and @norm toMaxN.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 633 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 634 1\.;
-#X text 170 634 ~;
-#X text 270 634 first input harmonic.;
-#X text 130 659 ...;
-#X text 170 659 ~;
-#X text 270 659 ... input harmonic.;
-#X text 130 684 n.;
-#X text 170 684 ~;
-#X text 270 684 n-th input harmonic.;
-#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 724 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 250 1064 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1064 @toB;
+#X text 270 1064 Alias for @num toFurseMalham and @norm toMaxN.;
+#X obj 20 1104 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1109 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 725 1\.;
-#X text 170 725 ~;
-#X text 270 725 first loudspeaker output.;
-#X text 130 745 ...;
-#X text 170 745 ~;
-#X text 270 745 ... loudspeaker output.;
-#X text 130 765 n.;
-#X text 170 765 ~;
-#X text 270 765 n-th loudspeaker output.;
+#X text 130 1110 1\.;
+#X text 170 1110 ~;
+#X text 270 1110 first input harmonic.;
+#X text 130 1135 ...;
+#X text 170 1135 ~;
+#X text 270 1135 ... input harmonic.;
+#X text 130 1160 n.;
+#X text 170 1160 ~;
+#X text 270 1160 n-th input harmonic.;
+#X obj 20 1195 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1200 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1201 1\.;
+#X text 170 1201 ~;
+#X text 270 1201 first loudspeaker output.;
+#X text 130 1221 ...;
+#X text 170 1221 ~;
+#X text 270 1221 ... loudspeaker output.;
+#X text 130 1241 n.;
+#X text 170 1241 ~;
+#X text 270 1241 n-th loudspeaker output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 818 library: ceammc v0.9.8;
-#X text 539 830 see also:;
-#X obj 614 833 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1291 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1294 library: ceammc v0.9.8;
+#X text 539 1306 see also:;
+#X obj 614 1309 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.3d.exchanger~] @url hoa.3d.exchanger~-help.pd;
-#N canvas 10 837 400 290 info 0;
+#N canvas 10 1313 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -116,4 +139,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 837 pd info;
+#X restore 10 1313 pd info;
