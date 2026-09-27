@@ -954,8 +954,8 @@ fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (F
 ceammc/fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (FluidSynth)
 modplug~	MOD file player / проигрыватель MOD-файлов
 ceammc/modplug~	MOD file player / проигрыватель MOD-файлов
-qrcode	QR code generator / генератор QR кода
-ceammc/qrcode	QR code generator / генератор QR кода
+qrcode	QR code generator / генератор QR-кодов
+ceammc/qrcode	QR code generator / генератор QR-кодов
 risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе
 sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 ceammc/sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ

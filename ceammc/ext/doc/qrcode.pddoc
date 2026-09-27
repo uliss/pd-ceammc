@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">QR code generator</tr>
-        <tr lang="ru">генератор QR кода</tr>
+        <tr lang="ru">генератор QR-кодов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,68 +19,79 @@
         <alias>ceammc/qrcode</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Generates a QR code from the given string value. On a bang or on receiving a
+        new symbol value, outputs the QR code as a flat list of 1s and 0s (a black-and-white
+        bitmap) and, through the second outlet, the size (side length) of the QR code matrix. The
+        encoding quality is controlled by the @quality property.</tr>
+        <tr lang="ru">Генерирует QR-код из заданной строки. По bang или при получении нового
+        символьного значения выводит QR-код в виде плоского списка из 1 и 0 (чёрно-белого растра)
+        и, через второй выход, размер (длину стороны) матрицы QR-кода. Качество кодирования
+        управляется свойством @quality.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="VALUE" type="symbol">
         <tr lang="en">initial string value</tr>
-        <tr lang="ru" finished="false">начальное значение строки</tr>
+        <tr lang="ru">начальное строковое значение</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @high -->
       <property name="@high" type="alias">
-        <tr lang="en">alias to @quality high</tr>
-        <tr lang="ru" finished="false">Исполнитель: @quality high</tr>
+        <tr lang="en">alias for @quality high</tr>
+        <tr lang="ru">сокращение для @quality high</tr>
       </property>
       <!-- @low -->
       <property name="@low" type="alias">
-        <tr lang="en">alias to @quality low</tr>
-        <tr lang="ru" finished="false">Оригинальное название: Quality Low</tr>
+        <tr lang="en">alias for @quality low</tr>
+        <tr lang="ru">сокращение для @quality low</tr>
       </property>
       <!-- @medium -->
       <property name="@medium" type="alias">
-        <tr lang="en">alias to @quality medium</tr>
-        <tr lang="ru" finished="false">Источник: @quality medium</tr>
+        <tr lang="en">alias for @quality medium</tr>
+        <tr lang="ru">сокращение для @quality medium</tr>
       </property>
       <!-- @quality -->
       <property name="@quality" type="symbol" enum="low medium quartile high" default="low">
         <tr lang="en">encoding quality</tr>
-        <tr lang="ru" finished="false">качество кодирования</tr>
+        <tr lang="ru">качество кодирования</tr>
       </property>
       <!-- @quartile -->
       <property name="@quartile" type="alias">
-        <tr lang="en">alias to @quality quartile</tr>
-        <tr lang="ru" finished="false">Исполнитель: @quality quartile</tr>
+        <tr lang="en">alias for @quality quartile</tr>
+        <tr lang="ru">сокращение для @quality quartile</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="symbol" default="">
         <tr lang="en">string value</tr>
-        <tr lang="ru" finished="false">струнное значение</tr>
+        <tr lang="ru">строковое значение</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output encoded data</tr>
-          <tr lang="ru" finished="false">выходные кодированные данные</tr>
+          <tr lang="en">outputs encoded data</tr>
+          <tr lang="ru">выводит закодированные данные</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set new value and output encoded data</tr>
-          <tr lang="ru" finished="false">установить новое значение и вывести закодированные
-          данные</tr>
+          <tr lang="en">sets a new value and outputs encoded data</tr>
+          <tr lang="ru">устанавливает новое значение и выводит закодированные данные</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">list of 1 and 0</tr>
-          <tr lang="ru" finished="false">Список 1 и 0</tr>
+          <tr lang="en">list of 1s and 0s</tr>
+          <tr lang="ru">список из 1 и 0</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">int: qr code size</tr>
-          <tr lang="ru" finished="false">Int: размер кода qr</tr>
+          <tr lang="en">int: QR code size</tr>
+          <tr lang="ru">целое число: размер QR-кода</tr>
         </out>
       </outlet>
     </outlets>

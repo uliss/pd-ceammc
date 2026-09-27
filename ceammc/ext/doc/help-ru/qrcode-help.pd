@@ -1,73 +1,80 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 634 50 генератор QR кода;
+#X obj 622 50 cnv 1 143 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 627 50 генератор QR-кодов;
 #X obj 1 1 cnv 5 765 40 empty empty qrcode 20 20 0 20 -104026 -4096 0;
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/qrcode] @url qrcode-help.pd;
 #X obj 696 8 qrcode;
-#X symbolatom 50 118 15 0 0 0 - - -;
-#X msg 50 147 symbol https://github.com/uliss/pure-data/releases;
-#X obj 50 176 qrcode;
-#X obj 424 176 ui.lcd @receive qrcode @size 125 125 @nosave 1;
-#X msg 107 205 @cols \$1 \, @rows \$1 \, @size 125 125;
-#X obj 50 234 msg set list;
-#X obj 50 262 s qrcode;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Генерирует QR-код из заданной строки. По bang или при
+получении нового символьного значения выводит QR-код в виде плоского
+списка из 1 и 0 (чёрно-белого растра) и \, через второй выход \, размер
+(длину стороны) матрицы QR-кода. Качество кодирования управляется свойством
+@quality.;
+#X symbolatom 50 247 15 0 0 0 - - -;
+#X msg 50 276 symbol https://github.com/uliss/pure-data/releases;
+#X obj 50 305 qrcode;
+#X obj 424 305 ui.lcd @receive qrcode @size 125 125 @nosave 1;
+#X msg 107 334 @cols \$1 \, @rows \$1 \, @size 125 125;
+#X obj 50 363 msg set list;
+#X obj 50 391 s qrcode;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 446 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 symbol;
-#X obj 268 319 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 VALUE: initial string value. Тип: symbol.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 447 1\.;
+#X text 170 447 symbol;
+#X obj 268 448 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 447 VALUE: начальное строковое значение. Тип: symbol.;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 487 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 490 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @high;
-#X text 270 359 Alias to @quality high.;
-#X obj 250 389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 389 @low;
-#X text 270 389 Alias to @quality low.;
-#X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 419 @medium;
-#X text 270 419 Alias to @quality medium.;
-#X obj 250 449 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 449 @quality;
-#X text 270 449 Encoding quality. Тип: symbol. Значение по умолчанию:
+#X msg 130 488 @high;
+#X text 270 488 Сокращение для @quality high.;
+#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 518 @low;
+#X text 270 518 Сокращение для @quality low.;
+#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 548 @medium;
+#X text 270 548 Сокращение для @quality medium.;
+#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 578 @quality;
+#X text 270 578 Качество кодирования. Тип: symbol. Значение по умолчанию:
 low. Разрешённые значения: low \, medium \, quartile \, high.;
-#X obj 250 491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 491 @quartile;
-#X text 270 491 Alias to @quality quartile.;
-#X obj 250 521 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 521 @value;
-#X text 270 521 String value. Тип: symbol.;
-#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 566 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 635 @quartile;
+#X text 270 635 Сокращение для @quality quartile.;
+#X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 665 @value;
+#X text 270 665 Строковое значение. Тип: symbol.;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 710 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 567 1\.;
-#X text 170 567 bang:;
-#X text 270 567 output encoded data.;
-#X text 170 592 symbol:;
-#X text 270 592 set new value and output encoded data.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 632 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 711 1\.;
+#X text 170 711 bang:;
+#X text 270 711 выводит закодированные данные.;
+#X text 170 736 symbol:;
+#X text 270 736 устанавливает новое значение и выводит закодированные
+данные.;
+#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 776 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 633 1\.;
-#X text 270 633 list of 1 and 0\.;
-#X text 130 653 2\.;
-#X text 270 653 int: qr code size.;
+#X text 130 777 1\.;
+#X text 270 777 список из 1 и 0\.;
+#X text 130 797 2\.;
+#X text 270 797 целое число: размер QR-кода.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 703 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 706 библиотека: ceammc v0.9.8;
-#N canvas 10 725 400 290 info 0;
+#X obj 1 847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 850 библиотека: ceammc v0.9.8;
+#N canvas 10 869 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,10 +98,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 725 pd info;
-#X connect 6 0 7 0;
-#X connect 7 1 9 0;
-#X connect 7 0 10 0;
-#X connect 10 0 11 0;
-#X connect 9 0 11 0;
-#X connect 5 0 7 0;
+#X restore 10 869 pd info;
+#X connect 8 0 9 0;
+#X connect 9 1 11 0;
+#X connect 9 0 12 0;
+#X connect 12 0 13 0;
+#X connect 11 0 13 0;
+#X connect 7 0 9 0;
