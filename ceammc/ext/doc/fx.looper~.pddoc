@@ -220,7 +220,7 @@
         </out>
       </outlet>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">bang on each loop start if the @loop_bang property is true</tr>
           <tr lang="ru">bang в начале каждого цикла, если свойство @loop_bang истинно</tr>
         </out>

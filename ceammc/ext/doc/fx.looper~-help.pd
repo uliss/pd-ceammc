@@ -150,6 +150,7 @@ Type: float. Units: 'ms'.;
 #X text 170 1747 ~;
 #X text 270 1747 output signal.;
 #X text 130 1767 2\.;
+#X text 170 1767 bang:;
 #X text 270 1767 bang on each loop start if the @loop_bang property
 is true.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

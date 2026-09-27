@@ -158,6 +158,7 @@ play \, overdub.;
 #X text 170 1867 ~;
 #X text 270 1867 выходной сигнал.;
 #X text 130 1887 2\.;
+#X text 170 1887 bang:;
 #X text 270 1887 bang в начале каждого цикла \, если свойство @loop_bang
 истинно.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
