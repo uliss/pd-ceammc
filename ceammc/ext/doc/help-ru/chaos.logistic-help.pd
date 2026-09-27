@@ -7,121 +7,130 @@
 #X obj 510 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [noise.logistic] @url chaos.logistic-help.pd;
 #X obj 639 8 chaos.logistic;
-#X obj 230 78 cnv 1 535 614 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 A non-interpolating generator based on the difference
-equations:;
-#X text 240 123 x[n+1] = λ * x[n] * (1 - x[n]);
-#X obj 240 151 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 769 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Неинтерполирующий хаотический генератор на основе логистического
+отображения — одномерной дискретной динамической системы. На каждый
+bang генератор делает один шаг отображения и выводит новое значение
+x.;
+#X text 240 153 Отображение задаётся разностным уравнением:;
+#X text 240 178 x[n+1] = λ * x[n] * (1 - x[n]);
+#X obj 240 206 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Logistic map @url
 https://en.wikipedia.org/wiki/Logistic_map;
-#X text 240 172 By varying the parameter λ \, the following behavior
-is observed:;
-#X text 240 212 • With λ between 0 and 1 \, the population will eventually
-die \, independent of the initial population;
-#X text 240 252 • With λ between 1 and 2 \, the population will quickly
-approach the value λ − 1/λ \, independent of the initial population;
-#X text 240 307 • With λ between 2 and 3 \, the population will also
-eventually approach the same value λ − 1/λ \, but first will fluctuate
-around that value for some time.;
-#X text 240 362 • With λ between 3 and 1 + √6 ≈ 3.44949 \, from almost
-all initial conditions the population will approach permanent oscillations
-between two values. These two values are dependent on λ.;
-#X text 240 432 • With λ between 3.44949 and 3.54409 (approximately)
-\, from almost all initial conditions the population will approach
-permanent oscillations among four values.;
-#X text 240 487 • With λ increasing beyond 3.54409 \, from almost all
-initial conditions the population will approach oscillations among
-8 values \, then 16 \, 32 \, etc.;
-#X text 240 542 • At λ ≈ 3.56995 is the onset of chaos \, at the end
-of the period-doubling cascade.;
-#X text 240 582 • Most values of r beyond 3.56995 exhibit chaotic behavior
-\, but there are still certain isolated ranges of r that show non-chaotic
-behavior.;
-#X text 240 637 Beyond λ = 4 \, almost all initial values eventually
-leave the interval [0 \, 1] and diverge.;
-#X obj 50 740 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 395 740 r~ logistic;
-#X obj 50 769 metro.random 60 100;
-#X floatatom 280 769 5 0 0 0 - - -;
-#X obj 395 769 ui.scope~ @size 360 100;
-#X msg 50 798 3;
-#X msg 174 798 reset;
-#X msg 280 798 lambda \$1;
-#X obj 50 827 list.gen;
-#X obj 174 827 chaos.logistic 0.777 3.97;
-#X obj 50 856 l->l -1 1 20 600 @clip minmax;
-#X obj 50 884 list.unpack 3;
-#X obj 50 913 sig~;
-#X obj 184 913 * 400;
-#X obj 270 913 / 250;
-#X obj 184 942 sig~;
-#X msg 270 942 @res \$1;
-#X obj 50 971 osc~;
-#X obj 184 971 lop~ 2;
-#X obj 50 1000 flt.moog_vcf~;
-#X obj 50 1028 clip~ -1 1;
-#X obj 50 1057 ui.hgain~;
-#X obj 194 1057 s~ logistic;
-#X obj 405 1057 ui.dsp~;
-#X obj 50 1086 dac~;
-#X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1141 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 240 227 В зависимости от значения параметра λ отображение демонстрирует
+разные типы поведения:;
+#X text 240 267 • При λ от 0 до 1 последовательность в конечном итоге
+стремится к 0 \, независимо от начального значения;
+#X text 240 307 • При λ от 1 до 2 последовательность быстро сходится
+к значению (λ − 1) / λ \, независимо от начального значения;
+#X text 240 362 • При λ от 2 до 3 последовательность также в конечном
+итоге сходится к (λ − 1) / λ \, но сначала некоторое время колеблется
+вокруг этого значения;
+#X text 240 417 • При λ от 3 до 1 + √6 ≈ 3.44949 из почти любого начального
+значения последовательность приходит к устойчивому колебанию между
+двумя значениями (цикл периода 2) \, которые зависят от λ;
+#X text 240 487 • При λ от 3.44949 до 3.54409 (приблизительно) из почти
+любого начального значения последовательность приходит к устойчивому
+колебанию между четырьмя значениями (период 4);
+#X text 240 557 • При дальнейшем росте λ период снова и снова удваивается:
+8 значений \, затем 16 \, 32 и так далее — это каскад удвоения периода;
+#X text 240 612 • При λ ≈ 3.56995 наступает начало хаоса — конец каскада
+удвоения периода;
+#X text 240 652 • Для большинства значений λ выше 3.56995 отображение
+ведёт себя хаотически \, но всё ещё существуют изолированные диапазоны
+λ \, где поведение нехаотическое (так называемые периодические окна);
+#X text 240 722 • При λ > 4 почти все начальные значения в конечном
+итоге покидают интервал [0 \, 1] и расходятся;
+#X text 240 762 Так как значения не интерполируются \, управление генератором
+медленным metro даёт ступенчатый хаотический сигнал \, удобный для
+управления фильтрами \, панорамой или высотой тона.;
+#X obj 50 895 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 395 895 r~ logistic;
+#X obj 50 924 metro.random 60 100;
+#X floatatom 280 924 5 0 0 0 - - -;
+#X obj 395 924 ui.scope~ @size 360 100;
+#X msg 50 953 3;
+#X msg 174 953 reset;
+#X msg 280 953 lambda \$1;
+#X obj 50 982 list.gen;
+#X obj 174 982 chaos.logistic 0.777 3.97;
+#X obj 50 1011 l->l -1 1 20 600 @clip minmax;
+#X obj 50 1039 list.unpack 3;
+#X obj 50 1068 sig~;
+#X obj 184 1068 * 400;
+#X obj 270 1068 / 250;
+#X obj 184 1097 sig~;
+#X msg 270 1097 @res \$1;
+#X obj 50 1126 osc~;
+#X obj 184 1126 lop~ 2;
+#X obj 50 1155 flt.moog_vcf~;
+#X obj 50 1183 clip~ -1 1;
+#X obj 50 1212 ui.hgain~;
+#X obj 194 1212 s~ logistic;
+#X obj 405 1212 ui.dsp~;
+#X obj 50 1241 dac~;
+#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1296 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1144 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1299 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 1142 1\.;
-#X text 170 1142 float;
-#X obj 268 1143 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1142 INIT: x init value (default 0.777). Тип: float.;
-#X text 130 1167 2\.;
-#X text 170 1167 float;
-#X obj 268 1168 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 1167 LAMBDA: lambda value (default 3.9). Тип: float.;
-#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1207 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X text 130 1297 1\.;
+#X text 170 1297 float;
+#X obj 268 1298 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1297 INIT: начальное значение x (по умолчанию 0.777). Тип:
+float.;
+#X text 130 1322 2\.;
+#X text 170 1322 float;
+#X obj 268 1323 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1322 LAMBDA: значение λ (по умолчанию 3.9). Тип: float.;
+#X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1362 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1208 lambda;
-#X text 270 1208 set lambda value.;
-#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1243 om;
-#X text 270 1243 set output mode. Аргументы:;
-#X obj 300 1268 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1268 BOOL: output mode. If 1: outputs new generated value
-after lambda or seed method call \, if 0 - change values without output.
-Default is 0\. Тип: int.;
-#X obj 250 1331 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1331 reset;
-#X text 270 1331 set to initial state.;
-#X obj 250 1366 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1366 seed;
-#X text 270 1366 set init value \, updates init value.;
-#X obj 250 1401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1401 set;
-#X text 270 1401 set init value and lambda value and updates init value.;
-#X obj 20 1446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1451 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1363 lambda;
+#X text 270 1363 устанавливает значение λ.;
+#X obj 250 1398 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1398 om;
+#X text 270 1398 устанавливает режим вывода. Аргументы:;
+#X obj 300 1423 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1423 BOOL: режим вывода. Если 1: после вызова методов lambda
+или seed выводится новое сгенерированное значение. Если 0: значения
+изменяются без вывода. По умолчанию 0\. Тип: int.;
+#X obj 250 1501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1501 reset;
+#X text 270 1501 возвращает объект в начальное состояние.;
+#X obj 250 1536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1536 seed;
+#X text 270 1536 устанавливает начальное значение и обновляет начальное
+состояние.;
+#X obj 250 1586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1586 set;
+#X text 270 1586 устанавливает начальное значение и значение λ \, обновляет
+начальное состояние.;
+#X obj 20 1646 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1651 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1452 1\.;
-#X text 170 1452 bang:;
-#X text 270 1452 generate and output new value.;
-#X text 170 1477 float:;
-#X text 270 1477 set x-value and if output mode is 1 outputs new value.;
-#X obj 20 1512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1517 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1652 1\.;
+#X text 170 1652 bang:;
+#X text 270 1652 генерирует и выводит новое значение.;
+#X text 170 1677 float:;
+#X text 270 1677 устанавливает значение x и \, если режим вывода равен
+1 \, выводит новое значение.;
+#X obj 20 1727 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1732 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1518 1\.;
-#X text 270 1518 new generated x-value.;
+#X text 130 1733 1\.;
+#X text 270 1733 новое сгенерированное значение x.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1571 библиотека: ceammc v0.9.8;
-#X text 544 1583 смотрите также:;
-#X obj 665 1586 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1783 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1786 библиотека: ceammc v0.9.8;
+#X text 544 1798 смотрите также:;
+#X obj 665 1801 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.std0] @url chaos.std0-help.pd;
-#N canvas 10 1590 400 290 info 0;
+#N canvas 10 1805 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -145,30 +154,30 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1590 pd info;
-#X connect 19 0 21 0;
-#X connect 20 0 23 0;
-#X connect 21 0 24 0;
-#X connect 22 0 26 0;
-#X connect 24 0 27 0;
-#X connect 25 0 28 0;
-#X connect 26 0 28 0;
-#X connect 27 0 29 0;
-#X connect 29 0 30 0;
-#X connect 30 0 31 0;
-#X connect 30 1 32 0;
-#X connect 30 2 33 0;
-#X connect 32 0 34 0;
-#X connect 33 0 35 0;
-#X connect 31 0 36 0;
-#X connect 34 0 37 0;
-#X connect 36 0 38 0;
-#X connect 37 0 38 1;
-#X connect 35 0 38 0;
-#X connect 38 0 39 0;
-#X connect 39 0 40 0;
-#X connect 39 0 41 0;
-#X connect 40 0 43 0;
-#X connect 40 0 43 1;
-#X connect 27 1 28 0;
-#X connect 28 0 27 1;
+#X restore 10 1805 pd info;
+#X connect 21 0 23 0;
+#X connect 22 0 25 0;
+#X connect 23 0 26 0;
+#X connect 24 0 28 0;
+#X connect 26 0 29 0;
+#X connect 27 0 30 0;
+#X connect 28 0 30 0;
+#X connect 29 0 31 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 32 1 34 0;
+#X connect 32 2 35 0;
+#X connect 34 0 36 0;
+#X connect 35 0 37 0;
+#X connect 33 0 38 0;
+#X connect 36 0 39 0;
+#X connect 38 0 40 0;
+#X connect 39 0 40 1;
+#X connect 37 0 40 0;
+#X connect 40 0 41 0;
+#X connect 41 0 42 0;
+#X connect 41 0 43 0;
+#X connect 42 0 45 0;
+#X connect 42 0 45 1;
+#X connect 29 1 30 0;
+#X connect 30 0 29 1;
