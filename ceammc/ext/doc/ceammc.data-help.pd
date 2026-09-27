@@ -32,7 +32,7 @@
 #X text 220 417 the set: a container that stores only unique elements;
 #X obj 30 445 ui.link @title [data.set2list] @url
 data.set2list-help.pd;
-#X text 220 442 converts the set to the list;
+#X text 220 442 converts a set to a list;
 #X obj 30 470 ui.link @title [dict.contains] @url
 dict.contains-help.pd;
 #X text 220 467 check if the dictionary contains the key;

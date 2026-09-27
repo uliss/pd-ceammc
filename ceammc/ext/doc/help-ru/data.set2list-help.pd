@@ -9,48 +9,48 @@
 #X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [set->list] @url data.set2list-help.pd;
 #X obj 645 8 data.set2list;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: output list is not sorted by default. You can
-use @sort flag to get sorted output;
-#X msg 50 186 dump;
-#X obj 69 215 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Примечание: выходной список по умолчанию не сортируется.
+Чтобы получить отсортированный вывод \, используйте флаг @sort;
+#X msg 50 201 dump;
+#X obj 69 230 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 107 215 add a;
-#X msg 203 215 remove a;
-#X obj 50 273 data.set a b c d;
-#X obj 50 302 set->list;
-#X obj 165 302 set->list @sort;
-#X obj 50 330 ui.dt;
-#X obj 165 330 ui.dt;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 385 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 107 230 add a;
+#X msg 203 230 remove a;
+#X obj 50 288 data.set a b c d;
+#X obj 50 317 set->list;
+#X obj 165 317 set->list @sort;
+#X obj 50 345 ui.dt;
+#X obj 165 345 ui.dt;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 400 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 388 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 403 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 386 @sort;
-#X text 270 386 If specified - sort output list. Значение по умолчанию:
-0\.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 401 @sort;
+#X text 270 401 Если указан — сортировать выходной список. Значение
+по умолчанию: 0\.;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 458 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 432 1\.;
-#X text 270 432 input set.;
-#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 472 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 459 1\.;
+#X text 270 459 входное множество.;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 473 1\.;
-#X text 270 473 output list.;
+#X text 130 500 1\.;
+#X text 270 500 выходной список.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 526 библиотека: ceammc v0.9.8;
-#X text 558 538 смотрите также:;
-#X obj 679 541 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 550 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 553 библиотека: ceammc v0.9.8;
+#X text 558 565 смотрите также:;
+#X obj 679 568 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.set] @url data.set-help.pd;
-#N canvas 10 545 400 290 info 0;
+#N canvas 10 572 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -74,7 +74,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 545 pd info;
+#X restore 10 572 pd info;
 #X connect 8 0 12 0;
 #X connect 9 0 12 0;
 #X connect 10 0 12 0;

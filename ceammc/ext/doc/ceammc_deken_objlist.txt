@@ -312,9 +312,9 @@ ceammc/ml	multidimensional list container / контейнер многомер�
 ml	multidimensional list container / контейнер многомерного списка
 data.path	filesystem path datatype / тип данных: путь в файловой системе
 data.set	the set: a container that stores only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
-data.set2list	converts the set to the list / преобразует множество в список
-ceammc/set->list	converts the set to the list / преобразует множество в список
-set->list	converts the set to the list / преобразует множество в список
+data.set2list	converts a set to a list / преобразует множество в список
+ceammc/set->list	converts a set to a list / преобразует множество в список
+set->list	converts a set to a list / преобразует множество в список
 dict.contains	check if the dictionary contains the key / проверка, содержит ли словарь указанный ключ
 dict.each	map each value in dictionary with the side-chain function / отображение каждого значения в словаре с помощью боковой цепи обработки
 dict.from_list	creates dictionary from the list / создает словарь из списка
