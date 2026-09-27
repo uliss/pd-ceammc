@@ -25,40 +25,48 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">with this object you can get relative position in array</tr>
-        <tr lang="ru">с этим объектом вы можете получить относительное положение в массиве</tr>
+        <tr lang="en">This object converts the sample index in the array to a relative phase in the
+        range 0..1: index 0 maps to phase 0 (beginning of the array), and the last index maps to
+        phase 1 (end of the array). If a list is received, the conversion is applied to each value
+        and a list of phases is output. The result is not clipped to the 0..1 range, so indexes
+        outside the array produce phases outside 0..1 as well.</tr>
+        <tr lang="ru">Объект преобразует индекс семпла в массиве в относительную фазу в диапазоне
+        0..1: индекс 0 соответствует фазе 0 (начало массива), а последний индекс — фазе 1 (конец
+        массива). Если на вход подаётся список, преобразование применяется к каждому значению, и
+        на выход отправляется список фаз. Результат не ограничивается диапазоном 0..1, поэтому
+        индексы за пределами массива дают фазы за пределами 0..1.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used for conversion</tr>
+        <tr lang="ru">имя массива, используемого для преобразования</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used for conversion</tr>
+        <tr lang="ru">имя массива, используемого для преобразования</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">array sample number</tr>
-          <tr lang="ru" finished="false">образец массива</tr>
+          <tr lang="en">sample index in the array</tr>
+          <tr lang="ru">индекс семпла в массиве</tr>
         </in>
         <in on="list">
-          <tr lang="en">list of sample numbers</tr>
-          <tr lang="ru" finished="false">Список выборочных номеров</tr>
+          <tr lang="en">list of sample indexes</tr>
+          <tr lang="ru">список индексов семплов</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">relative position (non-clipped)</tr>
-          <tr lang="ru" finished="false">относительное положение (не клип)</tr>
+          <tr lang="en">relative position (not clipped to the 0..1 range)</tr>
+          <tr lang="ru">относительная позиция (не ограничена диапазоном 0..1)</tr>
         </out>
       </outlet>
     </outlets>
