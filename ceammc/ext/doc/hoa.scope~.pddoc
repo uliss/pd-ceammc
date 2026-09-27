@@ -11,7 +11,7 @@
       </authors>
       <description>
         <tr lang="en">a 2d ambisonic harmonic scope</tr>
-        <tr lang="ru">отображение сферических гармоник в двумерном амбисоническом поле</tr>
+        <tr lang="ru">осциллограф круговых гармоник для двумерных амбисоников</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,11 +24,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">displays the circular harmonics of an ambisonic sound field</tr>
-        <!-- old: отображает круговые гармоники амбисонического
-                звукового поля -->
-        <tr lang="ru" finished="false">отображает круговые гармоники амбисонического звукового
-        поля</tr>
+        <tr lang="en">Displays the circular harmonics of an ambisonic sound field. The horizontal
+        axis of the display shows the harmonic index, the vertical axis shows the current
+        amplitude. Positive harmonics are drawn in the @ph_color color, negative harmonics in
+        @nh_color.</tr>
+        <tr lang="ru">Отображает круговые гармоники звукового поля амбисоников. По
+        горизонтальной оси отображается индекс гармоники, по вертикальной — текущая амплитуда.
+        Положительные гармоники рисуются цветом @ph_color, отрицательные — цветом
+        @nh_color.</tr>
       </par>
       <a href="hoa/hoa.2d.scope~-help.pd">CICM documentation</a>
     </info>
@@ -42,154 +45,143 @@
     <arguments>
       <argument name="ORDER" type="int" minvalue="1">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
-        <!-- old: цвет фона элемента (список красных, зеленых, синих
-                значений в диапазоне 0-1) -->
-        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
-        в диапазоне 0-1)</tr>
+        <tr lang="en">element background color (list of red, green, blue, alpha values in the
+        0..1 range)</tr>
+        <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего и альфа в
+        диапазоне 0..1)</tr>
       </property>
       <!-- @border_color -->
       <property name="@border_color" type="list" default="0.6 0.6 0.6 1">
-        <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-        <!-- old: пограничный цвет (список красных, зеленых, синих
-                значений в диапазоне 0-1) -->
-        <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих значений в
-        диапазоне 0-1)</tr>
+        <tr lang="en">border color (list of red, green, blue, alpha values in the 0..1 range)</tr>
+        <tr lang="ru">цвет рамки (список значений красного, зелёного, синего и альфа в диапазоне
+        0..1)</tr>
       </property>
       <!-- @fontname -->
       <property name="@fontname" type="symbol" default="Helvetica"
       enum="Courier DejaVu Helvetica Monaco Times">
-        <tr lang="en">fontname</tr>
-        <tr lang="ru" finished="false">название шрифта</tr>
+        <tr lang="en">font name</tr>
+        <tr lang="ru">имя шрифта</tr>
       </property>
       <!-- @fontsize -->
       <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-        <tr lang="en">fontsize</tr>
-        <tr lang="ru" finished="false">шрифт</tr>
+        <tr lang="en">font size</tr>
+        <tr lang="ru">размер шрифта</tr>
       </property>
       <!-- @fontslant -->
       <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
         <tr lang="en">font slant</tr>
-        <tr lang="ru" finished="false">наклон шрифта</tr>
+        <tr lang="ru">наклон шрифта</tr>
       </property>
       <!-- @fontweight -->
       <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
         <tr lang="en">font weight</tr>
-        <tr lang="ru" finished="false">вес шрифта</tr>
+        <tr lang="ru">насыщенность шрифта</tr>
       </property>
       <!-- @gain -->
       <property name="@gain" type="float" default="1" minvalue="0">
-        <tr lang="en">gain</tr>
-        <tr lang="ru" finished="false">прибыль</tr>
+        <tr lang="en">display gain</tr>
+        <tr lang="ru">усиление отображения</tr>
       </property>
       <!-- @label -->
       <property name="@label" type="symbol" default="(null)">
         <tr lang="en">label text</tr>
-        <tr lang="ru" finished="false">текст этикетки</tr>
+        <tr lang="ru">текст подписи</tr>
       </property>
       <!-- @label_align -->
       <property name="@label_align" type="symbol" enum="left center right" default="left">
         <tr lang="en">label horizontal align</tr>
-        <tr lang="ru" finished="false">горизонтальная маркировка</tr>
+        <tr lang="ru">горизонтальное выравнивание подписи</tr>
       </property>
       <!-- @label_color -->
       <property name="@label_color" type="list" default="0 0 0 1">
-        <tr lang="en">label color in RGB format within 0-1 range, for example: 0.2 0.4 0.1</tr>
-        <!-- old: цвет этикетки в формате RGB в диапазоне 0-1,
-                например: 0.2 0.4 0.1 -->
-        <tr lang="ru" finished="false">цвет этикетки в формате RGB в диапазоне 0-1, например: 0.2
-        0.4 0.1</tr>
+        <tr lang="en">label color in RGB format within the 0..1 range, for example: 0.2 0.4
+        0.1</tr>
+        <tr lang="ru">цвет подписи в формате RGB в диапазоне 0..1, например: 0.2 0.4 0.1</tr>
       </property>
       <!-- @label_inner -->
       <property name="@label_inner" type="bool" default="0">
-        <tr lang="en">label position (1 - inner, 0 - outer).</tr>
-        <tr lang="ru" finished="false">положение метки (1 - внутреннее, 0 - наружное).</tr>
+        <tr lang="en">label position (1 — inner, 0 — outer)</tr>
+        <tr lang="ru">положение подписи (1 — внутри, 0 — снаружи)</tr>
       </property>
       <!-- @label_margins -->
       <property name="@label_margins" type="list" default="0 0">
         <tr lang="en">label offset in pixels</tr>
-        <tr lang="ru" finished="false">Смещение этикетки в пикселях</tr>
+        <tr lang="ru">смещение подписи в пикселях</tr>
       </property>
       <!-- @label_side -->
       <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
         <tr lang="en">label snap side</tr>
-        <tr lang="ru" finished="false">маркировка snap side</tr>
+        <tr lang="ru">сторона привязки подписи</tr>
       </property>
       <!-- @label_valign -->
       <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
         <tr lang="en">label vertical align</tr>
-        <tr lang="ru" finished="false">вертикальное обозначение</tr>
+        <tr lang="ru">вертикальное выравнивание подписи</tr>
       </property>
       <!-- @nh_color -->
       <property name="@nh_color" type="list" default="0 0 1 1">
         <tr lang="en">negative harmonics color</tr>
-        <tr lang="ru" finished="false">отрицательные гармоники цвета</tr>
+        <tr lang="ru">цвет отрицательных гармоник</tr>
       </property>
       <!-- @order -->
       <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </property>
       <!-- @ph_color -->
       <property name="@ph_color" type="list" default="1 0 0 1">
         <tr lang="en">positive harmonics color</tr>
-        <tr lang="ru" finished="false">Положительные гармоники цвета</tr>
+        <tr lang="ru">цвет положительных гармоник</tr>
       </property>
       <!-- @pinned -->
       <property name="@pinned" type="bool" default="0">
-        <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-        <!-- old: Режим пин. если 1 - поставить элемент на самый
-                низкий уровень -->
-        <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый низкий
-        уровень</tr>
+        <tr lang="en">pin mode. If 1 — put element to the lowest level</tr>
+        <tr lang="ru">режим закрепления. Если 1 — поместить элемент на самый нижний слой</tr>
       </property>
       <!-- @refresh -->
       <property name="@refresh" type="int" default="100" minvalue="20" maxvalue="1000"
       units="millisecond">
         <tr lang="en">redraw time</tr>
-        <tr lang="ru" finished="false">переделывать время</tr>
+        <tr lang="ru">интервал перерисовки</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" default="120 120">
         <tr lang="en">element size (width, height pair)</tr>
-        <tr lang="ru" finished="false">Размер элемента (ширина, пара высоты)</tr>
+        <tr lang="ru">размер элемента (пара ширина, высота)</tr>
       </property>
       <!-- @view -->
       <property name="@view" type="float" default="0">
         <tr lang="en">view rotation</tr>
-        <tr lang="ru" finished="false">поворот</tr>
+        <tr lang="ru">поворот отображения</tr>
       </property>
     </properties>
     <methods>
       <!-- dump -->
       <method name="dump">
         <info>
-          <tr lang="en">dumps all object info to Pd console window.</tr>
-          <!-- old: Сбрасывает всю информацию об объекте в окно
-                    консоли Pd. -->
-          <tr lang="ru" finished="false">Сбрасывает всю информацию об объекте в окно консоли
-          Pd.</tr>
+          <tr lang="en">dumps all object info to the Pd console window</tr>
+          <tr lang="ru">выводит всю информацию об объекте в окно консоли Pd</tr>
         </info>
       </method>
       <!-- pos -->
       <method name="pos">
         <info>
-          <tr lang="en">set UI element position</tr>
-          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+          <tr lang="en">sets the UI element position</tr>
+          <tr lang="ru">устанавливает положение элемента UI</tr>
         </info>
         <param name="X" type="float" required="true">
-          <tr lang="en">top left x-coord</tr>
-          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+          <tr lang="en">top-left x coordinate</tr>
+          <tr lang="ru">координата X верхнего левого угла</tr>
         </param>
         <param name="Y" type="float" required="true">
-          <tr lang="en">top right y-coord</tr>
-          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+          <tr lang="en">top-left y coordinate</tr>
+          <tr lang="ru">координата Y верхнего левого угла</tr>
         </param>
       </method>
     </methods>
@@ -197,19 +189,19 @@
       <inlet type="audio">
         <in>
           <tr lang="en">first input harmonic</tr>
-          <tr lang="ru" finished="false">Первый вход гармоничный</tr>
+          <tr lang="ru">первая входная гармоника</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">... input harmonic</tr>
-          <tr lang="ru" finished="false">Входная гармоника</tr>
+          <tr lang="ru">... входная гармоника</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">n-th input harmonic</tr>
-          <tr lang="ru" finished="false">n-я входная гармоника</tr>
+          <tr lang="ru">n-я входная гармоника</tr>
         </in>
       </inlet>
     </inlets>
