@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 366 50 преобразование из полярных координат в картезианские;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 435 50 преобразует полярные координаты в декартовы;
 #X obj 1 1 cnv 5 765 40 empty empty conv.pol2car 20 20 0 20 -104026
 -4096 0;
 #X obj 429 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,35 +9,39 @@
 #X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [pol->car] @url conv.pol2car-help.pd;
 #X obj 652 8 conv.pol2car;
-#X obj 50 118 ui.knob;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X obj 50 205 phase->rad;
-#X msg 50 234 1 \$1;
-#X obj 50 262 pol->car;
-#X obj 50 291 ui.slider2d @size 100 100;
-#X text 50 363 .;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 415 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует полярные координаты (радиус \, угол)
+в декартовы координаты (x \, y). Угол задаётся в радианах. Это операция
+\, обратная [conv.car2pol].;
+#X obj 50 201 ui.knob;
+#X floatatom 50 259 5 0 0 0 - - -;
+#X obj 50 288 phase->rad;
+#X msg 50 317 1 \$1;
+#X obj 50 345 pol->car;
+#X obj 50 374 ui.slider2d @size 100 100;
+#X text 50 446 .;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 498 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 416 1\.;
-#X text 170 416 list:;
-#X text 270 416 radius and angle (in radians) pair.;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 456 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 499 1\.;
+#X text 170 499 list:;
+#X text 270 499 пара: радиус и угол (в радианах).;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 539 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 457 1\.;
-#X text 270 457 x \, y coordinates pair.;
+#X text 130 540 1\.;
+#X text 270 540 пара координат x \, y.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 507 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 510 библиотека: ceammc v0.9.8;
-#X text 529 522 смотрите также:;
-#X obj 650 525 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 590 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 593 библиотека: ceammc v0.9.8;
+#X text 529 605 смотрите также:;
+#X obj 650 608 ui.link @background_color 0.78431 0.78431 0.78431
 @title [conv.car2pol] @url conv.car2pol-help.pd;
-#N canvas 10 529 400 290 info 0;
+#N canvas 10 612 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -61,9 +65,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 529 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 612 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

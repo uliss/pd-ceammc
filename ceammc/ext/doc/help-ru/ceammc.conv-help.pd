@@ -116,7 +116,7 @@ conv.pitch2midi-help.pd;
 #X text 220 1157 преобразует высоту в нотации SPN в MIDI-номер ноты;
 #X obj 30 1185 ui.link @title [conv.pol2car] @url
 conv.pol2car-help.pd;
-#X text 220 1182 преобразование из полярных координат в картезианские;
+#X text 220 1182 преобразует полярные координаты в декартовы;
 #X obj 30 1210 ui.link @title [conv.rad2phase] @url
 conv.rad2phase-help.pd;
 #X text 220 1207 преобразование радианов в фазу [0-1);
