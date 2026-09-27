@@ -5,46 +5,67 @@
 #X obj 1 1 cnv 5 765 40 empty empty file.size 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 file.size;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: by default filesize request performed asynchronously
-\, so there's a (usually) short delay between input and output;
-#X msg 50 201 bang;
-#X msg 165 201 symbol %CEAMMC%/guitar1.wav;
-#X obj 50 230 openpanel;
-#X obj 165 230 expand_env;
-#X obj 50 259 file.size;
-#X obj 50 288 ui.dt;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 343 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 442 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект выводит размер указанного файла в байтах. По
+умолчанию запрос выполняется асинхронно \, поэтому между входом и выходом
+обычно возникает небольшая задержка. Установите @async в 0 (или используйте
+сокращение @sync) \, чтобы сделать запрос синхронным.;
+#X text 240 168 Почему по умолчанию асинхронно: запросы к файловой
+системе могут занимать непредсказуемое время — от десятков микросекунд
+до сотен миллисекунд на сетевых дисках \, внешних носителях или в системах
+с антивирусной фильтрацией. Pd обрабатывает аудио в реальном времени
+\, и каждый блок DSP должен быть вычислен в строго отведённое время.
+Если медленная файловая операция выполнялась бы синхронно в основном
+потоке \, это могло бы затормозить обработку аудио и привести к пропаданиям
+\, щелчкам или даже временной остановке звука. Выполнение запроса в
+фоновом потоке этого избегает: основной поток продолжает обрабатывать
+аудио и сообщения \, а результат отправляется на выход \, как только
+он будет получен.;
+#X text 240 374 Когда использовать синхронный режим: если логика патча
+требует \, чтобы результат был доступен сразу после отправки запроса
+(например \, когда следующий шаг зависит от того \, существует ли файл
+или каков его размер) \, установите @async в 0 или используйте сокращение
+@sync. В этом случае объект возвращает значение синхронно \, но вы
+принимаете на себя риск \, что медленная файловая операция может заблокировать
+основной поток.;
+#X msg 50 568 bang;
+#X msg 165 568 symbol %CEAMMC%/guitar1.wav;
+#X obj 50 597 openpanel;
+#X obj 165 597 expand_env;
+#X obj 50 626 file.size;
+#X obj 50 655 ui.dt;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 710 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 346 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 713 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 344 @async;
-#X text 270 344 Async mode. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 374 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 374 @sync;
-#X text 270 374 Alias for @async 0\.;
-#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 419 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 711 @async;
+#X text 270 711 Асинхронный режим. Если 1 — запрос выполняется асинхронно.
+Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 753 @sync;
+#X text 270 753 Сокращение для @async 0\.;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 420 1\.;
-#X text 170 420 symbol:;
-#X text 270 420 file path.;
-#X text 170 445 data:string:;
-#X text 270 445 file path.;
-#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 485 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 799 1\.;
+#X text 170 799 symbol:;
+#X text 270 799 путь к файлу.;
+#X text 170 824 data:string:;
+#X text 270 824 путь к файлу.;
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 864 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 486 1\.;
-#X text 270 486 float: size in bytes.;
+#X text 130 865 1\.;
+#X text 270 865 число: размер файла в байтах.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 536 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 539 библиотека: ceammc v0.9.8;
-#N canvas 10 558 400 290 info 0;
+#X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 918 библиотека: ceammc v0.9.8;
+#N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -68,9 +89,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 558 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 9 0;
+#X restore 10 937 pd info;
 #X connect 8 0 10 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

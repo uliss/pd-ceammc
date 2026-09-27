@@ -18,45 +18,77 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: by default filesize request performed asynchronously, so there's a
-        (usually) short delay between input and output</tr>
-        <!-- old: Примечание: по умолчанию запрос на форматирование
-                файлов выполняется асинхронно, поэтому существует (обычно) короткая задержка между
-                входом и выходом. -->
-        <tr lang="ru" finished="false">Примечание: по умолчанию запрос на форматирование файлов
-        выполняется асинхронно, поэтому существует (обычно) короткая задержка между входом и
-        выходом.</tr>
+        <tr lang="en">The object outputs the size of the specified file in bytes. By default the
+        request is performed asynchronously, so there is usually a short delay between the input
+        and the output. Set @async to 0 (or use the @sync alias) to make the request
+        synchronous.</tr>
+        <tr lang="ru">Объект выводит размер указанного файла в байтах. По умолчанию запрос
+        выполняется асинхронно, поэтому между входом и выходом обычно возникает небольшая
+        задержка. Установите @async в 0 (или используйте сокращение @sync), чтобы сделать запрос
+        синхронным.</tr>
+      </par>
+      <par>
+        <tr lang="en">Why asynchronous by default: file system requests can take an unpredictable
+        amount of time — from tens of microseconds up to hundreds of milliseconds on network
+        drives, external media or systems with antivirus filtering. Pd processes audio in real
+        time, and each DSP block must be computed within a strict time budget. If a slow file
+        operation were performed synchronously in the main thread, it could stall audio processing
+        and cause dropouts, clicks or even a temporary audio freeze. Running the request in a
+        background thread avoids this: the main thread continues to process audio and messages,
+        and the result is sent to the outlet as soon as it is available.</tr>
+        <tr lang="ru">Почему по умолчанию асинхронно: запросы к файловой системе могут занимать
+        непредсказуемое время — от десятков микросекунд до сотен миллисекунд на сетевых дисках,
+        внешних носителях или в системах с антивирусной фильтрацией. Pd обрабатывает аудио в
+        реальном времени, и каждый блок DSP должен быть вычислен в строго отведённое время. Если
+        медленная файловая операция выполнялась бы синхронно в основном потоке, это могло бы
+        затормозить обработку аудио и привести к пропаданиям, щелчкам или даже временной
+        остановке звука. Выполнение запроса в фоновом потоке этого избегает: основной поток
+        продолжает обрабатывать аудио и сообщения, а результат отправляется на выход, как только
+        он будет получен.</tr>
+      </par>
+      <par>
+        <tr lang="en">When to use synchronous mode: if the patch logic requires the result to be
+        available immediately after sending the request (for example, when the next step depends on
+        whether the file exists or how large it is), set @async to 0 or use the @sync alias. In
+        this case the object returns the value synchronously, but you accept the risk that a slow
+        file operation may block the main thread.</tr>
+        <tr lang="ru">Когда использовать синхронный режим: если логика патча требует, чтобы
+        результат был доступен сразу после отправки запроса (например, когда следующий шаг
+        зависит от того, существует ли файл или каков его размер), установите @async в 0 или
+        используйте сокращение @sync. В этом случае объект возвращает значение синхронно, но вы
+        принимаете на себя риск, что медленная файловая операция может заблокировать основной
+        поток.</tr>
       </par>
     </info>
     <properties>
       <!-- @async -->
       <property name="@async" type="bool" default="1">
-        <tr lang="en">async mode</tr>
-        <tr lang="ru" finished="false">режим синхронизации</tr>
+        <tr lang="en">async mode. If 1 — the request is asynchronous</tr>
+        <tr lang="ru">асинхронный режим. Если 1 — запрос выполняется асинхронно</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="alias">
         <tr lang="en">alias for @async 0</tr>
-        <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
+        <tr lang="ru">сокращение для @async 0</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </in>
         <in on="data:string">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">float: size in bytes</tr>
-          <tr lang="ru" finished="false">Float: размер в байтах</tr>
+          <tr lang="en">float: file size in bytes</tr>
+          <tr lang="ru">число: размер файла в байтах</tr>
         </out>
       </outlet>
     </outlets>
