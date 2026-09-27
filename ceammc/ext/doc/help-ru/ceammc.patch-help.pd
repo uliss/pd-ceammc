@@ -18,7 +18,7 @@ canvas.current-help.pd;
 #X obj 30 235 ui.link @title [canvas.path] @url canvas.path-help.pd;
 #X text 220 232 выводит полный путь холста объекта в файловой системе;
 #X obj 30 260 ui.link @title [canvas.top] @url canvas.top-help.pd;
-#X text 220 257 подробная информация о холсте верхнего уровня у объекта;
+#X text 220 257 подробная информация о холсте верхнего уровня объекта;
 #X obj 30 285 ui.link @title [patch.args] @url patch.args-help.pd;
 #X text 220 282 получить начальные аргументы для патча или субпатча;
 #X obj 30 310 ui.link @title [patch.deps] @url patch.deps-help.pd;

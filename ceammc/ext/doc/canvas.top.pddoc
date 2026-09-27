@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">verbose information about top-level canvas of the object</tr>
-        <tr lang="ru">подробная информация о холсте верхнего уровня у объекта</tr>
+        <tr lang="ru">подробная информация о холсте верхнего уровня объекта</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,22 +20,36 @@
       </also>
       <since>0.4</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object provides detailed information about the top-level canvas that
+        contains the object. A bang outputs a dictionary with all available properties. A property
+        name (such as @name, @width, @height) sent to the inlet outputs the value of that single
+        property. With the @abs flag set to 1, information about the abstraction canvas is used
+        instead of the top-level window.</tr>
+        <tr lang="ru">Объект предоставляет подробную информацию о холсте верхнего уровня, который
+        содержит объект. Bang выводит словарь со всеми доступными свойствами. Имя свойства
+        (например, @name, @width, @height), отправленное на вход, выводит значение только этого
+        свойства. Если флаг @abs равен 1, вместо окна верхнего уровня используется холст
+        абстракции.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @abs -->
       <property name="@abs" type="bool" default="1">
-        <tr lang="en">if false: using toplevel canvas, if true: using abstraction canvas</tr>
-        <tr lang="ru">если 0: использует холст самого верхнего уровня, если 1: использует холст
+        <tr lang="en">if 0: use the top-level canvas; if 1: use the abstraction canvas</tr>
+        <tr lang="ru">если 0: использовать холст верхнего уровня; если 1: использовать холст
         абстракции</tr>
       </property>
       <!-- @dir -->
       <property name="@dir" type="symbol" access="readonly" default="/">
         <tr lang="en">canvas directory</tr>
-        <tr lang="ru">каталог холста</tr>
+        <tr lang="ru">директория холста</tr>
       </property>
       <!-- @font -->
       <property name="@font" type="int" access="readonly" default="10">
         <tr lang="en">window font</tr>
-        <tr lang="ru">оконный шрифт</tr>
+        <tr lang="ru">шрифт окна</tr>
       </property>
       <!-- @height -->
       <property name="@height" type="int" access="readonly" default="400">
@@ -64,12 +78,12 @@
       </property>
       <!-- @x -->
       <property name="@x" type="int" access="readonly" default="0">
-        <tr lang="en">window x-pos</tr>
+        <tr lang="en">window x-position</tr>
         <tr lang="ru">x-позиция окна</tr>
       </property>
       <!-- @y -->
       <property name="@y" type="int" access="readonly" default="0">
-        <tr lang="en">window y-pos</tr>
+        <tr lang="en">window y-position</tr>
         <tr lang="ru">y-позиция окна</tr>
       </property>
     </properties>
@@ -77,11 +91,11 @@
       <!-- postscript -->
       <method name="postscript">
         <info>
-          <tr lang="en">save patch to postscript</tr>
-          <tr lang="ru" finished="false">Сохранить патч для postscript</tr>
+          <tr lang="en">saves the patch as a PostScript file</tr>
+          <tr lang="ru">сохраняет патч в виде файла PostScript</tr>
         </info>
         <param name="FNAME" type="symbol" required="false">
-          <tr lang="en">file name. If not specified, the patch name with the extension .ps is
+          <tr lang="en">file name. If not specified, the patch name with the .ps extension is
           used</tr>
           <tr lang="ru">имя файла. Если не указано, используется имя патча с расширением .ps</tr>
         </param>
@@ -91,11 +105,11 @@
       <inlet>
         <in>
           <tr lang="en">property request</tr>
-          <tr lang="ru" finished="false">имущественный запрос</tr>
+          <tr lang="ru">запрос свойства</tr>
         </in>
         <in on="bang">
           <tr lang="en">output as dict</tr>
-          <tr lang="ru" finished="false">Выход как диктовка</tr>
+          <tr lang="ru">выводит словарь</tr>
         </in>
       </inlet>
     </inlets>
@@ -103,7 +117,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">dict/property output</tr>
-          <tr lang="ru" finished="false">дикт / вывод собственности</tr>
+          <tr lang="ru">вывод словаря или значения свойства</tr>
         </out>
       </outlet>
     </outlets>
