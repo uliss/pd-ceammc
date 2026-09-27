@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 323 50 cnv 1 442 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 328 50 преобразует секунды в количество семплов согласно текущей
-скорости семплирования;
+#X obj 369 50 cnv 1 396 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 374 50 преобразует время в секундах в количество семплов в
+соответствии с текущей частотой дискретизации;
 #X obj 1 1 cnv 5 765 40 empty empty conv.sec2samp 20 20 0 20 -104026
 -4096 0;
 #X obj 408 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,23 +10,29 @@
 #X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [sec->samp] @url conv.sec2samp-help.pd;
 #X obj 645 8 conv.sec2samp;
-#X msg 50 118 1;
-#X msg 98 118 1 1.5 2.9;
-#X obj 50 147 sec->samp;
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 93 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект преобразует значение времени в секундах в соответствующее
+количество семплов \, исходя из текущей частоты дискретизации патча.
+Результат можно использовать \, например \, для вычисления размеров
+буфера \, длин задержки или позиций в массиве. Это операция \, обратная
+[conv.samp2sec].;
+#X msg 50 262 1;
+#X msg 98 262 1 1.5 2.9;
+#X obj 50 291 sec->samp;
+#X obj 50 320 ui.dt;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 375 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 232 1\.;
-#X text 170 232 float:;
-#X text 270 232 time in seconds.;
-#X text 170 257 list:;
-#X text 270 257 list of times in seconds.;
-#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 376 1\.;
+#X text 170 376 float:;
+#X text 270 376 время в секундах.;
+#X text 170 401 list:;
+#X text 270 401 список значений времени в секундах.;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 441 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 298 1\.;
-#X text 270 298 converted value (float or list).;
+#X text 130 442 1\.;
+#X text 270 442 преобразованное значение (число или список).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -62,6 +68,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

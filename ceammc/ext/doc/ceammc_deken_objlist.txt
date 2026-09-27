@@ -264,9 +264,9 @@ samp->sec	convert samples to seconds according to sample rate / преобраз
 conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
-conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
+ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
+sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
 conv.sec2str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 ceammc/sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
