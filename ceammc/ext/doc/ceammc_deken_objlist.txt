@@ -216,9 +216,9 @@ ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / расшире
 midi->freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
 ceammc/m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
 m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
-conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
+conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
+ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
+ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
 conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования

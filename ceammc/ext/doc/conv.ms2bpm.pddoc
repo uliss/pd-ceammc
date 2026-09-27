@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts period in milliseconds to BPM tempo</tr>
-        <tr lang="ru">преобразование периода в миллисекундах в темп BPM</tr>
+        <tr lang="ru">преобразует период в миллисекундах в темп BPM</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,19 +24,30 @@
         <alias>ms-&gt;bpm</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a period in milliseconds (the time between two
+        consecutive beats) to a BPM tempo. The conversion is simply 60000 / period_ms, but the
+        object makes the patch more readable and self-documenting. This is the inverse operation of
+        [conv.bpm2ms].</tr>
+        <tr lang="ru">Объект преобразует период в миллисекундах (время между двумя последовательными
+        ударными долями) в темп BPM. Преобразование сводится к 60000 / период_мс, но объект делает
+        патч более читаемым и самодокументируемым. Это операция, обратная [conv.bpm2ms].</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">period in milliseconds</tr>
-          <tr lang="ru" finished="false">период в миллисекундах</tr>
+          <tr lang="ru">период в миллисекундах</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">bpm frequency</tr>
-          <tr lang="ru" finished="false">частота bpm</tr>
+          <tr lang="en">tempo in BPM</tr>
+          <tr lang="ru">темп в BPM</tr>
         </out>
       </outlet>
     </outlets>
