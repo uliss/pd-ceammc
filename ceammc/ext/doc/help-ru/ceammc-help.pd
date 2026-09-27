@@ -2066,7 +2066,7 @@ hoa.2d.exchanger~-help.pd;
 #X text 200 21641 многоканальный 2D-пространственный микшер для амбисоников;
 #X obj 30 21669 ui.link @title [hoa.2d.optim~] @url
 hoa.2d.optim~-help.pd;
-#X text 200 21666 оптимизация двумерных амбисоников;
+#X text 200 21666 инструмент оптимизации для двумерных амбисоников;
 #X obj 30 21694 ui.link @title [hoa.2d.projector~] @url
 hoa.2d.projector~-help.pd;
 #X text 200 21691 декомпозиция из сферических гармоник в плоские волны;
