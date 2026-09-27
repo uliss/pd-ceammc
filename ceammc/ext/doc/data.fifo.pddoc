@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
-        <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
+        <tr lang="ru">FIFO (First In First Out) — контейнер данных «очередь»</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,14 +21,11 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">If size argument specified - creates queue with fixed size. When count of
-        values exceed this limit, outputs and removes first value in queue.</tr>
-        <!-- old: Если размер аргумента указан - создает очередь с
-                фиксированным размером. Когда количество значений превышает этот предел, выводит и
-                удаляет первое значение в очереди. -->
-        <tr lang="ru" finished="false">Если размер аргумента указан - создает очередь с
-        фиксированным размером. Когда количество значений превышает этот предел, выводит и удаляет
-        первое значение в очереди.</tr>
+        <tr lang="en">If you set the size argument, the queue gets a fixed size. Once it is full,
+        adding a new value pushes out and outputs the oldest value in the queue.</tr>
+        <tr lang="ru">Если указать аргумент размера, очередь получает фиксированный размер. Как
+        только она заполнится, добавление нового значения выталкивает и выводит самое старое
+        значение в очереди.</tr>
       </par>
     </info>
     <mouse>
@@ -36,36 +33,31 @@
     </mouse>
     <arguments>
       <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
-        <tr lang="en">if specified, creates fixed-size queue. See @size property</tr>
-        <!-- old: Если указано, то создается очередь фиксированного
-                размера. См. @size property -->
-        <tr lang="ru" finished="false">Если указано, то создается очередь фиксированного размера.
-        См. @size property</tr>
+        <tr lang="en">if specified, creates a fixed-size queue. See the @size property</tr>
+        <tr lang="ru">если указано, создаётся очередь фиксированного размера. См. свойство
+        @size</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" access="readonly" default="1">
-        <tr lang="en">if queue is empty</tr>
-        <tr lang="ru" finished="false">Если очередь пуста</tr>
+        <tr lang="en">if the queue is empty</tr>
+        <tr lang="ru">пуста ли очередь</tr>
       </property>
       <!-- @filled -->
       <property name="@filled" type="int" minvalue="0" access="readonly" default="0">
-        <tr lang="en">current number of elements in queue</tr>
-        <tr lang="ru" finished="false">Текущее количество элементов в очереди</tr>
+        <tr lang="en">current number of elements in the queue</tr>
+        <tr lang="ru">текущее количество элементов в очереди</tr>
       </property>
       <!-- @free -->
       <property name="@free" type="int" minvalue="0" access="readonly" default="32">
-        <tr lang="en">number of elements you can add to queue until it full</tr>
-        <!-- old: Количество элементов, которые вы можете добавить в
-                очередь, пока она не заполнится -->
-        <tr lang="ru" finished="false">Количество элементов, которые вы можете добавить в очередь,
-        пока она не заполнится</tr>
+        <tr lang="en">number of elements you can add to the queue until it is full</tr>
+        <tr lang="ru">количество элементов, которые можно добавить в очередь до её заполнения</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">
-        <tr lang="en">size of queue</tr>
-        <tr lang="ru" finished="false">размер очереди</tr>
+        <tr lang="en">size of the queue</tr>
+        <tr lang="ru">размер очереди</tr>
       </property>
     </properties>
     <methods>
@@ -73,39 +65,38 @@
       <method name="clear">
         <info>
           <tr lang="en">removes all queue values</tr>
-          <tr lang="ru" finished="false">удаляет все значения очередей</tr>
+          <tr lang="ru">удаляет все значения очереди</tr>
         </info>
       </method>
       <!-- flush -->
       <method name="flush">
         <info>
           <tr lang="en">outputs and removes all queue values</tr>
-          <tr lang="ru" finished="false">выводит и удаляет все значения очередей</tr>
+          <tr lang="ru">выводит и удаляет все значения очереди</tr>
         </info>
       </method>
       <!-- pop -->
       <method name="pop">
         <info>
-          <tr lang="en">outputs and removes first values in queue</tr>
-          <tr lang="ru" finished="false">выводит и удаляет первые значения в очереди</tr>
+          <tr lang="en">outputs and removes the first value in the queue</tr>
+          <tr lang="ru">выводит и удаляет первое значение в очереди</tr>
         </info>
       </method>
       <!-- resize -->
       <method name="resize">
         <param type="int" minvalue="0">
-          <tr lang="en">changes queue size. All previous values (if any) are silently removed</tr>
-          <!-- old: Изменение размера очереди. Все предыдущие
-                    значения (если таковые имеются) бесшумно удаляются. -->
-          <tr lang="ru" finished="false">Изменение размера очереди. Все предыдущие значения (если
-          таковые имеются) бесшумно удаляются.</tr>
+          <tr lang="en">changes the queue size. All previous values (if any) are silently
+          removed</tr>
+          <tr lang="ru">изменяет размер очереди. Все предыдущие значения (если таковые имеются)
+          безвозвратно удаляются</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">same as *flush* message</tr>
-          <tr lang="ru" finished="false">Сообщение *flush*</tr>
+          <tr lang="en">same as the *flush* message</tr>
+          <tr lang="ru">то же, что и сообщение *flush*</tr>
         </in>
       </inlet>
     </inlets>
@@ -113,7 +104,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="ru">выходное значение</tr>
         </out>
       </outlet>
     </outlets>

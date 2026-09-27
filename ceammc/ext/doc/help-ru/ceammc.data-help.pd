@@ -17,7 +17,7 @@
 #X obj 30 245 ui.link @title [data.dict] @url data.dict-help.pd;
 #X text 220 242 контейнер словаря: хранит пары ключ-значение;
 #X obj 30 270 ui.link @title [data.fifo] @url data.fifo-help.pd;
-#X text 220 267 FIFO First In First Out) - контейнер данных "очередь";
+#X text 220 267 FIFO (First In First Out) — контейнер данных «очередь»;
 #X obj 30 295 ui.link @title [data.float] @url data.float-help.pd;
 #X text 220 292 многофункциональный объект числа с плавающей точкой;
 #X obj 30 320 ui.link @title [data.int] @url data.int-help.pd;

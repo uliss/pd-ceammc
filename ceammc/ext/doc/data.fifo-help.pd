@@ -6,9 +6,9 @@
 0;
 #X obj 674 11 data.fifo;
 #X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 If size argument specified - creates queue with fixed
-size. When count of values exceed this limit \, outputs and removes
-first value in queue.;
+#X text 240 83 If you set the size argument \, the queue gets a fixed
+size. Once it is full \, adding a new value pushes out and outputs
+the oldest value in the queue.;
 #X floatatom 213 201 5 0 0 0 - - -;
 #X msg 88 230 pop;
 #X msg 155 230 1 2;
@@ -37,67 +37,67 @@ first value in queue.;
 #X text 130 443 1\.;
 #X text 170 443 int;
 #X obj 268 444 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 443 SIZE: if specified \, creates fixed-size queue. See
-@size property. Type: int. Range: [1\..1024];
+#X text 270 443 SIZE: if specified \, creates a fixed-size queue. See
+the @size property. Type: int. Range: [1\..1024];
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 498 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 501 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 499 @size;
-#X text 270 499 Size of queue. Type: int. Default value: 32\. Range:
+#X text 270 499 Size of the queue. Type: int. Default value: 32\. Range:
 [1\..1024].;
 #X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 541 @empty?;
-#X text 270 541 (readonly) If queue is empty. Type: bool. Default value:
-1\.;
-#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 571 @filled?;
-#X text 270 571 (readonly) Current number of elements in queue. Type:
-int. Default value: 0\. Min value: 0\.;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @free?;
-#X text 270 613 (readonly) Number of elements you can add to queue
-until it full. Type: int. Default value: 32\. Min value: 0\.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 685 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 270 541 (readonly) If the queue is empty. Type: bool. Default
+value: 1\.;
+#X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 583 @filled?;
+#X text 270 583 (readonly) Current number of elements in the queue.
+Type: int. Default value: 0\. Min value: 0\.;
+#X obj 250 625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 625 @free?;
+#X text 270 625 (readonly) Number of elements you can add to the queue
+until it is full. Type: int. Default value: 32\. Min value: 0\.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 697 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 686 clear;
-#X text 270 686 removes all queue values.;
-#X obj 250 721 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 721 flush;
-#X text 270 721 outputs and removes all queue values.;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 pop;
-#X text 270 756 outputs and removes first values in queue.;
-#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 791 resize;
-#X text 270 791 Arguments are:;
-#X obj 300 816 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 816 [anonym]: changes queue size. All previous values (if
-any) are silently removed. Type: int. Min value: 0\.;
-#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 698 clear;
+#X text 270 698 removes all queue values.;
+#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 733 flush;
+#X text 270 733 outputs and removes all queue values.;
+#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 768 pop;
+#X text 270 768 outputs and removes the first value in the queue.;
+#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 803 resize;
+#X text 270 803 Arguments are:;
+#X obj 300 828 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 828 [anonym]: changes the queue size. All previous values
+(if any) are silently removed. Type: int. Min value: 0\.;
+#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 906 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 880 1\.;
-#X text 170 880 bang:;
-#X text 270 880 same as *flush* message.;
-#X obj 20 915 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 920 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 907 1\.;
+#X text 170 907 bang:;
+#X text 270 907 same as the *flush* message.;
+#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 947 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 921 1\.;
-#X text 270 921 output value.;
+#X text 130 948 1\.;
+#X text 270 948 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 971 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 974 library: ceammc v0.9.8;
-#X text 597 986 see also:;
-#X obj 672 989 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 998 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1001 library: ceammc v0.9.8;
+#X text 597 1013 see also:;
+#X obj 672 1016 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.list] @url data.list-help.pd;
-#N canvas 10 993 400 290 info 0;
+#N canvas 10 1020 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 993 pd info;
+#X restore 10 1020 pd info;
 #X connect 6 0 9 0;
 #X connect 13 0 17 0;
 #X connect 7 0 17 0;

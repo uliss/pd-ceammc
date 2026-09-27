@@ -404,7 +404,7 @@ music.voice2midi-help.pd;
 #X obj 30 4221 ui.link @title [data.dict] @url data.dict-help.pd;
 #X text 200 4218 контейнер словаря: хранит пары ключ-значение;
 #X obj 30 4246 ui.link @title [data.fifo] @url data.fifo-help.pd;
-#X text 200 4243 FIFO First In First Out) - контейнер данных "очередь";
+#X text 200 4243 FIFO (First In First Out) — контейнер данных «очередь»;
 #X obj 30 4271 ui.link @title [data.float] @url data.float-help.pd;
 #X text 200 4268 многофункциональный объект числа с плавающей точкой;
 #X obj 30 4296 ui.link @title [data.int] @url data.int-help.pd;

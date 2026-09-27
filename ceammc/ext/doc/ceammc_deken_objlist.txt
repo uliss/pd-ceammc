@@ -297,7 +297,7 @@ data.copy	makes a copy of any data type: MList, Set etc. / создаёт коп
 data.dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
 ceammc/dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
 dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
-data.fifo	FIFO (First In First Out) - the queue data container / FIFO First In First Out) - контейнер данных "очередь"
+data.fifo	FIFO (First In First Out) - the queue data container / FIFO (First In First Out) — контейнер данных «очередь»
 data.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
 .float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
 .f	a multi-functional float object / многофункциональный объект числа с плавающей точкой

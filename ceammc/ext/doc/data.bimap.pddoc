@@ -33,8 +33,8 @@
       <argument name="VALUE" type="list">
         <tr lang="en">initial value, a list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
         etc.</tr>
-        <tr lang="ru">начальное значение, список пар: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2
-        и т.д.</tr>
+        <tr lang="ru">начальное значение, список пар: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 и
+        т.д.</tr>
       </argument>
     </arguments>
     <properties>
