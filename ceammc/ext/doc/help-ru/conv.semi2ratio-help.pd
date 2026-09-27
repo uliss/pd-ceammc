@@ -10,33 +10,39 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [semi->ratio] @url conv.semi2ratio-help.pd;
 #X obj 631 8 conv.semi2ratio;
-#X msg 50 118 12;
-#X msg 98 118 0;
-#X msg 136 118 1;
-#X floatatom 174 118 5 0 0 0 - - -;
-#X obj 50 147 semi->ratio;
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 93 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект преобразует интервал в полутонах в соответствующее
+частотное отношение в 12-ступенном равномерно-темперированном строе.
+Преобразование выполняется по формуле ratio = 2^(полутонов / 12) \,
+поэтому 12 полутонов (одна октава) соответствуют отношению 2 \, 0 полутонов
+— отношению 1 \, а отрицательные интервалы дают отношения меньше 1\.;
+#X msg 50 277 12;
+#X msg 98 277 0;
+#X msg 136 277 1;
+#X floatatom 174 277 5 0 0 0 - - -;
+#X obj 50 306 semi->ratio;
+#X obj 50 335 ui.dt;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 390 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 232 1\.;
-#X text 170 232 float:;
-#X text 270 232 interval in semitones.;
-#X text 170 257 list:;
-#X text 270 257 list of intervals in semitones.;
-#X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 297 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 391 1\.;
+#X text 170 391 float:;
+#X text 270 391 интервал в полутонах.;
+#X text 170 416 list:;
+#X text 270 416 список интервалов в полутонах.;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 456 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 298 1\.;
-#X text 270 298 float or list: frequency ratio(s).;
+#X text 130 457 1\.;
+#X text 270 457 число или список: частотное отношение (или отношения).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 507 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 510 библиотека: ceammc v0.9.8;
+#N canvas 10 529 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -53,16 +59,16 @@
 #X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 ключевые слова:;
-#X text 120 164 conv \, samp;
+#X text 120 164 conv \, pitch \, ratio;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
+#X restore 10 529 pd info;
+#X connect 8 0 12 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

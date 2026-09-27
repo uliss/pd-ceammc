@@ -27,11 +27,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">convert signal to float via specified time intervals</tr>
-        <!-- old: Преобразовать сигнал в плавающий через заданные
-                интервалы времени -->
-        <tr lang="ru" finished="false">Преобразовать сигнал в плавающий через заданные интервалы
-        времени</tr>
+        <tr lang="en">The object takes an audio signal on its audio inlet and outputs its current
+        value as a float through the control outlet. Sampling can happen in two ways: periodically,
+        at the interval set by the INTERVAL argument or @interval property (in milliseconds), or
+        immediately on a bang sent to the inlet. The @offset property selects which sample inside
+        the current DSP block is sampled.</tr>
+        <tr lang="ru">Объект принимает аудиосигнал на звуковой вход и выводит его текущее значение
+        в виде числа через управляющий выход. Выборка может происходить двумя способами:
+        периодически, с интервалом, заданным аргументом INTERVAL или свойством @interval (в
+        миллисекундах), либо немедленно по bang на входе. Свойство @offset выбирает, какой именно
+        семпл внутри текущего блока DSP берётся для выборки.</tr>
       </par>
     </info>
     <mouse>
@@ -47,29 +52,29 @@
       <!-- @interval -->
       <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
         <tr lang="en">sampling interval</tr>
-        <tr lang="ru" finished="false">интервал выборки</tr>
+        <tr lang="ru">интервал выборки</tr>
       </property>
       <!-- @offset -->
       <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192" units="sample">
-        <tr lang="en">sample offset inside DSP block</tr>
-        <tr lang="ru" finished="false">Смещение образца внутри блока DSP</tr>
+        <tr lang="en">sample offset inside the DSP block</tr>
+        <tr lang="ru">смещение семпла внутри блока DSP</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
         <in on="bang">
           <tr lang="en">sample immediately</tr>
-          <tr lang="ru" finished="false">образец немедленно</tr>
+          <tr lang="ru">выполнить выборку немедленно</tr>
         </in>
       </inlet>
       <inlet type="control">
         <in on="float">
-          <tr lang="en">set sample interval</tr>
-          <tr lang="ru" finished="false">установленный интервал выборки</tr>
+          <tr lang="en">set sampling interval</tr>
+          <tr lang="ru">задать интервал выборки</tr>
         </in>
       </inlet>
     </inlets>
@@ -77,7 +82,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">float: sample</tr>
-          <tr lang="ru" finished="false">Поплавок: образец</tr>
+          <tr lang="ru">число: значение выборки</tr>
         </out>
       </outlet>
     </outlets>
