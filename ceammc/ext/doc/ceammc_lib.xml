@@ -447,7 +447,7 @@
     <entry name="dict.from_list" descr="creates a dictionary from a list" ref_view="link">
       <xi:include href="dict.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.get" descr="output the dictionary values by pre-defined key list" ref_view="link">
+    <entry name="dict.get" descr="output the dictionary values by a pre-defined key list" ref_view="link">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.keys" descr="output the list of dictionary keys" ref_view="link">

@@ -413,9 +413,10 @@ dict.contains-help.pd;
 function;
 #X obj 30 4226 ui.link @title [dict.from_list] @url
 dict.from_list-help.pd;
-#X text 200 4223 creates dictionary from the list;
+#X text 200 4223 creates a dictionary from a list;
 #X obj 30 4251 ui.link @title [dict.get] @url dict.get-help.pd;
-#X text 200 4248 output the dictionary values by pre-defined key list;
+#X text 200 4248 output the dictionary values by a pre-defined key
+list;
 #X obj 30 4276 ui.link @title [dict.keys] @url dict.keys-help.pd;
 #X text 200 4273 output the list of dictionary keys;
 #X obj 30 4301 ui.link @title [dict.pass] @url dict.pass-help.pd;
