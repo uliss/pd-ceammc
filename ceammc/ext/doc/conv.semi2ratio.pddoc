@@ -13,22 +13,34 @@
       <license>GPL3 or later</license>
       <library>ceammc</library>
       <category>conv</category>
-      <keywords>conv samp</keywords>
+      <keywords>conv pitch ratio</keywords>
       <since>0.9.7</since>
       <aliases>
         <alias>ceammc/semi-&gt;ratio</alias>
         <alias>semi-&gt;ratio</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts an interval in semitones to the corresponding frequency
+        ratio in 12-tone equal temperament. The conversion follows the formula ratio =
+        2^(semitones / 12), so 12 semitones (one octave) corresponds to a ratio of 2, 0 semitones
+        to a ratio of 1, and negative intervals give ratios less than 1.</tr>
+        <tr lang="ru">Объект преобразует интервал в полутонах в соответствующее частотное
+        отношение в 12-ступенном равномерно-темперированном строе. Преобразование выполняется по
+        формуле ratio = 2^(полутонов / 12), поэтому 12 полутонов (одна октава) соответствуют
+        отношению 2, 0 полутонов — отношению 1, а отрицательные интервалы дают отношения меньше 1.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">interval in semitones</tr>
-          <tr lang="ru" finished="false">интервал в полутонах</tr>
+          <tr lang="ru">интервал в полутонах</tr>
         </in>
         <in on="list">
           <tr lang="en">list of intervals in semitones</tr>
-          <tr lang="ru" finished="false">Список интервалов в полутонах</tr>
+          <tr lang="ru">список интервалов в полутонах</tr>
         </in>
       </inlet>
     </inlets>
@@ -36,7 +48,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">float or list: frequency ratio(s)</tr>
-          <tr lang="ru" finished="false">Поплавок или список: частотное соотношение(я)</tr>
+          <tr lang="ru">число или список: частотное отношение (или отношения)</tr>
         </out>
       </outlet>
     </outlets>
