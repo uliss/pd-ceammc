@@ -24,13 +24,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">It uses a strength parameter instead of the traditional ratio, in order to be
-        able to function as a hard limiter or overcompressor</tr>
-        <!-- old: Он использует параметр прочности вместо
-                традиционного соотношения, чтобы функционировать как жесткий ограничитель или
-                сверхкомпрессор. -->
-        <tr lang="ru" finished="false">Он использует параметр прочности вместо традиционного
-        соотношения, чтобы функционировать как жесткий ограничитель или сверхкомпрессор.</tr>
+        <tr lang="en">A mono peak compressor with feed-forward topology. Instead of the
+        traditional "ratio" control, it uses a strength parameter, which makes it easy to use the
+        object both as a regular compressor and as a hard limiter or overcompressor (when strength
+        is greater than 1).</tr>
+        <tr lang="ru">Монофонический пиковый компрессор с прямой топологией (feed-forward). Вместо
+        традиционного управления «ratio» (степень сжатия) используется параметр силы
+        (strength), что позволяет применять объект и как обычный компрессор, и как жёсткий
+        ограничитель или сверхкомпрессор (при strength больше 1).</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
       compression</a>
@@ -39,24 +40,26 @@
       <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">
         <tr lang="en">compression strength (0: no compression, 1: hard limiting, &gt;1:
         overcompression)</tr>
-        <tr lang="ru">сила компрессии (0: без компрессии, 1: жесткое ограничение, &gt;1:
-        перекомпрессия)</tr>
+        <tr lang="ru">сила компрессии (0 — без компрессии, 1 — жёсткое ограничение, &gt;1 —
+        сверхкомпрессия)</tr>
       </argument>
       <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
         <tr lang="en">level threshold above which compression kicks in</tr>
         <tr lang="ru">пороговый уровень, выше которого начинается компрессия</tr>
       </argument>
       <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
-        <tr lang="en">attack time - the time that elapses between exceeding the threshold and when
-        the compression ratio is reached</tr>
-        <tr lang="ru">время, которое проходит между превышением порогового значения и моментом
-        достижения заданного уровня компрессии</tr>
+        <tr lang="en">attack time — the time that elapses between exceeding the threshold and the
+        moment when the target compression level is reached</tr>
+        <tr lang="ru">время атаки — время, которое проходит между превышением порогового значения
+        и моментом достижения заданного уровня компрессии</tr>
       </argument>
       <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
-        <tr lang="en">release time - the time of decay that elapses between when the input signal
-        level drops below the threshold and when the compressor stops attenuating the signal</tr>
-        <tr lang="ru">время спада, которое проходит между тем, как уровень входного сигнала упал
-        ниже порога, и моментом, когда компрессор перестаёт ослаблять сигнал</tr>
+        <tr lang="en">release time — the decay time that elapses between the input signal level
+        dropping below the threshold and the moment when the compressor stops attenuating the
+        signal</tr>
+        <tr lang="ru">время восстановления — время спада, которое проходит между моментом, когда
+        уровень входного сигнала упал ниже порога, и моментом, когда компрессор перестаёт
+        ослаблять сигнал</tr>
       </argument>
     </arguments>
     <properties>
@@ -66,79 +69,61 @@
       <!-- @attack -->
       <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
       maxvalue="100">
-        <tr lang="en">time constant when level &amp; compression going up</tr>
-        <!-- old: Постоянная времени, когда уровень и сжатие
-                растут -->
-        <tr lang="ru" finished="false">Постоянная времени, когда уровень и сжатие растут</tr>
+        <tr lang="en">time constant for the attack phase (gain reduction increasing)</tr>
+        <tr lang="ru">постоянная времени для фазы атаки (усиление снижается)</tr>
       </property>
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true — the input signal is passed through unchanged, without
+        compression</tr>
+        <tr lang="ru">флаг обхода. Если истина — входной сигнал проходит без обработки, минуя
+        компрессию</tr>
       </property>
       <!-- @gain -->
       <property name="@gain" type="float" units="decibel" default="0" minvalue="-18" maxvalue="18">
-        <tr lang="en">make up gain: applied to the signal after the compression takes place</tr>
-        <!-- old: прирост макияжа: применяется к сигналу после
-                сжатия -->
-        <tr lang="ru" finished="false">прирост макияжа: применяется к сигналу после сжатия</tr>
+        <tr lang="en">make-up gain: applied to the signal after the compression takes place</tr>
+        <tr lang="ru">компенсирующее усиление (make-up gain): применяется к сигналу после
+        компрессии</tr>
       </property>
       <!-- @knee -->
       <property name="@knee" type="float" units="decibel" default="3" minvalue="0" maxvalue="24">
         <tr lang="en">a gradual increase in gain reduction around the threshold: below
-        thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same gain
-        reduction as without a knee, and in between there is a gradual increase in gain
-        reduction</tr>
-        <!-- old: постепенное увеличение снижения прироста вокруг
-                порога: ниже треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же
-                снижение прироста, как и без колена, и между ними есть постепенное увеличение
-                снижения прироста -->
-        <tr lang="ru" finished="false">постепенное увеличение снижения прироста вокруг порога: ниже
-        треш-(knee/2) нет снижения прироста, выше треш+(knee/2) есть такое же снижение прироста,
-        как и без колена, и между ними есть постепенное увеличение снижения прироста</tr>
+        thresh−(knee/2) there is no gain reduction, above thresh+(knee/2) the gain
+        reduction is the same as without a knee, and in between there is a gradual increase in
+        gain reduction</tr>
+        <tr lang="ru">плавное увеличение снижения усиления вблизи порога: ниже thresh−(knee/2)
+        снижения усиления нет, выше thresh+(knee/2) снижение усиления такое же, как и без
+        knee, а между ними происходит плавное увеличение снижения усиления</tr>
       </property>
       <!-- @level -->
       <property name="@level" type="float" default="0" minvalue="0" maxvalue="1" access="readonly">
         <tr lang="en">current level of compression</tr>
-        <tr lang="ru" finished="false">текущий уровень сжатия</tr>
+        <tr lang="ru">текущий уровень компрессии</tr>
       </property>
       <!-- @refresh -->
       <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
       units="millisecond">
-        <tr lang="en">compression level output time interval. If 0 - no output</tr>
-        <!-- old: выходной интервал уровня сжатия. Если 0 - выход
-                отсутствует -->
-        <tr lang="ru" finished="false">выходной интервал уровня сжатия. Если 0 - выход
-        отсутствует</tr>
+        <tr lang="en">compression level output time interval. If 0 — no output</tr>
+        <tr lang="ru">интервал вывода уровня компрессии. Если 0 — вывод не производится</tr>
       </property>
       <!-- @release -->
       <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
       maxvalue="500">
-        <tr lang="en">release time = time constant coming out of compression</tr>
-        <!-- old: Время высвобождения = постоянная времени, выходящая
-                из сжатия -->
-        <tr lang="ru" finished="false">Время высвобождения = постоянная времени, выходящая из
-        сжатия</tr>
+        <tr lang="en">release time — time constant for coming out of compression</tr>
+        <tr lang="ru">время восстановления — постоянная времени выхода из компрессии</tr>
       </property>
       <!-- @strength -->
       <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">
-        <tr lang="en">compression ratio (0: no compression, 1: hard limiting, &gt;1:
+        <tr lang="en">compression strength (0: no compression, 1: hard limiting, &gt;1:
         overcompression)</tr>
-        <!-- old: Соотношение сжатия (0: без сжатия, 1: жесткое
-                ограничение, >1: сверхсжатие) -->
-        <tr lang="ru" finished="false">Соотношение сжатия (0: без сжатия, 1: жесткое ограничение,
-        &gt;1: сверхсжатие)</tr>
+        <tr lang="ru">сила компрессии (0 — без компрессии, 1 — жёсткое ограничение, &gt;1 —
+        сверхкомпрессия)</tr>
       </property>
       <!-- @threshold -->
       <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
       maxvalue="0">
         <tr lang="en">level threshold above which compression kicks in (100 dB = max level)</tr>
-        <!-- old: порог уровня, выше которого начинается сжатие (100
-                дБ = максимальный уровень) -->
-        <tr lang="ru" finished="false">порог уровня, выше которого начинается сжатие (100 дБ =
+        <tr lang="ru">пороговый уровень, выше которого начинается компрессия (100 дБ —
         максимальный уровень)</tr>
       </property>
     </properties>
@@ -146,8 +131,8 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="en">resets the object to its initial state</tr>
+          <tr lang="ru">возвращает объект в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -155,13 +140,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set compression strength</tr>
-          <tr lang="ru" finished="false">установленная прочность на сжатие</tr>
+          <tr lang="ru">задать силу компрессии</tr>
         </in>
       </inlet>
     </inlets>
@@ -169,13 +154,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output compressed signal</tr>
-          <tr lang="ru" finished="false">выходной сжатый сигнал</tr>
+          <tr lang="ru">выходной сжатый сигнал</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">float: output current compression level in [0..1]</tr>
-          <tr lang="ru" finished="false">Поплавок: уровень сжатия выходного тока в [0,1]</tr>
+        <out type="float">
+          <tr lang="en">current compression level in the [0, 1] range</tr>
+          <tr lang="ru">текущий уровень компрессии в диапазоне [0, 1]</tr>
         </out>
       </outlet>
     </outlets>
