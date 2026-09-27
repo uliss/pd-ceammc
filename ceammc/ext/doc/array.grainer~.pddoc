@@ -190,8 +190,33 @@
       <!-- onsets -->
       <method name="onsets">
         <info>
-          <tr lang="en">analyzes the source array for onsets</tr>
-          <tr lang="ru">анализирует исходный массив на предмет атак</tr>
+          <tr lang="en">analyzes the source array for onsets using the aubio library. Available
+          detection methods: 'default' — aubio's default (currently equivalent to 'hfc'),
+          'hfc' — High Frequency Content: emphasizes energy in the high-frequency range, works
+          well for percussive onsets, 'energy' — Energy: detects onsets by local changes in the
+          overall signal energy, 'complex' — Complex Domain: compares the predicted and actual
+          spectral content, good for tonal and complex sounds, 'phase' — Phase Deviation:
+          detects sudden changes in the phase of the signal, 'wphase' — Weighted Phase
+          Deviation: like 'phase', but weighting phase changes by magnitude, 'specdiff' —
+          Spectral Difference: measures the difference between consecutive spectra, 'kl' —
+          Kullback–Liebler divergence of successive spectra, 'mkl' — Modified Kullback–Liebler
+          divergence, 'specflux' — Spectral Flux: sums positive changes in the magnitude
+          spectrum, classic onset detection function</tr>
+          <tr lang="ru">анализирует исходный массив на предмет атак с помощью библиотеки aubio.
+          Доступные методы детекции: 'default' — метод aubio по умолчанию (сейчас эквивалентен
+          'hfc'), 'hfc' — High Frequency Content (содержимое высоких частот): подчёркивает
+          энергию в высокочастотном диапазоне, хорошо подходит для перкуссионных атак,
+          'energy' — Energy (энергия): обнаруживает атаки по локальным изменениям общей энергии
+          сигнала, 'complex' — Complex Domain (комплексная область): сравнивает предсказанное
+          и фактическое спектральное содержимое, хорошо работает для тональных и сложных
+          звуков, 'phase' — Phase Deviation (отклонение фазы): обнаруживает резкие изменения
+          фазы сигнала, 'wphase' — Weighted Phase Deviation (взвешенное отклонение фазы):
+          как 'phase', но с весом по амплитуде, 'specdiff' — Spectral Difference (спектральная
+          разница): измеряет разницу между последовательными спектрами, 'kl' — дивергенция
+          Кульбака–Лейблера между последовательными спектрами, 'mkl' — модифицированная
+          дивергенция Кульбака–Лейблера, 'specflux' — Spectral Flux (спектральный поток):
+          суммирует положительные изменения в спектре амплитуд, классическая функция детекции
+          атак</tr>
         </info>
         <param name="METHOD" type="symbol" default="default"
         enum="default hfc energy complex phase wphase specdiff kl mkl specflux">
