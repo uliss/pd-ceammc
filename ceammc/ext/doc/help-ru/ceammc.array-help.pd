@@ -32,7 +32,7 @@ array.grainer~-help.pd;
 #X text 220 342 вычисление гистограммы массива;
 #X obj 30 370 ui.link @title [array.ltcplay~] @url
 array.ltcplay~-help.pd;
-#X text 220 367 проигрывание звуковой таблицы \, с управлением по LTC;
+#X text 220 367 проигрывание звуковой таблицы с управлением по LTC;
 #X obj 30 395 ui.link @title [array.mean] @url array.mean-help.pd;
 #X text 220 392 вычисляет среднее арифметическое значение массива;
 #X obj 30 420 ui.link @title [array.minmax] @url array.minmax-help.pd;

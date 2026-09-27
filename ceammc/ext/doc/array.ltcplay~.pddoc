@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">array player controlled by LTC</tr>
-        <tr lang="ru">проигрывание звуковой таблицы, с управлением по LTC</tr>
+        <tr lang="ru">проигрывание звуковой таблицы с управлением по LTC</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,35 +16,49 @@
       <keywords>array ltc play</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object plays back the specified array, synchronizing the playback
+        position with an incoming LTC (Linear Timecode) signal. The LTC stream is received on the
+        audio inlet, and the array is played from the position encoded in the timecode. This
+        allows the array playback to be synchronized with an external timecode source.</tr>
+        <tr lang="ru">Объект воспроизводит указанный массив, синхронизируя позицию воспроизведения
+        с входящим сигналом LTC (Linear Timecode). Поток LTC принимается на звуковой вход, и
+        массив воспроизводится с позиции, закодированной во временном коде. Это позволяет
+        синхронизировать воспроизведение массива с внешним источником временного кода.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to play back</tr>
+        <tr lang="ru">имя массива для воспроизведения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to play back</tr>
+        <tr lang="ru">имя массива для воспроизведения</tr>
       </property>
       <!-- @fps -->
       <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">
-        <tr lang="en">expected LTC stream framerate</tr>
-        <tr lang="ru">ожидаемая скорость потока кадров LTC</tr>
+        <tr lang="en">expected LTC stream frame rate. Use 'auto' to detect the frame rate
+        automatically</tr>
+        <tr lang="ru">ожидаемая частота кадров потока LTC. Используйте 'auto' для автоматического
+        определения частоты кадров</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">LTC input signal</tr>
-          <tr lang="ru">входной сигнал LTC</tr>
+          <tr lang="en">LTC input signal that controls playback position</tr>
+          <tr lang="ru">входной сигнал LTC, управляющий позицией воспроизведения</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set the source array</tr>
-          <tr lang="ru">установить исходный массив</tr>
+          <tr lang="en">sets the source array to play back</tr>
+          <tr lang="ru">устанавливает исходный массив для воспроизведения</tr>
         </in>
       </inlet>
     </inlets>

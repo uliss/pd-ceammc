@@ -17,7 +17,7 @@ array.fill	fill the array with a single value, pattern or function / запол�
 array.grainer~	array granulator / гранулятор звуковой таблицы
 array.hist	calculate the array histogram / вычисление гистограммы массива
 array.histogram	calculate the array histogram / вычисление гистограммы массива
-array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы, с управлением по LTC
+array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы с управлением по LTC
 array.mean	calculates the array arithmetic mean value / вычисляет среднее арифметическое значение массива
 array.minmax	find minimal and max values in the array / поиск минимального и максимального значения в массиве
 array.play~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
