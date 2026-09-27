@@ -14,7 +14,7 @@ canvas.current-help.pd;
 #X obj 30 185 ui.link @title [canvas.dir] @url canvas.dir-help.pd;
 #X text 220 182 выводит директорию холста у объекта и уровень его вложенности;
 #X obj 30 210 ui.link @title [canvas.name] @url canvas.name-help.pd;
-#X text 220 207 выводит имя текущего холста у объекта;
+#X text 220 207 выводит имя текущего холста объекта;
 #X obj 30 235 ui.link @title [canvas.path] @url canvas.path-help.pd;
 #X text 220 232 выводит полный путь холста в файловой системе у объекта;
 #X obj 30 260 ui.link @title [canvas.top] @url canvas.top-help.pd;
