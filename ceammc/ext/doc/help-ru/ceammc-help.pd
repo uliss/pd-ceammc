@@ -273,7 +273,7 @@ conv.degree2key-help.pd;
 #X text 200 2960 преобразует номер ступени лада в номер клавиши;
 #X obj 30 2988 ui.link @title [conv.edge2bang] @url
 conv.edge2bang-help.pd;
-#X text 200 2985 детектор перехода для численного потока;
+#X text 200 2985 детектор перехода для числового потока;
 #X obj 30 3013 ui.link @title [conv.guido2note] @url
 conv.guido2note-help.pd;
 #X text 200 3010 конвертер из Guido-нотации в MIDI ноту и длительность;

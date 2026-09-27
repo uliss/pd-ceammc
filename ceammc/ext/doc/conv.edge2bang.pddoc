@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">edge detector for numeric stream</tr>
-        <tr lang="ru">детектор перехода для численного потока</tr>
+        <tr lang="ru">детектор перехода для числового потока</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,6 +20,20 @@
         <alias>edge-&gt;bang</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object detects edges (transitions) in a stream of numeric values: when
+        the input changes from a low value to a high value, from a high value to a low value, or
+        both. On a detected edge a bang is sent to the outlet. The behavior is controlled by the
+        @mode property: 'up' — only rising edges, 'down' — only falling edges, 'both' — both
+        types.</tr>
+        <tr lang="ru">Объект обнаруживает переходы (фронты) в потоке числовых значений: когда
+        входное значение меняется с низкого на высокое, с высокого на низкое, или и то и другое.
+        При обнаружении перехода на выход отправляется bang. Поведение управляется свойством
+        @mode: 'up' — только восходящие фронты, 'down' — только нисходящие, 'both' — оба
+        типа.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @both -->
       <property name="@both" type="alias">
@@ -33,9 +47,10 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="up down both" default="up">
-        <tr lang="en">edge detection mode</tr>
-        <tr lang="ru">режим обнаружения края. Если 'up': выводит bang при изменении входного
-        значения с низкого на высокое, если 'down': с высокого на низкое, 'both': в обоих
+        <tr lang="en">edge detection mode. If 'up': outputs a bang when the input value changes
+        from low to high. If 'down': from high to low. If 'both': in both cases</tr>
+        <tr lang="ru">режим обнаружения фронта. Если 'up': выводит bang при изменении входного
+        значения с низкого на высокое. Если 'down': с высокого на низкое. Если 'both': в обоих
         случаях</tr>
       </property>
       <!-- @up -->
@@ -48,15 +63,15 @@
       <inlet>
         <in on="float">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">bang: on edge</tr>
-          <tr lang="ru" finished="false">Исполнитель: Bang: Edge</tr>
+          <tr lang="en">bang on edge</tr>
+          <tr lang="ru">bang при обнаружении фронта</tr>
         </out>
       </outlet>
     </outlets>

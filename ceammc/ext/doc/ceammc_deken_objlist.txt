@@ -172,9 +172,9 @@ dbfs->amp~	convert decibel full scale to amplitude / преобразовани�
 conv.degree2key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 ceammc/degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
-conv.edge2bang	edge detector for numeric stream / детектор перехода для численного потока
-ceammc/edge->bang	edge detector for numeric stream / детектор перехода для численного потока
-edge->bang	edge detector for numeric stream / детектор перехода для численного потока
+conv.edge2bang	edge detector for numeric stream / детектор перехода для числового потока
+ceammc/edge->bang	edge detector for numeric stream / детектор перехода для числового потока
+edge->bang	edge detector for numeric stream / детектор перехода для числового потока
 conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
