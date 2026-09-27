@@ -39,7 +39,7 @@ array.convolve-help.pd;
 #X text 200 491 копирование семплов из одного массива в другой;
 #X obj 30 519 ui.link @title [array.do] @url array.do-help.pd;
 #X text 200 516 обход и модификация содержимого массива через боковую
-цепь;
+цепочку;
 #X obj 30 544 ui.link @title [array.each] @url array.each-help.pd;
 #X text 200 541 обработка каждого элемента массива через боковую цепь;
 #X obj 30 569 ui.link @title [array.fill] @url array.fill-help.pd;

@@ -5,69 +5,77 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.do 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 array.do;
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object iterates over the samples of the specified
+array and sends each sample to the side-chain (the list outlet) together
+with its position and the total number of samples. The value returned
+to the right inlet replaces the current sample in the array. When all
+samples have been processed \, a bang is sent out through the first
+outlet.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #X coords 0 1 100 0 130 100 1;
-#X restore 50 118 graph;
-#X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 50 262 graph;
+#X obj 50 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 262 array.do A1;
-#X obj 213 262 unpack f f f;
-#X obj 50 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 406 array.do A1;
+#X obj 213 406 unpack f f f;
+#X obj 50 435 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 242 291 /;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 242 435 /;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 493 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 347 1\.;
-#X text 170 347 symbol;
-#X obj 268 348 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 ARRAY: array name. Type: symbol.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 491 1\.;
+#X text 170 491 symbol;
+#X obj 268 492 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 491 ARRAY: name of the array to iterate over. Type: symbol.;
+#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 534 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 388 @array;
-#X text 270 388 Array name. Type: symbol.;
-#X obj 250 418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 418 @redraw;
-#X text 270 418 Redraw after array change. Type: bool. Default value:
-1\.;
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 463 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 532 @array;
+#X text 270 532 Name of the array to iterate over. Type: symbol.;
+#X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 562 @redraw;
+#X text 270 562 Redraw the array after change. Type: bool. Default
+value: 1\.;
+#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 607 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 464 1\.;
-#X text 170 464 bang:;
-#X text 270 464 starts the array iteration.;
-#X text 170 489 symbol:;
-#X text 270 489 set the array name.;
-#X text 130 514 2\.;
-#X text 170 514 float:;
-#X text 270 514 numeric value from the side-chain.;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 554 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 608 1\.;
+#X text 170 608 bang:;
+#X text 270 608 starts the array iteration.;
+#X text 170 633 symbol:;
+#X text 270 633 sets the array name.;
+#X text 130 658 2\.;
+#X text 170 658 float:;
+#X text 270 658 numeric value returned from the side-chain. Replaces
+the current sample in the array.;
+#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 713 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 555 1\.;
-#X text 170 555 bang:;
-#X text 270 555 on iteration done.;
-#X text 130 575 2\.;
-#X text 170 575 list:;
-#X text 270 575 for each array sample outputs list: SAMPLE_VALUE \,
-SAMPLE_POS \, TOTAL_SAMPLES.;
+#X text 130 714 1\.;
+#X text 170 714 bang:;
+#X text 270 714 sent when the iteration is finished.;
+#X text 130 734 2\.;
+#X text 170 734 list:;
+#X text 270 734 for each array sample outputs a list: SAMPLE_VALUE
+\, SAMPLE_POS \, TOTAL_SAMPLES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 640 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 643 library: ceammc v0.9.8;
-#X text 590 655 see also:;
-#X obj 665 658 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 799 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 802 library: ceammc v0.9.8;
+#X text 590 814 see also:;
+#X obj 665 817 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.each] @url array.each-help.pd;
-#N canvas 10 662 400 290 info 0;
+#N canvas 10 821 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -91,10 +99,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 662 pd info;
-#X connect 5 0 6 0;
-#X connect 6 0 8 0;
-#X connect 7 1 9 0;
-#X connect 7 2 9 1;
-#X connect 6 1 7 0;
-#X connect 9 0 6 1;
+#X restore 10 821 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 9 1 11 0;
+#X connect 9 2 11 1;
+#X connect 8 1 9 0;
+#X connect 11 0 8 1;
