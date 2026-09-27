@@ -20,36 +20,46 @@
         <alias>datetime</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">When a bang is received, the object outputs the current date and time split
+        into two lists: the first outlet outputs the date as YEAR MONTH DAY, and the second outlet
+        outputs the time as HOUR MIN SEC. By default the local time is used, set the @utc flag to
+        get the time in UTC instead.</tr>
+        <tr lang="ru">При получении bang объект выводит текущую дату и время в виде двух списков:
+        из первого выхода выводится дата в формате YEAR MONTH DAY, из второго — время в формате
+        HOUR MIN SEC. По умолчанию используется местное время, установите флаг @utc, чтобы
+        получить время в UTC.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @utc -->
       <property name="@utc" type="bool" default="0">
-        <tr lang="en">output in UTC format</tr>
-        <tr lang="ru" finished="false">выход в формате UTC</tr>
+        <tr lang="en">output in UTC instead of local time</tr>
+        <tr lang="ru">выводить время в UTC, а не по местному времени</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
+          <tr lang="en">outputs HOUR MIN SEC to the second outlet and YEAR MONTH DAY to the first
           outlet</tr>
-          <!-- old: выход в течение часа до второго выхода и в
-                    течение месяца до первого выхода -->
-          <tr lang="ru" finished="false">выход в течение часа до второго выхода и в течение месяца
-          до первого выхода</tr>
+          <tr lang="ru">выводит HOUR MIN SEC из второго выхода и YEAR MONTH DAY из первого
+          выхода</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list: YEAR MONTH DAY</tr>
-          <tr lang="ru" finished="false">Название: YEAR MONTH DAY</tr>
+          <tr lang="ru">список: YEAR MONTH DAY</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list: HOUR MIN SEC</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Hour Min SEC</tr>
+          <tr lang="ru">список: HOUR MIN SEC</tr>
         </out>
       </outlet>
     </outlets>
