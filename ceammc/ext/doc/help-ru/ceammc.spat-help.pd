@@ -61,8 +61,7 @@ hoa.3d.wider~-help.pd;
 #X obj 30 615 ui.link @title [hoa.@process] @url hoa.@process-help.pd;
 #X text 220 612 управление свойствами объекта [hoa.process~];
 #X obj 30 640 ui.link @title [hoa.in] @url hoa.in-help.pd;
-#X text 220 637 контрольный вход для патча \, загружаемого объектом
-[hoa.process~];
+#X text 220 637 вход сообщений для патча \, загружаемого объектом [hoa.process~];
 #X obj 30 680 ui.link @title [hoa.in~] @url hoa.in~-help.pd;
 #X text 220 677 сигнальный вход для патча \, загружаемого объектом
 [hoa.process~];

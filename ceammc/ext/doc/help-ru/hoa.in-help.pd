@@ -1,13 +1,12 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 389 50 контрольный вход для патча \, загружаемого объектом
-[hoa.process~];
+#X obj 399 50 cnv 1 366 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 404 50 вход сообщений для патча \, загружаемого объектом [hoa.process~];
 #X obj 1 1 cnv 5 765 40 empty empty hoa.in 20 20 0 20 -104026 -4096 0;
 #X obj 696 11 hoa.in;
 #X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 hoa.in defines a message inlet for a patcher loaded
-by a hoa.process~ object.;
+#X text 240 98 hoa.in определяет вход сообщений для патча \, загружаемого
+объектом hoa.process~.;
 #X msg 50 201 open 0;
 #X msg 136 201 open 1;
 #X msg 232 201 42;
@@ -34,7 +33,7 @@ by a hoa.process~ object.;
 #X text 130 444 1\.;
 #X text 170 444 int;
 #X obj 268 445 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 444 INDEX: shortcut for @index property. Тип: int. Минимальное
+#X text 270 444 INDEX: сокращение для свойства @index. Тип: int. Минимальное
 значение: 1\.;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 499 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
@@ -42,13 +41,13 @@ by a hoa.process~ object.;
 #X obj 735 502 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 500 @index;
-#X text 270 500 Defines an inlet index. Тип: int. Значение по умолчанию:
+#X text 270 500 Задаёт индекс входа. Тип: int. Значение по умолчанию:
 1\. Минимальное значение: 1\.;
 #X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 557 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 558 1\.;
-#X text 270 558 output messages received from a hoa.process~ input.;
+#X text 270 558 выводит сообщения \, полученные со входа объекта hoa.process~.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

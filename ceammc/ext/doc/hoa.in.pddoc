@@ -11,7 +11,7 @@
       </authors>
       <description>
         <tr lang="en">message inlet for a patcher loaded by [hoa.process~] object</tr>
-        <tr lang="ru">контрольный вход для патча, загружаемого объектом [hoa.process~]</tr>
+        <tr lang="ru">вход сообщений для патча, загружаемого объектом [hoa.process~]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -28,30 +28,28 @@
       <par>
         <tr lang="en">hoa.in defines a message inlet for a patcher loaded by a hoa.process~
         object.</tr>
-        <!-- old: hoa.in определяет вход сообщения для патчера,
-                загруженного hoa.process~ объектом. -->
-        <tr lang="ru" finished="false">hoa.in определяет вход сообщения для патчера, загруженного
-        hoa.process~ объектом.</tr>
+        <tr lang="ru">hoa.in определяет вход сообщений для патча, загружаемого объектом
+        hoa.process~.</tr>
       </par>
     </info>
     <arguments>
       <argument name="INDEX" type="int" minvalue="1">
         <tr lang="en">shortcut for @index property</tr>
-        <tr lang="ru" finished="false">Скриншоты для @index Property</tr>
+        <tr lang="ru">сокращение для свойства @index</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @index -->
       <property name="@index" type="int" minvalue="1" default="1">
-        <tr lang="en">Defines an inlet index</tr>
-        <tr lang="ru" finished="false">Определяет входной индекс</tr>
+        <tr lang="en">defines an inlet index</tr>
+        <tr lang="ru">задаёт индекс входа</tr>
       </property>
     </properties>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output messages received from a hoa.process~ input.</tr>
-          <tr lang="ru" finished="false">выходные сообщения, полученные от hoa.process~ input.</tr>
+          <tr lang="en">outputs messages received from a hoa.process~ input</tr>
+          <tr lang="ru">выводит сообщения, полученные со входа объекта hoa.process~</tr>
         </out>
       </outlet>
     </outlets>

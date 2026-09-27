@@ -1187,7 +1187,7 @@ hoa.3d.optim~	a 3D ambisonic optimization tool / оптимизация трех
 hoa.3d.scope~	a 3d ambisonic harmonic scope / отображение сферических гармоник в трехмерном амбисоническом поле
 hoa.3d.wider~	a 3d fractional ambisonic order simulator / трехмерная симуляция дробного амбисонического порядка
 hoa.@process	properties manager for [hoa.process~] object / управление свойствами объекта [hoa.process~]
-hoa.in	message inlet for a patcher loaded by [hoa.process~] object / контрольный вход для патча, загружаемого объектом [hoa.process~]
+hoa.in	message inlet for a patcher loaded by [hoa.process~] object / вход сообщений для патча, загружаемого объектом [hoa.process~]
 hoa.in~	signal inlet for a patcher loaded by [hoa.process~] object / сигнальный вход для патча, загружаемого объектом [hoa.process~]
 hoa.map.ui	a GUI to spatialize sources on a map / GUI для пространственного размещения источников
 hoa.out	message outlet for a patcher loaded by hoa.process~ / контрольный выход для патча, загружаемого объектом [hoa.process~]

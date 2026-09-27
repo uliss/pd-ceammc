@@ -2113,7 +2113,7 @@ hoa.3d.wider~-help.pd;
 hoa.@process-help.pd;
 #X text 200 22061 управление свойствами объекта [hoa.process~];
 #X obj 30 22089 ui.link @title [hoa.in] @url hoa.in-help.pd;
-#X text 200 22086 контрольный вход для патча \, загружаемого объектом
+#X text 200 22086 вход сообщений для патча \, загружаемого объектом
 [hoa.process~];
 #X obj 30 22129 ui.link @title [hoa.in~] @url hoa.in~-help.pd;
 #X text 200 22126 сигнальный вход для патча \, загружаемого объектом
