@@ -158,17 +158,16 @@ conv.sig2float~-help.pd;
 #X text 220 1532 преобразует аудиосигнал в управляющий числовой поток;
 #X obj 30 1560 ui.link @title [conv.str2sec] @url
 conv.str2sec-help.pd;
-#X text 220 1557 преобразует отформатированное время в числовое значение
-в секундах;
-#X obj 30 1600 ui.link @title [music.dur2time] @url
+#X text 220 1557 преобразует форматированное время в число секунд;
+#X obj 30 1585 ui.link @title [music.dur2time] @url
 music.dur2time-help.pd;
-#X text 220 1597 преобразование списка музыкальных длительностей в
+#X text 220 1582 преобразование списка музыкальных длительностей в
 список временных периодов;
-#X obj 30 1640 ui.link @title [music.voice2midi] @url
+#X obj 30 1625 ui.link @title [music.voice2midi] @url
 music.voice2midi-help.pd;
-#X text 220 1637 конвертирует одноголосную музыкальную нотацию в список
+#X text 220 1622 конвертирует одноголосную музыкальную нотацию в список
 нот MIDI;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1677 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1687 library: ceammc;
+#X obj 1 1662 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1672 library: ceammc;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts the formatted time to a float value in seconds</tr>
-        <tr lang="ru">преобразует отформатированное время в числовое значение в секундах</tr>
+        <tr lang="ru">преобразует форматированное время в число секунд</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,30 +23,40 @@
         <alias>str-&gt;sec</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object parses a time string in the form "HH:MM:SS[.XXX]" and outputs
+        the corresponding value in seconds as a float. Hours and minutes may be omitted, so short
+        forms like "M:SS" or even "S" (just a number) are also accepted. This is the inverse
+        operation of [conv.sec2str]. If the input string cannot be parsed, the value of the
+        @on_err property is output instead.</tr>
+        <tr lang="ru">Объект разбирает строку времени в формате "HH:MM:SS[.XXX]" и выводит
+        соответствующее значение в секундах как число. Часы и минуты могут быть опущены, поэтому
+        принимаются и короткие формы, такие как "M:SS" или просто "S" (число). Это операция,
+        обратная [conv.sec2str]. Если строку не удалось разобрать, вместо результата выводится
+        значение свойства @on_err.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @on_err -->
       <property name="@on_err" type="float" default="-1">
-        <tr lang="en">value returned when unrecognized symbol given</tr>
-        <!-- old: значение возвращается, когда непризнанный
-                символ -->
-        <!-- old: значение возвращается, когда непризнанный
-                символ -->
-        <tr lang="ru" finished="false">значение возвращается, когда непризнанный символ</tr>
+        <tr lang="en">value returned when an unrecognized symbol is given</tr>
+        <tr lang="ru">значение, возвращаемое при подаче нераспознанного символа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
-          <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
+          <tr lang="en">time in the format "HH:MM:SS[.XXX]"</tr>
+          <tr lang="ru">время в формате "HH:MM:SS[.XXX]"</tr>
         </in>
         <in on="data">
-          <tr lang="en">String time in format: "HH:MM::SS[.XXX]"</tr>
-          <tr lang="ru" finished="false">Время струн в формате: «HH:MM::SS[.XXX]»</tr>
+          <tr lang="en">string time in the format "HH:MM:SS[.XXX]"</tr>
+          <tr lang="ru">строка времени в формате "HH:MM:SS[.XXX]"</tr>
         </in>
         <in on="any">
-          <tr lang="en">Time in format: "HH:MM::SS[.XXX]"</tr>
-          <tr lang="ru" finished="false">Время в формате: «HH:MM::SS[.XXX]»</tr>
+          <tr lang="en">time in the format "HH:MM:SS[.XXX]"</tr>
+          <tr lang="ru">время в формате "HH:MM:SS[.XXX]"</tr>
         </in>
       </inlet>
     </inlets>
@@ -54,7 +64,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">time in seconds</tr>
-          <tr lang="ru" finished="false">Время в секундах</tr>
+          <tr lang="ru">время в секундах</tr>
         </out>
       </outlet>
     </outlets>

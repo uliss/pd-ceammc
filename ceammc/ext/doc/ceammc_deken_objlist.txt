@@ -278,9 +278,9 @@ ceammc/sig->float~	converts audio signal to control numeric stream / преоб�
 sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
 ceammc/s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
 s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
-ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
-str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+conv.str2sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
+ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
+str->sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
 music.dur2time	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
 music.d->t	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
 music.voice2midi	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
