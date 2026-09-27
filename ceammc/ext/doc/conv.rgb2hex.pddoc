@@ -28,8 +28,8 @@
         the range [0, 1]. With the @sync flag, the hex value is output whenever any inlet
         changes.</tr>
         <tr lang="ru">Объект преобразует отдельные значения каналов RGB в hex-значение цвета вида
-        #RRGGBB. Режим входа управляется свойством @mode: при @int (по умолчанию) значения
-        каналов ожидаются в диапазоне [0, 255], при @float — в диапазоне [0, 1]. При флаге @sync
+        #RRGGBB. Режим входа управляется свойством @mode: при @int (по умолчанию) значения каналов
+        ожидаются в диапазоне [0, 255], при @float — в диапазоне [0, 1]. При флаге @sync
         hex-значение выводится при любом изменении на любом входе.</tr>
       </par>
     </info>
@@ -37,14 +37,14 @@
       <!-- @float -->
       <property name="@float" type="alias">
         <tr lang="en">alias to @mode float. Input values are expected in the [0, 1] range</tr>
-        <tr lang="ru">сокращение для @mode float. Входные значения ожидаются в диапазоне
-        [0, 1]</tr>
+        <tr lang="ru">сокращение для @mode float. Входные значения ожидаются в диапазоне [0,
+        1]</tr>
       </property>
       <!-- @int -->
       <property name="@int" type="alias">
         <tr lang="en">alias to @mode int. Input values are expected in the [0, 255] range</tr>
-        <tr lang="ru">сокращение для @mode int. Входные значения ожидаются в диапазоне
-        [0, 255]</tr>
+        <tr lang="ru">сокращение для @mode int. Входные значения ожидаются в диапазоне [0,
+        255]</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="int" enum="int float">

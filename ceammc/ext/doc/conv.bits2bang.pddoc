@@ -22,14 +22,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object takes a list of bits (0s and 1s) and produces bang events for
-        each bit that is set to 1. In the default mode each bit is associated with its own outlet,
-        and a bang is sent to the outlet corresponding to each 1-bit. If the @rev flag is set, the
-        bit order is reversed before processing.</tr>
+        <tr lang="en">The object takes a list of bits (0s and 1s) and produces bang events for each
+        bit that is set to 1. In the default mode each bit is associated with its own outlet, and a
+        bang is sent to the outlet corresponding to each 1-bit. If the @rev flag is set, the bit
+        order is reversed before processing.</tr>
         <tr lang="ru">Объект принимает список битов (0 и 1) и генерирует события bang для каждого
-        бита, установленного в 1. В режиме по умолчанию каждому биту соответствует отдельный
-        выход, и bang отправляется на выход, соответствующий каждому биту со значением 1. Если
-        установлен флаг @rev, порядок битов перед обработкой инвертируется.</tr>
+        бита, установленного в 1. В режиме по умолчанию каждому биту соответствует отдельный выход,
+        и bang отправляется на выход, соответствующий каждому биту со значением 1. Если установлен
+        флаг @rev, порядок битов перед обработкой инвертируется.</tr>
       </par>
       <par>
         <tr lang="en">In @poly mode a single outlet is used, and instead of a bare bang, a list

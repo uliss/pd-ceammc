@@ -26,14 +26,13 @@
     <info>
       <par>
         <tr lang="en">The object converts an integer value to a list of bits. The length of the
-        output list is controlled by the SIZE argument or the @size property (1 to 32 bits,
-        default 32). By default the bits are listed from the most significant bit on the left to
-        the least significant bit on the right. If the @rev flag is set, the bit order is
-        reversed.</tr>
+        output list is controlled by the SIZE argument or the @size property (1 to 32 bits, default
+        32). By default the bits are listed from the most significant bit on the left to the least
+        significant bit on the right. If the @rev flag is set, the bit order is reversed.</tr>
         <tr lang="ru">Объект преобразует целое число в список битов. Длина выходного списка
         задаётся аргументом SIZE или свойством @size (от 1 до 32 бит, по умолчанию 32). По
-        умолчанию биты идут от старшего слева к младшему справа. Если установлен флаг @rev,
-        порядок битов инвертируется.</tr>
+        умолчанию биты идут от старшего слева к младшему справа. Если установлен флаг @rev, порядок
+        битов инвертируется.</tr>
       </par>
       <par>
         <tr lang="en">Note: negative numbers are converted using the machine architecture's

@@ -25,11 +25,11 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object parses a time string in the form "HH:MM:SS[.XXX]" and outputs
-        the corresponding value in seconds as a float. Hours and minutes may be omitted, so short
-        forms like "M:SS" or even "S" (just a number) are also accepted. This is the inverse
-        operation of [conv.sec2str]. If the input string cannot be parsed, the value of the
-        @on_err property is output instead.</tr>
+        <tr lang="en">The object parses a time string in the form "HH:MM:SS[.XXX]" and outputs the
+        corresponding value in seconds as a float. Hours and minutes may be omitted, so short forms
+        like "M:SS" or even "S" (just a number) are also accepted. This is the inverse operation of
+        [conv.sec2str]. If the input string cannot be parsed, the value of the @on_err property is
+        output instead.</tr>
         <tr lang="ru">Объект разбирает строку времени в формате "HH:MM:SS[.XXX]" и выводит
         соответствующее значение в секундах как число. Часы и минуты могут быть опущены, поэтому
         принимаются и короткие формы, такие как "M:SS" или просто "S" (число). Это операция,

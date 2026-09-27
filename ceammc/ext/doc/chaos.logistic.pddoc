@@ -53,24 +53,24 @@
         независимо от начального значения</tr>
       </par>
       <par>
-        <tr lang="en">• With λ between 1 and 2, the sequence quickly converges to the value
-        (λ − 1) / λ, regardless of the initial value</tr>
-        <tr lang="ru">• При λ от 1 до 2 последовательность быстро сходится к значению
-        (λ − 1) / λ, независимо от начального значения</tr>
+        <tr lang="en">• With λ between 1 and 2, the sequence quickly converges to the value (λ − 1)
+        / λ, regardless of the initial value</tr>
+        <tr lang="ru">• При λ от 1 до 2 последовательность быстро сходится к значению (λ − 1) / λ,
+        независимо от начального значения</tr>
       </par>
       <par>
-        <tr lang="en">• With λ between 2 and 3, the sequence also eventually converges to
-        (λ − 1) / λ, but first oscillates around that value for some time</tr>
-        <tr lang="ru">• При λ от 2 до 3 последовательность также в конечном итоге сходится к
-        (λ − 1) / λ, но сначала некоторое время колеблется вокруг этого значения</tr>
+        <tr lang="en">• With λ between 2 and 3, the sequence also eventually converges to (λ − 1) /
+        λ, but first oscillates around that value for some time</tr>
+        <tr lang="ru">• При λ от 2 до 3 последовательность также в конечном итоге сходится к (λ −
+        1) / λ, но сначала некоторое время колеблется вокруг этого значения</tr>
       </par>
       <par>
         <tr lang="en">• With λ between 3 and 1 + √6 ≈ 3.44949, from almost any initial value the
         sequence settles into a stable oscillation between two values (a period-2 cycle), which
         depend on λ</tr>
         <tr lang="ru">• При λ от 3 до 1 + √6 ≈ 3.44949 из почти любого начального значения
-        последовательность приходит к устойчивому колебанию между двумя значениями (цикл
-        периода 2), которые зависят от λ</tr>
+        последовательность приходит к устойчивому колебанию между двумя значениями (цикл периода
+        2), которые зависят от λ</tr>
       </par>
       <par>
         <tr lang="en">• With λ between 3.44949 and 3.54409 (approximately), from almost any initial
@@ -100,8 +100,8 @@
         называемые периодические окна)</tr>
       </par>
       <par>
-        <tr lang="en">• Beyond λ = 4, almost all initial values eventually leave the interval
-        [0, 1] and diverge</tr>
+        <tr lang="en">• Beyond λ = 4, almost all initial values eventually leave the interval [0,
+        1] and diverge</tr>
         <tr lang="ru">• При λ &gt; 4 почти все начальные значения в конечном итоге покидают
         интервал [0, 1] и расходятся</tr>
       </par>

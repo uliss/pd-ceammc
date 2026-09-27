@@ -25,21 +25,21 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object converts a single character into its Morse code representation.
-        By default the output is a list of 0s and 1s, where 0 represents a dot and 1 represents a
+        <tr lang="en">The object converts a single character into its Morse code representation. By
+        default the output is a list of 0s and 1s, where 0 represents a dot and 1 represents a
         dash. With the @sym flag set, the output is a list of dots and dashes as symbols instead.
         Cyrillic UTF-8 characters are also supported.</tr>
-        <tr lang="ru">Объект преобразует один символ в его представление в коде Морзе. По
-        умолчанию вывод — это список из 0 и 1, где 0 обозначает точку, а 1 — тире. Если установлен
-        флаг @sym, выводом становится список точек и тире в виде символов. Также поддерживаются
-        кириллические символы в UTF-8.</tr>
+        <tr lang="ru">Объект преобразует один символ в его представление в коде Морзе. По умолчанию
+        вывод — это список из 0 и 1, где 0 обозначает точку, а 1 — тире. Если установлен флаг @sym,
+        выводом становится список точек и тире в виде символов. Также поддерживаются кириллические
+        символы в UTF-8.</tr>
       </par>
     </info>
     <properties>
       <!-- @sym -->
       <property name="@sym" type="bool" default="0">
-        <tr lang="en">symbol output mode. If 1: output as a list of dots and dashes, otherwise as
-        a list of 0 and 1</tr>
+        <tr lang="en">symbol output mode. If 1: output as a list of dots and dashes, otherwise as a
+        list of 0 and 1</tr>
         <tr lang="ru">режим символьного вывода. Если 1: вывод в виде списка точек и тире, в
         противном случае — в виде списка 0 и 1</tr>
       </property>

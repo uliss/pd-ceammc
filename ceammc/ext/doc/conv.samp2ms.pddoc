@@ -27,8 +27,7 @@
     <info>
       <par>
         <tr lang="en">The object converts a number of samples to a time in milliseconds, based on
-        the current sample rate of the patch. This is the inverse operation of
-        [conv.ms2samp].</tr>
+        the current sample rate of the patch. This is the inverse operation of [conv.ms2samp].</tr>
         <tr lang="ru">Объект преобразует количество семплов во время в миллисекундах, исходя из
         текущей частоты дискретизации патча. Это операция, обратная [conv.ms2samp].</tr>
       </par>

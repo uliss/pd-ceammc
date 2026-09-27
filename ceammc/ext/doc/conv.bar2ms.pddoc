@@ -25,10 +25,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object calculates the duration of a bar and a beat in milliseconds,
-        based on the current tempo (in BPM) and the current time signature. The result is output
-        from two outlets: the first outlet sends the bar duration, the second sends the beat
-        duration.</tr>
+        <tr lang="en">The object calculates the duration of a bar and a beat in milliseconds, based
+        on the current tempo (in BPM) and the current time signature. The result is output from two
+        outlets: the first outlet sends the bar duration, the second sends the beat duration.</tr>
         <tr lang="ru">Объект вычисляет продолжительность такта и ударной доли в миллисекундах на
         основе текущего темпа (в BPM) и текущего тактового размера. Результат выводится из двух
         выходов: из первого отправляется длительность такта, из второго — длительность ударной

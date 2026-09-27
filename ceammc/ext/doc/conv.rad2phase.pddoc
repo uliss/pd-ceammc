@@ -25,9 +25,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object converts an angle in radians to a phase value in the range
-        [0, 1). A value of 0 radians maps to 0, a value of π maps to 0.5, and 2π wraps back to 0.
-        This is the inverse operation of [conv.phase2rad].</tr>
+        <tr lang="en">The object converts an angle in radians to a phase value in the range [0, 1).
+        A value of 0 radians maps to 0, a value of π maps to 0.5, and 2π wraps back to 0. This is
+        the inverse operation of [conv.phase2rad].</tr>
         <tr lang="ru">Объект преобразует угол в радианах в значение фазы в диапазоне [0, 1).
         Значение 0 радиан соответствует 0, значение π — 0.5, а 2π снова даёт 0. Это операция,
         обратная [conv.phase2rad].</tr>

@@ -28,10 +28,10 @@
         with the SCALE argument or the @scale property. The list of all supported scales is
         available in the @all property.</tr>
         <tr lang="ru">Объект преобразует ступень лада в номер клавиши (MIDI-номер ноты в текущей
-        октаве), используя выбранный звукоряд. Звукоряд задаётся как последовательность
-        интервалов от тоники, а ступень — это индекс шага на этом звукоряде. Звукоряд можно
-        задать аргументом SCALE или свойством @scale. Список всех поддерживаемых звукорядов
-        доступен в свойстве @all.</tr>
+        октаве), используя выбранный звукоряд. Звукоряд задаётся как последовательность интервалов
+        от тоники, а ступень — это индекс шага на этом звукоряде. Звукоряд можно задать аргументом
+        SCALE или свойством @scale. Список всех поддерживаемых звукорядов доступен в свойстве
+        @all.</tr>
       </par>
       <par>
         <tr lang="en">Common Western modes and scales:</tr>
@@ -46,9 +46,9 @@
         scale. 'chromatic24' — 24-tone microchromatic scale (quarter tones).</tr>
         <tr lang="ru">'major' — ионийский лад. 'minor' — эолийский лад. 'ionian', 'dorian',
         'phrygian', 'lydian', 'mixolydian', 'aeolian', 'locrian' — семь ладов диатонического
-        звукоряда. 'major_pentatonic' и 'minor_pentatonic' — пятинотные звукоряды без
-        полутонов. 'whole' — целотоновый звукоряд (шесть нот, каждая на целый тон). 'whole_leading'
-        — целотоновый звукоряд с вводным тоном (семь нот, симметричный звукоряд). 'chromatic' —
+        звукоряда. 'major_pentatonic' и 'minor_pentatonic' — пятинотные звукоряды без полутонов.
+        'whole' — целотоновый звукоряд (шесть нот, каждая на целый тон). 'whole_leading' —
+        целотоновый звукоряд с вводным тоном (семь нот, симметричный звукоряд). 'chromatic' —
         12-ступенный хроматический звукоряд. 'chromatic24' — 24-ступенный микрохроматический
         звукоряд (четвертитоны).</tr>
       </par>
@@ -56,34 +56,33 @@
         <tr lang="en">Altered and synthetic Western scales: 'major_harmonic', 'major_melodic',
         'major_locrian', 'major_neapolitan', 'minor_harmonic', 'minor_melodic',
         'minor_melodic_desc', 'minor_hungarian', 'minor_lydian', 'minor_neapolitan',
-        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished',
-        'diminished2', 'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7',
-        'hex_phrygian', 'hex_sus', 'prometheus', 'scriabin', 'ritusen' — synthetic, symmetric or
-        altered scales used in classical, jazz and contemporary music.</tr>
+        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished', 'diminished2',
+        'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7', 'hex_phrygian',
+        'hex_sus', 'prometheus', 'scriabin', 'ritusen' — synthetic, symmetric or altered scales
+        used in classical, jazz and contemporary music.</tr>
         <tr lang="ru">Альтерированные и синтетические западные звукоряды: 'major_harmonic',
         'major_melodic', 'major_locrian', 'major_neapolitan', 'minor_harmonic', 'minor_melodic',
         'minor_melodic_desc', 'minor_hungarian', 'minor_lydian', 'minor_neapolitan',
-        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished',
-        'diminished2', 'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7',
-        'hex_phrygian', 'hex_sus', 'prometheus', 'scriabin', 'ritusen' — синтетические,
-        симметричные или альтерированные звукоряды, используемые в классической, джазовой и
-        современной музыке.</tr>
+        'minor_romanian', 'super_locrian', 'augmented', 'augmented2', 'diminished', 'diminished2',
+        'bartok', 'hex_aeolian', 'hex_dorian', 'hex_major6', 'hex_major7', 'hex_phrygian',
+        'hex_sus', 'prometheus', 'scriabin', 'ritusen' — синтетические, симметричные или
+        альтерированные звукоряды, используемые в классической, джазовой и современной музыке.</tr>
       </par>
       <par>
-        <tr lang="en">Middle Eastern and Central Asian maqams: 'ahirbhairav', 'ajam',
-        'atharKurd', 'bastanikar', 'bayati', 'farahfaza', 'hijaz', 'hijaz_desc', 'hijaz_kar',
-        'husseini', 'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd',
-        'mahur', 'murassah', 'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar',
-        'nikriz', 'rast', 'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri',
-        'yakah', 'yakah_desc', 'zamzam', 'zanjaran' — scales used in Arabic, Turkish and Persian
-        music (maqam system).</tr>
+        <tr lang="en">Middle Eastern and Central Asian maqams: 'ahirbhairav', 'ajam', 'atharKurd',
+        'bastanikar', 'bayati', 'farahfaza', 'hijaz', 'hijaz_desc', 'hijaz_kar', 'husseini',
+        'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd', 'mahur', 'murassah',
+        'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar', 'nikriz', 'rast',
+        'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri', 'yakah',
+        'yakah_desc', 'zamzam', 'zanjaran' — scales used in Arabic, Turkish and Persian music
+        (maqam system).</tr>
         <tr lang="ru">Ближневосточные и центрально-азиатские макамы: 'ahirbhairav', 'ajam',
         'atharKurd', 'bastanikar', 'bayati', 'farahfaza', 'hijaz', 'hijaz_desc', 'hijaz_kar',
-        'husseini', 'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd',
-        'mahur', 'murassah', 'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar',
-        'nikriz', 'rast', 'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri',
-        'yakah', 'yakah_desc', 'zamzam', 'zanjaran' — звукоряды, используемые в арабской,
-        турецкой и персидской музыке (система макам).</tr>
+        'husseini', 'huzam', 'iraq', 'jiharkah', 'karjighar', 'kijaz_kar_kurd', 'kurd', 'mahur',
+        'murassah', 'mustar', 'nahawand', 'nahawand_desc', 'nairuz', 'nawa_athar', 'nikriz',
+        'rast', 'rast_desc', 'saba', 'sikah', 'sikah_desc', 'suznak', 'ushaq_mashri', 'yakah',
+        'yakah_desc', 'zamzam', 'zanjaran' — звукоряды, используемые в арабской, турецкой и
+        персидской музыке (система макам).</tr>
       </par>
       <par>
         <tr lang="en">Indian ragas and Asian scales: 'bhairav', 'chinese', 'egyptian', 'gong',
@@ -93,8 +92,7 @@
         <tr lang="ru">Индийские раги и азиатские звукоряды: 'bhairav', 'chinese', 'egyptian',
         'gong', 'hindu', 'hirajoshi', 'indian', 'iwato', 'jiao', 'kumoi', 'marva', 'pelog',
         'purvi', 'shang', 'spanish', 'todi', 'yu', 'zhi' — звукоряды из индийской традиции раги,
-        китайской и японской музыки (гагаку, сякухати) и других азиатских музыкальных
-        систем.</tr>
+        китайской и японской музыки (гагаку, сякухати) и других азиатских музыкальных систем.</tr>
       </par>
       <par>
         <tr lang="en">Partch scales: 'partch_o1' ... 'partch_o6' — Harry Partch's otonalities
@@ -111,9 +109,9 @@
         <tr lang="en">Miscellaneous: 'enigmatic' — Verdi's enigmatic scale. 'jiao' — one of the
         five Chinese pentatonic scales. 'shawq_afza' — an Arabic maqam with a distinctive
         augmented-second flavor.</tr>
-        <tr lang="ru">Прочие: 'enigmatic' — «энигматический» звукоряд Верди. 'jiao' — один из
-        пяти китайских пентатонических звукорядов. 'shawq_afza' — арабский макам с характерным
-        звучанием увеличенной секунды.</tr>
+        <tr lang="ru">Прочие: 'enigmatic' — «энигматический» звукоряд Верди. 'jiao' — один из пяти
+        китайских пентатонических звукорядов. 'shawq_afza' — арабский макам с характерным звучанием
+        увеличенной секунды.</tr>
       </par>
       <par>
         <tr lang="en">Note: some scales are not intended for the 12-tone equal temperament.</tr>

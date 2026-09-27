@@ -25,10 +25,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object converts a tempo value in BPM (beats per minute) to a frequency
-        in hertz. The conversion is simply BPM / 60, but the object makes the patch more readable
-        and self-documenting. The result can be used, for example, to drive an LFO whose rate
-        matches the musical tempo.</tr>
+        <tr lang="en">The object converts a tempo value in BPM (beats per minute) to a frequency in
+        hertz. The conversion is simply BPM / 60, but the object makes the patch more readable and
+        self-documenting. The result can be used, for example, to drive an LFO whose rate matches
+        the musical tempo.</tr>
         <tr lang="ru">Объект преобразует значение темпа в BPM (удары в минуту) в частоту в герцах.
         Преобразование сводится к делению BPM на 60, но объект делает патч более читаемым и
         самодокументируемым. Результат можно использовать, например, для управления LFO, частота

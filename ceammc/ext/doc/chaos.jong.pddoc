@@ -24,9 +24,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating chaotic generator based on the Peter de Jong attractor,
-        a two-dimensional discrete dynamical system. On each bang the generator advances the map
-        by one step and outputs the new x and y coordinates.</tr>
+        <tr lang="en">A non-interpolating chaotic generator based on the Peter de Jong attractor, a
+        two-dimensional discrete dynamical system. On each bang the generator advances the map by
+        one step and outputs the new x and y coordinates.</tr>
         <tr lang="ru">Неинтерполирующий хаотический генератор на основе аттрактора Питера де Йонга
         — двумерной дискретной динамической системы. На каждый bang генератор делает один шаг
         отображения и выводит новые координаты x и y.</tr>
@@ -44,14 +44,14 @@
         <tr lang="ru">y[n+1] = sin(c * x[n]) - cos(d * y[n])</tr>
       </par>
       <par>
-        <tr lang="en">The shape of the trajectory depends strongly on the parameters a, b, c and
-        d. The default values (a = 1.4, b = -2.3, c = 2.4, d = -2.1) produce a rich, structured
+        <tr lang="en">The shape of the trajectory depends strongly on the parameters a, b, c and d.
+        The default values (a = 1.4, b = -2.3, c = 2.4, d = -2.1) produce a rich, structured
         chaotic pattern. Other parameter sets give very different shapes — some are dense clouds,
         others are ring-like or spiral structures.</tr>
         <tr lang="ru">Форма траектории сильно зависит от параметров a, b, c и d. Значения по
-        умолчанию (a = 1.4, b = -2.3, c = 2.4, d = -2.1) дают богатый структурированный
-        хаотический узор. Другие наборы параметров дают совсем иные формы — от плотных облаков
-        до кольцевых или спиральных структур.</tr>
+        умолчанию (a = 1.4, b = -2.3, c = 2.4, d = -2.1) дают богатый структурированный хаотический
+        узор. Другие наборы параметров дают совсем иные формы — от плотных облаков до кольцевых или
+        спиральных структур.</tr>
       </par>
       <par>
         <tr lang="en">The output values are in the range of approximately -2 to 2 for both x and y.
@@ -123,9 +123,9 @@
       <!-- om -->
       <method name="om">
         <info>
-          <tr lang="en">turns the method output mode on or off. If true (1), outputs a new generated
-          value after each a, b, c, d, x, y method call. If 0, changes values without output.
-          Default is 0.</tr>
+          <tr lang="en">turns the method output mode on or off. If true (1), outputs a new
+          generated value after each a, b, c, d, x, y method call. If 0, changes values without
+          output. Default is 0.</tr>
           <tr lang="ru">включает или отключает режим вывода после вызова метода. Если истина (1),
           после каждого вызова методов a, b, c, d, x, y выводится новое сгенерированное значение.
           Если 0, значения изменяются без вывода. По умолчанию 0.</tr>

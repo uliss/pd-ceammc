@@ -27,11 +27,12 @@
       <par>
         <tr lang="en">The object takes a time value in milliseconds and formats it as a
         human-readable time string in the form "HH:MM:SS" (or "HH:MM:SS.XXX" if the @ms flag is
-        set). By default the result is output as a String object, with the @symbol flag, the result is sent through the right outlet as a
-        symbol.</tr>
+        set). By default the result is output as a String object, with the @symbol flag, the result
+        is sent through the right outlet as a symbol.</tr>
         <tr lang="ru">Объект принимает значение времени в миллисекундах и форматирует его в
         удобочитаемую строку времени вида "HH:MM:SS" (или "HH:MM:SS.XXX", если установлен флаг
-        @ms). По умолчанию результат выводится как String объект, при флаге @symbol результат отправляется через правый выход в виде символа.</tr>
+        @ms). По умолчанию результат выводится как String объект, при флаге @symbol результат
+        отправляется через правый выход в виде символа.</tr>
       </par>
     </info>
     <properties>
@@ -44,8 +45,7 @@
       <property name="@symbol" type="flag" default="0" access="initonly">
         <tr lang="en">if specified, output the formatted time as a symbol; otherwise as a
         string</tr>
-        <tr lang="ru">если указан, выводить форматированное время как символ; иначе как
-        строку</tr>
+        <tr lang="ru">если указан, выводить форматированное время как символ; иначе как строку</tr>
       </property>
     </properties>
     <inlets>

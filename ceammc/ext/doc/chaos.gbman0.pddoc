@@ -23,12 +23,12 @@
       <par>
         <tr lang="en">A non-interpolating chaotic generator based on the Gingerbreadman map, a
         two-dimensional discrete dynamical system. Unlike interpolating generators that produce a
-        continuous stream of values between two consecutive points, this generator advances the
-        map by one discrete step per incoming bang.</tr>
+        continuous stream of values between two consecutive points, this generator advances the map
+        by one discrete step per incoming bang.</tr>
         <tr lang="ru">Неинтерполирующий хаотический генератор на основе отображения «Пряничный
         человечек» — двумерной дискретной динамической системы. В отличие от интерполирующих
-        генераторов, которые выдают непрерывный поток значений между двумя соседними точками,
-        этот генератор делает один дискретный шаг отображения на каждый приходящий bang.</tr>
+        генераторов, которые выдают непрерывный поток значений между двумя соседними точками, этот
+        генератор делает один дискретный шаг отображения на каждый приходящий bang.</tr>
       </par>
       <par>
         <tr lang="en">The map is defined by the difference equations:</tr>
@@ -44,16 +44,16 @@
       </par>
       <par>
         <tr lang="en">For most initial values (x, y) the sequence of points (x(n), y(n)) traces a
-        bounded, non-repeating orbit with a characteristic "gingerbread man" shape. Typical
-        initial values that put the generator into the chaotic region are x = 1.2 and y = 2.1 (the
+        bounded, non-repeating orbit with a characteristic "gingerbread man" shape. Typical initial
+        values that put the generator into the chaotic region are x = 1.2 and y = 2.1 (the
         defaults). The output values are typically in the range of roughly -1.5 to 3.5 for x and
         -1.5 to 3.5 for y, but the exact bounds depend on the initial values.</tr>
         <tr lang="ru">Для большинства начальных значений (x, y) последовательность точек (x(n),
         y(n)) образует ограниченную, не повторяющуюся траекторию характерной формы «пряничного
-        человечка». Типичные начальные значения, приводящие генератор в хаотическую область — x
-        = 1.2 и y = 2.1 (значения по умолчанию). Выходные значения обычно лежат примерно в
-        диапазоне от -1.5 до 3.5 для x и от -1.5 до 3.5 для y, но точные границы зависят от
-        начальных значений.</tr>
+        человечка». Типичные начальные значения, приводящие генератор в хаотическую область — x =
+        1.2 и y = 2.1 (значения по умолчанию). Выходные значения обычно лежат примерно в диапазоне
+        от -1.5 до 3.5 для x и от -1.5 до 3.5 для y, но точные границы зависят от начальных
+        значений.</tr>
       </par>
       <par>
         <tr lang="en">The two outlets output the current x and y coordinates. Because the values
@@ -63,8 +63,7 @@
         <tr lang="ru">Два выхода выдают текущие координаты x и y. Так как значения не
         интерполируются, при медленном metro на входе выход скачкообразно переходит между
         дискретными точками — это делает объект удобным источником ступенчатых хаотических
-        управляющих сигналов (например, для управления фильтрами, панорамой или высотой
-        тона).</tr>
+        управляющих сигналов (например, для управления фильтрами, панорамой или высотой тона).</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
     </info>

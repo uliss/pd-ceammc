@@ -23,13 +23,13 @@
     <info>
       <par>
         <tr lang="en">The object converts an interval in semitones to the corresponding frequency
-        ratio in 12-tone equal temperament. The conversion follows the formula ratio =
-        2^(semitones / 12), so 12 semitones (one octave) corresponds to a ratio of 2, 0 semitones
-        to a ratio of 1, and negative intervals give ratios less than 1.</tr>
-        <tr lang="ru">Объект преобразует интервал в полутонах в соответствующее частотное
-        отношение в 12-ступенном равномерно-темперированном строе. Преобразование выполняется по
-        формуле ratio = 2^(полутонов / 12), поэтому 12 полутонов (одна октава) соответствуют
-        отношению 2, 0 полутонов — отношению 1, а отрицательные интервалы дают отношения меньше 1.</tr>
+        ratio in 12-tone equal temperament. The conversion follows the formula ratio = 2^(semitones
+        / 12), so 12 semitones (one octave) corresponds to a ratio of 2, 0 semitones to a ratio of
+        1, and negative intervals give ratios less than 1.</tr>
+        <tr lang="ru">Объект преобразует интервал в полутонах в соответствующее частотное отношение
+        в 12-ступенном равномерно-темперированном строе. Преобразование выполняется по формуле
+        ratio = 2^(полутонов / 12), поэтому 12 полутонов (одна октава) соответствуют отношению 2, 0
+        полутонов — отношению 1, а отрицательные интервалы дают отношения меньше 1.</tr>
       </par>
     </info>
     <inlets>

@@ -30,9 +30,9 @@
         of 1 corresponds to 0 dBFS. Amplitudes greater than 1 give positive dBFS values, and
         amplitudes between 0 and 1 give negative dBFS values.</tr>
         <tr lang="ru">Объект преобразует линейное значение амплитуды в децибелы относительно полной
-        шкалы (dBFS). Преобразование выполняется по формуле dBFS = 20 * log10(амплитуда).
-        Амплитуда 1 соответствует 0 dBFS. Амплитуды больше 1 дают положительные значения dBFS, а
-        амплитуды от 0 до 1 — отрицательные значения dBFS.</tr>
+        шкалы (dBFS). Преобразование выполняется по формуле dBFS = 20 * log10(амплитуда). Амплитуда
+        1 соответствует 0 dBFS. Амплитуды больше 1 дают положительные значения dBFS, а амплитуды от
+        0 до 1 — отрицательные значения dBFS.</tr>
       </par>
       <par>
         <tr lang="en">Note: an amplitude value of 0 is converted to -144 dB (24-bit range).</tr>

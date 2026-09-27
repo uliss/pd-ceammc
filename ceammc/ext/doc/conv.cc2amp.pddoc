@@ -26,15 +26,15 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object converts a value from the MIDI Control Change range [0, 127] to
-        an arbitrary output range. By default the output range is [0, 1], which is convenient for
+        <tr lang="en">The object converts a value from the MIDI Control Change range [0, 127] to an
+        arbitrary output range. By default the output range is [0, 1], which is convenient for
         using the result as an amplitude, gain or any other normalized control value. The output
         range can be changed with the FROM and TO arguments or the @from and @to properties.</tr>
         <tr lang="ru">Объект преобразует значение из диапазона MIDI Control Change [0, 127] в
         произвольный выходной диапазон. По умолчанию выходной диапазон — [0, 1], что удобно для
-        использования результата в качестве амплитуды, усиления или любого другого
-        нормализованного управляющего значения. Выходной диапазон можно изменить с помощью
-        аргументов FROM и TO или свойств @from и @to.</tr>
+        использования результата в качестве амплитуды, усиления или любого другого нормализованного
+        управляющего значения. Выходной диапазон можно изменить с помощью аргументов FROM и TO или
+        свойств @from и @to.</tr>
       </par>
     </info>
     <arguments>

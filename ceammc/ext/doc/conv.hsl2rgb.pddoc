@@ -24,18 +24,18 @@
       <par>
         <tr lang="en">The object converts HSL color values (Hue, Saturation, Lightness) to RGB
         values. The hue is given in the range [0, 360] (degrees), and saturation and lightness are
-        in the range [0, 1]. By default the RGB values are output as integers in the range
-        [0, 255]; with the @float flag they are output as floats in the range [0, 1]. By default
-        the three channel values are sent to three separate outlets; if the @pack flag is set, they
-        are packed into a single list sent to the first outlet. With the @sync flag, the object
-        outputs a new value whenever any inlet changes.</tr>
+        in the range [0, 1]. By default the RGB values are output as integers in the range [0,
+        255]; with the @float flag they are output as floats in the range [0, 1]. By default the
+        three channel values are sent to three separate outlets; if the @pack flag is set, they are
+        packed into a single list sent to the first outlet. With the @sync flag, the object outputs
+        a new value whenever any inlet changes.</tr>
         <tr lang="ru">Объект преобразует цветовые значения HSL (тон, насыщенность, светлота) в
-        значения RGB. Тон задаётся в диапазоне [0, 360] (в градусах), а насыщенность и светлота —
-        в диапазоне [0, 1]. По умолчанию значения RGB выводятся как целые числа в диапазоне
-        [0, 255]; при флаге @float они выводятся как числа с плавающей точкой в диапазоне
-        [0, 1]. По умолчанию три значения каналов отправляются на три отдельных выхода; если
-        установлен флаг @pack, они упаковываются в один список и отправляются на первый выход.
-        При флаге @sync объект выводит новое значение при любом изменении на любом входе.</tr>
+        значения RGB. Тон задаётся в диапазоне [0, 360] (в градусах), а насыщенность и светлота — в
+        диапазоне [0, 1]. По умолчанию значения RGB выводятся как целые числа в диапазоне [0, 255];
+        при флаге @float они выводятся как числа с плавающей точкой в диапазоне [0, 1]. По
+        умолчанию три значения каналов отправляются на три отдельных выхода; если установлен флаг
+        @pack, они упаковываются в один список и отправляются на первый выход. При флаге @sync
+        объект выводит новое значение при любом изменении на любом входе.</tr>
       </par>
     </info>
     <properties>
@@ -94,7 +94,8 @@
       <outlet>
         <out type="any">
           <tr lang="en">list: R G B, or red channel value (int[0, 255] or float[0, 1])</tr>
-          <tr lang="ru">список: R G B, или значение красного канала (int[0, 255] или float[0, 1])</tr>
+          <tr lang="ru">список: R G B, или значение красного канала (int[0, 255] или float[0,
+          1])</tr>
         </out>
       </outlet>
       <outlet>

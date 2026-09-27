@@ -28,13 +28,12 @@
         <tr lang="en">The object converts a note written in GUIDO music notation into a MIDI pitch
         and a note duration in milliseconds. The output consists of two values: the integer MIDI
         pitch (from the first outlet) and the float duration in milliseconds (from the second
-        outlet). The duration depends on the current tempo, which can be set with the TEMPO argument
-        or the @tempo property.</tr>
+        outlet). The duration depends on the current tempo, which can be set with the TEMPO
+        argument or the @tempo property.</tr>
         <tr lang="ru">Объект преобразует ноту, записанную в нотации GUIDO, в MIDI-номер и
-        длительность ноты в миллисекундах. На выход подаются два значения: целочисленный
-        MIDI-номер (из первого выхода) и длительность в миллисекундах (из второго выхода).
-        Длительность зависит от текущего темпа, который можно задать аргументом TEMPO или
-        свойством @tempo.</tr>
+        длительность ноты в миллисекундах. На выход подаются два значения: целочисленный MIDI-номер
+        (из первого выхода) и длительность в миллисекундах (из второго выхода). Длительность
+        зависит от текущего темпа, который можно задать аргументом TEMPO или свойством @tempo.</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
     </info>
@@ -42,10 +41,10 @@
       <argument name="TEMPO" type="atom" units="bpm">
         <tr lang="en">current tempo. If a number — treated as quarter notes per minute. If a symbol
         — BPM format is expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</tr>
-        <tr lang="ru">текущий темп. Если число — рассматривается как четверти в минуту. Если
-        символ — ожидается формат BPM, например: 120bpm (120 четвертных ударов в минуту),
-        60|1/8_bpm (60 восьмых ударов в минуту), 90|4._bpm (90 ударов в минуту с длительностью
-        четверть с точкой) и т. д.</tr>
+        <tr lang="ru">текущий темп. Если число — рассматривается как четверти в минуту. Если символ
+        — ожидается формат BPM, например: 120bpm (120 четвертных ударов в минуту), 60|1/8_bpm (60
+        восьмых ударов в минуту), 90|4._bpm (90 ударов в минуту с длительностью четверть с точкой)
+        и т. д.</tr>
       </argument>
     </arguments>
     <properties>

@@ -29,16 +29,16 @@
         channel values are sent to four separate outlets. If the @pack flag is set, all four values
         are packed into a single list sent to the first outlet.</tr>
         <tr lang="ru">Объект преобразует цвет, заданный именем или hex-значением, в отдельные
-        значения каналов R, G, B и A. По умолчанию выходные значения — целые числа в диапазоне
-        [0, 255]. При флаге @float выходные значения находятся в диапазоне [0, 1]. По умолчанию
+        значения каналов R, G, B и A. По умолчанию выходные значения — целые числа в диапазоне [0,
+        255]. При флаге @float выходные значения находятся в диапазоне [0, 1]. По умолчанию
         значения каналов отправляются на четыре отдельных выхода. Если установлен флаг @pack, все
         четыре значения упаковываются в один список и отправляются на первый выход.</tr>
       </par>
       <par>
         <tr lang="en">Supported named colors: black, blue, cyan, gold, gray, green, lime, magenta,
         navy, olive, orange, pink, purple, red, white, yellow.</tr>
-        <tr lang="ru">Поддерживаемые именованные цвета: black, blue, cyan, gold, gray, green,
-        lime, magenta, navy, olive, orange, pink, purple, red, white, yellow.</tr>
+        <tr lang="ru">Поддерживаемые именованные цвета: black, blue, cyan, gold, gray, green, lime,
+        magenta, navy, olive, orange, pink, purple, red, white, yellow.</tr>
       </par>
     </info>
     <properties>

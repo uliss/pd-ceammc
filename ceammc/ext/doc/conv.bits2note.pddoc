@@ -27,11 +27,10 @@
         default mode each bit corresponds to its own outlet, and a pair (NOTE VEL) is sent to that
         outlet. If the bit is 1, the velocity is @vel; if the bit is 0, the velocity is 0 (note
         off).</tr>
-        <tr lang="ru">Объект принимает список битов (0 и 1) и превращает каждый бит в событие
-        ноты, используя номера нот из аргумента KEYS (или свойства @keys). В режиме по умолчанию
-        каждому биту соответствует отдельный выход, и на этот выход отправляется пара (NOTE VEL).
-        Если бит равен 1, скорость равна @vel; если бит равен 0, скорость равна 0 (выключение
-        ноты).</tr>
+        <tr lang="ru">Объект принимает список битов (0 и 1) и превращает каждый бит в событие ноты,
+        используя номера нот из аргумента KEYS (или свойства @keys). В режиме по умолчанию каждому
+        биту соответствует отдельный выход, и на этот выход отправляется пара (NOTE VEL). Если бит
+        равен 1, скорость равна @vel; если бит равен 0, скорость равна 0 (выключение ноты).</tr>
       </par>
       <par>
         <tr lang="en">In @poly mode a single outlet is used, and instead of a (NOTE VEL) pair a
@@ -58,9 +57,9 @@
       <property name="@mode" type="symbol" default="off" enum="off tie raw">
         <tr lang="en">mode for repeated notes. If 'off': send note off before retriggering. If
         'tie': ignore repeated events. If 'raw': always send on/off events</tr>
-        <tr lang="ru">режим для повторяющихся нот. Если 'off': перед повторным запуском отправляется
-        событие выключения ноты. Если 'tie': повторяющиеся события игнорируются. Если 'raw':
-        всегда отправляются события включения и выключения</tr>
+        <tr lang="ru">режим для повторяющихся нот. Если 'off': перед повторным запуском
+        отправляется событие выключения ноты. Если 'tie': повторяющиеся события игнорируются. Если
+        'raw': всегда отправляются события включения и выключения</tr>
       </property>
       <!-- @poly -->
       <property name="@poly" type="flag" default="0" access="initonly">
