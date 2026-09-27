@@ -16,48 +16,62 @@
       <keywords>search</keywords>
       <since>0.9.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object searches the [ceammc] library by object names, keywords or
+        descriptions. The search methods are: 'objects' (or its short alias 'o') — search by object
+        names, 'keywords' (or 'k') — search by keywords, and the default inlet behavior (on a
+        symbol) — search by descriptions. The maximum number of results is limited by the @max
+        property. The list of matched object names is sent to the outlet.</tr>
+        <tr lang="ru">Объект выполняет поиск по библиотеке [ceammc] по именам объектов, ключевым
+        словам или описаниям. Методы поиска: 'objects' (или его краткий псевдоним 'o') — поиск по
+        именам объектов, 'keywords' (или 'k') — поиск по ключевым словам, а поведение входа по
+        умолчанию (при подаче символа) — поиск по описаниям. Максимальное число результатов
+        ограничено свойством @max. Список совпавших имён объектов отправляется на выход.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @max -->
       <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">
-        <tr lang="en">maximum number of result</tr>
-        <tr lang="ru" finished="false">Максимальное количество результата</tr>
+        <tr lang="en">maximum number of results</tr>
+        <tr lang="ru">максимальное количество результатов</tr>
       </property>
     </properties>
     <methods>
       <!-- k -->
       <method name="k">
         <info>
-          <tr lang="en">alias to keywords method</tr>
-          <tr lang="ru" finished="false">псевдоним метода ключевых слов</tr>
+          <tr lang="en">alias to the keywords method</tr>
+          <tr lang="ru">псевдоним метода keywords</tr>
         </info>
       </method>
       <!-- keywords -->
       <method name="keywords">
         <info>
-          <tr lang="en">search in keywords</tr>
-          <tr lang="ru" finished="false">Поиск по ключевым словам</tr>
+          <tr lang="en">search by keywords</tr>
+          <tr lang="ru">поиск по ключевым словам</tr>
         </info>
       </method>
       <!-- o -->
       <method name="o">
         <info>
-          <tr lang="en">alias to objects method</tr>
-          <tr lang="ru" finished="false">alias to objects метод</tr>
+          <tr lang="en">alias to the objects method</tr>
+          <tr lang="ru">псевдоним метода objects</tr>
         </info>
       </method>
       <!-- objects -->
       <method name="objects">
         <info>
-          <tr lang="en">search in objects names</tr>
-          <tr lang="ru" finished="false">Поиск по именам объектов</tr>
+          <tr lang="en">search by object names</tr>
+          <tr lang="ru">поиск по именам объектов</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet type="control">
         <in on="symbol">
-          <tr lang="en">search in descriptions</tr>
-          <tr lang="ru" finished="false">Поиск в описаниях</tr>
+          <tr lang="en">search by descriptions</tr>
+          <tr lang="ru">поиск по описаниям</tr>
         </in>
       </inlet>
     </inlets>
@@ -65,7 +79,7 @@
       <outlet type="control">
         <out type="any">
           <tr lang="en">list of matched object names</tr>
-          <tr lang="ru" finished="false">Список совпадающих названий объектов</tr>
+          <tr lang="ru">список совпавших имён объектов</tr>
         </out>
       </outlet>
     </outlets>
