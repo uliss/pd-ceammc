@@ -118,7 +118,7 @@ flow.sync_pack-help.pd;
 #X obj 30 1305 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
 #X text 220 1302 извлекает управляющие сообщения из аудиосоединений;
 #X obj 30 1330 ui.link @title [replace] @url replace-help.pd;
-#X text 220 1327 замена атомов в потоке данных;
+#X text 220 1327 заменяет атомы в потоке данных;
 #X obj 30 1355 ui.link @title [route.any] @url route.any-help.pd;
 #X text 220 1352 отделяет сообщения общего вида от пустых событий (bang)
 \, числовых значений \, символов и списков;

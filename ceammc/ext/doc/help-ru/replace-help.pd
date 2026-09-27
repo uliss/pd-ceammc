@@ -1,72 +1,87 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 541 50 замена атомов в потоке данных;
+#X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 534 50 заменяет атомы в потоке данных;
 #X obj 1 1 cnv 5 765 40 empty empty replace 20 20 0 20 -104026 -4096
 0;
 #X obj 561 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/replace] @url replace-help.pd;
 #X obj 690 8 replace;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 From/to values can be specified both as @from/@to properties
-or first and second arguments.;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X msg 98 186 1 2 3;
-#X msg 184 186 list a b c;
-#X msg 117 244 dump;
-#X msg 203 244 symbol a;
-#X msg 309 244 symbol A;
-#X obj 50 287 replace 3 33333;
-#X obj 50 330 ui.display @auto_size 0 @size 120 17;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 385 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 352 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Заменяет атомы во входящем потоке данных: каждый атом
+\, равный значению «from» \, заменяется значением «to». Оба значения
+можно задать либо через свойства @from и @to \, либо первым и вторым
+аргументами.;
+#X text 240 153 Типичные сценарии применения: переименование символов
+или нот в потоке (например \, перевод имён нот \, переименование параметров
+\, нормализация регистра) \, замена значений-заполнителей вроде 0 или
+-1 на осмысленные значения по умолчанию \, а также перекодировка небольших
+наборов числовых кодов — например \, номеров контроллеров \, ступеней
+лада или тегов маршрутизации из одной системы в другую.;
+#X text 240 284 Объект особенно полезен при очистке и приведении данных
+— когда входящие данные используют другое соглашение об именах \, содержат
+значения-заполнители \, которые нужно интерпретировать \, или должны
+быть приведены к требованиям нижестоящего объекта. В отличие от цепочек
+[select] + [message] \, [replace] обрабатывает сразу много подстановок
+внутри одного потока данных \, без ручного разделения и сборки списков.;
+#X floatatom 50 478 5 0 0 0 - - -;
+#X msg 98 478 1 2 3;
+#X msg 184 478 list a b c;
+#X msg 117 536 dump;
+#X msg 203 536 symbol a;
+#X msg 309 536 symbol A;
+#X obj 50 579 replace 3 33333;
+#X obj 50 622 ui.display @auto_size 0 @size 120 17;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 677 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 388 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 680 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 386 1\.;
-#X text 170 386 atom;
-#X obj 268 387 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 386 FROM: replace subject. Тип: atom.;
-#X text 130 411 2\.;
-#X text 170 411 atom;
-#X obj 268 412 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 411 TO: replace value. Тип: atom.;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 451 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 678 1\.;
+#X text 170 678 atom;
+#X obj 268 679 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 678 FROM: заменяемое значение. Тип: atom.;
+#X text 130 703 2\.;
+#X text 170 703 atom;
+#X obj 268 704 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 703 TO: значение замены. Тип: atom.;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 743 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 454 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 746 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 452 @from;
-#X text 270 452 Replace subject. Тип: atom. Значение по умолчанию:
+#X msg 130 744 @from;
+#X text 270 744 Заменяемое значение. Тип: atom. Значение по умолчанию:
 None.;
-#X obj 250 482 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 482 @to;
-#X text 270 482 Replace value. Тип: atom. Значение по умолчанию: None.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 527 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 @to;
+#X text 270 774 Значение замены. Тип: atom. Значение по умолчанию:
+None.;
+#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 819 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 528 1\.;
-#X text 270 528 input data stream.;
-#X text 130 553 2\.;
-#X text 270 553 @from property inlet.;
-#X text 130 578 3\.;
-#X text 270 578 @to property inlet.;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 820 1\.;
+#X text 270 820 входной поток данных.;
+#X text 130 845 2\.;
+#X text 270 845 вход для свойства @from.;
+#X text 130 870 3\.;
+#X text 270 870 вход для свойства @to.;
+#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 910 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 619 1\.;
-#X text 270 619 output data stream.;
+#X text 130 911 1\.;
+#X text 270 911 выходной поток данных.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 672 библиотека: ceammc v0.9.8;
-#X text 551 684 смотрите также:;
-#X obj 672 687 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 961 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 964 библиотека: ceammc v0.9.8;
+#X text 551 976 смотрите также:;
+#X obj 672 979 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass] @url flow.pass-help.pd;
-#N canvas 10 691 400 290 info 0;
+#N canvas 10 983 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -83,18 +98,18 @@ None.;
 #X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 ключевые слова:;
-#X text 120 164 replace \, test;
+#X text 120 164 replace \, flow;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 691 pd info;
-#X connect 7 0 13 0;
-#X connect 8 0 13 0;
-#X connect 10 0 13 0;
-#X connect 9 0 13 0;
-#X connect 11 0 13 1;
-#X connect 12 0 13 2;
-#X connect 13 0 14 0;
+#X restore 10 983 pd info;
+#X connect 9 0 15 0;
+#X connect 10 0 15 0;
+#X connect 12 0 15 0;
+#X connect 11 0 15 0;
+#X connect 13 0 15 1;
+#X connect 14 0 15 2;
+#X connect 15 0 16 0;

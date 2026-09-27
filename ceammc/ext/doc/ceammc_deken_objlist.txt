@@ -486,8 +486,8 @@ ceammc/tee~	extracts control messages from audio connections / извлекае�
 tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ceammc/~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
-replace	replace atoms in data stream / замена атомов в потоке данных
-ceammc/replace	replace atoms in data stream / замена атомов в потоке данных
+replace	replace atoms in data stream / заменяет атомы в потоке данных
+ceammc/replace	replace atoms in data stream / заменяет атомы в потоке данных
 route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
 route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
 route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
