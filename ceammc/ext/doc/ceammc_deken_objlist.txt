@@ -211,11 +211,11 @@ ceammc/list->props	converts list to series of property messages / преобра
 list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 ceammc/any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
-conv.midi2freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-ceammc/m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
+conv.midi2freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+midi->freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+ceammc/m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
 conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
 ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
 ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM

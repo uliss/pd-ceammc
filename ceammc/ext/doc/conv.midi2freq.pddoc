@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">advanced MIDI pitch conversion to a frequency</tr>
-        <tr lang="ru">продвинутое преобразование MIDI нот в частоту в Гц</tr>
+        <tr lang="ru">расширенное преобразование MIDI-номера в частоту</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,34 +25,60 @@
         <alias>m-&gt;f</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a MIDI pitch (note number) into a frequency in hertz,
+        with support for alternative reference pitches (via the A argument or @a property) and
+        historical temperaments (via the @t property). Unlike the standard [mtof] object, which
+        always uses 12-tone equal temperament with A4 = 440 Hz, this object allows you to choose a
+        different reference pitch (for example, 415 Hz for Baroque tuning) or a different
+        temperament.</tr>
+        <tr lang="ru">Объект преобразует MIDI-номер ноты в частоту в герцах, поддерживая
+        альтернативные опорные частоты (через аргумент A или свойство @a) и исторические строи
+        (через свойство @t). В отличие от стандартного объекта [mtof], который всегда использует
+        12-ступенный равномерно-темперированный строй с A4 = 440 Гц, этот объект позволяет
+        выбрать другую опорную частоту (например, 415 Гц для барочного строя) или другой
+        строй.</tr>
+      </par>
+      <par>
+        <tr lang="en">Supported temperaments: 'eq' (12-tone equal temperament), 'just' (just
+        intonation), 'ganassi' (Ganassi), 'meantone' (quarter-comma meantone), 'kirnberger3'
+        (Kirnberger III), 'pythagorean' (Pythagorean tuning), 'rameau' (Rameau), 'valotti'
+        (Vallotti), 'zarlino' (Zarlino).</tr>
+        <tr lang="ru">Поддерживаемые строи: 'eq' (12-ступенный равномерно-темперированный),
+        'just' (чистый строй), 'ganassi' (Ганасси), 'meantone' (среднетоновый строй, четверть
+        коммы), 'kirnberger3' (Кирнбергер III), 'pythagorean' (пифагорейский строй), 'rameau'
+        (Рамо), 'valotti' (Валлотти), 'zarlino' (Царлино).</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="A" type="float" minvalue="200" maxvalue="600" units="hertz">
-        <tr lang="en">A pitch frequency</tr>
-        <tr lang="ru">частота звука</tr>
+        <tr lang="en">reference frequency for the note A</tr>
+        <tr lang="ru">опорная частота для ноты ля</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @a -->
       <property name="@a" type="float" default="440" minvalue="200" maxvalue="600" units="hertz">
-        <tr lang="en">A pitch frequency</tr>
-        <tr lang="ru" finished="false">частота звука</tr>
+        <tr lang="en">reference frequency for the note A</tr>
+        <tr lang="ru">опорная частота для ноты ля</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="symbol" default="eq"
       enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
         <tr lang="en">temperament</tr>
-        <tr lang="ru" finished="false">темперамент</tr>
+        <tr lang="ru">строй</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input MIDI pitch</tr>
-          <tr lang="ru" finished="false">Входной сигнал MIDI</tr>
+          <tr lang="ru">входной MIDI-номер ноты</tr>
         </in>
         <in on="list">
           <tr lang="en">input MIDI pitches</tr>
-          <tr lang="ru" finished="false">Входные MIDI-подачи</tr>
+          <tr lang="ru">входные MIDI-номера нот</tr>
         </in>
       </inlet>
     </inlets>
@@ -60,7 +86,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">converted value</tr>
-          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+          <tr lang="ru">преобразованное значение</tr>
         </out>
       </outlet>
     </outlets>

@@ -307,7 +307,7 @@ conv.list2props-help.pd;
 #X text 200 3250 преобразует список в серию сообщений-свойств;
 #X obj 30 3278 ui.link @title [conv.midi2freq] @url
 conv.midi2freq-help.pd;
-#X text 200 3275 продвинутое преобразование MIDI нот в частоту в Гц;
+#X text 200 3275 расширенное преобразование MIDI-номера в частоту;
 #X obj 30 3303 ui.link @title [conv.ms2bpm] @url conv.ms2bpm-help.pd;
 #X text 200 3300 преобразование периода в миллисекундах в темп BPM;
 #X obj 30 3328 ui.link @title [conv.ms2samp] @url
