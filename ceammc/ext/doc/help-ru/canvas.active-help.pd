@@ -8,45 +8,52 @@
 #X obj 472 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/canvas.active] @url canvas.active-help.pd;
 #X obj 645 8 canvas.active;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 93 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект проверяет \, является ли окно (холст) \, содержащее
+этот объект \, в данный момент активным \, то есть расположено ли оно
+поверх остальных открытых окон Pd. По bang выводится 1 \, если холст
+активен \, и 0 в противном случае. При установленном флаге @abs проверка
+применяется к родительскому окну абстракции \, а не к основному холсту.;
+#X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 88 118 after pressing change active window;
-#X obj 50 147 del 1000;
-#X obj 50 176 canvas.active;
-#X obj 50 205 ui.dt;
-#X obj 50 234 canvas.active-abs;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 88 262 after pressing change active window;
+#X obj 50 291 del 1000;
+#X obj 50 320 canvas.active;
+#X obj 50 349 ui.dt;
+#X obj 50 378 canvas.active-abs;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 433 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 436 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 290 @abs;
-#X text 270 290 Проверка внутри абстракции. Тип: bool. Значение по
-умолчанию: 0\.;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 347 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 434 @abs;
+#X text 270 434 Проверять родительский холст абстракции \, а не основной
+холст. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 491 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 348 1\.;
-#X text 170 348 bang:;
-#X text 270 348 output canvas active state.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 388 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 492 1\.;
+#X text 170 492 bang:;
+#X text 270 492 выводит состояние активности холста.;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 532 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 389 1\.;
-#X text 270 389 int: 1 or 0\.;
+#X text 130 533 1\.;
+#X text 170 533 int:;
+#X text 270 533 1 или 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 454 520 смотрите также:;
-#X obj 575 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 583 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 586 библиотека: ceammc v0.9.8;
+#X text 454 598 смотрите также:;
+#X obj 575 601 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.args] @url patch.args-help.pd;
-#X obj 665 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 601 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.top] @url canvas.top-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 605 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -70,7 +77,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 605 pd info;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

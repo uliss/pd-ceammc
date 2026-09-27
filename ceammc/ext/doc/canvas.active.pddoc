@@ -24,26 +24,39 @@
         <alias>ceammc/canvas.active</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object checks whether the window (canvas) that contains this object is
+        currently the active one, that is, whether it is the topmost window among all open Pd
+        windows. On bang it outputs 1 if the canvas is active, and 0 otherwise. With the @abs flag
+        set, the check is applied to the parent abstraction window instead of the main
+        canvas.</tr>
+        <tr lang="ru">Объект проверяет, является ли окно (холст), содержащее этот объект, в данный
+        момент активным, то есть расположено ли оно поверх остальных открытых окон Pd. По bang
+        выводится 1, если холст активен, и 0 в противном случае. При установленном флаге @abs
+        проверка применяется к родительскому окну абстракции, а не к основному холсту.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @abs -->
       <property name="@abs" type="bool" default="0">
-        <tr lang="en">use canvas for abstractions</tr>
-        <tr lang="ru">проверка внутри абстракции</tr>
+        <tr lang="en">check the parent abstraction canvas instead of the main canvas</tr>
+        <tr lang="ru">проверять родительский холст абстракции, а не основной холст</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output canvas active state</tr>
-          <tr lang="ru" finished="false">выходной холст активное состояние</tr>
+          <tr lang="en">output the canvas active state</tr>
+          <tr lang="ru">выводит состояние активности холста</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">int: 1 or 0</tr>
-          <tr lang="ru" finished="false">Инт: 1 или 0</tr>
+        <out type="int">
+          <tr lang="en">1 or 0</tr>
+          <tr lang="ru">1 или 0</tr>
         </out>
       </outlet>
     </outlets>
