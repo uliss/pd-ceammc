@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">copy samples from the one array to another</tr>
+        <tr lang="en">copy samples from one array to another</tr>
         <tr lang="ru">копирование семплов из одного массива в другой</tr>
       </description>
       <license>GPL3 or later</license>
@@ -19,46 +19,60 @@
       </also>
       <since>0.3</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object copies samples from a source array to a destination array. It
+        supports several forms of the copy message, allowing you to copy the whole array, a range
+        starting from a given position, a range between two positions, or a range placed at a
+        specific position in the destination array. When the copy is complete, a bang is sent out
+        through the outlet.</tr>
+        <tr lang="ru">Объект копирует семплы из исходного массива в массив назначения. Поддерживается
+        несколько форм сообщения copy, которые позволяют скопировать весь массив, диапазон
+        начиная с заданной позиции, диапазон между двумя позициями или диапазон, размещённый в
+        указанной позиции массива назначения. По завершении копирования через выход отправляется
+        bang.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @resize -->
       <property name="@resize" type="bool" default="0">
         <tr lang="en">resize the destination array on overflow</tr>
-        <tr lang="ru">изменять размера массива назначения при переполнении</tr>
+        <tr lang="ru">изменять размер массива назначения при переполнении</tr>
       </property>
     </properties>
     <methods>
       <!-- copy SRC DEST -->
       <method name="copy SRC DEST">
         <info>
-          <tr lang="en">copy the whole array content</tr>
-          <tr lang="ru">копирует все содержимое массива</tr>
+          <tr lang="en">copy the whole content of the source array</tr>
+          <tr lang="ru">копирует всё содержимое исходного массива</tr>
         </info>
         <param name="SRC" type="symbol" required="true">
-          <tr lang="en">the source array</tr>
+          <tr lang="en">name of the source array</tr>
           <tr lang="ru">имя исходного массива</tr>
         </param>
         <param name="DST" type="symbol" required="true">
-          <tr lang="en">the destination array</tr>
-          <tr lang="ru">массив назначения</tr>
+          <tr lang="en">name of the destination array</tr>
+          <tr lang="ru">имя массива назначения</tr>
         </param>
       </method>
       <!-- copy SRC FROM DEST -->
       <method name="copy SRC FROM DEST">
         <info>
-          <tr lang="en">copy the array content from the specified position till the end</tr>
-          <tr lang="ru">копирует содержимое массива из указанной позиции до конца</tr>
+          <tr lang="en">copy the array content from the specified position to the end</tr>
+          <tr lang="ru">копирует содержимое массива с указанной позиции до конца</tr>
         </info>
         <param name="SRC" type="symbol" required="true">
-          <tr lang="en">the source array</tr>
-          <tr lang="ru">исходный массив</tr>
+          <tr lang="en">name of the source array</tr>
+          <tr lang="ru">имя исходного массива</tr>
         </param>
         <param name="FROM" type="int" required="true">
-          <tr lang="en">the source array start position</tr>
+          <tr lang="en">start position in the source array</tr>
           <tr lang="ru">начальная позиция в исходном массиве</tr>
         </param>
         <param name="DEST" type="symbol" required="true">
-          <tr lang="en">the destination array</tr>
-          <tr lang="ru">массив назначения</tr>
+          <tr lang="en">name of the destination array</tr>
+          <tr lang="ru">имя массива назначения</tr>
         </param>
       </method>
       <!-- copy SRC FROM TO DEST -->
@@ -68,48 +82,48 @@
           <tr lang="ru">копирует содержимое массива из указанного диапазона</tr>
         </info>
         <param name="SRC" type="symbol" required="true">
-          <tr lang="en">the source array</tr>
-          <tr lang="ru">исходный массив</tr>
+          <tr lang="en">name of the source array</tr>
+          <tr lang="ru">имя исходного массива</tr>
         </param>
         <param name="FROM" type="int" required="true">
-          <tr lang="en">the source start range</tr>
+          <tr lang="en">start of the range in the source array</tr>
           <tr lang="ru">начало диапазона в исходном массиве</tr>
         </param>
         <param name="TO" type="int" required="true">
-          <tr lang="en">the source end range</tr>
+          <tr lang="en">end of the range in the source array</tr>
           <tr lang="ru">конец диапазона в исходном массиве</tr>
         </param>
         <param name="DEST" type="symbol" required="true">
-          <tr lang="en">the destination array</tr>
-          <tr lang="ru">массив назначения</tr>
+          <tr lang="en">name of the destination array</tr>
+          <tr lang="ru">имя массива назначения</tr>
         </param>
       </method>
       <!-- copy SRC FROM TO DEST DEST_START -->
       <method name="copy SRC FROM TO DEST DEST_START">
         <info>
-          <tr lang="en">copy the array content from the specified range and to the specified
-          destination position</tr>
-          <tr lang="ru">копировать содержимое массива из указанного диапазона и в указанное место
-          назначения</tr>
+          <tr lang="en">copy the array content from the specified range into the specified position
+          of the destination array</tr>
+          <tr lang="ru">копирует содержимое массива из указанного диапазона в указанную позицию
+          массива назначения</tr>
         </info>
         <param name="SRC" type="symbol" required="true">
-          <tr lang="en">the source array</tr>
-          <tr lang="ru">исходный массив</tr>
+          <tr lang="en">name of the source array</tr>
+          <tr lang="ru">имя исходного массива</tr>
         </param>
         <param name="FROM" type="int" required="true">
-          <tr lang="en">the source start range</tr>
+          <tr lang="en">start of the range in the source array</tr>
           <tr lang="ru">начало диапазона в исходном массиве</tr>
         </param>
         <param name="TO" type="int" required="true">
-          <tr lang="en">the source end range</tr>
+          <tr lang="en">end of the range in the source array</tr>
           <tr lang="ru">конец диапазона в исходном массиве</tr>
         </param>
         <param name="DEST" type="symbol" required="true">
-          <tr lang="en">the destination array</tr>
-          <tr lang="ru">массив назначения</tr>
+          <tr lang="en">name of the destination array</tr>
+          <tr lang="ru">имя массива назначения</tr>
         </param>
         <param name="DEST_FROM" type="int" required="true">
-          <tr lang="en">the destination start position</tr>
+          <tr lang="en">start position in the destination array</tr>
           <tr lang="ru">начальная позиция в массиве назначения</tr>
         </param>
       </method>
@@ -117,16 +131,16 @@
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">FROM TO - copy data from the one array to another</tr>
-          <tr lang="ru">FROM TO - копирование данных из одного массива в другой</tr>
+          <tr lang="en">FROM TO — copy samples from one array to another</tr>
+          <tr lang="ru">FROM TO — копирование семплов из одного массива в другой</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="bang">
-          <tr lang="en">on done</tr>
-          <tr lang="ru">при завершении операции</tr>
+          <tr lang="en">sent when the copy is finished</tr>
+          <tr lang="ru">отправляется по завершении копирования</tr>
         </out>
       </outlet>
     </outlets>

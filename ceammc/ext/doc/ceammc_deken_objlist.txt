@@ -10,7 +10,7 @@ array.bpm	BPM calculator / вычисление BPM
 array.circular	read/write to the array as a circular buffer / чтение/запись в массив как в кольцевой буфер
 array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив как в кольцевой буфер
 array.convolve	FFT convolution of the array / FFT-свёртка массива
-array.copy	copy samples from the one array to another / копирование семплов из одного массива в другой
+array.copy	copy samples from one array to another / копирование семплов из одного массива в другой
 array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепь
 array.each	process each array elements via side-chain / обработка каждого элемента массива через боковую цепь
 array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией

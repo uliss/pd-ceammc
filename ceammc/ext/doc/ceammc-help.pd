@@ -36,7 +36,7 @@ buffer;
 array.convolve-help.pd;
 #X text 200 451 FFT convolution of the array;
 #X obj 30 479 ui.link @title [array.copy] @url array.copy-help.pd;
-#X text 200 476 copy samples from the one array to another;
+#X text 200 476 copy samples from one array to another;
 #X obj 30 504 ui.link @title [array.do] @url array.do-help.pd;
 #X text 200 501 iterate and modify the array content via the side-chain;
 #X obj 30 529 ui.link @title [array.each] @url array.each-help.pd;

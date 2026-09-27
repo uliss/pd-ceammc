@@ -34,7 +34,7 @@
     <entry name="array.convolve" descr="FFT convolution of the array" ref_view="link">
       <xi:include href="array.convolve.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.copy" descr="copy samples from the one array to another" ref_view="link">
+    <entry name="array.copy" descr="copy samples from one array to another" ref_view="link">
       <xi:include href="array.copy.pddoc" parse="xml"/>
     </entry>
     <entry name="array.do" descr="iterate and modify the array content via the side-chain" ref_view="link">
