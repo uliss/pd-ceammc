@@ -322,7 +322,7 @@ ceammc/list->dict	creates a dictionary from a list / создаёт словар
 list->dict	creates a dictionary from a list / создаёт словарь из списка
 dict.get	output the dictionary values by a pre-defined key list / выводит значения словаря по заранее заданному списку ключей
 dict.keys	output the list of dictionary keys / выводит список ключей словаря
-dict.pass	passes only specified keys in the dictionary / пропускает (фильтрует) только указанные ключи в словаре
+dict.pass	passes only the specified keys in the dictionary / оставляет в словаре только указанные ключи (фильтрация)
 dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
 dict.size	output the dictionary size (number of key/value pairs) / выводит размер словаря (число пар ключ/значение)
 dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список

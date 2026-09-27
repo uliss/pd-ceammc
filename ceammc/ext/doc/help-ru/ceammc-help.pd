@@ -437,7 +437,7 @@ dict.from_list-help.pd;
 #X obj 30 4591 ui.link @title [dict.keys] @url dict.keys-help.pd;
 #X text 200 4588 выводит список ключей словаря;
 #X obj 30 4616 ui.link @title [dict.pass] @url dict.pass-help.pd;
-#X text 200 4613 пропускает (фильтрует) только указанные ключи в словаре;
+#X text 200 4613 оставляет в словаре только указанные ключи (фильтрация);
 #X obj 30 4641 ui.link @title [dict.reject] @url dict.reject-help.pd;
 #X text 200 4638 удаляет указанные ключи из словаря;
 #X obj 30 4666 ui.link @title [dict.size] @url dict.size-help.pd;

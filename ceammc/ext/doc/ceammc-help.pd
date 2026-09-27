@@ -420,7 +420,7 @@ list;
 #X obj 30 4276 ui.link @title [dict.keys] @url dict.keys-help.pd;
 #X text 200 4273 output the list of dictionary keys;
 #X obj 30 4301 ui.link @title [dict.pass] @url dict.pass-help.pd;
-#X text 200 4298 passes only specified keys in the dictionary;
+#X text 200 4298 passes only the specified keys in the dictionary;
 #X obj 30 4326 ui.link @title [dict.reject] @url dict.reject-help.pd;
 #X text 200 4323 rejects specified keys from the dictionary;
 #X obj 30 4351 ui.link @title [dict.size] @url dict.size-help.pd;

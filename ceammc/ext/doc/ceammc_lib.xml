@@ -453,7 +453,7 @@
     <entry name="dict.keys" descr="output the list of dictionary keys" ref_view="link">
       <xi:include href="dict.keys.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.pass" descr="passes only specified keys in the dictionary" ref_view="link">
+    <entry name="dict.pass" descr="passes only the specified keys in the dictionary" ref_view="link">
       <xi:include href="dict.pass.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.reject" descr="rejects specified keys from the dictionary" ref_view="link">

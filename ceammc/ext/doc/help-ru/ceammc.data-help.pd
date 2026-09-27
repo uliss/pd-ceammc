@@ -50,7 +50,7 @@ dict.from_list-help.pd;
 #X obj 30 615 ui.link @title [dict.keys] @url dict.keys-help.pd;
 #X text 220 612 выводит список ключей словаря;
 #X obj 30 640 ui.link @title [dict.pass] @url dict.pass-help.pd;
-#X text 220 637 пропускает (фильтрует) только указанные ключи в словаре;
+#X text 220 637 оставляет в словаре только указанные ключи (фильтрация);
 #X obj 30 665 ui.link @title [dict.reject] @url dict.reject-help.pd;
 #X text 220 662 удаляет указанные ключи из словаря;
 #X obj 30 690 ui.link @title [dict.size] @url dict.size-help.pd;

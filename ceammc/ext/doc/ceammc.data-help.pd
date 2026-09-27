@@ -47,7 +47,7 @@ dict.from_list-help.pd;
 #X obj 30 570 ui.link @title [dict.keys] @url dict.keys-help.pd;
 #X text 220 567 output the list of dictionary keys;
 #X obj 30 595 ui.link @title [dict.pass] @url dict.pass-help.pd;
-#X text 220 592 passes only specified keys in the dictionary;
+#X text 220 592 passes only the specified keys in the dictionary;
 #X obj 30 620 ui.link @title [dict.reject] @url dict.reject-help.pd;
 #X text 220 617 rejects specified keys from the dictionary;
 #X obj 30 645 ui.link @title [dict.size] @url dict.size-help.pd;
