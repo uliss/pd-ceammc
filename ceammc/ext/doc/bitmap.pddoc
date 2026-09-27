@@ -33,11 +33,11 @@
         a separate window.</tr>
         <tr lang="ru">Объект хранит бинарное изображение в виде 2D-матрицы битов и предоставляет
         набор методов для рисования, преобразования и ввода-вывода. Размер изображения задаётся
-        аргументами W и H (или свойствами @w и @h) и не может быть изменён после создания.
-        Пиксели можно рисовать с помощью методов рисования (line, rect, circle, text и других),
+        аргументами W и H (или свойствами @w и @h) и не может быть изменён после создания. Пиксели
+        можно рисовать с помощью методов рисования (line, rect, circle, text и других),
         преобразовывать (mirror, shift, invert), загружать из файла изображения или задавать из
-        списка либо матрицы. Содержимое можно вывести в виде списка или сообщения
-        [matrix NROWS NCOLS DATA...(, сохранить в файл PNG и просмотреть в отдельном окне.</tr>
+        списка либо матрицы. Содержимое можно вывести в виде списка или сообщения [matrix NROWS
+        NCOLS DATA...(, сохранить в файл PNG и просмотреть в отдельном окне.</tr>
       </par>
       <par>
         <tr lang="en">Colors: the bitmap is binary, so pixels have only two possible values — 0 or
@@ -45,10 +45,10 @@
         they draw outlines. Color can be 0 or 1, or -1 for "no color" (for fill_color and
         text_color). The method fill sets all pixels to a given value at once.</tr>
         <tr lang="ru">Цвета: изображение бинарное, поэтому пиксели могут принимать только два
-        значения — 0 или 1. Методы рисования используют цвет заливки (@fill_color) или цвет
-        обводки (@stroke_color), если они рисуют контуры. Цвет может быть 0 или 1, либо -1
-        («без цвета») — для fill_color и text_color. Метод fill устанавливает все пиксели в
-        заданное значение сразу.</tr>
+        значения — 0 или 1. Методы рисования используют цвет заливки (@fill_color) или цвет обводки
+        (@stroke_color), если они рисуют контуры. Цвет может быть 0 или 1, либо -1 («без цвета») —
+        для fill_color и text_color. Метод fill устанавливает все пиксели в заданное значение
+        сразу.</tr>
       </par>
     </info>
     <mouse>
@@ -232,15 +232,15 @@
       <method name="get matrix">
         <info>
           <tr lang="en">outputs the bitmap content as a [matrix NROWS NCOLS DATA...( message</tr>
-          <tr lang="ru">выводит содержимое растрового изображения в виде сообщения
-          [matrix NROWS NCOLS DATA...(</tr>
+          <tr lang="ru">выводит содержимое растрового изображения в виде сообщения [matrix NROWS
+          NCOLS DATA...(</tr>
         </info>
       </method>
       <!-- get submatrix -->
       <method name="get submatrix">
         <info>
-          <tr lang="en">outputs a submatrix of the bitmap content as a [matrix NROWS NCOLS
-          DATA...( message</tr>
+          <tr lang="en">outputs a submatrix of the bitmap content as a [matrix NROWS NCOLS DATA...(
+          message</tr>
           <tr lang="ru">выводит субматрицу содержимого растрового изображения в виде сообщения
           [matrix NROWS NCOLS DATA...(</tr>
         </info>
@@ -371,8 +371,8 @@
         </param>
         <param name="CENTER" type="bool" required="false" default="0">
           <tr lang="en">if 1: set the center of the rectangle instead of the top-left corner</tr>
-          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего
-          левого угла</tr>
+          <tr lang="ru">если 1: использовать координату центра прямоугольника, а не верхнего левого
+          угла</tr>
         </param>
       </method>
       <!-- row -->

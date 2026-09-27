@@ -29,8 +29,7 @@
         <tr lang="en">The object checks whether the window (canvas) that contains this object is
         currently the active one, that is, whether it is the topmost window among all open Pd
         windows. On bang it outputs 1 if the canvas is active, and 0 otherwise. With the @abs flag
-        set, the check is applied to the parent abstraction window instead of the main
-        canvas.</tr>
+        set, the check is applied to the parent abstraction window instead of the main canvas.</tr>
         <tr lang="ru">Объект проверяет, является ли окно (холст), содержащее этот объект, в данный
         момент активным, то есть расположено ли оно поверх остальных открытых окон Pd. По bang
         выводится 1, если холст активен, и 0 в противном случае. При установленном флаге @abs

@@ -19,11 +19,11 @@
     <info>
       <par>
         <tr lang="en">The object treats the specified array as a circular (ring) buffer for audio
-        signals. The signal on the first (left) audio inlet is written into the array at the current
-        write position, while the signal on the second audio inlet controls the read offset (delay)
-        relative to the write position and is output through the audio outlet. The @on property
-        enables or disables writing, when writing is off, the array keeps its contents and only
-        reading is performed.</tr>
+        signals. The signal on the first (left) audio inlet is written into the array at the
+        current write position, while the signal on the second audio inlet controls the read offset
+        (delay) relative to the write position and is output through the audio outlet. The @on
+        property enables or disables writing, when writing is off, the array keeps its contents and
+        only reading is performed.</tr>
         <tr lang="ru">Объект рассматривает указанный массив как кольцевой (циклический) буфер для
         аудиосигналов. Сигнал с первого (левого) звукового входа записывается в массив в текущую
         позицию записи, а сигнал со второго звукового входа управляет смещением чтения (задержкой)

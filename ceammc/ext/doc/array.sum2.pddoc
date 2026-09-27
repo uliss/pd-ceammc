@@ -25,8 +25,8 @@
         and outputs it as a single float. This value is used, for example, when calculating the RMS
         and variance of the array.</tr>
         <tr lang="ru">Объект вычисляет сумму квадратов всех семплов указанного массива и выводит её
-        одним числом с плавающей точкой. Это значение используется, например, при вычислении RMS
-        и дисперсии массива.</tr>
+        одним числом с плавающей точкой. Это значение используется, например, при вычислении RMS и
+        дисперсии массива.</tr>
       </par>
     </info>
     <arguments>

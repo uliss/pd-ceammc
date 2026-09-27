@@ -53,8 +53,8 @@
     <inlets>
       <inlet>
         <in on="float" minvalue="0" maxvalue="1">
-          <tr lang="en">mixing ratio: 0 gives the first color, 1 gives the second color. On receipt,
-          the object calculates the mix and outputs the resulting color</tr>
+          <tr lang="en">mixing ratio: 0 gives the first color, 1 gives the second color. On
+          receipt, the object calculates the mix and outputs the resulting color</tr>
           <tr lang="ru">пропорция смешивания: 0 — первый цвет, 1 — второй цвет. При получении
           объект вычисляет смесь и выводит результирующий цвет</tr>
         </in>

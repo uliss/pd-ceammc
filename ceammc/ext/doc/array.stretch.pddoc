@@ -45,8 +45,8 @@
       </property>
       <!-- @antialias -->
       <property name="@antialias" type="bool" default="0">
-        <tr lang="en">use of the anti-alias filter. The anti-alias filter is used to prevent folding
-        of high frequencies when transposing the sample rate with interpolation.</tr>
+        <tr lang="en">use of the anti-alias filter. The anti-alias filter is used to prevent
+        folding of high frequencies when transposing the sample rate with interpolation.</tr>
         <tr lang="ru">использовать антиалиасинговый фильтр. Этот фильтр используется для
         предотвращения наложения высоких частот при транспонировании частоты семплирования с
         интерполяцией.</tr>
@@ -75,8 +75,8 @@
       </property>
       <!-- @rate -->
       <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">
-        <tr lang="en">playback rate — changes both tempo and pitch together, as if a vinyl disc were
-        played at a different RPM</tr>
+        <tr lang="en">playback rate — changes both tempo and pitch together, as if a vinyl disc
+        were played at a different RPM</tr>
         <tr lang="ru">скорость воспроизведения — изменяет и темп, и высоту тона одновременно, как
         если бы виниловый диск воспроизводился с другой скоростью вращения</tr>
       </property>
@@ -84,25 +84,25 @@
       <property name="@seekwindow" type="int" units="millisecond" minvalue="0" maxvalue="100"
       default="0">
         <tr lang="en">seeking window default length for the algorithm that finds the best possible
-        overlapping location. This determines how wide a window the algorithm may use to look for an
-        optimal joining location when mixing the sound sequences back together. The bigger this
+        overlapping location. This determines how wide a window the algorithm may use to look for
+        an optimal joining location when mixing the sound sequences back together. The bigger this
         window setting is, the higher the possibility of finding a better mixing position becomes,
         but at the same time large values may cause a "drifting" artifact because consecutive
         sequences will be taken at more uneven intervals. If there is a disturbing artifact that
-        sounds as if a constant frequency were drifting around, try reducing this setting. Increasing
-        this value increases the computational burden and vice versa. Setting the value to *0* for
-        the seek window length makes the parameter automatic, based on the tempo setting
+        sounds as if a constant frequency were drifting around, try reducing this setting.
+        Increasing this value increases the computational burden and vice versa. Setting the value
+        to *0* for the seek window length makes the parameter automatic, based on the tempo setting
         (recommended).</tr>
         <tr lang="ru">длина окна поиска по умолчанию для алгоритма, который находит наилучшее
         положение перекрытия. Определяет, в насколько широком окне алгоритм может искать
-        оптимальное место соединения при смешивании звуковых последовательностей вместе. Чем
-        больше это окно, тем выше вероятность найти лучшее положение смешивания, но в то же время
-        большие значения могут вызвать «дрейфующий» артефакт, потому что последующие
-        последовательности будут браться через всё более неравные интервалы. Если есть нежелательный
-        артефакт, звучащий так, как будто постоянная частота дрейфует, попробуйте уменьшить эту
-        настройку. Увеличение этого значения увеличивает вычислительную нагрузку и наоборот.
-        Установка значения *0* для длины окна поиска включает автоматический режим — параметр
-        подбирается по настройке темпа (рекомендуется).</tr>
+        оптимальное место соединения при смешивании звуковых последовательностей вместе. Чем больше
+        это окно, тем выше вероятность найти лучшее положение смешивания, но в то же время большие
+        значения могут вызвать «дрейфующий» артефакт, потому что последующие последовательности
+        будут браться через всё более неравные интервалы. Если есть нежелательный артефакт,
+        звучащий так, как будто постоянная частота дрейфует, попробуйте уменьшить эту настройку.
+        Увеличение этого значения увеличивает вычислительную нагрузку и наоборот. Установка
+        значения *0* для длины окна поиска включает автоматический режим — параметр подбирается по
+        настройке темпа (рекомендуется).</tr>
       </property>
       <!-- @sequence -->
       <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
@@ -110,17 +110,17 @@
         <tr lang="en">default length of a single processing sequence, in milliseconds. This
         determines into how long sequences the original sound is chopped in the time-stretch
         algorithm. The larger this value is, the fewer sequences are used in processing. In
-        principle, a bigger value sounds better when slowing down the tempo but worse when increasing
-        the tempo and vice versa. Increasing this value reduces the computational burden and vice
-        versa. Setting the value to *0* for the sequence length makes the parameter automatic,
-        based on the tempo setting (recommended).</tr>
+        principle, a bigger value sounds better when slowing down the tempo but worse when
+        increasing the tempo and vice versa. Increasing this value reduces the computational burden
+        and vice versa. Setting the value to *0* for the sequence length makes the parameter
+        automatic, based on the tempo setting (recommended).</tr>
         <tr lang="ru">длина по умолчанию одной последовательности обработки в миллисекундах.
         Определяет, на последовательности какой длины разбивается исходный звук в алгоритме
         растяжения времени. Чем больше это значение, тем меньше последовательностей используется
         при обработке. В принципе, большее значение звучит лучше при замедлении темпа, но хуже при
         ускорении, и наоборот. Увеличение этого значения снижает вычислительную нагрузку и
-        наоборот. Установка значения *0* для длины последовательности включает автоматический
-        режим — параметр подбирается по настройке темпа (рекомендуется).</tr>
+        наоборот. Установка значения *0* для длины последовательности включает автоматический режим
+        — параметр подбирается по настройке темпа (рекомендуется).</tr>
       </property>
       <!-- @speech -->
       <property name="@speech" type="bool" default="0">

@@ -22,8 +22,8 @@
         outputs them together with their positions. The first outlet outputs a list of two values:
         MIN MAX. The second outlet outputs a list of their indexes: MIN_INDEX MAX_INDEX.</tr>
         <tr lang="ru">Объект находит минимальное и максимальное значения в указанном массиве и
-        выводит их вместе с их позициями. Из первого выхода выводится список из двух значений:
-        MIN MAX. Из второго выхода выводится список их индексов: MIN_INDEX MAX_INDEX.</tr>
+        выводит их вместе с их позициями. Из первого выхода выводится список из двух значений: MIN
+        MAX. Из второго выхода выводится список их индексов: MIN_INDEX MAX_INDEX.</tr>
       </par>
     </info>
     <arguments>

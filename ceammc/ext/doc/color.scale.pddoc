@@ -21,8 +21,7 @@
         <tr lang="en">The object builds a color scale from a list of reference colors and outputs a
         color at a given position on that scale. The position is set with a float on the inlet: 0
         corresponds to the first color in the list, 1 to the last color, and values in between give
-        a smooth transition. The interpolation strategy is controlled by the @interp
-        property.</tr>
+        a smooth transition. The interpolation strategy is controlled by the @interp property.</tr>
         <tr lang="ru">Объект строит цветовую шкалу из списка опорных цветов и выводит цвет в
         заданной точке этой шкалы. Позиция задаётся числом с плавающей точкой на входе: 0
         соответствует первому цвету в списке, 1 — последнему, а промежуточные значения дают плавный
@@ -30,12 +29,12 @@
       </par>
       <par>
         <tr lang="en">Interpolation is performed by the colorm library. The @interp property
-        selects the hue interpolation strategy and accepts the following values: 'none' — colors are
-        interpolated directly in RGB, no hue correction is applied, 'short' — interpolation goes
-        along the shorter arc of the hue circle (default for most cases), 'long' — interpolation
-        goes along the longer arc of the hue circle, 'inc' — hue increases monotonically (clockwise
-        on the hue circle), 'dec' — hue decreases monotonically (counter-clockwise on the hue
-        circle).</tr>
+        selects the hue interpolation strategy and accepts the following values: 'none' — colors
+        are interpolated directly in RGB, no hue correction is applied, 'short' — interpolation
+        goes along the shorter arc of the hue circle (default for most cases), 'long' —
+        interpolation goes along the longer arc of the hue circle, 'inc' — hue increases
+        monotonically (clockwise on the hue circle), 'dec' — hue decreases monotonically
+        (counter-clockwise on the hue circle).</tr>
         <tr lang="ru">Интерполяция выполняется библиотекой colorm. Свойство @interp задаёт
         стратегию интерполяции оттенка и принимает следующие значения: 'none' — цвета
         интерполируются напрямую в RGB, без коррекции оттенка, 'short' — интерполяция идёт по
@@ -68,15 +67,15 @@
         shorter hue arc, 'long' — longer hue arc, 'inc' — increasing hue, 'dec' — decreasing
         hue</tr>
         <tr lang="ru">стратегия интерполяции оттенка: 'none' — прямая интерполяция в RGB, 'short' —
-        короткая дуга оттенка, 'long' — длинная дуга оттенка, 'inc' — возрастающий оттенок,
-        'dec' — убывающий оттенок</tr>
+        короткая дуга оттенка, 'long' — длинная дуга оттенка, 'inc' — возрастающий оттенок, 'dec' —
+        убывающий оттенок</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="color" enum="color hex rgb">
         <tr lang="en">output mode: 'color' — output as data:color type, 'hex' — output as a hex
         value, 'rgb' — output as an RGB list</tr>
-        <tr lang="ru">режим вывода: 'color' — вывод в виде значения типа data:color, 'hex' — вывод в
-        виде hex-значения, 'rgb' — вывод в виде списка RGB</tr>
+        <tr lang="ru">режим вывода: 'color' — вывод в виде значения типа data:color, 'hex' — вывод
+        в виде hex-значения, 'rgb' — вывод в виде списка RGB</tr>
       </property>
       <!-- @rgb -->
       <property name="@rgb" type="alias">

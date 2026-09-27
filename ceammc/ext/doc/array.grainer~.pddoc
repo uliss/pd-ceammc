@@ -43,7 +43,8 @@
       </par>
       <par>
         <tr lang="en">@w — grain window: rect, tri or hann</tr>
-        <tr lang="ru">@w — окно гранулы: прямоугольное (rect), треугольное (tri) или Ханна (hann)</tr>
+        <tr lang="ru">@w — окно гранулы: прямоугольное (rect), треугольное (tri) или Ханна
+        (hann)</tr>
       </par>
       <par>
         <tr lang="en">@tb — time before grain start (in samples)</tr>
@@ -62,14 +63,14 @@
         <tr lang="ru">@tag — метка гранулы</tr>
       </par>
       <par>
-        <tr lang="en">How to choose a detection method: 'hfc' is best for percussive sounds such
-        as drums and other sharp transients. 'complex' works well for tonal instruments like piano
-        and strings, where onsets are less pronounced in amplitude but clear in phase and spectrum.
-        'specflux' is a good universal choice when the source material is mixed or unknown. 'energy'
-        is simple and fast, suitable for signals with clearly separated loud and quiet parts.
-        'phase' and 'wphase' are useful for sustained or legato material where amplitude changes are
-        minimal. 'specdiff', 'kl' and 'mkl' provide alternative spectral measures and can be tried
-        when the default methods do not give satisfactory results.</tr>
+        <tr lang="en">How to choose a detection method: 'hfc' is best for percussive sounds such as
+        drums and other sharp transients. 'complex' works well for tonal instruments like piano and
+        strings, where onsets are less pronounced in amplitude but clear in phase and spectrum.
+        'specflux' is a good universal choice when the source material is mixed or unknown.
+        'energy' is simple and fast, suitable for signals with clearly separated loud and quiet
+        parts. 'phase' and 'wphase' are useful for sustained or legato material where amplitude
+        changes are minimal. 'specdiff', 'kl' and 'mkl' provide alternative spectral measures and
+        can be tried when the default methods do not give satisfactory results.</tr>
         <tr lang="ru">Как выбрать метод детекции: 'hfc' лучше всего подходит для перкуссионных
         звуков — барабанов и других резких транзиентов. 'complex' хорошо работает для тональных
         инструментов, таких как фортепиано и струнные, где атаки слабо выражены по амплитуде, но
@@ -210,32 +211,30 @@
       <method name="onsets">
         <info>
           <tr lang="en">analyzes the source array for onsets using the aubio library. Available
-          detection methods: 'default' — aubio's default (currently equivalent to 'hfc'),
-          'hfc' — High Frequency Content: emphasizes energy in the high-frequency range, works
-          well for percussive onsets, 'energy' — Energy: detects onsets by local changes in the
-          overall signal energy, 'complex' — Complex Domain: compares the predicted and actual
-          spectral content, good for tonal and complex sounds, 'phase' — Phase Deviation:
-          detects sudden changes in the phase of the signal, 'wphase' — Weighted Phase
-          Deviation: like 'phase', but weighting phase changes by magnitude, 'specdiff' —
-          Spectral Difference: measures the difference between consecutive spectra, 'kl' —
-          Kullback–Liebler divergence of successive spectra, 'mkl' — Modified Kullback–Liebler
-          divergence, 'specflux' — Spectral Flux: sums positive changes in the magnitude
-          spectrum, classic onset detection function</tr>
+          detection methods: 'default' — aubio's default (currently equivalent to 'hfc'), 'hfc' —
+          High Frequency Content: emphasizes energy in the high-frequency range, works well for
+          percussive onsets, 'energy' — Energy: detects onsets by local changes in the overall
+          signal energy, 'complex' — Complex Domain: compares the predicted and actual spectral
+          content, good for tonal and complex sounds, 'phase' — Phase Deviation: detects sudden
+          changes in the phase of the signal, 'wphase' — Weighted Phase Deviation: like 'phase',
+          but weighting phase changes by magnitude, 'specdiff' — Spectral Difference: measures the
+          difference between consecutive spectra, 'kl' — Kullback–Liebler divergence of successive
+          spectra, 'mkl' — Modified Kullback–Liebler divergence, 'specflux' — Spectral Flux: sums
+          positive changes in the magnitude spectrum, classic onset detection function</tr>
           <tr lang="ru">анализирует исходный массив на предмет атак с помощью библиотеки aubio.
           Доступные методы детекции: 'default' — метод aubio по умолчанию (сейчас эквивалентен
-          'hfc'), 'hfc' — High Frequency Content (содержимое высоких частот): подчёркивает
-          энергию в высокочастотном диапазоне, хорошо подходит для перкуссионных атак,
-          'energy' — Energy (энергия): обнаруживает атаки по локальным изменениям общей энергии
-          сигнала, 'complex' — Complex Domain (комплексная область): сравнивает предсказанное
-          и фактическое спектральное содержимое, хорошо работает для тональных и сложных
-          звуков, 'phase' — Phase Deviation (отклонение фазы): обнаруживает резкие изменения
-          фазы сигнала, 'wphase' — Weighted Phase Deviation (взвешенное отклонение фазы):
-          как 'phase', но с весом по амплитуде, 'specdiff' — Spectral Difference (спектральная
-          разница): измеряет разницу между последовательными спектрами, 'kl' — дивергенция
-          Кульбака–Лейблера между последовательными спектрами, 'mkl' — модифицированная
-          дивергенция Кульбака–Лейблера, 'specflux' — Spectral Flux (спектральный поток):
-          суммирует положительные изменения в спектре амплитуд, классическая функция детекции
-          атак</tr>
+          'hfc'), 'hfc' — High Frequency Content (содержимое высоких частот): подчёркивает энергию
+          в высокочастотном диапазоне, хорошо подходит для перкуссионных атак, 'energy' — Energy
+          (энергия): обнаруживает атаки по локальным изменениям общей энергии сигнала, 'complex' —
+          Complex Domain (комплексная область): сравнивает предсказанное и фактическое спектральное
+          содержимое, хорошо работает для тональных и сложных звуков, 'phase' — Phase Deviation
+          (отклонение фазы): обнаруживает резкие изменения фазы сигнала, 'wphase' — Weighted Phase
+          Deviation (взвешенное отклонение фазы): как 'phase', но с весом по амплитуде, 'specdiff'
+          — Spectral Difference (спектральная разница): измеряет разницу между последовательными
+          спектрами, 'kl' — дивергенция Кульбака–Лейблера между последовательными спектрами, 'mkl'
+          — модифицированная дивергенция Кульбака–Лейблера, 'specflux' — Spectral Flux
+          (спектральный поток): суммирует положительные изменения в спектре амплитуд, классическая
+          функция детекции атак</tr>
         </info>
         <param name="METHOD" type="symbol" default="default"
         enum="default hfc energy complex phase wphase specdiff kl mkl specflux">
@@ -258,8 +257,8 @@
           <tr lang="ru">приостанавливает или возобновляет воспроизведение гранул</tr>
         </info>
         <param name="SUBJ" type="atom" required="true">
-          <tr lang="en">if '*': pause all grains. If a float: pause the grain with the corresponding
-          #id. If a symbol: pause grains with the matching tag</tr>
+          <tr lang="en">if '*': pause all grains. If a float: pause the grain with the
+          corresponding #id. If a symbol: pause grains with the matching tag</tr>
           <tr lang="ru">если '*': приостановить все гранулы. Если целое число: приостановить
           гранулу с соответствующим #id. Если символ: приостановить гранулы с соответствующим
           тегом</tr>
@@ -309,8 +308,8 @@
           <tr lang="ru">устанавливает свойства гранул</tr>
         </info>
         <param name="SUBJ" type="atom" required="true">
-          <tr lang="en">if '*': set for all grains. If a float: set for the grain with the specified
-          #id. If a symbol: set for grains with the specified tag</tr>
+          <tr lang="en">if '*': set for all grains. If a float: set for the grain with the
+          specified #id. If a symbol: set for grains with the specified tag</tr>
           <tr lang="ru">если '*': установить для всех гранул. Если целое число: для гранулы с
           указанным #id. Если символ: для гранул с указанным тегом</tr>
         </param>
@@ -349,8 +348,7 @@
           source array duration is used</tr>
           <tr lang="ru">длительность для нарезки. Ожидается положительное значение времени,
           например: 100ms, 1.02s, 400samp и т.д. Числовое значение без суффикса трактуется как
-          миллисекунды. Если не указано — используется вся продолжительность исходного
-          массива</tr>
+          миллисекунды. Если не указано — используется вся продолжительность исходного массива</tr>
         </param>
         <param name="GRAIN" type="list">
           <tr lang="en">properties of sliced grains</tr>

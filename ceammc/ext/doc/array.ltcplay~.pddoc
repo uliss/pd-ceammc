@@ -20,12 +20,12 @@
       <par>
         <tr lang="en">The object plays back the specified array, synchronizing the playback
         position with an incoming LTC (Linear Timecode) signal. The LTC stream is received on the
-        audio inlet, and the array is played from the position encoded in the timecode. This
-        allows the array playback to be synchronized with an external timecode source.</tr>
+        audio inlet, and the array is played from the position encoded in the timecode. This allows
+        the array playback to be synchronized with an external timecode source.</tr>
         <tr lang="ru">Объект воспроизводит указанный массив, синхронизируя позицию воспроизведения
-        с входящим сигналом LTC (Linear Timecode). Поток LTC принимается на звуковой вход, и
-        массив воспроизводится с позиции, закодированной во временном коде. Это позволяет
-        синхронизировать воспроизведение массива с внешним источником временного кода.</tr>
+        с входящим сигналом LTC (Linear Timecode). Поток LTC принимается на звуковой вход, и массив
+        воспроизводится с позиции, закодированной во временном коде. Это позволяет синхронизировать
+        воспроизведение массива с внешним источником временного кода.</tr>
       </par>
     </info>
     <arguments>
