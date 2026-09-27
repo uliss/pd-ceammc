@@ -328,7 +328,7 @@ dict.size	output the dictionary size (number of key/value pairs) / выводи�
 dict.to_list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
 ceammc/dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
 dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
-dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
+dict.values	output the dictionary values as an MList / выводит значения словаря в виде многоуровневого списка (MList)
 global.bimap	global bidirectional map / глобальное двунаправленное отображение
 local.bimap	local the to patch bidirectional map container / локальный для патча контейнер двунаправленного отображения
 mlist.flatten	converts a multi-level list into a single-level list / преобразует многоуровневый список в одноуровневый

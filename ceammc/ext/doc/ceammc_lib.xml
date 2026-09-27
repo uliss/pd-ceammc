@@ -465,7 +465,7 @@
     <entry name="dict.to_list" descr="converts a dictionary to a plain list" ref_view="link">
       <xi:include href="dict.to_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.values" descr="output the dictionary values as MList" ref_view="link">
+    <entry name="dict.values" descr="output the dictionary values as an MList" ref_view="link">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>
     <entry name="global.bimap" descr="global bidirectional map" ref_view="link">

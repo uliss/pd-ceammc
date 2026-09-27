@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">output the dictionary values as MList</tr>
+        <tr lang="en">output the dictionary values as an MList</tr>
         <tr lang="ru">выводит значения словаря в виде многоуровневого списка (MList)</tr>
       </description>
       <license>GPL3 or later</license>
@@ -21,19 +21,31 @@
         <see>dict.keys</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a dictionary on its inlet and outputs a multi-level list
+        (MList) containing all dictionary values. The order of values matches the order of keys in
+        the dictionary. Use dict.keys to get the corresponding list of keys.</tr>
+        <tr lang="ru">Объект принимает словарь на вход и выводит многоуровневый список (MList),
+        содержащий все значения словаря. Порядок значений соответствует порядку ключей в словаре.
+        Для получения соответствующего списка ключей используйте dict.keys.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
-        <in on="data">
-          <tr lang="en">data.dict</tr>
-          <tr lang="ru" finished="false">data.dict.</tr>
+        <in on="data:dict">
+          <tr lang="en">dictionary to extract values from. On
+          receipt, the object immediately outputs the MList of values</tr>
+          <tr lang="ru">словарь, из которого нужно извлечь значения.
+          При получении объект сразу выводит MList значений</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="data:mlist">
           <tr lang="en">mlist of values</tr>
-          <tr lang="ru" finished="false">Миллист ценностей</tr>
+          <tr lang="ru">MList значений</tr>
         </out>
       </outlet>
     </outlets>
