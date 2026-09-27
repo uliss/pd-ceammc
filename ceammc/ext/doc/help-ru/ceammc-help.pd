@@ -197,8 +197,8 @@ metro.wchoice-help.pd;
 #X obj 20 2221 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 2235 ui.link @title [chaos.gbman0] @url
 chaos.gbman0-help.pd;
-#X text 200 2232 хаотический генератор на основе отображения Пряничного
-человечка;
+#X text 200 2232 хаотический генератор на основе отображения «Пряничный
+человечек»;
 #X obj 30 2275 ui.link @title [chaos.gbman0~] @url
 chaos.gbman0~-help.pd;
 #X text 200 2272 хаотический генератор на основе отображения Пряничного

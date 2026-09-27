@@ -3,8 +3,8 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 120 ui.link @title [chaos.gbman0] @url chaos.gbman0-help.pd;
-#X text 220 117 хаотический генератор на основе отображения Пряничного
-человечка;
+#X text 220 117 хаотический генератор на основе отображения «Пряничный
+человечек»;
 #X obj 30 160 ui.link @title [chaos.gbman0~] @url
 chaos.gbman0~-help.pd;
 #X text 220 157 хаотический генератор на основе отображения Пряничного

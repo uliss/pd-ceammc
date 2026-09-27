@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Gingerbread man map chaotic generator</tr>
-        <tr lang="ru">хаотический генератор на основе отображения Пряничного человечка</tr>
+        <tr lang="ru">хаотический генератор на основе отображения «Пряничный человечек»</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,53 +21,82 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
-        <!-- old: Неинтерполирующий генератор, основанный на
-                разностных уравнениях: -->
-        <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на разностных
-        уравнениях:</tr>
+        <tr lang="en">A non-interpolating chaotic generator based on the Gingerbreadman map, a
+        two-dimensional discrete dynamical system. Unlike interpolating generators that produce a
+        continuous stream of values between two consecutive points, this generator advances the
+        map by one discrete step per incoming bang.</tr>
+        <tr lang="ru">Неинтерполирующий хаотический генератор на основе отображения «Пряничный
+        человечек» — двумерной дискретной динамической системы. В отличие от интерполирующих
+        генераторов, которые выдают непрерывный поток значений между двумя соседними точками,
+        этот генератор делает один дискретный шаг отображения на каждый приходящий bang.</tr>
+      </par>
+      <par>
+        <tr lang="en">The map is defined by the difference equations:</tr>
+        <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
       <par>
         <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
-        <tr lang="ru" finished="false">x(n+1) = 1 - y(n) + |x(n) |</tr>
+        <tr lang="ru">x(n+1) = 1 - y(n) + |x(n)|</tr>
       </par>
       <par>
         <tr lang="en">y(n+1) = x(n)</tr>
-        <tr lang="ru" finished="false">y(n+1) = x(n)</tr>
+        <tr lang="ru">y(n+1) = x(n)</tr>
+      </par>
+      <par>
+        <tr lang="en">For most initial values (x, y) the sequence of points (x(n), y(n)) traces a
+        bounded, non-repeating orbit with a characteristic "gingerbread man" shape. Typical
+        initial values that put the generator into the chaotic region are x = 1.2 and y = 2.1 (the
+        defaults). The output values are typically in the range of roughly -1.5 to 3.5 for x and
+        -1.5 to 3.5 for y, but the exact bounds depend on the initial values.</tr>
+        <tr lang="ru">Для большинства начальных значений (x, y) последовательность точек (x(n),
+        y(n)) образует ограниченную, не повторяющуюся траекторию характерной формы «пряничного
+        человечка». Типичные начальные значения, приводящие генератор в хаотическую область — x
+        = 1.2 и y = 2.1 (значения по умолчанию). Выходные значения обычно лежат примерно в
+        диапазоне от -1.5 до 3.5 для x и от -1.5 до 3.5 для y, но точные границы зависят от
+        начальных значений.</tr>
+      </par>
+      <par>
+        <tr lang="en">The two outlets output the current x and y coordinates. Because the values
+        are not interpolated, when the generator is driven by a slow metro the output jumps between
+        discrete points — this makes the object useful as a source of stepped, chaotic control
+        signals (for example, for driving filters, pan positions or pitches).</tr>
+        <tr lang="ru">Два выхода выдают текущие координаты x и y. Так как значения не
+        интерполируются, при медленном metro на входе выход скачкообразно переходит между
+        дискретными точками — это делает объект удобным источником ступенчатых хаотических
+        управляющих сигналов (например, для управления фильтрами, панорамой или высотой
+        тона).</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
     </info>
     <arguments>
       <argument name="X" type="float">
         <tr lang="en">initial x value, default 1.2</tr>
-        <tr lang="ru" finished="false">начальное значение x, по умолчанию 1.2</tr>
+        <tr lang="ru">начальное значение x, по умолчанию 1.2</tr>
       </argument>
       <argument name="Y" type="float">
         <tr lang="en">initial y value, default 2.1</tr>
-        <tr lang="ru" finished="false">начальное значение y, по умолчанию 2.1</tr>
+        <tr lang="ru">начальное значение y, по умолчанию 2.1</tr>
       </argument>
     </arguments>
-    <properties />
-    <methods />
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generates and outputs next x-value</tr>
-          <tr lang="ru" finished="false">генерирует и выводит следующее x-значение</tr>
+          <tr lang="en">generates and outputs the next x-value</tr>
+          <tr lang="ru">генерирует и выводит следующее значение x</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">outputs x-value</tr>
-          <tr lang="ru" finished="false">выходы x-значения</tr>
+          <tr lang="en">outputs the x-value</tr>
+          <tr lang="ru">выводит значение x</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">outputs y-value</tr>
-          <tr lang="ru" finished="false">выход y-значения</tr>
+          <tr lang="en">outputs the y-value</tr>
+          <tr lang="ru">выводит значение y</tr>
         </out>
       </outlet>
     </outlets>
