@@ -462,7 +462,7 @@
     <entry name="dict.size" descr="output the dictionary size (number of key/value pairs)" ref_view="link">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.to_list" descr="converts dictionary to plain list" ref_view="link">
+    <entry name="dict.to_list" descr="converts a dictionary to a plain list" ref_view="link">
       <xi:include href="dict.to_list.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.values" descr="output the dictionary values as MList" ref_view="link">

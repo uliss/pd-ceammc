@@ -53,7 +53,7 @@ dict.from_list-help.pd;
 #X obj 30 645 ui.link @title [dict.size] @url dict.size-help.pd;
 #X text 220 642 output the dictionary size (number of key/value pairs);
 #X obj 30 670 ui.link @title [dict.to_list] @url dict.to_list-help.pd;
-#X text 220 667 converts dictionary to plain list;
+#X text 220 667 converts a dictionary to a plain list;
 #X obj 30 695 ui.link @title [dict.values] @url dict.values-help.pd;
 #X text 220 692 output the dictionary values as MList;
 #X obj 30 720 ui.link @title [global.bimap] @url global.bimap-help.pd;

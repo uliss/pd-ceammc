@@ -325,9 +325,9 @@ dict.keys	output the list of dictionary keys / выводит список кл�
 dict.pass	passes only the specified keys in the dictionary / оставляет в словаре только указанные ключи (фильтрация)
 dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
 dict.size	output the dictionary size (number of key/value pairs) / выводит размер словаря (число пар ключ/значение)
-dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
+dict.to_list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
+ceammc/dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
+dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
 dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
 global.bimap	global bidirectional map / глобальное двунаправленное отображение
 local.bimap	local the to patch bidirectional map container / локальный для патча контейнер двунаправленного отображения

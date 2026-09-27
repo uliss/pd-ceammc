@@ -444,7 +444,7 @@ dict.from_list-help.pd;
 #X text 200 4663 выводит размер словаря (число пар ключ/значение);
 #X obj 30 4691 ui.link @title [dict.to_list] @url
 dict.to_list-help.pd;
-#X text 200 4688 конвертирует словарь в простой одномерный список;
+#X text 200 4688 преобразует словарь в простой одномерный список;
 #X obj 30 4716 ui.link @title [dict.values] @url dict.values-help.pd;
 #X text 200 4713 выводит значения словаря в виде многоуровневого списка
 (MList);

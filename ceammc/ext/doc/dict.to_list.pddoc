@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">converts dictionary to plain list</tr>
-        <tr lang="ru">конвертирует словарь в простой одномерный список</tr>
+        <tr lang="en">converts a dictionary to a plain list</tr>
+        <tr lang="ru">преобразует словарь в простой одномерный список</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,26 +23,39 @@
         <alias>dict-&gt;list</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">By default the object outputs a flat list of alternating keys and values:
+        key1 value1 key2 value2 ... If the @props flag is set, each key is output as a property name
+        prefixed with @, followed by its values: @key1 vals1 @key2 vals2 ...</tr>
+        <tr lang="ru">По умолчанию объект выводит плоский список, в котором чередуются ключи и
+        значения: key1 value1 key2 value2 ... Если установлен флаг @props, каждый ключ выводится
+        как имя свойства с префиксом @, за которым следуют его значения: @key1 vals1 @key2 vals2
+        ...</tr>
+      </par>
+    </info>
     <properties>
       <!-- @props -->
       <property name="@props" type="flag" access="initonly">
-        <tr lang="en">output as list of properties: @key1 vals.. @key2 vals2...</tr>
-        <tr lang="ru" finished="false">@key1 vals.. @key2 vals2 ...</tr>
+        <tr lang="en">output as a list of properties: @key1 vals.. @key2 vals2...</tr>
+        <tr lang="ru">выводить в виде списка свойств: @key1 vals.. @key2 vals2...</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">input</tr>
-          <tr lang="ru" finished="false">ввод</tr>
+          <tr lang="en">dictionary to convert. On receipt, the object
+          immediately outputs the resulting list</tr>
+          <tr lang="ru">словарь для преобразования. При получении
+          объект сразу выводит результирующий список</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list output</tr>
-          <tr lang="ru" finished="false">перечень мероприятий</tr>
+          <tr lang="ru">выходной список</tr>
         </out>
       </outlet>
     </outlets>
