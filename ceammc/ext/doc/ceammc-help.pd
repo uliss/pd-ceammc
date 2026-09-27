@@ -2000,7 +2000,7 @@ hoa.2d.decoder~-help.pd;
 #X text 200 20741 2D decoder of higher order ambisonics;
 #X obj 30 20769 ui.link @title [hoa.2d.encoder~] @url
 hoa.2d.encoder~-help.pd;
-#X text 200 20766 2D decoder of higher order ambisonics;
+#X text 200 20766 2D encoder of higher order ambisonics;
 #X obj 30 20794 ui.link @title [hoa.2d.exchanger~] @url
 hoa.2d.exchanger~-help.pd;
 #X text 200 20791 renumbers and normalizes the channels in 2d ambisonics;

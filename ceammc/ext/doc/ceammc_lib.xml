@@ -2246,7 +2246,7 @@
     <entry name="hoa.2d.decoder~" descr="2D decoder of higher order ambisonics" ref_view="link">
       <xi:include href="hoa.2d.decoder~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.encoder~" descr="2D decoder of higher order ambisonics" ref_view="link">
+    <entry name="hoa.2d.encoder~" descr="2D encoder of higher order ambisonics" ref_view="link">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels in 2d ambisonics" ref_view="link">
