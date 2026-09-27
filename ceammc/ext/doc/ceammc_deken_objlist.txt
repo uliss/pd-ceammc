@@ -249,9 +249,9 @@ rad->phase	convert radians value to phase [0-1) / преобразует зна�
 conv.rad2phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 ceammc/rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
-conv.rgb2hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-ceammc/rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
+conv.rgb2hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
+ceammc/rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
+rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
 conv.samp2ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 ceammc/samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования

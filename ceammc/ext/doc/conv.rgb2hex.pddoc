@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert separate RGB values to hex color</tr>
-        <tr lang="ru">преобразование отдельных значений RGB в шестнадцатеричный цвет</tr>
+        <tr lang="ru">преобразует отдельные значения RGB в hex-значение цвета</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,71 +20,72 @@
         <alias>rgb-&gt;hex</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts separate RGB channel values into a hex color symbol in
+        the form #RRGGBB. The input mode is controlled by the @mode property: with @int (default),
+        the channel values are expected in the range [0, 255], with @float, they are expected in
+        the range [0, 1]. With the @sync flag, the hex value is output whenever any inlet
+        changes.</tr>
+        <tr lang="ru">Объект преобразует отдельные значения каналов RGB в hex-значение цвета вида
+        #RRGGBB. Режим входа управляется свойством @mode: при @int (по умолчанию) значения
+        каналов ожидаются в диапазоне [0, 255], при @float — в диапазоне [0, 1]. При флаге @sync
+        hex-значение выводится при любом изменении на любом входе.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @float -->
       <property name="@float" type="alias">
-        <tr lang="en">alias to @mode float. Expected input values are in [0-1] range</tr>
-        <!-- old: Оригинальное название: Mode Float. Ожидаемые входные
-                значения находятся в диапазоне [0-1] -->
-        <!-- old: Оригинальное название: Mode Float. Ожидаемые входные
-                значения находятся в диапазоне [0-1] -->
-        <tr lang="ru" finished="false">Оригинальное название: Mode Float. Ожидаемые входные
-        значения находятся в диапазоне [0-1]</tr>
+        <tr lang="en">alias to @mode float. Input values are expected in the [0, 1] range</tr>
+        <tr lang="ru">сокращение для @mode float. Входные значения ожидаются в диапазоне
+        [0, 1]</tr>
       </property>
       <!-- @int -->
       <property name="@int" type="alias">
-        <tr lang="en">alias to @mode int. Expected input values are in [0-255] range</tr>
-        <!-- old: Название: @mode int Ожидаемые входные значения
-                находятся в диапазоне [0-255] -->
-        <!-- old: Название: @mode int Ожидаемые входные значения
-                находятся в диапазоне [0-255] -->
-        <tr lang="ru" finished="false">Название: @mode int Ожидаемые входные значения находятся в
-        диапазоне [0-255]</tr>
+        <tr lang="en">alias to @mode int. Input values are expected in the [0, 255] range</tr>
+        <tr lang="ru">сокращение для @mode int. Входные значения ожидаются в диапазоне
+        [0, 255]</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="int" enum="int float">
         <tr lang="en">input mode</tr>
-        <tr lang="ru" finished="false">режим ввода</tr>
+        <tr lang="ru">режим входа</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="flag" access="initonly">
         <tr lang="en">output value on any inlet change</tr>
-        <tr lang="ru" finished="false">выходное значение при любом входном изменении</tr>
+        <tr lang="ru">выводить значение при любом изменении на входе</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="int">
-          <tr lang="en">red channel value in [0-255] range</tr>
-          <!-- old: значение красного канала в диапазоне
-                    [0-255] -->
-          <tr lang="ru" finished="false">значение красного канала в диапазоне [0-255]</tr>
+          <tr lang="en">red channel value in the [0, 255] range</tr>
+          <tr lang="ru">значение красного канала в диапазоне [0, 255]</tr>
         </in>
         <in on="float">
-          <tr lang="en">red channel value in [0-1] range</tr>
-          <tr lang="ru" finished="false">значение красного канала в диапазоне [0-1]</tr>
+          <tr lang="en">red channel value in the [0, 1] range</tr>
+          <tr lang="ru">значение красного канала в диапазоне [0, 1]</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
-          <tr lang="en">green channel value in [0-255] range</tr>
-          <!-- old: Значение зеленого канала в диапазоне
-                    [0-255] -->
-          <tr lang="ru" finished="false">Значение зеленого канала в диапазоне [0-255]</tr>
+          <tr lang="en">green channel value in the [0, 255] range</tr>
+          <tr lang="ru">значение зелёного канала в диапазоне [0, 255]</tr>
         </in>
         <in on="float">
-          <tr lang="en">green channel value in [0-1] range</tr>
-          <tr lang="ru" finished="false">Значение зеленого канала в диапазоне [0-1]</tr>
+          <tr lang="en">green channel value in the [0, 1] range</tr>
+          <tr lang="ru">значение зелёного канала в диапазоне [0, 1]</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
-          <tr lang="en">blue channel value in [0-255] range</tr>
-          <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-255]</tr>
+          <tr lang="en">blue channel value in the [0, 255] range</tr>
+          <tr lang="ru">значение синего канала в диапазоне [0, 255]</tr>
         </in>
         <in on="float">
-          <tr lang="en">blue channel value in [0-1] range</tr>
-          <tr lang="ru" finished="false">Значение синего канала в диапазоне [0-1]</tr>
+          <tr lang="en">blue channel value in the [0, 1] range</tr>
+          <tr lang="ru">значение синего канала в диапазоне [0, 1]</tr>
         </in>
       </inlet>
     </inlets>
@@ -92,7 +93,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">symbol: #RRGGBB color value</tr>
-          <tr lang="ru" finished="false">Символ #RRGGBB цветовое значение</tr>
+          <tr lang="ru">символ: hex-значение цвета #RRGGBB</tr>
         </out>
       </outlet>
     </outlets>
