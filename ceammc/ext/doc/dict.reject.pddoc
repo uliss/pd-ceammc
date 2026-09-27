@@ -19,30 +19,42 @@
         <see>data.dict</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a dictionary and outputs a new dictionary without the keys
+        listed in KEYS (or set via the @keys property). All other keys are kept as is. </tr>
+        <tr lang="ru">Объект принимает словарь и выводит новый словарь без ключей, перечисленных в
+        KEYS (или заданных через свойство @keys). Все остальные ключи сохраняются без изменений.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="KEYS" type="list">
-        <tr lang="en">keys</tr>
-        <tr lang="ru" finished="false">ключи</tr>
+        <tr lang="en">list of keys to remove from the output dictionary. All other keys will be
+        kept</tr>
+        <tr lang="ru">список ключей, которые нужно удалить из выходного словаря. Все остальные ключи
+        будут сохранены</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @keys -->
       <property name="@keys" type="list" default="">
-        <tr lang="en">rejected keys</tr>
-        <tr lang="ru" finished="false">Отклоненные ключи</tr>
+        <tr lang="en">current list of keys to reject.</tr>
+        <tr lang="ru">текущий список отклоняемых ключей.</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">input dictionary</tr>
-          <tr lang="ru" finished="false">словарь входного словаря</tr>
+          <tr lang="en">input dictionary. On receipt, the object immediately outputs a filtered
+          dictionary with the specified keys removed</tr>
+          <tr lang="ru">входной словарь. При получении объект сразу выводит отфильтрованный
+          словарь с удалёнными указанными ключами</tr>
         </in>
       </inlet>
       <inlet>
         <in>
-          <tr lang="en">set rejected keys</tr>
-          <tr lang="ru" finished="false">Набор отвергнутых ключей</tr>
+          <tr lang="en">set the list of keys to reject</tr>
+          <tr lang="ru">задать список отклоняемых ключей</tr>
         </in>
       </inlet>
     </inlets>
@@ -50,7 +62,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">new dict with filtered keys</tr>
-          <tr lang="ru" finished="false">Новый дикт с фильтрованными ключами</tr>
+          <tr lang="ru">новый словарь с отфильтрованными ключами</tr>
         </out>
       </outlet>
     </outlets>
