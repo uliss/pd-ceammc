@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 420 50 конвертирует из диапазона MIDI Control Change;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 преобразует из диапазона MIDI Control Change;
 #X obj 1 1 cnv 5 765 40 empty empty conv.cc2amp 20 20 0 20 -104026
 -4096 0;
 #X obj 452 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,65 +9,70 @@
 #X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [cc->amp] @url conv.cc2amp-help.pd;
 #X obj 660 8 conv.cc2amp;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 By default converts from [0\..127] to [0\..1];
-#X floatatom 50 171 5 0 127 0 - - -;
-#X obj 88 200 ctlin 0;
-#X floatatom 203 200 5 0 127 0 - - -;
-#X obj 50 229 cc->amp;
-#X obj 203 229 cc->amp @from 1 @to -1;
-#X floatatom 50 258 5 0 0 0 - - -;
-#X floatatom 203 258 5 0 0 0 - - -;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 295 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует значение из диапазона MIDI Control
+Change [0 \, 127] в произвольный выходной диапазон. По умолчанию выходной
+диапазон — [0 \, 1] \, что удобно для использования результата в качестве
+амплитуды \, усиления или любого другого нормализованного управляющего
+значения. Выходной диапазон можно изменить с помощью аргументов FROM
+и TO или свойств @from и @to.;
+#X floatatom 50 262 5 0 127 0 - - -;
+#X obj 88 291 ctlin 0;
+#X floatatom 203 291 5 0 127 0 - - -;
+#X obj 50 320 cc->amp;
+#X obj 203 320 cc->amp @from 1 @to -1;
+#X floatatom 50 349 5 0 0 0 - - -;
+#X floatatom 203 349 5 0 0 0 - - -;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 386 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 298 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 389 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 296 1\.;
-#X text 170 296 float;
-#X obj 268 297 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 296 FROM: начальное значение выходного диапазона. Тип:
+#X text 130 387 1\.;
+#X text 170 387 float;
+#X obj 268 388 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 387 FROM: начальное значение выходного диапазона. Тип:
 float.;
-#X text 130 321 2\.;
-#X text 170 321 float;
-#X obj 268 322 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 321 TO: конечное значение выходного диапазона. Тип: float.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 361 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 412 2\.;
+#X text 170 412 float;
+#X obj 268 413 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 412 TO: конечное значение выходного диапазона. Тип: float.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 452 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 364 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 455 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 362 @from;
-#X text 270 362 Начальное значение выходного диапазона. Тип: float.
+#X msg 130 453 @from;
+#X text 270 453 Начальное значение выходного диапазона. Тип: float.
 Значение по умолчанию: 0\.;
-#X obj 250 404 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 404 @to;
-#X text 270 404 Конечное значение выходного диапазона. Тип: float.
+#X obj 250 495 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 495 @to;
+#X text 270 495 Конечное значение выходного диапазона. Тип: float.
 Значение по умолчанию: 1\.;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 552 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 462 1\.;
-#X text 170 462 float:;
-#X text 270 462 value in MIDI CC range [0\..127].;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 502 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 553 1\.;
+#X text 170 553 float:;
+#X text 270 553 значение в диапазоне MIDI CC [0 \, 127].;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 593 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 503 1\.;
-#X text 270 503 converted value.;
+#X text 130 594 1\.;
+#X text 270 594 преобразованное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 556 библиотека: ceammc v0.9.8;
-#X text 468 568 смотрите также:;
-#X obj 589 571 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 644 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 647 библиотека: ceammc v0.9.8;
+#X text 468 659 смотрите также:;
+#X obj 589 662 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lin->lin] @url lin->lin-help.pd;
-#X obj 665 571 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 662 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lin->curve] @url lin->curve-help.pd;
-#N canvas 10 575 400 290 info 0;
+#N canvas 10 666 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,7 +96,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 575 pd info;
+#X restore 10 666 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

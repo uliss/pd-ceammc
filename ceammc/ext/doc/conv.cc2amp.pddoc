@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts from MIDI Control Change range</tr>
-        <tr lang="ru">конвертирует из диапазона MIDI Control Change</tr>
+        <tr lang="ru">преобразует из диапазона MIDI Control Change</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -26,39 +26,44 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">By default converts from [0..127] to [0..1]</tr>
-        <!-- old: По умолчанию конвертируется из [0..127] в
-                [0..1] -->
-        <tr lang="ru" finished="false">По умолчанию конвертируется из [0..127] в [0..1]</tr>
+        <tr lang="en">The object converts a value from the MIDI Control Change range [0, 127] to
+        an arbitrary output range. By default the output range is [0, 1], which is convenient for
+        using the result as an amplitude, gain or any other normalized control value. The output
+        range can be changed with the FROM and TO arguments or the @from and @to properties.</tr>
+        <tr lang="ru">Объект преобразует значение из диапазона MIDI Control Change [0, 127] в
+        произвольный выходной диапазон. По умолчанию выходной диапазон — [0, 1], что удобно для
+        использования результата в качестве амплитуды, усиления или любого другого
+        нормализованного управляющего значения. Выходной диапазон можно изменить с помощью
+        аргументов FROM и TO или свойств @from и @to.</tr>
       </par>
     </info>
     <arguments>
       <argument name="FROM" type="float">
-        <tr lang="en">start value of output range</tr>
+        <tr lang="en">start value of the output range</tr>
         <tr lang="ru">начальное значение выходного диапазона</tr>
       </argument>
       <argument name="TO" type="float">
-        <tr lang="en">end value of output range</tr>
+        <tr lang="en">end value of the output range</tr>
         <tr lang="ru">конечное значение выходного диапазона</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @from -->
       <property name="@from" type="float" default="0">
-        <tr lang="en">start value of output range</tr>
+        <tr lang="en">start value of the output range</tr>
         <tr lang="ru">начальное значение выходного диапазона</tr>
       </property>
       <!-- @to -->
       <property name="@to" type="float" default="1">
-        <tr lang="en">end value of output range</tr>
+        <tr lang="en">end value of the output range</tr>
         <tr lang="ru">конечное значение выходного диапазона</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">value in MIDI CC range [0..127]</tr>
-          <tr lang="ru" finished="false">значение в диапазоне MIDI CC [0,127]</tr>
+          <tr lang="en">value in MIDI CC range [0, 127]</tr>
+          <tr lang="ru">значение в диапазоне MIDI CC [0, 127]</tr>
         </in>
       </inlet>
     </inlets>
@@ -66,7 +71,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">converted value</tr>
-          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+          <tr lang="ru">преобразованное значение</tr>
         </out>
       </outlet>
     </outlets>

@@ -254,7 +254,7 @@ conv.bpm2sec-help.pd;
 conv.car2pol-help.pd;
 #X text 200 2795 преобразует декартовы координаты в полярные;
 #X obj 30 2823 ui.link @title [conv.cc2amp] @url conv.cc2amp-help.pd;
-#X text 200 2820 конвертирует из диапазона MIDI Control Change;
+#X text 200 2820 преобразует из диапазона MIDI Control Change;
 #X obj 30 2848 ui.link @title [conv.char2morse] @url
 conv.char2morse-help.pd;
 #X text 200 2845 преобразует единичный символ в код Морзе;
