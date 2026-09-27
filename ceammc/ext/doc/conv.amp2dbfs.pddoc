@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert from the amplitude to a decibel full scale</tr>
-        <tr lang="ru">преобразование из амплитуды в децибелы полной шкалы</tr>
+        <tr lang="ru">преобразование амплитуды в децибелы полной шкалы</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,22 +25,30 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: amplitude value 0 is converted to -144 db (24-bit range)</tr>
-        <!-- old: Примечание: значение амплитуды 0 преобразуется в
-                -144 дБ (24-битный диапазон) -->
-        <tr lang="ru" finished="false">Примечание: значение амплитуды 0 преобразуется в -144 дБ
-        (24-битный диапазон)</tr>
+        <tr lang="en">The object converts a linear amplitude value to decibels relative to full
+        scale (dBFS). The conversion follows the formula dBFS = 20 * log10(amplitude). An amplitude
+        of 1 corresponds to 0 dBFS. Amplitudes greater than 1 give positive dBFS values, and
+        amplitudes between 0 and 1 give negative dBFS values.</tr>
+        <tr lang="ru">Объект преобразует линейное значение амплитуды в децибелы относительно полной
+        шкалы (dBFS). Преобразование выполняется по формуле dBFS = 20 * log10(амплитуда).
+        Амплитуда 1 соответствует 0 dBFS. Амплитуды больше 1 дают положительные значения dBFS, а
+        амплитуды от 0 до 1 — отрицательные значения dBFS.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: an amplitude value of 0 is converted to -144 dB (24-bit range).</tr>
+        <tr lang="ru">Примечание: значение амплитуды 0 преобразуется в -144 дБ (24-битный
+        диапазон).</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
         <in on="list">
           <tr lang="en">input values</tr>
-          <tr lang="ru" finished="false">входные значения</tr>
+          <tr lang="ru">входные значения</tr>
         </in>
       </inlet>
     </inlets>
@@ -48,7 +56,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">converted value</tr>
-          <tr lang="ru" finished="false">преобразованная стоимость</tr>
+          <tr lang="ru">преобразованное значение</tr>
         </out>
       </outlet>
     </outlets>

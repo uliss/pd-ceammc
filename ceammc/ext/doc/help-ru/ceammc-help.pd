@@ -221,7 +221,7 @@ chaos.logistic-help.pd;
 #X text 200 2490 преобразование индекса семпла в фазовый диапазон [0\..1];
 #X obj 30 2518 ui.link @title [conv.amp2dbfs] @url
 conv.amp2dbfs-help.pd;
-#X text 200 2515 преобразование из амплитуды в децибелы полной шкалы;
+#X text 200 2515 преобразование амплитуды в децибелы полной шкалы;
 #X obj 30 2543 ui.link @title [conv.amp2dbfs~] @url
 conv.amp2dbfs~-help.pd;
 #X text 200 2540 преобразование из амплитуды в децибелы полной шкалы;

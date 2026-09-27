@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 373 50 преобразование из амплитуды в децибелы полной шкалы;
+#X obj 391 50 cnv 1 374 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 396 50 преобразование амплитуды в децибелы полной шкалы;
 #X obj 1 1 cnv 5 765 40 empty empty conv.amp2dbfs 20 20 0 20 -104026
 -4096 0;
 #X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,40 +9,45 @@
 #X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [amp->dbfs] @url conv.amp2dbfs-help.pd;
 #X obj 646 8 conv.amp2dbfs;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: amplitude value 0 is converted to -144 db (24-bit
-range);
-#X obj 50 186 ui.hsl;
-#X floatatom 50 215 5 0 0 0 - - -;
-#X obj 50 244 amp->dbfs;
-#X floatatom 50 273 5 0 0 0 - - -;
-#X msg 50 302 0 0.5 1 2;
-#X obj 50 330 amp->dbfs;
-#X obj 50 359 ui.dt;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 161 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует линейное значение амплитуды в децибелы
+относительно полной шкалы (dBFS). Преобразование выполняется по формуле
+dBFS = 20 * log10(амплитуда). Амплитуда 1 соответствует 0 dBFS. Амплитуды
+больше 1 дают положительные значения dBFS \, а амплитуды от 0 до 1
+— отрицательные значения dBFS.;
+#X text 240 184 Примечание: значение амплитуды 0 преобразуется в -144
+дБ (24-битный диапазон).;
+#X obj 50 287 ui.hsl;
+#X floatatom 50 316 5 0 0 0 - - -;
+#X obj 50 345 amp->dbfs;
+#X floatatom 50 374 5 0 0 0 - - -;
+#X msg 50 403 0 0.5 1 2;
+#X obj 50 431 amp->dbfs;
+#X obj 50 460 ui.dt;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 515 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 415 1\.;
-#X text 170 415 float:;
-#X text 270 415 input value.;
-#X text 170 440 list:;
-#X text 270 440 input values.;
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 480 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 516 1\.;
+#X text 170 516 float:;
+#X text 270 516 входное значение.;
+#X text 170 541 list:;
+#X text 270 541 входные значения.;
+#X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 581 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 481 1\.;
-#X text 270 481 converted value.;
+#X text 130 582 1\.;
+#X text 270 582 преобразованное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 531 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 534 библиотека: ceammc v0.9.8;
-#X text 551 546 смотрите также:;
-#X obj 672 549 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 632 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 635 библиотека: ceammc v0.9.8;
+#X text 551 647 смотрите также:;
+#X obj 672 650 ui.link @background_color 0.78431 0.78431 0.78431
 @title [dbfs->amp] @url dbfs->amp-help.pd;
-#N canvas 10 553 400 290 info 0;
+#N canvas 10 654 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -66,9 +71,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 553 pd info;
-#X connect 8 0 9 0;
+#X restore 10 654 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
-#X connect 12 0 13 0;
+#X connect 11 0 12 0;
 #X connect 13 0 14 0;
+#X connect 14 0 15 0;
