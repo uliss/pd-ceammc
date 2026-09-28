@@ -68,20 +68,6 @@
         <tr lang="ru">• Проверка принадлежности — быстрая проверка, встречалось ли уже данное
         значение (символ или число), без полного перебора списка.</tr>
       </par>
-      <par indent="1">
-        <tr lang="en">• Simple tags and labels — storing a small collection of active tags (for
-        example, "reverb", "delay", "chorus") and enabling or disabling each of them by adding or
-        removing its name.</tr>
-        <tr lang="ru">• Простые теги и метки — хранение небольшого набора активных тегов
-        (например, "reverb", "delay", "chorus") и включение или отключение каждого из них
-        добавлением или удалением его имени.</tr>
-      </par>
-      <par indent="1">
-        <tr lang="en">• Configuration flags — storing a set of enabled options, so that the patch
-        can quickly check which options are currently active.</tr>
-        <tr lang="ru">• Флаги конфигурации — хранение набора включённых опций, чтобы патч мог
-        быстро проверить, какие из них сейчас активны.</tr>
-      </par>
     </info>
     <mouse>
       <event type="left-click" editmode="false">open data editor</event>
