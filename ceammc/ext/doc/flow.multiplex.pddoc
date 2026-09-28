@@ -22,44 +22,72 @@
         <see>flow.demultiplex</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Passes messages from one of several inlets to a single outlet, according to
+        the current input index. The number of inlets is set by the argument N. Only one inlet at
+        a time is routed to the outlet — the others are ignored.</tr>
+        <tr lang="ru">Передаёт сообщения с одного из нескольких входов на единственный выход в
+        соответствии с текущим индексом входа. Число входов задаётся аргументом N. Одновременно
+        на выход маршрутизируется только один вход — остальные игнорируются.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Selecting one of several control sources — choosing between different
+        sliders, knobs or MIDI inputs, so that only the currently selected source updates the
+        parameter.</tr>
+        <tr lang="ru">• Выбор одного из нескольких источников управления — переключение между
+        разными слайдерами, крутилками или MIDI-входами, чтобы параметр обновлялся только от
+        выбранного источника.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Programmatic switching in algorithmic patches — changing the active input
+        on the fly from a sequencer, LFO or any other control signal, so that the flow of messages
+        is redirected automatically.</tr>
+        <tr lang="ru">• Программное переключение в алгоритмических патчах — изменение активного
+        входа на лету из секвенсора, LFO или любого другого управляющего сигнала, что позволяет
+        автоматически перенаправлять поток сообщений.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="24">
         <tr lang="en">number of multiplexed inputs</tr>
-        <tr lang="ru" finished="false">количество мультиплексированных входов</tr>
+        <tr lang="ru">число мультиплексируемых входов</tr>
       </argument>
       <argument name="INDEX" type="int" minvalue="0" maxvalue="23">
         <tr lang="en">default input index</tr>
-        <tr lang="ru" finished="false">Входной индекс по умолчанию</tr>
+        <tr lang="ru">индекс входа по умолчанию</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @index -->
       <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">
-        <tr lang="en">input index, can be set only with [prop.set] object or via rightmost
+        <tr lang="en">input index. Can only be set with the [prop.set] object or via the rightmost
         inlet</tr>
-        <!-- old: Входной индекс может быть установлен только с
-                объектом [prop.set] или через самый правый вход. -->
-        <tr lang="ru" finished="false">Входной индекс может быть установлен только с объектом
-        [prop.set] или через самый правый вход.</tr>
+        <tr lang="ru">индекс входа. Можно задать только через объект [prop.set] или через самый
+        правый вход</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet>
         <in>
-          <tr lang="en">multiplexer first inlet</tr>
-          <tr lang="ru" finished="false">мультиплексор первый вход</tr>
+          <tr lang="en">first multiplexer inlet</tr>
+          <tr lang="ru">первый вход мультиплексора</tr>
         </in>
       </inlet>
       <inlet number="n">
         <in>
-          <tr lang="en">multiplexer N-th inlet</tr>
-          <tr lang="ru" finished="false">мультиплексор N-й вход</tr>
+          <tr lang="en">N-th multiplexer inlet</tr>
+          <tr lang="ru">N-й вход мультиплексора</tr>
         </in>
       </inlet>
       <inlet number="n+1">
         <in on="int">
-          <tr lang="en">set input index</tr>
-          <tr lang="ru" finished="false">Установленный входной индекс</tr>
+          <tr lang="en">set the input index</tr>
+          <tr lang="ru">задать индекс входа</tr>
         </in>
       </inlet>
     </inlets>
@@ -67,7 +95,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
     </outlets>
