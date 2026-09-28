@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">duplicate messages</tr>
-        <tr lang="ru">дупликатор сообщений</tr>
+        <tr lang="ru">дублирование сообщений</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,21 +21,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">outputs the incoming message the specified number of times</tr>
-        <tr lang="ru">выводит входящее сообщение указанное количество раз</tr>
+        <tr lang="en">Outputs the incoming message the specified number of times. If the number is
+        1, the message is passed through unchanged; if it is greater than 1, the same message is
+        output several times in a row at the same logical time; if it is 0, nothing is output.</tr>
+        <tr lang="ru">Выводит входящее сообщение указанное число раз. Если число равно 1,
+        сообщение проходит без изменений; если больше 1, одно и то же сообщение выводится
+        несколько раз подряд в одно и то же логическое время; если 0, не выводится ничего.</tr>
       </par>
     </info>
     <arguments>
       <argument name="N" type="int" minvalue="0">
         <tr lang="en">number of repeats</tr>
-        <tr lang="ru">количество повторений</tr>
+        <tr lang="ru">число повторений</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="0" default="2">
         <tr lang="en">number of repeats</tr>
-        <tr lang="ru">количество повторений</tr>
+        <tr lang="ru">число повторений</tr>
       </property>
     </properties>
     <inlets>
@@ -48,7 +52,7 @@
       <inlet>
         <in on="int" minvalue="0">
           <tr lang="en">set number of repeats</tr>
-          <tr lang="ru">установить количество повторений</tr>
+          <tr lang="ru">задать число повторений</tr>
         </in>
       </inlet>
     </inlets>

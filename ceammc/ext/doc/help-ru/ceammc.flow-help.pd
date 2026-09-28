@@ -26,7 +26,7 @@ flow.demultiplex~-help.pd;
 #X obj 30 320 ui.link @title [flow.dollar] @url flow.dollar-help.pd;
 #X text 220 317 подставляет значения $-переменных;
 #X obj 30 345 ui.link @title [flow.dup] @url flow.dup-help.pd;
-#X text 220 342 дупликатор сообщений;
+#X text 220 342 дублирование сообщений;
 #X obj 30 370 ui.link @title [flow.float] @url flow.float-help.pd;
 #X text 220 367 pass floats;
 #X obj 30 395 ui.link @title [flow.gate] @url flow.gate-help.pd;
