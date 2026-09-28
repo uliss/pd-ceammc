@@ -1299,7 +1299,7 @@ live.capture~-help.pd;
 #X obj 30 13660 ui.link @title [math.abs~] @url math.abs~-help.pd;
 #X text 200 13657 функция абсолютного значения для сигналов;
 #X obj 30 13685 ui.link @title [math.acos] @url math.acos-help.pd;
-#X text 200 13682 арккосинус;
+#X text 200 13682 функция арккосинуса;
 #X obj 30 13710 ui.link @title [math.acosh] @url math.acosh-help.pd;
 #X text 200 13707 обратный гиперболический косинус;
 #X obj 30 13735 ui.link @title [math.acosh~] @url math.acosh~-help.pd;

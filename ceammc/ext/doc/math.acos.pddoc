@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">arc cosine function</tr>
-        <tr lang="ru">арккосинус</tr>
+        <tr lang="ru">функция арккосинуса</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,43 +24,45 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The acos() function computes the principle value of the arc cosine of input
-        value. The result is in the range [0, pi].</tr>
-        <!-- old: Функция acos() вычисляет основное значение дугового
-                косинуса входного значения. Результат находится в диапазоне [0, pi]. -->
-        <tr lang="ru" finished="false">Функция acos() вычисляет основное значение дугового косинуса
-        входного значения. Результат находится в диапазоне [0, pi].</tr>
+        <tr lang="en">Computes the principal value of the arc cosine of the input value. The
+        result is in the range [0, pi].</tr>
+        <tr lang="ru">Вычисляет главное значение арккосинуса входного значения. Результат
+        находится в диапазоне [0, π].</tr>
       </par>
       <par>
         <tr lang="en">Special values:</tr>
-        <tr lang="ru" finished="false">Особые ценности:</tr>
+        <tr lang="ru">Особые значения:</tr>
       </par>
       <par>
         <tr lang="en">acos(1) returns +0.</tr>
-        <tr lang="ru" finished="false">acos(1) возвращается +0.</tr>
+        <tr lang="ru">acos(1) возвращает +0.</tr>
       </par>
       <par>
-        <tr lang="en">acos(x) returns a NAN.</tr>
-        <tr lang="ru" finished="false">acos(x) возвращает NAN.</tr>
+        <tr lang="en">acos(x) for x &lt; -1 or x &gt; 1 returns NaN.</tr>
+        <tr lang="ru">acos(x) при x &lt; -1 или x &gt; 1 возвращает NaN.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
         <in on="list">
           <tr lang="en">apply to all numeric values</tr>
-          <tr lang="ru" finished="false">применяется ко всем числовым значениям</tr>
+          <tr lang="ru">применяется ко всем числовым значениям</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+          <tr lang="ru">значение результата</tr>
+        </out>
+        <out type="list">
+          <tr lang="en">result value</tr>
+          <tr lang="ru">значение результата</tr>
         </out>
       </outlet>
     </outlets>

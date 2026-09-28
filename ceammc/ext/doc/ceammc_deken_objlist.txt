@@ -737,7 +737,7 @@ local.mlist	local named List object / локальный для патча им�
 local.set	local named set object / локальное для патча именованное множество
 math.abs	absolute value function / абсолютное значение
 math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
-math.acos	arc cosine function / арккосинус
+math.acos	arc cosine function / функция арккосинуса
 math.acosh	inverse hyperbolic cosine function / обратный гиперболический косинус
 math.acosh~	hyperbolic arc cosine for signals / обратный гиперболический косинус для сигналов
 math.acos~	arc cosine function for signals / арккосинус для сигналов

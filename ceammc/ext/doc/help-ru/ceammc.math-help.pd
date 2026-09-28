@@ -10,7 +10,7 @@
 #X obj 30 145 ui.link @title [math.abs~] @url math.abs~-help.pd;
 #X text 220 142 функция абсолютного значения для сигналов;
 #X obj 30 170 ui.link @title [math.acos] @url math.acos-help.pd;
-#X text 220 167 арккосинус;
+#X text 220 167 функция арккосинуса;
 #X obj 30 195 ui.link @title [math.acosh] @url math.acosh-help.pd;
 #X text 220 192 обратный гиперболический косинус;
 #X obj 30 220 ui.link @title [math.acosh~] @url math.acosh~-help.pd;
