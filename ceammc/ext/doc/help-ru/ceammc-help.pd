@@ -607,7 +607,8 @@ flow.less_eq-help.pd;
 или равно';
 #X obj 30 6440 ui.link @title [flow.list2many] @url
 flow.list2many-help.pd;
-#X text 200 6437 маршрутизирует элемент списка с соответствующим сообщением;
+#X text 200 6437 маршрутизирует элементы списка с соответствующими
+сообщениями;
 #X obj 30 6465 ui.link @title [flow.match] @url flow.match-help.pd;
 #X text 200 6462 маршрутизатор управляющего потока с помощью совпадений
 с регулярным выражением;

@@ -52,7 +52,7 @@ flow.interval-help.pd;
 равно';
 #X obj 30 595 ui.link @title [flow.list2many] @url
 flow.list2many-help.pd;
-#X text 220 592 маршрутизирует элемент списка с соответствующим сообщением;
+#X text 220 592 маршрутизирует элементы списка с соответствующими сообщениями;
 #X obj 30 620 ui.link @title [flow.match] @url flow.match-help.pd;
 #X text 220 617 маршрутизатор управляющего потока с помощью совпадений
 с регулярным выражением;

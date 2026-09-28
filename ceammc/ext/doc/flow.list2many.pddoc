@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">routes the list element with the corresponding message</tr>
-        <tr lang="ru">маршрутизирует элемент списка с соответствующим сообщением</tr>
+        <tr lang="ru">маршрутизирует элементы списка с соответствующими сообщениями</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,45 +22,59 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message: [s⁰
-        l⁰(, [s¹ l¹( etc...</tr>
-        <!-- old: В входящем списке (l0 l1 ...) выводит
-                соответствующее выходное сообщение: [s0 l0(, [s1 l1( и т.д.)] -->
-        <tr lang="ru" finished="false">В входящем списке (l0 l1 ...) выводит соответствующее
-        выходное сообщение: [s0 l0(, [s1 l1( и т.д.)]</tr>
+        <tr lang="en">On an incoming list (l⁰ l¹ ...) outputs to the corresponding outlet a
+        message of the form [s⁰ l⁰(, [s¹ l¹(, etc., where s⁰, s¹, ... are the selectors given at
+        object creation. The first list element is paired with the first selector, the second
+        element with the second selector, and so on.</tr>
+        <tr lang="ru">При получении списка (l⁰ l¹ ...) выводит на соответствующий выход сообщение
+        вида [s⁰ l⁰(, [s¹ l¹( и т. д., где s⁰, s¹, ... — селекторы, заданные при создании объекта.
+        Первый элемент списка связывается с первым селектором, второй — со вторым, и так
+        далее.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Turning a plain list into a set of property messages — for example,
+        converting [1 2 3( into [@a 1(, [@b 2(, [@c 3( for an object that expects named
+        properties.</tr>
+        <tr lang="ru">• Преобразование простого списка в набор сообщений-свойств — например,
+        преобразование [1 2 3( в [@a 1(, [@b 2(, [@c 3( для объекта, ожидающего именованные
+        свойства.</tr>
       </par>
     </info>
     <arguments>
       <argument name="SEL" type="list">
         <tr lang="en">list of selectors</tr>
-        <tr lang="ru" finished="false">Список селекторов</tr>
+        <tr lang="ru">список селекторов</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">input list</tr>
-          <tr lang="ru" finished="false">вводный список</tr>
+          <tr lang="ru">входной список</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
         <out type="any">
-          <tr lang="en">first element with first selector</tr>
-          <tr lang="ru" finished="false">Первый элемент с первым селектором</tr>
+          <tr lang="en">first element with the first selector</tr>
+          <tr lang="ru">первый элемент с первым селектором</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">... element with ... selector</tr>
-          <tr lang="ru" finished="false">Элемент с ... селектором</tr>
+          <tr lang="en">... element with the ... selector</tr>
+          <tr lang="ru">... элемент с ... селектором</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
-          <tr lang="en">nth element with nth selector</tr>
-          <tr lang="ru" finished="false">n-й элемент с n-ым селектором</tr>
+          <tr lang="en">n-th element with the n-th selector</tr>
+          <tr lang="ru">n-й элемент с n-м селектором</tr>
         </out>
       </outlet>
     </outlets>
