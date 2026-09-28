@@ -403,8 +403,8 @@ flow.demultiplex~	audio stream demultiplexer / демультиплексор а
 flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
 ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
 demux~	audio stream demultiplexer / демультиплексор аудиопотока
-flow.dollar	Substitute the $-values / подставляет $-значения
-flow.$$	Substitute the $-values / подставляет $-значения
+flow.dollar	Substitute the $-values / подставляет значения $-переменных
+flow.$$	Substitute the $-values / подставляет значения $-переменных
 flow.dup	duplicate messages / дупликатор сообщений
 flow.float	pass floats
 flow.f	pass floats

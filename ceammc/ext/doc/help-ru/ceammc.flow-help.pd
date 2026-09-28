@@ -24,7 +24,7 @@ flow.demultiplex2~-help.pd;
 flow.demultiplex~-help.pd;
 #X text 220 292 демультиплексор аудиопотока;
 #X obj 30 320 ui.link @title [flow.dollar] @url flow.dollar-help.pd;
-#X text 220 317 подставляет $-значения;
+#X text 220 317 подставляет значения $-переменных;
 #X obj 30 345 ui.link @title [flow.dup] @url flow.dup-help.pd;
 #X text 220 342 дупликатор сообщений;
 #X obj 30 370 ui.link @title [flow.float] @url flow.float-help.pd;
