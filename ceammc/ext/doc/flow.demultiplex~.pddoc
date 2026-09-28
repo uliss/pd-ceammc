@@ -25,35 +25,76 @@
         <see>flow.demultiplex</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Routes the incoming audio signal to one of several audio outputs, according
+        to the value on the control inlet. The number of outputs is set by the argument N (or by
+        the @n property). Only one output at a time receives the signal — the others output zero.
+        The gain for each output can be set individually with the @value property.</tr>
+        <tr lang="ru">Направляет входной аудиосигнал на один из нескольких аудиовыходов в
+        соответствии со значением на управляющем входе. Число выходов задаётся аргументом N (или
+        свойством @n). Сигнал поступает только на один выход — на остальных выход
+        равен нулю. Усиление для каждого выхода можно задать отдельно с помощью свойства
+        @value.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Switching a single source between several effect chains — routing one
+        oscillator, sample or voice to a specific effect (reverb, delay, distortion) selected by
+        a control signal.</tr>
+        <tr lang="ru">• Переключение одного источника между несколькими цепочками эффектов —
+        направление одного осциллятора, сэмпла или голоса на конкретный эффект (реверберацию,
+        задержку, дисторшн), выбираемый управляющим сигналом.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Routing to different speakers or zones — sending the same audio signal to
+        one of several loudspeaker outputs, for example in an installation with multiple
+        independent playback zones.</tr>
+        <tr lang="ru">• Маршрутизация на разные колонки или зоны — отправка одного и того же
+        аудиосигнала на один из нескольких выходов громкоговорителей, например в инсталляции с
+        несколькими независимыми зонами воспроизведения.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Selecting a destination in a matrix — choosing which input of a
+        multi-channel processor receives the signal, by switching the demultiplexer from a
+        sequencer or a control UI.</tr>
+        <tr lang="ru">• Выбор приёмника в матрице — определение того, на какой вход
+        многоканального процессора попадёт сигнал, путём переключения демультиплексора из
+        секвенсора или UI-управления.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="16">
-        <tr lang="en">number of signals outputs</tr>
-        <tr lang="ru" finished="false">Количество выходов сигналов</tr>
+        <tr lang="en">number of signal outputs</tr>
+        <tr lang="ru">число выходов сигнала</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" default="2" maxvalue="16" access="initonly">
         <tr lang="en">number of outlets</tr>
-        <tr lang="ru" finished="false">количество торговых точек</tr>
+        <tr lang="ru">число выходов</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="list" default="">
         <tr lang="en">gain coefficients per each output</tr>
-        <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
+        <tr lang="ru">коэффициенты усиления для каждого выхода</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control">
         <in>
           <tr lang="en">demultiplexer control</tr>
-          <tr lang="ru" finished="false">контроль демультиплекса</tr>
+          <tr lang="ru">управление демультиплексором</tr>
         </in>
       </inlet>
     </inlets>
@@ -61,19 +102,19 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">first output</tr>
-          <tr lang="ru" finished="false">первый выход</tr>
+          <tr lang="ru">первый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... output</tr>
-          <tr lang="ru" finished="false">... выход</tr>
+          <tr lang="ru">... выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th output</tr>
-          <tr lang="ru" finished="false">n-й выход</tr>
+          <tr lang="ru">n-й выход</tr>
         </out>
       </outlet>
     </outlets>
