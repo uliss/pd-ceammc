@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [seq.life] @url seq.life-help.pd;
 #X text 220 192 секвенсор на основе игры «Жизнь» Конвея;
 #X obj 30 220 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
-#X text 220 217 секвенсер для объекта [ui.matrix];
+#X text 220 217 управление секвенсором для объекта [ui.matrix];
 #X obj 30 245 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
 #X text 220 242 выводит заданное число bang-ов через интервалы времени;
 #X obj 30 270 ui.link @title [seq.phasor] @url seq.phasor-help.pd;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">sequencer control for [ui.matrix] object</tr>
-        <tr lang="ru">секвенсер для объекта [ui.matrix]</tr>
+        <tr lang="ru">управление секвенсором для объекта [ui.matrix]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,153 +19,192 @@
         <see view="link">ui.matrix</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A sequencer intended to drive a [ui.matrix] object: on each tick it advances
+        its position by one step, sends the column index to the matrix, and outputs a bang so that
+        the corresponding column is highlighted and can trigger sound. The pattern length is set
+        with the argument N or the @n property, and the timing is controlled by @t (interval
+        between steps) and @div (beat subdivision).</tr>
+        <tr lang="ru">Секвенсор, предназначенный для управления объектом [ui.matrix]: на каждом
+        такте он сдвигает позицию на один шаг, отправляет индекс столбца в матрицу и выводит
+        bang, чтобы соответствующий столбец подсветился и мог запустить звук. Длина паттерна
+        задаётся аргументом N или свойством @n, а тайминг управляется @t (интервал между шагами)
+        и @div (дробление доли).</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Grid-based step sequencer — building a classic step sequencer where each
+        column of the matrix corresponds to one step, and the highlighted column triggers its
+        sound on the current step.</tr>
+        <tr lang="ru">• Пошаговый секвенсор на сетке — построение классического пошагового
+        секвенсора, где каждый столбец матрицы соответствует одному шагу, а подсвеченный столбец
+        запускает свой звук на текущем шаге.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Multi-track drum patterns — driving several rows of the matrix as
+        independent percussion voices, so that one moving column triggers a kick, snare, hi-hat
+        and so on at the right moments.</tr>
+        <tr lang="ru">• Многодорожечные барабанные паттерны — управление несколькими строками
+        матрицы как независимыми перкуссионными голосами, когда один движущийся столбец запускает
+        кик, снейр, хэт и т. д. в нужные моменты.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Visual feedback for algorithmic patterns — pairing the sequencer with a
+        pattern generator (for example, [seq.life] or [seq.bangs]), so that the matrix shows the
+        current state and the moving cursor highlights the active column.</tr>
+        <tr lang="ru">• Визуальная обратная связь для алгоритмических паттернов — связка
+        секвенсора с генератором паттернов (например, [seq.life] или [seq.bangs]), чтобы матрица
+        отображала текущее состояние, а движущийся курсор подсвечивал активный столбец.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="0">
         <tr lang="en">number of steps</tr>
-        <tr lang="ru" finished="false">Количество шагов</tr>
+        <tr lang="ru">число шагов</tr>
       </argument>
       <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">
-        <tr lang="en">time interval between steps or bpm</tr>
-        <tr lang="ru" finished="false">интервал времени между шагами или bpm</tr>
+        <tr lang="en">time interval between steps or BPM value</tr>
+        <tr lang="ru">интервал времени между шагами или значение BPM</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @div -->
       <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
         <tr lang="en">beat subdivision</tr>
-        <tr lang="ru" finished="false">Победить подразделение</tr>
+        <tr lang="ru">дробление доли</tr>
       </property>
       <!-- @dur -->
       <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
-        <tr lang="en">whole sequence duration. (Recalculates @t property accordingly)</tr>
-        <tr lang="ru" finished="false">Продолжительность всей последовательности. (Соответственно
-        пересчитывает имущество @t)</tr>
+        <tr lang="en">whole sequence duration (recalculates the @t property accordingly)</tr>
+        <tr lang="ru">длительность всей последовательности (соответственно пересчитывает свойство
+        @t)</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" access="readonly" default="0">
         <tr lang="en">current sequence iteration</tr>
-        <tr lang="ru" finished="false">итерация текущей последовательности</tr>
+        <tr lang="ru">текущая итерация последовательности</tr>
       </property>
       <!-- @inf -->
       <property name="@inf" type="alias">
-        <tr lang="en">alias to @r -1, repeats infinitely</tr>
-        <tr lang="ru" finished="false">alias to @r-1, повторяется бесконечно</tr>
+        <tr lang="en">alias for @r -1, repeats infinitely</tr>
+        <tr lang="ru">сокращение для @r -1, повторяется бесконечно</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc': from first to last, 'dec': from last to first, 'tri':
-        from first to last, then back</tr>
-        <tr lang="ru" finished="false">"inc": от первого до последнего, "dec": от последнего до
-        первого, "tri": от первого до последнего, затем обратно</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
+        'tri' — from first to last, then back</tr>
+        <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
+        первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" default="16" minvalue="0">
-        <tr lang="en">number of cols in matrix</tr>
-        <tr lang="ru" finished="false">Количество cols в матрице</tr>
+        <tr lang="en">number of columns in the matrix</tr>
+        <tr lang="ru">число столбцов в матрице</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
-        <tr lang="en">alias to @r 1, play once</tr>
-        <tr lang="ru" finished="false">alias to @r 1, играть один раз</tr>
+        <tr lang="en">alias for @r 1, play once</tr>
+        <tr lang="ru">сокращение для @r 1, играть один раз</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" minvalue="-1" default="-1">
-        <tr lang="en">number of whole sequence repeats. If -1: repeat infinitely</tr>
-        <tr lang="ru" finished="false">Количество повторений целой последовательности. Если -1:
-        повторять бесконечно</tr>
+        <tr lang="en">number of whole sequence repeats. If -1 — repeats infinitely</tr>
+        <tr lang="ru">число повторов всей последовательности. Если -1 — повторяется бесконечно</tr>
       </property>
       <!-- @ri -->
       <property name="@ri" type="int" access="readonly" default="0">
         <tr lang="en">current repeat iteration</tr>
-        <tr lang="ru" finished="false">Текущая повторная итерация</tr>
+        <tr lang="ru">текущая итерация повтора</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" default="250" minvalue="1" maxvalue="20000"
       units="millisecond">
-        <tr lang="en">time between beats. Unit values like 100ms or 240bpm also can be used</tr>
-        <tr lang="ru" finished="false">Время между ударами. Значения единицы, такие как 100 мс или
-        240bpm, также могут использоваться.</tr>
+        <tr lang="en">time between beats. Unit values like 100ms or 240bpm can also be used</tr>
+        <tr lang="ru">время между долями. Можно также использовать значения с единицами, например
+        100ms или 240bpm</tr>
       </property>
       <!-- @upbeat -->
       <property name="@upbeat" type="float" default="0" minvalue="0">
-        <tr lang="en">wait specified number of beats before sequence start</tr>
-        <tr lang="ru" finished="false">ожидание определенного количества ударов перед началом
-        последовательности</tr>
+        <tr lang="en">wait the specified number of beats before the sequence starts</tr>
+        <tr lang="ru">ждать заданное число долей перед запуском последовательности</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset all counters and stop</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики и остановиться</tr>
+          <tr lang="en">resets all counters and stops</tr>
+          <tr lang="ru">сбрасывает все счётчики и останавливает секвенсор</tr>
         </info>
       </method>
       <!-- rewind -->
       <method name="rewind">
         <info>
-          <tr lang="en">reset all counters without stopping</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики без остановки</tr>
+          <tr lang="en">resets all counters without stopping</tr>
+          <tr lang="ru">сбрасывает все счётчики без остановки</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
-          <tr lang="en">start sequencer from current position</tr>
-          <tr lang="ru" finished="false">стартовый секвенсор с текущей позиции</tr>
+          <tr lang="en">starts the sequencer from the current position</tr>
+          <tr lang="ru">запускает секвенсор с текущей позиции</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop sequencer</tr>
-          <tr lang="ru" finished="false">остановить секвенсор</tr>
+          <tr lang="en">stops the sequencer</tr>
+          <tr lang="ru">останавливает секвенсор</tr>
         </info>
       </method>
       <!-- tick -->
       <method name="tick">
         <info>
-          <tr lang="en">output current sequence element and move to next</tr>
-          <tr lang="ru" finished="false">вывести элемент текущей последовательности и перейти к
-          следующему</tr>
+          <tr lang="en">outputs the current sequence element and moves to the next</tr>
+          <tr lang="ru">выводит текущий элемент последовательности и переходит к следующему</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset all counters and start sequencer</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики и запустить секвенсор</tr>
+          <tr lang="en">resets all counters and starts the sequencer</tr>
+          <tr lang="ru">сбрасывает все счётчики и запускает секвенсор</tr>
         </in>
         <in on="float">
-          <tr lang="en">if 1 reset then start, if 0 - stop</tr>
-          <tr lang="ru" finished="false">Если 1 сброс, то начинайте, если 0 - остановитесь</tr>
+          <tr lang="en">if 1 — reset then start; if 0 — stop</tr>
+          <tr lang="ru">если 1 — сбросить и запустить; если 0 — остановить</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">reset</tr>
-          <tr lang="ru" finished="false">сброс</tr>
+          <tr lang="ru">сброс</tr>
         </in>
         <in on="float">
-          <tr lang="en">set number of steps</tr>
-          <tr lang="ru" finished="false">Установить количество шагов</tr>
+          <tr lang="en">set the number of steps</tr>
+          <tr lang="ru">задать число шагов</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output for ui.matrix</tr>
-          <tr lang="ru" finished="false">Источник: ui.matrix</tr>
+          <tr lang="en">output for [ui.matrix]</tr>
+          <tr lang="ru">вывод для [ui.matrix]</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done(
-          when done</tr>
-          <tr lang="ru" finished="false">[i IDX N( - итерация последовательностей, [ri IDX N( -
-          повторная итерация или [сделано, когда сделано)]</tr>
+          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or
+          [done( when done</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
+          или [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

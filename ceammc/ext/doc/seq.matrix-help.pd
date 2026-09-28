@@ -5,137 +5,156 @@
 #X obj 1 1 cnv 5 765 40 empty empty seq.matrix 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 seq.matrix;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 88 118 rewind;
-#X obj 184 118 ui.tab inc dec tri;
-#X obj 405 118 ui.dsp~;
-#X msg 184 147 @mode \$1;
-#X obj 50 176 seq.matrix 16 120bpm @div 4;
-#X obj 270 176 loadmsg random;
-#X obj 50 205 ui.matrix 3 16 @size 320 51;
-#X obj 50 262 route col;
-#X obj 50 291 unpack f f f f;
-#X floatatom 50 320 5 0 0 0 - - -;
-#X obj 98 320 osc~ 400;
-#X obj 232 320 synth.clap~ 6 200;
-#X msg 117 349 @gate \$1;
-#X obj 232 349 synth.kick2~ 10 80;
-#X obj 98 378 env.ar~ 20 100;
-#X obj 50 406 pan.spread~ 5, f 16;
-#X obj 50 435 ui.hgain2~;
-#X obj 50 464 dac~, f 16;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 401 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A sequencer intended to drive a [ui.matrix] object:
+on each tick it advances its position by one step \, sends the column
+index to the matrix \, and outputs a bang so that the corresponding
+column is highlighted and can trigger sound. The pattern length is
+set with the argument N or the @n property \, and the timing is controlled
+by @t (interval between steps) and @div (beat subdivision).;
+#X text 240 214 Typical use cases:;
+#X text 250 239 • Grid-based step sequencer — building a classic step
+sequencer where each column of the matrix corresponds to one step \,
+and the highlighted column triggers its sound on the current step.;
+#X text 250 309 • Multi-track drum patterns — driving several rows
+of the matrix as independent percussion voices \, so that one moving
+column triggers a kick \, snare \, hi-hat and so on at the right moments.;
+#X text 250 379 • Visual feedback for algorithmic patterns — pairing
+the sequencer with a pattern generator (for example \, [seq.life] or
+[seq.bangs]) \, so that the matrix shows the current state and the
+moving cursor highlights the active column.;
+#X obj 50 527 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 88 527 rewind;
+#X obj 184 527 ui.tab inc dec tri;
+#X obj 405 527 ui.dsp~;
+#X msg 184 556 @mode \$1;
+#X obj 50 585 seq.matrix 16 120bpm @div 4;
+#X obj 270 585 loadmsg random;
+#X obj 50 614 ui.matrix 3 16 @size 320 51;
+#X obj 50 671 route col;
+#X obj 50 700 unpack f f f f;
+#X floatatom 50 729 5 0 0 0 - - -;
+#X obj 98 729 osc~ 400;
+#X obj 232 729 synth.clap~ 6 200;
+#X msg 117 758 @gate \$1;
+#X obj 232 758 synth.kick2~ 10 80;
+#X obj 98 787 env.ar~ 20 100;
+#X obj 50 815 pan.spread~ 5, f 16;
+#X obj 50 844 ui.hgain2~;
+#X obj 50 873 dac~, f 16;
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 928 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 522 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 931 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 520 1\.;
-#X text 170 520 int;
-#X obj 268 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 520 N: number of steps. Type: int. Min value: 0;
-#X text 130 545 2\.;
-#X text 170 545 float;
-#X obj 268 546 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 545 T(ms): time interval between steps or bpm. Type: float.
-Range: [1\..20000];
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 600 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 929 1\.;
+#X text 170 929 int;
+#X obj 268 930 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 929 N: number of steps. Type: int. Min value: 0;
+#X text 130 954 2\.;
+#X text 170 954 float;
+#X obj 268 955 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 954 T(ms): time interval between steps or BPM value. Type:
+float. Range: [1\..20000];
+#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1009 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1012 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 601 @div;
-#X text 270 601 Beat subdivision. Type: int. Default value: 1\. Range:
+#X msg 130 1010 @div;
+#X text 270 1010 Beat subdivision. Type: int. Default value: 1\. Range:
 [1\..64].;
-#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 643 @dur;
-#X text 270 643 Whole sequence duration. (Recalculates @t property
+#X obj 250 1052 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1052 @dur;
+#X text 270 1052 Whole sequence duration (recalculates the @t property
 accordingly). Type: float. Units: 'ms'. Default value: 4000\. Min value:
 0\.;
-#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 700 @inf;
-#X text 270 700 Alias to @r -1 \, repeats infinitely.;
-#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 730 @mode;
-#X text 270 730 Sequencer mode. 'inc': from first to last \, 'dec':
-from last to first \, 'tri': from first to last \, then back. Type:
+#X obj 250 1109 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1109 @inf;
+#X text 270 1109 Alias for @r -1 \, repeats infinitely.;
+#X obj 250 1139 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1139 @mode;
+#X text 270 1139 Sequencer mode. 'inc' — from first to last \, 'dec'
+— from last to first \, 'tri' — from first to last \, then back. Type:
 symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
-#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 802 @n;
-#X text 270 802 Number of cols in matrix. Type: int. Default value:
-16\. Min value: 0\.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 @once;
-#X text 270 844 Alias to @r 1 \, play once.;
-#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 874 @r;
-#X text 270 874 Number of whole sequence repeats. If -1: repeat infinitely.
-Type: int. Default value: -1\. Min value: -1\.;
-#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 916 @t;
-#X text 270 916 Time between beats. Unit values like 100ms or 240bpm
-also can be used. Type: float. Units: 'ms'. Default value: 250\. Range:
+#X obj 250 1211 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1211 @n;
+#X text 270 1211 Number of columns in the matrix. Type: int. Default
+value: 16\. Min value: 0\.;
+#X obj 250 1253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1253 @once;
+#X text 270 1253 Alias for @r 1 \, play once.;
+#X obj 250 1283 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1283 @r;
+#X text 270 1283 Number of whole sequence repeats. If -1 — repeats
+infinitely. Type: int. Default value: -1\. Min value: -1\.;
+#X obj 250 1325 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1325 @t;
+#X text 270 1325 Time between beats. Unit values like 100ms or 240bpm
+can also be used. Type: float. Units: 'ms'. Default value: 250\. Range:
 [1\..20000].;
-#X obj 250 973 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 973 @upbeat;
-#X text 270 973 Wait specified number of beats before sequence start.
-Type: float. Default value: 0\. Min value: 0\.;
-#X obj 250 1015 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1015 @i?;
-#X text 270 1015 (readonly) Current sequence iteration. Type: int.
+#X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1382 @upbeat;
+#X text 270 1382 Wait the specified number of beats before the sequence
+starts. Type: float. Default value: 0\. Min value: 0\.;
+#X obj 250 1424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1424 @i?;
+#X text 270 1424 (readonly) Current sequence iteration. Type: int.
 Default value: 0\.;
-#X obj 250 1057 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1057 @ri?;
-#X text 270 1057 (readonly) Current repeat iteration. Type: int. Default
+#X obj 250 1466 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1466 @ri?;
+#X text 270 1466 (readonly) Current repeat iteration. Type: int. Default
 value: 0\.;
-#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1114 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1523 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1115 reset;
-#X text 270 1115 reset all counters and stop.;
-#X obj 250 1150 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1150 rewind;
-#X text 270 1150 reset all counters without stopping.;
-#X obj 250 1185 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1185 start;
-#X text 270 1185 start sequencer from current position.;
-#X obj 250 1220 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1220 stop;
-#X text 270 1220 stop sequencer.;
-#X obj 250 1255 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1255 tick;
-#X text 270 1255 output current sequence element and move to next.;
-#X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1524 reset;
+#X text 270 1524 resets all counters and stops.;
+#X obj 250 1559 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1559 rewind;
+#X text 270 1559 resets all counters without stopping.;
+#X obj 250 1594 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1594 start;
+#X text 270 1594 starts the sequencer from the current position.;
+#X obj 250 1629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1629 stop;
+#X text 270 1629 stops the sequencer.;
+#X obj 250 1664 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1664 tick;
+#X text 270 1664 outputs the current sequence element and moves to
+the next.;
+#X obj 20 1709 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1714 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1306 1\.;
-#X text 170 1306 bang:;
-#X text 270 1306 reset all counters and start sequencer.;
-#X text 170 1331 float:;
-#X text 270 1331 if 1 reset then start \, if 0 - stop.;
-#X text 130 1356 2\.;
-#X text 170 1356 bang:;
-#X text 270 1356 reset.;
-#X text 170 1381 float:;
-#X text 270 1381 set number of steps.;
-#X obj 20 1416 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1421 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1715 1\.;
+#X text 170 1715 bang:;
+#X text 270 1715 resets all counters and starts the sequencer.;
+#X text 170 1740 float:;
+#X text 270 1740 if 1 — reset then start; if 0 — stop.;
+#X text 130 1780 2\.;
+#X text 170 1780 bang:;
+#X text 270 1780 reset.;
+#X text 170 1805 float:;
+#X text 270 1805 set the number of steps.;
+#X obj 20 1840 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1845 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1422 1\.;
-#X text 270 1422 output for ui.matrix.;
-#X text 130 1442 2\.;
-#X text 270 1442 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
-iteration or [done( when done.;
+#X text 130 1846 1\.;
+#X text 270 1846 output for [ui.matrix].;
+#X text 130 1866 2\.;
+#X text 270 1866 [i IDX N( — sequence iteration \, [ri IDX N( — repeat
+iteration \, or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1507 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1510 library: ceammc v0.9.8;
-#X text 597 1522 see also:;
-#X obj 672 1525 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1931 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1934 library: ceammc v0.9.8;
+#X text 597 1946 see also:;
+#X obj 672 1949 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 1529 400 290 info 0;
+#N canvas 10 1953 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -159,25 +178,25 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1529 pd info;
-#X connect 6 0 8 0;
-#X connect 4 0 9 0;
-#X connect 5 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 15 0 19 0;
-#X connect 17 0 19 0;
-#X connect 20 0 21 0;
-#X connect 20 1 21 1;
-#X connect 21 0 22 0;
-#X connect 21 1 22 1;
-#X connect 13 1 17 0;
-#X connect 13 2 18 0;
-#X connect 13 3 16 0;
-#X connect 19 0 20 1;
-#X connect 18 0 20 2;
-#X connect 16 0 20 3;
+#X restore 10 1953 pd info;
+#X connect 12 0 14 0;
+#X connect 10 0 15 0;
+#X connect 11 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 21 0 25 0;
+#X connect 23 0 25 0;
+#X connect 26 0 27 0;
+#X connect 26 1 27 1;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 19 1 23 0;
+#X connect 19 2 24 0;
+#X connect 19 3 22 0;
+#X connect 25 0 26 1;
+#X connect 24 0 26 2;
+#X connect 22 0 26 3;

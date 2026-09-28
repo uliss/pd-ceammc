@@ -1,143 +1,163 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 509 50 cnv 1 256 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 секвенсер для объекта [ui.matrix];
+#X obj 409 50 cnv 1 356 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 414 50 управление секвенсором для объекта [ui.matrix];
 #X obj 1 1 cnv 5 765 40 empty empty seq.matrix 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 seq.matrix;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 88 118 rewind;
-#X obj 184 118 ui.tab inc dec tri;
-#X obj 405 118 ui.dsp~;
-#X msg 184 147 @mode \$1;
-#X obj 50 176 seq.matrix 16 120bpm @div 4;
-#X obj 270 176 loadmsg random;
-#X obj 50 205 ui.matrix 3 16 @size 320 51;
-#X obj 50 262 route col;
-#X obj 50 291 unpack f f f f;
-#X floatatom 50 320 5 0 0 0 - - -;
-#X obj 98 320 osc~ 400;
-#X obj 232 320 synth.clap~ 6 200;
-#X msg 117 349 @gate \$1;
-#X obj 232 349 synth.kick2~ 10 80;
-#X obj 98 378 env.ar~ 20 100;
-#X obj 50 406 pan.spread~ 5, f 16;
-#X obj 50 435 ui.hgain2~;
-#X obj 50 464 dac~, f 16;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 386 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Секвенсор \, предназначенный для управления объектом
+[ui.matrix]: на каждом такте он сдвигает позицию на один шаг \, отправляет
+индекс столбца в матрицу и выводит bang \, чтобы соответствующий столбец
+подсветился и мог запустить звук. Длина паттерна задаётся аргументом
+N или свойством @n \, а тайминг управляется @t (интервал между шагами)
+и @div (дробление доли).;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Пошаговый секвенсор на сетке — построение классического
+пошагового секвенсора \, где каждый столбец матрицы соответствует одному
+шагу \, а подсвеченный столбец запускает свой звук на текущем шаге.;
+#X text 250 294 • Многодорожечные барабанные паттерны — управление
+несколькими строками матрицы как независимыми перкуссионными голосами
+\, когда один движущийся столбец запускает кик \, снейр \, хэт и т.
+д. в нужные моменты.;
+#X text 250 364 • Визуальная обратная связь для алгоритмических паттернов
+— связка секвенсора с генератором паттернов (например \, [seq.life]
+или [seq.bangs]) \, чтобы матрица отображала текущее состояние \, а
+движущийся курсор подсвечивал активный столбец.;
+#X obj 50 512 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 88 512 rewind;
+#X obj 184 512 ui.tab inc dec tri;
+#X obj 405 512 ui.dsp~;
+#X msg 184 541 @mode \$1;
+#X obj 50 570 seq.matrix 16 120bpm @div 4;
+#X obj 270 570 loadmsg random;
+#X obj 50 599 ui.matrix 3 16 @size 320 51;
+#X obj 50 656 route col;
+#X obj 50 685 unpack f f f f;
+#X floatatom 50 714 5 0 0 0 - - -;
+#X obj 98 714 osc~ 400;
+#X obj 232 714 synth.clap~ 6 200;
+#X msg 117 743 @gate \$1;
+#X obj 232 743 synth.kick2~ 10 80;
+#X obj 98 772 env.ar~ 20 100;
+#X obj 50 800 pan.spread~ 5, f 16;
+#X obj 50 829 ui.hgain2~;
+#X obj 50 858 dac~, f 16;
+#X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 913 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 522 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 916 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 520 1\.;
-#X text 170 520 int;
-#X obj 268 521 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 520 N: number of steps. Тип: int. Минимальное значение:
-0\.;
-#X text 130 545 2\.;
-#X text 170 545 float;
-#X obj 268 546 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 545 T(ms): time interval between steps or bpm. Тип: float.
-Диапазон: [1\..20000];
-#X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 600 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 914 1\.;
+#X text 170 914 int;
+#X obj 268 915 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 914 N: число шагов. Тип: int. Минимальное значение: 0\.;
+#X text 130 939 2\.;
+#X text 170 939 float;
+#X obj 268 940 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 939 T(ms): интервал времени между шагами или значение BPM.
+Тип: float. Диапазон: [1\..20000];
+#X obj 20 989 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 994 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 603 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 997 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 601 @div;
-#X text 270 601 Beat subdivision. Тип: int. Значение по умолчанию:
-1\. Диапазон: [1\..64].;
-#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 643 @dur;
-#X text 270 643 Whole sequence duration. (Recalculates @t property
-accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию: 4000\.
-Минимальное значение: 0\.;
-#X obj 250 700 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 700 @inf;
-#X text 270 700 Alias to @r -1 \, repeats infinitely.;
-#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 730 @mode;
-#X text 270 730 Sequencer mode. 'inc': from first to last \, 'dec':
-from last to first \, 'tri': from first to last \, then back. Тип:
-symbol. Значение по умолчанию: inc. Разрешённые значения: inc \, dec
-\, tri.;
-#X obj 250 802 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 802 @n;
-#X text 270 802 Number of cols in matrix. Тип: int. Значение по умолчанию:
+#X msg 130 995 @div;
+#X text 270 995 Дробление доли. Тип: int. Значение по умолчанию: 1\.
+Диапазон: [1\..64].;
+#X obj 250 1037 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1037 @dur;
+#X text 270 1037 Длительность всей последовательности (соответственно
+пересчитывает свойство @t). Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 4000\. Минимальное значение: 0\.;
+#X obj 250 1094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1094 @inf;
+#X text 270 1094 Сокращение для @r -1 \, повторяется бесконечно.;
+#X obj 250 1124 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1124 @mode;
+#X text 270 1124 Режим секвенсора. 'inc' — от первого к последнему
+\, 'dec' — от последнего к первому \, 'tri' — от первого к последнему
+\, затем обратно. Тип: symbol. Значение по умолчанию: inc. Разрешённые
+значения: inc \, dec \, tri.;
+#X obj 250 1196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1196 @n;
+#X text 270 1196 Число столбцов в матрице. Тип: int. Значение по умолчанию:
 16\. Минимальное значение: 0\.;
-#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 844 @once;
-#X text 270 844 Alias to @r 1 \, play once.;
-#X obj 250 874 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 874 @r;
-#X text 270 874 Number of whole sequence repeats. If -1: repeat infinitely.
-Тип: int. Значение по умолчанию: -1\. Минимальное значение: -1\.;
-#X obj 250 931 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 931 @t;
-#X text 270 931 Time between beats. Unit values like 100ms or 240bpm
-also can be used. Тип: float. Единицы: 'ms'. Значение по умолчанию:
-250\. Диапазон: [1\..20000].;
-#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 988 @upbeat;
-#X text 270 988 Wait specified number of beats before sequence start.
+#X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1238 @once;
+#X text 270 1238 Сокращение для @r 1 \, играть один раз.;
+#X obj 250 1268 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1268 @r;
+#X text 270 1268 Число повторов всей последовательности. Если -1 —
+повторяется бесконечно. Тип: int. Значение по умолчанию: -1\. Минимальное
+значение: -1\.;
+#X obj 250 1325 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1325 @t;
+#X text 270 1325 Время между долями. Можно также использовать значения
+с единицами \, например 100ms или 240bpm. Тип: float. Единицы: 'ms'.
+Значение по умолчанию: 250\. Диапазон: [1\..20000].;
+#X obj 250 1397 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1397 @upbeat;
+#X text 270 1397 Ждать заданное число долей перед запуском последовательности.
 Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 1045 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1045 @i?;
-#X text 270 1045 (только чтение) Current sequence iteration. Тип: int.
+#X obj 250 1454 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1454 @i?;
+#X text 270 1454 (только чтение) Текущая итерация последовательности.
+Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 1496 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1496 @ri?;
+#X text 270 1496 (только чтение) Текущая итерация повтора. Тип: int.
 Значение по умолчанию: 0\.;
-#X obj 250 1087 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1087 @ri?;
-#X text 270 1087 (только чтение) Current repeat iteration. Тип: int.
-Значение по умолчанию: 0\.;
-#X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1144 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1548 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1553 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1145 reset;
-#X text 270 1145 reset all counters and stop.;
-#X obj 250 1180 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1180 rewind;
-#X text 270 1180 reset all counters without stopping.;
-#X obj 250 1215 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1215 start;
-#X text 270 1215 start sequencer from current position.;
-#X obj 250 1250 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1250 stop;
-#X text 270 1250 stop sequencer.;
-#X obj 250 1285 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1285 tick;
-#X text 270 1285 output current sequence element and move to next.;
-#X obj 20 1330 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1335 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1554 reset;
+#X text 270 1554 сбрасывает все счётчики и останавливает секвенсор.;
+#X obj 250 1589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1589 rewind;
+#X text 270 1589 сбрасывает все счётчики без остановки.;
+#X obj 250 1624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1624 start;
+#X text 270 1624 запускает секвенсор с текущей позиции.;
+#X obj 250 1659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1659 stop;
+#X text 270 1659 останавливает секвенсор.;
+#X obj 250 1694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1694 tick;
+#X text 270 1694 выводит текущий элемент последовательности и переходит
+к следующему.;
+#X obj 20 1754 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1759 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1336 1\.;
-#X text 170 1336 bang:;
-#X text 270 1336 reset all counters and start sequencer.;
-#X text 170 1361 float:;
-#X text 270 1361 if 1 reset then start \, if 0 - stop.;
-#X text 130 1386 2\.;
-#X text 170 1386 bang:;
-#X text 270 1386 reset.;
-#X text 170 1411 float:;
-#X text 270 1411 set number of steps.;
-#X obj 20 1446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1451 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1760 1\.;
+#X text 170 1760 bang:;
+#X text 270 1760 сбрасывает все счётчики и запускает секвенсор.;
+#X text 170 1785 float:;
+#X text 270 1785 если 1 — сбросить и запустить; если 0 — остановить.;
+#X text 130 1825 2\.;
+#X text 170 1825 bang:;
+#X text 270 1825 сброс.;
+#X text 170 1850 float:;
+#X text 270 1850 задать число шагов.;
+#X obj 20 1885 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1890 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1452 1\.;
-#X text 270 1452 output for ui.matrix.;
-#X text 130 1472 2\.;
-#X text 270 1472 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
-iteration or [done( when done.;
+#X text 130 1891 1\.;
+#X text 270 1891 вывод для [ui.matrix].;
+#X text 130 1911 2\.;
+#X text 270 1911 [i IDX N( — итерация последовательности \, [ri IDX
+N( — итерация повтора \, или [done( по завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1537 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1540 библиотека: ceammc v0.9.8;
-#X text 551 1552 смотрите также:;
-#X obj 672 1555 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1976 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1979 библиотека: ceammc v0.9.8;
+#X text 551 1991 смотрите также:;
+#X obj 672 1994 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 1559 400 290 info 0;
+#N canvas 10 1998 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -161,25 +181,25 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1559 pd info;
-#X connect 6 0 8 0;
-#X connect 4 0 9 0;
-#X connect 5 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 15 0 19 0;
-#X connect 17 0 19 0;
-#X connect 20 0 21 0;
-#X connect 20 1 21 1;
-#X connect 21 0 22 0;
-#X connect 21 1 22 1;
-#X connect 13 1 17 0;
-#X connect 13 2 18 0;
-#X connect 13 3 16 0;
-#X connect 19 0 20 1;
-#X connect 18 0 20 2;
-#X connect 16 0 20 3;
+#X restore 10 1998 pd info;
+#X connect 12 0 14 0;
+#X connect 10 0 15 0;
+#X connect 11 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 21 0 25 0;
+#X connect 23 0 25 0;
+#X connect 26 0 27 0;
+#X connect 26 1 27 1;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 19 1 23 0;
+#X connect 19 2 24 0;
+#X connect 19 3 22 0;
+#X connect 25 0 26 1;
+#X connect 24 0 26 2;
+#X connect 22 0 26 3;
