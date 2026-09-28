@@ -9,122 +9,144 @@
 #X obj 617 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [dict] @url data.dict-help.pd;
 #X obj 674 8 data.dict;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Синтаксис: [key1: value key2: "with space"]. Поддерживаются
+#X obj 230 78 cnv 1 535 521 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Контейнер словаря: хранит пары «ключ — значение» \,
+где каждый ключ уникален и соответствует ровно одному значению. Значения
+могут быть числами \, символами или списками \, а ключи позволяют быстро
+находить \, добавлять \, обновлять или удалять записи. В отличие от
+[data.bimap] \, словарь однонаправленный: он сопоставляет ключи значениям
+\, но не наоборот.;
+#X text 240 199 Синтаксис: [key1: value key2: "with space"]. Поддерживаются
 вложенные словари: [a: [A:1 B:2]].;
-#X msg 50 186 bang;
-#X msg 117 186 [a: [K0: 1 2 3 K2: "a symbol"]] \, bang;
-#X msg 530 186 get_key a;
-#X msg 78 215 [a: b c: d] \, bang;
-#X msg 280 215 clear;
-#X msg 357 215 remove a;
-#X msg 107 244 add KEY value;
-#X obj 376 244 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 239 Типичные сценарии применения:;
+#X text 250 264 • Хранение пресетов — сохранение именованных параметров
+\, например "cutoff" \, "resonance" или "reverb_mix" \, вместе с их
+значениями \, а затем загрузка и изменение по имени.;
+#X text 250 334 • Конфигурационные файлы — чтение и запись файлов JSON
+\, где каждый параметр имеет имя \, а словарь служит представлением
+состояния патча в памяти.;
+#X text 250 389 • Именованные обработчики событий — сопоставление имён
+событий спискам действий \, чтобы входящие сообщения можно было распределять
+по имени за один запрос.;
+#X text 250 444 • Структурированные данные — объединение связанных
+значений под одним именем \, например хранение всех параметров синтезатора
+под ключом "synth1" в виде вложенного словаря.;
+#X text 250 514 • Маршрутизация параметров — преобразование символьных
+имён параметров (полученных из GUI или текстового файла) в реальные
+значения \, ожидаемые нижестоящими объектами.;
+#X msg 50 647 bang;
+#X msg 117 647 [a: [K0: 1 2 3 K2: "a symbol"]] \, bang;
+#X msg 530 647 get_key a;
+#X msg 78 676 [a: b c: d] \, bang;
+#X msg 280 676 clear;
+#X msg 357 676 remove a;
+#X msg 107 705 add KEY value;
+#X obj 376 705 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 376 273 openpanel;
-#X msg 136 287 list a b c d;
-#X msg 376 302 read \$1;
-#X obj 50 330 data.dict \[tempo: 120 title: "New Masterpiece"\];
-#X obj 50 359 ui.display @display_type 1;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 376 734 openpanel;
+#X msg 136 748 list a b c d;
+#X msg 376 763 read \$1;
+#X obj 50 791 data.dict \[tempo: 120 title: "New Masterpiece"\];
+#X obj 50 820 ui.display @display_type 1;
+#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 875 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 449 Left-click;
-#X text 310 449 open data editor.;
-#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 910 Left-click;
+#X text 310 910 open data editor.;
+#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 945 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 948 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 485 @empty?;
-#X text 270 485 (только чтение) 1 \, если словарь пуст \, иначе 0\.
+#X msg 130 946 @empty?;
+#X text 270 946 (только чтение) 1 \, если словарь пуст \, иначе 0\.
 Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 527 @keys?;
-#X text 270 527 (только чтение) Ключи словаря. Тип: list.;
-#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 557 @size?;
-#X text 270 557 (только чтение) Количество записей в словаре. Тип:
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 988 @keys?;
+#X text 270 988 (только чтение) Ключи словаря. Тип: list.;
+#X obj 250 1018 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1018 @size?;
+#X text 270 1018 (только чтение) Количество записей в словаре. Тип:
 int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 614 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 615 add;
-#X text 270 615 добавляет запись в словарь. Аргументы:;
-#X obj 300 640 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 640 KEY: ключ записи. Тип: symbol.;
-#X obj 300 663 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 663 VAL: одно значение или список. Тип: list.;
-#X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 696 choose;
-#X text 270 696 выбрать случайный ключ и вывести его.;
-#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 731 clear;
-#X text 270 731 удаляет все значения словаря. Без вывода.;
-#X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 766 get_key;
-#X text 270 766 получить запись из словаря. Аргументы:;
-#X obj 300 791 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 791 KEY: ключ записи. Тип: symbol.;
-#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 824 read;
-#X text 270 824 прочитать словарь из файла JSON. Аргументы:;
-#X obj 300 849 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 849 PATH: путь к файлу. Тип: symbol.;
-#X obj 250 882 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 882 remove;
-#X text 270 882 удалить запись из словаря. Аргументы:;
-#X obj 300 907 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 907 KEY: ключ записи. Тип: symbol.;
-#X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 940 set;
-#X text 270 940 установить содержимое словаря без вывода.;
-#X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 975 set_key;
-#X text 270 975 изменить запись в словаре. Если её нет \, ничего не
+#X obj 20 1070 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1075 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1076 add;
+#X text 270 1076 добавляет запись в словарь. Аргументы:;
+#X obj 300 1101 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1101 KEY: ключ записи. Тип: symbol.;
+#X obj 300 1124 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1124 VAL: одно значение или список. Тип: list.;
+#X obj 250 1157 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1157 choose;
+#X text 270 1157 выбрать случайный ключ и вывести его.;
+#X obj 250 1192 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1192 clear;
+#X text 270 1192 удаляет все значения словаря. Без вывода.;
+#X obj 250 1227 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1227 get_key;
+#X text 270 1227 получить запись из словаря. Аргументы:;
+#X obj 300 1252 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1252 KEY: ключ записи. Тип: symbol.;
+#X obj 250 1285 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1285 read;
+#X text 270 1285 прочитать словарь из файла JSON. Аргументы:;
+#X obj 300 1310 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1310 PATH: путь к файлу. Тип: symbol.;
+#X obj 250 1343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1343 remove;
+#X text 270 1343 удалить запись из словаря. Аргументы:;
+#X obj 300 1368 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1368 KEY: ключ записи. Тип: symbol.;
+#X obj 250 1401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1401 set;
+#X text 270 1401 установить содержимое словаря без вывода.;
+#X obj 250 1436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1436 set_key;
+#X text 270 1436 изменить запись в словаре. Если её нет \, ничего не
 делать. Аргументы:;
-#X obj 300 1015 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1015 KEY: ключ. Тип: symbol.;
-#X obj 300 1038 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1038 VAL: одно значение или список. Тип: list.;
-#X obj 250 1071 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1071 write;
-#X text 270 1071 записать словарь в виде файла JSON. Аргументы:;
-#X obj 300 1096 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1096 PATH: путь к файлу. Тип: symbol.;
-#X obj 250 1129 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1129 [....];
-#X text 270 1129 устанавливает новое содержимое без вывода.;
-#X obj 20 1174 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1179 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1476 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1476 KEY: ключ. Тип: symbol.;
+#X obj 300 1499 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1499 VAL: одно значение или список. Тип: list.;
+#X obj 250 1532 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1532 write;
+#X text 270 1532 записать словарь в виде файла JSON. Аргументы:;
+#X obj 300 1557 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1557 PATH: путь к файлу. Тип: symbol.;
+#X obj 250 1590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1590 [....];
+#X text 270 1590 устанавливает новое содержимое без вывода.;
+#X obj 20 1635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1640 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1180 1\.;
-#X text 170 1180 bang:;
-#X text 270 1180 вывести текущее значение словаря.;
-#X text 170 1205 list:;
-#X text 270 1205 установить словарь из списка. Ожидаются пары ключ-значение.
+#X text 130 1641 1\.;
+#X text 170 1641 bang:;
+#X text 270 1641 вывести текущее значение словаря.;
+#X text 170 1666 list:;
+#X text 270 1666 установить словарь из списка. Ожидаются пары ключ-значение.
 [1 2 3 4( становится словарём с ключами: 1 и 3 \, значениями: 2 и 4\.
 Без вывода.;
-#X text 170 1260 data:dict:;
-#X text 270 1260 установить и вывести новый словарь.;
-#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1300 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 170 1721 data:dict:;
+#X text 270 1721 установить и вывести новый словарь.;
+#X obj 20 1756 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1761 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1301 1\.;
-#X text 270 1301 выходной словарь.;
+#X text 130 1762 1\.;
+#X text 270 1762 выходной словарь.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1351 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1354 библиотека: ceammc v0.9.8;
-#X text 468 1366 смотрите также:;
-#X obj 589 1369 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1812 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1815 библиотека: ceammc v0.9.8;
+#X text 468 1827 смотрите также:;
+#X obj 589 1830 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.set] @url data.set-help.pd;
-#X obj 665 1369 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 1830 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.mlist] @url data.mlist-help.pd;
-#N canvas 10 1373 400 290 info 0;
+#N canvas 10 1834 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -148,16 +170,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1373 pd info;
-#X connect 15 0 16 0;
-#X connect 16 0 18 0;
-#X connect 8 0 19 0;
-#X connect 11 0 19 0;
-#X connect 14 0 19 0;
-#X connect 17 0 19 0;
-#X connect 12 0 19 0;
-#X connect 13 0 19 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 9 0 19 0;
-#X connect 10 0 19 0;
+#X restore 10 1834 pd info;
+#X connect 22 0 23 0;
+#X connect 23 0 25 0;
+#X connect 15 0 26 0;
+#X connect 18 0 26 0;
+#X connect 21 0 26 0;
+#X connect 24 0 26 0;
+#X connect 19 0 26 0;
+#X connect 20 0 26 0;
+#X connect 25 0 26 0;
+#X connect 26 0 27 0;
+#X connect 16 0 26 0;
+#X connect 17 0 26 0;

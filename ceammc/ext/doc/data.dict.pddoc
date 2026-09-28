@@ -26,10 +26,57 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Syntax: [key1: value key2: "with space"]. Nested dictionaries are supported:
-        [a: [A:1 B:2]].</tr>
-        <tr lang="ru">Синтаксис: [key1: value key2: "with space"]. Поддерживаются вложенные
-        словари: [a: [A:1 B:2]].</tr>
+        <tr lang="en">A dictionary container: stores key-value pairs, where each key is unique and
+        maps to exactly one value. Values can be numbers, symbols or lists, and keys can be used to
+        quickly look up, add, update or remove entries. Unlike [data.bimap], a dictionary is
+        one-directional: it maps keys to values, but not values to keys.</tr>
+        <tr lang="ru">Контейнер словаря: хранит пары «ключ — значение», где каждый ключ уникален и
+        соответствует ровно одному значению. Значения могут быть числами, символами или списками,
+        а ключи позволяют быстро находить, добавлять, обновлять или удалять записи. В отличие от
+        [data.bimap], словарь однонаправленный: он сопоставляет ключи значениям, но не наоборот.</tr>
+      </par>
+      <par>
+              <tr lang="en">Syntax: [key1: value key2: "with space"]. Nested dictionaries are supported:
+              [a: [A:1 B:2]].</tr>
+              <tr lang="ru">Синтаксис: [key1: value key2: "with space"]. Поддерживаются вложенные словари:
+              [a: [A:1 B:2]].</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Preset storage — saving named parameters such as "cutoff", "resonance" or
+        "reverb_mix" together with their values, then loading and modifying them by name.</tr>
+        <tr lang="ru">• Хранение пресетов — сохранение именованных параметров, например "cutoff",
+        "resonance" или "reverb_mix", вместе с их значениями, а затем загрузка и изменение по
+        имени.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Configuration files — reading and writing JSON files where each parameter
+        has a name, using the dictionary as an in-memory representation of the patch state.</tr>
+        <tr lang="ru">• Конфигурационные файлы — чтение и запись файлов JSON, где каждый параметр
+        имеет имя, а словарь служит представлением состояния патча в памяти.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Named event handlers — mapping event names to lists of actions, so that
+        incoming messages can be dispatched by their name in one lookup.</tr>
+        <tr lang="ru">• Именованные обработчики событий — сопоставление имён событий спискам
+        действий, чтобы входящие сообщения можно было распределять по имени за один запрос.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Structured data — grouping related values under one name, for example
+        storing all parameters of a synthesizer under "synth1" as a nested dictionary.</tr>
+        <tr lang="ru">• Структурированные данные — объединение связанных значений под одним
+        именем, например хранение всех параметров синтезатора под ключом "synth1" в виде
+        вложенного словаря.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Parameter routing — converting symbolic parameter names (received from a
+        GUI or a text file) into the actual values expected by downstream objects.</tr>
+        <tr lang="ru">• Маршрутизация параметров — преобразование символьных имён параметров
+        (полученных из GUI или текстового файла) в реальные значения, ожидаемые нижестоящими
+        объектами.</tr>
       </par>
     </info>
     <mouse>
