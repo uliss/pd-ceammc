@@ -22,8 +22,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">NOTE: all object inlets are 'hot'</tr>
-        <tr lang="ru">ПРИМЕЧАНИЕ: все входы объекта являются «горячими»</tr>
+        <tr lang="en">A bidirectional map container: stores pairs of left and right keys, and
+        allows a fast lookup in both directions — by left key to get the right value, or by right
+        key to get the left value. Unlike [data.dict], which only maps keys to values in one
+        direction, [data.bimap] guarantees that both directions are always in sync.</tr>
+        <tr lang="ru">Контейнер двунаправленного отображения: хранит пары левых и правых ключей и
+        позволяет быстро искать в обоих направлениях — по левому ключу получить правое значение,
+        или по правому ключу получить левое значение. В отличие от [data.dict], который
+        сопоставляет ключи значениям только в одну сторону, [data.bimap] гарантирует, что оба
+        направления всегда синхронизированы.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases: mapping parameter names to controller numbers (for
+        example, "cutoff" ↔ 74, "resonance" ↔ 71), translating between note names and MIDI
+        numbers ("C4" ↔ 60, "A4" ↔ 69), converting between units with distinct labels ("kHz" ↔
+        1000, "ms" ↔ 1), and building routing tables where a name can be resolved in either
+        direction.</tr>
+        <tr lang="ru">Типичные сценарии применения: сопоставление имён параметров с номерами
+        контроллеров (например, "cutoff" ↔ 74, "resonance" ↔ 71), перевод между именами нот и
+        MIDI-номерами ("C4" ↔ 60, "A4" ↔ 69), преобразование между единицами измерения с
+        различными метками ("kHz" ↔ 1000, "ms" ↔ 1), а также построение таблиц маршрутизации,
+        где имя может быть разрешено в любом направлении.</tr>
       </par>
     </info>
     <mouse>
@@ -108,9 +127,9 @@
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write to a JSON file; to overwrite an existing file, use the @force
+          <tr lang="en">write to a JSON file, to overwrite an existing file, use the @force
           flag</tr>
-          <tr lang="ru">записать в файл JSON; чтобы перезаписать существующий файл, используйте
+          <tr lang="ru">записать в файл JSON, чтобы перезаписать существующий файл, используйте
           флаг @force</tr>
         </info>
         <param name="FNAME" type="symbol" required="true">
