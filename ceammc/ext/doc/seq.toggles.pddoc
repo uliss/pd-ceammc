@@ -48,10 +48,10 @@
       </par>
       <par indent="1">
         <tr lang="en">• subtract: @length -40 with @t 100ms — for an event value of 2 (duration
-        200ms), the event length is 160ms (200−40); for an event value of 1 (duration 100ms), the
+        200ms), the event length is 160ms (200−40), for an event value of 1 (duration 100ms), the
         event length is 60ms (100−40).</tr>
         <tr lang="ru">• вычитание: @length -40 при @t 100ms — для значения события 2
-        (длительность 200ms) длина события составит 160ms (200−40); для значения события 1
+        (длительность 200ms) длина события составит 160ms (200−40), для значения события 1
         (длительность 100ms) длина события составит 60ms (100−40).</tr>
       </par>
       <par>
