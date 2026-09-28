@@ -30,7 +30,7 @@ flow.demultiplex~-help.pd;
 #X obj 30 370 ui.link @title [flow.float] @url flow.float-help.pd;
 #X text 220 367 пропускает только числа;
 #X obj 30 395 ui.link @title [flow.gate] @url flow.gate-help.pd;
-#X text 220 392 шлюз для потока сообщений. аналог объекта [spigot];
+#X text 220 392 шлюз для потока сообщений. Аналог объекта [spigot];
 #X obj 30 420 ui.link @title [flow.greater] @url flow.greater-help.pd;
 #X text 220 417 маршрутизатор числового потока по условию 'больше';
 #X obj 30 445 ui.link @title [flow.greater_eq] @url

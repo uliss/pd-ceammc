@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">control flow gate. [spigot] object analog</tr>
-        <tr lang="ru">шлюз для потока сообщений. аналог объекта [spigot]</tr>
+        <tr lang="ru">шлюз для потока сообщений. Аналог объекта [spigot]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,46 +25,46 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: property setting can be done only via [prop.set] object, since object
-        accepts all incoming messages</tr>
-        <!-- old: Настройка свойств может быть выполнена только через
-                объект [prop.set], так как объект принимает все входящие сообщения. -->
-        <tr lang="ru" finished="false">Настройка свойств может быть выполнена только через объект
-        [prop.set], так как объект принимает все входящие сообщения.</tr>
+        <tr lang="en">Passes incoming messages through only when the gate is open. The state of
+        the gate is controlled by the second inlet: sending 1 opens it, sending 0 closes it. When
+        the gate is closed, incoming messages are silently discarded.</tr>
+        <tr lang="ru">Пропускает входящие сообщения только тогда, когда шлюз открыт. Состояние
+        шлюза управляется вторым входом: отправка 1 открывает его, отправка 0 — закрывает. Когда
+        шлюз закрыт, входящие сообщения молча отбрасываются.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: the @state property can only be set via [prop.set], since the object
+        accepts all incoming messages on its main inlet.</tr>
+        <tr lang="ru">Примечание: свойство @state можно задать только через [prop.set], так как
+        объект принимает все входящие сообщения на основном входе.</tr>
       </par>
     </info>
     <arguments>
       <argument name="STATE" type="bool">
-        <tr lang="en">init gate state. 1 means open, 0 - closed. By default gate is closed</tr>
-        <!-- old: Состояние врат. 1 означает открытый, 0 - закрытый.
-                По умолчанию ворота закрыты -->
-        <tr lang="ru" finished="false">Состояние врат. 1 означает открытый, 0 - закрытый. По
-        умолчанию ворота закрыты</tr>
+        <tr lang="en">initial gate state. 1 means open, 0 — closed. By default the gate is
+        closed</tr>
+        <tr lang="ru">начальное состояние шлюза. 1 — открыт, 0 — закрыт. По умолчанию шлюз
+        закрыт</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @state -->
       <property name="@state" type="bool" default="0">
-        <tr lang="en">gate state. 1 means open, 0 - closed</tr>
-        <!-- old: Состояние ворот. 1 означает открытый, 0 -
-                закрытый -->
-        <tr lang="ru" finished="false">Состояние ворот. 1 означает открытый, 0 - закрытый</tr>
+        <tr lang="en">gate state. 1 means open, 0 — closed</tr>
+        <tr lang="ru">состояние шлюза. 1 — открыт, 0 — закрыт</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input flow</tr>
-          <tr lang="ru" finished="false">входной поток</tr>
+          <tr lang="ru">входной поток</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">gate control inlet. Sending *1* opens gate, *0* - closes</tr>
-          <!-- old: Впуск управления воротами. отправка *1*
-                    открывает ворота, *0* - закрывает -->
-          <tr lang="ru" finished="false">Впуск управления воротами. отправка *1* открывает ворота,
-          *0* - закрывает</tr>
+          <tr lang="en">gate control inlet. Sending *1* opens the gate, *0* closes it</tr>
+          <tr lang="ru">управляющий вход шлюза. Отправка *1* открывает шлюз, *0* — закрывает</tr>
         </in>
       </inlet>
     </inlets>
@@ -72,7 +72,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output flow</tr>
-          <tr lang="ru" finished="false">выходной поток</tr>
+          <tr lang="ru">выходной поток</tr>
         </out>
       </outlet>
     </outlets>

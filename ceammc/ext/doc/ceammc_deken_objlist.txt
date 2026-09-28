@@ -408,9 +408,9 @@ flow.$$	Substitute the $-values / подставляет значения $-пе
 flow.dup	duplicate messages / дублирование сообщений
 flow.float	pass floats / пропускает только числа
 flow.f	pass floats / пропускает только числа
-flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
-ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
-gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
+ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
+gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
 flow.greater	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
