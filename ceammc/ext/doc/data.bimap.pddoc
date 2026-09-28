@@ -34,15 +34,14 @@
       </par>
       <par>
         <tr lang="en">Typical use cases: mapping parameter names to controller numbers (for
-        example, "cutoff" ↔ 74, "resonance" ↔ 71), translating between note names and MIDI
-        numbers ("C4" ↔ 60, "A4" ↔ 69), converting between units with distinct labels ("kHz" ↔
-        1000, "ms" ↔ 1), and building routing tables where a name can be resolved in either
-        direction.</tr>
+        example, "cutoff" ↔ 74, "resonance" ↔ 71), translating between note names and MIDI numbers
+        ("C4" ↔ 60, "A4" ↔ 69), converting between units with distinct labels ("kHz" ↔ 1000, "ms" ↔
+        1), and building routing tables where a name can be resolved in either direction.</tr>
         <tr lang="ru">Типичные сценарии применения: сопоставление имён параметров с номерами
         контроллеров (например, "cutoff" ↔ 74, "resonance" ↔ 71), перевод между именами нот и
-        MIDI-номерами ("C4" ↔ 60, "A4" ↔ 69), преобразование между единицами измерения с
-        различными метками ("kHz" ↔ 1000, "ms" ↔ 1), а также построение таблиц маршрутизации,
-        где имя может быть разрешено в любом направлении.</tr>
+        MIDI-номерами ("C4" ↔ 60, "A4" ↔ 69), преобразование между единицами измерения с различными
+        метками ("kHz" ↔ 1000, "ms" ↔ 1), а также построение таблиц маршрутизации, где имя может
+        быть разрешено в любом направлении.</tr>
       </par>
     </info>
     <mouse>

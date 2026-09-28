@@ -81,14 +81,14 @@
         response of a physical object (a violin body, a pipe, a room) as a filter to a synthetic
         signal.</tr>
         <tr lang="ru">• Фильтрация с измеренными откликами — применение измеренной частотной
-        характеристики физического объекта (корпуса скрипки, трубы, комнаты) в качестве фильтра
-        к синтетическому сигналу.</tr>
+        характеристики физического объекта (корпуса скрипки, трубы, комнаты) в качестве фильтра к
+        синтетическому сигналу.</tr>
       </par>
       <par>
         <tr lang="en">Note: real-time FFT convolution is CPU-intensive. Larger impulse responses
-        (above a few seconds) require more processing power, so it is recommended to keep
-        @maxsize at a reasonable value and to use shorter IRs when working with several instances
-        at once.</tr>
+        (above a few seconds) require more processing power, so it is recommended to keep @maxsize
+        at a reasonable value and to use shorter IRs when working with several instances at
+        once.</tr>
         <tr lang="ru">Примечание: свёртка FFT в реальном времени требует значительных ресурсов
         процессора. Большие импульсные характеристики (более нескольких секунд) требуют больше
         вычислительной мощности, поэтому рекомендуется держать @maxsize на разумном уровне и
