@@ -20,7 +20,7 @@
 #X obj 30 285 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
 #X text 220 282 генератор фазора (пилы) для контрольных сигналов;
 #X obj 30 310 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
-#X text 220 307 секвенсор переключающих событий;
+#X text 220 307 секвенсор переключающих событий (toggle);
 #X obj 30 335 ui.link @title [sequencer] @url sequencer-help.pd;
 #X text 220 332 базовый секвенсер значений;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026

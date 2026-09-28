@@ -1,157 +1,170 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 527 50 секвенсор переключающих событий;
+#X obj 455 50 cnv 1 310 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 460 50 секвенсор переключающих событий (toggle);
 #X obj 1 1 cnv 5 765 40 empty empty seq.toggles 20 20 0 20 -104026
 -4096 0;
 #X obj 596 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [seq.t] @url seq.toggles-help.pd;
 #X obj 660 8 seq.toggles;
-#X obj 230 78 cnv 1 535 280 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Output 1 on event start and 0 on event end;
-#X text 240 108 The event length is controlled via @length property.
-It can be fixed \, percent or subtractive. Percent values are calculated
-from whole event duration. Positive values >=0 treated as fixed event
-length. Values <0 are calculated as EVENT_DUR-value;
-#X text 240 193 • 'percent': @length 60% and @t 100ms - for event value
-'2' \, event duration is 200ms \, event length is 120ms;
-#X text 240 233 • 'fixed': @length 10 or @length 10ms and @t 100ms
-- event any duration \, event length is fixed: 10ms;
-#X text 240 273 • 'subtract': @length -40 and @t 100ms - for event
-value '2' \, event duration is 200ms \, event length is 160 (200-40).
-For event value '1' \, event duration is 100ms \, event length is 60
-(100-40);
-#X obj 50 406 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 436 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Секвенсор переключающих событий (toggle): выводит 1
+в начале события и 0 в его конце. Паттерн задаётся в единицах длительности
+доли (относительно @t) \, а длительность каждого события управляется
+свойством @length. Это удобно для управления gate-сигналами \, огибающими
+и любыми объектами \, ожидающими управляющий сигнал вкл/выкл.;
+#X text 240 184 Длительность события (@length) может задаваться в трёх
+формах:;
+#X text 250 224 • процент: @length 60% при @t 100ms — для значения
+события 2 (длительность 200ms) длина события составит 120ms.;
+#X text 250 279 • фиксированная: @length 10 или @length 10ms при @t
+100ms — длина события фиксирована на 10ms независимо от длительности
+самого события.;
+#X text 250 334 • вычитание: @length -40 при @t 100ms — для значения
+события 2 (длительность 200ms) длина события составит 160ms (200−40);
+для значения события 1 (длительность 100ms) длина события составит
+60ms (100−40).;
+#X text 240 404 Типичные сценарии применения:;
+#X text 250 429 • Паттерны gate для огибающих — управление входом gate
+генератора огибающей (например \, [env.adsr~]) ритмическими событиями
+вкл/выкл \, чтобы каждая нота имела правильные атаку и восстановление.;
+#X obj 50 562 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 406 start;
-#X msg 155 406 stop;
-#X msg 222 406 reset;
-#X floatatom 299 406 5 0 0 0 - - -;
-#X floatatom 434 406 5 0 0 0 - - -;
-#X msg 299 435 @length \$1%;
-#X msg 434 435 @length \$1ms;
-#X obj 50 478 seq.toggles 3 1 2 1 1 @t 120ms @inf;
-#X obj 50 507 lop~ 50;
-#X obj 146 507 osc~ 1000;
-#X obj 309 507 route done i ri ed el;
-#X obj 50 536 *~;
-#X obj 309 536 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 88 562 start;
+#X msg 155 562 stop;
+#X msg 222 562 reset;
+#X floatatom 299 562 5 0 0 0 - - -;
+#X floatatom 434 562 5 0 0 0 - - -;
+#X msg 299 591 @length \$1%;
+#X msg 434 591 @length \$1ms;
+#X obj 50 634 seq.toggles 3 1 2 1 1 @t 120ms @inf;
+#X obj 50 663 lop~ 50;
+#X obj 146 663 osc~ 1000;
+#X obj 309 663 route done i ri ed el;
+#X obj 50 692 *~;
+#X obj 309 692 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 357 536 5 0 0 0 - - -;
-#X floatatom 405 536 5 0 0 0 - - -;
-#X floatatom 453 536 5 0 0 0 - - -;
-#X floatatom 510 536 5 0 0 0 - - -;
-#X obj 50 565 ui.hgain~;
-#X obj 309 565 ui.dsp~;
-#X obj 50 593 dac~;
-#X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 648 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 357 692 5 0 0 0 - - -;
+#X floatatom 405 692 5 0 0 0 - - -;
+#X floatatom 453 692 5 0 0 0 - - -;
+#X floatatom 510 692 5 0 0 0 - - -;
+#X obj 50 721 ui.hgain~;
+#X obj 309 721 ui.dsp~;
+#X obj 50 749 dac~;
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 651 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 807 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 649 1\.;
-#X text 170 649 list;
-#X obj 268 650 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 649 P: sequencer pattern in beat duration units. Тип: list.;
-#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 689 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 805 1\.;
+#X text 170 805 list;
+#X obj 268 806 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 805 P: паттерн секвенсора в единицах длительности доли.
+Тип: list.;
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 860 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 692 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 863 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 690 @div;
-#X text 270 690 Beat subdivision. Тип: int. Значение по умолчанию:
-1\. Диапазон: [1\..64].;
-#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 732 @dur;
-#X text 270 732 Whole sequence duration. (Recalculates @t property
-accordingly). Тип: float. Единицы: 'ms'. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 789 @inf;
-#X text 270 789 Alias to @r -1 \, repeats infinitely.;
-#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 819 @length;
-#X text 270 819 Event length. In case of float or float wuth 'ms' suffix
-- event length is fixed for any event duration. In case of V% - @length
-expected to be in 0\..100 range and event length is percent of duration.
-In case of negative @length event duration is calculated as duration+@length
-\, but not less then 1\. Тип: float. Значение по умолчанию: 75\.;
-#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 937 @mode;
-#X text 270 937 Sequencer mode. 'inc': from first to last \, 'dec':
-from last to first \, 'tri': from first to last \, then back. Тип:
-symbol. Значение по умолчанию: inc. Разрешённые значения: inc \, dec
-\, tri.;
-#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1009 @once;
-#X text 270 1009 Alias to @r 1 \, play once.;
-#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1039 @p;
-#X text 270 1039 Sequencer pattern in beat duration units. Тип: list.;
-#X obj 250 1069 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1069 @r;
-#X text 270 1069 Number of whole sequence repeats. If -1: repeat infinitely.
-Тип: int. Значение по умолчанию: 1\. Минимальное значение: -1\.;
-#X obj 250 1126 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1126 @t;
-#X text 270 1126 Time between beats. Unit values like 100ms \, 240bpm
-or 60|4bpm also can be used. Тип: float. Единицы: 'ms'. Значение по
-умолчанию: 100\. Диапазон: [1\..20000].;
-#X obj 250 1183 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1183 @upbeat;
-#X text 270 1183 Wait specified number of beats before sequence start.
+#X msg 130 861 @div;
+#X text 270 861 Дробление доли. Тип: int. Значение по умолчанию: 1\.
+Диапазон: [1\..64].;
+#X obj 250 903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 903 @dur;
+#X text 270 903 Длительность всей последовательности (соответственно
+пересчитывает свойство @t). Тип: float. Единицы: 'ms'. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 960 @inf;
+#X text 270 960 Сокращение для @r -1 \, повторяется бесконечно.;
+#X obj 250 990 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 990 @length;
+#X text 270 990 Длительность события. Обычное число или число с суффиксом
+'ms' фиксирует длительность события для любой продолжительности события.
+Значение с суффиксом '%' трактуется как процент от длительности события
+(ожидается в диапазоне 0\..100). Отрицательное значение вычитается
+из длительности события (duration + @length) \, но результат никогда
+не меньше 1\. Тип: float. Значение по умолчанию: 75\.;
+#X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1123 @mode;
+#X text 270 1123 Режим секвенсора. 'inc' — от первого к последнему
+\, 'dec' — от последнего к первому \, 'tri' — от первого к последнему
+\, затем обратно. Тип: symbol. Значение по умолчанию: inc. Разрешённые
+значения: inc \, dec \, tri.;
+#X obj 250 1195 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1195 @once;
+#X text 270 1195 Сокращение для @r 1 \, играть один раз.;
+#X obj 250 1225 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1225 @p;
+#X text 270 1225 Паттерн секвенсора в единицах длительности доли. Тип:
+list.;
+#X obj 250 1255 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1255 @r;
+#X text 270 1255 Число повторов всей последовательности. Если -1 —
+повторяется бесконечно. Тип: int. Значение по умолчанию: 1\. Минимальное
+значение: -1\.;
+#X obj 250 1312 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1312 @t;
+#X text 270 1312 Время между долями. Можно также использовать значения
+с единицами \, например 100ms \, 240bpm или 60|4bpm. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 100\. Диапазон: [1\..20000].;
+#X obj 250 1384 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1384 @upbeat;
+#X text 270 1384 Ждать заданное число долей перед запуском последовательности.
 Тип: float. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 1240 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1240 @i?;
-#X text 270 1240 (только чтение) Current sequence iteration. Тип: int.
+#X obj 250 1441 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1441 @i?;
+#X text 270 1441 (только чтение) Текущая итерация последовательности.
+Тип: int. Значение по умолчанию: 0\.;
+#X obj 250 1483 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1483 @ri?;
+#X text 270 1483 (только чтение) Текущая итерация повтора. Тип: int.
 Значение по умолчанию: 0\.;
-#X obj 250 1282 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1282 @ri?;
-#X text 270 1282 (только чтение) Current repeat iteration. Тип: int.
-Значение по умолчанию: 0\.;
-#X obj 20 1334 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1339 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1535 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1540 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1340 reset;
-#X text 270 1340 reset all counters and stop.;
-#X obj 250 1375 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1375 rewind;
-#X text 270 1375 reset all counters without stopping.;
-#X obj 250 1410 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1410 start;
-#X text 270 1410 start sequencer from current position.;
-#X obj 250 1445 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1445 stop;
-#X text 270 1445 stop sequencer.;
-#X obj 250 1480 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1480 tick;
-#X text 270 1480 output current sequence element and move to next.;
-#X obj 20 1525 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1530 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1541 reset;
+#X text 270 1541 сбрасывает все счётчики и останавливает секвенсор.;
+#X obj 250 1576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1576 rewind;
+#X text 270 1576 сбрасывает все счётчики без остановки.;
+#X obj 250 1611 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1611 start;
+#X text 270 1611 запускает секвенсор с текущей позиции.;
+#X obj 250 1646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1646 stop;
+#X text 270 1646 останавливает секвенсор.;
+#X obj 250 1681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1681 tick;
+#X text 270 1681 выводит текущий элемент последовательности и переходит
+к следующему.;
+#X obj 20 1741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1746 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1531 1\.;
-#X text 170 1531 bang:;
-#X text 270 1531 reset sequence and repeat counters and start sequencer.;
-#X text 130 1556 2\.;
-#X text 170 1556 list:;
-#X text 270 1556 set new pattern value.;
-#X obj 20 1591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1596 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1747 1\.;
+#X text 170 1747 bang:;
+#X text 270 1747 сбрасывает счётчики последовательности и повторов
+и запускает секвенсор.;
+#X text 130 1787 2\.;
+#X text 170 1787 list:;
+#X text 270 1787 устанавливает новое значение паттерна.;
+#X obj 20 1822 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1827 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1597 1\.;
-#X text 270 1597 1 and 0\.;
-#X text 130 1617 2\.;
-#X text 270 1617 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
-iteration \, [ed MS( - event duration \, [el MS( event length or [done(
-when done.;
+#X text 130 1828 1\.;
+#X text 270 1828 1 и 0\.;
+#X text 130 1848 2\.;
+#X text 270 1848 [i IDX N( — итерация последовательности \, [ri IDX
+N( — итерация повтора \, [ed MS( — длительность события \, [el MS(
+— длина события \, или [done( по завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1697 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1700 библиотека: ceammc v0.9.8;
-#N canvas 10 1719 400 290 info 0;
+#X obj 1 1928 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1931 библиотека: ceammc v0.9.8;
+#N canvas 10 1950 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -175,24 +188,24 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1719 pd info;
-#X connect 15 0 17 0;
-#X connect 16 0 18 0;
-#X connect 11 0 19 0;
-#X connect 12 0 19 0;
-#X connect 13 0 19 0;
-#X connect 14 0 19 0;
+#X restore 10 1950 pd info;
 #X connect 17 0 19 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 19 1 22 0;
-#X connect 20 0 23 0;
-#X connect 21 0 23 1;
-#X connect 22 0 24 0;
-#X connect 22 1 25 0;
-#X connect 22 2 26 0;
-#X connect 22 3 27 0;
-#X connect 22 4 28 0;
-#X connect 23 0 29 0;
-#X connect 29 0 31 0;
-#X connect 29 0 31 1;
+#X connect 18 0 20 0;
+#X connect 13 0 21 0;
+#X connect 14 0 21 0;
+#X connect 15 0 21 0;
+#X connect 16 0 21 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 24 0;
+#X connect 22 0 25 0;
+#X connect 23 0 25 1;
+#X connect 24 0 26 0;
+#X connect 24 1 27 0;
+#X connect 24 2 28 0;
+#X connect 24 3 29 0;
+#X connect 24 4 30 0;
+#X connect 25 0 31 0;
+#X connect 31 0 33 0;
+#X connect 31 0 33 1;
