@@ -38,8 +38,8 @@
         multichannel ambisonic or plane wave processing. Create a patch, effect or operator, then
         parallelize it with hoa.process~.</tr>
         <tr lang="ru">hoa.process~ — это разновидность объекта poly~, особенно удобная для
-        многоканальной обработки амбисоников или плоских волн. Создайте патч, эффект или
-        оператор, а затем распараллельте его с помощью hoa.process~.</tr>
+        многоканальной обработки амбисоников или плоских волн. Создайте патч, эффект или оператор,
+        а затем распараллельте его с помощью hoa.process~.</tr>
       </par>
       <par>
         <tr lang="en">Target selector examples:</tr>
@@ -50,15 +50,14 @@
         <tr lang="ru">#* — отправить всем экземплярам</tr>
       </par>
       <par>
-        <tr lang="en">#: — send list values spread among all instances, one value per
-        instance</tr>
-        <tr lang="ru">#: — отправить значения списка, распределив их по всем экземплярам, по
-        одному значению на экземпляр</tr>
+        <tr lang="en">#: — send list values spread among all instances, one value per instance</tr>
+        <tr lang="ru">#: — отправить значения списка, распределив их по всем экземплярам, по одному
+        значению на экземпляр</tr>
       </par>
       <par>
         <tr lang="en">#:2 — send list values spread among instances with id &gt;= 2</tr>
-        <tr lang="ru">#:2 — отправить значения списка, распределив их по экземплярам с
-        id &gt;= 2</tr>
+        <tr lang="ru">#:2 — отправить значения списка, распределив их по экземплярам с id &gt;=
+        2</tr>
       </par>
       <par>
         <tr lang="en">#1 — send to the second instance</tr>
@@ -133,8 +132,8 @@
       <!-- on -->
       <method name="on">
         <info>
-          <tr lang="en">turns DSP processing of instances on or off. Usage: 'on all 0|1' — turn
-          all instances on/off, 'on IDX 0|1' — turn the specified instance on/off.</tr>
+          <tr lang="en">turns DSP processing of instances on or off. Usage: 'on all 0|1' — turn all
+          instances on/off, 'on IDX 0|1' — turn the specified instance on/off.</tr>
           <tr lang="ru">включает или выключает DSP-обработку экземпляров. Использование: 'on all
           0|1' — включить или выключить все экземпляры, 'on IDX 0|1' — включить или выключить
           указанный экземпляр.</tr>

@@ -35,9 +35,8 @@
         in 'pol' mode the signals are treated as radius and angle, and in 'car' mode as X and Y
         coordinates.</tr>
         <tr lang="ru">Если nsrc равен 1 (один источник), радиус и угол управляются значениями
-        сигнала на втором и третьем звуковых входах. Поведение зависит от свойства @mode: в
-        режиме 'pol' сигналы трактуются как радиус и угол, а в режиме 'car' — как координаты X и
-        Y.</tr>
+        сигнала на втором и третьем звуковых входах. Поведение зависит от свойства @mode: в режиме
+        'pol' сигналы трактуются как радиус и угол, а в режиме 'car' — как координаты X и Y.</tr>
       </par>
       <par>
         <tr lang="en">For multiple sources, positions can be set via the polar, cartesian or mute

@@ -61,8 +61,8 @@
     <properties>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue, alpha values in the
-        0..1 range)</tr>
+        <tr lang="en">element background color (list of red, green, blue, alpha values in the 0..1
+        range)</tr>
         <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего и альфа в
         диапазоне 0..1)</tr>
       </property>

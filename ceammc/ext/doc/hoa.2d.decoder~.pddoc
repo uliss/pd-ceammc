@@ -51,9 +51,8 @@
       <par>
         <tr lang="en">The default mode is regular, for an array of 2 * order + 2 loudspeakers. The
         default irregular configuration is the standard 5.1 multichannel configuration.</tr>
-        <tr lang="ru">Режим по умолчанию — regular, для массива из 2 * order + 2
-        громкоговорителей. Конфигурация по умолчанию для irregular — стандартная многоканальная
-        конфигурация 5.1.</tr>
+        <tr lang="ru">Режим по умолчанию — regular, для массива из 2 * order + 2 громкоговорителей.
+        Конфигурация по умолчанию для irregular — стандартная многоканальная конфигурация 5.1.</tr>
       </par>
       <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
     </info>
@@ -124,16 +123,16 @@
       access="readonly" default="0 -1 0 1">
         <tr lang="en">list of plane wave x-coordinates (abscissas). -1 is the left of the
         soundfield, 0 is the center of the soundfield, and 1 is the right of the soundfield.</tr>
-        <tr lang="ru">список x-координат плоских волн (абсциссы). -1 — слева от звукового поля,
-        0 — в центре звукового поля, 1 — справа от звукового поля.</tr>
+        <tr lang="ru">список x-координат плоских волн (абсциссы). -1 — слева от звукового поля, 0 —
+        в центре звукового поля, 1 — справа от звукового поля.</tr>
       </property>
       <!-- @pw_y -->
       <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
       access="readonly" default="1 0 -1 0">
         <tr lang="en">list of plane wave y-coordinates (ordinates). -1 is the back of the
         soundfield, 0 is the center of the soundfield, and 1 is the front of the soundfield.</tr>
-        <tr lang="ru">список y-координат плоских волн (ординаты). -1 — позади звукового поля,
-        0 — в центре звукового поля, 1 — перед звуковым полем.</tr>
+        <tr lang="ru">список y-координат плоских волн (ординаты). -1 — позади звукового поля, 0 — в
+        центре звукового поля, 1 — перед звуковым полем.</tr>
       </property>
       <!-- @regular -->
       <property name="@regular" type="alias">

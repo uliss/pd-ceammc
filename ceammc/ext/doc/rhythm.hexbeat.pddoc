@@ -39,12 +39,12 @@
         программная генерация вариаций паттерна через манипуляции hex-строками.</tr>
       </par>
       <par>
-        <tr lang="en">When a list of hex values is sent to the inlet, the object outputs a
-        sequence of patterns, one for each argument — this is convenient for displaying a whole row
-        at once in [ui.matrix] or a similar display.</tr>
+        <tr lang="en">When a list of hex values is sent to the inlet, the object outputs a sequence
+        of patterns, one for each argument — this is convenient for displaying a whole row at once
+        in [ui.matrix] or a similar display.</tr>
         <tr lang="ru">Если на вход подаётся список hex-значений, объект выводит последовательность
-        паттернов, по одному на каждый аргумент, — это удобно для отображения сразу целой строки
-        в [ui.matrix] или аналогичном дисплее.</tr>
+        паттернов, по одному на каждый аргумент, — это удобно для отображения сразу целой строки в
+        [ui.matrix] или аналогичном дисплее.</tr>
       </par>
     </info>
     <arguments>

@@ -29,10 +29,10 @@
         that is loaded by [hoa.process~] — it allows instances to be identified, to read their own
         order/degree/index and to share parameters across instances.</tr>
         <tr lang="ru">С помощью [hoa.@process] можно читать свойства экземпляра [hoa.process~], а
-        также получать и задавать пользовательские свойства, объявленные через [prop.declare].
-        Это удобно внутри патча, загружаемого [hoa.process~]: позволяет экземплярам
-        идентифицировать себя, читать собственные order/degree/index и обмениваться параметрами
-        между экземплярами.</tr>
+        также получать и задавать пользовательские свойства, объявленные через [prop.declare]. Это
+        удобно внутри патча, загружаемого [hoa.process~]: позволяет экземплярам идентифицировать
+        себя, читать собственные order/degree/index и обмениваться параметрами между
+        экземплярами.</tr>
       </par>
     </info>
     <properties>

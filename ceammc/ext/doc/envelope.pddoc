@@ -27,9 +27,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Data type for a sound envelope. It contains points defined by time and
-        value. A point can have the stop property — this makes the envelope stop at that point
-        instead of continuing, so multi-segment envelopes can be created.</tr>
+        <tr lang="en">Data type for a sound envelope. It contains points defined by time and value.
+        A point can have the stop property — this makes the envelope stop at that point instead of
+        continuing, so multi-segment envelopes can be created.</tr>
         <tr lang="ru">Тип данных для звуковой огибающей. Содержит точки, заданные временем и
         значением. Точка может иметь свойство «стоп» — в этом случае выполнение огибающей
         останавливается на этой точке, что позволяет создавать многосегментные огибающие.</tr>
@@ -42,11 +42,10 @@
         (экспоненциальная).</tr>
       </par>
       <par>
-        <tr lang="en">An exponential segment also has a curve property: 0 (linear), &lt;0
-        (concave, negatively curved), &gt;0 (convex, positively curved).</tr>
-        <tr lang="ru">Экспоненциальный сегмент также имеет свойство кривизны: 0 (линейная),
-        &lt;0 (вогнутая, отрицательная кривизна), &gt;0 (выпуклая, положительная
-        кривизна).</tr>
+        <tr lang="en">An exponential segment also has a curve property: 0 (linear), &lt;0 (concave,
+        negatively curved), &gt;0 (convex, positively curved).</tr>
+        <tr lang="ru">Экспоненциальный сегмент также имеет свойство кривизны: 0 (линейная), &lt;0
+        (вогнутая, отрицательная кривизна), &gt;0 (выпуклая, положительная кривизна).</tr>
       </par>
     </info>
     <arguments>
@@ -165,8 +164,8 @@
         </param>
         <param name="TYPE" type="symbol" enum="step line exp sin2 sigmoid" default="line">
           <tr lang="en">segment type: step, linear, exponential, sin² or sigmoid curve</tr>
-          <tr lang="ru">тип сегмента: step (ступень), line (линейный), exp
-          (экспоненциальный), sin2 (синус в квадрате) или sigmoid (сигмоидный)</tr>
+          <tr lang="ru">тип сегмента: step (ступень), line (линейный), exp (экспоненциальный), sin2
+          (синус в квадрате) или sigmoid (сигмоидный)</tr>
         </param>
         <param name="CURVE" type="float" default="1">
           <tr lang="en">exponential curve degree: 0 (linear), &lt;0 (concave, negatively curved),

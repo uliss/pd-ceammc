@@ -21,8 +21,7 @@
         <tr lang="en">The object embeds LuaJIT as a scripting language inside a Pd patch. Lua code
         is executed in a separate thread in async mode, so it does not block Pd's main thread.</tr>
         <tr lang="ru">Объект встраивает LuaJIT как язык сценариев внутрь патча Pd. Код Lua
-        выполняется в отдельном потоке в асинхронном режиме и не блокирует основной поток
-        Pd.</tr>
+        выполняется в отдельном потоке в асинхронном режиме и не блокирует основной поток Pd.</tr>
       </par>
       <par>
         <tr lang="en">Each lang.lua object has its own independent Lua context.</tr>

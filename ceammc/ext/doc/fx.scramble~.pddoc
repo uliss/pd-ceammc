@@ -24,13 +24,12 @@
         <tr lang="en">A stereo effect that scrambles delayed sound fragments: fragments of the
         input signal are captured into a delay line and then replayed in a scrambled (randomized)
         order, with separate scramble frequencies and delay ranges for the left and right channels.
-        The dry/wet ratio, feedback and bypass are controlled by the corresponding
-        properties.</tr>
-        <tr lang="ru">Стереоэффект, который скремблирует задержанные звуковые фрагменты:
-        фрагменты входного сигнала записываются в линию задержки и затем воспроизводятся в
-        перемешанном (случайном) порядке, при этом для левого и правого каналов задаются свои
-        частоты скремблирования и диапазоны задержки. Соотношение dry/wet, обратная связь и
-        обход управляются соответствующими свойствами.</tr>
+        The dry/wet ratio, feedback and bypass are controlled by the corresponding properties.</tr>
+        <tr lang="ru">Стереоэффект, который скремблирует задержанные звуковые фрагменты: фрагменты
+        входного сигнала записываются в линию задержки и затем воспроизводятся в перемешанном
+        (случайном) порядке, при этом для левого и правого каналов задаются свои частоты
+        скремблирования и диапазоны задержки. Соотношение dry/wet, обратная связь и обход
+        управляются соответствующими свойствами.</tr>
       </par>
     </info>
     <arguments>
@@ -63,8 +62,8 @@
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
         <tr lang="en">proportion of mix between the original (dry) and the effected (wet) signals.
         0 — dry signal, 1 — wet signal</tr>
-        <tr lang="ru">доля микса между исходным (dry) и обработанным (wet) сигналами. 0 —
-        исходный сигнал, 1 — обработанный</tr>
+        <tr lang="ru">доля микса между исходным (dry) и обработанным (wet) сигналами. 0 — исходный
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @feedback -->
       <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.25">

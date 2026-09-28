@@ -30,22 +30,22 @@
         списка.</tr>
       </par>
       <par>
-        <tr lang="en">Rules are given in the form of a dictionary: for example, the rule
-        [1: 0 1 0: 1] means "replace every 1 with the sequence 0 1 0, and replace every 0 with
-        1". Starting from the axiom 0 1 and applying this rule twice gives: 0 1 → 1 0 1 0 1 →
-        0 1 0 1 1 0 1 0 1 0 1. The @max property limits how long the pattern may grow.</tr>
+        <tr lang="en">Rules are given in the form of a dictionary: for example, the rule [1: 0 1 0:
+        1] means "replace every 1 with the sequence 0 1 0, and replace every 0 with 1". Starting
+        from the axiom 0 1 and applying this rule twice gives: 0 1 → 1 0 1 0 1 → 0 1 0 1 1 0 1 0 1
+        0 1. The @max property limits how long the pattern may grow.</tr>
         <tr lang="ru">Правила задаются в виде словаря: например, правило [1: 0 1 0: 1] означает
-        «каждую 1 заменить на последовательность 0 1 0, а каждый 0 заменить на 1». Начав с
-        аксиомы 0 1 и применив это правило дважды, получаем: 0 1 → 1 0 1 0 1 → 0 1 0 1 1 0 1 0 1 0 1.
+        «каждую 1 заменить на последовательность 0 1 0, а каждый 0 заменить на 1». Начав с аксиомы
+        0 1 и применив это правило дважды, получаем: 0 1 → 1 0 1 0 1 → 0 1 0 1 1 0 1 0 1 0 1.
         Свойство @max ограничивает, насколько паттерн может вырасти.</tr>
       </par>
       <par>
-        <tr lang="en">L-systems are useful for generating long, self-similar rhythmic patterns
-        from a very compact description. They are widely used in algorithmic composition, fractal
-        music and generative art, where the pattern should evolve gradually from one iteration to
-        the next while preserving its overall character.</tr>
-        <tr lang="ru">L-системы удобны для генерации длинных самоподобных ритмических паттернов
-        из очень компактного описания. Они широко применяются в алгоритмической композиции,
+        <tr lang="en">L-systems are useful for generating long, self-similar rhythmic patterns from
+        a very compact description. They are widely used in algorithmic composition, fractal music
+        and generative art, where the pattern should evolve gradually from one iteration to the
+        next while preserving its overall character.</tr>
+        <tr lang="ru">L-системы удобны для генерации длинных самоподобных ритмических паттернов из
+        очень компактного описания. Они широко применяются в алгоритмической композиции,
         фрактальной музыке и генеративном искусстве, где паттерн должен постепенно развиваться от
         итерации к итерации, сохраняя общий характер.</tr>
       </par>

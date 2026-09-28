@@ -27,19 +27,19 @@
         кроме того, который связан с этим входом. Это предотвращает бесконечные петли.</tr>
       </par>
       <par>
-        <tr lang="en">The problem: when two or more GUI objects (sliders, number boxes, knobs)
-        need to show the same value and also modify each other, a direct bidirectional connection
-        causes an infinite loop — A sends to B, B sends back to A, A sends again to B, and so on,
-        until the Pd stack overflows. The object [sync] solves this: it remembers which inlet the
-        value came from and forwards it to all other outlets except the paired one. This way the
-        chain naturally terminates and both widgets stay in sync.</tr>
-        <tr lang="ru">Проблема: когда два или более GUI-объекта (слайдеры, числовые поля,
-        крутилки) должны показывать одно и то же значение и при этом изменять друг друга, прямое
+        <tr lang="en">The problem: when two or more GUI objects (sliders, number boxes, knobs) need
+        to show the same value and also modify each other, a direct bidirectional connection causes
+        an infinite loop — A sends to B, B sends back to A, A sends again to B, and so on, until
+        the Pd stack overflows. The object [sync] solves this: it remembers which inlet the value
+        came from and forwards it to all other outlets except the paired one. This way the chain
+        naturally terminates and both widgets stay in sync.</tr>
+        <tr lang="ru">Проблема: когда два или более GUI-объекта (слайдеры, числовые поля, крутилки)
+        должны показывать одно и то же значение и при этом изменять друг друга, прямое
         двунаправленное соединение приводит к бесконечной петле — A отправляет в B, B отправляет
-        обратно в A, A снова отправляет в B, и так до переполнения стека Pd. Объект [sync]
-        решает эту задачу: он запоминает, с какого входа пришло значение, и передаёт его на все
-        остальные выходы, кроме парного. Так цепочка естественно завершается, а оба элемента
-        остаются синхронизированными.</tr>
+        обратно в A, A снова отправляет в B, и так до переполнения стека Pd. Объект [sync] решает
+        эту задачу: он запоминает, с какого входа пришло значение, и передаёт его на все остальные
+        выходы, кроме парного. Так цепочка естественно завершается, а оба элемента остаются
+        синхронизированными.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -54,16 +54,16 @@
       <par indent="1">
         <tr lang="en">• Knob + number box — a [ui.knob] and a [floatatom] showing the same
         parameter and updating each other.</tr>
-        <tr lang="ru">• Крутилка + числовое поле — [ui.knob] и [floatatom], отображающие один и
-        тот же параметр и обновляющие друг друга.</tr>
+        <tr lang="ru">• Крутилка + числовое поле — [ui.knob] и [floatatom], отображающие один и тот
+        же параметр и обновляющие друг друга.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• MIDI controller and GUI — a physical knob on a MIDI controller and a
         [ui.knob] in the patch: MIDI input goes through [sync] to the GUI, and GUI changes go back
         through [sync] to MIDI output.</tr>
-        <tr lang="ru">• MIDI-контроллер и GUI — физическая ручка на MIDI-контроллере и [ui.knob]
-        в патче: MIDI-вход идёт через [sync] в GUI, а изменения в GUI возвращаются через [sync]
-        в MIDI-выход.</tr>
+        <tr lang="ru">• MIDI-контроллер и GUI — физическая ручка на MIDI-контроллере и [ui.knob] в
+        патче: MIDI-вход идёт через [sync] в GUI, а изменения в GUI возвращаются через [sync] в
+        MIDI-выход.</tr>
       </par>
     </info>
     <arguments>

@@ -24,9 +24,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Replaces atoms in the incoming data stream: every atom equal to the
-        "from" value is replaced by the "to" value. Both values can be specified either as the
-        @from and @to properties, or as the first and second arguments.</tr>
+        <tr lang="en">Replaces atoms in the incoming data stream: every atom equal to the "from"
+        value is replaced by the "to" value. Both values can be specified either as the @from and
+        @to properties, or as the first and second arguments.</tr>
         <tr lang="ru">Заменяет атомы во входящем потоке данных: каждый атом, равный значению
         «from», заменяется значением «to». Оба значения можно задать либо через свойства @from и
         @to, либо первым и вторым аргументами.</tr>
@@ -40,8 +40,8 @@
         <tr lang="ru">Типичные сценарии применения: переименование символов или нот в потоке
         (например, перевод имён нот, переименование параметров, нормализация регистра), замена
         значений-заполнителей вроде 0 или -1 на осмысленные значения по умолчанию, а также
-        перекодировка небольших наборов числовых кодов — например, номеров контроллеров,
-        ступеней лада или тегов маршрутизации из одной системы в другую.</tr>
+        перекодировка небольших наборов числовых кодов — например, номеров контроллеров, ступеней
+        лада или тегов маршрутизации из одной системы в другую.</tr>
       </par>
       <par>
         <tr lang="en">The object is especially useful in data cleanup tasks — when incoming data
@@ -50,10 +50,10 @@
         [select] + [message] chains, [replace] handles many substitutions at once inside a single
         data stream, without splitting and rebuilding lists manually.</tr>
         <tr lang="ru">Объект особенно полезен при очистке и приведении данных — когда входящие
-        данные используют другое соглашение об именах, содержат значения-заполнители, которые
-        нужно интерпретировать, или должны быть приведены к требованиям нижестоящего объекта. В
-        отличие от цепочек [select] + [message], [replace] обрабатывает сразу много подстановок
-        внутри одного потока данных, без ручного разделения и сборки списков.</tr>
+        данные используют другое соглашение об именах, содержат значения-заполнители, которые нужно
+        интерпретировать, или должны быть приведены к требованиям нижестоящего объекта. В отличие
+        от цепочек [select] + [message], [replace] обрабатывает сразу много подстановок внутри
+        одного потока данных, без ручного разделения и сборки списков.</tr>
       </par>
     </info>
     <arguments>

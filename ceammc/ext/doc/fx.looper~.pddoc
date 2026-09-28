@@ -77,8 +77,8 @@
       <property name="@loop_smooth" type="float" units="millisecond" default="10" minvalue="0">
         <tr lang="en">duration of the linear fade-in/fade-out applied to the recorded loop for
         smooth playback</tr>
-        <tr lang="ru">длительность линейного fade-in/fade-out, применяемого к записанному циклу
-        для плавного воспроизведения</tr>
+        <tr lang="ru">длительность линейного fade-in/fade-out, применяемого к записанному циклу для
+        плавного воспроизведения</tr>
       </property>
       <!-- @play_phase -->
       <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
@@ -118,8 +118,8 @@
       <property name="@round" type="int" units="sample" default="0" minvalue="0">
         <tr lang="en">increase the loop length to be a multiple of the specified value. If *0* — no
         rounding is performed</tr>
-        <tr lang="ru">увеличить длину цикла до кратной заданному значению. Если *0* — округление
-        не выполняется</tr>
+        <tr lang="ru">увеличить длину цикла до кратной заданному значению. Если *0* — округление не
+        выполняется</tr>
       </property>
       <!-- @state -->
       <property name="@state" type="symbol" enum="init stop record play overdub" access="readonly"

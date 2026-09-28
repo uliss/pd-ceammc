@@ -53,16 +53,16 @@
       <par indent="1">
         <tr lang="en">• 'quartile' — about 25% of the code can be restored. Balanced between
         robustness and matrix size, suitable for industrial and printed labels.</tr>
-        <tr lang="ru">• 'quartile' — восстанавливается около 25% кода. Баланс между устойчивостью
-        и размером матрицы, подходит для промышленных и печатных этикеток.</tr>
+        <tr lang="ru">• 'quartile' — восстанавливается около 25% кода. Баланс между устойчивостью и
+        размером матрицы, подходит для промышленных и печатных этикеток.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• 'high' — about 30% of the code can be restored. Maximum robustness,
         recommended for codes that may be exposed to dirt, scratches or partial covering (for
         example, on packaging or outdoor signage).</tr>
         <tr lang="ru">• 'high' — восстанавливается около 30% кода. Максимальная устойчивость,
-        рекомендуется для кодов, которые могут подвергаться загрязнению, царапинам или
-        частичному перекрытию (например, на упаковке или уличных вывесках).</tr>
+        рекомендуется для кодов, которые могут подвергаться загрязнению, царапинам или частичному
+        перекрытию (например, на упаковке или уличных вывесках).</tr>
       </par>
     </info>
     <arguments>
@@ -107,8 +107,7 @@
       <!-- wifi -->
       <method name="wifi">
         <info>
-          <tr lang="en">builds a Wi-Fi string and encodes it as a
-          QR code.</tr>
+          <tr lang="en">builds a Wi-Fi string and encodes it as a QR code.</tr>
           <tr lang="ru">формирует строку Wi-Fi строку и кодирует её как QR-код.</tr>
         </info>
         <param name="@ssid" type="atom" required="true">

@@ -18,12 +18,12 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Compiles Faust DSP code on the fly and turns it into a Pd audio object.
-        Faust is a functional programming language for real-time signal processing, developed by
-        GRAME. See the official website for the language reference and examples.</tr>
-        <tr lang="ru">Компилирует код Faust DSP «на лету» и превращает его в аудиообъект Pd.
-        Faust — это функциональный язык программирования для обработки сигналов в реальном
-        времени, разработанный GRAME. Справочник по языку и примеры — на официальном сайте.</tr>
+        <tr lang="en">Compiles Faust DSP code on the fly and turns it into a Pd audio object. Faust
+        is a functional programming language for real-time signal processing, developed by GRAME.
+        See the official website for the language reference and examples.</tr>
+        <tr lang="ru">Компилирует код Faust DSP «на лету» и превращает его в аудиообъект Pd. Faust
+        — это функциональный язык программирования для обработки сигналов в реальном времени,
+        разработанный GRAME. Справочник по языку и примеры — на официальном сайте.</tr>
       </par>
       <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
     </info>
@@ -68,8 +68,7 @@
           <tr lang="ru">читает код Faust из файла и компилирует его</tr>
         </info>
         <param name="FILE" type="symbol" required="true">
-          <tr lang="en">file path, absolute or relative to the patch, with include
-          directories</tr>
+          <tr lang="en">file path, absolute or relative to the patch, with include directories</tr>
           <tr lang="ru">путь к файлу, абсолютный или относительный к патчу, с каталогами
           подключаемых файлов</tr>
         </param>

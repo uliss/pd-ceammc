@@ -28,10 +28,9 @@
         axis of the display shows the harmonic index, the vertical axis shows the current
         amplitude. Positive harmonics are drawn in the @ph_color color, negative harmonics in
         @nh_color.</tr>
-        <tr lang="ru">Отображает круговые гармоники звукового поля амбисоников. По
-        горизонтальной оси отображается индекс гармоники, по вертикальной — текущая амплитуда.
-        Положительные гармоники рисуются цветом @ph_color, отрицательные — цветом
-        @nh_color.</tr>
+        <tr lang="ru">Отображает круговые гармоники звукового поля амбисоников. По горизонтальной
+        оси отображается индекс гармоники, по вертикальной — текущая амплитуда. Положительные
+        гармоники рисуются цветом @ph_color, отрицательные — цветом @nh_color.</tr>
       </par>
       <a href="hoa/hoa.2d.scope~-help.pd">CICM documentation</a>
     </info>
@@ -51,8 +50,8 @@
     <properties>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue, alpha values in the
-        0..1 range)</tr>
+        <tr lang="en">element background color (list of red, green, blue, alpha values in the 0..1
+        range)</tr>
         <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего и альфа в
         диапазоне 0..1)</tr>
       </property>

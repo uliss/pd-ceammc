@@ -28,19 +28,17 @@
     <info>
       <par>
         <tr lang="en">Weights the circular harmonics signals according to the chosen ambisonic
-        optimization. The optimization can be 'basic' (no optimization), 'maxre' or
-        'inphase'.</tr>
-        <tr lang="ru">Взвешивает сигналы круговых гармоник в соответствии с выбранной
-        оптимизацией амбисоников. Оптимизация может быть 'basic' (без оптимизации), 'maxre' или
-        'inphase'.</tr>
+        optimization. The optimization can be 'basic' (no optimization), 'maxre' or 'inphase'.</tr>
+        <tr lang="ru">Взвешивает сигналы круговых гармоник в соответствии с выбранной оптимизацией
+        амбисоников. Оптимизация может быть 'basic' (без оптимизации), 'maxre' или 'inphase'.</tr>
       </par>
       <par>
         <tr lang="en">If no optimization mode is specified, the default is inphase.</tr>
         <tr lang="ru">Если режим оптимизации не указан, по умолчанию используется inphase.</tr>
       </par>
       <par>
-        <tr lang="en">Maxre optimization is used when the audience is confined to the center of
-        the circle.</tr>
+        <tr lang="en">Maxre optimization is used when the audience is confined to the center of the
+        circle.</tr>
         <tr lang="ru">Оптимизация maxre применяется, когда слушатели находятся в центре
         окружности.</tr>
       </par>
@@ -50,8 +48,7 @@
         окружность.</tr>
       </par>
       <par>
-        <tr lang="en">NB: this is theoretical advice — the best choice is to trust your
-        ears.</tr>
+        <tr lang="en">NB: this is theoretical advice — the best choice is to trust your ears.</tr>
         <tr lang="ru">Замечание: это теоретические рекомендации — лучший выбор всегда подскажут
         уши.</tr>
       </par>
