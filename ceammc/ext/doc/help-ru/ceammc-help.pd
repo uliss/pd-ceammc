@@ -2029,7 +2029,7 @@ random.pw_lin-help.pd;
 #X obj 30 21238 ui.link @title [seq.counter] @url seq.counter-help.pd;
 #X text 200 21235 циклический счётчик;
 #X obj 30 21263 ui.link @title [seq.life] @url seq.life-help.pd;
-#X text 200 21260 секвенсер для игры Life Джона Конвея;
+#X text 200 21260 секвенсор на основе игры «Жизнь» Конвея;
 #X obj 30 21288 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
 #X text 200 21285 секвенсер для объекта [ui.matrix];
 #X obj 30 21313 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;

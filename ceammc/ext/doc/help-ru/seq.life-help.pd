@@ -1,150 +1,165 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 489 50 секвенсер для игры Life Джона Конвея;
+#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 466 50 секвенсор на основе игры «Жизнь» Конвея;
 #X obj 1 1 cnv 5 765 40 empty empty seq.life 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 seq.life;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 174 118 glider 2 3 \, bang;
-#X msg 386 118 rpent 5 7 \, bang;
-#X obj 50 147 metro 500;
-#X msg 174 147 oct2 1 5 \, bang;
-#X msg 50 176 next \, bang;
-#X msg 174 176 random \, bang;
-#X obj 69 205 r $0-mtx;
-#X msg 174 205 clear \, bang;
-#X obj 69 234 flow.route *cell;
-#X obj 251 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 262 seq.life 10 20;
-#X obj 251 262 seq.matrix 20 120;
-#X obj 50 291 ui.matrix 10 20;
-#X obj 405 291 r $0-mtx;
-#X obj 405 320 route col;
-#X obj 405 349 ui.dt @display_events 0;
-#X obj 50 449 s $0-mtx;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 504 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 286 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Секвенсор на основе игры «Жизнь» Конвея. Объект хранит
+двумерную сетку клеток \, и каждый вызов метода next сдвигает сетку
+на одно поколение \, применяя классические правила игры: живая клетка
+выживает \, если у неё 2 или 3 живых соседа \, а мёртвая клетка оживает
+\, если у неё ровно 3 живых соседа. Текущее состояние сетки можно прочитать
+как плоский список из 0 и 1\.;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Генеративные ритмические паттерны — превращение живых
+клеток сетки в события-триггеры \, чтобы ритм органично развивался
+со временем по мере изменения паттерна.;
+#X text 250 279 • Визуально-звуковые инсталляции — отображение сетки
+в реальном времени (например \, через [ui.matrix]) с одновременным
+превращением активности клеток в звук \, что создаёт единый аудиовизуальный
+процесс.;
+#X obj 50 412 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 174 412 glider 2 3 \, bang;
+#X msg 386 412 rpent 5 7 \, bang;
+#X obj 50 441 metro 500;
+#X msg 174 441 oct2 1 5 \, bang;
+#X msg 50 470 next \, bang;
+#X msg 174 470 random \, bang;
+#X obj 69 499 r $0-mtx;
+#X msg 174 499 clear \, bang;
+#X obj 69 528 flow.route *cell;
+#X obj 251 528 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 556 seq.life 10 20;
+#X obj 251 556 seq.matrix 20 120;
+#X obj 50 585 ui.matrix 10 20;
+#X obj 405 585 r $0-mtx;
+#X obj 405 614 route col;
+#X obj 405 643 ui.dt @display_events 0;
+#X obj 50 743 s $0-mtx;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 507 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 801 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 505 1\.;
-#X text 170 505 int;
-#X obj 268 506 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 505 ROWS: number of rows. Тип: int. Диапазон: [1\..64];
-#X text 130 530 2\.;
-#X text 170 530 int;
-#X obj 268 531 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 530 COLS: number of columns. Тип: int. Диапазон: [1\..64];
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 570 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 799 1\.;
+#X text 170 799 int;
+#X obj 268 800 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 799 ROWS: число строк. Тип: int. Диапазон: [1\..64];
+#X text 130 824 2\.;
+#X text 170 824 int;
+#X obj 268 825 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 824 COLS: число столбцов. Тип: int. Диапазон: [1\..64];
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 864 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 573 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 867 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 571 @cols;
-#X text 270 571 Number of columns. Тип: int. Значение по умолчанию:
-16\. Диапазон: [1\..64].;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @rows;
-#X text 270 613 Number of rows. Тип: int. Значение по умолчанию: 16\.
+#X msg 130 865 @cols;
+#X text 270 865 Число столбцов. Тип: int. Значение по умолчанию: 16\.
 Диапазон: [1\..64].;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @size?;
-#X text 270 655 (только чтение) Total cell count. Тип: int. Значение
+#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 907 @rows;
+#X text 270 907 Число строк. Тип: int. Значение по умолчанию: 16\.
+Диапазон: [1\..64].;
+#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 949 @size?;
+#X text 270 949 (только чтение) Общее число клеток. Тип: int. Значение
 по умолчанию: 256\.;
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 712 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 713 blinker;
-#X text 270 713 adds blinker. Аргументы:;
-#X obj 300 738 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 738 ROW: row. Тип: int.;
-#X obj 300 761 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 761 COL: column. Тип: int.;
-#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 794 block;
-#X text 270 794 adds block. Аргументы:;
-#X obj 300 819 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 819 ROW: row. Тип: int.;
-#X obj 300 842 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 842 COL: column. Тип: int.;
-#X obj 250 875 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 875 cell;
-#X text 270 875 sets cell value. Аргументы:;
-#X obj 300 900 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 900 ROW: row. Тип: int.;
-#X obj 300 923 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 923 COL: column. Тип: int.;
-#X obj 300 946 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 946 VALUE: column. Тип: int.;
-#X obj 250 979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 979 clear;
-#X text 270 979 clear all cells.;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 glider;
-#X text 270 1014 adds glider. Аргументы:;
-#X obj 300 1039 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1039 ROW: row. Тип: int.;
-#X obj 300 1062 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1062 COL: column. Тип: int.;
-#X obj 250 1095 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1095 hive;
-#X text 270 1095 adds horizontal bee-hive. Аргументы:;
-#X obj 300 1120 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1120 ROW: row. Тип: int.;
-#X obj 300 1143 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1143 COL: column. Тип: int.;
-#X obj 250 1176 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1176 next;
-#X text 270 1176 generate next state.;
-#X obj 250 1211 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1211 oct2;
-#X text 270 1211 adds octagon. Аргументы:;
-#X obj 300 1236 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1236 ROW: row. Тип: int.;
-#X obj 300 1259 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1259 COL: column. Тип: int.;
-#X obj 250 1292 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1292 random;
-#X text 270 1292 fills with random.;
-#X obj 250 1327 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1327 rpent;
-#X text 270 1327 adds R-pentamino. Аргументы:;
-#X obj 300 1352 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1352 ROW: row. Тип: int.;
-#X obj 300 1375 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1375 COL: column. Тип: int.;
-#X obj 250 1408 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1408 vhive;
-#X text 270 1408 adds vertical bee-hive. Аргументы:;
-#X obj 300 1433 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1433 ROW: row. Тип: int.;
-#X obj 300 1456 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1456 COL: column. Тип: int.;
-#X obj 20 1499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1505 1\.;
-#X text 170 1505 bang:;
-#X text 270 1505 output all cells.;
-#X obj 20 1540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1001 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1006 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1546 1\.;
-#X text 270 1546 list of all cells in row by row order.;
+#X msg 130 1007 blinker;
+#X text 270 1007 добавляет мигалку (blinker). Аргументы:;
+#X obj 300 1032 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1032 ROW: строка. Тип: int.;
+#X obj 300 1055 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1055 COL: столбец. Тип: int.;
+#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1088 block;
+#X text 270 1088 добавляет блок. Аргументы:;
+#X obj 300 1113 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1113 ROW: строка. Тип: int.;
+#X obj 300 1136 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1136 COL: столбец. Тип: int.;
+#X obj 250 1169 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1169 cell;
+#X text 270 1169 устанавливает значение клетки. Аргументы:;
+#X obj 300 1194 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1194 ROW: строка. Тип: int.;
+#X obj 300 1217 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1217 COL: столбец. Тип: int.;
+#X obj 300 1240 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1240 VALUE: значение клетки (0 или 1). Тип: int.;
+#X obj 250 1273 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1273 clear;
+#X text 270 1273 очищает все клетки.;
+#X obj 250 1308 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1308 glider;
+#X text 270 1308 добавляет глайдер (glider). Аргументы:;
+#X obj 300 1333 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1333 ROW: строка. Тип: int.;
+#X obj 300 1356 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1356 COL: столбец. Тип: int.;
+#X obj 250 1389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1389 hive;
+#X text 270 1389 добавляет горизонтальный улей (hive). Аргументы:;
+#X obj 300 1414 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1414 ROW: строка. Тип: int.;
+#X obj 300 1437 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1437 COL: столбец. Тип: int.;
+#X obj 250 1470 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1470 next;
+#X text 270 1470 переводит сетку в следующее поколение.;
+#X obj 250 1505 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1505 oct2;
+#X text 270 1505 добавляет октагон (octagon). Аргументы:;
+#X obj 300 1530 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1530 ROW: строка. Тип: int.;
+#X obj 300 1553 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1553 COL: столбец. Тип: int.;
+#X obj 250 1586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1586 random;
+#X text 270 1586 заполняет сетку случайными значениями.;
+#X obj 250 1621 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1621 rpent;
+#X text 270 1621 добавляет R-пентамино (R-pentomino). Аргументы:;
+#X obj 300 1646 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1646 ROW: строка. Тип: int.;
+#X obj 300 1669 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1669 COL: столбец. Тип: int.;
+#X obj 250 1702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1702 vhive;
+#X text 270 1702 добавляет вертикальный улей (hive). Аргументы:;
+#X obj 300 1727 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1727 ROW: строка. Тип: int.;
+#X obj 300 1750 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1750 COL: столбец. Тип: int.;
+#X obj 20 1793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1798 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1799 1\.;
+#X text 170 1799 bang:;
+#X text 270 1799 выводит все клетки.;
+#X obj 20 1834 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1839 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1840 1\.;
+#X text 270 1840 список всех клеток в порядке строка за строкой.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1596 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1599 библиотека: ceammc v0.9.8;
-#X text 526 1611 смотрите также:;
-#X obj 647 1614 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1893 библиотека: ceammc v0.9.8;
+#X text 526 1905 смотрите также:;
+#X obj 647 1908 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.b] @url seq.b-help.pd;
-#X obj 701 1614 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 701 1908 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.t] @url seq.t-help.pd;
-#N canvas 10 1618 400 290 info 0;
+#N canvas 10 1912 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -168,20 +183,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1618 pd info;
-#X connect 4 0 7 0;
-#X connect 7 0 9 0;
-#X connect 11 0 13 0;
-#X connect 9 0 15 0;
-#X connect 13 0 15 0;
-#X connect 14 0 16 0;
-#X connect 15 0 17 0;
-#X connect 16 0 17 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 17 0 21 0;
-#X connect 10 0 15 0;
-#X connect 5 0 15 0;
-#X connect 8 0 15 0;
-#X connect 12 0 15 0;
-#X connect 6 0 15 0;
+#X restore 10 1912 pd info;
+#X connect 9 0 12 0;
+#X connect 12 0 14 0;
+#X connect 16 0 18 0;
+#X connect 14 0 20 0;
+#X connect 18 0 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 22 0 26 0;
+#X connect 15 0 20 0;
+#X connect 10 0 20 0;
+#X connect 13 0 20 0;
+#X connect 17 0 20 0;
+#X connect 11 0 20 0;

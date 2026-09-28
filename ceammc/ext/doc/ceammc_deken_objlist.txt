@@ -1145,7 +1145,7 @@ seq.arp	chord arpeggiator / арпеджиатор аккордов
 seq.bangs	bang event sequencer / секвенсор событий bang
 seq.b	bang event sequencer / секвенсор событий bang
 seq.counter	cyclic counter / циклический счётчик
-seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
+seq.life	Conway game of life sequencer / секвенсор на основе игры «Жизнь» Конвея
 seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]
 seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени
 seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени

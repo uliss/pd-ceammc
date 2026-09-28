@@ -11,7 +11,7 @@
 #X obj 30 170 ui.link @title [seq.counter] @url seq.counter-help.pd;
 #X text 220 167 циклический счётчик;
 #X obj 30 195 ui.link @title [seq.life] @url seq.life-help.pd;
-#X text 220 192 секвенсер для игры Life Джона Конвея;
+#X text 220 192 секвенсор на основе игры «Жизнь» Конвея;
 #X obj 30 220 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
 #X text 220 217 секвенсер для объекта [ui.matrix];
 #X obj 30 245 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
