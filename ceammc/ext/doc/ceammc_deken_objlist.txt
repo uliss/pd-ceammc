@@ -429,7 +429,7 @@ flow.list2many	routes the list element with the corresponding message / марш
 ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
-flow.mem	store into the memory or output the control flow messages / сохраняет в памяти или выводит сообщения потока управления
+flow.mem	store into the memory or output the control flow messages / сохраняет сообщения потока управления в памяти или выводит их
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока
 flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
