@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">pass the only message</tr>
-        <tr lang="ru">пропускает единственное сообщение</tr>
+        <tr lang="ru">пропускает только одно сообщение</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,30 +23,62 @@
         <alias>once</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Passes exactly one incoming message and then closes itself, so that
+        subsequent messages are discarded until the gate is reset via the right inlet. Useful as a
+        "one-shot" gate: the first event triggers the downstream logic, and any further events are
+        ignored until the patch explicitly re-opens the gate.</tr>
+        <tr lang="ru">Пропускает ровно одно входящее сообщение и затем закрывается, так что
+        последующие сообщения отбрасываются, пока шлюз не будет сброшен через правый вход.
+        Удобно как «одноразовый» шлюз: первое событие запускает нижестоящую логику, а все
+        дальнейшие игнорируются, пока патч явно не откроет шлюз снова.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Triggering an action only once — starting a process, sending an
+        initialization message, or loading a preset only on the first event, ignoring any repeated
+        triggers until the gate is explicitly re-armed.</tr>
+        <tr lang="ru">• Однократный запуск действия — старт процесса, отправка сообщения
+        инициализации или загрузка пресета только по первому событию, с игнорированием повторных
+        срабатываний до тех пор, пока шлюз не будет явно перезапущен.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Preventing duplicate events — filtering out repeated triggers from a
+        noisy source (for example, a MIDI controller or a sensor), so that only the first one
+        reaches the downstream logic.</tr>
+        <tr lang="ru">• Устранение дублирующихся событий — фильтрация повторных срабатываний от
+        шумного источника (например, MIDI-контроллера или сенсора), чтобы до нижестоящей логики
+        дошло только первое.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="PASS" type="bool">
         <tr lang="en">set init state</tr>
-        <tr lang="ru" finished="false">установленное состояние</tr>
+        <tr lang="ru">задать начальное состояние</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @pass -->
       <property name="@pass" type="bool" default="1">
         <tr lang="en">open state</tr>
-        <tr lang="ru" finished="false">Открытое государство</tr>
+        <tr lang="ru">состояние «открыт»</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input flow</tr>
-          <tr lang="ru" finished="false">входной поток</tr>
+          <tr lang="ru">входной поток</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset to opened state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в открытое государство</tr>
+          <tr lang="en">reset to the open state</tr>
+          <tr lang="ru">сбросить в состояние «открыт»</tr>
         </in>
       </inlet>
     </inlets>
@@ -54,7 +86,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output flow</tr>
-          <tr lang="ru" finished="false">выходной поток</tr>
+          <tr lang="ru">выходной поток</tr>
         </out>
       </outlet>
     </outlets>

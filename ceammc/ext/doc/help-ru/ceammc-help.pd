@@ -625,7 +625,7 @@ flow.multiplex2~-help.pd;
 flow.multiplex~-help.pd;
 #X text 200 6577 мультиплексор аудиопотока;
 #X obj 30 6605 ui.link @title [flow.once] @url flow.once-help.pd;
-#X text 200 6602 пропускает единственное сообщение;
+#X text 200 6602 пропускает только одно сообщение;
 #X obj 30 6630 ui.link @title [flow.pack] @url flow.pack-help.pd;
 #X text 200 6627 упаковка атомов из нескольких потоков в один;
 #X obj 30 6655 ui.link @title [flow.pass] @url flow.pass-help.pd;

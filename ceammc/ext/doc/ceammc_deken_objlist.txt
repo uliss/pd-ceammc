@@ -440,9 +440,9 @@ flow.multiplex~	audio stream multiplexer / мультиплексор аудио
 flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
 ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
 mux~	audio stream multiplexer / мультиплексор аудиопотока
-flow.once	pass the only message / пропускает единственное сообщение
-ceammc/once	pass the only message / пропускает единственное сообщение
-once	pass the only message / пропускает единственное сообщение
+flow.once	pass the only message / пропускает только одно сообщение
+ceammc/once	pass the only message / пропускает только одно сообщение
+once	pass the only message / пропускает только одно сообщение
 flow.pack	packs atoms from multiple stream into the single one / упаковка атомов из нескольких потоков в один
 flow.pass	pass specified values / пропускает указанные значения
 ceammc/pass	pass specified values / пропускает указанные значения
