@@ -7,68 +7,101 @@
 #X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/convolve~] @url convolve~-help.pd;
 #X obj 674 8 convolve~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X obj 50 176 readsf~;
-#X obj 155 176 msg.onload load_file ir/ir_church1_wide.wav;
-#X obj 50 205 convolve~;
-#X obj 203 205 ui.dsp~;
-#X obj 50 234 ui.hgain~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 651 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Real-time FFT convolution. Multiplies the incoming audio
+signal by the impulse response (IR) loaded into the object \, using
+fast FFT-based convolution. The result is a signal that sounds as if
+the input were played through the acoustic space \, hardware or filter
+described by the IR. The maximum IR size and normalization are controlled
+by the @maxsize and @norm properties.;
+#X text 240 199 Syntax: load the IR with one of the methods (load_file
+\, load_array \, set) \, then send the signal to the audio inlet. The
+object outputs the convolved signal from its audio outlet.;
+#X text 240 269 Typical use cases:;
+#X text 250 294 • Reverb — applying a real acoustic space to a dry
+signal by convolving it with an impulse response recorded in a concert
+hall \, church \, studio or other venue.;
+#X text 250 349 • Cabinet and microphone simulation — convolving a
+guitar or synthesizer signal with an impulse response of a speaker
+cabinet \, microphone or preamp to reproduce its characteristic tone.;
+#X text 250 419 • Hardware and analog emulation — reproducing the sound
+of vintage hardware (tape machines \, plate reverbs \, spring reverbs
+\, equalizers) by convolving the signal with a measured impulse response
+of that device.;
+#X text 250 489 • Creative sound design — using short or unusual impulse
+responses (metallic hits \, footsteps \, noise bursts \, reversed recordings)
+to obtain original textures and resonances that go far beyond natural
+acoustics.;
+#X text 250 559 • Filtering with measured responses — applying the
+measured frequency response of a physical object (a violin body \,
+a pipe \, a room) as a filter to a synthetic signal.;
+#X text 240 629 Note: real-time FFT convolution is CPU-intensive. Larger
+impulse responses (above a few seconds) require more processing power
+\, so it is recommended to keep @maxsize at a reasonable value and
+to use shorter IRs when working with several instances at once.;
+#X msg 50 777 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 806 expand_env;
+#X obj 50 835 readsf~;
+#X obj 155 835 msg.onload load_file ir/ir_church1_wide.wav;
+#X obj 50 864 convolve~;
+#X obj 203 864 ui.dsp~;
+#X obj 50 893 ui.hgain~;
+#X obj 50 921 dac~;
+#X obj 20 971 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 976 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 979 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @maxsize;
-#X text 270 318 Maximum impulse response size. Type: int. Units: 'samp'.
+#X msg 130 977 @maxsize;
+#X text 270 977 Maximum impulse response size. Type: int. Units: 'samp'.
 Default value: 50000\. Range: [0\..300000].;
-#X obj 250 360 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 360 @norm;
-#X text 270 360 Normalize the impulse response. Type: bool. Default
+#X obj 250 1019 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1019 @norm;
+#X text 270 1019 Normalize the impulse response. Type: bool. Default
 value: 1\.;
-#X obj 250 402 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 402 @offset;
-#X text 270 402 Impulse response (IR) offset. Type: int. Units: 'samp'.
+#X obj 250 1061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1061 @offset;
+#X text 270 1061 Impulse response (IR) offset. Type: int. Units: 'samp'.
 Default value: 0\. Min value: 0\.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 459 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1118 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 460 load_array;
-#X text 270 460 load the IR from an array. Arguments are:;
-#X obj 300 485 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 485 ARRAY: array name. Type: symbol.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 load_file;
-#X text 270 518 load the IR from the specified file (resamples if required
-from the file sample rate to the runtime sample rate). Arguments are:;
-#X obj 300 573 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 573 FILE: file name \, relative or absolute. Type: atom.;
-#X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 606 set;
-#X text 270 606 set the IR from a list. Arguments are:;
-#X obj 300 631 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 631 LIST: IR data. Type: float.;
-#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 679 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 680 1\.;
-#X text 170 680 ~;
-#X text 270 680 input signal.;
-#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 720 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 1119 load_array;
+#X text 270 1119 load the IR from an array. Arguments are:;
+#X obj 300 1144 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1144 ARRAY: array name. Type: symbol.;
+#X obj 250 1177 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1177 load_file;
+#X text 270 1177 load the IR from the specified file (resamples if
+required from the file sample rate to the runtime sample rate). Arguments
+are:;
+#X obj 300 1232 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1232 FILE: file name \, relative or absolute. Type: atom.;
+#X obj 250 1265 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1265 set;
+#X text 270 1265 set the IR from a list. Arguments are:;
+#X obj 300 1290 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1290 LIST: IR data. Type: float.;
+#X obj 20 1333 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1338 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 721 1\.;
-#X text 170 721 ~;
-#X text 270 721 output signal.;
+#X text 130 1339 1\.;
+#X text 170 1339 ~;
+#X text 270 1339 input signal.;
+#X obj 20 1374 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1379 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1380 1\.;
+#X text 170 1380 ~;
+#X text 270 1380 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 771 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 774 library: ceammc v0.9.8;
-#N canvas 10 793 400 290 info 0;
+#X obj 1 1430 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1433 library: ceammc v0.9.8;
+#N canvas 10 1452 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,11 +125,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 793 pd info;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 0 12 1;
+#X restore 10 1452 pd info;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 19 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 0 22 1;

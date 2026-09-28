@@ -19,6 +19,82 @@
         <alias>ceammc/convolve~</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Real-time FFT convolution. Multiplies the incoming audio signal by the
+        impulse response (IR) loaded into the object, using fast FFT-based convolution. The result
+        is a signal that sounds as if the input were played through the acoustic space, hardware or
+        filter described by the IR. The maximum IR size and normalization are controlled by the
+        @maxsize and @norm properties.</tr>
+        <tr lang="ru">Свёртка FFT в реальном времени. Умножает входящий аудиосигнал на импульсную
+        характеристику (IR), загруженную в объект, используя быстрое FFT-преобразование. В
+        результате получается сигнал, звучащий так, как если бы входной сигнал был воспроизведён
+        через акустическое пространство, аппаратное устройство или фильтр, описываемый IR.
+        Максимальный размер IR и нормализация управляются свойствами @maxsize и @norm.</tr>
+      </par>
+      <par>
+        <tr lang="en">Syntax: load the IR with one of the methods (load_file, load_array, set),
+        then send the signal to the audio inlet. The object outputs the convolved signal from its
+        audio outlet.</tr>
+        <tr lang="ru">Синтаксис: загрузите импульсную характеристику одним из методов (load_file,
+        load_array, set), затем подайте сигнал на аудиовход. Объект выводит результат свёртки с
+        аудиовыхода.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Reverb — applying a real acoustic space to a dry signal by convolving it
+        with an impulse response recorded in a concert hall, church, studio or other venue.</tr>
+        <tr lang="ru">• Реверберация — придание «сухому» сигналу реального акустического
+        пространства путём свёртки с импульсной характеристикой, записанной в концертном зале,
+        церкви, студии или другом помещении.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Cabinet and microphone simulation — convolving a guitar or synthesizer
+        signal with an impulse response of a speaker cabinet, microphone or preamp to reproduce its
+        characteristic tone.</tr>
+        <tr lang="ru">• Симуляция кабинета и микрофона — свёртка сигнала гитары или синтезатора с
+        импульсной характеристикой кабинета, микрофона или преампа для воспроизведения его
+        характерного тембра.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Hardware and analog emulation — reproducing the sound of vintage hardware
+        (tape machines, plate reverbs, spring reverbs, equalizers) by convolving the signal with a
+        measured impulse response of that device.</tr>
+        <tr lang="ru">• Эмуляция аппаратного и аналогового оборудования — воспроизведение звука
+        винтажного оборудования (ленточных машин, пластинчатых и пружинных ревербераторов,
+        эквалайзеров) путём свёртки сигнала с измеренной импульсной характеристикой этого
+        устройства.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Creative sound design — using short or unusual impulse responses (metallic
+        hits, footsteps, noise bursts, reversed recordings) to obtain original textures and
+        resonances that go far beyond natural acoustics.</tr>
+        <tr lang="ru">• Творческий саунд-дизайн — использование коротких или необычных импульсных
+        характеристик (удары по металлу, шаги, шумовые всплески, обращённые записи) для получения
+        оригинальных текстур и резонансов, выходящих далеко за пределы естественной акустики.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Filtering with measured responses — applying the measured frequency
+        response of a physical object (a violin body, a pipe, a room) as a filter to a synthetic
+        signal.</tr>
+        <tr lang="ru">• Фильтрация с измеренными откликами — применение измеренной частотной
+        характеристики физического объекта (корпуса скрипки, трубы, комнаты) в качестве фильтра
+        к синтетическому сигналу.</tr>
+      </par>
+      <par>
+        <tr lang="en">Note: real-time FFT convolution is CPU-intensive. Larger impulse responses
+        (above a few seconds) require more processing power, so it is recommended to keep
+        @maxsize at a reasonable value and to use shorter IRs when working with several instances
+        at once.</tr>
+        <tr lang="ru">Примечание: свёртка FFT в реальном времени требует значительных ресурсов
+        процессора. Большие импульсные характеристики (более нескольких секунд) требуют больше
+        вычислительной мощности, поэтому рекомендуется держать @maxsize на разумном уровне и
+        использовать более короткие IR при работе с несколькими экземплярами одновременно.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @maxsize -->
       <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
