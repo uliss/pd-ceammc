@@ -406,8 +406,8 @@ demux~	audio stream demultiplexer / демультиплексор аудиоп�
 flow.dollar	Substitute the $-values / подставляет значения $-переменных
 flow.$$	Substitute the $-values / подставляет значения $-переменных
 flow.dup	duplicate messages / дублирование сообщений
-flow.float	pass floats
-flow.f	pass floats
+flow.float	pass floats / пропускает только числа
+flow.f	pass floats / пропускает только числа
 flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
 ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
 gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]

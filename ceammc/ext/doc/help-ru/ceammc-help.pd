@@ -581,7 +581,7 @@ flow.demultiplex~-help.pd;
 #X obj 30 6190 ui.link @title [flow.dup] @url flow.dup-help.pd;
 #X text 200 6187 дублирование сообщений;
 #X obj 30 6215 ui.link @title [flow.float] @url flow.float-help.pd;
-#X text 200 6212 pass floats;
+#X text 200 6212 пропускает только числа;
 #X obj 30 6240 ui.link @title [flow.gate] @url flow.gate-help.pd;
 #X text 200 6237 шлюз для потока сообщений. аналог объекта [spigot];
 #X obj 30 6265 ui.link @title [flow.greater] @url
