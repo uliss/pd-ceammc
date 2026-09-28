@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs the specified number of bangs with a time intervals</tr>
-        <tr lang="ru">выводит заданное число bang-ов через интервалы времени</tr>
+        <tr lang="ru">выводит заданное число bang-ов с заданными интервалами времени</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,55 +23,94 @@
         <alias>seq.nb</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs a given number of bangs at a fixed or variable time interval. The
+        number of bangs is set by the argument N or the @n property, and the interval between
+        bangs by @t. Unlike [seq.bangs], which cycles through a pattern of durations, this object
+        simply produces N evenly-spaced bangs.</tr>
+        <tr lang="ru">Выводит заданное число bang-ов через фиксированный или изменяющийся
+        временной интервал. Число bang-ов задаётся аргументом N или свойством @n, а интервал
+        между ними — свойством @t. В отличие от [seq.bangs], который перебирает паттерн
+        длительностей, этот объект просто выдаёт N равномерно расположенных bang-ов.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Repeating a trigger N times — sending a fixed number of events, for
+        example a short drum roll, a burst of notes, or a temporary stutter of a sound, and then
+        stopping automatically.</tr>
+        <tr lang="ru">• Повторение триггера N раз — отправка фиксированного числа событий,
+        например короткой барабанной дроби, серии нот или временного «заикания» звука, с
+        автоматической остановкой после завершения.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Accelerando or ritardando — using @accel and @curve to make the interval
+        between bangs gradually decrease or increase, so that the same number of events is
+        compressed or stretched over time.</tr>
+        <tr lang="ru">• Accelerando или ritardando — использование @accel и @curve для
+        постепенного уменьшения или увеличения интервала между bang-ами, что позволяет сжать или
+        растянуть одно и то же число событий во времени.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Counted event bursts — firing a fixed number of control messages for a
+        specific process (for example, N steps of an arpeggio or N pulses of a modulation
+        envelope), without needing a separate counter object.</tr>
+        <tr lang="ru">• Серии событий с заданным числом — отправка фиксированного числа
+        управляющих сообщений для конкретного процесса (например, N шагов арпеджио или N
+        импульсов огибающей модуляции), без отдельного счётчика.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="0">
         <tr lang="en">number of bangs</tr>
-        <tr lang="ru">количество bang-ов</tr>
+        <tr lang="ru">число bang-ов</tr>
       </argument>
       <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">
         <tr lang="en">time interval between bangs</tr>
-        <tr lang="ru">временно́й интервал между bang-ами</tr>
+        <tr lang="ru">интервал времени между bang-ами</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @accel -->
       <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">
-        <tr lang="en">tempo acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 - slow
+        <tr lang="en">tempo acceleration. 1 — no acceleration, &gt;1 — speed up, &lt;1 — slow
         down</tr>
-        <tr lang="ru">ускорение темпа. 1 - без ускорения, &gt;1 - ускорение, &lt;1 -
-        замедление</tr>
+        <tr lang="ru">ускорение темпа. 1 — без ускорения, &gt;1 — ускорение, &lt;1 — замедление</tr>
       </property>
       <!-- @curve -->
       <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
-        <tr lang="en">acceleration curve. Values &gt;&gt;0 - slow changes, then fast encrease.
-        Values &lt;0 - fast changes, then slower</tr>
-        <tr lang="ru">кривая ускорения. Значения &gt;0 - сначла медленные изменения, затем быстрое
-        увеличение. Значения &lt;0 - сначла быстро меняется, затем становится медленнее</tr>
+        <tr lang="en">acceleration curve. Values &gt; 0 — slow changes first, then a faster
+        increase. Values &lt; 0 — fast changes first, then slower</tr>
+        <tr lang="ru">кривая ускорения. Значения &gt; 0 — сначала медленные изменения, затем
+        быстрое увеличение. Значения &lt; 0 — сначала быстрые изменения, затем замедление</tr>
       </property>
       <!-- @div -->
       <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
         <tr lang="en">subdivision of beats</tr>
-        <tr lang="ru">деление долей</tr>
+        <tr lang="ru">дробление долей</tr>
       </property>
       <!-- @dur -->
       <property name="@dur" type="float" minvalue="0" default="0">
-        <tr lang="en">sequence duration. Changing this property also changes @t interval between
-        bangs.</tr>
-        <tr lang="ru">продолжительность последовательности. Изменение этого свойства также изменяет
-        интервал @t между bang-ами.</tr>
+        <tr lang="en">sequence duration. Changing this property also changes the @t interval
+        between bangs.</tr>
+        <tr lang="ru">длительность последовательности. Изменение этого свойства также изменяет
+        интервал @t между bang-ами</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" minvalue="0" default="0">
         <tr lang="en">number of bangs</tr>
-        <tr lang="ru">количество bang-ов</tr>
+        <tr lang="ru">число bang-ов</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
       units="millisecond">
-        <tr lang="en">time interval between bangs. You could also use units values like 100ms or
-        120bpm.</tr>
-        <tr lang="ru">временно́й интервал между bang-ами. Вы также можете использовать значения
-        единиц времени или темпа, такие как 100мс или 120bpm.</tr>
+        <tr lang="en">time interval between bangs. You can also use unit values like 100ms or
+        120bpm</tr>
+        <tr lang="ru">интервал времени между bang-ами. Можно также использовать значения с
+        единицами, например 100ms или 120bpm</tr>
       </property>
     </properties>
     <methods>
@@ -85,19 +124,19 @@
       <!-- rewind -->
       <method name="rewind">
         <info>
-          <tr lang="en">reset all counters without stopping</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики без остановки</tr>
+          <tr lang="en">resets all counters without stopping</tr>
+          <tr lang="ru">сбрасывает все счётчики без остановки</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
-          <tr lang="en">start or stop playing the sequence</tr>
-          <tr lang="ru">начать или остановить воспроизведение последовательности</tr>
+          <tr lang="en">starts or stops playback of the sequence</tr>
+          <tr lang="ru">запускает или останавливает воспроизведение последовательности</tr>
         </info>
         <param name="on" type="int" enum="0 1" default="1" required="false">
-          <tr lang="en">if true: starts playback, if false: stops it</tr>
-          <tr lang="ru">если true: начинает воспроизведение, если false: останавливает его</tr>
+          <tr lang="en">if true — starts playback, if false — stops it</tr>
+          <tr lang="ru">если истина — запускает воспроизведение, если ложь — останавливает его</tr>
         </param>
       </method>
       <!-- stop -->
@@ -110,9 +149,9 @@
       <!-- tick -->
       <method name="tick">
         <info>
-          <tr lang="en">manually output the current element of the sequence and proceed to the next
-          one</tr>
-          <tr lang="ru">вручную вывести текущей элемент последовательности и перейти к
+          <tr lang="en">manually outputs the current element of the sequence and proceeds to the
+          next one</tr>
+          <tr lang="ru">вручную выводит текущий элемент последовательности и переходит к
           следующему</tr>
         </info>
       </method>
@@ -121,19 +160,17 @@
       <inlet>
         <in on="bang">
           <tr lang="en">starts outputting the sequence of bangs from the beginning</tr>
-          <tr lang="ru">начинает сначала воспроизведение последовательности bang-ов</tr>
+          <tr lang="ru">начинает воспроизведение последовательности bang-ов с начала</tr>
         </in>
         <in on="float">
           <tr lang="en">sets the number of bangs in the sequence and starts playing it</tr>
-          <tr lang="ru">устанавливает количество bang-ов в последователности и начинает её
-          воспроизведение</tr>
+          <tr lang="ru">задаёт число bang-ов в последовательности и начинает её воспроизведение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">set the number of bangs in the sequence</tr>
-          <tr lang="ru">устанавливает количество bang-ов в последователности (без
-          воспроизведения)</tr>
+          <tr lang="en">sets the number of bangs in the sequence</tr>
+          <tr lang="ru">задаёт число bang-ов в последовательности (без воспроизведения)</tr>
         </in>
       </inlet>
     </inlets>
@@ -146,9 +183,8 @@
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( - bang index or [done( when done</tr>
-          <tr lang="ru" finished="false">[i IDX N( - индекс взрыва или [сделано (когда
-          сделано)]</tr>
+          <tr lang="en">[i IDX N( — bang index, or [done( when done</tr>
+          <tr lang="ru">[i IDX N( — индекс bang-а, или [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>
