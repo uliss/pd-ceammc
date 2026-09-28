@@ -53,7 +53,7 @@
         <out type="any">
           <tr lang="en">processed dictionary, output after all values have been handled by the
           side-chain</tr>
-          <tr lang="ru">обработанный словарь; выводится после того, как все значения прошли через
+          <tr lang="ru">обработанный словарь, выводится после того, как все значения прошли через
           боковую цепочку</tr>
         </out>
       </outlet>
