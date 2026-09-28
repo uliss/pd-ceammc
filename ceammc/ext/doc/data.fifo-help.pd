@@ -5,99 +5,116 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.fifo 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 data.fifo;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 If you set the size argument \, the queue gets a fixed
-size. Once it is full \, adding a new value pushes out and outputs
-the oldest value in the queue.;
-#X floatatom 213 201 5 0 0 0 - - -;
-#X msg 88 230 pop;
-#X msg 155 230 1 2;
-#X msg 213 230 resize \$1;
-#X msg 338 245 @size?;
-#X msg 424 245 @free?;
-#X msg 510 245 @filled?;
-#X floatatom 50 259 5 0 0 0 - - -;
-#X obj 117 259 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 426 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A FIFO (First In \, First Out) queue container. Values
+are pushed to the back of the queue and popped from the front \, so
+they are output in the same order in which they arrived. If the size
+argument is specified \, the queue has a fixed size: when the number
+of values exceeds this limit \, the oldest value is output and removed
+to make room for the new one.;
+#X text 240 199 Typical use cases:;
+#X text 250 224 • Event queue for algorithmic composition — accumulating
+notes or triggers that will be processed later in the correct order
+(first in \, first out).;
+#X text 250 279 • Delaying a stream of values — every incoming value
+is pushed into the queue \, and a later bang or clock pops them one
+by one \, effectively delaying the stream by a fixed number of steps.;
+#X text 250 349 • Buffer for real-time data — collecting sensor or
+control values at one rate and reading them out at another \, for example
+smoothing a jittery input stream.;
+#X text 250 404 • Fixed-size history window — with the SIZE argument
+set \, the queue keeps only the last N values. Older values are automatically
+dropped \, which is useful for moving-average filters \, rolling statistics
+\, or keeping a short history of recent events.;
+#X floatatom 213 552 5 0 0 0 - - -;
+#X msg 88 581 pop;
+#X msg 155 581 1 2;
+#X msg 213 581 resize \$1;
+#X msg 338 596 @size?;
+#X msg 424 596 @free?;
+#X msg 510 596 @filled?;
+#X floatatom 50 610 5 0 0 0 - - -;
+#X obj 117 610 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 174 259 clear;
-#X msg 270 259 flush;
-#X obj 50 288 data.fifo 5;
-#X obj 50 317 ui.dt;
-#X obj 213 317 print;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 372 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X msg 174 610 clear;
+#X msg 270 610 flush;
+#X obj 50 639 data.fifo 5;
+#X obj 50 668 ui.dt;
+#X obj 213 668 print;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 407 Left-click;
-#X text 310 407 open data editor.;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 442 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 758 Left-click;
+#X text 310 758 open data editor.;
+#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 793 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 445 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 796 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 443 1\.;
-#X text 170 443 int;
-#X obj 268 444 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 443 SIZE: if specified \, creates a fixed-size queue. See
+#X text 130 794 1\.;
+#X text 170 794 int;
+#X obj 268 795 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 794 SIZE: if specified \, creates a fixed-size queue. See
 the @size property. Type: int. Range: [1\..1024];
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 498 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 849 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 501 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 852 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 499 @size;
-#X text 270 499 Size of the queue. Type: int. Default value: 32\. Range:
+#X msg 130 850 @size;
+#X text 270 850 Size of the queue. Type: int. Default value: 32\. Range:
 [1\..1024].;
-#X obj 250 541 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 541 @empty?;
-#X text 270 541 (readonly) If the queue is empty. Type: bool. Default
+#X obj 250 892 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 892 @empty?;
+#X text 270 892 (readonly) If the queue is empty. Type: bool. Default
 value: 1\.;
-#X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 583 @filled?;
-#X text 270 583 (readonly) Current number of elements in the queue.
+#X obj 250 934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 934 @filled?;
+#X text 270 934 (readonly) Current number of elements in the queue.
 Type: int. Default value: 0\. Min value: 0\.;
-#X obj 250 625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 625 @free?;
-#X text 270 625 (readonly) Number of elements you can add to the queue
+#X obj 250 976 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 976 @free?;
+#X text 270 976 (readonly) Number of elements you can add to the queue
 until it is full. Type: int. Default value: 32\. Min value: 0\.;
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 697 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1043 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1048 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 698 clear;
-#X text 270 698 removes all queue values.;
-#X obj 250 733 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 733 flush;
-#X text 270 733 outputs and removes all queue values.;
-#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 768 pop;
-#X text 270 768 outputs and removes the first value in the queue.;
-#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 803 resize;
-#X text 270 803 Arguments are:;
-#X obj 300 828 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 828 [anonym]: changes the queue size. All previous values
+#X msg 130 1049 clear;
+#X text 270 1049 removes all queue values.;
+#X obj 250 1084 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1084 flush;
+#X text 270 1084 outputs and removes all queue values.;
+#X obj 250 1119 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1119 pop;
+#X text 270 1119 outputs and removes the first value in the queue.;
+#X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1154 resize;
+#X text 270 1154 Arguments are:;
+#X obj 300 1179 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1179 [anonym]: changes the queue size. All previous values
 (if any) are silently removed. Type: int. Min value: 0\.;
-#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 906 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 907 1\.;
-#X text 170 907 bang:;
-#X text 270 907 same as the *flush* message.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 947 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1252 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1257 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 948 1\.;
-#X text 270 948 output value.;
+#X text 130 1258 1\.;
+#X text 170 1258 bang:;
+#X text 270 1258 same as the *flush* message.;
+#X obj 20 1293 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1298 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1299 1\.;
+#X text 270 1299 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 998 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1001 library: ceammc v0.9.8;
-#X text 597 1013 see also:;
-#X obj 672 1016 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1349 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1352 library: ceammc v0.9.8;
+#X text 597 1364 see also:;
+#X obj 672 1367 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.list] @url data.list-help.pd;
-#N canvas 10 1020 400 290 info 0;
+#N canvas 10 1371 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,17 +138,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1020 pd info;
-#X connect 6 0 9 0;
-#X connect 13 0 17 0;
-#X connect 7 0 17 0;
-#X connect 14 0 17 0;
-#X connect 8 0 17 0;
-#X connect 15 0 17 0;
-#X connect 9 0 17 0;
-#X connect 16 0 17 0;
-#X connect 10 0 17 0;
-#X connect 11 0 17 0;
-#X connect 12 0 17 0;
-#X connect 17 0 18 0;
-#X connect 17 0 19 0;
+#X restore 10 1371 pd info;
+#X connect 11 0 14 0;
+#X connect 18 0 22 0;
+#X connect 12 0 22 0;
+#X connect 19 0 22 0;
+#X connect 13 0 22 0;
+#X connect 20 0 22 0;
+#X connect 14 0 22 0;
+#X connect 21 0 22 0;
+#X connect 15 0 22 0;
+#X connect 16 0 22 0;
+#X connect 17 0 22 0;
+#X connect 22 0 23 0;
+#X connect 22 0 24 0;

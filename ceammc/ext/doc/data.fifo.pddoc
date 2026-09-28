@@ -21,11 +21,52 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">If you set the size argument, the queue gets a fixed size. Once it is full,
-        adding a new value pushes out and outputs the oldest value in the queue.</tr>
-        <tr lang="ru">Если указать аргумент размера, очередь получает фиксированный размер. Как
-        только она заполнится, добавление нового значения выталкивает и выводит самое старое
-        значение в очереди.</tr>
+          <tr lang="en">A FIFO (First In, First Out) queue container. Values are pushed to the back
+          of the queue and popped from the front, so they are output in the same order in which they
+          arrived. If the size argument is specified, the queue has a fixed size: when the number of
+          values exceeds this limit, the oldest value is output and removed to make room for the new
+          one.</tr>
+          <tr lang="ru">Контейнер очереди FIFO (First In, First Out). Значения помещаются в конец
+          очереди, а извлекаются из начала, поэтому выводятся в том же порядке, в котором поступили.
+          Если задан аргумент размера, очередь имеет фиксированный размер: когда количество значений
+          превышает этот предел, самое старое значение выводится и удаляется, освобождая место для
+          нового.</tr>
+        </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Event queue for algorithmic composition — accumulating notes or triggers
+        that will be processed later in the correct order (first in, first out).</tr>
+        <tr lang="ru">• Очередь событий для алгоритмической композиции — накопление нот или
+        триггеров, которые будут обработаны позже в правильном порядке (первым пришёл — первым
+        ушёл).</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Delaying a stream of values — every incoming value is pushed into the
+        queue, and a later bang or clock pops them one by one, effectively delaying the stream by a
+        fixed number of steps.</tr>
+        <tr lang="ru">• Задержка потока значений — каждое входящее значение помещается в очередь,
+        а более поздний bang или метроном извлекает их по одному, эффективно задерживая поток на
+        заданное число шагов.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Buffer for real-time data — collecting sensor or control values at one
+        rate and reading them out at another, for example smoothing a jittery input stream.</tr>
+        <tr lang="ru">• Буфер для данных реального времени — сбор значений сенсоров или
+        управления с одной скоростью и считывание их с другой, например для сглаживания
+        «дрожащего» входного потока.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Fixed-size history window — with the SIZE argument set, the queue keeps
+        only the last N values. Older values are automatically dropped, which is useful for
+        moving-average filters, rolling statistics, or keeping a short history of recent
+        events.</tr>
+        <tr lang="ru">• Окно истории фиксированного размера — если задан аргумент SIZE, очередь
+        хранит только последние N значений. Старые значения автоматически вытесняются, что
+        удобно для фильтров скользящего среднего, скользящей статистики или хранения короткой
+        истории последних событий.</tr>
       </par>
     </info>
     <mouse>
