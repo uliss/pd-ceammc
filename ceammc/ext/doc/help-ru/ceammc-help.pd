@@ -522,7 +522,7 @@ dyn.softclip~-help.pd;
 #X text 200 5459 генератор огибающей ADSR (атака \, спад \, удержание
 \, восстановление);
 #X obj 30 5502 ui.link @title [env.ar~] @url env.ar~-help.pd;
-#X text 200 5499 генератор огибающей Attack/Release;
+#X text 200 5499 генератор огибающей Attack/Release (атака/восстановление);
 #X obj 30 5527 ui.link @title [env.asr2~] @url env.asr2~-help.pd;
 #X text 200 5524 стерео генератор огибающей Attack/Sustain/Release;
 #X obj 30 5552 ui.link @title [env.asr~] @url env.asr~-help.pd;
