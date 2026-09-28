@@ -31,15 +31,16 @@
         quickly look up, add, update or remove entries. Unlike [data.bimap], a dictionary is
         one-directional: it maps keys to values, but not values to keys.</tr>
         <tr lang="ru">Контейнер словаря: хранит пары «ключ — значение», где каждый ключ уникален и
-        соответствует ровно одному значению. Значения могут быть числами, символами или списками,
-        а ключи позволяют быстро находить, добавлять, обновлять или удалять записи. В отличие от
-        [data.bimap], словарь однонаправленный: он сопоставляет ключи значениям, но не наоборот.</tr>
+        соответствует ровно одному значению. Значения могут быть числами, символами или списками, а
+        ключи позволяют быстро находить, добавлять, обновлять или удалять записи. В отличие от
+        [data.bimap], словарь однонаправленный: он сопоставляет ключи значениям, но не
+        наоборот.</tr>
       </par>
       <par>
-              <tr lang="en">Syntax: [key1: value key2: "with space"]. Nested dictionaries are supported:
-              [a: [A:1 B:2]].</tr>
-              <tr lang="ru">Синтаксис: [key1: value key2: "with space"]. Поддерживаются вложенные словари:
-              [a: [A:1 B:2]].</tr>
+        <tr lang="en">Syntax: [key1: value key2: "with space"]. Nested dictionaries are supported:
+        [a: [A:1 B:2]].</tr>
+        <tr lang="ru">Синтаксис: [key1: value key2: "with space"]. Поддерживаются вложенные
+        словари: [a: [A:1 B:2]].</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -67,9 +68,9 @@
       <par indent="1">
         <tr lang="en">• Structured data — grouping related values under one name, for example
         storing all parameters of a synthesizer under "synth1" as a nested dictionary.</tr>
-        <tr lang="ru">• Структурированные данные — объединение связанных значений под одним
-        именем, например хранение всех параметров синтезатора под ключом "synth1" в виде
-        вложенного словаря.</tr>
+        <tr lang="ru">• Структурированные данные — объединение связанных значений под одним именем,
+        например хранение всех параметров синтезатора под ключом "synth1" в виде вложенного
+        словаря.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Parameter routing — converting symbolic parameter names (received from a

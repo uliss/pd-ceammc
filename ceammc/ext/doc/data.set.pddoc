@@ -22,14 +22,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A set container: stores only unique elements, in the order in which they
-        were first added. Adding a value that is already in the set has no effect, and removing a
-        value that is not in the set is also a no-op. Sets are useful when the presence or absence
-        of a value matters more than its position or count.</tr>
+        <tr lang="en">A set container: stores only unique elements, in the order in which they were
+        first added. Adding a value that is already in the set has no effect, and removing a value
+        that is not in the set is also a no-op. Sets are useful when the presence or absence of a
+        value matters more than its position or count.</tr>
         <tr lang="ru">Контейнер множества: хранит только уникальные элементы в том порядке, в
         котором они были впервые добавлены. Добавление уже присутствующего значения не даёт
-        эффекта, и удаление отсутствующего значения также ничего не делает. Множества удобны,
-        когда важно наличие или отсутствие значения, а не его позиция или количество.</tr>
+        эффекта, и удаление отсутствующего значения также ничего не делает. Множества удобны, когда
+        важно наличие или отсутствие значения, а не его позиция или количество.</tr>
       </par>
       <par>
         <tr lang="en">Syntax: values are added one at a time (float or symbol), as a list, or with
@@ -52,8 +52,8 @@
       <par indent="1">
         <tr lang="en">• Tracking active events — keeping a set of currently pressed keys, active
         voices or live notes, and checking membership in a single operation.</tr>
-        <tr lang="ru">• Отслеживание активных событий — хранение множества нажатых клавиш,
-        активных голосов или звучащих нот и проверка принадлежности за одну операцию.</tr>
+        <tr lang="ru">• Отслеживание активных событий — хранение множества нажатых клавиш, активных
+        голосов или звучащих нот и проверка принадлежности за одну операцию.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Set operations — combining sets with [set.union], [set.intersection] or
