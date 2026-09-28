@@ -2025,7 +2025,7 @@ random.pw_lin-help.pd;
 #X obj 30 21188 ui.link @title [seq.arp] @url seq.arp-help.pd;
 #X text 200 21185 арпеджиатор аккордов;
 #X obj 30 21213 ui.link @title [seq.bangs] @url seq.bangs-help.pd;
-#X text 200 21210 секвенсер пустых событий;
+#X text 200 21210 секвенсор событий bang;
 #X obj 30 21238 ui.link @title [seq.counter] @url seq.counter-help.pd;
 #X text 200 21235 циклический счётчик;
 #X obj 30 21263 ui.link @title [seq.life] @url seq.life-help.pd;

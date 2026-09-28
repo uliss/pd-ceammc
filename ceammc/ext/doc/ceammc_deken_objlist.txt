@@ -1142,8 +1142,8 @@ random.pw_lin	piecewise linear random distribution / кусочно-линейн
 samp.time~	sample counter / счетчик семплов
 samp.t~	sample counter / счетчик семплов
 seq.arp	chord arpeggiator / арпеджиатор аккордов
-seq.bangs	bang event sequencer / секвенсер пустых событий
-seq.b	bang event sequencer / секвенсер пустых событий
+seq.bangs	bang event sequencer / секвенсор событий bang
+seq.b	bang event sequencer / секвенсор событий bang
 seq.counter	cyclic counter / циклический счётчик
 seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
 seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]

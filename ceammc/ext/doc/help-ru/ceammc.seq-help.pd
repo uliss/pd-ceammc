@@ -7,7 +7,7 @@
 #X obj 30 120 ui.link @title [seq.arp] @url seq.arp-help.pd;
 #X text 220 117 арпеджиатор аккордов;
 #X obj 30 145 ui.link @title [seq.bangs] @url seq.bangs-help.pd;
-#X text 220 142 секвенсер пустых событий;
+#X text 220 142 секвенсор событий bang;
 #X obj 30 170 ui.link @title [seq.counter] @url seq.counter-help.pd;
 #X text 220 167 циклический счётчик;
 #X obj 30 195 ui.link @title [seq.life] @url seq.life-help.pd;
