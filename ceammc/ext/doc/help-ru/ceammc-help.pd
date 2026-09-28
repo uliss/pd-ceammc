@@ -2040,7 +2040,7 @@ random.pw_lin-help.pd;
 #X obj 30 21378 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
 #X text 200 21375 секвенсор переключающих событий (toggle);
 #X obj 30 21403 ui.link @title [sequencer] @url sequencer-help.pd;
-#X text 200 21400 базовый секвенсер значений;
+#X text 200 21400 базовый проигрыватель последовательностей;
 #X obj 390 21142 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 395 21142 секвенсеры: обход данных различными способами;

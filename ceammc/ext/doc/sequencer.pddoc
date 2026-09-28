@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">basic sequence player</tr>
-        <tr lang="ru">базовый секвенсер значений</tr>
+        <tr lang="ru">базовый проигрыватель последовательностей</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,154 +21,183 @@
         <alias>seq</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A basic sequence player: iterates over a list of elements and outputs one
+        element per tick. Values can be numbers, symbols or nested lists (for example, "play
+        lists" like (60 127)), and the timing between elements is set by @t. Playback can be
+        looped with @r, reversed with @mode, subdivided with @div and delayed with @upbeat.</tr>
+        <tr lang="ru">Базовый проигрыватель последовательностей: перебирает список элементов и
+        выводит по одному элементу на каждый такт. Элементы могут быть числами, символами или
+        вложенными списками (например, «списки воспроизведения» вида (60 127)), а интервал между
+        ними задаётся свойством @t. Воспроизведение можно зациклить через @r, развернуть через
+        @mode, раздробить через @div и задержать через @upbeat.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Melodic sequences — playing a list of notes in order (for example,
+        [mtof]-converted pitch values), with a fixed interval between them, to produce a
+        repeating melodic pattern.</tr>
+        <tr lang="ru">• Мелодические последовательности — воспроизведение списка нот по порядку
+        (например, значений высоты, преобразованных через [mtof]) с фиксированным интервалом
+        между ними, чтобы получить повторяющийся мелодический паттерн.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Simple automation — driving parameter changes in a repeating pattern, for
+        example cycling through a list of filter cutoff values or effect wet/dry levels over
+        time.</tr>
+        <tr lang="ru">• Простая автоматизация — управление изменениями параметра по
+        повторяющемуся паттерну, например циклический перебор списка значений среза фильтра или
+        уровней wet/dry эффекта во времени.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="V" type="list">
         <tr lang="en">sequence elements</tr>
-        <tr lang="ru" finished="false">элементы последовательности</tr>
+        <tr lang="ru">элементы последовательности</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @div -->
       <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">
         <tr lang="en">beat subdivision</tr>
-        <tr lang="ru" finished="false">Победить подразделение</tr>
+        <tr lang="ru">дробление доли</tr>
       </property>
       <!-- @dur -->
       <property name="@dur" type="float" minvalue="0" default="0">
-        <tr lang="en">whole sequence duration. Changing this property also changes @t interval
-        between bangs.</tr>
-        <tr lang="ru" finished="false">Продолжительность всей последовательности. Изменение этого
-        свойства также изменяет интервал @t между ударами.</tr>
+        <tr lang="en">whole sequence duration. Changing this property also changes the @t interval
+        between elements.</tr>
+        <tr lang="ru">длительность всей последовательности. Изменение этого свойства также
+        изменяет интервал @t между элементами</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" access="readonly" default="0">
         <tr lang="en">current sequence iteration</tr>
-        <tr lang="ru" finished="false">итерация текущей последовательности</tr>
+        <tr lang="ru">текущая итерация последовательности</tr>
       </property>
       <!-- @inf -->
       <property name="@inf" type="alias">
-        <tr lang="en">alias to @r -1</tr>
-        <tr lang="ru" finished="false">псевдоним @r-1</tr>
+        <tr lang="en">alias for @r -1, repeats infinitely</tr>
+        <tr lang="ru">сокращение для @r -1, повторяется бесконечно</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc': from first to last, 'dec': from last to first, 'tri':
-        from first to last, then back</tr>
-        <tr lang="ru" finished="false">"inc": от первого до последнего, "dec": от последнего до
-        первого, "tri": от первого до последнего, затем обратно</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
+        'tri' — from first to last, then back</tr>
+        <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
+        первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
       <!-- @once -->
       <property name="@once" type="alias">
-        <tr lang="en">alias to @r 1</tr>
-        <tr lang="ru" finished="false">псевдоним @r 1</tr>
+        <tr lang="en">alias for @r 1, play once</tr>
+        <tr lang="ru">сокращение для @r 1, играть один раз</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" minvalue="-1" default="1">
-        <tr lang="en">number of whole sequence repeats. If -1: output infinitly.</tr>
-        <tr lang="ru" finished="false">Количество повторений целой последовательности. Если -1:
-        выход бесконечно.</tr>
+        <tr lang="en">number of whole sequence repeats. If -1 — repeats infinitely</tr>
+        <tr lang="ru">число повторов всей последовательности. Если -1 — повторяется бесконечно</tr>
       </property>
       <!-- @ri -->
       <property name="@ri" type="int" access="readonly" default="0">
         <tr lang="en">current repeat iteration</tr>
-        <tr lang="ru" finished="false">Текущая повторная итерация</tr>
+        <tr lang="ru">текущая итерация повтора</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
       units="millisecond">
-        <tr lang="en">time interval between bangs. You could also use units values like 100ms or
-        120bpm.</tr>
-        <tr lang="ru" finished="false">временной интервал между взрывами. Вы также можете
-        использовать значения единиц, такие как 100 мс или 120bpm.</tr>
+        <tr lang="en">time interval between elements. Unit values like 100ms or 120bpm can also be
+        used</tr>
+        <tr lang="ru">интервал времени между элементами. Можно также использовать значения с
+        единицами, например 100ms или 120bpm</tr>
       </property>
       <!-- @upbeat -->
       <property name="@upbeat" type="float" default="0" minvalue="0">
-        <tr lang="en">wait specified number of beats before sequence start</tr>
-        <tr lang="ru" finished="false">ожидание определенного количества ударов перед началом
-        последовательности</tr>
+        <tr lang="en">wait the specified number of beats before the sequence starts</tr>
+        <tr lang="ru">ждать заданное число долей перед запуском последовательности</tr>
       </property>
       <!-- @v -->
       <property name="@v" type="list" default="">
         <tr lang="en">sequence elements</tr>
-        <tr lang="ru" finished="false">элементы последовательности</tr>
+        <tr lang="ru">элементы последовательности</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset counters and stop</tr>
-          <tr lang="ru" finished="false">Сбросить счетчики и остановиться</tr>
+          <tr lang="en">resets counters and stops</tr>
+          <tr lang="ru">сбрасывает счётчики и останавливает секвенсор</tr>
         </info>
       </method>
       <!-- rewind -->
       <method name="rewind">
         <info>
-          <tr lang="en">reset all counters without stopping</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики без остановки</tr>
+          <tr lang="en">resets all counters without stopping</tr>
+          <tr lang="ru">сбрасывает все счётчики без остановки</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
-          <tr lang="en">start/stop</tr>
-          <tr lang="ru" finished="false">старт/стоп</tr>
+          <tr lang="en">starts or stops the sequencer</tr>
+          <tr lang="ru">запускает или останавливает секвенсор</tr>
         </info>
         <param name="on" type="int" enum="0 1" default="1" required="false">
-          <tr lang="en">if true - starts sequencer, otherwise stops</tr>
-          <tr lang="ru" finished="false">если верно - запускает секвенсор, иначе
-          останавливается</tr>
+          <tr lang="en">if true — starts the sequencer, otherwise stops it</tr>
+          <tr lang="ru">если истина — запускает секвенсор, иначе останавливает его</tr>
         </param>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop output</tr>
-          <tr lang="ru" finished="false">остановить выход</tr>
+          <tr lang="en">stops the output</tr>
+          <tr lang="ru">останавливает вывод</tr>
         </info>
       </method>
       <!-- tick -->
       <method name="tick">
         <info>
-          <tr lang="en">manually output current element and move to next</tr>
-          <tr lang="ru" finished="false">вручную вывести текущий элемент и перейти к
-          следующему</tr>
+          <tr lang="en">manually outputs the current element and moves to the next</tr>
+          <tr lang="ru">вручную выводит текущий элемент и переходит к следующему</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset all counters and start</tr>
-          <tr lang="ru" finished="false">Сбросить все счетчики и начать</tr>
+          <tr lang="en">resets all counters and starts</tr>
+          <tr lang="ru">сбрасывает все счётчики и запускает секвенсор</tr>
         </in>
         <in on="float">
-          <tr lang="en">reset al counter and start (on 1) or stop(on 0)</tr>
-          <tr lang="ru" finished="false">Сбросить счетчик аль и начать (на 1) или остановить (на
-          0)</tr>
+          <tr lang="en">resets all counters and starts (on 1) or stops (on 0)</tr>
+          <tr lang="ru">сбрасывает все счётчики и запускает (при 1) или останавливает (при 0)</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
-          <tr lang="en">set sequence</tr>
-          <tr lang="ru" finished="false">установленная последовательность</tr>
+          <tr lang="en">sets the sequence</tr>
+          <tr lang="ru">устанавливает последовательность</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">sequence element output, in case of Mlist args - outputs play lists</tr>
-          <tr lang="ru" finished="false">Выход элементов последовательности, в случае Mlist args -
-          выходы воспроизведения списков</tr>
+          <tr lang="en">sequence element output. In case of MList arguments, outputs play
+          lists</tr>
+          <tr lang="ru">вывод элемента последовательности. При аргументах MList выводит списки
+          воспроизведения</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done(
-          when done</tr>
-          <tr lang="ru" finished="false">[i IDX N( - итерация последовательностей, [ri IDX N( -
-          повторная итерация или [сделано, когда сделано)]</tr>
+          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or
+          [done( when done</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
+          или [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

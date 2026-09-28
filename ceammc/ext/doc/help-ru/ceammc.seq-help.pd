@@ -22,7 +22,7 @@
 #X obj 30 310 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
 #X text 220 307 секвенсор переключающих событий (toggle);
 #X obj 30 335 ui.link @title [sequencer] @url sequencer-help.pd;
-#X text 220 332 базовый секвенсер значений;
+#X text 220 332 базовый проигрыватель последовательностей;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

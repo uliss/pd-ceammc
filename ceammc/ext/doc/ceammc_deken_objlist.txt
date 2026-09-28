@@ -1152,10 +1152,10 @@ seq.nb	outputs the specified number of bangs with a time intervals / вывод�
 seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
 seq.toggles	toggle sequencer / секвенсор переключающих событий (toggle)
 seq.t	toggle sequencer / секвенсор переключающих событий (toggle)
-sequencer	basic sequence player / базовый секвенсер значений
-ceammc/sequencer	basic sequence player / базовый секвенсер значений
-ceammc/seq	basic sequence player / базовый секвенсер значений
-seq	basic sequence player / базовый секвенсер значений
+sequencer	basic sequence player / базовый проигрыватель последовательностей
+ceammc/sequencer	basic sequence player / базовый проигрыватель последовательностей
+ceammc/seq	basic sequence player / базовый проигрыватель последовательностей
+seq	basic sequence player / базовый проигрыватель последовательностей
 snd.file	sound file loader with additional features / загрузчик звуковых файлов с дополнительными возможностями
 snd.play~	sound file player with additional capabilities / проигрыватель звуковых файлов с дополнительными возможностями
 hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высших порядков
