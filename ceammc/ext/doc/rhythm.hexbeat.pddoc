@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">hexbeat pattern generator</tr>
-        <tr lang="ru">генератор ритмического паттерна по шестнадцатиричным значениям</tr>
+        <tr lang="ru">генератор ритмических паттернов из шестнадцатеричных значений</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,43 +16,74 @@
       <keywords>conv rhythm hexbeat</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Generates a rhythmic pattern from a hexadecimal value. Each hex digit is
+        expanded into four bits (a nibble), and the resulting bit sequence is output as a list of
+        1s and 0s. For example, the value #D1 expands to 1101 0001, which can be fed directly into
+        a sequencer, a step display, or a trigger source.</tr>
+        <tr lang="ru">Генерирует ритмический паттерн из шестнадцатеричного значения. Каждая
+        шестнадцатеричная цифра разворачивается в четыре бита (ниббл), а итоговая
+        последовательность битов выводится в виде списка из 1 и 0. Например, значение #D1
+        разворачивается в 1101 0001 — это удобно подавать напрямую в секвенсор, на пошаговый
+        дисплей или как источник триггеров.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases: quickly entering 4- or 8-step drum patterns using compact
+        hex notation (#D1 instead of 1 1 0 1 0 0 0 1), building longer patterns by concatenating
+        several hex values (for example, #A4C8 gives 12 steps), or generating variations of
+        patterns programmatically by manipulating hex strings.</tr>
+        <tr lang="ru">Типичные сценарии применения: быстрое введение 4- или 8-шаговых барабанных
+        паттернов в компактной hex-нотации (#D1 вместо 1 1 0 1 0 0 0 1), сборка длинных паттернов
+        путём конкатенации нескольких hex-значений (например, #A4C8 даёт 12 шагов), а также
+        программная генерация вариаций паттерна через манипуляции hex-строками.</tr>
+      </par>
+      <par>
+        <tr lang="en">When a list of hex values is sent to the inlet, the object outputs a
+        sequence of patterns, one for each argument — this is convenient for displaying a whole row
+        at once in [ui.matrix] or a similar display.</tr>
+        <tr lang="ru">Если на вход подаётся список hex-значений, объект выводит последовательность
+        паттернов, по одному на каждый аргумент, — это удобно для отображения сразу целой строки
+        в [ui.matrix] или аналогичном дисплее.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="HEX" type="symbol">
-        <tr lang="en">init pattern value</tr>
-        <tr lang="ru" finished="false">значение шаблона init</tr>
+        <tr lang="en">initial pattern value</tr>
+        <tr lang="ru">начальное значение паттерна</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @hex -->
       <property name="@hex" type="symbol" default="">
         <tr lang="en">hex pattern</tr>
-        <tr lang="ru" finished="false">хекс-паттерн</tr>
+        <tr lang="ru">hex-паттерн</tr>
       </property>
       <!-- @pattern -->
       <property name="@pattern" type="list" default="" access="readonly">
         <tr lang="en">list pattern</tr>
-        <tr lang="ru" finished="false">шаблон списка</tr>
+        <tr lang="ru">паттерн в виде списка</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output last pattern</tr>
-          <tr lang="ru" finished="false">выходной последний шаблон</tr>
+          <tr lang="en">outputs the last pattern</tr>
+          <tr lang="ru">выводит последний паттерн</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">set new pattern and output</tr>
-          <tr lang="ru" finished="false">установить новый шаблон и выход</tr>
+          <tr lang="en">sets a new pattern and outputs it</tr>
+          <tr lang="ru">устанавливает новый паттерн и выводит его</tr>
         </in>
         <in on="list">
-          <tr lang="en">output enumerated patterns for each list argument</tr>
-          <tr lang="ru" finished="false">Перечисленные шаблоны для каждого аргумента списка</tr>
+          <tr lang="en">outputs an enumerated pattern for each list argument</tr>
+          <tr lang="ru">выводит паттерны по одному для каждого аргумента списка</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set new pattern</tr>
-          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+          <tr lang="en">sets a new pattern</tr>
+          <tr lang="ru">устанавливает новый паттерн</tr>
         </in>
       </inlet>
     </inlets>
@@ -60,7 +91,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list output</tr>
-          <tr lang="ru" finished="false">перечень мероприятий</tr>
+          <tr lang="ru">вывод списка</tr>
         </out>
       </outlet>
     </outlets>

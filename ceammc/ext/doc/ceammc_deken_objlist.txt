@@ -984,7 +984,7 @@ msg.pack	message pack / упаковка сообщений
 msg.sched	message dispatch scheduler / планировщик отправки сообщений
 msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
 rhythm.euclid	Euclid pattern generator / генератор ритмических паттернов по алгоритму Евклида
-rhythm.hexbeat	hexbeat pattern generator / генератор ритмического паттерна по шестнадцатиричным значениям
+rhythm.hexbeat	hexbeat pattern generator / генератор ритмических паттернов из шестнадцатеричных значений
 rhythm.lsystem	L-system pattern generator / генератор ритмического рисунка на основе L-систем
 net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX

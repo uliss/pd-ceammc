@@ -1,77 +1,93 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 361 50 cnv 1 404 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 366 50 генератор ритмического паттерна по шестнадцатиричным
-значениям;
+#X obj 293 50 cnv 1 472 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 298 50 генератор ритмических паттернов из шестнадцатеричных
+значений;
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.hexbeat 20 20 0 20 -104026
 -4096 0;
 #X obj 640 11 rhythm.hexbeat;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 307 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Генерирует ритмический паттерн из шестнадцатеричного
+значения. Каждая шестнадцатеричная цифра разворачивается в четыре бита
+(ниббл) \, а итоговая последовательность битов выводится в виде списка
+из 1 и 0\. Например \, значение #D1 разворачивается в 1101 0001 — это
+удобно подавать напрямую в секвенсор \, на пошаговый дисплей или как
+источник триггеров.;
+#X text 240 199 Типичные сценарии применения: быстрое введение 4- или
+8-шаговых барабанных паттернов в компактной hex-нотации (#D1 вместо
+1 1 0 1 0 0 0 1) \, сборка длинных паттернов путём конкатенации нескольких
+hex-значений (например \, #A4C8 даёт 12 шагов) \, а также программная
+генерация вариаций паттерна через манипуляции hex-строками.;
+#X text 240 300 Если на вход подаётся список hex-значений \, объект
+выводит последовательность паттернов \, по одному на каждый аргумент
+\, — это удобно для отображения сразу целой строки в [ui.matrix] или
+аналогичном дисплее.;
+#X obj 50 433 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 118 symbol #CEA4;
-#X obj 357 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X symbolatom 88 147 10 0 0 0 - - -;
-#X obj 357 147 metro.pattern 100;
-#X obj 549 147 r hexpat;
-#X obj 50 176 rhythm.hexbeat \#D1;
-#X obj 357 176 list.walk @wrap;
-#X obj 50 205 t l l;
-#X obj 357 205 sel 1;
-#X obj 88 234 list.size;
-#X obj 357 234 click~;
-#X msg 88 262 @nitems \$1 \, @size 150 15;
-#X obj 357 262 flt.resonlp~ 1000 40;
-#X obj 50 291 ui.hrd* @nosave 1;
-#X obj 357 291 ui.hgain~;
-#X obj 549 291 ui.dsp~;
-#X obj 50 320 s hexpat;
-#X obj 357 320 dac~;
-#X obj 50 349 rhythm.hexbeat-list;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 88 433 symbol #CEA4;
+#X obj 357 433 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X symbolatom 88 462 10 0 0 0 - - -;
+#X obj 357 462 metro.pattern 100;
+#X obj 549 462 r hexpat;
+#X obj 50 491 rhythm.hexbeat \#D1;
+#X obj 357 491 list.walk @wrap;
+#X obj 50 520 t l l;
+#X obj 357 520 sel 1;
+#X obj 88 549 list.size;
+#X obj 357 549 click~;
+#X msg 88 577 @nitems \$1 \, @size 150 15;
+#X obj 357 577 flt.resonlp~ 1000 40;
+#X obj 50 606 ui.hrd* @nosave 1;
+#X obj 357 606 ui.hgain~;
+#X obj 549 606 ui.dsp~;
+#X obj 50 635 s hexpat;
+#X obj 357 635 dac~;
+#X obj 50 664 rhythm.hexbeat-list;
+#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 719 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 722 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 symbol;
-#X obj 268 406 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 HEX: init pattern value. Тип: symbol.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 445 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 720 1\.;
+#X text 170 720 symbol;
+#X obj 268 721 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 720 HEX: начальное значение паттерна. Тип: symbol.;
+#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 760 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 763 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 446 @hex;
-#X text 270 446 Hex pattern. Тип: symbol.;
-#X obj 250 476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 476 @pattern?;
-#X text 270 476 (только чтение) List pattern. Тип: list.;
-#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 521 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 761 @hex;
+#X text 270 761 Hex-паттерн. Тип: symbol.;
+#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 791 @pattern?;
+#X text 270 791 (только чтение) Паттерн в виде списка. Тип: list.;
+#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 836 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 522 1\.;
-#X text 170 522 bang:;
-#X text 270 522 output last pattern.;
-#X text 170 547 symbol:;
-#X text 270 547 set new pattern and output.;
-#X text 170 572 list:;
-#X text 270 572 output enumerated patterns for each list argument.;
-#X text 130 597 2\.;
-#X text 170 597 symbol:;
-#X text 270 597 set new pattern.;
-#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 637 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 837 1\.;
+#X text 170 837 bang:;
+#X text 270 837 выводит последний паттерн.;
+#X text 170 862 symbol:;
+#X text 270 862 устанавливает новый паттерн и выводит его.;
+#X text 170 887 list:;
+#X text 270 887 выводит паттерны по одному для каждого аргумента списка.;
+#X text 130 912 2\.;
+#X text 170 912 symbol:;
+#X text 270 912 устанавливает новый паттерн.;
+#X obj 20 947 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 952 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 638 1\.;
-#X text 270 638 list output.;
+#X text 130 953 1\.;
+#X text 270 953 вывод списка.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 691 библиотека: ceammc v0.9.8;
-#N canvas 10 710 400 290 info 0;
+#X obj 1 1003 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1006 библиотека: ceammc v0.9.8;
+#N canvas 10 1025 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -95,22 +111,22 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 710 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 4 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 11 0;
+#X restore 10 1025 pd info;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 12 1 14 0;
+#X connect 8 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
 #X connect 13 0 15 0;
 #X connect 14 0 16 0;
 #X connect 15 0 17 0;
-#X connect 12 0 18 0;
-#X connect 16 0 18 0;
+#X connect 16 1 18 0;
 #X connect 17 0 19 0;
-#X connect 18 0 21 0;
-#X connect 19 0 22 0;
-#X connect 19 0 22 1;
+#X connect 18 0 20 0;
+#X connect 19 0 21 0;
+#X connect 16 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 0 25 0;
+#X connect 23 0 26 0;
+#X connect 23 0 26 1;

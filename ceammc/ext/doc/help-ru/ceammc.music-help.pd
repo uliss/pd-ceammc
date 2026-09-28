@@ -7,11 +7,11 @@ rhythm.euclid-help.pd;
 #X text 220 117 генератор ритмических паттернов по алгоритму Евклида;
 #X obj 30 145 ui.link @title [rhythm.hexbeat] @url
 rhythm.hexbeat-help.pd;
-#X text 220 142 генератор ритмического паттерна по шестнадцатиричным
-значениям;
-#X obj 30 185 ui.link @title [rhythm.lsystem] @url
+#X text 220 142 генератор ритмических паттернов из шестнадцатеричных
+значений;
+#X obj 30 170 ui.link @title [rhythm.lsystem] @url
 rhythm.lsystem-help.pd;
-#X text 220 182 генератор ритмического рисунка на основе L-систем;
+#X text 220 167 генератор ритмического рисунка на основе L-систем;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::music 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
