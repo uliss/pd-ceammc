@@ -6,94 +6,120 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.set 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 data.set;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 50 147 \$1 \, bang;
-#X msg 155 147 clear;
-#X msg 232 147 @size?;
-#X obj 50 176 data.set;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 576 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Контейнер множества: хранит только уникальные элементы
+в том порядке \, в котором они были впервые добавлены. Добавление уже
+присутствующего значения не даёт эффекта \, и удаление отсутствующего
+значения также ничего не делает. Множества удобны \, когда важно наличие
+или отсутствие значения \, а не его позиция или количество.;
+#X text 240 199 Синтаксис: значения добавляются по одному (числом или
+символом) \, списком или методом add. Множество можно вывести целиком
+по bang или преобразовать в список с помощью [set->list].;
+#X text 240 269 Типичные сценарии применения:;
+#X text 250 294 • Дедупликация потока — удаление повторяющихся значений
+из входного потока \, чтобы каждое значение обрабатывалось только один
+раз.;
+#X text 250 349 • Отслеживание активных событий — хранение множества
+нажатых клавиш \, активных голосов или звучащих нот и проверка принадлежности
+за одну операцию.;
+#X text 250 404 • Операции над множествами — объединение \, пересечение
+или разность с помощью [set.union] \, [set.intersection] или [set.difference]
+для построения сложных запросов и фильтров.;
+#X text 250 474 • Проверка принадлежности — быстрая проверка \, встречалось
+ли уже данное значение (символ или число) \, без полного перебора списка.;
+#X text 250 529 • Простые теги и метки — хранение небольшого набора
+активных тегов (например \, "reverb" \, "delay" \, "chorus") и включение
+или отключение каждого из них добавлением или удалением его имени.;
+#X text 250 599 • Флаги конфигурации — хранение набора включённых опций
+\, чтобы патч мог быстро проверить \, какие из них сейчас активны.;
+#X floatatom 50 717 5 0 0 0 - - -;
+#X msg 50 746 \$1 \, bang;
+#X msg 155 746 clear;
+#X msg 232 746 @size?;
+#X obj 50 775 data.set;
+#X obj 50 804 ui.dt;
+#X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 859 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 295 Left-click;
-#X text 310 295 open data editor.;
-#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 330 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 894 Left-click;
+#X text 310 894 open data editor.;
+#X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 929 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 333 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 932 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 331 1\.;
-#X text 170 331 any;
-#X obj 268 332 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 331 X: элементы множества. Тип: any.;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 930 1\.;
+#X text 170 930 any;
+#X obj 268 931 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 930 X: элементы множества. Тип: any.;
+#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 970 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 973 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 372 @empty?;
-#X text 270 372 (только чтение) 1 \, если множество пусто \, иначе
+#X msg 130 971 @empty?;
+#X text 270 971 (только чтение) 1 \, если множество пусто \, иначе
 0\. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 414 @size?;
-#X text 270 414 (только чтение) Количество элементов во множестве.
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1013 @size?;
+#X text 270 1013 (только чтение) Количество элементов во множестве.
 Тип: int. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 486 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 487 add;
-#X text 270 487 добавляет значения во множество. Аргументы:;
-#X obj 300 512 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 512 VAL: добавляемые значения. Тип: list.;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 choose;
-#X text 270 545 выбирает случайный элемент и выводит его.;
-#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 580 clear;
-#X text 270 580 удаляет все элементы множества.;
-#X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 615 remove;
-#X text 270 615 удаляет элементы из множества. Аргументы:;
-#X obj 300 640 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 640 VAL: элементы. Тип: list.;
-#X obj 250 673 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 673 set;
-#X text 270 673 устанавливает новое содержимое множества без вывода.
+#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1085 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1086 add;
+#X text 270 1086 добавляет значения во множество. Аргументы:;
+#X obj 300 1111 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1111 VAL: добавляемые значения. Тип: list.;
+#X obj 250 1144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1144 choose;
+#X text 270 1144 выбирает случайный элемент и выводит его.;
+#X obj 250 1179 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1179 clear;
+#X text 270 1179 удаляет все элементы множества.;
+#X obj 250 1214 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1214 remove;
+#X text 270 1214 удаляет элементы из множества. Аргументы:;
+#X obj 300 1239 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1239 VAL: элементы. Тип: list.;
+#X obj 250 1272 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1272 set;
+#X text 270 1272 устанавливает новое содержимое множества без вывода.
 Аргументы:;
-#X obj 300 713 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 713 LIST: новое содержимое множества. Тип: list.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 761 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1312 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1312 LIST: новое содержимое множества. Тип: list.;
+#X obj 20 1355 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1360 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 762 1\.;
-#X text 170 762 bang:;
-#X text 270 762 вывести содержимое множества.;
-#X text 170 787 float:;
-#X text 270 787 добавляет новый элемент во множество \, без вывода.;
-#X text 170 812 symbol:;
-#X text 270 812 добавляет новый элемент во множество \, без вывода.;
-#X text 170 837 list:;
-#X text 270 837 добавляет новые элементы во множество \, без вывода.;
-#X text 170 862 data:set:;
-#X text 270 862 установить новое содержимое множества и вывести.;
-#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 902 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 903 1\.;
-#X text 270 903 вывод множества.;
+#X text 130 1361 1\.;
+#X text 170 1361 bang:;
+#X text 270 1361 вывести содержимое множества.;
+#X text 170 1386 float:;
+#X text 270 1386 добавляет новый элемент во множество \, без вывода.;
+#X text 170 1411 symbol:;
+#X text 270 1411 добавляет новый элемент во множество \, без вывода.;
+#X text 170 1436 list:;
+#X text 270 1436 добавляет новые элементы во множество \, без вывода.;
+#X text 170 1461 data:set:;
+#X text 270 1461 установить новое содержимое множества и вывести.;
+#X obj 20 1496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1501 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1502 1\.;
+#X text 270 1502 вывод множества.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 953 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 956 библиотека: ceammc v0.9.8;
-#X text 468 968 смотрите также:;
-#X obj 589 971 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1552 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1555 библиотека: ceammc v0.9.8;
+#X text 468 1567 смотрите также:;
+#X obj 589 1570 ui.link @background_color 0.78431 0.78431 0.78431
 @title [set->list] @url set->list-help.pd;
-#X obj 672 971 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 1570 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.list] @url data.list-help.pd;
-#N canvas 10 975 400 290 info 0;
+#N canvas 10 1574 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -117,9 +143,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 975 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 1574 pd info;
+#X connect 14 0 15 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;

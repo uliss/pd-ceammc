@@ -20,6 +20,69 @@
         <see>data.list</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A set container: stores only unique elements, in the order in which they
+        were first added. Adding a value that is already in the set has no effect, and removing a
+        value that is not in the set is also a no-op. Sets are useful when the presence or absence
+        of a value matters more than its position or count.</tr>
+        <tr lang="ru">Контейнер множества: хранит только уникальные элементы в том порядке, в
+        котором они были впервые добавлены. Добавление уже присутствующего значения не даёт
+        эффекта, и удаление отсутствующего значения также ничего не делает. Множества удобны,
+        когда важно наличие или отсутствие значения, а не его позиция или количество.</tr>
+      </par>
+      <par>
+        <tr lang="en">Syntax: values are added one at a time (float or symbol), as a list, or with
+        the add method. The set can be output as a whole with a bang, or converted to a list with
+        [set-&gt;list].</tr>
+        <tr lang="ru">Синтаксис: значения добавляются по одному (числом или символом), списком или
+        методом add. Множество можно вывести целиком по bang или преобразовать в список с помощью
+        [set-&gt;list].</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Deduplication of a stream — removing repeated values from an incoming
+        stream, so that each value is processed only once.</tr>
+        <tr lang="ru">• Дедупликация потока — удаление повторяющихся значений из входного потока,
+        чтобы каждое значение обрабатывалось только один раз.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Tracking active events — keeping a set of currently pressed keys, active
+        voices or live notes, and checking membership in a single operation.</tr>
+        <tr lang="ru">• Отслеживание активных событий — хранение множества нажатых клавиш,
+        активных голосов или звучащих нот и проверка принадлежности за одну операцию.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Set operations — combining sets with [set.union], [set.intersection] or
+        [set.difference] to build complex queries and filters.</tr>
+        <tr lang="ru">• Операции над множествами — объединение, пересечение или разность с помощью
+        [set.union], [set.intersection] или [set.difference] для построения сложных запросов и
+        фильтров.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Membership tests — quickly checking whether a symbol or a number has
+        already been seen, without scanning an entire list.</tr>
+        <tr lang="ru">• Проверка принадлежности — быстрая проверка, встречалось ли уже данное
+        значение (символ или число), без полного перебора списка.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Simple tags and labels — storing a small collection of active tags (for
+        example, "reverb", "delay", "chorus") and enabling or disabling each of them by adding or
+        removing its name.</tr>
+        <tr lang="ru">• Простые теги и метки — хранение небольшого набора активных тегов
+        (например, "reverb", "delay", "chorus") и включение или отключение каждого из них
+        добавлением или удалением его имени.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Configuration flags — storing a set of enabled options, so that the patch
+        can quickly check which options are currently active.</tr>
+        <tr lang="ru">• Флаги конфигурации — хранение набора включённых опций, чтобы патч мог
+        быстро проверить, какие из них сейчас активны.</tr>
+      </par>
+    </info>
     <mouse>
       <event type="left-click" editmode="false">open data editor</event>
     </mouse>
