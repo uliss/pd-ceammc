@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 550 50 рендеринг огибающей в массив;
+#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 527 50 отрисовывает огибающую в массив;
 #X obj 1 1 cnv 5 765 40 empty empty env2array 20 20 0 20 -104026 -4096
 0;
 #N canvas 577 11 250 400 aliases 0;
@@ -13,83 +13,99 @@
 [env->array] @url env2array-help.pd;
 #X restore 577 11 pd aliases;
 #X obj 674 11 env2array;
-#X msg 50 118 ar 50 400 \, bang;
-#X msg 453 118 bang;
-#X msg 69 147 adsr 10 40 20 500 \, bang;
-#X obj 338 147 osc~ 1000;
-#X obj 453 147 tabplay~ env_arr;
-#X msg 88 176 ear 20 -3 500 -8 \, bang;
-#X obj 338 176 *~;
-#X obj 50 205 envelope;
-#X obj 338 205 ui.hgain~;
-#X msg 69 234 @fit;
-#X msg 136 234 @raw;
-#X msg 203 234 @resize;
-#X obj 338 234 dac~;
-#X obj 50 262 env->array env_arr;
-#X obj 338 262 ui.dsp~;
-#X floatatom 50 291 5 0 0 0 - - -;
+#X obj 230 78 cnv 1 535 326 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Отрисовывает огибающую в массив \, заполняя его значениями
+огибающей во времени. Режим отрисовки управляет тем \, как длина огибающей
+согласуется с размером массива: *fit* растягивает огибающую по размеру
+массива \, *resize* изменяет размер массива по длине огибающей \, а
+*raw* записывает огибающую в массив до конца массива \, отбрасывая
+остаток огибающей.;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Визуализация огибающих.;
+#X text 250 249 • Подготовка огибающей к воспроизведению — отрисовка
+огибающей в массив для воспроизведения в виде аудиосигнала через [tabplay~]
+и применения одной и той же формы на аудиочастоте.;
+#X text 250 319 • Интеграция с обработкой на массивах — использование
+полученного массива как источника для других объектов \, работающих
+с массивами \, а не с огибающими (например \, [array.convolve] \, [array.stretch]
+или [array.play~]).;
+#X msg 50 452 ar 50 400 \, bang;
+#X msg 453 452 bang;
+#X msg 69 481 adsr 10 40 20 500 \, bang;
+#X obj 338 481 osc~ 1000;
+#X obj 453 481 tabplay~ env_arr;
+#X msg 88 510 ear 20 -3 500 -8 \, bang;
+#X obj 338 510 *~;
+#X obj 50 539 envelope;
+#X obj 338 539 ui.hgain~;
+#X msg 69 568 @fit;
+#X msg 136 568 @raw;
+#X msg 203 568 @resize;
+#X obj 338 568 dac~;
+#X obj 50 596 env->array env_arr;
+#X obj 338 596 ui.dsp~;
+#X floatatom 50 625 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_arr 1000 float 0;
 #X coords 0 1 1000 0 400 100 1;
-#X restore 50 334 graph;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 50 668 graph;
+#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 805 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 474 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 808 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 472 1\.;
-#X text 170 472 symbol;
-#X obj 268 473 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 472 ARRAY: array name. Тип: symbol.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 512 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 806 1\.;
+#X text 170 806 symbol;
+#X obj 268 807 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 806 ARRAY: имя массива. Тип: symbol.;
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 846 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 515 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 849 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 513 @array;
-#X text 270 513 Target array name. Тип: symbol.;
-#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 543 @fit;
-#X text 270 543 Alias to @mode fit property.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @mode;
-#X text 270 573 Rendering mode: *fit* to array size \, *resize* array
-to envelope length or *raw* render while enough space in array. Тип:
-symbol. Значение по умолчанию: fit. Разрешённые значения: fit \, resize
-\, raw.;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @raw;
-#X text 270 645 Alias to @mode raw property.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @redraw;
-#X text 270 675 Redraw after array change. Тип: bool. Значение по умолчанию:
-1\.;
-#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 717 @resize;
-#X text 270 717 Alias to @mode resize property.;
-#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 762 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 847 @array;
+#X text 270 847 Имя целевого массива. Тип: symbol.;
+#X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 877 @fit;
+#X text 270 877 Сокращение для @mode fit.;
+#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 907 @mode;
+#X text 270 907 Режим отрисовки: *fit* — по размеру массива \, *resize*
+— изменить размер массива по длине огибающей \, *raw* — отрисовать
+\, пока в массиве достаточно места. Тип: symbol. Значение по умолчанию:
+fit. Разрешённые значения: fit \, resize \, raw.;
+#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 994 @raw;
+#X text 270 994 Сокращение для @mode raw.;
+#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1024 @redraw;
+#X text 270 1024 Перерисовывать массив после каждого изменения. Тип:
+bool. Значение по умолчанию: 1\.;
+#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1066 @resize;
+#X text 270 1066 Сокращение для @mode resize.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1111 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 763 1\.;
-#X text 270 763 *envelope* data.;
-#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 803 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 804 1\.;
-#X text 270 804 output number of samples in destination array. If array
-was resized - output this new size.;
+#X text 130 1112 1\.;
+#X text 270 1112 данные огибающей.;
+#X obj 20 1147 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1152 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1153 1\.;
+#X text 270 1153 выводит число семплов в массиве назначения. Если массив
+был изменён \, выводит его новый размер.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 872 библиотека: ceammc v0.9.8;
-#X text 544 884 смотрите также:;
-#X obj 665 887 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1218 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1221 библиотека: ceammc v0.9.8;
+#X text 544 1233 смотрите также:;
+#X obj 665 1236 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->vline] @url env->vline-help.pd;
-#N canvas 10 891 400 290 info 0;
+#N canvas 10 1240 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,18 +129,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 891 pd info;
-#X connect 6 0 9 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 1;
-#X connect 5 0 12 0;
-#X connect 7 0 12 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 17 0;
-#X connect 13 0 17 1;
-#X connect 12 0 18 0;
-#X connect 14 0 18 0;
-#X connect 15 0 18 0;
+#X restore 10 1240 pd info;
+#X connect 12 0 15 0;
+#X connect 14 0 17 0;
+#X connect 15 0 17 1;
+#X connect 11 0 18 0;
+#X connect 13 0 18 0;
 #X connect 16 0 18 0;
-#X connect 18 0 20 0;
+#X connect 17 0 19 0;
+#X connect 19 0 23 0;
+#X connect 19 0 23 1;
+#X connect 18 0 24 0;
+#X connect 20 0 24 0;
+#X connect 21 0 24 0;
+#X connect 22 0 24 0;
+#X connect 24 0 26 0;

@@ -370,10 +370,10 @@ env.smooth~	envelope with an exponential attack and release / огибающая
 env.tscale	envelope timescale / растяжение огибающей во времени
 env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
 env.vscale	envelope amplitude value-scale / масштабирование амплитудных значений огибающей
-env2array	renders the envelope into the array / рендеринг огибающей в массив
-ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
-ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
-env->array	renders the envelope into the array / рендеринг огибающей в массив
+env2array	renders the envelope into the array / отрисовывает огибающую в массив
+ceammc/env2array	renders the envelope into the array / отрисовывает огибающую в массив
+ceammc/env->array	renders the envelope into the array / отрисовывает огибающую в массив
+env->array	renders the envelope into the array / отрисовывает огибающую в массив
 env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 ceammc/env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 ceammc/env->vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]

@@ -544,7 +544,7 @@ dyn.softclip~-help.pd;
 #X obj 30 5772 ui.link @title [env.vscale] @url env.vscale-help.pd;
 #X text 200 5769 масштабирование амплитудных значений огибающей;
 #X obj 30 5797 ui.link @title [env2array] @url env2array-help.pd;
-#X text 200 5794 рендеринг огибающей в массив;
+#X text 200 5794 отрисовывает огибающую в массив;
 #X obj 30 5822 ui.link @title [env2vline] @url env2vline-help.pd;
 #X text 200 5819 преобразует огибающую в последовательность сообщений
 для объекта [vline~];

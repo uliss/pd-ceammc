@@ -13,82 +13,99 @@
 [env->array] @url env2array-help.pd;
 #X restore 577 11 pd aliases;
 #X obj 674 11 env2array;
-#X msg 50 118 ar 50 400 \, bang;
-#X msg 453 118 bang;
-#X msg 69 147 adsr 10 40 20 500 \, bang;
-#X obj 338 147 osc~ 1000;
-#X obj 453 147 tabplay~ env_arr;
-#X msg 88 176 ear 20 -3 500 -8 \, bang;
-#X obj 338 176 *~;
-#X obj 50 205 envelope;
-#X obj 338 205 ui.hgain~;
-#X msg 69 234 @fit;
-#X msg 136 234 @raw;
-#X msg 203 234 @resize;
-#X obj 338 234 dac~;
-#X obj 50 262 env->array env_arr;
-#X obj 338 262 ui.dsp~;
-#X floatatom 50 291 5 0 0 0 - - -;
+#X obj 230 78 cnv 1 535 356 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Renders an envelope into an array \, filling the array
+with the values of the envelope over time. The rendering mode controls
+how the envelope length is matched to the array size: *fit* stretches
+the envelope to fit the array \, *resize* resizes the array to match
+the envelope length \, and *raw* writes the envelope into the array
+up to the array length \, discarding the rest of the envelope.;
+#X text 240 214 Typical use cases:;
+#X text 250 239 • Visualizing envelopesy.;
+#X text 250 264 • Preparing an envelope for playback — rendering an
+envelope into an array so it can be played back as an audio rate signal
+via [tabplay~] \, for applying the same shape at audio rate.;
+#X text 250 334 • Integration with array-based processing — using the
+resulting array as a source for other array objects (for example \,
+[array.convolve] \, [array.stretch] or [array.play~]) that work with
+array data rather than envelopes.;
+#X msg 50 482 ar 50 400 \, bang;
+#X msg 453 482 bang;
+#X msg 69 511 adsr 10 40 20 500 \, bang;
+#X obj 338 511 osc~ 1000;
+#X obj 453 511 tabplay~ env_arr;
+#X msg 88 540 ear 20 -3 500 -8 \, bang;
+#X obj 338 540 *~;
+#X obj 50 569 envelope;
+#X obj 338 569 ui.hgain~;
+#X msg 69 598 @fit;
+#X msg 136 598 @raw;
+#X msg 203 598 @resize;
+#X obj 338 598 dac~;
+#X obj 50 626 env->array env_arr;
+#X obj 338 626 ui.dsp~;
+#X floatatom 50 655 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_arr 1000 float 0;
 #X coords 0 1 1000 0 400 100 1;
-#X restore 50 334 graph;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 50 698 graph;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 835 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 474 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 838 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 472 1\.;
-#X text 170 472 symbol;
-#X obj 268 473 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 472 ARRAY: array name. Type: symbol.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 512 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 836 1\.;
+#X text 170 836 symbol;
+#X obj 268 837 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 836 ARRAY: array name. Type: symbol.;
+#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 876 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 515 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 879 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 513 @array;
-#X text 270 513 Target array name. Type: symbol.;
-#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 543 @fit;
-#X text 270 543 Alias to @mode fit property.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @mode;
-#X text 270 573 Rendering mode: *fit* to array size \, *resize* array
-to envelope length or *raw* render while enough space in array. Type:
-symbol. Default value: fit. Allowed values: fit \, resize \, raw.;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @raw;
-#X text 270 645 Alias to @mode raw property.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @redraw;
-#X text 270 675 Redraw after array change. Type: bool. Default value:
-1\.;
-#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 705 @resize;
-#X text 270 705 Alias to @mode resize property.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 750 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 751 1\.;
-#X text 270 751 *envelope* data.;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 791 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 877 @array;
+#X text 270 877 Target array name. Type: symbol.;
+#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 907 @fit;
+#X text 270 907 Alias for @mode fit.;
+#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 937 @mode;
+#X text 270 937 Rendering mode: *fit* — fit to the array size \, *resize*
+— resize the array to the envelope length \, *raw* — render while there
+is enough space in the array. Type: symbol. Default value: fit. Allowed
+values: fit \, resize \, raw.;
+#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1024 @raw;
+#X text 270 1024 Alias for @mode raw.;
+#X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1054 @redraw;
+#X text 270 1054 Redraw the array after each change. Type: bool. Default
+value: 1\.;
+#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1096 @resize;
+#X text 270 1096 Alias for @mode resize.;
+#X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1141 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 792 1\.;
-#X text 270 792 output number of samples in destination array. If array
-was resized - output this new size.;
+#X text 130 1142 1\.;
+#X text 270 1142 envelope data.;
+#X obj 20 1177 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1182 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1183 1\.;
+#X text 270 1183 outputs the number of samples in the destination array.
+If the array was resized \, outputs this new size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 857 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 860 library: ceammc v0.9.8;
-#X text 590 872 see also:;
-#X obj 665 875 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1248 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1251 library: ceammc v0.9.8;
+#X text 590 1263 see also:;
+#X obj 665 1266 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->vline] @url env->vline-help.pd;
-#N canvas 10 879 400 290 info 0;
+#N canvas 10 1270 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,18 +129,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 879 pd info;
-#X connect 6 0 9 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 1;
-#X connect 5 0 12 0;
-#X connect 7 0 12 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 17 0;
-#X connect 13 0 17 1;
-#X connect 12 0 18 0;
-#X connect 14 0 18 0;
-#X connect 15 0 18 0;
+#X restore 10 1270 pd info;
+#X connect 12 0 15 0;
+#X connect 14 0 17 0;
+#X connect 15 0 17 1;
+#X connect 11 0 18 0;
+#X connect 13 0 18 0;
 #X connect 16 0 18 0;
-#X connect 18 0 20 0;
+#X connect 17 0 19 0;
+#X connect 19 0 23 0;
+#X connect 19 0 23 1;
+#X connect 18 0 24 0;
+#X connect 20 0 24 0;
+#X connect 21 0 24 0;
+#X connect 22 0 24 0;
+#X connect 24 0 26 0;

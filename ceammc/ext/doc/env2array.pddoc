@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">renders the envelope into the array</tr>
-        <tr lang="ru">рендеринг огибающей в массив</tr>
+        <tr lang="ru">отрисовывает огибающую в массив</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,63 +24,99 @@
         <see>env-&gt;vline</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Renders an envelope into an array, filling the array with the values of the
+        envelope over time. The rendering mode controls how the envelope length is matched to the
+        array size: *fit* stretches the envelope to fit the array, *resize* resizes the array to
+        match the envelope length, and *raw* writes the envelope into the array up to the array
+        length, discarding the rest of the envelope.</tr>
+        <tr lang="ru">Отрисовывает огибающую в массив, заполняя его значениями огибающей во
+        времени. Режим отрисовки управляет тем, как длина огибающей согласуется с размером
+        массива: *fit* растягивает огибающую по размеру массива, *resize* изменяет размер
+        массива по длине огибающей, а *raw* записывает огибающую в массив до конца массива,
+        отбрасывая остаток огибающей.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Visualizing envelopesy.</tr>
+        <tr lang="ru">• Визуализация огибающих.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Preparing an envelope for playback — rendering an envelope into an array
+        so it can be played back as an audio rate signal via [tabplay~], for applying the same
+        shape at audio rate.</tr>
+        <tr lang="ru">• Подготовка огибающей к воспроизведению — отрисовка огибающей в массив
+        для воспроизведения в виде аудиосигнала через [tabplay~] и применения одной и той же
+        формы на аудиочастоте.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Integration with array-based processing — using the resulting array as a
+        source for other array objects (for example, [array.convolve], [array.stretch] or
+        [array.play~]) that work with array data rather than envelopes.</tr>
+        <tr lang="ru">• Интеграция с обработкой на массивах — использование полученного массива
+        как источника для других объектов, работающих с массивами, а не с огибающими (например,
+        [array.convolve], [array.stretch] или [array.play~]).</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
         <tr lang="en">array name</tr>
-        <tr lang="ru" finished="false">имя массива</tr>
+        <tr lang="ru">имя массива</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
         <tr lang="en">target array name</tr>
-        <tr lang="ru" finished="false">имя целевого массива</tr>
+        <tr lang="ru">имя целевого массива</tr>
       </property>
       <!-- @fit -->
       <property name="@fit" type="alias">
-        <tr lang="en">alias to @mode fit property</tr>
-        <tr lang="ru" finished="false">Оригинальное название: @mode fit property</tr>
+        <tr lang="en">alias for @mode fit</tr>
+        <tr lang="ru">сокращение для @mode fit</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
-        <tr lang="en">rendering mode: *fit* to array size, *resize* array to envelope length or
-        *raw* render while enough space in array</tr>
-        <!-- old: Режим рендеринга: *fit* to array size, *resize*
-                array to envelope length или *raw* render while enough space in array -->
-        <tr lang="ru" finished="false">Режим рендеринга: *fit* to array size, *resize* array to
-        envelope length или *raw* render while enough space in array</tr>
+        <tr lang="en">rendering mode: *fit* — fit to the array size, *resize* — resize the array
+        to the envelope length, *raw* — render while there is enough space in the array</tr>
+        <tr lang="ru">режим отрисовки: *fit* — по размеру массива, *resize* — изменить размер
+        массива по длине огибающей, *raw* — отрисовать, пока в массиве достаточно места</tr>
       </property>
       <!-- @raw -->
       <property name="@raw" type="alias">
-        <tr lang="en">alias to @mode raw property</tr>
-        <tr lang="ru" finished="false">Источник: @mode raw property</tr>
+        <tr lang="en">alias for @mode raw</tr>
+        <tr lang="ru">сокращение для @mode raw</tr>
       </property>
       <!-- @redraw -->
       <property name="@redraw" type="bool" default="1">
-        <tr lang="en">redraw after array change</tr>
-        <tr lang="ru" finished="false">Перерисовать после изменения массива</tr>
+        <tr lang="en">redraw the array after each change</tr>
+        <tr lang="ru">перерисовывать массив после каждого изменения</tr>
       </property>
       <!-- @resize -->
       <property name="@resize" type="alias">
-        <tr lang="en">alias to @mode resize property</tr>
-        <tr lang="ru" finished="false">@mode Resize Недвижимость</tr>
+        <tr lang="en">alias for @mode resize</tr>
+        <tr lang="ru">сокращение для @mode resize</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">*envelope* data</tr>
-          <tr lang="ru" finished="false">*конвертные данные*</tr>
+          <tr lang="en">envelope data</tr>
+          <tr lang="ru">данные огибающей</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output number of samples in destination array. If array was resized -
-          output this new size</tr>
-          <tr lang="ru" finished="false">выходное число образцов в массиве назначения. Если массив
-          был изменен - выведите этот новый размер</tr>
+          <tr lang="en">outputs the number of samples in the destination array. If the array was
+          resized, outputs this new size</tr>
+          <tr lang="ru">выводит число семплов в массиве назначения. Если массив был изменён,
+          выводит его новый размер</tr>
         </out>
       </outlet>
     </outlets>
