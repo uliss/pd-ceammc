@@ -37,6 +37,26 @@
       </par>
       <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
       compression</a>
+      <par>
+              <tr lang="en">Typical use cases:</tr>
+              <tr lang="ru">Типичные сценарии применения:</tr>
+            </par>
+            <par indent="1">
+              <tr lang="en">• Adding sustain to percussive or plucked sounds — extending the audible
+              portion of short percussive hits, plucked strings or drum samples by lifting the decaying
+              tails.</tr>
+              <tr lang="ru">• Удлинение сустейна перкуссионных и щипковых звуков — продление слышимой
+              части коротких перкуссионных ударов, щипковых струн или барабанных сэмплов путём подъёма
+              затухающих хвостов.</tr>
+            </par>
+            <par indent="1">
+              <tr lang="en">• Ambient and drone textures — raising the level of very quiet background
+              layers, room tone or subtle resonances, so that they become audible without affecting the
+              loud foreground material.</tr>
+              <tr lang="ru">• Эмбиент и дроун-текстуры — подъём уровня очень тихих фоновых слоёв, шума
+              помещения или тонких резонансов, чтобы они стали слышимыми, не влияя на громкий основной
+              материал.</tr>
+            </par>
     </info>
     <arguments>
       <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">
