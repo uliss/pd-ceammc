@@ -5,40 +5,50 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.abs~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 math.abs~;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 The abs() function computes the absolute value of the
-float input.;
-#X msg 50 186 bang;
+#X obj 230 78 cnv 1 535 295 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Вычисляет абсолютное значение входного сигнала: отрицательные
+значения становятся положительными \, положительные остаются без изменений.
+Это аудиоверсия объекта [math.abs].;
+#X text 240 153 Типичные сценарии применения:;
+#X text 250 178 • Выпрямление сигнала — преобразование двуполярного
+аудиосигнала в однополярный \, например как первый шаг детектора огибающей
+или двухполупериодного выпрямителя.;
+#X text 250 233 • Извлечение амплитуды — измерение отклонения сигнала
+от нуля независимо от его знака \, для детектирования уровня или модуляции.;
+#X text 250 288 • Преобразование формы волны — превращение синусоидальной
+или треугольной волны в «сложенную» форму с характерным гармоническим
+составом \, что удобно для творческого вейвшейпинга.;
+#X msg 50 421 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array mabs 100 float 0;
 #X coords 0 1 100 -1 200 140 1;
-#X restore 338 186 graph;
-#X obj 50 215 plot.linspace~ -1 1;
-#X obj 50 244 math.abs~;
-#X obj 50 273 array.plot~ mabs @yauto 1;
-#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 363 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X restore 338 421 graph;
+#X obj 50 450 plot.linspace~ -1 1;
+#X obj 50 479 math.abs~;
+#X obj 50 508 array.plot~ mabs @yauto 1;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 598 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 364 1\.;
-#X text 170 364 ~;
-#X text 270 364 input signal.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 599 1\.;
+#X text 170 599 ~;
+#X text 270 599 входной сигнал.;
+#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 639 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 405 1\.;
-#X text 170 405 ~;
-#X text 270 405 output signal.;
+#X text 130 640 1\.;
+#X text 170 640 ~;
+#X text 270 640 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 558 520 смотрите также:;
-#X obj 679 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 690 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 693 библиотека: ceammc v0.9.8;
+#X text 558 705 смотрите также:;
+#X obj 679 708 ui.link @background_color 0.78431 0.78431 0.78431
 @title [math.abs] @url math.abs-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 712 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -62,8 +72,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
-#X connect 8 1 10 1;
+#X restore 10 712 pd info;
+#X connect 10 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 12 1 14 1;
