@@ -536,7 +536,7 @@ dyn.softclip~-help.pd;
 #X obj 30 5672 ui.link @title [env.mix] @url env.mix-help.pd;
 #X text 200 5669 смешивание двух огибающих с одинаковым числом сегментов;
 #X obj 30 5697 ui.link @title [env.smooth~] @url env.smooth~-help.pd;
-#X text 200 5694 огибающая с экспоненциальной атакой и отпусканием;
+#X text 200 5694 огибающая с экспоненциальной атакой и восстановлением;
 #X obj 30 5722 ui.link @title [env.tscale] @url env.tscale-help.pd;
 #X text 200 5719 растяжение огибающей во времени;
 #X obj 30 5747 ui.link @title [env.tshift] @url env.tshift-help.pd;
