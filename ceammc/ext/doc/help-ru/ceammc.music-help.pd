@@ -11,7 +11,7 @@ rhythm.hexbeat-help.pd;
 значений;
 #X obj 30 170 ui.link @title [rhythm.lsystem] @url
 rhythm.lsystem-help.pd;
-#X text 220 167 генератор ритмического рисунка на основе L-систем;
+#X text 220 167 генератор ритмических паттернов на основе L-систем;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::music 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

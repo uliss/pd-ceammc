@@ -1,86 +1,102 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 389 50 генератор ритмического рисунка на основе L-систем;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 генератор ритмических паттернов на основе L-систем;
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.lsystem 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 rhythm.lsystem;
-#X text 50 118 1: bang;
-#X text 50 133 2: turn metro on;
-#X text 50 147 3: bang again;
-#X obj 50 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 338 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Генерирует ритмический паттерн с помощью L-системы (системы
+Линденмайера). L-система начинается с исходной строки (аксиомы) и многократно
+применяет набор правил подстановки \, при которых каждый символ заменяется
+новой последовательностью символов. На каждый bang объект делает один
+шаг генерации и выводит получившийся паттерн в виде списка.;
+#X text 240 199 Правила задаются в виде словаря: например \, правило
+[1: 0 1 0: 1] означает «каждую 1 заменить на последовательность 0 1
+0 \, а каждый 0 заменить на 1». Начав с аксиомы 0 1 и применив это
+правило дважды \, получаем: 0 1 → 1 0 1 0 1 → 0 1 0 1 1 0 1 0 1 0 1\.
+Свойство @max ограничивает \, насколько паттерн может вырасти.;
+#X text 240 300 L-системы удобны для генерации длинных самоподобных
+ритмических паттернов из очень компактного описания. Они широко применяются
+в алгоритмической композиции \, фрактальной музыке и генеративном искусстве
+\, где паттерн должен постепенно развиваться от итерации к итерации
+\, сохраняя общий характер.;
+#X text 50 464 1: bang;
+#X text 50 479 2: turn metro on;
+#X text 50 493 3: bang again;
+#X obj 50 522 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 414 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 69 205 reset;
-#X obj 414 205 metro.pattern 100;
-#X obj 606 205 r lsys;
-#X obj 50 234 rhythm.lsystem 0 1 @rule [1: 0 1 0: 1];
-#X obj 414 234 list.walk @wrap;
-#X obj 50 262 t l l;
-#X obj 414 262 sel 1;
-#X obj 88 291 list.size;
-#X obj 414 291 click~;
-#X obj 606 291 ui.dsp~;
-#X msg 88 320 @nitems \$1 \, @size 150 15;
-#X obj 414 320 flt.resonlp~ 1000 40;
-#X obj 50 349 ui.hrd* @nosave 1;
-#X obj 414 349 ui.hgain~;
-#X obj 50 406 s lsys;
-#X obj 414 406 dac~;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 414 522 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 551 reset;
+#X obj 414 551 metro.pattern 100;
+#X obj 606 551 r lsys;
+#X obj 50 580 rhythm.lsystem 0 1 @rule [1: 0 1 0: 1];
+#X obj 414 580 list.walk @wrap;
+#X obj 50 608 t l l;
+#X obj 414 608 sel 1;
+#X obj 88 637 list.size;
+#X obj 414 637 click~;
+#X obj 606 637 ui.dsp~;
+#X msg 88 666 @nitems \$1 \, @size 150 15;
+#X obj 414 666 flt.resonlp~ 1000 40;
+#X obj 50 695 ui.hrd* @nosave 1;
+#X obj 414 695 ui.hgain~;
+#X obj 50 752 s lsys;
+#X obj 414 752 dac~;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 810 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 462 1\.;
-#X text 170 462 list;
-#X obj 268 463 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 462 INIT: init pattern. Тип: list.;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 502 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 808 1\.;
+#X text 170 808 list;
+#X obj 268 809 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 808 INIT: начальный паттерн. Тип: list.;
+#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 848 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 505 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 851 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 503 @init;
-#X text 270 503 Init pattern value. Тип: list.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @max;
-#X text 270 533 Max generated pattern length. Тип: int. Значение по
-умолчанию: 256\. Диапазон: [1\..32768].;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @rule;
-#X text 270 575 Generation rule dict. Тип: atom.;
-#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 605 @value?;
-#X text 270 605 (только чтение) Current pattern value. Тип: list.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 849 @init;
+#X text 270 849 Начальное значение паттерна. Тип: list.;
+#X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 879 @max;
+#X text 270 879 Максимальная длина сгенерированного паттерна. Тип:
+int. Значение по умолчанию: 256\. Диапазон: [1\..32768].;
+#X obj 250 921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 921 @rule;
+#X text 270 921 Словарь правил генерации. Тип: atom.;
+#X obj 250 951 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 951 @value?;
+#X text 270 951 (только чтение) Текущее значение паттерна. Тип: list.;
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 996 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 651 reset;
-#X text 270 651 reset to init state.;
-#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 701 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 997 reset;
+#X text 270 997 возвращает объект в начальное состояние.;
+#X obj 20 1042 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1047 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 702 1\.;
-#X text 170 702 bang:;
-#X text 270 702 output last pattern.;
-#X text 170 727 symbol:;
-#X text 270 727 set new pattern and output.;
-#X text 170 752 list:;
-#X text 270 752 output enumerated patterns for each list argument.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 792 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 793 1\.;
-#X text 270 793 list output.;
+#X text 130 1048 1\.;
+#X text 170 1048 bang:;
+#X text 270 1048 выводит последний паттерн.;
+#X text 170 1073 symbol:;
+#X text 270 1073 устанавливает новый паттерн и выводит его.;
+#X text 170 1098 list:;
+#X text 270 1098 выводит паттерны по одному для каждого аргумента списка.;
+#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1138 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1139 1\.;
+#X text 270 1139 вывод списка.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 843 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 846 библиотека: ceammc v0.9.8;
-#N canvas 10 865 400 290 info 0;
+#X obj 1 1189 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1192 библиотека: ceammc v0.9.8;
+#N canvas 10 1211 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -104,21 +120,21 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 865 pd info;
-#X connect 8 0 10 0;
-#X connect 7 0 12 0;
-#X connect 9 0 12 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
+#X restore 10 1211 pd info;
 #X connect 12 0 14 0;
-#X connect 13 0 15 0;
-#X connect 14 1 16 0;
+#X connect 11 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;
 #X connect 15 0 17 0;
-#X connect 16 0 19 0;
-#X connect 17 0 20 0;
-#X connect 14 0 21 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 18 1 20 0;
 #X connect 19 0 21 0;
-#X connect 20 0 22 0;
-#X connect 21 0 23 0;
-#X connect 22 0 24 0;
-#X connect 22 0 24 1;
+#X connect 20 0 23 0;
+#X connect 21 0 24 0;
+#X connect 18 0 25 0;
+#X connect 23 0 25 0;
+#X connect 24 0 26 0;
+#X connect 25 0 27 0;
+#X connect 26 0 28 0;
+#X connect 26 0 28 1;
