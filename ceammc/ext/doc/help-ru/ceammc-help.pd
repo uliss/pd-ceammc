@@ -1692,7 +1692,7 @@ net.ws.server-help.pd;
 #X obj 30 17828 ui.link @title [noise.baker] @url noise.baker-help.pd;
 #X text 200 17825 хаотический генератор на основе преобразования Пекаря;
 #X obj 30 17853 ui.link @title [noise.chua~] @url noise.chua~-help.pd;
-#X text 200 17850 диодная схема цепи Чуа;
+#X text 200 17850 диодная схема Чуа;
 #X obj 30 17878 ui.link @title [noise.clifford] @url
 noise.clifford-help.pd;
 #X text 200 17875 аттрактор Клиффорда;

@@ -5,82 +5,99 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.chua~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 noise.chua~;
-#X obj 50 118 gnoise.chua~;
-#X obj 50 305 ui.hgain2~;
-#X obj 213 305 ui.dsp~;
-#X obj 50 334 dac~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 356 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A digital emulation of Chua's diode circuit — a classic
+example of a simple electronic circuit that exhibits chaotic behavior.
+The generator produces two correlated chaotic audio signals \, X and
+Y \, whose shape depends on the circuit parameters: capacitance @C1
+\, capacitance @C2 \, inductance @L and resistance @R. Different parameter
+combinations produce periodic \, quasi-periodic or fully chaotic waveforms.;
+#X text 240 214 Typical use cases:;
+#X text 250 239 • Chaotic audio source — feeding the outputs directly
+into a mixer or effect chain to obtain evolving \, unpredictable noise
+textures.;
+#X text 250 294 • Modulation source — using the X or Y signal as a
+chaotic control source for filter cutoff \, pan or pitch \, to obtain
+organic and evolving movement.;
+#X text 250 349 • Chaotic modulation of parameters — slowly changing
+the circuit parameters (@R \, @L \, @C1 \, @C2) to make the output
+transition between periodic and chaotic regimes over time.;
+#X obj 50 482 gnoise.chua~;
+#X obj 50 669 ui.hgain2~;
+#X obj 213 669 ui.dsp~;
+#X obj 50 698 dac~;
+#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 753 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 756 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 390 @id;
-#X text 270 390 (initonly) OSC address id. If specified \, bind all
+#X msg 130 754 @id;
+#X text 270 754 (initonly) OSC address id. If specified \, bind all
 properties to /ID/noise_chua/PROP_NAME osc address \, if empty bind
 to /noise_chua/PROP_NAME. Type: symbol.;
-#X obj 250 447 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 447 @osc;
-#X text 270 447 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 477 @C1;
-#X text 270 477 C1 capacity in nF. Type: float. Default value: 5.5\.
+#X obj 250 811 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 811 @osc;
+#X text 270 811 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 841 @C1;
+#X text 270 841 C1 capacitance in nF. Type: float. Default value: 5.5\.
 Range: [5.2\..6].;
-#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 519 @C2;
-#X text 270 519 C2 capacity in nF. Type: float. Default value: 49.5\.
+#X obj 250 883 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 883 @C2;
+#X text 270 883 C2 capacitance in nF. Type: float. Default value: 49.5\.
 Range: [40\..60].;
-#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 561 @L;
-#X text 270 561 L in mH. Type: float. Default value: 7.07\. Range:
-[6.5\..7.3].;
-#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 603 @R;
-#X text 270 603 R resistance in kOhm. Type: float. Default value: 1.6\.
+#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 925 @L;
+#X text 270 925 L inductance in mH. Type: float. Default value: 7.07\.
+Range: [6.5\..7.3].;
+#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 967 @R;
+#X text 270 967 R resistance in kOhm. Type: float. Default value: 1.6\.
 Range: [1.252\..1.7].;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @active;
-#X text 270 645 On/off object dsp processing. Type: bool. Default value:
-1\.;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @gate;
-#X text 270 675 Play trigger >0: on \, 0: off. To set output gain to
-0.5 you can 0.5 as trigger value. Type: float. Default value: 0\. Range:
-[0\..1].;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 747 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1009 @active;
+#X text 270 1009 On/off object dsp processing. Type: bool. Default
+value: 1\.;
+#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1039 @gate;
+#X text 270 1039 Play trigger. >0: on \, 0: off. To set the output
+gain to 0.5 \, use 0.5 as the trigger value. Type: float. Default value:
+0\. Range: [0\..1].;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1111 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 748 reset;
-#X text 270 748 reset generator.;
-#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 783 start;
-#X text 270 783 start generator.;
-#X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 833 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 834 1\.;
-#X text 170 834 bang:;
-#X text 270 834 play with default duration and full gain.;
-#X text 170 859 float:;
-#X text 270 859 play with default duration and specified gain.;
-#X text 170 884 list:;
-#X text 270 884 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 919 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 924 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 1112 reset;
+#X text 270 1112 resets the generator.;
+#X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1147 start;
+#X text 270 1147 starts the generator.;
+#X obj 20 1192 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1197 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 925 1\.;
-#X text 170 925 ~;
-#X text 270 925 X output (C1 Vout).;
-#X text 130 945 2\.;
-#X text 170 945 ~;
-#X text 270 945 Y output (C2 Vout).;
+#X text 130 1198 1\.;
+#X text 170 1198 bang:;
+#X text 270 1198 plays with default duration and full gain.;
+#X text 170 1223 float:;
+#X text 270 1223 plays with default duration and the specified gain.;
+#X text 170 1248 list:;
+#X text 270 1248 GAIN(0\..1) DUR(ms) pair expected.;
+#X obj 20 1283 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1288 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1289 1\.;
+#X text 170 1289 ~;
+#X text 270 1289 X output (C1 Vout).;
+#X text 130 1309 2\.;
+#X text 170 1309 ~;
+#X text 270 1309 Y output (C2 Vout).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 995 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 998 library: ceammc v0.9.8;
-#N canvas 10 1017 400 290 info 0;
+#X obj 1 1359 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1362 library: ceammc v0.9.8;
+#N canvas 10 1381 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,8 +121,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1017 pd info;
-#X connect 4 0 5 0;
-#X connect 4 1 5 1;
-#X connect 5 0 7 0;
-#X connect 5 1 7 1;
+#X restore 10 1381 pd info;
+#X connect 10 0 11 0;
+#X connect 10 1 11 1;
+#X connect 11 0 13 0;
+#X connect 11 1 13 1;

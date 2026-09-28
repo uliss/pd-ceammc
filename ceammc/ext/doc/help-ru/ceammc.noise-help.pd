@@ -7,7 +7,7 @@
 #X obj 30 120 ui.link @title [noise.baker] @url noise.baker-help.pd;
 #X text 220 117 хаотический генератор на основе преобразования Пекаря;
 #X obj 30 145 ui.link @title [noise.chua~] @url noise.chua~-help.pd;
-#X text 220 142 диодная схема цепи Чуа;
+#X text 220 142 диодная схема Чуа;
 #X obj 30 170 ui.link @title [noise.clifford] @url
 noise.clifford-help.pd;
 #X text 220 167 аттрактор Клиффорда;

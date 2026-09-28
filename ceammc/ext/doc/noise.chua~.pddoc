@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Chua's diode circuit</tr>
-        <tr lang="ru">диодная схема цепи Чуа</tr>
+        <tr lang="ru">диодная схема Чуа</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,75 +16,107 @@
       <keywords>noise chua chaos</keywords>
       <since>0.9.6</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A digital emulation of Chua's diode circuit — a classic example of a simple
+        electronic circuit that exhibits chaotic behavior. The generator produces two correlated
+        chaotic audio signals, X and Y, whose shape depends on the circuit parameters: capacitance
+        @C1, capacitance @C2, inductance @L and resistance @R. Different parameter combinations
+        produce periodic, quasi-periodic or fully chaotic waveforms.</tr>
+        <tr lang="ru">Цифровая эмуляция диодной схемы Чуа — классического примера простой
+        электронной схемы, демонстрирующей хаотическое поведение. Генератор производит два
+        коррелированных хаотических аудиосигнала, X и Y, форма которых зависит от параметров
+        схемы: ёмкости @C1, ёмкости @C2, индуктивности @L и сопротивления @R. Разные комбинации
+        параметров дают периодические, квазипериодические или полностью хаотические формы
+        колебаний.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Chaotic audio source — feeding the outputs directly into a mixer or effect
+        chain to obtain evolving, unpredictable noise textures.</tr>
+        <tr lang="ru">• Хаотический источник звука — подача выходов напрямую в микшер или цепочку
+        эффектов для получения развивающихся, непредсказуемых шумовых текстур.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Modulation source — using the X or Y signal as a chaotic control source for
+        filter cutoff, pan or pitch, to obtain organic and evolving movement.</tr>
+        <tr lang="ru">• Источник модуляции — использование сигнала X или Y в качестве хаотического
+        источника управления для среза фильтра, панорамы или высоты тона, что даёт органичное и
+        развивающееся движение.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Chaotic modulation of parameters — slowly changing the circuit parameters
+        (@R, @L, @C1, @C2) to make the output transition between periodic and chaotic regimes over
+        time.</tr>
+        <tr lang="ru">• Хаотическая модуляция параметров — медленное изменение параметров схемы
+        (@R, @L, @C1, @C2), чтобы выходной сигнал со временем переходил между периодическим и
+        хаотическим режимами.</tr>
+      </par>
+    </info>
     <properties>
       <xi:include href="props_osc.xml" />
       <xi:include href="props_id.xml" />
       <xi:include href="props_active.xml" />
       <!-- @C1 -->
       <property name="@C1" type="float" default="5.5" minvalue="5.2" maxvalue="6">
-        <tr lang="en">C1 capacity in nF</tr>
-        <tr lang="ru" finished="false">Вместимость C1 в nF</tr>
+        <tr lang="en">C1 capacitance in nF</tr>
+        <tr lang="ru">ёмкость C1 в нФ</tr>
       </property>
       <!-- @C2 -->
       <property name="@C2" type="float" default="49.5" minvalue="40" maxvalue="60">
-        <tr lang="en">C2 capacity in nF</tr>
-        <tr lang="ru" finished="false">Емкость C2 в nF</tr>
+        <tr lang="en">C2 capacitance in nF</tr>
+        <tr lang="ru">ёмкость C2 в нФ</tr>
       </property>
       <!-- @L -->
       <property name="@L" type="float" default="7.07" minvalue="6.5" maxvalue="7.3">
-        <tr lang="en">L in mH</tr>
-        <tr lang="ru" finished="false">L в mH</tr>
+        <tr lang="en">L inductance in mH</tr>
+        <tr lang="ru">индуктивность L в мГн</tr>
       </property>
       <!-- @R -->
       <property name="@R" type="float" default="1.6" minvalue="1.252" maxvalue="1.7">
         <tr lang="en">R resistance in kOhm</tr>
-        <tr lang="ru" finished="false">Сопротивление R в kOhm</tr>
+        <tr lang="ru">сопротивление R в кОм</tr>
       </property>
       <!-- @gate -->
       <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">
-        <tr lang="en">play trigger &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as
+        <tr lang="en">play trigger. &gt;0: on, 0: off. To set the output gain to 0.5, use 0.5 as the
         trigger value</tr>
-        <!-- old: играть триггер >0: on, 0: off. Чтобы установить
-                выходной коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение. -->
-        <tr lang="ru" finished="false">играть триггер &gt;0: on, 0: off. Чтобы установить выходной
-        коэффициент усиления до 0,5, вы можете 0,5 как триггерное значение.</tr>
+        <tr lang="ru">триггер запуска. &gt;0 — вкл., 0 — выкл. Чтобы установить усиление выхода
+        равным 0.5, используйте 0.5 в качестве значения триггера</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset generator</tr>
-          <tr lang="ru" finished="false">генератор сброса</tr>
+          <tr lang="en">resets the generator</tr>
+          <tr lang="ru">сбрасывает генератор</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
-          <tr lang="en">start generator</tr>
-          <tr lang="ru" finished="false">стартовый генератор</tr>
+          <tr lang="en">starts the generator</tr>
+          <tr lang="ru">запускает генератор</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">play with default duration and full gain</tr>
-          <!-- old: Играйте с продолжительностью по умолчанию и
-                    полным выигрышем -->
-          <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и полным
-          выигрышем</tr>
+          <tr lang="en">plays with default duration and full gain</tr>
+          <tr lang="ru">запускает с длительностью по умолчанию и полным усилением</tr>
         </in>
         <in on="float">
-          <tr lang="en">play with default duration and specified gain</tr>
-          <!-- old: Играйте с продолжительностью по умолчанию и
-                    определенным выигрышем -->
-          <tr lang="ru" finished="false">Играйте с продолжительностью по умолчанию и определенным
-          выигрышем</tr>
+          <tr lang="en">plays with default duration and the specified gain</tr>
+          <tr lang="ru">запускает с длительностью по умолчанию и заданным усилением</tr>
         </in>
         <in on="list">
           <tr lang="en">GAIN(0..1) DUR(ms) pair expected</tr>
-          <tr lang="ru" finished="false">ГАИН(0) ..1) Ожидаемая пара DUR(ms)</tr>
+          <tr lang="ru">ожидается пара GAIN(0..1) DUR(мс)</tr>
         </in>
       </inlet>
     </inlets>
@@ -92,13 +124,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">X output (C1 Vout)</tr>
-          <tr lang="ru" finished="false">X выход (C1 Vout)</tr>
+          <tr lang="ru">выход X (C1 Vout)</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">Y output (C2 Vout)</tr>
-          <tr lang="ru" finished="false">Y выход (C2 Vout)</tr>
+          <tr lang="ru">выход Y (C2 Vout)</tr>
         </out>
       </outlet>
     </outlets>
