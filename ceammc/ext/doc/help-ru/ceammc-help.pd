@@ -566,7 +566,7 @@ dyn.softclip~-help.pd;
 #X obj 30 6040 ui.link @title [flow.count] @url flow.count-help.pd;
 #X text 200 6037 счетчик числа сообщений в управляющем потоке;
 #X obj 30 6065 ui.link @title [flow.delay] @url flow.delay-help.pd;
-#X text 200 6062 усовершенствованная версия объекта [delay];
+#X text 200 6062 расширенная версия стандартного объекта [delay];
 #X obj 30 6090 ui.link @title [flow.demultiplex] @url
 flow.demultiplex-help.pd;
 #X text 200 6087 демультиплексор управляющего потока;

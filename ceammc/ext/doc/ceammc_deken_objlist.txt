@@ -391,8 +391,8 @@ ceammc/expand_env	substitutes environment variables in a data stream / подс�
 flow.append	append message to flow stream / добавляет сообщение в поток
 flow.change	rejects repeated input messages / удаляет повторяющиеся сообщения
 flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
-flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
-flow.del	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.delay	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
+flow.del	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
 flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
