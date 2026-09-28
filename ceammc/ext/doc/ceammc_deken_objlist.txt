@@ -369,7 +369,7 @@ env.mix	mix between two envelopes that contain the equal number of segments / с
 env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и восстановлением
 env.tscale	envelope timescale / растяжение огибающей во времени
 env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
-env.vscale	envelope amplitude value-scale / изменение амплитуды огибающей
+env.vscale	envelope amplitude value-scale / масштабирование амплитудных значений огибающей
 env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
 ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив

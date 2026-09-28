@@ -542,7 +542,7 @@ dyn.softclip~-help.pd;
 #X obj 30 5747 ui.link @title [env.tshift] @url env.tshift-help.pd;
 #X text 200 5744 сдвиг огибающей по времени (по горизонтали);
 #X obj 30 5772 ui.link @title [env.vscale] @url env.vscale-help.pd;
-#X text 200 5769 изменение амплитуды огибающей;
+#X text 200 5769 масштабирование амплитудных значений огибающей;
 #X obj 30 5797 ui.link @title [env2array] @url env2array-help.pd;
 #X text 200 5794 рендеринг огибающей в массив;
 #X obj 30 5822 ui.link @title [env2vline] @url env2vline-help.pd;
