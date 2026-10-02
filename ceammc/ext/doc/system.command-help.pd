@@ -7,90 +7,100 @@
 #X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [system.cmd] @url system.command-help.pd;
 #X obj 639 8 system.command;
-#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: this is simplest unix shell simulation \, do not
-expect too much from it \, if you need powerfull shell capabilities
-- write shell script and run it.;
-#X text 240 138 The pipe symbol should be separated by whitespaces.;
-#X msg 50 226 open /System/Applications/Utilities/Audio\ MIDI\ Setup.app;
-#X msg 50 255 ls | sort -r | tail;
-#X msg 78 284 du -h | cut -f1;
-#X msg 270 284 winver.exe;
-#X msg 107 313 bang;
-#X msg 174 313 @args cat \, stdin 1 2 3 4 5;
-#X obj 50 342 system.command pwd;
-#X floatatom 50 370 5 0 0 0 - - -;
-#X obj 165 370 print EXEC;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 425 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 280 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Note: this is a very simple Unix shell simulation —
+do not expect too much from it. If you need powerful shell capabilities
+\, write a shell script and run it.;
+#X text 240 138 The pipe symbol should be surrounded by whitespace.;
+#X text 240 163 Typical use cases:;
+#X text 250 188 • Calling external tools from a patch — running command-line
+utilities and scripts directly from Pd and using their output (for
+example \, to list files \, query system information or trigger custom
+scripts).;
+#X text 250 258 • Integration with the filesystem and system services
+— combining standard Unix/Windows utilities with pipes to build complex
+operations \, for example resizing images \, converting files or reading
+sensor values from an external command.;
+#X msg 50 406 open /System/Applications/Utilities/Audio\ MIDI\ Setup.app;
+#X msg 50 435 ls | sort -r | tail;
+#X msg 78 464 du -h | cut -f1;
+#X msg 270 464 winver.exe;
+#X msg 107 493 bang;
+#X msg 174 493 @args cat \, stdin 1 2 3 4 5;
+#X obj 50 522 system.command pwd;
+#X floatatom 50 550 5 0 0 0 - - -;
+#X obj 165 550 print EXEC;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 605 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 428 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 608 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 426 1\.;
-#X text 170 426 list;
-#X obj 268 427 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 426 ARGS: execution program chain. Type: list.;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 466 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 606 1\.;
+#X text 170 606 list;
+#X obj 268 607 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 606 ARGS: execution program chain. Type: list.;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 646 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 469 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 649 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 467 @args;
-#X text 270 467 Execution program chain. Type: list.;
-#X obj 250 497 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 497 @mode;
-#X text 270 497 Output processing mode. 'pd': output each output line
-as Pd atom list \, 'str': output whole as data:string \, 'lines': output
-each output line as data:string \, 'bytes': output as byte stream.
-Type: symbol. Default value: pd. Allowed values: pd \, str \, lines
-\, bytes.;
-#X obj 250 584 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 584 @pwd;
-#X text 270 584 Process working directory. Type: symbol.;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @stderr;
-#X text 270 614 Capture stderr. Type: bool. Default value: 1\.;
-#X obj 250 644 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 644 @stdout;
-#X text 270 644 Capture stdout. Type: bool. Default value: 1\.;
-#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 674 @t;
-#X text 270 674 Period to check program output. Type: int. Units: 'ms'.
+#X msg 130 647 @args;
+#X text 270 647 Execution program chain. Type: list.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 @mode;
+#X text 270 677 Output processing mode. 'pd': output each output line
+as a Pd atom list \, 'str': output the whole output as data:string
+\, 'lines': output each output line as data:string \, 'bytes': output
+as a byte stream. Type: symbol. Default value: pd. Allowed values:
+pd \, str \, lines \, bytes.;
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 764 @pwd;
+#X text 270 764 Process working directory. Type: symbol.;
+#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 794 @stderr;
+#X text 270 794 Capture stderr. Type: bool. Default value: 1\.;
+#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 824 @stdout;
+#X text 270 824 Capture stdout. Type: bool. Default value: 1\.;
+#X obj 250 854 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 854 @t;
+#X text 270 854 Period to check program output. Type: int. Units: 'ms'.
 Default value: 100\. Range: [5\..500].;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 731 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 906 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 911 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 732 stdin;
-#X text 270 732 run the program with given input values. Arguments
+#X msg 130 912 stdin;
+#X text 270 912 runs the program with the given input values. Arguments
 are:;
-#X obj 300 757 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 757 [ARGS]: the input values. Type: list.;
-#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 790 terminate;
-#X text 270 790 terminate the running process.;
-#X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 840 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 841 1\.;
-#X text 170 841 bang:;
-#X text 270 841 run the program.;
-#X text 170 866 any:;
-#X text 270 866 change @args property and then run the program.;
-#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 906 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 300 937 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 937 [ARGS]: the input values. Type: list.;
+#X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 970 terminate;
+#X text 270 970 terminates the running process.;
+#X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1020 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 907 1\.;
-#X text 270 907 int: output process exit code.;
-#X text 130 927 2\.;
-#X text 270 927 stdout output \, format depends from @mode.;
+#X text 130 1021 1\.;
+#X text 170 1021 bang:;
+#X text 270 1021 runs the program.;
+#X text 170 1046 any:;
+#X text 270 1046 changes the @args property and then runs the program.;
+#X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1086 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1087 1\.;
+#X text 170 1087 int:;
+#X text 270 1087 int: process exit code.;
+#X text 130 1107 2\.;
+#X text 270 1107 stdout output \, format depends on @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 977 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 980 library: ceammc v0.9.8;
-#N canvas 10 999 400 290 info 0;
+#X obj 1 1157 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1160 library: ceammc v0.9.8;
+#N canvas 10 1179 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -114,12 +124,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 999 pd info;
-#X connect 9 0 14 0;
-#X connect 10 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 1 16 0;
-#X connect 8 0 14 0;
-#X connect 11 0 14 0;
+#X restore 10 1179 pd info;
+#X connect 12 0 17 0;
+#X connect 13 0 17 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 0;
+#X connect 11 0 17 0;
+#X connect 14 0 17 0;

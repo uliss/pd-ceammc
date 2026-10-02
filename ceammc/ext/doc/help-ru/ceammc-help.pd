@@ -2348,147 +2348,146 @@ system.colorpanel-help.pd;
 #X text 200 24233 системный диалог выбора цвета;
 #X obj 30 24261 ui.link @title [system.command] @url
 system.command-help.pd;
-#X text 200 24258 запуск цепочек команд с перенаправлением вывода в
-Unix и Windows;
-#X obj 30 24301 ui.link @title [system.cursor] @url
+#X text 200 24258 запуск команд с конвейерами в Unix и Windows;
+#X obj 30 24286 ui.link @title [system.cursor] @url
 system.cursor-help.pd;
-#X text 200 24298 выводит положение курсора \, нажатия кнопок мыши
+#X text 200 24283 выводит положение курсора \, нажатия кнопок мыши
 и колеса прокрутки;
-#X obj 30 24341 ui.link @title [system.exec] @url system.exec-help.pd;
-#X text 200 24338 запуск внешней команды в отдельном процессе;
-#X obj 30 24366 ui.link @title [system.exit] @url system.exit-help.pd;
-#X text 200 24363 завершает PureData;
-#X obj 30 24391 ui.link @title [system.getenv] @url
+#X obj 30 24326 ui.link @title [system.exec] @url system.exec-help.pd;
+#X text 200 24323 запуск внешней команды в отдельном процессе;
+#X obj 30 24351 ui.link @title [system.exit] @url system.exit-help.pd;
+#X text 200 24348 завершает PureData;
+#X obj 30 24376 ui.link @title [system.getenv] @url
 system.getenv-help.pd;
-#X text 200 24388 выводит системные переменные окружения;
-#X obj 30 24416 ui.link @title [system.hostname] @url
+#X text 200 24373 выводит системные переменные окружения;
+#X obj 30 24401 ui.link @title [system.hostname] @url
 system.hostname-help.pd;
-#X text 200 24413 выводит имя хоста системы;
-#X obj 30 24441 ui.link @title [system.info] @url system.info-help.pd;
-#X text 200 24438 получение информации о системе: ЦПУ и температура;
-#X obj 30 24466 ui.link @title [system.memsize] @url
+#X text 200 24398 выводит имя хоста системы;
+#X obj 30 24426 ui.link @title [system.info] @url system.info-help.pd;
+#X text 200 24423 получение информации о системе: ЦПУ и температура;
+#X obj 30 24451 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
-#X text 200 24463 возвращает размер физической памяти (ОЗУ) в байтах;
-#X obj 30 24491 ui.link @title [system.memused] @url
+#X text 200 24448 возвращает размер физической памяти (ОЗУ) в байтах;
+#X obj 30 24476 ui.link @title [system.memused] @url
 system.memused-help.pd;
-#X text 200 24488 выводит использование физической памяти процессом
+#X text 200 24473 выводит использование физической памяти процессом
 - текущее и пиковое;
-#X obj 30 24531 ui.link @title [system.screen_size] @url
+#X obj 30 24516 ui.link @title [system.screen_size] @url
 system.screen_size-help.pd;
-#X text 200 24528 выводит размер активного экрана в пикселях;
-#X obj 20 24553 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
-#X obj 20 24595 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 24609 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 200 24606 выводит событие bang временной шкалы;
-#X obj 30 24634 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 24631 определяет секцию на временной шкале;
-#X obj 30 24659 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
-#X text 200 24656 планировщик событий временной шкалы;
-#X obj 30 24684 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
-#X text 200 24681 переключатель на временной шкале;
-#X obj 30 24709 ui.link @title [tl.transport] @url
+#X text 200 24513 выводит размер активного экрана в пикселях;
+#X obj 20 24538 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
+#X obj 20 24580 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 24594 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 200 24591 выводит событие bang временной шкалы;
+#X obj 30 24619 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 200 24616 определяет секцию на временной шкале;
+#X obj 30 24644 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
+#X text 200 24641 планировщик событий временной шкалы;
+#X obj 30 24669 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
+#X text 200 24666 переключатель на временной шкале;
+#X obj 30 24694 ui.link @title [tl.transport] @url
 tl.transport-help.pd;
-#X text 200 24706 управление транспортной шкалой;
-#X obj 588 24563 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 24691 управление транспортной шкалой;
+#X obj 588 24548 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 593 24563 работа с таймлайном;
-#X obj 20 24731 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
-#X obj 20 24773 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 24787 ui.link @title [ui.aview] @url ui.aview-help.pd;
-#X text 200 24784 отображение массива с курсором и выбором диапазона;
-#X obj 30 24812 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 200 24809 кнопка отправляющая пустое событие (bang);
-#X obj 30 24837 ui.link @title [ui.button] @url ui.button-help.pd;
-#X text 200 24834 виджет кнопки c двумя состояниями;
-#X obj 30 24862 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
-#X text 200 24859 холст для рисования;
-#X obj 30 24887 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
-#X text 200 24884 многоканальный круговой измеритель уровня сигнала;
-#X obj 30 24912 ui.link @title [ui.colorpanel] @url
+#X text 593 24548 работа с таймлайном;
+#X obj 20 24716 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
+#X obj 20 24758 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 24772 ui.link @title [ui.aview] @url ui.aview-help.pd;
+#X text 200 24769 отображение массива с курсором и выбором диапазона;
+#X obj 30 24797 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 200 24794 кнопка отправляющая пустое событие (bang);
+#X obj 30 24822 ui.link @title [ui.button] @url ui.button-help.pd;
+#X text 200 24819 виджет кнопки c двумя состояниями;
+#X obj 30 24847 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
+#X text 200 24844 холст для рисования;
+#X obj 30 24872 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
+#X text 200 24869 многоканальный круговой измеритель уровня сигнала;
+#X obj 30 24897 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 24909 виджет выбора цвета;
-#X obj 30 24937 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 200 24934 виджет отображения;
-#X obj 30 24962 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
-#X text 200 24959 виджет для включения или выключения обработки звука;
-#X obj 30 24987 ui.link @title [ui.env] @url ui.env-help.pd;
-#X text 200 24984 редактор огибающей;
-#X obj 30 25012 ui.link @title [ui.filter] @url ui.filter-help.pd;
-#X text 200 25009 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
-#X obj 30 25037 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
-#X text 200 25034 виджет звукового фильтра;
-#X obj 30 25062 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
-#X text 200 25059 стерео-регулятор громкости;
-#X obj 30 25087 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 200 25084 контроль громкости;
-#X obj 30 25112 ui.link @title [ui.icon] @url ui.icon-help.pd;
-#X text 200 25109 простая иконка с возможностями нажатия;
-#X obj 30 25137 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
-#X text 200 25134 виджет увеличения или уменьшения значения;
-#X obj 30 25162 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 200 25159 виджет клавиатуры;
-#X obj 30 25187 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 200 25184 виджет ручки;
-#X obj 30 25212 ui.link @title [ui.label] @url ui.label-help.pd;
-#X text 200 25209 простой виджет надписи;
-#X obj 30 25237 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
-#X text 200 25234 черно-белый растровый дисплей;
-#X obj 30 25262 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 200 25259 виджет гиперссылки;
-#X obj 30 25287 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 25284 матрица переключателей;
-#X obj 30 25312 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 200 25309 выпадающее меню;
-#X obj 30 25337 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 200 25334 пиковый и RMS уровень сигнала;
-#X obj 30 25362 ui.link @title [ui.midi] @url ui.midi-help.pd;
-#X text 200 25359 окно просмотра MIDI сообщений;
-#X obj 30 25387 ui.link @title [ui.mouse_filter] @url
+#X text 200 24894 виджет выбора цвета;
+#X obj 30 24922 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 200 24919 виджет отображения;
+#X obj 30 24947 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
+#X text 200 24944 виджет для включения или выключения обработки звука;
+#X obj 30 24972 ui.link @title [ui.env] @url ui.env-help.pd;
+#X text 200 24969 редактор огибающей;
+#X obj 30 24997 ui.link @title [ui.filter] @url ui.filter-help.pd;
+#X text 200 24994 виджет-калькулятор коэффициентов для фильтра [flt.biquad~];
+#X obj 30 25022 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
+#X text 200 25019 виджет звукового фильтра;
+#X obj 30 25047 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
+#X text 200 25044 стерео-регулятор громкости;
+#X obj 30 25072 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
+#X text 200 25069 контроль громкости;
+#X obj 30 25097 ui.link @title [ui.icon] @url ui.icon-help.pd;
+#X text 200 25094 простая иконка с возможностями нажатия;
+#X obj 30 25122 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
+#X text 200 25119 виджет увеличения или уменьшения значения;
+#X obj 30 25147 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 200 25144 виджет клавиатуры;
+#X obj 30 25172 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 200 25169 виджет ручки;
+#X obj 30 25197 ui.link @title [ui.label] @url ui.label-help.pd;
+#X text 200 25194 простой виджет надписи;
+#X obj 30 25222 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
+#X text 200 25219 черно-белый растровый дисплей;
+#X obj 30 25247 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 200 25244 виджет гиперссылки;
+#X obj 30 25272 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 200 25269 матрица переключателей;
+#X obj 30 25297 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 200 25294 выпадающее меню;
+#X obj 30 25322 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 200 25319 пиковый и RMS уровень сигнала;
+#X obj 30 25347 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 25344 окно просмотра MIDI сообщений;
+#X obj 30 25372 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 25384 фильтр событий мыши из UI объектов;
-#X obj 30 25412 ui.link @title [ui.mouse_route] @url
+#X text 200 25369 фильтр событий мыши из UI объектов;
+#X obj 30 25397 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 25409 маршрутизация событий мыши от UI объектов;
-#X obj 30 25437 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 25434 числовой бокс;
-#X obj 30 25462 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 25459 просмотр числовых значений сигнала;
-#X obj 30 25487 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 25484 построитель графика для сигналов;
-#X obj 30 25512 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 25509 2D слайдер в полярных координатах;
-#X obj 30 25537 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 25534 менеджер пресетов;
-#X obj 30 25562 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 25559 радиопереключатель с возможностью множественного
+#X text 200 25394 маршрутизация событий мыши от UI объектов;
+#X obj 30 25422 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 25419 числовой бокс;
+#X obj 30 25447 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 25444 просмотр числовых значений сигнала;
+#X obj 30 25472 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 25469 построитель графика для сигналов;
+#X obj 30 25497 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 25494 2D слайдер в полярных координатах;
+#X obj 30 25522 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 25519 менеджер пресетов;
+#X obj 30 25547 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 25544 радиопереключатель с возможностью множественного
 выбора;
-#X obj 30 25587 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 25584 двухдиапазонный слайдер;
-#X obj 30 25612 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 25609 виджет просмотра формы волны;
-#X obj 30 25637 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 25634 виджет слайдера (ползунка);
-#X obj 30 25662 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 25659 2D виджет слайдера;
-#X obj 30 25687 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 25684 виджет многоползункового слайдера;
-#X obj 30 25712 ui.link @title [ui.spectroscope~] @url
+#X obj 30 25572 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 25569 двухдиапазонный слайдер;
+#X obj 30 25597 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 25594 виджет просмотра формы волны;
+#X obj 30 25622 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 25619 виджет слайдера (ползунка);
+#X obj 30 25647 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 25644 2D виджет слайдера;
+#X obj 30 25672 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 25669 виджет многоползункового слайдера;
+#X obj 30 25697 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 25709 виджет просмотрщика спектра;
-#X obj 30 25737 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 25734 список текстовых кнопок или текстовых переключателей;
-#X obj 30 25762 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 25759 cовременный виджет переключателя;
-#X obj 397 24741 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 25694 виджет просмотрщика спектра;
+#X obj 30 25722 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 25719 список текстовых кнопок или текстовых переключателей;
+#X obj 30 25747 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 25744 cовременный виджет переключателя;
+#X obj 397 24726 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 402 24741 объекты графического интерфейса пользователя;
+#X text 402 24726 объекты графического интерфейса пользователя;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 25784 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 25784 version: v0.9.8 \, license: GPL3;
-#X obj 20 25812 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 25769 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 25769 version: v0.9.8 \, license: GPL3;
+#X obj 20 25797 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 25836 ui.link @title Generated with pddoc v0.16.0 @url
+#X obj 20 25821 ui.link @title Generated with pddoc v0.16.0 @url
 https://github.com/uliss/pddoc;
-#X obj 670 25799 loadmsg 0;
-#X obj 670 25834 switch~;
+#X obj 670 25784 loadmsg 0;
+#X obj 670 25819 switch~;
 #X connect 1876 0 1877 0;

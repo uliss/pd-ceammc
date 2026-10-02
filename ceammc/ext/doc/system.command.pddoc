@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">run commands with pipes on Unix and Windows</tr>
-        <tr lang="ru">запуск цепочек команд с перенаправлением вывода в Unix и Windows</tr>
+        <tr lang="ru">запуск команд с конвейерами в Unix и Windows</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,102 +21,123 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: this is simplest unix shell simulation, do not expect too much from it,
-        if you need powerfull shell capabilities - write shell script and run it.</tr>
-        <tr lang="ru" finished="false">Примечание: это простейшая симуляция оболочки unix, не ждите
-        от нее слишком многого, если вам нужны мощные возможности оболочки — напишите сценарий
+        <tr lang="en">Note: this is a very simple Unix shell simulation — do not expect too much
+        from it. If you need powerful shell capabilities, write a shell script and run it.</tr>
+        <tr lang="ru">Примечание: это лишь очень простая имитация оболочки Unix — не ожидайте от
+        неё слишком многого. Если нужны полноценные возможности оболочки, напишите сценарий
         оболочки и запустите его.</tr>
       </par>
       <par>
-        <tr lang="en">The pipe symbol should be separated by whitespaces.</tr>
-        <tr lang="ru" finished="false">Символ трубы должен быть разделен белыми пробелами.</tr>
+        <tr lang="en">The pipe symbol should be surrounded by whitespace.</tr>
+        <tr lang="ru">Символ конвейера (|) должен быть отделён пробелами.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Calling external tools from a patch — running command-line utilities and
+        scripts directly from Pd and using their output (for example, to list files, query system
+        information or trigger custom scripts).</tr>
+        <tr lang="ru">• Вызов внешних утилит из патча — запуск консольных программ и сценариев прямо
+        из Pd с использованием их вывода (например, для вывода списка файлов, получения системной
+        информации или запуска пользовательских сценариев).</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Integration with the filesystem and system services — combining standard
+        Unix/Windows utilities with pipes to build complex operations, for example resizing
+        images, converting files or reading sensor values from an external command.</tr>
+        <tr lang="ru">• Интеграция с файловой системой и системными службами — комбинирование
+        стандартных утилит Unix/Windows через конвейеры для сложных операций, например изменения
+        размера изображений, конвертации файлов или чтения значений сенсоров из внешней
+        команды.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARGS" type="list">
         <tr lang="en">execution program chain</tr>
-        <tr lang="ru" finished="false">Цепочка исполнения программы</tr>
+        <tr lang="ru">цепочка программы для выполнения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @args -->
       <property name="@args" type="list" default="">
         <tr lang="en">execution program chain</tr>
-        <tr lang="ru" finished="false">Цепочка исполнения программы</tr>
+        <tr lang="ru">цепочка программы для выполнения</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="pd" enum="pd str lines bytes">
-        <tr lang="en">output processing mode. 'pd': output each output line as Pd atom list, 'str':
-        output whole as data:string, 'lines': output each output line as data:string, 'bytes':
-        output as byte stream</tr>
-        <tr lang="ru" finished="false">Режим обработки выходных данных. «pd»: вывод каждой выходной
-        линии в виде списка атомов Pd, «str»: вывод целых как данные: строка, «линии»: вывод каждой
-        выходной линии как данные: строка, «байты»: вывод как байтовый поток</tr>
+        <tr lang="en">output processing mode. 'pd': output each output line as a Pd atom list,
+        'str': output the whole output as data:string, 'lines': output each output line as
+        data:string, 'bytes': output as a byte stream</tr>
+        <tr lang="ru">режим обработки вывода. 'pd' — вывод каждой строки в виде списка атомов Pd,
+        'str' — вывод всего вывода как data:string, 'lines' — вывод каждой строки как data:string,
+        'bytes' — вывод в виде потока байтов</tr>
       </property>
       <!-- @pwd -->
       <property name="@pwd" type="symbol" default="">
         <tr lang="en">process working directory</tr>
-        <tr lang="ru" finished="false">процесс рабочего каталога</tr>
+        <tr lang="ru">рабочая директория процесса</tr>
       </property>
       <!-- @stderr -->
       <property name="@stderr" type="bool" default="1">
         <tr lang="en">capture stderr</tr>
-        <tr lang="ru" finished="false">Поймать Stderr</tr>
+        <tr lang="ru">захватывать поток stderr</tr>
       </property>
       <!-- @stdout -->
       <property name="@stdout" type="bool" default="1">
         <tr lang="en">capture stdout</tr>
-        <tr lang="ru" finished="false">захватывать стад</tr>
+        <tr lang="ru">захватывать поток stdout</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="int" units="msec" minvalue="5" maxvalue="500" default="100">
         <tr lang="en">period to check program output</tr>
-        <tr lang="ru" finished="false">период для проверки результатов программы</tr>
+        <tr lang="ru">период проверки вывода программы</tr>
       </property>
     </properties>
     <methods>
       <!-- stdin -->
       <method name="stdin">
         <info>
-          <tr lang="en">run the program with given input values</tr>
-          <tr lang="ru" finished="false">запускать программу с заданными входными значениями</tr>
+          <tr lang="en">runs the program with the given input values</tr>
+          <tr lang="ru">запускает программу с заданными входными значениями</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">the input values</tr>
-          <tr lang="ru" finished="false">Входные значения</tr>
+          <tr lang="ru">входные значения</tr>
         </param>
       </method>
       <!-- terminate -->
       <method name="terminate">
         <info>
-          <tr lang="en">terminate the running process</tr>
-          <tr lang="ru" finished="false">Прекратить запущенный процесс</tr>
+          <tr lang="en">terminates the running process</tr>
+          <tr lang="ru">завершает запущенный процесс</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">run the program</tr>
-          <tr lang="ru" finished="false">запустить программу</tr>
+          <tr lang="en">runs the program</tr>
+          <tr lang="ru">запускает программу</tr>
         </in>
         <in on="any">
-          <tr lang="en">change @args property and then run the program</tr>
-          <tr lang="ru" finished="false">изменить свойство @args и запустить программу</tr>
+          <tr lang="en">changes the @args property and then runs the program</tr>
+          <tr lang="ru">изменяет свойство @args и затем запускает программу</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">int: output process exit code</tr>
-          <tr lang="ru" finished="false">Int: выходной код процесса вывода</tr>
+        <out type="int">
+          <tr lang="en">int: process exit code</tr>
+          <tr lang="ru">целое число: код завершения процесса</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">stdout output, format depends from @mode</tr>
-          <tr lang="ru" finished="false">Формат зависит от @mode</tr>
+          <tr lang="en">stdout output, format depends on @mode</tr>
+          <tr lang="ru">вывод stdout, формат зависит от @mode</tr>
         </out>
       </outlet>
     </outlets>

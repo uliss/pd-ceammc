@@ -7,34 +7,33 @@ system.colorpanel-help.pd;
 #X text 220 117 системный диалог выбора цвета;
 #X obj 30 145 ui.link @title [system.command] @url
 system.command-help.pd;
-#X text 220 142 запуск цепочек команд с перенаправлением вывода в Unix
-и Windows;
-#X obj 30 185 ui.link @title [system.cursor] @url
+#X text 220 142 запуск команд с конвейерами в Unix и Windows;
+#X obj 30 170 ui.link @title [system.cursor] @url
 system.cursor-help.pd;
-#X text 220 182 выводит положение курсора \, нажатия кнопок мыши и
+#X text 220 167 выводит положение курсора \, нажатия кнопок мыши и
 колеса прокрутки;
-#X obj 30 225 ui.link @title [system.exec] @url system.exec-help.pd;
-#X text 220 222 запуск внешней команды в отдельном процессе;
-#X obj 30 250 ui.link @title [system.exit] @url system.exit-help.pd;
-#X text 220 247 завершает PureData;
-#X obj 30 275 ui.link @title [system.getenv] @url
+#X obj 30 210 ui.link @title [system.exec] @url system.exec-help.pd;
+#X text 220 207 запуск внешней команды в отдельном процессе;
+#X obj 30 235 ui.link @title [system.exit] @url system.exit-help.pd;
+#X text 220 232 завершает PureData;
+#X obj 30 260 ui.link @title [system.getenv] @url
 system.getenv-help.pd;
-#X text 220 272 выводит системные переменные окружения;
-#X obj 30 300 ui.link @title [system.hostname] @url
+#X text 220 257 выводит системные переменные окружения;
+#X obj 30 285 ui.link @title [system.hostname] @url
 system.hostname-help.pd;
-#X text 220 297 выводит имя хоста системы;
-#X obj 30 325 ui.link @title [system.info] @url system.info-help.pd;
-#X text 220 322 получение информации о системе: ЦПУ и температура;
-#X obj 30 350 ui.link @title [system.memsize] @url
+#X text 220 282 выводит имя хоста системы;
+#X obj 30 310 ui.link @title [system.info] @url system.info-help.pd;
+#X text 220 307 получение информации о системе: ЦПУ и температура;
+#X obj 30 335 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
-#X text 220 347 возвращает размер физической памяти (ОЗУ) в байтах;
-#X obj 30 375 ui.link @title [system.memused] @url
+#X text 220 332 возвращает размер физической памяти (ОЗУ) в байтах;
+#X obj 30 360 ui.link @title [system.memused] @url
 system.memused-help.pd;
-#X text 220 372 выводит использование физической памяти процессом -
+#X text 220 357 выводит использование физической памяти процессом -
 текущее и пиковое;
-#X obj 30 415 ui.link @title [system.screen_size] @url
+#X obj 30 400 ui.link @title [system.screen_size] @url
 system.screen_size-help.pd;
-#X text 220 412 выводит размер активного экрана в пикселях;
+#X text 220 397 выводит размер активного экрана в пикселях;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

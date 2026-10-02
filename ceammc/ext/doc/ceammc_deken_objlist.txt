@@ -1295,8 +1295,8 @@ synth.voice_fofc~	simple formant/vocal synthesizer with FOF-cycle filterbank. / 
 synth.voice_fofs~	simple formant/vocal synthesizer with FOF-smooth filterbank. / простой формантный/вокальный синтезатор со сглаженным банком фильтров FOF
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument / FM-синтезатор электро-фортепиано в стиле Wurlitzer
 system.colorpanel	system color panel dialog popup / системный диалог выбора цвета
-system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
-system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
+system.command	run commands with pipes on Unix and Windows / запуск команд с конвейерами в Unix и Windows
+system.cmd	run commands with pipes on Unix and Windows / запуск команд с конвейерами в Unix и Windows
 system.cursor	outputs the cursor motion, mouse wheel and button clicks / выводит положение курсора, нажатия кнопок мыши и колеса прокрутки
 system.exec	run the external command in a separate process / запуск внешней команды в отдельном процессе
 system.exit	quit PureData / завершает PureData
