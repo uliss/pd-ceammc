@@ -604,7 +604,7 @@ hw.apple_smc	query Apple system management control / запросы к сист�
 hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения в Apple
 hw.arduino	Arduino device / устройство Arduino
 hw.display	get/set display properties / получение и установка свойств дисплея
-hw.gamepad	gamepad controller / геймпад контроллеры
+hw.gamepad	gamepad controller / контроллер геймпада
 hw.kbd_light	controlling the keyboard backlight on some devices / управление подсветкой клавиатуры на некоторых устройствах
 hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
 hw.printer	basic document printing support / базовая поддержка печати документов

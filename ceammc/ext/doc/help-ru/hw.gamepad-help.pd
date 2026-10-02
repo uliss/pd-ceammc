@@ -1,60 +1,68 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 619 50 геймпад контроллеры;
+#X text 619 50 контроллер геймпада;
 #X obj 1 1 cnv 5 765 40 empty empty hw.gamepad 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 hw.gamepad;
-#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 button names: south \, east \, north \, west \, ltrig
-\, ltrig2 \, rtrig \, rtrig2 \, select \, start \, mode \, lthumb \,
-rthumb \, up \, down \, left \, right \, unknown.;
-#X text 240 138 button events: pressed \, released \, repeated \, changed;
-#X text 240 163 axis names: lstickx \, lsticky \, rstickx \, rsticky
-\, leftz \, rightz;
-#X msg 50 251 devices;
-#X obj 50 280 hw.gamepad, f 20;
-#X obj 98 309 print AXIS;
-#X obj 261 309 ui.dt @pinned 1;
-#X obj 50 338 print BUTTON;
-#X obj 50 367 route 0;
-#X obj 50 395 route lsticky lstickx rsticky rstickx;
-#X obj 50 424 flow.pack' 2;
-#X obj 222 424 flow.pack' 2;
-#X msg 50 453 cartesian \$1 \$2;
-#X msg 222 453 cartesian \$1 \$2;
-#X obj 50 482 ui.polar;
-#X obj 222 482 ui.polar;
-#X text 50 554 ...;
-#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 606 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 241 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Считывает состояние подключённого геймпада и выводит
+события кнопок \, осей \, а также подключений и отключений устройств.
+События кнопок выводятся из первого выхода \, события осей — из второго
+\, а сообщения \, связанные с устройством (подключение \, отключение
+\, информация об устройстве) \, — из третьего.;
+#X text 240 184 Названия кнопок: south \, east \, north \, west \,
+ltrig \, ltrig2 \, rtrig \, rtrig2 \, select \, start \, mode \, lthumb
+\, rthumb \, up \, down \, left \, right \, unknown.;
+#X text 240 239 События кнопок: pressed \, released \, repeated \,
+changed.;
+#X text 240 264 Названия осей: lstickx \, lsticky \, rstickx \, rsticky
+\, leftz \, rightz.;
+#X msg 50 367 devices;
+#X obj 50 396 hw.gamepad, f 20;
+#X obj 98 425 print AXIS;
+#X obj 261 425 ui.dt @pinned 1;
+#X obj 50 454 print BUTTON;
+#X obj 50 483 route 0;
+#X obj 50 511 route lsticky lstickx rsticky rstickx;
+#X obj 50 540 flow.pack' 2;
+#X obj 222 540 flow.pack' 2;
+#X msg 50 569 cartesian \$1 \$2;
+#X msg 222 569 cartesian \$1 \$2;
+#X obj 50 598 ui.polar;
+#X obj 222 598 ui.polar;
+#X text 50 670 ...;
+#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 722 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 607 devices;
-#X text 270 607 output devices info as data:Dict into third outlet.;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 657 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 723 devices;
+#X text 270 723 выводит список устройств в виде data:Dict через третий
+выход.;
+#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 773 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 658 1\.;
-#X text 270 658 input.;
-#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 698 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 774 1\.;
+#X text 270 774 вход.;
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 814 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 699 1\.;
-#X text 270 699 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
+#X text 130 815 1\.;
+#X text 270 815 вывод кнопки: список GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
 VALUE.;
-#X text 130 734 2\.;
-#X text 270 734 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
-#X text 130 754 3\.;
-#X text 270 754 [device DICT( - connected device information \, [connected
-ID( - when device connected \, [disconnected ID( - when device disconnected.;
+#X text 130 850 2\.;
+#X text 270 850 вывод оси: список GAMEPAD_ID AXIS_NAME VALUE.;
+#X text 130 870 3\.;
+#X text 270 870 [device DICT( — информация о подключённом устройстве
+\, [connected ID( — при подключении устройства \, [disconnected ID(
+— при отключении устройства.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 834 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 837 библиотека: ceammc v0.9.8;
-#N canvas 10 856 400 290 info 0;
+#X obj 1 950 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 953 библиотека: ceammc v0.9.8;
+#N canvas 10 972 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,18 +86,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 856 pd info;
-#X connect 8 0 9 0;
-#X connect 13 0 14 0;
+#X restore 10 972 pd info;
+#X connect 9 0 10 0;
 #X connect 14 0 15 0;
-#X connect 15 0 17 0;
+#X connect 15 0 16 0;
 #X connect 16 0 18 0;
 #X connect 17 0 19 0;
 #X connect 18 0 20 0;
-#X connect 9 2 11 0;
-#X connect 9 0 12 0;
-#X connect 9 1 10 0;
-#X connect 9 1 13 0;
-#X connect 14 1 15 1;
-#X connect 14 2 16 0;
-#X connect 14 3 16 1;
+#X connect 19 0 21 0;
+#X connect 10 2 12 0;
+#X connect 10 0 13 0;
+#X connect 10 1 11 0;
+#X connect 10 1 14 0;
+#X connect 15 1 16 1;
+#X connect 15 2 17 0;
+#X connect 15 3 17 1;

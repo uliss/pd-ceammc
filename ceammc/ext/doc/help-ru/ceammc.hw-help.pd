@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [hw.display] @url hw.display-help.pd;
 #X text 220 192 получение и установка свойств дисплея;
 #X obj 30 220 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
-#X text 220 217 геймпад контроллеры;
+#X text 220 217 контроллер геймпада;
 #X obj 30 245 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
 #X text 220 242 управление подсветкой клавиатуры на некоторых устройствах;
 #X obj 30 270 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;

@@ -944,7 +944,7 @@ hw.apple_sms-help.pd;
 #X obj 30 9977 ui.link @title [hw.display] @url hw.display-help.pd;
 #X text 200 9974 получение и установка свойств дисплея;
 #X obj 30 10002 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
-#X text 200 9999 геймпад контроллеры;
+#X text 200 9999 контроллер геймпада;
 #X obj 30 10027 ui.link @title [hw.kbd_light] @url
 hw.kbd_light-help.pd;
 #X text 200 10024 управление подсветкой клавиатуры на некоторых устройствах;
