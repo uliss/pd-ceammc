@@ -5,90 +5,95 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.colorpanel 20 20 0 20
 -104026 -4096 0;
 #X obj 617 11 system.colorpanel;
-#X msg 50 118 bang;
-#X obj 261 118 ui.menu float int hex;
-#X msg 78 147 symbol #FFAA77;
-#X msg 261 147 @mode \$2;
-#X msg 261 176 255 0 255;
-#X msg 261 205 0.0 1.0 0.5;
-#X obj 50 234 system.colorpanel @f;
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Открывает системный диалог выбора цвета и выводит выбранный
+цвет в одном из нескольких форматов в зависимости от свойства @mode:
+в виде списка RGB из чисел с плавающей точкой или целых чисел \, в
+виде hex-символа либо в виде значения data:color.;
+#X msg 50 231 bang;
+#X obj 261 231 ui.menu float int hex;
+#X msg 78 260 symbol #FFAA77;
+#X msg 261 260 @mode \$2;
+#X msg 261 289 255 0 255;
+#X msg 261 318 0.0 1.0 0.5;
+#X obj 50 347 system.colorpanel @f;
+#X obj 50 375 ui.dt;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 430 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 352 Left-click + ⇧;
-#X text 310 352 open color chooser.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 387 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 465 Left-click + ⇧;
+#X text 310 465 open color chooser.;
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 500 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 503 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 388 @d;
-#X text 270 388 Сокращение для @mode data. Устанавливает режим вывода
+#X msg 130 501 @d;
+#X text 270 501 Сокращение для @mode data. Устанавливает режим вывода
 цвета в виде типа данных Color.;
-#X obj 250 430 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 430 @f;
-#X text 270 430 Сокращение для @mode float. Устанавливает режим вывода
+#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 543 @f;
+#X text 270 543 Сокращение для @mode float. Устанавливает режим вывода
 цвета в виде списка RGB в диапазоне [0\..1].;
-#X obj 250 472 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 472 @float;
-#X text 270 472 Текущее цветовое значение в формате списка RGB. Тип:
-list. Значение по умолчанию: 1 1 1\. Тип элемента: float. Диапазон
-элемента: [0\..1].;
-#X obj 250 529 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 529 @h;
-#X text 270 529 Сокращение для: @mode hex. Устанавливает режим вывода
+#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 585 @float;
+#X text 270 585 Текущее значение цвета в формате списка RGB. Тип: list.
+Значение по умолчанию: 1 1 1\. Тип элемента: float. Диапазон элемента:
+[0\..1].;
+#X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 642 @h;
+#X text 270 642 Сокращение для @mode hex. Устанавливает режим вывода
 цвета в виде символа в формате #RRGGBB.;
-#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 571 @hex;
-#X text 270 571 Текущее цветовое значение в формате #RRGGBB. Тип: symbol.
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @hex;
+#X text 270 684 Текущее значение цвета в формате #RRGGBB. Тип: symbol.
 Значение по умолчанию: #FFFFFF.;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @i;
-#X text 270 613 Сокращение для @mode int. Устанавливает режим вывода
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @i;
+#X text 270 726 Сокращение для @mode int. Устанавливает режим вывода
 цвета в виде списка RGB в диапазоне [0\..255].;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @int;
-#X text 270 655 Текущее цветовое значение в формате списка RGB. Тип:
-list. Значение по умолчанию: 255 255 255\. Число элементов: 3\. Тип
-элемента: int. Диапазон элемента: [0\..255].;
-#X obj 250 727 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 727 @mode;
-#X text 270 727 Режим вывода цвета. Тип: symbol. Значение по умолчанию:
+#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 768 @int;
+#X text 270 768 Текущее значение цвета в формате списка RGB. Тип: list.
+Значение по умолчанию: 255 255 255\. Число элементов: 3\. Тип элемента:
+int. Диапазон элемента: [0\..255].;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 825 @mode;
+#X text 270 825 Режим вывода цвета. Тип: symbol. Значение по умолчанию:
 float. Разрешённые значения: float \, int \, hex \, data.;
-#X obj 250 769 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 769 @color;
-#X text 270 769 Текущий цвет. Тип: atom.;
-#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 814 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 867 @color;
+#X text 270 867 Текущий цвет. Тип: atom.;
+#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 912 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 815 1\.;
-#X text 170 815 bang:;
-#X text 270 815 открывает диалог выбора цвета.;
-#X text 170 840 symbol:;
-#X text 270 840 открывает диалог выбора цвета с указанным цветом. Ожидается
+#X text 130 913 1\.;
+#X text 170 913 bang:;
+#X text 270 913 открывает диалог выбора цвета.;
+#X text 170 938 symbol:;
+#X text 270 938 открывает диалог выбора цвета с указанным цветом. Ожидается
 шестнадцатеричный формат #RRGGBB.;
-#X text 170 880 list:;
-#X text 270 880 открывает диалог выбора цвета с указанным цветом. Ожидается
+#X text 170 978 list:;
+#X text 270 978 открывает диалог выбора цвета с указанным цветом. Ожидается
 список из трёх RGB-компонент в диапазоне [0\..1] или [0\..255] в зависимости
 от свойства @mode.;
-#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 950 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 951 1\.;
-#X text 170 951 symbol:;
-#X text 270 951 цвет в шестнадцатеричном формате #RRGGBB.;
-#X text 170 976 list:;
-#X text 270 976 список из трёх цветовых компонент RGB в диапазоне [0\..1]
-или [0\..255] в зависимости от значения свойства @mode.;
+#X obj 20 1043 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1048 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1049 1\.;
+#X text 170 1049 symbol:;
+#X text 270 1049 цвет в шестнадцатеричном формате #RRGGBB.;
+#X text 170 1074 list:;
+#X text 270 1074 список из трёх цветовых компонент RGB в диапазоне
+[0\..1] или [0\..255] в зависимости от значения свойства @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 1056 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1059 библиотека: ceammc v0.9.8;
-#N canvas 10 1078 400 290 info 0;
+#X obj 1 1154 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1157 библиотека: ceammc v0.9.8;
+#N canvas 10 1176 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -112,11 +117,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1078 pd info;
-#X connect 5 0 7 0;
-#X connect 4 0 10 0;
-#X connect 6 0 10 0;
-#X connect 10 0 11 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X restore 10 1176 pd info;
+#X connect 7 0 9 0;
+#X connect 6 0 12 0;
+#X connect 8 0 12 0;
+#X connect 12 0 13 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;

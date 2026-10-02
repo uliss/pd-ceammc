@@ -17,6 +17,17 @@
       <keywords>colorpanel</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Opens the system color chooser dialog and outputs the selected color in one
+        of several formats, depending on the @mode property: as an RGB list of floats or integers,
+        as a hex symbol or as a data:color value.</tr>
+        <tr lang="ru">Открывает системный диалог выбора цвета и выводит выбранный цвет в одном из
+        нескольких форматов в зависимости от свойства @mode: в виде списка RGB из чисел с
+        плавающей точкой или целых чисел, в виде hex-символа либо в виде значения
+        data:color.</tr>
+      </par>
+    </info>
     <mouse>
       <event type="left-click" editmode="false" keys="Shift">open color chooser</event>
     </mouse>
@@ -43,19 +54,19 @@
       <property name="@float" type="list" default="1 1 1" item-type="float" minvalue="0"
       maxvalue="1">
         <tr lang="en">current color value in RGB list format</tr>
-        <tr lang="ru">текущее цветовое значение в формате списка RGB</tr>
+        <tr lang="ru">текущее значение цвета в формате списка RGB</tr>
       </property>
       <!-- @h -->
       <property name="@h" type="alias">
         <tr lang="en">alias for @mode hex. Sets the color output mode as a symbol in #RRGGBB
         format.</tr>
-        <tr lang="ru">сокращение для: @mode hex. Устанавливает режим вывода цвета в виде символа в
+        <tr lang="ru">сокращение для @mode hex. Устанавливает режим вывода цвета в виде символа в
         формате #RRGGBB</tr>
       </property>
       <!-- @hex -->
       <property name="@hex" type="symbol" default="#FFFFFF">
         <tr lang="en">current color value in #RRGGBB format</tr>
-        <tr lang="ru">текущее цветовое значение в формате #RRGGBB</tr>
+        <tr lang="ru">текущее значение цвета в формате #RRGGBB</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="alias">
@@ -68,7 +79,7 @@
       <property name="@int" type="list" num-items="3" minvalue="0" maxvalue="255"
       default="255 255 255" item-type="int">
         <tr lang="en">current color value in RGB list format</tr>
-        <tr lang="ru">текущее цветовое значение в формате списка RGB</tr>
+        <tr lang="ru">текущее значение цвета в формате списка RGB</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="float int hex data" default="float">
@@ -86,14 +97,14 @@
           <tr lang="en">opens the color panel dialog with the selected color. The hex format
           #RRGGBB is expected.</tr>
           <tr lang="ru">открывает диалог выбора цвета с указанным цветом. Ожидается
-          шестнадцатеричный формат #RRGGBB.</tr>
+          шестнадцатеричный формат #RRGGBB</tr>
         </in>
         <in on="list">
           <tr lang="en">opens the color panel dialog with the selected color. An RGB color triplet
           is expected in the float [0..1] or int [0..255] range, depending on the @mode
           property.</tr>
           <tr lang="ru">открывает диалог выбора цвета с указанным цветом. Ожидается список из трёх
-          RGB-компонент в диапазоне [0..1] или [0..255] в зависимости от свойства @mode.</tr>
+          RGB-компонент в диапазоне [0..1] или [0..255] в зависимости от свойства @mode</tr>
         </in>
       </inlet>
     </inlets>
@@ -107,7 +118,7 @@
           <tr lang="en">RGB color triplet in the float [0..1] or int [0..255] range depending on
           the @mode property.</tr>
           <tr lang="ru">список из трёх цветовых компонент RGB в диапазоне [0..1] или [0..255] в
-          зависимости от значения свойства @mode.</tr>
+          зависимости от значения свойства @mode</tr>
         </out>
       </outlet>
     </outlets>
