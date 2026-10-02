@@ -97,8 +97,8 @@
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">on a 0→1 transition: starts the counter; on a 1→0 transition: stops it</tr>
-          <tr lang="ru">при переходе 0→1: запускает счётчик; при переходе 1→0: останавливает
+          <tr lang="en">on a 0→1 transition: starts the counter, on a 1→0 transition: stops it</tr>
+          <tr lang="ru">при переходе 0→1: запускает счётчик, при переходе 1→0: останавливает
           его</tr>
         </in>
       </inlet>

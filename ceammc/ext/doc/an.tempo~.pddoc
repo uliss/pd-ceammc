@@ -28,13 +28,13 @@
       <par>
         <tr lang="en">The detection is based on onset detection: the object finds transient events
         in the signal (attacks, hits, note starts) and estimates the tempo from the intervals
-        between them. The onset detection function is controlled by @method; other properties tune
+        between them. The onset detection function is controlled by @method, other properties tune
         the analysis: @bs and @hs for the analysis window and hop size, @silence for the silence
         threshold, @threshold for peak-picking and @delay for compensating a constant system
         latency.</tr>
         <tr lang="ru">Детекция основана на обнаружении атак: объект находит в сигнале транзиентные
         события (атаки, удары, начала нот) и оценивает темп по интервалам между ними. Функция
-        обнаружения атак управляется свойством @method; остальные свойства настраивают анализ: @bs
+        обнаружения атак управляется свойством @method, остальные свойства настраивают анализ: @bs
         и @hs — размер окна и шага, @silence — порог тишины, @threshold — порог пикового отбора,
         @delay — компенсация постоянной системной задержки.</tr>
       </par>

@@ -14,8 +14,8 @@
 each bit into a note event \, using the note numbers provided in the
 KEYS argument (or the @keys property). In the default mode each bit
 corresponds to its own outlet \, and a pair (NOTE VEL) is sent to that
-outlet. If the bit is 1 \, the velocity is @vel; if the bit is 0 \,
-the velocity is 0 (note off).;
+outlet. If the bit is 1 \, the velocity is @vel \, if the bit is 0
+\, the velocity is 0 (note off).;
 #X text 240 199 In @poly mode a single outlet is used \, and instead
 of a (NOTE VEL) pair a (VOICE NOTE VEL) triplet is sent — this is convenient
 for use with the [clone] object \, where VOICE identifies the clone

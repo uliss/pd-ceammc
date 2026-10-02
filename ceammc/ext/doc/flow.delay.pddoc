@@ -56,10 +56,10 @@
       <!-- @block -->
       <property name="@block" type="bool" default="0">
         <tr lang="en">blocking mode. If true, discards incoming messages until the scheduled
-        message is output; after that, it is ready to accept a new one. Otherwise, acts like the
+        message is output, after that, it is ready to accept a new one. Otherwise, acts like the
         vanilla [delay] object.</tr>
         <tr lang="ru">режим блокировки. Если истина, отбрасывает входящие сообщения до вывода
-        запланированного сообщения; после этого готов принять новое. В остальном ведёт себя как
+        запланированного сообщения, после этого готов принять новое. В остальном ведёт себя как
         стандартный [delay].</tr>
       </property>
       <!-- @delay -->

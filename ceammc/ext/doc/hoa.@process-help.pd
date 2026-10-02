@@ -69,7 +69,7 @@ Type: int. Default value: 0\.;
 #X text 270 931 set or request properties.;
 #X text 170 956 bang:;
 #X text 270 956 in harmonics mode \, outputs the list @order @hdegree
-@horder; in planewaves mode \, outputs @order @index @index.;
+@horder \, in planewaves mode \, outputs @order @index @index.;
 #X text 170 1011 float:;
 #X text 270 1011 passes a float message through.;
 #X text 170 1036 symbol:;

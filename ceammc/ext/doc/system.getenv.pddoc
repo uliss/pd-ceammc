@@ -23,10 +23,10 @@
     <info>
       <par>
         <tr lang="en">Outputs the value of a system environment variable. The variable name is set
-        by the NAME argument, the @name property or a symbol on the inlet; a bang outputs the value
+        by the NAME argument, the @name property or a symbol on the inlet, a bang outputs the value
         of the currently set variable.</tr>
         <tr lang="ru">Выводит значение системной переменной окружения. Имя переменной задаётся
-        аргументом NAME, свойством @name или символом на входе; bang выводит значение текущей
+        аргументом NAME, свойством @name или символом на входе, bang выводит значение текущей
         заданной переменной.</tr>
       </par>
       <par>

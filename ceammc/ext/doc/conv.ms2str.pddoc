@@ -43,9 +43,9 @@
       </property>
       <!-- @symbol -->
       <property name="@symbol" type="flag" default="0" access="initonly">
-        <tr lang="en">if specified, output the formatted time as a symbol; otherwise as a
+        <tr lang="en">if specified, output the formatted time as a symbol, otherwise as a
         string</tr>
-        <tr lang="ru">если указан, выводить форматированное время как символ; иначе как строку</tr>
+        <tr lang="ru">если указан, выводить форматированное время как символ, иначе как строку</tr>
       </property>
     </properties>
     <inlets>

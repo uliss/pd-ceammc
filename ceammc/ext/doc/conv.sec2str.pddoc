@@ -27,12 +27,12 @@
       <par>
         <tr lang="en">The object takes a time value in seconds and formats it as a human-readable
         time string in the form "HH:MM:SS" (or "HH:MM:SS.XXX" if the @ms flag is set). By default
-        the result is output as a string object (that is, a symbol in Pd terms); with the @symbol
+        the result is output as a string object (that is, a symbol in Pd terms), with the @symbol
         flag, the result is sent through the outlet as a symbol. This is the inverse operation of
         [conv.str2sec].</tr>
         <tr lang="ru">Объект принимает значение времени в секундах и форматирует его в
         удобочитаемую строку времени вида "HH:MM:SS" (или "HH:MM:SS.XXX", если установлен флаг
-        @ms). По умолчанию результат выводится как строковый объект (то есть символ в терминах Pd);
+        @ms). По умолчанию результат выводится как строковый объект (то есть символ в терминах Pd),
         при флаге @symbol результат отправляется через выход в виде символа. Это операция, обратная
         [conv.str2sec].</tr>
       </par>
@@ -45,9 +45,9 @@
       </property>
       <!-- @symbol -->
       <property name="@symbol" type="flag" default="0" access="initonly">
-        <tr lang="en">if specified, output the formatted time as a symbol; otherwise as a
+        <tr lang="en">if specified, output the formatted time as a symbol, otherwise as a
         string</tr>
-        <tr lang="ru">если указан, выводить форматированное время как символ; иначе как строку</tr>
+        <tr lang="ru">если указан, выводить форматированное время как символ, иначе как строку</tr>
       </property>
     </properties>
     <inlets>

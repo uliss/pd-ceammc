@@ -29,76 +29,77 @@
 #X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 462 @abs;
-#X text 270 462 Если 0: использовать холст верхнего уровня; если 1:
-использовать холст абстракции. Тип: bool. Значение по умолчанию: 1\.;
-#X obj 250 534 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 534 @dir?;
-#X text 270 534 (только чтение) Директория холста. Тип: symbol. Значение
+#X text 270 462 Если 0: использовать холст верхнего уровня \, если
+1: использовать холст абстракции. Тип: bool. Значение по умолчанию:
+1\.;
+#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 519 @dir?;
+#X text 270 519 (только чтение) Директория холста. Тип: symbol. Значение
 по умолчанию: /.;
-#X obj 250 576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 576 @height?;
-#X text 270 576 (только чтение) Высота окна. Тип: int. Значение по
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 561 @height?;
+#X text 270 561 (только чтение) Высота окна. Тип: int. Значение по
 умолчанию: 400\.;
-#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 618 @name?;
-#X text 270 618 (только чтение) Имя холста. Тип: symbol. Значение по
+#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 603 @name?;
+#X text 270 603 (только чтение) Имя холста. Тип: symbol. Значение по
 умолчанию: test_canvas.;
-#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 660 @paths?;
-#X text 270 660 (только чтение) Пути поиска. Тип: list.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 @width?;
-#X text 270 690 (только чтение) Ширина окна. Тип: int. Значение по
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 645 @paths?;
+#X text 270 645 (только чтение) Пути поиска. Тип: list.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 675 @width?;
+#X text 270 675 (только чтение) Ширина окна. Тип: int. Значение по
 умолчанию: 600\.;
-#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 732 @x?;
-#X text 270 732 (только чтение) X-позиция окна. Тип: int. Значение
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 717 @x?;
+#X text 270 717 (только чтение) X-позиция окна. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 774 @y?;
-#X text 270 774 (только чтение) Y-позиция окна. Тип: int. Значение
+#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 759 @y?;
+#X text 270 759 (только чтение) Y-позиция окна. Тип: int. Значение
 по умолчанию: 0\.;
-#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 816 @font?;
-#X text 270 816 (только чтение) Шрифт окна. Тип: int. Значение по умолчанию:
+#X obj 250 801 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 801 @font?;
+#X text 270 801 (только чтение) Шрифт окна. Тип: int. Значение по умолчанию:
 10\.;
-#X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 858 @size?;
-#X text 270 858 (только чтение) Размер окна. Тип: list. Значение по
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 843 @size?;
+#X text 270 843 (только чтение) Размер окна. Тип: list. Значение по
 умолчанию: 600 400\.;
-#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 915 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 900 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 916 postscript;
-#X text 270 916 сохраняет патч в виде файла PostScript. Аргументы:;
-#X obj 300 941 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 941 [FNAME]: имя файла. Если не указано \, используется
+#X msg 130 901 postscript;
+#X text 270 901 сохраняет патч в виде файла PostScript. Аргументы:;
+#X obj 300 926 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 926 [FNAME]: имя файла. Если не указано \, используется
 имя патча с расширением .ps. Тип: symbol.;
-#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1004 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 989 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1005 1\.;
-#X text 270 1005 запрос свойства.;
-#X text 170 1030 bang:;
-#X text 270 1030 выводит словарь.;
-#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 990 1\.;
+#X text 270 990 запрос свойства.;
+#X text 170 1015 bang:;
+#X text 270 1015 выводит словарь.;
+#X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1055 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1071 1\.;
-#X text 270 1071 вывод словаря или значения свойства.;
+#X text 130 1056 1\.;
+#X text 270 1056 вывод словаря или значения свойства.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 1121 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1124 библиотека: ceammc v0.9.8;
-#X text 425 1136 смотрите также:;
-#X obj 546 1139 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1106 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1109 библиотека: ceammc v0.9.8;
+#X text 425 1121 смотрите также:;
+#X obj 546 1124 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.args] @url patch.args-help.pd;
-#X obj 636 1139 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 636 1124 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.current] @url canvas.current-help.pd;
-#N canvas 10 1143 400 290 info 0;
+#N canvas 10 1128 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -122,7 +123,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1143 pd info;
+#X restore 10 1128 pd info;
 #X connect 6 0 13 0;
 #X connect 10 0 13 0;
 #X connect 11 0 13 0;

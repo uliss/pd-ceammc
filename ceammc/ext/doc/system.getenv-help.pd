@@ -5,66 +5,66 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.getenv 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 system.getenv;
-#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Outputs the value of a system environment variable.
 The variable name is set by the NAME argument \, the @name property
-or a symbol on the inlet; a bang outputs the value of the currently
+or a symbol on the inlet \, a bang outputs the value of the currently
 set variable.;
-#X text 240 168 Typical use cases:;
-#X text 250 193 • Reading the user environment — accessing standard
+#X text 240 153 Typical use cases:;
+#X text 250 178 • Reading the user environment — accessing standard
 environment variables such as HOME \, USER \, PATH or SHELL to build
 file paths \, detect the current user or set platform-specific defaults.;
-#X msg 50 326 symbol HOME;
-#X msg 184 326 symbol APPDATA;
-#X msg 347 326 symbol PATH;
-#X msg 482 326 symbol USER;
-#X msg 616 326 symbol SHELL;
-#X obj 78 370 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 311 symbol HOME;
+#X msg 184 311 symbol APPDATA;
+#X msg 347 311 symbol PATH;
+#X msg 482 311 symbol USER;
+#X msg 616 311 symbol SHELL;
+#X obj 78 355 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 398 system.getenv USER;
-#X obj 50 427 ui.display;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 482 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 383 system.getenv USER;
+#X obj 50 412 ui.display;
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 467 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 485 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 470 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 483 1\.;
-#X text 170 483 symbol;
-#X obj 268 484 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 483 NAME: environment variable name. Type: symbol.;
-#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 523 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 468 1\.;
+#X text 170 468 symbol;
+#X obj 268 469 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 468 NAME: environment variable name. Type: symbol.;
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 508 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 526 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 511 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 524 @name;
-#X text 270 524 Environment variable name. Type: symbol.;
-#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 569 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 509 @name;
+#X text 270 509 Environment variable name. Type: symbol.;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 554 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 570 1\.;
-#X text 170 570 bang:;
-#X text 270 570 outputs the variable value.;
-#X text 170 595 symbol:;
-#X text 270 595 sets the name of the environment variable and outputs
+#X text 130 555 1\.;
+#X text 170 555 bang:;
+#X text 270 555 outputs the variable value.;
+#X text 170 580 symbol:;
+#X text 270 580 sets the name of the environment variable and outputs
 its value.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 635 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 651 1\.;
-#X text 170 651 symbol:;
-#X text 270 651 symbol: environment variable value.;
+#X text 130 636 1\.;
+#X text 170 636 symbol:;
+#X text 270 636 symbol: environment variable value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 701 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 704 library: ceammc v0.9.8;
-#X text 553 716 see also:;
-#X obj 628 719 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 686 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 689 library: ceammc v0.9.8;
+#X text 553 701 see also:;
+#X obj 628 704 ui.link @background_color 0.78431 0.78431 0.78431
 @title [system.hostname] @url system.hostname-help.pd;
-#N canvas 10 723 400 290 info 0;
+#N canvas 10 708 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -88,7 +88,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 723 pd info;
+#X restore 10 708 pd info;
 #X connect 8 0 14 0;
 #X connect 13 0 14 0;
 #X connect 9 0 14 0;

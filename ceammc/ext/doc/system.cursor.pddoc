@@ -84,9 +84,9 @@
           <tr lang="ru">выводит положение курсора</tr>
         </in>
         <in on="float">
-          <tr lang="en">when 1 is received, turns on cursor polling (position and buttons); when 0
+          <tr lang="en">when 1 is received, turns on cursor polling (position and buttons), when 0
           is received, turns it off</tr>
-          <tr lang="ru">при получении 1 включается опрос курсора (позиция и кнопки); при получении
+          <tr lang="ru">при получении 1 включается опрос курсора (позиция и кнопки), при получении
           0 — выключается</tr>
         </in>
       </inlet>

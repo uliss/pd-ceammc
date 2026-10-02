@@ -177,8 +177,8 @@
           <tr lang="ru">сбрасывает все счётчики и запускает секвенсор</tr>
         </in>
         <in on="float">
-          <tr lang="en">if 1 — reset then start; if 0 — stop</tr>
-          <tr lang="ru">если 1 — сбросить и запустить; если 0 — остановить</tr>
+          <tr lang="en">if 1 — reset then start, if 0 — stop</tr>
+          <tr lang="ru">если 1 — сбросить и запустить, если 0 — остановить</tr>
         </in>
       </inlet>
       <inlet>

@@ -13,8 +13,8 @@
 #X text 240 83 The object converts a hexadecimal value given as a symbol
 (with or without the 0x prefix) into an integer. A single symbol or
 a list of symbols can be sent to the inlet. By default the object reports
-parsing errors; if the @strict flag is set \, parsing errors are silently
-ignored.;
+parsing errors \, if the @strict flag is set \, parsing errors are
+silently ignored.;
 #X msg 50 247 symbol 0xFF;
 #X obj 50 276 hex->int;
 #X floatatom 50 305 5 0 0 0 - - -;

@@ -70,30 +70,30 @@ hoa.process~ (только в режиме harmonics). Тип: int. Значен
 #X text 130 946 1\.;
 #X text 270 946 задать или запросить свойства.;
 #X text 170 971 bang:;
-#X text 270 971 в режиме harmonics выводит список @order @hdegree @horder;
-в режиме planewaves — @order @index @index.;
-#X text 170 1026 float:;
-#X text 270 1026 пропускает сообщение с числом без изменений.;
-#X text 170 1051 symbol:;
-#X text 270 1051 пропускает символьное сообщение без изменений.;
-#X text 170 1076 list:;
-#X text 270 1076 пропускает сообщение-список без изменений.;
-#X obj 20 1111 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1116 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 270 971 в режиме harmonics выводит список @order @hdegree @horder
+\, в режиме planewaves — @order @index @index.;
+#X text 170 1011 float:;
+#X text 270 1011 пропускает сообщение с числом без изменений.;
+#X text 170 1036 symbol:;
+#X text 270 1036 пропускает символьное сообщение без изменений.;
+#X text 170 1061 list:;
+#X text 270 1061 пропускает сообщение-список без изменений.;
+#X obj 20 1096 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1101 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1117 1\.;
-#X text 270 1117 выводит свойства.;
+#X text 130 1102 1\.;
+#X text 270 1102 выводит свойства.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1167 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1170 библиотека: ceammc v0.9.8;
-#X text 529 1182 смотрите также:;
-#X obj 650 1185 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1152 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1155 библиотека: ceammc v0.9.8;
+#X text 529 1167 смотрите также:;
+#X obj 650 1170 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.process~] @url hoa.process~-help.pd;
-#N canvas 10 1189 400 290 info 0;
+#N canvas 10 1174 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1189 pd info;
+#X restore 10 1174 pd info;
 #X connect 13 0 14 0;
 #X connect 14 0 17 0;
 #X connect 6 0 19 0;

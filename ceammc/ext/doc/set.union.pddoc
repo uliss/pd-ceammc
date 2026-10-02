@@ -31,7 +31,7 @@
         <in>
           <tr lang="en">first set or list (converted to set), other values are ignored</tr>
           <tr lang="ru" finished="false">первый набор или список (преобразуется в набор), другие
-          значения игнорируются;</tr>
+          значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>

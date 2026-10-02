@@ -10,7 +10,8 @@
 can send byte values to a connected device (as a single float or as
 a list of floats in the [0 \, 255] range) and outputs each byte received
 from the port. The port and baud rate can be set with arguments or
-properties; the list of available serial devices is available in @devices.;
+properties \, the list of available serial devices is available in
+@devices.;
 #X text 240 199 Typical use cases:;
 #X text 250 224 • Arduino and microcontroller control — sending and
 receiving byte commands from an Arduino \, Teensy or similar board

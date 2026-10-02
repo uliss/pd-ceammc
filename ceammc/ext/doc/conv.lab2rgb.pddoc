@@ -25,15 +25,15 @@
         <tr lang="en">The object converts CIELAB color values (L*, a*, b*) to RGB values. The L*
         component (lightness) is given in the range [0, 1], and the a* and b* components
         (chromaticity) are given in the range [-1, 1]. By default the RGB values are output as
-        integers in the range [0, 255]; with the @float flag they are output as floats in the range
-        [0, 1]. By default the three channel values are sent to three separate outlets; if the
+        integers in the range [0, 255], with the @float flag they are output as floats in the range
+        [0, 1]. By default the three channel values are sent to three separate outlets, if the
         @pack flag is set, they are packed into a single list sent to the first outlet. With the
         @sync flag, the object outputs a new value whenever any inlet changes.</tr>
         <tr lang="ru">Объект преобразует цветовые значения CIELAB (L*, a*, b*) в значения RGB.
         Компонента L* (светлота) задаётся в диапазоне [0, 1], а компоненты a* и b* (цветность) — в
         диапазоне [-1, 1]. По умолчанию значения RGB выводятся как целые числа в диапазоне [0,
-        255]; при флаге @float они выводятся как числа с плавающей точкой в диапазоне [0, 1]. По
-        умолчанию три значения каналов отправляются на три отдельных выхода; если установлен флаг
+        255], при флаге @float они выводятся как числа с плавающей точкой в диапазоне [0, 1]. По
+        умолчанию три значения каналов отправляются на три отдельных выхода, если установлен флаг
         @pack, они упаковываются в один список и отправляются на первый выход. При флаге @sync
         объект выводит новое значение при любом изменении на любом входе.</tr>
       </par>

@@ -109,7 +109,7 @@
       <!-- @compression -->
       <property name="@compression" type="float" minvalue="0" default="1">
         <tr lang="en">lambda logarithmic compression factor, 0 to disable</tr>
-        <tr lang="ru">коэффициент лямбда логарифмического сжатия; 0 — отключить</tr>
+        <tr lang="ru">коэффициент лямбда логарифмического сжатия, 0 — отключить</tr>
       </property>
       <!-- @delay -->
       <property name="@delay" type="float" minvalue="0" default="49.9093" units="millisecond">

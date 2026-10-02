@@ -21,11 +21,11 @@
         <tr lang="en">Reads and writes data over a serial port. The object can send byte values to
         a connected device (as a single float or as a list of floats in the [0, 255] range) and
         outputs each byte received from the port. The port and baud rate can be set with arguments
-        or properties; the list of available serial devices is available in @devices.</tr>
+        or properties, the list of available serial devices is available in @devices.</tr>
         <tr lang="ru">Читает и записывает данные через последовательный порт. Объект может
         отправлять байтовые значения подключённому устройству (как одно число или как список чисел
         в диапазоне [0, 255]) и выводит каждый байт, полученный из порта. Порт и скорость передачи
-        задаются аргументами или свойствами; список доступных устройств доступен в @devices.</tr>
+        задаются аргументами или свойствами, список доступных устройств доступен в @devices.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>

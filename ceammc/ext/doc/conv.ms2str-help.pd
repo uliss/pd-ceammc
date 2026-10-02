@@ -30,8 +30,8 @@ outlet as a symbol.;
 #X text 270 401 Output milliseconds as well. Default value: 0\.;
 #X obj 250 431 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 431 @symbol;
-#X text 270 431 If specified \, output the formatted time as a symbol;
-otherwise as a string. Default value: 0\.;
+#X text 270 431 If specified \, output the formatted time as a symbol
+\, otherwise as a string. Default value: 0\.;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 488 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

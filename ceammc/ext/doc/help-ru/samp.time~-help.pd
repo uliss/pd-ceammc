@@ -67,27 +67,27 @@
 0;
 #X text 130 985 1\.;
 #X text 170 985 ~;
-#X text 270 985 при переходе 0→1: запускает счётчик; при переходе 1→0:
-останавливает его.;
-#X text 130 1040 2\.;
-#X text 170 1040 bang:;
-#X text 270 1040 сбрасывает счётчик семплов.;
-#X text 170 1065 float:;
-#X text 270 1065 задаёт текущее значение счётчика.;
-#X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1105 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 270 985 при переходе 0→1: запускает счётчик \, при переходе
+1→0: останавливает его.;
+#X text 130 1025 2\.;
+#X text 170 1025 bang:;
+#X text 270 1025 сбрасывает счётчик семплов.;
+#X text 170 1050 float:;
+#X text 270 1050 задаёт текущее значение счётчика.;
+#X obj 20 1085 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1090 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1106 1\.;
-#X text 170 1106 ~;
-#X text 270 1106 текущий номер семпла.;
+#X text 130 1091 1\.;
+#X text 170 1091 ~;
+#X text 270 1091 текущий номер семпла.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title samp @url ceammc.samp-help.pd;
-#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1159 библиотека: ceammc v0.9.8;
-#N canvas 10 1178 400 290 info 0;
+#X obj 1 1141 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1144 библиотека: ceammc v0.9.8;
+#N canvas 10 1163 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -111,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1178 pd info;
+#X restore 10 1163 pd info;
 #X connect 11 0 14 0;
 #X connect 12 0 14 1;
 #X connect 13 0 15 0;

@@ -24,11 +24,11 @@
       <par>
         <tr lang="en">The object converts a hexadecimal value given as a symbol (with or without
         the 0x prefix) into an integer. A single symbol or a list of symbols can be sent to the
-        inlet. By default the object reports parsing errors; if the @strict flag is set, parsing
+        inlet. By default the object reports parsing errors, if the @strict flag is set, parsing
         errors are silently ignored.</tr>
         <tr lang="ru">Объект преобразует шестнадцатеричное значение, заданное символом (с префиксом
         0x или без него), в целое число. На вход можно подать один символ или список символов. По
-        умолчанию объект сообщает об ошибках разбора; если установлен флаг @strict, ошибки разбора
+        умолчанию объект сообщает об ошибках разбора, если установлен флаг @strict, ошибки разбора
         молча игнорируются.</tr>
       </par>
     </info>

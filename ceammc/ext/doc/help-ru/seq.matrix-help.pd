@@ -133,31 +133,31 @@ N или свойством @n \, а тайминг управляется @t (�
 #X text 170 1760 bang:;
 #X text 270 1760 сбрасывает все счётчики и запускает секвенсор.;
 #X text 170 1785 float:;
-#X text 270 1785 если 1 — сбросить и запустить; если 0 — остановить.;
-#X text 130 1825 2\.;
-#X text 170 1825 bang:;
-#X text 270 1825 сброс.;
-#X text 170 1850 float:;
-#X text 270 1850 задать число шагов.;
-#X obj 20 1885 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1890 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 270 1785 если 1 — сбросить и запустить \, если 0 — остановить.;
+#X text 130 1810 2\.;
+#X text 170 1810 bang:;
+#X text 270 1810 сброс.;
+#X text 170 1835 float:;
+#X text 270 1835 задать число шагов.;
+#X obj 20 1870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1875 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1891 1\.;
-#X text 270 1891 вывод для [ui.matrix].;
-#X text 130 1911 2\.;
-#X text 270 1911 [i IDX N( — итерация последовательности \, [ri IDX
+#X text 130 1876 1\.;
+#X text 270 1876 вывод для [ui.matrix].;
+#X text 130 1896 2\.;
+#X text 270 1896 [i IDX N( — итерация последовательности \, [ri IDX
 N( — итерация повтора \, или [done( по завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1976 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1979 библиотека: ceammc v0.9.8;
-#X text 551 1991 смотрите также:;
-#X obj 672 1994 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1961 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1964 библиотека: ceammc v0.9.8;
+#X text 551 1976 смотрите также:;
+#X obj 672 1979 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 1998 400 290 info 0;
+#N canvas 10 1983 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -181,7 +181,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1998 pd info;
+#X restore 10 1983 pd info;
 #X connect 12 0 14 0;
 #X connect 10 0 15 0;
 #X connect 11 0 15 0;

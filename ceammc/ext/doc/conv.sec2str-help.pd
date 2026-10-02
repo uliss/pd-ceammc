@@ -13,7 +13,7 @@
 #X text 240 83 The object takes a time value in seconds and formats
 it as a human-readable time string in the form "HH:MM:SS" (or "HH:MM:SS.XXX"
 if the @ms flag is set). By default the result is output as a string
-object (that is \, a symbol in Pd terms); with the @symbol flag \,
+object (that is \, a symbol in Pd terms) \, with the @symbol flag \,
 the result is sent through the outlet as a symbol. This is the inverse
 operation of [conv.str2sec].;
 #X obj 50 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -36,8 +36,8 @@ operation of [conv.str2sec].;
 #X text 270 416 Output milliseconds as well. Default value: 0\.;
 #X obj 250 446 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 446 @symbol;
-#X text 270 446 If specified \, output the formatted time as a symbol;
-otherwise as a string. Default value: 0\.;
+#X text 270 446 If specified \, output the formatted time as a symbol
+\, otherwise as a string. Default value: 0\.;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 503 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

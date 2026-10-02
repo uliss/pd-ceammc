@@ -9,81 +9,81 @@
 #X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hsl->rgb] @url conv.hsl2rgb-help.pd;
 #X obj 653 8 conv.hsl2rgb;
-#X obj 230 78 cnv 1 535 211 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 196 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 The object converts HSL color values (Hue \, Saturation
 \, Lightness) to RGB values. The hue is given in the range [0 \, 360]
 (degrees) \, and saturation and lightness are in the range [0 \, 1].
 By default the RGB values are output as integers in the range [0 \,
-255]; with the @float flag they are output as floats in the range [0
-\, 1]. By default the three channel values are sent to three separate
-outlets; if the @pack flag is set \, they are packed into a single
+255] \, with the @float flag they are output as floats in the range
+[0 \, 1]. By default the three channel values are sent to three separate
+outlets \, if the @pack flag is set \, they are packed into a single
 list sent to the first outlet. With the @sync flag \, the object outputs
 a new value whenever any inlet changes.;
-#X obj 50 337 ui.hsl 0 360 @label HUE @label_inner 1 @show_value 1
+#X obj 50 322 ui.hsl 0 360 @label HUE @label_inner 1 @show_value 1
 @label_color 0.1 0.25 1;
-#X obj 136 366 ui.hsl @label SAT @label_inner 1 @show_value 1
+#X obj 136 351 ui.hsl @label SAT @label_inner 1 @show_value 1
 @label_color 0.1 0.25 1;
-#X msg 59 395 bang;
-#X obj 251 395 ui.hsl @label LIGHT @label_inner 1 @show_value 1
+#X msg 59 380 bang;
+#X obj 251 380 ui.hsl @label LIGHT @label_inner 1 @show_value 1
 @label_color 0.1 0.25 1;
-#X obj 50 424 hsl->rgb @sync @float @pack;
-#X obj 78 453 ui.dt;
-#X obj 50 496 msg @background_color;
-#X obj 50 524 ui.t @size 40 40 @nosave 1;
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 50 409 hsl->rgb @sync @float @pack;
+#X obj 78 438 ui.dt;
+#X obj 50 481 msg @background_color;
+#X obj 50 509 ui.t @size 40 40 @nosave 1;
+#X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 564 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 567 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 580 @pack;
-#X text 270 580 Output as a list (creates a single-outlet object).;
-#X obj 250 610 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 610 @sync;
-#X text 270 610 Output on any inlet change.;
-#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 640 @float;
-#X text 270 640 Alias to @mode float. Output float values in the [0
+#X msg 130 565 @pack;
+#X text 270 565 Output as a list (creates a single-outlet object).;
+#X obj 250 595 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 595 @sync;
+#X text 270 595 Output on any inlet change.;
+#X obj 250 625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 625 @float;
+#X text 270 625 Alias to @mode float. Output float values in the [0
 \, 1] range.;
-#X obj 250 682 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 682 @int;
-#X text 270 682 Alias to @mode int. Output integer values in the [0
+#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 667 @int;
+#X text 270 667 Alias to @mode int. Output integer values in the [0
 \, 255] range.;
-#X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 724 @mode;
-#X text 270 724 Output mode. Type: symbol. Default value: int. Allowed
+#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 709 @mode;
+#X text 270 709 Output mode. Type: symbol. Default value: int. Allowed
 values: int \, float.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 781 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 766 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 782 1\.;
-#X text 170 782 bang:;
-#X text 270 782 output the current value.;
-#X text 170 807 float:;
-#X text 270 807 set color hue and output. Range: [0\..360].;
-#X text 130 832 2\.;
-#X text 170 832 float:;
-#X text 270 832 set color saturation without output. Range: [0\..1].;
-#X text 130 857 3\.;
-#X text 170 857 float:;
-#X text 270 857 set color lightness without output. Range: [0\..1].;
-#X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 897 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 767 1\.;
+#X text 170 767 bang:;
+#X text 270 767 output the current value.;
+#X text 170 792 float:;
+#X text 270 792 set color hue and output. Range: [0\..360].;
+#X text 130 817 2\.;
+#X text 170 817 float:;
+#X text 270 817 set color saturation without output. Range: [0\..1].;
+#X text 130 842 3\.;
+#X text 170 842 float:;
+#X text 270 842 set color lightness without output. Range: [0\..1].;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 882 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 898 1\.;
-#X text 270 898 list: R G B \, or red channel value (int[0 \, 255]
+#X text 130 883 1\.;
+#X text 270 883 list: R G B \, or red channel value (int[0 \, 255]
 or float[0 \, 1]).;
-#X text 130 933 2\.;
-#X text 270 933 int[0 \, 255] or float[0 \, 1]: green channel value.;
-#X text 130 953 3\.;
-#X text 270 953 int[0 \, 255] or float[0 \, 1]: blue channel value.;
+#X text 130 918 2\.;
+#X text 270 918 int[0 \, 255] or float[0 \, 1]: green channel value.;
+#X text 130 938 3\.;
+#X text 270 938 int[0 \, 255] or float[0 \, 1]: blue channel value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1003 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1006 library: ceammc v0.9.8;
-#N canvas 10 1025 400 290 info 0;
+#X obj 1 988 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 991 library: ceammc v0.9.8;
+#N canvas 10 1010 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1025 pd info;
+#X restore 10 1010 pd info;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;
 #X connect 12 0 14 0;

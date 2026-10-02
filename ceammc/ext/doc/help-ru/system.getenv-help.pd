@@ -5,65 +5,65 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.getenv 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 system.getenv;
-#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Выводит значение системной переменной окружения. Имя
 переменной задаётся аргументом NAME \, свойством @name или символом
-на входе; bang выводит значение текущей заданной переменной.;
-#X text 240 168 Типичные сценарии применения:;
-#X text 250 193 • Чтение окружения пользователя — доступ к стандартным
+на входе \, bang выводит значение текущей заданной переменной.;
+#X text 240 153 Типичные сценарии применения:;
+#X text 250 178 • Чтение окружения пользователя — доступ к стандартным
 переменным окружения \, таким как HOME \, USER \, PATH или SHELL \,
 для построения путей к файлам \, определения текущего пользователя
 или установки платформо-зависимых значений по умолчанию.;
-#X msg 50 341 symbol HOME;
-#X msg 184 341 symbol APPDATA;
-#X msg 347 341 symbol PATH;
-#X msg 482 341 symbol USER;
-#X msg 616 341 symbol SHELL;
-#X obj 78 385 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 326 symbol HOME;
+#X msg 184 326 symbol APPDATA;
+#X msg 347 326 symbol PATH;
+#X msg 482 326 symbol USER;
+#X msg 616 326 symbol SHELL;
+#X obj 78 370 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 413 system.getenv USER;
-#X obj 50 442 ui.display;
-#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 497 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 398 system.getenv USER;
+#X obj 50 427 ui.display;
+#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 482 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 500 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 485 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 498 1\.;
-#X text 170 498 symbol;
-#X obj 268 499 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 498 NAME: имя переменной окружения. Тип: symbol.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 483 1\.;
+#X text 170 483 symbol;
+#X obj 268 484 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 483 NAME: имя переменной окружения. Тип: symbol.;
+#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 523 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 526 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 539 @name;
-#X text 270 539 Имя переменной окружения. Тип: symbol.;
-#X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 584 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 524 @name;
+#X text 270 524 Имя переменной окружения. Тип: symbol.;
+#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 569 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 585 1\.;
-#X text 170 585 bang:;
-#X text 270 585 выводит значение переменной.;
-#X text 170 610 symbol:;
-#X text 270 610 задаёт имя переменной окружения и выводит её значение.;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 570 1\.;
+#X text 170 570 bang:;
+#X text 270 570 выводит значение переменной.;
+#X text 170 595 symbol:;
+#X text 270 595 задаёт имя переменной окружения и выводит её значение.;
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 635 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 651 1\.;
-#X text 170 651 symbol:;
-#X text 270 651 символ: значение переменной окружения.;
+#X text 130 636 1\.;
+#X text 170 636 symbol:;
+#X text 270 636 символ: значение переменной окружения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 701 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 704 библиотека: ceammc v0.9.8;
-#X text 507 716 смотрите также:;
-#X obj 628 719 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 686 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 689 библиотека: ceammc v0.9.8;
+#X text 507 701 смотрите также:;
+#X obj 628 704 ui.link @background_color 0.78431 0.78431 0.78431
 @title [system.hostname] @url system.hostname-help.pd;
-#N canvas 10 723 400 290 info 0;
+#N canvas 10 708 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,7 +87,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 723 pd info;
+#X restore 10 708 pd info;
 #X connect 8 0 14 0;
 #X connect 13 0 14 0;
 #X connect 9 0 14 0;

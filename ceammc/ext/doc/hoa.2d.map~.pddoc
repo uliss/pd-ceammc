@@ -64,9 +64,9 @@
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="pol car" default="pol">
         <tr lang="en">signal control mode (with nsrc = 1). If 'pol' — the second and third signal
-        inlets are treated as radius and angle values; if 'car' — as X and Y coordinates</tr>
+        inlets are treated as radius and angle values, if 'car' — as X and Y coordinates</tr>
         <tr lang="ru">режим управления сигналом (при nsrc = 1). Если 'pol' — второй и третий
-        звуковые входы трактуются как значения радиуса и угла; если 'car' — как координаты X и
+        звуковые входы трактуются как значения радиуса и угла, если 'car' — как координаты X и
         Y</tr>
       </property>
       <!-- @nsrc -->

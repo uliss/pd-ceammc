@@ -84,9 +84,9 @@
           <tr lang="ru">задать или запросить свойства</tr>
         </in>
         <in on="bang">
-          <tr lang="en">in harmonics mode, outputs the list @order @hdegree @horder; in planewaves
+          <tr lang="en">in harmonics mode, outputs the list @order @hdegree @horder, in planewaves
           mode, outputs @order @index @index</tr>
-          <tr lang="ru">в режиме harmonics выводит список @order @hdegree @horder; в режиме
+          <tr lang="ru">в режиме harmonics выводит список @order @hdegree @horder, в режиме
           planewaves — @order @index @index</tr>
         </in>
         <in on="float">

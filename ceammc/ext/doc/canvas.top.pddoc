@@ -37,8 +37,8 @@
     <properties>
       <!-- @abs -->
       <property name="@abs" type="bool" default="1">
-        <tr lang="en">if 0: use the top-level canvas; if 1: use the abstraction canvas</tr>
-        <tr lang="ru">если 0: использовать холст верхнего уровня; если 1: использовать холст
+        <tr lang="en">if 0: use the top-level canvas, if 1: use the abstraction canvas</tr>
+        <tr lang="ru">если 0: использовать холст верхнего уровня, если 1: использовать холст
         абстракции</tr>
       </property>
       <!-- @dir -->

@@ -5,63 +5,63 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.dup 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 flow.dup;
-#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Выводит входящее сообщение указанное число раз. Если
-число равно 1 \, сообщение проходит без изменений; если больше 1 \,
-одно и то же сообщение выводится несколько раз подряд в одно и то же
-логическое время; если 0 \, не выводится ничего.;
-#X obj 50 247 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+число равно 1 \, сообщение проходит без изменений \, если больше 1
+\, одно и то же сообщение выводится несколько раз подряд в одно и то
+же логическое время \, если 0 \, не выводится ничего.;
+#X obj 50 231 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 88 247 5 0 0 0 - - -;
-#X msg 155 247 symbol ABC;
-#X msg 309 247 1 2 3;
-#X msg 414 247 @prop 4 5 6;
-#X floatatom 117 305 5 0 0 0 - - -;
-#X obj 50 334 flow.dup 2;
-#X obj 50 363 print DUP;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 418 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 88 231 5 0 0 0 - - -;
+#X msg 155 231 symbol ABC;
+#X msg 309 231 1 2 3;
+#X msg 414 231 @prop 4 5 6;
+#X floatatom 117 289 5 0 0 0 - - -;
+#X obj 50 318 flow.dup 2;
+#X obj 50 347 print DUP;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 402 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 421 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 405 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 419 1\.;
-#X text 170 419 int;
-#X obj 268 420 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 419 N: число повторений. Тип: int. Минимальное значение:
+#X text 130 403 1\.;
+#X text 170 403 int;
+#X obj 268 404 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 403 N: число повторений. Тип: int. Минимальное значение:
 0\.;
-#X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 459 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 443 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 462 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 460 @n;
-#X text 270 460 Число повторений. Тип: int. Значение по умолчанию:
+#X msg 130 444 @n;
+#X text 270 444 Число повторений. Тип: int. Значение по умолчанию:
 2\. Минимальное значение: 0\.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 517 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 501 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 518 1\.;
-#X text 170 518 any:;
-#X text 270 518 входящее сообщение.;
-#X text 130 543 2\.;
-#X text 170 543 int:;
-#X text 270 543 задать число повторений. Минимальное значение: 0\.;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 583 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 502 1\.;
+#X text 170 502 any:;
+#X text 270 502 входящее сообщение.;
+#X text 130 527 2\.;
+#X text 170 527 int:;
+#X text 270 527 задать число повторений. Минимальное значение: 0\.;
+#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 567 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 584 1\.;
-#X text 270 584 выход.;
+#X text 130 568 1\.;
+#X text 270 568 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 634 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 637 библиотека: ceammc v0.9.8;
-#X text 558 649 смотрите также:;
-#X obj 679 652 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 618 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 621 библиотека: ceammc v0.9.8;
+#X text 558 633 смотрите также:;
+#X obj 679 636 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.mem] @url flow.mem-help.pd;
-#N canvas 10 656 400 290 info 0;
+#N canvas 10 640 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 656 pd info;
+#X restore 10 640 pd info;
 #X connect 6 0 12 0;
 #X connect 11 0 12 1;
 #X connect 12 0 13 0;
