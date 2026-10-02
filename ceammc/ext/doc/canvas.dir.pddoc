@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs the current canvas directory of the object and the nesting level</tr>
-        <tr lang="ru">выводит директорию холста у объекта и уровень его вложенности</tr>
+        <tr lang="ru">выводит директорию холста объекта и уровень его вложенности</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -35,14 +35,14 @@
     <properties>
       <!-- @abs -->
       <property name="@abs" type="bool" default="1">
-        <tr lang="en">abstraction mode. If 1: outputs the abstraction catalog if the object is
-        located within an abstraction, or the path of the top-level parent catalog of the canvas if
-        the object was not created within an abstraction. If 0: outputs the topmost parent canvas
-        directory even if the object was created inside an abstraction subpatch.</tr>
-        <tr lang="ru">режим абстракции. Если 1: выводит каталог абстракции, если объект находится
-        внутри абстракции, или путь верхнего родительского каталога холста, если объект не был
-        создан внутри абстракции. Если 0: выводит путь верхнего родительского каталога холста, даже
-        если объект был создан внутри субпатча абстракции.</tr>
+        <tr lang="en">abstraction mode. If 1: outputs the abstraction directory if the object is
+        located within an abstraction, or the path of the top-level parent directory of the canvas
+        if the object was not created within an abstraction. If 0: outputs the topmost parent
+        canvas directory even if the object was created inside an abstraction subpatch.</tr>
+        <tr lang="ru">режим абстракции. Если 1: выводит директорию абстракции, если объект
+        находится внутри абстракции, или путь верхнего родительского каталога холста, если объект
+        не был создан внутри абстракции. Если 0: выводит путь верхнего родительского каталога
+        холста, даже если объект был создан внутри субпатча абстракции.</tr>
       </property>
     </properties>
     <inlets>
