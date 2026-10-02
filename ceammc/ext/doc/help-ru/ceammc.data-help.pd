@@ -85,7 +85,7 @@ set.intersect-help.pd;
 #X obj 30 1025 ui.link @title [set.size] @url set.size-help.pd;
 #X text 220 1022 выводит число элементов во множестве;
 #X obj 30 1050 ui.link @title [set.symdiff] @url set.symdiff-help.pd;
-#X text 220 1047 симметрическая разность между двумя множествами;
+#X text 220 1047 симметрическая разность двух множеств;
 #X obj 30 1075 ui.link @title [set.union] @url set.union-help.pd;
 #X text 220 1072 объединение множеств;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::data 20 20 0 20 -104026

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">symmetric difference between two sets</tr>
-        <tr lang="ru">симметрическая разность между двумя множествами</tr>
+        <tr lang="ru">симметрическая разность двух множеств</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,38 +22,41 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Symmetric difference, of two sets is the set of elements which are in either
-        of the sets and not in their intersection</tr>
-        <tr lang="ru" finished="false">Симметричное различие двух множеств — это множество
-        элементов, которые находятся в любом из множеств, а не в их пересечении.</tr>
+        <tr lang="en">Computes the symmetric difference of the two incoming sets: outputs a new set
+        that contains only those elements which belong to exactly one of the two sets — that is,
+        all elements from either set, excluding those present in both.</tr>
+        <tr lang="ru">Вычисляет симметрическую разность двух входящих множеств: выводит новое
+        множество, содержащее только те элементы, которые принадлежат ровно одному из двух
+        множеств, — то есть все элементы обоих множеств, кроме тех, что есть в обоих
+        сразу.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARGS" type="any">
-        <tr lang="en">right set elements</tr>
-        <tr lang="ru" finished="false">Правильный набор элементов</tr>
+        <tr lang="en">elements of the right set</tr>
+        <tr lang="ru">элементы правого множества</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">first set or list (converted to set), other values are ignored</tr>
-          <tr lang="ru" finished="false">первый набор или список (преобразуется в набор), другие
+          <tr lang="en">first set or list (converted to set). Other values are ignored</tr>
+          <tr lang="ru">первое множество или список (преобразуется во множество). Остальные
           значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">second set or list (converted to set)</tr>
-          <tr lang="ru" finished="false">Второй набор или список (преобразуется в набор)</tr>
+          <tr lang="ru">второе множество или список (преобразуется во множество)</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output symmetric set difference</tr>
-          <tr lang="ru" finished="false">выходная симметричная разность</tr>
+          <tr lang="en">outputs the symmetric difference of the given sets</tr>
+          <tr lang="ru">выводит симметрическую разность заданных множеств</tr>
         </out>
       </outlet>
     </outlets>
