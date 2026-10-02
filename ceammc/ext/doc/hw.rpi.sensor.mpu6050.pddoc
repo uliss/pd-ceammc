@@ -18,14 +18,34 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The MPU-6050 is a 6-axis (combines a 3-axis gyroscope and a 3-axis
-        accelerometer) motion tracking device.</tr>
-        <tr lang="ru">MPU-6050 — это 6-осевое устройство отслеживания движения (объединяет 3-осевой
-        гироскоп и 3-осевой акселерометр).</tr>
+        <tr lang="en">The MPU-6050 is a 6-axis motion tracking device that combines a 3-axis
+        gyroscope and a 3-axis accelerometer.</tr>
+        <tr lang="ru">MPU-6050 — 6-осевое устройство отслеживания движения, объединяющее 3-осевой
+        гироскоп и 3-осевой акселерометр.</tr>
       </par>
       <par style="info">
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
         <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Motion-driven performance control — mapping tilt, rotation or acceleration
+        to sound parameters (filter, pan, pitch, effect depth), so that the performer can control
+        the patch through physical gestures.</tr>
+        <tr lang="ru">• Управление исполнением через движение — преобразование наклона, вращения
+        или ускорения в звуковые параметры (фильтр, панорама, высота тона, глубина эффекта),
+        чтобы исполнитель мог управлять патчем через физические жесты.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Gesture-based installations — turning a physical object equipped with an
+        MPU-6050 into an interactive controller: tilting, shaking or rotating the object triggers
+        events, changes the sound or moves it in space.</tr>
+        <tr lang="ru">• Инсталляции с жестовым управлением — превращение физического объекта,
+        оснащённого MPU-6050, в интерактивный контроллер: наклон, встряхивание или вращение
+        объекта запускает события, изменяет звук или перемещает его в пространстве.</tr>
       </par>
     </info>
     <properties>
@@ -33,18 +53,18 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При
-        установке в 0: отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
+        значении 0: отключается от устройства</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x68),
-        and the value 'alt' means the alternative I²C address (0x69, when pin AD0 is pulled
+        <tr lang="en">I²C address. The value 'default' means the default device I²C address
+        (0x68), and 'alt' means the alternative I²C address (0x69, when the AD0 pin is pulled
         high).</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства
-        (0x68), а значение «alt» — альтернативный адрес I²C (0x69, когда пин AD0 подтянут к
-        высокому уровню).</tr>
+        <tr lang="ru">адрес I²C. Значение 'default' означает стандартный адрес I²C устройства
+        (0x68), а 'alt' — альтернативный адрес I²C (0x69, когда контакт AD0 подтянут к высокому
+        уровню)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -57,16 +77,16 @@
       <!-- calibrate -->
       <method name="calibrate">
         <info>
-          <tr lang="en">calibrate the sensor. Place it still with the Z axis pointing down.</tr>
-          <tr lang="ru">калибровка датчика. Поместите его неподвижно так, чтобы ось Z указывала
+          <tr lang="en">calibrates the sensor. Place it still with the Z axis pointing down.</tr>
+          <tr lang="ru">калибрует датчик. Поместите его неподвижно так, чтобы ось Z указывала
           вниз.</tr>
         </info>
       </method>
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn sensor polling on/off</tr>
-          <tr lang="ru">включить/выключить опрос датчика</tr>
+          <tr lang="en">turns sensor polling on or off</tr>
+          <tr lang="ru">включает или выключает опрос датчика</tr>
         </info>
         <param name="VALUE" type="bool" required="true">
           <tr lang="en">state</tr>

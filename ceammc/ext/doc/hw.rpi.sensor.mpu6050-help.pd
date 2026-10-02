@@ -5,86 +5,95 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.mpu6050 20 20 0 20
 -104026 -4096 0;
 #X obj 588 11 hw.rpi.sensor.mpu6050;
-#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 The MPU-6050 is a 6-axis (combines a 3-axis gyroscope
-and a 3-axis accelerometer) motion tracking device.;
+#X obj 230 78 cnv 1 535 250 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The MPU-6050 is a 6-axis motion tracking device that
+combines a 3-axis gyroscope and a 3-axis accelerometer.;
 #X text 240 123 To connect to the device \, set the @connect property
 to 1\.;
 #X obj 230 128 cnv 1 2 15 empty empty empty 17 7 0 10 -158925 -1 0;
-#X obj 50 211 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 240 @connect \$1;
-#X obj 184 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 184 269 poll \$1;
-#X obj 50 298 hw.rpi.sensor.mpu6050 @i2c_bus default;
-#X obj 50 327 route ypr gyro accel temp, f 30;
-#X obj 117 384 ui.dt @label Gyro;
-#X obj 251 384 ui.dt @label Accel;
-#X obj 386 384 ui.dt @label tº;
-#X obj 69 413 unpack f f f, f 45;
-#X floatatom 69 442 5 0 0 0 yaw - -;
-#X floatatom 232 442 5 0 0 0 pitch - -;
-#X floatatom 414 442 5 0 0 0 roll - -;
-#X obj 50 485 print YPR;
-#X obj 50 528 ui.link @title Connection_Scheme @url
+#X text 240 148 Typical use cases:;
+#X text 250 173 • Motion-driven performance control — mapping tilt
+\, rotation or acceleration to sound parameters (filter \, pan \, pitch
+\, effect depth) \, so that the performer can control the patch through
+physical gestures.;
+#X text 250 243 • Gesture-based installations — turning a physical
+object equipped with an MPU-6050 into an interactive controller: tilting
+\, shaking or rotating the object triggers events \, changes the sound
+or moves it in space.;
+#X obj 50 376 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 405 @connect \$1;
+#X obj 184 405 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 184 434 poll \$1;
+#X obj 50 463 hw.rpi.sensor.mpu6050 @i2c_bus default;
+#X obj 50 492 route ypr gyro accel temp, f 30;
+#X obj 117 549 ui.dt @label Gyro;
+#X obj 251 549 ui.dt @label Accel;
+#X obj 386 549 ui.dt @label tº;
+#X obj 69 578 unpack f f f, f 45;
+#X floatatom 69 607 5 0 0 0 yaw - -;
+#X floatatom 232 607 5 0 0 0 pitch - -;
+#X floatatom 414 607 5 0 0 0 roll - -;
+#X obj 50 650 print YPR;
+#X obj 50 693 ui.link @title Connection_Scheme @url
 ceammc://img/conn_mpu6050.png;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 590 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 755 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 593 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 758 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 591 @i2c_addr;
-#X text 270 591 (initonly) I²C address. The value 'default' means the
-default device I²C address (0x68) \, and the value 'alt' means the
-alternative I²C address (0x69 \, when pin AD0 is pulled high). Type:
-int. Default value: -1\. Range: [-4\..119].;
-#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 678 @i2c_bus;
-#X text 270 678 (initonly) I²C bus. Type: atom. Default value: none.
+#X msg 130 756 @i2c_addr;
+#X text 270 756 (initonly) I²C address. The value 'default' means the
+default device I²C address (0x68) \, and 'alt' means the alternative
+I²C address (0x69 \, when the AD0 pin is pulled high). Type: int. Default
+value: -1\. Range: [-4\..119].;
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 843 @i2c_bus;
+#X text 270 843 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 720 @connect;
-#X text 270 720 When set to 1: tries to connect to the device on the
+#X obj 250 885 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 885 @connect;
+#X text 270 885 When set to 1: tries to connect to the device on the
 I²C bus. When set to 0: disconnects from the device. Type: bool. Default
 value: 0\.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 792 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X msg 130 793 calibrate;
-#X text 270 793 calibrate the sensor. Place it still with the Z axis
-pointing down.;
-#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 843 poll;
-#X text 270 843 turn sensor polling on/off. Arguments are:;
-#X obj 300 868 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 868 VALUE: state. Type: bool.;
-#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 916 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 917 1\.;
-#X text 270 917 control input.;
 #X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 957 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 957 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X text 130 958 1\.;
-#X msg 170 958 ypr;
-#X text 270 958 [ypr YAW PITCH ROLL( — incline angles (yaw \, pitch
+#X msg 130 958 calibrate;
+#X text 270 958 calibrates the sensor. Place it still with the Z axis
+pointing down.;
+#X obj 250 1008 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1008 poll;
+#X text 270 1008 turns sensor polling on or off. Arguments are:;
+#X obj 300 1033 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1033 VALUE: state. Type: bool.;
+#X obj 20 1076 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1081 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1082 1\.;
+#X text 270 1082 control input.;
+#X obj 20 1117 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1122 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1123 1\.;
+#X msg 170 1123 ypr;
+#X text 270 1123 [ypr YAW PITCH ROLL( — incline angles (yaw \, pitch
 \, roll).;
-#X msg 170 983 temp;
-#X text 270 983 [temp CELSIUS( — temperature in degrees Celsius.;
-#X msg 170 1008 gyro;
-#X text 270 1008 [gyro X Y Z( — gyroscope readings (rotation speed)
+#X msg 170 1148 temp;
+#X text 270 1148 [temp CELSIUS( — temperature in degrees Celsius.;
+#X msg 170 1173 gyro;
+#X text 270 1173 [gyro X Y Z( — gyroscope readings (rotation speed)
 along the X \, Y \, Z axes.;
-#X msg 170 1048 accel;
-#X text 270 1048 [accel X Y Z( — accelerometer readings along the X
+#X msg 170 1213 accel;
+#X text 270 1213 [accel X Y Z( — accelerometer readings along the X
 \, Y \, Z axes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1113 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1116 library: ceammc v0.9.8;
-#N canvas 10 1135 400 290 info 0;
+#X obj 1 1278 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1281 library: ceammc v0.9.8;
+#N canvas 10 1300 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,17 +117,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1135 pd info;
-#X connect 8 0 9 0;
-#X connect 10 0 11 0;
-#X connect 9 0 12 0;
+#X restore 10 1300 pd info;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 21 0;
-#X connect 13 3 16 0;
-#X connect 13 0 17 0;
-#X connect 17 0 18 0;
-#X connect 17 1 19 0;
-#X connect 17 2 20 0;
-#X connect 13 1 14 0;
-#X connect 13 2 15 0;
+#X connect 13 0 14 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 24 0;
+#X connect 16 3 19 0;
+#X connect 16 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 1 22 0;
+#X connect 20 2 23 0;
+#X connect 16 1 17 0;
+#X connect 16 2 18 0;
