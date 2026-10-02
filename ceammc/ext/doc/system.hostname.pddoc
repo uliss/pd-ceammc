@@ -16,19 +16,49 @@
       <keywords>system hostname</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the hostname of the machine where the patch is running. Useful for
+        writing host-specific behaviour or for logging and debugging across multiple
+        machines.</tr>
+        <tr lang="ru">Выводит имя хоста машины, на которой выполняется патч. Полезно для
+        реализации поведения, зависящего от конкретной машины, а также для логирования и отладки
+        при работе на нескольких машинах.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Host-specific configuration — automatically selecting a different preset,
+        audio device or patch configuration depending on which machine the patch is running
+        on.</tr>
+        <tr lang="ru">• Конфигурация, зависящая от машины — автоматический выбор другого пресета,
+        аудиоустройства или конфигурации патча в зависимости от того, на какой машине запущен
+        патч.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Logging and diagnostics — writing the hostname into logs, so that it is
+        clear from which machine a given log entry came, especially in multi-machine setups,
+        installations or rehearsals.</tr>
+        <tr lang="ru">• Логирование и диагностика — запись имени хоста в журналы, чтобы было
+        понятно, с какой машины пришла та или иная запись, особенно в многосерверных
+        конфигурациях, инсталляциях или на репетициях.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs hostname</tr>
-          <tr lang="ru" finished="false">Имя хоста / hostname</tr>
+          <tr lang="en">outputs the hostname</tr>
+          <tr lang="ru">выводит имя хоста</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="symbol">
           <tr lang="en">symbol: hostname</tr>
-          <tr lang="ru" finished="false">Символ: hostname</tr>
+          <tr lang="ru">символ: имя хоста</tr>
         </out>
       </outlet>
     </outlets>
