@@ -19,57 +19,90 @@
         <alias>ceammc/xdac~</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">An extended version of the standard [dac~] object that accepts a list of
+        output channels as its argument. In addition to single channel numbers, it also accepts
+        range notation like 1:6, which means "channels 1 through 6 inclusive". If no argument is
+        given, channels 1 and 2 are used by default.</tr>
+        <tr lang="ru">Расширенная версия стандартного объекта [dac~], которая принимает в
+        качестве аргумента список выходных каналов. Помимо отдельных номеров каналов, она
+        поддерживает диапазоны, например 1:6, что означает «каналы с 1 по 6 включительно».
+        Если аргумент не указан, по умолчанию используются каналы 1 и 2.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Multi-channel installations — connecting a patch to a specific subset of
+        audio outputs of a multi-channel sound card (for example, 1:6 for six speakers),
+        without having to list every channel number individually.</tr>
+        <tr lang="ru">• Многоканальные инсталляции — подключение патча к определённому подмножеству
+        аудиовыходов многоканальной звуковой карты (например, 1:6 для шести колонок), без
+        необходимости перечислять каждый номер канала вручную.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Channel remapping on the fly — using the @channels property or the reverse,
+        rotate and shuffle methods to reorder the outputs during a performance, for example to
+        swap left and right or to rotate a surround layout.</tr>
+        <tr lang="ru">• Переназначение каналов на лету — использование свойства @channels или
+        методов reverse, rotate и shuffle для переупорядочивания выходов во время выступления,
+        например чтобы поменять левый и правый каналы или «повернуть» схему объёмного звука.</tr>
+      </par>
+    </info>
     <mouse>
       <event type="left-click" editmode="false">opens audio properties dialog</event>
     </mouse>
     <arguments>
       <argument name="OUTS" type="list">
-        <tr lang="en">list of output channels: single channel number or X:Y range, that means from
-        X channel to Y (including last one). If not specified - using 1 and 2 out channels</tr>
-        <tr lang="ru" finished="false">Список выходных каналов: одноканальный номер канала или
-        диапазон X:Y, что означает от канала X до Y (включая последний). Если не указано -
-        использование 1 и 2 каналов</tr>
+        <tr lang="en">list of output channels: a single channel number or an X:Y range, which
+        means "from channel X to channel Y inclusive". If not specified, output channels 1 and 2
+        are used</tr>
+        <tr lang="ru">список выходных каналов: отдельный номер канала или диапазон X:Y, что
+        означает «с канала X по канал Y включительно». Если не указано, используются выходные
+        каналы 1 и 2</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @channels -->
       <property name="@channels" type="list" default="1 2">
         <tr lang="en">list of mapped channels</tr>
-        <tr lang="ru" finished="false">Список картографических каналов</tr>
+        <tr lang="ru">список назначенных каналов</tr>
       </property>
     </properties>
     <methods>
       <!-- reverse -->
       <method name="reverse">
         <info>
-          <tr lang="en">reverse output channels order</tr>
-          <tr lang="ru" finished="false">обратный выходной канал</tr>
+          <tr lang="en">reverses the output channel order</tr>
+          <tr lang="ru">обращает порядок выходных каналов</tr>
         </info>
       </method>
       <!-- rotate -->
       <method name="rotate">
         <info>
-          <tr lang="en">rotate output channels counter clockwise</tr>
-          <tr lang="ru" finished="false">вращающиеся выходные каналы против часовой стрелки</tr>
+          <tr lang="en">rotates output channels counter-clockwise</tr>
+          <tr lang="ru">циклически сдвигает выходные каналы против часовой стрелки</tr>
         </info>
         <param name="N" type="int" required="true">
           <tr lang="en">number of rotation steps, can be negative</tr>
-          <tr lang="ru" finished="false">Число шагов вращения может быть отрицательным</tr>
+          <tr lang="ru">число шагов сдвига, может быть отрицательным</tr>
         </param>
       </method>
       <!-- shuffle -->
       <method name="shuffle">
         <info>
-          <tr lang="en">shuffle output channels order</tr>
-          <tr lang="ru" finished="false">Перетасовка выходных каналов заказа</tr>
+          <tr lang="en">shuffles the output channel order</tr>
+          <tr lang="ru">перемешивает порядок выходных каналов случайным образом</tr>
         </info>
       </method>
       <!-- side2circle -->
       <method name="side2circle">
         <info>
-          <tr lang="en">map left/right side pairs to counter clockwise layout</tr>
-          <tr lang="ru" finished="false">карта левой / правой стороны пары, чтобы противостоять по
-          часовой стрелке макет</tr>
+          <tr lang="en">maps left/right side pairs to a counter-clockwise layout</tr>
+          <tr lang="ru">преобразует раскладку пар левый/правый в круговую раскладку против
+          часовой стрелки</tr>
         </info>
       </method>
     </methods>
@@ -77,19 +110,19 @@
       <inlet type="audio" number="1">
         <in>
           <tr lang="en">first specified channel</tr>
-          <tr lang="ru" finished="false">Первый указанный канал</tr>
+          <tr lang="ru">первый указанный канал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">... specified channel</tr>
-          <tr lang="ru" finished="false">Указанный канал</tr>
+          <tr lang="ru">... указанный канал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">n-th specified channel</tr>
-          <tr lang="ru" finished="false">n-й указанный канал</tr>
+          <tr lang="ru">n-й указанный канал</tr>
         </in>
       </inlet>
     </inlets>
