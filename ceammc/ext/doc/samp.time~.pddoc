@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">sample counter</tr>
-        <tr lang="ru">счетчик семплов</tr>
+        <tr lang="ru">счётчик семплов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,48 +19,98 @@
         <alias>samp.t~</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A sample-accurate counter that counts audio samples while running. It can
+        be started and stopped by a control signal (on a 0→1 transition the counter starts, on a
+        1→0 transition it stops), and its current value can be reset or set explicitly. The
+        output is the current sample number since the last reset.</tr>
+        <tr lang="ru">Счётчик с точностью до семпла, который считает аудиосемплы, пока работает.
+        Его можно запускать и останавливать управляющим сигналом (при переходе 0→1 счётчик
+        запускается, при переходе 1→0 останавливается), а текущее значение можно сбросить или
+        задать явно. На выходе — текущий номер семпла с момента последнего сброса.</tr>
+      </par>
+      <par>
+        <tr lang="en">Counter overflow and integer precision:</tr>
+        <tr lang="ru">Переполнение счётчика и точность целочисленного представления:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 32-bit float (single precision): exact integer counting is guaranteed only
+        up to 2^24 = 16,777,216 samples. Above this value, consecutive integers can no longer be
+        represented — the spacing between representable values grows larger than 1, so the counter
+        may appear to "stick" or skip samples. At a sample rate of 44100 Hz this limit is reached
+        after approximately 6 minutes and 20 seconds of continuous counting.</tr>
+        <tr lang="ru">• 32-битный float (одинарная точность): точный подсчёт целых чисел
+        гарантирован только до 2^24 = 16 777 216 семплов. Выше этого значения последовательные
+        целые числа перестают быть представимыми — расстояние между представимыми значениями
+        становится больше 1, поэтому счётчик может «застревать» или пропускать семплы. При
+        частоте дискретизации 44100 Гц этот предел достигается примерно через 6 минут 20 секунд
+        непрерывного подсчёта.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• 64-bit float (double precision): exact integer counting is guaranteed up
+        to 2^53 = 9,007,199,254,740,992 samples. This is many orders of magnitude beyond any
+        practical audio session, so with double-precision Pd the counter is effectively exact for
+        any realistic use.</tr>
+        <tr lang="ru">• 64-битный float (двойная точность): точный подсчёт целых чисел
+        гарантирован до 2^53 = 9 007 199 254 740 992 семплов. Это на много порядков больше любого
+        реалистичного аудиосеанса, поэтому при использовании Pd с двойной точностью счётчик
+        фактически точен для любых практических задач.</tr>
+      </par>
+      <par>
+        <tr lang="en">Which precision is used depends on how Pd itself is compiled: the vanilla Pd
+        distribution typically uses single-precision floats, while CEAMMC distributions are
+        available in both single and double precision. If you plan to run a very long counter,
+        prefer a double-precision build.</tr>
+        <tr lang="ru">Используемая точность зависит от того, как скомпилирован сам Pd:
+        стандартная сборка Pd обычно использует числа одинарной точности, а сборки CEAMMC
+        доступны как в одинарной, так и в двойной точности. Если предполагается длительный
+        подсчёт, предпочтительнее сборка с двойной точностью.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="STATE" type="int" enum="0 1">
         <tr lang="en">initial counter state: on or off</tr>
-        <tr lang="ru" finished="false">Начальное встречное состояние: включено или выключено</tr>
+        <tr lang="ru">начальное состояние счётчика: включён или выключен</tr>
       </argument>
     </arguments>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset sample counter to 0</tr>
-          <tr lang="ru" finished="false">сбрасывать счетчик выборки 0</tr>
+          <tr lang="en">resets the sample counter to 0</tr>
+          <tr lang="ru">сбрасывает счётчик семплов в 0</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">set current value</tr>
-          <tr lang="ru" finished="false">Установить текущую стоимость</tr>
+          <tr lang="en">sets the current counter value</tr>
+          <tr lang="ru">задаёт текущее значение счётчика</tr>
         </info>
         <param name="VAL" type="float" default="0">
           <tr lang="en">new counter value</tr>
-          <tr lang="ru" finished="false">Новая встречная стоимость</tr>
+          <tr lang="ru">новое значение счётчика</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">on 0-&gt;1 change: start counter, on 1-&gt;0 stops.</tr>
-          <tr lang="ru" finished="false">на 0-&gt;1 изменение: стартовый счетчик, на 1-&gt;0
-          остановки.</tr>
+          <tr lang="en">on a 0→1 transition: starts the counter; on a 1→0 transition: stops
+          it</tr>
+          <tr lang="ru">при переходе 0→1: запускает счётчик; при переходе 1→0: останавливает
+          его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset sample counter</tr>
-          <tr lang="ru" finished="false">сбрасывать счетчик образцов</tr>
+          <tr lang="en">resets the sample counter</tr>
+          <tr lang="ru">сбрасывает счётчик семплов</tr>
         </in>
         <in on="float">
-          <tr lang="en">set current value</tr>
-          <tr lang="ru" finished="false">Установить текущую стоимость</tr>
+          <tr lang="en">sets the current counter value</tr>
+          <tr lang="ru">задаёт текущее значение счётчика</tr>
         </in>
       </inlet>
     </inlets>
@@ -68,7 +118,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">current sample number</tr>
-          <tr lang="ru" finished="false">Текущий номер выборки</tr>
+          <tr lang="ru">текущий номер семпла</tr>
         </out>
       </outlet>
     </outlets>

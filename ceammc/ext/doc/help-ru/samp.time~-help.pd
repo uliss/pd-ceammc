@@ -1,68 +1,93 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 645 50 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 650 50 счетчик семплов;
+#X text 650 50 счётчик семплов;
 #X obj 1 1 cnv 5 765 40 empty empty samp.time~ 20 20 0 20 -104026
 -4096 0;
 #X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [samp.t~] @url samp.time~-help.pd;
 #X obj 667 8 samp.time~;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 117 118 bang;
-#X obj 213 118 lfo.+square~ 100;
-#X obj 50 147 samp.t~;
-#X obj 213 147 samp.t~;
-#X obj 50 176 ui.n~;
-#X obj 213 176 ui.n~;
-#X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 234 samp.t~ 0;
-#X obj 213 234 ui.dsp~;
-#X obj 50 262 ui.n~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 494 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Счётчик с точностью до семпла \, который считает аудиосемплы
+\, пока работает. Его можно запускать и останавливать управляющим сигналом
+(при переходе 0→1 счётчик запускается \, при переходе 1→0 останавливается)
+\, а текущее значение можно сбросить или задать явно. На выходе — текущий
+номер семпла с момента последнего сброса.;
+#X text 240 184 Переполнение счётчика и точность целочисленного представления:;
+#X text 250 224 • 32-битный float (одинарная точность): точный подсчёт
+целых чисел гарантирован только до 2^24 = 16 777 216 семплов. Выше
+этого значения последовательные целые числа перестают быть представимыми
+— расстояние между представимыми значениями становится больше 1 \,
+поэтому счётчик может «застревать» или пропускать семплы. При частоте
+дискретизации 44100 Гц этот предел достигается примерно через 6 минут
+20 секунд непрерывного подсчёта.;
+#X text 250 355 • 64-битный float (двойная точность): точный подсчёт
+целых чисел гарантирован до 2^53 = 9 007 199 254 740 992 семплов. Это
+на много порядков больше любого реалистичного аудиосеанса \, поэтому
+при использовании Pd с двойной точностью счётчик фактически точен для
+любых практических задач.;
+#X text 240 456 Используемая точность зависит от того \, как скомпилирован
+сам Pd: стандартная сборка Pd обычно использует числа одинарной точности
+\, а сборки CEAMMC доступны как в одинарной \, так и в двойной точности.
+Если предполагается длительный подсчёт \, предпочтительнее сборка с
+двойной точностью.;
+#X obj 50 620 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 117 620 bang;
+#X obj 213 620 lfo.+square~ 100;
+#X obj 50 649 samp.t~;
+#X obj 213 649 samp.t~;
+#X obj 50 678 ui.n~;
+#X obj 213 678 ui.n~;
+#X obj 50 707 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 736 samp.t~ 0;
+#X obj 213 736 ui.dsp~;
+#X obj 50 764 ui.n~;
+#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 819 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 822 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 int;
-#X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 STATE: initial counter state: on or off. Разрешённые
-значения: 0 \, 1\. Тип: int.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X text 130 820 1\.;
+#X text 170 820 int;
+#X obj 268 821 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 820 STATE: начальное состояние счётчика: включён или выключен.
+Разрешённые значения: 0 \, 1\. Тип: int.;
+#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 875 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 374 reset;
-#X text 270 374 reset sample counter to 0\.;
-#X obj 250 409 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 409 set;
-#X text 270 409 set current value. Аргументы:;
-#X obj 300 434 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 434 [VAL=0]: new counter value. Тип: float.;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 482 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 876 reset;
+#X text 270 876 сбрасывает счётчик семплов в 0\.;
+#X obj 250 911 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 911 set;
+#X text 270 911 задаёт текущее значение счётчика. Аргументы:;
+#X obj 300 936 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 936 [VAL=0]: новое значение счётчика. Тип: float.;
+#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 984 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 483 1\.;
-#X text 170 483 ~;
-#X text 270 483 on 0->1 change: start counter \, on 1->0 stops.;
-#X text 130 508 2\.;
-#X text 170 508 bang:;
-#X text 270 508 reset sample counter.;
-#X text 170 533 float:;
-#X text 270 533 set current value.;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 573 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 574 1\.;
-#X text 170 574 ~;
-#X text 270 574 current sample number.;
+#X text 130 985 1\.;
+#X text 170 985 ~;
+#X text 270 985 при переходе 0→1: запускает счётчик; при переходе 1→0:
+останавливает его.;
+#X text 130 1040 2\.;
+#X text 170 1040 bang:;
+#X text 270 1040 сбрасывает счётчик семплов.;
+#X text 170 1065 float:;
+#X text 270 1065 задаёт текущее значение счётчика.;
+#X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1105 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1106 1\.;
+#X text 170 1106 ~;
+#X text 270 1106 текущий номер семпла.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title samp @url ceammc.samp-help.pd;
-#X obj 1 624 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 627 библиотека: ceammc v0.9.8;
-#N canvas 10 646 400 290 info 0;
+#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1159 библиотека: ceammc v0.9.8;
+#N canvas 10 1178 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,11 +111,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 646 pd info;
-#X connect 5 0 8 0;
-#X connect 6 0 8 1;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 11 0;
-#X connect 12 0 13 0;
+#X restore 10 1178 pd info;
+#X connect 11 0 14 0;
+#X connect 12 0 14 1;
 #X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;

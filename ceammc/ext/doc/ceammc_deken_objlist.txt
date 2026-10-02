@@ -1139,8 +1139,8 @@ random.i	uniform random integer generator in the specified range / равном�
 random.linear	random linear distribution / случайное линейное распределение
 random.pw_const	piecewise constant random distribution / кусочно-постоянное случайное распределение
 random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
-samp.time~	sample counter / счетчик семплов
-samp.t~	sample counter / счетчик семплов
+samp.time~	sample counter / счётчик семплов
+samp.t~	sample counter / счётчик семплов
 seq.arp	chord arpeggiator / арпеджиатор аккордов
 seq.bangs	bang event sequencer / секвенсор событий bang
 seq.b	bang event sequencer / секвенсор событий bang

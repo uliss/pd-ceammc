@@ -7,62 +7,87 @@
 #X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [samp.t~] @url samp.time~-help.pd;
 #X obj 667 8 samp.time~;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 117 118 bang;
-#X obj 213 118 lfo.+square~ 100;
-#X obj 50 147 samp.t~;
-#X obj 213 147 samp.t~;
-#X obj 50 176 ui.n~;
-#X obj 213 176 ui.n~;
-#X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 234 samp.t~ 0;
-#X obj 213 234 ui.dsp~;
-#X obj 50 262 ui.n~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 463 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A sample-accurate counter that counts audio samples
+while running. It can be started and stopped by a control signal (on
+a 0→1 transition the counter starts \, on a 1→0 transition it stops)
+\, and its current value can be reset or set explicitly. The output
+is the current sample number since the last reset.;
+#X text 240 184 Counter overflow and integer precision:;
+#X text 250 209 • 32-bit float (single precision): exact integer counting
+is guaranteed only up to 2^24 = 16 \, 777 \, 216 samples. Above this
+value \, consecutive integers can no longer be represented — the spacing
+between representable values grows larger than 1 \, so the counter
+may appear to "stick" or skip samples. At a sample rate of 44100 Hz
+this limit is reached after approximately 6 minutes and 20 seconds
+of continuous counting.;
+#X text 250 340 • 64-bit float (double precision): exact integer counting
+is guaranteed up to 2^53 = 9 \, 007 \, 199 \, 254 \, 740 \, 992 samples.
+This is many orders of magnitude beyond any practical audio session
+\, so with double-precision Pd the counter is effectively exact for
+any realistic use.;
+#X text 240 425 Which precision is used depends on how Pd itself is
+compiled: the vanilla Pd distribution typically uses single-precision
+floats \, while CEAMMC distributions are available in both single and
+double precision. If you plan to run a very long counter \, prefer
+a double-precision build.;
+#X obj 50 589 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 117 589 bang;
+#X obj 213 589 lfo.+square~ 100;
+#X obj 50 618 samp.t~;
+#X obj 213 618 samp.t~;
+#X obj 50 647 ui.n~;
+#X obj 213 647 ui.n~;
+#X obj 50 676 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 705 samp.t~ 0;
+#X obj 213 705 ui.dsp~;
+#X obj 50 733 ui.n~;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 788 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 791 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 int;
-#X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 STATE: initial counter state: on or off. Allowed values:
+#X text 130 789 1\.;
+#X text 170 789 int;
+#X obj 268 790 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 789 STATE: initial counter state: on or off. Allowed values:
 0 \, 1\. Type: int.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 844 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 374 reset;
-#X text 270 374 reset sample counter to 0\.;
-#X obj 250 409 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 409 set;
-#X text 270 409 set current value. Arguments are:;
-#X obj 300 434 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 434 [VAL=0]: new counter value. Type: float.;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 482 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 845 reset;
+#X text 270 845 resets the sample counter to 0\.;
+#X obj 250 880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 880 set;
+#X text 270 880 sets the current counter value. Arguments are:;
+#X obj 300 905 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 905 [VAL=0]: new counter value. Type: float.;
+#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 953 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 483 1\.;
-#X text 170 483 ~;
-#X text 270 483 on 0->1 change: start counter \, on 1->0 stops.;
-#X text 130 508 2\.;
-#X text 170 508 bang:;
-#X text 270 508 reset sample counter.;
-#X text 170 533 float:;
-#X text 270 533 set current value.;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 573 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 954 1\.;
+#X text 170 954 ~;
+#X text 270 954 on a 0→1 transition: starts the counter; on a 1→0 transition:
+stops it.;
+#X text 130 1009 2\.;
+#X text 170 1009 bang:;
+#X text 270 1009 resets the sample counter.;
+#X text 170 1034 float:;
+#X text 270 1034 sets the current counter value.;
+#X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1074 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 574 1\.;
-#X text 170 574 ~;
-#X text 270 574 current sample number.;
+#X text 130 1075 1\.;
+#X text 170 1075 ~;
+#X text 270 1075 current sample number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title samp @url ceammc.samp-help.pd;
-#X obj 1 624 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 627 library: ceammc v0.9.8;
-#N canvas 10 646 400 290 info 0;
+#X obj 1 1125 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1128 library: ceammc v0.9.8;
+#N canvas 10 1147 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -86,11 +111,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 646 pd info;
-#X connect 5 0 8 0;
-#X connect 6 0 8 1;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 11 0;
-#X connect 12 0 13 0;
+#X restore 10 1147 pd info;
+#X connect 11 0 14 0;
+#X connect 12 0 14 1;
 #X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
