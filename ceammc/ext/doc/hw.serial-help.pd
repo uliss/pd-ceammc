@@ -5,71 +5,87 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.serial 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 hw.serial;
-#X msg 50 118 @devices?;
-#X obj 50 147 hw.serial;
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 301 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Reads and writes data over a serial port. The object
+can send byte values to a connected device (as a single float or as
+a list of floats in the [0 \, 255] range) and outputs each byte received
+from the port. The port and baud rate can be set with arguments or
+properties; the list of available serial devices is available in @devices.;
+#X text 240 199 Typical use cases:;
+#X text 250 224 • Arduino and microcontroller control — sending and
+receiving byte commands from an Arduino \, Teensy or similar board
+\, for example to drive motors \, relays or LEDs \, or to read sensor
+values.;
+#X text 250 294 • Hardware synthesizers and MIDI interfaces — communicating
+with devices that use serial protocols \, for example some older synthesizers
+\, DMX controllers or custom hardware over USB-serial converters.;
+#X msg 50 427 @devices?;
+#X obj 50 456 hw.serial;
+#X obj 50 485 ui.dt;
+#X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 234 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 543 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 232 1\.;
-#X text 170 232 int;
-#X obj 268 233 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 232 RATE: serial baud rate. Allowed values: 110 \, 115200
+#X text 130 541 1\.;
+#X text 170 541 int;
+#X obj 268 542 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 541 RATE: serial baud rate. Allowed values: 110 \, 115200
 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300 \, 38400
 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Type: int.;
-#X text 130 287 2\.;
-#X text 170 287 symbol;
-#X obj 268 288 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 287 PORT: serial device or port name \, eg.: COM3 on Windows
-\, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 357 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 596 2\.;
+#X text 170 596 symbol;
+#X obj 268 597 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 596 PORT: serial device or port name \, e.g. COM3 on Windows
+\, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on macOS. Type: symbol.;
+#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 666 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 669 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 358 @port;
-#X text 270 358 Name of serial port \, eg.: COM3 on Windows \, /dev/ttyACM0
-on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
-#X obj 250 415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 415 @rate;
-#X text 270 415 Serial baud rate. Type: int. Default value: 57600\.
+#X msg 130 667 @port;
+#X text 270 667 Name of serial port \, e.g. COM3 on Windows \, /dev/ttyACM0
+on Linux and /dev/cu.usbmodem411 on macOS. Type: symbol.;
+#X obj 250 724 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 724 @rate;
+#X text 270 724 Serial baud rate. Type: int. Default value: 57600\.
 Allowed values: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \,
 14400 \, 19200 \, 38400 \, 56000 \, 57600 \, 115200 \, 128000 \, 256000\.;
-#X obj 250 487 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 487 @devices?;
-#X text 270 487 (readonly) List of found serial devices. Type: list.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 532 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 796 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 796 @devices?;
+#X text 270 796 (readonly) List of found serial devices. Type: list.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 841 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 533 close;
-#X text 270 533 disconnect from device.;
-#X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 568 open;
-#X text 270 568 connect to device.;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 618 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 842 close;
+#X text 270 842 disconnects from the device.;
+#X obj 250 877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 877 open;
+#X text 270 877 connects to the device.;
+#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 927 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 619 1\.;
-#X text 170 619 float:;
-#X text 270 619 sends float value in byte range [0-255] to serial port.;
-#X text 170 644 list:;
-#X text 270 644 sends list of floats in byte range [0-255] to serial
-port.;
-#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 684 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 928 1\.;
+#X text 170 928 float:;
+#X text 270 928 sends a float value in the byte range [0 \, 255] to
+the serial port.;
+#X text 170 968 list:;
+#X text 270 968 sends a list of floats in the byte range [0 \, 255]
+to the serial port.;
+#X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 685 1\.;
-#X text 270 685 outputs received byte from serial port.;
+#X text 130 1024 1\.;
+#X text 170 1024 int:;
+#X text 270 1024 outputs the received byte from the serial port.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 735 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 738 library: ceammc v0.9.8;
-#N canvas 10 757 400 290 info 0;
+#X obj 1 1074 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1077 library: ceammc v0.9.8;
+#N canvas 10 1096 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,6 +109,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 757 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 1096 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

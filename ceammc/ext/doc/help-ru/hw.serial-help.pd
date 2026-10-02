@@ -1,79 +1,95 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 580 50 серийный порт устройства;
+#X obj 498 50 cnv 1 267 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 503 50 устройство последовательного порта;
 #X obj 1 1 cnv 5 765 40 empty empty hw.serial 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 hw.serial;
-#X msg 50 118 @devices?;
-#X obj 50 147 hw.serial;
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 316 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Читает и записывает данные через последовательный порт.
+Объект может отправлять байтовые значения подключённому устройству
+(как одно число или как список чисел в диапазоне [0 \, 255]) и выводит
+каждый байт \, полученный из порта. Порт и скорость передачи задаются
+аргументами или свойствами; список доступных устройств доступен в @devices.;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Управление Arduino и микроконтроллерами — отправка
+и приём байтовых команд от Arduino \, Teensy или аналогичной платы
+\, например для управления моторами \, реле или светодиодами \, либо
+для чтения значений с сенсоров.;
+#X text 250 294 • Аппаратные синтезаторы и MIDI-интерфейсы — обмен
+данными с устройствами \, использующими последовательные протоколы
+\, например с некоторыми старыми синтезаторами \, DMX-контроллерами
+или собственным оборудованием через USB-serial переходники.;
+#X msg 50 442 @devices?;
+#X obj 50 471 hw.serial;
+#X obj 50 500 ui.dt;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 555 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 234 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 558 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 232 1\.;
-#X text 170 232 int;
-#X obj 268 233 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 232 RATE: serial baud rate. Разрешённые значения: 110 \,
-115200 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300
-\, 38400 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Тип: int.;
-#X text 130 287 2\.;
-#X text 170 287 symbol;
-#X obj 268 288 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 287 PORT: последовательное устройство или название порта
-\, например: COM3 на Windows \, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411
-на MacOSX. Тип: symbol.;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 357 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
--49933 0;
-#X obj 735 360 ui.link @background_color 0.90196 0.90196 0.90196
-@title [?] @url ceammc.props-info.pd;
-#X msg 130 358 @port;
-#X text 270 358 Последовательное устройство или название порта: COM3
-на Windows \, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на MacOSX.
-Тип: symbol.;
-#X obj 250 415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 415 @rate;
-#X text 270 415 Скорость передачи. Тип: int. Значение по умолчанию:
-57600\. Разрешённые значения: 110 \, 300 \, 600 \, 1200 \, 2400 \,
-4800 \, 9600 \, 14400 \, 19200 \, 38400 \, 56000 \, 57600 \, 115200
-\, 128000 \, 256000\.;
-#X obj 250 487 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 487 @devices?;
-#X text 270 487 (только чтение) Список найденных серийных устройств.
-Тип: list.;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 544 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 545 close;
-#X text 270 545 disconnect from device.;
-#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 580 open;
-#X text 270 580 connect to device.;
-#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 630 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 631 1\.;
-#X text 170 631 float:;
-#X text 270 631 sends float value in byte range [0-255] to serial port.;
-#X text 170 656 list:;
-#X text 270 656 sends list of floats in byte range [0-255] to serial
-port.;
+#X text 130 556 1\.;
+#X text 170 556 int;
+#X obj 268 557 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 556 RATE: скорость передачи (baud rate). Разрешённые значения:
+110 \, 115200 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000
+\, 300 \, 38400 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Тип: int.;
+#X text 130 626 2\.;
+#X text 170 626 symbol;
+#X obj 268 627 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 626 PORT: последовательное устройство или имя порта \,
+например COM3 на Windows \, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411
+на macOS. Тип: symbol.;
 #X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 696 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 696 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 699 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 697 @port;
+#X text 270 697 Имя последовательного порта \, например COM3 на Windows
+\, /dev/ttyACM0 на Linux и /dev/cu.usbmodem411 на macOS. Тип: symbol.;
+#X obj 250 754 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 754 @rate;
+#X text 270 754 Скорость передачи (baud rate). Тип: int. Значение по
+умолчанию: 57600\. Разрешённые значения: 110 \, 300 \, 600 \, 1200
+\, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \, 56000 \, 57600
+\, 115200 \, 128000 \, 256000\.;
+#X obj 250 826 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 826 @devices?;
+#X text 270 826 (только чтение) Список найденных последовательных устройств.
+Тип: list.;
+#X obj 20 878 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 883 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 697 1\.;
-#X text 270 697 outputs received byte from serial port.;
+#X msg 130 884 close;
+#X text 270 884 отключается от устройства.;
+#X obj 250 919 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 919 open;
+#X text 270 919 подключается к устройству.;
+#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 969 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 970 1\.;
+#X text 170 970 float:;
+#X text 270 970 отправляет числовое значение в байтовом диапазоне [0
+\, 255] в последовательный порт.;
+#X text 170 1010 list:;
+#X text 270 1010 отправляет список чисел в байтовом диапазоне [0 \,
+255] в последовательный порт.;
+#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1065 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1066 1\.;
+#X text 170 1066 int:;
+#X text 270 1066 выводит полученный из последовательного порта байт.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 747 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 750 библиотека: ceammc v0.9.8;
-#N canvas 10 769 400 290 info 0;
+#X obj 1 1116 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1119 библиотека: ceammc v0.9.8;
+#N canvas 10 1138 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,6 +113,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 769 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 1138 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

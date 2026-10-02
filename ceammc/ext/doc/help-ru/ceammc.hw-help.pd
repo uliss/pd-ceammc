@@ -77,7 +77,7 @@ hw.rpi.spi.ws2812-help.pd;
 #X text 220 752 драйвер для светодиодной ленты WS2812 для Raspberry
 Pi;
 #X obj 30 780 ui.link @title [hw.serial] @url hw.serial-help.pd;
-#X text 220 777 серийный порт устройства;
+#X text 220 777 устройство последовательного порта;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
 #X obj 1 802 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
