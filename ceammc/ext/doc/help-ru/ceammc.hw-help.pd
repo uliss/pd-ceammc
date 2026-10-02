@@ -7,77 +7,78 @@
 #X obj 30 120 ui.link @title [hw.apple_smc] @url hw.apple_smc-help.pd;
 #X text 220 117 запросы к контроллеру управления системой (SMC) Apple;
 #X obj 30 145 ui.link @title [hw.apple_sms] @url hw.apple_sms-help.pd;
-#X text 220 142 опрос датчика внезапного движения в Apple;
-#X obj 30 170 ui.link @title [hw.arduino] @url hw.arduino-help.pd;
-#X text 220 167 устройство Arduino;
-#X obj 30 195 ui.link @title [hw.display] @url hw.display-help.pd;
-#X text 220 192 получение и установка свойств дисплея;
-#X obj 30 220 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
-#X text 220 217 контроллер геймпада;
-#X obj 30 245 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
-#X text 220 242 управление подсветкой клавиатуры на некоторых устройствах;
-#X obj 30 270 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
-#X text 220 267 управление устройствами Motu AVB по HTTP;
-#X obj 30 295 ui.link @title [hw.printer] @url hw.printer-help.pd;
-#X text 220 292 базовая поддержка печати документов;
-#X obj 30 320 ui.link @title [hw.rpi.adc.ads1115] @url
+#X text 220 142 опрос датчика внезапного движения (Sudden Motion Sensor)
+в Mac;
+#X obj 30 185 ui.link @title [hw.arduino] @url hw.arduino-help.pd;
+#X text 220 182 устройство Arduino;
+#X obj 30 210 ui.link @title [hw.display] @url hw.display-help.pd;
+#X text 220 207 получение и установка свойств дисплея;
+#X obj 30 235 ui.link @title [hw.gamepad] @url hw.gamepad-help.pd;
+#X text 220 232 контроллер геймпада;
+#X obj 30 260 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
+#X text 220 257 управление подсветкой клавиатуры на некоторых устройствах;
+#X obj 30 285 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
+#X text 220 282 управление устройствами Motu AVB по HTTP;
+#X obj 30 310 ui.link @title [hw.printer] @url hw.printer-help.pd;
+#X text 220 307 базовая поддержка печати документов;
+#X obj 30 335 ui.link @title [hw.rpi.adc.ads1115] @url
 hw.rpi.adc.ads1115-help.pd;
-#X text 220 317 драйвер 16-битного АЦП на чипе ADS1115 для Raspberry
+#X text 220 332 драйвер 16-битного АЦП на чипе ADS1115 для Raspberry
 Pi;
-#X obj 30 345 ui.link @title [hw.rpi.display.hd44780] @url
+#X obj 30 360 ui.link @title [hw.rpi.display.hd44780] @url
 hw.rpi.display.hd44780-help.pd;
-#X text 220 342 драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry
+#X text 220 357 драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry
 Pi;
-#X obj 30 370 ui.link @title [hw.rpi.display.ssd1306] @url
+#X obj 30 385 ui.link @title [hw.rpi.display.ssd1306] @url
 hw.rpi.display.ssd1306-help.pd;
-#X text 220 367 драйвер OLED-дисплея на чипе SSD1306 для Raspberry
+#X text 220 382 драйвер OLED-дисплея на чипе SSD1306 для Raspberry
 Pi;
-#X obj 30 395 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
-#X text 220 392 управление GPIO на Raspberry Pi;
-#X obj 30 420 ui.link @title [hw.rpi.gpio.servo] @url
+#X obj 30 410 ui.link @title [hw.rpi.gpio] @url hw.rpi.gpio-help.pd;
+#X text 220 407 управление GPIO на Raspberry Pi;
+#X obj 30 435 ui.link @title [hw.rpi.gpio.servo] @url
 hw.rpi.gpio.servo-help.pd;
-#X text 220 417 управление сервоприводом через выводы GPIO на Raspberry
+#X text 220 432 управление сервоприводом через выводы GPIO на Raspberry
 Pi;
-#X obj 30 445 ui.link @title [hw.rpi.i2c.pca9685] @url
+#X obj 30 460 ui.link @title [hw.rpi.i2c.pca9685] @url
 hw.rpi.i2c.pca9685-help.pd;
-#X text 220 442 драйвер 16-канального 12-битного ШИМ-модуля на чипе
+#X text 220 457 драйвер 16-канального 12-битного ШИМ-модуля на чипе
 PCA9685 для Raspberry Pi;
-#X obj 30 485 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
-#X text 220 482 аппаратный ШИМ (PWM) для Raspberry Pi;
-#X obj 30 510 ui.link @title [hw.rpi.rotenc] @url
+#X obj 30 500 ui.link @title [hw.rpi.pwm] @url hw.rpi.pwm-help.pd;
+#X text 220 497 аппаратный ШИМ (PWM) для Raspberry Pi;
+#X obj 30 525 ui.link @title [hw.rpi.rotenc] @url
 hw.rpi.rotenc-help.pd;
-#X text 220 507 поворотный энкодер для Raspberry Pi;
-#X obj 30 535 ui.link @title [hw.rpi.sensor.dht11] @url
+#X text 220 522 поворотный энкодер для Raspberry Pi;
+#X obj 30 550 ui.link @title [hw.rpi.sensor.dht11] @url
 hw.rpi.sensor.dht11-help.pd;
-#X text 220 532 цифровой датчик влажности и температуры (DHT11) для
+#X text 220 547 цифровой датчик влажности и температуры (DHT11) для
 Raspberry Pi;
-#X obj 30 575 ui.link @title [hw.rpi.sensor.ir] @url
+#X obj 30 590 ui.link @title [hw.rpi.sensor.ir] @url
 hw.rpi.sensor.ir-help.pd;
-#X text 220 572 ИК (инфракрасные) датчики и протоколы для Raspberry
+#X text 220 587 ИК (инфракрасные) датчики и протоколы для Raspberry
 Pi;
-#X obj 30 600 ui.link @title [hw.rpi.sensor.mpr121] @url
+#X obj 30 615 ui.link @title [hw.rpi.sensor.mpr121] @url
 hw.rpi.sensor.mpr121-help.pd;
-#X text 220 597 12-канальный I²C-контроллер ёмкостного сенсора с низким
+#X text 220 612 12-канальный I²C-контроллер ёмкостного сенсора с низким
 энергопотреблением и автоматической калибровкой;
-#X obj 30 640 ui.link @title [hw.rpi.sensor.mpu6050] @url
+#X obj 30 655 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
-#X text 220 637 MPU-6050 — гироскоп и акселерометр для Raspberry Pi;
-#X obj 30 665 ui.link @title [hw.rpi.sensor.sr04] @url
+#X text 220 652 MPU-6050 — гироскоп и акселерометр для Raspberry Pi;
+#X obj 30 680 ui.link @title [hw.rpi.sensor.sr04] @url
 hw.rpi.sensor.sr04-help.pd;
-#X text 220 662 ультразвуковой дальномер HC-SR04 для Raspberry Pi;
-#X obj 30 690 ui.link @title [hw.rpi.sensor.vl53l0x] @url
+#X text 220 677 ультразвуковой дальномер HC-SR04 для Raspberry Pi;
+#X obj 30 705 ui.link @title [hw.rpi.sensor.vl53l0x] @url
 hw.rpi.sensor.vl53l0x-help.pd;
-#X text 220 687 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
-#X obj 30 715 ui.link @title [hw.rpi.spi.max7219] @url
+#X text 220 702 лазерный дальномер на чипе VL53L0X для Raspberry Pi;
+#X obj 30 730 ui.link @title [hw.rpi.spi.max7219] @url
 hw.rpi.spi.max7219-help.pd;
-#X text 220 712 драйвер светодиодной матрицы на чипе MAX7219 для Raspberry
+#X text 220 727 драйвер светодиодной матрицы на чипе MAX7219 для Raspberry
 Pi;
-#X obj 30 740 ui.link @title [hw.rpi.spi.ws2812] @url
+#X obj 30 755 ui.link @title [hw.rpi.spi.ws2812] @url
 hw.rpi.spi.ws2812-help.pd;
-#X text 220 737 драйвер светодиодной ленты WS2812 для Raspberry Pi;
-#X obj 30 765 ui.link @title [hw.serial] @url hw.serial-help.pd;
-#X text 220 762 устройство последовательного порта;
+#X text 220 752 драйвер светодиодной ленты WS2812 для Raspberry Pi;
+#X obj 30 780 ui.link @title [hw.serial] @url hw.serial-help.pd;
+#X text 220 777 устройство последовательного порта;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
-#X obj 1 787 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 797 library: ceammc;
+#X obj 1 802 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 812 library: ceammc;

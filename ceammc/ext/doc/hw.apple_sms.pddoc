@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">query the sudden motion sensor in Apples</tr>
-        <tr lang="ru">опрос датчика внезапного движения в Apple</tr>
+        <tr lang="ru">опрос датчика внезапного движения (Sudden Motion Sensor) в Mac</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,30 +18,33 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">In raw output mode output values can be in various output range and sign,
-        otherwise output data are normalized to float range, where positive *x* mean rightwards,
-        positive *y* means rearwards, positive *z* mean upwards, but not all devices are in
-        database. It it occures with your device (wrong direction), please, send us this
-        information</tr>
-        <!-- old: В режиме необработанного вывода выходные значения
-                могут быть в различных диапазонах и знаках, в противном случае выходные данные
-                нормализуются до диапазона плавания, где положительные *x * означают вправо,
-                положительные *y * означают взад, положительные *z * означают в сторону вверх, но
-                не все устройства находятся в базе данных. Это происходит с вашим устройством
-                (неправильное направление), пожалуйста, отправьте нам эту информацию -->
-        <tr lang="ru" finished="false">В режиме необработанного вывода выходные значения могут быть
-        в различных диапазонах и знаках, в противном случае выходные данные нормализуются до
-        диапазона плавания, где положительные *x * означают вправо, положительные *y * означают
-        взад, положительные *z * означают в сторону вверх, но не все устройства находятся в базе
-        данных. Это происходит с вашим устройством (неправильное направление), пожалуйста,
-        отправьте нам эту информацию</tr>
+        <tr lang="en">In raw output mode, values can be in various output ranges and signs.
+        Otherwise, output data are normalized to float range, where positive *x* means rightwards,
+        positive *y* means rearwards, positive *z* means upwards, but not all devices are in the
+        database.</tr>
+        <tr lang="ru">В режиме «сырого» вывода значения могут быть в различных диапазонах и с
+        разными знаками. В противном случае выходные данные нормализуются в диапазон чисел с
+        плавающей точкой, где положительный *x* означает вправо, положительный *y* — назад,
+        положительный *z* — вверх, но не все устройства внесены в базу данных.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Tilt and shake control — using the orientation of an Apple laptop or a
+        device with SMS to control parameters (pitch, filter, pan) by physically tilting or
+        shaking the machine.</tr>
+        <tr lang="ru">• Управление наклоном и встряхиванием — использование ориентации ноутбука
+        Apple или устройства с SMS для управления параметрами (высота тона, фильтр, панорама) с
+        помощью физического наклона или встряхивания.</tr>
       </par>
     </info>
     <properties>
       <!-- @raw -->
       <property name="@raw" type="bool" default="0">
         <tr lang="en">raw data output mode</tr>
-        <tr lang="ru">режим вывода необработанных данных</tr>
+        <tr lang="ru">режим вывода «сырых» данных</tr>
       </property>
     </properties>
     <inlets>
@@ -56,7 +59,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of three values: x-rotation, y-rotation, z-acceleration</tr>
-          <tr lang="ru">список из трех значений: x-вращение, y-вращение, z-ускорение</tr>
+          <tr lang="ru">список из трёх значений: x-вращение, y-вращение, z-ускорение</tr>
         </out>
       </outlet>
     </outlets>

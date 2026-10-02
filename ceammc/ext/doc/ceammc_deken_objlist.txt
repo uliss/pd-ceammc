@@ -601,7 +601,7 @@ global.list	global named list / глобальный именованный сп
 global.mlist	global named multilevel list (MList) / глобальный именованный многоуровневый список (MList)
 global.set	global named set / глобальное именованное множество
 hw.apple_smc	query Apple system management control / запросы к контроллеру управления системой (SMC) Apple
-hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения в Apple
+hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения (Sudden Motion Sensor) в Mac
 hw.arduino	Arduino device / устройство Arduino
 hw.display	get/set display properties / получение и установка свойств дисплея
 hw.gamepad	gamepad controller / контроллер геймпада
