@@ -5,98 +5,103 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.cue 20 20 0 20 -104026 -4096 0;
 #X obj 694 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [tl.cue] @url tl.cue-help.pd;
-#X obj 126 118 tl.cue;
-#X obj 338 118 tl.cue;
-#X obj 520 118 tl.cue;
-#X obj 50 147 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Отмечает секцию на временной шкале. Другие объекты временной
+шкалы \, такие как [tl.bang] и [tl.toggle] \, срабатывают только тогда
+\, когда связанная с ними метка является активной в данный момент.;
+#X obj 126 216 tl.cue;
+#X obj 338 216 tl.cue;
+#X obj 520 216 tl.cue;
+#X obj 50 245 hradio 15 1 0 2 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X obj 194 147 tl.bang @delay 500;
-#X msg 50 176 cue \$1;
-#X obj 194 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 194 245 tl.bang @delay 500;
+#X msg 50 274 cue \$1;
+#X obj 194 274 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 434 176 tl.bang;
-#X obj 587 176 tl.toggle;
-#X obj 50 205 tl.transport;
-#X obj 434 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 434 274 tl.bang;
+#X obj 587 274 tl.toggle;
+#X obj 50 303 tl.transport;
+#X obj 434 303 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 587 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 587 303 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 358 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 295 Right-click + ⇧;
-#X text 310 295 open the object help.;
-#X text 130 315 Right-click + ⌥;
-#X text 310 315 open the properties dialog.;
-#X text 130 335 Right-click;
-#X text 310 335 opens the Pd popup menu.;
-#X text 65 335 [Правка];
-#X text 130 355 Right-click + ⇧;
-#X text 310 355 open the object help.;
-#X text 65 355 [Правка];
-#X text 130 375 Right-click + ⌥;
-#X text 310 375 open the properties dialog.;
-#X text 65 375 [Правка];
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 410 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 393 Right-click + ⇧;
+#X text 310 393 open the object help.;
+#X text 130 413 Right-click + ⌥;
+#X text 310 413 open the properties dialog.;
+#X text 130 433 Right-click;
+#X text 310 433 opens the Pd popup menu.;
+#X text 65 433 [Правка];
+#X text 130 453 Right-click + ⇧;
+#X text 310 453 open the object help.;
+#X text 65 453 [Правка];
+#X text 130 473 Right-click + ⌥;
+#X text 310 473 open the properties dialog.;
+#X text 65 473 [Правка];
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 508 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 413 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 511 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 411 @background_color;
-#X text 270 411 Element background color (list of red \, green \, blue
-values in 0-1 range). Тип: list. Значение по умолчанию: 0.93 0.93 0.93
-1\.;
-#X obj 250 468 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 468 @border_color;
-#X text 270 468 Border color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0 0.75 1 1\.;
-#X obj 250 510 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 510 @fontname;
-#X text 270 510 Fontname. Тип: symbol. Значение по умолчанию: Helvetica.
+#X msg 130 509 @background_color;
+#X text 270 509 Цвет фона элемента (список значений красного \, зелёного
+\, синего и альфа в диапазоне 0\..1). Тип: list. Значение по умолчанию:
+0.93 0.93 0.93 1\.;
+#X obj 250 566 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 566 @border_color;
+#X text 270 566 Цвет рамки (список значений красного \, зелёного \,
+синего и альфа в диапазоне 0\..1). Тип: list. Значение по умолчанию:
+0 0.75 1 1\.;
+#X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 623 @fontname;
+#X text 270 623 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
 Разрешённые значения: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 567 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 567 @fontsize;
-#X text 270 567 Fontsize. Тип: int. Значение по умолчанию: 11\. Диапазон:
-[4\..100].;
-#X obj 250 609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 609 @fontslant;
-#X text 270 609 Font slant. Тип: symbol. Значение по умолчанию: roman.
-Разрешённые значения: roman \, italic.;
-#X obj 250 651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 651 @fontweight;
-#X text 270 651 Font weight. Тип: symbol. Значение по умолчанию: normal.
-Разрешённые значения: normal \, bold.;
-#X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 693 @pinned;
-#X text 270 693 Pin mode. if 1 - put element to the lowest level. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 750 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 680 @fontsize;
+#X text 270 680 Размер шрифта. Тип: int. Значение по умолчанию: 11\.
+Диапазон: [4\..100].;
+#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 722 @fontslant;
+#X text 270 722 Наклон шрифта. Тип: symbol. Значение по умолчанию:
+roman. Разрешённые значения: roman \, italic.;
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 764 @fontweight;
+#X text 270 764 Насыщенность шрифта. Тип: symbol. Значение по умолчанию:
+normal. Разрешённые значения: normal \, bold.;
+#X obj 250 806 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 806 @pinned;
+#X text 270 806 Режим закрепления. Если 1 — поместить элемент на самый
+нижний слой. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 863 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 751 pos;
-#X text 270 751 set UI element position. Аргументы:;
-#X obj 300 776 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 776 X: top left x-coord. Тип: float.;
-#X obj 300 799 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 799 Y: top right y-coord. Тип: float.;
-#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 847 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 864 pos;
+#X text 270 864 устанавливает положение элемента UI. Аргументы:;
+#X obj 300 889 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 889 X: координата X верхнего левого угла. Тип: float.;
+#X obj 300 912 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 912 Y: координата Y верхнего левого угла. Тип: float.;
+#X obj 20 955 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 960 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 873 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X obj 20 981 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 986 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 914 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 917 библиотека: ceammc v0.9.8;
-#X text 482 929 смотрите также:;
-#X obj 603 932 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1027 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1030 библиотека: ceammc v0.9.8;
+#X text 482 1042 смотрите также:;
+#X obj 603 1045 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.bang] @url tl.bang-help.pd;
-#X obj 672 932 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 1045 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.toggle] @url tl.toggle-help.pd;
-#N canvas 10 936 400 290 info 0;
+#N canvas 10 1049 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -120,9 +125,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 936 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 13 0;
-#X connect 11 0 14 0;
-#X connect 12 0 15 0;
+#X restore 10 1049 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 15 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;

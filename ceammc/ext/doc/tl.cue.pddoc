@@ -21,6 +21,17 @@
         <see view="link">tl.toggle</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Marks a section on the timeline.
+        Other timeline objects such as [tl.bang] and [tl.toggle] are activated only when
+        their associated cue is the currently active one.</tr>
+        <tr lang="ru">Отмечает секцию на временной шкале.
+        Другие объекты временной шкалы, такие как [tl.bang] и [tl.toggle],
+        срабатывают только тогда, когда связанная с ними метка является активной в данный
+        момент.</tr>
+      </par>
+    </info>
     <mouse>
       <event type="right-click" editmode="false" keys="Shift">open the object help</event>
       <event type="right-click" editmode="false" keys="Alt">open the properties dialog</event>
@@ -31,58 +42,58 @@
     <properties>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">цвет фона элемента (список красных, зеленых, синих значений
-        в диапазоне 0-1)</tr>
+        <tr lang="en">element background color (list of red, green, blue, alpha values in the
+        0..1 range)</tr>
+        <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего и альфа в
+        диапазоне 0..1)</tr>
       </property>
       <!-- @border_color -->
       <property name="@border_color" type="list" default="0 0.75 1 1">
-        <tr lang="en">border color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">пограничный цвет (список красных, зеленых, синих значений в
-        диапазоне 0-1)</tr>
+        <tr lang="en">border color (list of red, green, blue, alpha values in the 0..1 range)</tr>
+        <tr lang="ru">цвет рамки (список значений красного, зелёного, синего и альфа в диапазоне
+        0..1)</tr>
       </property>
       <!-- @fontname -->
       <property name="@fontname" type="symbol" default="Helvetica"
       enum="Courier DejaVu Helvetica Monaco Times">
-        <tr lang="en">fontname</tr>
-        <tr lang="ru" finished="false">название шрифта</tr>
+        <tr lang="en">font name</tr>
+        <tr lang="ru">имя шрифта</tr>
       </property>
       <!-- @fontsize -->
       <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
-        <tr lang="en">fontsize</tr>
-        <tr lang="ru" finished="false">шрифт</tr>
+        <tr lang="en">font size</tr>
+        <tr lang="ru">размер шрифта</tr>
       </property>
       <!-- @fontslant -->
       <property name="@fontslant" type="symbol" enum="roman italic" default="roman">
         <tr lang="en">font slant</tr>
-        <tr lang="ru" finished="false">наклон шрифта</tr>
+        <tr lang="ru">наклон шрифта</tr>
       </property>
       <!-- @fontweight -->
       <property name="@fontweight" type="symbol" enum="normal bold" default="normal">
         <tr lang="en">font weight</tr>
-        <tr lang="ru" finished="false">вес шрифта</tr>
+        <tr lang="ru">насыщенность шрифта</tr>
       </property>
       <!-- @pinned -->
       <property name="@pinned" type="bool" default="0">
-        <tr lang="en">pin mode. if 1 - put element to the lowest level</tr>
-        <tr lang="ru" finished="false">Режим пин. если 1 - поставить элемент на самый низкий
-        уровень</tr>
+        <tr lang="en">pin mode. If 1 — put the element to the lowest level</tr>
+        <tr lang="ru">режим закрепления. Если 1 — поместить элемент на самый нижний слой</tr>
       </property>
     </properties>
     <methods>
       <!-- pos -->
       <method name="pos">
         <info>
-          <tr lang="en">set UI element position</tr>
-          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+          <tr lang="en">sets the UI element position</tr>
+          <tr lang="ru">устанавливает положение элемента UI</tr>
         </info>
         <param name="X" type="float" required="true">
-          <tr lang="en">top left x-coord</tr>
-          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+          <tr lang="en">top-left x coordinate</tr>
+          <tr lang="ru">координата X верхнего левого угла</tr>
         </param>
         <param name="Y" type="float" required="true">
-          <tr lang="en">top right y-coord</tr>
-          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+          <tr lang="en">top-left y coordinate</tr>
+          <tr lang="ru">координата Y верхнего левого угла</tr>
         </param>
       </method>
     </methods>
@@ -93,7 +104,7 @@
 <![CDATA[
         [tl.cue]              [tl.cue]           [tl.cue]
 
-[HR number=3]  [tl.bang @delay 500]
+[HR number=2]  [tl.bang @delay 500]
 |              |
 [cue $1(       [B]                      [tl.bang]       [tl.toggle]
 |                                       |               |

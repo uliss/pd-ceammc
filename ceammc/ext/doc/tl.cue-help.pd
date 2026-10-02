@@ -5,96 +5,101 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.cue 20 20 0 20 -104026 -4096 0;
 #X obj 694 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [tl.cue] @url tl.cue-help.pd;
-#X obj 126 118 tl.cue;
-#X obj 338 118 tl.cue;
-#X obj 520 118 tl.cue;
-#X obj 50 147 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Marks a section on the timeline. Other timeline objects
+such as [tl.bang] and [tl.toggle] are activated only when their associated
+cue is the currently active one.;
+#X obj 126 201 tl.cue;
+#X obj 338 201 tl.cue;
+#X obj 520 201 tl.cue;
+#X obj 50 230 hradio 15 1 0 2 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X obj 194 147 tl.bang @delay 500;
-#X msg 50 176 cue \$1;
-#X obj 194 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 194 230 tl.bang @delay 500;
+#X msg 50 259 cue \$1;
+#X obj 194 259 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 434 176 tl.bang;
-#X obj 587 176 tl.toggle;
-#X obj 50 205 tl.transport;
-#X obj 434 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 434 259 tl.bang;
+#X obj 587 259 tl.toggle;
+#X obj 50 288 tl.transport;
+#X obj 434 288 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 587 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 587 288 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 343 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 295 Right-click + ⇧;
-#X text 310 295 open the object help.;
-#X text 130 315 Right-click + ⌥;
-#X text 310 315 open the properties dialog.;
-#X text 130 335 Right-click;
-#X text 310 335 opens the Pd popup menu.;
-#X text 81 335 [Edit];
-#X text 130 355 Right-click + ⇧;
-#X text 310 355 open the object help.;
-#X text 81 355 [Edit];
-#X text 130 375 Right-click + ⌥;
-#X text 310 375 open the properties dialog.;
-#X text 81 375 [Edit];
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 410 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 378 Right-click + ⇧;
+#X text 310 378 open the object help.;
+#X text 130 398 Right-click + ⌥;
+#X text 310 398 open the properties dialog.;
+#X text 130 418 Right-click;
+#X text 310 418 opens the Pd popup menu.;
+#X text 81 418 [Edit];
+#X text 130 438 Right-click + ⇧;
+#X text 310 438 open the object help.;
+#X text 81 438 [Edit];
+#X text 130 458 Right-click + ⌥;
+#X text 310 458 open the properties dialog.;
+#X text 81 458 [Edit];
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 493 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 413 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 411 @background_color;
-#X text 270 411 Element background color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.93 0.93 0.93 1\.;
-#X obj 250 468 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 468 @border_color;
-#X text 270 468 Border color (list of red \, green \, blue values in
-0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X obj 250 510 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 510 @fontname;
-#X text 270 510 Fontname. Type: symbol. Default value: Helvetica. Allowed
-values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X obj 250 552 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 552 @fontsize;
-#X text 270 552 Fontsize. Type: int. Default value: 11\. Range: [4\..100].;
-#X obj 250 582 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 582 @fontslant;
-#X text 270 582 Font slant. Type: symbol. Default value: roman. Allowed
+#X msg 130 494 @background_color;
+#X text 270 494 Element background color (list of red \, green \, blue
+\, alpha values in the 0\..1 range). Type: list. Default value: 0.93
+0.93 0.93 1\.;
+#X obj 250 551 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 551 @border_color;
+#X text 270 551 Border color (list of red \, green \, blue \, alpha
+values in the 0\..1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 608 @fontname;
+#X text 270 608 Font name. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 650 @fontsize;
+#X text 270 650 Font size. Type: int. Default value: 11\. Range: [4\..100].;
+#X obj 250 680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 680 @fontslant;
+#X text 270 680 Font slant. Type: symbol. Default value: roman. Allowed
 values: roman \, italic.;
-#X obj 250 624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 624 @fontweight;
-#X text 270 624 Font weight. Type: symbol. Default value: normal. Allowed
+#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 722 @fontweight;
+#X text 270 722 Font weight. Type: symbol. Default value: normal. Allowed
 values: normal \, bold.;
-#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 666 @pinned;
-#X text 270 666 Pin mode. if 1 - put element to the lowest level. Type:
-bool. Default value: 0\.;
-#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 723 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 764 @pinned;
+#X text 270 764 Pin mode. If 1 — put the element to the lowest level.
+Type: bool. Default value: 0\.;
+#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 821 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 724 pos;
-#X text 270 724 set UI element position. Arguments are:;
-#X obj 300 749 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 749 X: top left x-coord. Type: float.;
-#X obj 300 772 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 772 Y: top right y-coord. Type: float.;
-#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 820 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 822 pos;
+#X text 270 822 sets the UI element position. Arguments are:;
+#X obj 300 847 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 847 X: top-left x coordinate. Type: float.;
+#X obj 300 870 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 870 Y: top-left y coordinate. Type: float.;
+#X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 918 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 846 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 944 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 887 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 890 library: ceammc v0.9.8;
-#X text 528 902 see also:;
-#X obj 603 905 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 985 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 988 library: ceammc v0.9.8;
+#X text 528 1000 see also:;
+#X obj 603 1003 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.bang] @url tl.bang-help.pd;
-#X obj 672 905 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 1003 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.toggle] @url tl.toggle-help.pd;
-#N canvas 10 909 400 290 info 0;
+#N canvas 10 1007 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,9 +123,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 909 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 13 0;
-#X connect 11 0 14 0;
-#X connect 12 0 15 0;
+#X restore 10 1007 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 15 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;
