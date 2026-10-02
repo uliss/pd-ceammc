@@ -50,9 +50,9 @@
         <tr lang="en">• Standalone hardware instruments — building a self-contained instrument or
         controller based on Raspberry Pi, where the display shows parameters and menus for
         navigation through the patch, using cursor and backlight control.</tr>
-        <tr lang="ru">• Автономные аппаратные инструменты — сборка самостоятельного инструмента
-        или контроллера на базе Raspberry Pi, где дисплей отображает параметры и меню для
-        навигации по патчу с использованием управления курсором и подсветкой.</tr>
+        <tr lang="ru">• Автономные аппаратные инструменты — сборка самостоятельного инструмента или
+        контроллера на базе Raspberry Pi, где дисплей отображает параметры и меню для навигации по
+        патчу с использованием управления курсором и подсветкой.</tr>
       </par>
     </info>
     <properties>
@@ -178,8 +178,7 @@
       <!-- move_display -->
       <method name="move_display">
         <info>
-          <tr lang="en">moves the display content horizontally (without changing its
-          content)</tr>
+          <tr lang="en">moves the display content horizontally (without changing its content)</tr>
           <tr lang="ru">перемещает содержимое дисплея по горизонтали (без изменения его
           содержимого)</tr>
         </info>

@@ -54,21 +54,21 @@
         <tr lang="ru">Типичные сценарии применения:</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Environment monitoring — reading temperature and humidity in a room,
-        studio or installation, for example to log the climate or to trigger an alarm when
-        conditions exceed the configured range.</tr>
+        <tr lang="en">• Environment monitoring — reading temperature and humidity in a room, studio
+        or installation, for example to log the climate or to trigger an alarm when conditions
+        exceed the configured range.</tr>
         <tr lang="ru">• Мониторинг окружающей среды — измерение температуры и влажности в комнате,
-        студии или инсталляции, например для ведения журнала климата или запуска сигнала при
-        выходе условий за заданный диапазон.</tr>
+        студии или инсталляции, например для ведения журнала климата или запуска сигнала при выходе
+        условий за заданный диапазон.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Sonification and interactive installations — mapping temperature and
         humidity to sound parameters, so that the music reacts to the physical environment in real
         time, for example in weather-driven compositions or data sonification projects.</tr>
         <tr lang="ru">• Сонификация и интерактивные инсталляции — преобразование температуры и
-        влажности в звуковые параметры, чтобы музыка реагировала на физическое окружение в
-        реальном времени, например в композициях, зависящих от погоды, или в проектах
-        сонификации данных.</tr>
+        влажности в звуковые параметры, чтобы музыка реагировала на физическое окружение в реальном
+        времени, например в композициях, зависящих от погоды, или в проектах сонификации
+        данных.</tr>
       </par>
     </info>
     <arguments>

@@ -43,17 +43,17 @@
         <tr lang="en">• Capacitive touch interfaces — building a 12-key touch keyboard, a
         touch-sensitive control panel or a custom musical interface, where each electrode
         corresponds to a note, parameter or action.</tr>
-        <tr lang="ru">• Ёмкостные сенсорные интерфейсы — сборка 12-клавишной сенсорной
-        клавиатуры, сенсорной панели управления или собственного музыкального интерфейса, где
-        каждый электрод соответствует ноте, параметру или действию.</tr>
+        <tr lang="ru">• Ёмкостные сенсорные интерфейсы — сборка 12-клавишной сенсорной клавиатуры,
+        сенсорной панели управления или собственного музыкального интерфейса, где каждый электрод
+        соответствует ноте, параметру или действию.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Interactive installations with physical touch — connecting conductive
         objects (fruit, plants, metal surfaces) to the electrodes, so the audience can trigger
         sounds or changes in the installation by touching them.</tr>
         <tr lang="ru">• Интерактивные инсталляции с физическим касанием — подключение проводящих
-        предметов (фрукты, растения, металлические поверхности) к электродам, чтобы публика
-        могла запускать звуки или изменения в инсталляции прикосновением к ним.</tr>
+        предметов (фрукты, растения, металлические поверхности) к электродам, чтобы публика могла
+        запускать звуки или изменения в инсталляции прикосновением к ним.</tr>
       </par>
     </info>
     <properties>
@@ -61,8 +61,8 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
-        значении 0: отключается от устройства</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При значении
+        0: отключается от устройства</tr>
       </property>
       <!-- @debounce -->
       <property name="@debounce" type="list" default="0 0" access="readwrite" min-count="2"

@@ -60,9 +60,9 @@
         запуска событий.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Sensor-driven installations — building interactive sound installations
-        that respond to light, distance, pressure or other physical quantities measured through
-        the ADC, with continuous polling of the desired channels.</tr>
+        <tr lang="en">• Sensor-driven installations — building interactive sound installations that
+        respond to light, distance, pressure or other physical quantities measured through the ADC,
+        with continuous polling of the desired channels.</tr>
         <tr lang="ru">• Инсталляции, управляемые сенсорами — создание интерактивных звуковых
         инсталляций, реагирующих на свет, расстояние, давление и другие физические величины,
         измеряемые через АЦП, с непрерывным опросом нужных каналов.</tr>

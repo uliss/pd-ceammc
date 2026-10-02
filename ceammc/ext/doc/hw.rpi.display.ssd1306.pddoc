@@ -36,14 +36,14 @@
       <par indent="1">
         <tr lang="en">• Compact status and info display — showing tempo, mode, preset names or
         other short text on a small OLED screen, drawn with the text and pixel methods.</tr>
-        <tr lang="ru">• Компактный дисплей состояния и информации — отображение темпа, режима,
-        имён пресетов и другого короткого текста на небольшом OLED-экране с помощью методов
-        text и pixel.</tr>
+        <tr lang="ru">• Компактный дисплей состояния и информации — отображение темпа, режима, имён
+        пресетов и другого короткого текста на небольшом OLED-экране с помощью методов text и
+        pixel.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Graphical and bitmap output — drawing custom images, icons or animated
-        bitmaps using the write bitmap and write bytes methods, for example for a small menu,
-        level meter or visualizer.</tr>
+        bitmaps using the write bitmap and write bytes methods, for example for a small menu, level
+        meter or visualizer.</tr>
         <tr lang="ru">• Графический вывод и вывод растровых изображений — отрисовка
         пользовательских изображений, значков или анимированных растровых картинок с помощью
         методов write bitmap и write bytes, например для небольшого меню, индикатора уровня или
@@ -129,8 +129,8 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clears the display contents and optionally sends the internal buffer to
-          the device</tr>
+          <tr lang="en">clears the display contents and optionally sends the internal buffer to the
+          device</tr>
           <tr lang="ru">очищает содержимое дисплея и опционально отправляет внутренний буфер на
           устройство</tr>
         </info>
