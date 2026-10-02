@@ -472,7 +472,7 @@ set.contains-help.pd;
 set.intersect-help.pd;
 #X text 200 4913 пересечение множеств;
 #X obj 30 4941 ui.link @title [set.size] @url set.size-help.pd;
-#X text 200 4938 выводит количество элементов в множестве;
+#X text 200 4938 выводит число элементов во множестве;
 #X obj 30 4966 ui.link @title [set.symdiff] @url set.symdiff-help.pd;
 #X text 200 4963 симметрическая разность между двумя множествами;
 #X obj 30 4991 ui.link @title [set.union] @url set.union-help.pd;

@@ -446,7 +446,7 @@ the input set;
 #X obj 30 4551 ui.link @title [set.diff] @url set.diff-help.pd;
 #X text 200 4548 difference between two sets;
 #X obj 30 4576 ui.link @title [set.equal] @url set.equal-help.pd;
-#X text 200 4573 checks if two sets are equal (contains same elements);
+#X text 200 4573 checks if two sets are equal (contain the same elements);
 #X obj 30 4601 ui.link @title [set.intersect] @url
 set.intersect-help.pd;
 #X text 200 4598 intersection of sets;

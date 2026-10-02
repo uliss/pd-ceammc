@@ -45,8 +45,8 @@
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">set or list; other values are ignored</tr>
-          <tr lang="ru">множество или список; остальные значения игнорируются</tr>
+          <tr lang="en">set or list, other values are ignored</tr>
+          <tr lang="ru">множество или список, остальные значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>

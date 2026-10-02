@@ -339,7 +339,7 @@ set.contains	checks whether the predefined element is present in the input set /
 set.diff	difference between two sets / разность двух множеств
 set.equal	checks if two sets are equal (contain the same elements) / проверяет, равны ли два множества (содержат одни и те же элементы)
 set.intersect	intersection of sets / пересечение множеств
-set.size	outputs the number of elements in a set / выводит количество элементов в множестве
+set.size	outputs the number of elements in a set / выводит число элементов во множестве
 set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
 set.union	union of sets / объединение множеств
 dyn.comp2~	stereo dynamic range compressor / стерео-компрессор динамического диапазона

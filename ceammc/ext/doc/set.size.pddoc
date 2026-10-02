@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs the number of elements in a set</tr>
-        <tr lang="ru">выводит количество элементов в множестве</tr>
+        <tr lang="ru">выводит число элементов во множестве</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,19 +19,47 @@
         <see>data.set</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the number of elements in the incoming set (or list converted to a
+        set).</tr>
+        <tr lang="ru">Выводит число элементов во входящем множестве (или в списке, преобразованном
+        во множество).</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Counting unique elements — finding out how many distinct values are
+        currently stored in a set, for example the number of active tags, selected notes or
+        enabled options.</tr>
+        <tr lang="ru">• Подсчёт уникальных элементов — определение того, сколько различных
+        значений сейчас содержится во множестве, например число активных меток, выбранных нот или
+        включённых опций.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Conditional behaviour based on set size — using the output as a condition
+        in a patch, for example to trigger an event only when the set contains enough elements, or
+        to stop processing when it becomes empty.</tr>
+        <tr lang="ru">• Условное поведение по размеру множества — использование выхода как условия
+        в патче, например чтобы запускать событие только тогда, когда во множестве достаточно
+        элементов, или останавливать обработку, когда оно становится пустым.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input set. Other values are ignored</tr>
-          <tr lang="ru" finished="false">Набор входных данных. Другие ценности игнорируются</tr>
+          <tr lang="ru">входное множество. Остальные значения игнорируются</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">number of element in set</tr>
-          <tr lang="ru" finished="false">Количество элементов в наборе</tr>
+          <tr lang="en">number of elements in the set</tr>
+          <tr lang="ru">число элементов во множестве</tr>
         </out>
       </outlet>
     </outlets>

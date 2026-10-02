@@ -83,7 +83,7 @@ rtree.to_list-help.pd;
 set.intersect-help.pd;
 #X text 220 997 пересечение множеств;
 #X obj 30 1025 ui.link @title [set.size] @url set.size-help.pd;
-#X text 220 1022 выводит количество элементов в множестве;
+#X text 220 1022 выводит число элементов во множестве;
 #X obj 30 1050 ui.link @title [set.symdiff] @url set.symdiff-help.pd;
 #X text 220 1047 симметрическая разность между двумя множествами;
 #X obj 30 1075 ui.link @title [set.union] @url set.union-help.pd;
