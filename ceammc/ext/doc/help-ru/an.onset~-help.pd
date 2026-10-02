@@ -1,164 +1,186 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 595 50 детектор атаки сигнала;
+#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 603 50 детектор атак сигнала;
 #X obj 1 1 cnv 5 765 40 empty empty an.onset~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 an.onset~;
-#X obj 230 78 cnv 1 535 69 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Детектор атаки на основе библиотеки aubio;
-#X obj 240 111 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 495 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Детектор атак для аудиосигнала на основе библиотеки
+aubio. При каждой обнаруженной атаке объект отправляет bang из первого
+выхода и время последней атаки в миллисекундах от начала измерения
+— из второго.;
+#X text 240 153 Детекция управляется свойством @method (одна из функций
+обнаружения атак aubio) \, остальные свойства настраивают анализ: @bs
+и @hs — размер окна и шага \, @threshold — порог пикового отбора \,
+@silence — порог тишины \, @speedlim — минимальный интервал между двумя
+последовательными атаками \, @compression — коэффициент лямбда логарифмического
+сжатия \, @awhitening — адаптивное «отбеливание» \, @delay — компенсация
+постоянной системной задержки.;
+#X text 240 284 Типичные сценарии применения:;
+#X text 250 309 • Запуск событий по атакам — срабатывание огибающих
+\, сэмплов или эффектов точно в момент начала ноты \, без ручной синхронизации.;
+#X text 250 364 • Анализ ритма и долей — комбинирование детектора с
+инструментами оценки темпа для выявления атак нот в живом или записанном
+материале и управления секвенсорами \, визуализациями или синхронизированными
+по темпу эффектами.;
+#X text 250 449 • Реактивный саунд-дизайн — использование времени обнаруженной
+атаки для запуска коротких модуляций или дополнительных звуков \, чтобы
+патч реагировал на то \, что слышит \, например в инсталляциях или
+интерактивных перформансах.;
+#X obj 240 537 ui.link @background_color 0.90196 0.90196 0.90196
 @title https://aubio.org @url https://aubio.org/;
-#X obj 50 195 adc~ 1;
-#X obj 88 239 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 146 239 ui.menu hfc energy complex phase wphase specdiff
+#X obj 50 621 adc~ 1;
+#X obj 88 665 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 665 ui.menu hfc energy complex phase wphase specdiff
 specflux kl mkl;
-#X obj 50 267 gain~;
-#X msg 146 267 @method \$1 \, dump;
-#X msg 174 296 reset;
-#X obj 50 339 an.onset~ 2048;
-#X obj 328 339 ui.dsp~;
-#X obj 50 368 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 693 gain~;
+#X msg 146 693 @method \$1 \, dump;
+#X msg 174 722 reset;
+#X obj 50 765 an.onset~ 2048;
+#X obj 328 765 ui.dsp~;
+#X obj 50 794 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 136 368 10 0 0 0 - - -;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 405 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 136 794 10 0 0 0 - - -;
+#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 831 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 408 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 834 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 406 1\.;
-#X text 170 406 int;
-#X obj 268 407 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 406 BS(samp): размер буфера. Тип: int. Минимальное значение:
+#X text 130 832 1\.;
+#X text 170 832 int;
+#X obj 268 833 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 832 BS(samp): размер буфера. Тип: int. Минимальное значение:
 64\.;
-#X text 130 431 2\.;
-#X text 170 431 symbol;
-#X obj 268 432 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 431 METHOD: метод обнаружения. Разрешённые значения: centroid
+#X text 130 857 2\.;
+#X text 170 857 symbol;
+#X obj 268 858 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 857 METHOD: метод обнаружения. Разрешённые значения: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
 \, specflux \, spread \, wphase. Тип: symbol.;
-#X text 130 501 3\.;
-#X text 170 501 int;
-#X obj 268 502 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 501 HS(samp): размер окна (по умолчанию размер_буфера/2).
+#X text 130 927 3\.;
+#X text 170 927 int;
+#X obj 268 928 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 927 HS(samp): размер шага (по умолчанию размер_буфера/2).
 Тип: int. Минимальное значение: 0\.;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 556 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 982 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 559 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 985 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 557 @bs;
-#X text 270 557 (при инициализации) Размер буфера. Тип: int. Единицы:
+#X msg 130 983 @bs;
+#X text 270 983 (при инициализации) Размер буфера. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 1024\. Минимальное значение: 64\.;
-#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 614 @active;
-#X text 270 614 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 1040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1040 @active;
+#X text 270 1040 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 656 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 656 @awhitening;
-#X text 270 656 Адаптивное «отбеливание». Тип: bool. Значение по умолчанию:
+#X obj 250 1082 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1082 @awhitening;
+#X text 270 1082 Адаптивное «отбеливание». Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 698 @complex;
-#X text 270 698 Сокращение для @method complex. Метод Complex Domain.;
-#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 728 @compression;
-#X text 270 728 Лямбда логарифмический коэффициент сжатия \, 0 для
-отключения. Тип: float. Значение по умолчанию: 1\. Минимальное значение:
-0\.;
-#X obj 250 785 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 785 @delay;
-#X text 270 785 Постоянная задержка времени обнаружения. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 49.9093\. Минимальное значение:
-0\.;
-#X obj 250 842 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 842 @energy;
-#X text 270 842 Сокращение для @method energy. Energy based функция
-обнаружения атаки.;
-#X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 884 @hfc;
-#X text 270 884 Сокращение для @method hfc. High Frequency Content
-функция обнаружения атаки.;
-#X obj 250 926 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 926 @hs;
-#X text 270 926 Размер окна. 0 означает @bs/2\. Тип: int. Единицы:
+#X obj 250 1124 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1124 @complex;
+#X text 270 1124 Сокращение для @method complex. Функция обнаружения
+атак Complex Domain Method.;
+#X obj 250 1166 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1166 @compression;
+#X text 270 1166 Коэффициент лямбда логарифмического сжатия; 0 — отключить.
+Тип: float. Значение по умолчанию: 1\. Минимальное значение: 0\.;
+#X obj 250 1238 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1238 @delay;
+#X text 270 1238 Постоянная системная задержка \, вычитаемая из времени
+обнаружения. Тип: float. Единицы: 'ms'. Значение по умолчанию: 49.9093\.
+Минимальное значение: 0\.;
+#X obj 250 1295 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1295 @energy;
+#X text 270 1295 Сокращение для @method energy. Функция обнаружения
+атак на основе энергии.;
+#X obj 250 1337 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1337 @hfc;
+#X text 270 1337 Сокращение для @method hfc. Обнаружение атак по высокочастотному
+содержимому.;
+#X obj 250 1379 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1379 @hs;
+#X text 270 1379 Размер шага. 0 означает @bs/2\. Тип: int. Единицы:
 'samp'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 983 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 983 @kl;
-#X text 270 983 Сокращение для @method kl. Функция обнаружения атаки
-Kullback-Liebler.;
-#X obj 250 1025 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1025 @method;
-#X text 270 1025 Метод детекции атаки. По умолчанию hfc. Тип: symbol.
+#X obj 250 1436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1436 @kl;
+#X text 270 1436 Сокращение для @method kl. Функция обнаружения атак
+Кульбака — Лейблера.;
+#X obj 250 1478 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1478 @method;
+#X text 270 1478 Метод обнаружения атак. По умолчанию hfc. Тип: symbol.
 Значение по умолчанию: default. Разрешённые значения: specflux \, phase
 \, energy \, hfc \, kl \, complex \, default \, specdiff \, wphase
 \, rolloff \, spread \, kurtosis \, skewness \, complexdomain \, decrease
 \, slope \, centroid.;
-#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1112 @mkl;
-#X text 270 1112 Сокращение для @method mkl. Модифицированная функция
-обнаружения атаки Kullback-Liebler.;
-#X obj 250 1154 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1154 @phase;
-#X text 270 1154 Alias to @method phase. Phase Based Method onset detection
-function.;
-#X obj 250 1196 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1196 @silence;
-#X text 270 1196 Onset detection silence threshold. Тип: float. Единицы:
+#X obj 250 1565 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1565 @mkl;
+#X text 270 1565 Сокращение для @method mkl. Модифицированная функция
+обнаружения атак Кульбака — Лейблера.;
+#X obj 250 1607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1607 @phase;
+#X text 270 1607 Сокращение для @method phase. Функция обнаружения
+атак Phase Based Method.;
+#X obj 250 1649 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1649 @silence;
+#X text 270 1649 Порог тишины для обнаружения атак. Тип: float. Единицы:
 'db'. Значение по умолчанию: -70\. Диапазон: [-80\..0].;
-#X obj 250 1253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1253 @specdiff;
-#X text 270 1253 Alias to @method specdiff. Spectral difference method
-onset detection function.;
-#X obj 250 1295 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1295 @specflux;
-#X text 270 1295 Alias to @method specflux. Spectral Flux.;
-#X obj 250 1325 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1325 @speedlim;
-#X text 270 1325 Минимальный интервал между двумя последовательными
+#X obj 250 1706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1706 @specdiff;
+#X text 270 1706 Сокращение для @method specdiff. Функция обнаружения
+атак методом спектральной разности.;
+#X obj 250 1748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1748 @specflux;
+#X text 270 1748 Сокращение для @method specflux. Spectral Flux.;
+#X obj 250 1778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1778 @speedlim;
+#X text 270 1778 Минимальный интервал между двумя последовательными
 атаками. Тип: float. Единицы: 'ms'. Значение по умолчанию: 50\. Минимальное
 значение: 1\.;
-#X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1382 @threshold;
-#X text 270 1382 Peak picking threshold. Тип: float. Значение по умолчанию:
+#X obj 250 1835 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1835 @threshold;
+#X text 270 1835 Порог пикового отбора. Тип: float. Значение по умолчанию:
 0.058\.;
-#X obj 250 1424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1424 @wphase;
-#X text 270 1424 Alias to @method phase. Weighted Phase Deviation onset
-detection function.;
-#X obj 20 1476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1481 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1877 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1877 @wphase;
+#X text 270 1877 Сокращение для @method phase. Функция обнаружения
+атак Weighted Phase Deviation.;
+#X obj 20 1929 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1934 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1482 reset;
-#X text 270 1482 сбрасывает последний кадр и счетчики кадров.;
-#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1935 reset;
+#X text 270 1935 сбрасывает счётчики последнего кадра и общего числа
+кадров.;
+#X obj 20 1980 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1985 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1533 1\.;
-#X text 170 1533 ~;
-#X text 270 1533 входной сигнал.;
-#X obj 20 1568 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1573 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1986 1\.;
+#X text 170 1986 ~;
+#X text 270 1986 входной сигнал.;
+#X obj 20 2021 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 2026 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1574 1\.;
-#X text 170 1574 bang:;
-#X text 270 1574 если обнаружена атака.;
-#X text 130 1594 2\.;
-#X text 170 1594 float(ms):;
-#X text 270 1594 время последней атаки в миллисекундах от начала измерения.
-Вы можете сбросить время начала измерения отправкой сообщения «reset».;
+#X text 130 2027 1\.;
+#X text 170 2027 bang:;
+#X text 270 2027 отправляется при обнаружении атаки.;
+#X text 130 2047 2\.;
+#X text 170 2047 float(ms):;
+#X text 270 2047 время последней обнаруженной атаки в миллисекундах
+от начала измерения. Время начала можно сбросить сообщением 'reset'.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1674 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1677 библиотека: ceammc v0.9.8;
-#X text 558 1689 смотрите также:;
-#X obj 679 1692 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2127 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2130 библиотека: ceammc v0.9.8;
+#X text 558 2142 смотрите также:;
+#X obj 679 2145 ui.link @background_color 0.78431 0.78431 0.78431
 @title [an.onset] @url an.onset-help.pd;
-#N canvas 10 1696 400 290 info 0;
+#N canvas 10 2149 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -182,12 +204,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1696 pd info;
-#X connect 7 0 10 0;
-#X connect 8 0 10 1;
-#X connect 9 0 11 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 0 15 0;
-#X connect 13 1 16 0;
+#X restore 10 2149 pd info;
+#X connect 12 0 15 0;
+#X connect 13 0 15 1;
+#X connect 14 0 16 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 20 0;
+#X connect 18 1 21 0;

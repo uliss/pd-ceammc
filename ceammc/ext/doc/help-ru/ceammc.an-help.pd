@@ -7,7 +7,7 @@
 #X obj 30 120 ui.link @title [an.onset] @url an.onset-help.pd;
 #X text 220 117 детектор атаки для массивов;
 #X obj 30 145 ui.link @title [an.onset~] @url an.onset~-help.pd;
-#X text 220 142 детектор атаки сигнала;
+#X text 220 142 детектор атак сигнала;
 #X obj 30 170 ui.link @title [an.pitchtrack~] @url
 an.pitchtrack~-help.pd;
 #X text 220 167 отслеживает высоту сигнала;

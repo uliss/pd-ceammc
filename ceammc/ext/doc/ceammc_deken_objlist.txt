@@ -1,5 +1,5 @@
 an.onset	onset detector for arrays / детектор атаки для массивов
-an.onset~	the signal onset detector / детектор атаки сигнала
+an.onset~	the signal onset detector / детектор атак сигнала
 an.pitchtrack~	the signal pitch tracker / отслеживает высоту сигнала
 ceammc/helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
 helmholtz~	the signal pitch tracker / отслеживает высоту сигнала

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">the signal onset detector</tr>
-        <tr lang="ru">детектор атаки сигнала</tr>
+        <tr lang="ru">детектор атак сигнала</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,8 +21,52 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Onset detector based on aubio library</tr>
-        <tr lang="ru">Детектор атаки на основе библиотеки aubio</tr>
+        <tr lang="en">An audio onset detector based on the aubio library. On each detected onset
+        the object sends a bang from the first outlet and the time of the latest onset in
+        milliseconds from the start of measurement from the second outlet.</tr>
+        <tr lang="ru">Детектор атак для аудиосигнала на основе библиотеки aubio. При каждой
+        обнаруженной атаке объект отправляет bang из первого выхода и время последней атаки в
+        миллисекундах от начала измерения — из второго.</tr>
+      </par>
+      <par>
+        <tr lang="en">The detection is controlled by @method (one of the aubio onset detection
+        functions), while other properties tune the analysis: @bs and @hs for the analysis window
+        and hop size, @threshold for peak-picking, @silence for the silence threshold,
+        @speedlim for the minimum interval between two consecutive onsets, @compression for the
+        lambda logarithmic compression factor, @awhitening for adaptive whitening and @delay for
+        compensating a constant system latency.</tr>
+        <tr lang="ru">Детекция управляется свойством @method (одна из функций обнаружения атак
+        aubio), остальные свойства настраивают анализ: @bs и @hs — размер окна и шага,
+        @threshold — порог пикового отбора, @silence — порог тишины, @speedlim — минимальный
+        интервал между двумя последовательными атаками, @compression — коэффициент лямбда
+        логарифмического сжатия, @awhitening — адаптивное «отбеливание», @delay — компенсация
+        постоянной системной задержки.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Triggering events on attacks — firing envelopes, samples or effects
+        precisely when a note starts, without any manual synchronization.</tr>
+        <tr lang="ru">• Запуск событий по атакам — срабатывание огибающих, сэмплов или эффектов
+        точно в момент начала ноты, без ручной синхронизации.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Beat and rhythm analysis — combining the detector with tempo estimation
+        tools to identify note onsets in live or recorded music, and to drive sequencers,
+        visualizations or tempo-synced effects.</tr>
+        <tr lang="ru">• Анализ ритма и долей — комбинирование детектора с инструментами оценки
+        темпа для выявления атак нот в живом или записанном материале и управления секвенсорами,
+        визуализациями или синхронизированными по темпу эффектами.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Reactive sound design — using the detected onset time to trigger
+        short-lived modulations or additional sounds, so that the patch reacts to what it hears,
+        for example in installations or interactive performances.</tr>
+        <tr lang="ru">• Реактивный саунд-дизайн — использование времени обнаруженной атаки для
+        запуска коротких модуляций или дополнительных звуков, чтобы патч реагировал на то, что
+        слышит, например в инсталляциях или интерактивных перформансах.</tr>
       </par>
       <a href="https://aubio.org/">https://aubio.org</a>
     </info>
@@ -33,13 +77,12 @@
       </argument>
       <argument name="METHOD" type="symbol"
       enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
-
         <tr lang="en">detection method</tr>
         <tr lang="ru">метод обнаружения</tr>
       </argument>
       <argument name="HS" type="int" minvalue="0" units="sample">
         <tr lang="en">hop size (by default buffer_size/2)</tr>
-        <tr lang="ru">размер окна (по умолчанию размер_буфера/2)</tr>
+        <tr lang="ru">размер шага (по умолчанию размер_буфера/2)</tr>
       </argument>
     </arguments>
     <properties>
@@ -57,77 +100,80 @@
       </property>
       <!-- @complex -->
       <property name="@complex" type="alias">
-        <tr lang="en">alias to @method complex. Complex Domain Method onset detection function</tr>
-        <tr lang="ru">сокращение для @method complex. Метод Complex Domain</tr>
+        <tr lang="en">alias for @method complex. Complex Domain Method onset detection function</tr>
+        <tr lang="ru">сокращение для @method complex. Функция обнаружения атак Complex Domain
+        Method</tr>
       </property>
       <!-- @compression -->
       <property name="@compression" type="float" minvalue="0" default="1">
         <tr lang="en">lambda logarithmic compression factor, 0 to disable</tr>
-        <tr lang="ru">лямбда логарифмический коэффициент сжатия, 0 для отключения</tr>
+        <tr lang="ru">коэффициент лямбда логарифмического сжатия; 0 — отключить</tr>
       </property>
       <!-- @delay -->
       <property name="@delay" type="float" minvalue="0" default="49.9093" units="millisecond">
-        <tr lang="en">constant system delay to take back from detection time</tr>
-        <tr lang="ru">постоянная задержка времени обнаружения</tr>
+        <tr lang="en">constant system delay to subtract from the detection time</tr>
+        <tr lang="ru">постоянная системная задержка, вычитаемая из времени обнаружения</tr>
       </property>
       <!-- @energy -->
       <property name="@energy" type="alias">
-        <tr lang="en">alias to @method energy. Energy based onset detection function</tr>
-        <tr lang="ru">сокращение для @method energy. Energy based функция обнаружения атаки</tr>
+        <tr lang="en">alias for @method energy. Energy based onset detection function</tr>
+        <tr lang="ru">сокращение для @method energy. Функция обнаружения атак на основе
+        энергии</tr>
       </property>
       <!-- @hfc -->
       <property name="@hfc" type="alias">
-        <tr lang="en">alias to @method hfc. High Frequency Content onset detection</tr>
-        <tr lang="ru">сокращение для @method hfc. High Frequency Content функция обнаружения
-        атаки</tr>
+        <tr lang="en">alias for @method hfc. High Frequency Content onset detection</tr>
+        <tr lang="ru">сокращение для @method hfc. Обнаружение атак по высокочастотному
+        содержимому</tr>
       </property>
       <!-- @hs -->
       <property name="@hs" type="int" minvalue="0" default="0" units="sample">
         <tr lang="en">hop size. 0 means @bs/2</tr>
-        <tr lang="ru">размер окна. 0 означает @bs/2</tr>
+        <tr lang="ru">размер шага. 0 означает @bs/2</tr>
       </property>
       <!-- @kl -->
       <property name="@kl" type="alias">
-        <tr lang="en">alias to @method kl. Kullback-Liebler onset detection function</tr>
-        <tr lang="ru">сокращение для @method kl. Функция обнаружения атаки Kullback-Liebler</tr>
+        <tr lang="en">alias for @method kl. Kullback-Liebler onset detection function</tr>
+        <tr lang="ru">сокращение для @method kl. Функция обнаружения атак Кульбака —
+        Лейблера</tr>
       </property>
       <!-- @method -->
       <property name="@method" type="symbol"
       enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
       default="default">
-        <tr lang="en">onset method. Default is hfc.</tr>
-        <tr lang="ru">метод детекции атаки. По умолчанию hfc.</tr>
+        <tr lang="en">onset detection method. Default is hfc.</tr>
+        <tr lang="ru">метод обнаружения атак. По умолчанию hfc.</tr>
       </property>
       <!-- @mkl -->
       <property name="@mkl" type="alias">
-        <tr lang="en">alias to @method mkl. Modified Kullback-Liebler onset detection function</tr>
-        <tr lang="ru">сокращение для @method mkl. Модифицированная функция обнаружения атаки
-        Kullback-Liebler</tr>
+        <tr lang="en">alias for @method mkl. Modified Kullback-Liebler onset detection
+        function</tr>
+        <tr lang="ru">сокращение для @method mkl. Модифицированная функция обнаружения атак
+        Кульбака — Лейблера</tr>
       </property>
       <!-- @phase -->
       <property name="@phase" type="alias">
-        <tr lang="en">alias to @method phase. Phase Based Method onset detection function</tr>
-        <tr lang="ru" finished="false">Называется @method phase. Фазовый метод функции обнаружения
-        начала</tr>
+        <tr lang="en">alias for @method phase. Phase Based Method onset detection function</tr>
+        <tr lang="ru">сокращение для @method phase. Функция обнаружения атак Phase Based
+        Method</tr>
       </property>
       <!-- @silence -->
       <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
       maxvalue="0">
         <tr lang="en">onset detection silence threshold</tr>
-        <tr lang="ru" finished="false">Порог тишины обнаружения начала</tr>
+        <tr lang="ru">порог тишины для обнаружения атак</tr>
       </property>
       <!-- @specdiff -->
       <property name="@specdiff" type="alias">
-        <tr lang="en">alias to @method specdiff. Spectral difference method onset detection
+        <tr lang="en">alias for @method specdiff. Spectral difference method onset detection
         function</tr>
-        <tr lang="ru" finished="false">псевдоним @method specdiff. Функция обнаружения начала
+        <tr lang="ru">сокращение для @method specdiff. Функция обнаружения атак методом
         спектральной разности</tr>
       </property>
       <!-- @specflux -->
       <property name="@specflux" type="alias">
-        <tr lang="en">alias to @method specflux. Spectral Flux</tr>
-        <tr lang="ru" finished="false">Оригинальное название: @method specflux Спектральный
-        поток</tr>
+        <tr lang="en">alias for @method specflux. Spectral Flux</tr>
+        <tr lang="ru">сокращение для @method specflux. Spectral Flux</tr>
       </property>
       <!-- @speedlim -->
       <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
@@ -137,22 +183,22 @@
       <!-- @threshold -->
       <property name="@threshold" type="float" default="0.058">
         <tr lang="en">peak picking threshold</tr>
-        <tr lang="ru" finished="false">пиковый порог выбора</tr>
+        <tr lang="ru">порог пикового отбора</tr>
       </property>
       <!-- @wphase -->
       <property name="@wphase" type="alias">
-        <tr lang="en">alias to @method phase. Weighted Phase Deviation onset detection
+        <tr lang="en">alias for @method phase. Weighted Phase Deviation onset detection
         function</tr>
-        <tr lang="ru" finished="false">Называется @method phase. Функция обнаружения начала
-        отклонения фазы</tr>
+        <tr lang="ru">сокращение для @method phase. Функция обнаружения атак Weighted Phase
+        Deviation</tr>
       </property>
     </properties>
     <methods>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset onset last frame and total frames counters</tr>
-          <tr lang="ru">сбрасывает последний кадр и счетчики кадров</tr>
+          <tr lang="en">resets the last frame and total frames counters</tr>
+          <tr lang="ru">сбрасывает счётчики последнего кадра и общего числа кадров</tr>
         </info>
       </method>
     </methods>
@@ -167,16 +213,16 @@
     <outlets>
       <outlet>
         <out type="bang">
-          <tr lang="en">if onset detected</tr>
-          <tr lang="ru">если обнаружена атака</tr>
+          <tr lang="en">sent when an onset is detected</tr>
+          <tr lang="ru">отправляется при обнаружении атаки</tr>
         </out>
       </outlet>
       <outlet>
         <out type="float" units="millisecond">
-          <tr lang="en">time of the latest onset detected in milliseconds from starting of
-          measuring. You can reset start time with 'reset' message</tr>
-          <tr lang="ru">время последней атаки в миллисекундах от начала измерения. Вы можете
-          сбросить время начала измерения отправкой сообщения «reset»</tr>
+          <tr lang="en">time of the latest detected onset in milliseconds since the start of
+          measurement. The start time can be reset with the 'reset' message</tr>
+          <tr lang="ru">время последней обнаруженной атаки в миллисекундах от начала измерения.
+          Время начала можно сбросить сообщением 'reset'</tr>
         </out>
       </outlet>
     </outlets>

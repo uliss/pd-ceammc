@@ -7,7 +7,7 @@ process in the Centre of ElectroAcoustic Music of Moscow Conservatory
 #X obj 30 161 ui.link @title [an.onset] @url an.onset-help.pd;
 #X text 200 158 детектор атаки для массивов;
 #X obj 30 186 ui.link @title [an.onset~] @url an.onset~-help.pd;
-#X text 200 183 детектор атаки сигнала;
+#X text 200 183 детектор атак сигнала;
 #X obj 30 211 ui.link @title [an.pitchtrack~] @url
 an.pitchtrack~-help.pd;
 #X text 200 208 отслеживает высоту сигнала;
