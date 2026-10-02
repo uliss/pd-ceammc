@@ -42,7 +42,7 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="symbol">
           <tr lang="en">current canvas full path as a symbol</tr>
           <tr lang="ru">полный путь текущего холста в виде символа</tr>
         </out>

@@ -26,6 +26,7 @@
 #X obj 20 385 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 386 1\.;
+#X text 170 386 symbol:;
 #X text 270 386 полный путь текущего холста в виде символа.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
