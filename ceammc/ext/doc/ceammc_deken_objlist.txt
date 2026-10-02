@@ -89,10 +89,10 @@ ceammc/nsig~	multichannel converter from the control signals to audio / мног
 obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
 radio	non GUI radio switch / радиопереключатель без графического интерфейса
 ceammc/radio	non GUI radio switch / радиопереключатель без графического интерфейса
-split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
-ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
-spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
-ceammc/spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
+split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов
+ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов
+spring	behaves like a spring, bouncing back to its original state / ведёт себя как пружина, возвращающаяся в исходное состояние
+ceammc/spring	behaves like a spring, bouncing back to its original state / ведёт себя как пружина, возвращающаяся в исходное состояние
 sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
 ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
 window	returns the value of the window function / возвращает значение оконной функции
