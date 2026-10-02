@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">get/set display properties</tr>
-        <tr lang="ru">получение/установка свойств дисплея</tr>
+        <tr lang="ru">получение и установка свойств дисплея</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,8 +18,36 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">At this moment supports only MacOSX</tr>
-        <tr lang="ru" finished="false">На данный момент поддерживается только MacOSX.</tr>
+        <tr lang="en">Reads and sets the properties of the hardware display (currently brightness
+        only). The current value can be queried with a bang or the @brightness? message, and
+        changed with the @brightness message or by setting the @brightness property.</tr>
+        <tr lang="ru">Читает и устанавливает свойства аппаратного дисплея (в настоящее время —
+        только яркость). Текущее значение можно запросить по bang или сообщением @brightness?, а
+        изменить — сообщением @brightness или установкой свойства @brightness.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Automatic brightness control — adjusting the display brightness from a
+        patch, for example fading it down in the evening and up in the morning, or linking it to
+        an ambient light sensor.</tr>
+        <tr lang="ru">• Автоматическое управление яркостью — изменение яркости дисплея из патча,
+        например затемнение вечером и увеличение яркости утром, или привязка к датчику
+        освещённости.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Performance and installation scenarios — dimming the display during a
+        concert or an art installation, so that the screen does not distract the audience, and
+        restoring brightness when the piece ends.</tr>
+        <tr lang="ru">• Сценарии выступлений и инсталляций — затемнение дисплея во время концерта
+        или арт-инсталляции, чтобы экран не отвлекал публику, и восстановление яркости по
+        окончании произведения.</tr>
+      </par>
+      <par style="warning">
+        <tr lang="en">Note: currently supported on macOS only.</tr>
+        <tr lang="ru">Примечание: в настоящее время поддерживается только на macOS.</tr>
       </par>
     </info>
     <properties>
@@ -33,7 +61,7 @@
       <inlet>
         <in>
           <tr lang="en">input</tr>
-          <tr lang="ru" finished="false">ввод</tr>
+          <tr lang="ru">вход</tr>
         </in>
       </inlet>
     </inlets>
@@ -41,7 +69,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">properties output</tr>
-          <tr lang="ru" finished="false">Свойства вывода</tr>
+          <tr lang="ru">вывод свойств</tr>
         </out>
       </outlet>
     </outlets>

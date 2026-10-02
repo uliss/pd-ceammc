@@ -603,7 +603,7 @@ global.set	global named set / глобальное именованное мно
 hw.apple_smc	query Apple system management control / запросы к системе SMC в Apple
 hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения в Apple
 hw.arduino	Arduino device / устройство Arduino
-hw.display	get/set display properties / получение/установка свойств дисплея
+hw.display	get/set display properties / получение и установка свойств дисплея
 hw.gamepad	gamepad controller / геймпад контроллеры
 hw.kbd_light	controlling the keyboard backlight on some devices / управление подсветкой клавиатуры на некоторых устройствах
 hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
