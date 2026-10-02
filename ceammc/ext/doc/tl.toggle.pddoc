@@ -26,24 +26,23 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Output 1 when cue section activated, 0 when switched to other cue
-        section</tr>
-        <tr lang="ru" finished="false">Выход 1 при активации секции сигнала, 0 при переключении на
-        другую секцию сигнала</tr>
+        <tr lang="en">Outputs 1 when the associated cue section is activated, and 0 when switches to a different cue section.</tr>
+        <tr lang="ru">Выводит 1 при активации связанной секции метки и 0 при переключении
+        воспроизведения на другую секцию.</tr>
       </par>
     </info>
     <properties>
       <!-- @cue -->
       <property name="@cue" type="symbol" access="readonly" default="">
         <tr lang="en">related cue</tr>
-        <tr lang="ru" finished="false">связанный сигнал</tr>
+        <tr lang="ru">связанная метка</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">control inlet</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>
@@ -51,7 +50,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">1 on cue enter, 0 on cue out</tr>
-          <tr lang="ru" finished="false">1 на входе, 0 на выходе</tr>
+          <tr lang="ru">1 при входе в метку, 0 при выходе из метки</tr>
         </out>
       </outlet>
     </outlets>
@@ -60,7 +59,7 @@
 <![CDATA[
             [tl.cue]           [tl.cue]
 
-[HR number=3]    [tl.toggle]              [tl.toggle]
+[HR number=2]    [tl.toggle]              [tl.toggle]
 |                |                        |
 [cue $1(         [T]                      [T]
 |

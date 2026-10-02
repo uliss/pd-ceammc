@@ -8,11 +8,11 @@
 [tl.t] @url tl.toggle-help.pd;
 #X obj 674 8 tl.toggle;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Output 1 when cue section activated \, 0 when switched
-to other cue section;
+#X text 240 83 Выводит 1 при активации связанной секции метки и 0 при
+переключении воспроизведения на другую секцию.;
 #X obj 165 186 tl.cue;
 #X obj 347 186 tl.cue;
-#X obj 50 215 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 215 hradio 15 1 0 2 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 213 215 tl.toggle;
 #X obj 453 215 tl.toggle;
@@ -26,17 +26,17 @@ to other cue section;
 #X obj 735 331 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 329 @cue?;
-#X text 270 329 (только чтение) Related cue. Тип: symbol.;
+#X text 270 329 (только чтение) Связанная метка. Тип: symbol.;
 #X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 374 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 375 1\.;
-#X text 270 375 control inlet.;
+#X text 270 375 управляющий вход.;
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 415 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 416 1\.;
-#X text 270 416 1 on cue enter \, 0 on cue out.;
+#X text 270 416 1 при входе в метку \, 0 при выходе из метки.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

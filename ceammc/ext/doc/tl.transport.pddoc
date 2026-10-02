@@ -47,7 +47,7 @@
 <![CDATA[
 [tl.cue]           [tl.cue]
 
-[HR number=3]    [tl.bang]
+[HR number=2]    [tl.bang]
 |                |
 [cue $1(         [B]                      [tl.bang]
 |                                         |
