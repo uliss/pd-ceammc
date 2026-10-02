@@ -75,7 +75,7 @@ rtree.to_list-help.pd;
 #X text 220 892 проверяет \, присутствует ли заранее заданный элемент
 во входном множестве;
 #X obj 30 935 ui.link @title [set.diff] @url set.diff-help.pd;
-#X text 220 932 разность между множествами;
+#X text 220 932 разность двух множеств;
 #X obj 30 960 ui.link @title [set.equal] @url set.equal-help.pd;
 #X text 220 957 проверяет \, равны ли два множества (содержат одинаковые
 элементы);

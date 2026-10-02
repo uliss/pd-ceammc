@@ -336,7 +336,7 @@ rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions / прео
 ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 set.contains	checks whether the predefined element is present in the input set / проверяет, присутствует ли заранее заданный элемент во входном множестве
-set.diff	difference between two sets / разность между множествами
+set.diff	difference between two sets / разность двух множеств
 set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
 set.intersect	intersection of sets / пересечение множеств
 set.size	outputs the number of elements in a set / выводит количество элементов в множестве

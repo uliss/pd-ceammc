@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">difference between two sets</tr>
-        <tr lang="ru">разность между множествами</tr>
+        <tr lang="ru">разность двух множеств</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,33 +20,42 @@
         <see>set.union</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the difference between the two incoming sets: outputs a new set that
+        contains only the elements of the first set that are not present in the second set.</tr>
+        <tr lang="ru">Вычисляет разность двух входящих множеств: выводит новое множество, которое
+        содержит только те элементы первого множества, которых нет во втором.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARGS" type="any">
-        <tr lang="en">right set elements</tr>
-        <tr lang="ru" finished="false">Правильный набор элементов</tr>
+        <tr lang="en">elements of the second (subtracted) set</tr>
+        <tr lang="ru">элементы второго (вычитаемого) множества</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">first set or list (converted to set), other values are ignored</tr>
-          <tr lang="ru" finished="false">первый набор или список (преобразуется в набор), другие
+          <tr lang="en">first set or list (converted to set). Other values are ignored</tr>
+          <tr lang="ru">первое множество или список (преобразуется во множество). Остальные
           значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">second set or list (converted to set)</tr>
-          <tr lang="ru" finished="false">Второй набор или список (преобразуется в набор)</tr>
+          <tr lang="ru">второе множество или список (преобразуется во множество)</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output set with elements from first set, that are not in second set</tr>
-          <tr lang="ru" finished="false">выходной набор с элементами из первого набора, которые не
-          находятся во втором наборе</tr>
+          <tr lang="en">output set with elements from the first set that are not in the second
+          set</tr>
+          <tr lang="ru">выходное множество с элементами из первого множества, которых нет во
+          втором</tr>
         </out>
       </outlet>
     </outlets>

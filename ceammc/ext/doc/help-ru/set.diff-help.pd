@@ -1,51 +1,56 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 565 50 разность между множествами;
+#X obj 591 50 cnv 1 174 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 596 50 разность двух множеств;
 #X obj 1 1 cnv 5 765 40 empty empty set.diff 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 set.diff;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Вычисляет разность двух входящих множеств: выводит новое
+множество \, которое содержит только те элементы первого множества
+\, которых нет во втором.;
+#X obj 50 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.set 1 2 3 4 5 6;
-#X obj 50 176 set.diff 2 4 6;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 230 data.set 1 2 3 4 5 6;
+#X obj 50 259 set.diff 2 4 6;
+#X obj 50 288 ui.dt;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 343 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 346 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 any;
-#X obj 268 262 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 ARGS: right set elements. Тип: any.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 344 1\.;
+#X text 170 344 any;
+#X obj 268 345 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 344 ARGS: элементы второго (вычитаемого) множества. Тип:
+any.;
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 384 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 302 1\.;
-#X text 270 302 first set or list (converted to set) \, other values
-are ignored.;
-#X text 130 342 2\.;
-#X text 270 342 second set or list (converted to set).;
-#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 382 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 385 1\.;
+#X text 270 385 первое множество или список (преобразуется во множество).
+Остальные значения игнорируются.;
+#X text 130 425 2\.;
+#X text 270 425 второе множество или список (преобразуется во множество).;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 465 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 383 1\.;
-#X text 270 383 output set with elements from first set \, that are
-not in second set.;
+#X text 130 466 1\.;
+#X text 270 466 выходное множество с элементами из первого множества
+\, которых нет во втором.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 475 520 смотрите также:;
-#X obj 596 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 531 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 534 библиотека: ceammc v0.9.8;
+#X text 475 546 смотрите также:;
+#X obj 596 549 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.set] @url data.set-help.pd;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 549 ui.link @background_color 0.78431 0.78431 0.78431
 @title [set.union] @url set.union-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 553 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -69,7 +74,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 553 pd info;
 #X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;

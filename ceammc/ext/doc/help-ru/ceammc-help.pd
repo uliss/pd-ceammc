@@ -464,7 +464,7 @@ set.contains-help.pd;
 #X text 200 4808 проверяет \, присутствует ли заранее заданный элемент
 во входном множестве;
 #X obj 30 4851 ui.link @title [set.diff] @url set.diff-help.pd;
-#X text 200 4848 разность между множествами;
+#X text 200 4848 разность двух множеств;
 #X obj 30 4876 ui.link @title [set.equal] @url set.equal-help.pd;
 #X text 200 4873 проверяет \, равны ли два множества (содержат одинаковые
 элементы);
