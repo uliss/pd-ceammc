@@ -8,9 +8,9 @@
       </authors>
       <description>
         <tr lang="en">12-channel I²C capacitive touch sensor controller with low power consumption
-        and automatic calibration.</tr>
+        and automatic calibration</tr>
         <tr lang="ru">12-канальный I²C-контроллер ёмкостного сенсора с низким энергопотреблением и
-        автоматической калибровкой.</tr>
+        автоматической калибровкой</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -35,30 +35,50 @@
         указанный контакт GPIO забирается в эксклюзивное пользование и недоступен для других
         объектов.</tr>
       </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Capacitive touch interfaces — building a 12-key touch keyboard, a
+        touch-sensitive control panel or a custom musical interface, where each electrode
+        corresponds to a note, parameter or action.</tr>
+        <tr lang="ru">• Ёмкостные сенсорные интерфейсы — сборка 12-клавишной сенсорной
+        клавиатуры, сенсорной панели управления или собственного музыкального интерфейса, где
+        каждый электрод соответствует ноте, параметру или действию.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Interactive installations with physical touch — connecting conductive
+        objects (fruit, plants, metal surfaces) to the electrodes, so the audience can trigger
+        sounds or changes in the installation by touching them.</tr>
+        <tr lang="ru">• Интерактивные инсталляции с физическим касанием — подключение проводящих
+        предметов (фрукты, растения, металлические поверхности) к электродам, чтобы публика
+        могла запускать звуки или изменения в инсталляции прикосновением к ним.</tr>
+      </par>
     </info>
     <properties>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При
-        установке в 0: отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
+        значении 0: отключается от устройства</tr>
       </property>
       <!-- @debounce -->
       <property name="@debounce" type="list" default="0 0" access="readwrite" min-count="2"
       max-count="2" minvalue="0" maxvalue="7">
         <tr lang="en">the number of consecutive samples needed to confirm a touch/release, helping
         to filter out noise.</tr>
-        <tr lang="ru">количество последовательных отсчётов, необходимых для подтверждения
-        касания/отпускания — помогает отфильтровать шум.</tr>
+        <tr lang="ru">число последовательных отсчётов, необходимых для подтверждения
+        касания/отпускания — помогает отфильтровать шум</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The 'default' value is also accepted (for address 0x5A) and
-        'alt' (for address 0x5B).</tr>
-        <tr lang="ru">Адрес I²C. Также принимаются значения «default» (для адреса 0x5A) и «alt»
-        (для адреса 0x5B).</tr>
+        <tr lang="en">I²C address. The 'default' value (for address 0x5A) and 'alt' (for address
+        0x5B) are also accepted.</tr>
+        <tr lang="ru">адрес I²C. Также принимаются значения 'default' (для адреса 0x5A) и 'alt'
+        (для адреса 0x5B)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -75,7 +95,7 @@
       <property name="@threshold" type="list" default="12 6" access="readwrite" min-count="2"
       max-count="2" minvalue="0" maxvalue="255">
         <tr lang="en">the touch and release threshold for all channels.</tr>
-        <tr lang="ru">порог касания и отпускания для всех каналов.</tr>
+        <tr lang="ru">порог касания и отпускания для всех каналов</tr>
       </property>
     </properties>
     <methods>
@@ -108,8 +128,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">perform a single poll of all electrodes.</tr>
-          <tr lang="ru">выполнить однократный опрос всех сенсорных каналов.</tr>
+          <tr lang="en">performs a single poll of all electrodes.</tr>
+          <tr lang="ru">выполняет однократный опрос всех сенсорных каналов.</tr>
         </in>
       </inlet>
     </inlets>

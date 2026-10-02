@@ -990,7 +990,7 @@ Pi;
 #X obj 30 10382 ui.link @title [hw.rpi.sensor.mpr121] @url
 hw.rpi.sensor.mpr121-help.pd;
 #X text 200 10379 12-канальный I²C-контроллер ёмкостного сенсора с
-низким энергопотреблением и автоматической калибровкой.;
+низким энергопотреблением и автоматической калибровкой;
 #X obj 30 10422 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
 #X text 200 10419 MPU-6050 — гироскоп и акселерометр для Raspberry
