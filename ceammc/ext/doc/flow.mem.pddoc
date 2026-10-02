@@ -18,10 +18,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A small in-memory storage with N cells. Each incoming message is written
-        into the corresponding memory cell and can later be read back by sending a cell index to
-        the last inlet, or all cells at once with a bang. Each cell has its own TTL counter: if
-        the @ttl property is greater than 0, every output of the cell decrements its individual
+        <tr lang="en">A small in-memory storage with N cells. Each incoming message is written into
+        the corresponding memory cell and can later be read back by sending a cell index to the
+        last inlet, or all cells at once with a bang. Each cell has its own TTL counter: if the
+        @ttl property is greater than 0, every output of the cell decrements its individual
         counter, and once it reaches zero, the cell is cleared (when @free is on) or kept with a
         zero counter.</tr>
         <tr lang="ru">Небольшое хранилище в оперативной памяти на N ячеек. Каждое входящее
@@ -56,8 +56,8 @@
       </property>
       <!-- @ttl -->
       <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">
-        <tr lang="en">time-to-live counter. When a new value is set, the cell counter for that
-        cell is set to this value. Every time the cell is output, its individual counter (not this
+        <tr lang="en">time-to-live counter. When a new value is set, the cell counter for that cell
+        is set to this value. Every time the cell is output, its individual counter (not this
         property!) is decremented, until it reaches zero. After that, if @free is on, the cell is
         cleared. If this property equals zero, the cell never cleared.</tr>
         <tr lang="ru">счётчик времени жизни. При установке нового значения счётчик соответствующей

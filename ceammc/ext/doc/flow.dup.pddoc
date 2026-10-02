@@ -24,9 +24,9 @@
         <tr lang="en">Outputs the incoming message the specified number of times. If the number is
         1, the message is passed through unchanged; if it is greater than 1, the same message is
         output several times in a row at the same logical time; if it is 0, nothing is output.</tr>
-        <tr lang="ru">Выводит входящее сообщение указанное число раз. Если число равно 1,
-        сообщение проходит без изменений; если больше 1, одно и то же сообщение выводится
-        несколько раз подряд в одно и то же логическое время; если 0, не выводится ничего.</tr>
+        <tr lang="ru">Выводит входящее сообщение указанное число раз. Если число равно 1, сообщение
+        проходит без изменений; если больше 1, одно и то же сообщение выводится несколько раз
+        подряд в одно и то же логическое время; если 0, не выводится ничего.</tr>
       </par>
     </info>
     <arguments>

@@ -18,15 +18,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Reads and writes data over a serial port. The object can send byte values
-        to a connected device (as a single float or as a list of floats in the [0, 255] range) and
+        <tr lang="en">Reads and writes data over a serial port. The object can send byte values to
+        a connected device (as a single float or as a list of floats in the [0, 255] range) and
         outputs each byte received from the port. The port and baud rate can be set with arguments
         or properties; the list of available serial devices is available in @devices.</tr>
         <tr lang="ru">Читает и записывает данные через последовательный порт. Объект может
-        отправлять байтовые значения подключённому устройству (как одно число или как список
-        чисел в диапазоне [0, 255]) и выводит каждый байт, полученный из порта. Порт и скорость
-        передачи задаются аргументами или свойствами; список доступных устройств доступен в
-        @devices.</tr>
+        отправлять байтовые значения подключённому устройству (как одно число или как список чисел
+        в диапазоне [0, 255]) и выводит каждый байт, полученный из порта. Порт и скорость передачи
+        задаются аргументами или свойствами; список доступных устройств доступен в @devices.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -41,8 +40,8 @@
         светодиодами, либо для чтения значений с сенсоров.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Hardware synthesizers and MIDI interfaces — communicating with devices
-        that use serial protocols, for example some older synthesizers, DMX controllers or custom
+        <tr lang="en">• Hardware synthesizers and MIDI interfaces — communicating with devices that
+        use serial protocols, for example some older synthesizers, DMX controllers or custom
         hardware over USB-serial converters.</tr>
         <tr lang="ru">• Аппаратные синтезаторы и MIDI-интерфейсы — обмен данными с устройствами,
         использующими последовательные протоколы, например с некоторыми старыми синтезаторами,
@@ -72,8 +71,8 @@
       <property name="@port" type="symbol" default="">
         <tr lang="en">name of serial port, e.g. COM3 on Windows, /dev/ttyACM0 on Linux and
         /dev/cu.usbmodem411 on macOS</tr>
-        <tr lang="ru">имя последовательного порта, например COM3 на Windows, /dev/ttyACM0 на
-        Linux и /dev/cu.usbmodem411 на macOS</tr>
+        <tr lang="ru">имя последовательного порта, например COM3 на Windows, /dev/ttyACM0 на Linux
+        и /dev/cu.usbmodem411 на macOS</tr>
       </property>
       <!-- @rate -->
       <property name="@rate" type="int" default="57600"

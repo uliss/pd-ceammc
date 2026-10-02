@@ -25,8 +25,8 @@
         positive, positive values stay unchanged. This is the audio-rate equivalent of the
         [math.abs] object.</tr>
         <tr lang="ru">Вычисляет абсолютное значение входного сигнала: отрицательные значения
-        становятся положительными, положительные остаются без изменений. Это аудиоверсия
-        объекта [math.abs].</tr>
+        становятся положительными, положительные остаются без изменений. Это аудиоверсия объекта
+        [math.abs].</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -46,11 +46,11 @@
         его знака, для детектирования уровня или модуляции.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Waveform transformation — turning a sine or triangle wave into a
-        "folded" waveform with a distinctive harmonic content, useful for creative waveshaping.</tr>
+        <tr lang="en">• Waveform transformation — turning a sine or triangle wave into a "folded"
+        waveform with a distinctive harmonic content, useful for creative waveshaping.</tr>
         <tr lang="ru">• Преобразование формы волны — превращение синусоидальной или треугольной
-        волны в «сложенную» форму с характерным гармоническим составом, что удобно для
-        творческого вейвшейпинга.</tr>
+        волны в «сложенную» форму с характерным гармоническим составом, что удобно для творческого
+        вейвшейпинга.</tr>
       </par>
     </info>
     <inlets>

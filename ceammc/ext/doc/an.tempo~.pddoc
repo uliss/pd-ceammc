@@ -22,22 +22,21 @@
         signal and outputs the estimated tempo in BPM from the first outlet and a detection
         confidence value from the second outlet.</tr>
         <tr lang="ru">Детектор темпа сигнала на основе библиотеки aubio. Анализирует входящий
-        сигнал и выводит оценку темпа в BPM из первого выхода и значение уверенности детектора
-        из второго.</tr>
+        сигнал и выводит оценку темпа в BPM из первого выхода и значение уверенности детектора из
+        второго.</tr>
       </par>
       <par>
-        <tr lang="en">The detection is based on onset detection: the object finds transient
-        events in the signal (attacks, hits, note starts) and estimates the tempo from the
-        intervals between them. The onset detection function is controlled by @method; other
-        properties tune the analysis: @bs and @hs for the analysis window and hop size, @silence
-        for the silence threshold, @threshold for peak-picking and @delay for compensating a
-        constant system latency.</tr>
-        <tr lang="ru">Детекция основана на обнаружении атак: объект находит в сигнале
-        транзиентные события (атаки, удары, начала нот) и оценивает темп по интервалам между
-        ними. Функция обнаружения атак управляется свойством @method; остальные свойства
-        настраивают анализ: @bs и @hs — размер окна и шага, @silence — порог тишины,
-        @threshold — порог пикового отбора, @delay — компенсация постоянной системной
-        задержки.</tr>
+        <tr lang="en">The detection is based on onset detection: the object finds transient events
+        in the signal (attacks, hits, note starts) and estimates the tempo from the intervals
+        between them. The onset detection function is controlled by @method; other properties tune
+        the analysis: @bs and @hs for the analysis window and hop size, @silence for the silence
+        threshold, @threshold for peak-picking and @delay for compensating a constant system
+        latency.</tr>
+        <tr lang="ru">Детекция основана на обнаружении атак: объект находит в сигнале транзиентные
+        события (атаки, удары, начала нот) и оценивает темп по интервалам между ними. Функция
+        обнаружения атак управляется свойством @method; остальные свойства настраивают анализ: @bs
+        и @hs — размер окна и шага, @silence — порог тишины, @threshold — порог пикового отбора,
+        @delay — компенсация постоянной системной задержки.</tr>
       </par>
       <a href="https://aubio.org/">https://aubio.org</a>
     </info>
@@ -48,6 +47,7 @@
       </argument>
       <argument name="METHOD" type="symbol"
       enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
+
         <tr lang="en">onset detection method</tr>
         <tr lang="ru">метод обнаружения атак</tr>
       </argument>
@@ -66,7 +66,8 @@
       </property>
       <!-- @complex -->
       <property name="@complex" type="alias">
-        <tr lang="en">alias for @method complex. Complex Domain Method onset detection function</tr>
+        <tr lang="en">alias for @method complex. Complex Domain Method onset detection
+        function</tr>
         <tr lang="ru">сокращение для @method complex. Функция обнаружения атак Complex Domain
         Method</tr>
       </property>
@@ -95,8 +96,7 @@
       <!-- @kl -->
       <property name="@kl" type="alias">
         <tr lang="en">alias for @method kl. Kullback-Liebler onset detection function</tr>
-        <tr lang="ru">сокращение для @method kl. Функция обнаружения атак Кульбака —
-        Лейблера</tr>
+        <tr lang="ru">сокращение для @method kl. Функция обнаружения атак Кульбака — Лейблера</tr>
       </property>
       <!-- @method -->
       <property name="@method" type="symbol"

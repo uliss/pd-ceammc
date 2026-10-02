@@ -37,8 +37,8 @@
     <properties>
       <!-- @sync -->
       <property name="@sync" type="bool" default="0">
-        <tr lang="en">sync with input data. When set to 1, outputs the envelope (as fixed) on
-        every input message</tr>
+        <tr lang="en">sync with input data. When set to 1, outputs the envelope (as fixed) on every
+        input message</tr>
         <tr lang="ru">синхронизация с входными данными. При значении 1 выводит огибающую (как
         фиксированную) на каждое входное сообщение</tr>
       </property>
@@ -47,8 +47,8 @@
       <!-- next -->
       <method name="next">
         <info>
-          <tr lang="en">outputs the segment until the next stop-point or the end of the envelope
-          is reached</tr>
+          <tr lang="en">outputs the segment until the next stop-point or the end of the envelope is
+          reached</tr>
           <tr lang="ru">выводит сегмент до достижения следующей точки остановки или конца
           огибающей</tr>
         </info>

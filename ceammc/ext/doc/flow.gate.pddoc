@@ -25,9 +25,9 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Passes incoming messages through only when the gate is open. The state of
-        the gate is controlled by the second inlet: sending 1 opens it, sending 0 closes it. When
-        the gate is closed, incoming messages are silently discarded.</tr>
+        <tr lang="en">Passes incoming messages through only when the gate is open. The state of the
+        gate is controlled by the second inlet: sending 1 opens it, sending 0 closes it. When the
+        gate is closed, incoming messages are silently discarded.</tr>
         <tr lang="ru">Пропускает входящие сообщения только тогда, когда шлюз открыт. Состояние
         шлюза управляется вторым входом: отправка 1 открывает его, отправка 0 — закрывает. Когда
         шлюз закрыт, входящие сообщения молча отбрасываются.</tr>

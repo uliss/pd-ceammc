@@ -22,10 +22,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">On an incoming list (l⁰ l¹ ...) outputs to the corresponding outlet a
-        message of the form [s⁰ l⁰(, [s¹ l¹(, etc., where s⁰, s¹, ... are the selectors given at
-        object creation. The first list element is paired with the first selector, the second
-        element with the second selector, and so on.</tr>
+        <tr lang="en">On an incoming list (l⁰ l¹ ...) outputs to the corresponding outlet a message
+        of the form [s⁰ l⁰(, [s¹ l¹(, etc., where s⁰, s¹, ... are the selectors given at object
+        creation. The first list element is paired with the first selector, the second element with
+        the second selector, and so on.</tr>
         <tr lang="ru">При получении списка (l⁰ l¹ ...) выводит на соответствующий выход сообщение
         вида [s⁰ l⁰(, [s¹ l¹( и т. д., где s⁰, s¹, ... — селекторы, заданные при создании объекта.
         Первый элемент списка связывается с первым селектором, второй — со вторым, и так

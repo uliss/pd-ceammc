@@ -33,9 +33,8 @@
         The gain for each output can be set individually with the @value property.</tr>
         <tr lang="ru">Направляет входной аудиосигнал на один из нескольких аудиовыходов в
         соответствии со значением на управляющем входе. Число выходов задаётся аргументом N (или
-        свойством @n). Сигнал поступает только на один выход — на остальных выход
-        равен нулю. Усиление для каждого выхода можно задать отдельно с помощью свойства
-        @value.</tr>
+        свойством @n). Сигнал поступает только на один выход — на остальных выход равен нулю.
+        Усиление для каждого выхода можно задать отдельно с помощью свойства @value.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -43,8 +42,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Switching a single source between several effect chains — routing one
-        oscillator, sample or voice to a specific effect (reverb, delay, distortion) selected by
-        a control signal.</tr>
+        oscillator, sample or voice to a specific effect (reverb, delay, distortion) selected by a
+        control signal.</tr>
         <tr lang="ru">• Переключение одного источника между несколькими цепочками эффектов —
         направление одного осциллятора, сэмпла или голоса на конкретный эффект (реверберацию,
         задержку, дисторшн), выбираемый управляющим сигналом.</tr>
@@ -61,9 +60,9 @@
         <tr lang="en">• Selecting a destination in a matrix — choosing which input of a
         multi-channel processor receives the signal, by switching the demultiplexer from a
         sequencer or a control UI.</tr>
-        <tr lang="ru">• Выбор приёмника в матрице — определение того, на какой вход
-        многоканального процессора попадёт сигнал, путём переключения демультиплексора из
-        секвенсора или UI-управления.</tr>
+        <tr lang="ru">• Выбор приёмника в матрице — определение того, на какой вход многоканального
+        процессора попадёт сигнал, путём переключения демультиплексора из секвенсора или
+        UI-управления.</tr>
       </par>
     </info>
     <arguments>

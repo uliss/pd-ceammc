@@ -31,16 +31,16 @@
       <par>
         <tr lang="en">The detection is controlled by @method (one of the aubio onset detection
         functions), while other properties tune the analysis: @bs and @hs for the analysis window
-        and hop size, @threshold for peak-picking, @silence for the silence threshold,
-        @speedlim for the minimum interval between two consecutive onsets, @compression for the
-        lambda logarithmic compression factor, @awhitening for adaptive whitening and @delay for
+        and hop size, @threshold for peak-picking, @silence for the silence threshold, @speedlim
+        for the minimum interval between two consecutive onsets, @compression for the lambda
+        logarithmic compression factor, @awhitening for adaptive whitening and @delay for
         compensating a constant system latency.</tr>
         <tr lang="ru">Детекция управляется свойством @method (одна из функций обнаружения атак
-        aubio), остальные свойства настраивают анализ: @bs и @hs — размер окна и шага,
-        @threshold — порог пикового отбора, @silence — порог тишины, @speedlim — минимальный
-        интервал между двумя последовательными атаками, @compression — коэффициент лямбда
-        логарифмического сжатия, @awhitening — адаптивное «отбеливание», @delay — компенсация
-        постоянной системной задержки.</tr>
+        aubio), остальные свойства настраивают анализ: @bs и @hs — размер окна и шага, @threshold —
+        порог пикового отбора, @silence — порог тишины, @speedlim — минимальный интервал между
+        двумя последовательными атаками, @compression — коэффициент лямбда логарифмического сжатия,
+        @awhitening — адаптивное «отбеливание», @delay — компенсация постоянной системной
+        задержки.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -77,6 +77,7 @@
       </argument>
       <argument name="METHOD" type="symbol"
       enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
+
         <tr lang="en">detection method</tr>
         <tr lang="ru">метод обнаружения</tr>
       </argument>
@@ -100,7 +101,8 @@
       </property>
       <!-- @complex -->
       <property name="@complex" type="alias">
-        <tr lang="en">alias for @method complex. Complex Domain Method onset detection function</tr>
+        <tr lang="en">alias for @method complex. Complex Domain Method onset detection
+        function</tr>
         <tr lang="ru">сокращение для @method complex. Функция обнаружения атак Complex Domain
         Method</tr>
       </property>
@@ -134,8 +136,7 @@
       <!-- @kl -->
       <property name="@kl" type="alias">
         <tr lang="en">alias for @method kl. Kullback-Liebler onset detection function</tr>
-        <tr lang="ru">сокращение для @method kl. Функция обнаружения атак Кульбака —
-        Лейблера</tr>
+        <tr lang="ru">сокращение для @method kl. Функция обнаружения атак Кульбака — Лейблера</tr>
       </property>
       <!-- @method -->
       <property name="@method" type="symbol"

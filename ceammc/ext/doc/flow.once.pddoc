@@ -30,9 +30,9 @@
         "one-shot" gate: the first event triggers the downstream logic, and any further events are
         ignored until the patch explicitly re-opens the gate.</tr>
         <tr lang="ru">Пропускает ровно одно входящее сообщение и затем закрывается, так что
-        последующие сообщения отбрасываются, пока шлюз не будет сброшен через правый вход.
-        Удобно как «одноразовый» шлюз: первое событие запускает нижестоящую логику, а все
-        дальнейшие игнорируются, пока патч явно не откроет шлюз снова.</tr>
+        последующие сообщения отбрасываются, пока шлюз не будет сброшен через правый вход. Удобно
+        как «одноразовый» шлюз: первое событие запускает нижестоящую логику, а все дальнейшие
+        игнорируются, пока патч явно не откроет шлюз снова.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -47,9 +47,9 @@
         срабатываний до тех пор, пока шлюз не будет явно перезапущен.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Preventing duplicate events — filtering out repeated triggers from a
-        noisy source (for example, a MIDI controller or a sensor), so that only the first one
-        reaches the downstream logic.</tr>
+        <tr lang="en">• Preventing duplicate events — filtering out repeated triggers from a noisy
+        source (for example, a MIDI controller or a sensor), so that only the first one reaches the
+        downstream logic.</tr>
         <tr lang="ru">• Устранение дублирующихся событий — фильтрация повторных срабатываний от
         шумного источника (например, MIDI-контроллера или сенсора), чтобы до нижестоящей логики
         дошло только первое.</tr>

@@ -31,8 +31,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Automatic brightness control — adjusting the display brightness from a
-        patch, for example fading it down in the evening and up in the morning, or linking it to
-        an ambient light sensor.</tr>
+        patch, for example fading it down in the evening and up in the morning, or linking it to an
+        ambient light sensor.</tr>
         <tr lang="ru">• Автоматическое управление яркостью — изменение яркости дисплея из патча,
         например затемнение вечером и увеличение яркости утром, или привязка к датчику
         освещённости.</tr>
@@ -42,8 +42,8 @@
         concert or an art installation, so that the screen does not distract the audience, and
         restoring brightness when the piece ends.</tr>
         <tr lang="ru">• Сценарии выступлений и инсталляций — затемнение дисплея во время концерта
-        или арт-инсталляции, чтобы экран не отвлекал публику, и восстановление яркости по
-        окончании произведения.</tr>
+        или арт-инсталляции, чтобы экран не отвлекал публику, и восстановление яркости по окончании
+        произведения.</tr>
       </par>
       <par style="warning">
         <tr lang="en">Note: currently supported on macOS only.</tr>

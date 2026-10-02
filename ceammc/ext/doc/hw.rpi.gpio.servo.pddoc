@@ -21,8 +21,8 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">The specified GPIO pin is taken into exclusive ownership: only one entity
-        can operate a servo motor through this pin.</tr>
+        <tr lang="en">The specified GPIO pin is taken into exclusive ownership: only one entity can
+        operate a servo motor through this pin.</tr>
         <tr lang="ru">Указанный вывод GPIO забирается в эксклюзивное владение: только один объект
         может работать с сервоприводом через этот вывод.</tr>
       </par>
@@ -30,9 +30,9 @@
         <tr lang="en">The servo uses a smoothed trajectory by default, ensuring jerk-free motion.
         This may reduce the top speed marginally. If you need maximum speed, disable smoothing by
         setting @smooth = 0.</tr>
-        <tr lang="ru">По умолчанию движение сервопривода выполняется по сглаженной траектории,
-        что позволяет исключить резкие рывки. При этом общая скорость несколько уступает
-        максимально возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
+        <tr lang="ru">По умолчанию движение сервопривода выполняется по сглаженной траектории, что
+        позволяет исключить резкие рывки. При этом общая скорость несколько уступает максимально
+        возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -51,8 +51,8 @@
         installation, for example to strike percussion, rotate objects or move mirrors and
         reflectors in time with the music.</tr>
         <tr lang="ru">• Кинетические звуковые инсталляции — превращение сервопривода в часть
-        арт-инсталляции, например для ударов по перкуссии, вращения объектов или движения
-        зеркал и отражателей в такт музыке.</tr>
+        арт-инсталляции, например для ударов по перкуссии, вращения объектов или движения зеркал и
+        отражателей в такт музыке.</tr>
       </par>
     </info>
     <arguments>
@@ -67,8 +67,8 @@
         <tr lang="en">When set to 1: tries to connect to the Raspberry Pi GPIO and acquire
         exclusive ownership of the pin. When set to 0: disconnects from the GPIO and releases
         ownership of the pin</tr>
-        <tr lang="ru">при значении 1: пытается подключиться к GPIO Raspberry Pi и забрать контакт
-        в эксклюзивное владение. При значении 0: отключается от GPIO и освобождает контакт</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к GPIO Raspberry Pi и забрать контакт в
+        эксклюзивное владение. При значении 0: отключается от GPIO и освобождает контакт</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" minvalue="30.0" maxvalue="100.0" default="50.0"
@@ -222,8 +222,8 @@
           physically stopped moving. The servo may still be rotating (this is particularly
           noticeable when @smooth = 0).</tr>
           <tr lang="ru">выводится, когда команда движения сервопривода завершена. Важно: завершена
-          именно команда, а не движение. Сервопривод всё ещё может вращаться (особенно если
-          @smooth = 0)</tr>
+          именно команда, а не движение. Сервопривод всё ещё может вращаться (особенно если @smooth
+          = 0)</tr>
         </out>
         <out name="angle" type="any">
           <tr lang="en">outputs the current rotation angle in degrees</tr>

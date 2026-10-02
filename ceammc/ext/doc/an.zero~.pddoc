@@ -21,18 +21,17 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Analyzes the incoming audio signal and outputs how often it crosses zero.
-        The result depends on the @mode property: 'count' outputs the raw number of zero
-        crossings per analysis block, 'rate' outputs the zero crossing rate (number of crossings
-        divided by block size) and 'freq' outputs the zero crossing frequency in hertz. In the
-        special @clock mode the object outputs a short impulse at each zero crossing, which can be
-        used as a trigger.</tr>
+        <tr lang="en">Analyzes the incoming audio signal and outputs how often it crosses zero. The
+        result depends on the @mode property: 'count' outputs the raw number of zero crossings per
+        analysis block, 'rate' outputs the zero crossing rate (number of crossings divided by block
+        size) and 'freq' outputs the zero crossing frequency in hertz. In the special @clock mode
+        the object outputs a short impulse at each zero crossing, which can be used as a
+        trigger.</tr>
         <tr lang="ru">Анализирует входящий аудиосигнал и выводит, как часто он пересекает ноль.
-        Результат зависит от свойства @mode: 'count' выводит «сырое» число пересечений нуля за
-        блок анализа, 'rate' — скорость пересечения нуля (число пересечений, делённое на размер
-        блока), 'freq' — частоту пересечения нуля в герцах. В специальном режиме @clock объект
-        выдаёт короткий импульс на каждом пересечении нуля, который можно использовать как
-        триггер.</tr>
+        Результат зависит от свойства @mode: 'count' выводит «сырое» число пересечений нуля за блок
+        анализа, 'rate' — скорость пересечения нуля (число пересечений, делённое на размер блока),
+        'freq' — частоту пересечения нуля в герцах. В специальном режиме @clock объект выдаёт
+        короткий импульс на каждом пересечении нуля, который можно использовать как триггер.</tr>
       </par>
     </info>
     <properties>

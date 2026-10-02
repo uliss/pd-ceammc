@@ -25,11 +25,11 @@
     <info>
       <par>
         <tr lang="en">Passes messages from one of several inlets to a single outlet, according to
-        the current input index. The number of inlets is set by the argument N. Only one inlet at
-        a time is routed to the outlet — the others are ignored.</tr>
+        the current input index. The number of inlets is set by the argument N. Only one inlet at a
+        time is routed to the outlet — the others are ignored.</tr>
         <tr lang="ru">Передаёт сообщения с одного из нескольких входов на единственный выход в
-        соответствии с текущим индексом входа. Число входов задаётся аргументом N. Одновременно
-        на выход маршрутизируется только один вход — остальные игнорируются.</tr>
+        соответствии с текущим индексом входа. Число входов задаётся аргументом N. Одновременно на
+        выход маршрутизируется только один вход — остальные игнорируются.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>

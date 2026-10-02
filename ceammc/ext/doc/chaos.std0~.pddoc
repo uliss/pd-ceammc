@@ -21,16 +21,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating sound generator based on the standard map (also known
-        as the Chirikov–Taylor map), a two-dimensional discrete dynamical system. Unlike
-        interpolating generators, this object advances the map by one step per audio sample at a
-        given generation frequency. The generation frequency is set as an audio signal on the
-        first inlet; the minimal value is 0.001 Hz.</tr>
+        <tr lang="en">A non-interpolating sound generator based on the standard map (also known as
+        the Chirikov–Taylor map), a two-dimensional discrete dynamical system. Unlike interpolating
+        generators, this object advances the map by one step per audio sample at a given generation
+        frequency. The generation frequency is set as an audio signal on the first inlet; the
+        minimal value is 0.001 Hz.</tr>
         <tr lang="ru">Неинтерполирующий звуковой генератор на основе стандартного отображения
         (также известного как отображение Чирикова — Тейлора) — двумерной дискретной динамической
-        системы. В отличие от интерполирующих генераторов, этот объект делает один шаг
-        отображения на каждый аудиосемпл при заданной частоте генерации. Частота генерации
-        задаётся как звуковой сигнал на первом входе; минимальное значение — 0.001 Гц.</tr>
+        системы. В отличие от интерполирующих генераторов, этот объект делает один шаг отображения
+        на каждый аудиосемпл при заданной частоте генерации. Частота генерации задаётся как
+        звуковой сигнал на первом входе; минимальное значение — 0.001 Гц.</tr>
       </par>
       <par>
         <tr lang="en">The map is defined by the difference equations:</tr>

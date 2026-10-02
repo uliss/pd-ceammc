@@ -18,18 +18,18 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Reads the state of a connected gamepad and outputs events for buttons,
-        axes, and connections and disconnections of devices. Button events are output from the
-        first outlet, axis events from the second, and device-related messages (connection,
+        <tr lang="en">Reads the state of a connected gamepad and outputs events for buttons, axes,
+        and connections and disconnections of devices. Button events are output from the first
+        outlet, axis events from the second, and device-related messages (connection,
         disconnection, device info) from the third.</tr>
-        <tr lang="ru">Считывает состояние подключённого геймпада и выводит события кнопок, осей,
-        а также подключений и отключений устройств. События кнопок выводятся из первого выхода,
-        события осей — из второго, а сообщения, связанные с устройством (подключение,
-        отключение, информация об устройстве), — из третьего.</tr>
+        <tr lang="ru">Считывает состояние подключённого геймпада и выводит события кнопок, осей, а
+        также подключений и отключений устройств. События кнопок выводятся из первого выхода,
+        события осей — из второго, а сообщения, связанные с устройством (подключение, отключение,
+        информация об устройстве), — из третьего.</tr>
       </par>
       <par>
-        <tr lang="en">Button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2,
-        select, start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
+        <tr lang="en">Button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2, select,
+        start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
         <tr lang="ru">Названия кнопок: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2,
         select, start, mode, lthumb, rthumb, up, down, left, right, unknown.</tr>
       </par>
@@ -76,8 +76,8 @@
         <out type="any">
           <tr lang="en">[device DICT( — connected device information, [connected ID( — when a
           device is connected, [disconnected ID( — when a device is disconnected</tr>
-          <tr lang="ru">[device DICT( — информация о подключённом устройстве, [connected ID( —
-          при подключении устройства, [disconnected ID( — при отключении устройства</tr>
+          <tr lang="ru">[device DICT( — информация о подключённом устройстве, [connected ID( — при
+          подключении устройства, [disconnected ID( — при отключении устройства</tr>
         </out>
       </outlet>
     </outlets>

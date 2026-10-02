@@ -32,10 +32,10 @@
         match the envelope length, and *raw* writes the envelope into the array up to the array
         length, discarding the rest of the envelope.</tr>
         <tr lang="ru">Отрисовывает огибающую в массив, заполняя его значениями огибающей во
-        времени. Режим отрисовки управляет тем, как длина огибающей согласуется с размером
-        массива: *fit* растягивает огибающую по размеру массива, *resize* изменяет размер
-        массива по длине огибающей, а *raw* записывает огибающую в массив до конца массива,
-        отбрасывая остаток огибающей.</tr>
+        времени. Режим отрисовки управляет тем, как длина огибающей согласуется с размером массива:
+        *fit* растягивает огибающую по размеру массива, *resize* изменяет размер массива по длине
+        огибающей, а *raw* записывает огибающую в массив до конца массива, отбрасывая остаток
+        огибающей.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -46,19 +46,19 @@
         <tr lang="ru">• Визуализация огибающих.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Preparing an envelope for playback — rendering an envelope into an array
-        so it can be played back as an audio rate signal via [tabplay~], for applying the same
-        shape at audio rate.</tr>
-        <tr lang="ru">• Подготовка огибающей к воспроизведению — отрисовка огибающей в массив
-        для воспроизведения в виде аудиосигнала через [tabplay~] и применения одной и той же
-        формы на аудиочастоте.</tr>
+        <tr lang="en">• Preparing an envelope for playback — rendering an envelope into an array so
+        it can be played back as an audio rate signal via [tabplay~], for applying the same shape
+        at audio rate.</tr>
+        <tr lang="ru">• Подготовка огибающей к воспроизведению — отрисовка огибающей в массив для
+        воспроизведения в виде аудиосигнала через [tabplay~] и применения одной и той же формы на
+        аудиочастоте.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Integration with array-based processing — using the resulting array as a
         source for other array objects (for example, [array.convolve], [array.stretch] or
         [array.play~]) that work with array data rather than envelopes.</tr>
-        <tr lang="ru">• Интеграция с обработкой на массивах — использование полученного массива
-        как источника для других объектов, работающих с массивами, а не с огибающими (например,
+        <tr lang="ru">• Интеграция с обработкой на массивах — использование полученного массива как
+        источника для других объектов, работающих с массивами, а не с огибающими (например,
         [array.convolve], [array.stretch] или [array.play~]).</tr>
       </par>
     </info>
@@ -81,8 +81,8 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="fit resize raw" default="fit">
-        <tr lang="en">rendering mode: *fit* — fit to the array size, *resize* — resize the array
-        to the envelope length, *raw* — render while there is enough space in the array</tr>
+        <tr lang="en">rendering mode: *fit* — fit to the array size, *resize* — resize the array to
+        the envelope length, *raw* — render while there is enough space in the array</tr>
         <tr lang="ru">режим отрисовки: *fit* — по размеру массива, *resize* — изменить размер
         массива по длине огибающей, *raw* — отрисовать, пока в массиве достаточно места</tr>
       </property>

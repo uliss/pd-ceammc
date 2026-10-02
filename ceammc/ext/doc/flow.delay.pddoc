@@ -28,10 +28,10 @@
         like the vanilla [delay]: if a new message arrives while the delay time has not yet
         expired, the old message is discarded and the new delay time is set from the current
         moment.</tr>
-        <tr lang="ru">Задерживает любое входящее сообщение на заданное время. При @block = 0
-        ведёт себя как стандартный [delay]: если новое сообщение приходит, пока время задержки
-        ещё не истекло, старое сообщение отбрасывается, а новое время задержки отсчитывается от
-        текущего момента.</tr>
+        <tr lang="ru">Задерживает любое входящее сообщение на заданное время. При @block = 0 ведёт
+        себя как стандартный [delay]: если новое сообщение приходит, пока время задержки ещё не
+        истекло, старое сообщение отбрасывается, а новое время задержки отсчитывается от текущего
+        момента.</tr>
       </par>
       <par>
         <tr lang="en">A zero delay time means the message is output on the next Pd runloop

@@ -22,8 +22,8 @@
     <info>
       <par>
         <tr lang="en">Passes only float values through: any incoming float is output unchanged,
-        while bangs, symbols, lists and any other messages are silently ignored. Useful as a
-        filter when a chain should react only to numeric values.</tr>
+        while bangs, symbols, lists and any other messages are silently ignored. Useful as a filter
+        when a chain should react only to numeric values.</tr>
         <tr lang="ru">Пропускает только числовые значения: любое входящее число выводится без
         изменений, а bang, символы, списки и любые другие сообщения молча игнорируются. Удобно как
         фильтр в цепочке, которая должна реагировать только на числа.</tr>
@@ -45,8 +45,8 @@
         example, [mtof], [expr], [line]) from receiving unexpected symbols or lists that would
         otherwise cause errors or unintended behavior.</tr>
         <tr lang="ru">• Защита объекта, работающего только с числами — предотвращение попадания
-        символов или списков в числовой объект (например, [mtof], [expr], [line]), что иначе
-        могло бы вызвать ошибки или нежелательное поведение.</tr>
+        символов или списков в числовой объект (например, [mtof], [expr], [line]), что иначе могло
+        бы вызвать ошибки или нежелательное поведение.</tr>
       </par>
     </info>
     <inlets>

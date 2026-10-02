@@ -21,16 +21,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Substitutes escaped \\\$0, \\\$1, \\\$2, ... in the incoming message with the corresponding
-        values of the current patch: \$0 is the unique patch identifier, \$1, \$2, ... are the
-        arguments passed to the patch. This is useful
-        when a message contains a $‑placeholder that should be resolved at run time, not at
-        object creation time.</tr>
-        <tr lang="ru">Заменяет экранированные \\\$0, \\\$1, \\\$2, ... во входящем сообщении на соответствующие
-        значения текущего патча: \$0 — уникальный идентификатор патча, \$1, \$2, ... — аргументы,
-        переданные патчу. Это удобно, когда сообщение
-        содержит $-заполнитель, который должен быть развёрнут во время выполнения, а не в момент
-        создания объекта.</tr>
+        <tr lang="en">Substitutes escaped \\\$0, \\\$1, \\\$2, ... in the incoming message with the
+        corresponding values of the current patch: \$0 is the unique patch identifier, \$1, \$2,
+        ... are the arguments passed to the patch. This is useful when a message contains a
+        $‑placeholder that should be resolved at run time, not at object creation time.</tr>
+        <tr lang="ru">Заменяет экранированные \\\$0, \\\$1, \\\$2, ... во входящем сообщении на
+        соответствующие значения текущего патча: \$0 — уникальный идентификатор патча, \$1, \$2,
+        ... — аргументы, переданные патчу. Это удобно, когда сообщение содержит $-заполнитель,
+        который должен быть развёрнут во время выполнения, а не в момент создания объекта.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
