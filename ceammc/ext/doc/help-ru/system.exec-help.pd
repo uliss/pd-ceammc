@@ -5,74 +5,85 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.exec 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 system.exec;
-#X msg 50 118 ls;
-#X msg 98 118 ls -l;
-#X msg 174 118 open /Applications/TextEdit.app;
-#X msg 117 147 top;
-#X msg 222 147 winver.exe;
-#X obj 50 176 list;
-#X msg 165 176 terminate;
-#X obj 50 205 system.exec;
-#X floatatom 50 234 5 0 0 0 - - -;
-#X obj 165 234 print EXEC;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Запускает указанную внешнюю команду в отдельном процессе
+и выводит её код завершения и stdout в виде списка строк. Процессом
+можно управлять через методы eof \, stop и terminate \, а дополнительные
+данные можно отправлять в его stdin методом write.;
+#X text 240 168 Типичные сценарии применения:;
+#X text 250 193 • Запуск сценариев и утилит из патча — выполнение внешних
+программ (Python-скриптов \, ffmpeg \, пользовательских утилит) прямо
+из Pd с использованием их вывода для управления патчем или запуска
+других действий.;
+#X msg 50 326 ls;
+#X msg 98 326 ls -l;
+#X msg 174 326 open /System/Applications/TextEdit.app;
+#X msg 117 355 top;
+#X msg 222 355 winver.exe;
+#X obj 50 384 list;
+#X msg 165 384 terminate;
+#X obj 50 413 system.exec;
+#X floatatom 50 442 5 0 0 0 - - -;
+#X obj 165 442 print EXEC;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 497 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 500 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 290 @low;
-#X text 270 290 Alias to @priority low.;
-#X obj 250 320 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 320 @priority;
-#X text 270 320 Subprocess priority (not all platforms are supported).
+#X msg 130 498 @low;
+#X text 270 498 Сокращение для @priority low.;
+#X obj 250 528 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 528 @priority;
+#X text 270 528 Приоритет подпроцесса (поддерживаются не все платформы).
 Тип: symbol. Значение по умолчанию: normal. Разрешённые значения: normal
 \, low.;
-#X obj 250 377 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 377 @is_running?;
-#X text 270 377 (только чтение) Is process is running. Тип: bool. Значение
-по умолчанию: 0\.;
-#X obj 250 419 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 419 @state?;
-#X text 270 419 (только чтение) Running process state: -1 (no process)
-\, 0 (not started) \, 1 (running) \, 2 (finished). Тип: int. Значение
+#X obj 250 585 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 585 @is_running?;
+#X text 270 585 (только чтение) Истина \, если процесс запущен. Тип:
+bool. Значение по умолчанию: 0\.;
+#X obj 250 627 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 627 @state?;
+#X text 270 627 (только чтение) Состояние процесса: -1 (нет процесса)
+\, 0 (не запущен) \, 1 (выполняется) \, 2 (завершён). Тип: int. Значение
 по умолчанию: -1\.;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 491 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 699 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 492 eof;
-#X text 270 492 send EOF to running processes.;
-#X obj 250 527 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 527 stop;
-#X text 270 527 stop running process.;
-#X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 562 terminate;
-#X text 270 562 terminate running process.;
-#X obj 250 597 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 597 write;
-#X text 270 597 write data to process stdin.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 700 eof;
+#X text 270 700 отправляет EOF запущенному процессу.;
+#X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 735 stop;
+#X text 270 735 останавливает запущенный процесс.;
+#X obj 250 770 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 770 terminate;
+#X text 270 770 завершает запущенный процесс.;
+#X obj 250 805 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 805 write;
+#X text 270 805 записывает данные в stdin процесса.;
+#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 855 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 648 1\.;
-#X text 170 648 symbol:;
-#X text 270 648 run specified program.;
-#X text 170 673 any:;
-#X text 270 673 run specified program with arguments.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 856 1\.;
+#X text 170 856 symbol:;
+#X text 270 856 запускает указанную программу.;
+#X text 170 881 any:;
+#X text 270 881 запускает указанную программу с аргументами.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 921 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 714 1\.;
-#X text 270 714 output process exit code.;
-#X text 130 734 2\.;
-#X text 270 734 output list of strings.;
+#X text 130 922 1\.;
+#X text 170 922 int:;
+#X text 270 922 выводит код завершения процесса.;
+#X text 130 942 2\.;
+#X text 270 942 выводит список строк.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 784 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 787 библиотека: ceammc v0.9.8;
-#N canvas 10 806 400 290 info 0;
+#X obj 1 992 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 995 библиотека: ceammc v0.9.8;
+#N canvas 10 1014 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,13 +107,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 806 pd info;
-#X connect 4 0 9 0;
-#X connect 5 0 9 0;
-#X connect 7 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
-#X connect 6 0 9 0;
-#X connect 8 0 9 0;
+#X restore 10 1014 pd info;
+#X connect 8 0 13 0;
+#X connect 9 0 13 0;
+#X connect 11 0 13 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
+#X connect 10 0 13 0;
+#X connect 12 0 13 0;

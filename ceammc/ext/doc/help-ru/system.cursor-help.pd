@@ -6,7 +6,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.cursor 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 system.cursor;
-#X obj 230 93 cnv 1 535 270 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 93 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Выводит перемещение курсора \, события колеса мыши и
 нажатия кнопок мыши в виде управляющих сообщений. Опрос можно включать
 и выключать \, интервал опроса задаётся глобально через метод polltime.;
@@ -14,78 +14,74 @@
 #X text 250 193 • Интерактивные патчи \, управляемые мышью — использование
 положения курсора и нажатий кнопок мыши для управления звуковыми параметрами
 \, запуска событий или навигации по патчу без специального GUI-элемента.;
-#X text 250 263 • Жестовое управление и управление движением — преобразование
-перемещения курсора или прокрутки колеса мыши в звуковые параметры
-\, например в перформансах или инсталляциях \, где мышь или трекпад
-выступают как непрерывный контроллер.;
-#X obj 50 411 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 146 411 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 290 411 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 395 411 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 510 411 system.cursor-abs;
-#X msg 78 440 bang;
-#X msg 146 440 @relative \$1;
-#X msg 290 440 @norm \$1;
-#X msg 395 440 @clip \$1;
-#X obj 510 440 system.cursor-osc~;
-#X obj 50 498 system.cursor;
-#X obj 50 527 route motion mousewheel button;
-#X floatatom 136 555 5 0 0 0 - - -;
-#X obj 194 555 route 1 2 3;
-#X obj 194 584 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 232 584 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 280 584 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 613 ui.dt;
-#X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 668 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 290 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 395 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 510 326 system.cursor-abs;
+#X msg 78 355 bang;
+#X msg 146 355 @relative \$1;
+#X msg 290 355 @norm \$1;
+#X msg 395 355 @clip \$1;
+#X obj 510 355 system.cursor-osc~;
+#X obj 50 413 system.cursor;
+#X obj 50 442 route motion mousewheel button;
+#X floatatom 136 470 5 0 0 0 - - -;
+#X obj 194 470 route 1 2 3;
+#X obj 194 499 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 232 499 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 280 499 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 528 ui.dt;
+#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 583 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 671 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 586 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 669 @clip;
-#X text 270 669 Режим обрезки. Если истина \, значения X/Y курсора
+#X msg 130 584 @clip;
+#X text 270 584 Режим обрезки. Если истина \, значения X/Y курсора
 ограничиваются диапазоном [0\..1] в нормализованном режиме \, размерами
 окна в относительном режиме и размерами экрана в остальных случаях.
 Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 @norm;
-#X text 270 756 Нормализация координат курсора x/y по ширине и высоте
+#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 671 @norm;
+#X text 270 671 Нормализация координат курсора x/y по ширине и высоте
 экрана (или окна). Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 813 @relative;
-#X text 270 813 Режим относительного вывода. Если включён \, выводятся
+#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 728 @relative;
+#X text 270 728 Режим относительного вывода. Если включён \, выводятся
 координаты относительно корневого окна \, иначе выводятся абсолютные
 координаты экрана. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 900 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 815 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 901 polltime;
-#X text 270 901 устанавливает глобальное время опроса курсора. Аргументы:;
-#X obj 300 926 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 926 T: время опроса. Тип: float. Диапазон: [10\..1000].
+#X msg 130 816 polltime;
+#X text 270 816 устанавливает глобальное время опроса курсора. Аргументы:;
+#X obj 300 841 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 841 T: время опроса. Тип: float. Диапазон: [10\..1000].
 Единицы: 'ms'.;
-#X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 989 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 904 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 990 1\.;
-#X text 170 990 bang:;
-#X text 270 990 выводит положение курсора.;
-#X text 170 1015 float:;
-#X text 270 1015 при получении 1 включается опрос курсора (позиция
-и кнопки); при получении 0 — выключается.;
-#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1070 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
--49933 0;
-#X text 130 1071 1\.;
-#X text 270 1071 сообщения: motion X Y \, mousewheel DELTA \, button
+#X text 130 905 1\.;
+#X text 170 905 bang:;
+#X text 270 905 выводит положение курсора.;
+#X text 170 930 float:;
+#X text 270 930 при получении 1 включается опрос курсора (позиция и
+кнопки); при получении 0 — выключается.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 985 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 986 1\.;
+#X text 270 986 сообщения: motion X Y \, mousewheel DELTA \, button
 IDX STATE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 1121 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1124 библиотека: ceammc v0.9.8;
-#N canvas 10 1143 400 290 info 0;
+#X obj 1 1036 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1039 библиотека: ceammc v0.9.8;
+#N canvas 10 1058 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -109,19 +105,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1143 pd info;
+#X restore 10 1058 pd info;
+#X connect 9 0 14 0;
 #X connect 10 0 15 0;
 #X connect 11 0 16 0;
-#X connect 12 0 17 0;
-#X connect 9 0 19 0;
-#X connect 14 0 19 0;
-#X connect 15 0 19 0;
-#X connect 16 0 19 0;
-#X connect 17 0 19 0;
-#X connect 19 0 20 0;
-#X connect 20 1 21 0;
-#X connect 20 2 22 0;
-#X connect 22 0 23 0;
-#X connect 22 1 24 0;
-#X connect 22 2 25 0;
-#X connect 20 0 26 0;
+#X connect 8 0 18 0;
+#X connect 13 0 18 0;
+#X connect 14 0 18 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 1 20 0;
+#X connect 19 2 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 23 0;
+#X connect 21 2 24 0;
+#X connect 19 0 25 0;

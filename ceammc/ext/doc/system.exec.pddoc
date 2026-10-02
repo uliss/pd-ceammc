@@ -16,84 +16,106 @@
       <keywords>system execute</keywords>
       <since>0.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Runs the given external command in a separate process and outputs its exit
+        code and stdout as a list of strings. The process can be controlled via the eof, stop and
+        terminate methods, and additional data can be sent to its stdin with the write
+        method.</tr>
+        <tr lang="ru">Запускает указанную внешнюю команду в отдельном процессе и выводит её код
+        завершения и stdout в виде списка строк. Процессом можно управлять через методы eof, stop
+        и terminate, а дополнительные данные можно отправлять в его stdin методом write.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Running scripts and tools from a patch — executing external programs
+        (Python scripts, ffmpeg, custom utilities) directly from Pd and using their output to
+        drive the patch or trigger further actions.</tr>
+        <tr lang="ru">• Запуск сценариев и утилит из патча — выполнение внешних программ
+        (Python-скриптов, ffmpeg, пользовательских утилит) прямо из Pd с использованием их вывода
+        для управления патчем или запуска других действий.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @is_running -->
       <property name="@is_running" type="bool" access="readonly" default="0">
-        <tr lang="en">is process is running</tr>
-        <tr lang="ru" finished="false">Процесс запущен</tr>
+        <tr lang="en">true if the process is running</tr>
+        <tr lang="ru">истина, если процесс запущен</tr>
       </property>
       <!-- @low -->
       <property name="@low" type="alias">
-        <tr lang="en">alias to @priority low</tr>
-        <tr lang="ru" finished="false">Оригинальное название: @priority Low</tr>
+        <tr lang="en">alias for @priority low</tr>
+        <tr lang="ru">сокращение для @priority low</tr>
       </property>
       <!-- @priority -->
       <property name="@priority" type="symbol" enum="normal low" default="normal">
         <tr lang="en">subprocess priority (not all platforms are supported)</tr>
-        <tr lang="ru" finished="false">Приоритет субпроцессов (поддерживаются не все
-        платформы)</tr>
+        <tr lang="ru">приоритет подпроцесса (поддерживаются не все платформы)</tr>
       </property>
       <!-- @state -->
       <property name="@state" type="int" default="-1" access="readonly">
         <tr lang="en">running process state: -1 (no process), 0 (not started), 1 (running), 2
         (finished)</tr>
-        <tr lang="ru" finished="false">Состояние запущенного процесса: -1 (без процесса), 0 (не
-        запущен), 1 (бег), 2 (завершен)</tr>
+        <tr lang="ru">состояние процесса: -1 (нет процесса), 0 (не запущен), 1 (выполняется), 2
+        (завершён)</tr>
       </property>
     </properties>
     <methods>
       <!-- eof -->
       <method name="eof">
         <info>
-          <tr lang="en">send EOF to running processes</tr>
-          <tr lang="ru" finished="false">Отправить EOF в запущенные процессы</tr>
+          <tr lang="en">sends EOF to the running process</tr>
+          <tr lang="ru">отправляет EOF запущенному процессу</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop running process</tr>
-          <tr lang="ru" finished="false">Прекратить процесс запуска</tr>
+          <tr lang="en">stops the running process</tr>
+          <tr lang="ru">останавливает запущенный процесс</tr>
         </info>
       </method>
       <!-- terminate -->
       <method name="terminate">
         <info>
-          <tr lang="en">terminate running process</tr>
-          <tr lang="ru" finished="false">Окончание рабочего процесса</tr>
+          <tr lang="en">terminates the running process</tr>
+          <tr lang="ru">завершает запущенный процесс</tr>
         </info>
       </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write data to process stdin</tr>
-          <tr lang="ru" finished="false">записывать данные для обработки stdin</tr>
+          <tr lang="en">writes data to the process stdin</tr>
+          <tr lang="ru">записывает данные в stdin процесса</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">run specified program</tr>
-          <tr lang="ru" finished="false">Запуск определенной программы</tr>
+          <tr lang="en">runs the specified program</tr>
+          <tr lang="ru">запускает указанную программу</tr>
         </in>
         <in on="any">
-          <tr lang="en">run specified program with arguments</tr>
-          <tr lang="ru" finished="false">Запуск определенной программы с аргументами</tr>
+          <tr lang="en">runs the specified program with arguments</tr>
+          <tr lang="ru">запускает указанную программу с аргументами</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">output process exit code</tr>
-          <tr lang="ru" finished="false">Выходной код выходного процесса</tr>
+        <out type="int">
+          <tr lang="en">outputs the process exit code</tr>
+          <tr lang="ru">выводит код завершения процесса</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">output list of strings</tr>
-          <tr lang="ru" finished="false">выходной список строк</tr>
+          <tr lang="en">outputs a list of strings</tr>
+          <tr lang="ru">выводит список строк</tr>
         </out>
       </outlet>
     </outlets>
@@ -110,7 +132,7 @@
 |           ^|
 [F]         [print EXEC]
 [X a->b] [X c->b]
-#a /Applications/TextEdit.app
+#a /System/Applications/TextEdit.app
 ]]>
       </pdascii>
     </example>
