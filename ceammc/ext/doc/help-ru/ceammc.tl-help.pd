@@ -5,7 +5,7 @@
 #X obj 588 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 593 50 работа с таймлайном;
 #X obj 30 120 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 220 117 выводит пустое событие временной шкалы;
+#X text 220 117 выводит событие bang временной шкалы;
 #X obj 30 145 ui.link @title [tl.cue] @url tl.cue-help.pd;
 #X text 220 142 определяет секцию на временной шкале;
 #X obj 30 170 ui.link @title [tl.timeline] @url tl.timeline-help.pd;

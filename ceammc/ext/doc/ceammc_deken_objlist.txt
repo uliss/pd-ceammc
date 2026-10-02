@@ -1306,8 +1306,8 @@ system.info	retrieve system information: CPU and temperature / получени�
 system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
 system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
 system.screen_size	outputs the current screen size in pixels / выводит размер активного экрана в пикселях
-tl.bang	outputs a timeline bang / выводит пустое событие временной шкалы
-tl.b	outputs a timeline bang / выводит пустое событие временной шкалы
+tl.bang	outputs a timeline bang / выводит событие bang временной шкалы
+tl.b	outputs a timeline bang / выводит событие bang временной шкалы
 tl.cue	defines the timeline section / определяет секцию на временной шкале
 tl.timeline	timeline event scheduler / планировщик событий временной шкалы
 ceammc/timeline	timeline event scheduler / планировщик событий временной шкалы
