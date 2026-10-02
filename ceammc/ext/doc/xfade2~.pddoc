@@ -25,13 +25,13 @@
     <info>
       <par>
         <tr lang="en">Stereo version of [xfade~]. Each input is a stereo pair (left, right). The
-        control float value in the range [0, N−1] selects the crossfade between the stereo
-        inputs: [0, 1) fades between the first and second stereo pair, [1, 2) between the second
-        and third, and so on. The output is a stereo signal.</tr>
+        control float value in the range [0, N−1] selects the crossfade between the stereo inputs:
+        [0, 1) fades between the first and second stereo pair, [1, 2) between the second and third,
+        and so on. The output is a stereo signal.</tr>
         <tr lang="ru">Стереоверсия [xfade~]. Каждый вход — это стереопара (левый, правый).
         Управляющее значение на входе в диапазоне [0, N−1] задаёт кроссфейд между стереовходами:
-        [0, 1) — переход между первой и второй стереопарой, [1, 2) — между второй и третьей,
-        и т. д. На выходе — стереосигнал.</tr>
+        [0, 1) — переход между первой и второй стереопарой, [1, 2) — между второй и третьей, и т.
+        д. На выходе — стереосигнал.</tr>
       </par>
     </info>
     <arguments>
@@ -42,8 +42,8 @@
       <argument name="X" type="float">
         <tr lang="en">crossfade initial value. Valid value in the [0, N−1] range. See the @x
         property</tr>
-        <tr lang="ru">начальное значение кроссфейда. Допустимое значение в диапазоне [0, N−1].
-        См. свойство @x</tr>
+        <tr lang="ru">начальное значение кроссфейда. Допустимое значение в диапазоне [0, N−1]. См.
+        свойство @x</tr>
       </argument>
     </arguments>
     <properties>

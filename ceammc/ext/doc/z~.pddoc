@@ -22,11 +22,11 @@
     <info>
       <par>
         <tr lang="en">Delays the input audio signal by an integer number of samples. The delay
-        length is set by the argument or by the @z property and can be changed at run time
-        through the control inlet.</tr>
-        <tr lang="ru">Задерживает входной аудиосигнал на целое число семплов. Длительность
-        задержки задаётся аргументом или свойством @z и может изменяться во время выполнения
-        через управляющий вход.</tr>
+        length is set by the argument or by the @z property and can be changed at run time through
+        the control inlet.</tr>
+        <tr lang="ru">Задерживает входной аудиосигнал на целое число семплов. Длительность задержки
+        задаётся аргументом или свойством @z и может изменяться во время выполнения через
+        управляющий вход.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -34,8 +34,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Sample-accurate alignment — compensating small timing offsets between two
-        signals (for example, between a dry and a delayed path), with exact sample precision
-        rather than millisecond resolution.</tr>
+        signals (for example, between a dry and a delayed path), with exact sample precision rather
+        than millisecond resolution.</tr>
         <tr lang="ru">• Выравнивание с точностью до семпла — компенсация небольших смещений по
         времени между двумя сигналами (например, между прямым и задержанным трактом), с точностью
         именно до семпла, а не до миллисекунд.</tr>

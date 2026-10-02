@@ -18,10 +18,9 @@
     </meta>
     <info>
       <par style="critical">
-        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!),
-        then power (+5 V), then the data pin. This is necessary to protect the first LED from
-        burning out. It is recommended to install a 300–500 Ohm resistor in the data
-        circuit.</tr>
+        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!), then
+        power (+5 V), then the data pin. This is necessary to protect the first LED from burning
+        out. It is recommended to install a 300–500 Ohm resistor in the data circuit.</tr>
         <tr lang="ru">Внимание! Правильный порядок подключения ленты: сначала земля (!), затем
         питание (+5 В), затем контакт данных. Это необходимо для защиты первого светодиода от
         выгорания. В цепь данных рекомендуется устанавливать резистор 300–500 Ом.</tr>
@@ -69,8 +68,8 @@
         installation or stage design, where color and animation respond to sound, sensors or
         external control signals.</tr>
         <tr lang="ru">• Интерактивные инсталляции — использование светодиодной ленты как части
-        арт-инсталляции или сценографии, где цвет и анимация реагируют на звук, сенсоры или
-        внешние управляющие сигналы.</tr>
+        арт-инсталляции или сценографии, где цвет и анимация реагируют на звук, сенсоры или внешние
+        управляющие сигналы.</tr>
       </par>
       <a href="ceammc_rpi_spi-info.pd">SPI information</a>
     </info>
@@ -164,8 +163,8 @@
       <!-- fill_bits -->
       <method name="fill_bits">
         <info>
-          <tr lang="en">fills only those pixels in the internal buffer with the specified color
-          for which the corresponding bit in the input list is set to 1</tr>
+          <tr lang="en">fills only those pixels in the internal buffer with the specified color for
+          which the corresponding bit in the input list is set to 1</tr>
           <tr lang="ru">заполняет указанным цветом только те пиксели во внутреннем буфере, для
           которых соответствующий бит во входном списке установлен в 1</tr>
         </info>

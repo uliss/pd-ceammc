@@ -23,13 +23,11 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Marks a section on the timeline.
-        Other timeline objects such as [tl.bang] and [tl.toggle] are activated only when
-        their associated cue is the currently active one.</tr>
-        <tr lang="ru">Отмечает секцию на временной шкале.
-        Другие объекты временной шкалы, такие как [tl.bang] и [tl.toggle],
-        срабатывают только тогда, когда связанная с ними метка является активной в данный
-        момент.</tr>
+        <tr lang="en">Marks a section on the timeline. Other timeline objects such as [tl.bang] and
+        [tl.toggle] are activated only when their associated cue is the currently active one.</tr>
+        <tr lang="ru">Отмечает секцию на временной шкале. Другие объекты временной шкалы, такие как
+        [tl.bang] и [tl.toggle], срабатывают только тогда, когда связанная с ними метка является
+        активной в данный момент.</tr>
       </par>
     </info>
     <mouse>
@@ -42,8 +40,8 @@
     <properties>
       <!-- @background_color -->
       <property name="@background_color" type="list" default="0.93 0.93 0.93 1">
-        <tr lang="en">element background color (list of red, green, blue, alpha values in the
-        0..1 range)</tr>
+        <tr lang="en">element background color (list of red, green, blue, alpha values in the 0..1
+        range)</tr>
         <tr lang="ru">цвет фона элемента (список значений красного, зелёного, синего и альфа в
         диапазоне 0..1)</tr>
       </property>

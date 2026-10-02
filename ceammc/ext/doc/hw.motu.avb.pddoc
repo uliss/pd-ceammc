@@ -30,8 +30,8 @@
         routing and channel names on a MOTU AVB device from a Pd patch, without using the web
         interface.</tr>
         <tr lang="ru">• Удалённое управление аудиоинтерфейсом AVB — изменение усиления, фантомного
-        питания, маршрутизации и имён каналов на устройстве MOTU AVB из патча Pd, без
-        использования веб-интерфейса.</tr>
+        питания, маршрутизации и имён каналов на устройстве MOTU AVB из патча Pd, без использования
+        веб-интерфейса.</tr>
       </par>
     </info>
     <arguments>

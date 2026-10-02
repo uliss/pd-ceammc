@@ -26,8 +26,8 @@
         управляться через одно соединение.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Note: for LED dot matrix displays, only the write_bits and write_reg
-        commands will work as expected.</tr>
+        <tr lang="en">Note: for LED dot matrix displays, only the write_bits and write_reg commands
+        will work as expected.</tr>
         <tr lang="ru">Примечание: для светодиодной матрицы ожидаемым образом работают только
         команды write_bits и write_reg.</tr>
       </par>
@@ -49,8 +49,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Status display for a patch — showing tempo, mode, numeric values or short
-        text on a 7-segment or matrix display, so that the state of the patch can be read without
-        a computer screen.</tr>
+        text on a 7-segment or matrix display, so that the state of the patch can be read without a
+        computer screen.</tr>
         <tr lang="ru">• Индикация состояния патча — отображение темпа, режима, числовых значений
         или короткого текста на 7-сегментном или матричном дисплее, чтобы состояние патча можно
         было прочитать без экрана компьютера.</tr>
@@ -195,8 +195,8 @@
       <method name="write hex">
         <info>
           <tr lang="en">writes a hexadecimal unsigned integer value (7-segment display only!)</tr>
-          <tr lang="ru">выводит шестнадцатеричное беззнаковое целое число (только для
-          7-сегментного дисплея!)</tr>
+          <tr lang="ru">выводит шестнадцатеричное беззнаковое целое число (только для 7-сегментного
+          дисплея!)</tr>
         </info>
         <param name="INT" type="int" minvalue="0" required="true">
           <tr lang="en">value</tr>

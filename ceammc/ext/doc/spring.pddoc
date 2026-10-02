@@ -22,8 +22,8 @@
     <info>
       <par>
         <tr lang="en">Smoothly moves the current value towards a target value in a given time,
-        simulating the motion of a spring. The @accel property controls the curve of the motion:
-        0 gives linear interpolation, positive values start fast and slow down near the target,
+        simulating the motion of a spring. The @accel property controls the curve of the motion: 0
+        gives linear interpolation, positive values start fast and slow down near the target,
         negative values start slowly and accelerate towards the target.</tr>
         <tr lang="ru">Плавно перемещает текущее значение к целевому за заданное время, имитируя
         движение пружины. Свойство @accel управляет формой движения: 0 — линейная интерполяция,
@@ -39,8 +39,7 @@
         return smoothly to a preset value after the user releases the mouse, instead of jumping
         instantly.</tr>
         <tr lang="ru">• Естественное поведение GUI — плавный возврат крутилок, слайдеров или
-        числовых полей к заданному значению после отпускания мыши вместо мгновенного
-        скачка.</tr>
+        числовых полей к заданному значению после отпускания мыши вместо мгновенного скачка.</tr>
       </par>
     </info>
     <arguments>
@@ -58,8 +57,8 @@
       <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
         <tr lang="en">acceleration factor. 0 — linear motion (no acceleration), &gt; 0 — start
         fast, then slow down, &lt; 0 — start slowly, then speed up</tr>
-        <tr lang="ru">коэффициент ускорения. 0 — линейное движение (без ускорения), &gt; 0 —
-        начать быстро, затем замедлиться, &lt; 0 — начать медленно, затем ускориться</tr>
+        <tr lang="ru">коэффициент ускорения. 0 — линейное движение (без ускорения), &gt; 0 — начать
+        быстро, затем замедлиться, &lt; 0 — начать медленно, затем ускориться</tr>
       </property>
       <!-- @mouse_down -->
       <property name="@mouse_down" type="bool" default="0">

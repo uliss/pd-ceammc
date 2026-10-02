@@ -19,11 +19,10 @@
     <info>
       <par>
         <tr lang="en">Outputs the hostname of the machine where the patch is running. Useful for
-        writing host-specific behaviour or for logging and debugging across multiple
-        machines.</tr>
-        <tr lang="ru">Выводит имя хоста машины, на которой выполняется патч. Полезно для
-        реализации поведения, зависящего от конкретной машины, а также для логирования и отладки
-        при работе на нескольких машинах.</tr>
+        writing host-specific behaviour or for logging and debugging across multiple machines.</tr>
+        <tr lang="ru">Выводит имя хоста машины, на которой выполняется патч. Полезно для реализации
+        поведения, зависящего от конкретной машины, а также для логирования и отладки при работе на
+        нескольких машинах.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -42,8 +41,8 @@
         clear from which machine a given log entry came, especially in multi-machine setups,
         installations or rehearsals.</tr>
         <tr lang="ru">• Логирование и диагностика — запись имени хоста в журналы, чтобы было
-        понятно, с какой машины пришла та или иная запись, особенно в многосерверных
-        конфигурациях, инсталляциях или на репетициях.</tr>
+        понятно, с какой машины пришла та или иная запись, особенно в многосерверных конфигурациях,
+        инсталляциях или на репетициях.</tr>
       </par>
     </info>
     <inlets>

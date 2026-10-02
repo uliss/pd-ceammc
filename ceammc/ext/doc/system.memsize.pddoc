@@ -41,8 +41,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Diagnostic and monitoring patches — displaying machine characteristics
-        (together with [system.memused] and [system.hostname]) to identify the machine on which
-        the patch is running.</tr>
+        (together with [system.memused] and [system.hostname]) to identify the machine on which the
+        patch is running.</tr>
         <tr lang="ru">• Диагностические и мониторинговые патчи — отображение характеристик машины
         (вместе с [system.memused] и [system.hostname]) для идентификации машины, на которой
         запущен патч.</tr>

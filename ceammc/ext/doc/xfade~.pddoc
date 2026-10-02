@@ -44,8 +44,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Layered transitions in performance — morphing between different textures,
-        effects or voices on the fly, with a musical rather than abrupt transition, controlled
-        from a single knob, LFO or automation curve.</tr>
+        effects or voices on the fly, with a musical rather than abrupt transition, controlled from
+        a single knob, LFO or automation curve.</tr>
         <tr lang="ru">• Слоистые переходы в исполнении — плавный морфинг между разными текстурами,
         эффектами или голосами на лету, с музыкальным, а не резким переходом, управляемый одной
         крутилкой, LFO или кривой автоматизации.</tr>
@@ -59,8 +59,8 @@
       <argument name="X" type="float">
         <tr lang="en">crossfade initial value. Valid value in the [0, N−1] range. See the @x
         property</tr>
-        <tr lang="ru">начальное значение кроссфейда. Допустимое значение в диапазоне [0, N−1].
-        См. свойство @x</tr>
+        <tr lang="ru">начальное значение кроссфейда. Допустимое значение в диапазоне [0, N−1]. См.
+        свойство @x</tr>
       </argument>
     </arguments>
     <properties>

@@ -23,9 +23,8 @@
         of several formats, depending on the @mode property: as an RGB list of floats or integers,
         as a hex symbol or as a data:color value.</tr>
         <tr lang="ru">Открывает системный диалог выбора цвета и выводит выбранный цвет в одном из
-        нескольких форматов в зависимости от свойства @mode: в виде списка RGB из чисел с
-        плавающей точкой или целых чисел, в виде hex-символа либо в виде значения
-        data:color.</tr>
+        нескольких форматов в зависимости от свойства @mode: в виде списка RGB из чисел с плавающей
+        точкой или целых чисел, в виде hex-символа либо в виде значения data:color.</tr>
       </par>
     </info>
     <mouse>

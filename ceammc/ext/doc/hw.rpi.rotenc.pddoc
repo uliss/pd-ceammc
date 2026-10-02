@@ -21,8 +21,8 @@
         <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn,
         @clk and @dt — it is *impossible* to use them in other objects simultaneously with this
         one.</tr>
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @btn,
-        @clk и @dt — использовать их в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @btn, @clk
+        и @dt — использовать их в других объектах одновременно с этим *невозможно*.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -33,9 +33,8 @@
         values in a patch (volume, filter cutoff, tempo, preset number) with a natural
         continuous-rotation feel and press-button confirmation.</tr>
         <tr lang="ru">• Управление параметрами с аппаратного энкодера — использование физического
-        поворотного энкодера для настройки значений в патче (громкость, срез фильтра, темп,
-        номер пресета) с естественным «бесконечным» вращением и подтверждением нажатием
-        кнопки.</tr>
+        поворотного энкодера для настройки значений в патче (громкость, срез фильтра, темп, номер
+        пресета) с естественным «бесконечным» вращением и подтверждением нажатием кнопки.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Standalone instruments and installations — building a self-contained

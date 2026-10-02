@@ -26,9 +26,9 @@
         <tr lang="en">Computes the value of a window function at a given index, or outputs all
         window values at once. The window type and size are set by the TYPE and SIZE arguments or
         by the @type and @size properties.</tr>
-        <tr lang="ru">Вычисляет значение оконной функции по заданному индексу или выводит сразу
-        все значения окна. Тип и размер окна задаются аргументами TYPE и SIZE или свойствами
-        @type и @size.</tr>
+        <tr lang="ru">Вычисляет значение оконной функции по заданному индексу или выводит сразу все
+        значения окна. Тип и размер окна задаются аргументами TYPE и SIZE или свойствами @type и
+        @size.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -39,8 +39,8 @@
         signal with a window shape (Hann, Hamming, Blackman, etc.), so that spectral leakage is
         reduced.</tr>
         <tr lang="ru">• Оконная обработка для спектрального анализа — подготовка данных для БПФ
-        путём умножения сигнала на оконную функцию (Hann, Hamming, Blackman и др.), чтобы
-        уменьшить растекание спектра.</tr>
+        путём умножения сигнала на оконную функцию (Hann, Hamming, Blackman и др.), чтобы уменьшить
+        растекание спектра.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Envelope shapes and fades — using the output of the object as a smooth

@@ -20,11 +20,10 @@
       <par>
         <tr lang="en">Runs the given external command in a separate process and outputs its exit
         code and stdout as a list of strings. The process can be controlled via the eof, stop and
-        terminate methods, and additional data can be sent to its stdin with the write
-        method.</tr>
+        terminate methods, and additional data can be sent to its stdin with the write method.</tr>
         <tr lang="ru">Запускает указанную внешнюю команду в отдельном процессе и выводит её код
-        завершения и stdout в виде списка строк. Процессом можно управлять через методы eof, stop
-        и terminate, а дополнительные данные можно отправлять в его stdin методом write.</tr>
+        завершения и stdout в виде списка строк. Процессом можно управлять через методы eof, stop и
+        terminate, а дополнительные данные можно отправлять в его stdin методом write.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -32,8 +31,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Running scripts and tools from a patch — executing external programs
-        (Python scripts, ffmpeg, custom utilities) directly from Pd and using their output to
-        drive the patch or trigger further actions.</tr>
+        (Python scripts, ffmpeg, custom utilities) directly from Pd and using their output to drive
+        the patch or trigger further actions.</tr>
         <tr lang="ru">• Запуск сценариев и утилит из патча — выполнение внешних программ
         (Python-скриптов, ffmpeg, пользовательских утилит) прямо из Pd с использованием их вывода
         для управления патчем или запуска других действий.</tr>

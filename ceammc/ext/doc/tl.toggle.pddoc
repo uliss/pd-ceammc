@@ -26,7 +26,8 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Outputs 1 when the associated cue section is activated, and 0 when switches to a different cue section.</tr>
+        <tr lang="en">Outputs 1 when the associated cue section is activated, and 0 when switches
+        to a different cue section.</tr>
         <tr lang="ru">Выводит 1 при активации связанной секции метки и 0 при переключении
         воспроизведения на другую секцию.</tr>
       </par>

@@ -31,8 +31,8 @@
         <tr lang="ru">Типичные сценарии применения:</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Precise distance-controlled sound — mapping a measured distance (up to
-        2 m) to a sound parameter (pitch, filter cutoff, volume or pan), with a narrower and more
+        <tr lang="en">• Precise distance-controlled sound — mapping a measured distance (up to 2 m)
+        to a sound parameter (pitch, filter cutoff, volume or pan), with a narrower and more
         precise beam than an ultrasonic sensor.</tr>
         <tr lang="ru">• Точное управление звуком по расстоянию — преобразование измеренного
         расстояния (до 2 м) в звуковой параметр (высоту тона, срез фильтра, громкость или
@@ -52,8 +52,8 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
-        значении 0: отключается от устройства</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При значении
+        0: отключается от устройства</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"

@@ -22,9 +22,9 @@
         <tr lang="en">Outputs cursor movement, mouse wheel events and mouse button presses as
         control messages. Polling can be turned on and off from the inlet. The polling interval is
         set globally via the polltime method.</tr>
-        <tr lang="ru">Выводит перемещение курсора, события колеса мыши и нажатия кнопок мыши в
-        виде управляющих сообщений. Опрос можно включать и выключать, интервал опроса
-        задаётся глобально через метод polltime.</tr>
+        <tr lang="ru">Выводит перемещение курсора, события колеса мыши и нажатия кнопок мыши в виде
+        управляющих сообщений. Опрос можно включать и выключать, интервал опроса задаётся глобально
+        через метод polltime.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -46,8 +46,8 @@
         mode, to the window width/height in relative mode, otherwise to the screen
         width/height</tr>
         <tr lang="ru">режим обрезки. Если истина, значения X/Y курсора ограничиваются диапазоном
-        [0..1] в нормализованном режиме, размерами окна в относительном режиме и размерами экрана
-        в остальных случаях</tr>
+        [0..1] в нормализованном режиме, размерами окна в относительном режиме и размерами экрана в
+        остальных случаях</tr>
       </property>
       <!-- @norm -->
       <property name="@norm" type="bool" default="0">

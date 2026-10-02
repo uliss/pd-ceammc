@@ -30,20 +30,20 @@
         <tr lang="ru">Типичные сценарии применения:</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Printing scores and documents — sending a generated PDF or a text file
-        (for example, a score, a list of parameters or an event log) directly to a printer from
-        a Pd patch.</tr>
+        <tr lang="en">• Printing scores and documents — sending a generated PDF or a text file (for
+        example, a score, a list of parameters or an event log) directly to a printer from a Pd
+        patch.</tr>
         <tr lang="ru">• Печать партитур и документов — отправка сгенерированного PDF- или
         текстового файла (например, партитуры, списка параметров или журнала событий) на принтер
         прямо из патча Pd.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Printed output from installations — physically printing a document as
-        part of an art installation or a performance, for example to print a receipt, a label or
-        a score at the moment of an event.</tr>
+        <tr lang="en">• Printed output from installations — physically printing a document as part
+        of an art installation or a performance, for example to print a receipt, a label or a score
+        at the moment of an event.</tr>
         <tr lang="ru">• Печатный вывод в инсталляциях — физическая печать документа как часть
-        арт-инсталляции или перформанса, например чтобы распечатать чек, этикетку или партитуру
-        в момент события.</tr>
+        арт-инсталляции или перформанса, например чтобы распечатать чек, этикетку или партитуру в
+        момент события.</tr>
       </par>
     </info>
     <arguments>

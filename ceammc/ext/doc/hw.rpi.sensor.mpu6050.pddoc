@@ -36,16 +36,16 @@
         to sound parameters (filter, pan, pitch, effect depth), so that the performer can control
         the patch through physical gestures.</tr>
         <tr lang="ru">• Управление исполнением через движение — преобразование наклона, вращения
-        или ускорения в звуковые параметры (фильтр, панорама, высота тона, глубина эффекта),
-        чтобы исполнитель мог управлять патчем через физические жесты.</tr>
+        или ускорения в звуковые параметры (фильтр, панорама, высота тона, глубина эффекта), чтобы
+        исполнитель мог управлять патчем через физические жесты.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Gesture-based installations — turning a physical object equipped with an
         MPU-6050 into an interactive controller: tilting, shaking or rotating the object triggers
         events, changes the sound or moves it in space.</tr>
         <tr lang="ru">• Инсталляции с жестовым управлением — превращение физического объекта,
-        оснащённого MPU-6050, в интерактивный контроллер: наклон, встряхивание или вращение
-        объекта запускает события, изменяет звук или перемещает его в пространстве.</tr>
+        оснащённого MPU-6050, в интерактивный контроллер: наклон, встряхивание или вращение объекта
+        запускает события, изменяет звук или перемещает его в пространстве.</tr>
       </par>
     </info>
     <properties>
@@ -53,15 +53,14 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
-        значении 0: отключается от устройства</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При значении
+        0: отключается от устройства</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The value 'default' means the default device I²C address
-        (0x68), and 'alt' means the alternative I²C address (0x69, when the AD0 pin is pulled
-        high).</tr>
+        <tr lang="en">I²C address. The value 'default' means the default device I²C address (0x68),
+        and 'alt' means the alternative I²C address (0x69, when the AD0 pin is pulled high).</tr>
         <tr lang="ru">адрес I²C. Значение 'default' означает стандартный адрес I²C устройства
         (0x68), а 'alt' — альтернативный адрес I²C (0x69, когда контакт AD0 подтянут к высокому
         уровню)</tr>

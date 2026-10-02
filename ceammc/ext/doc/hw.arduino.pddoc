@@ -22,8 +22,8 @@
         are given, tries to connect to the first available device that is not already opened. If
         the @reconnect flag is set, waits for the device hotplug and reconnects to it.</tr>
         <tr lang="ru">Последовательный порт Arduino с поддержкой переподключения и «горячего
-        подключения». Если свойства не заданы, объект пытается подключиться к первому доступному
-        и ещё не открытому устройству. Если установлен флаг @reconnect, объект ждёт «горячего
+        подключения». Если свойства не заданы, объект пытается подключиться к первому доступному и
+        ещё не открытому устройству. Если установлен флаг @reconnect, объект ждёт «горячего
         подключения» устройства и переподключается к нему.</tr>
       </par>
     </info>
@@ -58,22 +58,22 @@
       </property>
       <!-- @port -->
       <property name="@port" type="symbol" access="initonly" default="">
-        <tr lang="en">name of the Arduino serial port or device, e.g. COM3 on Windows,
-        /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on macOS. If this property is specified, the
-        object attempts to connect only to that device</tr>
+        <tr lang="en">name of the Arduino serial port or device, e.g. COM3 on Windows, /dev/ttyACM0
+        on Linux and /dev/cu.usbmodem411 on macOS. If this property is specified, the object
+        attempts to connect only to that device</tr>
         <tr lang="ru">имя последовательного порта или устройства Arduino, например COM3 в Windows,
-        /dev/ttyACM0 в Linux и /dev/cu.usbmodem411 в macOS. Если свойство указано, объект
-        пытается подключиться только к этому устройству</tr>
+        /dev/ttyACM0 в Linux и /dev/cu.usbmodem411 в macOS. Если свойство указано, объект пытается
+        подключиться только к этому устройству</tr>
       </property>
       <!-- @product_id -->
       <property name="@product_id" type="int" default="0">
         <tr lang="en">USB device product ID. If the vendor and product identifiers are specified,
-        the object attempts to connect only to devices with those characteristics. Note: to
-        specify an identifier in hexadecimal format, remember to add the 0x prefix.</tr>
+        the object attempts to connect only to devices with those characteristics. Note: to specify
+        an identifier in hexadecimal format, remember to add the 0x prefix.</tr>
         <tr lang="ru">идентификатор продукта (Product ID) USB-устройства. Если указаны
-        идентификаторы производителя и продукта, объект пытается подключиться только к
-        устройствам с такими характеристиками. Примечание: чтобы указать идентификатор в
-        шестнадцатеричном формате, не забудьте добавить префикс 0x.</tr>
+        идентификаторы производителя и продукта, объект пытается подключиться только к устройствам
+        с такими характеристиками. Примечание: чтобы указать идентификатор в шестнадцатеричном
+        формате, не забудьте добавить префикс 0x.</tr>
       </property>
       <!-- @rate -->
       <property name="@rate" type="int" default="57600"
@@ -81,8 +81,8 @@
         <tr lang="en">serial baud rate. Standard values supported by most serial ports: 110, 300,
         600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200</tr>
         <tr lang="ru">скорость передачи данных (baud rate). Стандартные значения, поддерживаемые
-        большинством последовательных портов: 110, 300, 600, 1200, 2400, 4800, 9600, 14400,
-        19200, 28800, 38400, 56000, 57600, 115200</tr>
+        большинством последовательных портов: 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200,
+        28800, 38400, 56000, 57600, 115200</tr>
       </property>
       <!-- @reconnect -->
       <property name="@reconnect" type="flag" default="0" access="initonly">

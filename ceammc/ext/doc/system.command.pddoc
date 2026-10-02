@@ -39,14 +39,14 @@
         <tr lang="en">• Calling external tools from a patch — running command-line utilities and
         scripts directly from Pd and using their output (for example, to list files, query system
         information or trigger custom scripts).</tr>
-        <tr lang="ru">• Вызов внешних утилит из патча — запуск консольных программ и сценариев прямо
-        из Pd с использованием их вывода (например, для вывода списка файлов, получения системной
-        информации или запуска пользовательских сценариев).</tr>
+        <tr lang="ru">• Вызов внешних утилит из патча — запуск консольных программ и сценариев
+        прямо из Pd с использованием их вывода (например, для вывода списка файлов, получения
+        системной информации или запуска пользовательских сценариев).</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Integration with the filesystem and system services — combining standard
-        Unix/Windows utilities with pipes to build complex operations, for example resizing
-        images, converting files or reading sensor values from an external command.</tr>
+        Unix/Windows utilities with pipes to build complex operations, for example resizing images,
+        converting files or reading sensor values from an external command.</tr>
         <tr lang="ru">• Интеграция с файловой системой и системными службами — комбинирование
         стандартных утилит Unix/Windows через конвейеры для сложных операций, например изменения
         размера изображений, конвертации файлов или чтения значений сенсоров из внешней

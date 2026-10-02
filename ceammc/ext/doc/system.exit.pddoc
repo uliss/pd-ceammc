@@ -31,8 +31,8 @@
       </par>
       <par indent="1">
         <tr lang="en">• Automated shutdown — closing PureData automatically at the end of a
-        scheduled performance, installation or test run, for example when a timer reaches a
-        certain value.</tr>
+        scheduled performance, installation or test run, for example when a timer reaches a certain
+        value.</tr>
         <tr lang="ru">• Автоматическое завершение — закрытие PureData по окончании запланированного
         выступления, инсталляции или тестового прогона, например когда таймер достигает заданного
         значения.</tr>
