@@ -16,39 +16,69 @@
       <keywords>quit exit</keywords>
       <since>0.9.2</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Closes the PureData application. The exit can be triggered by a bang or by
+        the exit method, optionally after a delay specified by the @delay property. The exit code
+        can be set with the @rc property or with the exit method argument.</tr>
+        <tr lang="ru">Закрывает приложение PureData. Завершение может быть вызвано по bang или
+        методом exit, при необходимости — с задержкой, заданной свойством @delay. Код завершения
+        задаётся свойством @rc или аргументом метода exit.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Automated shutdown — closing PureData automatically at the end of a
+        scheduled performance, installation or test run, for example when a timer reaches a
+        certain value.</tr>
+        <tr lang="ru">• Автоматическое завершение — закрытие PureData по окончании запланированного
+        выступления, инсталляции или тестового прогона, например когда таймер достигает заданного
+        значения.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Controlled exit with a return code — exiting with a specific exit code,
+        which is useful when Pd is called from a script or a launcher that expects a return
+        value.</tr>
+        <tr lang="ru">• Управляемое завершение с кодом возврата — выход с заданным кодом
+        завершения, что удобно, когда Pd вызывается из сценария или лаунчера, ожидающего значение
+        возврата.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="DELAY" type="float" minvalue="0" units="millisecond">
         <tr lang="en">exit delay time</tr>
-        <tr lang="ru" finished="false">Время задержки выхода</tr>
+        <tr lang="ru">время задержки перед завершением</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @auto -->
       <property name="@auto" type="bool" default="0">
-        <tr lang="en">close automatically, without incoming call</tr>
-        <tr lang="ru" finished="false">Закрыть автоматически, без входящего вызова</tr>
+        <tr lang="en">close automatically, without an incoming call</tr>
+        <tr lang="ru">закрыть автоматически, без входящего вызова</tr>
       </property>
       <!-- @delay -->
       <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">
-        <tr lang="en">exit PureData after specified delay time</tr>
-        <tr lang="ru" finished="false">выход из PureData после определенного времени задержки</tr>
+        <tr lang="en">exit PureData after the specified delay time</tr>
+        <tr lang="ru">завершить PureData после заданной задержки</tr>
       </property>
       <!-- @rc -->
       <property name="@rc" type="int" default="0">
         <tr lang="en">exit code</tr>
-        <tr lang="ru" finished="false">код выхода</tr>
+        <tr lang="ru">код завершения</tr>
       </property>
     </properties>
     <methods>
       <!-- exit -->
       <method name="exit">
         <info>
-          <tr lang="en">exit PureData</tr>
-          <tr lang="ru" finished="false">Выход PureData</tr>
+          <tr lang="en">exits PureData</tr>
+          <tr lang="ru">завершает PureData</tr>
         </info>
         <param name="RC" type="int">
-          <tr lang="en">exit code, if not specified @rc property used</tr>
-          <tr lang="ru" finished="false">код выхода, если не указано свойство @rc</tr>
+          <tr lang="en">exit code. If not specified, the @rc property is used</tr>
+          <tr lang="ru">код завершения. Если не указан, используется свойство @rc</tr>
         </param>
       </method>
     </methods>
@@ -56,7 +86,7 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>

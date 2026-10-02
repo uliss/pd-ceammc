@@ -5,58 +5,70 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.exit 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 system.exit;
-#X msg 50 118 exit 0;
-#X text 136 118 WARNING: this will close PureData in 1000ms!;
-#X obj 50 162 system.exit @delay 1000;
-#X obj 20 212 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 217 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 255 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Closes the PureData application. The exit can be triggered
+by a bang or by the exit method \, optionally after a delay specified
+by the @delay property. The exit code can be set with the @rc property
+or with the exit method argument.;
+#X text 240 168 Typical use cases:;
+#X text 250 193 • Automated shutdown — closing PureData automatically
+at the end of a scheduled performance \, installation or test run \,
+for example when a timer reaches a certain value.;
+#X text 250 263 • Controlled exit with a return code — exiting with
+a specific exit code \, which is useful when Pd is called from a script
+or a launcher that expects a return value.;
+#X msg 50 381 exit 0;
+#X text 136 381 WARNING: this will close PureData in 1000ms!;
+#X obj 50 425 system.exit @delay 1000;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 480 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 220 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 218 1\.;
-#X text 170 218 float;
-#X obj 268 219 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 218 DELAY(ms): exit delay time. Type: float. Min value:
+#X text 130 481 1\.;
+#X text 170 481 float;
+#X obj 268 482 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 481 DELAY(ms): exit delay time. Type: float. Min value:
 0;
-#X obj 20 253 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 258 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 521 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 261 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 524 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 259 @auto;
-#X text 270 259 Close automatically \, without incoming call. Type:
+#X msg 130 522 @auto;
+#X text 270 522 Close automatically \, without an incoming call. Type:
 bool. Default value: 0\.;
-#X obj 250 301 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 301 @delay;
-#X text 270 301 Exit PureData after specified delay time. Type: float.
-Units: 'ms'. Default value: 0\. Min value: 0\.;
-#X obj 250 343 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 343 @rc;
-#X text 270 343 Exit code. Type: int. Default value: 0\.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 388 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 564 @delay;
+#X text 270 564 Exit PureData after the specified delay time. Type:
+float. Units: 'ms'. Default value: 0\. Min value: 0\.;
+#X obj 250 606 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 606 @rc;
+#X text 270 606 Exit code. Type: int. Default value: 0\.;
+#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 651 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 389 exit;
-#X text 270 389 exit PureData. Arguments are:;
-#X obj 300 414 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 414 [RC]: exit code \, if not specified @rc property used.
-Type: int.;
-#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 477 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 652 exit;
+#X text 270 652 exits PureData. Arguments are:;
+#X obj 300 677 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 677 [RC]: exit code. If not specified \, the @rc property
+is used. Type: int.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 740 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 478 1\.;
-#X text 270 478 control input.;
-#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 518 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 741 1\.;
+#X text 270 741 control input.;
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 781 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 559 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 562 library: ceammc v0.9.8;
-#N canvas 10 581 400 290 info 0;
+#X obj 1 822 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 825 library: ceammc v0.9.8;
+#N canvas 10 844 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -80,5 +92,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 581 pd info;
-#X connect 4 0 6 0;
+#X restore 10 844 pd info;
+#X connect 9 0 11 0;
