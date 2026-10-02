@@ -19,14 +19,14 @@
     <info>
       <par>
         <tr lang="en">Temperature range: 0..+50°C ±2°C</tr>
-        <tr lang="ru">Диапазон температур: 0..+50°C ±2°C</tr>
+        <tr lang="ru">Диапазон температур: 0..+50 °C ±2 °C</tr>
       </par>
       <par>
-        <tr lang="en">Humidity range: 20-90%RH ±5%RH</tr>
-        <tr lang="ru">Диапазон влажности: 20-90%RH ±5%RH</tr>
+        <tr lang="en">Humidity range: 20–90% RH ±5% RH</tr>
+        <tr lang="ru">Диапазон влажности: 20–90 % RH ±5 % RH</tr>
       </par>
       <par style="important">
-        <tr lang="en">When using a 3.5V power supply, the cable length should not exceed 20cm.
+        <tr lang="en">When using a 3.5 V power supply, the cable length should not exceed 20 cm.
         Otherwise, the voltage drop across the line will cause insufficient power to the sensor,
         resulting in measurement errors.</tr>
         <tr lang="ru">При использовании источника питания напряжением 3.5 В длина кабеля не должна
@@ -49,11 +49,32 @@
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
         <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
       </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Environment monitoring — reading temperature and humidity in a room,
+        studio or installation, for example to log the climate or to trigger an alarm when
+        conditions exceed the configured range.</tr>
+        <tr lang="ru">• Мониторинг окружающей среды — измерение температуры и влажности в комнате,
+        студии или инсталляции, например для ведения журнала климата или запуска сигнала при
+        выходе условий за заданный диапазон.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Sonification and interactive installations — mapping temperature and
+        humidity to sound parameters, so that the music reacts to the physical environment in real
+        time, for example in weather-driven compositions or data sonification projects.</tr>
+        <tr lang="ru">• Сонификация и интерактивные инсталляции — преобразование температуры и
+        влажности в звуковые параметры, чтобы музыка реагировала на физическое окружение в
+        реальном времени, например в композициях, зависящих от погоды, или в проектах
+        сонификации данных.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
         <tr lang="en">GPIO pin to connect. See @pin.</tr>
-        <tr lang="ru">контакт GPIO для подключения. См. @pin.</tr>
+        <tr lang="ru">контакт GPIO для подключения. См. @pin</tr>
       </argument>
     </arguments>
     <properties>
@@ -61,8 +82,8 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
         from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0:
-        отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству. При значении 0:
+        отключается от устройства</tr>
       </property>
       <!-- @pin -->
       <property name="@pin" type="int" default="-1" minvalue="-1" maxvalue="127" access="initonly">
@@ -74,8 +95,8 @@
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn sensor polling on/off</tr>
-          <tr lang="ru">включить/выключить автоматический опрос датчика</tr>
+          <tr lang="en">turns sensor polling on or off</tr>
+          <tr lang="ru">включает или выключает автоматический опрос датчика</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">poll state</tr>
@@ -95,7 +116,7 @@
       <outlet>
         <out type="list">
           <tr lang="en">TEMPERATURE (in Celsius) HUMIDITY</tr>
-          <tr lang="ru">ТЕМПЕРАТУРА (в градусах Цельсия) ВЛАЖНОСТЬ</tr>
+          <tr lang="ru">TEMPERATURE (в градусах Цельсия) HUMIDITY</tr>
         </out>
       </outlet>
     </outlets>
