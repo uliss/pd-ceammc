@@ -104,7 +104,7 @@
 <![CDATA[
         [tl.cue]              [tl.cue]           [tl.cue]
 
-[HR number=2]  [tl.bang @delay 500]
+[HR number=3]  [tl.bang @delay 500]
 |              |
 [cue $1(       [B]                      [tl.bang]       [tl.toggle]
 |                                       |               |

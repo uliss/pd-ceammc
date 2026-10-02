@@ -12,7 +12,7 @@
 #X obj 126 216 tl.cue;
 #X obj 338 216 tl.cue;
 #X obj 520 216 tl.cue;
-#X obj 50 245 hradio 15 1 0 2 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 245 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 194 245 tl.bang @delay 500;
 #X msg 50 274 cue \$1;
