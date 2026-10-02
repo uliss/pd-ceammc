@@ -486,7 +486,7 @@
     <entry name="set.diff" descr="difference between two sets" ref_view="link">
       <xi:include href="set.diff.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.equal" descr="checks if two sets are equal (contains same elements)" ref_view="link">
+    <entry name="set.equal" descr="checks if two sets are equal (contain the same elements)" ref_view="link">
       <xi:include href="set.equal.pddoc" parse="xml"/>
     </entry>
     <entry name="set.intersect" descr="intersection of sets" ref_view="link">

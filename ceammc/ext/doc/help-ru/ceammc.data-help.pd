@@ -77,8 +77,8 @@ rtree.to_list-help.pd;
 #X obj 30 935 ui.link @title [set.diff] @url set.diff-help.pd;
 #X text 220 932 разность двух множеств;
 #X obj 30 960 ui.link @title [set.equal] @url set.equal-help.pd;
-#X text 220 957 проверяет \, равны ли два множества (содержат одинаковые
-элементы);
+#X text 220 957 проверяет \, равны ли два множества (содержат одни
+и те же элементы);
 #X obj 30 1000 ui.link @title [set.intersect] @url
 set.intersect-help.pd;
 #X text 220 997 пересечение множеств;

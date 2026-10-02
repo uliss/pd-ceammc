@@ -466,8 +466,8 @@ set.contains-help.pd;
 #X obj 30 4851 ui.link @title [set.diff] @url set.diff-help.pd;
 #X text 200 4848 разность двух множеств;
 #X obj 30 4876 ui.link @title [set.equal] @url set.equal-help.pd;
-#X text 200 4873 проверяет \, равны ли два множества (содержат одинаковые
-элементы);
+#X text 200 4873 проверяет \, равны ли два множества (содержат одни
+и те же элементы);
 #X obj 30 4916 ui.link @title [set.intersect] @url
 set.intersect-help.pd;
 #X text 200 4913 пересечение множеств;
