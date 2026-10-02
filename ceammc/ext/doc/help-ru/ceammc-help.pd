@@ -461,8 +461,8 @@ rtree.to_list-help.pd;
 в список дробей;
 #X obj 30 4811 ui.link @title [set.contains] @url
 set.contains-help.pd;
-#X text 200 4808 проверяет \, присутстует ли предварительно заданный
-элемент во входном множестве;
+#X text 200 4808 проверяет \, присутствует ли заранее заданный элемент
+во входном множестве;
 #X obj 30 4851 ui.link @title [set.diff] @url set.diff-help.pd;
 #X text 200 4848 разность между множествами;
 #X obj 30 4876 ui.link @title [set.equal] @url set.equal-help.pd;

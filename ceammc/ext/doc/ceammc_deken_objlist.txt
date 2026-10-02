@@ -335,7 +335,7 @@ mlist.flatten	converts a multi-level list into a single-level list / преоб�
 rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
-set.contains	checks whether the predefined element is present in the input set / проверяет, присутстует ли предварительно заданный элемент во входном множестве
+set.contains	checks whether the predefined element is present in the input set / проверяет, присутствует ли заранее заданный элемент во входном множестве
 set.diff	difference between two sets / разность между множествами
 set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
 set.intersect	intersection of sets / пересечение множеств

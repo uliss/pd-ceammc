@@ -8,8 +8,7 @@
       </authors>
       <description>
         <tr lang="en">checks whether the predefined element is present in the input set</tr>
-        <tr lang="ru">проверяет, присутстует ли предварительно заданный элемент во входном
-        множестве</tr>
+        <tr lang="ru">проверяет, присутствует ли заранее заданный элемент во входном множестве</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,39 +19,48 @@
         <see>data.set</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Checks whether the searched element (set by the SUBJ argument, the @subj
+        property or through the right inlet) is present in the incoming set. Outputs 1 if the
+        element is found and 0 otherwise.</tr>
+        <tr lang="ru">Проверяет, присутствует ли искомый элемент (заданный аргументом SUBJ,
+        свойством @subj или через правый вход) во входящем множестве. Выводит 1, если элемент
+        найден, и 0 в противном случае.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="SUBJ" type="atom">
         <tr lang="en">searched element</tr>
-        <tr lang="ru" finished="false">Поисковый элемент</tr>
+        <tr lang="ru">искомый элемент</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @subj -->
       <property name="@subj" type="atom" default="null">
         <tr lang="en">searched element</tr>
-        <tr lang="ru" finished="false">Поисковый элемент</tr>
+        <tr lang="ru">искомый элемент</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input set. Other values are ignored</tr>
-          <tr lang="ru" finished="false">Набор входных данных. Другие ценности игнорируются</tr>
+          <tr lang="ru">входное множество. Остальные значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>
         <in on="atom">
-          <tr lang="en">set searched element</tr>
-          <tr lang="ru" finished="false">Поисковый элемент</tr>
+          <tr lang="en">sets the searched element</tr>
+          <tr lang="ru">задаёт искомый элемент</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">1 if element exists in set, otherwise 0</tr>
-          <tr lang="ru" finished="false">1 если элемент существует в наборе, в противном случае
-          0</tr>
+          <tr lang="en">1 if the element exists in the set, otherwise 0</tr>
+          <tr lang="ru">1, если элемент присутствует во множестве, иначе 0</tr>
         </out>
       </outlet>
     </outlets>

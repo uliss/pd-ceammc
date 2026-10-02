@@ -72,8 +72,8 @@ rtree.to_list-help.pd;
 #X text 220 852 преобразует OpenMusic-подобное ритмическое дерево в
 список дробей;
 #X obj 30 895 ui.link @title [set.contains] @url set.contains-help.pd;
-#X text 220 892 проверяет \, присутстует ли предварительно заданный
-элемент во входном множестве;
+#X text 220 892 проверяет \, присутствует ли заранее заданный элемент
+во входном множестве;
 #X obj 30 935 ui.link @title [set.diff] @url set.diff-help.pd;
 #X text 220 932 разность между множествами;
 #X obj 30 960 ui.link @title [set.equal] @url set.equal-help.pd;
