@@ -6,76 +6,86 @@ chip for Raspberry Pi;
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.sensor.vl53l0x 20 20 0 20
 -104026 -4096 0;
 #X obj 587 11 hw.rpi.sensor.vl53l0x;
-#X obj 230 93 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 The device can measure absolute distances up to 2m.;
+#X obj 230 93 cnv 1 535 250 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 The device can measure absolute distances up to 2 m.;
 #X obj 230 103 cnv 1 2 15 empty empty empty 17 7 0 10 -158925 -1 0;
 #X text 240 123 To connect to the device \, set the @connect property
 to 1\.;
 #X obj 230 128 cnv 1 2 15 empty empty empty 17 7 0 10 -260289 -1 0;
-#X obj 50 211 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 78 211 <- connect;
-#X msg 50 240 @connect \$1;
-#X obj 184 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 213 240 <- poll values;
-#X msg 184 269 poll \$1;
-#X obj 69 298 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 148 Typical use cases:;
+#X text 250 173 • Precise distance-controlled sound — mapping a measured
+distance (up to 2 m) to a sound parameter (pitch \, filter cutoff \,
+volume or pan) \, with a narrower and more precise beam than an ultrasonic
+sensor.;
+#X text 250 243 • Gesture and proximity detection — detecting the approach
+of a hand or an object in front of the sensor \, triggering events
+or shaping sounds based on the physical presence \, with a fast response
+time typical of ToF sensors.;
+#X obj 50 391 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 78 391 <- connect;
+#X msg 50 420 @connect \$1;
+#X obj 184 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 213 420 <- poll values;
+#X msg 184 449 poll \$1;
+#X obj 69 478 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 98 298 <- single measurement;
-#X obj 50 327 hw.rpi.sensor.vl53l0x @i2c_bus default;
-#X obj 50 355 print;
-#X obj 50 384 ui.link @title Connection_Scheme @url
+#X text 98 478 <- single measurement;
+#X obj 50 507 hw.rpi.sensor.vl53l0x @i2c_bus default;
+#X obj 50 535 print;
+#X obj 50 564 ui.link @title Connection_Scheme @url
 ceammc://img/conn_vl53l0x.png;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 446 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 626 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 629 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 447 @i2c_addr;
-#X text 270 447 (initonly) I²C address. The value 'default' means the
+#X msg 130 627 @i2c_addr;
+#X text 270 627 (initonly) I²C address. The value 'default' means the
 default device I²C address (0x29). Type: int. Default value: -1\. Range:
 [-4\..119].;
-#X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 504 @i2c_bus;
-#X text 270 504 (initonly) I²C bus. Type: atom. Default value: none.
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @i2c_bus;
+#X text 270 684 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 546 @connect;
-#X text 270 546 When set to 1: tries to connect to the device on the
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @connect;
+#X text 270 726 When set to 1: tries to connect to the device on the
 I²C bus. When set to 0: disconnects from the device. Type: bool. Default
 value: 0\.;
-#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 618 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 619 address;
-#X text 270 619 set the sensor I²C address. Note that the address resets
-when the device is powered off. Arguments are:;
-#X obj 300 659 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 659 ADDR: new I²C address. Type: int. Range: [8\..119].;
-#X obj 250 692 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 692 poll;
-#X text 270 692 turn continuous sensor polling on/off. Arguments are:;
-#X obj 300 717 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 717 STATE: polling state. Type: bool.;
-#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 765 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 799 address;
+#X text 270 799 sets the sensor I²C address. Note that the address
+resets when the device is powered off. Arguments are:;
+#X obj 300 839 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 839 ADDR: new I²C address. Type: int. Range: [8\..119].;
+#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 872 poll;
+#X text 270 872 turns continuous sensor polling on or off. Arguments
+are:;
+#X obj 300 897 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 897 STATE: polling state. Type: bool.;
+#X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 945 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 766 1\.;
-#X text 170 766 bang:;
-#X text 270 766 perform a single distance measurement.;
-#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 806 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 946 1\.;
+#X text 170 946 bang:;
+#X text 270 946 performs a single distance measurement.;
+#X obj 20 981 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 986 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 807 1\.;
-#X text 170 807 float:;
-#X text 270 807 distance in mm.;
+#X text 130 987 1\.;
+#X text 170 987 float:;
+#X text 270 987 distance in mm.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 857 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 860 library: ceammc v0.9.8;
-#N canvas 10 879 400 290 info 0;
+#X obj 1 1037 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1040 library: ceammc v0.9.8;
+#N canvas 10 1059 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,10 +109,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 879 pd info;
-#X connect 9 0 11 0;
+#X restore 10 1059 pd info;
 #X connect 12 0 14 0;
-#X connect 11 0 17 0;
 #X connect 15 0 17 0;
-#X connect 17 0 18 0;
-#X connect 14 0 17 0;
+#X connect 14 0 20 0;
+#X connect 18 0 20 0;
+#X connect 20 0 21 0;
+#X connect 17 0 20 0;

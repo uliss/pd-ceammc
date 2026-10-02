@@ -19,12 +19,32 @@
     </meta>
     <info>
       <par style="info">
-        <tr lang="en">The device can measure absolute distances up to 2m.</tr>
+        <tr lang="en">The device can measure absolute distances up to 2 m.</tr>
         <tr lang="ru">Устройство может измерять абсолютные расстояния до 2 м.</tr>
       </par>
       <par style="warning">
         <tr lang="en">To connect to the device, set the @connect property to 1.</tr>
         <tr lang="ru">Для подключения к устройству установите свойство @connect равным 1.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Precise distance-controlled sound — mapping a measured distance (up to
+        2 m) to a sound parameter (pitch, filter cutoff, volume or pan), with a narrower and more
+        precise beam than an ultrasonic sensor.</tr>
+        <tr lang="ru">• Точное управление звуком по расстоянию — преобразование измеренного
+        расстояния (до 2 м) в звуковой параметр (высоту тона, срез фильтра, громкость или
+        панораму), с более узким и точным лучом, чем у ультразвукового датчика.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Gesture and proximity detection — detecting the approach of a hand or an
+        object in front of the sensor, triggering events or shaping sounds based on the physical
+        presence, with a fast response time typical of ToF sensors.</tr>
+        <tr lang="ru">• Жесты и обнаружение приближения — определение приближения руки или объекта
+        перед датчиком, запуск событий или управление звуком на основе физического присутствия, с
+        быстрым откликом, характерным для ToF-датчиков.</tr>
       </par>
     </info>
     <properties>
@@ -32,16 +52,16 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device on the I²C bus. When set to 0:
         disconnects from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству на шине I²C. При
-        установке в 0: отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству на шине I²C. При
+        значении 0: отключается от устройства</tr>
       </property>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
         <tr lang="en">I²C address. The value 'default' means the default device I²C address
         (0x29).</tr>
-        <tr lang="ru">Адрес I²C. Значение «default» означает стандартный адрес I²C устройства
-        (0x29).</tr>
+        <tr lang="ru">адрес I²C. Значение 'default' означает стандартный адрес I²C устройства
+        (0x29)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -54,10 +74,10 @@
       <!-- address -->
       <method name="address">
         <info>
-          <tr lang="en">set the sensor I²C address. Note that the address resets when the device is
-          powered off.</tr>
-          <tr lang="ru">установить I²C-адрес датчика. Обратите внимание, что адрес сбрасывается при
-          выключении устройства.</tr>
+          <tr lang="en">sets the sensor I²C address. Note that the address resets when the device
+          is powered off.</tr>
+          <tr lang="ru">устанавливает I²C-адрес датчика. Обратите внимание, что адрес сбрасывается
+          при выключении устройства.</tr>
         </info>
         <param name="ADDR" type="int" minvalue="8" maxvalue="119" required="true">
           <tr lang="en">new I²C address</tr>
@@ -67,8 +87,8 @@
       <!-- poll -->
       <method name="poll">
         <info>
-          <tr lang="en">turn continuous sensor polling on/off</tr>
-          <tr lang="ru">включить/выключить непрерывный опрос датчика</tr>
+          <tr lang="en">turns continuous sensor polling on or off</tr>
+          <tr lang="ru">включает или выключает непрерывный опрос датчика</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">polling state</tr>
@@ -79,8 +99,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">perform a single distance measurement</tr>
-          <tr lang="ru">выполнить однократное измерение расстояния</tr>
+          <tr lang="en">performs a single distance measurement</tr>
+          <tr lang="ru">выполняет однократное измерение расстояния</tr>
         </in>
       </inlet>
     </inlets>
