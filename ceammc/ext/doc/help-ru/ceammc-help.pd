@@ -184,7 +184,7 @@ metro.wchoice-help.pd;
 #X obj 30 2052 ui.link @title [xdac~] @url xdac~-help.pd;
 #X text 200 2049 [dac~] с диапазонами каналов;
 #X obj 30 2077 ui.link @title [xfade2~] @url xfade2~-help.pd;
-#X text 200 2074 многоканальный кроссфейд для стерео сигналов;
+#X text 200 2074 многоканальный кроссфейд для стереосигналов;
 #X obj 30 2102 ui.link @title [xfade~] @url xfade~-help.pd;
 #X text 200 2099 многоканальный кроссфейд;
 #X obj 30 2127 ui.link @title [z~] @url z~-help.pd;

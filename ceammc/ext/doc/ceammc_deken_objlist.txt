@@ -101,8 +101,8 @@ ceammc/win	returns the value of the window function / возвращает зн�
 win	returns the value of the window function / возвращает значение оконной функции
 xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
 ceammc/xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
-xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
-ceammc/xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
+xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стереосигналов
+ceammc/xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стереосигналов
 xfade~	multichannel cross-fade / многоканальный кроссфейд
 ceammc/xfade~	multichannel cross-fade / многоканальный кроссфейд
 z~	integer sample delay / целочисленная задержка сэмплов
