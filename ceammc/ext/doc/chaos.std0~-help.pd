@@ -5,78 +5,82 @@
 #X obj 1 1 cnv 5 765 40 empty empty chaos.std0~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 chaos.std0~;
-#X obj 230 78 cnv 1 535 174 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 A non-interpolating generator based on the difference
-equations:;
-#X text 240 123 y(n+1) = (y(n) + k * sin(x(n))) % 2pi;
-#X text 240 148 x(n+1) = (x(n) + y(n+1)) % 2pi;
-#X obj 240 176 ui.link @background_color 0.90196 0.90196 0.90196
-@title wiki: Standard map @url
-https://en.wikipedia.org/wiki/Standard_map;
-#X text 240 197 The properties of chaos of the standard map were established
-by Boris Chirikov in 1969;
-#X msg 50 300 440;
-#X msg 107 300 15000;
-#X floatatom 184 300 5 0 0 0 - - -;
-#X obj 280 300 ui.dsp~;
-#X obj 50 329 sig~ 400;
-#X obj 184 329 sig~ 1;
-#X obj 50 358 chaos.std0~;
-#X obj 50 387 fx.pitchshift~ @drywet 0.5 @fade 50 @pitch 15.1 @window
+#X obj 230 78 cnv 1 535 311 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A non-interpolating sound generator based on the standard
+map (also known as the Chirikov–Taylor map) \, a two-dimensional discrete
+dynamical system. Unlike interpolating generators \, this object advances
+the map by one step per audio sample at a given generation frequency.
+The generation frequency is set as an audio signal on the first inlet;
+the minimal value is 0.001 Hz.;
+#X text 240 214 The map is defined by the difference equations:;
+#X text 240 239 y(n+1) = (y(n) + k * sin(x(n))) mod 2π;
+#X text 240 264 x(n+1) = (x(n) + y(n+1)) mod 2π;
+#X text 240 289 The parameter k is controlled by an audio signal on
+the second inlet. For small k (roughly k < 1) the trajectories are
+mostly regular (quasi-periodic or periodic) \, while for larger k the
+system becomes increasingly chaotic.;
+#X msg 50 437 440;
+#X msg 107 437 15000;
+#X floatatom 184 437 5 0 0 0 - - -;
+#X obj 280 437 ui.dsp~;
+#X obj 50 466 sig~ 400;
+#X obj 184 466 sig~ 1;
+#X obj 50 495 chaos.std0~;
+#X obj 50 524 fx.pitchshift~ @drywet 0.5 @fade 50 @pitch 15.1 @window
 93;
-#X obj 50 416 flt.dcblock~;
-#X obj 50 444 ui.hgain~;
-#X obj 50 473 dac~;
-#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 528 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 553 flt.dcblock~;
+#X obj 50 581 ui.hgain~;
+#X obj 50 610 dac~;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 531 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 668 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 529 1\.;
-#X text 170 529 float;
-#X obj 268 530 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 529 X: initial x value \, default 0.5\. Type: float.;
-#X text 130 554 2\.;
-#X text 170 554 float;
-#X obj 268 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 554 Y: initial y value \, default 0\. Type: float.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 666 1\.;
+#X text 170 666 float;
+#X obj 268 667 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 666 X: initial x value \, default 0.5\. Type: float.;
+#X text 130 691 2\.;
+#X text 170 691 float;
+#X obj 268 692 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 691 Y: initial y value \, default 0\. Type: float.;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 731 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 597 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 734 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 620 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 757 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 646 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 783 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 647 1\.;
-#X text 170 647 ~;
-#X text 270 647 generation frequency \, minimal value 0.001Hz.;
-#X text 130 672 2\.;
-#X text 170 672 ~;
-#X text 270 672 k-value.;
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 712 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 784 1\.;
+#X text 170 784 ~;
+#X text 270 784 generation frequency \, minimal value 0.001 Hz.;
+#X text 130 809 2\.;
+#X text 170 809 ~;
+#X text 270 809 k-value.;
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 849 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 713 1\.;
-#X text 170 713 ~;
-#X text 270 713 outputs x-value mapped to [-1\..1] range.;
-#X text 130 733 2\.;
-#X text 170 733 ~;
-#X text 270 733 outputs y-value mapped to [-1\..1] range.;
+#X text 130 850 1\.;
+#X text 170 850 ~;
+#X text 270 850 outputs the x-value mapped to the [-1 \, 1] range.;
+#X text 130 870 2\.;
+#X text 170 870 ~;
+#X text 270 870 outputs the y-value mapped to the [-1 \, 1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 783 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 786 library: ceammc v0.9.8;
-#X text 590 798 see also:;
-#X obj 665 801 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 923 library: ceammc v0.9.8;
+#X text 590 935 see also:;
+#X obj 665 938 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.std0] @url chaos.std0-help.pd;
-#N canvas 10 805 400 290 info 0;
+#N canvas 10 942 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 805 pd info;
+#X restore 10 942 pd info;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;
 #X connect 12 0 15 0;

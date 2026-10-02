@@ -21,38 +21,46 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating generator based on the difference equations:</tr>
-        <!-- old: Неинтерполирующий генератор, основанный на
-                разностных уравнениях: -->
-        <tr lang="ru" finished="false">Неинтерполирующий генератор, основанный на разностных
-        уравнениях:</tr>
+        <tr lang="en">A non-interpolating sound generator based on the standard map (also known
+        as the Chirikov–Taylor map), a two-dimensional discrete dynamical system. Unlike
+        interpolating generators, this object advances the map by one step per audio sample at a
+        given generation frequency. The generation frequency is set as an audio signal on the
+        first inlet; the minimal value is 0.001 Hz.</tr>
+        <tr lang="ru">Неинтерполирующий звуковой генератор на основе стандартного отображения
+        (также известного как отображение Чирикова — Тейлора) — двумерной дискретной динамической
+        системы. В отличие от интерполирующих генераторов, этот объект делает один шаг
+        отображения на каждый аудиосемпл при заданной частоте генерации. Частота генерации
+        задаётся как звуковой сигнал на первом входе; минимальное значение — 0.001 Гц.</tr>
       </par>
       <par>
-        <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) % 2pi</tr>
-        <tr lang="ru" finished="false">y(n+1) = (y(n) + k* sin(x(n))) % 2pi</tr>
+        <tr lang="en">The map is defined by the difference equations:</tr>
+        <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
       <par>
-        <tr lang="en">x(n+1) = (x(n) + y(n+1)) % 2pi</tr>
-        <tr lang="ru" finished="false">x(n+1) = (x(n) + y(n+1) % 2pi</tr>
+        <tr lang="en">y(n+1) = (y(n) + k * sin(x(n))) mod 2π</tr>
+        <tr lang="ru">y(n+1) = (y(n) + k * sin(x(n))) mod 2π</tr>
       </par>
-      <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
       <par>
-        <tr lang="en">The properties of chaos of the standard map were established by Boris
-        Chirikov in 1969</tr>
-        <!-- old: Свойства хаоса стандартной карты были установлены
-                Борисом Чириковым в 1969 году. -->
-        <tr lang="ru" finished="false">Свойства хаоса стандартной карты были установлены Борисом
-        Чириковым в 1969 году.</tr>
+        <tr lang="en">x(n+1) = (x(n) + y(n+1)) mod 2π</tr>
+        <tr lang="ru">x(n+1) = (x(n) + y(n+1)) mod 2π</tr>
+      </par>
+      <par>
+        <tr lang="en">The parameter k is controlled by an audio signal on the second inlet. For
+        small k (roughly k &lt; 1) the trajectories are mostly regular (quasi-periodic or
+        periodic), while for larger k the system becomes increasingly chaotic.</tr>
+        <tr lang="ru">Параметр k управляется звуковым сигналом на втором входе. При малых k
+        (примерно k &lt; 1) траектории в основном регулярные (квазипериодические или
+        периодические), а при больших k система становится всё более хаотичной.</tr>
       </par>
     </info>
     <arguments>
       <argument name="X" type="float">
         <tr lang="en">initial x value, default 0.5</tr>
-        <tr lang="ru" finished="false">начальное значение x, по умолчанию 0,5</tr>
+        <tr lang="ru">начальное значение x, по умолчанию 0.5</tr>
       </argument>
       <argument name="Y" type="float">
         <tr lang="en">initial y value, default 0</tr>
-        <tr lang="ru" finished="false">начальное значение y, по умолчанию 0</tr>
+        <tr lang="ru">начальное значение y, по умолчанию 0</tr>
       </argument>
     </arguments>
     <properties />
@@ -60,30 +68,28 @@
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
-          <!-- old: частота генерации, минимальное значение 0,001
-                    Гц -->
-          <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001 Гц</tr>
+          <tr lang="en">generation frequency, minimal value 0.001 Hz</tr>
+          <tr lang="ru">частота генерации, минимальное значение 0.001 Гц</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">k-value</tr>
-          <tr lang="ru" finished="false">значение k</tr>
+          <tr lang="ru">значение k</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">outputs x-value mapped to [-1..1] range</tr>
-          <tr lang="ru" finished="false">выходы x-значения, отображаемые в [-1..1] диапазоне</tr>
+          <tr lang="en">outputs the x-value mapped to the [-1, 1] range</tr>
+          <tr lang="ru">выводит значение x, приведённое к диапазону [-1, 1]</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">outputs y-value mapped to [-1..1] range</tr>
-          <tr lang="ru" finished="false">выходы y-значения, отображаемые в [-1..1] диапазоне</tr>
+          <tr lang="en">outputs the y-value mapped to the [-1, 1] range</tr>
+          <tr lang="ru">выводит значение y, приведённое к диапазону [-1, 1]</tr>
         </out>
       </outlet>
     </outlets>
