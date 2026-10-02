@@ -5,81 +5,92 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.apple_smc 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hw.apple_smc;
-#X msg 50 118 TC0P;
-#X text 107 118 cpu temp;
-#X obj 50 147 symbol;
-#X symbolatom 50 176 10 0 0 0 - - -;
-#X msg 184 176 @keys?;
-#X msg 50 205 read \$1;
-#X obj 50 234 hw.apple_smc;
-#X obj 50 262 @->;
-#X floatatom 50 291 5 0 0 0 - - -;
-#X obj 117 291 print;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 216 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Queries the Apple System Management Controller (SMC)
+— a hardware chip present on every Intel-based and Apple Silicon Mac.
+Through the SMC \, the object can read sensor values such as CPU or
+GPU temperature \, fan speed \, battery parameters \, ambient light
+and many others \, using four-character SMC keys.;
+#X text 240 184 Typical use cases:;
+#X text 250 209 • Sonification of system state — turning system parameters
+such as temperature \, fan speed or battery level into sound \, so
+that the patch reacts to the physical state of the computer in real
+time.;
+#X msg 50 342 TC0P;
+#X text 107 342 cpu temp;
+#X obj 50 371 symbol;
+#X symbolatom 50 400 10 0 0 0 - - -;
+#X msg 184 400 @keys?;
+#X msg 50 429 read \$1;
+#X obj 50 458 hw.apple_smc;
+#X obj 50 486 @->;
+#X floatatom 50 515 5 0 0 0 - - -;
+#X obj 117 515 print;
+#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 570 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 573 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 347 @keys?;
-#X text 270 347 (readonly) List of all found SMC key. Type: list. Default
-value: #KEY $Adr $Num +LKS ACCL ACEN ACFP ACIC ACID ACIN ACLM AL! ALA0
-ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0 ALI1 ALP0 ALP1 ALRV ALSC ALSF
-ALSL ALT0 ALT1 ALTH ALV0 ALV1 AUPO B0AC B0AV B0Al B0Am B0Ar B0As B0At
-B0Au B0BI B0CT B0FC B0LI B0RI B0RM B0St B0TF BATP BBAD BBIN BC1V BC2V
-BC3V BCHA BCHB BCHF BCHG BCHL BCHO BCHP BCHR BCHT BCHX BCLM BCMV BEMB
-BFCT BILB BILO BLPT BNCM BNCR BNum BPII BPIT BRII BRIT BRSC BSAC BSIn
-BTIL BTTI BTVI BTVR BTVT BWLM CHBI CHBV CHGC CHGD CHGI CHGV CHLC CLK!
-CLKC CLKH CLKS CLKT CLSD CLWK CRCB CRCU DPLM ECIP ECIT EPCA EPCF EPCI
-EPCV EPMA EPMI EPUA EPUF EPUI EPUV EVCT EVMD EVRD F0Ac F0ID F0Mn F0Mt
-F0Mx F0Tg FMAx FNum FPDc FPhz FS! FSDc G3WD HBKP HBKT HBWK HDBS HDST
-HDSW IB0R IB0r IC0C IC0R IC0c IC0r IC1C IC1c ID0R ID0r IN0C IN0c IO0R
-IO0r KWS4 LAcN LAtN LC2D LC2E LCCN LCCQ LCKA LCSA LCTN LCTQ LDEN LDI2
-LDS4 LDSP LDWE LKSB LS! LSCF LSDD LSDU LSFD LSFU LSLB LSLF LSLN LSOF
-LSOO LSPV LSRB LSSB LSSE LSSS LSSV LSUP MACA MACM MACR MOCF MOCN MOHD
-MOHT MOLD MOLT MOST MOTP MOVX MOVY MOVZ MO_X MO_Y MO_Z MSAL MSAc MSAf
-MSAg MSAm MSBC MSBP MSBc MSBp MSDI MSDW MSG3 MSLB MSLC MSLD MSLF MSLG
-MSLP MSLT MSPA MSPC MSPS MSPs MSSD MSSE MSSF MSSG MSSP MSSS MSTC MSTM
-MSTS MSTc MSTf MSTg MSTm MSWA MSWE MSWF MSWO MSWP MSWR MSWr MSXC MSXD
-MSXK MSXN MSXS MSXb MSXc MSXd MSXk MSXm MSXn MSXs MSa! MSac MSaf MSag
-MSam MSap MVDS MVS4 NACK NATJ NATi NOPB NTOK ONMI PB0R PC0C PC0R PCPC
-PCPG PCPL PCPT PD0R PHPC PN0C PO0R PTHC PZ0F PZ0S RBr REV RMde RPlt
-RSvn RVBF RVUF SAS! SBF SBFC SBFD SBFE SBFN SBFU SBS! SCIA SCII SCIL
-SCXC SDAF SDAS SDRd SFBR SIS! SIT! SIU! SMBC SMBG SMBR SMBS SMBW SPH0
-SPHR SPHS SPHT SPHZ SPS! SPT! SWER Sr0P Sr0T Sr1P Sr1T Sw0P Sw0T Sw1P
-Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T TB1T TB2T TC0C TC0D TC0E TC0F
-TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD TM0P TM0S TMBS TP0P TPCD TW0P
-Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r VN0R VN0r VP0R VP0r WKEN WVr0
-WVw0 zDBG zDSF.;
-#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 887 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 571 @keys?;
+#X text 270 571 (readonly) List of all found SMC keys. Type: list.
+Default value: #KEY $Adr $Num +LKS ACCL ACEN ACFP ACIC ACID ACIN ACLM
+AL! ALA0 ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0 ALI1 ALP0 ALP1 ALRV
+ALSC ALSF ALSL ALT0 ALT1 ALTH ALV0 ALV1 AUPO B0AC B0AV B0Al B0Am B0Ar
+B0As B0At B0Au B0BI B0CT B0FC B0LI B0RI B0RM B0St B0TF BATP BBAD BBIN
+BC1V BC2V BC3V BCHA BCHB BCHF BCHG BCHL BCHO BCHP BCHR BCHT BCHX BCLM
+BCMV BEMB BFCT BILB BILO BLPT BNCM BNCR BNum BPII BPIT BRII BRIT BRSC
+BSAC BSIn BTIL BTTI BTVI BTVR BTVT BWLM CHBI CHBV CHGC CHGD CHGI CHGV
+CHLC CLK! CLKC CLKH CLKS CLKT CLSD CLWK CRCB CRCU DPLM ECIP ECIT EPCA
+EPCF EPCI EPCV EPMA EPMI EPUA EPUF EPUI EPUV EVCT EVMD EVRD F0Ac F0ID
+F0Mn F0Mt F0Mx F0Tg FMAx FNum FPDc FPhz FS! FSDc G3WD HBKP HBKT HBWK
+HDBS HDST HDSW IB0R IB0r IC0C IC0R IC0c IC0r IC1C IC1c ID0R ID0r IN0C
+IN0c IO0R IO0r KWS4 LAcN LAtN LC2D LC2E LCCN LCCQ LCKA LCSA LCTN LCTQ
+LDEN LDI2 LDS4 LDSP LDWE LKSB LS! LSCF LSDD LSDU LSFD LSFU LSLB LSLF
+LSLN LSOF LSOO LSPV LSRB LSSB LSSE LSSS LSSV LSUP MACA MACM MACR MOCF
+MOCN MOHD MOHT MOLD MOLT MOST MOTP MOVX MOVY MOVZ MO_X MO_Y MO_Z MSAL
+MSAc MSAf MSAg MSAm MSBC MSBP MSBc MSBp MSDI MSDW MSG3 MSLB MSLC MSLD
+MSLF MSLG MSLP MSLT MSPA MSPC MSPS MSPs MSSD MSSE MSSF MSSG MSSP MSSS
+MSTC MSTM MSTS MSTc MSTf MSTg MSTm MSWA MSWE MSWF MSWO MSWP MSWR MSWr
+MSXC MSXD MSXK MSXN MSXS MSXb MSXc MSXd MSXk MSXm MSXn MSXs MSa! MSac
+MSaf MSag MSam MSap MVDS MVS4 NACK NATJ NATi NOPB NTOK ONMI PB0R PC0C
+PC0R PCPC PCPG PCPL PCPT PD0R PHPC PN0C PO0R PTHC PZ0F PZ0S RBr REV
+RMde RPlt RSvn RVBF RVUF SAS! SBF SBFC SBFD SBFE SBFN SBFU SBS! SCIA
+SCII SCIL SCXC SDAF SDAS SDRd SFBR SIS! SIT! SIU! SMBC SMBG SMBR SMBS
+SMBW SPH0 SPHR SPHS SPHT SPHZ SPS! SPT! SWER Sr0P Sr0T Sr1P Sr1T Sw0P
+Sw0T Sw1P Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T TB1T TB2T TC0C TC0D
+TC0E TC0F TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD TM0P TM0S TMBS TP0P
+TPCD TW0P Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r VN0R VN0r VP0R VP0r
+WKEN WVr0 WVw0 zDBG zDSF.;
+#X obj 20 1106 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1111 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 888 read;
-#X text 270 888 query specified SMC key. Arguments are:;
-#X obj 300 913 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 913 KEY: SMC key. Type: symbol.;
-#X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 961 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 962 1\.;
-#X text 270 962 input.;
-#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1002 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 1112 read;
+#X text 270 1112 queries the specified SMC key. Arguments are:;
+#X obj 300 1137 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1137 KEY: SMC key. Type: symbol.;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1185 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1003 1\.;
-#X text 270 1003 output the value of the SMC key.;
+#X text 130 1186 1\.;
+#X text 270 1186 input.;
+#X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1226 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1227 1\.;
+#X text 270 1227 outputs the value of the SMC key.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1053 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1056 library: ceammc v0.9.8;
-#X text 477 1068 see also:;
-#X obj 552 1071 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1277 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1280 library: ceammc v0.9.8;
+#X text 477 1292 see also:;
+#X obj 552 1295 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hw.apple_sms] @url hw.apple_sms-help.pd;
-#X obj 657 1071 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 1295 ui.link @background_color 0.78431 0.78431 0.78431
 @title [system.info] @url system.info-help.pd;
-#N canvas 10 1075 400 290 info 0;
+#N canvas 10 1299 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -96,19 +107,19 @@ WVw0 zDBG zDSF.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 motion \, sensor;
+#X text 120 164 apple \, smc \, sensor;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1075 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 1299 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;

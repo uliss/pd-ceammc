@@ -1,27 +1,39 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 542 50 запросы к системе SMC в Apple;
+#X obj 353 50 cnv 1 412 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 358 50 запросы к контроллеру управления системой (SMC) Apple;
 #X obj 1 1 cnv 5 765 40 empty empty hw.apple_smc 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 hw.apple_smc;
-#X msg 50 118 TC0P;
-#X text 107 118 cpu temp;
-#X obj 50 147 symbol;
-#X symbolatom 50 176 10 0 0 0 - - -;
-#X msg 184 176 @keys?;
-#X msg 50 205 read \$1;
-#X obj 50 234 hw.apple_smc;
-#X obj 50 262 @->;
-#X floatatom 50 291 5 0 0 0 - - -;
-#X obj 117 291 print;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 231 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Запрашивает данные у контроллера управления системой
+Apple (SMC) — аппаратного чипа \, присутствующего на каждом Mac с процессором
+Intel или Apple Silicon. Через SMC объект может читать значения сенсоров:
+температуру CPU или GPU \, скорость вентиляторов \, параметры батареи
+\, освещённость и многое другое \, используя четырёхсимвольные ключи
+SMC.;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Сонификация состояния системы — преобразование системных
+параметров (температура \, скорость вентиляторов \, уровень заряда
+батареи) в звук \, чтобы патч реагировал на физическое состояние компьютера
+в реальном времени.;
+#X msg 50 357 TC0P;
+#X text 107 357 cpu temp;
+#X obj 50 386 symbol;
+#X symbolatom 50 415 10 0 0 0 - - -;
+#X msg 184 415 @keys?;
+#X msg 50 444 read \$1;
+#X obj 50 473 hw.apple_smc;
+#X obj 50 501 @->;
+#X floatatom 50 530 5 0 0 0 - - -;
+#X obj 117 530 print;
+#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 585 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 588 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 347 @keys?;
-#X text 270 347 (только чтение) Cписок всех найденных ключей SMC. Тип:
+#X msg 130 586 @keys?;
+#X text 270 586 (только чтение) Список всех найденных ключей SMC. Тип:
 list. Значение по умолчанию: #KEY $Adr $Num +LKS ACCL ACEN ACFP ACIC
 ACID ACIN ACLM AL! ALA0 ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0 ALI1
 ALP0 ALP1 ALRV ALSC ALSF ALSL ALT0 ALT1 ALTH ALV0 ALV1 AUPO B0AC B0AV
@@ -50,36 +62,36 @@ Sr1P Sr1T Sw0P Sw0T Sw1P Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T TB1T
 TB2T TC0C TC0D TC0E TC0F TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD TM0P
 TM0S TMBS TP0P TPCD TW0P Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r VN0R
 VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
-#X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 902 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 903 read;
-#X text 270 903 запрос указанного ключа SMC. Аргументы:;
-#X obj 300 928 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 928 KEY: ключ SMC. Тип: symbol.;
-#X obj 20 971 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 976 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 977 1\.;
-#X text 270 977 input.;
-#X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1017 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1141 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1018 1\.;
-#X text 270 1018 вывод значения SMC ключа.;
+#X msg 130 1142 read;
+#X text 270 1142 запрашивает указанный ключ SMC. Аргументы:;
+#X obj 300 1167 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1167 KEY: ключ SMC. Тип: symbol.;
+#X obj 20 1210 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1215 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1216 1\.;
+#X text 270 1216 вход.;
+#X obj 20 1251 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1256 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1257 1\.;
+#X text 270 1257 выводит значение ключа SMC.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1068 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1071 библиотека: ceammc v0.9.8;
-#X text 431 1083 смотрите также:;
-#X obj 552 1086 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1307 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1310 библиотека: ceammc v0.9.8;
+#X text 431 1322 смотрите также:;
+#X obj 552 1325 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hw.apple_sms] @url hw.apple_sms-help.pd;
-#X obj 657 1086 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 1325 ui.link @background_color 0.78431 0.78431 0.78431
 @title [system.info] @url system.info-help.pd;
-#N canvas 10 1090 400 290 info 0;
+#N canvas 10 1329 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,19 +108,19 @@ VN0r VP0R VP0r WKEN WVr0 WVw0 zDBG zDSF.;
 #X text 10 142 лицензия:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 ключевые слова:;
-#X text 120 164 motion \, sensor;
+#X text 120 164 apple \, smc \, sensor;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1090 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 1329 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
