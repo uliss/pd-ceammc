@@ -5,48 +5,52 @@
 #X obj 1 1 cnv 5 765 40 empty empty set.union 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 set.union;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Вычисляет объединение двух входящих множеств (или списков
+\, преобразованных во множества): выводит новое множество \, содержащее
+все уникальные элементы из обоих входных множеств.;
+#X obj 50 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 trigger b b;
-#X obj 50 176 data.set 1 2 3 4;
-#X obj 242 176 data.set 3 4 5 6;
-#X obj 50 205 set.union;
-#X obj 50 234 ui.dt;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 245 trigger b b;
+#X obj 50 274 data.set 1 2 3 4;
+#X obj 242 274 data.set 3 4 5 6;
+#X obj 50 303 set.union;
+#X obj 50 332 ui.dt;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 387 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 390 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 290 1\.;
-#X text 170 290 any;
-#X obj 268 291 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 290 ARGS: right set elements. Тип: any.;
-#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 330 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 388 1\.;
+#X text 170 388 any;
+#X obj 268 389 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 388 ARGS: элементы правого множества. Тип: any.;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 428 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 331 1\.;
-#X text 270 331 first set or list (converted to set) \, other values
-are ignored.;
-#X text 130 371 2\.;
-#X text 270 371 second set or list (converted to set).;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 411 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 429 1\.;
+#X text 270 429 первое множество или список (преобразуется во множество).
+Остальные значения игнорируются.;
+#X text 130 469 2\.;
+#X text 270 469 второе множество или список (преобразуется во множество).;
+#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 509 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 412 1\.;
-#X text 270 412 output union of given sets.;
+#X text 130 510 1\.;
+#X text 270 510 выводит объединение заданных множеств.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 446 520 смотрите также:;
-#X obj 567 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 560 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 563 библиотека: ceammc v0.9.8;
+#X text 446 575 смотрите также:;
+#X obj 567 578 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.set] @url data.set-help.pd;
-#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 643 578 ui.link @background_color 0.78431 0.78431 0.78431
 @title [set.intersect] @url set.intersect-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 582 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -70,10 +74,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 5 1 7 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 1;
-#X connect 8 0 9 0;
+#X restore 10 582 pd info;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 1 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 1;
+#X connect 10 0 11 0;
