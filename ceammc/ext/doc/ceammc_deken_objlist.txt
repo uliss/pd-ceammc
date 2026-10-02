@@ -612,7 +612,7 @@ hw.rpi.adc.ads1115	driver for 16-bit ADC on ADS1115 chip for Raspberry Pi / др
 hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
 hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
 hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
-hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер для OLED-дисплея на чипе SSD1306 для Raspberry Pi
+hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер OLED-дисплея на чипе SSD1306 для Raspberry Pi
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
 hw.rpi.gpio.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
 hw.rpi.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
