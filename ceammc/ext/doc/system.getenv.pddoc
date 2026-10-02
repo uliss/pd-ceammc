@@ -20,37 +20,58 @@
         <see>system.hostname</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the value of a system environment variable. The variable name is set
+        by the NAME argument, the @name property or a symbol on the inlet; a bang outputs the
+        value of the currently set variable.</tr>
+        <tr lang="ru">Выводит значение системной переменной окружения. Имя переменной задаётся
+        аргументом NAME, свойством @name или символом на входе; bang выводит значение текущей
+        заданной переменной.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Reading the user environment — accessing standard environment variables
+        such as HOME, USER, PATH or SHELL to build file paths, detect the current user or set
+        platform-specific defaults.</tr>
+        <tr lang="ru">• Чтение окружения пользователя — доступ к стандартным переменным окружения,
+        таким как HOME, USER, PATH или SHELL, для построения путей к файлам, определения текущего
+        пользователя или установки платформо-зависимых значений по умолчанию.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="NAME" type="symbol">
         <tr lang="en">environment variable name</tr>
-        <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
+        <tr lang="ru">имя переменной окружения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @name -->
       <property name="@name" type="symbol" default="">
         <tr lang="en">environment variable name</tr>
-        <tr lang="ru" finished="false">переменное имя окружающей среды</tr>
+        <tr lang="ru">имя переменной окружения</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs variable value</tr>
-          <tr lang="ru" finished="false">выходы переменная величина</tr>
+          <tr lang="en">outputs the variable value</tr>
+          <tr lang="ru">выводит значение переменной</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">sets name of environment variable and outputs it value</tr>
-          <tr lang="ru" finished="false">устанавливает имя переменной среды и выводит ее
-          значение</tr>
+          <tr lang="en">sets the name of the environment variable and outputs its value</tr>
+          <tr lang="ru">задаёт имя переменной окружения и выводит её значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">symbol: env-variable value</tr>
-          <tr lang="ru" finished="false">символ: переменное значение энв</tr>
+        <out type="symbol">
+          <tr lang="en">symbol: environment variable value</tr>
+          <tr lang="ru">символ: значение переменной окружения</tr>
         </out>
       </outlet>
     </outlets>
