@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Gingerbread man map chaotic generator</tr>
-        <tr lang="ru">хаотический генератор на основе отображения Пряничного человечка</tr>
+        <tr lang="ru">хаотический генератор на основе отображения «Пряничный человечек»</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,30 +21,49 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A non-interpolating sound generator based on the difference equations:</tr>
-        <!-- old: Неинтерполирующий звуковой генератор, основанный на
-                разностных уравнениях: -->
-        <tr lang="ru" finished="false">Неинтерполирующий звуковой генератор, основанный на
-        разностных уравнениях:</tr>
+        <tr lang="en">A non-interpolating sound generator based on the Gingerbreadman map, a
+        two-dimensional discrete dynamical system. Unlike interpolating generators that produce a
+        continuous stream of values, this object advances the map by one step per audio sample at
+        a given generation frequency. The generation frequency is set as an audio signal on the
+        inlet; the minimal value is 0.001 Hz.</tr>
+        <tr lang="ru">Неинтерполирующий звуковой генератор на основе отображения «Пряничный
+        человечек» — двумерной дискретной динамической системы. В отличие от интерполирующих
+        генераторов, которые выдают непрерывный поток значений, этот объект делает один шаг
+        отображения на каждый аудиосемпл при заданной частоте генерации. Частота генерации
+        задаётся как звуковой сигнал на входе; минимальное значение — 0.001 Гц.</tr>
+      </par>
+      <par>
+        <tr lang="en">The map is defined by the difference equations:</tr>
+        <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
       <par>
         <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
-        <tr lang="ru" finished="false">x(n+1) = 1 - y(n) + |x(n) |</tr>
+        <tr lang="ru">x(n+1) = 1 - y(n) + |x(n)|</tr>
       </par>
       <par>
         <tr lang="en">y(n+1) = x(n)</tr>
-        <tr lang="ru" finished="false">y(n+1) = x(n)</tr>
+        <tr lang="ru">y(n+1) = x(n)</tr>
+      </par>
+      <par>
+        <tr lang="en">For most initial values (x, y) the sequence of points (x(n), y(n)) traces a
+        bounded, non-repeating orbit with a characteristic "gingerbread man" shape. Typical initial
+        values that put the generator into the chaotic region are x = 1.2 and y = 2.1 (the
+        defaults).</tr>
+        <tr lang="ru">Для большинства начальных значений (x, y) последовательность точек (x(n),
+        y(n)) образует ограниченную, не повторяющуюся траекторию характерной формы «пряничного
+        человечка». Типичные начальные значения, приводящие генератор в хаотическую область — x
+        = 1.2 и y = 2.1 (значения по умолчанию).</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
     </info>
     <arguments>
       <argument name="X" type="float">
         <tr lang="en">initial x value, default 1.2</tr>
-        <tr lang="ru" finished="false">начальное значение x, по умолчанию 1.2</tr>
+        <tr lang="ru">начальное значение x, по умолчанию 1.2</tr>
       </argument>
       <argument name="Y" type="float">
         <tr lang="en">initial y value, default 2.1</tr>
-        <tr lang="ru" finished="false">начальное значение y, по умолчанию 2.1</tr>
+        <tr lang="ru">начальное значение y, по умолчанию 2.1</tr>
       </argument>
     </arguments>
     <properties />
@@ -52,24 +71,22 @@
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">generation frequency, minimal value 0.001Hz</tr>
-          <!-- old: частота генерации, минимальное значение 0,001
-                    Гц -->
-          <tr lang="ru" finished="false">частота генерации, минимальное значение 0,001 Гц</tr>
+          <tr lang="en">generation frequency, minimal value 0.001 Hz</tr>
+          <tr lang="ru">частота генерации, минимальное значение 0.001 Гц</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">outputs x value</tr>
-          <tr lang="ru" finished="false">выходы x значение</tr>
+          <tr lang="en">outputs the x value</tr>
+          <tr lang="ru">выводит значение x</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
-          <tr lang="en">outputs y value</tr>
-          <tr lang="ru" finished="false">выходы y значение</tr>
+          <tr lang="en">outputs the y value</tr>
+          <tr lang="ru">выводит значение y</tr>
         </out>
       </outlet>
     </outlets>

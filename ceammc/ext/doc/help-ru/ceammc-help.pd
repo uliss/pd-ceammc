@@ -200,8 +200,8 @@ chaos.gbman0-help.pd;
 человечек»;
 #X obj 30 2260 ui.link @title [chaos.gbman0~] @url
 chaos.gbman0~-help.pd;
-#X text 200 2257 хаотический генератор на основе отображения Пряничного
-человечка;
+#X text 200 2257 хаотический генератор на основе отображения «Пряничный
+человечек»;
 #X obj 30 2300 ui.link @title [chaos.jong] @url chaos.jong-help.pd;
 #X text 200 2297 аттрактор Питера де Йонга;
 #X obj 30 2325 ui.link @title [chaos.logistic] @url
