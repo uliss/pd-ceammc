@@ -19,11 +19,40 @@
       </also>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Outputs the total amount of physical memory (RAM) installed in the machine,
+        in bytes. To get the size in kilobytes, megabytes or gigabytes, divide the value
+        accordingly.</tr>
+        <tr lang="ru">Выводит общий объём физической памяти (ОЗУ), установленной в машине, в
+        байтах. Чтобы получить размер в килобайтах, мегабайтах или гигабайтах, разделите значение
+        соответственно.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Adaptive resource allocation — choosing buffer sizes, polyphony limits or
+        sample-loading strategies depending on how much memory is available on the machine.</tr>
+        <tr lang="ru">• Адаптивное распределение ресурсов — выбор размеров буферов, ограничений
+        полифонии или стратегий загрузки сэмплов в зависимости от объёма доступной на машине
+        памяти.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Diagnostic and monitoring patches — displaying machine characteristics
+        (together with [system.memused] and [system.hostname]) to identify the machine on which
+        the patch is running.</tr>
+        <tr lang="ru">• Диагностические и мониторинговые патчи — отображение характеристик машины
+        (вместе с [system.memused] и [system.hostname]) для идентификации машины, на которой
+        запущен патч.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs memory size</tr>
-          <tr lang="ru" finished="false">выходной размер памяти</tr>
+          <tr lang="en">outputs the memory size</tr>
+          <tr lang="ru">выводит размер памяти</tr>
         </in>
       </inlet>
     </inlets>
@@ -31,7 +60,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">physical memory (RAM) size in bytes</tr>
-          <tr lang="ru" finished="false">Размер физической памяти (RAM) в байтах</tr>
+          <tr lang="ru">размер физической памяти (ОЗУ) в байтах</tr>
         </out>
       </outlet>
     </outlets>

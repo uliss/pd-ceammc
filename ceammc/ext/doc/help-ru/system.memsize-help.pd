@@ -5,35 +5,46 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.memsize 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 system.memsize;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 255 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Выводит общий объём физической памяти (ОЗУ) \, установленной
+в машине \, в байтах. Чтобы получить размер в килобайтах \, мегабайтах
+или гигабайтах \, разделите значение соответственно.;
+#X text 240 153 Типичные сценарии применения:;
+#X text 250 178 • Адаптивное распределение ресурсов — выбор размеров
+буферов \, ограничений полифонии или стратегий загрузки сэмплов в зависимости
+от объёма доступной на машине памяти.;
+#X text 250 248 • Диагностические и мониторинговые патчи — отображение
+характеристик машины (вместе с [system.memused] и [system.hostname])
+для идентификации машины \, на которой запущен патч.;
+#X obj 50 381 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 system.memsize;
-#X obj 50 176 / 1024;
-#X obj 50 205 / 1024;
-#X text 136 205 in Mbytes;
-#X floatatom 50 234 12 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 410 system.memsize;
+#X obj 50 439 / 1024;
+#X obj 50 468 / 1024;
+#X text 136 468 in Mbytes;
+#X floatatom 50 497 12 0 0 0 - - -;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 272 1\.;
-#X text 170 272 bang:;
-#X text 270 272 outputs memory size.;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 312 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 535 1\.;
+#X text 170 535 bang:;
+#X text 270 535 выводит размер памяти.;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 575 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 313 1\.;
-#X text 270 313 physical memory (RAM) size in bytes.;
+#X text 130 576 1\.;
+#X text 270 576 размер физической памяти (ОЗУ) в байтах.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 515 520 смотрите также:;
-#X obj 636 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 626 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 629 библиотека: ceammc v0.9.8;
+#X text 515 641 смотрите также:;
+#X obj 636 644 ui.link @background_color 0.78431 0.78431 0.78431
 @title [system.memused] @url system.memused-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 648 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -57,8 +68,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
+#X restore 10 648 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
