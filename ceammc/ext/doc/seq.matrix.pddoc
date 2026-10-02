@@ -27,10 +27,10 @@
         with the argument N or the @n property, and the timing is controlled by @t (interval
         between steps) and @div (beat subdivision).</tr>
         <tr lang="ru">Секвенсор, предназначенный для управления объектом [ui.matrix]: на каждом
-        такте он сдвигает позицию на один шаг, отправляет индекс столбца в матрицу и выводит
-        bang, чтобы соответствующий столбец подсветился и мог запустить звук. Длина паттерна
-        задаётся аргументом N или свойством @n, а тайминг управляется @t (интервал между шагами)
-        и @div (дробление доли).</tr>
+        такте он сдвигает позицию на один шаг, отправляет индекс столбца в матрицу и выводит bang,
+        чтобы соответствующий столбец подсветился и мог запустить звук. Длина паттерна задаётся
+        аргументом N или свойством @n, а тайминг управляется @t (интервал между шагами) и @div
+        (дробление доли).</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -38,16 +38,16 @@
       </par>
       <par indent="1">
         <tr lang="en">• Grid-based step sequencer — building a classic step sequencer where each
-        column of the matrix corresponds to one step, and the highlighted column triggers its
-        sound on the current step.</tr>
+        column of the matrix corresponds to one step, and the highlighted column triggers its sound
+        on the current step.</tr>
         <tr lang="ru">• Пошаговый секвенсор на сетке — построение классического пошагового
         секвенсора, где каждый столбец матрицы соответствует одному шагу, а подсвеченный столбец
         запускает свой звук на текущем шаге.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Multi-track drum patterns — driving several rows of the matrix as
-        independent percussion voices, so that one moving column triggers a kick, snare, hi-hat
-        and so on at the right moments.</tr>
+        independent percussion voices, so that one moving column triggers a kick, snare, hi-hat and
+        so on at the right moments.</tr>
         <tr lang="ru">• Многодорожечные барабанные паттерны — управление несколькими строками
         матрицы как независимыми перкуссионными голосами, когда один движущийся столбец запускает
         кик, снейр, хэт и т. д. в нужные моменты.</tr>
@@ -56,9 +56,9 @@
         <tr lang="en">• Visual feedback for algorithmic patterns — pairing the sequencer with a
         pattern generator (for example, [seq.life] or [seq.bangs]), so that the matrix shows the
         current state and the moving cursor highlights the active column.</tr>
-        <tr lang="ru">• Визуальная обратная связь для алгоритмических паттернов — связка
-        секвенсора с генератором паттернов (например, [seq.life] или [seq.bangs]), чтобы матрица
-        отображала текущее состояние, а движущийся курсор подсвечивал активный столбец.</tr>
+        <tr lang="ru">• Визуальная обратная связь для алгоритмических паттернов — связка секвенсора
+        с генератором паттернов (например, [seq.life] или [seq.bangs]), чтобы матрица отображала
+        текущее состояние, а движущийся курсор подсвечивал активный столбец.</tr>
       </par>
     </info>
     <arguments>
@@ -95,8 +95,8 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
-        'tri' — from first to last, then back</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first, 'tri'
+        — from first to last, then back</tr>
         <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
         первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
@@ -201,10 +201,10 @@
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or
-          [done( when done</tr>
-          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
-          или [done( по завершении</tr>
+          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or [done(
+          when done</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора, или
+          [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

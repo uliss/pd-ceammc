@@ -25,10 +25,10 @@
         output channels as its argument. In addition to single channel numbers, it also accepts
         range notation like 1:6, which means "channels 1 through 6 inclusive". If no argument is
         given, channels 1 and 2 are used by default.</tr>
-        <tr lang="ru">Расширенная версия стандартного объекта [dac~], которая принимает в
-        качестве аргумента список выходных каналов. Помимо отдельных номеров каналов, она
-        поддерживает диапазоны, например 1:6, что означает «каналы с 1 по 6 включительно».
-        Если аргумент не указан, по умолчанию используются каналы 1 и 2.</tr>
+        <tr lang="ru">Расширенная версия стандартного объекта [dac~], которая принимает в качестве
+        аргумента список выходных каналов. Помимо отдельных номеров каналов, она поддерживает
+        диапазоны, например 1:6, что означает «каналы с 1 по 6 включительно». Если аргумент не
+        указан, по умолчанию используются каналы 1 и 2.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -36,16 +36,16 @@
       </par>
       <par indent="1">
         <tr lang="en">• Multi-channel installations — connecting a patch to a specific subset of
-        audio outputs of a multi-channel sound card (for example, 1:6 for six speakers),
-        without having to list every channel number individually.</tr>
+        audio outputs of a multi-channel sound card (for example, 1:6 for six speakers), without
+        having to list every channel number individually.</tr>
         <tr lang="ru">• Многоканальные инсталляции — подключение патча к определённому подмножеству
         аудиовыходов многоканальной звуковой карты (например, 1:6 для шести колонок), без
         необходимости перечислять каждый номер канала вручную.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Channel remapping on the fly — using the @channels property or the reverse,
-        rotate and shuffle methods to reorder the outputs during a performance, for example to
-        swap left and right or to rotate a surround layout.</tr>
+        rotate and shuffle methods to reorder the outputs during a performance, for example to swap
+        left and right or to rotate a surround layout.</tr>
         <tr lang="ru">• Переназначение каналов на лету — использование свойства @channels или
         методов reverse, rotate и shuffle для переупорядочивания выходов во время выступления,
         например чтобы поменять левый и правый каналы или «повернуть» схему объёмного звука.</tr>
@@ -56,9 +56,9 @@
     </mouse>
     <arguments>
       <argument name="OUTS" type="list">
-        <tr lang="en">list of output channels: a single channel number or an X:Y range, which
-        means "from channel X to channel Y inclusive". If not specified, output channels 1 and 2
-        are used</tr>
+        <tr lang="en">list of output channels: a single channel number or an X:Y range, which means
+        "from channel X to channel Y inclusive". If not specified, output channels 1 and 2 are
+        used</tr>
         <tr lang="ru">список выходных каналов: отдельный номер канала или диапазон X:Y, что
         означает «с канала X по канал Y включительно». Если не указано, используются выходные
         каналы 1 и 2</tr>
@@ -101,8 +101,8 @@
       <method name="side2circle">
         <info>
           <tr lang="en">maps left/right side pairs to a counter-clockwise layout</tr>
-          <tr lang="ru">преобразует раскладку пар левый/правый в круговую раскладку против
-          часовой стрелки</tr>
+          <tr lang="ru">преобразует раскладку пар левый/правый в круговую раскладку против часовой
+          стрелки</tr>
         </info>
       </method>
     </methods>

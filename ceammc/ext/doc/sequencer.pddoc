@@ -24,9 +24,9 @@
     <info>
       <par>
         <tr lang="en">A basic sequence player: iterates over a list of elements and outputs one
-        element per tick. Values can be numbers, symbols or nested lists (for example, "play
-        lists" like (60 127)), and the timing between elements is set by @t. Playback can be
-        looped with @r, reversed with @mode, subdivided with @div and delayed with @upbeat.</tr>
+        element per tick. Values can be numbers, symbols or nested lists (for example, "play lists"
+        like (60 127)), and the timing between elements is set by @t. Playback can be looped with
+        @r, reversed with @mode, subdivided with @div and delayed with @upbeat.</tr>
         <tr lang="ru">Базовый проигрыватель последовательностей: перебирает список элементов и
         выводит по одному элементу на каждый такт. Элементы могут быть числами, символами или
         вложенными списками (например, «списки воспроизведения» вида (60 127)), а интервал между
@@ -39,19 +39,19 @@
       </par>
       <par indent="1">
         <tr lang="en">• Melodic sequences — playing a list of notes in order (for example,
-        [mtof]-converted pitch values), with a fixed interval between them, to produce a
-        repeating melodic pattern.</tr>
+        [mtof]-converted pitch values), with a fixed interval between them, to produce a repeating
+        melodic pattern.</tr>
         <tr lang="ru">• Мелодические последовательности — воспроизведение списка нот по порядку
-        (например, значений высоты, преобразованных через [mtof]) с фиксированным интервалом
-        между ними, чтобы получить повторяющийся мелодический паттерн.</tr>
+        (например, значений высоты, преобразованных через [mtof]) с фиксированным интервалом между
+        ними, чтобы получить повторяющийся мелодический паттерн.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Simple automation — driving parameter changes in a repeating pattern, for
         example cycling through a list of filter cutoff values or effect wet/dry levels over
         time.</tr>
-        <tr lang="ru">• Простая автоматизация — управление изменениями параметра по
-        повторяющемуся паттерну, например циклический перебор списка значений среза фильтра или
-        уровней wet/dry эффекта во времени.</tr>
+        <tr lang="ru">• Простая автоматизация — управление изменениями параметра по повторяющемуся
+        паттерну, например циклический перебор списка значений среза фильтра или уровней wet/dry
+        эффекта во времени.</tr>
       </par>
     </info>
     <arguments>
@@ -70,8 +70,8 @@
       <property name="@dur" type="float" minvalue="0" default="0">
         <tr lang="en">whole sequence duration. Changing this property also changes the @t interval
         between elements.</tr>
-        <tr lang="ru">длительность всей последовательности. Изменение этого свойства также
-        изменяет интервал @t между элементами</tr>
+        <tr lang="ru">длительность всей последовательности. Изменение этого свойства также изменяет
+        интервал @t между элементами</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="int" access="readonly" default="0">
@@ -85,8 +85,8 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
-        'tri' — from first to last, then back</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first, 'tri'
+        — from first to last, then back</tr>
         <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
         первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
@@ -194,10 +194,10 @@
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or
-          [done( when done</tr>
-          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
-          или [done( по завершении</tr>
+          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, or [done(
+          when done</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора, или
+          [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

@@ -22,13 +22,13 @@
     <info>
       <par>
         <tr lang="en">Toggle sequencer: outputs 1 when an event starts and 0 when it ends. The
-        pattern is given in beat duration units (relative to @t), and the duration of each event
-        is controlled by @length. This makes it convenient for driving gates, envelopes or any
-        object that expects an on/off control signal.</tr>
+        pattern is given in beat duration units (relative to @t), and the duration of each event is
+        controlled by @length. This makes it convenient for driving gates, envelopes or any object
+        that expects an on/off control signal.</tr>
         <tr lang="ru">Секвенсор переключающих событий (toggle): выводит 1 в начале события и 0 в
-        его конце. Паттерн задаётся в единицах длительности доли (относительно @t), а
-        длительность каждого события управляется свойством @length. Это удобно для управления
-        gate-сигналами, огибающими и любыми объектами, ожидающими управляющий сигнал вкл/выкл.</tr>
+        его конце. Паттерн задаётся в единицах длительности доли (относительно @t), а длительность
+        каждого события управляется свойством @length. Это удобно для управления gate-сигналами,
+        огибающими и любыми объектами, ожидающими управляющий сигнал вкл/выкл.</tr>
       </par>
       <par>
         <tr lang="en">Event length (@length) can be specified in three forms:</tr>
@@ -37,12 +37,12 @@
       <par indent="1">
         <tr lang="en">• percent: @length 60% with @t 100ms — for an event value of 2 (duration
         200ms), the event length will be 120ms.</tr>
-        <tr lang="ru">• процент: @length 60% при @t 100ms — для значения события 2
-        (длительность 200ms) длина события составит 120ms.</tr>
+        <tr lang="ru">• процент: @length 60% при @t 100ms — для значения события 2 (длительность
+        200ms) длина события составит 120ms.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• fixed: @length 10 or @length 10ms with @t 100ms — the event length is
-        fixed at 10ms regardless of how long the event lasts.</tr>
+        <tr lang="en">• fixed: @length 10 or @length 10ms with @t 100ms — the event length is fixed
+        at 10ms regardless of how long the event lasts.</tr>
         <tr lang="ru">• фиксированная: @length 10 или @length 10ms при @t 100ms — длина события
         фиксирована на 10ms независимо от длительности самого события.</tr>
       </par>
@@ -50,9 +50,9 @@
         <tr lang="en">• subtract: @length -40 with @t 100ms — for an event value of 2 (duration
         200ms), the event length is 160ms (200−40), for an event value of 1 (duration 100ms), the
         event length is 60ms (100−40).</tr>
-        <tr lang="ru">• вычитание: @length -40 при @t 100ms — для значения события 2
-        (длительность 200ms) длина события составит 160ms (200−40), для значения события 1
-        (длительность 100ms) длина события составит 60ms (100−40).</tr>
+        <tr lang="ru">• вычитание: @length -40 при @t 100ms — для значения события 2 (длительность
+        200ms) длина события составит 160ms (200−40), для значения события 1 (длительность 100ms)
+        длина события составит 60ms (100−40).</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
@@ -60,11 +60,11 @@
       </par>
       <par indent="1">
         <tr lang="en">• Gate patterns for envelopes — driving the gate input of an envelope
-        generator (for example, [env.adsr~]) with rhythmic on/off events, so that each note has
-        the correct attack and release behaviour.</tr>
+        generator (for example, [env.adsr~]) with rhythmic on/off events, so that each note has the
+        correct attack and release behaviour.</tr>
         <tr lang="ru">• Паттерны gate для огибающих — управление входом gate генератора огибающей
-        (например, [env.adsr~]) ритмическими событиями вкл/выкл, чтобы каждая нота имела
-        правильные атаку и восстановление.</tr>
+        (например, [env.adsr~]) ритмическими событиями вкл/выкл, чтобы каждая нота имела правильные
+        атаку и восстановление.</tr>
       </par>
     </info>
     <arguments>
@@ -97,10 +97,10 @@
       </property>
       <!-- @length -->
       <property name="@length" type="float" default="75">
-        <tr lang="en">event length. A plain number or a number with the 'ms' suffix fixes the
-        event length for any event duration. A value with the '%' suffix is treated as a percentage
-        of the event duration (expected in the 0..100 range). A negative value is subtracted from
-        the event duration (duration + @length), but the result is never less than 1</tr>
+        <tr lang="en">event length. A plain number or a number with the 'ms' suffix fixes the event
+        length for any event duration. A value with the '%' suffix is treated as a percentage of
+        the event duration (expected in the 0..100 range). A negative value is subtracted from the
+        event duration (duration + @length), but the result is never less than 1</tr>
         <tr lang="ru">длительность события. Обычное число или число с суффиксом 'ms' фиксирует
         длительность события для любой продолжительности события. Значение с суффиксом '%'
         трактуется как процент от длительности события (ожидается в диапазоне 0..100).
@@ -109,8 +109,8 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
-        'tri' — from first to last, then back</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first, 'tri'
+        — from first to last, then back</tr>
         <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
         первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
@@ -209,11 +209,10 @@
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration,
-          [ed MS( — event duration, [el MS( — event length, or [done( when done</tr>
-          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
-          [ed MS( — длительность события, [el MS( — длина события, или [done( по
-          завершении</tr>
+          <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, [ed MS( —
+          event duration, [el MS( — event length, or [done( when done</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора, [ed
+          MS( — длительность события, [el MS( — длина события, или [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

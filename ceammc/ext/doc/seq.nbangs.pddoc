@@ -26,41 +26,41 @@
     <info>
       <par>
         <tr lang="en">Outputs a given number of bangs at a fixed or variable time interval. The
-        number of bangs is set by the argument N or the @n property, and the interval between
-        bangs by @t. Unlike [seq.bangs], which cycles through a pattern of durations, this object
-        simply produces N evenly-spaced bangs.</tr>
-        <tr lang="ru">Выводит заданное число bang-ов через фиксированный или изменяющийся
-        временной интервал. Число bang-ов задаётся аргументом N или свойством @n, а интервал
-        между ними — свойством @t. В отличие от [seq.bangs], который перебирает паттерн
-        длительностей, этот объект просто выдаёт N равномерно расположенных bang-ов.</tr>
+        number of bangs is set by the argument N or the @n property, and the interval between bangs
+        by @t. Unlike [seq.bangs], which cycles through a pattern of durations, this object simply
+        produces N evenly-spaced bangs.</tr>
+        <tr lang="ru">Выводит заданное число bang-ов через фиксированный или изменяющийся временной
+        интервал. Число bang-ов задаётся аргументом N или свойством @n, а интервал между ними —
+        свойством @t. В отличие от [seq.bangs], который перебирает паттерн длительностей, этот
+        объект просто выдаёт N равномерно расположенных bang-ов.</tr>
       </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
         <tr lang="ru">Типичные сценарии применения:</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Repeating a trigger N times — sending a fixed number of events, for
-        example a short drum roll, a burst of notes, or a temporary stutter of a sound, and then
-        stopping automatically.</tr>
-        <tr lang="ru">• Повторение триггера N раз — отправка фиксированного числа событий,
-        например короткой барабанной дроби, серии нот или временного «заикания» звука, с
-        автоматической остановкой после завершения.</tr>
+        <tr lang="en">• Repeating a trigger N times — sending a fixed number of events, for example
+        a short drum roll, a burst of notes, or a temporary stutter of a sound, and then stopping
+        automatically.</tr>
+        <tr lang="ru">• Повторение триггера N раз — отправка фиксированного числа событий, например
+        короткой барабанной дроби, серии нот или временного «заикания» звука, с автоматической
+        остановкой после завершения.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Accelerando or ritardando — using @accel and @curve to make the interval
         between bangs gradually decrease or increase, so that the same number of events is
         compressed or stretched over time.</tr>
-        <tr lang="ru">• Accelerando или ritardando — использование @accel и @curve для
-        постепенного уменьшения или увеличения интервала между bang-ами, что позволяет сжать или
-        растянуть одно и то же число событий во времени.</tr>
+        <tr lang="ru">• Accelerando или ritardando — использование @accel и @curve для постепенного
+        уменьшения или увеличения интервала между bang-ами, что позволяет сжать или растянуть одно
+        и то же число событий во времени.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Counted event bursts — firing a fixed number of control messages for a
         specific process (for example, N steps of an arpeggio or N pulses of a modulation
         envelope), without needing a separate counter object.</tr>
-        <tr lang="ru">• Серии событий с заданным числом — отправка фиксированного числа
-        управляющих сообщений для конкретного процесса (например, N шагов арпеджио или N
-        импульсов огибающей модуляции), без отдельного счётчика.</tr>
+        <tr lang="ru">• Серии событий с заданным числом — отправка фиксированного числа управляющих
+        сообщений для конкретного процесса (например, N шагов арпеджио или N импульсов огибающей
+        модуляции), без отдельного счётчика.</tr>
       </par>
     </info>
     <arguments>
@@ -78,7 +78,8 @@
       <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">
         <tr lang="en">tempo acceleration. 1 — no acceleration, &gt;1 — speed up, &lt;1 — slow
         down</tr>
-        <tr lang="ru">ускорение темпа. 1 — без ускорения, &gt;1 — ускорение, &lt;1 — замедление</tr>
+        <tr lang="ru">ускорение темпа. 1 — без ускорения, &gt;1 — ускорение, &lt;1 —
+        замедление</tr>
       </property>
       <!-- @curve -->
       <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
@@ -164,7 +165,8 @@
         </in>
         <in on="float">
           <tr lang="en">sets the number of bangs in the sequence and starts playing it</tr>
-          <tr lang="ru">задаёт число bang-ов в последовательности и начинает её воспроизведение</tr>
+          <tr lang="ru">задаёт число bang-ов в последовательности и начинает её
+          воспроизведение</tr>
         </in>
       </inlet>
       <inlet>

@@ -44,11 +44,10 @@
         удару.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• Algorithmic rhythm generation — combining different patterns, repeat
-        counts and directions to build evolving rhythmic structures for generative music.</tr>
-        <tr lang="ru">• Алгоритмическая генерация ритма — комбинирование разных паттернов,
-        повторов и направлений для построения развивающихся ритмических структур в генеративной
-        музыке.</tr>
+        <tr lang="en">• Algorithmic rhythm generation — combining different patterns, repeat counts
+        and directions to build evolving rhythmic structures for generative music.</tr>
+        <tr lang="ru">• Алгоритмическая генерация ритма — комбинирование разных паттернов, повторов
+        и направлений для построения развивающихся ритмических структур в генеративной музыке.</tr>
       </par>
     </info>
     <arguments>
@@ -81,8 +80,8 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="inc dec tri" default="inc">
-        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first,
-        'tri' — from first to last, then back</tr>
+        <tr lang="en">sequencer mode. 'inc' — from first to last, 'dec' — from last to first, 'tri'
+        — from first to last, then back</tr>
         <tr lang="ru">режим секвенсора. 'inc' — от первого к последнему, 'dec' — от последнего к
         первому, 'tri' — от первого к последнему, затем обратно</tr>
       </property>
@@ -203,8 +202,8 @@
         <out type="any">
           <tr lang="en">[i IDX N( — sequence iteration, [ri IDX N( — repeat iteration, [ed MS( —
           event duration, or [done( when done</tr>
-          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора,
-          [ed MS( — длительность события, или [done( по завершении</tr>
+          <tr lang="ru">[i IDX N( — итерация последовательности, [ri IDX N( — итерация повтора, [ed
+          MS( — длительность события, или [done( по завершении</tr>
         </out>
       </outlet>
     </outlets>

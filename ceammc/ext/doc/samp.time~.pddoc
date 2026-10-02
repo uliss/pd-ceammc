@@ -21,10 +21,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">A sample-accurate counter that counts audio samples while running. It can
-        be started and stopped by a control signal (on a 0→1 transition the counter starts, on a
-        1→0 transition it stops), and its current value can be reset or set explicitly. The
-        output is the current sample number since the last reset.</tr>
+        <tr lang="en">A sample-accurate counter that counts audio samples while running. It can be
+        started and stopped by a control signal (on a 0→1 transition the counter starts, on a 1→0
+        transition it stops), and its current value can be reset or set explicitly. The output is
+        the current sample number since the last reset.</tr>
         <tr lang="ru">Счётчик с точностью до семпла, который считает аудиосемплы, пока работает.
         Его можно запускать и останавливать управляющим сигналом (при переходе 0→1 счётчик
         запускается, при переходе 1→0 останавливается), а текущее значение можно сбросить или
@@ -43,29 +43,29 @@
         <tr lang="ru">• 32-битный float (одинарная точность): точный подсчёт целых чисел
         гарантирован только до 2^24 = 16 777 216 семплов. Выше этого значения последовательные
         целые числа перестают быть представимыми — расстояние между представимыми значениями
-        становится больше 1, поэтому счётчик может «застревать» или пропускать семплы. При
-        частоте дискретизации 44100 Гц этот предел достигается примерно через 6 минут 20 секунд
+        становится больше 1, поэтому счётчик может «застревать» или пропускать семплы. При частоте
+        дискретизации 44100 Гц этот предел достигается примерно через 6 минут 20 секунд
         непрерывного подсчёта.</tr>
       </par>
       <par indent="1">
-        <tr lang="en">• 64-bit float (double precision): exact integer counting is guaranteed up
-        to 2^53 = 9,007,199,254,740,992 samples. This is many orders of magnitude beyond any
-        practical audio session, so with double-precision Pd the counter is effectively exact for
-        any realistic use.</tr>
-        <tr lang="ru">• 64-битный float (двойная точность): точный подсчёт целых чисел
-        гарантирован до 2^53 = 9 007 199 254 740 992 семплов. Это на много порядков больше любого
-        реалистичного аудиосеанса, поэтому при использовании Pd с двойной точностью счётчик
-        фактически точен для любых практических задач.</tr>
+        <tr lang="en">• 64-bit float (double precision): exact integer counting is guaranteed up to
+        2^53 = 9,007,199,254,740,992 samples. This is many orders of magnitude beyond any practical
+        audio session, so with double-precision Pd the counter is effectively exact for any
+        realistic use.</tr>
+        <tr lang="ru">• 64-битный float (двойная точность): точный подсчёт целых чисел гарантирован
+        до 2^53 = 9 007 199 254 740 992 семплов. Это на много порядков больше любого реалистичного
+        аудиосеанса, поэтому при использовании Pd с двойной точностью счётчик фактически точен для
+        любых практических задач.</tr>
       </par>
       <par>
         <tr lang="en">Which precision is used depends on how Pd itself is compiled: the vanilla Pd
         distribution typically uses single-precision floats, while CEAMMC distributions are
         available in both single and double precision. If you plan to run a very long counter,
         prefer a double-precision build.</tr>
-        <tr lang="ru">Используемая точность зависит от того, как скомпилирован сам Pd:
-        стандартная сборка Pd обычно использует числа одинарной точности, а сборки CEAMMC
-        доступны как в одинарной, так и в двойной точности. Если предполагается длительный
-        подсчёт, предпочтительнее сборка с двойной точностью.</tr>
+        <tr lang="ru">Используемая точность зависит от того, как скомпилирован сам Pd: стандартная
+        сборка Pd обычно использует числа одинарной точности, а сборки CEAMMC доступны как в
+        одинарной, так и в двойной точности. Если предполагается длительный подсчёт,
+        предпочтительнее сборка с двойной точностью.</tr>
       </par>
     </info>
     <arguments>
@@ -97,8 +97,7 @@
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">on a 0→1 transition: starts the counter; on a 1→0 transition: stops
-          it</tr>
+          <tr lang="en">on a 0→1 transition: starts the counter; on a 1→0 transition: stops it</tr>
           <tr lang="ru">при переходе 0→1: запускает счётчик; при переходе 1→0: останавливает
           его</tr>
         </in>
