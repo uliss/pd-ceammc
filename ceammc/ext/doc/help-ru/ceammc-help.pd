@@ -968,7 +968,7 @@ Pi;
 #X text 200 10189 управление GPIO на Raspberry Pi;
 #X obj 30 10217 ui.link @title [hw.rpi.gpio.servo] @url
 hw.rpi.gpio.servo-help.pd;
-#X text 200 10214 управление сервоприводами через выводы GPIO на Raspberry
+#X text 200 10214 управление сервоприводом через выводы GPIO на Raspberry
 Pi;
 #X obj 30 10242 ui.link @title [hw.rpi.i2c.pca9685] @url
 hw.rpi.i2c.pca9685-help.pd;

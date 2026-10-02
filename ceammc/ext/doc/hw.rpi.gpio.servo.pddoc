@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">servo control via GPIO pins on Raspberry Pi</tr>
-        <tr lang="ru">управление сервоприводами через выводы GPIO на Raspberry Pi</tr>
+        <tr lang="ru">управление сервоприводом через выводы GPIO на Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,24 +21,44 @@
     </meta>
     <info>
       <par style="important">
-        <tr lang="en">The specified GPIO pin is taken into exclusive ownership: only one entity can
-        operate a servo motor through this pin.</tr>
-        <tr lang="ru">указанный вывод GPIO забирается в эксклюзивное владение: только один объект
+        <tr lang="en">The specified GPIO pin is taken into exclusive ownership: only one entity
+        can operate a servo motor through this pin.</tr>
+        <tr lang="ru">Указанный вывод GPIO забирается в эксклюзивное владение: только один объект
         может работать с сервоприводом через этот вывод.</tr>
       </par>
       <par style="info">
         <tr lang="en">The servo uses a smoothed trajectory by default, ensuring jerk-free motion.
         This may reduce the top speed marginally. If you need maximum speed, disable smoothing by
         setting @smooth = 0.</tr>
-        <tr lang="ru">По умолчанию движение сервопривода выполняется по сглаженной траектории, что
-        позволяет исключить резкие рывки. При этом общая скорость несколько уступает максимально
-        возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
+        <tr lang="ru">По умолчанию движение сервопривода выполняется по сглаженной траектории,
+        что позволяет исключить резкие рывки. При этом общая скорость несколько уступает
+        максимально возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Mechanical movement and robotics — driving a servo motor from a Pd patch,
+        for example to open and close a lid, move a lever, or position a small robot arm with
+        smooth, physically plausible motion.</tr>
+        <tr lang="ru">• Механическое движение и робототехника — управление сервоприводом из патча
+        Pd, например для открытия и закрытия крышки, перемещения рычага или позиционирования
+        небольшого манипулятора с плавным, физически правдоподобным движением.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Kinetic sound installations — turning a servo into part of an art
+        installation, for example to strike percussion, rotate objects or move mirrors and
+        reflectors in time with the music.</tr>
+        <tr lang="ru">• Кинетические звуковые инсталляции — превращение сервопривода в часть
+        арт-инсталляции, например для ударов по перкуссии, вращения объектов или движения
+        зеркал и отражателей в такт музыке.</tr>
       </par>
     </info>
     <arguments>
       <argument name="PIN" type="int" minvalue="-1" maxvalue="127">
-        <tr lang="en">connected GPIO pin. See @pin property.</tr>
-        <tr lang="ru">используемый GPIO контакт. См. свойство @pin</tr>
+        <tr lang="en">GPIO pin used. See the @pin property.</tr>
+        <tr lang="ru">используемый контакт GPIO. См. свойство @pin</tr>
       </argument>
     </arguments>
     <properties>
@@ -47,9 +67,8 @@
         <tr lang="en">When set to 1: tries to connect to the Raspberry Pi GPIO and acquire
         exclusive ownership of the pin. When set to 0: disconnects from the GPIO and releases
         ownership of the pin</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к Raspberry GPIO и забрать контакт в
-        эксклюзивное владение. При установке в 0: отключается от GPIO и прекращает владение
-        контактом.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к GPIO Raspberry Pi и забрать контакт
+        в эксклюзивное владение. При значении 0: отключается от GPIO и освобождает контакт</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" minvalue="30.0" maxvalue="100.0" default="50.0"
@@ -65,8 +84,8 @@
         response. Unit: °/s².</tr>
         <tr lang="ru">максимальное ускорение (скорость изменения скорости). Ориентировочное
         значение для начальной настройки — 5–10 × @max_vel. Окончательное значение подбирается
-        эмпирически исходя из массы подвижных частей и динамических характеристик привода. Ед.
-        изм.: °/с².</tr>
+        эмпирически, исходя из массы подвижных частей и динамических характеристик привода. Ед.
+        изм.: °/с²</tr>
       </property>
       <!-- @max_jerk -->
       <property name="@max_jerk" type="float" minvalue="10.0" default="60000.0" access="readwrite">
@@ -77,42 +96,42 @@
         <tr lang="ru">максимальный рывок (скорость изменения ускорения). Определяет плавность
         начала и окончания движения. Высокие значения делают движение более резким, низкие — более
         плавным. Значение подбирается эмпирически под конкретную механическую систему и требования
-        к динамике. Единицы: °/с³.</tr>
+        к динамике. Ед. изм.: °/с³</tr>
       </property>
       <!-- @max_pulse -->
       <property name="@max_pulse" type="float" minvalue="1.5" maxvalue="3.0" default="2.125"
       units="millisecond" access="readwrite">
-        <tr lang="en">maximum PWM pulse width corresponding to a 180-degree rotation.</tr>
+        <tr lang="en">maximum PWM pulse width corresponding to a 180-degree rotation</tr>
         <tr lang="ru">максимальная ширина импульса ШИМ, соответствующая повороту на 180
         градусов</tr>
       </property>
       <!-- @max_vel -->
       <property name="@max_vel" type="float" minvalue="10.0" default="600.0" access="readwrite">
-        <tr lang="en">maximum angular velocity of the servo, measured in °/s. For the SG90 model,
-        it reaches about 600°/s (this value may vary with the operating voltage).</tr>
-        <tr lang="ru">максимальная скорость вращение сервопривода в °/с. Для сервопривода SG90
-        ~600°/с (зависит от напряжения питания)</tr>
+        <tr lang="en">maximum angular velocity of the servo in °/s. For the SG90 model it reaches
+        about 600°/s (this value may vary with the operating voltage).</tr>
+        <tr lang="ru">максимальная скорость вращения сервопривода в °/с. Для сервопривода SG90 —
+        около 600°/с (зависит от напряжения питания)</tr>
       </property>
       <!-- @min_pulse -->
       <property name="@min_pulse" type="float" minvalue="0.5" maxvalue="1.5" default="0.5125"
       units="millisecond" access="readwrite">
-        <tr lang="en">minimum PWM pulse width corresponding to a 0-degree rotation.</tr>
+        <tr lang="en">minimum PWM pulse width corresponding to a 0-degree rotation</tr>
         <tr lang="ru">минимальная ширина импульса ШИМ, соответствующая повороту на 0 градусов</tr>
       </property>
       <!-- @pin -->
       <property name="@pin" type="int" minvalue="-1" maxvalue="127" default="-1" access="initonly">
-        <tr lang="en">used GPIO pin</tr>
-        <tr lang="ru">используемый GPIO контакт.</tr>
+        <tr lang="en">GPIO pin used</tr>
+        <tr lang="ru">используемый контакт GPIO</tr>
       </property>
       <!-- @precision -->
       <property name="@precision" type="int" minvalue="0" maxvalue="3" default="1"
       access="readwrite">
-        <tr lang="en">decimal precision used for angle values.</tr>
-        <tr lang="ru">точность (количество знаков после запятой) для значений угла.</tr>
+        <tr lang="en">decimal precision used for angle values</tr>
+        <tr lang="ru">точность (число знаков после запятой) для значений угла</tr>
       </property>
       <!-- @smooth -->
       <property name="@smooth" type="bool" default="1" access="readwrite">
-        <tr lang="en">use trajectory smoothing.</tr>
+        <tr lang="en">use trajectory smoothing</tr>
         <tr lang="ru">использовать сглаживание траектории движения</tr>
       </property>
     </properties>
@@ -120,8 +139,8 @@
       <!-- angle -->
       <method name="angle">
         <info>
-          <tr lang="en">set the servo to the specified angle in degrees</tr>
-          <tr lang="ru">установить сервопривод в указанный угол в градусах</tr>
+          <tr lang="en">sets the servo to the specified angle in degrees</tr>
+          <tr lang="ru">устанавливает сервопривод в указанный угол в градусах</tr>
         </info>
         <param name="ANGLE" type="float" required="true" units="degree" minvalue="0"
         maxvalue="180">
@@ -132,8 +151,8 @@
       <!-- angle_phase -->
       <method name="angle_phase">
         <info>
-          <tr lang="en">set the servo to the specified phase position</tr>
-          <tr lang="ru">установить сервопривод в указанную фазу</tr>
+          <tr lang="en">sets the servo to the specified phase position</tr>
+          <tr lang="ru">устанавливает сервопривод в указанную фазу</tr>
         </info>
         <param name="VALUE" type="float" required="true" minvalue="0" maxvalue="1">
           <tr lang="en">phase value</tr>
@@ -143,8 +162,8 @@
       <!-- angle_rad -->
       <method name="angle_rad">
         <info>
-          <tr lang="en">set the servo to the specified angle in radians</tr>
-          <tr lang="ru">установить сервопривод в указанный угол в радианах</tr>
+          <tr lang="en">sets the servo to the specified angle in radians</tr>
+          <tr lang="ru">устанавливает сервопривод в указанный угол в радианах</tr>
         </info>
         <param name="ANGLE" type="float" required="true" units="radian" minvalue="0" maxvalue="1π">
           <tr lang="en">angle in radians</tr>
@@ -154,8 +173,8 @@
       <!-- rotate -->
       <method name="rotate">
         <info>
-          <tr lang="en">rotate the servo to the specified angle in degrees.</tr>
-          <tr lang="ru">повернуть сервопривод на указанный угол в градусах</tr>
+          <tr lang="en">rotates the servo by the specified angle in degrees</tr>
+          <tr lang="ru">поворачивает сервопривод на указанный угол в градусах</tr>
         </info>
         <param name="ANGLE" type="float" required="true" units="degree" minvalue="-180"
         maxvalue="180">
@@ -166,8 +185,8 @@
       <!-- rotate_phase -->
       <method name="rotate_phase">
         <info>
-          <tr lang="en">rotate the servo to the specified phase value.</tr>
-          <tr lang="ru">повернуть сервопривод на указанное значение фазы</tr>
+          <tr lang="en">rotates the servo by the specified phase value</tr>
+          <tr lang="ru">поворачивает сервопривод на указанное значение фазы</tr>
         </info>
         <param name="VALUE" type="float" required="true" minvalue="-1" maxvalue="1">
           <tr lang="en">phase value</tr>
@@ -177,8 +196,8 @@
       <!-- rotate_rad -->
       <method name="rotate_rad">
         <info>
-          <tr lang="en">rotate the servo to the specified angle in radians</tr>
-          <tr lang="ru">повернуть сервопривод на указанный угол в радианах</tr>
+          <tr lang="en">rotates the servo by the specified angle in radians</tr>
+          <tr lang="ru">поворачивает сервопривод на указанный угол в радианах</tr>
         </info>
         <param name="ANGLE" type="float" required="true" units="radian" minvalue="-1π"
         maxvalue="1π">
@@ -191,7 +210,7 @@
       <inlet>
         <in>
           <tr lang="en">control message input</tr>
-          <tr lang="ru">вход для управляющих сообщений</tr>
+          <tr lang="ru">вход управляющих сообщений</tr>
         </in>
       </inlet>
     </inlets>
@@ -203,18 +222,18 @@
           physically stopped moving. The servo may still be rotating (this is particularly
           noticeable when @smooth = 0).</tr>
           <tr lang="ru">выводится, когда команда движения сервопривода завершена. Важно: завершена
-          именно команда, а не движение. Сервопривод всё ещё может вращаться (особенно, если
-          @smooth = 0).</tr>
+          именно команда, а не движение. Сервопривод всё ещё может вращаться (особенно если
+          @smooth = 0)</tr>
         </out>
         <out name="angle" type="any">
-          <tr lang="en">outputs the current rotation angle in degrees.</tr>
-          <tr lang="ru">выводит текищий угол поворота в градусах.</tr>
+          <tr lang="en">outputs the current rotation angle in degrees</tr>
+          <tr lang="ru">выводит текущий угол поворота в градусах</tr>
         </out>
         <out name="time" type="any">
           <tr lang="en">outputs the current time position in milliseconds within the calculated
           smoothed motion trajectory (only when @smooth = 1)</tr>
           <tr lang="ru">выводит текущую позицию времени (в мс) внутри рассчитанной сглаженной
-          траектории. Выводится только при включенном сглаживании (@smooth = 1)</tr>
+          траектории. Выводится только при включённом сглаживании (@smooth = 1)</tr>
         </out>
       </outlet>
     </outlets>
