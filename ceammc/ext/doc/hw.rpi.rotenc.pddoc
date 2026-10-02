@@ -21,32 +21,53 @@
         <tr lang="en">When created, the object takes exclusive ownership of the GPIO pins @btn,
         @clk and @dt — it is *impossible* to use them in other objects simultaneously with this
         one.</tr>
-        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @btn, @clk
-        и @dt — использовать их в других объектах одновременно с этим *невозможно*.</tr>
+        <tr lang="ru">При создании объект забирает в эксклюзивное владение контакты GPIO @btn,
+        @clk и @dt — использовать их в других объектах одновременно с этим *невозможно*.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Hardware parameter control — using a physical rotary encoder to adjust
+        values in a patch (volume, filter cutoff, tempo, preset number) with a natural
+        continuous-rotation feel and press-button confirmation.</tr>
+        <tr lang="ru">• Управление параметрами с аппаратного энкодера — использование физического
+        поворотного энкодера для настройки значений в патче (громкость, срез фильтра, темп,
+        номер пресета) с естественным «бесконечным» вращением и подтверждением нажатием
+        кнопки.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Standalone instruments and installations — building a self-contained
+        Raspberry Pi device where the encoder serves as the main control element for menus,
+        navigation or parameter editing, without needing a keyboard or mouse.</tr>
+        <tr lang="ru">• Автономные инструменты и инсталляции — сборка самостоятельного устройства
+        на Raspberry Pi, где энкодер служит основным элементом управления для меню, навигации или
+        редактирования параметров, без клавиатуры и мыши.</tr>
       </par>
     </info>
     <properties>
       <!-- @btn -->
       <property name="@btn" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
         <tr lang="en">BTN GPIO pin</tr>
-        <tr lang="ru">пин BTN GPIO</tr>
+        <tr lang="ru">контакт GPIO BTN</tr>
       </property>
       <!-- @clk -->
       <property name="@clk" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
         <tr lang="en">CLK GPIO pin</tr>
-        <tr lang="ru">пин CLK GPIO</tr>
+        <tr lang="ru">контакт GPIO CLK</tr>
       </property>
       <!-- @connect -->
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
         from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0:
-        отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству. При значении 0:
+        отключается от устройства</tr>
       </property>
       <!-- @dt -->
       <property name="@dt" type="int" default="-1" access="initonly" minvalue="-1" maxvalue="127">
         <tr lang="en">DT GPIO pin</tr>
-        <tr lang="ru">пин DT GPIO</tr>
+        <tr lang="ru">контакт GPIO DT</tr>
       </property>
       <!-- @init -->
       <property name="@init" type="float" default="0" access="initonly">
@@ -73,22 +94,22 @@
       <!-- get -->
       <method name="get">
         <info>
-          <tr lang="en">request the current value to be output</tr>
-          <tr lang="ru">запросить текущее значение для вывода</tr>
+          <tr lang="en">requests the current value to be output</tr>
+          <tr lang="ru">запрашивает вывод текущего значения</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset the current value to @init</tr>
-          <tr lang="ru">сбросить текущее значение на @init</tr>
+          <tr lang="en">resets the current value to @init</tr>
+          <tr lang="ru">сбрасывает текущее значение на @init</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
-          <tr lang="en">set the current value without output</tr>
-          <tr lang="ru">установить новое текущее значение без его вывода</tr>
+          <tr lang="en">sets the current value without output</tr>
+          <tr lang="ru">устанавливает новое текущее значение без его вывода</tr>
         </info>
         <param name="VAL" type="float" required="true">
           <tr lang="en">new value</tr>
@@ -99,22 +120,22 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output the current value</tr>
-          <tr lang="ru">вывести текущее значение</tr>
+          <tr lang="en">outputs the current value</tr>
+          <tr lang="ru">выводит текущее значение</tr>
         </in>
         <in on="float">
-          <tr lang="en">set the current value and output it</tr>
-          <tr lang="ru">установить новое текущее значение и вывести его</tr>
+          <tr lang="en">sets the current value and outputs it</tr>
+          <tr lang="ru">устанавливает новое текущее значение и выводит его</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset the value to @init</tr>
-          <tr lang="ru">сбросить значение на @init</tr>
+          <tr lang="en">resets the value to @init</tr>
+          <tr lang="ru">сбрасывает значение на @init</tr>
         </in>
         <in on="float">
-          <tr lang="en">set the current value without output</tr>
-          <tr lang="ru">установить новое текущее значение без его вывода</tr>
+          <tr lang="en">sets the current value without output</tr>
+          <tr lang="ru">устанавливает новое текущее значение без его вывода</tr>
         </in>
       </inlet>
     </inlets>

@@ -5,105 +5,114 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.rpi.rotenc 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 hw.rpi.rotenc;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 270 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 When created \, the object takes exclusive ownership
 of the GPIO pins @btn \, @clk and @dt — it is *impossible* to use them
 in other objects simultaneously with this one.;
 #X obj 230 88 cnv 1 2 60 empty empty empty 17 7 0 10 -221520 -1 0;
-#X obj 50 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 245 @connect \$1;
-#X msg 69 274 @step 0.5;
-#X obj 78 303 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 153 Typical use cases:;
+#X text 250 178 • Hardware parameter control — using a physical rotary
+encoder to adjust values in a patch (volume \, filter cutoff \, tempo
+\, preset number) with a natural continuous-rotation feel and press-button
+confirmation.;
+#X text 250 248 • Standalone instruments and installations — building
+a self-contained Raspberry Pi device where the encoder serves as the
+main control element for menus \, navigation or parameter editing \,
+without needing a keyboard or mouse.;
+#X obj 50 396 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 425 @connect \$1;
+#X msg 69 454 @step 0.5;
+#X obj 78 483 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 126 303 set 50;
-#X msg 213 303 reset;
-#X obj 50 332 hw.rpi.rotenc @dt 22 @clk 23 @btn 27;
-#X obj 299 360 route btn dir;
-#X floatatom 50 389 5 0 0 0 - - -;
-#X obj 299 389 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 424 389 5 0 0 0 - - -;
-#X obj 50 432 ui.link @title 'Connection_scheme' @url
+#X msg 126 483 set 50;
+#X msg 213 483 reset;
+#X obj 50 512 hw.rpi.rotenc @dt 22 @clk 23 @btn 27;
+#X obj 299 540 route btn dir;
+#X floatatom 50 569 5 0 0 0 - - -;
+#X obj 299 569 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 424 569 5 0 0 0 - - -;
+#X obj 50 612 ui.link @title 'Connection_scheme' @url
 ceammc://img/conn_rotenc.png;
-#X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 494 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 674 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 497 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 677 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 495 @btn;
-#X text 270 495 (initonly) BTN GPIO pin. Type: int. Default value:
+#X msg 130 675 @btn;
+#X text 270 675 (initonly) BTN GPIO pin. Type: int. Default value:
 -1\. Range: [-1\..127].;
-#X obj 250 537 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 537 @clk;
-#X text 270 537 (initonly) CLK GPIO pin. Type: int. Default value:
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 717 @clk;
+#X text 270 717 (initonly) CLK GPIO pin. Type: int. Default value:
 -1\. Range: [-1\..127].;
-#X obj 250 579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 579 @dt;
-#X text 270 579 (initonly) DT GPIO pin. Type: int. Default value: -1\.
+#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 759 @dt;
+#X text 270 759 (initonly) DT GPIO pin. Type: int. Default value: -1\.
 Range: [-1\..127].;
-#X obj 250 621 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 621 @init;
-#X text 270 621 (initonly) Initial encoder value. Type: float. Default
+#X obj 250 801 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 801 @init;
+#X text 270 801 (initonly) Initial encoder value. Type: float. Default
 value: 0\.;
-#X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 663 @connect;
-#X text 270 663 When set to 1: tries to connect to the device. When
+#X obj 250 843 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 843 @connect;
+#X text 270 843 When set to 1: tries to connect to the device. When
 set to 0: disconnects from the device. Type: bool. Default value: 0\.;
-#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 720 @max;
-#X text 270 720 Maximum encoder value. Type: float. Default value:
+#X obj 250 900 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 900 @max;
+#X text 270 900 Maximum encoder value. Type: float. Default value:
 100\.;
-#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 750 @min;
-#X text 270 750 Minimum encoder value. Type: float. Default value:
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 930 @min;
+#X text 270 930 Minimum encoder value. Type: float. Default value:
 -100\.;
-#X obj 250 780 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 780 @step;
-#X text 270 780 Encoder step. Type: float. Default value: 1\.;
-#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 825 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 960 @step;
+#X text 270 960 Encoder step. Type: float. Default value: 1\.;
+#X obj 20 1000 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1005 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 826 get;
-#X text 270 826 request the current value to be output.;
-#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 861 reset;
-#X text 270 861 reset the current value to @init.;
-#X obj 250 896 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 896 set;
-#X text 270 896 set the current value without output. Arguments are:;
-#X obj 300 921 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 921 VAL: new value. Type: float.;
-#X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 969 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 970 1\.;
-#X text 170 970 bang:;
-#X text 270 970 output the current value.;
-#X text 170 995 float:;
-#X text 270 995 set the current value and output it.;
-#X text 130 1020 2\.;
-#X text 170 1020 bang:;
-#X text 270 1020 reset the value to @init.;
-#X text 170 1045 float:;
-#X text 270 1045 set the current value without output.;
-#X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1085 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 1006 get;
+#X text 270 1006 requests the current value to be output.;
+#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1041 reset;
+#X text 270 1041 resets the current value to @init.;
+#X obj 250 1076 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1076 set;
+#X text 270 1076 sets the current value without output. Arguments are:;
+#X obj 300 1101 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1101 VAL: new value. Type: float.;
+#X obj 20 1144 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1149 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1086 1\.;
-#X text 170 1086 float:;
-#X text 270 1086 current encoder value.;
-#X text 130 1106 2\.;
-#X msg 170 1106 dir;
-#X text 270 1106 rotation direction: -1 or 1\.;
-#X msg 170 1131 btn;
-#X text 270 1131 button state: 0 or 1\.;
+#X text 130 1150 1\.;
+#X text 170 1150 bang:;
+#X text 270 1150 outputs the current value.;
+#X text 170 1175 float:;
+#X text 270 1175 sets the current value and outputs it.;
+#X text 130 1200 2\.;
+#X text 170 1200 bang:;
+#X text 270 1200 resets the value to @init.;
+#X text 170 1225 float:;
+#X text 270 1225 sets the current value without output.;
+#X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1265 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1266 1\.;
+#X text 170 1266 float:;
+#X text 270 1266 current encoder value.;
+#X text 130 1286 2\.;
+#X msg 170 1286 dir;
+#X text 270 1286 rotation direction: -1 or 1\.;
+#X msg 170 1311 btn;
+#X text 270 1311 button state: 0 or 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1181 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1184 library: ceammc v0.9.8;
-#N canvas 10 1203 400 290 info 0;
+#X obj 1 1361 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1364 library: ceammc v0.9.8;
+#N canvas 10 1383 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,14 +136,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1203 pd info;
-#X connect 7 0 8 0;
-#X connect 8 0 13 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 1 14 0;
-#X connect 13 0 15 0;
+#X restore 10 1383 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 16 0;
+#X connect 13 0 16 0;
 #X connect 14 0 16 0;
-#X connect 14 1 17 0;
-#X connect 9 0 13 0;
+#X connect 15 0 16 0;
+#X connect 16 1 17 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 17 1 20 0;
+#X connect 12 0 16 0;
