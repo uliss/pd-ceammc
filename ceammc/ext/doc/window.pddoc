@@ -21,126 +21,156 @@
         <alias>win</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the value of a window function at a given index, or outputs all
+        window values at once. The window type and size are set by the TYPE and SIZE arguments or
+        by the @type and @size properties.</tr>
+        <tr lang="ru">Вычисляет значение оконной функции по заданному индексу или выводит сразу
+        все значения окна. Тип и размер окна задаются аргументами TYPE и SIZE или свойствами
+        @type и @size.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Windowing for spectral analysis — preparing data for FFT by multiplying the
+        signal with a window shape (Hann, Hamming, Blackman, etc.), so that spectral leakage is
+        reduced.</tr>
+        <tr lang="ru">• Оконная обработка для спектрального анализа — подготовка данных для БПФ
+        путём умножения сигнала на оконную функцию (Hann, Hamming, Blackman и др.), чтобы
+        уменьшить растекание спектра.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Envelope shapes and fades — using the output of the object as a smooth
+        amplitude envelope (for example, for grain windows in a granulator, crossfades or
+        micro-fades).</tr>
+        <tr lang="ru">• Формы огибающих и сглаживания — использование выхода объекта как плавной
+        амплитудной огибающей (например, для окон гранул в грануляторе, кроссфейдов или
+        микро-фейдов).</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="TYPE" type="symbol">
         <tr lang="en">window name: blackman, blackman-harris, flattop, gauss, hamming, hann,
         nuttall, rect, sine, tri, welch</tr>
-        <tr lang="ru" finished="false">название окна: blackman, blackman-harris, flattop, gauss,
-        hamming, hann,nuttall, rect, sine, tri, welch</tr>
+        <tr lang="ru">имя окна: blackman, blackman-harris, flattop, gauss, hamming, hann, nuttall,
+        rect, sine, tri, welch</tr>
       </argument>
       <argument name="SIZE" type="int" minvalue="16" units="sample">
         <tr lang="en">window size</tr>
-        <tr lang="ru" finished="false">размер окна</tr>
+        <tr lang="ru">размер окна</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @size -->
       <property name="@size" type="int" minvalue="16" default="512" units="sample">
         <tr lang="en">window size</tr>
-        <tr lang="ru" finished="false">размер окна</tr>
+        <tr lang="ru">размер окна</tr>
       </property>
       <!-- @type -->
       <property name="@type" type="symbol" default="hann">
-        <tr lang="en">window type. See argument description</tr>
-        <tr lang="ru" finished="false">Тип окна. См. описание аргумента</tr>
+        <tr lang="en">window type. See the argument description</tr>
+        <tr lang="ru">тип окна. См. описание аргумента</tr>
       </property>
     </properties>
     <methods>
       <!-- blackman -->
       <method name="blackman">
         <info>
-          <tr lang="en">Sets Blackman window type</tr>
-          <tr lang="ru" finished="false">Тип окна Blackman</tr>
+          <tr lang="en">sets the Blackman window type</tr>
+          <tr lang="ru">устанавливает тип окна Блэкмана</tr>
         </info>
       </method>
       <!-- blackman-harris -->
       <method name="blackman-harris">
         <info>
-          <tr lang="en">Sets Blackman-Harris window type</tr>
-          <tr lang="ru" finished="false">Тип окна Blackman-Harris</tr>
+          <tr lang="en">sets the Blackman-Harris window type</tr>
+          <tr lang="ru">устанавливает тип окна Блэкмана — Харриса</tr>
         </info>
       </method>
       <!-- flattop -->
       <method name="flattop">
         <info>
-          <tr lang="en">Sets Flattop window type</tr>
-          <tr lang="ru" finished="false">Тип окна Flattop</tr>
+          <tr lang="en">sets the FlatTop window type</tr>
+          <tr lang="ru">устанавливает тип окна FlatTop</tr>
         </info>
       </method>
       <!-- gauss -->
       <method name="gauss">
         <info>
-          <tr lang="en">Sets Gauss window type</tr>
-          <tr lang="ru" finished="false">Тип окна Gauss</tr>
+          <tr lang="en">sets the Gauss window type</tr>
+          <tr lang="ru">устанавливает тип окна Гаусса</tr>
         </info>
       </method>
       <!-- hamming -->
       <method name="hamming">
         <info>
-          <tr lang="en">Sets Hamming window type</tr>
-          <tr lang="ru" finished="false">Тип окна Hamming</tr>
+          <tr lang="en">sets the Hamming window type</tr>
+          <tr lang="ru">устанавливает тип окна Хэмминга</tr>
         </info>
       </method>
       <!-- hann -->
       <method name="hann">
         <info>
-          <tr lang="en">Sets Hann window type</tr>
-          <tr lang="ru" finished="false">Тип окна Hann</tr>
+          <tr lang="en">sets the Hann window type</tr>
+          <tr lang="ru">устанавливает тип окна Ханна</tr>
         </info>
       </method>
       <!-- nuttall -->
       <method name="nuttall">
         <info>
-          <tr lang="en">Sets Nuttall window type</tr>
-          <tr lang="ru" finished="false">Тип окна Nuttall</tr>
+          <tr lang="en">sets the Nuttall window type</tr>
+          <tr lang="ru">устанавливает тип окна Наттолла</tr>
         </info>
       </method>
       <!-- rect -->
       <method name="rect">
         <info>
-          <tr lang="en">Sets Rectangle window type</tr>
-          <tr lang="ru" finished="false">Тип окна прямоугольника</tr>
+          <tr lang="en">sets the Rectangular window type</tr>
+          <tr lang="ru">устанавливает тип прямоугольного окна</tr>
         </info>
       </method>
       <!-- sine -->
       <method name="sine">
         <info>
-          <tr lang="en">Sets Sine window type</tr>
-          <tr lang="ru" finished="false">Тип окна Sine</tr>
+          <tr lang="en">sets the Sine window type</tr>
+          <tr lang="ru">устанавливает тип синусоидального окна</tr>
         </info>
       </method>
       <!-- tri -->
       <method name="tri">
         <info>
-          <tr lang="en">Sets Triangle window type</tr>
-          <tr lang="ru" finished="false">Тип окна треугольника</tr>
+          <tr lang="en">sets the Triangle window type</tr>
+          <tr lang="ru">устанавливает тип треугольного окна</tr>
         </info>
       </method>
       <!-- welch -->
       <method name="welch">
         <info>
-          <tr lang="en">Sets Welch window type</tr>
-          <tr lang="ru" finished="false">Тип окна Welch</tr>
+          <tr lang="en">sets the Welch window type</tr>
+          <tr lang="ru">устанавливает тип окна Уэлча</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output all window values as list</tr>
-          <tr lang="ru" finished="false">выводить все значения окна в виде списка</tr>
+          <tr lang="en">outputs all window values as a list</tr>
+          <tr lang="ru">выводит все значения окна в виде списка</tr>
         </in>
         <in on="float">
-          <tr lang="en">window index position: from 0 to SIZE-1. Output 0 if invalid index
+          <tr lang="en">window index position, from 0 to SIZE−1. Outputs 0 if an invalid index is
           given</tr>
-          <tr lang="ru" finished="false">Положение оконного индекса: от 0 до SIZE-1. Результат 0,
-          если приведен недействительный индекс</tr>
+          <tr lang="ru">позиция индекса окна, от 0 до SIZE−1. Выводит 0, если задан недопустимый
+          индекс</tr>
         </in>
         <in on="list">
-          <tr lang="en">pair INDEX SIZE expected. Sets windows size to SIZE. Output window value at
-          given index</tr>
-          <tr lang="ru" finished="false">Пара INDEX SIZE ожидаема. Устанавливает размер окна на
-          размер. Значение окна выхода в заданном индексе</tr>
+          <tr lang="en">pair INDEX SIZE expected. Sets the window size to SIZE and outputs the
+          window value at the given index</tr>
+          <tr lang="ru">ожидается пара INDEX SIZE. Устанавливает размер окна в SIZE и выводит
+          значение окна по заданному индексу</tr>
         </in>
       </inlet>
     </inlets>
@@ -148,7 +178,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">sample number</tr>
-          <tr lang="ru" finished="false">номер выборки</tr>
+          <tr lang="ru">номер семпла</tr>
         </out>
       </outlet>
     </outlets>
