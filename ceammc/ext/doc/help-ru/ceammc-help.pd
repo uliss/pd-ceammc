@@ -2388,7 +2388,7 @@ system.screen_size-help.pd;
 #X text 200 24696 переключатель на временной шкале;
 #X obj 30 24724 ui.link @title [tl.transport] @url
 tl.transport-help.pd;
-#X text 200 24721 управление временной шкалой;
+#X text 200 24721 управление транспортной шкалой;
 #X obj 588 24578 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 593 24578 работа с таймлайном;

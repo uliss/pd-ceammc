@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">timeline transport control</tr>
-        <tr lang="ru">управление временной шкалой</tr>
+        <tr lang="ru">управление транспортной шкалой</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,16 +20,29 @@
         <see view="link">tl.cue</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Transport control for the timeline system. Receives a cue index and, together
+        with the associated [tl.cue] objects and the global transport object, determines which
+        section of the timeline is currently active. Other timeline objects such as [tl.bang] and
+        [tl.toggle] check this active cue to decide whether they should fire.</tr>
+        <tr lang="ru">Управление транспортом для системы временной шкалы. Принимает индекс метки и
+        вместе со связанными объектами [tl.cue] и глобальным объектом transport определяет, какая
+        секция временной шкалы активна в данный момент. Другие объекты временной шкалы, например
+        [tl.bang] и [tl.toggle], проверяют эту активную метку, чтобы решить, должны ли они
+        срабатывать.</tr>
+      </par>
+    </info>
     <methods>
       <!-- cue -->
       <method name="cue">
         <info>
-          <tr lang="en">sets cue index</tr>
-          <tr lang="ru" finished="false">Устанавливает индекс Cue</tr>
+          <tr lang="en">sets the cue index</tr>
+          <tr lang="ru">устанавливает индекс метки</tr>
         </info>
         <param name="N" type="int" minvalue="0">
           <tr lang="en">cue index</tr>
-          <tr lang="ru" finished="false">индекс сигнала</tr>
+          <tr lang="ru">индекс метки</tr>
         </param>
       </method>
     </methods>
@@ -37,7 +50,7 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>

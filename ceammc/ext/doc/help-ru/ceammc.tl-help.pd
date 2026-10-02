@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
 #X text 220 192 переключатель на временной шкале;
 #X obj 30 220 ui.link @title [tl.transport] @url tl.transport-help.pd;
-#X text 220 217 управление временной шкалой;
+#X text 220 217 управление транспортной шкалой;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::tl 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -1314,7 +1314,7 @@ ceammc/timeline	timeline event scheduler / планировщик событий
 timeline	timeline event scheduler / планировщик событий временной шкалы
 tl.toggle	timeline toggle / переключатель на временной шкале
 tl.t	timeline toggle / переключатель на временной шкале
-tl.transport	timeline transport control / управление временной шкалой
+tl.transport	timeline transport control / управление транспортной шкалой
 ui.aview	array view with cursor and range selection / отображение массива с курсором и выбором диапазона
 ui.bang	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
 ui.b	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
