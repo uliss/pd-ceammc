@@ -1,283 +1,301 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 452 50 cnv 1 313 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 457 50 управление устройствами Motu AVB по HTTP;
+#X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 373 50 управление устройствами MOTU AVB через HTTP-запросы;
 #X obj 1 1 cnv 5 765 40 empty empty hw.motu.avb 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 hw.motu.avb;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Only basic support at this moment;
-#X text 50 171 Enter device ID;
-#X symbolatom 50 200 20 0 0 0 - - -;
-#X msg 50 229 @dev \$1;
-#X msg 146 229 @dev 0001f2fffe00XXXX;
-#X obj 78 258 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 222 258 ui.hsl -60 0 @show_value 1;
-#X msg 78 287 phantom 0 \$1;
-#X msg 222 287 main_gain \$1;
-#X obj 50 330 hw.motu.avb;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 385 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Примечание: в настоящее время доступна только базовая
+поддержка.;
+#X text 240 123 Типичные сценарии применения:;
+#X text 250 148 • Удалённое управление аудиоинтерфейсом AVB — изменение
+усиления \, фантомного питания \, маршрутизации и имён каналов на устройстве
+MOTU AVB из патча Pd \, без использования веб-интерфейса.;
+#X text 50 281 Enter device ID;
+#X symbolatom 50 310 20 0 0 0 - - -;
+#X msg 50 339 @dev \$1;
+#X msg 146 339 @dev 0001f2fffe00XXXX;
+#X obj 78 368 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 222 368 ui.hsl -60 0 @show_value 1;
+#X msg 78 397 phantom 0 \$1;
+#X msg 222 397 main_gain \$1;
+#X obj 50 440 hw.motu.avb;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 495 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 388 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 386 1\.;
-#X text 170 386 symbol;
-#X obj 268 387 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 386 DEV: идентификатор устройства Motu. Тип: symbol.;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 426 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 496 1\.;
+#X text 170 496 symbol;
+#X obj 268 497 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 496 DEV: идентификатор устройства MOTU. Тип: symbol.;
+#X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 536 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 429 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 539 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 427 @dev;
-#X text 270 427 Идентификатор устройства Motu. Тип: symbol.;
-#X obj 250 457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 457 @host;
-#X text 270 457 Motu HTTP-хост. Тип: symbol. Значение по умолчанию:
+#X msg 130 537 @dev;
+#X text 270 537 Идентификатор устройства MOTU. Тип: symbol.;
+#X obj 250 567 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 567 @host;
+#X text 270 567 HTTP-хост MOTU. Тип: symbol. Значение по умолчанию:
 localhost.;
-#X obj 250 499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 499 @port;
-#X text 270 499 Motu HTTP порт. Тип: int. Значение по умолчанию: 1280\.;
-#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 544 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 609 @port;
+#X text 270 609 HTTP-порт MOTU. Тип: int. Значение по умолчанию: 1280\.;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 545 comp_input_name;
-#X text 270 545 set input from computer channel name. Аргументы:;
-#X obj 300 570 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 570 CHAN: channel (zero-based). Тип: int. Минимальное значение:
-0\.;
-#X obj 300 608 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 608 NAME: channel name. Тип: symbol.;
-#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 641 guitar->comp;
-#X text 270 641 set guitar input to computer routing. Аргументы:;
-#X obj 300 666 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 666 INCH: guitar input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 704 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 704 OUTCH: computer input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 742 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 742 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 790 guitar->mix;
-#X text 270 790 set guitar input to mixer routing. Аргументы:;
-#X obj 300 815 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 815 INCH: guitar input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 853 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 853 OUTCH: mixer input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 891 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 891 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 939 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 939 guitar->output;
-#X text 270 939 set guitar input to analogue output routing. Аргументы:;
-#X obj 300 964 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 964 INCH: guitar input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 1002 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1002 OUTCH: analogue output channel (zero-based). Тип:
-int. Минимальное значение: 0\.;
-#X obj 300 1040 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1040 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1088 guitar_gain;
-#X text 270 1088 set guitar gain. Аргументы:;
-#X obj 300 1113 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1113 CHAN: guitar channel (zero-based). Тип: int. Минимальное
+#X msg 130 655 comp_input_name;
+#X text 270 655 устанавливает имя входного канала со стороны компьютера.
+Аргументы:;
+#X obj 300 695 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 695 CHAN: канал (нумерация с нуля). Тип: int. Минимальное
 значение: 0\.;
-#X obj 300 1151 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1151 DB: value in decibel. Тип: float. Диапазон: [0\..60].
+#X obj 300 733 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 733 NAME: имя канала. Тип: symbol.;
+#X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 766 guitar->comp;
+#X text 270 766 устанавливает маршрутизацию гитарного входа на компьютер.
+Аргументы:;
+#X obj 300 806 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 806 INCH: гитарный входной канал (нумерация с нуля). Тип:
+int. Минимальное значение: 0\.;
+#X obj 300 844 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 844 OUTCH: входной канал компьютера (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 882 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 882 STATE: включить или отключить маршрутизацию. Тип: int.
+Разрешённые значения: 0 \, 1\.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 930 guitar->mix;
+#X text 270 930 устанавливает маршрутизацию гитарного входа на микшер.
+Аргументы:;
+#X obj 300 970 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 970 INCH: гитарный входной канал (нумерация с нуля). Тип:
+int. Минимальное значение: 0\.;
+#X obj 300 1008 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1008 OUTCH: входной канал микшера (нумерация с нуля). Тип:
+int. Минимальное значение: 0\.;
+#X obj 300 1046 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1046 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1094 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1094 guitar->output;
+#X text 270 1094 устанавливает маршрутизацию гитарного входа на аналоговый
+выход. Аргументы:;
+#X obj 300 1134 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1134 INCH: гитарный входной канал (нумерация с нуля). Тип:
+int. Минимальное значение: 0\.;
+#X obj 300 1172 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1172 OUTCH: аналоговый выходной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 1210 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1210 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1258 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1258 guitar_gain;
+#X text 270 1258 устанавливает усиление гитары. Аргументы:;
+#X obj 300 1283 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1283 CHAN: гитарный канал (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 1321 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1321 DB: значение в децибелах. Тип: float. Диапазон: [0\..60].
 Единицы: 'db'.;
-#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1199 guitar_name;
-#X text 270 1199 set guitar channel name. Аргументы:;
-#X obj 300 1224 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1224 CHAN: channel (zero-based). Тип: int. Минимальное
+#X obj 250 1369 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1369 guitar_name;
+#X text 270 1369 устанавливает имя гитарного канала. Аргументы:;
+#X obj 300 1394 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1394 CHAN: канал (нумерация с нуля). Тип: int. Минимальное
 значение: 0\.;
-#X obj 300 1262 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1262 NAME: channel name. Тип: symbol.;
-#X obj 250 1295 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1295 guitar_phase;
-#X text 270 1295 set guitar phase invert. Аргументы:;
-#X obj 300 1320 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1320 CHAN: guitar channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 1358 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1358 VAL: state. Тип: int. Разрешённые значения: 0 \, 1\.;
-#X obj 250 1391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1391 input->comp;
-#X text 270 1391 set analogue input to computer routing. Аргументы:;
-#X obj 300 1416 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1416 INCH: analogue input channel (zero-based). Тип: int.
+#X obj 300 1432 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1432 NAME: имя канала. Тип: symbol.;
+#X obj 250 1465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1465 guitar_phase;
+#X text 270 1465 устанавливает инверсию фазы гитары. Аргументы:;
+#X obj 300 1490 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1490 CHAN: гитарный канал (нумерация с нуля). Тип: int.
 Минимальное значение: 0\.;
-#X obj 300 1454 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1454 OUTCH: computer input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 1492 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1492 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 1540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1540 input->mix;
-#X text 270 1540 set analogue input to mixer routing. Аргументы:;
-#X obj 300 1565 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1565 INCH: analogue input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 1603 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1603 OUTCH: mixer input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 1641 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1641 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 1689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1689 input->output;
-#X text 270 1689 set analogue input to analog output routing. Аргументы:;
-#X obj 300 1714 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1714 INCH: analogue input channel (zero-based). Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 1752 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1752 OUTCH: analogue output channel (zero-based). Тип:
+#X obj 300 1528 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1528 VAL: состояние. Тип: int. Разрешённые значения: 0
+\, 1\.;
+#X obj 250 1561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1561 input->comp;
+#X text 270 1561 устанавливает маршрутизацию аналогового входа на компьютер.
+Аргументы:;
+#X obj 300 1601 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1601 INCH: аналоговый входной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 1639 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1639 OUTCH: входной канал компьютера (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 1677 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1677 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1725 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1725 input->mix;
+#X text 270 1725 устанавливает маршрутизацию аналогового входа на микшер.
+Аргументы:;
+#X obj 300 1765 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1765 INCH: аналоговый входной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 1803 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1803 OUTCH: входной канал микшера (нумерация с нуля). Тип:
 int. Минимальное значение: 0\.;
-#X obj 300 1790 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1790 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 1838 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1838 input_gain;
-#X text 270 1838 set input gain. Аргументы:;
-#X obj 300 1863 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1863 CHAN: input channel (zero-based). Тип: int. Минимальное
+#X obj 300 1841 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1841 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 1889 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1889 input->output;
+#X text 270 1889 устанавливает маршрутизацию аналогового входа на аналоговый
+выход. Аргументы:;
+#X obj 300 1929 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1929 INCH: аналоговый входной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 1967 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1967 OUTCH: аналоговый выходной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 2005 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2005 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 2053 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2053 input_gain;
+#X text 270 2053 устанавливает усиление входа. Аргументы:;
+#X obj 300 2078 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2078 CHAN: входной канал (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 2116 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2116 DB: значение в децибелах. Тип: float. Единицы: 'db'.;
+#X obj 250 2149 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2149 input_name;
+#X text 270 2149 устанавливает имя аналогового входного канала. Аргументы:;
+#X obj 300 2174 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2174 CHAN: канал (нумерация с нуля). Тип: int. Минимальное
 значение: 0\.;
-#X obj 300 1901 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1901 DB: value in decibel. Тип: float. Единицы: 'db'.;
-#X obj 250 1934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1934 input_name;
-#X text 270 1934 set analogue input channel name. Аргументы:;
-#X obj 300 1959 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1959 CHAN: channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 1997 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1997 NAME: channel name. Тип: symbol.;
-#X obj 250 2030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2030 main_gain;
-#X text 270 2030 set main output gain. Аргументы:;
-#X obj 300 2055 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2055 DB: value in decibel. Тип: float. Диапазон: [-127\..0].
+#X obj 300 2212 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2212 NAME: имя канала. Тип: symbol.;
+#X obj 250 2245 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2245 main_gain;
+#X text 270 2245 устанавливает усиление основного выхода. Аргументы:;
+#X obj 300 2270 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2270 DB: значение в децибелах. Тип: float. Диапазон: [-127\..0].
 Единицы: 'db'.;
-#X obj 250 2103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2103 mic->comp;
-#X text 270 2103 set microphone input to computer routing. Аргументы:;
-#X obj 300 2128 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2128 INCH: microphone input channel (zero-based). Тип:
-int. Минимальное значение: 0\.;
-#X obj 300 2166 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2166 OUTCH: computer channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 2204 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2204 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 2252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2252 mic->mix;
-#X text 270 2252 set microphone input to mixer routing. Аргументы:;
-#X obj 300 2277 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2277 INCH: microphone input channel (zero-based). Тип:
-int. Минимальное значение: 0\.;
-#X obj 300 2315 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2315 OUTCH: mixer input channel (zero-based). Тип: int.
+#X obj 250 2318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2318 mic->comp;
+#X text 270 2318 устанавливает маршрутизацию микрофонного входа на
+компьютер. Аргументы:;
+#X obj 300 2358 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2358 INCH: входной канал микрофона (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 2396 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2396 OUTCH: канал компьютера (нумерация с нуля). Тип: int.
 Минимальное значение: 0\.;
-#X obj 300 2353 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2353 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 2401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2401 mic->output;
-#X text 270 2401 set microphone input to analog output routing. Аргументы:;
-#X obj 300 2426 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2426 INCH: microphone input channel (zero-based). Тип:
+#X obj 300 2434 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2434 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 2482 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2482 mic->mix;
+#X text 270 2482 устанавливает маршрутизацию микрофонного входа на
+микшер. Аргументы:;
+#X obj 300 2522 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2522 INCH: входной канал микрофона (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 2560 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2560 OUTCH: входной канал микшера (нумерация с нуля). Тип:
 int. Минимальное значение: 0\.;
-#X obj 300 2464 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2464 OUTCH: analogue output channel (zero-based). Тип:
-int. Минимальное значение: 0\.;
-#X obj 300 2502 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2502 STATE: enable/disable routing. Тип: int. Разрешённые
-значения: 0 \, 1\.;
-#X obj 250 2550 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2550 mic_gain;
-#X text 270 2550 set mic gain. Аргументы:;
-#X obj 300 2575 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2575 CHAN: mic channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 2613 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2613 DB: value in decibel. Тип: float. Диапазон: [0\..60].
-Единицы: 'db'.;
-#X obj 250 2661 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2661 mic_name;
-#X text 270 2661 set microphone channel name. Аргументы:;
+#X obj 300 2598 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2598 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 2646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2646 mic->output;
+#X text 270 2646 устанавливает маршрутизацию микрофонного входа на
+аналоговый выход. Аргументы:;
 #X obj 300 2686 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2686 CHAN: channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 2724 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2724 NAME: channel name. Тип: symbol.;
-#X obj 250 2757 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2757 mic_pad;
-#X text 270 2757 set mic -20db padding. Аргументы:;
-#X obj 300 2782 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2782 CHAN: mic channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 2820 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2820 VAL: state. Тип: int. Разрешённые значения: 0 \, 1\.;
-#X obj 250 2853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2853 mic_phase;
-#X text 270 2853 set mic phase invert. Аргументы:;
-#X obj 300 2878 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2878 CHAN: mic channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 2916 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2916 VAL: state. Тип: int. Разрешённые значения: 0 \, 1\.;
-#X obj 250 2949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2949 output_gain;
-#X text 270 2949 set input gain. Аргументы:;
-#X obj 300 2974 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2974 CHAN: input channel (zero-based). Тип: int. Минимальное
-значение: 0\.;
-#X obj 300 3012 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3012 DB: value in decibel. Тип: float. Единицы: 'db'.;
-#X obj 250 3045 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3045 phantom;
-#X text 270 3045 turns phantom on/off. Аргументы:;
-#X obj 300 3070 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3070 CHAN: phantom channel. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3093 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3093 VAL: phantom state. Тип: int. Разрешённые значения:
-0 \, 1\.;
-#X obj 250 3126 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3126 phones_gain;
-#X text 270 3126 set phones output gain. Аргументы:;
-#X obj 300 3151 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3151 DB: value in decibel. Тип: float. Диапазон: [-127\..0].
+#X text 300 2686 INCH: входной канал микрофона (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 2724 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2724 OUTCH: аналоговый выходной канал (нумерация с нуля).
+Тип: int. Минимальное значение: 0\.;
+#X obj 300 2762 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2762 STATE: включить или отключить маршрутизацию. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 250 2810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2810 mic_gain;
+#X text 270 2810 устанавливает усиление микрофона. Аргументы:;
+#X obj 300 2835 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2835 CHAN: канал микрофона (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 2873 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2873 DB: значение в децибелах. Тип: float. Диапазон: [0\..60].
 Единицы: 'db'.;
-#X obj 20 3209 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 3214 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 2921 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2921 mic_name;
+#X text 270 2921 устанавливает имя микрофонного канала. Аргументы:;
+#X obj 300 2946 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2946 CHAN: канал (нумерация с нуля). Тип: int. Минимальное
+значение: 0\.;
+#X obj 300 2984 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2984 NAME: имя канала. Тип: symbol.;
+#X obj 250 3017 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3017 mic_pad;
+#X text 270 3017 включает ослабление микрофона −20 дБ. Аргументы:;
+#X obj 300 3042 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3042 CHAN: канал микрофона (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 3080 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3080 VAL: состояние. Тип: int. Разрешённые значения: 0
+\, 1\.;
+#X obj 250 3113 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3113 mic_phase;
+#X text 270 3113 устанавливает инверсию фазы микрофона. Аргументы:;
+#X obj 300 3138 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3138 CHAN: канал микрофона (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 3176 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3176 VAL: состояние. Тип: int. Разрешённые значения: 0
+\, 1\.;
+#X obj 250 3209 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3209 output_gain;
+#X text 270 3209 устанавливает усиление выхода. Аргументы:;
+#X obj 300 3234 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3234 CHAN: выходной канал (нумерация с нуля). Тип: int.
+Минимальное значение: 0\.;
+#X obj 300 3272 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3272 DB: значение в децибелах. Тип: float. Единицы: 'db'.;
+#X obj 250 3305 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3305 phantom;
+#X text 270 3305 включает или выключает фантомное питание. Аргументы:;
+#X obj 300 3330 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3330 CHAN: канал фантомного питания. Тип: int. Минимальное
+значение: 0\.;
+#X obj 300 3368 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3368 VAL: состояние фантомного питания. Тип: int. Разрешённые
+значения: 0 \, 1\.;
+#X obj 250 3416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3416 phones_gain;
+#X text 270 3416 устанавливает усиление выхода на наушники. Аргументы:;
+#X obj 300 3441 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3441 DB: значение в децибелах. Тип: float. Диапазон: [-127\..0].
+Единицы: 'db'.;
+#X obj 20 3499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 3504 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 3215 1\.;
-#X text 270 3215 input.;
-#X obj 20 3250 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 3255 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 3505 1\.;
+#X text 270 3505 вход.;
+#X obj 20 3540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 3545 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 3256 1\.;
-#X text 270 3256 properties output.;
+#X text 130 3546 1\.;
+#X text 270 3546 вывод свойств.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 3306 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3309 библиотека: ceammc v0.9.8;
-#N canvas 10 3328 400 290 info 0;
+#X obj 1 3596 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3599 библиотека: ceammc v0.9.8;
+#N canvas 10 3618 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -301,11 +319,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 3328 pd info;
-#X connect 7 0 8 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 8 0 14 0;
+#X restore 10 3618 pd info;
+#X connect 9 0 10 0;
 #X connect 12 0 14 0;
-#X connect 13 0 14 0;
-#X connect 9 0 14 0;
+#X connect 13 0 15 0;
+#X connect 10 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 0;
+#X connect 11 0 16 0;

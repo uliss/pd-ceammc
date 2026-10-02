@@ -950,7 +950,7 @@ hw.apple_sms-help.pd;
 hw.kbd_light-help.pd;
 #X text 200 10039 управление подсветкой клавиатуры на некоторых устройствах;
 #X obj 30 10067 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
-#X text 200 10064 управление устройствами Motu AVB по HTTP;
+#X text 200 10064 управление устройствами MOTU AVB через HTTP-запросы;
 #X obj 30 10092 ui.link @title [hw.printer] @url hw.printer-help.pd;
 #X text 200 10089 базовая поддержка печати документов;
 #X obj 30 10117 ui.link @title [hw.rpi.adc.ads1115] @url

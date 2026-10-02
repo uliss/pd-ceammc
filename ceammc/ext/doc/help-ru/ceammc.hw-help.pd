@@ -18,7 +18,7 @@
 #X obj 30 260 ui.link @title [hw.kbd_light] @url hw.kbd_light-help.pd;
 #X text 220 257 управление подсветкой клавиатуры на некоторых устройствах;
 #X obj 30 285 ui.link @title [hw.motu.avb] @url hw.motu.avb-help.pd;
-#X text 220 282 управление устройствами Motu AVB по HTTP;
+#X text 220 282 управление устройствами MOTU AVB через HTTP-запросы;
 #X obj 30 310 ui.link @title [hw.printer] @url hw.printer-help.pd;
 #X text 220 307 базовая поддержка печати документов;
 #X obj 30 335 ui.link @title [hw.rpi.adc.ads1115] @url
