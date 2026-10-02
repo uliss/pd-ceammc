@@ -11,135 +11,143 @@
 [hw.rpi.display.lcd2004] @url hw.rpi.display.hd44780-help.pd;
 #X restore 483 11 pd aliases;
 #X obj 580 11 hw.rpi.display.hd44780;
-#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 310 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Note: the display can be set to output text in single-line
 mode.;
 #X obj 230 88 cnv 1 2 30 empty empty empty 17 7 0 10 -158925 -1 0;
-#X text 240 123 Attention: for some displays \, a 3.3V power supply
-may be insufficient: their backlight lights up \, but the characters
-are not displayed. Check the information for the specific model before
+#X text 240 123 Attention: for some displays \, a 3.3 V power supply
+may be insufficient: their backlight lights up \, but characters are
+not displayed. Check the information for the specific model before
 connecting.;
 #X obj 230 128 cnv 1 2 60 empty empty empty 17 7 0 10 -260289 -1 0;
-#X obj 50 256 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 285 @connect \$1;
-#X msg 232 285 clear;
-#X obj 88 314 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 232 314 cursor_pos 0 0;
-#X msg 88 343 backlight \$1;
-#X obj 59 372 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 232 372 cursor_pos 1 0;
-#X msg 424 372 move_display 1;
-#X msg 59 400 cursor_on \$1;
-#X msg 232 400 move_cursor 1;
-#X msg 424 400 move_display -1;
-#X obj 59 429 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 232 429 move_cursor -1;
-#X msg 424 429 list Some Information!;
-#X msg 59 458 cursor_blink \$1;
-#X listbox 424 458 20 0 0 0 - - -;
-#X obj 424 487 msg write;
-#X obj 50 544 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto
+#X text 240 193 Typical use cases:;
+#X text 250 218 • Status display for a patch — showing the current
+state of a patch (tempo \, mode \, selected preset \, active note)
+on a compact LCD \, so that it can be read without a computer screen.;
+#X text 250 288 • Standalone hardware instruments — building a self-contained
+instrument or controller based on Raspberry Pi \, where the display
+shows parameters and menus for navigation through the patch \, using
+cursor and backlight control.;
+#X obj 50 436 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 465 @connect \$1;
+#X msg 232 465 clear;
+#X obj 88 494 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 494 cursor_pos 0 0;
+#X msg 88 523 backlight \$1;
+#X obj 59 552 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 552 cursor_pos 1 0;
+#X msg 424 552 move_display 1;
+#X msg 59 580 cursor_on \$1;
+#X msg 232 580 move_cursor 1;
+#X msg 424 580 move_display -1;
+#X obj 59 609 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 232 609 move_cursor -1;
+#X msg 424 609 list Some Information!;
+#X msg 59 638 cursor_blink \$1;
+#X listbox 424 638 20 0 0 0 - - -;
+#X obj 424 667 msg write;
+#X obj 50 724 hw.rpi.display.hd44780 @i2c_bus default @i2c_addr auto
 @rows 2;
-#X obj 50 602 ui.link @title 'Connection_Scheme' @url
+#X obj 50 782 ui.link @title 'Connection_Scheme' @url
 ceammc://img/conn_lcd1602.png;
-#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 664 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 844 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 667 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 847 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 665 @i2c_addr;
-#X text 270 665 (initonly) I²C address. The values 'default' (for addr
-0x27) and 'alt' (for addr 0x3f) are also accepted. Type: int. Default
+#X msg 130 845 @i2c_addr;
+#X text 270 845 (initonly) I²C address. The values 'default' (for address
+0x27) and 'alt' (for address 0x3f) are also accepted. Type: int. Default
 value: -1\. Range: [-4\..119].;
-#X obj 250 722 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 722 @i2c_bus;
-#X text 270 722 (initonly) I²C bus. Type: atom. Default value: none.
+#X obj 250 902 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 902 @i2c_bus;
+#X text 270 902 (initonly) I²C bus. Type: atom. Default value: none.
 Allowed values: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \, default \, none.;
-#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 764 @rows;
-#X text 270 764 (initonly) Number of display lines. Type: int. Default
+#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 944 @rows;
+#X text 270 944 (initonly) Number of display lines. Type: int. Default
 value: 1\. Allowed values: 1 \, 2 \, 4\.;
-#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 821 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 996 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1001 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 822 backlight;
-#X text 270 822 turn on/off the display backlight. Arguments are:;
-#X obj 300 847 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 847 STATE: new state. Type: bool.;
-#X obj 250 880 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 880 char;
-#X text 270 880 write a character to the display and move the cursor
+#X msg 130 1002 backlight;
+#X text 270 1002 turns the display backlight on or off. Arguments are:;
+#X obj 300 1027 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1027 STATE: new state. Type: bool.;
+#X obj 250 1060 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1060 char;
+#X text 270 1060 writes a character to the display and moves the cursor
 to the next position. Arguments are:;
-#X obj 300 920 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 920 CHAR: character code. Type: int. Range: [0\..255].;
-#X obj 250 953 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 953 clear;
-#X text 270 953 clear all display data and set cursor position to 0
-\, 0\.;
-#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 988 clear_line;
-#X text 270 988 clear only the specified line. Arguments are:;
-#X obj 300 1013 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1013 LINE: line index. Type: int. Range: [0\..3].;
-#X obj 250 1046 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1046 cursor_blink;
-#X text 270 1046 turn on/off cursor blinking. Arguments are:;
-#X obj 300 1071 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1071 STATE: new state. Type: bool.;
-#X obj 250 1104 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1104 cursor_on;
-#X text 270 1104 turn on/off the display cursor. Arguments are:;
-#X obj 300 1129 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1129 STATE: new state. Type: bool.;
-#X obj 250 1162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1162 cursor_pos;
-#X text 270 1162 set the cursor position. Arguments are:;
-#X obj 300 1187 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1187 LINE: cursor line. Type: int. Min value: 0\.;
-#X obj 300 1210 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1210 COL: position of the character in the line. Type:
+#X obj 300 1100 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1100 CHAR: character code. Type: int. Range: [0\..255].;
+#X obj 250 1133 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1133 clear;
+#X text 270 1133 clears all display data and sets the cursor position
+to 0 \, 0\.;
+#X obj 250 1183 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1183 clear_line;
+#X text 270 1183 clears only the specified line. Arguments are:;
+#X obj 300 1208 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1208 LINE: line index. Type: int. Range: [0\..3].;
+#X obj 250 1241 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1241 cursor_blink;
+#X text 270 1241 turns cursor blinking on or off. Arguments are:;
+#X obj 300 1266 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1266 STATE: new state. Type: bool.;
+#X obj 250 1299 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1299 cursor_on;
+#X text 270 1299 turns the display cursor on or off. Arguments are:;
+#X obj 300 1324 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1324 STATE: new state. Type: bool.;
+#X obj 250 1357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1357 cursor_pos;
+#X text 270 1357 sets the cursor position. Arguments are:;
+#X obj 300 1382 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1382 LINE: cursor line. Type: int. Min value: 0\.;
+#X obj 300 1405 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1405 COL: position of the character in the line. Type:
 int. Range: [0\..20].;
-#X obj 250 1258 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1258 font;
-#X text 270 1258 choose a font.;
-#X obj 250 1293 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1293 move_cursor;
-#X text 270 1293 move the cursor horizontally. Arguments are:;
-#X obj 300 1318 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1318 SHIFT: relative cursor shift. Negative values move
+#X obj 250 1453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1453 font;
+#X text 270 1453 chooses a font.;
+#X obj 250 1488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1488 move_cursor;
+#X text 270 1488 moves the cursor horizontally. Arguments are:;
+#X obj 300 1513 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1513 SHIFT: relative cursor shift. Negative values move
 the cursor leftwards \, positive values move it rightwards. Type: int.;
-#X obj 250 1381 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1381 move_display;
-#X text 270 1381 move the display content horizontally (without changing
+#X obj 250 1576 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1576 move_display;
+#X text 270 1576 moves the display content horizontally (without changing
 its content). Arguments are:;
-#X obj 300 1421 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1421 SHIFT: relative shift. Negative values move the content
+#X obj 300 1616 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1616 SHIFT: relative shift. Negative values move the content
 to the left \, positive values move it to the right. Type: int.;
-#X obj 250 1484 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1484 write;
-#X text 270 1484 write the message at the current cursor position and
-then move the cursor to the next position after the last written character.
-Arguments are:;
-#X obj 300 1539 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1539 MSG: value list. Type: list.;
-#X obj 20 1582 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1587 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1679 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1679 write;
+#X text 270 1679 writes the message at the current cursor position
+and then moves the cursor to the next position after the last written
+character. Arguments are:;
+#X obj 300 1734 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1734 MSG: value list. Type: list.;
+#X obj 20 1777 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1782 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1588 1\.;
-#X text 270 1588 control input.;
-#X obj 20 1623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1628 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1783 1\.;
+#X text 270 1783 control input.;
+#X obj 20 1818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1823 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1629 1\.;
-#X text 270 1629 outputs nothing.;
+#X text 130 1824 1\.;
+#X text 270 1824 outputs nothing.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 1679 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1682 library: ceammc v0.9.8;
-#N canvas 10 1701 400 290 info 0;
+#X obj 1 1874 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1877 library: ceammc v0.9.8;
+#N canvas 10 1896 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -163,22 +171,22 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1701 pd info;
-#X connect 10 0 11 0;
-#X connect 13 0 15 0;
-#X connect 16 0 19 0;
-#X connect 22 0 25 0;
-#X connect 24 0 26 0;
-#X connect 26 0 27 0;
-#X connect 15 0 28 0;
-#X connect 19 0 28 0;
+#X restore 10 1896 pd info;
+#X connect 13 0 14 0;
+#X connect 16 0 18 0;
+#X connect 19 0 22 0;
 #X connect 25 0 28 0;
-#X connect 12 0 28 0;
-#X connect 14 0 28 0;
-#X connect 17 0 28 0;
-#X connect 20 0 28 0;
-#X connect 23 0 28 0;
-#X connect 27 0 28 0;
-#X connect 11 0 28 0;
-#X connect 18 0 28 0;
-#X connect 21 0 28 0;
+#X connect 27 0 29 0;
+#X connect 29 0 30 0;
+#X connect 18 0 31 0;
+#X connect 22 0 31 0;
+#X connect 28 0 31 0;
+#X connect 15 0 31 0;
+#X connect 17 0 31 0;
+#X connect 20 0 31 0;
+#X connect 23 0 31 0;
+#X connect 26 0 31 0;
+#X connect 30 0 31 0;
+#X connect 14 0 31 0;
+#X connect 21 0 31 0;
+#X connect 24 0 31 0;

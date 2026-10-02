@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">LCD display driver for Raspberry Pi (1602 or 2004 module)</tr>
-        <tr lang="ru">драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi</tr>
+        <tr lang="ru">драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,26 +23,46 @@
     <info>
       <par style="info">
         <tr lang="en">Note: the display can be set to output text in single-line mode.</tr>
-        <tr lang="ru">Примечание: дисплей может быть настроен для вывода текста в однострочном
+        <tr lang="ru">Примечание: дисплей может быть настроен на вывод текста в однострочном
         режиме.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Attention: for some displays, a 3.3V power supply may be insufficient: their
-        backlight lights up, but the characters are not displayed. Check the information for the
+        <tr lang="en">Attention: for some displays, a 3.3 V power supply may be insufficient: their
+        backlight lights up, but characters are not displayed. Check the information for the
         specific model before connecting.</tr>
         <tr lang="ru">Внимание: для некоторых дисплеев напряжения питания 3.3 В может быть
         недостаточно: у них горит подсветка, но не отображаются символы. Уточняйте информацию по
         конкретной модели перед подключением.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Status display for a patch — showing the current state of a patch (tempo,
+        mode, selected preset, active note) on a compact LCD, so that it can be read without a
+        computer screen.</tr>
+        <tr lang="ru">• Индикация состояния патча — отображение текущего состояния патча (темп,
+        режим, выбранный пресет, активная нота) на компактном ЖК-дисплее, чтобы его можно было
+        прочитать без экрана компьютера.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Standalone hardware instruments — building a self-contained instrument or
+        controller based on Raspberry Pi, where the display shows parameters and menus for
+        navigation through the patch, using cursor and backlight control.</tr>
+        <tr lang="ru">• Автономные аппаратные инструменты — сборка самостоятельного инструмента
+        или контроллера на базе Raspberry Pi, где дисплей отображает параметры и меню для
+        навигации по патчу с использованием управления курсором и подсветкой.</tr>
       </par>
     </info>
     <properties>
       <!-- @i2c_addr -->
       <property name="@i2c_addr" type="int" default="-1" access="initonly" minvalue="-4"
       maxvalue="119">
-        <tr lang="en">I²C address. The values 'default' (for addr 0x27) and 'alt' (for addr 0x3f)
-        are also accepted.</tr>
-        <tr lang="ru">Адрес I²C. Также принимаются значения 'default' (для адреса 0x27) и 'alt'
-        (для адреса 0x3f).</tr>
+        <tr lang="en">I²C address. The values 'default' (for address 0x27) and 'alt' (for address
+        0x3f) are also accepted.</tr>
+        <tr lang="ru">адрес I²C. Также принимаются значения 'default' (для адреса 0x27) и 'alt'
+        (для адреса 0x3f)</tr>
       </property>
       <!-- @i2c_bus -->
       <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
@@ -53,15 +73,15 @@
       <!-- @rows -->
       <property name="@rows" type="int" default="1" enum="1 2 4" access="initonly">
         <tr lang="en">number of display lines</tr>
-        <tr lang="ru">количество строк дисплея</tr>
+        <tr lang="ru">число строк дисплея</tr>
       </property>
     </properties>
     <methods>
       <!-- backlight -->
       <method name="backlight">
         <info>
-          <tr lang="en">turn on/off the display backlight</tr>
-          <tr lang="ru">включить/выключить подсветку дисплея</tr>
+          <tr lang="en">turns the display backlight on or off</tr>
+          <tr lang="ru">включает или выключает подсветку дисплея</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
@@ -71,9 +91,9 @@
       <!-- char -->
       <method name="char">
         <info>
-          <tr lang="en">write a character to the display and move the cursor to the next
+          <tr lang="en">writes a character to the display and moves the cursor to the next
           position</tr>
-          <tr lang="ru">записать символ на дисплей и переместить курсор в следующую позицию</tr>
+          <tr lang="ru">записывает символ на дисплей и перемещает курсор в следующую позицию</tr>
         </info>
         <param name="CHAR" type="int" required="true" minvalue="0" maxvalue="255">
           <tr lang="en">character code</tr>
@@ -83,15 +103,15 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear all display data and set cursor position to 0, 0</tr>
-          <tr lang="ru">очистить все данные дисплея и установить позицию курсора в 0, 0</tr>
+          <tr lang="en">clears all display data and sets the cursor position to 0, 0</tr>
+          <tr lang="ru">очищает все данные дисплея и устанавливает позицию курсора в 0, 0</tr>
         </info>
       </method>
       <!-- clear_line -->
       <method name="clear_line">
         <info>
-          <tr lang="en">clear only the specified line</tr>
-          <tr lang="ru">очистить только указанную строку</tr>
+          <tr lang="en">clears only the specified line</tr>
+          <tr lang="ru">очищает только указанную строку</tr>
         </info>
         <param name="LINE" type="int" required="true" minvalue="0" maxvalue="3">
           <tr lang="en">line index</tr>
@@ -101,8 +121,8 @@
       <!-- cursor_blink -->
       <method name="cursor_blink">
         <info>
-          <tr lang="en">turn on/off cursor blinking</tr>
-          <tr lang="ru">включить/выключить мигание курсора</tr>
+          <tr lang="en">turns cursor blinking on or off</tr>
+          <tr lang="ru">включает или выключает мигание курсора</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
@@ -112,8 +132,8 @@
       <!-- cursor_on -->
       <method name="cursor_on">
         <info>
-          <tr lang="en">turn on/off the display cursor</tr>
-          <tr lang="ru">включить/выключить курсор дисплея</tr>
+          <tr lang="en">turns the display cursor on or off</tr>
+          <tr lang="ru">включает или выключает курсор дисплея</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">new state</tr>
@@ -123,8 +143,8 @@
       <!-- cursor_pos -->
       <method name="cursor_pos">
         <info>
-          <tr lang="en">set the cursor position</tr>
-          <tr lang="ru">установить позицию курсора</tr>
+          <tr lang="en">sets the cursor position</tr>
+          <tr lang="ru">устанавливает позицию курсора</tr>
         </info>
         <param name="LINE" type="int" required="true" minvalue="0">
           <tr lang="en">cursor line</tr>
@@ -138,44 +158,45 @@
       <!-- font -->
       <method name="font">
         <info>
-          <tr lang="en">choose a font</tr>
-          <tr lang="ru">выбрать шрифт</tr>
+          <tr lang="en">chooses a font</tr>
+          <tr lang="ru">выбирает шрифт</tr>
         </info>
       </method>
       <!-- move_cursor -->
       <method name="move_cursor">
         <info>
-          <tr lang="en">move the cursor horizontally</tr>
-          <tr lang="ru">переместить курсор горизонтально</tr>
+          <tr lang="en">moves the cursor horizontally</tr>
+          <tr lang="ru">перемещает курсор по горизонтали</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">relative cursor shift. Negative values move the cursor leftwards, positive
           values move it rightwards.</tr>
           <tr lang="ru">относительный сдвиг курсора. Отрицательные значения перемещают курсор
-          влево, положительные — вправо.</tr>
+          влево, положительные — вправо</tr>
         </param>
       </method>
       <!-- move_display -->
       <method name="move_display">
         <info>
-          <tr lang="en">move the display content horizontally (without changing its content)</tr>
-          <tr lang="ru">переместить содержимое дисплея горизонтально (без изменения его
+          <tr lang="en">moves the display content horizontally (without changing its
+          content)</tr>
+          <tr lang="ru">перемещает содержимое дисплея по горизонтали (без изменения его
           содержимого)</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">relative shift. Negative values move the content to the left, positive
           values move it to the right.</tr>
           <tr lang="ru">относительный сдвиг. Отрицательные значения перемещают содержимое влево,
-          положительные — вправо.</tr>
+          положительные — вправо</tr>
         </param>
       </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write the message at the current cursor position and then move the cursor
-          to the next position after the last written character.</tr>
+          <tr lang="en">writes the message at the current cursor position and then moves the cursor
+          to the next position after the last written character</tr>
           <tr lang="ru">записывает сообщение в текущей позиции курсора, а затем перемещает курсор в
-          следующую позицию после последнего записанного символа.</tr>
+          следующую позицию после последнего записанного символа</tr>
         </info>
         <param name="MSG" type="list" required="true">
           <tr lang="en">value list</tr>
