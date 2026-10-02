@@ -20,32 +20,42 @@
         <see>set.union</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Computes the intersection of the two incoming sets (or lists converted to
+        sets): outputs a new set that contains only those elements which are present in both
+        input sets.</tr>
+        <tr lang="ru">Вычисляет пересечение двух входящих множеств (или списков, преобразованных во
+        множества): выводит новое множество, содержащее только те элементы, которые есть в обоих
+        входных множествах.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARGS" type="any">
-        <tr lang="en">right set elements</tr>
-        <tr lang="ru" finished="false">Правильный набор элементов</tr>
+        <tr lang="en">elements of the right set</tr>
+        <tr lang="ru">элементы правого множества</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in>
-          <tr lang="en">first set or list (converted to set), other values are ignored</tr>
-          <tr lang="ru" finished="false">первый набор или список (преобразуется в набор), другие
+          <tr lang="en">first set or list (converted to set). Other values are ignored</tr>
+          <tr lang="ru">первое множество или список (преобразуется во множество). Остальные
           значения игнорируются</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">second set or list (converted to set)</tr>
-          <tr lang="ru" finished="false">Второй набор или список (преобразуется в набор)</tr>
+          <tr lang="ru">второе множество или список (преобразуется во множество)</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output intersection of given sets</tr>
-          <tr lang="ru" finished="false">выходное пересечение заданных наборов</tr>
+          <tr lang="en">outputs the intersection of the given sets</tr>
+          <tr lang="ru">выводит пересечение заданных множеств</tr>
         </out>
       </outlet>
     </outlets>
