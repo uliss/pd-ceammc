@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">calculate the signal zero crossing count/rate/freq</tr>
-        <tr lang="ru">вычисление частоты/скорости/числа пересечения сигналом нулевого значения</tr>
+        <tr lang="ru">вычисляет число, скорость или частоту пересечений сигналом нуля</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,6 +19,22 @@
         <see>an.pitchtrack~</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">Analyzes the incoming audio signal and outputs how often it crosses zero.
+        The result depends on the @mode property: 'count' outputs the raw number of zero
+        crossings per analysis block, 'rate' outputs the zero crossing rate (number of crossings
+        divided by block size) and 'freq' outputs the zero crossing frequency in hertz. In the
+        special @clock mode the object outputs a short impulse at each zero crossing, which can be
+        used as a trigger.</tr>
+        <tr lang="ru">Анализирует входящий аудиосигнал и выводит, как часто он пересекает ноль.
+        Результат зависит от свойства @mode: 'count' выводит «сырое» число пересечений нуля за
+        блок анализа, 'rate' — скорость пересечения нуля (число пересечений, делённое на размер
+        блока), 'freq' — частоту пересечения нуля в герцах. В специальном режиме @clock объект
+        выдаёт короткий импульс на каждом пересечении нуля, который можно использовать как
+        триггер.</tr>
+      </par>
+    </info>
     <properties>
       <!-- @bs -->
       <property name="@bs" type="int" minvalue="1" default="1024" maxvalue="65536" units="sample"
@@ -28,18 +44,19 @@
       </property>
       <!-- @clock -->
       <property name="@clock" type="list" default="0" access="initonly">
-        <tr lang="en">alias for @mode count @bs 1. Outputs impulse at each zero crossing</tr>
+        <tr lang="en">alias for @mode count @bs 1. Outputs an impulse at each zero crossing</tr>
         <tr lang="ru">сокращение для @mode count @bs 1. Выводит импульс при каждом пересечении
         нуля</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="count rate freq" default="count">
-        <tr lang="en">calculation mode: if 'count' - outputs the number of zero crossing occurred
-        in a period of current block size, if 'rate' - outputs zero crossing rate (zero crossing
-        number / block size), if 'freq' - outputs zero crossing frequency in hertz</tr>
-        <tr lang="ru">режим вывода: если "count" - выводит число пересечения нуля в пределах
-        текущего размера блока, если "rate" - выводит скорость пересечения нуля (число пересечений
-        за блок / размер блока), если "freq" - выводит частоту пересечения нуля в Герцах</tr>
+        <tr lang="en">calculation mode: 'count' — outputs the number of zero crossings that
+        occurred within the current block size, 'rate' — outputs the zero crossing rate (number of
+        crossings divided by block size), 'freq' — outputs the zero crossing frequency in
+        hertz</tr>
+        <tr lang="ru">режим вычисления: 'count' — выводит число пересечений нуля в пределах
+        текущего размера блока, 'rate' — выводит скорость пересечения нуля (число пересечений,
+        делённое на размер блока), 'freq' — выводит частоту пересечения нуля в герцах</tr>
       </property>
     </properties>
     <inlets>
@@ -53,9 +70,9 @@
     <outlets>
       <outlet type="audio">
         <out>
-          <tr lang="en">zero crossing count/freq/rate depending on the property @mode</tr>
-          <tr lang="ru">число/скорость/частота пересечения сигналом нулевого значения в зависимости
-          от свойства @mode</tr>
+          <tr lang="en">zero crossing count/freq/rate depending on the @mode property</tr>
+          <tr lang="ru">число, частота или скорость пересечения нуля в зависимости от свойства
+          @mode</tr>
         </out>
       </outlet>
     </outlets>

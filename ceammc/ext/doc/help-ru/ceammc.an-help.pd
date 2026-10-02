@@ -17,8 +17,8 @@ an.pitchtrack~-help.pd;
 #X obj 30 235 ui.link @title [an.tempo~] @url an.tempo~-help.pd;
 #X text 220 232 детектор темпа сигнала;
 #X obj 30 260 ui.link @title [an.zero~] @url an.zero~-help.pd;
-#X text 220 257 вычисление частоты/скорости/числа пересечения сигналом
-нулевого значения;
+#X text 220 257 вычисляет число \, скорость или частоту пересечений
+сигналом нуля;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::an 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

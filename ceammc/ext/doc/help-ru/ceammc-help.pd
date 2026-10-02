@@ -17,8 +17,8 @@ an.pitchtrack~-help.pd;
 #X obj 30 276 ui.link @title [an.tempo~] @url an.tempo~-help.pd;
 #X text 200 273 детектор темпа сигнала;
 #X obj 30 301 ui.link @title [an.zero~] @url an.zero~-help.pd;
-#X text 200 298 вычисление частоты/скорости/числа пересечения сигналом
-нулевого значения;
+#X text 200 298 вычисляет число \, скорость или частоту пересечений
+сигналом нуля;
 #X obj 481 115 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 486 115 объекты для анализа свойств звука;
 #X obj 20 338 cnv 5 59 32 empty empty array 4 16 0 17 -262144 -49933
