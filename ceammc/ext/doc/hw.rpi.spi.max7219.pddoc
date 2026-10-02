@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">LED matrix driver based on the MAX7219 chip for Raspberry Pi</tr>
-        <tr lang="ru">драйвер для LED-матрицы на чипе MAX7219 для Raspberry Pi</tr>
+        <tr lang="ru">драйвер светодиодной матрицы на чипе MAX7219 для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,24 +18,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Handles communication with the MAX7219 chip for 7-segment or 8x8 LED dot
+        <tr lang="en">Handles communication with the MAX7219 chip for 7-segment or 8×8 LED dot
         matrix displays. Each display can be connected in series with another and controlled via a
         single connection.</tr>
-        <tr lang="ru">Обеспечивает связь с чипом MAX7219 для 7-сегментных или 8x8 светодиодных
-        матричных дисплеев. Каждый дисплей может быть соединён последовательно с другим и
+        <tr lang="ru">Обеспечивает связь с чипом MAX7219 для 7-сегментных или 8×8 светодиодных
+        матричных дисплеев. Каждый дисплей может быть подключён последовательно с другим и
         управляться через одно соединение.</tr>
       </par>
       <par style="warning">
-        <tr lang="en">Note: for LED dot matrix displays, only the write_bits and write_reg commands
-        will work as expected.</tr>
-        <tr lang="ru">Примечание: для светодиодной матрицы только команды write_bits и write_reg
-        будут работать ожидаемым образом.</tr>
+        <tr lang="en">Note: for LED dot matrix displays, only the write_bits and write_reg
+        commands will work as expected.</tr>
+        <tr lang="ru">Примечание: для светодиодной матрицы ожидаемым образом работают только
+        команды write_bits и write_reg.</tr>
       </par>
       <par style="warning">
         <tr lang="en">Note: the 7-segment LED display supports only this character set:
         -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</tr>
-        <tr lang="ru">Примечание: 7-сегментный светодиодный дисплей поддерживает только этот набор
-        символов: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</tr>
+        <tr lang="ru">Примечание: 7-сегментный светодиодный дисплей поддерживает только следующий
+        набор символов: -_0123456789ABCDEFGHIJLOPSUbcdhnoqrtu</tr>
       </par>
       <par>
         <tr lang="en">Note: if the device address argument is -1 or omitted, the requested action
@@ -43,11 +43,31 @@
         <tr lang="ru">Примечание: если аргумент адреса устройства равен -1 или не указан,
         запрашиваемое действие применяется ко всем устройствам в цепи.</tr>
       </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Status display for a patch — showing tempo, mode, numeric values or short
+        text on a 7-segment or matrix display, so that the state of the patch can be read without
+        a computer screen.</tr>
+        <tr lang="ru">• Индикация состояния патча — отображение темпа, режима, числовых значений
+        или короткого текста на 7-сегментном или матричном дисплее, чтобы состояние патча можно
+        было прочитать без экрана компьютера.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• LED matrix animations — drawing custom patterns, scrolling text or simple
+        animations on the 8×8 matrix, for example to build a step sequencer display or a small
+        visualizer.</tr>
+        <tr lang="ru">• Анимации на светодиодной матрице — отрисовка пользовательских паттернов,
+        бегущего текста или простых анимаций на матрице 8×8, например для отображения пошагового
+        секвенсора или небольшого визуализатора.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="DISPLAYS" type="int" minvalue="1" maxvalue="4">
         <tr lang="en">the number of displays connected in a daisy chain</tr>
-        <tr lang="ru">количество дисплеев, подключённых по цепочке</tr>
+        <tr lang="ru">число дисплеев, подключённых по цепочке</tr>
       </argument>
     </arguments>
     <properties>
@@ -55,7 +75,7 @@
       <property name="@displays" type="int" default="1" minvalue="1" maxvalue="4"
       access="initonly">
         <tr lang="en">the number of displays connected in a daisy chain</tr>
-        <tr lang="ru">количество дисплеев, подключённых по цепочке</tr>
+        <tr lang="ru">число дисплеев, подключённых по цепочке</tr>
       </property>
       <!-- @spi_bus -->
       <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
@@ -73,8 +93,8 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear the display</tr>
-          <tr lang="ru">очистить дисплей</tr>
+          <tr lang="en">clears the display</tr>
+          <tr lang="ru">очищает дисплей</tr>
         </info>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="0">
           <tr lang="en">display address in the chain</tr>
@@ -84,8 +104,8 @@
       <!-- intensity -->
       <method name="intensity">
         <info>
-          <tr lang="en">set the intensity level of the display</tr>
-          <tr lang="ru">установить уровень интенсивности дисплея</tr>
+          <tr lang="en">sets the intensity level of the display</tr>
+          <tr lang="ru">устанавливает уровень интенсивности дисплея</tr>
         </info>
         <param name="LEVEL" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">intensity level</tr>
@@ -99,8 +119,8 @@
       <!-- power -->
       <method name="power">
         <info>
-          <tr lang="en">power the display on/off</tr>
-          <tr lang="ru">включить/выключить дисплей</tr>
+          <tr lang="en">turns the display on or off</tr>
+          <tr lang="ru">включает или выключает дисплей</tr>
         </info>
         <param name="STATE" type="bool" required="true">
           <tr lang="en">on/off state</tr>
@@ -110,8 +130,8 @@
       <!-- test -->
       <method name="test">
         <info>
-          <tr lang="en">test the display by turning all LEDs on</tr>
-          <tr lang="ru">проверить дисплей, включив все светодиоды</tr>
+          <tr lang="en">tests the display by turning all LEDs on</tr>
+          <tr lang="ru">проверяет дисплей, включая все светодиоды</tr>
         </info>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7" default="-1">
           <tr lang="en">target display address in the chain</tr>
@@ -121,40 +141,40 @@
       <!-- write bits -->
       <method name="write bits">
         <info>
-          <tr lang="en">write raw bits to the display</tr>
-          <tr lang="ru">записать сырые битовые данные в дисплей</tr>
+          <tr lang="en">writes raw bits to the display</tr>
+          <tr lang="ru">записывает низкоуровневые битовые данные в дисплей</tr>
         </info>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
           <tr lang="en">target display address in the chain</tr>
           <tr lang="ru">адрес целевого дисплея в цепи</tr>
         </param>
         <param name="BITS" type="list" required="true">
-          <tr lang="en">list of bits. Max length: 256</tr>
+          <tr lang="en">list of bits. Maximum length: 256</tr>
           <tr lang="ru">список битов. Максимальная длина: 256</tr>
         </param>
       </method>
       <!-- write bytes -->
       <method name="write bytes">
         <info>
-          <tr lang="en">write raw bytes to the display</tr>
-          <tr lang="ru">записать сырые байты в дисплей</tr>
+          <tr lang="en">writes raw bytes to the display</tr>
+          <tr lang="ru">записывает низкоуровневые байты в дисплей</tr>
         </info>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7" required="true" default="0">
           <tr lang="en">target display address in the chain</tr>
           <tr lang="ru">адрес целевого дисплея в цепи</tr>
         </param>
         <param name="DATA" type="list" required="true">
-          <tr lang="en">list of bytes. Max length: 8</tr>
+          <tr lang="en">list of bytes. Maximum length: 8</tr>
           <tr lang="ru">список байтов. Максимальная длина: 8</tr>
         </param>
       </method>
       <!-- write float -->
       <method name="write float">
         <info>
-          <tr lang="en">write a float value to the 7-segment display (not supported for LED
+          <tr lang="en">writes a float value to the 7-segment display (not supported for the LED
           matrix!)</tr>
-          <tr lang="ru">вывести значение с плавающей точкой на 7-сегментный дисплей (не
-          поддерживается для LED-матрицы!)</tr>
+          <tr lang="ru">выводит значение с плавающей точкой на 7-сегментный дисплей (не
+          поддерживается для светодиодной матрицы!)</tr>
         </info>
         <param name="VAL" type="float" required="true">
           <tr lang="en">value</tr>
@@ -162,21 +182,21 @@
         </param>
         <param name="PRECISION" type="int" minvalue="0" maxvalue="7">
           <tr lang="en">precision (digits after the decimal point)</tr>
-          <tr lang="ru">точность (количество знаков после запятой)</tr>
+          <tr lang="ru">точность (число знаков после запятой)</tr>
         </param>
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: writes to all
           displays.</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1: выводит на все
-          дисплеи.</tr>
+          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1 — вывод на все
+          дисплеи</tr>
         </param>
       </method>
       <!-- write hex -->
       <method name="write hex">
         <info>
-          <tr lang="en">write a hexadecimal unsigned integer value (7-segment display only!)</tr>
-          <tr lang="ru">вывести шестнадцатеричное беззнаковое целое число (только для 7-сегментного
-          дисплея!)</tr>
+          <tr lang="en">writes a hexadecimal unsigned integer value (7-segment display only!)</tr>
+          <tr lang="ru">выводит шестнадцатеричное беззнаковое целое число (только для
+          7-сегментного дисплея!)</tr>
         </info>
         <param name="INT" type="int" minvalue="0" required="true">
           <tr lang="en">value</tr>
@@ -185,15 +205,15 @@
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: writes to all
           displays.</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1: выводит на все
-          дисплеи.</tr>
+          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1 — вывод на все
+          дисплеи</tr>
         </param>
       </method>
       <!-- write int -->
       <method name="write int">
         <info>
-          <tr lang="en">write a signed integer value (7-segment display only!)</tr>
-          <tr lang="ru">вывести знаковое целое значение (только для 7-сегментного дисплея!)</tr>
+          <tr lang="en">writes a signed integer value (7-segment display only!)</tr>
+          <tr lang="ru">выводит знаковое целое значение (только для 7-сегментного дисплея!)</tr>
         </info>
         <param name="INT" type="int" required="true">
           <tr lang="en">value</tr>
@@ -202,15 +222,16 @@
         <param name="ADDR" type="int" minvalue="-1" maxvalue="7">
           <tr lang="en">display address in the chain. If omitted or -1: writes to all
           displays.</tr>
-          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1: выводит на все
-          дисплеи.</tr>
+          <tr lang="ru">адрес дисплея в цепи. Если не указан или равен -1 — вывод на все
+          дисплеи</tr>
         </param>
       </method>
       <!-- write reg -->
       <method name="write reg">
         <info>
-          <tr lang="en">write data to a MAX7219 register. The lowest level of communication.</tr>
-          <tr lang="ru">запись данных в регистр MAX7219. Самый низкоуровневый способ связи.</tr>
+          <tr lang="en">writes data to a MAX7219 register. The lowest level of communication.</tr>
+          <tr lang="ru">записывает данные в регистр MAX7219. Самый низкоуровневый способ
+          связи.</tr>
         </info>
         <param name="REG" type="int" minvalue="0" maxvalue="15" required="true">
           <tr lang="en">MAX7219 register index</tr>
@@ -228,17 +249,17 @@
       <!-- write str -->
       <method name="write str">
         <info>
-          <tr lang="en">write a string (7-segment display only!)</tr>
-          <tr lang="ru">вывести строку (только для 7-сегментного дисплея!)</tr>
+          <tr lang="en">writes a string (7-segment display only!)</tr>
+          <tr lang="ru">выводит строку (только для 7-сегментного дисплея!)</tr>
         </info>
         <param name="STR" type="symbol" required="true">
-          <tr lang="en">string. Max length: 8 chars</tr>
+          <tr lang="en">string. Maximum length: 8 characters</tr>
           <tr lang="ru">строка. Максимальная длина: 8 символов</tr>
         </param>
         <param name="DOTS" type="int" minvalue="0" maxvalue="255">
           <tr lang="en">dots as a bit value. For example: 0b00000011 turns on the two leftmost
           dots.</tr>
-          <tr lang="ru">точки в виде битового значения. Например: 0b00000011 включает две самые
+          <tr lang="ru">точки в виде битового значения. Например: 0b00000011 включает две крайние
           левые точки.</tr>
         </param>
         <param name="ALIGN" type="symbol" enum="left center right" default="right">
@@ -255,7 +276,7 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru">вход для управляющих сообщений</tr>
+          <tr lang="ru">вход управляющих сообщений</tr>
         </in>
       </inlet>
     </inlets>
