@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">WS2812 LED strip driver for Raspberry Pi</tr>
-        <tr lang="ru">драйвер для светодиодной ленты WS2812 для Raspberry Pi</tr>
+        <tr lang="ru">драйвер светодиодной ленты WS2812 для Raspberry Pi</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,16 +18,17 @@
     </meta>
     <info>
       <par style="critical">
-        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!), then
-        power (+5V), then the data pin. This is necessary to protect the first LED from burning
-        out. It is recommended to install a 300-500 Ohm resistor in the data circuit.</tr>
+        <tr lang="en">Attention! The correct order for connecting the strip: first ground (!),
+        then power (+5 V), then the data pin. This is necessary to protect the first LED from
+        burning out. It is recommended to install a 300–500 Ohm resistor in the data
+        circuit.</tr>
         <tr lang="ru">Внимание! Правильный порядок подключения ленты: сначала земля (!), затем
         питание (+5 В), затем контакт данных. Это необходимо для защиты первого светодиода от
-        выгорания. В цепь данных рекомендуется устанавливать резистор 300-500 Ом.</tr>
+        выгорания. В цепь данных рекомендуется устанавливать резистор 300–500 Ом.</tr>
       </par>
       <par style="critical">
         <tr lang="en">The disconnection procedure is strictly the reverse: first disconnect the
-        data pin, then the +5V power, and finally ground.</tr>
+        data pin, then the +5 V power, and finally ground.</tr>
         <tr lang="ru">Порядок отключения строго обратный: сначала отключите контакт данных, затем
         питание +5 В, и наконец землю.</tr>
       </par>
@@ -51,6 +52,26 @@
         <tr lang="ru">Для указания группы пикселей, с которой мы собираемся работать, используются
         два типа диапазонов: @slice и @lslice.</tr>
       </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Visual accompaniment for music — driving an LED strip in time with the
+        music, for example to build a level meter, a spectrum analyzer or a rhythmic color
+        animation.</tr>
+        <tr lang="ru">• Визуальное сопровождение музыки — управление светодиодной лентой в такт
+        музыке, например для построения индикатора уровня, спектроанализатора или ритмической
+        цветовой анимации.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Interactive installations — using an LED strip as part of an art
+        installation or stage design, where color and animation respond to sound, sensors or
+        external control signals.</tr>
+        <tr lang="ru">• Интерактивные инсталляции — использование светодиодной ленты как части
+        арт-инсталляции или сценографии, где цвет и анимация реагируют на звук, сенсоры или
+        внешние управляющие сигналы.</tr>
+      </par>
       <a href="ceammc_rpi_spi-info.pd">SPI information</a>
     </info>
     <properties>
@@ -63,37 +84,37 @@
       <property name="@connect" type="bool" default="0" access="readwrite">
         <tr lang="en">When set to 1: tries to connect to the device. When set to 0: disconnects
         from the device.</tr>
-        <tr lang="ru">При установке в 1: пытается подключиться к устройству. При установке в 0:
-        отключается от устройства.</tr>
+        <tr lang="ru">при значении 1: пытается подключиться к устройству. При значении 0:
+        отключается от устройства</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="4096" default="16"
       access="initonly">
         <tr lang="en">number of LEDs in the strip</tr>
-        <tr lang="ru">количество светодиодов в ленте</tr>
+        <tr lang="ru">число светодиодов в ленте</tr>
       </property>
       <!-- @spi_bus -->
       <property name="@spi_bus" type="int" minvalue="-1" maxvalue="6" default="-1"
       access="initonly">
         <tr lang="en">SPI bus number. If not specified or equal to -1: the object does not perform
         any actions.</tr>
-        <tr lang="ru">номер шины SPI. Если не указано или равно -1: объект не выполняет никаких
-        действий.</tr>
+        <tr lang="ru">номер шины SPI. Если не указан или равен -1: объект не выполняет никаких
+        действий</tr>
       </property>
       <!-- @spi_cs -->
       <property name="@spi_cs" type="int" minvalue="0" maxvalue="3" default="0" access="initonly">
         <tr lang="en">SPI CS (chip select/enable). In most cases you do not need to set this
-        property because LED strips do not use the CS pin.</tr>
-        <tr lang="ru">индекс SPI CS (chip select/enable). В большинстве случаев вам не нужно
-        устанавливать это свойство, потому что светодиодные ленты не используют контакт CS.</tr>
+        property, because LED strips do not use the CS pin.</tr>
+        <tr lang="ru">индекс SPI CS (Chip Select/Enable). В большинстве случаев это свойство
+        устанавливать не нужно, потому что светодиодные ленты не используют контакт CS</tr>
       </property>
     </properties>
     <methods>
       <!-- brightness -->
       <method name="brightness">
         <info>
-          <tr lang="en">set pixel brightness</tr>
-          <tr lang="ru">установить яркость пикселей</tr>
+          <tr lang="en">sets pixel brightness</tr>
+          <tr lang="ru">устанавливает яркость пикселей</tr>
         </info>
         <param name="LEVEL" type="int" minvalue="0" maxvalue="255" required="true">
           <tr lang="en">brightness level</tr>
@@ -103,10 +124,10 @@
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">set all pixels in the internal buffer to black and optionally synchronize
+          <tr lang="en">sets all pixels in the internal buffer to black and optionally synchronizes
           them with the strip</tr>
-          <tr lang="ru">установить чёрный цвет для всех пикселей во внутреннем буфере и опционально
-          синхронизировать их с лентой</tr>
+          <tr lang="ru">устанавливает чёрный цвет для всех пикселей во внутреннем буфере и
+          опционально синхронизирует их с лентой</tr>
         </info>
         <param name="flush" type="bool" default="1">
           <tr lang="en">if equal to 1: output the internal buffer to the device</tr>
@@ -116,8 +137,8 @@
       <!-- fill -->
       <method name="fill">
         <info>
-          <tr lang="en">fill pixels with a color</tr>
-          <tr lang="ru">заполнить пиксели цветом</tr>
+          <tr lang="en">fills pixels with a color</tr>
+          <tr lang="ru">заполняет пиксели цветом</tr>
         </info>
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
@@ -143,9 +164,9 @@
       <!-- fill_bits -->
       <method name="fill_bits">
         <info>
-          <tr lang="en">fill only those pixels in the internal buffer with the specified color for
-          which the corresponding bit in the input list is set to 1</tr>
-          <tr lang="ru">заполнять только те пиксели во внутреннем буфере указанным цветом, для
+          <tr lang="en">fills only those pixels in the internal buffer with the specified color
+          for which the corresponding bit in the input list is set to 1</tr>
+          <tr lang="ru">заполняет указанным цветом только те пиксели во внутреннем буфере, для
           которых соответствующий бит во входном списке установлен в 1</tr>
         </info>
         <param name="@offset" type="int" minvalue="0" default="0">
@@ -170,8 +191,8 @@
       <!-- fill_pixels -->
       <method name="fill_pixels">
         <info>
-          <tr lang="en">fill the specified pixels with the specified color</tr>
-          <tr lang="ru">заполнить указанные пиксели указанным цветом</tr>
+          <tr lang="en">fills the specified pixels with the specified color</tr>
+          <tr lang="ru">заполняет указанные пиксели указанным цветом</tr>
         </info>
         <param name="@indexes" type="list">
           <tr lang="en">list of pixel indices</tr>
@@ -191,15 +212,15 @@
       <!-- flush -->
       <method name="flush">
         <info>
-          <tr lang="en">write the internal buffer to the strip</tr>
-          <tr lang="ru">вывести внутренний буфер на ленту</tr>
+          <tr lang="en">writes the internal buffer to the strip</tr>
+          <tr lang="ru">выводит внутренний буфер на ленту</tr>
         </info>
       </method>
       <!-- fx -->
       <method name="fx">
         <info>
-          <tr lang="en">apply a color effect function</tr>
-          <tr lang="ru">применить функцию цветового эффекта</tr>
+          <tr lang="en">applies a color effect function</tr>
+          <tr lang="ru">применяет функцию цветового эффекта</tr>
         </info>
         <param name="NAME" type="symbol"
         enum="rainbow breathe bounce collision cycle cylon fire meteor sparkle twinkle strobe"
@@ -221,8 +242,8 @@
       <!-- rotate -->
       <method name="rotate">
         <info>
-          <tr lang="en">shift all pixels by the specified step</tr>
-          <tr lang="ru">сдвинуть все пиксели на указанный шаг</tr>
+          <tr lang="en">shifts all pixels by the specified step</tr>
+          <tr lang="ru">сдвигает все пиксели на указанный шаг</tr>
         </info>
         <param name="SHIFT" type="int" required="true">
           <tr lang="en">shift amount</tr>
@@ -232,8 +253,8 @@
       <!-- set_pixel -->
       <method name="set_pixel">
         <info>
-          <tr lang="en">set a single pixel color</tr>
-          <tr lang="ru">установить цвет отдельного пикселя</tr>
+          <tr lang="en">sets a single pixel color</tr>
+          <tr lang="ru">устанавливает цвет отдельного пикселя</tr>
         </info>
         <param name="@color ..." type="list">
           <tr lang="en">color</tr>
@@ -244,8 +265,8 @@
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write the list of pixel colors to the strip</tr>
-          <tr lang="ru">записать список цветов пикселей на ленту</tr>
+          <tr lang="en">writes the list of pixel colors to the strip</tr>
+          <tr lang="ru">записывает список цветов пикселей на ленту</tr>
         </info>
         <param name="COLORS" type="list" min-count="1" required="true">
           <tr lang="en">list of colors in Int24 integer format</tr>
