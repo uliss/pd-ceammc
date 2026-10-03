@@ -22,49 +22,63 @@
         <alias>ceammc/nsig~</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a list of control values into a multichannel audio
+        signal. Each audio outlet outputs a constant signal equal to the corresponding value
+        from the list. It works like several [sig~] objects combined into one and is useful
+        for generating DC offsets, control voltages, test signals or multichannel
+        parameter automation.</tr>
+        <tr lang="ru">Объект преобразует список управляющих значений в многоканальный
+        звуковой сигнал. Каждый аудиовыход выдаёт постоянный сигнал, равный
+        соответствующему значению из списка. Он работает как несколько объектов [sig~],
+        объединённых в один, и полезен для генерации постоянных смещений, управляющих
+        напряжений, тестовых сигналов или многоканальной автоматизации параметров.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="12">
         <tr lang="en">number of inputs/outputs</tr>
-        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+        <tr lang="ru">количество входов/выходов</tr>
       </argument>
       <argument name="VALUES" type="list">
         <tr lang="en">init values</tr>
-        <tr lang="ru" finished="false">значения init</tr>
+        <tr lang="ru">начальные значения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="1" default="1" maxvalue="12" access="initonly">
         <tr lang="en">number of inputs/outputs</tr>
-        <tr lang="ru" finished="false">Количество входов/выходов</tr>
+        <tr lang="ru">количество входов/выходов</tr>
       </property>
       <!-- @values -->
       <property name="@values" type="list" default="">
         <tr lang="en">current output values. Default: 0</tr>
-        <tr lang="ru" finished="false">текущие выходные значения. Дефолт: 0</tr>
+        <tr lang="ru">текущие выходные значения. По умолчанию: 0</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet number="1">
         <in on="float">
           <tr lang="en">set first output value</tr>
-          <tr lang="ru" finished="false">Установить первую выходную величину</tr>
+          <tr lang="ru">установить значение первого выхода</tr>
         </in>
         <in on="list">
           <tr lang="en">set list of output values</tr>
-          <tr lang="ru" finished="false">установленный список выходных значений</tr>
+          <tr lang="ru">установить список выходных значений</tr>
         </in>
       </inlet>
       <inlet number="...">
         <in on="float">
           <tr lang="en">set ... output value</tr>
-          <tr lang="ru" finished="false">установленная ... выходная стоимость</tr>
+          <tr lang="ru">установить значение ... выхода</tr>
         </in>
       </inlet>
       <inlet number="n">
         <in on="float">
           <tr lang="en">set n-th output value</tr>
-          <tr lang="ru" finished="false">установленная n-я выходная стоимость</tr>
+          <tr lang="ru">установить значение n-го выхода</tr>
         </in>
       </inlet>
     </inlets>
@@ -72,19 +86,19 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">first value output</tr>
-          <tr lang="ru" finished="false">Первая стоимость</tr>
+          <tr lang="ru">выход первого значения</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... value output</tr>
-          <tr lang="ru" finished="false">... стоимостного выпуска</tr>
+          <tr lang="ru">выход ... значения</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th value output</tr>
-          <tr lang="ru" finished="false">n-я выходная величина</tr>
+          <tr lang="ru">выход n-го значения</tr>
         </out>
       </outlet>
     </outlets>
@@ -103,6 +117,56 @@
 
           [ui.n~ #z]
 [X a:1->y] [X a:2->z] [X b->a] [X c->a]
+]]>
+      </pdascii>
+      <pdascii id="quad_pan">
+<![CDATA[
+[noise~] [line~]
+
+   |        |
+   |     [0 0 0 0(  [1 0 0 0(  [0.5 0.5 0.5 0.5(
+   |        |          |              |
+   |  [nsig~ 4 #a]
+   |  /  /  /  /
+[*~ ] [*~ ] [*~ ] [*~ ]
+ |     |     |     |
+[gain~] [gain~] [gain~] [gain~]
+  \    |    |    /
+   [dac~ 1 2 3 4]
+
+[X a:1] [X a:2] [X a:3] [X a:4]
+]]>
+      </pdascii>
+      <pdascii id="dc_offset">
+<![CDATA[
+[loadbang]
+
+[0.25 #a(  [1 #b(  [2 #c(
+
+[nsig~ 3 #z]
+
+|    |    |
+[sig~] [*~ 2] [+~ 1]
+
+|    |    |
+[dac~ 1 2 3]
+
+[X a->z] [X b->z] [X c->z]
+]]>
+      </pdascii>
+      <pdascii id="env_multich">
+<![CDATA[
+[loadbang]
+
+[1000 0 500 1 300 0.5 #a(
+
+[line~ #b]
+
+   [nsig~ 8 #z]
+
+[dac~ 1 2 3 4 5 6 7 8]
+
+[X a->b] [X b->z]
 ]]>
       </pdascii>
     </example>
