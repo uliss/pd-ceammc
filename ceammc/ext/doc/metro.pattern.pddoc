@@ -20,58 +20,68 @@
       </also>
       <since>0.5</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object works like a regular metronome, but instead of a single fixed
+        period it plays through a list of time intervals in a loop. Each interval defines the
+        delay in milliseconds before the next bang. The current pattern index is available
+        via @current, and when @sync is enabled, a new pattern sent to the second inlet is
+        applied only after the current cycle finishes.</tr>
+        <tr lang="ru">Объект работает как обычный метроном, но вместо одного фиксированного
+        периода проигрывает список временных интервалов в цикле. Каждый интервал задаёт
+        задержку в миллисекундах до следующего bang. Текущий индекс паттерна доступен
+        через @current, а при включённом @sync новый паттерн, отправленный во второй
+        вход, применяется только после завершения текущего цикла.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="PATTERN" type="list">
         <tr lang="en">list of time intervals (in ms)</tr>
-        <tr lang="ru" finished="false">Список временных интервалов (в мс)</tr>
+        <tr lang="ru">список временных интервалов (в мс)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @current -->
       <property name="@current" type="int" minvalue="0" default="0">
         <tr lang="en">current pattern index</tr>
-        <tr lang="ru" finished="false">Текущий индекс</tr>
+        <tr lang="ru">текущий индекс паттерна</tr>
       </property>
       <!-- @pattern -->
       <property name="@pattern" type="list" default="">
         <tr lang="en">time intervals (in ms) performed in a loop</tr>
-        <tr lang="ru" finished="false">интервалы времени (в мс), выполненные в петле</tr>
+        <tr lang="ru">временные интервалы (в мс), воспроизводимые в цикле</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="bool" default="0">
         <tr lang="en">sync mode - change pattern after full cycle</tr>
-        <!-- old: Режим синхронизации - изменение шаблона после
-                полного цикла -->
-        <tr lang="ru" finished="false">Режим синхронизации - изменение шаблона после полного
-        цикла</tr>
+        <tr lang="ru">режим синхронизации - смена паттерна после полного цикла</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
-          <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
+          <tr lang="ru">запускает (при 1) или останавливает (при 0) метроном</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set new pattern</tr>
-          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+          <tr lang="ru">установить новый паттерн</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">outputs *bang*</tr>
-          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+          <tr lang="ru">выдаёт *bang*</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">outputs current pattern index and bang on each cycle</tr>
-          <tr lang="ru" finished="false">выводит текущий индекс шаблона и удар по каждому
-          циклу</tr>
+          <tr lang="ru">выдаёт текущий индекс паттерна и bang в начале каждого цикла</tr>
         </out>
       </outlet>
     </outlets>
