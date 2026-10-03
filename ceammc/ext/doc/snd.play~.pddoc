@@ -20,21 +20,20 @@
       <par>
         <tr lang="en">Supports variable speed playing, pausing, seeking, time-stretching and
         resampling</tr>
-        <tr lang="ru">Поддерживает переменную скорость воспроизведения, паузу, поиск,
-        растяжение времени и ресемплинг</tr>
+        <tr lang="ru">Поддерживает переменную скорость воспроизведения, паузу, поиск, растяжение
+        времени и ресемплинг</tr>
       </par>
       <par>
         <tr lang="en">The object reads a sound file from disk and plays it through its audio
-        outlets. You can control the playback position with messages such as [seek], [rewind]
-        and [ff], change the speed with the @speed property, enable looping with @loop and
-        switch to time-stretching mode with @stretch. The object also reports errors to a
-        global receiver name set via @on_err.</tr>
+        outlets. You can control the playback position with messages such as [seek], [rewind] and
+        [ff], change the speed with the @speed property, enable looping with @loop and switch to
+        time-stretching mode with @stretch. The object also reports errors to a global receiver
+        name set via @on_err.</tr>
         <tr lang="ru">Объект читает звуковой файл с диска и воспроизводит его через свои
-        аудиовыходы. Вы можете управлять позицией воспроизведения с помощью сообщений
-        [seek], [rewind] и [ff], изменять скорость через свойство @speed, включать
-        зацикливание через @loop и переключаться в режим растяжения времени через
-        @stretch. Объект также сообщает об ошибках глобальному получателю, заданному
-        через @on_err.</tr>
+        аудиовыходы. Вы можете управлять позицией воспроизведения с помощью сообщений [seek],
+        [rewind] и [ff], изменять скорость через свойство @speed, включать зацикливание через @loop
+        и переключаться в режим растяжения времени через @stretch. Объект также сообщает об ошибках
+        глобальному получателю, заданному через @on_err.</tr>
       </par>
     </info>
     <arguments>
@@ -75,16 +74,16 @@
       </property>
       <!-- @on_err -->
       <property name="@on_err" type="symbol" default="">
-        <tr lang="en">the error send destination. For example, if the soundfile was not found,
-        the message [not_found( will be sent to this global name</tr>
-        <tr lang="ru">адрес отправки ошибок. Например, если звуковой файл не был найден,
-        сообщение [not_found( будет отправлено на это глобальное имя</tr>
+        <tr lang="en">the error send destination. For example, if the soundfile was not found, the
+        message [not_found( will be sent to this global name</tr>
+        <tr lang="ru">адрес отправки ошибок. Например, если звуковой файл не был найден, сообщение
+        [not_found( будет отправлено на это глобальное имя</tr>
       </property>
       <!-- @pitch -->
       <property name="@pitch" type="float" default="1" minvalue="0.25" maxvalue="4">
         <tr lang="en">pitch-shift correction. Used only if @stretch mode is enabled.</tr>
-        <tr lang="ru">коррекция сдвига высоты тона. Используется только при включённом
-        режиме @stretch.</tr>
+        <tr lang="ru">коррекция сдвига высоты тона. Используется только при включённом режиме
+        @stretch.</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" default="1" minvalue="0.25" maxvalue="4">
@@ -92,25 +91,25 @@
         (also with pitch change respectively) in real time. If @stretch mode is enabled: can only
         change speed (without pitch change) only on the next playing cycle</tr>
         <tr lang="ru">скорость воспроизведения. Если режим @stretch отключён (по умолчанию):
-        изменяет скорость воспроизведения (соответственно и с изменением высоты тона) в
-        реальном времени. Если режим @stretch включён: можно изменить скорость (без
-        изменения высоты тона) только на следующем цикле воспроизведения</tr>
+        изменяет скорость воспроизведения (соответственно и с изменением высоты тона) в реальном
+        времени. Если режим @stretch включён: можно изменить скорость (без изменения высоты тона)
+        только на следующем цикле воспроизведения</tr>
       </property>
       <!-- @stretch -->
       <property name="@stretch" type="bool" default="0">
         <tr lang="en">stretch mode. If true: use timestretch and pitch-shifting</tr>
-        <tr lang="ru">режим растяжения. Если true: использовать растяжение времени и
-        сдвиг высоты тона</tr>
+        <tr lang="ru">режим растяжения. Если true: использовать растяжение времени и сдвиг высоты
+        тона</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="symbol" default="now" enum="now defer wait">
         <tr lang="en">sync mode. 'now': immediately starts playing (abort previous) after receiving
         start message. 'defer': wait until previous playing will be done, that starts new. 'wait':
         do not playing until previous playing will not finished</tr>
-        <tr lang="ru">режим синхронизации. 'now': немедленно начинает воспроизведение
-        (прерывая предыдущее) после получения сообщения о старте. 'defer': подождать, пока
-        предыдущее воспроизведение завершится, затем начать новое. 'wait': не воспроизводить,
-        пока предыдущее воспроизведение не завершится</tr>
+        <tr lang="ru">режим синхронизации. 'now': немедленно начинает воспроизведение (прерывая
+        предыдущее) после получения сообщения о старте. 'defer': подождать, пока предыдущее
+        воспроизведение завершится, затем начать новое. 'wait': не воспроизводить, пока предыдущее
+        воспроизведение не завершится</tr>
       </property>
     </properties>
     <methods>
@@ -124,9 +123,9 @@
           <tr lang="en">time amount. Can be in seconds, milliseconds, samples, SMPTE. If the time
           unit is not specified treat float values as samples. If the argument is not specified:
           jump one second forward.</tr>
-          <tr lang="ru">количество времени. Может быть в секундах, миллисекундах, сэмплах,
-          SMPTE. Если единица времени не указана, значения с плавающей точкой трактуются как
-          сэмплы. Если аргумент не указан: переход на одну секунду вперёд.</tr>
+          <tr lang="ru">количество времени. Может быть в секундах, миллисекундах, сэмплах, SMPTE.
+          Если единица времени не указана, значения с плавающей точкой трактуются как сэмплы. Если
+          аргумент не указан: переход на одну секунду вперёд.</tr>
         </param>
       </method>
       <!-- open -->
@@ -162,9 +161,9 @@
           <tr lang="en">time amount. Can be in seconds, milliseconds, samples, SMPTE. If the time
           unit is not specified treat float values as milliseconds. If the argument is not
           specified: jump one second backward.</tr>
-          <tr lang="ru">количество времени. Может быть в секундах, миллисекундах, сэмплах,
-          SMPTE. Если единица времени не указана, значения с плавающей точкой трактуются как
-          миллисекунды. Если аргумент не указан: переход на одну секунду назад.</tr>
+          <tr lang="ru">количество времени. Может быть в секундах, миллисекундах, сэмплах, SMPTE.
+          Если единица времени не указана, значения с плавающей точкой трактуются как миллисекунды.
+          Если аргумент не указан: переход на одну секунду назад.</tr>
         </param>
       </method>
       <!-- seek -->
@@ -174,12 +173,12 @@
           <tr lang="ru">переход к заданному времени (абсолютное значение)</tr>
         </info>
         <param name="TIME" type="atom" required="false">
-          <tr lang="en">time position. Can be in seconds, milliseconds, samples, SMPTE. If the
-          time unit is not specified treat float values as milliseconds. If the argument is not
+          <tr lang="en">time position. Can be in seconds, milliseconds, samples, SMPTE. If the time
+          unit is not specified treat float values as milliseconds. If the argument is not
           specified: seek to the beginning</tr>
-          <tr lang="ru">позиция во времени. Может быть в секундах, миллисекундах, сэмплах,
-          SMPTE. Если единица времени не указана, значения с плавающей точкой трактуются как
-          миллисекунды. Если аргумент не указан: переход к началу</tr>
+          <tr lang="ru">позиция во времени. Может быть в секундах, миллисекундах, сэмплах, SMPTE.
+          Если единица времени не указана, значения с плавающей точкой трактуются как миллисекунды.
+          Если аргумент не указан: переход к началу</tr>
         </param>
       </method>
       <!-- start -->

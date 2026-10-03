@@ -25,15 +25,15 @@
     <info>
       <par>
         <tr lang="en">The object converts a list of control values into a multichannel audio
-        signal. Each audio outlet outputs a constant signal equal to the corresponding value
-        from the list. It works like several [sig~] objects combined into one and is useful
-        for generating DC offsets, control voltages, test signals or multichannel
-        parameter automation.</tr>
-        <tr lang="ru">Объект преобразует список управляющих значений в многоканальный
-        звуковой сигнал. Каждый аудиовыход выдаёт постоянный сигнал, равный
-        соответствующему значению из списка. Он работает как несколько объектов [sig~],
-        объединённых в один, и полезен для генерации постоянных смещений, управляющих
-        напряжений, тестовых сигналов или многоканальной автоматизации параметров.</tr>
+        signal. Each audio outlet outputs a constant signal equal to the corresponding value from
+        the list. It works like several [sig~] objects combined into one and is useful for
+        generating DC offsets, control voltages, test signals or multichannel parameter
+        automation.</tr>
+        <tr lang="ru">Объект преобразует список управляющих значений в многоканальный звуковой
+        сигнал. Каждый аудиовыход выдаёт постоянный сигнал, равный соответствующему значению из
+        списка. Он работает как несколько объектов [sig~], объединённых в один, и полезен для
+        генерации постоянных смещений, управляющих напряжений, тестовых сигналов или многоканальной
+        автоматизации параметров.</tr>
       </par>
     </info>
     <arguments>
