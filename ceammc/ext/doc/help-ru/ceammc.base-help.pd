@@ -38,8 +38,8 @@ metro.pattern-help.pd;
 #X obj 30 460 ui.link @title [metro.random] @url metro.random-help.pd;
 #X text 220 457 метроном со случайным выбором периода в указанном диапазоне;
 #X obj 30 485 ui.link @title [metro.seq] @url metro.seq-help.pd;
-#X text 220 482 метроном изменяющий свой период при каждом ударе в
-указанной последовательности;
+#X text 220 482 метроном \, изменяющий свой период при каждом ударе
+в указанной последовательности;
 #X obj 30 525 ui.link @title [metro.wchoice] @url
 metro.wchoice-help.pd;
 #X text 220 522 метроном со случайным выбором периода при каждом ударе

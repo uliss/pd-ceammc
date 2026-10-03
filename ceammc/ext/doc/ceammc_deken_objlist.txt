@@ -80,7 +80,7 @@ ceammc/merge~	merge audio signals / слияние аудиосигналов
 metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
 metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
 metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
-metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном изменяющий свой период при каждом ударе в указанной последовательности
+metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном, изменяющий свой период при каждом ударе в указанной последовательности
 metro.wchoice	a metronome with a random selection of period at each beat from a specified list with weighted coefficients / метроном со случайным выбором периода при каждом ударе из заданного списка с весовыми коэффициентами
 mix~	multichannel signal mixer / многоканальный микшер сигналов
 ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
