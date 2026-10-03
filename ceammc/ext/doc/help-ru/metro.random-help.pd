@@ -5,79 +5,99 @@
 #X obj 1 1 cnv 5 765 40 empty empty metro.random 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 metro.random;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Random distribution: uniform;
-#X obj 50 171 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 98 171 ui.rsl @min 50 @max 1000;
-#X obj 50 229 metro.random 100 140;
-#X obj 50 258 click~;
-#X obj 50 287 flt.resonbp~ 1000 20;
-#X obj 270 287 ui.dsp~;
-#X obj 50 315 ui.hgain~;
-#X obj 50 344 dac~;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 399 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 393 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Случайное распределение: равномерное;
+#X text 240 108 Объект ведёт себя как обычный метроном \, но интервал
+между последовательными bang выбирается случайно и равномерно в диапазоне
+\, заданном @min и @max. Диапазон можно изменить в любой момент через
+второй и третий входы либо с помощью списка вида min max. Генератор
+можно сделать детерминированным \, задав @seed ненулевым значением.;
+#X text 240 209 Применение в алгоритмической композиции: стохастический
+пульс. Композитор может использовать [metro.random] для управления
+гранулярной или перкуссионной текстурой \, где каждое событие происходит
+в непредсказуемый момент внутри выбранного окна. Медленно сужая @min
+и @max от широких значений к узким \, можно постепенно превратить текстуру
+из разреженного \, рассеянного облака событий в плотный ритмический
+поток.;
+#X text 240 340 Применение в инсталляции: непредсказуемые эмбиент-триггеры.
+В звуковой инсталляции объект может запускать короткие звуки через
+нерегулярные интервалы \, чтобы пространство никогда не казалось повторяющимся.
+Диапазон интервалов может быть связан с данными сенсоров \, например
+с числом людей в помещении \, так что плотность событий естественно
+растёт вместе с активностью посетителей.;
+#X obj 50 519 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 98 519 ui.rsl @min 50 @max 1000;
+#X obj 50 577 metro.random 100 140;
+#X obj 50 606 click~;
+#X obj 50 635 flt.resonbp~ 1000 20;
+#X obj 270 635 ui.dsp~;
+#X obj 50 663 ui.hgain~;
+#X obj 50 692 dac~;
+#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 747 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 402 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 750 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 400 1\.;
-#X text 170 400 int;
-#X obj 268 401 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 400 MIN(ms): minimal bang interval. Тип: int. Минимальное
-значение: 1\.;
-#X text 130 440 2\.;
-#X text 170 440 int;
-#X obj 268 441 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 MAX(ms): maximum bang interval. Тип: int. Минимальное
-значение: 1\.;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 495 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 748 1\.;
+#X text 170 748 int;
+#X obj 268 749 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 748 MIN(ms): минимальный интервал между bang. Тип: int.
+Минимальное значение: 1\.;
+#X text 130 788 2\.;
+#X text 170 788 int;
+#X obj 268 789 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 788 MAX(ms): максимальный интервал между bang. Тип: int.
+Минимальное значение: 1\.;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 843 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 846 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 496 @max;
-#X text 270 496 Maximum bang interval. Тип: int. Единицы: 'ms'. Значение
-по умолчанию: 200\. Минимальное значение: 1\.;
-#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 538 @min;
-#X text 270 538 Minimal bang interval. Тип: int. Единицы: 'ms'. Значение
-по умолчанию: 100\. Минимальное значение: 1\.;
-#X obj 250 580 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 580 @seed;
-#X text 270 580 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 637 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 844 @max;
+#X text 270 844 Максимальный интервал между bang. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 200\. Минимальное значение: 1\.;
+#X obj 250 901 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 901 @min;
+#X text 270 901 Минимальный интервал между bang. Тип: int. Единицы:
+'ms'. Значение по умолчанию: 100\. Минимальное значение: 1\.;
+#X obj 250 958 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 958 @seed;
+#X text 270 958 Зерно генератора случайных чисел. Тип: int. Значение
+по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1015 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 638 1\.;
-#X text 170 638 float:;
-#X text 270 638 starts (on > 0) or stops (on <= 0) metro.;
-#X text 130 663 2\.;
-#X text 170 663 float:;
-#X text 270 663 set @min property.;
-#X text 170 688 list:;
-#X text 270 688 set random range. min max pair expected.;
-#X text 130 713 3\.;
-#X text 170 713 float:;
-#X text 270 713 set @max property.;
-#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 753 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 754 1\.;
-#X text 270 754 outputs *bang*.;
+#X text 130 1016 1\.;
+#X text 170 1016 float:;
+#X text 270 1016 запускает (при > 0) или останавливает (при <= 0) метроном.;
+#X text 130 1041 2\.;
+#X text 170 1041 float:;
+#X text 270 1041 установить свойство @min.;
+#X text 170 1066 list:;
+#X text 270 1066 установить случайный диапазон. Ожидается пара min
+max.;
+#X text 130 1091 3\.;
+#X text 170 1091 float:;
+#X text 270 1091 установить свойство @max.;
+#X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1131 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1132 1\.;
+#X text 170 1132 bang:;
+#X text 270 1132 выдаёт *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 804 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 807 библиотека: ceammc v0.9.8;
-#X text 468 819 смотрите также:;
-#X obj 589 822 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1182 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1185 библиотека: ceammc v0.9.8;
+#X text 468 1197 смотрите также:;
+#X obj 589 1200 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro] @url metro-help.pd;
-#X obj 643 822 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 643 1200 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro.pattern] @url metro.pattern-help.pd;
-#N canvas 10 826 400 290 info 0;
+#N canvas 10 1204 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -101,11 +121,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 826 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 1;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
+#X restore 10 1204 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;
 #X connect 12 0 13 0;
-#X connect 12 0 13 1;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;

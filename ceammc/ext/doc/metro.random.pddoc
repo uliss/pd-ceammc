@@ -23,70 +23,103 @@
     <info>
       <par>
         <tr lang="en">Random distribution: uniform</tr>
-        <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
+        <tr lang="ru">Случайное распределение: равномерное</tr>
+      </par>
+      <par>
+        <tr lang="en">The object behaves like a regular metronome, but the interval between
+        successive bangs is chosen randomly and uniformly within the range set by @min and
+        @max. The range can be changed at any time through the second and third inlets or
+        via a list of the form min max. The generator can be made deterministic by setting
+        @seed to a non-zero value.</tr>
+        <tr lang="ru">Объект ведёт себя как обычный метроном, но интервал между
+        последовательными bang выбирается случайно и равномерно в диапазоне, заданном
+        @min и @max. Диапазон можно изменить в любой момент через второй и третий входы
+        либо с помощью списка вида min max. Генератор можно сделать детерминированным,
+        задав @seed ненулевым значением.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in algorithmic composition: stochastic pulse. A composer can
+        use [metro.random] to drive a granular or percussive texture where each event occurs
+        at an unpredictable moment within a chosen window. By slowly sweeping @min and @max
+        from wide to narrow values, the texture gradually transforms from a sparse,
+        scattered cloud of events into a dense rhythmic stream.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: стохастический пульс.
+        Композитор может использовать [metro.random] для управления гранулярной или
+        перкуссионной текстурой, где каждое событие происходит в непредсказуемый момент
+        внутри выбранного окна. Медленно сужая @min и @max от широких значений к узким,
+        можно постепенно превратить текстуру из разреженного, рассеянного облака событий
+        в плотный ритмический поток.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in an installation: unpredictable ambient triggers. In a
+        sound installation the object can trigger short sounds at irregular intervals so
+        that the space never seems to repeat itself. The range of intervals may be linked
+        to sensor data, for example the number of people in the room, so that the density
+        of events grows naturally with the activity of the visitors.</tr>
+        <tr lang="ru">Применение в инсталляции: непредсказуемые эмбиент-триггеры.
+        В звуковой инсталляции объект может запускать короткие звуки через нерегулярные
+        интервалы, чтобы пространство никогда не казалось повторяющимся. Диапазон
+        интервалов может быть связан с данными сенсоров, например с числом людей в
+        помещении, так что плотность событий естественно растёт вместе с активностью
+        посетителей.</tr>
       </par>
     </info>
     <arguments>
       <argument name="MIN" type="int" units="millisecond" minvalue="1">
         <tr lang="en">minimal bang interval</tr>
-        <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
+        <tr lang="ru">минимальный интервал между bang</tr>
       </argument>
       <argument name="MAX" type="int" units="millisecond" minvalue="1">
         <tr lang="en">maximum bang interval</tr>
-        <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
+        <tr lang="ru">максимальный интервал между bang</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @max -->
       <property name="@max" type="int" units="millisecond" minvalue="1" default="200">
         <tr lang="en">maximum bang interval</tr>
-        <tr lang="ru" finished="false">Максимальный интервал взрыва</tr>
+        <tr lang="ru">максимальный интервал между bang</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="int" units="millisecond" minvalue="1" default="100">
         <tr lang="en">minimal bang interval</tr>
-        <tr lang="ru" finished="false">Минимальный интервал взрыва</tr>
+        <tr lang="ru">минимальный интервал между bang</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">зерно генератора случайных чисел</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">starts (on &gt; 0) or stops (on &lt;= 0) metro</tr>
-          <!-- old: старты (на > 0) или остановки (на <= 0)
-                    метро -->
-          <tr lang="ru" finished="false">старты (на &gt; 0) или остановки (на &lt;= 0) метро</tr>
+          <tr lang="ru">запускает (при &gt; 0) или останавливает (при &lt;= 0) метроном</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set @min property</tr>
-          <tr lang="ru" finished="false">@min Недвижимость</tr>
+          <tr lang="ru">установить свойство @min</tr>
         </in>
         <in on="list">
           <tr lang="en">set random range. min max pair expected.</tr>
-          <!-- old: Установите случайный диапазон. Ожидаемая пара
-                    min max. -->
-          <tr lang="ru" finished="false">Установите случайный диапазон. Ожидаемая пара min
-          max.</tr>
+          <tr lang="ru">установить случайный диапазон. Ожидается пара min max.</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set @max property</tr>
-          <tr lang="ru" finished="false">Обсуждение @max Property</tr>
+          <tr lang="ru">установить свойство @max</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">outputs *bang*</tr>
-          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+          <tr lang="ru">выдаёт *bang*</tr>
         </out>
       </outlet>
     </outlets>
