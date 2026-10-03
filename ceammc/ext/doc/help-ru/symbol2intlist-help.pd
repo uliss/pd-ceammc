@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 315 50 cnv 1 450 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 320 50 преобразует символьный тип в список кодов составляющих
-его символов;
+#X obj 308 50 cnv 1 457 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 313 50 преобразует символ в список кодов составляющих его символов;
 #X obj 1 1 cnv 5 765 40 empty empty symbol2intlist 20 20 0 20 -104026
 -4096 0;
 #N canvas 542 11 250 400 aliases 0;
@@ -14,31 +13,45 @@
 [sym->ilist] @url symbol2intlist-help.pd;
 #X restore 542 11 pd aliases;
 #X obj 639 11 symbol2intlist;
-#X msg 50 118 A;
-#X msg 88 118 ABC;
-#X msg 146 118 АБВГД;
-#X obj 50 147 symbol;
-#X obj 50 176 symbol2intlist;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 267 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает символ и выдаёт список целочисленных
+кодов \, по одному на каждый символ в символе. Коды соответствуют кодовым
+точкам Unicode \, поэтому латиница \, кириллица и другие письменности
+обрабатываются корректно. Это полезно для посимвольного анализа \,
+сравнения символов или для управления алгоритмами \, зависящими от
+числового значения каждого символа.;
+#X text 240 199 Применение в алгоритмической композиции: сонификация
+текста. Композитор может взять слово или фразу \, введённую исполнителем
+\, пропустить её через [symbol2intlist] и использовать получившиеся
+числа для управления высотой тона \, амплитудой или срезом фильтра.
+Одно и то же слово всегда даёт одну и ту же мелодическую линию \, поэтому
+текст становится воспроизводимой звуковой подписью \, которую можно
+преобразовывать дальнейшей обработкой.;
+#X msg 50 393 A;
+#X msg 88 393 ABC;
+#X msg 146 393 АБВГД;
+#X obj 50 422 symbol;
+#X obj 50 451 symbol2intlist;
+#X obj 50 480 ui.dt;
+#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 535 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 261 1\.;
-#X text 170 261 symbol:;
-#X text 270 261 first symbol.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 536 1\.;
+#X text 170 536 symbol:;
+#X text 270 536 входной символ.;
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 576 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 302 1\.;
-#X text 270 302 list of codes.;
+#X text 130 577 1\.;
+#X text 270 577 список кодов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title symbol @url ceammc.symbol-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 627 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 630 библиотека: ceammc v0.9.8;
+#N canvas 10 649 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -62,9 +75,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 649 pd info;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

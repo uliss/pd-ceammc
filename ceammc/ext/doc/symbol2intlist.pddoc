@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">converts the symbol into a list of character codes</tr>
-        <tr lang="ru">преобразует символьный тип в список кодов составляющих его символов</tr>
+        <tr lang="ru">преобразует символ в список кодов составляющих его символов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,11 +21,39 @@
         <alias>sym-&gt;ilist</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a symbol and outputs a list of integer codes, one for
+        each character in the symbol. The codes correspond to Unicode code points, so
+        Latin, Cyrillic and other scripts are handled correctly. This is useful for
+        character-level analysis, comparison of symbols, or for driving algorithms that
+        depend on the numeric value of each character.</tr>
+        <tr lang="ru">Объект принимает символ и выдаёт список целочисленных кодов, по
+        одному на каждый символ в символе. Коды соответствуют кодовым точкам Unicode,
+        поэтому латиница, кириллица и другие письменности обрабатываются корректно.
+        Это полезно для посимвольного анализа, сравнения символов или для управления
+        алгоритмами, зависящими от числового значения каждого символа.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in algorithmic composition: sonification of text. A composer
+        can take a word or a phrase entered by the performer, pass it through
+        [symbol2intlist] and use the resulting numbers to control pitch, amplitude or
+        filter cutoff. The same word always produces the same melodic contour, so the
+        text becomes a repeatable sonic signature that can be transformed by further
+        processing.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: сонификация текста.
+        Композитор может взять слово или фразу, введённую исполнителем, пропустить её
+        через [symbol2intlist] и использовать получившиеся числа для управления высотой
+        тона, амплитудой или срезом фильтра. Одно и то же слово всегда даёт одну и ту же
+        мелодическую линию, поэтому текст становится воспроизводимой звуковой подписью,
+        которую можно преобразовывать дальнейшей обработкой.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">first symbol</tr>
-          <tr lang="ru" finished="false">Первый символ</tr>
+          <tr lang="ru">входной символ</tr>
         </in>
       </inlet>
     </inlets>
@@ -33,7 +61,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of codes</tr>
-          <tr lang="ru" finished="false">Список кодов</tr>
+          <tr lang="ru">список кодов</tr>
         </out>
       </outlet>
     </outlets>

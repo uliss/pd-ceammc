@@ -17,8 +17,8 @@ symbol.num_compare-help.pd;
 #X text 220 207 преобразует символ или строку в сообщение;
 #X obj 30 235 ui.link @title [symbol2intlist] @url
 symbol2intlist-help.pd;
-#X text 220 232 преобразует символьный тип в список кодов составляющих
-его символов;
+#X text 220 232 преобразует символ в список кодов составляющих его
+символов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

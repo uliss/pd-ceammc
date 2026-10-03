@@ -1256,10 +1256,10 @@ ceammc/string2any	converts symbol or string into a message / преобразу�
 sym->any	converts symbol or string into a message / преобразует символ или строку в сообщение
 str->any	converts symbol or string into a message / преобразует символ или строку в сообщение
 string2any	converts symbol or string into a message / преобразует символ или строку в сообщение
-symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-ceammc/symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-ceammc/sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+symbol2intlist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+ceammc/symbol2intlist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+ceammc/sym->ilist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+sym->ilist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
 synth.bee3~	Hammond-oid organ FM synthesis instrument / FM-синтезатор в духе органа Хэммонда
 synth.birds~	bird singing generator / генератор пения птиц
 synth.church_bell~	generic church bell modal model / модовая модель церковного колокола
