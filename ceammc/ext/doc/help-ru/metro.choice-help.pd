@@ -7,7 +7,7 @@
 -4096 0;
 #X obj 652 11 metro.choice;
 #X obj 230 93 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Random distribution: uniform;
+#X text 240 98 Случайное распределение: равномерное;
 #X obj 50 186 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X listbox 232 186 20 0 0 0 - - -;
 #X obj 50 215 metro.choice 100 200;
@@ -24,32 +24,33 @@
 #X text 130 386 1\.;
 #X text 170 386 list;
 #X obj 268 387 cnv 1 94 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 386 TIMESET(ms): timeset (>0). Тип: list.;
+#X text 270 386 TIMESET(ms): набор периодов (>0). Тип: list.;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 426 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 429 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 427 @seed;
-#X text 270 427 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
+#X text 270 427 Зерно генератора случайных чисел. Тип: int. Значение
+по умолчанию: 0\. Минимальное значение: 0\.;
 #X obj 250 469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 469 @timeset;
-#X text 270 469 Timeset (>0). Тип: list. Единицы: 'ms'.;
+#X text 270 469 Набор периодов (>0). Тип: list. Единицы: 'ms'.;
 #X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 514 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 515 1\.;
 #X text 170 515 float:;
-#X text 270 515 starts (on >0) or stops (on <=0) metro.;
+#X text 270 515 запускает (при >0) или останавливает (при <=0) метроном.;
 #X text 130 540 2\.;
 #X text 170 540 list:;
-#X text 270 540 set timeset.;
+#X text 270 540 установить набор периодов.;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 580 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 581 1\.;
-#X text 270 581 outputs *bang*.;
+#X text 170 581 bang:;
+#X text 270 581 выдаёт *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
