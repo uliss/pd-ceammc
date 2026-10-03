@@ -22,70 +22,93 @@
       </also>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object works like [metro.choice], but each period in the list has
+        its own weight that determines how often it is selected. Weights can be given as
+        floats or as percentages. The normalized probability list is available through the
+        read-only property @calc_w, and the random generator can be made deterministic by
+        setting @seed to a non-zero value.</tr>
+        <tr lang="ru">Объект работает как [metro.choice], но каждый период в списке имеет
+        собственный вес, определяющий, как часто он выбирается. Веса можно задавать в
+        виде чисел с плавающей точкой или в процентах. Нормализованный список
+        вероятностей доступен через свойство только для чтения @calc_w, а генератор
+        случайных чисел можно сделать детерминированным, задав @seed ненулевым
+        значением.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in algorithmic composition: weighted rhythmic texture. A
+        composer can favour short intervals over long ones by assigning them higher weights,
+        for example [50 40% 200 40% 800 20%]. The resulting pulse is mostly dense but
+        occasionally opens up into longer silences, which gives the texture a recognizable
+        statistical character rather than pure randomness.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: взвешенная ритмическая
+        текстура. Композитор может отдать предпочтение коротким интервалам, назначив им
+        больший вес, например [50 40% 200 40% 800 20%]. Получающийся пульс в основном
+        плотный, но иногда раскрывается в более длительные паузы, что придаёт текстуре
+        узнаваемый статистический характер вместо чистого случая.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="INIT" type="list">
         <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats or
         percent</tr>
-        <!-- old: Список времени и времени в формате: T0 W1 Значения
-                веса могут быть плавающими или процентами. -->
-        <tr lang="ru" finished="false">Список времени и времени в формате: T0 W1 Значения веса
-        могут быть плавающими или процентами.</tr>
+        <tr lang="ru">список TIME и WEIGHT в формате: T0 W1... Значения весов могут быть
+        числами с плавающей точкой или процентами</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @calc_w -->
       <property name="@calc_w" type="list" default="1" access="readonly">
         <tr lang="en">normalized list of probabilities</tr>
-        <tr lang="ru" finished="false">Нормализованный список вероятностей</tr>
+        <tr lang="ru">нормализованный список вероятностей</tr>
       </property>
       <!-- @init -->
       <property name="@init" type="list" default="" access="initonly">
         <tr lang="en">intermixed list of time and weights values</tr>
-        <tr lang="ru" finished="false">Перемешанный список значений времени и весов</tr>
+        <tr lang="ru">смешанный список значений времени и весов</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">зерно генератора случайных чисел</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="list" units="millisecond" default="">
         <tr lang="en">timeset (&gt;0)</tr>
-        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+        <tr lang="ru">набор периодов (&gt;0)</tr>
       </property>
       <!-- @w -->
       <property name="@w" type="list" default="">
         <tr lang="en">weight list, float or percent values</tr>
-        <tr lang="ru" finished="false">весовой список, значения поплавка или процента</tr>
+        <tr lang="ru">список весов, значения в виде чисел с плавающей точкой или процентов</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
-          <!-- old: старты (на >0) или остановки (на <=0)
-                    метро -->
-          <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0) метро</tr>
+          <tr lang="ru">запускает (при &gt;0) или останавливает (при &lt;=0) метроном</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set timeset</tr>
-          <tr lang="ru" finished="false">установленное время</tr>
+          <tr lang="ru">установить набор периодов</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set weights</tr>
-          <tr lang="ru" finished="false">установленный вес</tr>
+          <tr lang="ru">установить веса</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">outputs *bang*</tr>
-          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+          <tr lang="ru">выдаёт *bang*</tr>
         </out>
       </outlet>
     </outlets>

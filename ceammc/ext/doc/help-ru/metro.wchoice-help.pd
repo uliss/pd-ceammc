@@ -6,77 +6,92 @@
 #X obj 1 1 cnv 5 765 40 empty empty metro.wchoice 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 metro.wchoice;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X listbox 155 118 20 0 0 0 - - -;
-#X listbox 318 118 20 0 0 0 - - -;
-#X obj 50 147 metro.wchoice 100 20% 200 80%;
-#X obj 50 176 click~;
-#X obj 50 205 flt.resonbp~ 1000 40;
-#X obj 270 205 ui.dsp~;
-#X obj 50 234 ui.hgain~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 252 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект работает как [metro.choice] \, но каждый период
+в списке имеет собственный вес \, определяющий \, как часто он выбирается.
+Веса можно задавать в виде чисел с плавающей точкой или в процентах.
+Нормализованный список вероятностей доступен через свойство только
+для чтения @calc_w \, а генератор случайных чисел можно сделать детерминированным
+\, задав @seed ненулевым значением.;
+#X text 240 214 Применение в алгоритмической композиции: взвешенная
+ритмическая текстура. Композитор может отдать предпочтение коротким
+интервалам \, назначив им больший вес \, например [50 40% 200 40% 800
+20%]. Получающийся пульс в основном плотный \, но иногда раскрывается
+в более длительные паузы \, что придаёт текстуре узнаваемый статистический
+характер вместо чистого случая.;
+#X obj 50 393 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X listbox 155 393 20 0 0 0 - - -;
+#X listbox 318 393 20 0 0 0 - - -;
+#X obj 50 422 metro.wchoice 100 20% 200 80%;
+#X obj 50 451 click~;
+#X obj 50 480 flt.resonbp~ 1000 40;
+#X obj 270 480 ui.dsp~;
+#X obj 50 509 ui.hgain~;
+#X obj 50 537 dac~;
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 592 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 595 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 list;
-#X obj 268 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 INIT: TIME and WEIGHT list in format: T0 W1\... Weight
-values can be floats or percent. Тип: list.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 593 1\.;
+#X text 170 593 list;
+#X obj 268 594 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 593 INIT: список TIME и WEIGHT в формате: T0 W1\... Значения
+весов могут быть числами с плавающей точкой или процентами. Тип: list.;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 663 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 666 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 374 @init;
-#X text 270 374 (при инициализации) Intermixed list of time and weights
-values. Тип: list.;
-#X obj 250 416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 416 @seed;
-#X text 270 416 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 458 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 458 @t;
-#X text 270 458 Timeset (>0). Тип: list. Единицы: 'ms'.;
-#X obj 250 488 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 488 @w;
-#X text 270 488 Weight list \, float or percent values. Тип: list.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @calc_w?;
-#X text 270 518 (только чтение) Normalized list of probabilities. Тип:
-list. Значение по умолчанию: 1\.;
-#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 575 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 664 @init;
+#X text 270 664 (при инициализации) Смешанный список значений времени
+и весов. Тип: list.;
+#X obj 250 706 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 706 @seed;
+#X text 270 706 Зерно генератора случайных чисел. Тип: int. Значение
+по умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 748 @t;
+#X text 270 748 Набор периодов (>0). Тип: list. Единицы: 'ms'.;
+#X obj 250 778 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 778 @w;
+#X text 270 778 Список весов \, значения в виде чисел с плавающей точкой
+или процентов. Тип: list.;
+#X obj 250 820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 820 @calc_w?;
+#X text 270 820 (только чтение) Нормализованный список вероятностей.
+Тип: list. Значение по умолчанию: 1\.;
+#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 877 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 576 1\.;
-#X text 170 576 float:;
-#X text 270 576 starts (on >0) or stops (on <=0) metro.;
-#X text 130 601 2\.;
-#X text 170 601 list:;
-#X text 270 601 set timeset.;
-#X text 130 626 3\.;
-#X text 170 626 list:;
-#X text 270 626 set weights.;
-#X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 666 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 878 1\.;
+#X text 170 878 float:;
+#X text 270 878 запускает (при >0) или останавливает (при <=0) метроном.;
+#X text 130 903 2\.;
+#X text 170 903 list:;
+#X text 270 903 установить набор периодов.;
+#X text 130 928 3\.;
+#X text 170 928 list:;
+#X text 270 928 установить веса.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 968 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 667 1\.;
-#X text 270 667 outputs *bang*.;
+#X text 130 969 1\.;
+#X text 170 969 bang:;
+#X text 270 969 выдаёт *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 717 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 720 библиотека: ceammc v0.9.8;
-#X text 424 732 смотрите также:;
-#X obj 545 735 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1019 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1022 библиотека: ceammc v0.9.8;
+#X text 424 1034 смотрите также:;
+#X obj 545 1037 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro.choice] @url metro.choice-help.pd;
-#X obj 650 735 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 1037 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro.random] @url metro.random-help.pd;
-#N canvas 10 739 400 290 info 0;
+#N canvas 10 1041 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,12 +115,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 739 pd info;
-#X connect 4 0 7 0;
-#X connect 5 0 7 1;
-#X connect 6 0 7 2;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
+#X restore 10 1041 pd info;
+#X connect 7 0 10 0;
+#X connect 8 0 10 1;
+#X connect 9 0 10 2;
+#X connect 10 0 11 0;
 #X connect 11 0 12 0;
-#X connect 11 0 12 1;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;
