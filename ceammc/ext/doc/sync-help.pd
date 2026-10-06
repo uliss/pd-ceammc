@@ -7,62 +7,80 @@ stack loops;
 #X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/sync] @url sync-help.pd;
 #X obj 711 8 sync;
-#X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 The value send to inlet repeated to all outlets except
-from the current one. This prevents infinite loops;
-#X text 50 201 simple example;
-#X floatatom 50 230 5 0 0 0 - - -;
-#X obj 136 230 sync;
-#X floatatom 232 230 5 0 0 0 - - -;
-#X text 50 259 more complex;
-#X floatatom 50 288 5 0 0 0 - - -;
-#X floatatom 126 288 5 0 0 0 - - -;
-#X floatatom 203 288 5 0 0 0 - - -;
-#X obj 50 317 sync 3, f 22;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 372 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 411 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 The value sent to one inlet is repeated to all other
+outlets \, except the one paired with that inlet. This prevents infinite
+loops.;
+#X text 240 153 The problem: when two or more GUI objects (sliders
+\, number boxes \, knobs) need to show the same value and also modify
+each other \, a direct bidirectional connection causes an infinite
+loop — A sends to B \, B sends back to A \, A sends again to B \, and
+so on \, until the Pd stack overflows. The object [sync] solves this:
+it remembers which inlet the value came from and forwards it to all
+other outlets except the paired one. This way the chain naturally terminates
+and both widgets stay in sync.;
+#X text 240 299 Typical use cases:;
+#X text 250 324 • Linked sliders — for example \, L and R sliders of
+a stereo balance: moving one should update the other without an infinite
+loop.;
+#X text 250 379 • Knob + number box — a [ui.knob] and a [floatatom]
+showing the same parameter and updating each other.;
+#X text 250 419 • MIDI controller and GUI — a physical knob on a MIDI
+controller and a [ui.knob] in the patch: MIDI input goes through [sync]
+to the GUI \, and GUI changes go back through [sync] to MIDI output.;
+#X text 50 552 simple example;
+#X floatatom 50 581 5 0 0 0 - - -;
+#X obj 136 581 sync;
+#X floatatom 232 581 5 0 0 0 - - -;
+#X text 50 610 more complex;
+#X floatatom 50 639 5 0 0 0 - - -;
+#X floatatom 126 639 5 0 0 0 - - -;
+#X floatatom 203 639 5 0 0 0 - - -;
+#X obj 50 668 sync 3, f 22;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 375 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 726 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 373 1\.;
-#X text 170 373 int;
-#X obj 268 374 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 373 N: number of synchronized values. Type: int. Range:
+#X text 130 724 1\.;
+#X text 170 724 int;
+#X obj 268 725 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 724 N: number of synchronized values. Type: int. Range:
 [2\..8];
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 759 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 764 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 767 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @n;
-#X text 270 414 (initonly) Number of synced values. Type: int. Default
-value: 2\. Range: [2\..8].;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 765 @n;
+#X text 270 765 (initonly) Number of synchronized values. Type: int.
+Default value: 2\. Range: [2\..8].;
+#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 822 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 270 472 first synchronized input.;
-#X text 130 497 ...;
-#X text 270 497 ... synchronized input.;
-#X text 130 522 n.;
-#X text 270 522 n-th synchronized input.;
-#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 562 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 823 1\.;
+#X text 270 823 first synchronized input.;
+#X text 130 848 ...;
+#X text 270 848 ... synchronized input.;
+#X text 130 873 n.;
+#X text 270 873 n-th synchronized input.;
+#X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 913 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 563 1\.;
-#X text 270 563 first synchronized output.;
-#X text 130 583 ...;
-#X text 270 583 ... synchronized output.;
-#X text 130 603 n.;
-#X text 270 603 n-th synchronized output.;
+#X text 130 914 1\.;
+#X text 270 914 first synchronized output.;
+#X text 130 934 ...;
+#X text 270 934 ... synchronized output.;
+#X text 130 954 n.;
+#X text 270 954 n-th synchronized output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 653 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 656 library: ceammc v0.9.8;
-#N canvas 10 675 400 290 info 0;
+#X obj 1 1004 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1007 library: ceammc v0.9.8;
+#N canvas 10 1026 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -86,14 +104,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 675 pd info;
-#X connect 12 0 15 0;
-#X connect 15 0 12 0;
-#X connect 13 0 15 1;
-#X connect 15 1 13 0;
-#X connect 14 0 15 2;
-#X connect 15 2 14 0;
-#X connect 8 0 9 0;
-#X connect 9 0 8 0;
-#X connect 9 1 10 0;
-#X connect 10 0 9 1;
+#X restore 10 1026 pd info;
+#X connect 17 0 20 0;
+#X connect 20 0 17 0;
+#X connect 18 0 20 1;
+#X connect 20 1 18 0;
+#X connect 19 0 20 2;
+#X connect 20 2 19 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 14 1 15 0;
+#X connect 15 0 14 1;

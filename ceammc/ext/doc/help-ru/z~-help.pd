@@ -6,55 +6,69 @@
 #X obj 630 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/z~] @url z~-help.pd;
 #X obj 723 8 z~;
-#X msg 50 118 bang;
-#X obj 50 147 click~;
-#X obj 146 176 z~ 1;
-#X obj 50 205 *~ 0.5;
-#X obj 146 205 *~ 0.5;
-#X obj 50 234 plot.response~ 64;
-#X obj 50 277 ui.plot~ @size 400 200 @xlabels 1 @ylabels 1 @xmin_grid
+#X obj 230 78 cnv 1 535 255 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Задерживает входной аудиосигнал на целое число семплов.
+Длительность задержки задаётся аргументом или свойством @z и может
+изменяться во время выполнения через управляющий вход.;
+#X text 240 153 Типичные сценарии применения:;
+#X text 250 178 • Выравнивание с точностью до семпла — компенсация
+небольших смещений по времени между двумя сигналами (например \, между
+прямым и задержанным трактом) \, с точностью именно до семпла \, а
+не до миллисекунд.;
+#X text 250 248 • Построение цепей обратной связи и гребенчатых фильтров
+— создание коротких гребенчатых эффектов \, струн Карплуса — Стронга
+или задержек с обратной связью путём комбинирования [z~] с петлёй обратной
+связи.;
+#X msg 50 381 bang;
+#X obj 50 410 click~;
+#X obj 146 439 z~ 1;
+#X obj 50 468 *~ 0.5;
+#X obj 146 468 *~ 0.5;
+#X obj 50 497 plot.response~ 64;
+#X obj 50 540 ui.plot~ @size 400 200 @xlabels 1 @ylabels 1 @xmin_grid
 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin -2 @ymax 2 @n 2;
-#X obj 50 493 ui.dsp~;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 548 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 756 ui.dsp~;
+#X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 811 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 551 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 814 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 549 1\.;
-#X text 170 549 int;
-#X obj 268 550 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 549 Z(samp): delay length. Тип: int. Диапазон: [0\..512];
-#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 589 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 812 1\.;
+#X text 170 812 int;
+#X obj 268 813 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 812 Z(samp): длительность задержки. Тип: int. Диапазон:
+[0\..512];
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 852 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 592 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 855 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 590 @z;
-#X text 270 590 Delay length. Тип: int. Единицы: 'samp'. Значение по
-умолчанию: 1\. Диапазон: [0\..512].;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 647 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 853 @z;
+#X text 270 853 Длительность задержки. Тип: int. Единицы: 'samp'. Значение
+по умолчанию: 1\. Диапазон: [0\..512].;
+#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 910 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 648 1\.;
-#X text 170 648 ~;
-#X text 270 648 input signal.;
-#X text 130 673 2\.;
-#X text 170 673 int:;
-#X text 270 673 set delay length.;
-#X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 911 1\.;
+#X text 170 911 ~;
+#X text 270 911 входной сигнал.;
+#X text 130 936 2\.;
+#X text 170 936 int:;
+#X text 270 936 устанавливает длительность задержки.;
+#X obj 20 971 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 976 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 714 1\.;
-#X text 170 714 ~;
-#X text 270 714 output signal.;
+#X text 130 977 1\.;
+#X text 170 977 ~;
+#X text 270 977 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 764 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 767 библиотека: ceammc v0.9.8;
-#N canvas 10 786 400 290 info 0;
+#X obj 1 1027 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1030 библиотека: ceammc v0.9.8;
+#N canvas 10 1049 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,14 +92,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 786 pd info;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
-#X connect 6 0 8 0;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X restore 10 1049 pd info;
 #X connect 10 0 11 0;
-#X connect 10 1 11 1;
-#X connect 10 2 11 2;
-#X connect 5 0 10 1;
+#X connect 11 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 16 1;
+#X connect 15 2 16 2;
+#X connect 10 0 15 1;

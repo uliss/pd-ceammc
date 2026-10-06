@@ -5,68 +5,89 @@
 #X obj 1 1 cnv 5 765 40 empty empty color.scale 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 color.scale;
-#X obj 50 118 ui.hsl @show_value 1;
-#X obj 309 118 ui.tab none short long inc dec @size 200 15;
-#X msg 309 147 @interp \$2;
-#X obj 50 176 color.scale Color(red) Color(blue) Color(yellow);
-#X obj 50 205 color->rgba @pack @float;
-#X msg 50 234 @background_color \$1 \$2 \$3;
-#X obj 50 262 ui.hsl @nosave 1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 282 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект строит цветовую шкалу из списка опорных цветов
+и выводит цвет в заданной точке этой шкалы. Позиция задаётся числом
+с плавающей точкой на входе: 0 соответствует первому цвету в списке
+\, 1 — последнему \, а промежуточные значения дают плавный переход.
+Стратегия интерполяции задаётся свойством @interp.;
+#X text 240 184 Интерполяция выполняется библиотекой colorm. Свойство
+@interp задаёт стратегию интерполяции оттенка и принимает следующие
+значения: 'none' — цвета интерполируются напрямую в RGB \, без коррекции
+оттенка \, 'short' — интерполяция идёт по короткой дуге цветового круга
+(подходит для большинства случаев) \, 'long' — интерполяция идёт по
+длинной дуге цветового круга \, 'inc' — оттенок монотонно возрастает
+(по часовой стрелке на цветовом круге) \, 'dec' — оттенок монотонно
+убывает (против часовой стрелки на цветовом круге).;
+#X obj 50 408 ui.hsl @show_value 1;
+#X obj 309 408 ui.tab none short long inc dec @size 200 15;
+#X msg 309 437 @interp \$2;
+#X obj 50 466 color.scale Color(red) Color(blue) Color(yellow);
+#X obj 50 495 color->rgba @pack @float;
+#X msg 50 524 @background_color \$1 \$2 \$3;
+#X obj 50 552 ui.hsl @nosave 1;
+#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 607 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 610 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 list;
-#X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 SCALE: color list. Тип: list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 608 1\.;
+#X text 170 608 list;
+#X obj 268 609 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 608 SCALE: список опорных цветов \, из которых строится
+шкала. Тип: list.;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 663 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 666 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @hex;
-#X text 270 359 Alias to @mode hex.;
-#X obj 250 389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 389 @interp;
-#X text 270 389 Hue interpolation strategy. Тип: symbol. Значение по
-умолчанию: none. Разрешённые значения: none \, short \, long \, inc
-\, dec.;
-#X obj 250 446 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 446 @mode;
-#X text 270 446 Output mode: if 'color' - output as data:color type
-\, if 'hex' - output as hex value \, if 'rgb' - RGB list. Тип: symbol.
-Значение по умолчанию: color. Разрешённые значения: color \, hex \,
-rgb.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @rgb;
-#X text 270 518 Alias to @mode rgb.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @scale;
-#X text 270 548 Color list. Тип: list.;
-#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 578 @color;
-#X text 270 578 Alias to @mode color.;
-#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 623 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 664 @hex;
+#X text 270 664 Псевдоним для @mode hex.;
+#X obj 250 694 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 694 @interp;
+#X text 270 694 Стратегия интерполяции оттенка: 'none' — прямая интерполяция
+в RGB \, 'short' — короткая дуга оттенка \, 'long' — длинная дуга оттенка
+\, 'inc' — возрастающий оттенок \, 'dec' — убывающий оттенок. Тип:
+symbol. Значение по умолчанию: none. Разрешённые значения: none \,
+short \, long \, inc \, dec.;
+#X obj 250 797 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 797 @mode;
+#X text 270 797 Режим вывода: 'color' — вывод в виде значения типа
+data:color \, 'hex' — вывод в виде hex-значения \, 'rgb' — вывод в
+виде списка RGB. Тип: symbol. Значение по умолчанию: color. Разрешённые
+значения: color \, hex \, rgb.;
+#X obj 250 869 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 869 @rgb;
+#X text 270 869 Псевдоним для @mode rgb.;
+#X obj 250 899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 899 @scale;
+#X text 270 899 Список опорных цветов \, из которых строится шкала.
+Тип: list.;
+#X obj 250 929 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 929 @color;
+#X text 270 929 Псевдоним для @mode color.;
+#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 974 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 624 1\.;
-#X text 170 624 float:;
-#X text 270 624 calculate color scale hue and output. Диапазон: [0\..1].;
-#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 664 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 665 1\.;
-#X text 270 665 data:color output.;
+#X text 130 975 1\.;
+#X text 170 975 float:;
+#X text 270 975 позиция на шкале: 0 — первый цвет \, 1 — последний
+цвет. При получении объект вычисляет цвет в этой позиции и выводит
+его. Диапазон: [0\..1].;
+#X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1045 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1046 1\.;
+#X text 170 1046 data:color:;
+#X text 270 1046 вывод data:color.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 718 библиотека: ceammc v0.9.8;
-#N canvas 10 737 400 290 info 0;
+#X obj 1 1096 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1099 библиотека: ceammc v0.9.8;
+#N canvas 10 1118 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,10 +111,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 737 pd info;
-#X connect 5 0 6 0;
-#X connect 4 0 7 0;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 1118 pd info;
 #X connect 8 0 9 0;
+#X connect 7 0 10 0;
 #X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

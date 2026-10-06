@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 детектор перехода для численного потока;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 473 50 детектор перехода для числового потока;
 #X obj 1 1 cnv 5 765 40 empty empty conv.edge2bang 20 20 0 20 -104026
 -4096 0;
 #X obj 388 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,64 +9,71 @@
 #X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [edge->bang] @url conv.edge2bang-help.pd;
 #X obj 639 8 conv.edge2bang;
-#X obj 50 118 phasor~ 0.5;
-#X obj 232 118 phasor~ 0.5;
-#X obj 405 118 lfo.tri~ 0.5;
-#X obj 50 147 s->f~;
-#X obj 232 147 *~ -1;
-#X obj 405 147 s->f~;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X obj 232 176 s->f~;
-#X floatatom 405 176 5 0 0 0 - - -;
-#X obj 50 205 edge->bang @down;
-#X floatatom 232 205 5 0 0 0 - - -;
-#X obj 405 205 edge->bang @both;
-#X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект обнаруживает переходы (фронты) в потоке числовых
+значений: когда входное значение меняется с низкого на высокое \, с
+высокого на низкое \, или и то и другое. При обнаружении перехода на
+выход отправляется bang. Поведение управляется свойством @mode: 'up'
+— только восходящие фронты \, 'down' — только нисходящие \, 'both'
+— оба типа.;
+#X obj 50 262 phasor~ 0.5;
+#X obj 232 262 phasor~ 0.5;
+#X obj 405 262 lfo.tri~ 0.5;
+#X obj 50 291 s->f~;
+#X obj 232 291 *~ -1;
+#X obj 405 291 s->f~;
+#X floatatom 50 320 5 0 0 0 - - -;
+#X obj 232 320 s->f~;
+#X floatatom 405 320 5 0 0 0 - - -;
+#X obj 50 349 edge->bang @down;
+#X floatatom 232 349 5 0 0 0 - - -;
+#X obj 405 349 edge->bang @both;
+#X obj 50 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 232 234 edge->bang @up;
-#X obj 405 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 232 378 edge->bang @up;
+#X obj 405 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 262 ui.dsp~;
-#X obj 232 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 406 ui.dsp~;
+#X obj 232 406 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @both;
-#X text 270 318 Сокращение для @mode both.;
-#X obj 250 348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 348 @down;
-#X text 270 348 Сокращение для @mode down.;
-#X obj 250 378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 378 @mode;
-#X text 270 378 Режим обнаружения края. Если 'up': выводит bang при
-изменении входного значения с низкого на высокое \, если 'down': с
-высокого на низкое \, 'both': в обоих случаях. Тип: symbol. Значение
-по умолчанию: up. Разрешённые значения: up \, down \, both.;
-#X obj 250 465 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 465 @up;
-#X text 270 465 Сокращение для @mode up.;
-#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 510 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 462 @both;
+#X text 270 462 Сокращение для @mode both.;
+#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 492 @down;
+#X text 270 492 Сокращение для @mode down.;
+#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 522 @mode;
+#X text 270 522 Режим обнаружения фронта. Если 'up': выводит bang при
+изменении входного значения с низкого на высокое. Если 'down': с высокого
+на низкое. Если 'both': в обоих случаях. Тип: symbol. Значение по умолчанию:
+up. Разрешённые значения: up \, down \, both.;
+#X obj 250 609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 609 @up;
+#X text 270 609 Сокращение для @mode up.;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 511 1\.;
-#X text 170 511 float:;
-#X text 270 511 input value.;
-#X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 551 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 655 1\.;
+#X text 170 655 float:;
+#X text 270 655 входное значение.;
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 695 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 552 1\.;
-#X text 270 552 bang: on edge.;
+#X text 130 696 1\.;
+#X text 270 696 bang при обнаружении фронта.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 602 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 605 библиотека: ceammc v0.9.8;
-#N canvas 10 624 400 290 info 0;
+#X obj 1 746 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 749 библиотека: ceammc v0.9.8;
+#N canvas 10 768 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,9 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 624 pd info;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
+#X restore 10 768 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;
@@ -103,4 +108,6 @@ https://github.com/uliss/pd-ceammc;
 #X connect 15 0 18 0;
 #X connect 16 0 19 0;
 #X connect 17 0 20 0;
+#X connect 18 0 21 0;
 #X connect 19 0 22 0;
+#X connect 21 0 24 0;

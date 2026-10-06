@@ -1,87 +1,106 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 595 50 диодная схема цепи Чуа;
+#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 634 50 диодная схема Чуа;
 #X obj 1 1 cnv 5 765 40 empty empty noise.chua~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 noise.chua~;
-#X obj 50 118 gnoise.chua~;
-#X obj 50 305 ui.hgain2~;
-#X obj 213 305 ui.dsp~;
-#X obj 50 334 dac~;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 371 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Цифровая эмуляция диодной схемы Чуа — классического
+примера простой электронной схемы \, демонстрирующей хаотическое поведение.
+Генератор производит два коррелированных хаотических аудиосигнала \,
+X и Y \, форма которых зависит от параметров схемы: ёмкости @C1 \,
+ёмкости @C2 \, индуктивности @L и сопротивления @R. Разные комбинации
+параметров дают периодические \, квазипериодические или полностью хаотические
+формы колебаний.;
+#X text 240 214 Типичные сценарии применения:;
+#X text 250 239 • Хаотический источник звука — подача выходов напрямую
+в микшер или цепочку эффектов для получения развивающихся \, непредсказуемых
+шумовых текстур.;
+#X text 250 294 • Источник модуляции — использование сигнала X или
+Y в качестве хаотического источника управления для среза фильтра \,
+панорамы или высоты тона \, что даёт органичное и развивающееся движение.;
+#X text 250 364 • Хаотическая модуляция параметров — медленное изменение
+параметров схемы (@R \, @L \, @C1 \, @C2) \, чтобы выходной сигнал
+со временем переходил между периодическим и хаотическим режимами.;
+#X obj 50 497 gnoise.chua~;
+#X obj 50 684 ui.hgain2~;
+#X obj 213 684 ui.dsp~;
+#X obj 50 713 dac~;
+#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 768 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 771 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 390 @id;
-#X text 270 390 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 769 @id;
+#X text 270 769 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/noise_chua/ИМЯ_СВОЙСТВА \, в противном случае к /noise_chua/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 477 @osc;
-#X text 270 477 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 507 @C1;
-#X text 270 507 C1 capacity in nF. Тип: float. Значение по умолчанию:
+#X obj 250 856 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 856 @osc;
+#X text 270 856 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 886 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 886 @C1;
+#X text 270 886 Ёмкость C1 в нФ. Тип: float. Значение по умолчанию:
 5.5\. Диапазон: [5.2\..6].;
-#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 549 @C2;
-#X text 270 549 C2 capacity in nF. Тип: float. Значение по умолчанию:
+#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 928 @C2;
+#X text 270 928 Ёмкость C2 в нФ. Тип: float. Значение по умолчанию:
 49.5\. Диапазон: [40\..60].;
-#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 591 @L;
-#X text 270 591 L in mH. Тип: float. Значение по умолчанию: 7.07\.
-Диапазон: [6.5\..7.3].;
-#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 633 @R;
-#X text 270 633 R resistance in kOhm. Тип: float. Значение по умолчанию:
+#X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 970 @L;
+#X text 270 970 Индуктивность L в мГн. Тип: float. Значение по умолчанию:
+7.07\. Диапазон: [6.5\..7.3].;
+#X obj 250 1012 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1012 @R;
+#X text 270 1012 Сопротивление R в кОм. Тип: float. Значение по умолчанию:
 1.6\. Диапазон: [1.252\..1.7].;
-#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 675 @active;
-#X text 270 675 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1054 @active;
+#X text 270 1054 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 717 @gate;
-#X text 270 717 Play trigger >0: on \, 0: off. To set output gain to
-0.5 you can 0.5 as trigger value. Тип: float. Значение по умолчанию:
-0\. Диапазон: [0\..1].;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 789 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1096 @gate;
+#X text 270 1096 Триггер запуска. >0 — вкл. \, 0 — выкл. Чтобы установить
+усиление выхода равным 0.5 \, используйте 0.5 в качестве значения триггера.
+Тип: float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
+#X obj 20 1178 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1183 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1184 reset;
+#X text 270 1184 сбрасывает генератор.;
+#X obj 250 1219 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1219 start;
+#X text 270 1219 запускает генератор.;
+#X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1269 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 790 reset;
-#X text 270 790 reset generator.;
-#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 825 start;
-#X text 270 825 start generator.;
-#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 875 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 876 1\.;
-#X text 170 876 bang:;
-#X text 270 876 play with default duration and full gain.;
-#X text 170 901 float:;
-#X text 270 901 play with default duration and specified gain.;
-#X text 170 926 list:;
-#X text 270 926 GAIN(0\..1) DUR(ms) pair expected.;
-#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 966 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 967 1\.;
-#X text 170 967 ~;
-#X text 270 967 X output (C1 Vout).;
-#X text 130 987 2\.;
-#X text 170 987 ~;
-#X text 270 987 Y output (C2 Vout).;
+#X text 130 1270 1\.;
+#X text 170 1270 bang:;
+#X text 270 1270 запускает с длительностью по умолчанию и полным усилением.;
+#X text 170 1295 float:;
+#X text 270 1295 запускает с длительностью по умолчанию и заданным
+усилением.;
+#X text 170 1320 list:;
+#X text 270 1320 ожидается пара GAIN(0\..1) DUR(мс).;
+#X obj 20 1355 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1360 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1361 1\.;
+#X text 170 1361 ~;
+#X text 270 1361 выход X (C1 Vout).;
+#X text 130 1381 2\.;
+#X text 170 1381 ~;
+#X text 270 1381 выход Y (C2 Vout).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 1037 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1040 библиотека: ceammc v0.9.8;
-#N canvas 10 1059 400 290 info 0;
+#X obj 1 1431 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1434 библиотека: ceammc v0.9.8;
+#N canvas 10 1453 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,8 +124,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1059 pd info;
-#X connect 4 0 5 0;
-#X connect 4 1 5 1;
-#X connect 5 0 7 0;
-#X connect 5 1 7 1;
+#X restore 10 1453 pd info;
+#X connect 10 0 11 0;
+#X connect 10 1 11 1;
+#X connect 11 0 13 0;
+#X connect 11 1 13 1;

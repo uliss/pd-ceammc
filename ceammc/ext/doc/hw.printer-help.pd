@@ -5,72 +5,79 @@
 #X obj 1 1 cnv 5 765 40 empty empty hw.printer 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.printer;
-#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 MacOs: supports only text \, PDF and images files.;
+#X obj 230 78 cnv 1 535 235 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 macOS: supports only text \, PDF and image files.;
 #X text 240 108 Windows: supports only PDF files.;
-#X msg 50 196 devices;
-#X obj 155 196 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 240 133 Typical use cases:;
+#X text 250 158 • Printing scores and documents — sending a generated
+PDF or a text file (for example \, a score \, a list of parameters
+or an event log) directly to a printer from a Pd patch.;
+#X text 250 228 • Printed output from installations — physically printing
+a document as part of an art installation or a performance \, for example
+to print a receipt \, a label or a score at the moment of an event.;
+#X msg 50 361 devices;
+#X obj 155 361 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 69 225 choose;
-#X obj 155 225 openpanel;
-#X msg 155 254 print \$1 @landscape 0;
-#X obj 50 283 hw.printer;
-#X text 165 283 using default printer;
-#X obj 50 312 print;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 367 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 69 390 choose;
+#X obj 155 390 openpanel;
+#X msg 155 419 print \$1 @landscape 0;
+#X obj 50 448 hw.printer;
+#X text 165 448 using default printer;
+#X obj 50 477 print;
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 532 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 370 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 535 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 368 1\.;
-#X text 170 368 symbol;
-#X obj 268 369 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 368 NAME: printer name. If not specified \, it uses the
-default system printer. Type: symbol.;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 423 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 533 1\.;
+#X text 170 533 symbol;
+#X obj 268 534 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 533 NAME: printer name. If not specified \, the default
+system printer is used. Type: symbol.;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 588 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 591 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 424 @name;
-#X text 270 424 Printer name \, if empty - use default system printer.
-Type: symbol.;
-#X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 481 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 589 @name;
+#X text 270 589 Printer name. If empty \, the default system printer
+is used. Type: symbol.;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 646 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 482 choose;
-#X text 270 482 choose printer by index. Arguments are:;
-#X obj 300 507 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 507 [IDX]: printer index in device list. Type: int. Min
+#X msg 130 647 choose;
+#X text 270 647 chooses a printer by index. Arguments are:;
+#X obj 300 672 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 672 [IDX]: printer index in device list. Type: int. Min
 value: 0\.;
-#X obj 250 555 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 555 devices;
-#X text 270 555 list printers.;
-#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 590 print;
-#X text 270 590 print file. Arguments are:;
-#X obj 300 615 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 615 FILE: file to print. Type: symbol.;
-#X obj 300 638 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 638 [@landscape]: print in landscape mode. Type: bool.;
-#X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 686 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 720 devices;
+#X text 270 720 lists printers.;
+#X obj 250 755 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 755 print;
+#X text 270 755 prints a file. Arguments are:;
+#X obj 300 780 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 780 FILE: file to print. Type: symbol.;
+#X obj 300 803 cnv 1 93 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 803 [@landscape]: print in landscape mode. Type: bool.;
+#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 851 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 687 1\.;
-#X text 270 687 input.;
-#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 727 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 852 1\.;
+#X text 270 852 input.;
+#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 892 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 728 1\.;
-#X text 270 728 dict: printer info output.;
+#X text 130 893 1\.;
+#X text 270 893 dict: printer info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 778 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 781 library: ceammc v0.9.8;
-#N canvas 10 800 400 290 info 0;
+#X obj 1 943 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 946 library: ceammc v0.9.8;
+#N canvas 10 965 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -87,17 +94,17 @@ value: 0\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 display \, brightness;
+#X text 120 164 printer \, print \, document;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 800 pd info;
-#X connect 8 0 10 0;
-#X connect 10 0 11 0;
-#X connect 7 0 12 0;
-#X connect 9 0 12 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
+#X restore 10 965 pd info;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 10 0 15 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;

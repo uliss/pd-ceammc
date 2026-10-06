@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">triggered ramp index generator for the array</tr>
-        <tr lang="ru">запускаемый генератор линейного индекса для массива</tr>
+        <tr lang="ru">запускаемый генератор линейно нарастающего индекса для массива</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,48 +16,61 @@
       <keywords>array ramp trigger</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object generates a ramp signal that can be used as a reading index for
+        the specified array. The ramp starts on bang and runs from the @from value to the @to value
+        at the speed set by @speed, with the range normalized to the 0..1 interval. When the ramp
+        reaches the final value, a bang is sent out through the control outlet.</tr>
+        <tr lang="ru">Объект генерирует линейно нарастающий сигнал, который можно использовать как
+        индекс чтения для указанного массива. Сигнал запускается по bang и изменяется от значения
+        @from к значению @to со скоростью, заданной @speed, при этом диапазон нормализован к
+        интервалу 0..1. Когда сигнал достигает конечного значения, через управляющий выход
+        отправляется bang.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array the ramp is generated for</tr>
+        <tr lang="ru">имя массива, для которого генерируется сигнал</tr>
       </argument>
       <argument name="SPEED" type="float">
-        <tr lang="en">playing speed</tr>
+        <tr lang="en">playback speed</tr>
         <tr lang="ru">скорость воспроизведения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array the ramp is generated for</tr>
+        <tr lang="ru">имя массива, для которого генерируется сигнал</tr>
       </property>
       <!-- @from -->
       <property name="@from" type="float" minvalue="0" default="0" maxvalue="1">
-        <tr lang="en">normalized to [0-1] range ramp start</tr>
-        <tr lang="ru">нормализованное до [0-1] начало линейной функции</tr>
+        <tr lang="en">start of the ramp, normalized to the 0..1 range</tr>
+        <tr lang="ru">начало линейного сигнала, нормализованное к диапазону 0..1</tr>
       </property>
       <!-- @range -->
       <property name="@range" type="list" default="0 1">
         <tr lang="en">ramp range</tr>
-        <tr lang="ru">диапазон линейной функции</tr>
+        <tr lang="ru">диапазон линейного сигнала</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" default="1">
         <tr lang="en">ramp speed</tr>
-        <tr lang="ru">скорость линейной функции</tr>
+        <tr lang="ru">скорость линейного сигнала</tr>
       </property>
       <!-- @to -->
       <property name="@to" type="float" minvalue="0" default="1" maxvalue="1">
-        <tr lang="en">normalized to [0-1] range ramp end</tr>
-        <tr lang="ru">нормализованное до [0-1] конец линейной функции</tr>
+        <tr lang="en">end of the ramp, normalized to the 0..1 range</tr>
+        <tr lang="ru">конец линейного сигнала, нормализованный к диапазону 0..1</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">start of the ramp signal for array reading</tr>
-          <tr lang="ru">старт линейного сигнала для чтения массива</tr>
+          <tr lang="en">starts the ramp signal for array reading</tr>
+          <tr lang="ru">запускает линейный сигнал для чтения массива</tr>
         </in>
       </inlet>
     </inlets>
@@ -70,8 +83,8 @@
       </outlet>
       <outlet type="control">
         <out type="bang">
-          <tr lang="en">after reaching the final value</tr>
-          <tr lang="ru">после достижении финального значения</tr>
+          <tr lang="en">sent after the ramp reaches the final value</tr>
+          <tr lang="ru">отправляется после достижения конечного значения</tr>
         </out>
       </outlet>
     </outlets>

@@ -6,38 +6,45 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.values 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 dict.values;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 93 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Объект принимает словарь на вход и выводит многоуровневый
+список (MList) \, содержащий все значения словаря. Порядок значений
+соответствует порядку ключей в словаре. Для получения соответствующего
+списка ключей используйте dict.keys.;
+#X obj 50 246 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.dict \[bpm: 120 title: "Unknown masterpiece" freqs:
+#X obj 50 275 data.dict \[bpm: 120 title: "Unknown masterpiece" freqs:
 1 2 3 4\];
-#X obj 50 205 dict.values;
-#X obj 50 234 ui.dt;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 333 dict.values;
+#X obj 50 362 ui.dt;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 417 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 290 1\.;
-#X text 170 290 data:;
-#X text 270 290 data.dict.;
-#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 330 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 418 1\.;
+#X text 170 418 data:dict:;
+#X text 270 418 словарь \, из которого нужно извлечь значения. При
+получении объект сразу выводит MList значений.;
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 473 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 331 1\.;
-#X text 270 331 mlist of values.;
+#X text 130 474 1\.;
+#X text 170 474 data:mlist:;
+#X text 270 474 MList значений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 378 520 смотрите также:;
-#X obj 499 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 524 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 527 библиотека: ceammc v0.9.8;
+#X text 378 539 смотрите также:;
+#X obj 499 542 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.dict] @url data.dict-help.pd;
-#X obj 582 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 582 542 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.mlist] @url data.mlist-help.pd;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 542 ui.link @background_color 0.78431 0.78431 0.78431
 @title [dict.keys] @url dict.keys-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 546 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -61,7 +68,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 546 pd info;
 #X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;

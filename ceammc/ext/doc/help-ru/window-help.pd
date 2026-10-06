@@ -10,113 +10,124 @@
 #X obj 644 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [win] @url window-help.pd;
 #X obj 694 8 window;
-#X msg 50 118 blackman;
-#X msg 165 118 blackman-harris;
-#X msg 366 118 flattop \, bang;
-#X msg 69 147 hamming;
-#X msg 184 147 hann;
-#X msg 261 147 nuttall;
-#X msg 386 147 rect \, bang;
-#X msg 88 176 sine;
-#X msg 203 176 tri;
-#X msg 290 176 welch;
-#X msg 405 176 gauss \, bang;
-#X obj 107 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 255 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Вычисляет значение оконной функции по заданному индексу
+или выводит сразу все значения окна. Тип и размер окна задаются аргументами
+TYPE и SIZE или свойствами @type и @size.;
+#X text 240 153 Типичные сценарии применения:;
+#X text 250 178 • Оконная обработка для спектрального анализа — подготовка
+данных для БПФ путём умножения сигнала на оконную функцию (Hann \,
+Hamming \, Blackman и др.) \, чтобы уменьшить растекание спектра.;
+#X text 250 248 • Формы огибающих и сглаживания — использование выхода
+объекта как плавной амплитудной огибающей (например \, для окон гранул
+в грануляторе \, кроссфейдов или микро-фейдов).;
+#X msg 50 381 blackman;
+#X msg 165 381 blackman-harris;
+#X msg 366 381 flattop \, bang;
+#X msg 69 410 hamming;
+#X msg 184 410 hann;
+#X msg 261 410 nuttall;
+#X msg 386 410 rect \, bang;
+#X msg 88 439 sine;
+#X msg 203 439 tri;
+#X msg 290 439 welch;
+#X msg 405 439 gauss \, bang;
+#X obj 107 468 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 234 window gauss 512;
-#X obj 50 262 array.set array-window;
+#X obj 50 497 window gauss 512;
+#X obj 50 525 array.set array-window;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array-window 512 float 0;
 #X coords 0 1 512 0 100 100 1;
-#X restore 50 305 graph;
-#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 442 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 50 568 graph;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 705 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 445 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 708 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 443 1\.;
-#X text 170 443 symbol;
-#X obj 268 444 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 443 TYPE: window name: blackman \, blackman-harris \, flattop
+#X text 130 706 1\.;
+#X text 170 706 symbol;
+#X obj 268 707 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 706 TYPE: имя окна: blackman \, blackman-harris \, flattop
 \, gauss \, hamming \, hann \, nuttall \, rect \, sine \, tri \, welch.
 Тип: symbol.;
-#X text 130 498 2\.;
-#X text 170 498 int;
-#X obj 268 499 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 498 SIZE(samp): window size. Тип: int. Минимальное значение:
+#X text 130 761 2\.;
+#X text 170 761 int;
+#X obj 268 762 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 761 SIZE(samp): размер окна. Тип: int. Минимальное значение:
 16\.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 801 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 804 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 539 @type;
-#X text 270 539 Window type. See argument description. Тип: symbol.
-Значение по умолчанию: hann.;
-#X obj 250 581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 581 @size;
-#X text 270 581 Window size. Тип: int. Единицы: 'samp'. Значение по
+#X msg 130 802 @type;
+#X text 270 802 Тип окна. См. описание аргумента. Тип: symbol. Значение
+по умолчанию: hann.;
+#X obj 250 844 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 844 @size;
+#X text 270 844 Размер окна. Тип: int. Единицы: 'samp'. Значение по
 умолчанию: 512\. Минимальное значение: 16\.;
-#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 638 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 901 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 639 blackman;
-#X text 270 639 Sets Blackman window type.;
-#X obj 250 674 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 674 blackman-harris;
-#X text 270 674 Sets Blackman-Harris window type.;
-#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 709 flattop;
-#X text 270 709 Sets Flattop window type.;
-#X obj 250 744 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 744 gauss;
-#X text 270 744 Sets Gauss window type.;
-#X obj 250 779 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 779 hamming;
-#X text 270 779 Sets Hamming window type.;
-#X obj 250 814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 814 hann;
-#X text 270 814 Sets Hann window type.;
-#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 849 nuttall;
-#X text 270 849 Sets Nuttall window type.;
-#X obj 250 884 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 884 rect;
-#X text 270 884 Sets Rectangle window type.;
-#X obj 250 919 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 919 sine;
-#X text 270 919 Sets Sine window type.;
-#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 954 tri;
-#X text 270 954 Sets Triangle window type.;
-#X obj 250 989 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 989 welch;
-#X text 270 989 Sets Welch window type.;
-#X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1039 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 902 blackman;
+#X text 270 902 устанавливает тип окна Блэкмана.;
+#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 937 blackman-harris;
+#X text 270 937 устанавливает тип окна Блэкмана — Харриса.;
+#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 972 flattop;
+#X text 270 972 устанавливает тип окна FlatTop.;
+#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1007 gauss;
+#X text 270 1007 устанавливает тип окна Гаусса.;
+#X obj 250 1042 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1042 hamming;
+#X text 270 1042 устанавливает тип окна Хэмминга.;
+#X obj 250 1077 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1077 hann;
+#X text 270 1077 устанавливает тип окна Ханна.;
+#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1112 nuttall;
+#X text 270 1112 устанавливает тип окна Наттолла.;
+#X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1147 rect;
+#X text 270 1147 устанавливает тип прямоугольного окна.;
+#X obj 250 1182 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1182 sine;
+#X text 270 1182 устанавливает тип синусоидального окна.;
+#X obj 250 1217 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1217 tri;
+#X text 270 1217 устанавливает тип треугольного окна.;
+#X obj 250 1252 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1252 welch;
+#X text 270 1252 устанавливает тип окна Уэлча.;
+#X obj 20 1297 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1302 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1040 1\.;
-#X text 170 1040 bang:;
-#X text 270 1040 output all window values as list.;
-#X text 170 1065 float:;
-#X text 270 1065 window index position: from 0 to SIZE-1\. Output 0
-if invalid index given.;
-#X text 170 1105 list:;
-#X text 270 1105 pair INDEX SIZE expected. Sets windows size to SIZE.
-Output window value at given index.;
-#X obj 20 1155 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1160 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1303 1\.;
+#X text 170 1303 bang:;
+#X text 270 1303 выводит все значения окна в виде списка.;
+#X text 170 1328 float:;
+#X text 270 1328 позиция индекса окна \, от 0 до SIZE−1\. Выводит 0
+\, если задан недопустимый индекс.;
+#X text 170 1368 list:;
+#X text 270 1368 ожидается пара INDEX SIZE. Устанавливает размер окна
+в SIZE и выводит значение окна по заданному индексу.;
+#X obj 20 1418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1423 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1161 1\.;
-#X text 270 1161 sample number.;
+#X text 130 1424 1\.;
+#X text 270 1424 номер семпла.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1211 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1214 библиотека: ceammc v0.9.8;
-#N canvas 10 1233 400 290 info 0;
+#X obj 1 1474 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1477 библиотека: ceammc v0.9.8;
+#N canvas 10 1496 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -140,17 +151,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1233 pd info;
-#X connect 7 0 19 0;
-#X connect 10 0 19 0;
-#X connect 14 0 19 0;
-#X connect 18 0 19 0;
-#X connect 8 0 19 0;
-#X connect 11 0 19 0;
-#X connect 15 0 19 0;
-#X connect 12 0 19 0;
-#X connect 16 0 19 0;
-#X connect 9 0 19 0;
-#X connect 13 0 19 0;
-#X connect 17 0 19 0;
-#X connect 19 0 20 0;
+#X restore 10 1496 pd info;
+#X connect 12 0 24 0;
+#X connect 15 0 24 0;
+#X connect 19 0 24 0;
+#X connect 23 0 24 0;
+#X connect 13 0 24 0;
+#X connect 16 0 24 0;
+#X connect 20 0 24 0;
+#X connect 17 0 24 0;
+#X connect 21 0 24 0;
+#X connect 14 0 24 0;
+#X connect 18 0 24 0;
+#X connect 22 0 24 0;
+#X connect 24 0 25 0;

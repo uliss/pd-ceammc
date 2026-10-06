@@ -9,66 +9,72 @@
 #X obj 509 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [array.phase->sample] @url array.p2s-help.pd;
 #X obj 674 8 array.p2s;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 позволяет получить относительный доступ к массиву;
-#X obj 50 171 hslider 128 15 0.0 1.0 0 0 empty empty empty 17 7 0 10
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект позволяет получить относительный доступ к массиву:
+входная фаза в диапазоне 0\..1 преобразуется в соответствующий индекс
+семпла в массиве. Значение 0 соответствует началу массива \, а 1 —
+концу. Если на вход подаётся список \, преобразование применяется к
+каждому значению \, и на выход отправляется список индексов.;
+#X obj 50 247 hslider 128 15 0.0 1.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array p2s 100 float 0;
 #X coords 0 1 100 -1 200 150 1;
-#X restore 270 171 graph;
-#X floatatom 50 200 5 0 0 0 - - -;
-#X obj 50 229 array.p->s p2s;
-#X floatatom 50 258 5 0 0 0 - - -;
-#X obj 50 287 tabread p2s;
-#X floatatom 50 315 5 0 0 0 - - -;
-#X obj 50 344 loadmsg sinesum 100 0.5 0.2 0.1 0.3;
-#X obj 50 373 s p2s;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 428 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 270 247 graph;
+#X floatatom 50 276 5 0 0 0 - - -;
+#X obj 50 305 array.p->s p2s;
+#X floatatom 50 334 5 0 0 0 - - -;
+#X obj 50 363 tabread p2s;
+#X floatatom 50 391 5 0 0 0 - - -;
+#X obj 50 420 loadmsg sinesum 100 0.5 0.2 0.1 0.3;
+#X obj 50 449 s p2s;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 504 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 431 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 507 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 429 1\.;
-#X text 170 429 symbol;
-#X obj 268 430 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 429 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 469 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 505 1\.;
+#X text 170 505 symbol;
+#X obj 268 506 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 505 ARRAY: имя массива \, используемого для преобразования.
+Тип: symbol.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 472 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 563 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 470 @array;
-#X text 270 470 Имя массива. Тип: symbol.;
-#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 515 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 561 @array;
+#X text 270 561 Имя массива \, используемого для преобразования. Тип:
+symbol.;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 606 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 516 1\.;
-#X text 170 516 float:;
-#X text 270 516 value between 0 and 1 \, where 0 maps to begin of array
-\, 1 - to end.;
-#X text 170 556 list:;
-#X text 270 556 список фаз для массива.;
-#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 596 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 607 1\.;
+#X text 170 607 float:;
+#X text 270 607 значение фазы от 0 до 1 \, где 0 соответствует началу
+массива \, а 1 — концу.;
+#X text 170 647 list:;
+#X text 270 647 список фаз массива.;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 687 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 597 1\.;
-#X text 170 597 float:;
-#X text 270 597 индекс семпла \, когда входное значение - число.;
-#X text 170 622 list:;
-#X text 270 622 индексы семплов \, когда входное значение - список
+#X text 130 688 1\.;
+#X text 170 688 float:;
+#X text 270 688 индекс семпла \, когда входное значение — число.;
+#X text 170 713 list:;
+#X text 270 713 индексы семплов \, когда входное значение — список
 чисел.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 675 библиотека: ceammc v0.9.8;
-#X text 551 687 смотрите также:;
-#X obj 672 690 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 763 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 766 библиотека: ceammc v0.9.8;
+#X text 551 778 смотрите также:;
+#X obj 672 781 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.s2p] @url array.s2p-help.pd;
-#N canvas 10 694 400 290 info 0;
+#N canvas 10 785 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -92,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 694 pd info;
+#X restore 10 785 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

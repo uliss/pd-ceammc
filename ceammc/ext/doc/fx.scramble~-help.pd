@@ -5,104 +5,110 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.scramble~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.scramble~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X obj 50 176 readsf~;
-#X obj 50 205 fx.scramble~;
-#X obj 50 234 ui.gain2~ @size 120 16;
-#X obj 299 234 ui.dsp~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A stereo effect that scrambles delayed sound fragments:
+fragments of the input signal are captured into a delay line and then
+replayed in a scrambled (randomized) order \, with separate scramble
+frequencies and delay ranges for the left and right channels. The dry/wet
+ratio \, feedback and bypass are controlled by the corresponding properties.;
+#X msg 50 262 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 291 expand_env;
+#X obj 50 320 readsf~;
+#X obj 50 349 fx.scramble~;
+#X obj 50 378 ui.gain2~ @size 120 16;
+#X obj 299 378 ui.dsp~;
+#X obj 50 406 dac~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 float;
-#X obj 268 319 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 FREQ1(Hz): left channel scramble frequency. Type: float.
+#X text 130 462 1\.;
+#X text 170 462 float;
+#X obj 268 463 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 462 FREQ1(Hz): left channel scramble frequency. Type: float.
 Range: [0.25\..50];
-#X text 130 358 2\.;
-#X text 170 358 float;
-#X obj 268 359 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 FREQ2(Hz): right channel scramble frequency. Type:
+#X text 130 502 2\.;
+#X text 170 502 float;
+#X obj 268 503 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 502 FREQ2(Hz): right channel scramble frequency. Type:
 float. Range: [0.25\..50];
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 557 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 560 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @id;
-#X text 270 414 (initonly) OSC address id. If specified \, bind all
+#X msg 130 558 @id;
+#X text 270 558 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_scramble/PROP_NAME osc address \, if empty bind
 to /fx_scramble/PROP_NAME. Type: symbol.;
-#X obj 250 471 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 471 @osc;
-#X text 270 471 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 501 @active;
-#X text 270 501 On/off object dsp processing. Type: bool. Default value:
-1\.;
-#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 531 @bypass;
-#X text 270 531 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 573 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 573 @dev;
-#X text 270 573 Scramble freq deviation. Type: float. Default value:
-0.25\. Range: [0\..1].;
 #X obj 250 615 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 615 @drywet;
-#X text 270 615 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
-0.5\. Range: [0\..1].;
-#X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 672 @feedback;
-#X text 270 672 Feedback coefficient. Type: float. Default value: 0.25\.
+#X msg 130 615 @osc;
+#X text 270 615 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 645 @active;
+#X text 270 645 On/off object dsp processing. Type: bool. Default value:
+1\.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 675 @bypass;
+#X text 270 675 Bypass flag. If true — the input signal is passed through
+unchanged \, without scrambling. Type: bool. Default value: 0\.;
+#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 732 @dev;
+#X text 270 732 Scramble freq deviation. Type: float. Default value:
+0.25\. Range: [0\..1].;
+#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 774 @drywet;
+#X text 270 774 Proportion of mix between the original (dry) and the
+effected (wet) signals. 0 — dry signal \, 1 — wet signal. Type: float.
+Default value: 0.5\. Range: [0\..1].;
+#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 831 @feedback;
+#X text 270 831 Feedback coefficient. Type: float. Default value: 0.25\.
 Range: [0\..0.99].;
-#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 714 @freq1;
-#X text 270 714 Left channel scramble frequency. Type: float. Units:
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 873 @freq1;
+#X text 270 873 Left channel scramble frequency. Type: float. Units:
 'Hz'. Default value: 7\. Range: [0.25\..50].;
-#X obj 250 756 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 756 @freq2;
-#X text 270 756 Right channel scramble frequency. Type: float. Units:
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 @freq2;
+#X text 270 915 Right channel scramble frequency. Type: float. Units:
 'Hz'. Default value: 5\. Range: [0.25\..50].;
-#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 798 @range;
-#X text 270 798 Scramble delay amount. Type: float. Default value:
+#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 957 @range;
+#X text 270 957 Scramble delay amount. Type: float. Default value:
 0.5\. Range: [0\..1].;
-#X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 855 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1014 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 856 reset;
-#X text 270 856 reset to initial state.;
-#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 906 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 907 1\.;
-#X text 170 907 ~;
-#X text 270 907 input signal.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 947 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X msg 130 1015 reset;
+#X text 270 1015 resets the object to its initial state.;
+#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1065 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 948 1\.;
-#X text 170 948 ~;
-#X text 270 948 left output signal.;
-#X text 130 968 2\.;
-#X text 170 968 ~;
-#X text 270 968 right output signal.;
+#X text 130 1066 1\.;
+#X text 170 1066 ~;
+#X text 270 1066 input signal.;
+#X obj 20 1101 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1106 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1107 1\.;
+#X text 170 1107 ~;
+#X text 270 1107 left output signal.;
+#X text 130 1127 2\.;
+#X text 170 1127 ~;
+#X text 270 1127 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1021 library: ceammc v0.9.8;
-#X text 597 1033 see also:;
-#X obj 672 1036 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1177 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1180 library: ceammc v0.9.8;
+#X text 597 1192 see also:;
+#X obj 672 1195 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.delay~] @url fx.delay~-help.pd;
-#N canvas 10 1040 400 290 info 0;
+#N canvas 10 1199 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -126,11 +132,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1040 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 1199 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
-#X connect 7 1 8 1;
-#X connect 8 0 10 0;
-#X connect 8 1 10 1;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 10 0 12 0;
+#X connect 10 1 12 1;

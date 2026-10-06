@@ -1,24 +1,24 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 511 50 оптимизация двумерных амбисоников;
+#X obj 392 50 cnv 1 373 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 397 50 инструмент оптимизации для двумерных амбисоников;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.optim~ 20 20 0 20 -104026
 -4096 0;
 #X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.optim~] @url hoa.2d.optim~-help.pd;
 #X obj 645 8 hoa.2d.optim~;
 #X obj 230 78 cnv 1 535 259 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Weights the circular harmonics signals depending on
-the ambisonic optimization. It can be "basic" for no optimization \,
-"maxre" or "inphase".;
-#X text 240 138 If no optimization mode is specified \, the default
-mode will be inphase.;
-#X text 240 178 Maxre optimization is used when audience is confined
-to the center of the circle.;
-#X text 240 218 Inphase optimization is used when the audience covers
-all the circle.;
-#X text 240 258 NB: This is theoretical \, the best choice is to trust
-your ears.;
+#X text 240 83 Взвешивает сигналы круговых гармоник в соответствии
+с выбранной оптимизацией амбисоников. Оптимизация может быть 'basic'
+(без оптимизации) \, 'maxre' или 'inphase'.;
+#X text 240 138 Если режим оптимизации не указан \, по умолчанию используется
+inphase.;
+#X text 240 178 Оптимизация maxre применяется \, когда слушатели находятся
+в центре окружности.;
+#X text 240 218 Оптимизация inphase применяется \, когда слушатели
+охватывают всю окружность.;
+#X text 240 258 Замечание: это теоретические рекомендации — лучший
+выбор всегда подскажут уши.;
 #X obj 240 301 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.optim~-help.pd;
 #X obj 50 385 hoa/hoa.soundrone;
@@ -41,69 +41,68 @@ your ears.;
 #X text 130 787 1\.;
 #X text 170 787 int;
 #X obj 268 788 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 787 ORDER: the order of decomposition. Тип: int. Диапазон:
-[1\..63];
-#X text 130 827 2\.;
-#X text 170 827 symbol;
-#X obj 268 828 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 827 MODE: optimization mode. Разрешённые значения: basic
+#X text 270 787 ORDER: порядок декомпозиции. Тип: int. Диапазон: [1\..63];
+#X text 130 812 2\.;
+#X text 170 812 symbol;
+#X obj 268 813 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 812 MODE: режим оптимизации. Разрешённые значения: basic
 \, maxre \, inphase. Тип: symbol.;
-#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 882 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 867 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 885 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 870 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 883 @order;
-#X text 270 883 (при инициализации) The order of decomposition. Тип:
-int. Значение по умолчанию: 1\. Диапазон: [1\..63].;
-#X obj 250 925 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 925 @basic;
-#X text 270 925 Alias for @mode basic (no optimization).;
-#X obj 250 955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 955 @inphase;
-#X text 270 955 Alias for @mode inphase.;
-#X obj 250 985 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 985 @maxre;
-#X text 270 985 Alias for @mode maxre.;
-#X obj 250 1015 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1015 @mode;
-#X text 270 1015 Optimization mode. Тип: symbol. Значение по умолчанию:
+#X msg 130 868 @order;
+#X text 270 868 (при инициализации) Порядок декомпозиции. Тип: int.
+Значение по умолчанию: 1\. Диапазон: [1\..63].;
+#X obj 250 910 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 910 @basic;
+#X text 270 910 Сокращение для @mode basic (без оптимизации).;
+#X obj 250 940 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 940 @inphase;
+#X text 270 940 Сокращение для @mode inphase.;
+#X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 970 @maxre;
+#X text 270 970 Сокращение для @mode maxre.;
+#X obj 250 1000 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1000 @mode;
+#X text 270 1000 Режим оптимизации. Тип: symbol. Значение по умолчанию:
 basic. Разрешённые значения: basic \, maxre \, inphase.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1072 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1057 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1073 1\.;
-#X text 170 1073 ~;
-#X text 270 1073 first input harmonic.;
-#X text 130 1098 ...;
-#X text 170 1098 ~;
-#X text 270 1098 ... input harmonic.;
-#X text 130 1123 n.;
-#X text 170 1123 ~;
-#X text 270 1123 n-th input harmonic.;
-#X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1163 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1058 1\.;
+#X text 170 1058 ~;
+#X text 270 1058 первая входная гармоника.;
+#X text 130 1083 ...;
+#X text 170 1083 ~;
+#X text 270 1083 ... входная гармоника.;
+#X text 130 1108 n.;
+#X text 170 1108 ~;
+#X text 270 1108 n-я входная гармоника.;
+#X obj 20 1143 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1148 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1164 1\.;
-#X text 170 1164 ~;
-#X text 270 1164 first harmonic output.;
-#X text 130 1184 ...;
-#X text 170 1184 ~;
-#X text 270 1184 ... harmonic output.;
-#X text 130 1204 n.;
-#X text 170 1204 ~;
-#X text 270 1204 n-th harmonic output.;
+#X text 130 1149 1\.;
+#X text 170 1149 ~;
+#X text 270 1149 выход первой гармоники.;
+#X text 130 1169 ...;
+#X text 170 1169 ~;
+#X text 270 1169 ... выход гармоники.;
+#X text 130 1189 n.;
+#X text 170 1189 ~;
+#X text 270 1189 выход n-й гармоники.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1254 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1257 библиотека: ceammc v0.9.8;
-#X text 507 1269 смотрите также:;
-#X obj 628 1272 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1242 библиотека: ceammc v0.9.8;
+#X text 507 1254 смотрите также:;
+#X obj 628 1257 ui.link @background_color 0.78431 0.78431 0.78431
 @title [hoa.2d.decoder~] @url hoa.2d.decoder~-help.pd;
-#N canvas 10 1276 400 290 info 0;
+#N canvas 10 1261 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -128,7 +127,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1276 pd info;
+#X restore 10 1261 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 14 0 17 0;

@@ -1,58 +1,63 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 300 50 cnv 1 465 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 305 50 проверяет \, присутстует ли предварительно заданный
-элемент во входном множестве;
+#X obj 346 50 cnv 1 419 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 351 50 проверяет \, присутствует ли заранее заданный элемент
+во входном множестве;
 #X obj 1 1 cnv 5 765 40 empty empty set.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 set.contains;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 93 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 Проверяет \, присутствует ли искомый элемент (заданный
+аргументом SUBJ \, свойством @subj или через правый вход) во входящем
+множестве. Выводит 1 \, если элемент найден \, и 0 в противном случае.;
+#X obj 50 231 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.set 1 2 3 4;
-#X floatatom 165 176 5 0 0 0 - - -;
-#X obj 50 205 set.contains 2;
-#X obj 50 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 271 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 260 data.set 1 2 3 4;
+#X floatatom 165 289 5 0 0 0 - - -;
+#X obj 50 318 set.contains 2;
+#X obj 50 347 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 384 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 274 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 387 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 272 1\.;
-#X text 170 272 atom;
-#X obj 268 273 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 272 SUBJ: searched element. Тип: atom.;
-#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 312 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 385 1\.;
+#X text 170 385 atom;
+#X obj 268 386 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 385 SUBJ: искомый элемент. Тип: atom.;
+#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 425 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 315 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 428 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 313 @subj;
-#X text 270 313 Searched element. Тип: atom. Значение по умолчанию:
+#X msg 130 426 @subj;
+#X text 270 426 Искомый элемент. Тип: atom. Значение по умолчанию:
 null.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 471 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 359 1\.;
-#X text 270 359 input set. Other values are ignored.;
-#X text 130 384 2\.;
-#X text 170 384 atom:;
-#X text 270 384 set searched element.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 472 1\.;
+#X text 270 472 входное множество. Остальные значения игнорируются.;
+#X text 130 497 2\.;
+#X text 170 497 atom:;
+#X text 270 497 задаёт искомый элемент.;
+#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 537 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 425 1\.;
-#X text 270 425 1 if element exists in set \, otherwise 0\.;
+#X text 130 538 1\.;
+#X text 270 538 1 \, если элемент присутствует во множестве \, иначе
+0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 558 520 смотрите также:;
-#X obj 679 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 588 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 591 библиотека: ceammc v0.9.8;
+#X text 558 603 смотрите также:;
+#X obj 679 606 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.set] @url data.set-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 610 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,8 +81,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 7 0;
-#X connect 6 0 7 1;
-#X connect 7 0 8 0;
+#X restore 10 610 pd info;
+#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;

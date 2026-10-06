@@ -21,25 +21,33 @@
     </meta>
     <info>
       <wiki name="Standard_deviation">Standard deviation</wiki>
+      <par>
+        <tr lang="en">The object computes the standard deviation of all samples in the specified
+        array and outputs it as a single float. The standard deviation shows how far the sample
+        values typically deviate from their mean value.</tr>
+        <tr lang="ru">Объект вычисляет стандартное отклонение всех семплов указанного массива и
+        выводит его одним числом с плавающей точкой. Стандартное отклонение показывает, насколько
+        значения семплов в среднем отклоняются от их среднего значения.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs standard deviation</tr>
-          <tr lang="ru">начинает вычисление и выводит стандартное отклонение</tr>
+          <tr lang="en">calculates the standard deviation and outputs it</tr>
+          <tr lang="ru">вычисляет стандартное отклонение и выводит его</tr>
         </in>
       </inlet>
     </inlets>

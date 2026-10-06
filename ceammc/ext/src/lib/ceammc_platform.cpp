@@ -128,7 +128,7 @@ namespace platform {
 
     std::string expandenv(const char* str)
     {
-        std::string s(str);
+        std::string const s(str);
         std::string::size_type pos = 0;
 
         std::string::size_type at1 = 0;

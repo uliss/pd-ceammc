@@ -8,7 +8,7 @@
 #X text 220 117 BPM calculator;
 #X obj 30 145 ui.link @title [array.circular] @url
 array.circular-help.pd;
-#X text 220 142 read/write to the array as circular buffer;
+#X text 220 142 read/write to the array as a circular buffer;
 #X obj 30 170 ui.link @title [array.circular~] @url
 array.circular~-help.pd;
 #X text 220 167 read/write the signal into the array like in a circular
@@ -17,14 +17,13 @@ buffer;
 array.convolve-help.pd;
 #X text 220 207 FFT convolution of the array;
 #X obj 30 235 ui.link @title [array.copy] @url array.copy-help.pd;
-#X text 220 232 copy samples from the one array to another;
+#X text 220 232 copy samples from one array to another;
 #X obj 30 260 ui.link @title [array.do] @url array.do-help.pd;
 #X text 220 257 iterate and modify the array content via the side-chain;
 #X obj 30 285 ui.link @title [array.each] @url array.each-help.pd;
-#X text 220 282 process each array elements via side-chain;
+#X text 220 282 process each array element via side-chain;
 #X obj 30 310 ui.link @title [array.fill] @url array.fill-help.pd;
-#X text 220 307 fill the array with the single value \, pattern or
-function;
+#X text 220 307 fill the array with a single value \, pattern or function;
 #X obj 30 335 ui.link @title [array.grainer~] @url
 array.grainer~-help.pd;
 #X text 220 332 array granulator;
@@ -59,9 +58,9 @@ array.resample-help.pd;
 array.stretch-help.pd;
 #X text 220 657 the array time-stretch \, pitch-shift or rate-change;
 #X obj 30 685 ui.link @title [array.sum] @url array.sum-help.pd;
-#X text 220 682 calculates sum of array elements;
+#X text 220 682 calculates the sum of array elements;
 #X obj 30 710 ui.link @title [array.sum2] @url array.sum2-help.pd;
-#X text 220 707 calculates sum of squares of array elements;
+#X text 220 707 calculates the sum of squares of array elements;
 #X obj 30 735 ui.link @title [array.tramp~] @url array.tramp~-help.pd;
 #X text 220 732 triggered ramp index generator for the array;
 #X obj 30 760 ui.link @title [array.variance] @url

@@ -6,77 +6,83 @@
 #X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/nsig~] @url nsig~-help.pd;
 #X obj 703 8 nsig~;
-#X msg 50 118 3 2 1;
-#X msg 155 118 0.5 0.5;
-#X floatatom 50 147 5 0 0 0 - - -;
-#X floatatom 98 147 5 0 0 0 - - -;
-#X floatatom 146 147 5 0 0 0 - - -;
-#X obj 222 147 ui.dsp~;
-#X obj 50 176 nsig~ 3 1 2 3;
-#X obj 50 205 ui.n~;
-#X obj 98 234 ui.n~;
-#X obj 146 262 ui.n~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object converts a list of control values into a
+multichannel audio signal. Each audio outlet outputs a constant signal
+equal to the corresponding value from the list. It works like several
+[sig~] objects combined into one and is useful for generating DC offsets
+\, control voltages \, test signals or multichannel parameter automation.;
+#X msg 50 262 3 2 1;
+#X msg 155 262 0.5 0.5;
+#X floatatom 50 291 5 0 0 0 - - -;
+#X floatatom 98 291 5 0 0 0 - - -;
+#X floatatom 146 291 5 0 0 0 - - -;
+#X obj 222 291 ui.dsp~;
+#X obj 50 320 nsig~ 3 1 2 3;
+#X obj 50 349 ui.n~;
+#X obj 98 378 ui.n~;
+#X obj 146 406 ui.n~;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 int;
-#X obj 268 319 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 N: number of inputs/outputs. Type: int. Range: [1\..12];
-#X text 130 343 2\.;
-#X text 170 343 list;
-#X obj 268 344 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 343 VALUES: init values. Type: list.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 383 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 462 1\.;
+#X text 170 462 int;
+#X obj 268 463 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 462 N: number of inputs/outputs. Type: int. Range: [1\..12];
+#X text 130 487 2\.;
+#X text 170 487 list;
+#X obj 268 488 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 487 VALUES: init values. Type: list.;
+#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 527 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 386 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 530 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 384 @n;
-#X text 270 384 (initonly) Number of inputs/outputs. Type: int. Default
+#X msg 130 528 @n;
+#X text 270 528 (initonly) Number of inputs/outputs. Type: int. Default
 value: 1\. Range: [1\..12].;
-#X obj 250 426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 426 @values;
-#X text 270 426 Current output values. Default: 0\. Type: list.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 570 @values;
+#X text 270 570 Current output values. Default: 0\. Type: list.;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 615 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 170 472 float:;
-#X text 270 472 set first output value.;
-#X text 170 497 list:;
-#X text 270 497 set list of output values.;
-#X text 130 522 ...;
-#X text 170 522 float:;
-#X text 270 522 set ... output value.;
-#X text 130 547 n.;
-#X text 170 547 float:;
-#X text 270 547 set n-th output value.;
-#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 587 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 616 1\.;
+#X text 170 616 float:;
+#X text 270 616 set first output value.;
+#X text 170 641 list:;
+#X text 270 641 set list of output values.;
+#X text 130 666 ...;
+#X text 170 666 float:;
+#X text 270 666 set ... output value.;
+#X text 130 691 n.;
+#X text 170 691 float:;
+#X text 270 691 set n-th output value.;
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 731 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 588 1\.;
-#X text 170 588 ~;
-#X text 270 588 first value output.;
-#X text 130 608 ...;
-#X text 170 608 ~;
-#X text 270 608 ... value output.;
-#X text 130 628 n.;
-#X text 170 628 ~;
-#X text 270 628 n-th value output.;
+#X text 130 732 1\.;
+#X text 170 732 ~;
+#X text 270 732 first value output.;
+#X text 130 752 ...;
+#X text 170 752 ~;
+#X text 270 752 ... value output.;
+#X text 130 772 n.;
+#X text 170 772 ~;
+#X text 270 772 n-th value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 678 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 681 library: ceammc v0.9.8;
-#X text 633 693 see also:;
-#X obj 708 696 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 822 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 825 library: ceammc v0.9.8;
+#X text 633 837 see also:;
+#X obj 708 840 ui.link @background_color 0.78431 0.78431 0.78431
 @title [sig~] @url sig~-help.pd;
-#N canvas 10 700 400 290 info 0;
+#N canvas 10 844 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,12 +106,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 700 pd info;
-#X connect 7 0 11 0;
-#X connect 8 0 11 1;
-#X connect 9 0 11 2;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
-#X connect 11 2 14 0;
-#X connect 5 0 11 0;
-#X connect 6 0 11 0;
+#X restore 10 844 pd info;
+#X connect 9 0 13 0;
+#X connect 10 0 13 1;
+#X connect 11 0 13 2;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 13 2 16 0;
+#X connect 7 0 13 0;
+#X connect 8 0 13 0;

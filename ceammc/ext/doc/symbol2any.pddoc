@@ -25,15 +25,44 @@
         <alias>string2any</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a symbol or a string and interprets its text as a
+        Pd message. Words separated by spaces become the atoms of the resulting message,
+        numbers are converted to floats, and the first word is treated as the message
+        selector. This is useful for building messages dynamically from strings produced
+        by external sources or by string processing objects.</tr>
+        <tr lang="ru">Объект принимает символ или строку и интерпретирует её текст как
+        сообщение Pd. Слова, разделённые пробелами, становятся атомами получившегося
+        сообщения, числа преобразуются в числа с плавающей точкой, а первое слово
+        трактуется как селектор сообщения. Это полезно для динамического построения
+        сообщений из строк, полученных от внешних источников или от объектов обработки
+        строк.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in algorithmic composition: generating control messages from
+        text. A composer can store score instructions in a text file as lines such as
+        "freq 440" or "amp 0.7" and read them one by one with [textfile]. Passing each line
+        through [symbol2any] turns it into a real Pd message that can be routed to the
+        corresponding parameter of a synthesis patch, which makes the score easy to edit
+        outside of Pd.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: генерация управляющих
+        сообщений из текста. Композитор может хранить инструкции партитуры в текстовом
+        файле строками вида «freq 440» или «amp 0.7» и считывать их по одной через
+        [textfile]. Пропуская каждую строку через [symbol2any], мы превращаем её в
+        настоящее сообщение Pd, которое можно направить к соответствующему параметру
+        синтезирующего патча, что позволяет легко редактировать партитуру вне Pd.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">symbol</tr>
-          <tr lang="ru" finished="false">символ</tr>
+          <tr lang="ru">символ</tr>
         </in>
         <in on="data:string">
           <tr lang="en">string</tr>
-          <tr lang="ru" finished="false">струна</tr>
+          <tr lang="ru">строка</tr>
         </in>
       </inlet>
     </inlets>
@@ -41,7 +70,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output message</tr>
-          <tr lang="ru" finished="false">выходное сообщение</tr>
+          <tr lang="ru">выходное сообщение</tr>
         </out>
       </outlet>
     </outlets>

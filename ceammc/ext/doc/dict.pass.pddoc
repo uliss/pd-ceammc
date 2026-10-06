@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">passes only specified keys in the dictionary</tr>
-        <tr lang="ru">пропускает (фильтрует) только указанные ключи в словаре</tr>
+        <tr lang="en">passes only the specified keys in the dictionary</tr>
+        <tr lang="ru">оставляет в словаре только указанные ключи (фильтрация)</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,30 +19,47 @@
         <see>data.dict</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object takes a dictionary and outputs a new dictionary that contains only
+        the keys listed in KEYS (or set via the @keys property). All other keys are discarded. If a
+        key from the list is not present in the input dictionary, it is simply ignored.</tr>
+        <tr lang="ru">Объект принимает словарь и выводит новый словарь, содержащий только те ключи,
+        которые перечислены в KEYS (или заданы через свойство @keys). Все остальные ключи
+        отбрасываются. Если какого-то ключа из списка нет во входном словаре, он просто
+        игнорируется.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="KEYS" type="list">
-        <tr lang="en">keys</tr>
-        <tr lang="ru" finished="false">ключи</tr>
+        <tr lang="en">list of keys to keep in the output dictionary. All other keys will be
+        removed</tr>
+        <tr lang="ru">список ключей, которые нужно оставить в выходном словаре. Все остальные ключи
+        будут удалены</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @keys -->
       <property name="@keys" type="list" default="">
-        <tr lang="en">passed keys</tr>
-        <tr lang="ru" finished="false">Пропущенные ключи</tr>
+        <tr lang="en">current list of keys to pass through. Can be set at creation time or changed
+        later</tr>
+        <tr lang="ru">текущий список пропускаемых ключей. Может быть задан при создании объекта или
+        изменён позже</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="data:dict">
-          <tr lang="en">input dictionary</tr>
-          <tr lang="ru" finished="false">словарь входного словаря</tr>
+          <tr lang="en">input dictionary. On receipt, the object immediately outputs a filtered
+          dictionary containing only the specified keys</tr>
+          <tr lang="ru">входной словарь. При получении объект сразу выводит отфильтрованный
+          словарь, содержащий только указанные ключи</tr>
         </in>
       </inlet>
       <inlet>
         <in>
-          <tr lang="en">set passed keys</tr>
-          <tr lang="ru" finished="false">Пропущенные ключи</tr>
+          <tr lang="en">set the list of keys to pass through</tr>
+          <tr lang="ru">задать список пропускаемых ключей</tr>
         </in>
       </inlet>
     </inlets>
@@ -50,7 +67,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">dict with passed keys</tr>
-          <tr lang="ru" finished="false">диктовка с пропущенными ключами</tr>
+          <tr lang="ru">словарь с пропущенными ключами</tr>
         </out>
       </outlet>
     </outlets>

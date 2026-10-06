@@ -11,388 +11,401 @@
 #X obj 631 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [env] @url envelope-help.pd;
 #X obj 681 8 envelope;
-#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Data type for sound envelope. Contains points specified
-by time and value. Points could have stop property - to execute oly
-part of envelope and stop on this point. So multisegment envelopes
-could be created;
-#X text 240 153 Point also has segment type property \, that defines
-following segment curve - it could be *step* \, *line* (default) or
-*exp* (exponential);
-#X text 240 208 Exponential segment also has curve property: if 0 -
-(linear) <0 (concave \, negatively curved) >0 (convex \, positively
-curved);
-#X msg 50 326 ar 100 200 \, bang;
-#X msg 232 326 exp 0 30 -2 1 100 -4 0 40 4 0.5 30 2 0 \, bang;
-#X msg 69 355 adsr 10 30 60 150 \, bang;
-#X msg 318 355 line 0.1 40 0.9 20 0.3 60 0 \, bang;
-#X msg 88 384 ear 10 -2 60 -2 \, bang;
-#X msg 318 384 sigmoid 0 40 14 1 100 8 0 \, bang;
-#X msg 107 413 eadsr 20 -5 70 -12 30 100 -7 \, bang;
-#X msg 462 413 sin2 0 80 1 80 0 \, bang;
-#X obj 50 442 envelope;
-#X obj 50 470 env->array env_arr;
+#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Тип данных для звуковой огибающей. Содержит точки \,
+заданные временем и значением. Точка может иметь свойство «стоп» —
+в этом случае выполнение огибающей останавливается на этой точке \,
+что позволяет создавать многосегментные огибающие.;
+#X text 240 168 Точка также имеет свойство типа сегмента \, которое
+определяет кривую следующего сегмента. Это может быть *step* \, *line*
+(по умолчанию) или *exp* (экспоненциальная).;
+#X text 240 223 Экспоненциальный сегмент также имеет свойство кривизны:
+0 (линейная) \, <0 (вогнутая \, отрицательная кривизна) \, >0 (выпуклая
+\, положительная кривизна).;
+#X msg 50 341 ar 100 200 \, bang;
+#X msg 232 341 exp 0 30 -2 1 100 -4 0 40 4 0.5 30 2 0 \, bang;
+#X msg 69 370 adsr 10 30 60 150 \, bang;
+#X msg 318 370 line 0.1 40 0.9 20 0.3 60 0 \, bang;
+#X msg 88 399 ear 10 -2 60 -2 \, bang;
+#X msg 318 399 sigmoid 0 40 14 1 100 8 0 \, bang;
+#X msg 107 428 eadsr 20 -5 70 -12 30 100 -7 \, bang;
+#X msg 462 428 sin2 0 80 1 80 0 \, bang;
+#X obj 50 457 envelope;
+#X obj 50 485 env->array env_arr;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array env_arr 100 float 0;
 #X coords 0 1 100 0 400 100 1;
-#X restore 50 513 graph;
-#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 650 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 50 528 graph;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 653 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 668 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 651 1\.;
-#X text 170 651 list;
-#X obj 268 652 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 651 adsr: ADSR envelope: attack(ms) \, decay(ms) \, sustain(%)
-\, release(ms). Тип: list.;
-#X text 130 691 2\.;
-#X text 170 691 list;
-#X obj 268 692 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 691 asr: ASR envelope: attack(ms) \, release(ms) - with
-sustain stop point. Тип: list.;
-#X text 130 731 3\.;
-#X text 170 731 list;
-#X obj 268 732 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 731 ar: AR envelope: attack(ms) \, release(ms). Тип: list.;
-#X text 130 756 4\.;
-#X text 170 756 list;
-#X obj 268 757 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 756 eadsr: exponential ADSR envelope: attack(ms) \, attack_curve
-\, decay(ms) \, decay_curve \, sustain(%) \, release(ms) \, release_curve.
+#X text 130 666 1\.;
+#X text 170 666 list;
+#X obj 268 667 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 666 adsr: огибающая ADSR: атака (мс) \, спад (мс) \, удержание
+(%) \, восстановление (мс). Тип: list.;
+#X text 130 706 2\.;
+#X text 170 706 list;
+#X obj 268 707 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 706 asr: огибающая ASR: атака (мс) \, восстановление (мс)
+— с точкой остановки на удержании. Тип: list.;
+#X text 130 746 3\.;
+#X text 170 746 list;
+#X obj 268 747 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 746 ar: огибающая AR: атака (мс) \, восстановление (мс).
 Тип: list.;
-#X text 130 811 5\.;
-#X text 170 811 list;
-#X obj 268 812 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 811 easr: exponential ASR envelope: attack(ms) \, attack_curve
-\, release(ms) \, release_curve - with sustain stop point. Тип: list.;
-#X text 130 866 6\.;
-#X text 170 866 list;
-#X obj 268 867 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 866 ear: exponential ASR envelope: attack(ms) \, attack_curve
-\, release(ms) \, release_curve - no sustain point. Тип: list.;
-#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 936 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 771 4\.;
+#X text 170 771 list;
+#X obj 268 772 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 771 eadsr: экспоненциальная огибающая ADSR: атака (мс)
+\, attack_curve \, спад (мс) \, decay_curve \, удержание (%) \, восстановление
+(мс) \, release_curve. Тип: list.;
+#X text 130 826 5\.;
+#X text 170 826 list;
+#X obj 268 827 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 826 easr: экспоненциальная огибающая ASR: атака (мс) \,
+attack_curve \, восстановление (мс) \, release_curve — с точкой остановки
+на удержании. Тип: list.;
+#X text 130 881 6\.;
+#X text 170 881 list;
+#X obj 268 882 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 881 ear: экспоненциальная огибающая AR: атака (мс) \, attack_curve
+\, восстановление (мс) \, release_curve — без точки удержания. Тип:
+list.;
+#X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 951 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 939 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 954 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 937 @length?;
-#X text 270 937 (только чтение) Total envelope time length. Тип: float.
-Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 994 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 994 @npoints?;
-#X text 270 994 (только чтение) Number of points. Тип: int. Значение
+#X msg 130 952 @length?;
+#X text 270 952 (только чтение) Общая длительность огибающей. Тип:
+float. Единицы: 'ms'. Значение по умолчанию: 0\. Минимальное значение:
+0\.;
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1009 @npoints?;
+#X text 270 1009 (только чтение) Количество точек. Тип: int. Значение
 по умолчанию: 0\. Минимальное значение: 0\.;
-#X obj 250 1036 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1036 @points?;
-#X text 270 1036 (только чтение) List of point times (ms). Тип: list.;
-#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1066 @stops?;
-#X text 270 1066 (только чтение) List of stop points. Тип: list.;
-#X obj 250 1096 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1096 @values?;
-#X text 270 1096 (только чтение) List of point values. Тип: list.;
-#X obj 20 1136 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1141 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 250 1051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1051 @points?;
+#X text 270 1051 (только чтение) Список моментов времени точек (мс).
+Тип: list.;
+#X obj 250 1093 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1093 @stops?;
+#X text 270 1093 (только чтение) Список точек остановки. Тип: list.;
+#X obj 250 1123 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1123 @values?;
+#X text 270 1123 (только чтение) Список значений точек. Тип: list.;
+#X obj 20 1163 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1168 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1142 add_point;
-#X text 270 1142 add envelope point. Аргументы:;
-#X obj 300 1167 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1167 TIME: point time. Тип: float. Минимальное значение:
+#X msg 130 1169 add_point;
+#X text 270 1169 добавляет точку огибающей. Аргументы:;
+#X obj 300 1194 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1194 TIME: время точки. Тип: float. Минимальное значение:
 0\. Единицы: 'ms'.;
-#X obj 300 1205 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1205 VALUE: point value. Тип: float.;
-#X obj 300 1228 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1228 [IS_STOP=0]: is stop point. Тип: int. Разрешённые
+#X obj 300 1232 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1232 VALUE: значение точки. Тип: float.;
+#X obj 300 1255 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1255 [IS_STOP=0]: является ли точка точкой остановки. Тип:
+int. Разрешённые значения: 0 \, 1\.;
+#X obj 300 1293 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1293 [TYPE=line]: тип сегмента: step (ступень) \, line
+(линейный) \, exp (экспоненциальный) \, sin2 (синус в квадрате) или
+sigmoid (сигмоидный). Тип: symbol. Разрешённые значения: step \, line
+\, exp \, sin2 \, sigmoid.;
+#X obj 300 1361 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1361 [CURVE=1]: степень экспоненциальной кривой: 0 (линейная)
+\, <0 (вогнутая \, отрицательная кривизна) \, >0 (выпуклая \, положительная
+кривизна). Тип: float.;
+#X obj 250 1424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1424 add_seg;
+#X text 270 1424 добавляет сегмент в конец огибающей. На пустой огибающей
+добавляется начальная точка в 0 мс со значением 0\. Аргументы:;
+#X obj 300 1479 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1479 TYPE: тип сегмента. Тип: symbol. Разрешённые значения:
+step \, line \, sin2 \, exp \, sigmoid.;
+#X obj 300 1517 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1517 LENGTH: длина сегмента. Тип: float. Единицы: 'ms'.;
+#X obj 300 1540 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1540 VALUE: конечное значение сегмента. Тип: float.;
+#X obj 300 1563 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1563 [CURVE=0]: кривизна (для типов exp и sigmoid). Тип:
+float.;
+#X obj 250 1596 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1596 adsr;
+#X text 270 1596 создаёт огибающую ADSR с одной точкой остановки. Аргументы:;
+#X obj 300 1621 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1621 ATTACK: время атаки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 1659 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1659 DECAY: время спада. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 1697 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1697 SUSTAIN: уровень удержания. Тип: float. Диапазон:
+[0\..100]. Единицы: '%'.;
+#X obj 300 1735 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1735 RELEASE: время восстановления. Тип: float. Минимальное
+значение: 0\. Единицы: 'ms'.;
+#X obj 250 1783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1783 ar;
+#X text 270 1783 создаёт огибающую AR без точек остановки. Аргументы:;
+#X obj 300 1808 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1808 ATTACK: время атаки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 1846 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1846 RELEASE: время восстановления. Тип: float. Минимальное
+значение: 0\. Единицы: 'ms'.;
+#X obj 250 1894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1894 asr;
+#X text 270 1894 создаёт огибающую ASR с одной точкой остановки. Аргументы:;
+#X obj 300 1919 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1919 ATTACK: время атаки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 1957 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1957 RELEASE: время восстановления. Тип: float. Минимальное
+значение: 0\. Единицы: 'ms'.;
+#X obj 250 2005 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2005 clear;
+#X text 270 2005 удаляет все точки огибающей.;
+#X obj 250 2040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2040 eadsr;
+#X text 270 2040 создаёт экспоненциальную огибающую ADSR с одной точкой
+остановки. Аргументы:;
+#X obj 300 2080 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2080 ATTACK: время атаки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 2118 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2118 ATTACK_CURVE: кривизна сегмента атаки. Тип: float.;
+#X obj 300 2141 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2141 DECAY: время спада. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 2179 cnv 1 91 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2179 DECAY_CURVE: кривизна сегмента спада. Тип: float.;
+#X obj 300 2202 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2202 SUSTAIN: уровень удержания. Тип: float. Диапазон:
+[0\..100]. Единицы: '%'.;
+#X obj 300 2240 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2240 RELEASE: время восстановления. Тип: float. Минимальное
+значение: 0\. Единицы: 'ms'.;
+#X obj 300 2278 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2278 RELEASE_CURVE: кривизна сегмента восстановления. Тип:
+float.;
+#X obj 250 2311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2311 ear;
+#X text 270 2311 создаёт экспоненциальную огибающую AR без точек остановки.
+Аргументы:;
+#X obj 300 2351 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2351 ATTACK: время атаки. Тип: float. Единицы: 'ms'.;
+#X obj 300 2374 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2374 ATTACK_CURVE: кривизна сегмента атаки. Тип: float.;
+#X obj 300 2397 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2397 RELEASE: время восстановления. Тип: float. Единицы:
+'ms'.;
+#X obj 300 2420 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2420 RELEASE_CURVE: кривизна сегмента восстановления. Тип:
+float.;
+#X obj 250 2453 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2453 easr;
+#X text 270 2453 создаёт экспоненциальную огибающую ASR с одной точкой
+остановки. Аргументы:;
+#X obj 300 2493 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2493 ATTACK: время атаки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 2531 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2531 ATTACK_CURVE: кривизна сегмента атаки. Тип: float.;
+#X obj 300 2554 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2554 RELEASE: время восстановления. Тип: float. Минимальное
+значение: 0\. Единицы: 'ms'.;
+#X obj 300 2592 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2592 RELEASE_CURVE: кривизна сегмента восстановления. Тип:
+float.;
+#X obj 250 2625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2625 exp;
+#X text 270 2625 создаёт огибающую из экспоненциальных сегментов с
+произвольным числом сегментов. Аргументы:;
+#X obj 300 2665 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2665 VAL0: начальное значение. Тип: float.;
+#X obj 300 2688 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2688 LEN0: длина сегмента. Тип: float. Минимальное значение:
+1\. Единицы: 'ms'.;
+#X obj 300 2726 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2726 CURVE0: кривизна сегмента. Тип: float.;
+#X obj 300 2749 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2749 VAL1: значение. Тип: float.;
+#X obj 300 2772 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2772 [LEN1]: длина сегмента. Тип: float.;
+#X obj 300 2795 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2795 [CURVE1]: кривизна сегмента. Тип: float.;
+#X obj 300 2818 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2818 [VAL2]: значение. Тип: float.;
+#X obj 250 2851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2851 line;
+#X text 270 2851 создаёт огибающую из линейных сегментов с произвольным
+числом сегментов. Аргументы:;
+#X obj 300 2891 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2891 VAL0: начальное значение. Тип: float.;
+#X obj 300 2914 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2914 LEN0: длина линии. Тип: float. Минимальное значение:
+1\. Единицы: 'ms'.;
+#X obj 300 2952 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2952 VAL1: значение. Тип: float.;
+#X obj 300 2975 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2975 [LEN1]: длина сегмента. Тип: float.;
+#X obj 300 2998 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2998 [VAL2]: значение. Тип: float.;
+#X obj 250 3031 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3031 remove_point;
+#X text 270 3031 удаляет точку огибающей по индексу. Аргументы:;
+#X obj 300 3056 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3056 IDX: индекс точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 250 3089 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3089 set_point;
+#X text 270 3089 устанавливает время \, значение и флаг остановки точки.
+Аргументы:;
+#X obj 300 3129 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3129 IDX: индекс точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 300 3152 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3152 TIME: время точки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 300 3190 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3190 VALUE: значение точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 300 3213 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3213 [IS_STOP=0]: точка остановки. Тип: int. Разрешённые
 значения: 0 \, 1\.;
-#X obj 300 1266 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1266 [TYPE=line]: segment type: step \, linear \, exponential
-\, sin^2 or sigmoid curve. Тип: symbol. Разрешённые значения: step
-\, line \, exp \, sin2 \, sigmoid.;
-#X obj 300 1319 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1319 [CURVE=1]: exponential curve degree: 0 (linear) <0
-(concave \, negatively curved) >0 (convex \, positively curved). Тип:
-float.;
-#X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1382 add_seg;
-#X text 270 1382 add segment to the end of envelope. On empty envelope
-adds start point at 0ms and 0 value. Аргументы:;
-#X obj 300 1422 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1422 TYPE: segment type. Тип: symbol. Разрешённые значения:
+#X obj 250 3261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3261 set_point_time;
+#X text 270 3261 устанавливает время точки. Аргументы:;
+#X obj 300 3286 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3286 IDX: индекс точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 300 3309 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3309 TIME: время точки. Тип: float. Минимальное значение:
+0\. Единицы: 'ms'.;
+#X obj 250 3357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3357 set_point_value;
+#X text 270 3357 устанавливает значение точки. Аргументы:;
+#X obj 300 3382 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3382 IDX: индекс точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 300 3405 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3405 VALUE: значение точки. Тип: int. Минимальное значение:
+0\.;
+#X obj 250 3438 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3438 set_seg_type;
+#X text 270 3438 устанавливает тип сегмента. Аргументы:;
+#X obj 300 3463 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3463 IDX: индекс сегмента \, начиная с 0\. Тип: int. Минимальное
+значение: 0\.;
+#X obj 300 3501 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3501 TYPE: тип сегмента. Тип: symbol. Разрешённые значения:
 step \, line \, sin2 \, exp \, sigmoid.;
-#X obj 300 1460 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1460 LENGTH: segment length. Тип: float. Единицы: 'ms'.;
-#X obj 300 1483 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1483 VALUE: end segment value. Тип: float.;
-#X obj 300 1506 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1506 [CURVE=0]: curve (for exp and sigmoid type). Тип:
-float.;
-#X obj 250 1539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1539 adsr;
-#X text 270 1539 creates ADSR envelope with one stop point. Аргументы:;
-#X obj 300 1564 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1564 ATTACK: attack time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 1602 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1602 DECAY: decay time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 1640 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1640 SUSTAIN: sustain level. Тип: float. Диапазон: [0\..100].
-Единицы: '%'.;
-#X obj 300 1678 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1678 RELEASE: release time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 250 1726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1726 ar;
-#X text 270 1726 creates AR envelope without stop points. Аргументы:;
-#X obj 300 1751 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1751 ATTACK: attack time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 1789 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1789 RELEASE: release time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 250 1837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1837 asr;
-#X text 270 1837 creates ASR envelope with one stop point. Аргументы:;
-#X obj 300 1862 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1862 ATTACK: attack time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 1900 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1900 RELEASE: release time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 250 1948 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1948 clear;
-#X text 270 1948 remove all envelope points.;
-#X obj 250 1983 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1983 eadsr;
-#X text 270 1983 creates exponential ADSR envelope with one stop point.
-Аргументы:;
-#X obj 300 2023 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2023 ATTACK: attack time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 2061 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2061 ATTACK_CURVE: attack segment curve. Тип: float.;
-#X obj 300 2084 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2084 DECAY: decay time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 2122 cnv 1 91 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2122 DECAY_CURVE: decay segment curve. Тип: float.;
-#X obj 300 2145 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2145 SUSTAIN: sustain level. Тип: float. Диапазон: [0\..100].
-Единицы: '%'.;
-#X obj 300 2183 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2183 RELEASE: release time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 2221 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2221 RELEASE_CURVE: release segment curve. Тип: float.;
-#X obj 250 2254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2254 ear;
-#X text 270 2254 creates exponential AR envelope without stop points.
-Аргументы:;
-#X obj 300 2294 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2294 ATTACK: attack time. Тип: float. Единицы: 'ms'.;
-#X obj 300 2317 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2317 ATTACK_CURVE: attack segment curve. Тип: float.;
-#X obj 300 2340 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2340 RELEASE: release time. Тип: float. Единицы: 'ms'.;
-#X obj 300 2363 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2363 RELEASE_CURVE: release segment curve. Тип: float.;
-#X obj 250 2396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2396 easr;
-#X text 270 2396 creates exponential AR envelope with one stop point.
-Аргументы:;
-#X obj 300 2436 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2436 ATTACK: attack time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 2474 cnv 1 99 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2474 ATTACK_CURVE: attack segment curve. Тип: float.;
-#X obj 300 2497 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2497 RELEASE: release time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 2535 cnv 1 106 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2535 RELEASE_CURVE: release segment curve. Тип: float.;
-#X obj 250 2568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2568 exp;
-#X text 270 2568 creates exponential-segmented envelope with arbitrary
-number of segments. Аргументы:;
-#X obj 300 2608 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2608 VAL0: begin value. Тип: float.;
-#X obj 300 2631 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2631 LEN0: line length. Тип: float. Минимальное значение:
-1\. Единицы: 'ms'.;
-#X obj 300 2669 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2669 CURVE0: segment curve. Тип: float.;
-#X obj 300 2692 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2692 VAL1: value. Тип: float.;
-#X obj 300 2715 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2715 [LEN1]: segment length. Тип: float.;
-#X obj 300 2738 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2738 [CURVE1]: segment curve. Тип: float.;
-#X obj 300 2761 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2761 [VAL2]: value. Тип: float.;
-#X obj 250 2794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2794 line;
-#X text 270 2794 creates line-segmented envelope with arbitrary number
-of segments. Аргументы:;
-#X obj 300 2834 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2834 VAL0: begin value. Тип: float.;
-#X obj 300 2857 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2857 LEN0: line length. Тип: float. Минимальное значение:
-1\. Единицы: 'ms'.;
-#X obj 300 2895 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2895 VAL1: value. Тип: float.;
-#X obj 300 2918 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2918 [LEN1]: segment length. Тип: float.;
-#X obj 300 2941 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2941 [VAL2]: value. Тип: float.;
-#X obj 250 2974 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2974 remove_point;
-#X text 270 2974 remove envelope point by specified time. Аргументы:;
-#X obj 300 2999 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2999 IDX: point index. Тип: int. Минимальное значение:
+#X obj 250 3549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3549 set_stop_point;
+#X text 270 3549 устанавливает или снимает флаг остановки точки. Аргументы:;
+#X obj 300 3574 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3574 IDX: индекс точки. Тип: int. Минимальное значение:
 0\.;
-#X obj 250 3032 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3032 set_point;
-#X text 270 3032 set point time and value. Аргументы:;
-#X obj 300 3057 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3057 IDX: point index. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3080 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3080 TIME: point time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 300 3118 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3118 VALUE: point value. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3141 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3141 [IS_STOP=0]: stop point. Тип: int. Разрешённые значения:
+#X obj 300 3597 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3597 IS_STOP: точка остановки. Тип: int. Разрешённые значения:
 0 \, 1\.;
-#X obj 250 3189 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3189 set_point_time;
-#X text 270 3189 set point time. Аргументы:;
-#X obj 300 3214 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3214 IDX: point index. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3237 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3237 TIME: point time. Тип: float. Минимальное значение:
-0\. Единицы: 'ms'.;
-#X obj 250 3285 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3285 set_point_value;
-#X text 270 3285 set point time. Аргументы:;
-#X obj 300 3310 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3310 IDX: point index. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3333 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3333 VALUE: point value. Тип: int. Минимальное значение:
-0\.;
-#X obj 250 3366 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3366 set_seg_type;
-#X text 270 3366 set segment type. Аргументы:;
-#X obj 300 3391 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3391 IDX: segment index \, starting from 0\. Тип: int.
-Минимальное значение: 0\.;
-#X obj 300 3429 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3429 TYPE: segment type. Тип: symbol. Разрешённые значения:
-step \, line \, sin2 \, exp \, sigmoid.;
-#X obj 250 3477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3477 set_stop_point;
-#X text 270 3477 set stop-point. Аргументы:;
-#X obj 300 3502 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3502 IDX: point index. Тип: int. Минимальное значение:
-0\.;
-#X obj 300 3525 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3525 IS_STOP: stop point. Тип: int. Разрешённые значения:
-0 \, 1\.;
-#X obj 250 3558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3558 sigmoid;
-#X text 270 3558 creates sigmoid-segmented envelope with arbitrary
-number of segments. Аргументы:;
-#X obj 300 3598 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3598 VAL0: begin value. Тип: float.;
-#X obj 300 3621 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3621 LEN0: line length. Тип: float. Минимальное значение:
+#X obj 250 3645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3645 sigmoid;
+#X text 270 3645 создаёт огибающую из сигмоидных сегментов с произвольным
+числом сегментов. Аргументы:;
+#X obj 300 3685 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3685 VAL0: начальное значение. Тип: float.;
+#X obj 300 3708 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3708 LEN0: длина сегмента. Тип: float. Минимальное значение:
 1\. Единицы: 'ms'.;
-#X obj 300 3659 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3659 CURVE0: segment curve. Тип: float.;
-#X obj 300 3682 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3682 VAL1: value. Тип: float.;
-#X obj 300 3705 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3705 [LEN1]: segment length. Тип: float.;
-#X obj 300 3728 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3728 [CURVE1]: segment curve. Тип: float.;
-#X obj 300 3751 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3751 [VAL2]: value. Тип: float.;
-#X obj 250 3784 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3784 sin2;
-#X text 270 3784 creates quadratic sine-segmented envelope with arbitrary
-number of segments. Аргументы:;
-#X obj 300 3824 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3824 VAL0: begin value. Тип: float.;
-#X obj 300 3847 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3847 LEN0: line length. Тип: float. Минимальное значение:
+#X obj 300 3746 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3746 CURVE0: кривизна сегмента. Тип: float.;
+#X obj 300 3769 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3769 VAL1: значение. Тип: float.;
+#X obj 300 3792 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3792 [LEN1]: длина сегмента. Тип: float.;
+#X obj 300 3815 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3815 [CURVE1]: кривизна сегмента. Тип: float.;
+#X obj 300 3838 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3838 [VAL2]: значение. Тип: float.;
+#X obj 250 3871 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3871 sin2;
+#X text 270 3871 создаёт огибающую из сегментов вида sin² с произвольным
+числом сегментов. Аргументы:;
+#X obj 300 3911 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3911 VAL0: начальное значение. Тип: float.;
+#X obj 300 3934 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3934 LEN0: длина сегмента. Тип: float. Минимальное значение:
 1\. Единицы: 'ms'.;
-#X obj 300 3885 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3885 VAL1: value. Тип: float.;
-#X obj 300 3908 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3908 [LEN1]: segment length. Тип: float.;
-#X obj 300 3931 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3931 [VAL2]: value. Тип: float.;
-#X obj 250 3964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3964 step;
-#X text 270 3964 creates step-segmented envelope with arbitrary number
-of segments. Аргументы:;
-#X obj 300 4004 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4004 VAL0: begin value. Тип: float.;
-#X obj 300 4027 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4027 LEN0: step length. Тип: float. Минимальное значение:
+#X obj 300 3972 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3972 VAL1: значение. Тип: float.;
+#X obj 300 3995 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3995 [LEN1]: длина сегмента. Тип: float.;
+#X obj 300 4018 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4018 [VAL2]: значение. Тип: float.;
+#X obj 250 4051 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4051 step;
+#X text 270 4051 создаёт ступенчатую огибающую с произвольным числом
+сегментов. Аргументы:;
+#X obj 300 4091 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4091 VAL0: начальное значение. Тип: float.;
+#X obj 300 4114 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4114 LEN0: длина шага. Тип: float. Минимальное значение:
 1\. Единицы: 'ms'.;
-#X obj 300 4065 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4065 VAL1: value. Тип: float.;
-#X obj 300 4088 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4088 [LEN1]: segment length. Тип: float.;
-#X obj 300 4111 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4111 [VAL2]: value. Тип: float.;
-#X obj 250 4144 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4144 *;
-#X text 270 4144 multiply all envelope points to specified value. Аргументы:;
-#X obj 300 4169 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4169 VALUE: value. Тип: float.;
-#X obj 250 4202 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4202 +;
-#X text 270 4202 add specified value to all envelope points. Аргументы:;
-#X obj 300 4227 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4227 VALUE: value. Тип: float.;
-#X obj 250 4260 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 4260 >>;
-#X text 270 4260 shift all envelope point by specified time in milliseconds.
+#X obj 300 4152 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4152 VAL1: значение. Тип: float.;
+#X obj 300 4175 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4175 [LEN1]: длина сегмента. Тип: float.;
+#X obj 300 4198 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4198 [VAL2]: значение. Тип: float.;
+#X obj 250 4231 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4231 *;
+#X text 270 4231 умножает все точки огибающей на заданное значение.
 Аргументы:;
-#X obj 300 4300 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 4300 SHIFT: value. Тип: float. Единицы: 'ms'.;
-#X obj 20 4343 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4348 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 4256 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4256 VALUE: значение. Тип: float.;
+#X obj 250 4289 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4289 +;
+#X text 270 4289 прибавляет заданное значение ко всем точкам огибающей.
+Аргументы:;
+#X obj 300 4329 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4329 VALUE: значение. Тип: float.;
+#X obj 250 4362 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4362 >>;
+#X text 270 4362 сдвигает все точки огибающей на заданное время в миллисекундах.
+Аргументы:;
+#X obj 300 4402 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4402 SHIFT: время сдвига. Тип: float. Единицы: 'ms'.;
+#X obj 20 4445 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4450 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 4349 1\.;
-#X text 170 4349 bang:;
-#X text 270 4349 outputs current envelope.;
-#X text 170 4374 data:;
-#X text 270 4374 set new envelope and output it.;
-#X obj 20 4409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4414 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 4451 1\.;
+#X text 170 4451 bang:;
+#X text 270 4451 выводит текущую огибающую.;
+#X text 170 4476 data:;
+#X text 270 4476 устанавливает новую огибающую и выводит её.;
+#X obj 20 4511 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4516 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4415 1\.;
-#X text 270 4415 data output.;
+#X text 130 4517 1\.;
+#X text 270 4517 вывод данных.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 4465 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4468 библиотека: ceammc v0.9.8;
-#X text 454 4480 смотрите также:;
-#X obj 575 4483 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 4567 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4570 библиотека: ceammc v0.9.8;
+#X text 454 4582 смотрите также:;
+#X obj 575 4585 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->array] @url env->array-help.pd;
-#X obj 665 4483 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 4585 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->vline] @url env->vline-help.pd;
-#N canvas 10 4487 400 290 info 0;
+#N canvas 10 4589 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -416,7 +429,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 4487 pd info;
+#X restore 10 4589 pd info;
 #X connect 11 0 19 0;
 #X connect 13 0 19 0;
 #X connect 15 0 19 0;

@@ -14,6 +14,8 @@
 #include "misc_qrcode.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "fmt/core.h"
 #include "qrcodegen.hpp"
 
 CEAMMC_DEFINE_SYM_HASH(low)
@@ -39,7 +41,50 @@ qrcodegen::QrCode::Ecc sym_to_quality_code(t_symbol* s)
         return QrCode::Ecc::LOW;
     }
 }
+
+std::string escape_wifi_field(const std::string& input)
+{
+    std::string result;
+    result.reserve(input.size() * 2);
+
+    for (auto c : input) {
+        switch (c) {
+        case '\\':
+        case ';':
+        case ',':
+        case ':':
+        case '"':
+            result.push_back('\\');
+            break;
+        default:
+            break;
+        }
+        result.push_back(c);
+    }
+
+    return result;
 }
+
+std::string get_prop(const AtomListView& lv, const char* name, t_symbol* def)
+{
+    AtomListView prop;
+    if (lv.getProperty(gensym(name), prop)) {
+        auto atom = prop.atomAt(0, Atom());
+        return atom.isNone()
+            ? def->s_name
+            : escape_wifi_field(to_string(atom));
+
+    } else
+        return def->s_name;
+}
+
+bool get_prop(const AtomListView& lv, const char* name)
+{
+    AtomListView prop;
+    return lv.getProperty(gensym(name), prop);
+}
+
+} // namespace
 
 MiscQrCode::MiscQrCode(const PdArgs& args)
     : BaseObject(args)
@@ -100,6 +145,17 @@ void MiscQrCode::onSymbol(t_symbol* s)
     output();
 }
 
+void MiscQrCode::m_wifi(t_symbol* s, const AtomListView& lv)
+{
+    auto ssid = get_prop(lv, "@ssid", &s_);
+    auto pass = get_prop(lv, "@pass", &s_);
+    auto sec = get_prop(lv, "@sec", gensym("WPA"));
+    auto hidden = get_prop(lv, "@hidden");
+
+    auto str = fmt::format("WIFI:T:{};S:{};P:{};H:{};;", sec, ssid, pass, hidden ? "true" : "false");
+    onSymbol(gensym(str.c_str()));
+}
+
 void MiscQrCode::output()
 {
     if (!qrcode_)
@@ -122,6 +178,8 @@ void MiscQrCode::output()
 void setup_misc_qrcode()
 {
     ObjectFactory<MiscQrCode> obj("qrcode");
+    obj.addMethod("wifi", &MiscQrCode::m_wifi);
+
     obj.setCategory("misc");
     obj.setKeywords({ "qrcode", "generator" });
     obj.addAuthor("Serge Poltavski");

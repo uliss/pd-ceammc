@@ -1,84 +1,99 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 535 50 генератор эвклидовых паттернов;
+#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 366 50 генератор ритмических паттернов по алгоритму Евклида;
 #X obj 1 1 cnv 5 765 40 empty empty rhythm.euclid 20 20 0 20 -104026
 -4096 0;
 #X obj 647 11 rhythm.euclid;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: fast Bresenham algorithm is used;
-#X obj 50 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 292 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Генерирует эвклидов ритм: распределяет заданное число
+ударных долей настолько равномерно \, насколько возможно \, по последовательности
+заданной длины. Например \, 3 доли на 8 шагов дают классический паттерн
+«x..x..x.». Смещение (offset) сдвигает весь паттерн на заданное число
+шагов.;
+#X text 240 184 Эвклидовы ритмы широко применяются в электронной музыке
+и алгоритмической композиции: они позволяют получить естественно звучащие
+\, хорошо сбалансированные ритмические паттерны из всего двух чисел
+— числа долей и общей длины. Многие традиционные ритмы (например \,
+боссанова-клава или африканские ритмы колокольчиков) являются эвклидовыми
+и воспроизводятся этим объектом.;
+#X text 240 300 Примечание: внутри используется быстрый алгоритм на
+основе Брезенхэма \, поэтому даже длинные последовательности (до 8192
+шагов) вычисляются быстро.;
+#X obj 50 418 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 171 3 5 1;
-#X listbox 174 171 20 0 0 0 - - -;
-#X obj 88 200 msg.after bang;
-#X obj 50 229 rhythm.euclid 3 7;
-#X obj 50 258 t l l;
-#X obj 88 287 list.size;
-#X msg 88 315 @nitems \$1 \, @size 150 15;
-#X obj 50 344 ui.hrd* @nosave 1;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 399 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 88 418 3 5 1;
+#X listbox 174 418 20 0 0 0 - - -;
+#X obj 88 447 msg.after bang;
+#X obj 50 476 rhythm.euclid 3 7;
+#X obj 50 505 t l l;
+#X obj 88 534 list.size;
+#X msg 88 562 @nitems \$1 \, @size 150 15;
+#X obj 50 591 ui.hrd* @nosave 1;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 646 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 402 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 649 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 400 1\.;
-#X text 170 400 int;
-#X obj 268 401 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 400 BEATS: number of beats inside the sequence. Тип: int.
-Диапазон: [0\..8192];
-#X text 130 440 2\.;
-#X text 170 440 int;
-#X obj 268 441 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 440 N: the whole sequence length. Тип: int. Диапазон: [1\..8192];
-#X text 130 465 3\.;
-#X text 170 465 int;
-#X obj 268 466 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 465 OFFSET: sequence offset. Тип: int.;
-#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 505 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 647 1\.;
+#X text 170 647 int;
+#X obj 268 648 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 647 BEATS: число ударных долей в последовательности. Тип:
+int. Диапазон: [0\..8192];
+#X text 130 687 2\.;
+#X text 170 687 int;
+#X obj 268 688 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 687 N: общая длина последовательности. Тип: int. Диапазон:
+[1\..8192];
+#X text 130 727 3\.;
+#X text 170 727 int;
+#X obj 268 728 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 727 OFFSET: смещение последовательности. Тип: int.;
+#X obj 20 762 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 767 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 508 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 770 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 506 @beats;
-#X text 270 506 Number of beats inside the sequence. Тип: int. Значение
-по умолчанию: 3\. Диапазон: [0\..8192].;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @n;
-#X text 270 548 The whole sequence length. Тип: int. Значение по умолчанию:
-8\. Диапазон: [1\..8192].;
-#X obj 250 590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 590 @offset;
-#X text 270 590 Sequence offset. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 635 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 768 @beats;
+#X text 270 768 Число ударных долей в последовательности. Тип: int.
+Значение по умолчанию: 3\. Диапазон: [0\..8192].;
+#X obj 250 810 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 810 @n;
+#X text 270 810 Общая длина последовательности. Тип: int. Значение
+по умолчанию: 8\. Диапазон: [1\..8192].;
+#X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 852 @offset;
+#X text 270 852 Смещение последовательности. Тип: int. Значение по
+умолчанию: 0\.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 636 1\.;
-#X text 170 636 bang:;
-#X text 270 636 output generated sequence.;
-#X text 170 661 int:;
-#X text 270 661 set number of beats in the sequence.;
-#X text 170 686 list:;
-#X text 270 686 list: BEATS LENGTH OFFSET?.;
-#X text 130 711 2\.;
-#X text 170 711 int:;
-#X text 270 711 set sequence lenghth.;
-#X text 130 736 3\.;
-#X text 170 736 int:;
-#X text 270 736 set sequence offset.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 776 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 777 1\.;
-#X text 270 777 converted value.;
+#X text 130 910 1\.;
+#X text 170 910 bang:;
+#X text 270 910 выводит сгенерированную последовательность.;
+#X text 170 935 int:;
+#X text 270 935 задаёт число ударных долей в последовательности.;
+#X text 170 960 list:;
+#X text 270 960 список: BEATS LENGTH OFFSET?.;
+#X text 130 985 2\.;
+#X text 170 985 int:;
+#X text 270 985 задаёт длину последовательности.;
+#X text 130 1010 3\.;
+#X text 170 1010 int:;
+#X text 270 1010 задаёт смещение последовательности.;
+#X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1050 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1051 1\.;
+#X text 270 1051 сгенерированная последовательность.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title music @url ceammc.music-help.pd;
-#X obj 1 827 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 830 библиотека: ceammc v0.9.8;
-#N canvas 10 849 400 290 info 0;
+#X obj 1 1101 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1104 библиотека: ceammc v0.9.8;
+#N canvas 10 1123 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -102,13 +117,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 849 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 6 0 10 0;
-#X connect 9 0 10 0;
+#X restore 10 1123 pd info;
+#X connect 9 0 11 0;
 #X connect 10 0 11 0;
-#X connect 11 1 12 0;
+#X connect 8 0 12 0;
+#X connect 11 0 12 0;
 #X connect 12 0 13 0;
-#X connect 11 0 14 0;
-#X connect 13 0 14 0;
+#X connect 13 1 14 0;
+#X connect 14 0 15 0;
+#X connect 13 0 16 0;
+#X connect 15 0 16 0;

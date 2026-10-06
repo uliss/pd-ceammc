@@ -7,65 +7,77 @@
 #X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.mux] @url flow.multiplex-help.pd;
 #X obj 638 8 flow.multiplex;
-#X obj 50 118 ui.hrd @nitems 4 @label select;
-#X obj 251 118 flow.multiplex-bang;
-#X obj 50 147 prop.set @index;
-#X obj 251 147 flow.multiplex-list;
-#X obj 251 176 flow.multiplex-any;
-#X floatatom 69 205 5 0 0 0 - - -;
-#X floatatom 117 205 5 0 0 0 - - -;
-#X floatatom 165 205 5 0 0 0 - - -;
-#X obj 213 205 ui.hrd @nitems 4 @label select;
-#X obj 50 234 flow.multiplex 3;
-#X floatatom 50 262 5 0 0 0 - - -;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 299 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 270 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Passes messages from one of several inlets to a single
+outlet \, according to the current input index. The number of inlets
+is set by the argument N. Only one inlet at a time is routed to the
+outlet — the others are ignored.;
+#X text 240 168 Typical use cases:;
+#X text 250 193 • Selecting one of several control sources — choosing
+between different sliders \, knobs or MIDI inputs \, so that only the
+currently selected source updates the parameter.;
+#X text 250 263 • Programmatic switching in algorithmic patches — changing
+the active input on the fly from a sequencer \, LFO or any other control
+signal \, so that the flow of messages is redirected automatically.;
+#X obj 50 396 ui.hrd @nitems 4 @label select;
+#X obj 251 396 flow.multiplex-bang;
+#X obj 50 425 prop.set @index;
+#X obj 251 425 flow.multiplex-list;
+#X obj 251 454 flow.multiplex-any;
+#X floatatom 69 483 5 0 0 0 - - -;
+#X floatatom 117 483 5 0 0 0 - - -;
+#X floatatom 165 483 5 0 0 0 - - -;
+#X obj 213 483 ui.hrd @nitems 4 @label select;
+#X obj 50 512 flow.multiplex 3;
+#X floatatom 50 540 5 0 0 0 - - -;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 577 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 302 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 580 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 300 1\.;
-#X text 170 300 int;
-#X obj 268 301 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 300 N: number of multiplexed inputs. Type: int. Range:
+#X text 130 578 1\.;
+#X text 170 578 int;
+#X obj 268 579 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 578 N: number of multiplexed inputs. Type: int. Range:
 [2\..24];
-#X text 130 325 2\.;
-#X text 170 325 int;
-#X obj 268 326 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 325 INDEX: default input index. Type: int. Range: [0\..23];
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 365 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 603 2\.;
+#X text 170 603 int;
+#X obj 268 604 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 603 INDEX: default input index. Type: int. Range: [0\..23];
+#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 643 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 368 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 646 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 366 @index;
-#X text 270 366 Input index \, can be set only with [prop.set] object
-or via rightmost inlet. Type: int. Default value: 0\. Range: [0\..23].;
-#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 438 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 644 @index;
+#X text 270 644 Input index. Can only be set with the [prop.set] object
+or via the rightmost inlet. Type: int. Default value: 0\. Range: [0\..23].;
+#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 716 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 439 1\.;
-#X text 270 439 multiplexer first inlet.;
-#X text 130 464 n.;
-#X text 270 464 multiplexer N-th inlet.;
-#X text 130 489 n+1\.;
-#X text 170 489 int:;
-#X text 270 489 set input index.;
-#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 529 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 717 1\.;
+#X text 270 717 first multiplexer inlet.;
+#X text 130 742 n.;
+#X text 270 742 N-th multiplexer inlet.;
+#X text 130 767 n+1\.;
+#X text 170 767 int:;
+#X text 270 767 set the input index.;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 530 1\.;
-#X text 270 530 output.;
+#X text 130 808 1\.;
+#X text 270 808 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 580 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 583 library: ceammc v0.9.8;
-#X text 546 595 see also:;
-#X obj 621 598 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 861 library: ceammc v0.9.8;
+#X text 546 873 see also:;
+#X obj 621 876 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.demultiplex] @url flow.demultiplex-help.pd;
-#N canvas 10 602 400 290 info 0;
+#N canvas 10 880 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,11 +101,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 602 pd info;
-#X connect 5 0 7 0;
-#X connect 7 0 14 0;
-#X connect 10 0 14 0;
-#X connect 11 0 14 1;
-#X connect 12 0 14 2;
-#X connect 13 0 14 3;
-#X connect 14 0 15 0;
+#X restore 10 880 pd info;
+#X connect 10 0 12 0;
+#X connect 12 0 19 0;
+#X connect 15 0 19 0;
+#X connect 16 0 19 1;
+#X connect 17 0 19 2;
+#X connect 18 0 19 3;
+#X connect 19 0 20 0;

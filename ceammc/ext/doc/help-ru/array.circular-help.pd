@@ -1,63 +1,71 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 419 50 чтение/запись в массив \, как в кольцевой буфер;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 чтение/запись в массив как в кольцевой буфер;
 #X obj 1 1 cnv 5 765 40 empty empty array.circular 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 array.circular;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект рассматривает указанный массив как кольцевой
+(циклический) буфер. Когда на вход поступает число \, оно добавляется
+в конец буфера \, а самый старый (передний) элемент извлекается и выводится.
+Размер буфера определяется размером массива.;
+#X obj 50 231 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-CIRC 100 float 0;
 #X coords 0 1 100 0 180 130 1;
-#X restore 280 118 graph;
-#X obj 50 147 metro 200;
-#X obj 165 147 ui.knob;
-#X obj 50 176 random.f;
-#X obj 50 205 array.circular A-CIRC;
-#X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 285 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 280 231 graph;
+#X obj 50 260 metro 200;
+#X obj 165 260 ui.knob;
+#X obj 50 289 random.f;
+#X obj 50 318 array.circular A-CIRC;
+#X floatatom 50 347 5 0 0 0 - - -;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 398 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 288 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 401 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 286 1\.;
-#X text 170 286 symbol;
-#X obj 268 287 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 286 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 326 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 399 1\.;
+#X text 170 399 symbol;
+#X obj 268 400 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 399 ARRAY: имя массива \, используемого как кольцевой буфер.
+Тип: symbol.;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 454 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 329 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 457 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 327 @array;
-#X text 270 327 Имя массива. Тип: symbol.;
-#X obj 250 357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 357 @redraw;
-#X text 270 357 Перерисовка массива после изменения. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 455 @array;
+#X text 270 455 Имя массива \, используемого как кольцевой буфер. Тип:
+symbol.;
+#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 485 @redraw;
+#X text 270 485 Перерисовывать массив после каждого изменения. Тип:
+bool. Значение по умолчанию: 1\.;
+#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 542 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 415 1\.;
-#X text 170 415 float:;
-#X text 270 415 добавляет новое число в конец массива.;
-#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 455 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 543 1\.;
+#X text 170 543 float:;
+#X text 270 543 добавить новое число в конец буфера. Самый старый элемент
+при этом вытесняется и отправляется на выход.;
+#X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 598 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 456 1\.;
-#X text 170 456 float:;
-#X text 270 456 вытолкнутый передний элемент массива.;
+#X text 130 599 1\.;
+#X text 170 599 float:;
+#X text 270 599 вытесненный передний элемент.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 506 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 509 библиотека: ceammc v0.9.8;
-#X text 507 521 смотрите также:;
-#X obj 628 524 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 652 библиотека: ceammc v0.9.8;
+#X text 507 664 смотрите также:;
+#X obj 628 667 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.circular~] @url array.circular~-help.pd;
-#N canvas 10 528 400 290 info 0;
+#N canvas 10 671 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,9 +89,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 528 pd info;
-#X connect 4 0 6 0;
+#X restore 10 671 pd info;
 #X connect 6 0 8 0;
-#X connect 8 0 9 0;
-#X connect 7 0 9 0;
-#X connect 9 0 10 0;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
+#X connect 9 0 11 0;
+#X connect 11 0 12 0;

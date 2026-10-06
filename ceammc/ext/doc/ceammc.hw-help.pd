@@ -55,7 +55,7 @@ hw.rpi.sensor.ir-help.pd;
 #X obj 30 600 ui.link @title [hw.rpi.sensor.mpr121] @url
 hw.rpi.sensor.mpr121-help.pd;
 #X text 220 597 12-channel I²C capacitive touch sensor controller with
-low power consumption and automatic calibration.;
+low power consumption and automatic calibration;
 #X obj 30 640 ui.link @title [hw.rpi.sensor.mpu6050] @url
 hw.rpi.sensor.mpu6050-help.pd;
 #X text 220 637 MPU-6050 gyroscope and accelerometer for Raspberry

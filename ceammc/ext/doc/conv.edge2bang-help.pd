@@ -9,62 +9,71 @@
 #X obj 539 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [edge->bang] @url conv.edge2bang-help.pd;
 #X obj 639 8 conv.edge2bang;
-#X obj 50 118 phasor~ 0.5;
-#X obj 232 118 phasor~ 0.5;
-#X obj 405 118 lfo.tri~ 0.5;
-#X obj 50 147 s->f~;
-#X obj 232 147 *~ -1;
-#X obj 405 147 s->f~;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X obj 232 176 s->f~;
-#X floatatom 405 176 5 0 0 0 - - -;
-#X obj 50 205 edge->bang @down;
-#X floatatom 232 205 5 0 0 0 - - -;
-#X obj 405 205 edge->bang @both;
-#X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object detects edges (transitions) in a stream of
+numeric values: when the input changes from a low value to a high value
+\, from a high value to a low value \, or both. On a detected edge
+a bang is sent to the outlet. The behavior is controlled by the @mode
+property: 'up' — only rising edges \, 'down' — only falling edges \,
+'both' — both types.;
+#X obj 50 262 phasor~ 0.5;
+#X obj 232 262 phasor~ 0.5;
+#X obj 405 262 lfo.tri~ 0.5;
+#X obj 50 291 s->f~;
+#X obj 232 291 *~ -1;
+#X obj 405 291 s->f~;
+#X floatatom 50 320 5 0 0 0 - - -;
+#X obj 232 320 s->f~;
+#X floatatom 405 320 5 0 0 0 - - -;
+#X obj 50 349 edge->bang @down;
+#X floatatom 232 349 5 0 0 0 - - -;
+#X obj 405 349 edge->bang @both;
+#X obj 50 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 232 234 edge->bang @up;
-#X obj 405 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 232 378 edge->bang @up;
+#X obj 405 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 262 ui.dsp~;
-#X obj 232 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 406 ui.dsp~;
+#X obj 232 406 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @both;
-#X text 270 318 Alias to @mode both.;
-#X obj 250 348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 348 @down;
-#X text 270 348 Alias to @mode down.;
-#X obj 250 378 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 378 @mode;
-#X text 270 378 Edge detection mode. Type: symbol. Default value: up.
-Allowed values: up \, down \, both.;
-#X obj 250 420 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 420 @up;
-#X text 270 420 Alias to @mode up.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 465 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 462 @both;
+#X text 270 462 Alias to @mode both.;
+#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 492 @down;
+#X text 270 492 Alias to @mode down.;
+#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 522 @mode;
+#X text 270 522 Edge detection mode. If 'up': outputs a bang when the
+input value changes from low to high. If 'down': from high to low.
+If 'both': in both cases. Type: symbol. Default value: up. Allowed
+values: up \, down \, both.;
+#X obj 250 594 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 594 @up;
+#X text 270 594 Alias to @mode up.;
+#X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 639 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 466 1\.;
-#X text 170 466 float:;
-#X text 270 466 input value.;
-#X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 506 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 640 1\.;
+#X text 170 640 float:;
+#X text 270 640 input value.;
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 680 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 507 1\.;
-#X text 270 507 bang: on edge.;
+#X text 130 681 1\.;
+#X text 270 681 bang on edge.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 557 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 560 library: ceammc v0.9.8;
-#N canvas 10 579 400 290 info 0;
+#X obj 1 731 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 734 library: ceammc v0.9.8;
+#N canvas 10 753 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -88,9 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 579 pd info;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
+#X restore 10 753 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 10 0 13 0;
@@ -101,4 +108,6 @@ https://github.com/uliss/pd-ceammc;
 #X connect 15 0 18 0;
 #X connect 16 0 19 0;
 #X connect 17 0 20 0;
+#X connect 18 0 21 0;
 #X connect 19 0 22 0;
+#X connect 21 0 24 0;

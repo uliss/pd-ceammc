@@ -5,78 +5,87 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.tramp~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 array.tramp~;
-#X obj 50 118 loadmsg load guitar1.wav to ARAMP @resize;
-#X obj 482 118 table ARAMP 44100;
-#X obj 50 147 snd.file;
-#X obj 50 190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object generates a ramp signal that can be used
+as a reading index for the specified array. The ramp starts on bang
+and runs from the @from value to the @to value at the speed set by
+@speed \, with the range normalized to the 0\..1 interval. When the
+ramp reaches the final value \, a bang is sent out through the control
+outlet.;
+#X obj 50 247 loadmsg load guitar1.wav to ARAMP @resize;
+#X obj 482 247 table ARAMP 44100;
+#X obj 50 276 snd.file;
+#X obj 50 319 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 107 190 ui.rslider;
-#X obj 107 219 msg @range;
-#X obj 50 248 array.tramp~ ARAMP;
-#X obj 213 277 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 107 319 ui.rslider;
+#X obj 107 348 msg @range;
+#X obj 50 377 array.tramp~ ARAMP;
+#X obj 213 406 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 305 tabread4~ ARAMP;
-#X obj 50 334 flt.dcblock~;
-#X obj 50 363 ui.hgain2~;
-#X obj 213 363 ui.dsp~;
-#X obj 50 392 dac~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 434 tabread4~ ARAMP;
+#X obj 50 463 flt.dcblock~;
+#X obj 50 492 ui.hgain2~;
+#X obj 213 492 ui.dsp~;
+#X obj 50 521 dac~;
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 576 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 579 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 448 1\.;
-#X text 170 448 symbol;
-#X obj 268 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 ARRAY: array name. Type: symbol.;
-#X text 130 473 2\.;
-#X text 170 473 float;
-#X obj 268 474 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 473 SPEED: playing speed. Type: float.;
-#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 513 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 577 1\.;
+#X text 170 577 symbol;
+#X obj 268 578 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 577 ARRAY: name of the array the ramp is generated for.
+Type: symbol.;
+#X text 130 617 2\.;
+#X text 170 617 float;
+#X obj 268 618 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 617 SPEED: playback speed. Type: float.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 657 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 516 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 660 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 514 @array;
-#X text 270 514 Array name. Type: symbol.;
-#X obj 250 544 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 544 @from;
-#X text 270 544 Normalized to [0-1] range ramp start. Type: float.
-Default value: 0\. Range: [0\..1].;
-#X obj 250 586 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 586 @range;
-#X text 270 586 Ramp range. Type: list. Default value: 0 1\.;
-#X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 616 @speed;
-#X text 270 616 Ramp speed. Type: float. Default value: 1\.;
-#X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 646 @to;
-#X text 270 646 Normalized to [0-1] range ramp end. Type: float. Default
-value: 1\. Range: [0\..1].;
-#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 703 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 658 @array;
+#X text 270 658 Name of the array the ramp is generated for. Type:
+symbol.;
+#X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 688 @from;
+#X text 270 688 Start of the ramp \, normalized to the 0\..1 range.
+Type: float. Default value: 0\. Range: [0\..1].;
+#X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 730 @range;
+#X text 270 730 Ramp range. Type: list. Default value: 0 1\.;
+#X obj 250 760 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 760 @speed;
+#X text 270 760 Ramp speed. Type: float. Default value: 1\.;
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 790 @to;
+#X text 270 790 End of the ramp \, normalized to the 0\..1 range. Type:
+float. Default value: 1\. Range: [0\..1].;
+#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 847 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 704 1\.;
-#X text 170 704 bang:;
-#X text 270 704 start of the ramp signal for array reading.;
-#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 744 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 848 1\.;
+#X text 170 848 bang:;
+#X text 270 848 starts the ramp signal for array reading.;
+#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 888 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 745 1\.;
-#X text 170 745 ~;
-#X text 270 745 ramp signal.;
-#X text 130 765 2\.;
-#X text 170 765 bang:;
-#X text 270 765 after reaching the final value.;
+#X text 130 889 1\.;
+#X text 170 889 ~;
+#X text 270 889 ramp signal.;
+#X text 130 909 2\.;
+#X text 170 909 bang:;
+#X text 270 909 sent after the ramp reaches the final value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 818 library: ceammc v0.9.8;
-#N canvas 10 837 400 290 info 0;
+#X obj 1 959 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 962 library: ceammc v0.9.8;
+#N canvas 10 981 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,14 +109,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 837 pd info;
-#X connect 4 0 6 0;
-#X connect 8 0 9 0;
-#X connect 7 0 10 0;
-#X connect 9 0 10 0;
-#X connect 10 1 11 0;
-#X connect 10 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 14 0 16 0;
-#X connect 14 1 16 1;
+#X restore 10 981 pd info;
+#X connect 6 0 8 0;
+#X connect 10 0 11 0;
+#X connect 9 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 1 13 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 16 1 18 1;

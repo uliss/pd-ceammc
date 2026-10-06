@@ -19,28 +19,32 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Calculates BPM (Beats Per Minute) rate using SoundTouch library</tr>
-        <tr lang="ru">Расчет BPM (Beats Per Minute) с помощью библиотеки SoundTouch</tr>
+        <tr lang="en">Calculates the BPM (Beats Per Minute) rate using the SoundTouch library. The
+        audio data is taken from the specified array. On bang, the object analyzes the array and
+        outputs the detected tempo as a float.</tr>
+        <tr lang="ru">Вычисляет темп в BPM (Beats Per Minute) с помощью библиотеки SoundTouch.
+        Аудиоданные берутся из указанного массива. При получении bang объект анализирует массив и
+        выводит определённый темп в виде числа с плавающей точкой.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">starts calculation</tr>
-          <tr lang="ru">начинает вычисление</tr>
+          <tr lang="en">starts the BPM calculation on the current array</tr>
+          <tr lang="ru">запускает вычисление BPM по текущему массиву</tr>
         </in>
       </inlet>
     </inlets>
@@ -48,7 +52,7 @@
       <outlet>
         <out type="float">
           <tr lang="en">beats per minute</tr>
-          <tr lang="ru">BPM - количество ударов в минуту</tr>
+          <tr lang="ru">BPM — количество ударов в минуту</tr>
         </out>
       </outlet>
     </outlets>

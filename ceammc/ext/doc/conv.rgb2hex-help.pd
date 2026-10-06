@@ -9,63 +9,70 @@
 #X obj 566 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [rgb->hex] @url conv.rgb2hex-help.pd;
 #X obj 652 8 conv.rgb2hex;
-#X obj 50 118 ui.hsl @show_value 1;
-#X obj 126 147 ui.hsl @show_value 1;
-#X obj 194 176 ui.hsl @show_value 1;
-#X obj 50 205 rgb->hex @sync @float;
-#X msg 50 234 color \$1 0 -1;
-#X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object converts separate RGB channel values into
+a hex color symbol in the form #RRGGBB. The input mode is controlled
+by the @mode property: with @int (default) \, the channel values are
+expected in the range [0 \, 255] \, with @float \, they are expected
+in the range [0 \, 1]. With the @sync flag \, the hex value is output
+whenever any inlet changes.;
+#X obj 50 262 ui.hsl @show_value 1;
+#X obj 126 291 ui.hsl @show_value 1;
+#X obj 194 320 ui.hsl @show_value 1;
+#X obj 50 349 rgb->hex @sync @float;
+#X msg 50 378 color \$1 0 -1;
+#X obj 50 406 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 299 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 443 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 302 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 446 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 300 @sync;
-#X text 270 300 Output value on any inlet change.;
-#X obj 250 330 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 330 @float;
-#X text 270 330 Alias to @mode float. Expected input values are in
-[0-1] range.;
-#X obj 250 372 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 372 @int;
-#X text 270 372 Alias to @mode int. Expected input values are in [0-255]
-range.;
-#X obj 250 414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 414 @mode;
-#X text 270 414 Input mode. Type: symbol. Default value: int. Allowed
+#X msg 130 444 @sync;
+#X text 270 444 Output value on any inlet change.;
+#X obj 250 474 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 474 @float;
+#X text 270 474 Alias to @mode float. Input values are expected in
+the [0 \, 1] range.;
+#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 516 @int;
+#X text 270 516 Alias to @mode int. Input values are expected in the
+[0 \, 255] range.;
+#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 558 @mode;
+#X text 270 558 Input mode. Type: symbol. Default value: int. Allowed
 values: int \, float.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 615 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 472 1\.;
-#X text 170 472 int:;
-#X text 270 472 red channel value in [0-255] range.;
-#X text 170 497 float:;
-#X text 270 497 red channel value in [0-1] range.;
-#X text 130 522 2\.;
-#X text 170 522 int:;
-#X text 270 522 green channel value in [0-255] range.;
-#X text 170 547 float:;
-#X text 270 547 green channel value in [0-1] range.;
-#X text 130 572 3\.;
-#X text 170 572 int:;
-#X text 270 572 blue channel value in [0-255] range.;
-#X text 170 597 float:;
-#X text 270 597 blue channel value in [0-1] range.;
-#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 637 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 616 1\.;
+#X text 170 616 int:;
+#X text 270 616 red channel value in the [0 \, 255] range.;
+#X text 170 641 float:;
+#X text 270 641 red channel value in the [0 \, 1] range.;
+#X text 130 666 2\.;
+#X text 170 666 int:;
+#X text 270 666 green channel value in the [0 \, 255] range.;
+#X text 170 691 float:;
+#X text 270 691 green channel value in the [0 \, 1] range.;
+#X text 130 716 3\.;
+#X text 170 716 int:;
+#X text 270 716 blue channel value in the [0 \, 255] range.;
+#X text 170 741 float:;
+#X text 270 741 blue channel value in the [0 \, 1] range.;
+#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 781 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 638 1\.;
-#X text 270 638 symbol: #RRGGBB color value.;
+#X text 130 782 1\.;
+#X text 270 782 symbol: #RRGGBB color value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 691 library: ceammc v0.9.8;
-#N canvas 10 710 400 290 info 0;
+#X obj 1 832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 835 library: ceammc v0.9.8;
+#N canvas 10 854 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,9 +96,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 710 pd info;
-#X connect 6 0 9 0;
-#X connect 7 0 9 1;
-#X connect 8 0 9 2;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
+#X restore 10 854 pd info;
+#X connect 8 0 11 0;
+#X connect 9 0 11 1;
+#X connect 10 0 11 2;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

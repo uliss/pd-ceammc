@@ -11,7 +11,7 @@
       </authors>
       <description>
         <tr lang="en">message outlet for a patcher loaded by hoa.process~</tr>
-        <tr lang="ru">контрольный выход для патча, загружаемого объектом [hoa.process~]</tr>
+        <tr lang="ru">выход сообщений для патча, загружаемого объектом [hoa.process~]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -28,66 +28,54 @@
       <par>
         <tr lang="en">hoa.out defines a message outlet for a patcher loaded by a hoa.process~
         object.</tr>
-        <!-- old: hoa.out определяет выход сообщения для патчера,
-                загруженного hoa.process~ объектом. -->
-        <tr lang="ru" finished="false">hoa.out определяет выход сообщения для патчера, загруженного
-        hoa.process~ объектом.</tr>
+        <tr lang="ru">hoa.out определяет выход сообщений для патча, загружаемого объектом
+        hoa.process~.</tr>
       </par>
     </info>
     <arguments>
       <argument name="INDEX" type="int" minvalue="1">
         <tr lang="en">outlet index</tr>
-        <tr lang="ru" finished="false">выходной индекс</tr>
+        <tr lang="ru">индекс выхода</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @index -->
       <property name="@index" type="int" minvalue="1" default="1">
         <tr lang="en">outlet index</tr>
-        <tr lang="ru" finished="false">выходной индекс</tr>
+        <tr lang="ru">индекс выхода</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output bang message in the corresponding hoa.process~ object's message
-          outlet</tr>
-          <!-- old: выходное сообщение bang в соответствующем
-                    hoa.process~ выходе сообщения объекта -->
-          <tr lang="ru" finished="false">выходное сообщение bang в соответствующем hoa.process~
-          выходе сообщения объекта</tr>
+          <tr lang="en">outputs a bang message through the corresponding message outlet of the
+          hoa.process~ object</tr>
+          <tr lang="ru">выводит сообщение bang через соответствующий выход сообщений объекта
+          hoa.process~</tr>
         </in>
         <in on="float">
-          <tr lang="en">output float message in the corresponding hoa.process~ object's message
-          outlet</tr>
-          <!-- old: выходное поплавковое сообщение в соответствующем
-                    выпуске сообщения hoa.process~ object -->
-          <tr lang="ru" finished="false">выходное поплавковое сообщение в соответствующем выпуске
-          сообщения hoa.process~ object</tr>
+          <tr lang="en">outputs a float message through the corresponding message outlet of the
+          hoa.process~ object</tr>
+          <tr lang="ru">выводит сообщение с числом через соответствующий выход сообщений объекта
+          hoa.process~</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">output symbol message in the corresponding hoa.process~ object's message
-          outlet</tr>
-          <!-- old: вывод символьного сообщения в соответствующем
-                    hoa.process~ выходе сообщения объекта -->
-          <tr lang="ru" finished="false">вывод символьного сообщения в соответствующем hoa.process~
-          выходе сообщения объекта</tr>
+          <tr lang="en">outputs a symbol message through the corresponding message outlet of the
+          hoa.process~ object</tr>
+          <tr lang="ru">выводит символьное сообщение через соответствующий выход сообщений объекта
+          hoa.process~</tr>
         </in>
         <in on="list">
-          <tr lang="en">output list message in the corresponding hoa.process~ object's message
-          outlet</tr>
-          <!-- old: сообщение списка вывода в соответствующем
-                    выпуске сообщения hoa.process~ object -->
-          <tr lang="ru" finished="false">сообщение списка вывода в соответствующем выпуске
-          сообщения hoa.process~ object</tr>
+          <tr lang="en">outputs a list message through the corresponding message outlet of the
+          hoa.process~ object</tr>
+          <tr lang="ru">выводит сообщение-список через соответствующий выход сообщений объекта
+          hoa.process~</tr>
         </in>
         <in on="any">
-          <tr lang="en">output any message in the corresponding hoa.process~ object's message
-          outlet</tr>
-          <!-- old: вывод любого сообщения в соответствующем выпуске
-                    сообщения hoa.process~ object -->
-          <tr lang="ru" finished="false">вывод любого сообщения в соответствующем выпуске сообщения
+          <tr lang="en">outputs any message through the corresponding message outlet of the
           hoa.process~ object</tr>
+          <tr lang="ru">выводит любое сообщение через соответствующий выход сообщений объекта
+          hoa.process~</tr>
         </in>
       </inlet>
     </inlets>

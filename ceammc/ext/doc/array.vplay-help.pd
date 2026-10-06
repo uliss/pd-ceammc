@@ -5,132 +5,139 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.vplay 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 array.vplay;
-#X msg 50 118 load %DOC%/sound/voice.wav @to vplay @resize;
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object is a simple array player designed to work
+together with the [vline~] object. Instead of producing audio itself
+\, it outputs control messages that drive [vline~] \, which in turn
+generates the reading index for the array. The playback range is set
+with the range method or the @begin and @end properties. The object
+also supports reversed playback and variable speed.;
+#X msg 50 262 load %DOC%/sound/voice.wav @to vplay @resize;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array vplay 100 float 0;
 #X coords 0 1 100 -1 120 80 1;
-#X restore 443 133 graph;
-#X obj 50 147 expand_env;
-#X msg 184 147 0.3;
-#X msg 242 147 1;
-#X msg 280 147 1.7;
-#X obj 50 176 snd.file;
-#X floatatom 184 176 5 0 0 0 - - -;
-#X obj 299 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 219 stop \, play;
-#X msg 184 219 @speed \$1;
-#X msg 299 219 @reversed \$1;
-#X obj 443 219 ui.rslider @mouse_events 1;
-#X obj 69 248 r pos;
-#X obj 146 248 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 443 277 graph;
+#X obj 50 291 expand_env;
+#X msg 184 291 0.3;
+#X msg 242 291 1;
+#X msg 280 291 1.7;
+#X obj 50 320 snd.file;
+#X floatatom 184 320 5 0 0 0 - - -;
+#X obj 299 320 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 363 stop \, play;
+#X msg 184 363 @speed \$1;
+#X msg 299 363 @reversed \$1;
+#X obj 443 363 ui.rslider @mouse_events 1;
+#X obj 69 392 r pos;
+#X obj 146 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 443 248 ui.mouse_filter @up;
-#X obj 50 277 array.vplay @array vplay;
-#X msg 443 277 range \$1 phase \$2 phase;
-#X obj 50 305 vline~;
-#X obj 251 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 443 392 ui.mouse_filter @up;
+#X obj 50 421 array.vplay @array vplay;
+#X msg 443 421 range \$1 phase \$2 phase;
+#X obj 50 449 vline~;
+#X obj 251 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 462 305 @begin 0;
-#X msg 568 305 @end -1;
-#X obj 50 334 tabread4~ vplay;
-#X obj 443 334 s pos;
-#X obj 50 363 ui.gain~ @size 120 16;
-#X obj 328 363 ui.dsp~;
-#X obj 50 392 dac~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 462 449 @begin 0;
+#X msg 568 449 @end -1;
+#X obj 50 478 tabread4~ vplay;
+#X obj 443 478 s pos;
+#X obj 50 507 ui.gain~ @size 120 16;
+#X obj 328 507 ui.dsp~;
+#X obj 50 536 dac~;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 591 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 594 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 448 1\.;
-#X text 170 448 symbol;
-#X obj 268 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 ARRAY: array name. Type: symbol.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 488 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 592 1\.;
+#X text 170 592 symbol;
+#X obj 268 593 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 592 ARRAY: name of the array to play back. Type: symbol.;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 632 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 491 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 635 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 489 @array;
-#X text 270 489 Array name. Type: symbol.;
-#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 519 @begin;
-#X text 270 519 Begin position. Type: int. Units: 'samp'. Default value:
+#X msg 130 633 @array;
+#X text 270 633 Name of the array to play back. Type: symbol.;
+#X obj 250 663 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 663 @begin;
+#X text 270 663 Begin position. Type: int. Units: 'samp'. Default value:
 0\.;
-#X obj 250 549 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 549 @end;
-#X text 270 549 End position. Type: int. Units: 'samp'. Default value:
+#X obj 250 693 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 693 @end;
+#X text 270 693 End position. Type: int. Units: 'samp'. Default value:
 -1\.;
-#X obj 250 579 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 579 @reversed;
-#X text 270 579 Playing backwards. Type: bool. Default value: 0\.;
-#X obj 250 609 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 609 @speed;
-#X text 270 609 Play speed. Type: float. Default value: 1\. Min value:
-0.1\.;
-#X obj 250 639 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 639 @abs_begin?;
-#X text 270 639 (readonly) Absolute start position. Type: int. Units:
-'samp'. Default value: 0\.;
-#X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 681 @abs_end?;
-#X text 270 681 (readonly) Absolute stop position. Type: int. Units:
-'samp'. Default value: 0\.;
 #X obj 250 723 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 723 @state?;
-#X text 270 723 (readonly) Player state. Type: symbol. Default value:
+#X msg 130 723 @reversed;
+#X text 270 723 Play backwards. Type: bool. Default value: 0\.;
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 753 @speed;
+#X text 270 753 Play speed. Type: float. Default value: 1\. Min value:
+0.1\.;
+#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 783 @abs_begin?;
+#X text 270 783 (readonly) Absolute start position. Type: int. Units:
+'samp'. Default value: 0\.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 825 @abs_end?;
+#X text 270 825 (readonly) Absolute stop position. Type: int. Units:
+'samp'. Default value: 0\.;
+#X obj 250 867 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 867 @state?;
+#X text 270 867 (readonly) Player state. Type: symbol. Default value:
 stop. Allowed values: play \, stop.;
-#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 780 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 919 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 924 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 781 play;
-#X text 270 781 start playing.;
-#X obj 250 816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 816 range;
-#X text 270 816 set play range. Arguments are:;
-#X obj 300 841 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 841 VALUE: start value. Negative values (offset from end)
-are supported for ms \, sec and sample units. *-1 sample* means last
-sample. Type: float.;
-#X obj 300 894 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 894 UNIT: value unit. Type: symbol. Allowed values: ms
+#X msg 130 925 play;
+#X text 270 925 starts playback.;
+#X obj 250 960 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 960 range;
+#X text 270 960 sets the playback range. Arguments are:;
+#X obj 300 985 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 985 VALUE: start value. Negative values (offset from the
+end) are supported for ms \, sec and sample units. *-1 sample* means
+the last sample. Type: float.;
+#X obj 300 1038 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1038 UNIT: value unit. Type: symbol. Allowed values: ms
 \, sec \, phase \, sample.;
-#X obj 300 932 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 932 [VALUE]: end value. Type: float.;
-#X obj 300 955 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 955 UNIT: value unit. Type: symbol. Allowed values: ms
+#X obj 300 1076 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1076 [VALUE]: end value. Type: float.;
+#X obj 300 1099 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1099 UNIT: value unit. Type: symbol. Allowed values: ms
 \, sec \, phase \, sample.;
-#X obj 250 1003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1003 stop;
-#X text 270 1003 stop playing.;
-#X obj 20 1048 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1053 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1147 stop;
+#X text 270 1147 stops playback.;
+#X obj 20 1192 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1197 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1054 1\.;
-#X text 170 1054 bang:;
-#X text 270 1054 start playing from the beginning.;
-#X text 170 1079 bool:;
-#X text 270 1079 1 - play \, 0 - stop.;
-#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1119 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1198 1\.;
+#X text 170 1198 bang:;
+#X text 270 1198 starts playing from the beginning.;
+#X text 170 1223 bool:;
+#X text 270 1223 1 — play \, 0 — stop.;
+#X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1263 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1120 1\.;
-#X text 170 1120 list:;
-#X text 270 1120 message to the connected [vline~] object.;
-#X text 130 1140 2\.;
-#X text 170 1140 bang:;
-#X text 270 1140 after playing finished.;
+#X text 130 1264 1\.;
+#X text 170 1264 list:;
+#X text 270 1264 message to the connected [vline~] object.;
+#X text 130 1284 2\.;
+#X text 170 1284 bang:;
+#X text 270 1284 sent after playback finishes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1190 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1193 library: ceammc v0.9.8;
-#X text 597 1205 see also:;
-#X obj 672 1208 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1334 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1337 library: ceammc v0.9.8;
+#X text 597 1349 see also:;
+#X obj 672 1352 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.each] @url list.each-help.pd;
-#N canvas 10 1212 400 290 info 0;
+#N canvas 10 1356 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -154,27 +161,27 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1212 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 10 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 11 0 14 0;
-#X connect 12 0 15 0;
-#X connect 16 0 19 0;
-#X connect 13 0 20 0;
-#X connect 17 0 20 0;
-#X connect 18 0 20 0;
-#X connect 14 0 20 0;
-#X connect 15 0 20 0;
-#X connect 19 0 21 0;
+#X restore 10 1356 pd info;
+#X connect 6 0 8 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;
+#X connect 18 0 21 0;
+#X connect 15 0 22 0;
+#X connect 19 0 22 0;
 #X connect 20 0 22 0;
-#X connect 20 1 23 0;
-#X connect 22 0 26 0;
-#X connect 21 0 27 0;
-#X connect 24 0 27 0;
-#X connect 25 0 27 0;
-#X connect 26 0 28 0;
+#X connect 16 0 22 0;
+#X connect 17 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 0 24 0;
+#X connect 22 1 25 0;
+#X connect 24 0 28 0;
+#X connect 23 0 29 0;
+#X connect 26 0 29 0;
+#X connect 27 0 29 0;
 #X connect 28 0 30 0;
-#X connect 28 0 30 1;
+#X connect 30 0 32 0;
+#X connect 30 0 32 1;

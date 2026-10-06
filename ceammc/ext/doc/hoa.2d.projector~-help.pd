@@ -9,7 +9,7 @@
 #X obj 616 8 hoa.2d.projector~;
 #X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Discretizes the ambisonic sound field into the plane
-waves domain.;
+wave domain.;
 #X obj 240 126 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.projector~-help.pd;
 #X obj 50 210 sig~ 1;
@@ -45,8 +45,8 @@ waves domain.;
 #X obj 735 622 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 620 @n;
-#X text 270 620 (initonly) Number of channels (planewaves). Type: int.
-Default value: 0\. Range: [0\..63].;
+#X text 270 620 (initonly) Number of channels (plane waves). Type:
+int. Default value: 0\. Range: [0\..63].;
 #X obj 250 662 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 662 @order;
 #X text 270 662 (initonly) The order of decomposition. Type: int. Default
@@ -56,7 +56,7 @@ value: 1\. Range: [1\..63].;
 0;
 #X text 130 720 1\.;
 #X text 170 720 ~;
-#X text 270 720 input harmonic.;
+#X text 270 720 first input harmonic.;
 #X text 130 745 ...;
 #X text 170 745 ~;
 #X text 270 745 ... input harmonic.;

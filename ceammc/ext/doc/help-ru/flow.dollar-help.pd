@@ -1,34 +1,52 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 591 50 cnv 1 174 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 596 50 подставляет $-значения;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 511 50 подставляет значения $-переменных;
 #X obj 1 1 cnv 5 765 40 empty empty flow.dollar 20 20 0 20 -104026
 -4096 0;
 #X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.$$] @url flow.dollar-help.pd;
 #X obj 660 8 flow.dollar;
-#X msg 50 118 load file to \\\$0-array @resize;
-#X obj 50 147 flow.dollar;
-#X obj 50 176 ui.dt;
-#X obj 50 205 flow.dollar-args A B;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 386 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Заменяет экранированные \\\$0 \, \\\$1 \, \\\$2 \, ...
+во входящем сообщении на соответствующие значения текущего патча: \$0
+— уникальный идентификатор патча \, \$1 \, \$2 \, ... — аргументы \,
+переданные патчу. Это удобно \, когда сообщение содержит $-заполнитель
+\, который должен быть развёрнут во время выполнения \, а не в момент
+создания объекта.;
+#X text 240 199 Типичные сценарии применения:;
+#X text 250 224 • Построение уникальных имён — создание имён для send/receive
+\, массивов или файлов \, уникальных для каждого патча \, с использованием
+\$0 в качестве идентификатора патча.;
+#X text 250 294 • Параметризованные абстракции — разворачивание \$1
+\, \$2 \, ... в сообщениях внутри абстракции \, чтобы одну и ту же
+абстракцию можно было переиспользовать с разными параметрами (например
+\, разными именами файлов или номерами каналов).;
+#X text 250 379 • Динамическое построение сообщений — сборка сообщений
+на лету \, содержащих значения \, специфичные для данного патча \,
+чтобы одна и та же логика работала в разных экземплярах без конфликтов.;
+#X msg 50 512 load file to \\\$0-array @resize;
+#X obj 50 541 flow.dollar;
+#X obj 50 570 ui.dt;
+#X obj 50 599 flow.dollar-args A B;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 261 1\.;
-#X text 270 261 входной поток сообщений.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 655 1\.;
+#X text 270 655 входной поток сообщений.;
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 695 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 302 1\.;
-#X text 270 302 выводит сообщения с подставленными $-значениями.;
+#X text 130 696 1\.;
+#X text 270 696 выводит сообщения с подставленными значениями $-переменных.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 746 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 749 библиотека: ceammc v0.9.8;
+#N canvas 10 768 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -52,6 +70,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
+#X restore 10 768 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

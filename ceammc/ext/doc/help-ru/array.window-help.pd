@@ -1,116 +1,145 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 496 50 заполнение массива оконной функцией;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 511 50 заполняет массив оконной функцией;
 #X obj 1 1 cnv 5 765 40 empty empty array.window 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 array.window;
+#X obj 230 78 cnv 1 535 507 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект заполняет указанный массив выбранной оконной
+функцией. Тип окна можно задать свойством @type \, одним из соответствующих
+методов (hann \, hamming \, blackman и т. д.) или отправить bang после
+установки типа. Когда массив заполнен \, через выход отправляется bang.;
+#X text 240 168 Оконные функции кратко: 'rect' — прямоугольное окно
+\, все семплы равны 1 \, минимальная ширина главного лепестка \, но
+высокие боковые лепестки (применяется для транзиентов или когда сигнал
+уже укладывается в длину массива). 'tri' — треугольное окно \, простое
+линейное сужение к нулю с обоих концов. 'welch' — параболическое сужение
+\, похоже на tri \, но более гладкое. 'sine' — синусоидальное окно
+\, гладкое сужение \, хороший универсальный выбор. 'hann' — окно Ханна
+\, приподнятый косинус \, один из самых распространённых выборов для
+спектрального анализа и обработки FFT. 'hamming' — окно Хэмминга \,
+похоже на Hann \, но с небольшим ненулевым смещением на краях и чуть
+более низким первым боковым лепестком. 'blackman' — окно Блэкмана \,
+боковые лепестки ниже \, чем у Hann/Hamming \, ценой более широкого
+главного лепестка (подходит для точных измерений амплитуды). 'blackman-harris'
+— ещё более низкие боковые лепестки \, отлично подходит для спектрального
+анализа с большим динамическим диапазоном. 'nuttall' — окно Наттолла
+\, похоже на Blackman-Harris с очень низкими боковыми лепестками. 'flattop'
+— окно FlatTop \, очень широкий главный лепесток \, но чрезвычайно
+плоская вершина \, лучше всего подходит для точных измерений амплитуды
+конкретных спектральных пиков. 'gauss' — окно Гаусса \, гладкое \,
+настраивается через стандартное отклонение \, часто используется для
+время-частотного анализа (STFT \, спектрограммы).;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array AW1 100 float 0;
 #X coords 0 1 100 0 100 100 1;
-#X restore 50 118 graph;
-#X msg 50 234 tri;
-#X msg 136 234 welch;
-#X msg 222 234 rect;
-#X msg 338 234 blackman;
-#X msg 69 262 hann;
-#X msg 155 262 sine;
-#X msg 242 262 flattop;
-#X obj 50 320 array.window AW1 @type tri;
-#X obj 50 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 50 633 graph;
+#X msg 50 749 tri;
+#X msg 136 749 welch;
+#X msg 222 749 rect;
+#X msg 338 749 blackman;
+#X msg 69 777 hann;
+#X msg 155 777 sine;
+#X msg 242 777 flattop;
+#X obj 50 835 array.window AW1 @type tri;
+#X obj 50 864 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 386 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 901 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 389 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 904 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 387 1\.;
-#X text 170 387 symbol;
-#X obj 268 388 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 387 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 902 1\.;
+#X text 170 902 symbol;
+#X obj 268 903 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 902 ARRAY: имя массива \, заполняемого оконной функцией.
+Тип: symbol.;
+#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 957 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 960 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 428 @array;
-#X text 270 428 Имя массива. Тип: symbol.;
-#X obj 250 458 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 458 @redraw;
-#X text 270 458 Перерисовать после изменения массива. Тип: bool. Значение
-по умолчанию: 1\.;
-#X obj 250 500 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 500 @type;
-#X text 270 500 Тип окна. Тип: symbol. Значение по умолчанию: hann.
+#X msg 130 958 @array;
+#X text 270 958 Имя массива \, заполняемого оконной функцией. Тип:
+symbol.;
+#X obj 250 988 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 988 @redraw;
+#X text 270 988 Перерисовывать массив после каждого изменения. Тип:
+bool. Значение по умолчанию: 1\.;
+#X obj 250 1030 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1030 @type;
+#X text 270 1030 Тип окна. Тип: symbol. Значение по умолчанию: hann.
 Разрешённые значения: tri \, welch \, hann \, sine \, rect \, hamming
 \, blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
-#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 572 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 573 blackman;
-#X text 270 573 создать окно Blackman.;
-#X obj 250 608 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 608 blackman-harris;
-#X text 270 608 создать окно Blackman Harris.;
-#X obj 250 643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 643 fit;
-#X text 270 643 уместить значения массива в диапазон 0\..1\.;
-#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 678 flattop;
-#X text 270 678 генерировать окно FlatTop.;
-#X obj 250 713 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 713 gauss;
-#X text 270 713 cоздать окно Gauss.;
-#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 748 hamming;
-#X text 270 748 cоздать окно Hamming.;
-#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 783 hann;
-#X text 270 783 cоздать окно Hann.;
-#X obj 250 818 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 818 nuttall;
-#X text 270 818 cоздать окно Nuttall.;
-#X obj 250 853 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 853 rect;
-#X text 270 853 генерировать прямоугольное окно.;
-#X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 888 resize;
-#X text 270 888 изменить размер массива на указанный. Аргументы:;
-#X obj 300 913 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 913 [N]: новый размер. Тип: int. Минимальное значение:
-0\.;
-#X obj 250 946 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 946 sine;
-#X text 270 946 генерировать синусоидальное окно.;
-#X obj 250 981 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 981 tri;
-#X text 270 981 генерировать треугольное окно.;
-#X obj 250 1016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1016 welch;
-#X text 270 1016 генерировать окно Уэлча.;
-#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1066 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1067 1\.;
-#X text 170 1067 bang:;
-#X text 270 1067 заполняет массив значениями окна.;
-#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1107 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1097 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1102 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1108 1\.;
-#X text 170 1108 bang:;
-#X text 270 1108 при завершении.;
+#X msg 130 1103 blackman;
+#X text 270 1103 создаёт окно Блэкмана.;
+#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1138 blackman-harris;
+#X text 270 1138 создаёт окно Блэкмана — Харриса.;
+#X obj 250 1173 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1173 fit;
+#X text 270 1173 нормализует диапазон значений массива к диапазону
+0\..1\.;
+#X obj 250 1208 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1208 flattop;
+#X text 270 1208 создаёт окно FlatTop.;
+#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1243 gauss;
+#X text 270 1243 создаёт окно Гаусса.;
+#X obj 250 1278 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1278 hamming;
+#X text 270 1278 создаёт окно Хэмминга.;
+#X obj 250 1313 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1313 hann;
+#X text 270 1313 создаёт окно Ханна.;
+#X obj 250 1348 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1348 nuttall;
+#X text 270 1348 создаёт окно Наттолла.;
+#X obj 250 1383 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1383 rect;
+#X text 270 1383 создаёт прямоугольное окно.;
+#X obj 250 1418 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1418 resize;
+#X text 270 1418 изменяет размер массива до указанного. Аргументы:;
+#X obj 300 1443 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1443 [N]: новый размер. Тип: int. Минимальное значение:
+0\.;
+#X obj 250 1476 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1476 sine;
+#X text 270 1476 создаёт синусоидальное окно.;
+#X obj 250 1511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1511 tri;
+#X text 270 1511 создаёт треугольное окно.;
+#X obj 250 1546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1546 welch;
+#X text 270 1546 создаёт окно Уэлча.;
+#X obj 20 1591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1596 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1597 1\.;
+#X text 170 1597 bang:;
+#X text 270 1597 заполняет массив значениями выбранного окна.;
+#X obj 20 1632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1637 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1638 1\.;
+#X text 170 1638 bang:;
+#X text 270 1638 отправляется по завершении заполнения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1158 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1161 библиотека: ceammc v0.9.8;
-#X text 573 1173 смотрите также:;
-#X obj 694 1176 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1691 библиотека: ceammc v0.9.8;
+#X text 573 1703 смотрите также:;
+#X obj 694 1706 ui.link @background_color 0.78431 0.78431 0.78431
 @title [window] @url window-help.pd;
-#N canvas 10 1180 400 290 info 0;
+#N canvas 10 1710 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -134,12 +163,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1180 pd info;
-#X connect 5 0 12 0;
-#X connect 9 0 12 0;
-#X connect 6 0 12 0;
-#X connect 10 0 12 0;
-#X connect 7 0 12 0;
-#X connect 11 0 12 0;
-#X connect 8 0 12 0;
-#X connect 12 0 13 0;
+#X restore 10 1710 pd info;
+#X connect 8 0 15 0;
+#X connect 12 0 15 0;
+#X connect 9 0 15 0;
+#X connect 13 0 15 0;
+#X connect 10 0 15 0;
+#X connect 14 0 15 0;
+#X connect 11 0 15 0;
+#X connect 15 0 16 0;

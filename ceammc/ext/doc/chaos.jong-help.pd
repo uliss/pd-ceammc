@@ -7,125 +7,139 @@
 #X obj 568 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [noise.jong] @url chaos.jong-help.pd;
 #X obj 668 8 chaos.jong;
-#X obj 230 78 cnv 1 535 134 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 A non-interpolating generator based on the difference
-equations:;
-#X text 240 123 x[n+1] = sin(a * y[n]) - cos(b * x[n]);
-#X text 240 148 y[n+1] = sin(c * x[n]) - cos(d * y[n]);
-#X obj 240 176 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 391 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A non-interpolating chaotic generator based on the Peter
+de Jong attractor \, a two-dimensional discrete dynamical system. On
+each bang the generator advances the map by one step and outputs the
+new x and y coordinates.;
+#X text 240 153 The attractor is defined by the difference equations:;
+#X text 240 178 x[n+1] = sin(a * y[n]) - cos(b * x[n]);
+#X text 240 203 y[n+1] = sin(c * x[n]) - cos(d * y[n]);
+#X text 240 228 The shape of the trajectory depends strongly on the
+parameters a \, b \, c and d. The default values (a = 1.4 \, b = -2.3
+\, c = 2.4 \, d = -2.1) produce a rich \, structured chaotic pattern.
+Other parameter sets give very different shapes — some are dense clouds
+\, others are ring-like or spiral structures.;
+#X text 240 329 The output values are in the range of approximately
+-2 to 2 for both x and y. Because interpolation is not used \, the
+values jump between discrete points when driven by a slow metro — this
+makes the object useful as a source of stepped chaotic control signals
+for filters \, pan positions or pitches.;
+#X obj 240 433 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Peter de Jong Attractors @url
 http://paulbourke.net/fractals/peterdejong/;
-#X obj 50 260 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 309 260 r~ jong;
-#X obj 50 289 metro.random 100 400;
-#X obj 309 289 ui.scope~ @size 360 100;
-#X obj 50 318 chaos.jong;
-#X obj 50 347 l->l -2 2 1 2;
-#X obj 50 376 sig~;
-#X obj 136 376 l->l -2 2 -0.7 0.8;
-#X obj 50 404 lop~ 40;
-#X obj 203 404 l->l -2 2 -1 1;
-#X obj 50 433 osc.impulse~;
-#X obj 203 433 sig~;
-#X obj 50 462 *~ 20;
-#X obj 203 462 lop~ 5;
-#X obj 50 491 cpole~, f 23;
-#X obj 50 520 pan.spread~ @spread 0.4;
-#X obj 50 548 fx.pitchshift~ -24;
-#X obj 50 577 clip~ -1 1;
-#X obj 203 577 clip~ -1 1;
-#X obj 50 606 ui.hgain2~ @size 20 164;
-#X obj 299 606 s~ jong;
-#X obj 50 635 dac~, f 23;
-#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 690 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 517 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 309 517 r~ jong;
+#X obj 50 546 metro.random 100 400;
+#X obj 309 546 ui.scope~ @size 360 100;
+#X obj 50 575 chaos.jong;
+#X obj 50 604 l->l -2 2 1 2;
+#X obj 50 633 sig~;
+#X obj 136 633 l->l -2 2 -0.7 0.8;
+#X obj 50 661 lop~ 40;
+#X obj 203 661 l->l -2 2 -1 1;
+#X obj 50 690 osc.impulse~;
+#X obj 203 690 sig~;
+#X obj 50 719 *~ 20;
+#X obj 203 719 lop~ 5;
+#X obj 50 748 cpole~, f 23;
+#X obj 50 777 pan.spread~ @spread 0.4;
+#X obj 50 805 fx.pitchshift~ -24;
+#X obj 50 834 clip~ -1 1;
+#X obj 203 834 clip~ -1 1;
+#X obj 50 863 ui.hgain2~ @size 20 164;
+#X obj 299 863 s~ jong;
+#X obj 50 892 dac~, f 23;
+#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 947 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 693 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 950 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 691 1\.;
-#X text 170 691 float;
-#X obj 268 692 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 691 A: a-value (default 1.4). Type: float.;
-#X text 130 716 2\.;
-#X text 170 716 float;
-#X obj 268 717 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 716 B: b-value (default -2.3). Type: float.;
-#X text 130 741 3\.;
-#X text 170 741 float;
-#X obj 268 742 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 741 C: c-value (default 2.4). Type: float.;
-#X text 130 766 4\.;
-#X text 170 766 float;
-#X obj 268 767 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 766 D: d-value (default -2.1). Type: float.;
-#X text 130 791 5\.;
-#X text 170 791 float;
-#X obj 268 792 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 791 X: x init value (default 0). Type: float.;
-#X text 130 816 6\.;
-#X text 170 816 float;
-#X obj 268 817 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 816 Y: y init value (default 0). Type: float.;
-#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 856 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 130 948 1\.;
+#X text 170 948 float;
+#X obj 268 949 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 948 A: a-value (default 1.4). Type: float.;
+#X text 130 973 2\.;
+#X text 170 973 float;
+#X obj 268 974 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 973 B: b-value (default -2.3). Type: float.;
+#X text 130 998 3\.;
+#X text 170 998 float;
+#X obj 268 999 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 998 C: c-value (default 2.4). Type: float.;
+#X text 130 1023 4\.;
+#X text 170 1023 float;
+#X obj 268 1024 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1023 D: d-value (default -2.1). Type: float.;
+#X text 130 1048 5\.;
+#X text 170 1048 float;
+#X obj 268 1049 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1048 X: x init value (default 0). Type: float.;
+#X text 130 1073 6\.;
+#X text 170 1073 float;
+#X obj 268 1074 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1073 Y: y init value (default 0). Type: float.;
+#X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1113 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 857 a;
-#X text 270 857 set a-value \, does not not change init state value.;
-#X obj 250 892 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 892 b;
-#X text 270 892 set b-value \, does not not change init state value.;
-#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 927 c;
-#X text 270 927 set c-value \, does not not change init state value.;
-#X obj 250 962 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 962 d;
-#X text 270 962 set d-value \, does not not change init state value.;
-#X obj 250 997 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 997 om;
-#X text 270 997 turn on/off method output mode. If true (1) outputs
-new generated value after each a \, b \, d \, e \, x \, y method call
-\, if 0 - change values without output. Default is 0\. Arguments are:;
-#X obj 300 1067 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1067 BOOL: output mode. Type: int.;
-#X obj 250 1100 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1100 reset;
-#X text 270 1100 set to initial state.;
-#X obj 250 1135 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1135 set;
-#X text 270 1135 set A B C D E X Y values. Also updates init state
-vars.;
-#X obj 250 1170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1170 x;
-#X text 270 1170 set current x-value \, does not not change init state
-value.;
-#X obj 250 1205 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1205 y;
-#X text 270 1205 set current y-value \, does not not change init state
-value.;
-#X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1255 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1114 a;
+#X text 270 1114 sets a-value \, does not change the init state value.;
+#X obj 250 1149 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1149 b;
+#X text 270 1149 sets b-value \, does not change the init state value.;
+#X obj 250 1184 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1184 c;
+#X text 270 1184 sets c-value \, does not change the init state value.;
+#X obj 250 1219 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1219 d;
+#X text 270 1219 sets d-value \, does not change the init state value.;
+#X obj 250 1254 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1254 om;
+#X text 270 1254 turns the method output mode on or off. If true (1)
+\, outputs a new generated value after each a \, b \, c \, d \, x \,
+y method call. If 0 \, changes values without output. Default is 0\.
+Arguments are:;
+#X obj 300 1324 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1324 BOOL: output mode. Type: int.;
+#X obj 250 1357 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1357 reset;
+#X text 270 1357 sets the object to its initial state.;
+#X obj 250 1392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1392 set;
+#X text 270 1392 sets A B C D X Y values. Also updates the init state
+variables.;
+#X obj 250 1442 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1442 x;
+#X text 270 1442 sets the current x-value \, does not change the init
+state value.;
+#X obj 250 1492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1492 y;
+#X text 270 1492 sets the current y-value \, does not change the init
+state value.;
+#X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1557 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1256 1\.;
-#X text 170 1256 bang:;
-#X text 270 1256 generate and output new value.;
-#X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1296 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1558 1\.;
+#X text 170 1558 bang:;
+#X text 270 1558 generates and outputs a new value.;
+#X obj 20 1593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1598 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1297 1\.;
-#X text 270 1297 new generated x-value.;
-#X text 130 1317 2\.;
-#X text 270 1317 new generated y-value.;
+#X text 130 1599 1\.;
+#X text 270 1599 newly generated x-value.;
+#X text 130 1619 2\.;
+#X text 270 1619 newly generated y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1367 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1370 library: ceammc v0.9.8;
-#X text 590 1382 see also:;
-#X obj 665 1385 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1672 library: ceammc v0.9.8;
+#X text 590 1684 see also:;
+#X obj 665 1687 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.std0] @url chaos.std0-help.pd;
-#N canvas 10 1389 400 290 info 0;
+#N canvas 10 1691 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -149,29 +163,29 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1389 pd info;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 12 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 16 0;
-#X connect 16 0 18 0;
-#X connect 18 0 20 0;
+#X restore 10 1691 pd info;
+#X connect 13 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
 #X connect 19 0 21 0;
-#X connect 20 0 22 0;
 #X connect 21 0 23 0;
 #X connect 22 0 24 0;
-#X connect 24 0 25 0;
-#X connect 24 1 25 1;
-#X connect 25 0 26 0;
-#X connect 26 0 27 0;
-#X connect 25 1 28 0;
-#X connect 27 0 29 0;
-#X connect 28 0 29 1;
-#X connect 28 0 30 0;
-#X connect 29 0 31 0;
-#X connect 29 1 31 1;
-#X connect 14 0 17 0;
-#X connect 14 1 19 0;
-#X connect 17 0 24 2;
-#X connect 23 0 24 3;
+#X connect 23 0 25 0;
+#X connect 24 0 26 0;
+#X connect 25 0 27 0;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 28 0 29 0;
+#X connect 29 0 30 0;
+#X connect 28 1 31 0;
+#X connect 30 0 32 0;
+#X connect 31 0 32 1;
+#X connect 31 0 33 0;
+#X connect 32 0 34 0;
+#X connect 32 1 34 1;
+#X connect 17 0 20 0;
+#X connect 17 1 22 0;
+#X connect 20 0 27 2;
+#X connect 26 0 27 3;

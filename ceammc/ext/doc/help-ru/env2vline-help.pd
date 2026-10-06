@@ -15,8 +15,9 @@
 #X restore 577 11 pd aliases;
 #X obj 674 11 env2vline;
 #X obj 230 93 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Supports stop-points for multisegment envelopes. Note:
-non-linear envelopes are outputted using linear approximation;
+#X text 240 98 Поддерживает точки остановки для многосегментных огибающих.
+Примечание: нелинейные огибающие выводятся с использованием линейной
+аппроксимации;
 #X obj 50 216 loadbang;
 #X obj 414 216 r a1;
 #X obj 50 245 envelope easr 20 -4 1000 -8;
@@ -58,48 +59,50 @@ non-linear envelopes are outputted using linear approximation;
 #X obj 735 750 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 748 @sync;
-#X text 270 748 Sync with input data. When set to 1 outputs envelope
-(as fixed) on every input data. Тип: bool. Значение по умолчанию: 0\.;
+#X text 270 748 Синхронизация с входными данными. При значении 1 выводит
+огибающую (как фиксированную) на каждое входное сообщение. Тип: bool.
+Значение по умолчанию: 0\.;
 #X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 820 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 821 next;
-#X text 270 821 output segment until next stop-point or end of envelope
-is reached.;
+#X text 270 821 выводит сегмент до достижения следующей точки остановки
+или конца огибающей.;
 #X obj 250 871 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 871 reset;
-#X text 270 871 reset current segment position for multi-segment envelopes.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 921 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 270 871 сбрасывает текущее положение сегмента для многосегментных
+огибающих.;
+#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 936 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 922 1\.;
-#X text 170 922 bang:;
-#X text 270 922 output as envelope of fixed length (no stop-points
-are encountered).;
-#X text 170 962 float:;
-#X text 270 962 output as attack (on 1) / release (on 0) envelope with
-one stop-point.;
-#X text 170 1002 data:;
-#X text 270 1002 output as fixed envelope* data.;
-#X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1042 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 937 1\.;
+#X text 170 937 bang:;
+#X text 270 937 выводит огибающую как форму фиксированной длины (точки
+остановки не встречаются).;
+#X text 170 977 float:;
+#X text 270 977 выводит огибающую как атаку (при 1) или восстановление
+(при 0) с одной точкой остановки.;
+#X text 170 1017 data:;
+#X text 270 1017 выводит огибающую как данные фиксированной длины.;
+#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1057 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1043 1\.;
-#X text 270 1043 bunch of vline-compatible messages: VALUE \, DURATION
+#X text 130 1058 1\.;
+#X text 270 1058 набор совместимых с [vline~] сообщений: VALUE \, DURATION
 \, OFFSET.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 1093 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1096 библиотека: ceammc v0.9.8;
-#X text 454 1108 смотрите также:;
-#X obj 575 1111 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1126 библиотека: ceammc v0.9.8;
+#X text 454 1138 смотрите также:;
+#X obj 575 1141 ui.link @background_color 0.78431 0.78431 0.78431
 @title [vline->env] @url vline->env-help.pd;
-#X obj 665 1111 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 1141 ui.link @background_color 0.78431 0.78431 0.78431
 @title [env->array] @url env->array-help.pd;
-#N canvas 10 1115 400 290 info 0;
+#N canvas 10 1145 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -123,7 +126,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1115 pd info;
+#X restore 10 1145 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

@@ -1,70 +1,93 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 557 50 creation of the color scale;
+#X obj 567 50 cnv 1 198 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 572 50 creation of a color scale;
 #X obj 1 1 cnv 5 765 40 empty empty color.scale 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 color.scale;
-#X obj 50 118 ui.hsl @show_value 1;
-#X obj 309 118 ui.tab none short long inc dec @size 200 15;
-#X msg 309 147 @interp \$2;
-#X obj 50 176 color.scale Color(red) Color(blue) Color(yellow);
-#X obj 50 205 color->rgba @pack @float;
-#X msg 50 234 @background_color \$1 \$2 \$3;
-#X obj 50 262 ui.hsl @nosave 1;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 297 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object builds a color scale from a list of reference
+colors and outputs a color at a given position on that scale. The position
+is set with a float on the inlet: 0 corresponds to the first color
+in the list \, 1 to the last color \, and values in between give a
+smooth transition. The interpolation strategy is controlled by the
+@interp property.;
+#X text 240 199 Interpolation is performed by the colorm library. The
+@interp property selects the hue interpolation strategy and accepts
+the following values: 'none' — colors are interpolated directly in
+RGB \, no hue correction is applied \, 'short' — interpolation goes
+along the shorter arc of the hue circle (default for most cases) \,
+'long' — interpolation goes along the longer arc of the hue circle
+\, 'inc' — hue increases monotonically (clockwise on the hue circle)
+\, 'dec' — hue decreases monotonically (counter-clockwise on the hue
+circle).;
+#X obj 50 423 ui.hsl @show_value 1;
+#X obj 309 423 ui.tab none short long inc dec @size 200 15;
+#X msg 309 452 @interp \$2;
+#X obj 50 481 color.scale Color(red) Color(blue) Color(yellow);
+#X obj 50 510 color->rgba @pack @float;
+#X msg 50 539 @background_color \$1 \$2 \$3;
+#X obj 50 567 ui.hsl @nosave 1;
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 622 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 625 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 list;
-#X obj 268 319 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 SCALE: color list. Type: list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 623 1\.;
+#X text 170 623 list;
+#X obj 268 624 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 623 SCALE: list of reference colors that make up the scale.
+Type: list.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 678 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 681 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @hex;
-#X text 270 359 Alias to @mode hex.;
-#X obj 250 389 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 389 @interp;
-#X text 270 389 Hue interpolation strategy. Type: symbol. Default value:
+#X msg 130 679 @hex;
+#X text 270 679 Alias to @mode hex.;
+#X obj 250 709 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 709 @interp;
+#X text 270 709 Hue interpolation strategy: 'none' — direct RGB interpolation
+\, 'short' — shorter hue arc \, 'long' — longer hue arc \, 'inc' —
+increasing hue \, 'dec' — decreasing hue. Type: symbol. Default value:
 none. Allowed values: none \, short \, long \, inc \, dec.;
-#X obj 250 431 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 431 @mode;
-#X text 270 431 Output mode: if 'color' - output as data:color type
-\, if 'hex' - output as hex value \, if 'rgb' - RGB list. Type: symbol.
-Default value: color. Allowed values: color \, hex \, rgb.;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @rgb;
-#X text 270 503 Alias to @mode rgb.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @scale;
-#X text 270 533 Color list. Type: list.;
-#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 563 @color;
-#X text 270 563 Alias to @mode color.;
-#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 608 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 796 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 796 @mode;
+#X text 270 796 Output mode: 'color' — output as data:color type \,
+'hex' — output as a hex value \, 'rgb' — output as an RGB list. Type:
+symbol. Default value: color. Allowed values: color \, hex \, rgb.;
+#X obj 250 868 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 868 @rgb;
+#X text 270 868 Alias to @mode rgb.;
+#X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 898 @scale;
+#X text 270 898 List of reference colors that make up the scale. Type:
+list.;
+#X obj 250 928 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 928 @color;
+#X text 270 928 Alias to @mode color.;
+#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 973 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 609 1\.;
-#X text 170 609 float:;
-#X text 270 609 calculate color scale hue and output. Range: [0\..1].;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 649 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 974 1\.;
+#X text 170 974 float:;
+#X text 270 974 position on the scale: 0 gives the first color \, 1
+gives the last color. On receipt \, the object calculates the color
+at this position and outputs it. Range: [0\..1].;
+#X obj 20 1039 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1044 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 650 1\.;
-#X text 270 650 data:color output.;
+#X text 130 1045 1\.;
+#X text 170 1045 data:color:;
+#X text 270 1045 data:color output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 700 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 703 library: ceammc v0.9.8;
-#N canvas 10 722 400 290 info 0;
+#X obj 1 1095 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1098 library: ceammc v0.9.8;
+#N canvas 10 1117 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -88,10 +111,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 722 pd info;
-#X connect 5 0 6 0;
-#X connect 4 0 7 0;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 1117 pd info;
 #X connect 8 0 9 0;
+#X connect 7 0 10 0;
 #X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">soft signal clip</tr>
-        <tr lang="ru">мягкое клиппирование сигнала</tr>
+        <tr lang="ru">мягкое ограничение сигнала</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,6 +16,21 @@
       <keywords>dyn clip limiter</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">A soft-clipping (saturation) stage. Unlike a hard clipper, which simply cuts
+        off the signal at a given level, this object gradually compresses the waveform as it
+        approaches the limits, producing a smoother, more musical distortion. This behavior is
+        typical of analog tape saturation and tube overdrive, and it is often used to tame peaks
+        gently and add subtle coloration instead of hard clipping.</tr>
+        <tr lang="ru">Каскад мягкого ограничения (сатурации). В отличие от жёсткого клиппера,
+        который просто обрезает сигнал на заданном уровне, этот объект постепенно сжимает форму
+        волны по мере приближения к границам, давая более мягкое и музыкальное искажение. Такое
+        поведение характерно для аналоговой ленточной сатурации и лампового перегруза, и часто
+        используется, чтобы мягко ограничить пики и добавить легкую окраску вместо жёсткого
+        клиппирования.</tr>
+      </par>
+    </info>
     <properties>
       <xi:include href="props_active.xml" />
     </properties>
@@ -23,8 +38,8 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="en">resets the object to its initial state</tr>
+          <tr lang="ru">возвращает объект в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -32,7 +47,7 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -40,7 +55,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

@@ -53,27 +53,26 @@ audio;
 #X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
 #X text 220 627 Extract object properties from the connected object;
 #X obj 30 655 ui.link @title [radio] @url radio-help.pd;
-#X text 220 652 upon receiving the index \, the state of individual
-outputs is established as a radio switch;
-#X obj 30 695 ui.link @title [split~] @url split~-help.pd;
-#X text 220 692 parametrized multichannel signal splitter;
-#X obj 30 720 ui.link @title [spring] @url spring-help.pd;
-#X text 220 717 behaves like a spring \, bouncing back to its original
+#X text 220 652 non GUI radio switch;
+#X obj 30 680 ui.link @title [split~] @url split~-help.pd;
+#X text 220 677 parametrized multichannel signal splitter;
+#X obj 30 705 ui.link @title [spring] @url spring-help.pd;
+#X text 220 702 behaves like a spring \, bouncing back to its original
 state;
-#X obj 30 745 ui.link @title [sync] @url sync-help.pd;
-#X text 220 742 synchronization of multiple values without overflowing
+#X obj 30 730 ui.link @title [sync] @url sync-help.pd;
+#X text 220 727 synchronization of multiple values without overflowing
 stack loops;
-#X obj 30 785 ui.link @title [window] @url window-help.pd;
-#X text 220 782 returns the value of the window function;
-#X obj 30 810 ui.link @title [xdac~] @url xdac~-help.pd;
-#X text 220 807 [dac~] with channel ranges;
-#X obj 30 835 ui.link @title [xfade2~] @url xfade2~-help.pd;
-#X text 220 832 multichannel cross-fade for stereo signals;
-#X obj 30 860 ui.link @title [xfade~] @url xfade~-help.pd;
-#X text 220 857 multichannel cross-fade;
-#X obj 30 885 ui.link @title [z~] @url z~-help.pd;
-#X text 220 882 integer sample delay;
+#X obj 30 770 ui.link @title [window] @url window-help.pd;
+#X text 220 767 returns the value of the window function;
+#X obj 30 795 ui.link @title [xdac~] @url xdac~-help.pd;
+#X text 220 792 [dac~] with channel ranges;
+#X obj 30 820 ui.link @title [xfade2~] @url xfade2~-help.pd;
+#X text 220 817 multichannel cross-fade for stereo signals;
+#X obj 30 845 ui.link @title [xfade~] @url xfade~-help.pd;
+#X text 220 842 multichannel cross-fade;
+#X obj 30 870 ui.link @title [z~] @url z~-help.pd;
+#X text 220 867 integer sample delay;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
-#X obj 1 907 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 917 library: ceammc;
+#X obj 1 892 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 902 library: ceammc;

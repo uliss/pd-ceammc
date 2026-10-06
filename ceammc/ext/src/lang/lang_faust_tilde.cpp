@@ -261,17 +261,19 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
 }
 
 void LangFaustTilde::saveUser(t_binbuf* b)
-{
+{    
     auto symA = gensym(sym_A);
     auto symR = gensym(sym_restore);
 
-    for (auto& l : src_) {
-        if (l.empty())
-            continue;
+    if (fname_->value() != &s_) {
+        for (auto& l : src_) {
+            if (l.empty())
+                continue;
 
-        binbuf_addv(b, "ss", symA, symR);
-        binbuf_add(b, l.size(), &l.front().atom());
-        binbuf_addsemi(b);
+            binbuf_addv(b, "ss", symA, symR);
+            binbuf_add(b, l.size(), &l.front().atom());
+            binbuf_addsemi(b);
+        }
     }
 
     binbuf_addv(b, "ss", symA, symR);

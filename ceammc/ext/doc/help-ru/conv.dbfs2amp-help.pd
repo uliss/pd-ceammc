@@ -9,38 +9,44 @@
 #X obj 552 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [dbfs->amp] @url conv.dbfs2amp-help.pd;
 #X obj 645 8 conv.dbfs2amp;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: db values <= -144 are converted to 0;
-#X obj 50 171 ui.hsl @min -144 @max 6;
-#X floatatom 50 200 8 0 0 0 - - -;
-#X obj 50 229 dbfs->amp;
-#X floatatom 50 258 8 0 0 0 - - -;
-#X obj 50 287 amp->dbfs;
-#X floatatom 50 315 8 0 0 0 - - -;
-#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 352 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 161 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект преобразует значение в децибелах относительно
+полной шкалы (dBFS) в линейное значение амплитуды. Преобразование выполняется
+по формуле амплитуда = 10^(dBFS / 20). Значение 0 dBFS соответствует
+амплитуде 1\. Положительные значения dBFS дают амплитуды больше 1 \,
+а отрицательные значения dBFS — амплитуды от 0 до 1\.;
+#X text 240 184 Примечание: значения dB меньше или равные -144 преобразуются
+в 0\.;
+#X obj 50 287 ui.hsl @min -144 @max 6;
+#X floatatom 50 316 8 0 0 0 - - -;
+#X obj 50 345 dbfs->amp;
+#X floatatom 50 374 8 0 0 0 - - -;
+#X obj 50 403 amp->dbfs;
+#X floatatom 50 431 8 0 0 0 - - -;
+#X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 468 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 353 1\.;
-#X text 170 353 float:;
-#X text 270 353 input value.;
-#X text 170 378 list:;
-#X text 270 378 input values.;
-#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 418 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 469 1\.;
+#X text 170 469 float:;
+#X text 270 469 входное значение.;
+#X text 170 494 list:;
+#X text 270 494 входные значения.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 419 1\.;
-#X text 270 419 converted value.;
+#X text 130 535 1\.;
+#X text 270 535 преобразованное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 551 520 смотрите также:;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 585 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 588 библиотека: ceammc v0.9.8;
+#X text 551 600 смотрите также:;
+#X obj 672 603 ui.link @background_color 0.78431 0.78431 0.78431
 @title [amp->dbfs] @url amp->dbfs-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 607 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -64,9 +70,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 8 0 9 0;
+#X restore 10 607 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;
+#X connect 13 0 14 0;

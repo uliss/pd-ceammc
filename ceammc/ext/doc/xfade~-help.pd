@@ -6,96 +6,108 @@
 #X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/xfade~] @url xfade~-help.pd;
 #X obj 695 8 xfade~;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 control float value in range [0-1) controls xfade between
-first and second signals \, [1-2) between second and third etc.;
-#X text 50 201 simple 2-channel crossfade;
-#X obj 510 201 ui.radio 3;
-#X obj 50 230 osc~ 440;
-#X obj 194 230 ui.knob;
-#X obj 338 230 osc~ 440;
-#X obj 510 230 ui.knob @max 2;
-#X obj 78 259 osc~ 1000;
-#X obj 366 259 osc~ 1000;
-#X floatatom 194 288 5 0 0 0 - - -;
-#X obj 395 288 osc~ 1500;
-#X floatatom 510 288 5 0 0 0 - - -;
-#X obj 50 317 xfade~;
-#X obj 338 317 xfade~ 3 @pow;
-#X obj 50 345 ui.gain~ @size 120 16;
-#X obj 338 345 ui.gain~ @size 120 16;
-#X obj 606 345 ui.dsp~;
-#X obj 50 374 dac~;
-#X obj 338 374 dac~;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 286 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The control float value in the range [0 \, N−1] selects
+the crossfade between the input signals: [0 \, 1) fades between the
+first and second signal \, [1 \, 2) between the second and third \,
+and so on. Integer values produce a single input \, fractional values
+produce a blend of two neighbouring inputs.;
+#X text 240 184 Typical use cases:;
+#X text 250 209 • Smooth switching between audio sources — crossfading
+between several oscillators \, samplers or live inputs without clicks
+\, for example selecting an active sound source by a single continuous
+parameter.;
+#X text 250 279 • Layered transitions in performance — morphing between
+different textures \, effects or voices on the fly \, with a musical
+rather than abrupt transition \, controlled from a single knob \, LFO
+or automation curve.;
+#X text 50 412 simple 2-channel crossfade;
+#X obj 510 412 ui.radio 3;
+#X obj 50 441 osc~ 440;
+#X obj 194 441 ui.knob;
+#X obj 338 441 osc~ 440;
+#X obj 510 441 ui.knob @max 2;
+#X obj 78 470 osc~ 1000;
+#X obj 366 470 osc~ 1000;
+#X floatatom 194 499 5 0 0 0 - - -;
+#X obj 395 499 osc~ 1500;
+#X floatatom 510 499 5 0 0 0 - - -;
+#X obj 50 528 xfade~;
+#X obj 338 528 xfade~ 3 @pow;
+#X obj 50 556 ui.gain~ @size 120 16;
+#X obj 338 556 ui.gain~ @size 120 16;
+#X obj 606 556 ui.dsp~;
+#X obj 50 585 dac~;
+#X obj 338 585 dac~;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 640 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 432 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 643 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 430 1\.;
-#X text 170 430 int;
-#X obj 268 431 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 N: number of inputs. Type: int. Range: [2\..16];
-#X text 130 455 2\.;
-#X text 170 455 float;
-#X obj 268 456 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 455 X: crossfade init value. Valid value in [0\..N-1] range.
-See @x property. Type: float.;
-#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 510 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 641 1\.;
+#X text 170 641 int;
+#X obj 268 642 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 641 N: number of inputs. Type: int. Range: [2\..16];
+#X text 130 666 2\.;
+#X text 170 666 float;
+#X obj 268 667 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 666 X: crossfade initial value. Valid value in the [0 \,
+N−1] range. See the @x property. Type: float.;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 721 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 513 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 724 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 511 @n;
-#X text 270 511 (initonly) Number of xfade inputs. Type: int. Default
+#X msg 130 722 @n;
+#X text 270 722 (initonly) Number of xfade inputs. Type: int. Default
 value: 2\. Range: [2\..16].;
-#X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 553 @lin;
-#X text 270 553 Alias to @type lin.;
-#X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 583 @pow;
-#X text 270 583 Alias to @type pow.;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @smooth;
-#X text 270 613 Signal change smooth time. Type: float. Units: 'ms'.
+#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 764 @lin;
+#X text 270 764 Alias for @type lin.;
+#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 794 @pow;
+#X text 270 794 Alias for @type pow.;
+#X obj 250 824 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 824 @smooth;
+#X text 270 824 Signal change smooth time. Type: float. Units: 'ms'.
 Default value: 20\. Min value: 1\.;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @type;
-#X text 270 655 Fade curve type: linear or power. Type: symbol. Default
+#X obj 250 866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 866 @type;
+#X text 270 866 Fade curve type: linear or power. Type: symbol. Default
 value: pow. Allowed values: lin \, pow.;
-#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 697 @x;
-#X text 270 697 Crossfade property. Valid value in [0\..N-1] range.
+#X obj 250 908 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 908 @x;
+#X text 270 908 Crossfade value. Valid value in the [0 \, N−1] range.
 Type: float. Default value: 0\.;
-#X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 754 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 960 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 965 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 755 1\.;
-#X text 170 755 ~;
-#X text 270 755 input signal.;
-#X text 130 780 ...;
-#X text 170 780 ~;
-#X text 270 780 input signal.;
-#X text 130 805 n.;
-#X text 170 805 ~;
-#X text 270 805 input signal.;
-#X text 130 830 4\.;
-#X text 170 830 float:;
-#X text 270 830 set crossfade value.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 870 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 966 1\.;
+#X text 170 966 ~;
+#X text 270 966 input signal.;
+#X text 130 991 ...;
+#X text 170 991 ~;
+#X text 270 991 input signal.;
+#X text 130 1016 n.;
+#X text 170 1016 ~;
+#X text 270 1016 input signal.;
+#X text 130 1041 4\.;
+#X text 170 1041 float:;
+#X text 270 1041 sets the crossfade value.;
+#X obj 20 1076 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1081 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 871 1\.;
-#X text 170 871 ~;
-#X text 270 871 output signal.;
+#X text 130 1082 1\.;
+#X text 170 1082 ~;
+#X text 270 1082 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 921 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 924 library: ceammc v0.9.8;
-#N canvas 10 943 400 290 info 0;
+#X obj 1 1132 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1135 library: ceammc v0.9.8;
+#N canvas 10 1154 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,20 +131,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 943 pd info;
-#X connect 8 0 12 0;
-#X connect 10 0 15 0;
-#X connect 12 0 17 0;
-#X connect 9 0 18 0;
-#X connect 13 0 18 1;
-#X connect 15 0 18 2;
-#X connect 11 0 19 0;
-#X connect 14 0 19 1;
-#X connect 16 0 19 2;
-#X connect 17 0 19 3;
-#X connect 18 0 20 0;
-#X connect 19 0 21 0;
-#X connect 20 0 23 0;
-#X connect 20 0 23 1;
-#X connect 21 0 24 0;
-#X connect 21 0 24 1;
+#X restore 10 1154 pd info;
+#X connect 11 0 15 0;
+#X connect 13 0 18 0;
+#X connect 15 0 20 0;
+#X connect 12 0 21 0;
+#X connect 16 0 21 1;
+#X connect 18 0 21 2;
+#X connect 14 0 22 0;
+#X connect 17 0 22 1;
+#X connect 19 0 22 2;
+#X connect 20 0 22 3;
+#X connect 21 0 23 0;
+#X connect 22 0 24 0;
+#X connect 23 0 26 0;
+#X connect 23 0 26 1;
+#X connect 24 0 27 0;
+#X connect 24 0 27 1;

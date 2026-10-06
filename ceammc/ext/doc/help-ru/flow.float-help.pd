@@ -1,49 +1,63 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 675 50 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 680 50 pass floats;
+#X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 588 50 пропускает только числа;
 #X obj 1 1 cnv 5 765 40 empty empty flow.float 20 20 0 20 -104026
 -4096 0;
 #X obj 597 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.f] @url flow.float-help.pd;
 #X obj 668 8 flow.float;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 107 118 symbol ABC;
-#X obj 69 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 270 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Пропускает только числовые значения: любое входящее
+число выводится без изменений \, а bang \, символы \, списки и любые
+другие сообщения молча игнорируются. Удобно как фильтр в цепочке \,
+которая должна реагировать только на числа.;
+#X text 240 168 Типичные сценарии применения:;
+#X text 250 193 • Фильтрация смешанного потока — отбрасывание нечисловых
+сообщений (bang \, символов \, сообщений-свойств) из потока \, в котором
+смешаны разные типы событий \, чтобы до следующего объекта доходили
+только числа.;
+#X text 250 263 • Защита объекта \, работающего только с числами —
+предотвращение попадания символов или списков в числовой объект (например
+\, [mtof] \, [expr] \, [line]) \, что иначе могло бы вызвать ошибки
+или нежелательное поведение.;
+#X floatatom 50 396 5 0 0 0 - - -;
+#X msg 107 396 symbol ABC;
+#X obj 69 425 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 126 147 1 2 3;
-#X msg 203 147 @a 1 2 3;
-#X msg 309 147 any msg;
-#X obj 50 176 flow.f;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 126 425 1 2 3;
+#X msg 203 425 @a 1 2 3;
+#X msg 309 425 any msg;
+#X obj 50 454 flow.f;
+#X obj 50 483 ui.dt;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 538 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 261 1\.;
-#X text 170 261 float:;
-#X text 270 261 пропускает числовые значения.;
-#X text 170 286 bang:;
-#X text 270 286 игнорируется.;
-#X text 170 311 symbol:;
-#X text 270 311 игнорируется.;
-#X text 170 336 list:;
-#X text 270 336 игнорируется.;
-#X text 170 361 any:;
-#X text 270 361 игнорируется.;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 401 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 539 1\.;
+#X text 170 539 float:;
+#X text 270 539 пропускает числовые значения.;
+#X text 170 564 bang:;
+#X text 270 564 игнорируется.;
+#X text 170 589 symbol:;
+#X text 270 589 игнорируется.;
+#X text 170 614 list:;
+#X text 270 614 игнорируется.;
+#X text 170 639 any:;
+#X text 270 639 игнорируется.;
+#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 679 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 402 1\.;
-#X text 170 402 float:;
-#X text 270 402 пропущенные числовые значения.;
+#X text 130 680 1\.;
+#X text 170 680 float:;
+#X text 270 680 пропущенные числовые значения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 730 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 733 библиотека: ceammc v0.9.8;
+#N canvas 10 752 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -67,11 +81,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 11 0;
-#X connect 7 0 11 0;
-#X connect 6 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 752 pd info;
+#X connect 10 0 16 0;
+#X connect 12 0 16 0;
+#X connect 11 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;

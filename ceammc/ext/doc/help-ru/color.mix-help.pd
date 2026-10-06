@@ -5,59 +5,68 @@
 #X obj 1 1 cnv 5 765 40 empty empty color.mix 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 color.mix;
-#X obj 50 118 ui.hsl @show_value 1;
-#X obj 50 147 color.mix Color(orange) \#0AF;
-#X obj 50 176 color->rgba @pack @float;
-#X msg 50 205 @background_color \$1 \$2 \$3;
-#X obj 50 234 ui.hsl @nosave 1;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 289 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект смешивает два цвета и выводит результат. Пропорция
+смешивания задаётся числом с плавающей точкой на левом входе (0 — первый
+цвет \, 1 — второй цвет \, промежуточные значения дают плавный переход).
+Исходные цвета задаются аргументами C0 и C1 \, через свойства @c0 и
+@c1 или через средний и правый входы.;
+#X obj 50 247 ui.hsl @show_value 1;
+#X obj 50 276 color.mix Color(orange) \#0AF;
+#X obj 50 305 color->rgba @pack @float;
+#X msg 50 334 @background_color \$1 \$2 \$3;
+#X obj 50 363 ui.hsl @nosave 1;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 418 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 292 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 421 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 290 1\.;
-#X text 170 290 atom;
-#X obj 268 291 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 290 C0: first color. Тип: atom.;
-#X text 130 315 2\.;
-#X text 170 315 atom;
-#X obj 268 316 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 315 C1: second value. Тип: atom.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 355 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 419 1\.;
+#X text 170 419 atom;
+#X obj 268 420 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 419 C0: первый цвет для смешивания. Тип: atom.;
+#X text 130 444 2\.;
+#X text 170 444 atom;
+#X obj 268 445 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 444 C1: второй цвет для смешивания. Тип: atom.;
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 358 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 356 @c0;
-#X text 270 356 First color. Тип: atom.;
-#X obj 250 386 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 386 @c1;
-#X text 270 386 Second color. Тип: atom.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 485 @c0;
+#X text 270 485 Первый цвет для смешивания. Тип: atom.;
+#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 515 @c1;
+#X text 270 515 Второй цвет для смешивания. Тип: atom.;
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 560 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 432 1\.;
-#X text 170 432 float:;
-#X text 270 432 calculate color mix and output. Диапазон: [0\..1].;
-#X text 130 457 2\.;
-#X text 170 457 data:color:;
-#X text 270 457 set color and output.;
-#X text 130 482 3\.;
-#X text 170 482 data:color:;
-#X text 270 482 set color without output.;
-#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 522 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 561 1\.;
+#X text 170 561 float:;
+#X text 270 561 пропорция смешивания: 0 — первый цвет \, 1 — второй
+цвет. При получении объект вычисляет смесь и выводит результирующий
+цвет. Диапазон: [0\..1].;
+#X text 130 616 2\.;
+#X text 170 616 data:color:;
+#X text 270 616 установить первый цвет и вывести.;
+#X text 130 641 3\.;
+#X text 170 641 data:color:;
+#X text 270 641 установить второй цвет без вывода.;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 681 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 523 1\.;
-#X text 270 523 data:color output.;
+#X text 130 682 1\.;
+#X text 170 682 data:color:;
+#X text 270 682 вывод data:color.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 576 библиотека: ceammc v0.9.8;
-#N canvas 10 595 400 290 info 0;
+#X obj 1 732 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 735 библиотека: ceammc v0.9.8;
+#N canvas 10 754 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,8 +90,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 595 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 754 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;

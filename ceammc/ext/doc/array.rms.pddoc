@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">calculates the root-mean-square value for the array</tr>
-        <tr lang="ru">вычисляет среднее квадратичное значение для массива</tr>
+        <tr lang="ru">вычисляет среднеквадратичное значение для массива</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,25 +22,33 @@
     </meta>
     <info>
       <wiki name="Root_mean_square">Root mean square</wiki>
+      <par>
+        <tr lang="en">The object computes the root-mean-square (RMS) value of all samples in the
+        specified array and outputs it as a single float. The RMS is calculated as the square root
+        of the arithmetic mean of the squares of the samples.</tr>
+        <tr lang="ru">Объект вычисляет среднеквадратичное (RMS) значение всех семплов указанного
+        массива и выводит его одним числом с плавающей точкой. RMS вычисляется как квадратный
+        корень из среднего арифметического квадратов семплов.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs RMS value</tr>
-          <tr lang="ru">вычисляет и выводит значение RMS</tr>
+          <tr lang="en">calculates the RMS value and outputs it</tr>
+          <tr lang="ru">вычисляет значение RMS и выводит его</tr>
         </in>
       </inlet>
     </inlets>
@@ -48,7 +56,7 @@
       <outlet>
         <out type="float">
           <tr lang="en">RMS value</tr>
-          <tr lang="ru">среднее квадратичное значение</tr>
+          <tr lang="ru">среднеквадратичное значение</tr>
         </out>
       </outlet>
     </outlets>

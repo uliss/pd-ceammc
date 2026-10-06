@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 446 50 cnv 1 319 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 451 50 конвертировать целое число в список битов;
+#X obj 469 50 cnv 1 296 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 474 50 преобразует целое число в список битов;
 #X obj 1 1 cnv 5 765 40 empty empty conv.int2bits 20 20 0 20 -104026
 -4096 0;
 #X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,64 +9,69 @@
 #X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [int->bits] @url conv.int2bits-help.pd;
 #X obj 646 8 conv.int2bits;
-#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 126 Wiki:;
-#X text 240 83 Note: negative numbers converted using machine architecture
-\, commonly two's complement;
-#X obj 280 128 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 199 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 241 Wiki:;
+#X text 240 83 Объект преобразует целое число в список битов. Длина
+выходного списка задаётся аргументом SIZE или свойством @size (от 1
+до 32 бит \, по умолчанию 32). По умолчанию биты идут от старшего слева
+к младшему справа. Если установлен флаг @rev \, порядок битов инвертируется.;
+#X text 240 168 Примечание: отрицательные числа преобразуются с использованием
+представления \, принятого в архитектуре машины \, — как правило \,
+дополнительного кода (two's complement).;
+#X obj 280 243 ui.link @background_color 0.90196 0.90196 0.90196
 @title Two's complement @url
 https://en.wikipedia.org/wiki/Two%27s_complement;
-#X floatatom 50 210 5 0 0 0 - - -;
-#X obj 50 239 int->bits 16;
-#X obj 50 268 ui.hrd* 16;
-#X floatatom 50 297 5 0 0 0 - - -;
-#X msg 50 326 1 \$1;
-#X obj 50 354 <<;
-#X obj 50 383 int->bits 32 @rev 1;
-#X obj 50 412 ui.hrd* 32;
-#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 467 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 50 325 5 0 0 0 - - -;
+#X obj 50 354 int->bits 16;
+#X obj 50 383 ui.hrd* 16;
+#X floatatom 50 412 5 0 0 0 - - -;
+#X msg 50 441 1 \$1;
+#X obj 50 469 <<;
+#X obj 50 498 int->bits 32 @rev 1;
+#X obj 50 527 ui.hrd* 32;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 470 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 585 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 468 1\.;
-#X text 170 468 int;
-#X obj 268 469 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 468 SIZE: выходная длина в битах. Тип: int. Диапазон: [1\..32];
-#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 508 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 583 1\.;
+#X text 170 583 int;
+#X obj 268 584 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 583 SIZE: длина выхода в битах. Тип: int. Диапазон: [1\..32];
+#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 623 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 511 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 626 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 509 @rev;
-#X text 270 509 Reversed bit order. Тип: bool. Значение по умолчанию:
+#X msg 130 624 @rev;
+#X text 270 624 Обратный порядок битов. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 539 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 539 @size;
-#X text 270 539 Output bit-length. Тип: int. Значение по умолчанию:
+#X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 654 @size;
+#X text 270 654 Длина выхода в битах. Тип: int. Значение по умолчанию:
 32\. Диапазон: [1\..32].;
-#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 596 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 711 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 597 1\.;
-#X text 170 597 float:;
-#X text 270 597 input value.;
-#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 637 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 712 1\.;
+#X text 170 712 float:;
+#X text 270 712 входное значение.;
+#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 752 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 638 1\.;
-#X text 270 638 list of bits.;
+#X text 130 753 1\.;
+#X text 270 753 список битов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 688 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 691 библиотека: ceammc v0.9.8;
-#X text 522 703 смотрите также:;
-#X obj 643 706 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 803 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 806 библиотека: ceammc v0.9.8;
+#X text 522 818 смотрите также:;
+#X obj 643 821 ui.link @background_color 0.78431 0.78431 0.78431
 @title [conv.bits2int] @url conv.bits2int-help.pd;
-#N canvas 10 710 400 290 info 0;
+#N canvas 10 825 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,10 +95,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 710 pd info;
-#X connect 10 0 11 0;
+#X restore 10 825 pd info;
 #X connect 11 0 12 0;
-#X connect 13 0 14 0;
+#X connect 12 0 13 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;
+#X connect 17 0 18 0;

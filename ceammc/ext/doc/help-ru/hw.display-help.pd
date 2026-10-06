@@ -1,43 +1,56 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 497 50 получение/установка свойств дисплея;
+#X obj 476 50 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 481 50 получение и установка свойств дисплея;
 #X obj 1 1 cnv 5 765 40 empty empty hw.display 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.display;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 At this moment supports only MacOSX;
-#X obj 50 171 ui.slider @size 120 12;
-#X msg 50 200 @brightness \$1;
-#X msg 213 200 @brightness?;
-#X obj 50 229 hw.display;
-#X obj 50 258 ui.d;
-#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 313 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 295 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Читает и устанавливает свойства аппаратного дисплея
+(в настоящее время — только яркость). Текущее значение можно запросить
+по bang или сообщением @brightness? \, а изменить — сообщением @brightness
+или установкой свойства @brightness.;
+#X text 240 168 Типичные сценарии применения:;
+#X text 250 193 • Автоматическое управление яркостью — изменение яркости
+дисплея из патча \, например затемнение вечером и увеличение яркости
+утром \, или привязка к датчику освещённости.;
+#X text 250 263 • Сценарии выступлений и инсталляций — затемнение дисплея
+во время концерта или арт-инсталляции \, чтобы экран не отвлекал публику
+\, и восстановление яркости по окончании произведения.;
+#X text 240 333 Примечание: в настоящее время поддерживается только
+на macOS.;
+#X obj 230 338 cnv 1 2 15 empty empty empty 17 7 0 10 -260289 -1 0;
+#X obj 50 421 ui.slider @size 120 12;
+#X msg 50 450 @brightness \$1;
+#X msg 213 450 @brightness?;
+#X obj 50 479 hw.display;
+#X obj 50 508 ui.d;
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 563 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 316 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 566 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 314 @brightness;
-#X text 270 314 Яркость дисплея. Тип: float. Значение по умолчанию:
+#X msg 130 564 @brightness;
+#X text 270 564 Яркость дисплея. Тип: float. Значение по умолчанию:
 0.313477\. Диапазон: [0\..1].;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 621 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 372 1\.;
-#X text 270 372 input.;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 412 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 622 1\.;
+#X text 270 622 вход.;
+#X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 662 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 413 1\.;
-#X text 270 413 properties output.;
+#X text 130 663 1\.;
+#X text 270 663 вывод свойств.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 713 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 716 библиотека: ceammc v0.9.8;
+#N canvas 10 735 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -61,8 +74,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 735 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;

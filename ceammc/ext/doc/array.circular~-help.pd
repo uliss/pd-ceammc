@@ -6,78 +6,91 @@ buffer;
 #X obj 1 1 cnv 5 765 40 empty empty array.circular~ 20 20 0 20 -104026
 -4096 0;
 #X obj 630 11 array.circular~;
-#X msg 50 118 open guitar1.wav \, 1;
-#X obj 290 118 table AC1 44100;
-#X obj 50 162 readsf~;
-#X obj 174 162 lfo.+tri~ 5;
-#X obj 174 190 *~ 100;
-#X obj 69 219 array.circular~ AC1;
-#X obj 290 219 ui.dsp~;
-#X obj 50 248 ui.hgain2~;
-#X obj 50 277 dac~;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 166 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 The object treats the specified array as a circular
+(ring) buffer for audio signals. The signal on the first (left) audio
+inlet is written into the array at the current write position \, while
+the signal on the second audio inlet controls the read offset (delay)
+relative to the write position and is output through the audio outlet.
+The @on property enables or disables writing \, when writing is off
+\, the array keeps its contents and only reading is performed.;
+#X msg 50 307 open guitar1.wav \, 1;
+#X obj 290 307 table AC1 44100;
+#X obj 50 351 readsf~;
+#X obj 174 351 lfo.+tri~ 5;
+#X obj 174 379 *~ 100;
+#X obj 69 408 array.circular~ AC1;
+#X obj 290 408 ui.dsp~;
+#X obj 50 437 ui.hgain2~;
+#X obj 50 466 dac~;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 521 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 335 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 524 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 333 1\.;
-#X text 170 333 symbol;
-#X obj 268 334 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 ARRAY: array name. Type: symbol.;
-#X text 130 358 2\.;
-#X text 170 358 bool;
-#X obj 268 359 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 ON: write control: if true \, the signal is written
+#X text 130 522 1\.;
+#X text 170 522 symbol;
+#X obj 268 523 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 522 ARRAY: name of the array used as a circular buffer.
+Type: symbol.;
+#X text 130 562 2\.;
+#X text 170 562 bool;
+#X obj 268 563 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 562 ON: write control: if true \, the signal is written
 to the array. Type: bool.;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 617 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 620 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @array;
-#X text 270 414 Array name. Type: symbol.;
-#X obj 250 444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 444 @interp;
-#X text 270 444 Interpolation mode. Type: int. Default value: 0\. Allowed
-values: 0 \, 1 \, 3\.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @on;
-#X text 270 486 Write mode. Type: bool. Default value: 1\.;
-#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 531 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X msg 130 618 @array;
+#X text 270 618 Name of the array used as a circular buffer. Type:
+symbol.;
+#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 648 @interp;
+#X text 270 648 Interpolation mode for reading from the buffer. Type:
+int. Default value: 0\. Allowed values: 0 \, 1 \, 3\.;
+#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 690 @on;
+#X text 270 690 Write mode: if true \, incoming signal is written to
+the array. Type: bool. Default value: 1\.;
+#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 747 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 532 resize;
-#X text 270 532 resize target array. Arguments are:;
-#X obj 300 557 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 557 SZ: new size. Type: int. Min value: 10\. Units: 'samp'.;
-#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 605 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 748 resize;
+#X text 270 748 resize the target array. Arguments are:;
+#X obj 300 773 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 773 SZ: new size in samples. Type: int. Min value: 10\.
+Units: 'samp'.;
+#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 836 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 606 1\.;
-#X text 170 606 ~;
-#X text 270 606 write delay.;
-#X text 130 631 2\.;
-#X text 170 631 ~;
-#X text 270 631 read delay.;
-#X text 130 656 3\.;
-#X text 170 656 bang:;
-#X text 270 656 reset write position to zero.;
-#X text 170 681 float:;
-#X text 270 681 set write position.;
-#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 721 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 837 1\.;
+#X text 170 837 ~;
+#X text 270 837 signal to write into the buffer.;
+#X text 130 862 2\.;
+#X text 170 862 ~;
+#X text 270 862 read delay: controls the read offset relative to the
+write position.;
+#X text 130 902 3\.;
+#X text 170 902 bang:;
+#X text 270 902 reset write position to zero.;
+#X text 170 927 float:;
+#X text 270 927 set write position.;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 967 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 722 1\.;
-#X text 170 722 ~;
-#X text 270 722 read signal.;
+#X text 130 968 1\.;
+#X text 170 968 ~;
+#X text 270 968 read signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 772 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 775 library: ceammc v0.9.8;
-#N canvas 10 794 400 290 info 0;
+#X obj 1 1018 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1021 library: ceammc v0.9.8;
+#N canvas 10 1040 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,12 +114,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 794 pd info;
-#X connect 4 0 6 0;
-#X connect 7 0 8 0;
-#X connect 6 0 9 0;
-#X connect 8 0 9 1;
-#X connect 6 0 11 0;
-#X connect 9 0 11 1;
-#X connect 11 0 12 0;
-#X connect 11 1 12 1;
+#X restore 10 1040 pd info;
+#X connect 6 0 8 0;
+#X connect 9 0 10 0;
+#X connect 8 0 11 0;
+#X connect 10 0 11 1;
+#X connect 8 0 13 0;
+#X connect 11 0 13 1;
+#X connect 13 0 14 0;
+#X connect 13 1 14 1;

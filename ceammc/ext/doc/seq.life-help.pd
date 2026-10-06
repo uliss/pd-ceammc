@@ -5,146 +5,161 @@
 #X obj 1 1 cnv 5 765 40 empty empty seq.life 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 seq.life;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 174 118 glider 2 3 \, bang;
-#X msg 386 118 rpent 5 7 \, bang;
-#X obj 50 147 metro 500;
-#X msg 174 147 oct2 1 5 \, bang;
-#X msg 50 176 next \, bang;
-#X msg 174 176 random \, bang;
-#X obj 69 205 r $0-mtx;
-#X msg 174 205 clear \, bang;
-#X obj 69 234 flow.route *cell;
-#X obj 251 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 262 seq.life 10 20;
-#X obj 251 262 seq.matrix 20 120;
-#X obj 50 291 ui.matrix 10 20;
-#X obj 405 291 r $0-mtx;
-#X obj 405 320 route col;
-#X obj 405 349 ui.dt @display_events 0;
-#X obj 50 449 s $0-mtx;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 301 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A sequencer based on Conway's Game of Life. The object
+maintains a two-dimensional grid of cells \, and each call to the next
+method advances the grid by one generation \, applying the classic
+Game of Life rules: a live cell survives if it has 2 or 3 live neighbors
+\, and a dead cell becomes alive if it has exactly 3 live neighbors.
+The current state of the grid can be read as a flat list of 0s and
+1s.;
+#X text 240 214 Typical use cases:;
+#X text 250 239 • Generative rhythmic patterns — turning the live cells
+of the grid into trigger events \, so that the rhythm evolves organically
+over time as the pattern changes.;
+#X text 250 294 • Visual and sonic installations — displaying the grid
+in real time (for example \, via [ui.matrix]) while mapping cell activity
+to sound \, creating a combined audiovisual process.;
+#X obj 50 427 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 174 427 glider 2 3 \, bang;
+#X msg 386 427 rpent 5 7 \, bang;
+#X obj 50 456 metro 500;
+#X msg 174 456 oct2 1 5 \, bang;
+#X msg 50 485 next \, bang;
+#X msg 174 485 random \, bang;
+#X obj 69 514 r $0-mtx;
+#X msg 174 514 clear \, bang;
+#X obj 69 543 flow.route *cell;
+#X obj 251 543 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 571 seq.life 10 20;
+#X obj 251 571 seq.matrix 20 120;
+#X obj 50 600 ui.matrix 10 20;
+#X obj 405 600 r $0-mtx;
+#X obj 405 629 route col;
+#X obj 405 658 ui.dt @display_events 0;
+#X obj 50 758 s $0-mtx;
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 813 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 507 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 816 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 505 1\.;
-#X text 170 505 int;
-#X obj 268 506 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 505 ROWS: number of rows. Type: int. Range: [1\..64];
-#X text 130 530 2\.;
-#X text 170 530 int;
-#X obj 268 531 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 530 COLS: number of columns. Type: int. Range: [1\..64];
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 570 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 814 1\.;
+#X text 170 814 int;
+#X obj 268 815 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 814 ROWS: number of rows. Type: int. Range: [1\..64];
+#X text 130 839 2\.;
+#X text 170 839 int;
+#X obj 268 840 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 839 COLS: number of columns. Type: int. Range: [1\..64];
+#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 879 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 573 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 882 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 571 @cols;
-#X text 270 571 Number of columns. Type: int. Default value: 16\. Range:
+#X msg 130 880 @cols;
+#X text 270 880 Number of columns. Type: int. Default value: 16\. Range:
 [1\..64].;
-#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 613 @rows;
-#X text 270 613 Number of rows. Type: int. Default value: 16\. Range:
+#X obj 250 922 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 922 @rows;
+#X text 270 922 Number of rows. Type: int. Default value: 16\. Range:
 [1\..64].;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @size?;
-#X text 270 655 (readonly) Total cell count. Type: int. Default value:
+#X obj 250 964 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 964 @size?;
+#X text 270 964 (readonly) Total cell count. Type: int. Default value:
 256\.;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 700 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1009 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 701 blinker;
-#X text 270 701 adds blinker. Arguments are:;
-#X obj 300 726 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 726 ROW: row. Type: int.;
-#X obj 300 749 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 749 COL: column. Type: int.;
-#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 782 block;
-#X text 270 782 adds block. Arguments are:;
-#X obj 300 807 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 807 ROW: row. Type: int.;
-#X obj 300 830 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 830 COL: column. Type: int.;
-#X obj 250 863 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 863 cell;
-#X text 270 863 sets cell value. Arguments are:;
-#X obj 300 888 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 888 ROW: row. Type: int.;
-#X obj 300 911 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 911 COL: column. Type: int.;
-#X obj 300 934 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 934 VALUE: column. Type: int.;
-#X obj 250 967 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 967 clear;
-#X text 270 967 clear all cells.;
-#X obj 250 1002 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1002 glider;
-#X text 270 1002 adds glider. Arguments are:;
-#X obj 300 1027 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1027 ROW: row. Type: int.;
-#X obj 300 1050 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1050 COL: column. Type: int.;
-#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1083 hive;
-#X text 270 1083 adds horizontal bee-hive. Arguments are:;
-#X obj 300 1108 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1108 ROW: row. Type: int.;
-#X obj 300 1131 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1131 COL: column. Type: int.;
-#X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1164 next;
-#X text 270 1164 generate next state.;
-#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1199 oct2;
-#X text 270 1199 adds octagon. Arguments are:;
-#X obj 300 1224 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1224 ROW: row. Type: int.;
-#X obj 300 1247 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1247 COL: column. Type: int.;
-#X obj 250 1280 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1280 random;
-#X text 270 1280 fills with random.;
-#X obj 250 1315 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1315 rpent;
-#X text 270 1315 adds R-pentamino. Arguments are:;
-#X obj 300 1340 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1340 ROW: row. Type: int.;
-#X obj 300 1363 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1363 COL: column. Type: int.;
-#X obj 250 1396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1396 vhive;
-#X text 270 1396 adds vertical bee-hive. Arguments are:;
-#X obj 300 1421 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1421 ROW: row. Type: int.;
-#X obj 300 1444 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1444 COL: column. Type: int.;
-#X obj 20 1487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1492 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1010 blinker;
+#X text 270 1010 adds a blinker. Arguments are:;
+#X obj 300 1035 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1035 ROW: row. Type: int.;
+#X obj 300 1058 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1058 COL: column. Type: int.;
+#X obj 250 1091 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1091 block;
+#X text 270 1091 adds a block. Arguments are:;
+#X obj 300 1116 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1116 ROW: row. Type: int.;
+#X obj 300 1139 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1139 COL: column. Type: int.;
+#X obj 250 1172 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1172 cell;
+#X text 270 1172 sets the value of a cell. Arguments are:;
+#X obj 300 1197 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1197 ROW: row. Type: int.;
+#X obj 300 1220 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1220 COL: column. Type: int.;
+#X obj 300 1243 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1243 VALUE: cell value (0 or 1). Type: int.;
+#X obj 250 1276 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1276 clear;
+#X text 270 1276 clears all cells.;
+#X obj 250 1311 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1311 glider;
+#X text 270 1311 adds a glider. Arguments are:;
+#X obj 300 1336 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1336 ROW: row. Type: int.;
+#X obj 300 1359 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1359 COL: column. Type: int.;
+#X obj 250 1392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1392 hive;
+#X text 270 1392 adds a horizontal bee-hive. Arguments are:;
+#X obj 300 1417 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1417 ROW: row. Type: int.;
+#X obj 300 1440 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1440 COL: column. Type: int.;
+#X obj 250 1473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1473 next;
+#X text 270 1473 advances the grid to the next generation.;
+#X obj 250 1508 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1508 oct2;
+#X text 270 1508 adds an octagon. Arguments are:;
+#X obj 300 1533 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1533 ROW: row. Type: int.;
+#X obj 300 1556 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1556 COL: column. Type: int.;
+#X obj 250 1589 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1589 random;
+#X text 270 1589 fills the grid with random values.;
+#X obj 250 1624 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1624 rpent;
+#X text 270 1624 adds an R-pentomino. Arguments are:;
+#X obj 300 1649 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1649 ROW: row. Type: int.;
+#X obj 300 1672 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1672 COL: column. Type: int.;
+#X obj 250 1705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1705 vhive;
+#X text 270 1705 adds a vertical bee-hive. Arguments are:;
+#X obj 300 1730 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1730 ROW: row. Type: int.;
+#X obj 300 1753 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1753 COL: column. Type: int.;
+#X obj 20 1796 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1801 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1493 1\.;
-#X text 170 1493 bang:;
-#X text 270 1493 output all cells.;
-#X obj 20 1528 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1533 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1802 1\.;
+#X text 170 1802 bang:;
+#X text 270 1802 outputs all cells.;
+#X obj 20 1837 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1842 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1534 1\.;
-#X text 270 1534 list of all cells in row by row order.;
+#X text 130 1843 1\.;
+#X text 270 1843 list of all cells in row by row order.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1584 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1587 library: ceammc v0.9.8;
-#X text 572 1599 see also:;
-#X obj 647 1602 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1893 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1896 library: ceammc v0.9.8;
+#X text 572 1908 see also:;
+#X obj 647 1911 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.b] @url seq.b-help.pd;
-#X obj 701 1602 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 701 1911 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.t] @url seq.t-help.pd;
-#N canvas 10 1606 400 290 info 0;
+#N canvas 10 1915 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -168,20 +183,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1606 pd info;
-#X connect 4 0 7 0;
-#X connect 7 0 9 0;
-#X connect 11 0 13 0;
-#X connect 9 0 15 0;
-#X connect 13 0 15 0;
-#X connect 14 0 16 0;
-#X connect 15 0 17 0;
-#X connect 16 0 17 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 17 0 21 0;
-#X connect 10 0 15 0;
-#X connect 5 0 15 0;
-#X connect 8 0 15 0;
-#X connect 12 0 15 0;
-#X connect 6 0 15 0;
+#X restore 10 1915 pd info;
+#X connect 9 0 12 0;
+#X connect 12 0 14 0;
+#X connect 16 0 18 0;
+#X connect 14 0 20 0;
+#X connect 18 0 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 22 0 26 0;
+#X connect 15 0 20 0;
+#X connect 10 0 20 0;
+#X connect 13 0 20 0;
+#X connect 17 0 20 0;
+#X connect 11 0 20 0;

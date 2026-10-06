@@ -5,69 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.convolve 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 array.convolve;
+#X obj 230 78 cnv 1 535 166 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object performs an FFT convolution of the target
+array with an impulse response array. The target array is set with
+the first argument (or the @array property) \, and the impulse response
+is taken from the array given by the second argument (or the @ir property).
+The convolution is started by a bang on the left inlet. When the process
+finishes \, a bang is sent out through the outlet. If the @norm flag
+is enabled \, the impulse response is normalized before convolution.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-CONV 100 float 0;
 #X coords 0 1 100 -1 200 130 1;
-#X restore 50 118 graph;
+#X restore 50 292 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-IR 10 float 0;
 #X coords 0 1 10 -1 40 130 1;
-#X restore 270 118 graph;
-#X obj 50 277 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 270 292 graph;
+#X obj 50 451 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 305 array.convolve A-CONV A-IR;
-#X obj 50 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 479 array.convolve A-CONV A-IR;
+#X obj 50 508 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 545 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 548 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 372 1\.;
-#X text 170 372 symbol;
-#X obj 268 373 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 372 ARRAY: target array. Type: symbol.;
-#X text 130 397 2\.;
-#X text 170 397 symbol;
-#X obj 268 398 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 397 IR: array with impulse response. Type: symbol.;
-#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 437 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 546 1\.;
+#X text 170 546 symbol;
+#X obj 268 547 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 546 ARRAY: name of the target array to write the convolution
+result into. Type: symbol.;
+#X text 130 586 2\.;
+#X text 170 586 symbol;
+#X obj 268 587 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 586 IR: name of the array that holds the impulse response.
+Type: symbol.;
+#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 641 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 440 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 644 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 438 @array;
-#X text 270 438 Target array. Type: symbol.;
-#X obj 250 468 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 468 @ir;
-#X text 270 468 Impulse response source array. Type: symbol.;
-#X obj 250 498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 498 @norm;
-#X text 270 498 Impulse response normalization. Type: bool. Default
-value: 0\.;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 555 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 642 @array;
+#X text 270 642 Name of the target array to write the convolution result
+into. Type: symbol.;
+#X obj 250 684 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 684 @ir;
+#X text 270 684 Name of the array that holds the impulse response.
+Type: symbol.;
+#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 726 @norm;
+#X text 270 726 Normalize the impulse response before convolution.
+Type: bool. Default value: 0\.;
+#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 783 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 556 1\.;
-#X text 170 556 bang:;
-#X text 270 556 start convolution process.;
-#X text 130 581 2\.;
-#X text 170 581 symbol:;
-#X text 270 581 sets the array name.;
-#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 621 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 784 1\.;
+#X text 170 784 bang:;
+#X text 270 784 starts the convolution process.;
+#X text 130 809 2\.;
+#X text 170 809 symbol:;
+#X text 270 809 sets the array name.;
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 849 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 622 1\.;
-#X text 170 622 bang:;
-#X text 270 622 on done.;
+#X text 130 850 1\.;
+#X text 170 850 bang:;
+#X text 270 850 sent when the convolution is finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 672 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 675 library: ceammc v0.9.8;
-#N canvas 10 694 400 290 info 0;
+#X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 903 library: ceammc v0.9.8;
+#N canvas 10 922 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -91,6 +103,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 694 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 922 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;

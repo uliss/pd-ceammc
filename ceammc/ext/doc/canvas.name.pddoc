@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">output the current canvas name of the object</tr>
-        <tr lang="ru">выводит имя текущего холста у объекта</tr>
+        <tr lang="ru">выводит имя текущего холста объекта</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,19 +19,27 @@
       </also>
       <since>0.8</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object outputs the name of the canvas (window or subpatch) that contains
+        it. On bang the name is sent out through the outlet as a symbol.</tr>
+        <tr lang="ru">Объект выводит имя холста (окна или субпатча), который его содержит. По bang
+        имя отправляется через выход в виде символа.</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current canvas name</tr>
-          <tr lang="ru" finished="false">Имя текущего canvas</tr>
+          <tr lang="en">outputs the current canvas name</tr>
+          <tr lang="ru">выводит имя текущего холста</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="symbol">
           <tr lang="en">current canvas name</tr>
-          <tr lang="ru" finished="false">Текущее имя Canvas</tr>
+          <tr lang="ru">имя текущего холста</tr>
         </out>
       </outlet>
     </outlets>

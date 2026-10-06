@@ -1,54 +1,62 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 544 50 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 549 50 мягкое клиппирование сигнала;
+#X obj 559 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 564 50 мягкое ограничение сигнала;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.softclip~ 20 20 0 20 -104026
 -4096 0;
 #X obj 644 11 dyn.softclip~;
-#X obj 50 118 osc~ 220;
-#X floatatom 155 118 5 0 0 0 - - -;
-#X obj 242 118 osc~ 220;
-#X floatatom 347 118 5 0 0 0 - - -;
-#X obj 50 147 *~ 3;
-#X obj 242 147 *~ 3;
-#X obj 50 176 dyn.softclip~;
-#X obj 242 176 clip~ -1 1;
-#X obj 50 205 ui.ssc~;
-#X obj 242 205 ui.ssc~;
-#X obj 50 320 ui.dsp~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 151 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Каскад мягкого ограничения (сатурации). В отличие от
+жёсткого клиппера \, который просто обрезает сигнал на заданном уровне
+\, этот объект постепенно сжимает форму волны по мере приближения к
+границам \, давая более мягкое и музыкальное искажение. Такое поведение
+характерно для аналоговой ленточной сатурации и лампового перегруза
+\, и часто используется \, чтобы мягко ограничить пики и добавить легкую
+окраску вместо жёсткого клиппирования.;
+#X obj 50 277 osc~ 220;
+#X floatatom 155 277 5 0 0 0 - - -;
+#X obj 242 277 osc~ 220;
+#X floatatom 347 277 5 0 0 0 - - -;
+#X obj 50 306 *~ 3;
+#X obj 242 306 *~ 3;
+#X obj 50 335 dyn.softclip~;
+#X obj 242 335 clip~ -1 1;
+#X obj 50 364 ui.ssc~;
+#X obj 242 364 ui.ssc~;
+#X obj 50 479 ui.dsp~;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 537 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 376 @active;
-#X text 270 376 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X msg 130 535 @active;
+#X text 270 535 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 592 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 434 reset;
-#X text 270 434 reset to initial state.;
-#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 484 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 593 reset;
+#X text 270 593 возвращает объект в начальное состояние.;
+#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 643 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 485 1\.;
-#X text 170 485 ~;
-#X text 270 485 input signal.;
-#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 525 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 644 1\.;
+#X text 170 644 ~;
+#X text 270 644 входной сигнал.;
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 684 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 526 1\.;
-#X text 170 526 ~;
-#X text 270 526 output signal.;
+#X text 130 685 1\.;
+#X text 170 685 ~;
+#X text 270 685 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 579 библиотека: ceammc v0.9.8;
-#N canvas 10 598 400 290 info 0;
+#X obj 1 735 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 738 библиотека: ceammc v0.9.8;
+#N canvas 10 757 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -72,12 +80,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 598 pd info;
-#X connect 4 0 8 0;
-#X connect 5 0 8 1;
-#X connect 6 0 9 0;
-#X connect 7 0 9 1;
-#X connect 8 0 10 0;
-#X connect 9 0 11 0;
+#X restore 10 757 pd info;
+#X connect 6 0 10 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 0;
+#X connect 9 0 11 1;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;

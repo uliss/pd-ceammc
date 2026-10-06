@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">FIFO (First In First Out) - the queue data container</tr>
-        <tr lang="ru">FIFO First In First Out) - контейнер данных "очередь"</tr>
+        <tr lang="ru">FIFO (First In First Out) — контейнер данных «очередь»</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,14 +21,52 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">If size argument specified - creates queue with fixed size. When count of
-        values exceed this limit, outputs and removes first value in queue.</tr>
-        <!-- old: Если размер аргумента указан - создает очередь с
-                фиксированным размером. Когда количество значений превышает этот предел, выводит и
-                удаляет первое значение в очереди. -->
-        <tr lang="ru" finished="false">Если размер аргумента указан - создает очередь с
-        фиксированным размером. Когда количество значений превышает этот предел, выводит и удаляет
-        первое значение в очереди.</tr>
+        <tr lang="en">A FIFO (First In, First Out) queue container. Values are pushed to the back
+        of the queue and popped from the front, so they are output in the same order in which they
+        arrived. If the size argument is specified, the queue has a fixed size: when the number of
+        values exceeds this limit, the oldest value is output and removed to make room for the new
+        one.</tr>
+        <tr lang="ru">Контейнер очереди FIFO (First In, First Out). Значения помещаются в конец
+        очереди, а извлекаются из начала, поэтому выводятся в том же порядке, в котором поступили.
+        Если задан аргумент размера, очередь имеет фиксированный размер: когда количество значений
+        превышает этот предел, самое старое значение выводится и удаляется, освобождая место для
+        нового.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Event queue for algorithmic composition — accumulating notes or triggers
+        that will be processed later in the correct order (first in, first out).</tr>
+        <tr lang="ru">• Очередь событий для алгоритмической композиции — накопление нот или
+        триггеров, которые будут обработаны позже в правильном порядке (первым пришёл — первым
+        ушёл).</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Delaying a stream of values — every incoming value is pushed into the
+        queue, and a later bang or clock pops them one by one, effectively delaying the stream by a
+        fixed number of steps.</tr>
+        <tr lang="ru">• Задержка потока значений — каждое входящее значение помещается в очередь, а
+        более поздний bang или метроном извлекает их по одному, эффективно задерживая поток на
+        заданное число шагов.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Buffer for real-time data — collecting sensor or control values at one rate
+        and reading them out at another, for example smoothing a jittery input stream.</tr>
+        <tr lang="ru">• Буфер для данных реального времени — сбор значений сенсоров или управления
+        с одной скоростью и считывание их с другой, например для сглаживания «дрожащего» входного
+        потока.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Fixed-size history window — with the SIZE argument set, the queue keeps
+        only the last N values. Older values are automatically dropped, which is useful for
+        moving-average filters, rolling statistics, or keeping a short history of recent
+        events.</tr>
+        <tr lang="ru">• Окно истории фиксированного размера — если задан аргумент SIZE, очередь
+        хранит только последние N значений. Старые значения автоматически вытесняются, что удобно
+        для фильтров скользящего среднего, скользящей статистики или хранения короткой истории
+        последних событий.</tr>
       </par>
     </info>
     <mouse>
@@ -36,36 +74,31 @@
     </mouse>
     <arguments>
       <argument name="SIZE" type="int" minvalue="1" maxvalue="1024">
-        <tr lang="en">if specified, creates fixed-size queue. See @size property</tr>
-        <!-- old: Если указано, то создается очередь фиксированного
-                размера. См. @size property -->
-        <tr lang="ru" finished="false">Если указано, то создается очередь фиксированного размера.
-        См. @size property</tr>
+        <tr lang="en">if specified, creates a fixed-size queue. See the @size property</tr>
+        <tr lang="ru">если указано, создаётся очередь фиксированного размера. См. свойство
+        @size</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @empty -->
       <property name="@empty" type="bool" access="readonly" default="1">
-        <tr lang="en">if queue is empty</tr>
-        <tr lang="ru" finished="false">Если очередь пуста</tr>
+        <tr lang="en">if the queue is empty</tr>
+        <tr lang="ru">пуста ли очередь</tr>
       </property>
       <!-- @filled -->
       <property name="@filled" type="int" minvalue="0" access="readonly" default="0">
-        <tr lang="en">current number of elements in queue</tr>
-        <tr lang="ru" finished="false">Текущее количество элементов в очереди</tr>
+        <tr lang="en">current number of elements in the queue</tr>
+        <tr lang="ru">текущее количество элементов в очереди</tr>
       </property>
       <!-- @free -->
       <property name="@free" type="int" minvalue="0" access="readonly" default="32">
-        <tr lang="en">number of elements you can add to queue until it full</tr>
-        <!-- old: Количество элементов, которые вы можете добавить в
-                очередь, пока она не заполнится -->
-        <tr lang="ru" finished="false">Количество элементов, которые вы можете добавить в очередь,
-        пока она не заполнится</tr>
+        <tr lang="en">number of elements you can add to the queue until it is full</tr>
+        <tr lang="ru">количество элементов, которые можно добавить в очередь до её заполнения</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">
-        <tr lang="en">size of queue</tr>
-        <tr lang="ru" finished="false">размер очереди</tr>
+        <tr lang="en">size of the queue</tr>
+        <tr lang="ru">размер очереди</tr>
       </property>
     </properties>
     <methods>
@@ -73,39 +106,38 @@
       <method name="clear">
         <info>
           <tr lang="en">removes all queue values</tr>
-          <tr lang="ru" finished="false">удаляет все значения очередей</tr>
+          <tr lang="ru">удаляет все значения очереди</tr>
         </info>
       </method>
       <!-- flush -->
       <method name="flush">
         <info>
           <tr lang="en">outputs and removes all queue values</tr>
-          <tr lang="ru" finished="false">выводит и удаляет все значения очередей</tr>
+          <tr lang="ru">выводит и удаляет все значения очереди</tr>
         </info>
       </method>
       <!-- pop -->
       <method name="pop">
         <info>
-          <tr lang="en">outputs and removes first values in queue</tr>
-          <tr lang="ru" finished="false">выводит и удаляет первые значения в очереди</tr>
+          <tr lang="en">outputs and removes the first value in the queue</tr>
+          <tr lang="ru">выводит и удаляет первое значение в очереди</tr>
         </info>
       </method>
       <!-- resize -->
       <method name="resize">
         <param type="int" minvalue="0">
-          <tr lang="en">changes queue size. All previous values (if any) are silently removed</tr>
-          <!-- old: Изменение размера очереди. Все предыдущие
-                    значения (если таковые имеются) бесшумно удаляются. -->
-          <tr lang="ru" finished="false">Изменение размера очереди. Все предыдущие значения (если
-          таковые имеются) бесшумно удаляются.</tr>
+          <tr lang="en">changes the queue size. All previous values (if any) are silently
+          removed</tr>
+          <tr lang="ru">изменяет размер очереди. Все предыдущие значения (если таковые имеются)
+          безвозвратно удаляются</tr>
         </param>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">same as *flush* message</tr>
-          <tr lang="ru" finished="false">Сообщение *flush*</tr>
+          <tr lang="en">same as the *flush* message</tr>
+          <tr lang="ru">то же, что и сообщение *flush*</tr>
         </in>
       </inlet>
     </inlets>
@@ -113,7 +145,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="ru">выходное значение</tr>
         </out>
       </outlet>
     </outlets>

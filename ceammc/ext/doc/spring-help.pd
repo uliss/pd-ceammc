@@ -7,79 +7,91 @@ state;
 #X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/spring] @url spring-help.pd;
 #X obj 697 8 spring;
-#X text 50 118 Note: @mouse_events property is *on*;
-#X obj 50 147 loadmsg 0.5;
-#X obj 50 176 ui.k @mouse_events 1 @show_value 1;
-#X obj 165 176 spring 0.5 1000 @accel 2;
-#X floatatom 165 205 5 0 0 0 - - -;
-#X obj 338 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 216 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Smoothly moves the current value towards a target value
+in a given time \, simulating the motion of a spring. The @accel property
+controls the curve of the motion: 0 gives linear interpolation \, positive
+values start fast and slow down near the target \, negative values
+start slowly and accelerate towards the target.;
+#X text 240 184 Typical use cases:;
+#X text 250 209 • Natural-feeling GUI behaviour — making knobs \, sliders
+or number boxes return smoothly to a preset value after the user releases
+the mouse \, instead of jumping instantly.;
+#X text 50 342 Note: @mouse_events property is *on*;
+#X obj 50 371 loadmsg 0.5;
+#X obj 50 400 ui.k @mouse_events 1 @show_value 1;
+#X obj 165 400 spring 0.5 1000 @accel 2;
+#X floatatom 165 429 5 0 0 0 - - -;
+#X obj 338 429 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 466 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 469 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 243 1\.;
-#X text 170 243 float;
-#X obj 268 244 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 VALUE: target value. Type: float.;
-#X text 130 268 2\.;
-#X text 170 268 float;
-#X obj 268 269 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 268 TIME(ms): time to reach the target value. Type: float.
+#X text 130 467 1\.;
+#X text 170 467 float;
+#X obj 268 468 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 467 VALUE: target value. Type: float.;
+#X text 130 492 2\.;
+#X text 170 492 float;
+#X obj 268 493 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 492 TIME(ms): time to reach the target value. Type: float.
 Range: [50\..5000];
-#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 323 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 547 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 326 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 550 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 324 @accel;
-#X text 270 324 Acceleration factor \, 0: means linear motion (no acceleration)
-\, >0: begin fast \, then slow down \, <0: begin slow \, then speed
-up. Type: float. Default value: 0\. Range: [-5\..5].;
-#X obj 250 396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 396 @mouse_down;
-#X text 270 396 Internal state. Type: bool. Default value: 0\.;
-#X obj 250 426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 426 @mouse_drag;
-#X text 270 426 Internal state. Type: bool. Default value: 0\.;
-#X obj 250 456 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 456 @mouse_move;
-#X text 270 456 Internal state. Type: bool. Default value: 0\.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @mouse_up;
-#X text 270 486 Internal state. Type: bool. Default value: 0\.;
-#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 516 @time;
-#X text 270 516 Time to reach target value. Type: float. Units: 'ms'.
-Default value: 500\. Range: [50\..5000].;
-#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 558 @value;
-#X text 270 558 Target value. Type: float. Default value: 0\.;
-#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 603 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 548 @accel;
+#X text 270 548 Acceleration factor. 0 — linear motion (no acceleration)
+\, > 0 — start fast \, then slow down \, < 0 — start slowly \, then
+speed up. Type: float. Default value: 0\. Range: [-5\..5].;
+#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 620 @mouse_down;
+#X text 270 620 Internal state. Type: bool. Default value: 0\.;
+#X obj 250 650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 650 @mouse_drag;
+#X text 270 650 Internal state. Type: bool. Default value: 0\.;
+#X obj 250 680 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 680 @mouse_move;
+#X text 270 680 Internal state. Type: bool. Default value: 0\.;
+#X obj 250 710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 710 @mouse_up;
+#X text 270 710 Internal state. Type: bool. Default value: 0\.;
+#X obj 250 740 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 740 @time;
+#X text 270 740 Time to reach the target value. Type: float. Units:
+'ms'. Default value: 500\. Range: [50\..5000].;
+#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 782 @value;
+#X text 270 782 Target value. Type: float. Default value: 0\.;
+#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 827 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 604 1\.;
-#X text 170 604 float:;
-#X text 270 604 set current value.;
-#X text 130 629 2\.;
-#X text 170 629 float:;
-#X text 270 629 set @value.;
-#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 669 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 828 1\.;
+#X text 170 828 float:;
+#X text 270 828 sets the current value.;
+#X text 130 853 2\.;
+#X text 170 853 float:;
+#X text 270 853 sets @value.;
+#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 893 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 670 1\.;
-#X text 270 670 float: value.;
-#X text 130 690 2\.;
-#X text 270 690 bang: when target value is reached.;
+#X text 130 894 1\.;
+#X text 170 894 float:;
+#X text 270 894 float: value.;
+#X text 130 914 2\.;
+#X text 170 914 bang:;
+#X text 270 914 bang: when the target value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 740 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 743 library: ceammc v0.9.8;
-#N canvas 10 762 400 290 info 0;
+#X obj 1 964 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 967 library: ceammc v0.9.8;
+#N canvas 10 986 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,9 +115,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 762 pd info;
-#X connect 6 0 7 0;
-#X connect 8 0 9 0;
-#X connect 8 1 10 0;
-#X connect 8 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 986 pd info;
+#X connect 10 0 11 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 0 11 0;
+#X connect 11 0 12 0;

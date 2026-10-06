@@ -8,8 +8,8 @@
 #X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 Passes the incoming message unchanged and appends the
 specified message afterward (possibly with a delay);
-#X text 240 123 Note: if you want to specify property message in the
-init argument \, you have to quote it with double-quotes;
+#X text 240 123 Note: if you want to specify a property message in
+the init argument \, you have to quote it with double quotes;
 #X msg 50 226 10;
 #X obj 50 255 flow.append APPEND;
 #X obj 50 284 print;
@@ -30,13 +30,13 @@ init argument \, you have to quote it with double-quotes;
 #X obj 735 455 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 453 @delay;
-#X text 270 453 Delay of the output of the added message. If <0: outputs
-immediately \, at the same logical time. If 0 - outputs after the next
-DSP block. If >0: outputs after the specified time. Type: float. Units:
+#X text 270 453 Delay of the output of the added message. If < 0: outputs
+immediately \, at the same logical time. If 0 — outputs after the next
+DSP block. If > 0: outputs after the specified time. Type: float. Units:
 'ms'. Default value: -1\. Min value: -1\.;
 #X obj 250 540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 540 @msg;
-#X text 270 540 Message appended after incoming one. Type: list.;
+#X text 270 540 Message appended after the incoming one. Type: list.;
 #X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 585 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

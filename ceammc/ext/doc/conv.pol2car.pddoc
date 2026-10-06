@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">convert from polar coordinates to cartesian</tr>
-        <tr lang="ru">преобразование из полярных координат в картезианские</tr>
+        <tr lang="ru">преобразует полярные координаты в декартовы</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,11 +23,20 @@
         <alias>pol-&gt;car</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts polar coordinates (radius, angle) to Cartesian
+        coordinates (x, y). The angle is given in radians. This is the inverse operation of
+        [conv.car2pol].</tr>
+        <tr lang="ru">Объект преобразует полярные координаты (радиус, угол) в декартовы координаты
+        (x, y). Угол задаётся в радианах. Это операция, обратная [conv.car2pol].</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">radius and angle (in radians) pair</tr>
-          <tr lang="ru" finished="false">радиус и угол (в радианах)</tr>
+          <tr lang="ru">пара: радиус и угол (в радианах)</tr>
         </in>
       </inlet>
     </inlets>
@@ -35,7 +44,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">x, y coordinates pair</tr>
-          <tr lang="ru" finished="false">x, y - пара координат</tr>
+          <tr lang="ru">пара координат x, y</tr>
         </out>
       </outlet>
     </outlets>

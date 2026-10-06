@@ -24,19 +24,30 @@
         <alias>sec-&gt;bpm</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object converts a period in seconds (the time between two consecutive
+        beats) to a BPM tempo. The conversion is simply 60 / period_sec, but the object makes the
+        patch more readable and self-documenting. This is the inverse operation of
+        [conv.bpm2sec].</tr>
+        <tr lang="ru">Объект преобразует период в секундах (время между двумя последовательными
+        ударными долями) в темп BPM. Преобразование сводится к 60 / период_сек, но объект делает
+        патч более читаемым и самодокументируемым. Это операция, обратная [conv.bpm2sec].</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">period in seconds</tr>
-          <tr lang="ru" finished="false">период в секундах</tr>
+          <tr lang="ru">период в секундах</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">bpm frequency</tr>
-          <tr lang="ru" finished="false">частота bpm</tr>
+          <tr lang="en">tempo in BPM</tr>
+          <tr lang="ru">темп в BPM</tr>
         </out>
       </outlet>
     </outlets>

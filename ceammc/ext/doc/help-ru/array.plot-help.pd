@@ -5,88 +5,99 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.plot 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 array.plot;
-#X msg 50 118 1 100 3;
+#X obj 230 78 cnv 1 535 166 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект строит график числовых данных в указанном массиве.
+Одно число \, поступившее на левый вход \, записывается в массив в
+текущую позицию записи. Список приводит к изменению размера массива
+по длине списка и построению графика всех значений списка. Правый вход
+управляет построением графика уже имеющихся данных: bang строит график
+всех семплов \, уже находящихся в массиве \, а число строит график
+указанного числа семплов и соответствующим образом меняет размер массива.;
+#X msg 50 292 1 100 3;
+#X msg 146 292 9 1 0.5;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array APLT 10 float 0;
 #X coords 0 1 10 -1 300 160 1;
-#X restore 376 118 graph;
-#X obj 50 147 list.seq @closed 1;
-#X obj 69 176 ui.dt;
-#X obj 50 248 math.sqrt;
-#X obj 50 277 array.plot APLT;
-#X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 376 292 graph;
+#X obj 50 321 list.seq @closed 1;
+#X obj 69 350 ui.dt;
+#X obj 50 422 math.sqrt;
+#X obj 50 451 array.plot APLT;
+#X obj 50 479 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 342 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 516 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 345 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 519 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 343 1\.;
-#X text 170 343 symbol;
-#X obj 268 344 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 343 ARRAY: имя массива. Тип: symbol.;
-#X text 130 368 2\.;
-#X text 170 368 float;
-#X obj 268 369 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 368 YMIN: минимальное значение y-оси. Тип: float. Диапазон:
+#X text 130 517 1\.;
+#X text 170 517 symbol;
+#X obj 268 518 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 517 ARRAY: имя массива для построения графика. Тип: symbol.;
+#X text 130 542 2\.;
+#X text 170 542 float;
+#X obj 268 543 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 542 YMIN: минимальное значение по оси Y. Тип: float. Диапазон:
 [-2048\..2048];
-#X text 130 408 3\.;
-#X text 170 408 float;
-#X obj 268 409 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 408 YMAX: максимальное значение y-оси. Тип: float. Диапазон:
+#X text 130 582 3\.;
+#X text 170 582 float;
+#X obj 268 583 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 582 YMAX: максимальное значение по оси Y. Тип: float. Диапазон:
 [-2048\..2048];
-#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 463 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 637 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 466 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 640 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 464 @array;
-#X text 270 464 Имя массива. Тип: symbol.;
-#X obj 250 494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 494 @nan;
-#X text 270 494 Значение для замены NaN на графике. Тип: float. Значение
-по умолчанию: +inf.;
-#X obj 250 536 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 536 @yauto;
-#X text 270 536 Вычислить диапазон y-оси автоматически. Тип: bool.
+#X msg 130 638 @array;
+#X text 270 638 Имя массива для построения графика. Тип: symbol.;
+#X obj 250 668 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 668 @nan;
+#X text 270 668 Значение \, которым заменяется NaN на графике. Тип:
+float. Значение по умолчанию: +inf.;
+#X obj 250 710 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 710 @yauto;
+#X text 270 710 Вычислять диапазон по оси Y автоматически. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 250 578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 578 @ymax;
-#X text 270 578 Максимальное значение y-оси. Тип: float. Значение по
-умолчанию: 1\. Диапазон: [-2048\..2048].;
-#X obj 250 620 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 620 @ymin;
-#X text 270 620 Минимальное значение y-оси. Тип: float. Значение по
-умолчанию: -1\. Диапазон: [-2048\..2048].;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 677 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 752 @ymax;
+#X text 270 752 Максимальное значение по оси Y. Тип: float. Значение
+по умолчанию: 1\. Диапазон: [-2048\..2048].;
+#X obj 250 794 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 794 @ymin;
+#X text 270 794 Минимальное значение по оси Y. Тип: float. Значение
+по умолчанию: -1\. Диапазон: [-2048\..2048].;
+#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 851 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 678 1\.;
-#X text 170 678 float:;
-#X text 270 678 single input sample.;
-#X text 170 703 list:;
-#X text 270 703 resizes array to list size and plot all list values.;
-#X text 130 728 2\.;
-#X text 170 728 bang:;
-#X text 270 728 plot all samples fitted to specified array.;
-#X text 170 753 float:;
-#X text 270 753 plot specified number of samples \, resizes array.;
-#X obj 20 788 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 793 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 852 1\.;
+#X text 170 852 float:;
+#X text 270 852 одно входное значение для построения графика.;
+#X text 170 877 list:;
+#X text 270 877 изменяет размер массива по длине списка и строит график
+всех значений списка.;
+#X text 130 917 2\.;
+#X text 170 917 bang:;
+#X text 270 917 строит график всех семплов \, уже находящихся в массиве.;
+#X text 170 942 float:;
+#X text 270 942 строит график указанного числа семплов и изменяет размер
+массива.;
+#X obj 20 992 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 997 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 794 1\.;
-#X text 270 794 bang on done.;
+#X text 130 998 1\.;
+#X text 270 998 bang по завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 844 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 847 библиотека: ceammc v0.9.8;
-#X text 536 859 смотрите также:;
-#X obj 657 862 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1048 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1051 библиотека: ceammc v0.9.8;
+#X text 536 1063 смотрите также:;
+#X obj 657 1066 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.plot~] @url array.plot~-help.pd;
-#N canvas 10 866 400 290 info 0;
+#N canvas 10 1070 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -110,9 +121,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 866 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 7 0;
-#X connect 6 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 1070 pd info;
+#X connect 6 0 9 0;
+#X connect 7 0 9 0;
 #X connect 9 0 10 0;
+#X connect 9 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

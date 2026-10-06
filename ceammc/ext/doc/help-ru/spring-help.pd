@@ -1,85 +1,103 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 338 50 cnv 1 427 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 343 50 ведет себя как пружина \, возвращающаяся в первоначальное
+#X obj 307 50 cnv 1 458 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 312 50 ведёт себя как пружина \, возвращающаяся в исходное
 состояние;
 #X obj 1 1 cnv 5 765 40 empty empty spring 20 20 0 20 -104026 -4096 0;
 #X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/spring] @url spring-help.pd;
 #X obj 697 8 spring;
-#X text 50 118 Note: @mouse_events property is *on*;
-#X obj 50 147 loadmsg 0.5;
-#X obj 50 176 ui.k @mouse_events 1 @show_value 1;
-#X obj 165 176 spring 0.5 1000 @accel 2;
-#X floatatom 165 205 5 0 0 0 - - -;
-#X obj 338 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 201 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Плавно перемещает текущее значение к целевому за заданное
+время \, имитируя движение пружины. Свойство @accel управляет формой
+движения: 0 — линейная интерполяция \, положительные значения начинают
+быстро и замедляются у цели \, отрицательные значения начинают медленно
+и ускоряются к цели.;
+#X text 240 184 Типичные сценарии применения:;
+#X text 250 209 • Естественное поведение GUI — плавный возврат крутилок
+\, слайдеров или числовых полей к заданному значению после отпускания
+мыши вместо мгновенного скачка.;
+#X text 50 327 Note: @mouse_events property is *on*;
+#X obj 50 356 loadmsg 0.5;
+#X obj 50 385 ui.k @mouse_events 1 @show_value 1;
+#X obj 165 385 spring 0.5 1000 @accel 2;
+#X floatatom 165 414 5 0 0 0 - - -;
+#X obj 338 414 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 451 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 454 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 243 1\.;
-#X text 170 243 float;
-#X obj 268 244 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 VALUE: target value. Тип: float.;
-#X text 130 268 2\.;
-#X text 170 268 float;
-#X obj 268 269 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 268 TIME(ms): time to reach the target value. Тип: float.
-Диапазон: [50\..5000];
-#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 323 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 452 1\.;
+#X text 170 452 float;
+#X obj 268 453 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 452 VALUE: целевое значение. Тип: float.;
+#X text 130 477 2\.;
+#X text 170 477 float;
+#X obj 268 478 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 477 TIME(ms): время достижения целевого значения. Тип:
+float. Диапазон: [50\..5000];
+#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 532 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 326 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 535 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 324 @accel;
-#X text 270 324 Acceleration factor \, 0: means linear motion (no acceleration)
-\, >0: begin fast \, then slow down \, <0: begin slow \, then speed
-up. Тип: float. Значение по умолчанию: 0\. Диапазон: [-5\..5].;
-#X obj 250 396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 396 @mouse_down;
-#X text 270 396 Internal state. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 426 @mouse_drag;
-#X text 270 426 Internal state. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 456 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 456 @mouse_move;
-#X text 270 456 Internal state. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 486 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 486 @mouse_up;
-#X text 270 486 Internal state. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 516 @time;
-#X text 270 516 Time to reach target value. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 500\. Диапазон: [50\..5000].;
-#X obj 250 558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 558 @value;
-#X text 270 558 Target value. Тип: float. Значение по умолчанию: 0\.;
-#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 603 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 533 @accel;
+#X text 270 533 Коэффициент ускорения. 0 — линейное движение (без ускорения)
+\, > 0 — начать быстро \, затем замедлиться \, < 0 — начать медленно
+\, затем ускориться. Тип: float. Значение по умолчанию: 0\. Диапазон:
+[-5\..5].;
+#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 605 @mouse_down;
+#X text 270 605 Внутреннее состояние. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 635 @mouse_drag;
+#X text 270 635 Внутреннее состояние. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 665 @mouse_move;
+#X text 270 665 Внутреннее состояние. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 695 @mouse_up;
+#X text 270 695 Внутреннее состояние. Тип: bool. Значение по умолчанию:
+0\.;
+#X obj 250 725 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 725 @time;
+#X text 270 725 Время достижения целевого значения. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 500\. Диапазон: [50\..5000].;
+#X obj 250 782 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 782 @value;
+#X text 270 782 Целевое значение. Тип: float. Значение по умолчанию:
+0\.;
+#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 827 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 604 1\.;
-#X text 170 604 float:;
-#X text 270 604 set current value.;
-#X text 130 629 2\.;
-#X text 170 629 float:;
-#X text 270 629 set @value.;
-#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 669 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 828 1\.;
+#X text 170 828 float:;
+#X text 270 828 устанавливает текущее значение.;
+#X text 130 853 2\.;
+#X text 170 853 float:;
+#X text 270 853 устанавливает @value.;
+#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 893 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 670 1\.;
-#X text 270 670 float: value.;
-#X text 130 690 2\.;
-#X text 270 690 bang: when target value is reached.;
+#X text 130 894 1\.;
+#X text 170 894 float:;
+#X text 270 894 число: значение.;
+#X text 130 914 2\.;
+#X text 170 914 bang:;
+#X text 270 914 bang: когда целевое значение достигнуто.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 740 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 743 библиотека: ceammc v0.9.8;
-#N canvas 10 762 400 290 info 0;
+#X obj 1 964 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 967 библиотека: ceammc v0.9.8;
+#N canvas 10 986 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -103,9 +121,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 762 pd info;
-#X connect 6 0 7 0;
-#X connect 8 0 9 0;
-#X connect 8 1 10 0;
-#X connect 8 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 986 pd info;
+#X connect 10 0 11 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 0 11 0;
+#X connect 11 0 12 0;

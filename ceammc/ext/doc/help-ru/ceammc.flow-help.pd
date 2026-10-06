@@ -13,7 +13,7 @@
 #X obj 30 195 ui.link @title [flow.count] @url flow.count-help.pd;
 #X text 220 192 счетчик числа сообщений в управляющем потоке;
 #X obj 30 220 ui.link @title [flow.delay] @url flow.delay-help.pd;
-#X text 220 217 усовершенствованная версия объекта [delay];
+#X text 220 217 расширенная версия стандартного объекта [delay];
 #X obj 30 245 ui.link @title [flow.demultiplex] @url
 flow.demultiplex-help.pd;
 #X text 220 242 демультиплексор управляющего потока;
@@ -24,13 +24,13 @@ flow.demultiplex2~-help.pd;
 flow.demultiplex~-help.pd;
 #X text 220 292 демультиплексор аудиопотока;
 #X obj 30 320 ui.link @title [flow.dollar] @url flow.dollar-help.pd;
-#X text 220 317 подставляет $-значения;
+#X text 220 317 подставляет значения $-переменных;
 #X obj 30 345 ui.link @title [flow.dup] @url flow.dup-help.pd;
-#X text 220 342 дупликатор сообщений;
+#X text 220 342 дублирование сообщений;
 #X obj 30 370 ui.link @title [flow.float] @url flow.float-help.pd;
-#X text 220 367 pass floats;
+#X text 220 367 пропускает только числа;
 #X obj 30 395 ui.link @title [flow.gate] @url flow.gate-help.pd;
-#X text 220 392 шлюз для потока сообщений. аналог объекта [spigot];
+#X text 220 392 шлюз для потока сообщений. Аналог объекта [spigot];
 #X obj 30 420 ui.link @title [flow.greater] @url flow.greater-help.pd;
 #X text 220 417 маршрутизатор числового потока по условию 'больше';
 #X obj 30 445 ui.link @title [flow.greater_eq] @url
@@ -52,12 +52,13 @@ flow.interval-help.pd;
 равно';
 #X obj 30 595 ui.link @title [flow.list2many] @url
 flow.list2many-help.pd;
-#X text 220 592 маршрутизирует элемент списка с соответствующим сообщением;
+#X text 220 592 маршрутизирует элементы списка с соответствующими сообщениями;
 #X obj 30 620 ui.link @title [flow.match] @url flow.match-help.pd;
 #X text 220 617 маршрутизатор управляющего потока с помощью совпадений
 с регулярным выражением;
 #X obj 30 660 ui.link @title [flow.mem] @url flow.mem-help.pd;
-#X text 220 657 сохраняет в памяти или выводит сообщения потока управления;
+#X text 220 657 сохраняет сообщения потока управления в памяти или
+выводит их;
 #X obj 30 685 ui.link @title [flow.multiplex] @url
 flow.multiplex-help.pd;
 #X text 220 682 мультиплексор управляющего потока;
@@ -68,7 +69,7 @@ flow.multiplex2~-help.pd;
 flow.multiplex~-help.pd;
 #X text 220 732 мультиплексор аудиопотока;
 #X obj 30 760 ui.link @title [flow.once] @url flow.once-help.pd;
-#X text 220 757 пропускает единственное сообщение;
+#X text 220 757 пропускает только одно сообщение;
 #X obj 30 785 ui.link @title [flow.pack] @url flow.pack-help.pd;
 #X text 220 782 упаковка атомов из нескольких потоков в один;
 #X obj 30 810 ui.link @title [flow.pass] @url flow.pass-help.pd;
@@ -118,7 +119,7 @@ flow.sync_pack-help.pd;
 #X obj 30 1305 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
 #X text 220 1302 извлекает управляющие сообщения из аудиосоединений;
 #X obj 30 1330 ui.link @title [replace] @url replace-help.pd;
-#X text 220 1327 замена атомов в потоке данных;
+#X text 220 1327 заменяет атомы в потоке данных;
 #X obj 30 1355 ui.link @title [route.any] @url route.any-help.pd;
 #X text 220 1352 отделяет сообщения общего вида от пустых событий (bang)
 \, числовых значений \, символов и списков;

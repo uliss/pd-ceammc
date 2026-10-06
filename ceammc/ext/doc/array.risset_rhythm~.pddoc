@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Risset rhythm: accelerando or ritardando</tr>
-        <tr lang="ru">ритм Риссет: ускорение или замедление</tr>
+        <tr lang="ru">ритм Риссе: ускорение или замедление</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,7 +19,7 @@
     <info>
       <par>
         <tr lang="en">not finished yet</tr>
-        <tr lang="ru" finished="false">еще не закончено</tr>
+        <tr lang="ru">ещё не закончено</tr>
       </par>
     </info>
     <properties />
@@ -27,8 +27,8 @@
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">change array name</tr>
-          <tr lang="ru" finished="false">изменить имя файла</tr>
+          <tr lang="en">change the array name</tr>
+          <tr lang="ru">изменить имя массива</tr>
         </in>
       </inlet>
     </inlets>
@@ -36,7 +36,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

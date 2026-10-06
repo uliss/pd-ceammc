@@ -6,355 +6,372 @@
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/bitmap] @url bitmap-help.pd;
 #X obj 696 8 bitmap;
-#X msg 50 118 clear;
-#X msg 261 118 rect 1 2 10 5;
-#X msg 453 118 mirror x;
-#X msg 69 147 fill 1;
-#X msg 261 147 clear \, ellipse 1 2 10 5;
-#X msg 69 176 invert;
-#X msg 261 176 clear \, text 1 6 Hi!;
-#X msg 69 205 fill_color 1;
-#X msg 261 205 clear \, line 0 7 15 0;
-#X msg 69 234 fill_color 0;
-#X msg 261 234 pixel 15 7;
-#X msg 69 262 stroke_width 1;
-#X msg 261 262 triangle 0 0 8 0 4 7;
-#X msg 69 291 stroke_width 2;
-#X msg 261 291 arc 1 1 6 0 270;
-#X msg 69 320 font FONT_4x6;
-#X msg 261 320 set list 0 1 0 1 0 1 1;
-#X msg 69 349 font FONT_5x7;
-#X msg 261 349 set matrix 3 3 1 0 1 0 1 0 1 0 1;
-#X msg 69 378 hshift 1;
-#X msg 261 378 set matrix_at 2 2 6 10 1 0 0 1;
-#X msg 69 406 hshift -1;
-#X msg 261 406 row 1 10 1;
-#X msg 434 406 save ~/bitmap.png;
-#X obj 50 478 msg.after bang;
-#X obj 50 507 bitmap 16 8;
-#X obj 50 536 ui.matrix 8 16;
-#X text 50 579 ...;
-#X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 631 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 312 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект хранит бинарное изображение в виде 2D-матрицы
+битов и предоставляет набор методов для рисования \, преобразования
+и ввода-вывода. Размер изображения задаётся аргументами W и H (или
+свойствами @w и @h) и не может быть изменён после создания. Пиксели
+можно рисовать с помощью методов рисования (line \, rect \, circle
+\, text и других) \, преобразовывать (mirror \, shift \, invert) \,
+загружать из файла изображения или задавать из списка либо матрицы.
+Содержимое можно вывести в виде списка или сообщения [matrix NROWS
+NCOLS DATA...( \, сохранить в файл PNG и просмотреть в отдельном окне.;
+#X text 240 259 Цвета: изображение бинарное \, поэтому пиксели могут
+принимать только два значения — 0 или 1\. Методы рисования используют
+цвет заливки (@fill_color) или цвет обводки (@stroke_color) \, если
+они рисуют контуры. Цвет может быть 0 или 1 \, либо -1 («без цвета»)
+— для fill_color и text_color. Метод fill устанавливает все пиксели
+в заданное значение сразу.;
+#X msg 50 438 clear;
+#X msg 261 438 rect 1 2 10 5;
+#X msg 453 438 mirror x;
+#X msg 69 467 fill 1;
+#X msg 261 467 clear \, ellipse 1 2 10 5;
+#X msg 69 496 invert;
+#X msg 261 496 clear \, text 1 6 Hi!;
+#X msg 69 525 fill_color 1;
+#X msg 261 525 clear \, line 0 7 15 0;
+#X msg 69 554 fill_color 0;
+#X msg 261 554 pixel 15 7;
+#X msg 69 582 stroke_width 1;
+#X msg 261 582 triangle 0 0 8 0 4 7;
+#X msg 69 611 stroke_width 2;
+#X msg 261 611 arc 1 1 6 0 270;
+#X msg 69 640 font FONT_4x6;
+#X msg 261 640 set list 0 1 0 1 0 1 1;
+#X msg 69 669 font FONT_5x7;
+#X msg 261 669 set matrix 3 3 1 0 1 0 1 0 1 0 1;
+#X msg 69 698 hshift 1;
+#X msg 261 698 set matrix_at 2 2 6 10 1 0 0 1;
+#X msg 69 726 hshift -1;
+#X msg 261 726 row 1 10 1;
+#X msg 434 726 save ~/bitmap.png;
+#X obj 50 798 msg.after bang;
+#X obj 50 827 bitmap 16 8;
+#X obj 50 856 ui.matrix 8 16;
+#X text 50 899 ...;
+#X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 951 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 666 Left-click + ⇧;
-#X text 310 666 open bitmap viewer window.;
-#X obj 20 696 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 701 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 130 986 Left-click + ⇧;
+#X text 310 986 open bitmap viewer window.;
+#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1021 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 704 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1024 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 702 1\.;
-#X text 170 702 int;
-#X obj 268 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 702 W: ширина растрового изображения в пикселях \, см.
+#X text 130 1022 1\.;
+#X text 170 1022 int;
+#X obj 268 1023 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1022 W: ширина растрового изображения в пикселях \, см.
 @w. Тип: int. Диапазон: [1\..256];
-#X text 130 742 2\.;
-#X text 170 742 int;
-#X obj 268 743 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 742 H: высота растрового изображения в пикселях \, см.
+#X text 130 1062 2\.;
+#X text 170 1062 int;
+#X obj 268 1063 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1062 H: высота растрового изображения в пикселях \, см.
 @h. Тип: int. Диапазон: [1\..256];
-#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 797 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 1112 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1117 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 800 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1120 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 798 @h;
-#X text 270 798 (при инициализации) Высота растрового изображения в
-пикселях. Тип: int. Значение по умолчанию: 8\. Диапазон: [1\..256].;
-#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 855 @w;
-#X text 270 855 (при инициализации) Ширина растрового изображения в
-пикселях. Тип: int. Значение по умолчанию: 8\. Диапазон: [1\..256].;
-#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 927 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 928 arc;
-#X text 270 928 нарисовать дугу. Аргументы:;
-#X obj 300 953 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 953 X: координата x. Тип: int.;
-#X obj 300 976 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 976 Y: координата y. Тип: int.;
-#X obj 300 999 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 999 D: диаметр. Тип: int.;
-#X obj 300 1022 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1022 START: начальный угол. 0 — верх. Тип: int. Единицы:
-'deg'.;
-#X obj 300 1045 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1045 LEN: длина дуги \, против часовой стрелки. Тип: int.
-Единицы: 'deg'.;
-#X obj 300 1083 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1083 [CENTER=0]: если 1: использовать координату центра
-дуги \, а не верхнего левого угла. Тип: bool.;
-#X obj 250 1131 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1131 circle;
-#X text 270 1131 нарисовать окружность. Аргументы:;
-#X obj 300 1156 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1156 X: координата x. Тип: int.;
-#X obj 300 1179 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1179 Y: координата y. Тип: int.;
-#X obj 300 1202 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1202 D: диаметр. Тип: int.;
-#X obj 300 1225 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1225 [CENTER=0]: если 1: использовать координату центра
-окружности \, а не верхнего левого угла. Тип: bool.;
-#X obj 250 1273 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1273 clear;
-#X text 270 1273 очистить растровое изображение (установить все пиксели
-в 0).;
-#X obj 250 1308 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1308 column;
-#X text 270 1308 нарисовать столбец. Аргументы:;
-#X obj 300 1333 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1333 COL: индекс столбца. Тип: int.;
-#X obj 300 1356 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1356 H: высота столбца (может быть отрицательной для рисования
-в противоположном направлении). Тип: int.;
-#X obj 300 1394 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1394 DY: смещение по y. Тип: int.;
-#X obj 250 1427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1427 ellipse;
-#X text 270 1427 нарисовать эллипс. Аргументы:;
-#X obj 300 1452 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1452 X: координата x. Тип: int.;
-#X obj 300 1475 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1475 Y: координата y. Тип: int.;
-#X obj 300 1498 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1498 W: ширина. Тип: int.;
-#X obj 300 1521 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1521 H: высота. Тип: int.;
-#X obj 300 1544 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1544 [CENTER=0]: если 1: использовать координату центра
-эллипса \, а не верхнего левого угла. Тип: bool.;
-#X obj 250 1592 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1592 fill;
-#X text 270 1592 установить все пиксели в заданное значение. Аргументы:;
-#X obj 300 1617 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1617 [V=0]: значение. Тип: int.;
-#X obj 250 1650 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1650 fill_color;
-#X text 270 1650 установить цвет заливки. Аргументы:;
-#X obj 300 1675 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1675 [COLOR]: цвет заливки (0 \, 1 или -1 — без цвета).
-Тип: int.;
-#X obj 250 1708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1708 font;
-#X text 270 1708 установить шрифт. Аргументы:;
-#X obj 300 1733 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1733 NAME: название шрифта. Тип: symbol. Разрешённые значения:
-FONT_4X6 \, FONT_5X7 \, FONT_5X8 \, FONT_6X10 \, FONT_6X9\.;
-#X obj 250 1781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1781 get list;
-#X text 270 1781 вывести содержимое в виде списка.;
-#X obj 250 1816 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1816 get matrix;
-#X text 270 1816 вывести содержимое растрового изображения в виде сообщения
-[matrix NROWS NCOLS DATA...(.;
-#X obj 250 1866 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1866 get submatrix;
-#X text 270 1866 вывести содержимое субматрицы растрового изображения
-в виде сообщения [matrix NROWS NCOLS DATA...(. Аргументы:;
-#X obj 300 1921 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1921 NROWS: количество строк в матрице. Тип: int.;
-#X obj 300 1944 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1944 NCOLS: количество столбцов в матрице. Тип: int.;
-#X obj 300 1967 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1967 AT_ROW: начальная позиция по строкам. Тип: int.;
-#X obj 300 1990 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1990 AT_COL: начальная позиция по столбцам. Тип: int.;
-#X obj 250 2023 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2023 hshift;
-#X text 270 2023 горизонтальный сдвиг (поворот). Аргументы:;
-#X obj 300 2048 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2048 V: количество пикселей для сдвига. Тип: int.;
-#X obj 250 2081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2081 invert;
-#X text 270 2081 инвертировать все значения пикселей.;
-#X obj 250 2116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2116 line;
-#X text 270 2116 нарисовать линию. Аргументы:;
-#X obj 300 2141 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2141 X0: координата x0\. Тип: int.;
-#X obj 300 2164 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2164 Y0: координата y0\. Тип: int.;
-#X obj 300 2187 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2187 X1: координата x1\. Тип: int.;
-#X obj 300 2210 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2210 Y1: координата y1\. Тип: int.;
-#X obj 250 2243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2243 load;
-#X text 270 2243 загрузить изображение. Аргументы:;
-#X obj 300 2268 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2268 FILE: путь к изображению \, относительный или абсолютный.
-Тип: symbol.;
-#X obj 300 2306 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2306 [SCALE=1]: масштаб изображения. Тип: float. Минимальное
-значение: 0\.;
-#X obj 250 2354 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2354 mirror;
-#X text 270 2354 зеркально отразить растровое изображение. Аргументы:;
-#X obj 300 2379 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2379 AXIS: ось отражения. Тип: symbol. Разрешённые значения:
-x \, y.;
-#X obj 250 2412 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2412 pixel;
-#X text 270 2412 установить пиксель. Аргументы:;
-#X obj 300 2437 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2437 X: координата x. Тип: int.;
-#X obj 300 2460 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2460 Y: координата y. Тип: int.;
-#X obj 300 2483 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2483 [VAL=1]: значение пикселя. Тип: bool.;
-#X obj 250 2516 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2516 rect;
-#X text 270 2516 нарисовать прямоугольник. Аргументы:;
-#X obj 300 2541 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2541 X: координата x. Тип: int.;
-#X obj 300 2564 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2564 Y: координата y. Тип: int.;
-#X obj 300 2587 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2587 W: ширина. Тип: int.;
-#X obj 300 2610 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2610 H: высота. Тип: int.;
-#X obj 300 2633 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2633 [CENTER=0]: если 1: использовать координату центра
-прямоугольника \, а не верхнего левого угла. Тип: bool.;
-#X obj 250 2681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2681 row;
-#X text 270 2681 нарисовать строку. Аргументы:;
-#X obj 300 2706 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2706 ROW: индекс строки. Тип: int.;
-#X obj 300 2729 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2729 W: ширина строки (может быть отрицательной для рисования
-справа налево). Тип: int.;
-#X obj 300 2767 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2767 DX: смещение по x. Тип: int.;
-#X obj 250 2800 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2800 save;
-#X text 270 2800 сохранить растровое изображение в PNG-файл. Аргументы:;
-#X obj 300 2825 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2825 [PATH]: имя файла \, абсолютное или относительное.
-Тип: symbol.;
-#X obj 250 2858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 2858 sector;
-#X text 270 2858 нарисовать сектор. Аргументы:;
-#X obj 300 2883 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2883 X: координата x. Тип: int.;
-#X obj 300 2906 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2906 Y: координата y. Тип: int.;
-#X obj 300 2929 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2929 D: диаметр. Тип: int.;
-#X obj 300 2952 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2952 START: начальный угол. 0 — верх. Тип: int. Единицы:
-'deg'.;
-#X obj 300 2975 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 2975 LEN: длина дуги \, против часовой стрелки. Тип: int.
-Единицы: 'deg'.;
-#X obj 300 3013 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3013 [CENTER=0]: если 1: использовать координату центра
-сектора \, а не верхнего левого угла. Тип: bool.;
-#X obj 250 3061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3061 set list;
-#X text 270 3061 установить содержимое растрового изображения из списка.
-Аргументы:;
-#X obj 300 3101 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3101 DATA: список из 0 и 1\. Тип: list.;
-#X obj 250 3134 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3134 set matrix;
-#X text 270 3134 установить данные матрицы. Аргументы:;
-#X obj 300 3159 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3159 NROWS: количество строк в матрице. Тип: int. Минимальное
-значение: 1\.;
-#X obj 300 3197 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3197 NCOLS: количество столбцов в матрице. Тип: int. Минимальное
-значение: 1\.;
-#X obj 300 3235 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3235 DATA: данные. Тип: list.;
-#X obj 250 3268 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3268 set matrix_at;
-#X text 270 3268 установить данные матрицы в указанной позиции. Аргументы:;
-#X obj 300 3293 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3293 NROWS: количество строк в матрице. Тип: int. Минимальное
-значение: 1\.;
-#X obj 300 3331 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3331 NCOLS: количество столбцов в матрице. Тип: int. Минимальное
-значение: 1\.;
-#X obj 300 3369 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3369 AT_ROW: начальная позиция по строкам. Тип: int.;
-#X obj 300 3392 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3392 AT_COL: начальная позиция по столбцам. Тип: int.;
-#X obj 300 3415 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3415 DATA: данные. Тип: list.;
-#X obj 250 3448 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3448 stroke_color;
-#X text 270 3448 установить цвет обводки. Аргументы:;
-#X obj 300 3473 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3473 [COLOR]: цвет обводки (0 или 1). Тип: int.;
-#X obj 250 3506 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3506 stroke_width;
-#X text 270 3506 установить ширину обводки. Аргументы:;
-#X obj 300 3531 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3531 W: новая ширина. Тип: int. Минимальное значение: 0\.;
-#X obj 250 3564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3564 text;
-#X text 270 3564 нарисовать текст. Аргументы:;
-#X obj 300 3589 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3589 X: левая координата x. Тип: int.;
-#X obj 300 3612 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3612 Y: нижняя координата y. Тип: int.;
-#X obj 300 3635 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3635 TXT: текст. Тип: symbol.;
-#X obj 250 3668 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3668 text_color;
-#X text 270 3668 установить цвет текста. Аргументы:;
-#X obj 300 3693 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3693 [COLOR]: цвет текста (0 \, 1 или -1 — без цвета).
-Тип: int.;
-#X obj 250 3726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3726 triangle;
-#X text 270 3726 нарисовать треугольник. Аргументы:;
-#X obj 300 3751 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3751 X0: координата x0\. Тип: int.;
-#X obj 300 3774 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3774 Y0: координата y0\. Тип: int.;
-#X obj 300 3797 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3797 X1: координата x1\. Тип: int.;
-#X obj 300 3820 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3820 Y1: координата y1\. Тип: int.;
-#X obj 300 3843 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3843 X2: координата x2\. Тип: int.;
-#X obj 300 3866 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3866 Y2: координата y2\. Тип: int.;
-#X obj 250 3899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3899 view;
-#X text 270 3899 открыть окно просмотра растрового изображения.;
-#X obj 250 3934 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 3934 vshift;
-#X text 270 3934 вертикальный сдвиг. Аргументы:;
-#X obj 300 3959 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 3959 V: количество пикселей для сдвига. Тип: int.;
-#X obj 20 4002 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4007 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 4008 1\.;
-#X text 170 4008 bang:;
-#X text 270 4008 вывести в виде списка.;
-#X obj 20 4043 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 4048 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X msg 130 1118 @h;
+#X text 270 1118 (при инициализации) Высота растрового изображения
+в пикселях. Тип: int. Значение по умолчанию: 8\. Диапазон: [1\..256].;
+#X obj 250 1175 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1175 @w;
+#X text 270 1175 (при инициализации) Ширина растрового изображения
+в пикселях. Тип: int. Значение по умолчанию: 8\. Диапазон: [1\..256].;
+#X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1247 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 4049 1\.;
-#X text 270 4049 выход.;
+#X msg 130 1248 arc;
+#X text 270 1248 рисует дугу. Аргументы:;
+#X obj 300 1273 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1273 X: координата x. Тип: int.;
+#X obj 300 1296 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1296 Y: координата y. Тип: int.;
+#X obj 300 1319 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1319 D: диаметр. Тип: int.;
+#X obj 300 1342 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1342 START: начальный угол. 0 — верх. Тип: int. Единицы:
+'deg'.;
+#X obj 300 1365 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1365 LEN: длина дуги \, против часовой стрелки. Тип: int.
+Единицы: 'deg'.;
+#X obj 300 1403 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1403 [CENTER=0]: если 1: использовать координату центра
+дуги \, а не верхнего левого угла. Тип: bool.;
+#X obj 250 1451 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1451 circle;
+#X text 270 1451 рисует окружность. Аргументы:;
+#X obj 300 1476 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1476 X: координата x. Тип: int.;
+#X obj 300 1499 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1499 Y: координата y. Тип: int.;
+#X obj 300 1522 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1522 D: диаметр. Тип: int.;
+#X obj 300 1545 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1545 [CENTER=0]: если 1: использовать координату центра
+окружности \, а не верхнего левого угла. Тип: bool.;
+#X obj 250 1593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1593 clear;
+#X text 270 1593 очищает растровое изображение (устанавливает все пиксели
+в 0).;
+#X obj 250 1643 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1643 column;
+#X text 270 1643 рисует столбец. Аргументы:;
+#X obj 300 1668 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1668 COL: индекс столбца. Тип: int.;
+#X obj 300 1691 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1691 H: высота столбца (может быть отрицательной для рисования
+в противоположном направлении). Тип: int.;
+#X obj 300 1729 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1729 DY: смещение по y. Тип: int.;
+#X obj 250 1762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1762 ellipse;
+#X text 270 1762 рисует эллипс. Аргументы:;
+#X obj 300 1787 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1787 X: координата x. Тип: int.;
+#X obj 300 1810 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1810 Y: координата y. Тип: int.;
+#X obj 300 1833 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1833 W: ширина. Тип: int.;
+#X obj 300 1856 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1856 H: высота. Тип: int.;
+#X obj 300 1879 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1879 [CENTER=0]: если 1: использовать координату центра
+эллипса \, а не верхнего левого угла. Тип: bool.;
+#X obj 250 1927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1927 fill;
+#X text 270 1927 устанавливает все пиксели в заданное значение. Аргументы:;
+#X obj 300 1952 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1952 [V=0]: значение. Тип: int.;
+#X obj 250 1985 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1985 fill_color;
+#X text 270 1985 устанавливает цвет заливки. Аргументы:;
+#X obj 300 2010 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2010 [COLOR]: цвет заливки (0 \, 1 или -1 — без цвета).
+Тип: int.;
+#X obj 250 2043 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2043 font;
+#X text 270 2043 устанавливает шрифт. Аргументы:;
+#X obj 300 2068 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2068 NAME: название шрифта. Тип: symbol. Разрешённые значения:
+FONT_4X6 \, FONT_5X7 \, FONT_5X8 \, FONT_6X10 \, FONT_6X9\.;
+#X obj 250 2116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2116 get list;
+#X text 270 2116 выводит содержимое в виде списка.;
+#X obj 250 2151 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2151 get matrix;
+#X text 270 2151 выводит содержимое растрового изображения в виде сообщения
+[matrix NROWS NCOLS DATA...(.;
+#X obj 250 2201 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2201 get submatrix;
+#X text 270 2201 выводит субматрицу содержимого растрового изображения
+в виде сообщения [matrix NROWS NCOLS DATA...(. Аргументы:;
+#X obj 300 2256 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2256 NROWS: количество строк в матрице. Тип: int.;
+#X obj 300 2279 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2279 NCOLS: количество столбцов в матрице. Тип: int.;
+#X obj 300 2302 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2302 AT_ROW: начальная позиция по строкам. Тип: int.;
+#X obj 300 2325 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2325 AT_COL: начальная позиция по столбцам. Тип: int.;
+#X obj 250 2358 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2358 hshift;
+#X text 270 2358 горизонтальный сдвиг (циклический). Аргументы:;
+#X obj 300 2383 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2383 V: количество пикселей для сдвига. Тип: int.;
+#X obj 250 2416 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2416 invert;
+#X text 270 2416 инвертирует все значения пикселей.;
+#X obj 250 2451 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2451 line;
+#X text 270 2451 рисует линию. Аргументы:;
+#X obj 300 2476 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2476 X0: координата x0\. Тип: int.;
+#X obj 300 2499 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2499 Y0: координата y0\. Тип: int.;
+#X obj 300 2522 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2522 X1: координата x1\. Тип: int.;
+#X obj 300 2545 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2545 Y1: координата y1\. Тип: int.;
+#X obj 250 2578 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2578 load;
+#X text 270 2578 загружает изображение в растр. Аргументы:;
+#X obj 300 2603 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2603 FILE: путь к изображению \, относительный или абсолютный.
+Тип: symbol.;
+#X obj 300 2641 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2641 [SCALE=1]: масштаб изображения. Тип: float. Минимальное
+значение: 0\.;
+#X obj 250 2689 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2689 mirror;
+#X text 270 2689 зеркально отражает растровое изображение. Аргументы:;
+#X obj 300 2714 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2714 AXIS: ось отражения. Тип: symbol. Разрешённые значения:
+x \, y.;
+#X obj 250 2747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2747 pixel;
+#X text 270 2747 устанавливает пиксель. Аргументы:;
+#X obj 300 2772 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2772 X: координата x. Тип: int.;
+#X obj 300 2795 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2795 Y: координата y. Тип: int.;
+#X obj 300 2818 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2818 [VAL=1]: значение пикселя. Тип: bool.;
+#X obj 250 2851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 2851 rect;
+#X text 270 2851 рисует прямоугольник. Аргументы:;
+#X obj 300 2876 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2876 X: координата x. Тип: int.;
+#X obj 300 2899 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2899 Y: координата y. Тип: int.;
+#X obj 300 2922 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2922 W: ширина. Тип: int.;
+#X obj 300 2945 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2945 H: высота. Тип: int.;
+#X obj 300 2968 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 2968 [CENTER=0]: если 1: использовать координату центра
+прямоугольника \, а не верхнего левого угла. Тип: bool.;
+#X obj 250 3016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3016 row;
+#X text 270 3016 рисует строку. Аргументы:;
+#X obj 300 3041 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3041 ROW: индекс строки. Тип: int.;
+#X obj 300 3064 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3064 W: ширина строки (может быть отрицательной для рисования
+справа налево). Тип: int.;
+#X obj 300 3102 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3102 DX: смещение по x. Тип: int.;
+#X obj 250 3135 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3135 save;
+#X text 270 3135 сохраняет растровое изображение в PNG-файл. Аргументы:;
+#X obj 300 3160 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3160 [PATH]: имя файла \, абсолютное или относительное.
+Тип: symbol.;
+#X obj 250 3193 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3193 sector;
+#X text 270 3193 рисует сектор. Аргументы:;
+#X obj 300 3218 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3218 X: координата x. Тип: int.;
+#X obj 300 3241 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3241 Y: координата y. Тип: int.;
+#X obj 300 3264 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3264 D: диаметр. Тип: int.;
+#X obj 300 3287 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3287 START: начальный угол. 0 — верх. Тип: int. Единицы:
+'deg'.;
+#X obj 300 3310 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3310 LEN: длина дуги \, против часовой стрелки. Тип: int.
+Единицы: 'deg'.;
+#X obj 300 3348 cnv 1 78 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3348 [CENTER=0]: если 1: использовать координату центра
+сектора \, а не верхнего левого угла. Тип: bool.;
+#X obj 250 3396 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3396 set list;
+#X text 270 3396 устанавливает содержимое растрового изображения из
+списка. Аргументы:;
+#X obj 300 3436 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3436 DATA: список из 0 и 1\. Тип: list.;
+#X obj 250 3469 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3469 set matrix;
+#X text 270 3469 устанавливает данные матрицы. Аргументы:;
+#X obj 300 3494 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3494 NROWS: количество строк в матрице. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 3532 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3532 NCOLS: количество столбцов в матрице. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 3570 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3570 DATA: данные. Тип: list.;
+#X obj 250 3603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3603 set matrix_at;
+#X text 270 3603 устанавливает данные матрицы в указанной позиции.
+Аргументы:;
+#X obj 300 3628 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3628 NROWS: количество строк в матрице. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 3666 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3666 NCOLS: количество столбцов в матрице. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 3704 cnv 1 54 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3704 AT_ROW: начальная позиция по строкам. Тип: int.;
+#X obj 300 3727 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3727 AT_COL: начальная позиция по столбцам. Тип: int.;
+#X obj 300 3750 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3750 DATA: данные. Тип: list.;
+#X obj 250 3783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3783 stroke_color;
+#X text 270 3783 устанавливает цвет обводки. Аргументы:;
+#X obj 300 3808 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3808 [COLOR]: цвет обводки (0 или 1). Тип: int.;
+#X obj 250 3841 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3841 stroke_width;
+#X text 270 3841 устанавливает ширину обводки. Аргументы:;
+#X obj 300 3866 cnv 1 16 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3866 W: новая ширина. Тип: int. Минимальное значение: 0\.;
+#X obj 250 3899 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 3899 text;
+#X text 270 3899 рисует текст. Аргументы:;
+#X obj 300 3924 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3924 X: левая координата x. Тип: int.;
+#X obj 300 3947 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3947 Y: нижняя координата y. Тип: int.;
+#X obj 300 3970 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 3970 TXT: текст. Тип: symbol.;
+#X obj 250 4003 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4003 text_color;
+#X text 270 4003 устанавливает цвет текста. Аргументы:;
+#X obj 300 4028 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4028 [COLOR]: цвет текста (0 \, 1 или -1 — без цвета).
+Тип: int.;
+#X obj 250 4061 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4061 triangle;
+#X text 270 4061 рисует треугольник. Аргументы:;
+#X obj 300 4086 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4086 X0: координата x0\. Тип: int.;
+#X obj 300 4109 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4109 Y0: координата y0\. Тип: int.;
+#X obj 300 4132 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4132 X1: координата x1\. Тип: int.;
+#X obj 300 4155 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4155 Y1: координата y1\. Тип: int.;
+#X obj 300 4178 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4178 X2: координата x2\. Тип: int.;
+#X obj 300 4201 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4201 Y2: координата y2\. Тип: int.;
+#X obj 250 4234 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4234 view;
+#X text 270 4234 открывает окно просмотра растрового изображения.;
+#X obj 250 4269 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 4269 vshift;
+#X text 270 4269 вертикальный сдвиг. Аргументы:;
+#X obj 300 4294 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 4294 V: количество пикселей для сдвига. Тип: int.;
+#X obj 20 4337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4342 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 4343 1\.;
+#X text 170 4343 bang:;
+#X text 270 4343 выводит содержимое в виде списка.;
+#X obj 20 4378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 4383 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 4384 1\.;
+#X text 270 4384 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 4099 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4102 библиотека: ceammc v0.9.8;
-#X text 551 4114 смотрите также:;
-#X obj 672 4117 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 4434 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4437 библиотека: ceammc v0.9.8;
+#X text 551 4449 смотрите также:;
+#X obj 672 4452 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 4121 400 290 info 0;
+#N canvas 10 4456 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -378,30 +395,30 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 4121 pd info;
-#X connect 29 0 30 0;
-#X connect 30 0 31 0;
-#X connect 5 0 29 0;
-#X connect 8 0 29 0;
-#X connect 10 0 29 0;
-#X connect 12 0 29 0;
-#X connect 14 0 29 0;
-#X connect 6 0 29 0;
-#X connect 9 0 29 0;
-#X connect 11 0 29 0;
-#X connect 13 0 29 0;
-#X connect 16 0 29 0;
-#X connect 18 0 29 0;
-#X connect 15 0 29 0;
-#X connect 17 0 29 0;
-#X connect 19 0 29 0;
-#X connect 20 0 29 0;
-#X connect 22 0 29 0;
-#X connect 24 0 29 0;
-#X connect 26 0 29 0;
-#X connect 21 0 29 0;
-#X connect 23 0 29 0;
-#X connect 25 0 29 0;
-#X connect 27 0 29 0;
-#X connect 7 0 29 0;
-#X connect 28 0 29 0;
+#X restore 10 4456 pd info;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 8 0 32 0;
+#X connect 11 0 32 0;
+#X connect 13 0 32 0;
+#X connect 15 0 32 0;
+#X connect 17 0 32 0;
+#X connect 9 0 32 0;
+#X connect 12 0 32 0;
+#X connect 14 0 32 0;
+#X connect 16 0 32 0;
+#X connect 19 0 32 0;
+#X connect 21 0 32 0;
+#X connect 18 0 32 0;
+#X connect 20 0 32 0;
+#X connect 22 0 32 0;
+#X connect 23 0 32 0;
+#X connect 25 0 32 0;
+#X connect 27 0 32 0;
+#X connect 29 0 32 0;
+#X connect 24 0 32 0;
+#X connect 26 0 32 0;
+#X connect 28 0 32 0;
+#X connect 30 0 32 0;
+#X connect 10 0 32 0;
+#X connect 31 0 32 0;

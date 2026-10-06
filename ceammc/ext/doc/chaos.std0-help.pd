@@ -5,91 +5,106 @@
 #X obj 1 1 cnv 5 765 40 empty empty chaos.std0 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 chaos.std0;
-#X obj 230 78 cnv 1 535 174 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 A non-interpolating generator based on the difference
-equations:;
-#X text 240 123 y(n+1) = (y(n) + k * sin(x(n))) % 2pi;
-#X text 240 148 x(n+1) = (x(n) + y(n+1)) % 2pi;
-#X obj 240 176 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 446 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 A non-interpolating chaotic generator based on the standard
+map (also known as the Chirikov–Taylor map) \, a two-dimensional discrete
+dynamical system. On each bang the generator advances the map by one
+step and outputs the new x and y coordinates \, mapped to the [-1 \,
+1] range. The map is widely used as a model of chaos in Hamiltonian
+systems.;
+#X text 240 199 The map is defined by the difference equations:;
+#X text 240 224 y(n+1) = (y(n) + k * sin(x(n))) mod 2π;
+#X text 240 249 x(n+1) = (x(n) + y(n+1)) mod 2π;
+#X text 240 274 The value of k controls the behavior of the map. For
+small k (roughly k < 1) the trajectories are mostly regular (quasi-periodic
+or periodic) \, while for larger k the system becomes increasingly
+chaotic. The default k = 1 puts the generator near the boundary between
+regular and chaotic motion.;
+#X text 240 375 Since the values are not interpolated \, driving the
+generator with a slow metro produces a stepped chaotic control signal
+\, useful for driving filters \, pan positions or pitches.;
+#X obj 240 448 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Standard map @url
 https://en.wikipedia.org/wiki/Standard_map;
-#X text 240 197 The properties of chaos of the standard map were established
-by Boris Chirikov in 1969;
-#X obj 50 300 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 203 300 ui.dsp~;
-#X obj 309 300 r~ std0;
-#X obj 50 329 metro.random 100 200;
-#X obj 309 329 ui.scope~ @size 420 100;
-#X msg 50 358 3;
-#X obj 50 387 list.gen;
-#X obj 174 387 chaos.std0;
-#X obj 50 416 l->l -2 1 20 55 @clip minmax;
-#X obj 50 444 list.unpack 3;
-#X obj 50 473 sig~;
-#X obj 184 473 * 8000;
-#X obj 270 473 / 200;
-#X obj 184 502 sig~;
-#X msg 270 502 @res \$1;
-#X obj 50 531 osc.square~;
-#X obj 184 531 lop~ 2;
-#X obj 50 560 flt.moog_vcf~;
-#X obj 50 588 clip~ -1 1;
-#X obj 50 617 flt.dcblock~;
-#X obj 194 617 s~ std0;
-#X obj 50 646 ui.hgain~;
-#X obj 50 675 dac~;
-#X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 730 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 240 469 The chaotic properties of the standard map were established
+by Boris Chirikov in 1969\.;
+#X obj 50 572 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 203 572 ui.dsp~;
+#X obj 309 572 r~ std0;
+#X obj 50 601 metro.random 100 200;
+#X obj 309 601 ui.scope~ @size 420 100;
+#X msg 50 630 3;
+#X obj 50 659 list.gen;
+#X obj 174 659 chaos.std0;
+#X obj 50 688 l->l -2 1 20 55 @clip minmax;
+#X obj 50 716 list.unpack 3;
+#X obj 50 745 sig~;
+#X obj 184 745 * 8000;
+#X obj 270 745 / 200;
+#X obj 184 774 sig~;
+#X msg 270 774 @res \$1;
+#X obj 50 803 osc.square~;
+#X obj 184 803 lop~ 2;
+#X obj 50 832 flt.moog_vcf~;
+#X obj 50 860 clip~ -1 1;
+#X obj 50 889 flt.dcblock~;
+#X obj 194 889 s~ std0;
+#X obj 50 918 ui.hgain~;
+#X obj 50 947 dac~;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1002 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 733 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1005 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 731 1\.;
-#X text 170 731 float;
-#X obj 268 732 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 731 K: k value \, default 1\. Type: float.;
-#X text 130 756 2\.;
-#X text 170 756 float;
-#X obj 268 757 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 756 X: initial x value \, default 0.5\. Type: float.;
-#X text 130 781 3\.;
-#X text 170 781 float;
-#X obj 268 782 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 781 Y: initial y value \, default 0\. Type: float.;
-#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 821 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 1003 1\.;
+#X text 170 1003 float;
+#X obj 268 1004 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1003 K: k value (default 1). Type: float.;
+#X text 130 1028 2\.;
+#X text 170 1028 float;
+#X obj 268 1029 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1028 X: initial x value (default 0.5). Type: float.;
+#X text 130 1053 3\.;
+#X text 170 1053 float;
+#X obj 268 1054 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1053 Y: initial y value (default 0). Type: float.;
+#X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1093 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 824 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1096 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 847 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1119 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 873 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 874 1\.;
-#X text 170 874 bang:;
-#X text 270 874 generates and outputs next x-value.;
-#X text 130 899 2\.;
-#X text 170 899 float:;
-#X text 270 899 set k value.;
-#X obj 20 934 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 939 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1140 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1145 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 940 1\.;
-#X text 270 940 outputs x-value mapped to [-1\..1] range.;
-#X text 130 960 2\.;
-#X text 270 960 outputs y-value mapped to [-1\..1] range.;
+#X text 130 1146 1\.;
+#X text 170 1146 bang:;
+#X text 270 1146 generates and outputs the next x-value.;
+#X text 130 1171 2\.;
+#X text 170 1171 float:;
+#X text 270 1171 sets the k value.;
+#X obj 20 1206 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1211 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1212 1\.;
+#X text 170 1212 float:;
+#X text 270 1212 outputs the x-value mapped to the [-1 \, 1] range.;
+#X text 130 1232 2\.;
+#X text 170 1232 float:;
+#X text 270 1232 outputs the y-value mapped to the [-1 \, 1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1010 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1013 library: ceammc v0.9.8;
-#X text 582 1025 see also:;
-#X obj 657 1028 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1282 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1285 library: ceammc v0.9.8;
+#X text 582 1297 see also:;
+#X obj 657 1300 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.std0~] @url chaos.std0~-help.pd;
-#N canvas 10 1032 400 290 info 0;
+#N canvas 10 1304 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -113,28 +128,28 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1032 pd info;
-#X connect 10 0 13 0;
-#X connect 12 0 14 0;
-#X connect 13 0 15 0;
-#X connect 15 0 16 0;
+#X restore 10 1304 pd info;
+#X connect 13 0 16 0;
+#X connect 15 0 17 0;
 #X connect 16 0 18 0;
 #X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 19 1 21 0;
-#X connect 19 2 22 0;
-#X connect 21 0 23 0;
-#X connect 22 0 24 0;
-#X connect 20 0 25 0;
-#X connect 23 0 26 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 22 1 24 0;
+#X connect 22 2 25 0;
+#X connect 24 0 26 0;
 #X connect 25 0 27 0;
-#X connect 26 0 27 1;
-#X connect 24 0 27 0;
-#X connect 27 0 28 0;
-#X connect 28 0 29 0;
+#X connect 23 0 28 0;
+#X connect 26 0 29 0;
 #X connect 28 0 30 0;
-#X connect 29 0 31 0;
+#X connect 29 0 30 1;
+#X connect 27 0 30 0;
+#X connect 30 0 31 0;
 #X connect 31 0 32 0;
-#X connect 31 0 32 1;
-#X connect 16 1 17 0;
-#X connect 17 0 16 1;
+#X connect 31 0 33 0;
+#X connect 32 0 34 0;
+#X connect 34 0 35 0;
+#X connect 34 0 35 1;
+#X connect 19 1 20 0;
+#X connect 20 0 19 1;

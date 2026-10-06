@@ -6,75 +6,90 @@
 #X obj 587 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/xdac~] @url xdac~-help.pd;
 #X obj 702 8 xdac~;
-#X obj 50 118 xdac~;
-#X obj 126 118 xdac~ 1:6;
-#X obj 242 118 xdac~ 1:3 5 7:12;
-#X obj 50 147 xdac~-map;
-#X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 286 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 An extended version of the standard [dac~] object that
+accepts a list of output channels as its argument. In addition to single
+channel numbers \, it also accepts range notation like 1:6 \, which
+means "channels 1 through 6 inclusive". If no argument is given \,
+channels 1 and 2 are used by default.;
+#X text 240 184 Typical use cases:;
+#X text 250 209 • Multi-channel installations — connecting a patch
+to a specific subset of audio outputs of a multi-channel sound card
+(for example \, 1:6 for six speakers) \, without having to list every
+channel number individually.;
+#X text 250 279 • Channel remapping on the fly — using the @channels
+property or the reverse \, rotate and shuffle methods to reorder the
+outputs during a performance \, for example to swap left and right
+or to rotate a surround layout.;
+#X obj 50 412 xdac~;
+#X obj 126 412 xdac~ 1:6;
+#X obj 242 412 xdac~ 1:3 5 7:12;
+#X obj 50 441 xdac~-map;
+#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 496 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 237 Left-click;
-#X text 310 237 opens audio properties dialog.;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 272 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 531 Left-click;
+#X text 310 531 opens audio properties dialog.;
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 566 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 275 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 569 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 273 1\.;
-#X text 170 273 list;
-#X obj 268 274 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 273 OUTS: list of output channels: single channel number
-or X:Y range \, that means from X channel to Y (including last one).
-If not specified - using 1 and 2 out channels. Type: list.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 567 1\.;
+#X text 170 567 list;
+#X obj 268 568 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 567 OUTS: list of output channels: a single channel number
+or an X:Y range \, which means "from channel X to channel Y inclusive".
+If not specified \, output channels 1 and 2 are used. Type: list.;
+#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 652 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 655 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @channels;
-#X text 270 359 List of mapped channels. Type: list. Default value:
+#X msg 130 653 @channels;
+#X text 270 653 List of mapped channels. Type: list. Default value:
 1 2\.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 698 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 405 reverse;
-#X text 270 405 reverse output channels order.;
-#X obj 250 440 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 440 rotate;
-#X text 270 440 rotate output channels counter clockwise. Arguments
+#X msg 130 699 reverse;
+#X text 270 699 reverses the output channel order.;
+#X obj 250 734 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 734 rotate;
+#X text 270 734 rotates output channels counter-clockwise. Arguments
 are:;
-#X obj 300 465 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 465 N: number of rotation steps \, can be negative. Type:
+#X obj 300 759 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 759 N: number of rotation steps \, can be negative. Type:
 int.;
-#X obj 250 498 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 498 shuffle;
-#X text 270 498 shuffle output channels order.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 side2circle;
-#X text 270 533 map left/right side pairs to counter clockwise layout.;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 583 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 792 shuffle;
+#X text 270 792 shuffles the output channel order.;
+#X obj 250 827 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 827 side2circle;
+#X text 270 827 maps left/right side pairs to a counter-clockwise layout.;
+#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 877 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 584 1\.;
-#X text 170 584 ~;
-#X text 270 584 first specified channel.;
-#X text 130 609 ...;
-#X text 170 609 ~;
-#X text 270 609 ... specified channel.;
-#X text 130 634 n.;
-#X text 170 634 ~;
-#X text 270 634 n-th specified channel.;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 674 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 878 1\.;
+#X text 170 878 ~;
+#X text 270 878 first specified channel.;
+#X text 130 903 ...;
+#X text 170 903 ~;
+#X text 270 903 ... specified channel.;
+#X text 130 928 n.;
+#X text 170 928 ~;
+#X text 270 928 n-th specified channel.;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 968 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 718 library: ceammc v0.9.8;
-#N canvas 10 737 400 290 info 0;
+#X obj 1 1009 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1012 library: ceammc v0.9.8;
+#N canvas 10 1031 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,4 +113,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 737 pd info;
+#X restore 10 1031 pd info;

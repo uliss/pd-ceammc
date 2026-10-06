@@ -7,86 +7,91 @@
 #X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [array.histogram] @url array.hist-help.pd;
 #X obj 667 8 array.hist;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Values outside of range @min...@max are ignored;
+#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object computes a histogram of the samples in the
+specified array. The value range is set with @min and @max \, and the
+number of bins is set with @bins. Values outside the range @min...@max
+are ignored.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ahist 512 float 0;
 #X coords 0 1 512 -1 330 100 1;
-#X restore 50 171 graph;
-#X obj 386 171 ui.sliders @size 40 100 @receive ahist-r @auto_count 1
+#X restore 50 216 graph;
+#X obj 386 216 ui.sliders @size 40 100 @receive ahist-r @auto_count 1
 @auto_range_mode max;
-#X obj 50 287 loadbang;
-#X msg 50 315 uniform -1 -0.2;
-#X msg 222 315 gauss 0.5 0.2;
-#X msg 376 315 sin 50 0.6;
-#X msg 501 315 fill 0;
-#X obj 50 373 array.fill ahist;
-#X obj 50 402 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 332 loadbang;
+#X msg 50 360 uniform -1 -0.2;
+#X msg 222 360 gauss 0.5 0.2;
+#X msg 376 360 sin 50 0.6;
+#X msg 501 360 fill 0;
+#X obj 50 418 array.fill ahist;
+#X obj 50 447 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 431 array.hist ahist 100;
-#X obj 50 459 list.reverse;
-#X obj 50 488 s ahist-r;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 543 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 476 array.hist ahist 100;
+#X obj 50 504 list.reverse;
+#X obj 50 533 s ahist-r;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 588 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 546 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 591 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 544 1\.;
-#X text 170 544 symbol;
-#X obj 268 545 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 544 ARRAY: array name. Type: symbol.;
-#X text 130 569 2\.;
-#X text 170 569 int;
-#X obj 268 570 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 569 BINS: number of bins. Type: int. Range: [2\..1000];
-#X text 130 594 3\.;
-#X text 170 594 float;
-#X obj 268 595 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 594 MIN: minimal value. Type: float.;
-#X text 130 619 4\.;
-#X text 170 619 float;
-#X obj 268 620 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 619 MAX: maximum value. Type: float.;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 659 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 589 1\.;
+#X text 170 589 symbol;
+#X obj 268 590 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 589 ARRAY: name of the array to analyze. Type: symbol.;
+#X text 130 614 2\.;
+#X text 170 614 int;
+#X obj 268 615 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 614 BINS: number of bins. Type: int. Range: [2\..1000];
+#X text 130 639 3\.;
+#X text 170 639 float;
+#X obj 268 640 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 639 MIN: minimum value of the histogram range. Type: float.;
+#X text 130 664 4\.;
+#X text 170 664 float;
+#X obj 268 665 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 664 MAX: maximum value of the histogram range. Type: float.;
+#X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 704 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 662 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 707 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 660 @array;
-#X text 270 660 Array name. Type: symbol.;
-#X obj 250 690 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 690 @bins;
-#X text 270 690 Number of bins. Type: int. Default value: 100\. Range:
-[2\..1000].;
-#X obj 250 732 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 732 @max;
-#X text 270 732 Maximum value. Type: float. Default value: 1\.;
-#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 762 @min;
-#X text 270 762 Minimal value. Type: float. Default value: -1\.;
-#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 807 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 705 @array;
+#X text 270 705 Name of the array to analyze. Type: symbol.;
+#X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 735 @bins;
+#X text 270 735 Number of bins in the histogram. Type: int. Default
+value: 100\. Range: [2\..1000].;
+#X obj 250 777 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 777 @max;
+#X text 270 777 Maximum value of the histogram range. Type: float.
+Default value: 1\.;
+#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 819 @min;
+#X text 270 819 Minimum value of the histogram range. Type: float.
+Default value: -1\.;
+#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 876 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 808 1\.;
-#X text 170 808 bang:;
-#X text 270 808 calculates and outputs histogram.;
-#X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 877 1\.;
+#X text 170 877 bang:;
+#X text 270 877 calculates the histogram and outputs it.;
+#X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 917 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 849 1\.;
-#X text 170 849 list:;
-#X text 270 849 histogram values (length = number of @bins).;
+#X text 130 918 1\.;
+#X text 170 918 list:;
+#X text 270 918 histogram values (length = number of @bins).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 899 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 902 library: ceammc v0.9.8;
-#X text 561 914 see also:;
-#X obj 636 917 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 968 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 971 library: ceammc v0.9.8;
+#X text 561 983 see also:;
+#X obj 636 986 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.histogram] @url list.histogram-help.pd;
-#N canvas 10 921 400 290 info 0;
+#N canvas 10 990 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -110,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 921 pd info;
+#X restore 10 990 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 0;

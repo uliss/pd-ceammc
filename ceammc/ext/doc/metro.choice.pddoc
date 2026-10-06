@@ -25,48 +25,46 @@
     <info>
       <par>
         <tr lang="en">Random distribution: uniform</tr>
-        <tr lang="ru" finished="false">Случайное распределение: униформа</tr>
+        <tr lang="ru">Случайное распределение: равномерное</tr>
       </par>
     </info>
     <arguments>
       <argument name="TIMESET" type="list" units="millisecond">
         <tr lang="en">timeset (&gt;0)</tr>
-        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+        <tr lang="ru">набор периодов (&gt;0)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">зерно генератора случайных чисел</tr>
       </property>
       <!-- @timeset -->
       <property name="@timeset" type="list" units="millisecond" default="">
         <tr lang="en">timeset (&gt;0)</tr>
-        <tr lang="ru" finished="false">Время (&gt;0)</tr>
+        <tr lang="ru">набор периодов (&gt;0)</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">starts (on &gt;0) or stops (on &lt;=0) metro</tr>
-          <!-- old: старты (на >0) или остановки (на <=0)
-                    метро -->
-          <tr lang="ru" finished="false">старты (на &gt;0) или остановки (на &lt;=0) метро</tr>
+          <tr lang="ru">запускает (при &gt;0) или останавливает (при &lt;=0) метроном</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set timeset</tr>
-          <tr lang="ru" finished="false">установленное время</tr>
+          <tr lang="ru">установить набор периодов</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">outputs *bang*</tr>
-          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+          <tr lang="ru">выдаёт *bang*</tr>
         </out>
       </outlet>
     </outlets>

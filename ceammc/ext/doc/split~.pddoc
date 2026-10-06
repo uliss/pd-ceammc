@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">parametrized multichannel signal splitter</tr>
-        <tr lang="ru">параметризованный многоканальный сплиттер сигналов</tr>
+        <tr lang="ru">параметризованный многоканальный разделитель сигналов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,30 +24,30 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">mostly syntax sugar for clear schemes, but can be used in dynamic
-        pathing</tr>
-        <tr lang="ru" finished="false">В основном синтаксический сахар для четких схем, но может
-        использоваться в динамических дорожках.</tr>
+        <tr lang="en">Mostly syntax sugar for clear schemes, but can also be used for dynamic
+        patching.</tr>
+        <tr lang="ru">В основном синтаксический сахар для наглядных схем, но может также
+        использоваться для динамической коммутации.</tr>
       </par>
     </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="64">
         <tr lang="en">number of outputs</tr>
-        <tr lang="ru" finished="false">количество выходов</tr>
+        <tr lang="ru">число выходов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" maxvalue="64" default="2" access="initonly">
         <tr lang="en">number of outputs</tr>
-        <tr lang="ru" finished="false">количество выходов</tr>
+        <tr lang="ru">число выходов</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -55,19 +55,19 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">first output signal</tr>
-          <tr lang="ru" finished="false">Первый выходной сигнал</tr>
+          <tr lang="ru">первый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... output signal</tr>
-          <tr lang="ru" finished="false">... выходной сигнал</tr>
+          <tr lang="ru">... выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th output signal</tr>
-          <tr lang="ru" finished="false">n-й выходной сигнал</tr>
+          <tr lang="ru">n-й выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

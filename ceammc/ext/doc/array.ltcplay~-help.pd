@@ -5,68 +5,75 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.ltcplay~ 20 20 0 20 -104026
 -4096 0;
 #X obj 637 11 array.ltcplay~;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object plays back the specified array \, synchronizing
+the playback position with an incoming LTC (Linear Timecode) signal.
+The LTC stream is received on the audio inlet \, and the array is played
+from the position encoded in the timecode. This allows the array playback
+to be synchronized with an external timecode source.;
+#X obj 50 247 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 165 118 msg.onload symbol %CEAMMC%/guitar1.wav;
-#X obj 50 147 openpanel;
-#X obj 165 147 expand_env;
-#X msg 50 176 load \$1 to altc @resize @resample;
-#X obj 50 205 snd.file;
-#X obj 50 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 88 248 time 0 0 0;
+#X obj 165 247 msg.onload symbol %CEAMMC%/guitar1.wav;
+#X obj 50 276 openpanel;
+#X obj 165 276 expand_env;
+#X msg 50 305 load \$1 to altc @resize @resample;
+#X obj 50 334 snd.file;
+#X obj 50 377 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 88 377 time 0 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array altc 100 float 0;
 #X coords 0 1 100 -1 200 140 1;
-#X restore 299 248 graph;
-#X msg 126 277 seek -2s;
-#X obj 50 305 ltc.out~;
-#X obj 50 363 array.ltcplay~ altc;
-#X obj 50 392 ui.hgain~;
-#X obj 50 421 dac~;
-#X obj 299 421 ui.dsp~;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 476 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
--49933 0;
-#X obj 735 479 ui.link @background_color 0.90196 0.90196 0.90196
-@title [?] @url ceammc.args-info.pd;
-#X text 130 477 1\.;
-#X text 170 477 symbol;
-#X obj 268 478 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 477 ARRAY: array name. Type: symbol.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 517 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
--49933 0;
-#X obj 735 520 ui.link @background_color 0.90196 0.90196 0.90196
-@title [?] @url ceammc.props-info.pd;
-#X msg 130 518 @array;
-#X text 270 518 Array name. Type: symbol.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @fps;
-#X text 270 548 Expected LTC stream framerate. Type: atom. Default
-value: auto. Allowed values: auto \, 24 \, 25 \, 29.97 \, 30\.;
+#X restore 299 377 graph;
+#X msg 126 406 seek -2s;
+#X obj 50 434 ltc.out~;
+#X obj 50 492 array.ltcplay~ altc;
+#X obj 50 521 ui.hgain~;
+#X obj 50 550 dac~;
+#X obj 299 550 ui.dsp~;
 #X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 605 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 606 1\.;
-#X text 170 606 ~;
-#X text 270 606 LTC input signal.;
-#X text 130 631 2\.;
-#X text 170 631 symbol:;
-#X text 270 631 set the source array.;
-#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 671 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 605 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X text 130 672 1\.;
-#X text 170 672 ~;
-#X text 270 672 playback output.;
+#X obj 735 608 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.args-info.pd;
+#X text 130 606 1\.;
+#X text 170 606 symbol;
+#X obj 268 607 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 606 ARRAY: name of the array to play back. Type: symbol.;
+#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 646 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 649 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 647 @array;
+#X text 270 647 Name of the array to play back. Type: symbol.;
+#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 677 @fps;
+#X text 270 677 Expected LTC stream frame rate. Use 'auto' to detect
+the frame rate automatically. Type: atom. Default value: auto. Allowed
+values: auto \, 24 \, 25 \, 29.97 \, 30\.;
+#X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 749 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 130 750 1\.;
+#X text 170 750 ~;
+#X text 270 750 LTC input signal that controls playback position.;
+#X text 130 775 2\.;
+#X text 170 775 symbol:;
+#X text 270 775 sets the source array to play back.;
+#X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 815 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 816 1\.;
+#X text 170 816 ~;
+#X text 270 816 playback output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 722 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 725 library: ceammc v0.9.8;
-#N canvas 10 744 400 290 info 0;
+#X obj 1 866 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 869 library: ceammc v0.9.8;
+#N canvas 10 888 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,16 +97,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 744 pd info;
-#X connect 4 0 6 0;
-#X connect 5 0 7 0;
+#X restore 10 888 pd info;
 #X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 10 0 14 0;
-#X connect 11 0 14 0;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 12 0 16 0;
+#X connect 13 0 16 0;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;
-#X connect 16 0 17 1;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 0 19 1;

@@ -1,14 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 376 50 cnv 1 389 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 381 50 контрольный выход для патча \, загружаемого объектом
-[hoa.process~];
+#X obj 391 50 cnv 1 374 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 396 50 выход сообщений для патча \, загружаемого объектом [hoa.process~];
 #X obj 1 1 cnv 5 765 40 empty empty hoa.out 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 hoa.out;
 #X obj 230 93 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 hoa.out defines a message outlet for a patcher loaded
-by a hoa.process~ object.;
+#X text 240 98 hoa.out определяет выход сообщений для патча \, загружаемого
+объектом hoa.process~.;
 #X msg 50 201 open 0;
 #X msg 136 201 open 1;
 #X msg 232 201 42;
@@ -35,7 +34,7 @@ by a hoa.process~ object.;
 #X text 130 444 1\.;
 #X text 170 444 int;
 #X obj 268 445 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 444 INDEX: outlet index. Тип: int. Минимальное значение:
+#X text 270 444 INDEX: индекс выхода. Тип: int. Минимальное значение:
 1\.;
 #X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 484 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
@@ -43,27 +42,27 @@ by a hoa.process~ object.;
 #X obj 735 487 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 485 @index;
-#X text 270 485 Outlet index. Тип: int. Значение по умолчанию: 1\.
+#X text 270 485 Индекс выхода. Тип: int. Значение по умолчанию: 1\.
 Минимальное значение: 1\.;
 #X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 542 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 543 1\.;
 #X text 170 543 bang:;
-#X text 270 543 output bang message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 543 выводит сообщение bang через соответствующий выход
+сообщений объекта hoa.process~.;
 #X text 170 583 float:;
-#X text 270 583 output float message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 583 выводит сообщение с числом через соответствующий выход
+сообщений объекта hoa.process~.;
 #X text 170 623 symbol:;
-#X text 270 623 output symbol message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 623 выводит символьное сообщение через соответствующий
+выход сообщений объекта hoa.process~.;
 #X text 170 663 list:;
-#X text 270 663 output list message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 663 выводит сообщение-список через соответствующий выход
+сообщений объекта hoa.process~.;
 #X text 170 703 any:;
-#X text 270 703 output any message in the corresponding hoa.process~
-object's message outlet.;
+#X text 270 703 выводит любое сообщение через соответствующий выход
+сообщений объекта hoa.process~.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

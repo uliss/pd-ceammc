@@ -9,24 +9,27 @@
 #X obj 567 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [bpm->sec] @url conv.bpm2sec-help.pd;
 #X obj 653 8 conv.bpm2sec;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Convert frequency from BPM (beats per minute) to period
-in seconds. It's simple as 60/f \, but more readable.;
-#X msg 50 186 120;
-#X msg 117 186 60;
-#X obj 50 215 bpm->sec;
-#X floatatom 50 244 5 0 0 0 - - -;
-#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 281 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object converts a tempo value in BPM (beats per
+minute) to a beat period in seconds. The conversion is simply 60 /
+BPM \, but the object makes the patch more readable and self-documenting.
+The result can be used \, for example \, to drive a metro \, delay
+line or envelope that is synchronized with the musical tempo.;
+#X msg 50 247 120;
+#X msg 117 247 60;
+#X obj 50 276 bpm->sec;
+#X floatatom 50 305 5 0 0 0 - - -;
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 342 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 282 1\.;
-#X text 170 282 float:;
-#X text 270 282 frequency in BPM.;
-#X obj 20 317 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 322 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 343 1\.;
+#X text 170 343 float:;
+#X text 270 343 frequency in BPM.;
+#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 383 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 323 1\.;
-#X text 270 323 period in seconds.;
+#X text 130 384 1\.;
+#X text 270 384 period in seconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

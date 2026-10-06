@@ -9,7 +9,7 @@
       <description>
         <tr lang="en">a metronome that changes its period with each beat in the specified
         sequence</tr>
-        <tr lang="ru">метроном изменяющий свой период при каждом ударе в указанной
+        <tr lang="ru">метроном, изменяющий свой период при каждом ударе в указанной
         последовательности</tr>
       </description>
       <license>GPL3 or later</license>
@@ -25,67 +25,87 @@
     <info>
       <par>
         <tr lang="en">Easy way to build beat machines</tr>
-        <tr lang="ru" finished="false">Простой способ создания бит-машин</tr>
+        <tr lang="ru">Простой способ создания бит-машин</tr>
+      </par>
+      <par>
+        <tr lang="en">The object runs a steady metronome with a fixed interval, but only
+        produces a bang on those beats where the corresponding element of the pattern list
+        is 1. Elements equal to 0 produce silence on that beat. The pattern is looped
+        automatically. The interval can be changed at any time through the second inlet, and a new
+        pattern can be sent to the third inlet.</tr>
+        <tr lang="ru">Объект запускает равномерный метроном с фиксированным интервалом,
+        но выдаёт bang только на тех долях, где соответствующий элемент списка паттерна
+        равен 1. Элементы, равные 0, дают тишину на этой доле. Паттерн автоматически
+        зацикливается. Интервал можно изменить в любой момент через второй вход, а
+        новый паттерн отправить в третий вход.</tr>
+      </par>
+      <par>
+        <tr lang="en">Use case in algorithmic composition: polymetric structure. A composer
+        can build several [metro.seq] objects with patterns of different lengths, for
+        example 5, 7 and 11 steps, all running at the same interval. Because the lengths
+        are mutually prime, the resulting composite rhythm never repeats itself exactly
+        within a reasonable time, producing a slowly evolving polyrhythmic texture that is
+        typical of process-based music.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: полиметрическая структура.
+        Композитор может построить несколько объектов [metro.seq] с паттернами разной
+        длины, например 5, 7 и 11 шагов, работающих с одним и тем же интервалом.
+        Поскольку длины взаимно просты, итоговый составной ритм практически никогда не
+        повторяется точно, создавая медленно развивающуюся полиритмическую текстуру,
+        характерную для процессуальной музыки.</tr>
       </par>
     </info>
     <arguments>
       <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">
         <tr lang="en">metro tempo in ms</tr>
-        <tr lang="ru" finished="false">темп метро в мс</tr>
+        <tr lang="ru">темп метронома в мс</tr>
       </argument>
       <argument name="PATTERN" type="list">
         <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
-        <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
-                биту -->
-        <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
-        биту</tr>
+        <tr lang="ru">список из 1 и 0. Где 1 означает выдачу bang на этой доле</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @current -->
       <property name="@current" type="int" minvalue="0" default="0">
         <tr lang="en">current pattern index</tr>
-        <tr lang="ru" finished="false">Текущий индекс</tr>
+        <tr lang="ru">текущий индекс паттерна</tr>
       </property>
       <!-- @interval -->
       <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
         <tr lang="en">interval between beats</tr>
-        <tr lang="ru" finished="false">интервал между ударами</tr>
+        <tr lang="ru">интервал между ударами</tr>
       </property>
       <!-- @pattern -->
       <property name="@pattern" type="list" default="">
         <tr lang="en">list of 1 and 0. Where 1 means output bang on this beat</tr>
-        <!-- old: Список 1 и 0. Где 1 означает выходной удар по этому
-                биту -->
-        <tr lang="ru" finished="false">Список 1 и 0. Где 1 означает выходной удар по этому
-        биту</tr>
+        <tr lang="ru">список из 1 и 0. Где 1 означает выдачу bang на этой доле</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">starts (on 1) or stops (on 0) metro</tr>
-          <tr lang="ru" finished="false">старты (на 1) или остановки (на 0) метро</tr>
+          <tr lang="ru">запускает (при 1) или останавливает (при 0) метроном</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set new step interval</tr>
-          <tr lang="ru" finished="false">Новый интервал шагов</tr>
+          <tr lang="ru">установить новый интервал шага</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set new pattern</tr>
-          <tr lang="ru" finished="false">Установить новый шаблон</tr>
+          <tr lang="ru">установить новый паттерн</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="bang">
           <tr lang="en">outputs *bang*</tr>
-          <tr lang="ru" finished="false">Исполнитель: *bang*</tr>
+          <tr lang="ru">выдаёт *bang*</tr>
         </out>
       </outlet>
     </outlets>

@@ -5,71 +5,79 @@
 #X obj 1 1 cnv 5 765 40 empty empty metro.pattern 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 metro.pattern;
-#X msg 50 118 @pattern 100 290 110 70;
-#X obj 69 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 194 147 500 150;
-#X obj 50 176 metro.pattern 268 200;
-#X obj 50 205 click~;
-#X obj 251 205 route.b;
-#X obj 50 234 flt.resonbp~ 1600;
-#X obj 251 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object works like a regular metronome \, but instead
+of a single fixed period it plays through a list of time intervals
+in a loop. Each interval defines the delay in milliseconds before the
+next bang. The current pattern index is available via @current \, and
+when @sync is enabled \, a new pattern sent to the second inlet is
+applied only after the current cycle finishes.;
+#X msg 50 262 @pattern 100 290 110 70;
+#X obj 69 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 194 291 500 150;
+#X obj 50 320 metro.pattern 268 200;
+#X obj 50 349 click~;
+#X obj 251 349 route.b;
+#X obj 50 378 flt.resonbp~ 1600;
+#X obj 251 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 262 ui.hgain~;
-#X obj 251 262 ui.dsp~;
-#X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 406 ui.hgain~;
+#X obj 251 406 ui.dsp~;
+#X obj 50 435 dac~;
+#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 493 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 347 1\.;
-#X text 170 347 list;
-#X obj 268 348 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 PATTERN: list of time intervals (in ms). Type: list.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 491 1\.;
+#X text 170 491 list;
+#X obj 268 492 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 491 PATTERN: list of time intervals (in ms). Type: list.;
+#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 390 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 534 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 388 @current;
-#X text 270 388 Current pattern index. Type: int. Default value: 0\.
+#X msg 130 532 @current;
+#X text 270 532 Current pattern index. Type: int. Default value: 0\.
 Min value: 0\.;
-#X obj 250 430 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 430 @pattern;
-#X text 270 430 Time intervals (in ms) performed in a loop. Type: list.;
-#X obj 250 460 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 460 @sync;
-#X text 270 460 Sync mode - change pattern after full cycle. Type:
+#X obj 250 574 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 574 @pattern;
+#X text 270 574 Time intervals (in ms) performed in a loop. Type: list.;
+#X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 604 @sync;
+#X text 270 604 Sync mode - change pattern after full cycle. Type:
 bool. Default value: 0\.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 517 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 661 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 518 1\.;
-#X text 170 518 float:;
-#X text 270 518 starts (on 1) or stops (on 0) metro.;
-#X text 130 543 2\.;
-#X text 170 543 list:;
-#X text 270 543 set new pattern.;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 583 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 662 1\.;
+#X text 170 662 float:;
+#X text 270 662 starts (on 1) or stops (on 0) metro.;
+#X text 130 687 2\.;
+#X text 170 687 list:;
+#X text 270 687 set new pattern.;
+#X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 727 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 584 1\.;
-#X text 270 584 outputs *bang*.;
-#X text 130 604 2\.;
-#X text 270 604 outputs current pattern index and bang on each cycle.;
+#X text 130 728 1\.;
+#X text 170 728 bang:;
+#X text 270 728 outputs *bang*.;
+#X text 130 748 2\.;
+#X text 270 748 outputs current pattern index and bang on each cycle.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 654 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 657 library: ceammc v0.9.8;
-#X text 543 669 see also:;
-#X obj 618 672 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 798 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 801 library: ceammc v0.9.8;
+#X text 543 813 see also:;
+#X obj 618 816 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro] @url metro-help.pd;
-#X obj 672 672 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 816 ui.link @background_color 0.78431 0.78431 0.78431
 @title [metro.seq] @url metro.seq-help.pd;
-#N canvas 10 676 400 290 info 0;
+#N canvas 10 820 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,14 +101,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 676 pd info;
-#X connect 4 0 7 0;
-#X connect 5 0 7 0;
-#X connect 6 0 7 1;
-#X connect 7 0 8 0;
-#X connect 7 1 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 11 0;
+#X restore 10 820 pd info;
+#X connect 6 0 9 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
 #X connect 10 0 12 0;
+#X connect 11 0 13 0;
 #X connect 12 0 14 0;
-#X connect 12 0 14 1;
+#X connect 14 0 16 0;
+#X connect 14 0 16 1;

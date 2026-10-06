@@ -7,120 +7,138 @@
 #X obj 597 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [seq.nb] @url seq.nbangs-help.pd;
 #X obj 668 8 seq.nbangs;
-#X msg 50 118 10;
-#X msg 98 118 15;
-#X msg 146 118 2;
-#X obj 261 118 ui.dsp~;
-#X msg 165 147 @div 2;
-#X obj 50 176 seq.nbangs @t 110;
-#X obj 174 205 route done i;
-#X obj 50 234 click~;
-#X obj 174 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 356 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Outputs a given number of bangs at a fixed or variable
+time interval. The number of bangs is set by the argument N or the
+@n property \, and the interval between bangs by @t. Unlike [seq.bangs]
+\, which cycles through a pattern of durations \, this object simply
+produces N evenly-spaced bangs.;
+#X text 240 184 Typical use cases:;
+#X text 250 209 • Repeating a trigger N times — sending a fixed number
+of events \, for example a short drum roll \, a burst of notes \, or
+a temporary stutter of a sound \, and then stopping automatically.;
+#X text 250 279 • Accelerando or ritardando — using @accel and @curve
+to make the interval between bangs gradually decrease or increase \,
+so that the same number of events is compressed or stretched over time.;
+#X text 250 349 • Counted event bursts — firing a fixed number of control
+messages for a specific process (for example \, N steps of an arpeggio
+or N pulses of a modulation envelope) \, without needing a separate
+counter object.;
+#X msg 50 482 10;
+#X msg 98 482 15;
+#X msg 146 482 2;
+#X obj 261 482 ui.dsp~;
+#X msg 165 511 @div 2;
+#X obj 50 540 seq.nbangs @t 110;
+#X obj 174 569 route done i;
+#X obj 50 598 click~;
+#X obj 174 598 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 232 234 5 0 0 0 - - -;
-#X obj 50 262 flt.resonbp~ 1000 40;
-#X obj 50 291 ui.hgain~;
-#X obj 50 320 dac~;
-#X obj 50 349 seq.nbangs-accel;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 232 598 5 0 0 0 - - -;
+#X obj 50 626 flt.resonbp~ 1000 40;
+#X obj 50 655 ui.hgain~;
+#X obj 50 684 dac~;
+#X obj 50 713 seq.nbangs-accel;
+#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 768 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 771 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 int;
-#X obj 268 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 N: number of bangs. Type: int. Min value: 0;
-#X text 130 430 2\.;
-#X text 170 430 float;
-#X obj 268 431 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 430 T(ms): time interval between bangs. Type: float. Range:
+#X text 130 769 1\.;
+#X text 170 769 int;
+#X obj 268 770 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 769 N: number of bangs. Type: int. Min value: 0;
+#X text 130 794 2\.;
+#X text 170 794 float;
+#X obj 268 795 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 794 T(ms): time interval between bangs. Type: float. Range:
 [1\..20000];
-#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 485 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 849 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 488 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 852 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 486 @accel;
-#X text 270 486 Tempo acceleration. 1 - no acceleration \, >1 - speed
-up \, <1 - slow down. Type: float. Default value: 1\. Range: [0.25\..4].;
-#X obj 250 543 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 543 @curve;
-#X text 270 543 Acceleration curve. Values >>0 - slow changes \, then
-fast encrease. Values <0 - fast changes \, then slower. Type: float.
-Default value: 1\. Range: [-8\..8].;
-#X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 600 @div;
-#X text 270 600 Subdivision of beats. Type: int. Default value: 1\.
+#X msg 130 850 @accel;
+#X text 270 850 Tempo acceleration. 1 — no acceleration \, >1 — speed
+up \, <1 — slow down. Type: float. Default value: 1\. Range: [0.25\..4].;
+#X obj 250 907 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 907 @curve;
+#X text 270 907 Acceleration curve. Values > 0 — slow changes first
+\, then a faster increase. Values < 0 — fast changes first \, then
+slower. Type: float. Default value: 1\. Range: [-8\..8].;
+#X obj 250 979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 979 @div;
+#X text 270 979 Subdivision of beats. Type: int. Default value: 1\.
 Range: [1\..64].;
-#X obj 250 642 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 642 @dur;
-#X text 270 642 Sequence duration. Changing this property also changes
-@t interval between bangs. Type: float. Default value: 0\. Min value:
-0\.;
-#X obj 250 699 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 699 @n;
-#X text 270 699 Number of bangs. Type: int. Default value: 0\. Min
+#X obj 250 1021 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1021 @dur;
+#X text 270 1021 Sequence duration. Changing this property also changes
+the @t interval between bangs. Type: float. Default value: 0\. Min
 value: 0\.;
-#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 729 @t;
-#X text 270 729 Time interval between bangs. You could also use units
+#X obj 250 1078 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1078 @n;
+#X text 270 1078 Number of bangs. Type: int. Default value: 0\. Min
+value: 0\.;
+#X obj 250 1108 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1108 @t;
+#X text 270 1108 Time interval between bangs. You can also use unit
 values like 100ms or 120bpm. Type: float. Units: 'ms'. Default value:
 0\. Range: [1\..20000].;
-#X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 801 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1175 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1180 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 802 reset;
-#X text 270 802 resets and stops the sequence.;
-#X obj 250 837 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 837 rewind;
-#X text 270 837 reset all counters without stopping.;
-#X obj 250 872 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 872 start;
-#X text 270 872 start or stop playing the sequence. Arguments are:;
-#X obj 300 897 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 897 [on=1]: if true: starts playback \, if false: stops
+#X msg 130 1181 reset;
+#X text 270 1181 resets and stops the sequence.;
+#X obj 250 1216 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1216 rewind;
+#X text 270 1216 resets all counters without stopping.;
+#X obj 250 1251 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1251 start;
+#X text 270 1251 starts or stops playback of the sequence. Arguments
+are:;
+#X obj 300 1276 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1276 [on=1]: if true — starts playback \, if false — stops
 it. Type: int. Allowed values: 0 \, 1\.;
-#X obj 250 945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 945 stop;
-#X text 270 945 stops playback of the sequence.;
-#X obj 250 980 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 980 tick;
-#X text 270 980 manually output the current element of the sequence
-and proceed to the next one.;
-#X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1045 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 1324 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1324 stop;
+#X text 270 1324 stops playback of the sequence.;
+#X obj 250 1359 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1359 tick;
+#X text 270 1359 manually outputs the current element of the sequence
+and proceeds to the next one.;
+#X obj 20 1419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1424 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1046 1\.;
-#X text 170 1046 bang:;
-#X text 270 1046 starts outputting the sequence of bangs from the beginning.;
-#X text 170 1071 float:;
-#X text 270 1071 sets the number of bangs in the sequence and starts
+#X text 130 1425 1\.;
+#X text 170 1425 bang:;
+#X text 270 1425 starts outputting the sequence of bangs from the beginning.;
+#X text 170 1450 float:;
+#X text 270 1450 sets the number of bangs in the sequence and starts
 playing it.;
-#X text 130 1111 2\.;
-#X text 170 1111 float:;
-#X text 270 1111 set the number of bangs in the sequence.;
-#X obj 20 1146 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1151 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1490 2\.;
+#X text 170 1490 float:;
+#X text 270 1490 sets the number of bangs in the sequence.;
+#X obj 20 1525 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1530 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1152 1\.;
-#X text 170 1152 bang:;
-#X text 270 1152 bang sequence output.;
-#X text 130 1172 2\.;
-#X text 270 1172 [i IDX N( - bang index or [done( when done.;
+#X text 130 1531 1\.;
+#X text 170 1531 bang:;
+#X text 270 1531 bang sequence output.;
+#X text 130 1551 2\.;
+#X text 270 1551 [i IDX N( — bang index \, or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1222 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1225 library: ceammc v0.9.8;
-#X text 499 1237 see also:;
-#X obj 574 1240 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1601 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1604 library: ceammc v0.9.8;
+#X text 499 1616 see also:;
+#X obj 574 1619 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.bangs] @url seq.bangs-help.pd;
-#X obj 657 1240 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 1619 ui.link @background_color 0.78431 0.78431 0.78431
 @title [seq.toggles] @url seq.toggles-help.pd;
-#N canvas 10 1244 400 290 info 0;
+#N canvas 10 1623 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -144,16 +162,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1244 pd info;
-#X connect 5 0 10 0;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 9 0 10 0;
-#X connect 10 1 11 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 11 1 14 0;
-#X connect 12 0 15 0;
+#X restore 10 1623 pd info;
+#X connect 11 0 16 0;
+#X connect 12 0 16 0;
+#X connect 13 0 16 0;
 #X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 16 0 17 1;
+#X connect 16 1 17 0;
+#X connect 16 0 18 0;
+#X connect 17 0 19 0;
+#X connect 17 1 20 0;
+#X connect 18 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 22 0 23 1;

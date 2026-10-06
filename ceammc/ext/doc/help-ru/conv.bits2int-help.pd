@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 458 50 преобразовать список битов в целое число;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 473 50 преобразует список битов в целое число;
 #X obj 1 1 cnv 5 765 40 empty empty conv.bits2int 20 20 0 20 -104026
 -4096 0;
 #X obj 409 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,31 +9,34 @@
 #X obj 553 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [bits->int] @url conv.bits2int-help.pd;
 #X obj 646 8 conv.bits2int;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: byte default the least significant bit is the
-rightmost \, this can be changed with @rev property;
-#X msg 50 186 1 0 1 1;
-#X obj 50 215 bits->int;
-#X floatatom 50 244 5 0 0 0 - - -;
-#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 281 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 105 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает список битов (0 и 1) и преобразует
+его в целое число. По умолчанию младший значащий бит — это самый правый
+элемент списка \, то есть биты читаются от старшего слева к младшему
+справа. Это можно изменить свойством @rev \, которое инвертирует порядок
+битов.;
+#X msg 50 231 1 0 1 1;
+#X obj 50 260 bits->int;
+#X floatatom 50 289 5 0 0 0 - - -;
+#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 326 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 284 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 329 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 282 @rev;
-#X text 270 282 Обратный порядок битов. Тип: bool. Значение по умолчанию:
+#X msg 130 327 @rev;
+#X text 270 327 Обратный порядок битов. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 327 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 372 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 328 1\.;
-#X text 170 328 list:;
-#X text 270 328 input bit list.;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 368 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 373 1\.;
+#X text 170 373 list:;
+#X text 270 373 входной список битов.;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 413 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 369 1\.;
-#X text 270 369 list of bits.;
+#X text 130 414 1\.;
+#X text 270 414 целое число.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

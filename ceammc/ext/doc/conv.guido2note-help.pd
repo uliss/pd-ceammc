@@ -9,77 +9,85 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [guido->note] @url conv.guido2note-help.pd;
 #X obj 631 8 conv.guido2note;
-#X obj 230 78 cnv 1 535 44 empty empty empty 17 7 0 10 -237178 -1 0;
-#X obj 240 86 ui.link @background_color 0.90196 0.90196 0.90196 @title
-GUIDO music notation @url
+#X obj 230 78 cnv 1 535 160 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object converts a note written in GUIDO music notation
+into a MIDI pitch and a note duration in milliseconds. The output consists
+of two values: the integer MIDI pitch (from the first outlet) and the
+float duration in milliseconds (from the second outlet). The duration
+depends on the current tempo \, which can be set with the TEMPO argument
+or the @tempo property.;
+#X obj 240 202 ui.link @background_color 0.90196 0.90196 0.90196
+@title GUIDO music notation @url
 https://en.wikipedia.org/wiki/GUIDO_music_notation;
-#X msg 50 170 symbol c#0/4.;
-#X floatatom 232 170 5 0 0 0 - - -;
-#X msg 290 170 60;
-#X msg 338 170 120;
-#X symbolatom 50 199 10 0 0 0 - - -;
-#X obj 232 199 prop.set @tempo;
-#X obj 50 228 conv.guido2note @tempo 80bpm;
-#X obj 50 257 ui.dt;
-#X obj 251 257 ui.dt;
-#X text 50 300 // music example;
-#X msg 50 329 bang;
-#X msg 146 329 reset;
-#X obj 50 357 list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16
+#X msg 50 286 symbol c#0/4.;
+#X floatatom 232 286 5 0 0 0 - - -;
+#X msg 290 286 60;
+#X msg 338 286 120;
+#X symbolatom 50 315 10 0 0 0 - - -;
+#X obj 232 315 prop.set @tempo;
+#X obj 50 344 conv.guido2note @tempo 80bpm;
+#X obj 50 373 ui.dt;
+#X obj 251 373 ui.dt;
+#X text 50 416 // music example;
+#X msg 50 445 bang;
+#X msg 146 445 reset;
+#X obj 50 473 list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16
 a1/16 g1/16 f/4;
-#X obj 50 401 guido->note @tempo 144;
-#X obj 50 430 makenote 120, f 22;
-#X obj 50 458 pack f f, f 18;
-#X obj 203 458 sel 0;
-#X obj 50 487 msg note;
-#X obj 203 487 del;
-#X obj 50 516 sfizz~ \#sine;
-#X obj 50 545 ui.hgain2~;
-#X obj 251 545 ui.dsp~;
-#X obj 50 573 dac~;
-#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 628 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 517 guido->note @tempo 144;
+#X obj 50 546 makenote 120, f 22;
+#X obj 50 574 pack f f, f 18;
+#X obj 203 574 sel 0;
+#X obj 50 603 msg note;
+#X obj 203 603 del;
+#X obj 50 632 sfizz~ \#sine;
+#X obj 50 661 ui.hgain2~;
+#X obj 251 661 ui.dsp~;
+#X obj 50 689 dac~;
+#X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 744 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 631 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 747 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 629 1\.;
-#X text 170 629 atom;
-#X obj 268 630 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 629 TEMPO(bpm): current tempo \, if number - treat as quarter-per-minute
-\, if symbol - BPM format is expected \, for example: 120bpm \, 60|1/8_bpm
-\, 90|4\._bpm etc. Type: atom.;
-#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 699 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 745 1\.;
+#X text 170 745 atom;
+#X obj 268 746 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 745 TEMPO(bpm): current tempo. If a number — treated as
+quarter notes per minute. If a symbol — BPM format is expected \, for
+example: 120bpm \, 60|1/8_bpm \, 90|4\._bpm etc. Type: atom.;
+#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 830 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 702 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 833 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 700 @tempo;
-#X text 270 700 Current tempo. Type: atom. Units: 'bpm'. Default value:
+#X msg 130 831 @tempo;
+#X text 270 831 Current tempo. Type: atom. Units: 'bpm'. Default value:
 60|4bpm.;
-#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 757 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 888 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 758 1\.;
-#X text 170 758 symbol:;
-#X text 270 758 Guido note.;
-#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 798 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 889 1\.;
+#X text 170 889 symbol:;
+#X text 270 889 Guido note.;
+#X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 929 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 799 1\.;
-#X text 270 799 int: MIDI pitch.;
-#X text 130 819 2\.;
-#X text 270 819 float: note duration in milliseconds.;
+#X text 130 930 1\.;
+#X text 170 930 int:;
+#X text 270 930 MIDI pitch.;
+#X text 130 950 2\.;
+#X text 170 950 float:;
+#X text 270 950 note duration in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 872 library: ceammc v0.9.8;
-#X text 553 884 see also:;
-#X obj 628 887 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1000 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1003 library: ceammc v0.9.8;
+#X text 553 1015 see also:;
+#X obj 628 1018 ui.link @background_color 0.78431 0.78431 0.78431
 @title [conv.note2guido] @url conv.note2guido-help.pd;
-#N canvas 10 891 400 290 info 0;
+#N canvas 10 1022 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,28 +111,28 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 891 pd info;
-#X connect 8 0 12 0;
+#X restore 10 1022 pd info;
 #X connect 9 0 13 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
 #X connect 12 0 14 0;
-#X connect 13 0 14 0;
+#X connect 13 0 15 0;
 #X connect 14 0 15 0;
-#X connect 14 1 16 0;
-#X connect 18 0 20 0;
-#X connect 19 0 20 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
+#X connect 19 0 21 0;
 #X connect 20 0 21 0;
 #X connect 21 0 22 0;
-#X connect 21 1 22 2;
 #X connect 22 0 23 0;
-#X connect 23 0 25 0;
-#X connect 25 0 27 0;
-#X connect 27 0 28 0;
-#X connect 27 1 28 1;
-#X connect 28 0 30 0;
-#X connect 28 1 30 1;
-#X connect 22 1 23 1;
-#X connect 22 1 24 0;
-#X connect 26 0 18 0;
+#X connect 22 1 23 2;
+#X connect 23 0 24 0;
 #X connect 24 0 26 0;
+#X connect 26 0 28 0;
+#X connect 28 0 29 0;
+#X connect 28 1 29 1;
+#X connect 29 0 31 0;
+#X connect 29 1 31 1;
+#X connect 23 1 24 1;
+#X connect 23 1 25 0;
+#X connect 27 0 19 0;
+#X connect 25 0 27 0;

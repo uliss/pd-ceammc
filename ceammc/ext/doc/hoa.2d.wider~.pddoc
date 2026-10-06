@@ -11,7 +11,7 @@
       </authors>
       <description>
         <tr lang="en">a 2D fractional ambisonic order simulator</tr>
-        <tr lang="ru">двумерная симуляция дробного амбисонического порядка</tr>
+        <tr lang="ru">симулятор дробного порядка амбисоников для 2D</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,54 +24,51 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">hoa.2d.wider~ can be used to wide the diffusion of a localised sound. The
-        order depending signals are weighted and appear in a logarithmic way to have linear
-        changes.</tr>
-        <!-- old: hoa.2d.wider~ может использоваться для широкого
-                распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются
-                и выглядят логарифмическим образом, чтобы иметь линейные изменения. -->
-        <tr lang="ru" finished="false">hoa.2d.wider~ может использоваться для широкого
-        распространения локализованного звука. Сигналы, зависящие от порядка, взвешиваются и
-        выглядят логарифмическим образом, чтобы иметь линейные изменения.</tr>
+        <tr lang="en">hoa.2d.wider~ can be used to widen the diffusion of a localized sound. The
+        order-dependent signals are weighted and follow a logarithmic curve, so that changes in the
+        widening parameter sound linear to the listener.</tr>
+        <tr lang="ru">hoa.2d.wider~ позволяет расширить диффузию локализованного звука. Сигналы,
+        зависящие от порядка гармоник, взвешиваются по логарифмической кривой, благодаря чему
+        изменения параметра расширения воспринимаются на слух как линейные.</tr>
       </par>
       <a href="hoa/hoa.2d.wider~-help.pd">CICM documentation</a>
     </info>
     <arguments>
       <argument name="ORDER" type="int" minvalue="1" maxvalue="63">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @order -->
       <property name="@order" type="int" minvalue="1" maxvalue="63" default="1" access="initonly">
         <tr lang="en">the order of decomposition</tr>
-        <tr lang="ru" finished="false">Порядок разложения</tr>
+        <tr lang="ru">порядок декомпозиции</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet type="audio">
         <in>
           <tr lang="en">first input signal</tr>
-          <tr lang="ru" finished="false">Первый входной сигнал</tr>
+          <tr lang="ru">первый входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="...">
         <in>
           <tr lang="en">... input signal</tr>
-          <tr lang="ru" finished="false">... входной сигнал</tr>
+          <tr lang="ru">... входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">n-th input signal</tr>
-          <tr lang="ru" finished="false">n-й входной сигнал</tr>
+          <tr lang="ru">n-й входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n+1">
         <in>
-          <tr lang="en">widening signal in [0-1] range.</tr>
-          <tr lang="ru" finished="false">Расширение сигнала в диапазоне [0-1].</tr>
+          <tr lang="en">widening signal in the [0, 1] range</tr>
+          <tr lang="ru">сигнал расширения в диапазоне [0, 1]</tr>
         </in>
       </inlet>
     </inlets>
@@ -79,19 +76,19 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">first circular harmonics output</tr>
-          <tr lang="ru" finished="false">Первая круговая гармоника выход</tr>
+          <tr lang="ru">выход первой круговой гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... circular harmonics output</tr>
-          <tr lang="ru" finished="false">... круглые гармоники выход</tr>
+          <tr lang="ru">... выход круговой гармоники</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">n-th circular harmonics output</tr>
-          <tr lang="ru" finished="false">n-я круговая гармоника выход</tr>
+          <tr lang="ru">выход n-й круговой гармоники</tr>
         </out>
       </outlet>
     </outlets>

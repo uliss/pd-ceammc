@@ -1,0 +1,13 @@
+#N canvas 0 0 288 242 12;
+#X obj 20 48 loadbang;
+#X msg 20 77 0.25;
+#X msg 125 77 1;
+#X msg 202 77 2;
+#X obj 20 106 nsig~ 3;
+#X obj 20 149 sig~;
+#X obj 87 149 *~ 2;
+#X obj 154 149 +~ 1;
+#X obj 20 192 dac~ 1 2 3;
+#X connect 1 0 4 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;

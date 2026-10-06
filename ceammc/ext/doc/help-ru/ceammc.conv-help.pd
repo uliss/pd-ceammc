@@ -10,7 +10,7 @@
 #X text 220 142 преобразование индекса семпла в фазовый диапазон [0\..1];
 #X obj 30 170 ui.link @title [conv.amp2dbfs] @url
 conv.amp2dbfs-help.pd;
-#X text 220 167 преобразование из амплитуды в децибелы полной шкалы;
+#X text 220 167 преобразование амплитуды в децибелы полной шкалы;
 #X obj 30 195 ui.link @title [conv.amp2dbfs~] @url
 conv.amp2dbfs~-help.pd;
 #X text 220 192 преобразование из амплитуды в децибелы полной шкалы;
@@ -18,14 +18,14 @@ conv.amp2dbfs~-help.pd;
 #X text 220 217 вычисляет продолжительность такта и ударной доли;
 #X obj 30 245 ui.link @title [conv.bits2bang] @url
 conv.bits2bang-help.pd;
-#X text 220 242 конвертирует список битов в пустые события;
+#X text 220 242 преобразует список битов в события bang;
 #X obj 30 270 ui.link @title [conv.bits2int] @url
 conv.bits2int-help.pd;
-#X text 220 267 преобразовать список битов в целое число;
+#X text 220 267 преобразует список битов в целое число;
 #X obj 30 295 ui.link @title [conv.bits2note] @url
 conv.bits2note-help.pd;
-#X text 220 292 конвертирует список битов в пары: номер ноты \, сила
-нажатия;
+#X text 220 292 преобразует список битов в пары «номер ноты \, сила
+нажатия»;
 #X obj 30 320 ui.link @title [conv.bits2pos] @url
 conv.bits2pos-help.pd;
 #X text 220 317 преобразует список битов в список позиций установленных
@@ -39,12 +39,12 @@ conv.bits2pos-help.pd;
 #X text 220 407 преобразует темп BPM в период между ударными долями
 в секундах;
 #X obj 30 450 ui.link @title [conv.car2pol] @url conv.car2pol-help.pd;
-#X text 220 447 преобразует картезианские координаты в полярные;
+#X text 220 447 преобразует декартовы координаты в полярные;
 #X obj 30 475 ui.link @title [conv.cc2amp] @url conv.cc2amp-help.pd;
-#X text 220 472 конвертирует из диапазона MIDI Control Change;
+#X text 220 472 преобразует из диапазона MIDI Control Change;
 #X obj 30 500 ui.link @title [conv.char2morse] @url
 conv.char2morse-help.pd;
-#X text 220 497 преобразует единичный символ в код Морзе;
+#X text 220 497 преобразует один символ в код Морзе;
 #X obj 30 525 ui.link @title [conv.color2rgba] @url
 conv.color2rgba-help.pd;
 #X text 220 522 преобразует именованный или шестнадцатеричный цвет
@@ -60,115 +60,114 @@ conv.degree2key-help.pd;
 #X text 220 612 преобразует номер ступени лада в номер клавиши;
 #X obj 30 640 ui.link @title [conv.edge2bang] @url
 conv.edge2bang-help.pd;
-#X text 220 637 детектор перехода для численного потока;
+#X text 220 637 детектор перехода для числового потока;
 #X obj 30 665 ui.link @title [conv.guido2note] @url
 conv.guido2note-help.pd;
 #X text 220 662 конвертер из Guido-нотации в MIDI ноту и длительность;
 #X obj 30 690 ui.link @title [conv.hex2int] @url conv.hex2int-help.pd;
-#X text 220 687 конвертирует шестнадцатеричный символ в целочисленное
-значение;
-#X obj 30 730 ui.link @title [conv.hsl2rgb] @url conv.hsl2rgb-help.pd;
-#X text 220 727 преобразование цветовых значений из HSL в RGB;
-#X obj 30 755 ui.link @title [conv.int2bits] @url
+#X text 220 687 преобразует шестнадцатеричный символ в целое число;
+#X obj 30 715 ui.link @title [conv.hsl2rgb] @url conv.hsl2rgb-help.pd;
+#X text 220 712 преобразует цветовые значения из HSL в RGB;
+#X obj 30 740 ui.link @title [conv.int2bits] @url
 conv.int2bits-help.pd;
-#X text 220 752 конвертировать целое число в список битов;
-#X obj 30 780 ui.link @title [conv.lab2rgb] @url conv.lab2rgb-help.pd;
-#X text 220 777 преобразование цветовых значений из LAB в RGB;
-#X obj 30 805 ui.link @title [conv.lin2curve] @url
+#X text 220 737 преобразует целое число в список битов;
+#X obj 30 765 ui.link @title [conv.lab2rgb] @url conv.lab2rgb-help.pd;
+#X text 220 762 преобразует цветовые значения из LAB в RGB;
+#X obj 30 790 ui.link @title [conv.lin2curve] @url
 conv.lin2curve-help.pd;
-#X text 220 802 отображает линейный диапазон в экспоненциальный с разрешенным
-0;
-#X obj 30 845 ui.link @title [conv.lin2exp] @url conv.lin2exp-help.pd;
-#X text 220 842 отображает линейный диапазон в экспоненциальный;
-#X obj 30 870 ui.link @title [conv.lin2lin] @url conv.lin2lin-help.pd;
-#X text 220 867 отображает один линейный диапазон в другой;
-#X obj 30 895 ui.link @title [conv.lin2lin~] @url
+#X text 220 787 отображает линейный диапазон в экспоненциальный с допустимым
+нулём;
+#X obj 30 830 ui.link @title [conv.lin2exp] @url conv.lin2exp-help.pd;
+#X text 220 827 отображает линейный диапазон в экспоненциальный;
+#X obj 30 855 ui.link @title [conv.lin2lin] @url conv.lin2lin-help.pd;
+#X text 220 852 преобразует один линейный диапазон в другой;
+#X obj 30 880 ui.link @title [conv.lin2lin~] @url
 conv.lin2lin~-help.pd;
-#X text 220 892 отображает один линейный диапазон в другой для сигналов;
-#X obj 30 920 ui.link @title [conv.list2props] @url
+#X text 220 877 отображает один линейный диапазон в другой для сигналов;
+#X obj 30 905 ui.link @title [conv.list2props] @url
 conv.list2props-help.pd;
-#X text 220 917 преобразует список в серию свойств-сообщений;
-#X obj 30 945 ui.link @title [conv.midi2freq] @url
+#X text 220 902 преобразует список в серию сообщений-свойств;
+#X obj 30 930 ui.link @title [conv.midi2freq] @url
 conv.midi2freq-help.pd;
-#X text 220 942 продвинутое преобразование MIDI нот в частоту в Гц;
-#X obj 30 970 ui.link @title [conv.ms2bpm] @url conv.ms2bpm-help.pd;
-#X text 220 967 преобразование периода в миллисекундах в темп BPM;
-#X obj 30 995 ui.link @title [conv.ms2samp] @url conv.ms2samp-help.pd;
-#X text 220 992 преобразовать время в миллисекундах в количество семплов
-в соответствии с текущей скоростью семплирования;
-#X obj 30 1035 ui.link @title [conv.ms2samp~] @url
+#X text 220 927 расширенное преобразование MIDI-номера в частоту;
+#X obj 30 955 ui.link @title [conv.ms2bpm] @url conv.ms2bpm-help.pd;
+#X text 220 952 преобразует период в миллисекундах в темп BPM;
+#X obj 30 980 ui.link @title [conv.ms2samp] @url conv.ms2samp-help.pd;
+#X text 220 977 преобразует время в миллисекундах в количество семплов
+в соответствии с текущей частотой дискретизации;
+#X obj 30 1020 ui.link @title [conv.ms2samp~] @url
 conv.ms2samp~-help.pd;
-#X text 220 1032 преобразовать время в миллисекундах в количество семплов
+#X text 220 1017 преобразовать время в миллисекундах в количество семплов
 в соответствии с текущей скоростью семплирования;
-#X obj 30 1075 ui.link @title [conv.ms2str] @url conv.ms2str-help.pd;
-#X text 220 1072 форматирует время в миллисекундах в символ или строку;
-#X obj 30 1100 ui.link @title [conv.note2guido] @url
+#X obj 30 1060 ui.link @title [conv.ms2str] @url conv.ms2str-help.pd;
+#X text 220 1057 форматирует время в миллисекундах в символ или строку;
+#X obj 30 1085 ui.link @title [conv.note2guido] @url
 conv.note2guido-help.pd;
-#X text 220 1097 преобразует MIDI ноту в Guido-нотацию;
-#X obj 30 1125 ui.link @title [conv.phase2rad] @url
+#X text 220 1082 преобразует MIDI-номер ноты в нотацию GUIDO;
+#X obj 30 1110 ui.link @title [conv.phase2rad] @url
 conv.phase2rad-help.pd;
-#X text 220 1122 преобразует значение фазы [0-1] в радианы [0-2π];
-#X obj 30 1150 ui.link @title [conv.phase2rad~] @url
+#X text 220 1107 преобразует значение фазы [0 \, 1] в радианы [0 \,
+2π];
+#X obj 30 1135 ui.link @title [conv.phase2rad~] @url
 conv.phase2rad~-help.pd;
-#X text 220 1147 преобразует значение фазы [0-1] в радианы [0-2π];
-#X obj 30 1175 ui.link @title [conv.pitch2midi] @url
+#X text 220 1132 преобразует значение фазы [0-1] в радианы [0-2π];
+#X obj 30 1160 ui.link @title [conv.pitch2midi] @url
 conv.pitch2midi-help.pd;
-#X text 220 1172 преобразует ноту в формате SPN в номер ноты MIDI;
-#X obj 30 1200 ui.link @title [conv.pol2car] @url
+#X text 220 1157 преобразует высоту в нотации SPN в MIDI-номер ноты;
+#X obj 30 1185 ui.link @title [conv.pol2car] @url
 conv.pol2car-help.pd;
-#X text 220 1197 преобразование из полярных координат в картезианские;
-#X obj 30 1225 ui.link @title [conv.rad2phase] @url
+#X text 220 1182 преобразует полярные координаты в декартовы;
+#X obj 30 1210 ui.link @title [conv.rad2phase] @url
 conv.rad2phase-help.pd;
-#X text 220 1222 преобразование радианов в фазу [0-1);
-#X obj 30 1250 ui.link @title [conv.rad2phase~] @url
+#X text 220 1207 преобразует значение в радианах в фазу [0 \, 1);
+#X obj 30 1235 ui.link @title [conv.rad2phase~] @url
 conv.rad2phase~-help.pd;
-#X text 220 1247 преобразование значения радианов в фазу [0-1);
-#X obj 30 1275 ui.link @title [conv.rgb2hex] @url
+#X text 220 1232 преобразование значения радианов в фазу [0-1);
+#X obj 30 1260 ui.link @title [conv.rgb2hex] @url
 conv.rgb2hex-help.pd;
-#X text 220 1272 преобразование отдельных значений RGB в шестнадцатеричный
-цвет;
-#X obj 30 1315 ui.link @title [conv.samp2ms] @url
+#X text 220 1257 преобразует отдельные значения RGB в hex-значение
+цвета;
+#X obj 30 1285 ui.link @title [conv.samp2ms] @url
 conv.samp2ms-help.pd;
-#X text 220 1312 преобразовывает семплы в миллисекунды в соответствии
-со скоростью семплирования;
-#X obj 30 1355 ui.link @title [conv.samp2ms~] @url
+#X text 220 1282 преобразует количество семплов в миллисекунды в соответствии
+с частотой дискретизации;
+#X obj 30 1325 ui.link @title [conv.samp2ms~] @url
 conv.samp2ms~-help.pd;
-#X text 220 1352 преобразовывает семплы в миллисекунды в соответствии
+#X text 220 1322 преобразовывает семплы в миллисекунды в соответствии
 со скоростью семплирования;
-#X obj 30 1395 ui.link @title [conv.samp2sec] @url
+#X obj 30 1365 ui.link @title [conv.samp2sec] @url
 conv.samp2sec-help.pd;
-#X text 220 1392 преобразовывает семплы в секунды в соответствии со
-скоростью семплирования;
-#X obj 30 1435 ui.link @title [conv.sec2bpm] @url
+#X text 220 1362 преобразует количество семплов в секунды в соответствии
+с частотой дискретизации;
+#X obj 30 1405 ui.link @title [conv.sec2bpm] @url
 conv.sec2bpm-help.pd;
-#X text 220 1432 преобразует период в секундах в темп BPM;
-#X obj 30 1460 ui.link @title [conv.sec2samp] @url
+#X text 220 1402 преобразует период в секундах в темп BPM;
+#X obj 30 1430 ui.link @title [conv.sec2samp] @url
 conv.sec2samp-help.pd;
-#X text 220 1457 преобразует секунды в количество семплов согласно
-текущей скорости семплирования;
-#X obj 30 1500 ui.link @title [conv.sec2str] @url
+#X text 220 1427 преобразует время в секундах в количество семплов
+в соответствии с текущей частотой дискретизации;
+#X obj 30 1470 ui.link @title [conv.sec2str] @url
 conv.sec2str-help.pd;
-#X text 220 1497 форматирует время в секундах в символ или строку;
-#X obj 30 1525 ui.link @title [conv.semi2ratio] @url
+#X text 220 1467 форматирует время в секундах в символ или строку;
+#X obj 30 1495 ui.link @title [conv.semi2ratio] @url
 conv.semi2ratio-help.pd;
-#X text 220 1522 преобразует интервал в полутонах в частотное отношение
+#X text 220 1492 преобразует интервал в полутонах в частотное отношение
 в 12-ET;
-#X obj 30 1565 ui.link @title [conv.sig2float~] @url
+#X obj 30 1535 ui.link @title [conv.sig2float~] @url
 conv.sig2float~-help.pd;
-#X text 220 1562 преобразует аудиосигнал в управляющий числовой поток;
-#X obj 30 1590 ui.link @title [conv.str2sec] @url
+#X text 220 1532 преобразует аудиосигнал в управляющий числовой поток;
+#X obj 30 1560 ui.link @title [conv.str2sec] @url
 conv.str2sec-help.pd;
-#X text 220 1587 преобразует отформатированное время в числовое значение
-в секундах;
-#X obj 30 1630 ui.link @title [music.dur2time] @url
+#X text 220 1557 преобразует форматированное время в число секунд;
+#X obj 30 1585 ui.link @title [music.dur2time] @url
 music.dur2time-help.pd;
-#X text 220 1627 преобразование списка музыкальных длительностей в
+#X text 220 1582 преобразование списка музыкальных длительностей в
 список временных периодов;
-#X obj 30 1670 ui.link @title [music.voice2midi] @url
+#X obj 30 1625 ui.link @title [music.voice2midi] @url
 music.voice2midi-help.pd;
-#X text 220 1667 конвертирует одноголосную музыкальную нотацию в список
+#X text 220 1622 конвертирует одноголосную музыкальную нотацию в список
 нот MIDI;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1707 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1717 library: ceammc;
+#X obj 1 1662 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1672 library: ceammc;

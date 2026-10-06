@@ -379,7 +379,7 @@ public:
 
         auto fname = path.symbolAt(0, &s_);
         auto full_path = platform::make_abs_filepath_with_canvas(T::canvas(), fname->s_name);
-        if (full_path.empty()) {
+        if (full_path.empty() || !platform::path_exists(full_path.c_str())) {
             full_path = platform::find_in_std_path(T::canvas(), fname->s_name);
             if (full_path.empty()) {
                 METHOD_ERR(s) << "invalid path: " << path;

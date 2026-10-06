@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">calculates sum of array elements</tr>
+        <tr lang="en">calculates the sum of array elements</tr>
         <tr lang="ru">вычисляет сумму элементов массива</tr>
       </description>
       <license>GPL3 or later</license>
@@ -19,24 +19,32 @@
         <see>array.sum2</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">The object computes the sum of all samples in the specified array and outputs
+        it as a single float.</tr>
+        <tr lang="ru">Объект вычисляет сумму всех семплов указанного массива и выводит её одним
+        числом с плавающей точкой.</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs the sum</tr>
-          <tr lang="ru">вычисляет и выводит сумму</tr>
+          <tr lang="en">calculates the sum and outputs it</tr>
+          <tr lang="ru">вычисляет сумму и выводит её</tr>
         </in>
       </inlet>
     </inlets>

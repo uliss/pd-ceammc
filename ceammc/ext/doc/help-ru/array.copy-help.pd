@@ -5,101 +5,109 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.copy 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 array.copy;
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект копирует семплы из исходного массива в массив
+назначения. Поддерживается несколько форм сообщения copy \, которые
+позволяют скопировать весь массив \, диапазон начиная с заданной позиции
+\, диапазон между двумя позициями или диапазон \, размещённый в указанной
+позиции массива назначения. По завершении копирования через выход отправляется
+bang.;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #X coords 0 1 100 -1 130 100 1;
-#X restore 50 118 graph;
+#X restore 50 262 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A2 20 float 0;
 #X coords 0 1 20 -1 130 100 1;
-#X restore 357 118 graph;
-#X msg 184 234 copy A1 10 20 A2;
-#X msg 366 234 copy A1 5 20 A2 15;
-#X msg 50 262 copy A1 A2;
-#X msg 213 262 copy A1 40 A2;
-#X obj 50 291 array.copy;
-#X obj 50 320 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 357 262 graph;
+#X msg 184 378 copy A1 10 20 A2;
+#X msg 366 378 copy A1 5 20 A2 15;
+#X msg 50 406 copy A1 A2;
+#X msg 213 406 copy A1 40 A2;
+#X obj 50 435 array.copy;
+#X obj 50 464 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 349 loadbang;
-#X msg 50 378 sinesum 100 0.5 0.2 0 0.1 0.4;
-#X obj 50 406 s A1;
-#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 50 493 loadbang;
+#X msg 50 522 sinesum 100 0.5 0.2 0 0.1 0.4;
+#X obj 50 550 s A1;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 605 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 608 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 462 @resize;
-#X text 270 462 Изменять размера массива назначения при переполнении.
+#X msg 130 606 @resize;
+#X text 270 606 Изменять размер массива назначения при переполнении.
 Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 519 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 663 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 520 copy SRC DEST;
-#X text 270 520 копирует все содержимое массива. Аргументы:;
-#X obj 300 545 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 545 SRC: имя исходного массива. Тип: symbol.;
-#X obj 300 568 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 568 DST: массив назначения. Тип: symbol.;
-#X obj 250 601 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 601 copy SRC FROM DEST;
-#X text 270 601 копирует содержимое массива из указанной позиции до
+#X msg 130 664 copy SRC DEST;
+#X text 270 664 копирует всё содержимое исходного массива. Аргументы:;
+#X obj 300 689 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 689 SRC: имя исходного массива. Тип: symbol.;
+#X obj 300 712 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 712 DST: имя массива назначения. Тип: symbol.;
+#X obj 250 745 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 745 copy SRC FROM DEST;
+#X text 270 745 копирует содержимое массива с указанной позиции до
 конца. Аргументы:;
-#X obj 300 641 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 641 SRC: исходный массив. Тип: symbol.;
-#X obj 300 664 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 664 FROM: начальная позиция в исходном массиве. Тип: int.;
-#X obj 300 687 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 687 DEST: массив назначения. Тип: symbol.;
-#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 720 copy SRC FROM TO DEST;
-#X text 300 720 копирует содержимое массива из указанного диапазона.
+#X obj 300 785 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 785 SRC: имя исходного массива. Тип: symbol.;
+#X obj 300 808 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 808 FROM: начальная позиция в исходном массиве. Тип: int.;
+#X obj 300 831 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 831 DEST: имя массива назначения. Тип: symbol.;
+#X obj 250 864 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 864 copy SRC FROM TO DEST;
+#X text 300 864 копирует содержимое массива из указанного диапазона.
 Аргументы:;
-#X obj 300 760 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 760 SRC: исходный массив. Тип: symbol.;
-#X obj 300 783 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 783 FROM: начало диапазона в исходном массиве. Тип: int.;
-#X obj 300 806 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 806 TO: конец диапазона в исходном массиве. Тип: int.;
-#X obj 300 829 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 829 DEST: массив назначения. Тип: symbol.;
-#X obj 250 862 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 862 copy SRC FROM TO DEST DEST_START;
-#X text 410 862 копировать содержимое массива из указанного диапазона
-и в указанное место назначения. Аргументы:;
-#X obj 300 902 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 902 SRC: исходный массив. Тип: symbol.;
-#X obj 300 925 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 925 FROM: начало диапазона в исходном массиве. Тип: int.;
-#X obj 300 948 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 948 TO: конец диапазона в исходном массиве. Тип: int.;
-#X obj 300 971 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 971 DEST: массив назначения. Тип: symbol.;
-#X obj 300 994 cnv 1 75 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 994 DEST_FROM: начальная позиция в массиве назначения.
+#X obj 300 904 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 904 SRC: имя исходного массива. Тип: symbol.;
+#X obj 300 927 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 927 FROM: начало диапазона в исходном массиве. Тип: int.;
+#X obj 300 950 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 950 TO: конец диапазона в исходном массиве. Тип: int.;
+#X obj 300 973 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 973 DEST: имя массива назначения. Тип: symbol.;
+#X obj 250 1006 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1006 copy SRC FROM TO DEST DEST_START;
+#X text 410 1006 копирует содержимое массива из указанного диапазона
+в указанную позицию массива назначения. Аргументы:;
+#X obj 300 1046 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1046 SRC: имя исходного массива. Тип: symbol.;
+#X obj 300 1069 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1069 FROM: начало диапазона в исходном массиве. Тип: int.;
+#X obj 300 1092 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1092 TO: конец диапазона в исходном массиве. Тип: int.;
+#X obj 300 1115 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1115 DEST: имя массива назначения. Тип: symbol.;
+#X obj 300 1138 cnv 1 75 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1138 DEST_FROM: начальная позиция в массиве назначения.
 Тип: int.;
-#X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1042 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1186 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1043 1\.;
-#X text 170 1043 list:;
-#X text 270 1043 FROM TO - копирование данных из одного массива в другой.;
-#X obj 20 1078 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1083 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1187 1\.;
+#X text 170 1187 list:;
+#X text 270 1187 FROM TO — копирование семплов из одного массива в
+другой.;
+#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1227 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1084 1\.;
-#X text 170 1084 bang:;
-#X text 270 1084 при завершении операции.;
+#X text 130 1228 1\.;
+#X text 170 1228 bang:;
+#X text 270 1228 отправляется по завершении копирования.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1134 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1137 библиотека: ceammc v0.9.8;
-#X text 544 1149 смотрите также:;
-#X obj 665 1152 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1278 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1281 библиотека: ceammc v0.9.8;
+#X text 544 1293 смотрите также:;
+#X obj 665 1296 ui.link @background_color 0.78431 0.78431 0.78431
 @title [array.each] @url array.each-help.pd;
-#N canvas 10 1156 400 290 info 0;
+#N canvas 10 1300 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -123,11 +131,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1156 pd info;
-#X connect 8 0 10 0;
-#X connect 6 0 10 0;
-#X connect 9 0 10 0;
-#X connect 7 0 10 0;
-#X connect 10 0 11 0;
+#X restore 10 1300 pd info;
+#X connect 10 0 12 0;
+#X connect 8 0 12 0;
+#X connect 11 0 12 0;
+#X connect 9 0 12 0;
 #X connect 12 0 13 0;
-#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

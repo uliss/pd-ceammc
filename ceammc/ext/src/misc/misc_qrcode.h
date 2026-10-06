@@ -39,6 +39,8 @@ public:
     void onBang() override;
     void onSymbol(t_symbol* s) override;
 
+    void m_wifi(t_symbol* s, const AtomListView& lv);
+
 private:
     void output();
 };

@@ -21,25 +21,33 @@
     </meta>
     <info>
       <wiki name="Arithmetic_mean">Arithmetic mean</wiki>
+      <par>
+        <tr lang="en">The object computes the arithmetic mean (average) of all samples in the
+        specified array and outputs it as a single float. The mean is calculated as the sum of all
+        samples divided by their number.</tr>
+        <tr lang="ru">Объект вычисляет среднее арифметическое всех семплов указанного массива и
+        выводит его одним числом с плавающей точкой. Среднее вычисляется как сумма всех семплов,
+        делённая на их количество.</tr>
+      </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array to analyze</tr>
+        <tr lang="ru">имя массива для анализа</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">calculates and outputs mean value</tr>
-          <tr lang="ru">начинает вычисление, а затем выводит среднее значение</tr>
+          <tr lang="en">calculates the mean value and outputs it</tr>
+          <tr lang="ru">вычисляет среднее значение и выводит его</tr>
         </in>
       </inlet>
     </inlets>

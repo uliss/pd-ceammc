@@ -21,31 +21,45 @@
 [string2any] @url symbol2any-help.pd;
 #X restore 570 11 pd aliases;
 #X obj 667 11 symbol2any;
-#X text 50 118 enter some words separated by spaces;
-#X symbolatom 50 147 40 0 0 0 - - -;
-#X obj 50 176 sym->any;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 282 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект принимает символ или строку и интерпретирует
+её текст как сообщение Pd. Слова \, разделённые пробелами \, становятся
+атомами получившегося сообщения \, числа преобразуются в числа с плавающей
+точкой \, а первое слово трактуется как селектор сообщения. Это полезно
+для динамического построения сообщений из строк \, полученных от внешних
+источников или от объектов обработки строк.;
+#X text 240 199 Применение в алгоритмической композиции: генерация
+управляющих сообщений из текста. Композитор может хранить инструкции
+партитуры в текстовом файле строками вида «freq 440» или «amp 0.7»
+и считывать их по одной через [textfile]. Пропуская каждую строку через
+[symbol2any] \, мы превращаем её в настоящее сообщение Pd \, которое
+можно направить к соответствующему параметру синтезирующего патча \,
+что позволяет легко редактировать партитуру вне Pd.;
+#X text 50 408 enter some words separated by spaces;
+#X symbolatom 50 437 40 0 0 0 - - -;
+#X obj 50 466 sym->any;
+#X obj 50 495 ui.dt;
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 550 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 261 1\.;
-#X text 170 261 symbol:;
-#X text 270 261 symbol.;
-#X text 170 286 data:string:;
-#X text 270 286 string.;
-#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 326 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 551 1\.;
+#X text 170 551 symbol:;
+#X text 270 551 символ.;
+#X text 170 576 data:string:;
+#X text 270 576 строка.;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 616 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 327 1\.;
-#X text 270 327 output message.;
+#X text 130 617 1\.;
+#X text 270 617 выходное сообщение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title symbol @url ceammc.symbol-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 667 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 670 библиотека: ceammc v0.9.8;
+#N canvas 10 689 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -69,6 +83,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
+#X restore 10 689 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;

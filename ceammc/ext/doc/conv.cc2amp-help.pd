@@ -9,64 +9,69 @@
 #X obj 581 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [cc->amp] @url conv.cc2amp-help.pd;
 #X obj 660 8 conv.cc2amp;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 By default converts from [0\..127] to [0\..1];
-#X floatatom 50 171 5 0 127 0 - - -;
-#X obj 88 200 ctlin 0;
-#X floatatom 203 200 5 0 127 0 - - -;
-#X obj 50 229 cc->amp;
-#X obj 203 229 cc->amp @from 1 @to -1;
-#X floatatom 50 258 5 0 0 0 - - -;
-#X floatatom 203 258 5 0 0 0 - - -;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 295 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 136 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 The object converts a value from the MIDI Control Change
+range [0 \, 127] to an arbitrary output range. By default the output
+range is [0 \, 1] \, which is convenient for using the result as an
+amplitude \, gain or any other normalized control value. The output
+range can be changed with the FROM and TO arguments or the @from and
+@to properties.;
+#X floatatom 50 262 5 0 127 0 - - -;
+#X obj 88 291 ctlin 0;
+#X floatatom 203 291 5 0 127 0 - - -;
+#X obj 50 320 cc->amp;
+#X obj 203 320 cc->amp @from 1 @to -1;
+#X floatatom 50 349 5 0 0 0 - - -;
+#X floatatom 203 349 5 0 0 0 - - -;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 386 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 298 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 389 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 296 1\.;
-#X text 170 296 float;
-#X obj 268 297 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 296 FROM: start value of output range. Type: float.;
-#X text 130 321 2\.;
-#X text 170 321 float;
-#X obj 268 322 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 321 TO: end value of output range. Type: float.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 361 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 387 1\.;
+#X text 170 387 float;
+#X obj 268 388 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 387 FROM: start value of the output range. Type: float.;
+#X text 130 412 2\.;
+#X text 170 412 float;
+#X obj 268 413 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 412 TO: end value of the output range. Type: float.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 452 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 364 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 455 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 362 @from;
-#X text 270 362 Start value of output range. Type: float. Default value:
-0\.;
-#X obj 250 392 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 392 @to;
-#X text 270 392 End value of output range. Type: float. Default value:
-1\.;
-#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 437 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 453 @from;
+#X text 270 453 Start value of the output range. Type: float. Default
+value: 0\.;
+#X obj 250 495 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 495 @to;
+#X text 270 495 End value of the output range. Type: float. Default
+value: 1\.;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 552 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 438 1\.;
-#X text 170 438 float:;
-#X text 270 438 value in MIDI CC range [0\..127].;
-#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 478 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 553 1\.;
+#X text 170 553 float:;
+#X text 270 553 value in MIDI CC range [0 \, 127].;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 593 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 479 1\.;
-#X text 270 479 converted value.;
+#X text 130 594 1\.;
+#X text 270 594 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 529 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 532 library: ceammc v0.9.8;
-#X text 514 544 see also:;
-#X obj 589 547 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 644 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 647 library: ceammc v0.9.8;
+#X text 514 659 see also:;
+#X obj 589 662 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lin->lin] @url lin->lin-help.pd;
-#X obj 665 547 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 662 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lin->curve] @url lin->curve-help.pd;
-#N canvas 10 551 400 290 info 0;
+#N canvas 10 666 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,7 +95,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 551 pd info;
+#X restore 10 666 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

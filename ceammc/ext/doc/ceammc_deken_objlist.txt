@@ -1,23 +1,23 @@
 an.onset	onset detector for arrays / детектор атаки для массивов
-an.onset~	the signal onset detector / детектор атаки сигнала
+an.onset~	the signal onset detector / детектор атак сигнала
 an.pitchtrack~	the signal pitch tracker / отслеживает высоту сигнала
 ceammc/helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
 helmholtz~	the signal pitch tracker / отслеживает высоту сигнала
 an.rms~	root-mean-square of the signal with moving-average algorithm / среднее квадратичное сигнала с алгоритмом скользящего среднего
 an.tempo~	the signal tempo detector / детектор темпа сигнала
-an.zero~	calculate the signal zero crossing count/rate/freq / вычисление частоты/скорости/числа пересечения сигналом нулевого значения
+an.zero~	calculate the signal zero crossing count/rate/freq / вычисляет число, скорость или частоту пересечений сигналом нуля
 array.bpm	BPM calculator / вычисление BPM
-array.circular	read/write to the array as circular buffer / чтение/запись в массив, как в кольцевой буфер
-array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив, как в кольцевой буфер
-array.convolve	FFT convolution of the array / FFT свертка массива
-array.copy	copy samples from the one array to another / копирование семплов из одного массива в другой
-array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепь
-array.each	process each array elements via side-chain / обработка каждого элемента массива через боковую цепь
-array.fill	fill the array with the single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
+array.circular	read/write to the array as a circular buffer / чтение/запись в массив как в кольцевой буфер
+array.circular~	read/write the signal into the array like in a circular buffer / чтение/запись сигнала в массив как в кольцевой буфер
+array.convolve	FFT convolution of the array / FFT-свёртка массива
+array.copy	copy samples from one array to another / копирование семплов из одного массива в другой
+array.do	iterate and modify the array content via the side-chain / обход и модификация содержимого массива через боковую цепочку
+array.each	process each array element via side-chain / обработка каждого элемента массива через боковую цепочку
+array.fill	fill the array with a single value, pattern or function / заполнение массива одним значением, шаблоном или функцией
 array.grainer~	array granulator / гранулятор звуковой таблицы
 array.hist	calculate the array histogram / вычисление гистограммы массива
 array.histogram	calculate the array histogram / вычисление гистограммы массива
-array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы, с управлением по LTC
+array.ltcplay~	array player controlled by LTC / проигрывание звуковой таблицы с управлением по LTC
 array.mean	calculates the array arithmetic mean value / вычисляет среднее арифметическое значение массива
 array.minmax	find minimal and max values in the array / поиск минимального и максимального значения в массиве
 array.play~	array player with variable speed and amplitude / проигрывание массива с изменяемой скоростью и амплитудой
@@ -28,18 +28,18 @@ array.readwrite~	simultaneous read/write signals to the array / одноврем
 array.rw~	simultaneous read/write signals to the array / одновременное чтение/запись сигналов в массив
 array.resample	resampling the array / пересемплирование массива
 array.r	resampling the array / пересемплирование массива
-array.rms	calculates the root-mean-square value for the array / вычисляет среднее квадратичное значение для массива
-array.set	set the array content from the list data / устанавливает содержание массива данными из списка
-ceammc/list->array	set the array content from the list data / устанавливает содержание массива данными из списка
-list->array	set the array content from the list data / устанавливает содержание массива данными из списка
+array.rms	calculates the root-mean-square value for the array / вычисляет среднеквадратичное значение для массива
+array.set	set the array content from the list data / устанавливает содержимое массива данными из списка
+ceammc/list->array	set the array content from the list data / устанавливает содержимое массива данными из списка
+list->array	set the array content from the list data / устанавливает содержимое массива данными из списка
 array.stddev	calculates standard deviation for array values / вычисляет стандартное отклонение для значений массива
 array.stretch	the array time-stretch, pitch-shift or rate-change / растяжение во времени, изменение высоты тона или скорости у массива
-array.sum	calculates sum of array elements / вычисляет сумму элементов массива
-array.sum2	calculates sum of squares of array elements / вычисляет сумму квадратов элементов массива
-array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейного индекса для массива
+array.sum	calculates the sum of array elements / вычисляет сумму элементов массива
+array.sum2	calculates the sum of squares of array elements / вычисляет сумму квадратов элементов массива
+array.tramp~	triggered ramp index generator for the array / запускаемый генератор линейно нарастающего индекса для массива
 array.variance	calculates variance of array values / вычисляет дисперсию значений массива
 array.vplay	simple array player for using with the [vline~] object / простой плеер массивов для использования с объектом [vline~]
-array.window	fills the array with the window function / заполнение массива оконной функцией
+array.window	fills the array with the window function / заполняет массив оконной функцией
 plot.geomspace~	generates a sequence of numbers that are evenly distributed on a logarithmic scale (geometric progression) / выводит последовательность равномерно распределенных по логарифмической шкале чисел (геометрическая прогрессия)
 plot.hist~	calculates and displays the histogram of the input signal / вычисляет и выводит гистограмму входного сигнала
 ceammc/hist~	calculates and displays the histogram of the input signal / вычисляет и выводит гистограмму входного сигнала
@@ -80,35 +80,35 @@ ceammc/merge~	merge audio signals / слияние аудиосигналов
 metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
 metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
 metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
-metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном изменяющий свой период при каждом ударе в указанной последовательности
+metro.seq	a metronome that changes its period with each beat in the specified sequence / метроном, изменяющий свой период при каждом ударе в указанной последовательности
 metro.wchoice	a metronome with a random selection of period at each beat from a specified list with weighted coefficients / метроном со случайным выбором периода при каждом ударе из заданного списка с весовыми коэффициентами
 mix~	multichannel signal mixer / многоканальный микшер сигналов
 ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
 nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
-radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
-ceammc/radio	upon receiving the index, the state of individual outputs is established as a radio switch / при поступлении индекса устанавлиет состояние отдельных выходов как радиопереключатель
-split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
-ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный сплиттер сигналов
-spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
-ceammc/spring	behaves like a spring, bouncing back to its original state / ведет себя как пружина, возвращающаяся в первоначальное состояние
-sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
-ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполняющих стек петель
+radio	non GUI radio switch / радиопереключатель без графического интерфейса
+ceammc/radio	non GUI radio switch / радиопереключатель без графического интерфейса
+split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов
+ceammc/split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов
+spring	behaves like a spring, bouncing back to its original state / ведёт себя как пружина, возвращающаяся в исходное состояние
+ceammc/spring	behaves like a spring, bouncing back to its original state / ведёт себя как пружина, возвращающаяся в исходное состояние
+sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
+ceammc/sync	synchronization of multiple values without overflowing stack loops / синхронизация нескольких значений без переполнения стека из-за петель
 window	returns the value of the window function / возвращает значение оконной функции
 ceammc/window	returns the value of the window function / возвращает значение оконной функции
 ceammc/win	returns the value of the window function / возвращает значение оконной функции
 win	returns the value of the window function / возвращает значение оконной функции
 xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
 ceammc/xdac~	[dac~] with channel ranges / [dac~] с диапазонами каналов
-xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
-ceammc/xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стерео сигналов
+xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стереосигналов
+ceammc/xfade2~	multichannel cross-fade for stereo signals / многоканальный кроссфейд для стереосигналов
 xfade~	multichannel cross-fade / многоканальный кроссфейд
 ceammc/xfade~	multichannel cross-fade / многоканальный кроссфейд
 z~	integer sample delay / целочисленная задержка сэмплов
 ceammc/z~	integer sample delay / целочисленная задержка сэмплов
-chaos.gbman0	Gingerbread man map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
-chaos.gbman0~	Gingerbread man map chaotic generator / хаотический генератор на основе отображения Пряничного человечка
+chaos.gbman0	Gingerbread man map chaotic generator / хаотический генератор на основе отображения «Пряничный человечек»
+chaos.gbman0~	Gingerbread man map chaotic generator / хаотический генератор на основе отображения «Пряничный человечек»
 chaos.jong	Peter de Jong attractor / аттрактор Питера де Йонга
 noise.jong	Peter de Jong attractor / аттрактор Питера де Йонга
 chaos.logistic	logistic map chaotic generator / хаотический генератор на основе логистического отображения
@@ -121,27 +121,27 @@ array.phase->sample	converting the array phase [0..1] to the sample index / пр
 array.s2p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.s->p	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
 array.sample->phase	convert the sample index to the phase range [0..1] / преобразование индекса семпла в фазовый диапазон [0..1]
-conv.amp2dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
-ceammc/amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
-amp->dbfs	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
+conv.amp2dbfs	convert from the amplitude to a decibel full scale / преобразование амплитуды в децибелы полной шкалы
+ceammc/amp->dbfs	convert from the amplitude to a decibel full scale / преобразование амплитуды в децибелы полной шкалы
+amp->dbfs	convert from the amplitude to a decibel full scale / преобразование амплитуды в децибелы полной шкалы
 conv.amp2dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
 ceammc/amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
 amp->dbfs~	convert from the amplitude to a decibel full scale / преобразование из амплитуды в децибелы полной шкалы
 conv.bar2ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
 ceammc/bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
 bar->ms	calculates bar and beat duration / вычисляет продолжительность такта и ударной доли
-conv.bits2bang	convert list of bits to bang events / конвертирует список битов в пустые события
-ceammc/bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
-bits->bang	convert list of bits to bang events / конвертирует список битов в пустые события
-conv.bits2int	convert list of bits to integer / преобразовать список битов в целое число
-ceammc/bits->int	convert list of bits to integer / преобразовать список битов в целое число
-bits->int	convert list of bits to integer / преобразовать список битов в целое число
-conv.bits2note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
-ceammc/bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
-bits->note	convert list of bits into note, velocity pairs / конвертирует список битов в пары: номер ноты, сила нажатия
-conv.bits2pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
-ceammc/bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
-bits->pos	converts the list of bits into the list of checked bit position / преобразует список битов в список позиций установленных битов
+conv.bits2bang	convert list of bits to bang events / преобразует список битов в события bang
+ceammc/bits->bang	convert list of bits to bang events / преобразует список битов в события bang
+bits->bang	convert list of bits to bang events / преобразует список битов в события bang
+conv.bits2int	convert list of bits to integer / преобразует список битов в целое число
+ceammc/bits->int	convert list of bits to integer / преобразует список битов в целое число
+bits->int	convert list of bits to integer / преобразует список битов в целое число
+conv.bits2note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
+ceammc/bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
+bits->note	convert list of bits into note, velocity pairs / преобразует список битов в пары «номер ноты, сила нажатия»
+conv.bits2pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
+ceammc/bits->pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
+bits->pos	converts the list of bits into the list of checked bit positions / преобразует список битов в список позиций установленных битов
 conv.bpm2hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
 ceammc/bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
 bpm->hz	converts BPM tempo into a frequency in hertz / преобразует темп BPM в частоту в герцах
@@ -151,15 +151,15 @@ bpm->ms	converts the BPM tempo into a beat period in milliseconds / преобр
 conv.bpm2sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
 ceammc/bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
 bpm->sec	converts the BPM tempo into a period in seconds / преобразует темп BPM в период между ударными долями в секундах
-conv.car2pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-ceammc/car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-car->pol	converts cartesian coords to polar / преобразует картезианские координаты в полярные
-conv.cc2amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
-ceammc/cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
-cc->amp	converts from MIDI Control Change range / конвертирует из диапазона MIDI Control Change
-conv.char2morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
-ceammc/char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
-char->morse	converts the single character into the Morse code / преобразует единичный символ в код Морзе
+conv.car2pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
+ceammc/car->pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
+car->pol	converts cartesian coords to polar / преобразует декартовы координаты в полярные
+conv.cc2amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
+ceammc/cc->amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
+cc->amp	converts from MIDI Control Change range / преобразует из диапазона MIDI Control Change
+conv.char2morse	converts the single character into the Morse code / преобразует один символ в код Морзе
+ceammc/char->morse	converts the single character into the Morse code / преобразует один символ в код Морзе
+char->morse	converts the single character into the Morse code / преобразует один символ в код Морзе
 conv.color2rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
 ceammc/color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
 color->rgba	converts the named or hex color into separate RGBA values / преобразует именованный или шестнадцатеричный цвет в отдельные значения RGBA
@@ -172,101 +172,101 @@ dbfs->amp~	convert decibel full scale to amplitude / преобразовани�
 conv.degree2key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 ceammc/degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
 degree->key	converts the scale degree into a key number / преобразует номер ступени лада в номер клавиши
-conv.edge2bang	edge detector for numeric stream / детектор перехода для численного потока
-ceammc/edge->bang	edge detector for numeric stream / детектор перехода для численного потока
-edge->bang	edge detector for numeric stream / детектор перехода для численного потока
+conv.edge2bang	edge detector for numeric stream / детектор перехода для числового потока
+ceammc/edge->bang	edge detector for numeric stream / детектор перехода для числового потока
+edge->bang	edge detector for numeric stream / детектор перехода для числового потока
 conv.guido2note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 ceammc/guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
 guido->note	convert the Guido notation into a MIDI pitch and duration / конвертер из Guido-нотации в MIDI ноту и длительность
-conv.hex2int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-ceammc/hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-hex->int	converts hex symbol into an integer value / конвертирует шестнадцатеричный символ в целочисленное значение
-conv.hsl2rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
-ceammc/hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
-hsl->rgb	convert HSL color values to RGB / преобразование цветовых значений из HSL в RGB
-conv.int2bits	convert integer to list of bits / конвертировать целое число в список битов
-ceammc/int->bits	convert integer to list of bits / конвертировать целое число в список битов
-int->bits	convert integer to list of bits / конвертировать целое число в список битов
-conv.lab2rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
-ceammc/lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
-lab->rgb	convert LAB color values to RGB / преобразование цветовых значений из LAB в RGB
-conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
-ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
-lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с разрешенным 0
+conv.hex2int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
+ceammc/hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
+hex->int	converts hex symbol into an integer value / преобразует шестнадцатеричный символ в целое число
+conv.hsl2rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
+ceammc/hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
+hsl->rgb	convert HSL color values to RGB / преобразует цветовые значения из HSL в RGB
+conv.int2bits	convert integer to list of bits / преобразует целое число в список битов
+ceammc/int->bits	convert integer to list of bits / преобразует целое число в список битов
+int->bits	convert integer to list of bits / преобразует целое число в список битов
+conv.lab2rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
+ceammc/lab->rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
+lab->rgb	convert LAB color values to RGB / преобразует цветовые значения из LAB в RGB
+conv.lin2curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
+ceammc/lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
+lin->curve	map linear to exponential range with 0 allowed / отображает линейный диапазон в экспоненциальный с допустимым нулём
 conv.lin2exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 ceammc/lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
 lin->exp	maps linear range to exponential range / отображает линейный диапазон в экспоненциальный
-conv.lin2lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-ceammc/lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-lin->lin	converts from the one linear range into another / отображает один линейный диапазон в другой
-ceammc/l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
-l->l	converts from the one linear range into another / отображает один линейный диапазон в другой
+conv.lin2lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+ceammc/lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
+ceammc/l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
+l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
 conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-conv.list2props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-ceammc/list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-list->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-ceammc/any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-any->props	converts list to series of property messages / преобразует список в серию свойств-сообщений
-conv.midi2freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-midi->freq	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-ceammc/m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-m->f	advanced MIDI pitch conversion to a frequency / продвинутое преобразование MIDI нот в частоту в Гц
-conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-ms->bpm	converts period in milliseconds to BPM tempo / преобразование периода в миллисекундах в темп BPM
-conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
-ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
+conv.list2props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+ceammc/list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+ceammc/any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+any->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
+conv.midi2freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+ceammc/midi->freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+midi->freq	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+ceammc/m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+m->f	advanced MIDI pitch conversion to a frequency / расширенное преобразование MIDI-номера в частоту
+conv.ms2bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
+ceammc/ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
+ms->bpm	converts period in milliseconds to BPM tempo / преобразует период в миллисекундах в темп BPM
+conv.ms2samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
+ceammc/ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
+ms->samp	convert time in milliseconds to number of samples according to current sample rate / преобразует время в миллисекундах в количество семплов в соответствии с текущей частотой дискретизации
 conv.ms2samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ceammc/ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 ms->samp~	convert time in milliseconds to number of samples according to current sample rate / преобразовать время в миллисекундах в количество семплов в соответствии с текущей скоростью семплирования
 conv.ms2str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ceammc/ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
 ms->str	formats time in milliseconds to symbol or string / форматирует время в миллисекундах в символ или строку
-conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
-ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
-note->guido	converts MIDI note number to Guido notation / преобразует MIDI ноту в Guido-нотацию
-conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
+conv.note2guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
+ceammc/note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
+note->guido	converts MIDI note number to Guido notation / преобразует MIDI-номер ноты в нотацию GUIDO
+conv.phase2rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
+ceammc/phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
+phase->rad	converts phase value [0-1] to radians [0-2π] / преобразует значение фазы [0, 1] в радианы [0, 2π]
 conv.phase2rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 ceammc/phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
 phase->rad~	convert phase value [0-1] to radians [0-2π] / преобразует значение фазы [0-1] в радианы [0-2π]
-conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
-ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
-pitch->midi	converts SPN pitch to MIDI note number / преобразует ноту в формате SPN в номер ноты MIDI
-conv.pol2car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
-ceammc/pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
-pol->car	convert from polar coordinates to cartesian / преобразование из полярных координат в картезианские
-conv.rad2phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
-ceammc/rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
-rad->phase	convert radians value to phase [0-1) / преобразование радианов в фазу [0-1)
+conv.pitch2midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
+ceammc/pitch->midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
+pitch->midi	converts SPN pitch to MIDI note number / преобразует высоту в нотации SPN в MIDI-номер ноты
+conv.pol2car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
+ceammc/pol->car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
+pol->car	convert from polar coordinates to cartesian / преобразует полярные координаты в декартовы
+conv.rad2phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
+ceammc/rad->phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
+rad->phase	convert radians value to phase [0-1) / преобразует значение в радианах в фазу [0, 1)
 conv.rad2phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 ceammc/rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
 rad->phase~	convert radians value to phase [0-1) / преобразование значения радианов в фазу [0-1)
-conv.rgb2hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-ceammc/rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-rgb->hex	convert separate RGB values to hex color / преобразование отдельных значений RGB в шестнадцатеричный цвет
-conv.samp2ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-ceammc/samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-samp->ms	converts samples to millisecond according sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
+conv.rgb2hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
+ceammc/rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
+rgb->hex	convert separate RGB values to hex color / преобразует отдельные значения RGB в hex-значение цвета
+conv.samp2ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
+ceammc/samp->ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
+samp->ms	converts samples to millisecond according sample rate / преобразует количество семплов в миллисекунды в соответствии с частотой дискретизации
 conv.samp2ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 ceammc/samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
 samp->ms~	converts samples to milliseconds according to sample rate / преобразовывает семплы в миллисекунды в соответствии со скоростью семплирования
-conv.samp2sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-ceammc/samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
-samp->sec	convert samples to seconds according to sample rate / преобразовывает семплы в секунды в соответствии со скоростью семплирования
+conv.samp2sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
+ceammc/samp->sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
+samp->sec	convert samples to seconds according to sample rate / преобразует количество семплов в секунды в соответствии с частотой дискретизации
 conv.sec2bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 ceammc/sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
 sec->bpm	converts period in seconds to frequency in BPM / преобразует период в секундах в темп BPM
-conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
-sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует секунды в количество семплов согласно текущей скорости семплирования
+conv.sec2samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
+ceammc/sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
+sec->samp	converts time in seconds to number of samples according to current sample rate / преобразует время в секундах в количество семплов в соответствии с текущей частотой дискретизации
 conv.sec2str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 ceammc/sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
 sec->str	formats time in seconds to symbol or string / форматирует время в секундах в символ или строку
@@ -278,69 +278,69 @@ ceammc/sig->float~	converts audio signal to control numeric stream / преоб�
 sig->float~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
 ceammc/s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
 s->f~	converts audio signal to control numeric stream / преобразует аудиосигнал в управляющий числовой поток
-conv.str2sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
-ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
-str->sec	converts the formatted time to a float value in seconds / преобразует отформатированное время в числовое значение в секундах
+conv.str2sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
+ceammc/str->sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
+str->sec	converts the formatted time to a float value in seconds / преобразует форматированное время в число секунд
 music.dur2time	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
 music.d->t	transforms the list of musical durations into a list of time periods / преобразование списка музыкальных длительностей в список временных периодов
 music.voice2midi	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
 music.v->m	convert single voice music to list of MIDI pitches / конвертирует одноголосную музыкальную нотацию в список нот MIDI
 color.mix	color mixer / смешивание цветов
-color.scale	creation of the color scale / создание цветовой шкалы
-data.bimap	bidirectional map container / двунаправленное отображение
-ceammc/bimap	bidirectional map container / двунаправленное отображение
-bimap	bidirectional map container / двунаправленное отображение
-data.color	color data type / цветовой тип данных
-color	color data type / цветовой тип данных
-ceammc/color	color data type / цветовой тип данных
-data.copy	makes a copy for any data type: MList, Set etc... / делает копии любых типов данных: MList, Set и т.д.
-data.dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
-ceammc/dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
-dict	the dictionary container: stores key-values pairs / контейнер словаря: хранит пары ключ-значение
-data.fifo	FIFO (First In First Out) - the queue data container / FIFO First In First Out) - контейнер данных "очередь"
-data.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
-.float	a multi-functional float object / многофункциональный объект числа с плавающей точкой
-.f	a multi-functional float object / многофункциональный объект числа с плавающей точкой
-data.int	a multi-functional integer object / многофункциональный объект целого числа
-.int	a multi-functional integer object / многофункциональный объект целого числа
-.i	a multi-functional integer object / многофункциональный объект целого числа
-data.list	the list container / cписок
+color.scale	creation of a color scale / создание цветовой шкалы
+data.bimap	bidirectional map container / контейнер двунаправленного отображения
+ceammc/bimap	bidirectional map container / контейнер двунаправленного отображения
+bimap	bidirectional map container / контейнер двунаправленного отображения
+data.color	color data type / тип данных «цвет»
+color	color data type / тип данных «цвет»
+ceammc/color	color data type / тип данных «цвет»
+data.copy	makes a copy of any data type: MList, Set etc. / создаёт копию любого типа данных: MList, Set и т.д.
+data.dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
+ceammc/dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
+dict	the dictionary container: stores key-value pairs / контейнер словаря: хранит пары ключ-значение
+data.fifo	FIFO (First In First Out) - the queue data container / FIFO (First In First Out) — контейнер данных «очередь»
+data.float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
+.float	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
+.f	a multi-functional float object / многофункциональный объект для работы с числами с плавающей точкой
+data.int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
+.int	a multi-functional integer object / многофункциональный объект для работы с целыми числами
+.i	a multi-functional integer object / многофункциональный объект для работы с целыми числами
+data.list	the list container / список
 data.mlist	multidimensional list container / контейнер многомерного списка
 ceammc/mlist	multidimensional list container / контейнер многомерного списка
 mlist	multidimensional list container / контейнер многомерного списка
 ceammc/ml	multidimensional list container / контейнер многомерного списка
 ml	multidimensional list container / контейнер многомерного списка
 data.path	filesystem path datatype / тип данных: путь в файловой системе
-data.set	the set: container that store only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
-data.set2list	converts the set to the list / преобразует множество в список
-ceammc/set->list	converts the set to the list / преобразует множество в список
-set->list	converts the set to the list / преобразует множество в список
+data.set	the set: a container that stores only unique elements / множество: контейнер, в котором хранятся только уникальные элементы
+data.set2list	converts a set to a list / преобразует множество в список
+ceammc/set->list	converts a set to a list / преобразует множество в список
+set->list	converts a set to a list / преобразует множество в список
 dict.contains	check if the dictionary contains the key / проверка, содержит ли словарь указанный ключ
-dict.each	map each value in dictionary with the side-chain function / отображение каждого значения в словаре с помощью боковой цепи обработки
-dict.from_list	creates dictionary from the list / создает словарь из списка
-ceammc/list->dict	creates dictionary from the list / создает словарь из списка
-list->dict	creates dictionary from the list / создает словарь из списка
-dict.get	output the dictionary values by pre-defined key list / выводит значения словаря по предварительно заданному списку ключей
+dict.each	map each value in a dictionary with the side-chain function / обрабатывает каждое значение словаря с помощью боковой цепочки (side-chain)
+dict.from_list	creates a dictionary from a list / создаёт словарь из списка
+ceammc/list->dict	creates a dictionary from a list / создаёт словарь из списка
+list->dict	creates a dictionary from a list / создаёт словарь из списка
+dict.get	output the dictionary values by a pre-defined key list / выводит значения словаря по заранее заданному списку ключей
 dict.keys	output the list of dictionary keys / выводит список ключей словаря
-dict.pass	passes only specified keys in the dictionary / пропускает (фильтрует) только указанные ключи в словаре
+dict.pass	passes only the specified keys in the dictionary / оставляет в словаре только указанные ключи (фильтрация)
 dict.reject	rejects specified keys from the dictionary / удаляет указанные ключи из словаря
 dict.size	output the dictionary size (number of key/value pairs) / выводит размер словаря (число пар ключ/значение)
-dict.to_list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-ceammc/dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-dict->list	converts dictionary to plain list / конвертирует словарь в простой одномерный список
-dict.values	output the dictionary values as MList / выводит значения словаря в виде многоуровневого списка (MList)
+dict.to_list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
+ceammc/dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
+dict->list	converts a dictionary to a plain list / преобразует словарь в простой одномерный список
+dict.values	output the dictionary values as an MList / выводит значения словаря в виде многоуровневого списка (MList)
 global.bimap	global bidirectional map / глобальное двунаправленное отображение
 local.bimap	local the to patch bidirectional map container / локальный для патча контейнер двунаправленного отображения
 mlist.flatten	converts a multi-level list into a single-level list / преобразует многоуровневый список в одноуровневый
 rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
 rtree->list	convert OpenMusic-like rhythm tree to list of fractions / преобразует OpenMusic-подобное ритмическое дерево в список дробей
-set.contains	checks whether the predefined element is present in the input set / проверяет, присутстует ли предварительно заданный элемент во входном множестве
-set.diff	difference between two sets / разность между множествами
-set.equal	checks if two sets are equal (contains same elements) / проверяет, равны ли два множества (содержат одинаковые элементы)
+set.contains	checks whether the predefined element is present in the input set / проверяет, присутствует ли заранее заданный элемент во входном множестве
+set.diff	difference between two sets / разность двух множеств
+set.equal	checks if two sets are equal (contain the same elements) / проверяет, равны ли два множества (содержат одни и те же элементы)
 set.intersect	intersection of sets / пересечение множеств
-set.size	outputs the number of elements in a set / выводит количество элементов в множестве
-set.symdiff	symmetric difference between two sets / симметрическая разность между двумя множествами
+set.size	outputs the number of elements in a set / выводит число элементов во множестве
+set.symdiff	symmetric difference between two sets / симметрическая разность двух множеств
 set.union	union of sets / объединение множеств
 dyn.comp2~	stereo dynamic range compressor / стерео-компрессор динамического диапазона
 dyn.comp_peak2~	stereo peak feed forward compressor with channel linking / пиковый стерео-компрессор прямой топологии
@@ -353,27 +353,27 @@ dyn.comp_up~	mono upward compressor / восходящий моно-компре
 comp.up~	mono upward compressor / восходящий моно-компрессор
 dyn.comp~	mono dynamic range compressors / моно-компрессор
 dyn.expand2~	stereo dynamic range expander with channel linking / расширение динамического стерео-диапазона
-dyn.expand~	mono dynamic range expander / расширение динамического моно-диапазона
+dyn.expand~	mono dynamic range expander / монофонический экспандер динамического диапазона
 dyn.gate2~	stereo signal gate / стерео-сигнальный гейт
 dyn.gate~	mono signal gate / моно-сигнальный гейт
 dyn.limit2~	stereo 1176LN Peak Limiter / пиковый стерео-ограничитель сигнала в схемотехнике 1176LN
-dyn.limit~	mono 1176LN Peak Limiter / пиковый моно-ограничитель сигнала в схемотехнике 1176LN
-dyn.softclip~	soft signal clip / мягкое клиппирование сигнала
-env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (Attack, Decay, Sustain, Release)
-env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release
-env.asr2~	stereo Attack/Sustain/Release envelope generator / стерео генератор огибающей Attack/Sustain/Release
-env.asr~	Attack/Sustain/Release envelope generator / генератор огибающей Attack/Sustain/Release
+dyn.limit~	mono 1176LN Peak Limiter / пиковый моно-ограничитель в стиле 1176LN
+dyn.softclip~	soft signal clip / мягкое ограничение сигнала
+env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator / генератор огибающей ADSR (атака, спад, удержание, восстановление)
+env.ar~	Attack/Release envelope generator / генератор огибающей Attack/Release (атака/восстановление)
+env.asr2~	stereo Attack/Sustain/Release envelope generator / стереофонический генератор огибающей Attack/Sustain/Release (атака/удержание/восстановление)
+env.asr~	Attack/Sustain/Release envelope generator / генератор огибающей Attack/Sustain/Release (атака/удержание/восстановление)
 env.concat	envelope concatenation / конкатенация огибающих
-env.follow~	envelope follower with independent attack and release times / детектор огибающей с независимой атакой и временем отпускания
-env.mix	mix between two envelopes that contain the equal number of segments / микс между двумя огибающими, содержащими равное количество сегментов
-env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и отпусканием
+env.follow~	envelope follower with independent attack and release times / детектор огибающей с независимыми временами атаки и восстановления
+env.mix	mix between two envelopes that contain the equal number of segments / смешивание двух огибающих с одинаковым числом сегментов
+env.smooth~	envelope with an exponential attack and release / огибающая с экспоненциальной атакой и восстановлением
 env.tscale	envelope timescale / растяжение огибающей во времени
 env.tshift	envelope time-shift (horizontal) / сдвиг огибающей по времени (по горизонтали)
-env.vscale	envelope amplitude value-scale / изменение амплитуды огибающей
-env2array	renders the envelope into the array / рендеринг огибающей в массив
-ceammc/env2array	renders the envelope into the array / рендеринг огибающей в массив
-ceammc/env->array	renders the envelope into the array / рендеринг огибающей в массив
-env->array	renders the envelope into the array / рендеринг огибающей в массив
+env.vscale	envelope amplitude value-scale / масштабирование амплитудных значений огибающей
+env2array	renders the envelope into the array / отрисовывает огибающую в массив
+ceammc/env2array	renders the envelope into the array / отрисовывает огибающую в массив
+ceammc/env->array	renders the envelope into the array / отрисовывает огибающую в массив
+env->array	renders the envelope into the array / отрисовывает огибающую в массив
 env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 ceammc/env2vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
 ceammc/env->vline	Converts the envelope into the sequence of messages for [vline~] object / преобразует огибающую в последовательность сообщений для объекта [vline~]
@@ -391,8 +391,8 @@ ceammc/expand_env	substitutes environment variables in a data stream / подс�
 flow.append	append message to flow stream / добавляет сообщение в поток
 flow.change	rejects repeated input messages / удаляет повторяющиеся сообщения
 flow.count	control flow event counter / счетчик числа сообщений в управляющем потоке
-flow.delay	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
-flow.del	enhanced version of the vanilla [delay] object / усовершенствованная версия объекта [delay]
+flow.delay	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
+flow.del	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
 flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
@@ -403,14 +403,14 @@ flow.demultiplex~	audio stream demultiplexer / демультиплексор а
 flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
 ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
 demux~	audio stream demultiplexer / демультиплексор аудиопотока
-flow.dollar	Substitute the $-values / подставляет $-значения
-flow.$$	Substitute the $-values / подставляет $-значения
-flow.dup	duplicate messages / дупликатор сообщений
-flow.float	pass floats
-flow.f	pass floats
-flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
-ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
-gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. аналог объекта [spigot]
+flow.dollar	Substitute the $-values / подставляет значения $-переменных
+flow.$$	Substitute the $-values / подставляет значения $-переменных
+flow.dup	duplicate messages / дублирование сообщений
+flow.float	pass floats / пропускает только числа
+flow.f	pass floats / пропускает только числа
+flow.gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
+ceammc/gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
+gate	control flow gate. [spigot] object analog / шлюз для потока сообщений. Аналог объекта [spigot]
 flow.greater	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
@@ -425,11 +425,11 @@ flow.less	numeric stream router by 'less' condition / маршрутизатор
 flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
 flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
 flow.<=	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
-flow.list2many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
-ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
-list->many	routes the list element with the corresponding message / маршрутизирует элемент списка с соответствующим сообщением
+flow.list2many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
+ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
+list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
-flow.mem	store into the memory or output the control flow messages / сохраняет в памяти или выводит сообщения потока управления
+flow.mem	store into the memory or output the control flow messages / сохраняет сообщения потока управления в памяти или выводит их
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока
 flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
@@ -440,9 +440,9 @@ flow.multiplex~	audio stream multiplexer / мультиплексор аудио
 flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
 ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
 mux~	audio stream multiplexer / мультиплексор аудиопотока
-flow.once	pass the only message / пропускает единственное сообщение
-ceammc/once	pass the only message / пропускает единственное сообщение
-once	pass the only message / пропускает единственное сообщение
+flow.once	pass the only message / пропускает только одно сообщение
+ceammc/once	pass the only message / пропускает только одно сообщение
+once	pass the only message / пропускает только одно сообщение
 flow.pack	packs atoms from multiple stream into the single one / упаковка атомов из нескольких потоков в один
 flow.pass	pass specified values / пропускает указанные значения
 ceammc/pass	pass specified values / пропускает указанные значения
@@ -486,8 +486,8 @@ ceammc/tee~	extracts control messages from audio connections / извлекае�
 tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ceammc/~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
-replace	replace atoms in data stream / замена атомов в потоке данных
-ceammc/replace	replace atoms in data stream / замена атомов в потоке данных
+replace	replace atoms in data stream / заменяет атомы в потоке данных
+ceammc/replace	replace atoms in data stream / заменяет атомы в потоке данных
 route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
 route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
 route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
@@ -585,7 +585,7 @@ fx.recho~	reversed echo effect / обратный эффект эха
 fx.ringmod~	ring modulator effect / кольцевой модулятор
 fx.room~	Gardner's room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
 fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
-fx.scramble~	scramble delayed sound fragments / скремблер задержанных звуковых фрагментов
+fx.scramble~	scramble delayed sound fragments / скремблирование задержанных звуковых фрагментов
 fx.shimmer~	shimmer reverb effect / шиммер-эффект реверберации
 fx.stutter~	stutter effect / эффект заикания
 fx.tapiir~	multi-tap delay / многоуровневая задержка
@@ -600,37 +600,37 @@ global.int	global named integer object / глобальной именованн
 global.list	global named list / глобальный именованный список
 global.mlist	global named multilevel list (MList) / глобальный именованный многоуровневый список (MList)
 global.set	global named set / глобальное именованное множество
-hw.apple_smc	query Apple system management control / запросы к системе SMC в Apple
-hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения в Apple
+hw.apple_smc	query Apple system management control / запросы к контроллеру управления системой (SMC) Apple
+hw.apple_sms	query the sudden motion sensor in Apples / опрос датчика внезапного движения (Sudden Motion Sensor) в Mac
 hw.arduino	Arduino device / устройство Arduino
-hw.display	get/set display properties / получение/установка свойств дисплея
-hw.gamepad	gamepad controller / геймпад контроллеры
+hw.display	get/set display properties / получение и установка свойств дисплея
+hw.gamepad	gamepad controller / контроллер геймпада
 hw.kbd_light	controlling the keyboard backlight on some devices / управление подсветкой клавиатуры на некоторых устройствах
-hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами Motu AVB по HTTP
+hw.motu.avb	controls Motu AVB devices over HTTP requests / управление устройствами MOTU AVB через HTTP-запросы
 hw.printer	basic document printing support / базовая поддержка печати документов
-hw.rpi.adc.ads1115	driver for 16-bit ADC on ADS1115 chip for Raspberry Pi / драйвер для 16-битного АЦП на чипе ADS1115 для Raspberry Pi
-hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
-hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
-hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер для ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
-hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер для OLED-дисплея на чипе SSD1306 для Raspberry Pi
+hw.rpi.adc.ads1115	driver for 16-bit ADC on ADS1115 chip for Raspberry Pi / драйвер 16-битного АЦП на чипе ADS1115 для Raspberry Pi
+hw.rpi.display.hd44780	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
+hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
+hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
+hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер OLED-дисплея на чипе SSD1306 для Raspberry Pi
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
-hw.rpi.gpio.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводами через выводы GPIO на Raspberry Pi
-hw.rpi.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводами через выводы GPIO на Raspberry Pi
-hw.rpi.i2c.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
-hw.rpi.pwm.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер для 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.gpio.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
+hw.rpi.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
+hw.rpi.i2c.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
+hw.rpi.pwm.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
 hw.rpi.pwm	hardware PWM output for Raspberry Pi / аппаратный ШИМ (PWM) для Raspberry Pi
 hw.rpi.rotenc	rotary encoder for Raspberry Pi / поворотный энкодер для Raspberry Pi
 hw.rpi.sensor.dht11	digital humidity and temperature sensor (DHT11) for Raspberry Pi / цифровой датчик влажности и температуры (DHT11) для Raspberry Pi
 hw.rpi.sensor.ir	IR (infrared) sensors and protocols for Raspberry Pi / ИК (инфракрасные) датчики и протоколы для Raspberry Pi
-hw.rpi.sensor.mpr121	12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration. / 12-канальный I²C-контроллер ёмкостного сенсора с низким энергопотреблением и автоматической калибровкой.
+hw.rpi.sensor.mpr121	12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration / 12-канальный I²C-контроллер ёмкостного сенсора с низким энергопотреблением и автоматической калибровкой
 hw.rpi.sensor.mpu6050	MPU-6050 gyroscope and accelerometer for Raspberry Pi / MPU-6050 — гироскоп и акселерометр для Raspberry Pi
 hw.rpi.sensor.sr04	HC-SR04 ultrasonic ranging module for Raspberry Pi / ультразвуковой дальномер HC-SR04 для Raspberry Pi
 hw.rpi.sensor.vl53l0x	time-of-flight (ToF) laser-ranging sensor on the VL53L0X chip for Raspberry Pi / лазерный дальномер на чипе VL53L0X для Raspberry Pi
-hw.rpi.spi.max7219	LED matrix driver based on the MAX7219 chip for Raspberry Pi / драйвер для LED-матрицы на чипе MAX7219 для Raspberry Pi
-hw.rpi.spi.ws2812	WS2812 LED strip driver for Raspberry Pi / драйвер для светодиодной ленты WS2812 для Raspberry Pi
-hw.serial	serial port device / серийный порт устройства
-lang.faust~	real-time compilation of Faust DSP Language code / компиляция кода Faust DSP Language в реальном времени
-lang.lua	Lua JIT language bindings / языковые привязки для Lua JIT
+hw.rpi.spi.max7219	LED matrix driver based on the MAX7219 chip for Raspberry Pi / драйвер светодиодной матрицы на чипе MAX7219 для Raspberry Pi
+hw.rpi.spi.ws2812	WS2812 LED strip driver for Raspberry Pi / драйвер светодиодной ленты WS2812 для Raspberry Pi
+hw.serial	serial port device / устройство последовательного порта
+lang.faust~	real-time compilation of Faust DSP Language code / компиляция кода на языке Faust DSP в реальном времени
+lang.lua	Lua JIT language bindings / привязки языка Lua JIT
 ui.faust~	Faust DSP programming language widget / виджет языка программирования Faust
 lfo.+pulse~	unit-amplitude nonnegative low frequency pulse train / прямоугольная низкочастотная волна единичной амплитуды в диапазоне [0,+1]
 lfo.+saw~	positive unit-amplitude low frequency saw wave / низкочастотная пилообразная волна в диапазоне [0,+1]
@@ -737,7 +737,7 @@ local.mlist	local named List object / локальный для патча им�
 local.set	local named set object / локальное для патча именованное множество
 math.abs	absolute value function / абсолютное значение
 math.abs~	absolute value function for signals / функция абсолютного значения для сигналов
-math.acos	arc cosine function / арккосинус
+math.acos	arc cosine function / функция арккосинуса
 math.acosh	inverse hyperbolic cosine function / обратный гиперболический косинус
 math.acosh~	hyperbolic arc cosine for signals / обратный гиперболический косинус для сигналов
 math.acos~	arc cosine function for signals / арккосинус для сигналов
@@ -954,8 +954,8 @@ fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (F
 ceammc/fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (FluidSynth)
 modplug~	MOD file player / проигрыватель MOD-файлов
 ceammc/modplug~	MOD file player / проигрыватель MOD-файлов
-qrcode	QR code generator / генератор QR кода
-ceammc/qrcode	QR code generator / генератор QR кода
+qrcode	QR code generator / генератор QR-кодов
+ceammc/qrcode	QR code generator / генератор QR-кодов
 risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе
 sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 ceammc/sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
@@ -983,9 +983,9 @@ loadmsg	send the specified message upon patch loading / отправить ук�
 msg.pack	message pack / упаковка сообщений
 msg.sched	message dispatch scheduler / планировщик отправки сообщений
 msg.unpack	message unpack to selector and arguments / распаковка сообщения на селектор и аргументы
-rhythm.euclid	Euclid pattern generator / генератор эвклидовых паттернов
-rhythm.hexbeat	hexbeat pattern generator / генератор ритмического паттерна по шестнадцатиричным значениям
-rhythm.lsystem	L-system pattern generator / генератор ритмического рисунка на основе L-систем
+rhythm.euclid	Euclid pattern generator / генератор ритмических паттернов по алгоритму Евклида
+rhythm.hexbeat	hexbeat pattern generator / генератор ритмических паттернов из шестнадцатеричных значений
+rhythm.lsystem	L-system pattern generator / генератор ритмических паттернов на основе L-систем
 net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
 net.freesound	Freesound API v2 client / клиент для Freesound API v2
@@ -1007,7 +1007,7 @@ net.osc	OSC server start and control / запуск и управление OSC-
 net.ws.client	WebSocket client / WebSocket клиент
 net.ws.server	WebSocket server / WebSocket сервер
 noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
-noise.chua~	Chua's diode circuit / диодная схема цепи Чуа
+noise.chua~	Chua's diode circuit / диодная схема Чуа
 noise.clifford	Clifford attractor / аттрактор Клиффорда
 noise.collatz	collatz conjecture output / выводит число последовательности Коллаца
 noise.colored~	colored noise generator with an arbitrary spectral roll / генератор цветного шума с произвольным наклоном спектра
@@ -1041,11 +1041,11 @@ osc.square~	bandlimited square wave oscillator / осциллятор квадр
 osc.tri~	bandlimited triangle wave oscillator / осциллятор треугольной волны с ограниченным спектром
 canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
 ceammc/canvas.active	checks if the canvas of the object is on the top and active / проверяет, активно ли окно холста объекта и расположено ли оно поверх других
-canvas.current	get the information about the current canvas of the object / получение информации о текущем холста объекта
-canvas.dir	outputs the current canvas directory of the object and nesting level / выводит директорию холста у объекта и его уровень вложенности
-canvas.name	output the current canvas name of the object / выводит имя текущего холста у объекта
-canvas.path	output the current canvas file system full path of the object / выводит полный путь холста в файловой системе у объекта
-canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня у объекта
+canvas.current	get the information about the current canvas of the object / получение информации о текущем холсте объекта
+canvas.dir	outputs the current canvas directory of the object and the nesting level / выводит директорию холста объекта и уровень его вложенности
+canvas.name	output the current canvas name of the object / выводит имя текущего холста объекта
+canvas.path	output the current canvas file system full path of the object / выводит полный путь холста объекта в файловой системе
+canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня объекта
 patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
@@ -1139,45 +1139,45 @@ random.i	uniform random integer generator in the specified range / равном�
 random.linear	random linear distribution / случайное линейное распределение
 random.pw_const	piecewise constant random distribution / кусочно-постоянное случайное распределение
 random.pw_lin	piecewise linear random distribution / кусочно-линейное случайное распределение
-samp.time~	sample counter / счетчик семплов
-samp.t~	sample counter / счетчик семплов
+samp.time~	sample counter / счётчик семплов
+samp.t~	sample counter / счётчик семплов
 seq.arp	chord arpeggiator / арпеджиатор аккордов
-seq.bangs	bang event sequencer / секвенсер пустых событий
-seq.b	bang event sequencer / секвенсер пустых событий
+seq.bangs	bang event sequencer / секвенсор событий bang
+seq.b	bang event sequencer / секвенсор событий bang
 seq.counter	cyclic counter / циклический счётчик
-seq.life	Conway game of life sequencer / секвенсер для игры Life Джона Конвея
-seq.matrix	sequencer control for [ui.matrix] object / секвенсер для объекта [ui.matrix]
-seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени
-seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов через интервалы времени
+seq.life	Conway game of life sequencer / секвенсор на основе игры «Жизнь» Конвея
+seq.matrix	sequencer control for [ui.matrix] object / управление секвенсором для объекта [ui.matrix]
+seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов с заданными интервалами времени
+seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов с заданными интервалами времени
 seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
-seq.toggles	toggle sequencer / секвенсор переключающих событий
-seq.t	toggle sequencer / секвенсор переключающих событий
-sequencer	basic sequence player / базовый секвенсер значений
-ceammc/sequencer	basic sequence player / базовый секвенсер значений
-ceammc/seq	basic sequence player / базовый секвенсер значений
-seq	basic sequence player / базовый секвенсер значений
+seq.toggles	toggle sequencer / секвенсор переключающих событий (toggle)
+seq.t	toggle sequencer / секвенсор переключающих событий (toggle)
+sequencer	basic sequence player / базовый проигрыватель последовательностей
+ceammc/sequencer	basic sequence player / базовый проигрыватель последовательностей
+ceammc/seq	basic sequence player / базовый проигрыватель последовательностей
+seq	basic sequence player / базовый проигрыватель последовательностей
 snd.file	sound file loader with additional features / загрузчик звуковых файлов с дополнительными возможностями
 snd.play~	sound file player with additional capabilities / проигрыватель звуковых файлов с дополнительными возможностями
-hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
-hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высоких порядков
-hoa.2d.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
-hoa.encoder~	2D decoder of higher order ambisonics / двумерный кодировщик амбисоников высоких порядков
-hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
-hoa.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумерование и нормализация каналов в двумерных амбисониках
-hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
-hoa.map~	a 2D ambisonic multisource spatializer / многоканальное управление пространственными источниками в двумерных амбисониках
-hoa.2d.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
-hoa.optim~	a 2D ambisonic optimization tool / оптимизация двумерных амбисоников
-hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
-hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция из сферических гармоник в плоские волны
-hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
-hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / декомпозиция плоских двумерных волн в сферические гармоники
-hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
-hoa.rotate~	a 2D ambisonic sound field rotation / вращение двумерного амбисонического звукового поля
-hoa.2d.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
-hoa.space	2D planewaves amplitude control / контроль амплитуды двумерных плоских волн
-hoa.2d.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
-hoa.wider~	a 2D fractional ambisonic order simulator / двумерная симуляция дробного амбисонического порядка
+hoa.2d.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высших порядков
+hoa.decoder~	2D decoder of higher order ambisonics / двумерный декодер амбисоников высших порядков
+hoa.2d.encoder~	2D encoder of higher order ambisonics / двумерный кодировщик амбисоников высших порядков
+hoa.encoder~	2D encoder of higher order ambisonics / двумерный кодировщик амбисоников высших порядков
+hoa.2d.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумеровывает и нормализует каналы в двумерных амбисониках
+hoa.exchanger~	renumbers and normalizes the channels in 2d ambisonics / перенумеровывает и нормализует каналы в двумерных амбисониках
+hoa.2d.map~	a 2D ambisonic multisource spatializer / многоканальный 2D-пространственный микшер для амбисоников
+hoa.map~	a 2D ambisonic multisource spatializer / многоканальный 2D-пространственный микшер для амбисоников
+hoa.2d.optim~	a 2D ambisonic optimization tool / инструмент оптимизации для двумерных амбисоников
+hoa.optim~	a 2D ambisonic optimization tool / инструмент оптимизации для двумерных амбисоников
+hoa.2d.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция поля сферических гармоник в плоские волны
+hoa.projector~	a plane waves decomposer from circular harmonics domain / декомпозиция поля сферических гармоник в плоские волны
+hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
+hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics / восстанавливает двумерное разложение плоских волн в круговые гармоники
+hoa.2d.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
+hoa.rotate~	a 2D ambisonic sound field rotation / вращение звукового поля двумерных амбисоников
+hoa.2d.space	2D planewaves amplitude control / управление амплитудой двумерных плоских волн
+hoa.space	2D planewaves amplitude control / управление амплитудой двумерных плоских волн
+hoa.2d.wider~	a 2D fractional ambisonic order simulator / симулятор дробного порядка амбисоников для 2D
+hoa.wider~	a 2D fractional ambisonic order simulator / симулятор дробного порядка амбисоников для 2D
 hoa.3d.decoder~	3D decoder of higher order ambisonics / трехмерный декодер амбисоников высоких порядков
 hoa.3d.encoder~	3D encoder of higher order ambisonics / 3D кодировщик амбисоников высоких порядков
 hoa.3d.exchanger~	renumbers and normalizes the channels / перенумерование и нормализация каналов
@@ -1186,17 +1186,17 @@ hoa.3d.meter~	multi spherical meter with sound field descriptor / трехмер
 hoa.3d.optim~	a 3D ambisonic optimization tool / оптимизация трехмерных амбисоников высоких порядков
 hoa.3d.scope~	a 3d ambisonic harmonic scope / отображение сферических гармоник в трехмерном амбисоническом поле
 hoa.3d.wider~	a 3d fractional ambisonic order simulator / трехмерная симуляция дробного амбисонического порядка
-hoa.@process	properties manager for [hoa.process~] object / управление свойствами объекта [hoa.process~]
-hoa.in	message inlet for a patcher loaded by [hoa.process~] object / контрольный вход для патча, загружаемого объектом [hoa.process~]
+hoa.@process	properties manager for [hoa.process~] object / менеджер свойств объекта [hoa.process~]
+hoa.in	message inlet for a patcher loaded by [hoa.process~] object / вход сообщений для патча, загружаемого объектом [hoa.process~]
 hoa.in~	signal inlet for a patcher loaded by [hoa.process~] object / сигнальный вход для патча, загружаемого объектом [hoa.process~]
 hoa.map.ui	a GUI to spatialize sources on a map / GUI для пространственного размещения источников
-hoa.out	message outlet for a patcher loaded by hoa.process~ / контрольный выход для патча, загружаемого объектом [hoa.process~]
+hoa.out	message outlet for a patcher loaded by hoa.process~ / выход сообщений для патча, загружаемого объектом [hoa.process~]
 hoa.out~	signal inlet for a patcher loaded by hoa.process~ / сигнальный выход для патча, загружаемого объектом [hoa.process~]
 hoa.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
 hoa.2d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
 hoa.3d.process~	patcher loader for multichannel processing / загрузчик патчей для многоканальной обработки
-hoa.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
-hoa.2d.scope~	a 2d ambisonic harmonic scope / отображение сферических гармоник в двумерном амбисоническом поле
+hoa.scope~	a 2d ambisonic harmonic scope / осциллограф круговых гармоник для двумерных амбисоников
+hoa.2d.scope~	a 2d ambisonic harmonic scope / осциллограф круговых гармоник для двумерных амбисоников
 pan.cos~	two-channel equal power sine/cosine panner / двухканальный панорамный регулятор равной мощности на основе синуса/косинуса
 pan.linsig~	two-channel linear panner with signal control / двухканальный линейный панорамный регулятор с управлением сигналом
 pan.lin~	two-channel linear panner / двухканальный линейный панорамный регулятор
@@ -1256,10 +1256,10 @@ ceammc/string2any	converts symbol or string into a message / преобразу�
 sym->any	converts symbol or string into a message / преобразует символ или строку в сообщение
 str->any	converts symbol or string into a message / преобразует символ или строку в сообщение
 string2any	converts symbol or string into a message / преобразует символ или строку в сообщение
-symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-ceammc/symbol2intlist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-ceammc/sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
-sym->ilist	converts the symbol into a list of character codes / преобразует символьный тип в список кодов составляющих его символов
+symbol2intlist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+ceammc/symbol2intlist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+ceammc/sym->ilist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
+sym->ilist	converts the symbol into a list of character codes / преобразует символ в список кодов составляющих его символов
 synth.bee3~	Hammond-oid organ FM synthesis instrument / FM-синтезатор в духе органа Хэммонда
 synth.birds~	bird singing generator / генератор пения птиц
 synth.church_bell~	generic church bell modal model / модовая модель церковного колокола
@@ -1295,8 +1295,8 @@ synth.voice_fofc~	simple formant/vocal synthesizer with FOF-cycle filterbank. / 
 synth.voice_fofs~	simple formant/vocal synthesizer with FOF-smooth filterbank. / простой формантный/вокальный синтезатор со сглаженным банком фильтров FOF
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument / FM-синтезатор электро-фортепиано в стиле Wurlitzer
 system.colorpanel	system color panel dialog popup / системный диалог выбора цвета
-system.command	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
-system.cmd	run commands with pipes on Unix and Windows / запуск цепочек команд с перенаправлением вывода в Unix и Windows
+system.command	run commands with pipes on Unix and Windows / запуск команд с конвейерами в Unix и Windows
+system.cmd	run commands with pipes on Unix and Windows / запуск команд с конвейерами в Unix и Windows
 system.cursor	outputs the cursor motion, mouse wheel and button clicks / выводит положение курсора, нажатия кнопок мыши и колеса прокрутки
 system.exec	run the external command in a separate process / запуск внешней команды в отдельном процессе
 system.exit	quit PureData / завершает PureData
@@ -1306,15 +1306,15 @@ system.info	retrieve system information: CPU and temperature / получени�
 system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
 system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
 system.screen_size	outputs the current screen size in pixels / выводит размер активного экрана в пикселях
-tl.bang	outputs a timeline bang / выводит пустое событие временной шкалы
-tl.b	outputs a timeline bang / выводит пустое событие временной шкалы
+tl.bang	outputs a timeline bang / выводит событие bang временной шкалы
+tl.b	outputs a timeline bang / выводит событие bang временной шкалы
 tl.cue	defines the timeline section / определяет секцию на временной шкале
 tl.timeline	timeline event scheduler / планировщик событий временной шкалы
 ceammc/timeline	timeline event scheduler / планировщик событий временной шкалы
 timeline	timeline event scheduler / планировщик событий временной шкалы
 tl.toggle	timeline toggle / переключатель на временной шкале
 tl.t	timeline toggle / переключатель на временной шкале
-tl.transport	timeline transport control / управление временной шкалой
+tl.transport	timeline transport control / управление транспортной шкалой
 ui.aview	array view with cursor and range selection / отображение массива с курсором и выбором диапазона
 ui.bang	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)
 ui.b	a button that sends an empty event (bang) / кнопка отправляющая пустое событие (bang)

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 314 50 cnv 1 451 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 319 50 маршрутизирует элемент списка с соответствующим сообщением;
+#X obj 291 50 cnv 1 474 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 296 50 маршрутизирует элементы списка с соответствующими сообщениями;
 #X obj 1 1 cnv 5 765 40 empty empty flow.list2many 20 20 0 20 -104026
 -4096 0;
 #X obj 387 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,55 +9,61 @@
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [list->many] @url flow.list2many-help.pd;
 #X obj 638 8 flow.list2many;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 On incoming list (l⁰ l¹ ...) outputs to corresponding
-outlet message: [s⁰ l⁰( \, [s¹ l¹( etc...;
-#X obj 50 186 ui.sliders 3 @size 100 60;
-#X text 357 186 vanilla analogue;
-#X msg 357 215 1 2 3;
-#X obj 357 244 unpack f f f;
-#X obj 50 273 list->many @a @b @c;
-#X msg 357 273 @a \$1;
-#X msg 434 273 @b \$1;
-#X msg 510 273 @c \$1;
-#X obj 184 302 ui.dt;
-#X obj 357 302 ui.dt;
-#X obj 434 302 ui.dt;
-#X obj 510 302 ui.dt;
-#X obj 117 330 ui.dt;
-#X obj 50 359 ui.dt;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 При получении списка (l⁰ l¹ ...) выводит на соответствующий
+выход сообщение вида [s⁰ l⁰( \, [s¹ l¹( и т. д. \, где s⁰ \, s¹ \,
+... — селекторы \, заданные при создании объекта. Первый элемент списка
+связывается с первым селектором \, второй — со вторым \, и так далее.;
+#X text 240 168 Типичные сценарии применения:;
+#X text 250 193 • Преобразование простого списка в набор сообщений-свойств
+— например \, преобразование [1 2 3( в [@a 1( \, [@b 2( \, [@c 3( для
+объекта \, ожидающего именованные свойства.;
+#X obj 50 311 ui.sliders 3 @size 100 60;
+#X text 357 311 vanilla analogue;
+#X msg 357 340 1 2 3;
+#X obj 357 369 unpack f f f;
+#X obj 50 398 list->many @a @b @c;
+#X msg 357 398 @a \$1;
+#X msg 434 398 @b \$1;
+#X msg 510 398 @c \$1;
+#X obj 184 427 ui.dt;
+#X obj 357 427 ui.dt;
+#X obj 434 427 ui.dt;
+#X obj 510 427 ui.dt;
+#X obj 117 455 ui.dt;
+#X obj 50 484 ui.dt;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 539 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 417 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 542 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 415 1\.;
-#X text 170 415 list;
-#X obj 268 416 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 415 SEL: list of selectors. Тип: list.;
-#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 455 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 540 1\.;
+#X text 170 540 list;
+#X obj 268 541 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 540 SEL: список селекторов. Тип: list.;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 580 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 456 1\.;
-#X text 170 456 list:;
-#X text 270 456 input list.;
-#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 496 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 581 1\.;
+#X text 170 581 list:;
+#X text 270 581 входной список.;
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 621 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 497 1\.;
-#X text 270 497 first element with first selector.;
-#X text 130 517 ...;
-#X text 270 517 ... element with ... selector.;
-#X text 130 537 n.;
-#X text 270 537 nth element with nth selector.;
+#X text 130 622 1\.;
+#X text 270 622 первый элемент с первым селектором.;
+#X text 130 642 ...;
+#X text 270 642 ... элемент с ... селектором.;
+#X text 130 662 n.;
+#X text 270 662 n-й элемент с n-м селектором.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 587 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 590 библиотека: ceammc v0.9.8;
-#N canvas 10 609 400 290 info 0;
+#X obj 1 712 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 715 библиотека: ceammc v0.9.8;
+#N canvas 10 734 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,15 +87,15 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 609 pd info;
-#X connect 10 0 11 0;
-#X connect 8 0 12 0;
-#X connect 11 0 13 0;
-#X connect 11 1 14 0;
-#X connect 11 2 15 0;
-#X connect 12 2 16 0;
-#X connect 13 0 17 0;
-#X connect 14 0 18 0;
+#X restore 10 734 pd info;
+#X connect 12 0 13 0;
+#X connect 10 0 14 0;
+#X connect 13 0 15 0;
+#X connect 13 1 16 0;
+#X connect 13 2 17 0;
+#X connect 14 2 18 0;
 #X connect 15 0 19 0;
-#X connect 12 1 20 0;
-#X connect 12 0 21 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
+#X connect 14 1 22 0;
+#X connect 14 0 23 0;

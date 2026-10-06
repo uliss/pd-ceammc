@@ -6,133 +6,140 @@
 #X obj 1 1 cnv 5 765 40 empty empty array.vplay 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 array.vplay;
-#X msg 50 118 load %DOC%/sound/voice.wav @to vplay @resize;
+#X obj 230 78 cnv 1 535 151 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Объект представляет собой простой плеер массивов \,
+предназначенный для совместной работы с объектом [vline~]. Он не производит
+звук сам \, а выводит управляющие сообщения \, которые управляют [vline~]
+\, а тот \, в свою очередь \, генерирует индекс чтения массива. Диапазон
+воспроизведения задаётся методом range или свойствами @begin и @end.
+Объект также поддерживает обратное воспроизведение и изменение скорости.;
+#X msg 50 277 load %DOC%/sound/voice.wav @to vplay @resize;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array vplay 100 float 0;
 #X coords 0 1 100 -1 120 80 1;
-#X restore 443 133 graph;
-#X obj 50 147 expand_env;
-#X msg 184 147 0.3;
-#X msg 242 147 1;
-#X msg 280 147 1.7;
-#X obj 50 176 snd.file;
-#X floatatom 184 176 5 0 0 0 - - -;
-#X obj 299 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 50 219 stop \, play;
-#X msg 184 219 @speed \$1;
-#X msg 299 219 @reversed \$1;
-#X obj 443 219 ui.rslider @mouse_events 1;
-#X obj 69 248 r pos;
-#X obj 146 248 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X restore 443 292 graph;
+#X obj 50 306 expand_env;
+#X msg 184 306 0.3;
+#X msg 242 306 1;
+#X msg 280 306 1.7;
+#X obj 50 335 snd.file;
+#X floatatom 184 335 5 0 0 0 - - -;
+#X obj 299 335 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 50 378 stop \, play;
+#X msg 184 378 @speed \$1;
+#X msg 299 378 @reversed \$1;
+#X obj 443 378 ui.rslider @mouse_events 1;
+#X obj 69 407 r pos;
+#X obj 146 407 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 443 248 ui.mouse_filter @up;
-#X obj 50 277 array.vplay @array vplay;
-#X msg 443 277 range \$1 phase \$2 phase;
-#X obj 50 305 vline~;
-#X obj 251 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 443 407 ui.mouse_filter @up;
+#X obj 50 436 array.vplay @array vplay;
+#X msg 443 436 range \$1 phase \$2 phase;
+#X obj 50 464 vline~;
+#X obj 251 464 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 462 305 @begin 0;
-#X msg 568 305 @end -1;
-#X obj 50 334 tabread4~ vplay;
-#X obj 443 334 s pos;
-#X obj 50 363 ui.gain~ @size 120 16;
-#X obj 328 363 ui.dsp~;
-#X obj 50 392 dac~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 462 464 @begin 0;
+#X msg 568 464 @end -1;
+#X obj 50 493 tabread4~ vplay;
+#X obj 443 493 s pos;
+#X obj 50 522 ui.gain~ @size 120 16;
+#X obj 328 522 ui.dsp~;
+#X obj 50 551 dac~;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 606 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 609 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 448 1\.;
-#X text 170 448 symbol;
-#X obj 268 449 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 ARRAY: имя массива. Тип: symbol.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 488 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 607 1\.;
+#X text 170 607 symbol;
+#X obj 268 608 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 607 ARRAY: имя массива для воспроизведения. Тип: symbol.;
+#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 647 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 491 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 650 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 489 @array;
-#X text 270 489 Имя массива. Тип: symbol.;
-#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 519 @begin;
-#X text 270 519 Начальное положение. Тип: int. Единицы: 'samp'. Значение
+#X msg 130 648 @array;
+#X text 270 648 Имя массива для воспроизведения. Тип: symbol.;
+#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 678 @begin;
+#X text 270 678 Начальная позиция. Тип: int. Единицы: 'samp'. Значение
 по умолчанию: 0\.;
-#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 561 @end;
-#X text 270 561 Конечное положение. Тип: int. Единицы: 'samp'. Значение
+#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 720 @end;
+#X text 270 720 Конечная позиция. Тип: int. Единицы: 'samp'. Значение
 по умолчанию: -1\.;
-#X obj 250 603 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 603 @reversed;
-#X text 270 603 Играть в обратном направлении. Тип: bool. Значение
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 762 @reversed;
+#X text 270 762 Воспроизводить в обратном направлении. Тип: bool. Значение
 по умолчанию: 0\.;
-#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 645 @speed;
-#X text 270 645 Скорость воспроизведения. Тип: float. Значение по умолчанию:
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 804 @speed;
+#X text 270 804 Скорость воспроизведения. Тип: float. Значение по умолчанию:
 1\. Минимальное значение: 0.1\.;
-#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 687 @abs_begin?;
-#X text 270 687 (только чтение) Абсолютное начальное положение. Тип:
+#X obj 250 846 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 846 @abs_begin?;
+#X text 270 846 (только чтение) Абсолютная начальная позиция. Тип:
 int. Единицы: 'samp'. Значение по умолчанию: 0\.;
-#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 729 @abs_end?;
-#X text 270 729 (только чтение) Абсолютное конечное положение. Тип:
-int. Единицы: 'samp'. Значение по умолчанию: 0\.;
-#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 771 @state?;
-#X text 270 771 (только чтение) Состояние воспроизведения. Тип: symbol.
-Значение по умолчанию: stop. Разрешённые значения: play \, stop.;
-#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 843 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 888 @abs_end?;
+#X text 270 888 (только чтение) Абсолютная конечная позиция. Тип: int.
+Единицы: 'samp'. Значение по умолчанию: 0\.;
+#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 930 @state?;
+#X text 270 930 (только чтение) Состояние плеера. Тип: symbol. Значение
+по умолчанию: stop. Разрешённые значения: play \, stop.;
+#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 987 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 844 play;
-#X text 270 844 начать воспроизведения.;
-#X obj 250 879 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 879 range;
-#X text 270 879 установить диапазон воспроизведения. Аргументы:;
-#X obj 300 904 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 904 VALUE: начальное значение. Отрицательные значения (смещение
-с конца) поддерживаются для ms \, sec и семплов. *-1 семпл* означает
-последний семпл. Тип: float.;
-#X obj 300 957 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 957 UNIT: единица времени. Тип: symbol. Разрешённые значения:
-ms \, sec \, phase \, sample.;
-#X obj 300 995 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 995 [VALUE]: конечное значение. Тип: float.;
-#X obj 300 1018 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1018 UNIT: единица времени. Тип: symbol. Разрешённые значения:
-ms \, sec \, phase \, sample.;
-#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1066 stop;
-#X text 270 1066 остановить воспроизведение.;
-#X obj 20 1111 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1116 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 988 play;
+#X text 270 988 начинает воспроизведение.;
+#X obj 250 1023 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1023 range;
+#X text 270 1023 устанавливает диапазон воспроизведения. Аргументы:;
+#X obj 300 1048 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1048 VALUE: начальное значение. Отрицательные значения
+(смещение от конца) поддерживаются для единиц ms \, sec и семплов.
+*-1 семпл* означает последний семпл. Тип: float.;
+#X obj 300 1101 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1101 UNIT: единица измерения. Тип: symbol. Разрешённые
+значения: ms \, sec \, phase \, sample.;
+#X obj 300 1139 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1139 [VALUE]: конечное значение. Тип: float.;
+#X obj 300 1162 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1162 UNIT: единица измерения. Тип: symbol. Разрешённые
+значения: ms \, sec \, phase \, sample.;
+#X obj 250 1210 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1210 stop;
+#X text 270 1210 останавливает воспроизведение.;
+#X obj 20 1255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1260 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1117 1\.;
-#X text 170 1117 bang:;
-#X text 270 1117 начинает воспроизведение с самого начала.;
-#X text 170 1142 bool:;
-#X text 270 1142 1 - играть \, 0 - остановить.;
-#X obj 20 1177 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1182 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1261 1\.;
+#X text 170 1261 bang:;
+#X text 270 1261 начинает воспроизведение с самого начала.;
+#X text 170 1286 bool:;
+#X text 270 1286 1 — играть \, 0 — остановить.;
+#X obj 20 1321 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1326 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1183 1\.;
-#X text 170 1183 list:;
-#X text 270 1183 сообщения для объекта [vline~].;
-#X text 130 1203 2\.;
-#X text 170 1203 bang:;
-#X text 270 1203 после завершения воспроизведения.;
+#X text 130 1327 1\.;
+#X text 170 1327 list:;
+#X text 270 1327 сообщение для подключённого объекта [vline~].;
+#X text 130 1347 2\.;
+#X text 170 1347 bang:;
+#X text 270 1347 отправляется по завершении воспроизведения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1253 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1256 библиотека: ceammc v0.9.8;
-#X text 551 1268 смотрите также:;
-#X obj 672 1271 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1397 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1400 библиотека: ceammc v0.9.8;
+#X text 551 1412 смотрите также:;
+#X obj 672 1415 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.each] @url list.each-help.pd;
-#N canvas 10 1275 400 290 info 0;
+#N canvas 10 1419 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -156,27 +163,27 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1275 pd info;
-#X connect 4 0 6 0;
-#X connect 6 0 10 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 11 0 14 0;
-#X connect 12 0 15 0;
-#X connect 16 0 19 0;
-#X connect 13 0 20 0;
-#X connect 17 0 20 0;
-#X connect 18 0 20 0;
-#X connect 14 0 20 0;
-#X connect 15 0 20 0;
-#X connect 19 0 21 0;
+#X restore 10 1419 pd info;
+#X connect 6 0 8 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;
+#X connect 18 0 21 0;
+#X connect 15 0 22 0;
+#X connect 19 0 22 0;
 #X connect 20 0 22 0;
-#X connect 20 1 23 0;
-#X connect 22 0 26 0;
-#X connect 21 0 27 0;
-#X connect 24 0 27 0;
-#X connect 25 0 27 0;
-#X connect 26 0 28 0;
+#X connect 16 0 22 0;
+#X connect 17 0 22 0;
+#X connect 21 0 23 0;
+#X connect 22 0 24 0;
+#X connect 22 1 25 0;
+#X connect 24 0 28 0;
+#X connect 23 0 29 0;
+#X connect 26 0 29 0;
+#X connect 27 0 29 0;
 #X connect 28 0 30 0;
-#X connect 28 0 30 1;
+#X connect 30 0 32 0;
+#X connect 30 0 32 1;

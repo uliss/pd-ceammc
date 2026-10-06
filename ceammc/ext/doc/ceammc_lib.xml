@@ -25,7 +25,7 @@
     <entry name="array.bpm" descr="BPM calculator" ref_view="link">
       <xi:include href="array.bpm.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.circular" descr="read/write to the array as circular buffer" ref_view="link">
+    <entry name="array.circular" descr="read/write to the array as a circular buffer" ref_view="link">
       <xi:include href="array.circular.pddoc" parse="xml"/>
     </entry>
     <entry name="array.circular~" descr="read/write the signal into the array like in a circular buffer" ref_view="link">
@@ -34,16 +34,16 @@
     <entry name="array.convolve" descr="FFT convolution of the array" ref_view="link">
       <xi:include href="array.convolve.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.copy" descr="copy samples from the one array to another" ref_view="link">
+    <entry name="array.copy" descr="copy samples from one array to another" ref_view="link">
       <xi:include href="array.copy.pddoc" parse="xml"/>
     </entry>
     <entry name="array.do" descr="iterate and modify the array content via the side-chain" ref_view="link">
       <xi:include href="array.do.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.each" descr="process each array elements via side-chain" ref_view="link">
+    <entry name="array.each" descr="process each array element via side-chain" ref_view="link">
       <xi:include href="array.each.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.fill" descr="fill the array with the single value, pattern or function" ref_view="link">
+    <entry name="array.fill" descr="fill the array with a single value, pattern or function" ref_view="link">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
     <entry name="array.grainer~" descr="array granulator" ref_view="link">
@@ -88,10 +88,10 @@
     <entry name="array.stretch" descr="the array time-stretch, pitch-shift or rate-change" ref_view="link">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.sum" descr="calculates sum of array elements" ref_view="link">
+    <entry name="array.sum" descr="calculates the sum of array elements" ref_view="link">
       <xi:include href="array.sum.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.sum2" descr="calculates sum of squares of array elements" ref_view="link">
+    <entry name="array.sum2" descr="calculates the sum of squares of array elements" ref_view="link">
       <xi:include href="array.sum2.pddoc" parse="xml"/>
     </entry>
     <entry name="array.tramp~" descr="triggered ramp index generator for the array" ref_view="link">
@@ -181,7 +181,7 @@
     <entry name="obj.props" descr="Extract object properties from the connected object" ref_view="link">
       <xi:include href="obj.props.pddoc" parse="xml"/>
     </entry>
-    <entry name="radio" descr="upon receiving the index, the state of individual outputs is established as a radio switch" ref_view="link">
+    <entry name="radio" descr="non GUI radio switch" ref_view="link">
       <xi:include href="radio.pddoc" parse="xml"/>
     </entry>
     <entry name="split~" descr="parametrized multichannel signal splitter" ref_view="link">
@@ -255,7 +255,7 @@
     <entry name="conv.bits2note" descr="convert list of bits into note, velocity pairs" ref_view="link">
       <xi:include href="conv.bits2note.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.bits2pos" descr="converts the list of bits into the list of checked bit position" ref_view="link">
+    <entry name="conv.bits2pos" descr="converts the list of bits into the list of checked bit positions" ref_view="link">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.bpm2hz" descr="converts BPM tempo into a frequency in hertz" ref_view="link">
@@ -399,7 +399,7 @@
     <entry name="color.mix" descr="color mixer" ref_view="link">
       <xi:include href="color.mix.pddoc" parse="xml"/>
     </entry>
-    <entry name="color.scale" descr="creation of the color scale" ref_view="link">
+    <entry name="color.scale" descr="creation of a color scale" ref_view="link">
       <xi:include href="color.scale.pddoc" parse="xml"/>
     </entry>
     <entry name="data.bimap" descr="bidirectional map container" ref_view="link">
@@ -408,10 +408,10 @@
     <entry name="data.color" descr="color data type" ref_view="link">
       <xi:include href="data.color.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.copy" descr="makes a copy for any data type: MList, Set etc..." ref_view="link">
+    <entry name="data.copy" descr="makes a copy of any data type: MList, Set etc." ref_view="link">
       <xi:include href="data.copy.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.dict" descr="the dictionary container: stores key-values pairs" ref_view="link">
+    <entry name="data.dict" descr="the dictionary container: stores key-value pairs" ref_view="link">
       <xi:include href="data.dict.pddoc" parse="xml"/>
     </entry>
     <entry name="data.fifo" descr="FIFO (First In First Out) - the queue data container" ref_view="link">
@@ -432,28 +432,28 @@
     <entry name="data.path" descr="filesystem path datatype" ref_view="link">
       <xi:include href="data.path.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set" descr="the set: container that store only unique elements" ref_view="link">
+    <entry name="data.set" descr="the set: a container that stores only unique elements" ref_view="link">
       <xi:include href="data.set.pddoc" parse="xml"/>
     </entry>
-    <entry name="data.set2list" descr="converts the set to the list" ref_view="link">
+    <entry name="data.set2list" descr="converts a set to a list" ref_view="link">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.contains" descr="check if the dictionary contains the key" ref_view="link">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.each" descr="map each value in dictionary with the side-chain function" ref_view="link">
+    <entry name="dict.each" descr="map each value in a dictionary with the side-chain function" ref_view="link">
       <xi:include href="dict.each.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.from_list" descr="creates dictionary from the list" ref_view="link">
+    <entry name="dict.from_list" descr="creates a dictionary from a list" ref_view="link">
       <xi:include href="dict.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.get" descr="output the dictionary values by pre-defined key list" ref_view="link">
+    <entry name="dict.get" descr="output the dictionary values by a pre-defined key list" ref_view="link">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.keys" descr="output the list of dictionary keys" ref_view="link">
       <xi:include href="dict.keys.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.pass" descr="passes only specified keys in the dictionary" ref_view="link">
+    <entry name="dict.pass" descr="passes only the specified keys in the dictionary" ref_view="link">
       <xi:include href="dict.pass.pddoc" parse="xml"/>
     </entry>
     <entry name="dict.reject" descr="rejects specified keys from the dictionary" ref_view="link">
@@ -462,10 +462,10 @@
     <entry name="dict.size" descr="output the dictionary size (number of key/value pairs)" ref_view="link">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.to_list" descr="converts dictionary to plain list" ref_view="link">
+    <entry name="dict.to_list" descr="converts a dictionary to a plain list" ref_view="link">
       <xi:include href="dict.to_list.pddoc" parse="xml"/>
     </entry>
-    <entry name="dict.values" descr="output the dictionary values as MList" ref_view="link">
+    <entry name="dict.values" descr="output the dictionary values as an MList" ref_view="link">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>
     <entry name="global.bimap" descr="global bidirectional map" ref_view="link">
@@ -486,7 +486,7 @@
     <entry name="set.diff" descr="difference between two sets" ref_view="link">
       <xi:include href="set.diff.pddoc" parse="xml"/>
     </entry>
-    <entry name="set.equal" descr="checks if two sets are equal (contains same elements)" ref_view="link">
+    <entry name="set.equal" descr="checks if two sets are equal (contain the same elements)" ref_view="link">
       <xi:include href="set.equal.pddoc" parse="xml"/>
     </entry>
     <entry name="set.intersect" descr="intersection of sets" ref_view="link">
@@ -1080,7 +1080,7 @@
     <entry name="hw.rpi.sensor.ir" descr="IR (infrared) sensors and protocols for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.sensor.ir.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.rpi.sensor.mpr121" descr="12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration." ref_view="link">
+    <entry name="hw.rpi.sensor.mpr121" descr="12-channel I²C capacitive touch sensor controller with low power consumption and automatic calibration" ref_view="link">
       <xi:include href="hw.rpi.sensor.mpr121.pddoc" parse="xml"/>
     </entry>
     <entry name="hw.rpi.sensor.mpu6050" descr="MPU-6050 gyroscope and accelerometer for Raspberry Pi" ref_view="link">
@@ -1969,7 +1969,7 @@
     <entry name="canvas.current" descr="get the information about the current canvas of the object" ref_view="link">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.dir" descr="outputs the current canvas directory of the object and nesting level" ref_view="link">
+    <entry name="canvas.dir" descr="outputs the current canvas directory of the object and the nesting level" ref_view="link">
       <xi:include href="canvas.dir.pddoc" parse="xml"/>
     </entry>
     <entry name="canvas.name" descr="output the current canvas name of the object" ref_view="link">
@@ -2246,7 +2246,7 @@
     <entry name="hoa.2d.decoder~" descr="2D decoder of higher order ambisonics" ref_view="link">
       <xi:include href="hoa.2d.decoder~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.encoder~" descr="2D decoder of higher order ambisonics" ref_view="link">
+    <entry name="hoa.2d.encoder~" descr="2D encoder of higher order ambisonics" ref_view="link">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels in 2d ambisonics" ref_view="link">

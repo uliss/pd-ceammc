@@ -10,7 +10,7 @@ harmonics;
 #X obj 609 8 hoa.2d.recomposer~;
 #X obj 230 93 cnv 1 535 99 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 Recomposes a plane wave decomposition into circular
-harmonics. There's three modes \, fixe (default) \, fisheye and free.;
+harmonics. There are three modes: fixe (default) \, fisheye and free.;
 #X obj 240 156 ui.link @background_color 0.90196 0.90196 0.90196
 @title CICM documentation @url hoa/hoa.2d.recomposer~-help.pd;
 #X obj 50 240 hoa/hoa.soundgrain;
@@ -42,12 +42,12 @@ Type: int. Range: [0\..128];
 #X text 130 779 3\.;
 #X text 170 779 symbol;
 #X obj 268 780 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 779 MODE: recomposition mode. There is three modes: *fixe*
-- simply recomposes a plane wave decomposition into circular harmonics.
-*fisheye* - allows you to perform an operation similar to the visual
-"fisheye" effect by distorsion of the sound field perspective to the
-front of the scene. *free* - allows you to change the angles and the
-widening value for each channels. Allowed values: fixe \, fisheye \,
+#X text 270 779 MODE: recomposition mode. There are three modes: *fixe*
+— simply recomposes a plane wave decomposition into circular harmonics.
+*fisheye* — allows you to perform an operation similar to the visual
+"fisheye" effect by distorting the sound field perspective toward the
+front of the scene. *free* — allows you to change the angles and the
+widening value for each channel. Allowed values: fixe \, fisheye \,
 free. Type: symbol.;
 #X obj 20 920 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 925 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
@@ -64,16 +64,16 @@ free. Type: symbol.;
 #X text 270 986 Alias for @mode free.;
 #X obj 250 1016 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1016 @mode;
-#X text 270 1016 (initonly) Recomposition mode. There is three modes:
-*fixe* - simply recomposes a plane wave decomposition into circular
-harmonics. *fisheye* - allows you to perform an operation similar to
-the visual "fisheye" effect by distorsion of the sound field perspective
-to the front of the scene. *free* - allows you to change the angles
-and the widening value for each channels. Type: symbol. Default value:
+#X text 270 1016 (initonly) Recomposition mode. There are three modes:
+*fixe* — simply recomposes a plane wave decomposition into circular
+harmonics. *fisheye* — allows you to perform an operation similar to
+the visual "fisheye" effect by distorting the sound field perspective
+toward the front of the scene. *free* — allows you to change the angles
+and the widening value for each channel. Type: symbol. Default value:
 free. Allowed values: fixe \, fisheye \, free.;
 #X obj 250 1164 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1164 @n;
-#X text 270 1164 (initonly) Number of channels (planewaves). '0' means
+#X text 270 1164 (initonly) Number of channels (plane waves). '0' means
 auto-calculation. Type: int. Default value: 0\. Range: [0\..128].;
 #X obj 250 1221 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1221 @order;
@@ -87,14 +87,14 @@ Default value: 1\. Range: [1\..63].;
 #X obj 20 1308 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1309 angles;
-#X text 270 1309 set the angles of channels. Angles are in radians
-\, wrapped between 0 and 2π. Arguments are:;
+#X text 270 1309 sets the angles of the channels. Angles are in radians
+and are wrapped between 0 and 2π. Arguments are:;
 #X obj 300 1349 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1349 VALS: list of angles. Type: list. Units: 'rad'.;
 #X obj 250 1382 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1382 wide;
-#X text 270 1382 set the widening value of channels. Widening value
-is clipped between 0\. (omnidirectional) and 1\. (directional). Arguments
+#X text 270 1382 sets the widening value of the channels. The widening
+value is clipped between 0 (omnidirectional) and 1 (directional). Arguments
 are:;
 #X obj 300 1437 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1437 VALS: list of values per channel. Type: list.;
@@ -110,19 +110,19 @@ are:;
 #X text 130 1536 n.;
 #X text 170 1536 ~;
 #X text 270 1536 input harmonic. If @fisheye mode is used: fisheye
-factor [0-1] in last inlet.;
+factor [0 \, 1] on the last inlet.;
 #X obj 20 1586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1591 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1592 1\.;
 #X text 170 1592 ~;
-#X text 270 1592 first planewave output.;
+#X text 270 1592 first plane wave output.;
 #X text 130 1612 ...;
 #X text 170 1612 ~;
-#X text 270 1612 ... planewave output.;
+#X text 270 1612 ... plane wave output.;
 #X text 130 1632 n.;
 #X text 170 1632 ~;
-#X text 270 1632 n-th planewave output.;
+#X text 270 1632 n-th plane wave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">makes a copy for any data type: MList, Set etc...</tr>
-        <tr lang="ru">делает копии любых типов данных: MList, Set и т.д.</tr>
+        <tr lang="en">makes a copy of any data type: MList, Set etc.</tr>
+        <tr lang="ru">создаёт копию любого типа данных: MList, Set и т.д.</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,18 +18,19 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Data types, such as MList, are passed by reference, not by value.</tr>
-        <!-- old: Типы данных, такие как MList, передаются по ссылке,
-                а не по значению. -->
-        <tr lang="ru" finished="false">Типы данных, такие как MList, передаются по ссылке, а не по
+        <tr lang="en">Data types such as MList are internally passed by reference, not by
+        value.</tr>
+        <tr lang="en">This object makes a copy of the input data.</tr>
+        <tr lang="ru">Типы данных, такие как MList, внутри передаются по ссылке, а не по
         значению.</tr>
+        <tr lang="ru">Этот объект создаёт копию входных данных.</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="data">
           <tr lang="en">input data</tr>
-          <tr lang="ru" finished="false">входные данные</tr>
+          <tr lang="ru">входные данные</tr>
         </in>
       </inlet>
     </inlets>
@@ -37,7 +38,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">data copy</tr>
-          <tr lang="ru" finished="false">копия данных</tr>
+          <tr lang="ru">копия данных</tr>
         </out>
       </outlet>
     </outlets>

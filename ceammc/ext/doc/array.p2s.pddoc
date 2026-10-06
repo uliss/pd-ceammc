@@ -25,45 +25,52 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">this object allows to get relative access to array</tr>
-        <tr lang="ru">позволяет получить относительный доступ к массиву</tr>
+        <tr lang="en">This object allows relative access to the array: the input phase in the range
+        0..1 is converted to the corresponding sample index in the array. A value of 0 maps to the
+        beginning of the array and 1 to the end. If a list is received, the conversion is applied
+        to each value and a list of indexes is output.</tr>
+        <tr lang="ru">Объект позволяет получить относительный доступ к массиву: входная фаза в
+        диапазоне 0..1 преобразуется в соответствующий индекс семпла в массиве. Значение 0
+        соответствует началу массива, а 1 — концу. Если на вход подаётся список, преобразование
+        применяется к каждому значению, и на выход отправляется список индексов.</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used for conversion</tr>
+        <tr lang="ru">имя массива, используемого для преобразования</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
-        <tr lang="en">array name</tr>
-        <tr lang="ru">имя массива</tr>
+        <tr lang="en">name of the array used for conversion</tr>
+        <tr lang="ru">имя массива, используемого для преобразования</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">value between 0 and 1, where 0 maps to begin of array, 1 - to end</tr>
-          <tr lang="ru" finished="false">значение между 0 и 1, где 0 карт для начала массива, 1 -
-          для конца</tr>
+          <tr lang="en">phase value between 0 and 1, where 0 maps to the beginning of the array and
+          1 to the end</tr>
+          <tr lang="ru">значение фазы от 0 до 1, где 0 соответствует началу массива, а 1 —
+          концу</tr>
         </in>
         <in on="list">
           <tr lang="en">list of array phases</tr>
-          <tr lang="ru">список фаз для массива</tr>
+          <tr lang="ru">список фаз массива</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="float">
-          <tr lang="en">sample index when input value is float</tr>
-          <tr lang="ru">индекс семпла, когда входное значение - число</tr>
+          <tr lang="en">sample index when the input value is a float</tr>
+          <tr lang="ru">индекс семпла, когда входное значение — число</tr>
         </out>
         <out type="list">
-          <tr lang="en">sample indexes when input value is list of floats</tr>
-          <tr lang="ru">индексы семплов, когда входное значение - список чисел</tr>
+          <tr lang="en">sample indexes when the input value is a list of floats</tr>
+          <tr lang="ru">индексы семплов, когда входное значение — список чисел</tr>
         </out>
       </outlet>
     </outlets>
