@@ -160,6 +160,11 @@ if(APPLE)
         add_compile_options(-Wno-deprecated-builtins)
     endif()
 
+    check_cxx_compiler_flag("-Wdeprecated-literal-operator" HAS_DEPRECATED_LITERAL_OPERATOR)
+    if(HAS_DEPRECATED_LITERAL_OPERATOR)
+        add_compile_options(-Wno-deprecated-literal-operator)
+    endif()
+
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
         add_compile_options(-O2)
         add_compile_options(-ffast-math)

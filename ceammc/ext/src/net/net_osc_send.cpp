@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_osc_send.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "fmt/core.h"
 #include "lex/parser_numeric.h"
 
-#include <boost/container/small_vector.hpp>
 #include <boost/variant.hpp>
 
 using namespace ceammc::osc;

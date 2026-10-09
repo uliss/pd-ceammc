@@ -12,11 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "metro_wchoice.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "lex/parser_units.h"
 
-#include <boost/container/small_vector.hpp>
 #include <random>
 
 MetroWChoice::MetroWChoice(const PdArgs& args)

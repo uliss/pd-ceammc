@@ -12,13 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "grain_cloud.h"
-#include "array_play_tilde.h"
 #include "ceammc_convert.h"
-#include "fmt/core.h"
 #include "grain_random.h"
-
-#include <algorithm>
-#include <boost/container/small_vector.hpp>
+#include "ceammc_containers.h"
 
 using GrainPreVec = boost::container::small_vector<size_t, 64>;
 

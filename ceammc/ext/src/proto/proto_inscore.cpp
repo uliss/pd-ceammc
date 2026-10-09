@@ -19,7 +19,6 @@
 #include "fmt/core.h"
 
 #include <array>
-#include <boost/container/small_vector.hpp>
 
 template <size_t N>
 using AtomArray = std::array<Atom, N>;

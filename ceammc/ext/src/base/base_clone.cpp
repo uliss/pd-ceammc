@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "base_clone.h"
 #include "ceammc_canvas.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_dsp.h"
 #include "ceammc_factory.h"
@@ -22,7 +23,6 @@
 #include "fmt/core.h"
 #include "lex/parser_clone.h"
 
-#include <boost/container/small_vector.hpp>
 #include <boost/functional/hash.hpp>
 #include <ctime>
 #include <memory>

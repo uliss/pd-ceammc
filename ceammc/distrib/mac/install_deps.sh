@@ -53,6 +53,7 @@ sudo port install libsndfile \
         ninja \
         pkgconfig \
         portaudio \
+        protobuf-c \
         py312-cairo \
         py312-pip \
         ragel \
