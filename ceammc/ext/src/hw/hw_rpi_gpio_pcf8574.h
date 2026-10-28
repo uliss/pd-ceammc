@@ -14,6 +14,8 @@
 #ifndef HW_RPI_GPIO_PCF8574_H
 #define HW_RPI_GPIO_PCF8574_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_clock.h"
 #include "hw_rpi_device.h"
 
@@ -44,8 +46,17 @@ private:
     void impulse_off(std::uint8_t pin);
 };
 
+} // namespace ceammc
+
 void setup_hw_rpi_gpio_pcf8574();
 
-} // namespace ceammc
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiGpioPcf8574, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiGpioPcf8574, hw_rpi_gpio_pcf8574, "hw.rpi.gpio.pcf8574");
+
+#endif
 
 #endif // HW_RPI_GPIO_PCF8574_H

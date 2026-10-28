@@ -21,6 +21,8 @@ void setup_hw_rpi_adc_ads1115();
 void setup_hw_rpi_display_hd44780();
 void setup_hw_rpi_display_ssd1306();
 void setup_hw_rpi_gpio();
+void setup_hw_rpi_gpio_pcf8574();
+void setup_hw_rpi_gpio_servo();
 void setup_hw_rpi_i2c_pca9685();
 void setup_hw_rpi_nfc_pn532();
 void setup_hw_rpi_pwm();
@@ -31,14 +33,9 @@ void setup_hw_rpi_sensor_mpr121();
 void setup_hw_rpi_sensor_mpu6050();
 void setup_hw_rpi_sensor_sr04();
 void setup_hw_rpi_sensor_vl53l0x();
+void setup_hw_rpi_spi();
 void setup_hw_rpi_spi_max7219();
 void setup_hw_rpi_spi_ws2812();
-
-namespace ceammc {
-void setup_hw_rpi_gpio_pcf8574();
-void setup_hw_rpi_spi();
-void setup_hw_rpi_gpio_servo();
-}
 
 void ceammc_hw_setup()
 {

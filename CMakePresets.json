@@ -48,6 +48,7 @@
         "WITH_PORTAUDIO": "ON",
         "WITH_PORTMIDI": "OFF",
         "WITH_PRINTER": "ON",
+        "WITH_RPI": "ON",
         "WITH_RUST_APPS": "ON",
         "WITH_RUST_CORE": "ON",
         "WITH_RUST_NET": "ON",
@@ -115,9 +116,9 @@
         "WITH_PORTAUDIO": "ON",
         "WITH_PORTMIDI": "OFF",
         "WITH_PRINTER": "OFF",
+        "WITH_RPI": "ON",
         "WITH_RUST_APPS": "OFF",
         "WITH_RUST_CORE": "ON",
-        "WITH_RUST_NET": "OFF",
         "WITH_RUST_SYNTH": "OFF",
         "WITH_RUST_SYSTEM": "OFF",
         "WITH_RUST_WHISPER": "OFF",
@@ -131,7 +132,7 @@
         "WITH_VLC": "OFF",
         "WITH_WEBSOCKET": "OFF",
         "WITH_WLED": "OFF",
-        "WITH_ZEROCONF": "OFF"
+        "WITH_ZEROCONF": "ON"
       }
     }
   ]

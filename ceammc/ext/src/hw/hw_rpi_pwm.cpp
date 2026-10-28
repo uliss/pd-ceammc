@@ -1,4 +1,6 @@
 #include "hw_rpi_pwm.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
@@ -130,3 +132,5 @@ void setup_hw_rpi_pwm()
     obj.addMethod("pwm", &HwRpiPwm::m_pwm);
     obj.addMethod("width", &HwRpiPwm::m_width);
 }
+
+#endif

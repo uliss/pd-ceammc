@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_ir.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
@@ -57,3 +59,5 @@ void setup_hw_rpi_sensor_ir()
     ObjectFactory<HwRpiSensorIR> obj("hw.rpi.sensor.ir");
     obj.addMethod("poll", &HwRpiSensorIR::m_poll);
 }
+
+#endif

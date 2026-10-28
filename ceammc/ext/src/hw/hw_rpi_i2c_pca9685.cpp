@@ -1,4 +1,6 @@
 #include "hw_rpi_i2c_pca9685.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
@@ -230,3 +232,5 @@ void setup_hw_rpi_i2c_pca9685()
     obj.addMethod("restart", &HwI2cPca8695::m_restart);
     obj.addMethod("enable_restart_and_disable", &HwI2cPca8695::m_enable_restart_and_disable);
 }
+
+#endif

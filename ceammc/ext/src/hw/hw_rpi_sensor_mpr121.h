@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SENSOR_MPR121_H
 #define HW_RPI_SENSOR_MPR121_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -32,5 +34,14 @@ private:
 };
 
 void setup_hw_rpi_sensor_mpr121();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiSensorMpr121, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiSensorMpr121, hw_rpi_sensor_mpr121, "hw.rpi.sensor.mpr121");
+
+#endif
 
 #endif // HW_RPI_SENSOR_MPR121_H

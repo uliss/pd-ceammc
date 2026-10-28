@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SPI_WS2812_H
 #define HW_RPI_SPI_WS2812_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -34,5 +36,14 @@ public:
 };
 
 void setup_hw_rpi_spi_ws2812();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwSpiWs2812, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwSpiWs2812, hw_rpi_spi_ws2812, "hw.rpi.spi.ws2812");
+
+#endif
 
 #endif // HW_RPI_SPI_WS2812_H

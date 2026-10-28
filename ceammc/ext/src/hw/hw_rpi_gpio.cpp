@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_rpi_gpio.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
@@ -244,3 +246,5 @@ void setup_hw_rpi_gpio()
     obj.addMethod("poll", &HwRpiGpio::m_poll);
     obj.addMethod("impulse", &HwRpiGpio::m_impulse);
 }
+
+#endif

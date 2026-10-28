@@ -14,6 +14,8 @@
 #ifndef HW_RPI_NFC_PN532_H
 #define HW_RPI_NFC_PN532_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -40,5 +42,14 @@ public:
 } // namespace ceammc
 
 void setup_hw_rpi_nfc_pn532();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiGpioServo, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiGpioServo, hw_rpi_gpio_servo, "hw.rpi.nfc.pn532");
+
+#endif
 
 #endif // HW_RPI_NFC_PN532_H

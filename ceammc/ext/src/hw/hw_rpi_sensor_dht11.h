@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SENSOR_DHT11_H
 #define HW_RPI_SENSOR_DHT11_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -21,5 +23,14 @@ public:
 };
 
 void setup_hw_rpi_sensor_dht11();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiSensorDht11, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiSensorDht11, hw_rpi_sensor_dht11, "hw.rpi.sensor.dht11");
+
+#endif
 
 #endif // HW_RPI_SENSOR_DHT11_H

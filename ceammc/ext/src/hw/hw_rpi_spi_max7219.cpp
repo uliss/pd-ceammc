@@ -1,4 +1,6 @@
 #include "hw_rpi_spi_max7219.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -299,3 +301,4 @@ void setup_hw_rpi_spi_max7219()
     obj.addMethod("clear", &HwSpiMax7219::m_clear);
     obj.addMethod("test", &HwSpiMax7219::m_test);
 }
+#endif

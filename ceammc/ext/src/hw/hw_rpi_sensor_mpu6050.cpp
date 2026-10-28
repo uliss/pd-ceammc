@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_mpu6050.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
@@ -104,3 +106,5 @@ void setup_hw_rpi_sensor_mpu6050()
     CEAMMC_OBJECT_ADD_METHOD(obj, HwRpiSensorMpu6050, poll)
     CEAMMC_OBJECT_ADD_METHOD(obj, HwRpiSensorMpu6050, calibrate)
 }
+
+#endif

@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_vl53l0x.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
@@ -75,3 +77,4 @@ void setup_hw_rpi_sensor_vl53l0x()
     obj.addMethod("poll", &HwRpiSensorVl53l0x::m_poll);
     obj.addMethod("address", &HwRpiSensorVl53l0x::m_address);
 }
+#endif
