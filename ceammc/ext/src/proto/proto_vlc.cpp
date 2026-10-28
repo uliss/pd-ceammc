@@ -1,3 +1,5 @@
+#ifdef WITH_VLC
+
 #include "proto_vlc.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
@@ -55,7 +57,7 @@ void ProtoVlc::initDone()
         host_->cstr(),
         port_->value(),
         pass.c_str(),
-        { this, [](void* user, const char* msg) {} },
+        { this, [](void* user, const char* msg) { } },
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
 }
 
@@ -65,7 +67,7 @@ void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         chk.usage(this, s);
 
-    ceammc_vlc_play(vlc_.get(), to_rust(lv.atomAt(0, {})));
+    ceammc_vlc_play(vlc_.get(), to_rust(lv.atomAt(0, { })));
 }
 
 void ProtoVlc::m_stop(t_symbol* s, const AtomListView& lv)
@@ -159,7 +161,7 @@ void ProtoVlc::m_repeat(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, {})), to_rust(lv.atomAt(1, {})));
+    ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, { })), to_rust(lv.atomAt(1, { })));
 }
 
 void ProtoVlc::m_speed(t_symbol* s, const AtomListView& lv)
@@ -359,3 +361,5 @@ void setup_proto_vlc()
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
 }
+
+#endif

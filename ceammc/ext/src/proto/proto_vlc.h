@@ -1,6 +1,8 @@
 #ifndef PROTO_VLC_H
 #define PROTO_VLC_H
 
+#ifdef WITH_VLC
+
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 
@@ -47,5 +49,13 @@ public:
 };
 
 void setup_proto_vlc();
+
+#else
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(ProtoVlc, 1, 2, "compiled without VLC support");
+OBJECT_STUB_SETUP(ProtoVlc, proto_vlc, "proto.vlc");
+
+#endif
 
 #endif // PROTO_VLC_H

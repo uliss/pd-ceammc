@@ -3,7 +3,7 @@ add_subdirectory(firmata)
 add_library(ceammc_proto STATIC mod_proto.cpp mpv_ipc.cpp)
 
 function(ceammc_proto_external name)
-    target_sources(ceammc_proto PRIVATE "proto_${name}.cpp")
+    target_sources(ceammc_proto PRIVATE "proto_${name}.h" "proto_${name}.cpp")
 endfunction()
 
 ceammc_proto_external(arturia_minilab)
@@ -35,6 +35,11 @@ if(RAGEL_FOUND)
 
     add_custom_target(parser_src SOURCES parser_whammy.rl parser_vlc.rl)
 endif()
+
+if(WITH_VLC)
+    target_compile_definitions(ceammc_proto PRIVATE -DWITH_VLC=1)
+endif()
+
 
 if(WITH_LTC)
     target_sources(ceammc_proto PRIVATE proto_ltc_in_tilde.cpp)
@@ -74,4 +79,13 @@ target_include_directories(ceammc_proto
         ${CMAKE_CURRENT_SOURCE_DIR}/../midi
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
+
+if(WITH_RUST_PROTO)
+    target_include_directories(ceammc_proto PRIVATE
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
+    )
+    target_link_libraries(ceammc_proto PUBLIC proto_rust)
+endif()
+
 target_link_libraries(ceammc_proto PRIVATE date proto_firmata)
