@@ -18,6 +18,7 @@ ceammc_proto_external(midi_sysex)
 ceammc_proto_external(moppy)
 ceammc_proto_external(morse)
 ceammc_proto_external(mpv)
+ceammc_proto_external(obs_client)
 ceammc_proto_external(sp_alpaca)
 ceammc_proto_external(vlc)
 ceammc_proto_external(volca_keys)
@@ -38,8 +39,12 @@ endif()
 
 if(WITH_VLC)
     target_compile_definitions(ceammc_proto PRIVATE -DWITH_VLC=1)
+    target_sources(ceammc_proto PRIVATE parser_vlc.cpp)
 endif()
 
+if(WITH_OBS)
+    target_compile_definitions(ceammc_proto PRIVATE -DWITH_OBS=1)
+endif()
 
 if(WITH_LTC)
     target_sources(ceammc_proto PRIVATE proto_ltc_in_tilde.cpp)
@@ -52,22 +57,8 @@ if(WITH_LTC)
     endif()
 endif()
 
-if(WITH_OBS)
-    target_sources(ceammc_proto PRIVATE
-        proto_rust_struct.hpp
-        proto_obs_client.h
-        proto_obs_client.cpp
-    )
-    target_include_directories(ceammc_proto PRIVATE
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
-    )
-    target_link_libraries(ceammc_proto PUBLIC proto_rust)
-endif()
-
 target_sources(ceammc_proto
     PRIVATE
-        parser_vlc.cpp
         parser_whammy.cpp
         proto_midi_parser.cpp
 )

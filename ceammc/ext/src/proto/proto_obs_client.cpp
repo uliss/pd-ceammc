@@ -11,6 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+
+#ifdef WITH_OBS
+
 #include "proto_obs_client.h"
 #include "args/argcheck.h"
 #include "ceammc_atomlist_view.h"
@@ -369,3 +372,5 @@ void setup_proto_obs_client()
     obj.addMethod("monitor", &ProtoObsClient::m_monitor);
     obj.addMethod("scene", &ProtoObsClient::m_scene);
 }
+
+#endif

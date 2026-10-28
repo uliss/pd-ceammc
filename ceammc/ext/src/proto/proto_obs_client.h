@@ -14,6 +14,8 @@
 #ifndef CEAMMC_PROTO_OBS_CLIENT_H_
 #define CEAMMC_PROTO_OBS_CLIENT_H_
 
+#ifdef WITH_OBS
+
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "proto_rust_struct.hpp"
@@ -61,5 +63,14 @@ private:
 } // namespace ceammc
 
 void setup_proto_obs_client();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(ProtoObsClient, 1, 1, "compiled without OBS support");
+OBJECT_STUB_SETUP(ProtoObsClient, proto_obs_client, "proto.obs");
+
+#endif
 
 #endif // CEAMMC_PROTO_OBS_CLIENT_H_
