@@ -42,6 +42,10 @@ void setup_net_wled_udp();
 
 #else
 
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(NetWledUdp, 1, 1, "compiled without WLED support");
+OBJECT_STUB_SETUP(NetWledUdp, net_wled_udp, "net.wled");
 
 
 #endif

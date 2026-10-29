@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_wled.h"
+
+#ifdef WITH_WLED
 #include "ceammc_factory.h"
 #include "ceammc_ranges.h"
 #include "net_wled_args.hpp"
@@ -189,12 +191,15 @@ void NetWledUdp::m_set_pixel(t_symbol* s, const AtomListView& lv)
     ceammc_wled_udp_set_pixels(ffiObject(), &pixel, 1, 2);
 }
 
+} // namespace ceammc
+
 void setup_net_wled_udp()
 {
+    using namespace ceammc;
     ObjectFactory<NetWledUdp> obj("net.wled");
     obj.addMethod("clear", &NetWledUdp::m_clear);
     obj.addMethod("fill", &NetWledUdp::m_fill);
     obj.addMethod("set_pixel", &NetWledUdp::m_set_pixel);
 }
 
-} // namespace ceammc
+#endif
