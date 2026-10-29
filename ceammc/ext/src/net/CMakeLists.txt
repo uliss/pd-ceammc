@@ -7,7 +7,6 @@ endfunction()
 ceammc_net_external(osc_send)
 ceammc_net_external(osc_server)
 ceammc_net_external(osc_receive)
-ceammc_net_external(artnet_send)
 
 # MQTT
 target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
@@ -40,6 +39,7 @@ if(WITH_TELEGRAM)
 endif()
 
 # libartnet
+ceammc_net_external(artnet_send)
 if(WITH_ARTNET)
     ceammc_net_external(artnet_impl)
     target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
@@ -138,7 +138,7 @@ if(WITH_ESPHOME)
 endif()
 
 # wled
-target_sources(ceammc_net PRIVATE net_wled.h net_wled.cpp)
+ceammc_net_external(wled)
 if(WITH_WLED)
     target_compile_definitions(ceammc_net PRIVATE WITH_WLED)
     pd_method_args(ceammc_net net_wled)
