@@ -693,6 +693,8 @@ void NetEsphomeClient::onState(const ceammc_esphome_entity_id& id, const ceammc_
         anyTo(0, oid, Atom(state.value));
 }
 
+} // namespace ceammc
+
 void setup_net_esphome_client()
 {
     ObjectFactory<NetEsphomeClient> obj("net.esphome.client");
@@ -710,6 +712,4 @@ void setup_net_esphome_client()
 
     obj.addMethod("device?", &NetEsphomeClient::m_device_info);
 }
-
-} // namespace ceammc
 #endif

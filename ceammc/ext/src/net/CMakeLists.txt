@@ -1,7 +1,7 @@
 add_library(ceammc_net STATIC mod_net.cpp net_host.cpp osc_property.cpp)
 
 function(ceammc_net_external name)
-  target_sources(ceammc_hw PRIVATE "net_${name}.h" "net_${name}.cpp")
+  target_sources(ceammc_net PRIVATE "net_${name}.h" "net_${name}.cpp")
 endfunction()
 
 ceammc_net_external(osc_send)
@@ -43,7 +43,7 @@ ceammc_net_external(artnet_send)
 if(WITH_ARTNET)
     ceammc_net_external(artnet_impl)
     target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
-    target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
+    target_include_directories(ceammc_net PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
     target_link_libraries(ceammc_net PUBLIC artnet)
 endif()
 
