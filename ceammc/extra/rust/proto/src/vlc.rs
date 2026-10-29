@@ -1,4 +1,3 @@
-use anyhow::bail;
 use anyhow::Context;
 use globset::GlobBuilder;
 use log::debug;
@@ -259,10 +258,10 @@ async fn request_playlist(
     if response.status().is_success() {
         let data = response.text().await?;
         let playlist: JsonPlaylist =
-            serde_json::from_str(&data).or_else(|err| bail!("playlist: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("playlist: {err}"))?;
         Ok(playlist)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -285,10 +284,10 @@ async fn request_browse(
     if response.status().is_success() {
         let data = response.text().await?;
         let stat: JsonFileList =
-            serde_json::from_str(&data).or_else(|err| bail!("browse: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("browse: {err}"))?;
         Ok(stat)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -307,10 +306,10 @@ async fn send_get_request(
         let data = response.text().await?;
         // debug!("status: {data}");
         let stat: vlc_status =
-            serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("vlc json: {err}"))?;
         Ok(stat)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -424,7 +423,7 @@ fn process_uri(uri: &String) -> anyhow::Result<String> {
         })
         .or_else(|err| match err {
             (src_uri, None) => Ok(src_uri.to_string()),
-            (src_uri, Some(err)) => bail!("error processing uric'{src_uri}': {err}"),
+            (src_uri, Some(err)) => anyhow::bail!("error processing uric'{src_uri}': {err}"),
         })
         .map(|mut uri| {
             if !uri.starts_with("file://") {
@@ -485,7 +484,7 @@ async fn send2vlc(
                     .collect::<Vec<_>>()
                     .join(", ");
 
-                bail!("{err:?}. Valid variants are: {usage}")
+                anyhow::bail!("{err:?}. Valid variants are: {usage}")
             }
         },
         VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None, None)?,
@@ -541,13 +540,13 @@ async fn send2vlc(
                     make_status_url(host, port, Some("volume"), None, Some(format!("{v}")))?
                 }
             },
-            Err(err) => bail!("{err}"),
+            Err(err) => anyhow::bail!("{err}"),
         },
         VlcRequest::PlaybackRate(rate) => {
             const MIN_RATE: f32 = 0.25;
             const MAX_RATE: f32 = 4.0;
             if *rate < MIN_RATE || *rate > MAX_RATE {
-                bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
+                anyhow::bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
             } else {
                 make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))?
             }
@@ -571,7 +570,7 @@ async fn send2vlc(
             RustAtom::Float(t_sec) => {
                 make_status_url(host, port, Some("seek"), None, Some(format!("{t_sec}")))?
             }
-            RustAtom::Null => bail!("seek is not specified"),
+            RustAtom::Null => anyhow::bail!("seek is not specified"),
         },
         VlcRequest::DeleteById(id) => {
             make_status_url(host, port, Some("pl_delete"), Some(id.to_string()), None)?
@@ -585,7 +584,7 @@ async fn send2vlc(
             } else if (pos.abs() as usize) <= count {
                 count - (pos.abs() as usize)
             } else {
-                bail!("invalid item position: {pos}")
+                anyhow::bail!("invalid item position: {pos}")
             };
 
             make_status_url(
@@ -606,7 +605,7 @@ async fn send2vlc(
             let playlist = request_playlist(cli, host, port, pass).await?;
             let items = playlist.find_by_name(name);
             if items.is_empty() {
-                bail!("playlist item '{name}' not found")
+                anyhow::bail!("playlist item '{name}' not found")
             }
             for item in items {
                 let url =

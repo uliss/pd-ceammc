@@ -104,12 +104,14 @@ if(Rust_FOUND)
   # rust proto
   # ############################################################################
   if(WITH_RUST_PROTO)
-    if(WIN32)
-      corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES cdylib)
+    set(RUST_PROTO_CRATE_TYPE staticlib)
+    if(APPLE OR WIN32)
+      set(RUST_PROTO_CRATE_TYPE cdylib)
+    endif()
+
+    corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES ${RUST_PROTO_CRATE_TYPE})
+    if(WIN32)  
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/proto_rust.dll DESTINATION bin)
-    else()
-      corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES
-                             staticlib)
     endif()
   endif()
 
