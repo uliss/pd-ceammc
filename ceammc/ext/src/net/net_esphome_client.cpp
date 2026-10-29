@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_dict.h"
 #ifndef WITH_ESPHOME
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetEsphomeClient, 1, 1, "compiled without EspHome support");
 OBJECT_STUB_SETUP(NetEsphomeClient, net_esphome_client, "net.esphome.client");
 #else
+#include "datatype_dict.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"

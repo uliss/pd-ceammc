@@ -125,15 +125,9 @@ if(WITH_WEBSOCKET)
 endif()
 
 # esphome
-target_sources(ceammc_net PRIVATE net_esphome_client.h net_esphome_client.cpp)
+ceammc_net_external(esphome_client)
 if(WITH_ESPHOME)
     target_compile_definitions(ceammc_net PRIVATE WITH_ESPHOME)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
-        )
     pd_method_args(ceammc_net net_esphome_client)
 endif()
 
