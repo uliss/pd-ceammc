@@ -119,7 +119,7 @@
         "WITH_RPI": "ON",
         "WITH_RUST_APPS": "OFF",
         "WITH_RUST_CORE": "ON",
-        "WITH_RUST_SYNTH": "OFF",
+        "WITH_RUST_SYNTH": "ON",
         "WITH_RUST_SYSTEM": "OFF",
         "WITH_RUST_WHISPER": "OFF",
         "WITH_SFIZZ": "OFF",
@@ -131,7 +131,7 @@
         "WITH_VEROVIO": "OFF",
         "WITH_VLC": "OFF",
         "WITH_WEBSOCKET": "OFF",
-        "WITH_WLED": "OFF",
+        "WITH_WLED": "ON",
         "WITH_ZEROCONF": "ON"
       }
     }

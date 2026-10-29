@@ -176,8 +176,8 @@ public:
     void onState(const ceammc_esphome_entity_id& id, const ceammc_esphome_time_state& state);
 };
 
-void setup_net_esphome_client();
-
 } // namespace ceammc
+
+void setup_net_esphome_client();
 
 #endif // NET_ESPHOME_CLIENT_H

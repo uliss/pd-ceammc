@@ -1,6 +1,6 @@
-#ifdef WITH_VLC
-
 #include "proto_vlc.h"
+
+#ifdef WITH_VLC
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"

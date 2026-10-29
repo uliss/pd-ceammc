@@ -11,10 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "proto_obs_client.h"
 
 #ifdef WITH_OBS
-
-#include "proto_obs_client.h"
 #include "args/argcheck.h"
 #include "ceammc_atomlist_view.h"
 #include "ceammc_containers.h"

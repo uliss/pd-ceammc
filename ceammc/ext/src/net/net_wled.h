@@ -14,6 +14,8 @@
 #ifndef NET_WLED_H
 #define NET_WLED_H
 
+#ifdef WITH_WLED
+
 #include "ceammc_rs_msg_object.h"
 #include "net_rust.hpp"
 
@@ -33,8 +35,15 @@ public:
     void m_set_pixel(t_symbol* s, const AtomListView& lv);
 };
 
+} // namespace ceammc
+
+
 void setup_net_wled_udp();
 
-} // namespace ceammc
+#else
+
+
+
+#endif
 
 #endif // NET_WLED_H

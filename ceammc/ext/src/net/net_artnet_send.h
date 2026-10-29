@@ -1,6 +1,8 @@
 #ifndef CEAMMC_NET_NET_ARTNET_SEND_H
 #define CEAMMC_NET_NET_ARTNET_SEND_H
 
+#ifdef WITH_ARTNET
+
 #include <cstdint>
 #include <memory>
 
@@ -69,5 +71,14 @@ namespace net {
 } // namespace ceammc
 
 void setup_net_artnet_send();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(NetArtnetSend, 1, 1, "compiled without ArtNet support");
+OBJECT_STUB_SETUP(NetArtnetSend, net_artnet_send, "net.artnet.send");
+
+#endif
 
 #endif // CEAMMC_NET_NET_ARTNET_SEND_H

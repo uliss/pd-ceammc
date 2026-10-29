@@ -47,8 +47,8 @@ void setup_hw_rpi_nfc_pn532();
 
 #include "ceammc_stub.h"
 
-CONTROL_OBJECT_STUB(HwRpiGpioServo, 1, 1, "compiled without RPi support");
-OBJECT_STUB_SETUP(HwRpiGpioServo, hw_rpi_gpio_servo, "hw.rpi.nfc.pn532");
+CONTROL_OBJECT_STUB(HwRpiNfcPn532, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiNfcPn532, hw_rpi_nfc_pn532, "hw.rpi.nfc.pn532");
 
 #endif
 

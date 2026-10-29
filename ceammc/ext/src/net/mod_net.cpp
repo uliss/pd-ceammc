@@ -1,13 +1,13 @@
 #include "mod_net.h"
 #include "net_host.h"
-#include "net_rust.hpp"
+// #include "net_rust.hpp"
 
 namespace ceammc {
-void setup_net_esphome_client();
 void setup_net_wled_udp();
 }
 
 extern void setup_net_artnet_send();
+extern void setup_net_esphome_client();
 extern void setup_net_freesound();
 extern void setup_net_http_client();
 extern void setup_net_http_send();
@@ -22,9 +22,9 @@ extern void setup_net_ws_server();
 
 void ceammc_net_setup()
 {
-    ceammc_net_logger_init();
+    // ceammc_net_logger_init();
 
-    ceammc::setup_net_esphome_client();
+    setup_net_esphome_client();
     ceammc::setup_net_wled_udp();
     setup_net_artnet_send();
     setup_net_freesound();

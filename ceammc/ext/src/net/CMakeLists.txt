@@ -1,11 +1,13 @@
-add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
+add_library(ceammc_net STATIC mod_net.cpp net_host.cpp osc_property.cpp)
 
-target_sources(ceammc_net
-    PRIVATE
-        net_osc_send.cpp
-        net_osc_server.cpp
-        net_osc_receive.cpp
-        osc_property.cpp)
+function(ceammc_net_external name)
+  target_sources(ceammc_hw PRIVATE "net_${name}.h" "net_${name}.cpp")
+endfunction()
+
+ceammc_net_external(osc_send)
+ceammc_net_external(osc_server)
+ceammc_net_external(osc_receive)
+ceammc_net_external(artnet_send)
 
 # MQTT
 target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
@@ -39,12 +41,8 @@ endif()
 
 # libartnet
 if(WITH_ARTNET)
+    ceammc_net_external(artnet_impl)
     target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
-    target_sources(ceammc_net
-        PRIVATE
-        net_artnet_send.cpp
-        net_artnet_impl.cpp
-    )
     target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
     target_link_libraries(ceammc_net PUBLIC artnet)
 endif()
@@ -143,13 +141,16 @@ endif()
 target_sources(ceammc_net PRIVATE net_wled.h net_wled.cpp)
 if(WITH_WLED)
     target_compile_definitions(ceammc_net PRIVATE WITH_WLED)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
+    pd_method_args(ceammc_net net_wled)
+endif()
+
+if(WITH_RUST_NET)
+    target_include_directories(ceammc_net PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
-        )
-    pd_method_args(ceammc_net net_wled)
+    )
+    target_link_libraries(ceammc_net PUBLIC net_rust)
 endif()
 
 

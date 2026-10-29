@@ -1,4 +1,6 @@
 #include "net_artnet_send.h"
+
+#ifdef WITH_ARTNET
 #include "artnet/artnet.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
@@ -436,7 +438,6 @@ namespace net {
 
 void setup_net_artnet_send()
 {
-#ifdef WITH_ARTNET
     using namespace ceammc;
     ObjectFactory<net::NetArtnetSend> obj("net.artnet.send");
     obj.addAlias("artnet.send");
@@ -448,6 +449,6 @@ void setup_net_artnet_send()
     obj.addMethod("dmx_fill", &net::NetArtnetSend::m_dmx_fill);
     obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);
     obj.addMethod("poll", &net::NetArtnetSend::m_poll);
+}
 
 #endif
-}
