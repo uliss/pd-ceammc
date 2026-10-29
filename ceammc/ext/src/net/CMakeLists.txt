@@ -110,14 +110,10 @@ if(WITH_ZEROCONF)
 endif()
 
 # websocket
-target_sources(ceammc_net PRIVATE net_ws_client.cpp net_ws_server.cpp)
+ceammc_net_external(ws_client)
+ceammc_net_external(ws_server)
 if(WITH_WEBSOCKET)
     target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-        )
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
         target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})

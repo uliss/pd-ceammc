@@ -130,7 +130,7 @@
         "WITH_TTS_RHVOICE": "OFF",
         "WITH_VEROVIO": "OFF",
         "WITH_VLC": "OFF",
-        "WITH_WEBSOCKET": "OFF",
+        "WITH_WEBSOCKET": "ON",
         "WITH_WLED": "ON",
         "WITH_ZEROCONF": "ON"
       }
