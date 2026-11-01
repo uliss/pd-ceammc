@@ -1,6 +1,7 @@
 #ifndef CEAMMC_STRING_SPLIT_H
 #define CEAMMC_STRING_SPLIT_H
 
+#include <utility>
 #include <boost/container/small_vector.hpp>
 // we are using C++11, so
 #include <boost/utility/string_view.hpp>
