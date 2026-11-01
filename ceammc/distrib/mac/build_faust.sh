@@ -13,7 +13,7 @@ then
     git submodule update --init --recursive
     cd build
 else
-    git clone https://github.com/grame-cncm/faust.git
+    git clone --recurse-submodules --shallow-submodules --depth 1 https://github.com/grame-cncm/faust.git
     if [[ $? -ne 0 ]]
     then
         exit 1
