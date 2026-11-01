@@ -10,6 +10,8 @@ use log::debug;
 use tokio::select;
 use tokio_util::sync::CancellationToken;
 
+pub type TokioCancel = tokio_util::sync::CancellationToken;
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -161,6 +163,10 @@ impl SendState {
             SendState::NoSpace => Err(format!("no in space channel")),
             SendState::Disconnected => Err(format!("client disconnected")),
         }
+    }
+
+    pub fn is_ok(&self) -> bool {
+        *self == Self::Ok
     }
 }
 
@@ -701,7 +707,7 @@ where
         on_msg: msg_cb,
     ) -> Self
     where
-        F: AsyncFnOnce(TokioClientChannel<Request, Reply>, CancellationToken) -> Result<(), String>
+        F: AsyncFnOnce(TokioClientChannel<Request, Reply>, TokioCancel) -> Result<(), String>
             + Send
             + 'static,
     {
