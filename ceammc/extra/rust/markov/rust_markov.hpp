@@ -96,9 +96,6 @@ using ceammc_markov_err_cb = void(*)(ceammc_markov_error err);
 
 extern "C" {
 
-/// process replies markov chain generator
-bool ceammc_esphome_client_process(ceammc_markov *m);
-
 /// generate new note
 bool ceammc_markov_bang(ceammc_markov *m);
 
@@ -115,6 +112,9 @@ ceammc_markov *ceammc_markov_new(uint8_t order,
                                  ceammc_msg_cb on_msg,
                                  ceammc_markov_cb on_data,
                                  ceammc_markov_err_cb on_err);
+
+/// process replies from markov chain generator
+bool ceammc_markov_process(ceammc_markov *m);
 
 /// reset current state
 bool ceammc_markov_reset(ceammc_markov *m);

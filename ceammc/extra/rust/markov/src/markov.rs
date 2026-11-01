@@ -213,8 +213,8 @@ pub extern "C" fn ceammc_markov_free(m: *mut markov) {
 }
 
 #[no_mangle]
-/// process replies markov chain generator
-pub extern "C" fn ceammc_esphome_client_process(m: *mut markov) -> bool {
+/// process replies from markov chain generator
+pub extern "C" fn ceammc_markov_process(m: *mut markov) -> bool {
     if m.is_null() {
         false
     } else {
