@@ -131,6 +131,22 @@ if(Rust_FOUND)
     endif()
   endif()
 
+  # rust markov
+  # ############################################################################
+  if(WITH_MARKOV)
+    set(RUST_MARKOV_CRATE_TYPE staticlib)
+    if(APPLE OR WIN32)
+      set(RUST_MARKOV_CRATE_TYPE cdylib)
+    endif()
+
+    corrosion_import_crate(MANIFEST_PATH markov/Cargo.toml CRATE_TYPES
+                           ${RUST_MARKOV_CRATE_TYPE})
+
+    if(WIN32)
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/markov_rust.dll DESTINATION bin)
+    endif()
+  endif()
+
   # rust system
   # ############################################################################
   if(WITH_RUST_SYSTEM)

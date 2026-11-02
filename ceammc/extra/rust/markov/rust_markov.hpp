@@ -37,7 +37,12 @@ struct ceammc_markov_note {
     ceammc_markov_duration dur_bin;
 };
 
-using ceammc_markov_cb = void(*)(ceammc_markov_note note);
+struct ceammc_markov_cb {
+    /// user data
+    void *user;
+    /// callback function
+    void (*cb)(void *user, ceammc_markov_note note);
+};
 
 /// Errors of the Markov chain core.
 struct ceammc_markov_error {

@@ -1,3 +1,5 @@
+include(pd_method_args)
+
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     conway_life.cpp
     route_any.cpp
@@ -14,6 +16,8 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     seq_base.cpp
     seq_counter.cpp
     seq_life.cpp
+    seq_markov.h
+    seq_markov.cpp
     seq_matrix.cpp
     seq_nbangs.cpp
     seq_phasor.cpp
@@ -22,7 +26,7 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
 )
 
 macro(ceammc_flow_external name)
-    list(APPEND FLOW_SOURCES "flow_${name}.cpp")
+    list(APPEND FLOW_SOURCES "flow_${name}.h" "flow_${name}.cpp")
 endmacro()
 
 ceammc_flow_external(append)
@@ -86,3 +90,13 @@ target_include_directories(ceammc_flow PRIVATE
 )
 
 target_link_libraries(ceammc_flow PRIVATE core_rust ceammc_core) # for function calls
+
+if(WITH_MARKOV)
+    target_compile_definitions(ceammc_flow PRIVATE WITH_MARKOV)
+    target_link_libraries(ceammc_flow PUBLIC markov)
+    target_include_directories(ceammc_flow PRIVATE
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/markov)
+endif()
+
+pd_method_args(ceammc_flow seq_markov)

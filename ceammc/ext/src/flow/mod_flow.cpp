@@ -52,6 +52,7 @@ void setup_seq_arp();
 void setup_seq_bangs();
 void setup_seq_counter();
 void setup_seq_life();
+void setup_seq_markov();
 void setup_seq_matrix();
 void setup_seq_nbangs();
 void setup_seq_phasor();
@@ -121,6 +122,7 @@ void ceammc_flow_setup()
     setup_seq_bangs();
     setup_seq_counter();
     setup_seq_life();
+    setup_seq_markov();
     setup_seq_matrix();
     setup_seq_nbangs();
     setup_seq_phasor();

@@ -1,3 +1,5 @@
+use std::ffi::c_void;
+
 use ceammc_rs_msg::{msg_cb, msg_notify, TokioClient, WorkerMessage};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
@@ -178,8 +180,24 @@ impl markov {
     }
 }
 
+#[repr(C)]
 #[allow(non_camel_case_types)]
-pub type markov_cb = extern "C" fn(note: markov_note);
+#[derive(Clone, Copy)]
+pub struct markov_cb {
+    /// user data
+    user: *mut c_void,
+    /// callback function
+    cb: Option<extern "C" fn(user: *mut c_void, note: markov_note)>,
+}
+
+impl markov_cb {
+    pub fn exec(&self, note: markov_note) {
+        self.cb.map(|cb| cb(self.user, note));
+    }
+}
+
+// #[allow(non_camel_case_types)]
+// pub type markov_cb = extern "C" fn(user: *mut c_void, note: markov_note);
 
 #[allow(non_camel_case_types)]
 pub type markov_err_cb = extern "C" fn(err: markov_error);
@@ -220,7 +238,7 @@ pub extern "C" fn ceammc_markov_process(m: *mut markov) -> bool {
     } else {
         let m = unsafe { &mut *m };
         m.obj.recv_loop(|reply| match reply {
-            Reply::Note(note) => (m.on_data)(note),
+            Reply::Note(note) => m.on_data.exec(note),
         });
         true
     }
