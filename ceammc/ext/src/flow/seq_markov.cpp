@@ -38,10 +38,13 @@ void SeqMarkov::initDone()
     switch(order_->value()) {
     case 0:
         order = ceammc_markov_order::Order0;
+        break;
     case 1:
-        order =  ceammc_markov_order::Order1;
+        order = ceammc_markov_order::Order1;
+        break;
     case 2:
         order = ceammc_markov_order::Order2;
+        break;
     default:
         OBJ_ERR << fmt::format("invalid markov chain order: {}", order_->value());
         break;
