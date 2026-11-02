@@ -11,7 +11,7 @@ OBJECT_STUB_SETUP(SeqMarkov, setup_seq_markov, "seq.markov");
 #include "lex/parser_music.h"
 #include "rust_markov.hpp"
 
-// #include "fmt/core.h"
+#include "fmt/core.h"
 
 using namespace ceammc;
 
@@ -34,7 +34,20 @@ SeqMarkov::SeqMarkov(const PdArgs& args)
 
 void SeqMarkov::initDone()
 {
-    markov_.reset(ceammc_markov_new(order_->value(), seed_->value(), //
+    auto order = ceammc_markov_order::Order1;
+    switch(order_->value()) {
+    case 0:
+        order = ceammc_markov_order::Order0;
+    case 1:
+        order =  ceammc_markov_order::Order1;
+    case 2:
+        order = ceammc_markov_order::Order2;
+    default:
+        OBJ_ERR << fmt::format("invalid markov chain order: {}", order_->value());
+        break;
+    }
+
+    markov_.reset(ceammc_markov_new(order, seed_->value(), //
         { subscriberId(), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } }, //
         {
             this, [](void* user, ceammc_msg_level level, const char* msg) {
@@ -66,8 +79,8 @@ void SeqMarkov::initDone()
 
                 obj->floatTo(1, static_cast<std::uint8_t>(note.dur_bin));
                 obj->floatTo(0, note.pitch);
-            } }, //
-        [](ceammc_markov_error err) { }));
+            } } //
+        ));
 }
 
 bool SeqMarkov::notify(int code)
@@ -90,9 +103,6 @@ void SeqMarkov::m_reset(t_symbol *s, const AtomListView &lv)
     ceammc_markov_reset(markov_.get());
 }
 
-/// @function "train" {
-///
-/// }
 void SeqMarkov::m_train(t_symbol* s, const AtomListView& lv)
 {
     args::ArgChecker chk("PITCH1:i[0,127] DUR1:a?");

@@ -9,41 +9,75 @@ use crate::{
     markov::markov_order::{Order0, Order1, Order2},
 };
 
+/// Quantized note duration used as the second component of a Markov state.
+///
+/// Each variant corresponds to a musical duration (whole, half, quarter, ...,
+/// optionally dotted). The numeric discriminants are part of the ABI: they are
+/// used as `dur_bin` in [`markov_note`] and must not be renumbered without
+/// updating `COUNT`.
 #[repr(u8)]
 #[derive(Debug, Clone, PartialEq, IntoPrimitive, TryFromPrimitive)]
 #[allow(non_camel_case_types)]
 pub enum markov_duration {
+    /// Whole note.
     D1 = 0,
+    /// Dotted whole note.
     D1dotted = 1,
+    /// Double-dotted whole note.
     D1dotted2 = 2,
+    /// Half note.
     D2 = 3,
+    /// Dotted half note.
     D2dotted = 4,
+    /// Double-dotted half note.
     D2dotted2 = 5,
+    /// Quarter note.
     D4 = 6,
+    /// Dotted quarter note.
     D4dotted = 7,
+    /// Double-dotted quarter note.
     D4dotted2 = 8,
+    /// Eighth note.
     D8 = 9,
+    /// Dotted eighth note.
     D8dotted = 10,
+    /// Double-dotted eighth note.
     D8dotted2 = 11,
+    /// Sixteenth note.
     D16 = 12,
+    /// Dotted sixteenth note.
     D16dotted = 13,
+    /// Double-dotted sixteenth note.
     D16dotted2 = 14,
+    /// Thirty-second note.
     D32 = 15,
+    /// Double-dotted thirty-second note.
     D32dotted2 = 16,
+    /// Sixty-fourth note.
     D64 = 17,
-    COUNT = 18, // shoud be updated
+    /// Number of duration variants. Must be updated when a new variant is added.
+    COUNT = 18,
 }
 
+/// Markov chain order (memory depth), as exposed over FFI.
+///
+/// - `Order0`: next note is independent of history (global distribution).
+/// - `Order1`: next note depends on the previous note.
+/// - `Order2`: next note depends on the two previous notes.
 #[repr(u8)]
 #[derive(Clone, Copy, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum markov_order {
+    /// No history; sample from the global distribution.
     Order0,
+    /// One previous note of context.
     Order1,
+    /// Two previous notes of context.
     Order2,
 }
 
 impl markov_order {
+    /// Convert to a `usize` for use as a chain parameter.
     pub fn into_usize(&self) -> usize {
         self.clone() as usize
     }
@@ -64,33 +98,51 @@ impl TryFrom<u8> for markov_order {
     }
 }
 
+/// A single Markov state: a MIDI pitch plus a quantized duration.
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq)]
 pub struct markov_note {
+    /// MIDI pitch, 0..=127.
     pub pitch: u8,
+    /// Quantized duration bin.
     pub dur_bin: markov_duration,
 }
 
-/// Команды от control-потока к audio/worker-потоку
+/// Commands sent from the control thread to the worker thread.
 #[derive(Clone)]
 enum Request {
+    /// Append a note to the training data.
     Train(markov_note),
+    /// Set the one-note history (for `Order1` chains).
     SetHistory1(markov_note),
+    /// Set the two-note history (for `Order2` chains).
     SetHistory2(markov_note, markov_note),
+    /// Generate the next note.
     Bang,
+    /// Clear all training data and history.
     Clear,
+    /// Reset history but keep training data.
     Reset,
 }
 
+/// Replies sent from the worker thread back to the control thread.
 #[derive(Clone)]
 enum Reply {
+    /// A generated note.
     Note(markov_note),
 }
 
+/// Opaque handle to a Markov chain generator, owned by the C side.
+///
+/// The C side holds a `*mut markov` and must call [`ceammc_markov_free`]
+/// when done.
 #[allow(non_camel_case_types)]
 pub struct markov {
+    /// Callback invoked for each generated note
     on_data: markov_cb,
+    /// Callback invoked for log/error messages
     on_msg: msg_cb,
+    /// Worker-thread client used to send requests and receive replies.
     obj: ceammc_rs_msg::TokioClient<Request, Reply>,
 }
 
@@ -180,58 +232,77 @@ impl markov {
     }
 }
 
+/// C-compatible callback invoked when a note is generated.
+///
+/// The `user` pointer is passed through unchanged; it is owned by the C side.
 #[repr(C)]
 #[allow(non_camel_case_types)]
 #[derive(Clone, Copy)]
 pub struct markov_cb {
-    /// user data
+    /// Opaque user data, forwarded unchanged to `cb`.
     user: *mut c_void,
-    /// callback function
+    /// Callback function pointer; `None` means "do nothing".
     cb: Option<extern "C" fn(user: *mut c_void, note: markov_note)>,
 }
 
 impl markov_cb {
+    /// Invoke the callback, if any.
     pub fn exec(&self, note: markov_note) {
         self.cb.map(|cb| cb(self.user, note));
     }
 }
 
-// #[allow(non_camel_case_types)]
-// pub type markov_cb = extern "C" fn(user: *mut c_void, note: markov_note);
-
-#[allow(non_camel_case_types)]
-pub type markov_err_cb = extern "C" fn(err: markov_error);
-
+/// Create a new Markov chain generator.
+///
+/// # Parameters
+/// - `order`: chain order (`Order0`, `Order1`, or `Order2`).
+/// - `seed`: RNG seed; same seed + same training data yields the same output.
+/// - `notify`: notification used by the worker to wake the control thread.
+/// - `on_msg`: callback for log/error messages
+/// - `on_data`: callback invoked for every generated note.
+///
+/// # Returns
+/// An owned `*mut markov` handle, or a null pointer is never returned for
+/// valid arguments. The caller must eventually call [`ceammc_markov_free`].
 #[no_mangle]
-/// create markov chain generator
 pub extern "C" fn ceammc_markov_new(
-    order: u8,
+    order: markov_order,
     seed: u32,
     notify: msg_notify,
     on_msg: msg_cb,
     on_data: markov_cb,
-    on_err: markov_err_cb,
 ) -> *mut markov {
-    let order = order.try_into();
-    match order {
-        Ok(order) => Box::into_raw(Box::new(markov::new(order, on_data, on_msg, notify, seed))),
-        Err(err) => {
-            on_err(err);
-            std::ptr::null_mut()
-        }
-    }
+    Box::into_raw(Box::new(markov::new(order, on_data, on_msg, notify, seed)))
 }
 
+/// Free a Markov chain generator previously created by [`ceammc_markov_new`].
+///
+/// # Parameters
+/// - `m`: handle returned by [`ceammc_markov_new`]. A null pointer is ignored.
+///
+/// # Safety
+/// `m` must be a pointer previously returned by [`ceammc_markov_new`] and not
+/// already freed.
 #[no_mangle]
-/// free markov chain generator
 pub extern "C" fn ceammc_markov_free(m: *mut markov) {
     if !m.is_null() {
         let _ = unsafe { Box::from_raw(m) };
     }
 }
 
+/// Drain pending replies from the worker thread and dispatch them to `on_data`.
+///
+/// Call this periodically from the control thread (e.g. from Pd's clock).
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` on success, `false` if `m` is null.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// process replies from markov chain generator
 pub extern "C" fn ceammc_markov_process(m: *mut markov) -> bool {
     if m.is_null() {
         false
@@ -244,38 +315,113 @@ pub extern "C" fn ceammc_markov_process(m: *mut markov) -> bool {
     }
 }
 
+/// Request generation of the next note.
+///
+/// The generated note is delivered asynchronously via the `on_data` callback
+/// after a subsequent call to [`ceammc_markov_process`].
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// generate new note
 pub extern "C" fn ceammc_markov_bang(m: *mut markov) -> bool {
     markov::send_request(m, Request::Bang)
 }
 
+/// Reset the current chain state (history) without discarding training data.
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// reset current state
 pub extern "C" fn ceammc_markov_reset(m: *mut markov) -> bool {
     markov::send_request(m, Request::Reset)
 }
 
+/// Clear all training data and reset the chain state.
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// clear all training data
 pub extern "C" fn ceammc_markov_clear(m: *mut markov) -> bool {
     markov::send_request(m, Request::Clear)
 }
 
+/// Append a note to the training data.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note`: pitch + duration to train on.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// add train data
 pub extern "C" fn ceammc_markov_train(m: *mut markov, note: markov_note) -> bool {
     markov::send_request(m, Request::Train(note))
 }
 
+/// Set the one-note history (for `Order1` chains).
+///
+/// Used to start generation from a specific note instead of relying on the
+/// history accumulated during training.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note`: the previous note to use as context.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the chain order is not `Order1`, the worker reports an
+/// error via `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// set history for first order
 pub extern "C" fn ceammc_markov_set_history1(m: *mut markov, note: markov_note) -> bool {
     markov::send_request(m, Request::SetHistory1(note))
 }
 
+/// Set the two-note history (for `Order2` chains).
+///
+/// `note1` is the older note, `note2` is the more recent one; generation will
+/// continue from this context.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note1`: the older note of the two-note context.
+/// - `note2`: the more recent note of the two-note context.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the chain order is not `Order2`, the worker reports an
+/// error via `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 #[no_mangle]
-/// set history for second order
 pub extern "C" fn ceammc_markov_set_history2(
     m: *mut markov,
     note1: markov_note,

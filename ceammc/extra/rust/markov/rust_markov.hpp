@@ -8,131 +8,229 @@
 #include "ceammc_rs_msg.hpp"
 
 
+/// Quantized note duration used as the second component of a Markov state.
+///
+/// Each variant corresponds to a musical duration (whole, half, quarter, ...,
+/// optionally dotted). The numeric discriminants are part of the ABI: they are
+/// used as `dur_bin` in [`markov_note`] and must not be renumbered without
+/// updating `COUNT`.
 enum class ceammc_markov_duration : uint8_t {
+    /// Whole note.
     D1 = 0,
+    /// Dotted whole note.
     D1dotted = 1,
+    /// Double-dotted whole note.
     D1dotted2 = 2,
+    /// Half note.
     D2 = 3,
+    /// Dotted half note.
     D2dotted = 4,
+    /// Double-dotted half note.
     D2dotted2 = 5,
+    /// Quarter note.
     D4 = 6,
+    /// Dotted quarter note.
     D4dotted = 7,
+    /// Double-dotted quarter note.
     D4dotted2 = 8,
+    /// Eighth note.
     D8 = 9,
+    /// Dotted eighth note.
     D8dotted = 10,
+    /// Double-dotted eighth note.
     D8dotted2 = 11,
+    /// Sixteenth note.
     D16 = 12,
+    /// Dotted sixteenth note.
     D16dotted = 13,
+    /// Double-dotted sixteenth note.
     D16dotted2 = 14,
+    /// Thirty-second note.
     D32 = 15,
+    /// Double-dotted thirty-second note.
     D32dotted2 = 16,
+    /// Sixty-fourth note.
     D64 = 17,
+    /// Number of duration variants. Must be updated when a new variant is added.
     COUNT = 18,
 };
 
+/// Markov chain order (memory depth), as exposed over FFI.
+///
+/// - `Order0`: next note is independent of history (global distribution).
+/// - `Order1`: next note depends on the previous note.
+/// - `Order2`: next note depends on the two previous notes.
+enum class ceammc_markov_order : uint8_t {
+    /// No history; sample from the global distribution.
+    Order0,
+    /// One previous note of context.
+    Order1,
+    /// Two previous notes of context.
+    Order2,
+};
+
+/// Opaque handle to a Markov chain generator, owned by the C side.
+///
+/// The C side holds a `*mut markov` and must call [`ceammc_markov_free`]
+/// when done.
 struct ceammc_markov;
 
+/// A single Markov state: a MIDI pitch plus a quantized duration.
 struct ceammc_markov_note {
+    /// MIDI pitch, 0..=127.
     uint8_t pitch;
+    /// Quantized duration bin.
     ceammc_markov_duration dur_bin;
 };
 
+/// C-compatible callback invoked when a note is generated.
+///
+/// The `user` pointer is passed through unchanged; it is owned by the C side.
 struct ceammc_markov_cb {
-    /// user data
+    /// Opaque user data, forwarded unchanged to `cb`.
     void *user;
-    /// callback function
+    /// Callback function pointer; `None` means "do nothing".
     void (*cb)(void *user, ceammc_markov_note note);
 };
-
-/// Errors of the Markov chain core.
-struct ceammc_markov_error {
-    enum class Tag {
-        /// The chain has not seen any (pitch, dur) pair yet, so
-        /// there is nothing for `next()` to sample from.
-        NoCurrentState,
-        /// There is no outgoing transition from the current state.
-        /// This is a normal situation for a sparse chain — the caller
-        /// must decide what to do (fallback, stop, reset).
-        NoTransitions,
-        /// Failed to build sampling weights (e.g. all zeros
-        /// or `WeightedIndex` overflow).
-        Sampling,
-        /// Invalid input parameter: pitch outside 0..=127 or
-        /// dur_bin outside 0..DUR_BINS.
-        InvalidPitch,
-        InvalidIndex,
-        InvalidOrder,
-        UnexpectedOrder,
-    };
-
-    struct ceammc_NoTransitions_Body {
-        uint64_t state;
-    };
-
-    struct ceammc_InvalidPitch_Body {
-        size_t pitch;
-    };
-
-    struct ceammc_InvalidIndex_Body {
-        size_t index;
-    };
-
-    struct ceammc_InvalidOrder_Body {
-        size_t order;
-    };
-
-    struct ceammc_UnexpectedOrder_Body {
-        size_t order;
-        size_t expected;
-    };
-
-    Tag tag;
-    union {
-        ceammc_NoTransitions_Body no_transitions;
-        ceammc_InvalidPitch_Body invalid_pitch;
-        ceammc_InvalidIndex_Body invalid_index;
-        ceammc_InvalidOrder_Body invalid_order;
-        ceammc_UnexpectedOrder_Body unexpected_order;
-    };
-};
-
-using ceammc_markov_err_cb = void(*)(ceammc_markov_error err);
 
 
 extern "C" {
 
-/// generate new note
+/// Request generation of the next note.
+///
+/// The generated note is delivered asynchronously via the `on_data` callback
+/// after a subsequent call to [`ceammc_markov_process`].
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_bang(ceammc_markov *m);
 
-/// clear all training data
+/// Clear all training data and reset the chain state.
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_clear(ceammc_markov *m);
 
-/// free markov chain generator
+/// Free a Markov chain generator previously created by [`ceammc_markov_new`].
+///
+/// # Parameters
+/// - `m`: handle returned by [`ceammc_markov_new`]. A null pointer is ignored.
+///
+/// # Safety
+/// `m` must be a pointer previously returned by [`ceammc_markov_new`] and not
+/// already freed.
 void ceammc_markov_free(ceammc_markov *m);
 
-/// create markov chain generator
-ceammc_markov *ceammc_markov_new(uint8_t order,
+/// Create a new Markov chain generator.
+///
+/// # Parameters
+/// - `order`: chain order (`Order0`, `Order1`, or `Order2`).
+/// - `seed`: RNG seed; same seed + same training data yields the same output.
+/// - `notify`: notification used by the worker to wake the control thread.
+/// - `on_msg`: callback for log/error messages
+/// - `on_data`: callback invoked for every generated note.
+///
+/// # Returns
+/// An owned `*mut markov` handle, or a null pointer is never returned for
+/// valid arguments. The caller must eventually call [`ceammc_markov_free`].
+ceammc_markov *ceammc_markov_new(ceammc_markov_order order,
                                  uint32_t seed,
                                  ceammc_msg_notify notify,
                                  ceammc_msg_cb on_msg,
-                                 ceammc_markov_cb on_data,
-                                 ceammc_markov_err_cb on_err);
+                                 ceammc_markov_cb on_data);
 
-/// process replies from markov chain generator
+/// Drain pending replies from the worker thread and dispatch them to `on_data`.
+///
+/// Call this periodically from the control thread (e.g. from Pd's clock).
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` on success, `false` if `m` is null.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_process(ceammc_markov *m);
 
-/// reset current state
+/// Reset the current chain state (history) without discarding training data.
+///
+/// # Parameters
+/// - `m`: generator handle.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_reset(ceammc_markov *m);
 
-/// set history for first order
+/// Set the one-note history (for `Order1` chains).
+///
+/// Used to start generation from a specific note instead of relying on the
+/// history accumulated during training.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note`: the previous note to use as context.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the chain order is not `Order1`, the worker reports an
+/// error via `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_set_history1(ceammc_markov *m, ceammc_markov_note note);
 
-/// set history for second order
+/// Set the two-note history (for `Order2` chains).
+///
+/// `note1` is the older note, `note2` is the more recent one; generation will
+/// continue from this context.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note1`: the older note of the two-note context.
+/// - `note2`: the more recent note of the two-note context.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the chain order is not `Order2`, the worker reports an
+/// error via `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_set_history2(ceammc_markov *m,
                                 ceammc_markov_note note1,
                                 ceammc_markov_note note2);
 
-/// add train data
+/// Append a note to the training data.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `note`: pitch + duration to train on.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_train(ceammc_markov *m, ceammc_markov_note note);
 
 }  // extern "C"
