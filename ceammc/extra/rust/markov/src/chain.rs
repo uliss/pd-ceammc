@@ -329,7 +329,7 @@ mod test {
         errors::markov_error::{NoCurrentState, NoTransitions},
         markov::{
             markov_duration, markov_note,
-            markov_order::{self, Order2},
+            markov_order::{self, Order1, Order2},
         },
     };
 
@@ -443,5 +443,38 @@ mod test {
         // which has 64 -> 60.
         let n = c.next_with_temperature(cfg).unwrap();
         assert_eq!(n.pitch, 60);
+    }
+
+    #[test]
+    fn temperature_and_backoff_compile_and_run() {
+        let mut c = MarkovChain::new(42, Order2);
+        c.train(note(60, 0));
+        c.train(note(62, 0));
+        c.train(note(64, 0));
+        c.train(note(60, 0));
+
+        // Force order-2 context (62, 64); order-2 has no edges from it,
+        // backoff to order-1 context (64), which has 64 -> 60.
+        c.set_history2(note(62, 0), note(64, 0)).unwrap();
+
+        let cfg = markov_sample_config {
+            backoff: true,
+            restart: false,
+            temperature: 1.0,
+            top_k: 0,
+        };
+        let n = c.next_with_temperature(cfg).unwrap();
+        assert_eq!(n.pitch, 60);
+    }
+
+    #[test]
+    fn restart_when_no_edges_anywhere() {
+        let mut c = MarkovChain::new(42, Order1);
+        c.train(note(60, 0));
+        c.train(note(62, 0));
+        // Current history is [62], no edges from 62 at any level except order-0.
+        let cfg = markov_sample_config::default();
+        let n = c.next_with_temperature(cfg).unwrap();
+        assert!(n.pitch == 60 || n.pitch == 62);
     }
 }
