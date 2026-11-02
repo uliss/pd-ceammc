@@ -14,6 +14,10 @@ class SeqMarkov : public DispatchedObject<BaseObject> {
     std::unique_ptr<ceammc_markov, void (*)(ceammc_markov*)> markov_;
     IntEnumProperty* order_;
     IntProperty* seed_;
+    IntProperty* top_k_;
+    FloatProperty* t_;
+    BoolProperty* restart_;
+    BoolProperty* backoff_;
 
 public:
     explicit SeqMarkov(const PdArgs& args);

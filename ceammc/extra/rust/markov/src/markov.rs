@@ -4,7 +4,7 @@ use ceammc_rs_msg::{msg_cb, msg_notify, TokioClient, WorkerMessage};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
 use crate::{
-    chain::MarkovChain,
+    chain::{markov_sample_config, MarkovChain},
     errors::markov_error,
     markov::markov_order::{Order0, Order1, Order2},
 };
@@ -83,6 +83,12 @@ impl markov_order {
     }
 }
 
+impl Default for markov_order {
+    fn default() -> Self {
+        Self::Order1
+    }
+}
+
 impl TryFrom<u8> for markov_order {
     type Error = markov_error;
 
@@ -119,6 +125,8 @@ enum Request {
     SetHistory2(markov_note, markov_note),
     /// Generate the next note.
     Bang,
+    /// Generate the next note with config
+    BangWithConfig(markov_sample_config),
     /// Clear all training data and history.
     Clear,
     /// Reset history but keep training data.
@@ -207,6 +215,20 @@ impl markov {
                                         out_chan
                                             .send_msg(WorkerMessage::error(err.to_string()))
                                             .to_worker_result()?;
+                                    }
+                                    Ok(())
+                                }
+                                Request::BangWithConfig(cfg) => {
+                                    match markov_gen.next_with_temperature(cfg) {
+                                        Ok(note) => {
+                                            out_chan
+                                                .send_data(Reply::Note(note))
+                                                .to_worker_result()?;
+                                            notify.exec();
+                                        }
+                                        Err(err) => out_chan
+                                            .send_msg(WorkerMessage::error(err.to_string()))
+                                            .to_worker_result()?,
                                     }
                                     Ok(())
                                 }
@@ -332,6 +354,14 @@ pub extern "C" fn ceammc_markov_process(m: *mut markov) -> bool {
 #[no_mangle]
 pub extern "C" fn ceammc_markov_bang(m: *mut markov) -> bool {
     markov::send_request(m, Request::Bang)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_markov_bang_with_config(
+    m: *mut markov,
+    cfg: markov_sample_config,
+) -> bool {
+    markov::send_request(m, Request::BangWithConfig(cfg))
 }
 
 /// Reset the current chain state (history) without discarding training data.

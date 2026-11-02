@@ -59,6 +59,38 @@ fn pack_history(history: &[usize], order: markov_order) -> HistoryKey {
     key
 }
 
+/// Sampling parameters. All fields are cheap `Copy` types,
+/// so the struct can be stored directly in the Pd object.
+#[derive(Debug, Clone, Copy)]
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub struct markov_sample_config {
+    /// Keep only the `top_k` most frequent outgoing transitions before sampling.
+    /// 0 = disabled (use all edges).
+    pub top_k: usize,
+    /// Temperature for softmax-style smoothing of transition counts.
+    /// 1.0 = raw counts, >1.0 = flatter (more surprise), <1.0 = sharper.
+    pub temperature: f32,
+    /// If no outgoing transition exists for the full context, fall back to
+    /// shorter contexts (order-1, order-2, ..., 0). Requires `train` to record
+    /// transitions at every level.
+    pub backoff: bool,
+    /// If even the order-0 distribution is empty, pick a random observed state.
+    /// If `false`, `next_with_temperature` returns `NoTransitions`.
+    pub restart: bool,
+}
+
+impl Default for markov_sample_config {
+    fn default() -> Self {
+        Self {
+            temperature: 1.0,
+            top_k: 0,
+            backoff: true,
+            restart: true,
+        }
+    }
+}
+
 pub struct MarkovChain {
     transitions: HashMap<HistoryKey, Vec<(usize, u32)>>,
     /// Full history of visited states, most recent last. Length <= order.
@@ -80,18 +112,18 @@ impl MarkovChain {
 
     pub fn train(&mut self, note: markov_note) {
         let idx = note_to_index(note);
-
-        // Build key from the last `order` states; only update if history is full enough.
-        if self.history.len() >= self.order.into_usize() {
-            let key = pack_history(&self.history, self.order);
+        let max_ctx = self.order.into_usize().min(self.history.len());
+        for ctx_len in 0..=max_ctx {
+            let key = pack_history(
+                &self.history,
+                markov_order::try_from(ctx_len as u8).unwrap_or_default(),
+            );
             let edges = self.transitions.entry(key).or_default();
             match edges.iter_mut().find(|(to, _)| *to == idx) {
                 Some((_, count)) => *count += 1,
                 None => edges.push((idx, 1)),
             }
         }
-
-        // Push new state and trim history to order.
         self.history.push(idx);
         if self.history.len() > self.order.into_usize() {
             self.history.remove(0);
@@ -124,6 +156,127 @@ impl MarkovChain {
         }
 
         index_to_note(chosen)
+    }
+
+    /// Generate the next note using temperature, top-k, backoff and restart.
+    ///
+    /// Order of operations:
+    /// 1. Try the full context (order). If no edges and `backoff` is on,
+    ///    try shorter contexts down to 0.
+    /// 2. If still no edges and `restart` is on, pick a random observed state.
+    /// 3. Apply top-k (keep `k` most frequent edges) if `top_k > 0`.
+    /// 4. Apply temperature: `weight = count^(1/T)`.
+    /// 5. Sample with `WeightedIndex`.
+    /// 6. Update history (push chosen, trim to `order`).
+    pub fn next_with_temperature(
+        &mut self,
+        cfg: markov_sample_config,
+    ) -> Result<markov_note, markov_error> {
+        // ---- 1. Resolve context with optional backoff ----
+        let mut chosen: Option<usize> = None;
+
+        let max_ctx = self.order.into_usize().min(self.history.len());
+        let ctx_range: Box<dyn Iterator<Item = usize>> = if cfg.backoff {
+            Box::new((0..=max_ctx).rev())
+        } else {
+            // Only the full context; if history is shorter, max_ctx < order
+            // and we still try exactly max_ctx (which may be 0).
+            Box::new(std::iter::once(max_ctx))
+        };
+
+        for ctx_len in ctx_range {
+            let key = pack_history(
+                &self.history,
+                (ctx_len as u8).try_into().unwrap_or_default(),
+            );
+            let Some(edges) = self.transitions.get(&key) else {
+                continue;
+            };
+            if edges.is_empty() {
+                continue;
+            }
+            // Disjoint field borrows: `self.transitions` is immutably borrowed
+            // through `edges`, `self.rng` is mutably borrowed separately.
+            // `sample_from_edges` is an associated fn, not a method on `&mut self`,
+            // so the compiler sees two disjoint borrows.
+            chosen = Some(Self::sample_from_edges(edges, &mut self.rng, cfg)?);
+            break;
+        }
+
+        // ---- 2. Restart fallback ----
+        let chosen = match chosen {
+            Some(idx) => idx,
+            None => {
+                if !cfg.restart {
+                    // Report the full-context key for diagnostics.
+                    let key = pack_history(
+                        &self.history,
+                        (max_ctx as u8).try_into().unwrap_or_default(),
+                    );
+                    return Err(markov_error::NoTransitions { state: key });
+                }
+                // Global (order-0) distribution is the natural "observed states"
+                // set when `train` records at all levels. If even that is empty,
+                // the chain has never been trained.
+                let global = self
+                    .transitions
+                    .get(&0)
+                    .ok_or(markov_error::NoCurrentState)?;
+                if global.is_empty() {
+                    return Err(markov_error::NoCurrentState);
+                }
+                // Restart bypasses temperature/top-k: we want a fresh state,
+                // not a smoothed one.
+                let weights: Vec<u32> = global.iter().map(|&(_, c)| c).collect();
+                let dist = WeightedIndex::new(&weights).map_err(|_| markov_error::Sampling)?;
+                global[dist.sample(&mut self.rng)].0
+            }
+        };
+
+        // ---- 3. Update history ----
+        self.history.push(chosen);
+        if self.history.len() > self.order.into_usize() {
+            self.history.remove(0);
+        }
+
+        index_to_note(chosen)
+    }
+
+    /// Sample one state index from `edges`, applying top-k and temperature.
+    ///
+    /// This is an *associated* function (no `self`), so the caller can pass
+    /// `&self.transitions`-derived `edges` and `&mut self.rng` separately.
+    /// That avoids the "immutable borrow later used by call" error.
+    fn sample_from_edges(
+        edges: &[(usize, u32)],
+        rng: &mut SmallRng,
+        cfg: markov_sample_config,
+    ) -> Result<usize, markov_error> {
+        debug_assert!(!edges.is_empty());
+
+        // top-k: keep the k most frequent edges.
+        let kept: Vec<(usize, u32)>;
+        let slice: &[(usize, u32)] = if cfg.top_k == 0 || cfg.top_k >= edges.len() {
+            edges
+        } else {
+            let mut sorted = edges.to_vec();
+            sorted.sort_unstable_by(|a, b| b.1.cmp(&a.1));
+            sorted.truncate(cfg.top_k);
+            kept = sorted;
+            &kept
+        };
+
+        // temperature: weight = count^(1/T). Skip powf when T == 1.
+        let t = cfg.temperature;
+        let inv_t = if t > 0.0 { 1.0 / t } else { 1e6 };
+        let weights: Vec<f32> = if (inv_t - 1.0).abs() < f32::EPSILON {
+            slice.iter().map(|&(_, c)| c as f32).collect()
+        } else {
+            slice.iter().map(|&(_, c)| (c as f32).powf(inv_t)).collect()
+        };
+
+        let dist = WeightedIndex::new(&weights).map_err(|_| markov_error::Sampling)?;
+        Ok(slice[dist.sample(rng)].0)
     }
 
     pub fn clear(&mut self) {
@@ -170,9 +323,14 @@ mod test {
     use num_enum::TryFromPrimitive;
 
     use crate::{
-        chain::{index_to_note, note_to_index, MarkovChain, MAX_DUR, MAX_PITCH},
+        chain::{
+            index_to_note, markov_sample_config, note_to_index, MarkovChain, MAX_DUR, MAX_PITCH,
+        },
         errors::markov_error::{NoCurrentState, NoTransitions},
-        markov::{markov_duration, markov_note, markov_order},
+        markov::{
+            markov_duration, markov_note,
+            markov_order::{self, Order2},
+        },
     };
 
     fn note(pitch: u8, dur: u8) -> markov_note {
@@ -260,5 +418,30 @@ mod test {
         // Now transition (60, 62) -> 64 exists.
         let n = c.next().unwrap();
         assert_eq!(n.pitch, 64);
+    }
+
+    #[test]
+    fn backoff_falls_to_shorter_context() {
+        let mut c = MarkovChain::new(42, Order2);
+        // Train on 60 -> 62 -> 64, then force history to [62, 64].
+        // Transition (62, 64) -> ? was never observed at order 2,
+        // but order 1 has 62 -> 64 and 64 -> ? (nothing).
+        // Actually 64 has no outgoing at any level, so backoff finds nothing
+        // for 64 alone. Train on 64 -> 60 to give it an order-1 edge.
+        c.train(note(60, 0));
+        c.train(note(62, 0));
+        c.train(note(64, 0));
+        c.train(note(60, 0));
+
+        c.set_history2(note(62, 0), note(64, 0)).unwrap();
+        let cfg = markov_sample_config {
+            backoff: true,
+            restart: false,
+            ..Default::default()
+        };
+        // Order-2 context (62, 64) has no edges, backoff to order-1 context (64)
+        // which has 64 -> 60.
+        let n = c.next_with_temperature(cfg).unwrap();
+        assert_eq!(n.pitch, 60);
     }
 }

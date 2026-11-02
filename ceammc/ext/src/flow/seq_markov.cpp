@@ -30,6 +30,20 @@ SeqMarkov::SeqMarkov(const PdArgs& args)
     seed_ = new IntProperty("@seed", 0);
     seed_->setInitOnly();
     addProperty(seed_);
+
+    top_k_ = new IntProperty("@top_k", 0);
+    top_k_->checkClosedRange(0, 12);
+    addProperty(top_k_);
+
+    t_ =  new FloatProperty("@t", 1);
+    t_->checkClosedRange(0, 1024);
+    addProperty(t_);
+
+    restart_ = new BoolProperty("@restart", true);
+    addProperty(restart_);
+
+    backoff_ = new BoolProperty("@backoff", true);
+    addProperty(backoff_);
 }
 
 void SeqMarkov::initDone()
@@ -93,7 +107,15 @@ bool SeqMarkov::notify(int code)
 
 void SeqMarkov::onBang()
 {
-    ceammc_markov_bang(markov_.get());
+    size_t top_k = top_k_->value();
+    float t = t_->value();
+    ceammc_markov_bang_with_config(markov_.get(),
+        {
+            top_k,
+            t,
+            backoff_->value(),
+            restart_->value(),
+        });
 }
 
 void SeqMarkov::m_clear(t_symbol *s, const AtomListView &lv)

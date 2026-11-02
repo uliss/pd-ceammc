@@ -75,6 +75,24 @@ enum class ceammc_markov_order : uint8_t {
 /// when done.
 struct ceammc_markov;
 
+/// Sampling parameters. All fields are cheap `Copy` types,
+/// so the struct can be stored directly in the Pd object.
+struct ceammc_markov_sample_config {
+    /// Keep only the `top_k` most frequent outgoing transitions before sampling.
+    /// 0 = disabled (use all edges).
+    size_t top_k;
+    /// Temperature for softmax-style smoothing of transition counts.
+    /// 1.0 = raw counts, >1.0 = flatter (more surprise), <1.0 = sharper.
+    float temperature;
+    /// If no outgoing transition exists for the full context, fall back to
+    /// shorter contexts (order-1, order-2, ..., 0). Requires `train` to record
+    /// transitions at every level.
+    bool backoff;
+    /// If even the order-0 distribution is empty, pick a random observed state.
+    /// If `false`, `next_with_temperature` returns `NoTransitions`.
+    bool restart;
+};
+
 /// A single Markov state: a MIDI pitch plus a quantized duration.
 struct ceammc_markov_note {
     /// MIDI pitch, 0..=127.
@@ -111,6 +129,8 @@ extern "C" {
 /// # Safety
 /// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_bang(ceammc_markov *m);
+
+bool ceammc_markov_bang_with_config(ceammc_markov *m, ceammc_markov_sample_config cfg);
 
 /// Clear all training data and reset the chain state.
 ///
