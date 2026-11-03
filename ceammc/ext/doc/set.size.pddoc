@@ -32,11 +32,11 @@
       </par>
       <par indent="1">
         <tr lang="en">• Counting unique elements — finding out how many distinct values are
-        currently stored in a set, for example the number of active tags, selected notes or
-        enabled options.</tr>
-        <tr lang="ru">• Подсчёт уникальных элементов — определение того, сколько различных
-        значений сейчас содержится во множестве, например число активных меток, выбранных нот или
-        включённых опций.</tr>
+        currently stored in a set, for example the number of active tags, selected notes or enabled
+        options.</tr>
+        <tr lang="ru">• Подсчёт уникальных элементов — определение того, сколько различных значений
+        сейчас содержится во множестве, например число активных меток, выбранных нот или включённых
+        опций.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Conditional behaviour based on set size — using the output as a condition

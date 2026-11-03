@@ -31,9 +31,9 @@
         <tr lang="en">• Loading samples and loops into arrays — bringing external audio files into
         a patch as Pd arrays, ready for playback with [tabplay~], [tabread4~] or processing with
         other array-based objects.</tr>
-        <tr lang="ru">• Загрузка сэмплов и лупов в массивы — добавление внешних аудиофайлов в
-        патч в виде массивов Pd, готовых к воспроизведению через [tabplay~], [tabread4~] или
-        обработке другими объектами на массивах.</tr>
+        <tr lang="ru">• Загрузка сэмплов и лупов в массивы — добавление внешних аудиофайлов в патч
+        в виде массивов Pd, готовых к воспроизведению через [tabplay~], [tabread4~] или обработке
+        другими объектами на массивах.</tr>
       </par>
       <par indent="1">
         <tr lang="en">• Multi-channel file handling — loading multi-channel files into multiple
@@ -58,6 +58,7 @@
       <!-- @formats -->
       <property name="@formats" type="list" access="readonly"
       default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
+
         <tr lang="en">list of supported formats</tr>
         <tr lang="ru">список поддерживаемых форматов</tr>
       </property>
@@ -97,11 +98,11 @@
         </param>
         <param name="to ARRAY_NAME" type="symbol" required="true">
           <tr lang="en">destination array names or a pattern. Array patterns are specified in
-          square brackets: array_[1-4] means array_1, array_2, array_3, array_4.
-          array_[left|right] means array_left and array_right</tr>
+          square brackets: array_[1-4] means array_1, array_2, array_3, array_4. array_[left|right]
+          means array_left and array_right</tr>
           <tr lang="ru">имена массивов назначения или шаблон. Шаблоны массива задаются в квадратных
-          скобках: array_[1-4] означает array_1, array_2, array_3, array_4.
-          array_[left|right] означает array_left и array_right</tr>
+          скобках: array_[1-4] означает array_1, array_2, array_3, array_4. array_[left|right]
+          означает array_left и array_right</tr>
         </param>
         <param name="@resize" type="property">
           <tr lang="en">resize the array to fit the loaded samples</tr>
@@ -117,8 +118,8 @@
         </param>
         <param name="@gain V" type="property">
           <tr lang="en">apply gain to the loaded samples, examples: +3.1db, -6db, 0.5 etc.</tr>
-          <tr lang="ru">применить усиление к загруженным семплам, примеры: +3.1db, -6db, 0.5 и
-          т. д.</tr>
+          <tr lang="ru">применить усиление к загруженным семплам, примеры: +3.1db, -6db, 0.5 и т.
+          д.</tr>
         </param>
         <param name="@begin X" type="property">
           <tr lang="en">specify the input file begin position, by default in samples, but you can
@@ -172,24 +173,24 @@
         </param>
         <param name="@begin X" type="property">
           <tr lang="en">specify the input array begin position, by default in samples, but you can
-          use other units: 1s, 10ms, 00:01.12 (SMPTE). To specify a value relative to the array end,
-          you can use the $-X syntax</tr>
-          <tr lang="ru">задать начальную позицию входного массива, по умолчанию в семплах, но
-          можно использовать и другие единицы: 1s, 10ms, 00:01.12 (SMPTE). Для указания значения
+          use other units: 1s, 10ms, 00:01.12 (SMPTE). To specify a value relative to the array
+          end, you can use the $-X syntax</tr>
+          <tr lang="ru">задать начальную позицию входного массива, по умолчанию в семплах, но можно
+          использовать и другие единицы: 1s, 10ms, 00:01.12 (SMPTE). Для указания значения
           относительно конца массива можно использовать синтаксис $-X</tr>
         </param>
         <param name="@end X" type="property">
           <tr lang="en">specify the input array end position, by default in samples, but you can
-          use other units: 1s, 10ms, 00:01.12 (SMPTE). To specify a value relative to the array end,
-          you can use the $-X syntax</tr>
+          use other units: 1s, 10ms, 00:01.12 (SMPTE). To specify a value relative to the array
+          end, you can use the $-X syntax</tr>
           <tr lang="ru">задать конечную позицию входного массива, по умолчанию в семплах, но можно
           использовать и другие единицы: 1s, 10ms, 00:01.12 (SMPTE). Для указания значения
           относительно конца массива можно использовать синтаксис $-X</tr>
         </param>
         <param name="@gain V" type="property">
           <tr lang="en">apply gain to the saved arrays, examples: +3.1db, -6db, 0.5 etc.</tr>
-          <tr lang="ru">применить усиление к сохраняемым массивам, примеры: +3.1db, -6db, 0.5 и
-          т. д.</tr>
+          <tr lang="ru">применить усиление к сохраняемым массивам, примеры: +3.1db, -6db, 0.5 и т.
+          д.</tr>
         </param>
         <param name="@in_sr SR" type="property">
           <tr lang="en">array source sample rate. If omitted, the patch sample rate is used</tr>
@@ -209,8 +210,8 @@
           <tr lang="ru">флаг перезаписи существующего файла</tr>
         </param>
         <param name="@samp FMT" type="property">
-          <tr lang="en">output sample format. Supported values are: 0 (use default), 8, 16, 24,
-          32, f</tr>
+          <tr lang="en">output sample format. Supported values are: 0 (use default), 8, 16, 24, 32,
+          f</tr>
           <tr lang="ru">формат выходного семпла. Поддерживаются значения: 0 (по умолчанию), 8, 16,
           24, 32, f</tr>
         </param>

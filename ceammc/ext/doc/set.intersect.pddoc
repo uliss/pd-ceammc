@@ -23,8 +23,8 @@
     <info>
       <par>
         <tr lang="en">Computes the intersection of the two incoming sets (or lists converted to
-        sets): outputs a new set that contains only those elements which are present in both
-        input sets.</tr>
+        sets): outputs a new set that contains only those elements which are present in both input
+        sets.</tr>
         <tr lang="ru">Вычисляет пересечение двух входящих множеств (или списков, преобразованных во
         множества): выводит новое множество, содержащее только те элементы, которые есть в обоих
         входных множествах.</tr>

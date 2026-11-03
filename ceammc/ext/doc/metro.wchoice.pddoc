@@ -24,37 +24,36 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object works like [metro.choice], but each period in the list has
-        its own weight that determines how often it is selected. Weights can be given as
-        floats or as percentages. The normalized probability list is available through the
-        read-only property @calc_w, and the random generator can be made deterministic by
-        setting @seed to a non-zero value.</tr>
+        <tr lang="en">The object works like [metro.choice], but each period in the list has its own
+        weight that determines how often it is selected. Weights can be given as floats or as
+        percentages. The normalized probability list is available through the read-only property
+        @calc_w, and the random generator can be made deterministic by setting @seed to a non-zero
+        value.</tr>
         <tr lang="ru">Объект работает как [metro.choice], но каждый период в списке имеет
-        собственный вес, определяющий, как часто он выбирается. Веса можно задавать в
-        виде чисел с плавающей точкой или в процентах. Нормализованный список
-        вероятностей доступен через свойство только для чтения @calc_w, а генератор
-        случайных чисел можно сделать детерминированным, задав @seed ненулевым
-        значением.</tr>
+        собственный вес, определяющий, как часто он выбирается. Веса можно задавать в виде чисел с
+        плавающей точкой или в процентах. Нормализованный список вероятностей доступен через
+        свойство только для чтения @calc_w, а генератор случайных чисел можно сделать
+        детерминированным, задав @seed ненулевым значением.</tr>
       </par>
       <par>
-        <tr lang="en">Use case in algorithmic composition: weighted rhythmic texture. A
-        composer can favour short intervals over long ones by assigning them higher weights,
-        for example [50 40% 200 40% 800 20%]. The resulting pulse is mostly dense but
-        occasionally opens up into longer silences, which gives the texture a recognizable
-        statistical character rather than pure randomness.</tr>
-        <tr lang="ru">Применение в алгоритмической композиции: взвешенная ритмическая
-        текстура. Композитор может отдать предпочтение коротким интервалам, назначив им
-        больший вес, например [50 40% 200 40% 800 20%]. Получающийся пульс в основном
-        плотный, но иногда раскрывается в более длительные паузы, что придаёт текстуре
-        узнаваемый статистический характер вместо чистого случая.</tr>
+        <tr lang="en">Use case in algorithmic composition: weighted rhythmic texture. A composer
+        can favour short intervals over long ones by assigning them higher weights, for example [50
+        40% 200 40% 800 20%]. The resulting pulse is mostly dense but occasionally opens up into
+        longer silences, which gives the texture a recognizable statistical character rather than
+        pure randomness.</tr>
+        <tr lang="ru">Применение в алгоритмической композиции: взвешенная ритмическая текстура.
+        Композитор может отдать предпочтение коротким интервалам, назначив им больший вес, например
+        [50 40% 200 40% 800 20%]. Получающийся пульс в основном плотный, но иногда раскрывается в
+        более длительные паузы, что придаёт текстуре узнаваемый статистический характер вместо
+        чистого случая.</tr>
       </par>
     </info>
     <arguments>
       <argument name="INIT" type="list">
         <tr lang="en">TIME and WEIGHT list in format: T0 W1... Weight values can be floats or
         percent</tr>
-        <tr lang="ru">список TIME и WEIGHT в формате: T0 W1... Значения весов могут быть
-        числами с плавающей точкой или процентами</tr>
+        <tr lang="ru">список TIME и WEIGHT в формате: T0 W1... Значения весов могут быть числами с
+        плавающей точкой или процентами</tr>
       </argument>
     </arguments>
     <properties>
