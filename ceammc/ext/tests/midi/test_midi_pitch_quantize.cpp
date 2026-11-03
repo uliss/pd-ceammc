@@ -36,4 +36,43 @@ TEST_CASE("midi.pitch.quantize", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
+
+    SECTION("reject")
+    {
+        TExt t("midi.pitch.q");
+
+        SECTION("float")
+        {
+            t << 60;
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+            t << 60.5;
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 61);
+            t << 0.0;
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0.0);
+            t << 127.0;
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 127.0);
+            t << -0.5;
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            t << 128.0;
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+
+        SECTION("list")
+        {
+            t << LF(60, 127);
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 127));
+            t << LF(60.5, 127);
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(61, 127));
+            t << LF(62, -0.5);
+            REQUIRE_LIST_AT_OUTLET(0, t, LF(62, -0.5));
+            t << LA(62, "A");
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(62, "A"));
+            t << LA(62, "A", "B");
+            REQUIRE_LIST_AT_OUTLET(0, t, LA(62, "A", "B"));
+            t << LA(-1, "A");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            t << LA(128, "A");
+            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+    }
 }
