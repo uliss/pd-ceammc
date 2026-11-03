@@ -580,6 +580,34 @@ pub extern "C" fn ceammc_markov_set_seed(m: *mut markov, seed: u32) -> bool {
     markov::send_request(m, Request::SetSeed(seed))
 }
 
+/// Save the trained Markov chain to a file.
+///
+/// The chain is serialized to a compact binary format (see the `postcard`
+/// crate). The file is written asynchronously by the worker thread; this
+/// function only enqueues the request and returns immediately.
+///
+/// The saved data includes the transition table, the current history, the
+/// chain order, and the RNG seed, so a later [`ceammc_markov_load`] restores
+/// the chain to a reproducible state. The RNG state itself is not saved.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `path`: null-terminated C string with the destination file path.
+///   Must be non-null and valid UTF-8.
+///
+/// # Returns
+/// - `true` if the request was enqueued.
+/// - `false` if `m` is null, `path` is null or not valid UTF-8, or the worker
+///   channel is full.
+///
+/// If the write fails on the worker side (e.g. permission denied, disk full),
+/// the error is reported via the `on_msg` callback; this function still
+/// returns `true` because enqueueing succeeded.
+///
+/// # Safety
+/// - `m` must be a valid handle from [`ceammc_markov_new`], or null.
+/// - `path` must be a valid NUL-terminated C string that
+///   remains valid for the duration of this call.
 #[no_mangle]
 pub extern "C" fn ceammc_markov_save(m: *mut markov, path: *const c_char) -> bool {
     if let Some(path) = cstr_to_string(path) {
@@ -589,6 +617,30 @@ pub extern "C" fn ceammc_markov_save(m: *mut markov, path: *const c_char) -> boo
     }
 }
 
+/// Load a previously saved Markov chain from a file.
+///
+/// Replaces the current chain state (transition table, history, order, seed)
+/// with the contents of `path`. The load happens asynchronously on the worker
+/// thread; this function only enqueues the request and returns immediately.
+///
+/// If the file does not exist, cannot be read, or contains invalid data, the
+/// worker reports the error via the `on_msg` callback and leaves the current
+/// chain **unchanged** — a failed load never corrupts the in-memory state.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `path`: null-terminated C string with the source file path.
+///   Must be non-null and valid UTF-8.
+///
+/// # Returns
+/// - `true` if the request was enqueued.
+/// - `false` if `m` is null, `path` is null or not valid UTF-8, or the worker
+///   channel is full.
+///
+/// # Safety
+/// - `m` must be a valid handle from [`ceammc_markov_new`], or null.
+/// - `path` must be either null or a valid NUL-terminated C string that
+///   remains valid for the duration of this call.
 #[no_mangle]
 pub extern "C" fn ceammc_markov_load(m: *mut markov, path: *const c_char) -> bool {
     if let Some(path) = cstr_to_string(path) {
