@@ -1,12 +1,11 @@
 set(MIDI_SOURCES 
     datatype_midistream.cpp datatype_midistream.h
     datatype_miditrack.cpp datatype_miditrack.h
-    midi_common.cpp midi_common.h
     property_pitch.cpp
 )
 
 macro(ceammc_midi_external name)
-    list(APPEND MIDI_SOURCES "midi_${name}.cpp")
+    list(APPEND MIDI_SOURCES "midi_${name}.h" "midi_${name}.cpp")
 endmacro()
 
 ceammc_midi_external(arp)
@@ -21,6 +20,7 @@ ceammc_midi_external(key2str)
 ceammc_midi_external(modus)
 ceammc_midi_external(note_pass)
 ceammc_midi_external(octave)
+ceammc_midi_external(pitch_quantize)
 ceammc_midi_external(prg2str)
 ceammc_midi_external(split)
 ceammc_midi_external(str2key)
@@ -31,7 +31,8 @@ ceammc_midi_external(tuning)
 ceammc_midi_external(velocity_ramp)
 ceammc_midi_external(vrand)
 
-add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})
+add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES}
+    midi_pitch_quantize.h midi_pitch_quantize.cpp)
 target_include_directories(ceammc_midi
     PRIVATE
         ${PROJECT_SOURCE_DIR}/ceammc/extra/midifile
