@@ -10,7 +10,6 @@ use crate::{
         markov_duration, markov_note,
         markov_order::{self, Order1, Order2},
     },
-    pitch_quantize::{out_of_range, OctaveRange},
 };
 
 const MAX_DUR: usize = crate::markov::markov_duration::COUNT as usize;
@@ -105,8 +104,6 @@ pub struct MarkovChain {
     order: markov_order,
     #[serde(skip, default = "default_rng")]
     rng: SmallRng,
-    octave_range: OctaveRange,
-    out_of_range_mode: out_of_range,
 }
 
 impl MarkovChain {
@@ -117,8 +114,6 @@ impl MarkovChain {
             history: Vec::with_capacity(order.into_usize()),
             order,
             rng: SmallRng::seed_from_u64(seed),
-            octave_range: Default::default(),
-            out_of_range_mode: Default::default(),
         }
     }
 
@@ -126,16 +121,7 @@ impl MarkovChain {
         self.rng = SmallRng::seed_from_u64(seed)
     }
 
-    pub fn set_octave(&mut self, range: OctaveRange) {
-        self.octave_range = range
-    }
-
-    pub fn set_out_of_range_mode(&mut self, mode: out_of_range) {
-        self.out_of_range_mode = mode
-    }
-
     pub fn train(&mut self, note: markov_note) -> Result<(), markov_error> {
-        let note = self.octave_range.quantize(note, self.out_of_range_mode)?;
         let idx = note_to_index(note);
         let max_ctx = self.order.into_usize().min(self.history.len());
         for ctx_len in 0..=max_ctx {

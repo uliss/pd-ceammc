@@ -8,7 +8,6 @@ use crate::{
     chain::{markov_sample_config, MarkovChain},
     errors::markov_error,
     markov::markov_order::{Order0, Order1, Order2},
-    pitch_quantize::{out_of_range, OctaveRange},
 };
 
 /// Quantized note duration used as the second component of a Markov state.
@@ -133,10 +132,6 @@ enum Request {
     Clear,
     /// Reset history but keep training data.
     Reset,
-    /// Set octave range
-    SetOctaveRange { min: i8, max: i8 },
-    /// Set out of range mode
-    SetOutOfRangeMode { mode: out_of_range },
     /// Set random seed
     SetSeed(u32),
     /// Save chain to the file
@@ -246,20 +241,6 @@ impl markov {
                                             .send_msg(WorkerMessage::error(err.to_string()))
                                             .to_worker_result()?,
                                     }
-                                    Ok(())
-                                }
-                                Request::SetOctaveRange { min, max } => {
-                                    match OctaveRange::new(min, max) {
-                                        Ok(rng) => markov_gen.set_octave(rng),
-                                        Err(err) => out_chan
-                                            .send_msg(WorkerMessage::error(err.to_string()))
-                                            .to_worker_result()?,
-                                    }
-
-                                    Ok(())
-                                }
-                                Request::SetOutOfRangeMode { mode } => {
-                                    markov_gen.set_out_of_range_mode(mode);
                                     Ok(())
                                 }
                                 Request::SetSeed(seed) => {
@@ -508,54 +489,6 @@ pub extern "C" fn ceammc_markov_set_history2(
     note2: markov_note,
 ) -> bool {
     markov::send_request(m, Request::SetHistory2(note1, note2))
-}
-
-/// Set the MIDI octave range used to quantize incoming and outgoing pitches.
-///
-/// Pitches outside `[min, max]` are handled according to the out-of-range
-/// mode (see [`ceammc_markov_set_out_of_range_mode`]). The range is applied to
-/// both training and generation: `train` quantizes incoming pitches, and `bang`
-/// produces pitches inside the range.
-///
-/// Octave numbering follows scientific pitch notation: octave `n` starts at
-/// MIDI `12 * (n + 1)`, so C4 = 60, C3 = 48, C5 = 72.
-///
-/// # Parameters
-/// - `m`: generator handle.
-/// - `min`: lowest octave (inclusive).
-/// - `max`: highest octave (inclusive). Must be `>= min`, and the resulting
-///   MIDI span must intersect `0..=127`.
-///
-/// # Returns
-/// `true` if the request was enqueued, `false` if `m` is null or the worker
-/// channel is full. If the range is invalid, the worker reports an error via
-/// `on_msg`.
-///
-/// # Safety
-/// `m` must be a valid handle from [`ceammc_markov_new`].
-#[no_mangle]
-pub extern "C" fn ceammc_markov_set_octave_range(m: *mut markov, min: i8, max: i8) -> bool {
-    markov::send_request(m, Request::SetOctaveRange { min, max })
-}
-
-/// Set the strategy for pitches that fall outside the configured octave range.
-///
-/// The mode applies whenever a pitch is quantized (during `train`) or generated
-/// (during `bang`). See [`out_of_range`] for the available strategies.
-///
-/// # Parameters
-/// - `m`: generator handle.
-/// - `mode`: out-of-range handling strategy.
-///
-/// # Returns
-/// `true` if the request was enqueued, `false` if `m` is null or the worker
-/// channel is full.
-///
-/// # Safety
-/// `m` must be a valid handle from [`ceammc_markov_new`].
-#[no_mangle]
-pub extern "C" fn ceammc_markov_set_out_of_range_mode(m: *mut markov, mode: out_of_range) -> bool {
-    markov::send_request(m, Request::SetOutOfRangeMode { mode })
 }
 
 /// Re-seed the random number generator.
