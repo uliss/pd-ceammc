@@ -39,4 +39,16 @@ pub enum markov_error {
 
     #[error("pitch {pitch} is out of range: [{min}..{max}]")]
     PitchOutOfRange { pitch: usize, min: u8, max: u8 },
+
+    #[error("serialization error: {msg}")]
+    SerializationError { msg: String },
+
+    #[error("deserialization error: {msg}")]
+    DeserializationError { msg: String },
+
+    #[error("error '{msg}' while writing to file: '{path}'")]
+    FSWriteError { path: String, msg: String },
+
+    #[error("error '{msg}' while reading from file: '{path}'")]
+    FSReadError { path: String, msg: String },
 }

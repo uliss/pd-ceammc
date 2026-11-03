@@ -1,6 +1,6 @@
-use std::ffi::c_void;
+use std::ffi::{c_char, c_void};
 
-use ceammc_rs_msg::{msg_cb, msg_notify, TokioClient, WorkerMessage};
+use ceammc_rs_msg::{cstr_to_string, msg_cb, msg_notify, TokioClient, WorkerMessage};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use serde::{Deserialize, Serialize};
 
@@ -139,6 +139,10 @@ enum Request {
     SetOutOfRangeMode { mode: out_of_range },
     /// Set random seed
     SetSeed(u32),
+    /// Save chain to the file
+    Save(String),
+    /// Load chain from the file
+    Load(String),
 }
 
 /// Replies sent from the worker thread back to the control thread.
@@ -260,6 +264,22 @@ impl markov {
                                 }
                                 Request::SetSeed(seed) => {
                                     markov_gen.set_seed(seed.into());
+                                    Ok(())
+                                }
+                                Request::Save(file) => {
+                                    if let Err(err) = markov_gen.save(&file) {
+                                        out_chan
+                                            .send_msg(WorkerMessage::error(err.to_string()))
+                                            .to_worker_result()?
+                                    }
+                                    Ok(())
+                                }
+                                Request::Load(file) => {
+                                    if let Err(err) = markov_gen.load(&file) {
+                                        out_chan
+                                            .send_msg(WorkerMessage::error(err.to_string()))
+                                            .to_worker_result()?
+                                    }
                                     Ok(())
                                 }
                             }
@@ -558,4 +578,22 @@ pub extern "C" fn ceammc_markov_set_out_of_range_mode(m: *mut markov, mode: out_
 #[no_mangle]
 pub extern "C" fn ceammc_markov_set_seed(m: *mut markov, seed: u32) -> bool {
     markov::send_request(m, Request::SetSeed(seed))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_markov_save(m: *mut markov, path: *const c_char) -> bool {
+    if let Some(path) = cstr_to_string(path) {
+        markov::send_request(m, Request::Save(path))
+    } else {
+        false
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_markov_load(m: *mut markov, path: *const c_char) -> bool {
+    if let Some(path) = cstr_to_string(path) {
+        markov::send_request(m, Request::Load(path))
+    } else {
+        false
+    }
 }

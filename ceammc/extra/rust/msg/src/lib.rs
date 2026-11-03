@@ -836,9 +836,11 @@ pub fn cstr_to_string(str: *const c_char) -> Option<String> {
     if str.is_null() {
         None
     } else {
-        Some(String::from(
-            unsafe { CStr::from_ptr(str) }.to_string_lossy(),
-        ))
+        Some(
+            unsafe { CStr::from_ptr(str) }
+                .to_string_lossy()
+                .into_owned(),
+        )
     }
 }
 

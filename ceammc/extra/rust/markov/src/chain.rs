@@ -185,6 +185,32 @@ impl MarkovChain {
         index_to_note(chosen)
     }
 
+    pub fn save(&self, path: &str) -> Result<(), markov_error> {
+        let bytes =
+            postcard::to_allocvec(&self).map_err(|err| markov_error::SerializationError {
+                msg: err.to_string(),
+            })?;
+
+        std::fs::write(path, &bytes).map_err(|err| markov_error::FSWriteError {
+            path: path.into(),
+            msg: err.to_string(),
+        })?;
+
+        Ok(())
+    }
+
+    pub fn load(&mut self, path: &str) -> Result<(), markov_error> {
+        let bytes = std::fs::read(path).map_err(|err| markov_error::FSReadError {
+            path: path.into(),
+            msg: err.to_string(),
+        })?;
+
+        *self = postcard::from_bytes(&bytes).map_err(|err| markov_error::DeserializationError {
+            msg: err.to_string(),
+        })?;
+        Ok(())
+    }
+
     /// Generate the next note using temperature, top-k, backoff and restart.
     ///
     /// Order of operations:

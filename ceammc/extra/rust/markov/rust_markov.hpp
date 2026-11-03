@@ -171,6 +171,8 @@ bool ceammc_markov_clear(ceammc_markov *m);
 /// already freed.
 void ceammc_markov_free(ceammc_markov *m);
 
+bool ceammc_markov_load(ceammc_markov *m, const char *path);
+
 /// Create a new Markov chain generator.
 ///
 /// # Parameters
@@ -215,6 +217,8 @@ bool ceammc_markov_process(ceammc_markov *m);
 /// # Safety
 /// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_reset(ceammc_markov *m);
+
+bool ceammc_markov_save(ceammc_markov *m, const char *path);
 
 /// Set the one-note history (for `Order1` chains).
 ///
