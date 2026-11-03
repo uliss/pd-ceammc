@@ -134,4 +134,5 @@ void MidiPitchQuantize::onList(const AtomListView& lv)
 void setup_midi_pitch_quantize()
 {
     ObjectFactory<MidiPitchQuantize> obj("midi.pitch.quantize");
+    obj.addAlias("midi.pitch.q");
 }
