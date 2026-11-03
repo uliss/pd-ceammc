@@ -75,4 +75,56 @@ TEST_CASE("midi.pitch.quantize", "[externals]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         }
     }
+
+    SECTION("clamp")
+    {
+        TExt t("midi.pitch.q", LA("@min", 60, "@max", 72, "@clamp"));
+        REQUIRE_PROPERTY(t, @mode, "clamp");
+
+        t << 60;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+        t << 59;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+        t << 1;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+        t << 0.0;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+        t << -1;
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        t << 71;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 71);
+        t << 72;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 72);
+        t << 73;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 72);
+        t << 127;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 72);
+        t << 128;
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+    }
+
+    SECTION("fold")
+    {
+        TExt t("midi.pitch.q", LA("@min", 60, "@max", 72, "@fold"));
+        REQUIRE_PROPERTY(t, @mode, "fold");
+
+        t << 60;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 60);
+        t << 59;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 71);
+        t << 58;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 70);
+        t << -1;
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        t << 71;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 71);
+        t << 72;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 72);
+        t << 73;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 61);
+        t << 74;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 62);
+        t << 128;
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+    }
 }
