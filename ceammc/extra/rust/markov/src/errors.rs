@@ -33,4 +33,10 @@ pub enum markov_error {
 
     #[error("unexpected order, got: {order}, expected: {expected}")]
     UnexpectedOrder { order: usize, expected: usize },
+
+    #[error("invalid octave range: {min}, {max}")]
+    InvalidOctaveRange { min: i8, max: i8 },
+
+    #[error("pitch {pitch} is out of range: [{min}..{max}]")]
+    PitchOutOfRange { pitch: usize, min: u8, max: u8 },
 }

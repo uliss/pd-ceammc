@@ -1,6 +1,7 @@
 use num_enum::TryFromPrimitive;
 use rand::distr::weighted::WeightedIndex;
 use rand::prelude::*;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 use crate::{
@@ -9,6 +10,7 @@ use crate::{
         markov_duration, markov_note,
         markov_order::{self, Order1, Order2},
     },
+    pitch_quantize::{out_of_range, OctaveRange},
 };
 
 const MAX_DUR: usize = crate::markov::markov_duration::COUNT as usize;
@@ -91,12 +93,20 @@ impl Default for markov_sample_config {
     }
 }
 
+fn default_rng() -> SmallRng {
+    SmallRng::seed_from_u64(0)
+}
+
+#[derive(Serialize, Deserialize)]
 pub struct MarkovChain {
     transitions: HashMap<HistoryKey, Vec<(usize, u32)>>,
     /// Full history of visited states, most recent last. Length <= order.
     history: Vec<usize>,
     order: markov_order,
+    #[serde(skip, default = "default_rng")]
     rng: SmallRng,
+    octave_range: OctaveRange,
+    out_of_range_mode: out_of_range,
 }
 
 impl MarkovChain {
@@ -107,10 +117,25 @@ impl MarkovChain {
             history: Vec::with_capacity(order.into_usize()),
             order,
             rng: SmallRng::seed_from_u64(seed),
+            octave_range: Default::default(),
+            out_of_range_mode: Default::default(),
         }
     }
 
-    pub fn train(&mut self, note: markov_note) {
+    pub fn set_seed(&mut self, seed: u64) {
+        self.rng = SmallRng::seed_from_u64(seed)
+    }
+
+    pub fn set_octave(&mut self, range: OctaveRange) {
+        self.octave_range = range
+    }
+
+    pub fn set_out_of_range_mode(&mut self, mode: out_of_range) {
+        self.out_of_range_mode = mode
+    }
+
+    pub fn train(&mut self, note: markov_note) -> Result<(), markov_error> {
+        let note = self.octave_range.quantize(note, self.out_of_range_mode)?;
         let idx = note_to_index(note);
         let max_ctx = self.order.into_usize().min(self.history.len());
         for ctx_len in 0..=max_ctx {
@@ -128,6 +153,8 @@ impl MarkovChain {
         if self.history.len() > self.order.into_usize() {
             self.history.remove(0);
         }
+
+        Ok(())
     }
 
     pub fn next(&mut self) -> Result<markov_note, markov_error> {
@@ -362,9 +389,9 @@ mod test {
     #[test]
     fn order_0_uses_global_distribution() {
         let mut c = MarkovChain::new(42, markov_order::Order0);
-        c.train(note(60, 0));
-        c.train(note(62, 0));
-        c.train(note(60, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
+        c.train(note(60, 0)).unwrap();
 
         // Order 0: no history requirement, key is always 0.
         for _ in 0..20 {
@@ -379,7 +406,7 @@ mod test {
         let mut c = MarkovChain::new(42, markov_order::Order1);
         assert_eq!(c.next(), Err(NoCurrentState)); // no history yet
 
-        c.train(note(60, 0));
+        c.train(note(60, 0)).unwrap();
         assert_eq!(
             c.next(),
             Err(NoTransitions {
@@ -387,7 +414,7 @@ mod test {
             })
         ); // still no transition (only one note seen)
 
-        c.train(note(62, 0));
+        c.train(note(62, 0)).unwrap();
         c.set_history1(note(60, 0)).unwrap();
         assert_eq!(c.next(), Ok(note(62, 0)));
     }
@@ -395,12 +422,12 @@ mod test {
     #[test]
     fn clear_and_reset() {
         let mut c = MarkovChain::new(42, markov_order::Order1);
-        c.train(note(60, 0));
-        c.train(note(62, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
         c.reset();
         assert!(c.next().is_err());
-        c.train(note(60, 0));
-        c.train(note(62, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
         c.clear();
         assert!(c.next().is_err());
     }
@@ -408,11 +435,11 @@ mod test {
     #[test]
     fn order_2_needs_two_previous() {
         let mut c = MarkovChain::new(42, markov_order::Order2);
-        c.train(note(60, 0));
+        c.train(note(60, 0)).unwrap();
         assert!(c.next().is_err());
-        c.train(note(62, 0));
+        c.train(note(62, 0)).unwrap();
         assert!(c.next().is_err()); // still not enough for order 2
-        c.train(note(64, 0));
+        c.train(note(64, 0)).unwrap();
 
         c.set_history2(note(60, 0), note(62, 0)).unwrap();
         // Now transition (60, 62) -> 64 exists.
@@ -428,10 +455,10 @@ mod test {
         // but order 1 has 62 -> 64 and 64 -> ? (nothing).
         // Actually 64 has no outgoing at any level, so backoff finds nothing
         // for 64 alone. Train on 64 -> 60 to give it an order-1 edge.
-        c.train(note(60, 0));
-        c.train(note(62, 0));
-        c.train(note(64, 0));
-        c.train(note(60, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
+        c.train(note(64, 0)).unwrap();
+        c.train(note(60, 0)).unwrap();
 
         c.set_history2(note(62, 0), note(64, 0)).unwrap();
         let cfg = markov_sample_config {
@@ -448,10 +475,10 @@ mod test {
     #[test]
     fn temperature_and_backoff_compile_and_run() {
         let mut c = MarkovChain::new(42, Order2);
-        c.train(note(60, 0));
-        c.train(note(62, 0));
-        c.train(note(64, 0));
-        c.train(note(60, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
+        c.train(note(64, 0)).unwrap();
+        c.train(note(60, 0)).unwrap();
 
         // Force order-2 context (62, 64); order-2 has no edges from it,
         // backoff to order-1 context (64), which has 64 -> 60.
@@ -470,8 +497,8 @@ mod test {
     #[test]
     fn restart_when_no_edges_anywhere() {
         let mut c = MarkovChain::new(42, Order1);
-        c.train(note(60, 0));
-        c.train(note(62, 0));
+        c.train(note(60, 0)).unwrap();
+        c.train(note(62, 0)).unwrap();
         // Current history is [62], no edges from 62 at any level except order-0.
         let cfg = markov_sample_config::default();
         let n = c.next_with_temperature(cfg).unwrap();

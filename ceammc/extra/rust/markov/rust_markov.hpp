@@ -8,6 +8,11 @@
 #include "ceammc_rs_msg.hpp"
 
 
+constexpr const uint8_t ceammc_MIDI_MAX = 127;
+
+/// MIDI pitch range (inclusive).
+constexpr const uint8_t ceammc_MIDI_MIN = 0;
+
 /// Quantized note duration used as the second component of a Markov state.
 ///
 /// Each variant corresponds to a musical duration (whole, half, quarter, ...,
@@ -67,6 +72,17 @@ enum class ceammc_markov_order : uint8_t {
     Order1,
     /// Two previous notes of context.
     Order2,
+};
+
+/// Strategy for handling pitches outside the target range.
+enum class ceammc_out_of_range : uint8_t {
+    /// Reject the pitch (return an error).
+    Reject,
+    /// Transpose by whole octaves until the pitch lands inside the range.
+    /// The pitch class is preserved; only the octave changes.
+    FoldOctave,
+    /// Clamp to the nearest bound of the range. Loses pitch class.
+    Clamp,
 };
 
 /// Opaque handle to a Markov chain generator, owned by the C side.
@@ -238,6 +254,67 @@ bool ceammc_markov_set_history1(ceammc_markov *m, ceammc_markov_note note);
 bool ceammc_markov_set_history2(ceammc_markov *m,
                                 ceammc_markov_note note1,
                                 ceammc_markov_note note2);
+
+/// Set the MIDI octave range used to quantize incoming and outgoing pitches.
+///
+/// Pitches outside `[min, max]` are handled according to the out-of-range
+/// mode (see [`ceammc_markov_set_out_of_range_mode`]). The range is applied to
+/// both training and generation: `train` quantizes incoming pitches, and `bang`
+/// produces pitches inside the range.
+///
+/// Octave numbering follows scientific pitch notation: octave `n` starts at
+/// MIDI `12 * (n + 1)`, so C4 = 60, C3 = 48, C5 = 72.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `min`: lowest octave (inclusive).
+/// - `max`: highest octave (inclusive). Must be `>= min`, and the resulting
+///   MIDI span must intersect `0..=127`.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the range is invalid, the worker reports an error via
+/// `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+bool ceammc_markov_set_octave_range(ceammc_markov *m, int8_t min, int8_t max);
+
+/// Set the strategy for pitches that fall outside the configured octave range.
+///
+/// The mode applies whenever a pitch is quantized (during `train`) or generated
+/// (during `bang`). See [`out_of_range`] for the available strategies.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `mode`: out-of-range handling strategy.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+bool ceammc_markov_set_out_of_range_mode(ceammc_markov *m, ceammc_out_of_range mode);
+
+/// Re-seed the random number generator.
+///
+/// Same seed + same training data yields the same generated sequence, which is
+/// useful for reproducible tests and for restoring a saved chain. Re-seeding
+/// does **not** reset the training data or the current history; it only affects
+/// future sampling.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `seed`: new RNG seed.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+bool ceammc_markov_set_seed(ceammc_markov *m, uint32_t seed);
 
 /// Append a note to the training data.
 ///

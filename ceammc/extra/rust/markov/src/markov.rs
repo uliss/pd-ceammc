@@ -2,11 +2,13 @@ use std::ffi::c_void;
 
 use ceammc_rs_msg::{msg_cb, msg_notify, TokioClient, WorkerMessage};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
+use serde::{Deserialize, Serialize};
 
 use crate::{
     chain::{markov_sample_config, MarkovChain},
     errors::markov_error,
     markov::markov_order::{Order0, Order1, Order2},
+    pitch_quantize::{out_of_range, OctaveRange},
 };
 
 /// Quantized note duration used as the second component of a Markov state.
@@ -65,7 +67,7 @@ pub enum markov_duration {
 /// - `Order1`: next note depends on the previous note.
 /// - `Order2`: next note depends on the two previous notes.
 #[repr(u8)]
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum markov_order {
     /// No history; sample from the global distribution.
@@ -131,6 +133,12 @@ enum Request {
     Clear,
     /// Reset history but keep training data.
     Reset,
+    /// Set octave range
+    SetOctaveRange { min: i8, max: i8 },
+    /// Set out of range mode
+    SetOutOfRangeMode { mode: out_of_range },
+    /// Set random seed
+    SetSeed(u32),
 }
 
 /// Replies sent from the worker thread back to the control thread.
@@ -177,7 +185,11 @@ impl markov {
                         .recv_loop(&mut async |req| -> Result<(), String> {
                             match req {
                                 Request::Train(markov_note) => {
-                                    markov_gen.train(markov_note);
+                                    if let Err(err) = markov_gen.train(markov_note) {
+                                        out_chan
+                                            .send_msg(WorkerMessage::error(err.to_string()))
+                                            .to_worker_result()?
+                                    }
                                     Ok(())
                                 }
                                 Request::Bang => {
@@ -230,6 +242,24 @@ impl markov {
                                             .send_msg(WorkerMessage::error(err.to_string()))
                                             .to_worker_result()?,
                                     }
+                                    Ok(())
+                                }
+                                Request::SetOctaveRange { min, max } => {
+                                    match OctaveRange::new(min, max) {
+                                        Ok(rng) => markov_gen.set_octave(rng),
+                                        Err(err) => out_chan
+                                            .send_msg(WorkerMessage::error(err.to_string()))
+                                            .to_worker_result()?,
+                                    }
+
+                                    Ok(())
+                                }
+                                Request::SetOutOfRangeMode { mode } => {
+                                    markov_gen.set_out_of_range_mode(mode);
+                                    Ok(())
+                                }
+                                Request::SetSeed(seed) => {
+                                    markov_gen.set_seed(seed.into());
                                     Ok(())
                                 }
                             }
@@ -458,4 +488,74 @@ pub extern "C" fn ceammc_markov_set_history2(
     note2: markov_note,
 ) -> bool {
     markov::send_request(m, Request::SetHistory2(note1, note2))
+}
+
+/// Set the MIDI octave range used to quantize incoming and outgoing pitches.
+///
+/// Pitches outside `[min, max]` are handled according to the out-of-range
+/// mode (see [`ceammc_markov_set_out_of_range_mode`]). The range is applied to
+/// both training and generation: `train` quantizes incoming pitches, and `bang`
+/// produces pitches inside the range.
+///
+/// Octave numbering follows scientific pitch notation: octave `n` starts at
+/// MIDI `12 * (n + 1)`, so C4 = 60, C3 = 48, C5 = 72.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `min`: lowest octave (inclusive).
+/// - `max`: highest octave (inclusive). Must be `>= min`, and the resulting
+///   MIDI span must intersect `0..=127`.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full. If the range is invalid, the worker reports an error via
+/// `on_msg`.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+#[no_mangle]
+pub extern "C" fn ceammc_markov_set_octave_range(m: *mut markov, min: i8, max: i8) -> bool {
+    markov::send_request(m, Request::SetOctaveRange { min, max })
+}
+
+/// Set the strategy for pitches that fall outside the configured octave range.
+///
+/// The mode applies whenever a pitch is quantized (during `train`) or generated
+/// (during `bang`). See [`out_of_range`] for the available strategies.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `mode`: out-of-range handling strategy.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+#[no_mangle]
+pub extern "C" fn ceammc_markov_set_out_of_range_mode(m: *mut markov, mode: out_of_range) -> bool {
+    markov::send_request(m, Request::SetOutOfRangeMode { mode })
+}
+
+/// Re-seed the random number generator.
+///
+/// Same seed + same training data yields the same generated sequence, which is
+/// useful for reproducible tests and for restoring a saved chain. Re-seeding
+/// does **not** reset the training data or the current history; it only affects
+/// future sampling.
+///
+/// # Parameters
+/// - `m`: generator handle.
+/// - `seed`: new RNG seed.
+///
+/// # Returns
+/// `true` if the request was enqueued, `false` if `m` is null or the worker
+/// channel is full.
+///
+/// # Safety
+/// `m` must be a valid handle from [`ceammc_markov_new`].
+#[no_mangle]
+pub extern "C" fn ceammc_markov_set_seed(m: *mut markov, seed: u32) -> bool {
+    markov::send_request(m, Request::SetSeed(seed))
 }
