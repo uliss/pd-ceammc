@@ -446,21 +446,26 @@ TEST_CASE("AtomListView", "core")
 
     SECTION("getProperty")
     {
+
+#define CHECK_GET_PROP(lst, name, value)               \
+        {                                                  \
+        AtomList l = lst;                              \
+        AtomListView res;                              \
+            REQUIRE(l.view().getProperty(SYM(name), res)); \
+        REQUIRE(res == value);                         \
+    }
+
         AtomListView res;
-        REQUIRE_FALSE(AtomListView().getProperty(SYM("@p"), res));
+        REQUIRE_FALSE(L().view().getProperty(SYM("@p"), res));
         REQUIRE(res.empty());
-        REQUIRE(AtomListView(LA("@p")).getProperty(SYM("@p"), res));
-        REQUIRE(res.empty());
-        REQUIRE(AtomListView(LA(1, 2, 3, "@p")).getProperty(SYM("@p"), res));
-        REQUIRE(res.empty());
-        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4)).getProperty(SYM("@p"), res));
-        REQUIRE(res == LF(4));
-        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5)).getProperty(SYM("@p"), res));
-        REQUIRE(res == LF(4, 5));
-        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5, 6, "@other")).getProperty(SYM("@p"), res));
-        REQUIRE(res == LF(4, 5, 6));
-        REQUIRE(AtomListView(LA(1, 2, 3, "@p", "@other")).getProperty(SYM("@p"), res));
-        REQUIRE(res.empty());
+        CHECK_GET_PROP(LA("@p"), "@p", L());
+        CHECK_GET_PROP(LA("@p", "A"), "@p", LA("A"));
+        CHECK_GET_PROP(LA("@p", "A", 1), "@p", LA("A", 1));
+        CHECK_GET_PROP(LA(1, 2, 3, "@p"), "@p", L());
+        CHECK_GET_PROP(LA(1, 2, 3, "@p", 4), "@p", LF(4));
+        CHECK_GET_PROP(LA(1, 2, 3, "@p", 4, 5), "@p", LF(4, 5));
+        CHECK_GET_PROP(LA(1, 2, 3, "@p", 4, 5, "@other"), "@p", LF(4, 5));
+        CHECK_GET_PROP(LA(1, 2, 3, "@p", "@other"), "@p", L());
     }
 
     SECTION("argSubView")
@@ -544,7 +549,7 @@ TEST_CASE("AtomListView", "core")
         Result res;
         auto fn = [&res](const AtomListView& lv) { res.push_back(lv); };
 
-        AtomListView().split(Atom(1), {});
+        AtomListView().split(Atom(1), { });
 
 #define REQUIRE_SPLIT(lv, a, ...)               \
     do {                                        \
