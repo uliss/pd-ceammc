@@ -1553,7 +1553,7 @@ midi.event2prg-help.pd;
 #X obj 30 16388 ui.link @title [midi.file] @url midi.file-help.pd;
 #X text 200 16385 чтение и запись стандартных MIDI-файлов (SMF);
 #X obj 30 16413 ui.link @title [midi.kbd] @url midi.kbd-help.pd;
-#X text 200 16410 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
+#X text 200 16410 эмулятор MIDI-клавиатуры с помощью клавиатуры компьютера;
 #X obj 30 16438 ui.link @title [midi.key2str] @url
 midi.key2str-help.pd;
 #X text 200 16435 преобразует номер MIDI-клавиши в имя ноты в формате
