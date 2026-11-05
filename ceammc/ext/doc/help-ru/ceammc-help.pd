@@ -1684,7 +1684,7 @@ net.osc.server-help.pd;
 #X text 200 17752 запуск и управление OSC-сервером;
 #X obj 30 17780 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
-#X text 200 17777 WebSocket клиент;
+#X text 200 17777 WebSocket-клиент;
 #X obj 30 17805 ui.link @title [net.ws.server] @url
 net.ws.server-help.pd;
 #X text 200 17802 WebSocket сервер;

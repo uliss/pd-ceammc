@@ -33,7 +33,7 @@ net.osc.server-help.pd;
 #X text 220 342 запуск и управление OSC-сервером;
 #X obj 30 370 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
-#X text 220 367 WebSocket клиент;
+#X text 220 367 WebSocket-клиент;
 #X obj 30 395 ui.link @title [net.ws.server] @url
 net.ws.server-help.pd;
 #X text 220 392 WebSocket сервер;

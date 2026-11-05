@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">WebSocket client</tr>
-        <tr lang="ru">WebSocket клиент</tr>
+        <tr lang="ru">WebSocket-клиент</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,24 +19,25 @@
         <see>net.ws.server</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">WebSocket is a protocol that provides full-duplex communication channels over a single TCP connection, widely used in web applications for real-time data exchange</tr>
+        <tr lang="ru">WebSocket — протокол, обеспечивающий полнодуплексную передачу данных по одному TCP-соединению, широко используется в веб-приложениях для обмена данными в реальном времени</tr>
+      </par>
+      <par>
+        <tr lang="en">the object connects to a WebSocket server at the specified URL and exchanges text, binary or JSON messages</tr>
+        <tr lang="ru">объект подключается к WebSocket-серверу по указанному URL и обменивается текстовыми, бинарными или JSON-сообщениями</tr>
+      </par>
+      <par>
+        <tr lang="en">the *write* methods buffer messages, call *flush* to send them; the *send* methods send messages immediately</tr>
+        <tr lang="ru">методы *write* буферизуют сообщения, для отправки вызовите *flush*; методы *send* отправляют сообщения сразу</tr>
+      </par>
+    </info>
     <properties>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">
-        <tr lang="en">parsing mode for incoming messages. If 'fudi' - interpret incoming websocket
-        data as Pd messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data,
-        'json' - convert json values to ceammc data.</tr>
-        <!-- old: Режим разбора для входящих сообщений. Если «fudi» —
-                интерпретировать входящие данные websocket как Pd-сообщения, если «sym» — всегда
-                интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
-                преобразовывать значения json в данные ceammc. -->
-        <!-- old: Режим разбора для входящих сообщений. Если «fudi» —
-                интерпретировать входящие данные websocket как Pd-сообщения, если «sym» — всегда
-                интерпретировать как символы, «data» — разбирать данные ceammc, «json» —
-                преобразовывать значения json в данные ceammc. -->
-        <tr lang="ru" finished="false">Режим разбора для входящих сообщений. Если «fudi» —
-        интерпретировать входящие данные websocket как Pd-сообщения, если «sym» — всегда
-        интерпретировать как символы, «data» — разбирать данные ceammc, «json» — преобразовывать
-        значения json в данные ceammc.</tr>
+        <tr lang="en">parsing mode for incoming messages. If "fudi" — interpret incoming websocket data as Pd messages, if "sym" — always interpret as symbols, "data" — parse ceammc data, "json" — convert JSON values to ceammc data</tr>
+        <tr lang="ru">режим разбора входящих сообщений. Если "fudi" — интерпретировать входящие данные websocket как Pd-сообщения, если "sym" — всегда интерпретировать как символы, "data" — разбирать данные ceammc, "json" — преобразовывать значения JSON в данные ceammc</tr>
       </property>
     </properties>
     <methods>
@@ -44,159 +45,128 @@
       <method name="close">
         <info>
           <tr lang="en">gracefully close connection (with websocket handshake)</tr>
-          <!-- old: изящно близкое соединение (с рукопожатием
-                    websocket) -->
-          <tr lang="ru" finished="false">изящно близкое соединение (с рукопожатием websocket)</tr>
+          <tr lang="ru">корректно закрыть соединение (с websocket-рукопожатием)</tr>
         </info>
       </method>
       <!-- connect -->
       <method name="connect">
         <info>
           <tr lang="en">connect to websocket server</tr>
-          <tr lang="ru" finished="false">Подключение к серверу websocket</tr>
+          <tr lang="ru">подключиться к websocket-серверу</tr>
         </info>
         <param name="URL" type="symbol" required="true">
           <tr lang="en">url - ws://HOST:PORT/, for ex.: ws://127.0.0.1:9000/path</tr>
-          <!-- old: URL - ws://HOST:PORT/, для ex.:
-                    ws://127.0.0.1:9000/path -->
-          <tr lang="ru" finished="false">URL - ws://HOST:PORT/, для ex.:
-          ws://127.0.0.1:9000/path</tr>
+          <tr lang="ru">URL — ws://HOST:PORT/, например: ws://127.0.0.1:9000/path</tr>
         </param>
       </method>
       <!-- flush -->
       <method name="flush">
         <info>
-          <tr lang="en">flush output stream: sends all buffered messages.</tr>
-          <!-- old: Flush выходной поток: отправляет все
-                    буферизованные сообщения. -->
-          <tr lang="ru" finished="false">Flush выходной поток: отправляет все буферизованные
-          сообщения.</tr>
+          <tr lang="en">flush output stream: sends all buffered messages</tr>
+          <tr lang="ru">сбросить выходной поток: отправить все буферизованные сообщения</tr>
         </info>
       </method>
       <!-- latency -->
       <method name="latency">
         <info>
-          <tr lang="en">measure rountrip latency. Outputs: latency TIME_MSEC</tr>
-          <!-- old: Измерить задержку rountrip. Выходы: латентность
-                    TIME_MSEC -->
-          <tr lang="ru" finished="false">Измерить задержку rountrip. Выходы: латентность
-          TIME_MSEC</tr>
+          <tr lang="en">measure roundtrip latency. Outputs: latency TIME_MSEC</tr>
+          <tr lang="ru">измерить задержку кругового обхода. Выводит: latency TIME_MSEC</tr>
         </info>
       </method>
       <!-- ping -->
       <method name="ping">
         <info>
           <tr lang="en">send ping message to server (on server answer outputs: pong DATA)</tr>
-          <!-- old: отправка пинг-сообщения на сервер (на выходе
-                    ответа сервера: pong DATA) -->
-          <tr lang="ru" finished="false">отправка пинг-сообщения на сервер (на выходе ответа
-          сервера: pong DATA)</tr>
+          <tr lang="ru">отправить ping-сообщение на сервер (при ответе сервера выводит: pong DATA)</tr>
         </info>
         <param name="DATA" type="list" required="false">
           <tr lang="en">list of integers in [0..255] range</tr>
-          <tr lang="ru" finished="false">Список целых чисел в диапазоне [0,255]</tr>
+          <tr lang="ru">список целых чисел в диапазоне [0..255]</tr>
         </param>
       </method>
       <!-- send -->
       <method name="send">
         <info>
           <tr lang="en">send as text message</tr>
-          <tr lang="ru" finished="false">Отправить как текстовое сообщение</tr>
+          <tr lang="ru">отправить как текстовое сообщение</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
-          <tr lang="ru" finished="false">аргументы</tr>
+          <tr lang="ru">аргументы</tr>
         </param>
       </method>
       <!-- send_array -->
       <method name="send_array">
         <info>
-          <tr lang="en">send as Pd array content as json array</tr>
-          <!-- old: Отправляйте как Pd-массив контент, как
-                    json-массив -->
-          <tr lang="ru" finished="false">Отправляйте как Pd-массив контент, как json-массив</tr>
+          <tr lang="en">send Pd array content as json array</tr>
+          <tr lang="ru">отправить содержимое Pd-массива как JSON-массив</tr>
         </info>
         <param name="ARR" type="symbol" required="true">
           <tr lang="en">array name</tr>
-          <tr lang="ru" finished="false">имя массива</tr>
+          <tr lang="ru">имя массива</tr>
         </param>
         <param name="START" type="int" required="false" minvalue="0" units="sample" default="0">
           <tr lang="en">array start index</tr>
-          <tr lang="ru" finished="false">Массовый стартовый индекс</tr>
+          <tr lang="ru">начальный индекс массива</tr>
         </param>
         <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">
-          <tr lang="en">read length. If not specified - read until array end.</tr>
-          <!-- old: Чтение длины. Если не указано - читайте до
-                    окончания массива. -->
-          <tr lang="ru" finished="false">Чтение длины. Если не указано - читайте до окончания
-          массива.</tr>
+          <tr lang="en">read length. If not specified - read until array end</tr>
+          <tr lang="ru">длина чтения. Если не указана — читать до конца массива</tr>
         </param>
       </method>
       <!-- send_binary -->
       <method name="send_binary">
         <info>
           <tr lang="en">send as binary bytes</tr>
-          <tr lang="ru" finished="false">Отправить как бинарные байты</tr>
+          <tr lang="ru">отправить как бинарные байты</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">list of integers in [0..255] range</tr>
-          <tr lang="ru" finished="false">Список целых чисел в диапазоне [0,255]</tr>
+          <tr lang="ru">список целых чисел в диапазоне [0..255]</tr>
         </param>
       </method>
       <!-- send_json -->
       <method name="send_json">
         <info>
           <tr lang="en">send as encoded json</tr>
-          <tr lang="ru" finished="false">Отправить как закодированный json</tr>
+          <tr lang="ru">отправить как закодированный JSON</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
-          <tr lang="ru" finished="false">аргументы</tr>
+          <tr lang="ru">аргументы</tr>
         </param>
       </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write as text message to output buffer. You have to call [flush( method for
-          sending.</tr>
-          <!-- old: писать как текстовое сообщение для вывода
-                    буфера. Вы должны позвонить [flush (метод отправки). -->
-          <tr lang="ru" finished="false">писать как текстовое сообщение для вывода буфера. Вы
-          должны позвонить [flush (метод отправки).</tr>
+          <tr lang="en">write as text message to output buffer. You have to call [flush( method for sending</tr>
+          <tr lang="ru">записать как текстовое сообщение в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
-          <tr lang="ru" finished="false">аргументы</tr>
+          <tr lang="ru">аргументы</tr>
         </param>
       </method>
       <!-- write_binary -->
       <method name="write_binary">
         <info>
-          <tr lang="en">write as binary bytes to output buffer. You have to call [flush( method for
-          sending.</tr>
-          <!-- old: записывать как бинарные байты для вывода буфера.
-                    Вы должны позвонить [flush (метод отправки). -->
-          <tr lang="ru" finished="false">записывать как бинарные байты для вывода буфера. Вы должны
-          позвонить [flush (метод отправки).</tr>
+          <tr lang="en">write as binary bytes to output buffer. You have to call [flush( method for sending</tr>
+          <tr lang="ru">записать как бинарные байты в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">list of integers in [0..255] range</tr>
-          <tr lang="ru" finished="false">Список целых чисел в диапазоне [0,255]</tr>
+          <tr lang="ru">список целых чисел в диапазоне [0..255]</tr>
         </param>
       </method>
       <!-- write_json -->
       <method name="write_json">
         <info>
-          <tr lang="en">write as encoded json to output buffer. You have to call [flush( method for
-          sending.</tr>
-          <!-- old: Запишите как закодированный json для вывода
-                    буфера. Вы должны позвонить [flush (метод отправки). -->
-          <tr lang="ru" finished="false">Запишите как закодированный json для вывода буфера. Вы
-          должны позвонить [flush (метод отправки).</tr>
+          <tr lang="en">write as encoded json to output buffer. You have to call [flush( method for sending</tr>
+          <tr lang="ru">записать как закодированный JSON в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
-          <tr lang="ru" finished="false">аргументы</tr>
+          <tr lang="ru">аргументы</tr>
         </param>
       </method>
     </methods>
@@ -204,17 +174,15 @@
       <inlet>
         <in>
           <tr lang="en">message input</tr>
-          <tr lang="ru" finished="false">ввод сообщения</tr>
+          <tr lang="ru">вход сообщений</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output messages: latency, ping, text, binary, closed, connected,
-          disconnected</tr>
-          <tr lang="ru" finished="false">выходные сообщения: латентность, ping, текст, двоичный,
-          закрытый, подключенный, отключенный</tr>
+          <tr lang="en">output messages: latency, ping, text, binary, closed, connected, disconnected</tr>
+          <tr lang="ru">выходные сообщения: latency, ping, text, binary, closed, connected, disconnected</tr>
         </out>
       </outlet>
     </outlets>
