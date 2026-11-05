@@ -1776,7 +1776,7 @@ osc.impulse~-help.pd;
 #X obj 30 18616 ui.link @title [osc.pulse~] @url osc.pulse~-help.pd;
 #X text 200 18613 осциллятор прямоугольной волны с ограниченным спектром;
 #X obj 30 18641 ui.link @title [osc.saw4~] @url osc.saw4~-help.pd;
-#X text 200 18638 осциллятор пилообразного сигнала с ограниченным спектром;
+#X text 200 18638 пилообразная волна с ограниченным спектром;
 #X obj 30 18666 ui.link @title [osc.saw~] @url osc.saw~-help.pd;
 #X text 200 18663 пилообразная волна без алиасинга;
 #X obj 30 18691 ui.link @title [osc.sinfb~] @url osc.sinfb~-help.pd;

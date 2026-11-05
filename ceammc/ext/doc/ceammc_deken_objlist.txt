@@ -1034,7 +1034,7 @@ noise.white~	white noise generator / генератор белого шума
 osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управляемыми гармониками
 osc.impulse~	bandlimited impulse train generator / генератор импульсной последовательности с ограниченным спектром
 osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
-osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.saw4~	bandlimited sawtooth wave / пилообразная волна с ограниченным спектром
 osc.saw~	alias-free sawtooth wave / пилообразная волна без алиасинга
 osc.sinfb~	sine oscillator with feedback / синусоидальный осциллятор с обратной связью
 osc.sin~	sine wave oscillator / синусоидальный осциллятор

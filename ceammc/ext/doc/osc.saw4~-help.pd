@@ -5,83 +5,87 @@
 #X obj 1 1 cnv 5 765 40 empty empty osc.saw4~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 osc.saw4~;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Differentiated Polynomial Waves (DPW) used for aliasing
-suppression. 4nd order interpolation.;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X obj 136 186 ui.dsp~;
-#X msg 50 215 \$1 50;
-#X obj 50 244 line~;
-#X msg 174 244 bang;
-#X obj 50 273 osc.saw4~;
-#X obj 50 302 ui.gain~ @size 120 14;
-#X obj 50 330 dac~;
-#X obj 136 330 ui.spectroscope~ @size 150 100;
-#X obj 50 446 ui.dsp~;
-#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 501 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 generates a bandlimited sawtooth wave without aliasing
+artifacts using Differentiated Polynomial Waves (DPW) with 4th order
+interpolation;
+#X text 240 138 the *4* in the name refers to the 4th order interpolation
+used for aliasing suppression;
+#X text 240 178 the left inlet receives the frequency in Hz \, a bang
+on the right inlet resets the phase;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X msg 50 310 \$1 50;
+#X obj 50 339 line~;
+#X msg 174 339 bang;
+#X obj 50 368 osc.saw4~;
+#X obj 50 397 ui.gain~ @size 120 14;
+#X obj 50 425 dac~;
+#X obj 136 425 ui.spectroscope~ @size 150 100;
+#X obj 50 483 ui.dsp~;
+#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 538 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 504 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 502 1\.;
-#X text 170 502 float;
-#X obj 268 503 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 502 FREQ(Hz): See @freq. Type: float. Range: [0.0\..22050];
-#X obj 20 537 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 542 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 539 1\.;
+#X text 170 539 float;
+#X obj 268 540 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 539 FREQ(Hz): see @freq. Type: float. Range: [0.0\..22050];
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 545 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 543 @id;
-#X text 270 543 (initonly) OSC address id. If specified \, bind all
+#X msg 130 580 @id;
+#X text 270 580 (initonly) OSC address id. If specified \, bind all
 properties to /ID/osc_saw4/PROP_NAME osc address \, if empty bind to
 /osc_saw4/PROP_NAME. Type: symbol.;
-#X obj 250 600 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 600 @osc;
-#X text 270 600 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 630 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 630 @active;
-#X text 270 630 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 637 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 637 @osc;
+#X text 270 637 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 667 @active;
+#X text 270 667 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 660 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 660 @freq;
-#X text 270 660 Frequency. Type: float. Units: 'Hz'. Default value:
+#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 697 @freq;
+#X text 270 697 Frequency. Type: float. Units: 'Hz'. Default value:
 0\. Range: [0\..22050].;
-#X obj 250 702 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 702 @phase;
-#X text 270 702 Phase. Type: float. Default value: 0\. Range: [0\..1].;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 747 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 739 @phase;
+#X text 270 739 Phase. Type: float. Default value: 0\. Range: [0\..1].;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 748 1\.;
-#X text 170 748 float:;
-#X text 270 748 frequency in Hz.;
-#X text 130 773 2\.;
-#X text 170 773 bang:;
-#X text 270 773 reset phase.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 813 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 785 1\.;
+#X text 170 785 float:;
+#X text 270 785 frequency in Hz.;
+#X text 130 810 2\.;
+#X text 170 810 bang:;
+#X text 270 810 reset phase.;
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 850 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 814 1\.;
-#X text 170 814 ~;
-#X text 270 814 output signal.;
+#X text 130 851 1\.;
+#X text 170 851 ~;
+#X text 270 851 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 864 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 867 library: ceammc v0.9.8;
-#X text 354 879 see also:;
-#X obj 429 882 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 901 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 904 library: ceammc v0.9.8;
+#X text 354 916 see also:;
+#X obj 429 919 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.saw~] @url osc.saw~-help.pd;
-#X obj 505 882 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 505 919 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.tri~] @url osc.tri~-help.pd;
-#X obj 581 882 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 581 919 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.square~] @url osc.square~-help.pd;
-#X obj 679 882 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 679 919 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lfo.tri~] @url lfo.tri~-help.pd;
-#N canvas 10 886 400 290 info 0;
+#N canvas 10 923 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,12 +109,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 886 pd info;
-#X connect 6 0 8 0;
+#X restore 10 923 pd info;
 #X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 1;
-#X connect 11 0 12 0;
+#X connect 9 0 10 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 1;
 #X connect 12 0 13 0;
-#X connect 12 0 13 1;
-#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 13 0 14 1;
+#X connect 13 0 15 0;

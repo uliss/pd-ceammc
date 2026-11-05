@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">bandlimited sawtooth wave</tr>
-        <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
+        <tr lang="ru">пилообразная волна с ограниченным спектром</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,18 +24,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Differentiated Polynomial Waves (DPW) used for aliasing suppression. 4nd
-        order interpolation.</tr>
-        <!-- old: Дифференцированные полиномиальные волны (DPW),
-                используемые для псевдонима подавления. 4-й порядок интерполяции. -->
-        <tr lang="ru" finished="false">Дифференцированные полиномиальные волны (DPW), используемые
-        для псевдонима подавления. 4-й порядок интерполяции.</tr>
+        <tr lang="en">generates a bandlimited sawtooth wave without aliasing artifacts using Differentiated Polynomial Waves (DPW) with 4th order interpolation</tr>
+        <tr lang="ru">генерирует пилообразную волну с ограниченным спектром без артефактов алиасинга с помощью дифференцированных полиномиальных волн (DPW) с интерполяцией 4-го порядка</tr>
+      </par>
+      <par>
+        <tr lang="en">the *4* in the name refers to the 4th order interpolation used for aliasing suppression</tr>
+        <tr lang="ru">цифра *4* в названии указывает на интерполяцию 4-го порядка, используемую для подавления алиасинга</tr>
+      </par>
+      <par>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>
     <arguments>
       <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-        <tr lang="en">See @freq</tr>
-        <tr lang="ru" finished="false">См. @freq</tr>
+        <tr lang="en">see @freq</tr>
+        <tr lang="ru">см. @freq</tr>
       </argument>
     </arguments>
     <properties>
@@ -45,25 +49,25 @@
       <!-- @freq -->
       <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </property>
       <!-- @phase -->
       <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">
         <tr lang="en">phase</tr>
-        <tr lang="ru" finished="false">фаза</tr>
+        <tr lang="ru">фаза</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in on="float">
           <tr lang="en">frequency in Hz</tr>
-          <tr lang="ru" finished="false">частота в Гц</tr>
+          <tr lang="ru">частота в Гц</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">reset phase</tr>
-          <tr lang="ru" finished="false">фаза сброса</tr>
+          <tr lang="ru">сбросить фазу</tr>
         </in>
       </inlet>
     </inlets>
@@ -71,14 +75,14 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[F]      [ui.dsp~]
+[F]
 |
 [$1 50(
 |
@@ -89,9 +93,6 @@
 [ui.gain~ @size 120 14]
 |\       |
 [dac~]   [ui.spectroscope~ @size 150 100]
-
-
-
 
 
 
