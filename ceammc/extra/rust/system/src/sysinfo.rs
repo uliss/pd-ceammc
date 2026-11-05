@@ -4,9 +4,8 @@ use std::{
     time::Duration,
 };
 
+use ceammc_rs_msg::msg_notify;
 use sysinfo::{Components, CpuRefreshKind, RefreshKind, System};
-
-use crate::system_notify_cb;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -123,7 +122,7 @@ fn normalize_spaces(input: &str) -> String {
 pub extern "C" fn ceammc_sysinfo_create(
     cb_temp: sysinfo_temp_cb,
     cb_cpu: sysinfo_cpu_cb,
-    cb_notify: system_notify_cb,
+    cb_notify: msg_notify,
 ) -> *mut system_info {
     let (reply_tx, reply_rx) = std::sync::mpsc::channel::<SysInfoReply>();
     let (req_tx, req_rx) = std::sync::mpsc::channel::<SysInfoRequest>();
@@ -156,7 +155,7 @@ pub extern "C" fn ceammc_sysinfo_create(
                                     break;
                                 }
 
-                                cb_notify.notify();
+                                cb_notify.exec();
                             } else {
                                 // skip
                                 continue;
@@ -182,7 +181,7 @@ pub extern "C" fn ceammc_sysinfo_create(
                             }
                         }
 
-                        cb_notify.notify();
+                        cb_notify.exec();
                     }
                 },
                 Err(err) => match err {

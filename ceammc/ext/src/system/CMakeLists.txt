@@ -74,6 +74,7 @@ if(WITH_RUST_SYSTEM)
     target_include_directories(ceammc_system
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/system
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
     )
     target_link_libraries(ceammc_system PRIVATE system_rust)
 endif()
