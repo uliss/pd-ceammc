@@ -18,15 +18,23 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Service '.local.' domain suffix is optional and can be omitted.</tr>
+        <tr lang="en">mDNS (Multicast DNS) is a protocol that resolves host names to IP addresses on a local network without a dedicated DNS server. It operates over UDP port 5353 and uses the '.local.' domain suffix</tr>
+        <tr lang="ru">mDNS (Multicast DNS) — протокол, который разрешает имена хостов в IP-адреса в локальной сети без выделенного DNS-сервера. Работает по UDP-порту 5353 и использует суффикс домена «.local.»</tr>
+      </par>
+      <par>
+        <tr lang="en">Service discovery in this object is based on DNS-SD (DNS-Based Service Discovery), which uses standard DNS PTR, SRV and TXT records to advertise and find services</tr>
+        <tr lang="ru">обнаружение служб в этом объекте основано на DNS-SD (DNS-Based Service Discovery), который использует стандартные DNS-записи PTR, SRV и TXT для анонсирования и поиска служб</tr>
+      </par>
+      <par>
+        <tr lang="en">Service '.local.' domain suffix is optional and can be omitted</tr>
         <tr lang="ru">суффикс домена «.local.» необязателен и может быть опущен</tr>
       </par>
       <par>
-        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http - '_http._tcp.local', #all - to subscribe to all available services on the network.</tr>
+        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http - '_http._tcp.local', #all - to subscribe to all available services on the network</tr>
         <tr lang="ru">есть псевдонимы служб: #osc — вместо '_osc._udp.local', #http — '_http._tcp.local', #all — для подписки на все доступные службы в сети</tr>
       </par>
       <par>
-        <tr lang="en">Note: on close the object will automatically unregister any previously registered services.</tr>
+        <tr lang="en">Note: on close the object will automatically unregister any previously registered services</tr>
         <tr lang="ru">примечание: при закрытии объекта автоматически снимается регистрация всех ранее зарегистрированных служб</tr>
       </par>
       <par>
@@ -74,7 +82,7 @@
         </param>
         <param name="PROPS" type="list" required="false">
           <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BAR will have TXT records prop1=FOO prop2=BAR</tr>
-          <tr lang="ru">список текстовых свойств (запись TXT), например: @prop1 FOO @prop2 BOR даст записи TXT prop1=FOO prop2=BAR</tr>
+          <tr lang="ru">список текстовых свойств (запись TXT), например: @prop1 FOO @prop2 BAR даст записи TXT prop1=FOO prop2=BAR</tr>
         </param>
       </method>
       <!-- resolve -->

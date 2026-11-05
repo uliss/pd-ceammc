@@ -5,126 +5,133 @@
 #X obj 1 1 cnv 5 765 40 empty empty net.mdns 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 net.mdns;
-#X obj 230 78 cnv 1 535 180 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 суффикс домена «.local.» необязателен и может быть опущен;
-#X text 240 108 есть псевдонимы служб: #osc — вместо '_osc._udp.local'
+#X obj 230 78 cnv 1 535 320 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 mDNS (Multicast DNS) — протокол \, который разрешает
+имена хостов в IP-адреса в локальной сети без выделенного DNS-сервера.
+Работает по UDP-порту 5353 и использует суффикс домена «.local.»;
+#X text 240 153 обнаружение служб в этом объекте основано на DNS-SD
+(DNS-Based Service Discovery) \, который использует стандартные DNS-записи
+PTR \, SRV и TXT для анонсирования и поиска служб;
+#X text 240 223 суффикс домена «.local.» необязателен и может быть
+опущен;
+#X text 240 248 есть псевдонимы служб: #osc — вместо '_osc._udp.local'
 \, #http — '_http._tcp.local' \, #all — для подписки на все доступные
 службы в сети;
-#X text 240 163 примечание: при закрытии объекта автоматически снимается
+#X text 240 303 примечание: при закрытии объекта автоматически снимается
 регистрация всех ранее зарегистрированных служб;
-#X text 240 203 примечание: #all — особый случай \, он выводит все
+#X text 240 343 примечание: #all — особый случай \, он выводит все
 доступные имена сетевых служб в формате [service SERVICE(;
-#X msg 50 306 subscribe _http._tcp;
-#X msg 338 306 subscribe #all;
-#X msg 69 335 unsubscribe #http;
-#X msg 338 335 unsubscribe #all;
-#X msg 50 364 subscribe _osc._udp;
-#X msg 69 393 unsubscribe #osc;
-#X msg 386 393 register #osc CEAM 9000 @prop 1 2 3;
-#X msg 107 422 unsubscribe #http;
-#X msg 405 422 unregister #osc CEAM;
-#X msg 126 450 resolve #osc CEAM;
-#X obj 107 493 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 386 493 net.mdns;
-#X msg 107 522 @fullname \$1;
-#X obj 50 551 net.mdns;
-#X obj 69 580 print;
-#X obj 50 609 route resolve;
-#X obj 50 637 msg.unpack 5;
-#X floatatom 98 666 5 0 0 0 - - -;
-#X symbolatom 194 666 16 0 0 0 - - -;
-#X obj 50 709 net.mdns-ifaces;
-#X obj 20 759 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 764 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X msg 50 446 subscribe _http._tcp;
+#X msg 338 446 subscribe #all;
+#X msg 69 475 unsubscribe #http;
+#X msg 338 475 unsubscribe #all;
+#X msg 50 504 subscribe _osc._udp;
+#X msg 69 533 unsubscribe #osc;
+#X msg 386 533 register #osc CEAM 9000 @prop 1 2 3;
+#X msg 107 562 unsubscribe #http;
+#X msg 405 562 unregister #osc CEAM;
+#X msg 126 590 resolve #osc CEAM;
+#X obj 107 633 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 386 633 net.mdns;
+#X msg 107 662 @fullname \$1;
+#X obj 50 691 net.mdns;
+#X obj 69 720 print;
+#X obj 50 749 route resolve;
+#X obj 50 777 msg.unpack 5;
+#X floatatom 98 806 5 0 0 0 - - -;
+#X symbolatom 194 806 16 0 0 0 - - -;
+#X obj 50 849 net.mdns-ifaces;
+#X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 904 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 767 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 907 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 765 @fullname;
-#X text 270 765 Если true: выводить полное имя экземпляра (с суффиксом
+#X msg 130 905 @fullname;
+#X text 270 905 Если true: выводить полное имя экземпляра (с суффиксом
 службы и домена) \, например: 'THE_SERVICE._xx.local.'. Тип: bool.
 Значение по умолчанию: 1\.;
-#X obj 250 822 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 822 @ip;
-#X text 270 822 Ограничить адреса по типу. Тип: symbol. Значение по
+#X obj 250 962 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 962 @ip;
+#X text 270 962 Ограничить адреса по типу. Тип: symbol. Значение по
 умолчанию: v4\. Разрешённые значения: v4 \, v6 \, any.;
-#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 879 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
-0;
-#X msg 130 880 ifaces;
-#X text 270 880 вывести доступные сетевые интерфейсы и информацию о
-них.;
-#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 915 register;
-#X text 270 915 зарегистрировать экземпляр службы MDNS. Экземпляр будет
-доступен по DNS-имени NAME.local. Аргументы:;
-#X obj 300 955 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 955 SERVICE: имя службы \, например: _osc._tcp \, или псевдоним:
-#osc. Тип: symbol.;
-#X obj 300 993 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 993 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
+#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1019 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1020 ifaces;
+#X text 270 1020 вывести доступные сетевые интерфейсы и информацию
+о них.;
+#X obj 250 1055 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1055 register;
+#X text 270 1055 зарегистрировать экземпляр службы MDNS. Экземпляр
+будет доступен по DNS-имени NAME.local. Аргументы:;
+#X obj 300 1095 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1095 SERVICE: имя службы \, например: _osc._tcp \, или
+псевдоним: #osc. Тип: symbol.;
+#X obj 300 1133 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1133 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
 Тип: symbol.;
-#X obj 300 1016 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1016 PORT: порт экземпляра. Тип: int. Минимальное значение:
+#X obj 300 1156 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1156 PORT: порт экземпляра. Тип: int. Минимальное значение:
 0\.;
-#X obj 300 1039 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1039 [PROPS]: список текстовых свойств (запись TXT) \,
-например: @prop1 FOO @prop2 BOO даст записи TXT prop1=FOO prop2=BAR.
+#X obj 300 1179 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1179 [PROPS]: список текстовых свойств (запись TXT) \,
+например: @prop1 FOO @prop2 BAR даст записи TXT prop1=FOO prop2=BAR.
 Тип: list.;
-#X obj 250 1102 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1102 resolve;
-#X text 270 1102 выполняет разрешение имён mDNS: получает информацию
+#X obj 250 1242 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1242 resolve;
+#X text 270 1242 выполняет разрешение имён mDNS: получает информацию
 о службе (хост \, IP \, порт и т.д.) по типу SERVICE и имени INSTANCE.
 Аргументы:;
-#X obj 300 1157 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1157 SERVICE: имя службы \, например: _osc._tcp \, или
+#X obj 300 1297 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1297 SERVICE: имя службы \, например: _osc._tcp \, или
 псевдоним: #osc или #http. Тип: symbol.;
-#X obj 300 1195 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1195 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
+#X obj 300 1335 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1335 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
 Тип: symbol.;
-#X obj 250 1228 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1228 subscribe;
-#X text 270 1228 подписаться на события службы: добавление \, удаление
+#X obj 250 1368 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1368 subscribe;
+#X text 270 1368 подписаться на события службы: добавление \, удаление
 и разрешение. Аргументы:;
-#X obj 300 1268 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1268 SERVICE: имя службы \, например: _osc._tcp \, или
+#X obj 300 1408 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1408 SERVICE: имя службы \, например: _osc._tcp \, или
 псевдоним: #osc или #all. Тип: symbol.;
-#X obj 300 1306 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1306 [ON=true]: если true: подписаться \, если false: отписаться.
+#X obj 300 1446 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1446 [ON=true]: если true: подписаться \, если false: отписаться.
 Тип: bool.;
-#X obj 250 1354 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1354 unregister;
-#X text 270 1354 вручную снять регистрацию экземпляра службы. Аргументы:;
-#X obj 300 1379 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1379 SERVICE: имя службы \, например: _osc._tcp \, или
+#X obj 250 1494 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1494 unregister;
+#X text 270 1494 вручную снять регистрацию экземпляра службы. Аргументы:;
+#X obj 300 1519 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1519 SERVICE: имя службы \, например: _osc._tcp \, или
 псевдоним: #osc. Тип: symbol.;
-#X obj 300 1417 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1417 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
+#X obj 300 1557 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1557 NAME: имя экземпляра \, например: MY_SUPER_SERVER.
 Тип: symbol.;
-#X obj 250 1450 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1450 unsubscribe;
-#X text 270 1450 отписаться от указанных событий службы. Аргументы:;
-#X obj 300 1475 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1475 SERVICE: имя службы \, например: _osc._tcp \, или
+#X obj 250 1590 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1590 unsubscribe;
+#X text 270 1590 отписаться от указанных событий службы. Аргументы:;
+#X obj 300 1615 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1615 SERVICE: имя службы \, например: _osc._tcp \, или
 псевдоним: #osc или #all. Тип: symbol.;
-#X obj 20 1533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1538 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1678 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1539 1\.;
-#X text 270 1539 вход.;
-#X obj 20 1574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1579 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1679 1\.;
+#X text 270 1679 вход.;
+#X obj 20 1714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1719 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1580 1\.;
-#X text 270 1580 add SERVICE NAME \, remove SERVICE NAME \, service
+#X text 130 1720 1\.;
+#X text 270 1720 add SERVICE NAME \, remove SERVICE NAME \, service
 add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1660 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1663 библиотека: ceammc v0.9.8;
-#N canvas 10 1682 400 290 info 0;
+#X obj 1 1800 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1803 библиотека: ceammc v0.9.8;
+#N canvas 10 1822 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -149,21 +156,21 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1682 pd info;
-#X connect 19 0 21 0;
-#X connect 21 0 22 0;
-#X connect 22 0 23 0;
-#X connect 22 0 24 0;
+#X restore 10 1822 pd info;
+#X connect 21 0 23 0;
+#X connect 23 0 24 0;
 #X connect 24 0 25 0;
-#X connect 9 0 22 0;
-#X connect 11 0 22 0;
-#X connect 13 0 22 0;
-#X connect 14 0 22 0;
-#X connect 16 0 22 0;
-#X connect 15 0 20 0;
-#X connect 17 0 20 0;
-#X connect 10 0 22 0;
-#X connect 12 0 22 0;
-#X connect 18 0 22 0;
-#X connect 25 3 26 0;
-#X connect 25 4 27 0;
+#X connect 24 0 26 0;
+#X connect 26 0 27 0;
+#X connect 11 0 24 0;
+#X connect 13 0 24 0;
+#X connect 15 0 24 0;
+#X connect 16 0 24 0;
+#X connect 18 0 24 0;
+#X connect 17 0 22 0;
+#X connect 19 0 22 0;
+#X connect 12 0 24 0;
+#X connect 14 0 24 0;
+#X connect 20 0 24 0;
+#X connect 27 3 28 0;
+#X connect 27 4 29 0;
