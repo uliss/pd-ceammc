@@ -19,6 +19,32 @@
         <alias>artnet.send</alias>
       </aliases>
     </meta>
+    <info>
+      <par style="info">
+        <tr lang="en">Art-Net is an Ethernet protocol based on TCP/IP that transports DMX512 lighting data over a standard network, allowing multiple DMX universes to be carried over a single cable</tr>
+        <tr lang="ru">Art-Net — это Ethernet-протокол на основе TCP/IP, который передаёт данные освещения DMX512 по стандартной сети и позволяет передавать несколько вселенных DMX по одному кабелю</tr>
+      </par>
+      <par>
+        <tr lang="en">transmission uses UDP, with the standard Art-Net port 6454</tr>
+        <tr lang="ru">передача идёт по UDP, стандартный порт Art-Net — 6454</tr>
+      </par>
+      <par>
+        <tr lang="en">the object sends ArtDmx packets to control DMX channels of the specified universe and subnet</tr>
+        <tr lang="ru">объект отправляет пакеты ArtDmx для управления каналами DMX указанной вселенной и подсети</tr>
+      </par>
+      <par>
+        <tr lang="en">each DMX universe contains up to 512 channels, values are in the range 0–255</tr>
+        <tr lang="ru">каждая вселенная DMX содержит до 512 каналов, значения находятся в диапазоне 0–255</tr>
+      </par>
+      <par>
+        <tr lang="en">if @sync is enabled, frames are sent only on bang, otherwise frames are sent at @rate using the internal clock</tr>
+        <tr lang="ru">если включён @sync, кадры отправляются только по bang, иначе кадры отправляются с частотой @rate по внутренним часам</tr>
+      </par>
+      <par style="important">
+        <tr lang="en">Alt+click on the object sends a blackout message</tr>
+        <tr lang="ru">Alt+клик по объекту отправляет сообщение блэкаута</tr>
+      </par>
+    </info>
     <mouse>
       <event type="left-click" editmode="false" keys="Alt">send blackout message</event>
     </mouse>

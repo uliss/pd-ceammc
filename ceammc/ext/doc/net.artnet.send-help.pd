@@ -7,111 +7,126 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [artnet.send] @url net.artnet.send-help.pd;
 #X obj 631 8 net.artnet.send;
-#X obj 50 118 ui.hrd 4;
-#X floatatom 222 118 5 0 0 0 - - -;
-#X msg 50 147 @universe \$1;
-#X msg 222 147 @offset \$1;
-#X obj 59 176 ui.colorpanel @matrix 16 8;
-#X obj 59 291 route @rgb;
-#X obj 59 320 math.* 255;
-#X obj 59 349 msg dmx;
-#X msg 155 349 poll;
-#X msg 222 349 dmx_fill 0;
-#X obj 50 378 net.artnet.send;
-#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 433 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 275 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Art-Net is an Ethernet protocol based on TCP/IP that
+transports DMX512 lighting data over a standard network \, allowing
+multiple DMX universes to be carried over a single cable;
+#X obj 230 88 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
+#X text 240 153 transmission uses UDP \, with the standard Art-Net
+port 6454;
+#X text 240 178 the object sends ArtDmx packets to control DMX channels
+of the specified universe and subnet;
+#X text 240 218 each DMX universe contains up to 512 channels \, values
+are in the range 0–255;
+#X text 240 258 if @sync is enabled \, frames are sent only on bang
+\, otherwise frames are sent at @rate using the internal clock;
+#X text 240 313 Alt+click on the object sends a blackout message;
+#X obj 230 318 cnv 1 2 15 empty empty empty 17 7 0 10 -221520 -1 0;
+#X obj 50 401 ui.hrd 4;
+#X floatatom 222 401 5 0 0 0 - - -;
+#X msg 50 430 @universe \$1;
+#X msg 222 430 @offset \$1;
+#X obj 59 459 ui.colorpanel @matrix 16 8;
+#X obj 59 574 route @rgb;
+#X obj 59 603 math.* 255;
+#X obj 59 632 msg dmx;
+#X msg 155 632 poll;
+#X msg 222 632 dmx_fill 0;
+#X obj 50 661 net.artnet.send;
+#X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 716 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 468 Left-click + ⌥;
-#X text 310 468 send blackout message.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 751 Left-click + ⌥;
+#X text 310 751 send blackout message.;
+#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 786 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 789 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 504 1\.;
-#X text 170 504 int;
-#X obj 268 505 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 504 UNIVERSE: ArtNet universe. Type: int. Range: [0\..15];
-#X text 130 529 2\.;
-#X text 170 529 int;
-#X obj 268 530 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 529 SUBNET: ArtNet subnet. Type: int. Range: [0\..15];
-#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 569 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 787 1\.;
+#X text 170 787 int;
+#X obj 268 788 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 787 UNIVERSE: ArtNet universe. Type: int. Range: [0\..15];
+#X text 130 812 2\.;
+#X text 170 812 int;
+#X obj 268 813 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 812 SUBNET: ArtNet subnet. Type: int. Range: [0\..15];
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 852 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 572 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 855 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 570 @ip;
-#X text 270 570 (initonly) Bind interface IP address. If empty - use
+#X msg 130 853 @ip;
+#X text 270 853 (initonly) Bind interface IP address. If empty - use
 the first available interface. Type: symbol.;
-#X obj 250 612 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 612 @offset;
-#X text 270 612 DMX channel offset. Type: int. Default value: 0\. Range:
+#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 895 @offset;
+#X text 270 895 DMX channel offset. Type: int. Default value: 0\. Range:
 [0\..511].;
-#X obj 250 654 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 654 @rate;
-#X text 270 654 Send framerate. Type: float. Units: 'Hz'. Default value:
+#X obj 250 937 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 937 @rate;
+#X text 270 937 Send framerate. Type: float. Units: 'Hz'. Default value:
 44\. Range: [1\..100].;
-#X obj 250 696 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 696 @subnet;
-#X text 270 696 ArtNet subnet. Type: int. Default value: 0\. Range:
+#X obj 250 979 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 979 @subnet;
+#X text 270 979 ArtNet subnet. Type: int. Default value: 0\. Range:
 [0\..15].;
-#X obj 250 726 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 726 @sync;
-#X text 270 726 Send mode. If true: send frame only when bang is received
+#X obj 250 1009 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1009 @sync;
+#X text 270 1009 Send mode. If true: send frame only when bang is received
 \, otherwise send frames with @rate speed using the internal clock.
 Type: bool. Default value: 0\.;
-#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 783 @universe;
-#X text 270 783 ArtNet universe. Type: int. Default value: 0\. Range:
+#X obj 250 1066 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1066 @universe;
+#X text 270 1066 ArtNet universe. Type: int. Default value: 0\. Range:
 [0\..15].;
-#X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 840 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1123 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 841 blackout;
-#X text 270 841 blackout (send 0 to all DMX channels).;
-#X obj 250 876 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 876 dmx;
-#X text 270 876 set DMX channel values. Arguments are:;
-#X obj 300 901 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 901 VALUES: list of DMX values \, the first element sets
+#X msg 130 1124 blackout;
+#X text 270 1124 blackout (send 0 to all DMX channels).;
+#X obj 250 1159 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1159 dmx;
+#X text 270 1159 set DMX channel values. Arguments are:;
+#X obj 300 1184 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1184 VALUES: list of DMX values \, the first element sets
 the first channel etc. Type: list.;
-#X obj 250 949 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 949 dmx_fill;
-#X text 270 949 set all DMX channels to the given value. Arguments
+#X obj 250 1232 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1232 dmx_fill;
+#X text 270 1232 set all DMX channels to the given value. Arguments
 are:;
-#X obj 300 974 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 974 VAL: DMX value. Type: int. Range: [0\..255].;
-#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1007 dmx_set;
-#X text 270 1007 set DMX channel value. Arguments are:;
-#X obj 300 1032 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1032 CHAN: DMX channel. Type: int. Range: [0\..512].;
-#X obj 300 1055 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1055 VAL: DMX value. Type: int. Range: [0\..255].;
-#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1088 poll;
-#X text 270 1088 send poll request \, dump response to the Pd window.;
-#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1138 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1257 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1257 VAL: DMX value. Type: int. Range: [0\..255].;
+#X obj 250 1290 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1290 dmx_set;
+#X text 270 1290 set DMX channel value. Arguments are:;
+#X obj 300 1315 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1315 CHAN: DMX channel. Type: int. Range: [0\..512].;
+#X obj 300 1338 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1338 VAL: DMX value. Type: int. Range: [0\..255].;
+#X obj 250 1371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1371 poll;
+#X text 270 1371 send poll request \, dump response to the Pd window.;
+#X obj 20 1416 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1421 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1139 1\.;
-#X text 270 1139 input.;
-#X text 170 1164 bang:;
-#X text 270 1164 send packet.;
-#X obj 20 1199 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1204 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1422 1\.;
+#X text 270 1422 input.;
+#X text 170 1447 bang:;
+#X text 270 1447 send packet.;
+#X obj 20 1482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1487 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1205 1\.;
-#X text 270 1205 output.;
+#X text 130 1488 1\.;
+#X text 270 1488 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1255 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1258 library: ceammc v0.9.8;
-#N canvas 10 1277 400 290 info 0;
+#X obj 1 1538 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1541 library: ceammc v0.9.8;
+#N canvas 10 1560 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -135,14 +150,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1277 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 15 0;
-#X connect 13 0 15 0;
-#X connect 14 0 15 0;
-#X connect 7 0 15 0;
-#X connect 8 0 15 0;
+#X restore 10 1560 pd info;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 24 0;
+#X connect 22 0 24 0;
+#X connect 23 0 24 0;
+#X connect 16 0 24 0;
+#X connect 17 0 24 0;
