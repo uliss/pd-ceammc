@@ -24,30 +24,36 @@
       </aliases>
       <since>0.3</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the function is called by the [function.call] object, which passes the input values and receives the result</tr>
+        <tr lang="ru">функция вызывается объектом [function.call], который передаёт входные значения и получает результат</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="NAME" type="symbol">
         <tr lang="en">function name, should be unique</tr>
-        <tr lang="ru" finished="false">имя должно быть уникальным</tr>
+        <tr lang="ru">имя функции, должно быть уникальным</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @name -->
       <property name="@name" type="symbol" default="" access="initonly">
         <tr lang="en">function name, should be unique and non-empty</tr>
-        <tr lang="ru" finished="false">имя должно быть уникальным и непустым</tr>
+        <tr lang="ru">имя функции, должно быть уникальным и непустым</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input values</tr>
-          <tr lang="ru" finished="false">входные значения</tr>
+          <tr lang="ru">входные значения</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">value from the side-chain</tr>
-          <tr lang="ru" finished="false">значение из боковой цепи</tr>
+          <tr lang="ru">значение из боковой цепи</tr>
         </in>
       </inlet>
     </inlets>
@@ -55,13 +61,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+          <tr lang="ru">значение результата</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">value to the side-chain</tr>
-          <tr lang="ru" finished="false">значение для боковой цепи</tr>
+          <tr lang="ru">значение для боковой цепи</tr>
         </out>
       </outlet>
     </outlets>
