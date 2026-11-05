@@ -1523,7 +1523,7 @@ midi.sustain-help.pd;
 #X obj 30 15918 ui.link @title [midi.track] @url midi.track-help.pd;
 #X text 200 15915 extracts the track from MidiFile message;
 #X obj 30 15943 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
-#X text 200 15940 apply the tuning for notes flow;
+#X text 200 15940 apply tuning to a note stream;
 #X obj 30 15968 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
 #X text 200 15965 apply crescendo or diminuendo for notes flow;
 #X obj 30 15993 ui.link @title [midi.vrand] @url midi.vrand-help.pd;

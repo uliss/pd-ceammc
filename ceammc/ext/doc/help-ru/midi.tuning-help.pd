@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 473 50 применяет настройку для нотного потока;
+#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 519 50 применяет настройку к потоку нот;
 #X obj 1 1 cnv 5 765 40 empty empty midi.tuning 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 midi.tuning;
@@ -26,33 +26,33 @@
 #X text 130 462 1\.;
 #X text 170 462 list;
 #X obj 268 463 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 462 DEV: if symbol - set named temperament deviations \,
-valid names are: "eq" \, "just" \, "ganassi" \, "meantone" \, "kirnberger3"
-\, "pythagorean" \, "rameau" \, "valotti" or "zarlino". If list: set
-deviation in cents per pitch. Тип: list.;
+#X text 270 462 DEV: если символ: задать именованные отклонения темперации
+\, допустимые имена — "eq" \, "just" \, "ganassi" \, "meantone" \,
+"kirnberger3" \, "pythagorean" \, "rameau" \, "valotti" или "zarlino".
+Если список: задать отклонение в центах на ступень. Тип: list.;
 #X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 562 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 565 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 563 @base;
-#X text 270 563 Base pitch (C: 0 \, A: 9 \, etc..). Тип: int. Значение
+#X text 270 563 Базовая высота (C: 0 \, A: 9 и т.д.). Тип: int. Значение
 по умолчанию: 9\. Диапазон: [0\..11].;
 #X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 605 @dev;
-#X text 270 605 List of deviations in cents. Тип: list. Значение по
+#X text 270 605 Список отклонений в центах. Тип: list. Значение по
 умолчанию: 0 0 0 0 0 0 0 0 0 0 0 0\.;
 #X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 662 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 663 1\.;
 #X text 170 663 list:;
-#X text 270 663 NOTE VELOCITY pair expected.;
+#X text 270 663 ожидается пара НОТА СКОРОСТЬ.;
 #X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 703 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 704 1\.;
-#X text 270 704 note velocity pair.;
+#X text 270 704 пара нота скорость.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

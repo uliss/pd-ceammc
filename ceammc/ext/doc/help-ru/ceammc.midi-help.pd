@@ -48,7 +48,7 @@ midi.note.pass-help.pd;
 #X obj 30 560 ui.link @title [midi.track] @url midi.track-help.pd;
 #X text 220 557 извлекает трек из сообщения MidiFile;
 #X obj 30 585 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
-#X text 220 582 применяет настройку для нотного потока;
+#X text 220 582 применяет настройку к потоку нот;
 #X obj 30 610 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
 #X text 220 607 применяет crescendo или diminuendo для потока нот;
 #X obj 30 635 ui.link @title [midi.vrand] @url midi.vrand-help.pd;

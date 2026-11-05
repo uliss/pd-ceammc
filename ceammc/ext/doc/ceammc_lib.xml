@@ -1738,7 +1738,7 @@
     <entry name="midi.track" descr="extracts the track from MidiFile message" ref_view="link">
       <xi:include href="midi.track.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.tuning" descr="apply the tuning for notes flow" ref_view="link">
+    <entry name="midi.tuning" descr="apply tuning to a note stream" ref_view="link">
       <xi:include href="midi.tuning.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.vramp" descr="apply crescendo or diminuendo for notes flow" ref_view="link">

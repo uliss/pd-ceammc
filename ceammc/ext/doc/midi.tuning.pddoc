@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">apply the tuning for notes flow</tr>
-        <tr lang="ru">применяет настройку для нотного потока</tr>
+        <tr lang="en">apply tuning to a note stream</tr>
+        <tr lang="ru">применяет настройку к потоку нот</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,36 +18,27 @@
     </meta>
     <arguments>
       <argument name="DEV" type="list">
-        <tr lang="en">if symbol - set named temperament deviations, valid names are: "eq", "just",
-        "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or "zarlino". If
-        list: set deviation in cents per pitch</tr>
-        <!-- old: если символ - набор названных отклонений
-                темперамента, то действительными названиями являются: "экв", "просто", "ганасси",
-                "меантоне", "кирнбергер3", "пифагореан", "рамео", "валотти" или "зарлино". Если
-                список: установленное отклонение в центах за шаг -->
-        <tr lang="ru" finished="false">если символ - набор названных отклонений темперамента, то
-        действительными названиями являются: "экв", "просто", "ганасси", "меантоне", "кирнбергер3",
-        "пифагореан", "рамео", "валотти" или "зарлино". Если список: установленное отклонение в
-        центах за шаг</tr>
+        <tr lang="en">if symbol: set named temperament deviations, valid names are "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or "zarlino". If list: set deviation in cents per pitch</tr>
+        <tr lang="ru">если символ: задать именованные отклонения темперации, допустимые имена — "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" или "zarlino". Если список: задать отклонение в центах на ступень</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @base -->
       <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">
-        <tr lang="en">base pitch (C: 0, A: 9, etc..)</tr>
-        <tr lang="ru" finished="false">базовый шаг (C:0, A:9 и т.д.)</tr>
+        <tr lang="en">base pitch (C: 0, A: 9, etc.)</tr>
+        <tr lang="ru">базовая высота (C: 0, A: 9 и т.д.)</tr>
       </property>
       <!-- @dev -->
       <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">
         <tr lang="en">list of deviations in cents</tr>
-        <tr lang="ru" finished="false">Список отклонений в центах</tr>
+        <tr lang="ru">список отклонений в центах</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">NOTE VELOCITY pair expected</tr>
-          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: Ожидаемая пара переменчивости</tr>
+          <tr lang="ru">ожидается пара НОТА СКОРОСТЬ</tr>
         </in>
       </inlet>
     </inlets>
@@ -55,7 +46,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">note velocity pair</tr>
-          <tr lang="ru" finished="false">пара скоростей</tr>
+          <tr lang="ru">пара нота скорость</tr>
         </out>
       </outlet>
     </outlets>

@@ -1579,7 +1579,7 @@ midi.sustain-help.pd;
 #X obj 30 16653 ui.link @title [midi.track] @url midi.track-help.pd;
 #X text 200 16650 извлекает трек из сообщения MidiFile;
 #X obj 30 16678 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
-#X text 200 16675 применяет настройку для нотного потока;
+#X text 200 16675 применяет настройку к потоку нот;
 #X obj 30 16703 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
 #X text 200 16700 применяет crescendo или diminuendo для потока нот;
 #X obj 30 16728 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
