@@ -11,11 +11,6 @@ ceammc_net_external(osc_receive)
 # MQTT
 target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
 if(WITH_MQTT)
-    target_include_directories(ceammc_net PRIVATE
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-    )
-    target_link_libraries(ceammc_net PRIVATE net_rust)
     target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
