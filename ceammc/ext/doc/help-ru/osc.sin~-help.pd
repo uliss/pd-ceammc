@@ -5,75 +5,78 @@
 #X obj 1 1 cnv 5 765 40 empty empty osc.sin~ 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 osc.sin~;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 included for library comprehension;
-#X floatatom 50 171 5 0 0 0 - - -;
-#X obj 50 200 osc.sin~ 440;
-#X obj 50 229 ui.gain~ @size 120 16;
-#X obj 280 229 ui.dsp~;
-#X obj 50 258 dac~;
-#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 313 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 110 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 генерирует синусоидальную волну заданной частоты;
+#X text 240 108 левый вход принимает частоту в Гц \, bang на правом
+входе сбрасывает фазу;
+#X text 240 148 включён в библиотеку для полноты набора;
+#X floatatom 50 236 5 0 0 0 - - -;
+#X obj 50 265 osc.sin~ 440;
+#X obj 50 294 ui.gain~ @size 120 16;
+#X obj 280 294 ui.dsp~;
+#X obj 50 323 dac~;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 378 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 316 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 381 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 314 1\.;
-#X text 170 314 float;
-#X obj 268 315 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 314 FREQ(Hz): See @freq. Тип: float. Диапазон: [0.0\..22050];
-#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 354 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 379 1\.;
+#X text 170 379 float;
+#X obj 268 380 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 379 FREQ(Hz): см. @freq. Тип: float. Диапазон: [0.0\..22050];
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 419 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 357 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 422 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 355 @id;
-#X text 270 355 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 420 @id;
+#X text 270 420 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/osc_sin/ИМЯ_СВОЙСТВА \, в противном случае к /osc_sin/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 427 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 427 @osc;
-#X text 270 427 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 457 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 457 @active;
-#X text 270 457 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 492 @osc;
+#X text 270 492 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 522 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 522 @active;
+#X text 270 522 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 499 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 499 @freq;
-#X text 270 499 Frequency. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 564 @freq;
+#X text 270 564 Частота. Тип: float. Единицы: 'Hz'. Значение по умолчанию:
 0\. Диапазон: [0\..22050].;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 556 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 621 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 557 1\.;
-#X text 170 557 ~;
-#X text 270 557 frequency in Hz.;
-#X text 130 582 2\.;
-#X text 170 582 bang:;
-#X text 270 582 reset phase.;
-#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 622 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 622 1\.;
+#X text 170 622 ~;
+#X text 270 622 частота в Гц.;
+#X text 130 647 2\.;
+#X text 170 647 bang:;
+#X text 270 647 сбросить фазу.;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 687 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 623 1\.;
-#X text 170 623 ~;
-#X text 270 623 output signal.;
+#X text 130 688 1\.;
+#X text 170 688 ~;
+#X text 270 688 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 673 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 676 библиотека: ceammc v0.9.8;
-#X text 279 688 смотрите также:;
-#X obj 400 691 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 738 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 741 библиотека: ceammc v0.9.8;
+#X text 279 753 смотрите также:;
+#X obj 400 756 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.saw~] @url osc.saw~-help.pd;
-#X obj 476 691 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 476 756 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.tri~] @url osc.tri~-help.pd;
-#X obj 552 691 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 552 756 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.square~] @url osc.square~-help.pd;
-#X obj 650 691 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 756 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lfo.impulse~] @url lfo.impulse~-help.pd;
-#N canvas 10 695 400 290 info 0;
+#N canvas 10 760 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -97,8 +100,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 695 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 10 0;
-#X connect 8 0 10 1;
+#X restore 10 760 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 12 0;
+#X connect 10 0 12 1;
