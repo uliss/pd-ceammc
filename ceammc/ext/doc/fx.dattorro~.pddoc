@@ -29,14 +29,6 @@
         <tr lang="en">@decay sets the decay rate, a value of 1.0 gives infinite decay, @damp controls the high-frequency damping</tr>
         <tr lang="ru">@decay задаёт скорость затухания, значение 1.0 даёт бесконечное затухание, @damp управляет демпфированием высоких частот</tr>
       </par>
-      <par>
-        <tr lang="en">@bw, @idiff1, @idiff2 and @ddiff1, @ddiff2 control the bandwidth filter and the diffusion stages</tr>
-        <tr lang="ru">@bw, @idiff1, @idiff2 и @ddiff1, @ddiff2 управляют полосовым фильтром и каскадами диффузии</tr>
-      </par>
-      <par>
-        <tr lang="en">@predelay sets the delay before the processed signal, @drywet mixes the original (dry) and processed signals</tr>
-        <tr lang="ru">@predelay задаёт задержку перед обработанным сигналом, @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
-      </par>
       <a href="https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf">
       https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf</a>
     </info>

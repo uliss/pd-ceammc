@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.dattorro~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.dattorro~;
-#X obj 230 78 cnv 1 535 289 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 194 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 ревербератор на основе топологии реверберации Dattorro
 с параметрами по умолчанию из оригинальной статьи;
 #X text 240 123 Dattorro — это Jon Dattorro \, чья статья «Effect Design
@@ -13,134 +13,130 @@
 цифровых ревербераторов;
 #X text 240 178 @decay задаёт скорость затухания \, значение 1.0 даёт
 бесконечное затухание \, @damp управляет демпфированием высоких частот;
-#X text 240 233 @bw \, @idiff1 \, @idiff2 и @ddiff1 \, @ddiff2 управляют
-полосовым фильтром и каскадами диффузии;
-#X text 240 273 @predelay задаёт задержку перед обработанным сигналом
-\, @drywet смешивает исходный (сухой) и обработанный сигналы;
-#X obj 240 331 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 240 236 ui.link @background_color 0.90196 0.90196 0.90196
 @title
 https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf @url
 https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
-#X msg 50 415 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 444 expand_env;
-#X obj 174 473 ui.knob;
-#X obj 290 473 ui.knob;
-#X obj 395 473 ui.knob;
-#X obj 50 502 readsf~;
-#X msg 174 531 @decay \$1;
-#X msg 290 531 @damp \$1;
-#X msg 395 531 @drywet \$1;
-#X obj 414 559 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 414 588 @bypass \$1;
-#X obj 50 617 fx.dattorro~ 0.5;
-#X obj 50 646 ui.gain~ @size 120 16;
-#X obj 280 646 ui.dsp~;
-#X obj 50 675 dac~;
-#X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 730 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 320 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 349 expand_env;
+#X obj 174 378 ui.knob;
+#X obj 290 378 ui.knob;
+#X obj 395 378 ui.knob;
+#X obj 50 407 readsf~;
+#X msg 174 436 @decay \$1;
+#X msg 290 436 @damp \$1;
+#X msg 395 436 @drywet \$1;
+#X obj 414 464 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 414 493 @bypass \$1;
+#X obj 50 522 fx.dattorro~ 0.5;
+#X obj 50 551 ui.gain~ @size 120 16;
+#X obj 280 551 ui.dsp~;
+#X obj 50 580 dac~;
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 635 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 733 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 638 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 731 1\.;
-#X text 170 731 float;
-#X obj 268 732 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 731 DECAY: скорость затухания \, бесконечное затухание
+#X text 130 636 1\.;
+#X text 170 636 float;
+#X obj 268 637 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 636 DECAY: скорость затухания \, бесконечное затухание
 = 1.0\. Тип: float. Диапазон: [0\..1];
-#X text 130 771 2\.;
-#X text 170 771 float;
-#X obj 268 772 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 771 DRYWET: пропорция смеси между исходным (сухим) и обработанным
+#X text 130 676 2\.;
+#X text 170 676 float;
+#X obj 268 677 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 676 DRYWET: пропорция смеси между исходным (сухим) и обработанным
 сигналами. Тип: float. Диапазон: [0\..1];
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 826 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 731 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 829 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 734 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 827 @id;
-#X text 270 827 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 732 @id;
+#X text 270 732 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_dattorro/ИМЯ_СВОЙСТВА \, в противном случае к /fx_dattorro/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 914 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 914 @osc;
-#X text 270 914 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 944 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 944 @active;
-#X text 270 944 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 819 @osc;
+#X text 270 819 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 849 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 849 @active;
+#X text 270 849 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 986 @bw;
-#X text 270 986 Полосовой фильтр (предфильтрация). Тип: float. Значение
+#X obj 250 891 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 891 @bw;
+#X text 270 891 Полосовой фильтр (предфильтрация). Тип: float. Значение
 по умолчанию: 0.9995\. Диапазон: [0\..1].;
-#X obj 250 1028 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1028 @bypass;
-#X text 270 1028 Флаг обхода. Если true: пропускать обработанный сигнал
+#X obj 250 933 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 933 @bypass;
+#X text 270 933 Флаг обхода. Если true: пропускать обработанный сигнал
 без изменений. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 1070 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1070 @damp;
-#X text 270 1070 Демпфирование высоких частот. Без демпфирования =
-0.0\. Тип: float. Значение по умолчанию: 0.0005\. Диапазон: [0\..1].;
-#X obj 250 1127 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1127 @ddiff1;
-#X text 270 1127 Коэффициент диффузии затухания 1\. Тип: float. Значение
+#X obj 250 975 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 975 @damp;
+#X text 270 975 Демпфирование высоких частот. Без демпфирования = 0.0\.
+Тип: float. Значение по умолчанию: 0.0005\. Диапазон: [0\..1].;
+#X obj 250 1032 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1032 @ddiff1;
+#X text 270 1032 Коэффициент диффузии затухания 1\. Тип: float. Значение
 по умолчанию: 0.5\. Диапазон: [0\..1].;
-#X obj 250 1169 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1169 @ddiff2;
-#X text 270 1169 Коэффициент диффузии затухания 2\. Тип: float. Значение
+#X obj 250 1074 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1074 @ddiff2;
+#X text 270 1074 Коэффициент диффузии затухания 2\. Тип: float. Значение
 по умолчанию: 0.7\. Диапазон: [0\..1].;
-#X obj 250 1211 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1211 @decay;
-#X text 270 1211 Скорость затухания. Бесконечное затухание = 1.0\.
+#X obj 250 1116 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1116 @decay;
+#X text 270 1116 Скорость затухания. Бесконечное затухание = 1.0\.
 Тип: float. Значение по умолчанию: 0.5\. Диапазон: [0\..1].;
-#X obj 250 1253 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1253 @drywet;
-#X text 270 1253 Пропорция смеси между исходным (сухим) и обработанным
+#X obj 250 1158 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1158 @drywet;
+#X text 270 1158 Пропорция смеси между исходным (сухим) и обработанным
 сигналами. 0 — сухой сигнал \, 1 — обработанный. Тип: float. Значение
 по умолчанию: 0.33\. Диапазон: [0\..1].;
-#X obj 250 1310 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1310 @idiff1;
-#X text 270 1310 Коэффициент входной диффузии 1\. Тип: float. Значение
+#X obj 250 1215 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1215 @idiff1;
+#X text 270 1215 Коэффициент входной диффузии 1\. Тип: float. Значение
 по умолчанию: 0.625\. Диапазон: [0\..1].;
-#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1352 @idiff2;
-#X text 270 1352 Коэффициент входной диффузии 2\. Тип: float. Значение
+#X obj 250 1257 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1257 @idiff2;
+#X text 270 1257 Коэффициент входной диффузии 2\. Тип: float. Значение
 по умолчанию: 0.75\. Диапазон: [0\..1].;
-#X obj 250 1394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1394 @predelay;
-#X text 270 1394 Задержка \, действующая на обработанный сигнал. Большие
+#X obj 250 1299 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1299 @predelay;
+#X text 270 1299 Задержка \, действующая на обработанный сигнал. Большие
 значения дают ощущение большего помещения. Тип: float. Единицы: 'ms'.
 Значение по умолчанию: 40\. Диапазон: [0\..100].;
-#X obj 20 1476 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1481 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+#X obj 20 1381 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1386 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1482 reset;
-#X text 270 1482 сбросить реверберацию.;
-#X obj 20 1527 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1532 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1387 reset;
+#X text 270 1387 сбросить реверберацию.;
+#X obj 20 1432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1437 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1533 1\.;
-#X text 170 1533 ~;
-#X text 270 1533 левый канал.;
-#X text 130 1558 2\.;
-#X text 170 1558 ~;
-#X text 270 1558 правый канал.;
-#X obj 20 1593 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1598 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1438 1\.;
+#X text 170 1438 ~;
+#X text 270 1438 левый канал.;
+#X text 130 1463 2\.;
+#X text 170 1463 ~;
+#X text 270 1463 правый канал.;
+#X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1503 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1599 1\.;
-#X text 170 1599 ~;
-#X text 270 1599 выход левого канала.;
-#X text 130 1619 2\.;
-#X text 170 1619 ~;
-#X text 270 1619 выход правого канала.;
+#X text 130 1504 1\.;
+#X text 170 1504 ~;
+#X text 270 1504 выход левого канала.;
+#X text 130 1524 2\.;
+#X text 170 1524 ~;
+#X text 270 1524 выход правого канала.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1672 библиотека: ceammc v0.9.8;
-#N canvas 10 1691 400 290 info 0;
+#X obj 1 1574 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1577 библиотека: ceammc v0.9.8;
+#N canvas 10 1596 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -164,18 +160,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1691 pd info;
-#X connect 11 0 12 0;
+#X restore 10 1596 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
 #X connect 12 0 16 0;
 #X connect 13 0 17 0;
-#X connect 14 0 18 0;
-#X connect 15 0 19 0;
+#X connect 18 0 19 0;
+#X connect 14 0 20 0;
+#X connect 15 0 20 0;
+#X connect 16 0 20 0;
+#X connect 17 0 20 0;
+#X connect 19 0 20 0;
 #X connect 20 0 21 0;
-#X connect 16 0 22 0;
-#X connect 17 0 22 0;
-#X connect 18 0 22 0;
-#X connect 19 0 22 0;
-#X connect 21 0 22 0;
-#X connect 22 0 23 0;
-#X connect 23 0 25 0;
-#X connect 23 0 25 1;
+#X connect 21 0 23 0;
+#X connect 21 0 23 1;
