@@ -60,21 +60,20 @@ target_link_libraries(ceammc_system PRIVATE tiny-process-library)
 # command
 target_sources(ceammc_system PRIVATE system_command.cpp)
 if(WITH_SYSTEM_CMD)
-    target_include_directories(ceammc_system
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/system
-    )
-    target_link_libraries(ceammc_system PRIVATE system_rust)
     target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_CMD)
 endif()
 
 # sysinfo
 target_sources(ceammc_system PRIVATE system_info.cpp)
 if(WITH_SYSTEM_INFO)
+    target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_INFO)
+endif()
+
+# command
+if(WITH_RUST_SYSTEM)
     target_include_directories(ceammc_system
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/system
     )
     target_link_libraries(ceammc_system PRIVATE system_rust)
-    target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_INFO)
 endif()
