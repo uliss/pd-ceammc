@@ -1672,7 +1672,7 @@ net.http.send-help.pd;
 #X text 200 17652 обнаружение служб MDNS;
 #X obj 30 17680 ui.link @title [net.mqtt.client] @url
 net.mqtt.client-help.pd;
-#X text 200 17677 MQTT клиент;
+#X text 200 17677 MQTT-клиент;
 #X obj 30 17705 ui.link @title [net.osc.receive] @url
 net.osc.receive-help.pd;
 #X text 200 17702 получение сообщений по протоколу OSC;
