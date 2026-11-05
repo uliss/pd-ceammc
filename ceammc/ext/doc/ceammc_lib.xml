@@ -1744,7 +1744,7 @@
     <entry name="midi.vramp" descr="apply crescendo or diminuendo to a note stream" ref_view="link">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="link">
+    <entry name="midi.vrand" descr="MIDI velocity randomizer" ref_view="link">
       <xi:include href="midi.vrand.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_midi.xml" parse="xml"/>

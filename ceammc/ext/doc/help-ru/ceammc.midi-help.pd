@@ -52,7 +52,7 @@ midi.note.pass-help.pd;
 #X obj 30 610 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
 #X text 220 607 применяет crescendo или diminuendo к потоку нот;
 #X obj 30 635 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
-#X text 220 632 рандомизатор силы нажатия MIDI;
+#X text 220 632 рандомизатор силы нажатия MIDI-нот;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;
 #X obj 1 657 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

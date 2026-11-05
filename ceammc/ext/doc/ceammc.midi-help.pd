@@ -51,7 +51,7 @@ midi.note.pass-help.pd;
 #X obj 30 625 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
 #X text 220 622 apply crescendo or diminuendo to a note stream;
 #X obj 30 650 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
-#X text 220 647 midi velocity randomizer;
+#X text 220 647 MIDI velocity randomizer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;
 #X obj 1 672 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
