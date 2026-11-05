@@ -19,29 +19,35 @@
       </also>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">on bang, the object outputs two integers: current and peak physical memory used by the process, in bytes</tr>
+        <tr lang="ru">по bang объект выводит два целых числа: текущее и пиковое использование физической памяти процессом в байтах</tr>
+      </par>
+      <par>
+        <tr lang="en">if the value cannot be determined on the current OS, zero is output</tr>
+        <tr lang="ru">если значение не удаётся определить в текущей ОС, выводится ноль</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs memory use</tr>
-          <tr lang="ru" finished="false">Использование памяти</tr>
+          <tr lang="en">output memory use</tr>
+          <tr lang="ru">вывести использование памяти</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">current physical memory use measured in bytes, or zero if the value cannot
-          be determined on this OS.</tr>
-          <tr lang="ru" finished="false">текущее использование физической памяти, измеренное в
-          байтах, или ноль, если значение не может быть определено на этой ОС.</tr>
+          <tr lang="en">current physical memory use measured in bytes, or zero if the value cannot be determined on this OS</tr>
+          <tr lang="ru">текущее использование физической памяти в байтах или ноль, если значение не удаётся определить в этой ОС</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">peak (maximum so far) physical memory use measured in bytes, or zero if the
-          value cannot be determined on this OS.</tr>
-          <tr lang="ru" finished="false">Пик (максимум до сих пор) использования физической памяти
-          измеряется в байтах, или ноль, если значение не может быть определено на этой ОС.</tr>
+          <tr lang="en">peak (maximum so far) physical memory use measured in bytes, or zero if the value cannot be determined on this OS</tr>
+          <tr lang="ru">пиковое (максимальное на данный момент) использование физической памяти в байтах или ноль, если значение не удаётся определить в этой ОС</tr>
         </out>
       </outlet>
     </outlets>
