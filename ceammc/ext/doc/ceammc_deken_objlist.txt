@@ -935,7 +935,7 @@ midi.file	the standard midi file (SMF) reader and writer / чтение и за�
 midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI клавиатуры c помощью клавиатуры компьютера
 midi.key2str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
 midi.key->str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
-midi.modus	snap or skip MIDI-pitches according the specified modus / приводит или удаляет MIDI-ноты согласно указанному ладу
+midi.modus	snap or skip MIDI-pitches according the specified modus / подстраивает или пропускает MIDI-ноты в соответствии с указанным ладом
 midi.note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
 note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
 midi.oct	MIDI octave transposition / октавная MIDI транспозиция
