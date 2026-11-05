@@ -5,60 +5,65 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.sustain 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 midi.sustain;
-#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 когда педаль включена: игнорировать все note off;
-#X text 240 108 когда педаль выключена: вывести note off для всех удерживаемых
-нот;
-#X obj 50 211 ui.hk 24;
-#X obj 146 283 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 312 midi.sustain;
-#X obj 50 341 ui.hk 24;
-#X obj 50 413 print;
-#X obj 126 413 ui.dt;
-#X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 468 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 180 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект запоминает удерживаемые ноты и отпускает их при
+выключении педали;
+#X text 240 123 если включён @ctlin \, состояние педали управляется
+MIDI CC64 (педаль сустейна) от контроллера;
+#X text 240 163 второй вход включает/выключает педаль вручную: 1 —
+вкл \, 0 — выкл;
+#X text 240 203 сообщения note off проходят на выход \, когда педаль
+выключена \, и подавляются \, когда педаль включена;
+#X obj 50 306 ui.hk 24;
+#X obj 146 378 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 407 midi.sustain;
+#X obj 50 436 ui.hk 24;
+#X obj 50 508 print;
+#X obj 126 508 ui.dt;
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 563 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 471 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 566 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 469 1\.;
-#X text 170 469 bool;
-#X obj 268 470 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 469 ON: начальное состояние. Тип: bool.;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 509 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 564 1\.;
+#X text 170 564 bool;
+#X obj 268 565 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 564 ON: начальное состояние. Тип: bool.;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 604 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 512 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 607 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 510 @ctlin;
-#X text 270 510 Слушать CC64 от MIDI-контроллера. Тип: bool. Значение
+#X msg 130 605 @ctlin;
+#X text 270 605 Слушать CC64 от MIDI-контроллера. Тип: bool. Значение
 по умолчанию: 0\.;
-#X obj 250 552 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 552 @on;
-#X text 270 552 Состояние педали. Тип: bool. Значение по умолчанию:
+#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 647 @on;
+#X text 270 647 Состояние педали. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 20 592 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 597 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 692 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 598 1\.;
-#X text 170 598 list:;
-#X text 270 598 вход MIDI: НОТА СИЛА_НАЖАТИЯ.;
-#X text 130 623 2\.;
-#X text 170 623 float:;
-#X text 270 623 включить/выключить сустейн (1/0).;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 663 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 693 1\.;
+#X text 170 693 list:;
+#X text 270 693 вход MIDI: НОТА СИЛА_НАЖАТИЯ.;
+#X text 130 718 2\.;
+#X text 170 718 float:;
+#X text 270 718 включить/выключить сустейн (1/0).;
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 758 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 664 1\.;
-#X text 170 664 list:;
-#X text 270 664 выход MIDI: НОТА СИЛА_НАЖАТИЯ.;
+#X text 130 759 1\.;
+#X text 170 759 list:;
+#X text 270 759 выход MIDI: НОТА СИЛА_НАЖАТИЯ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 714 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 717 библиотека: ceammc v0.9.8;
-#N canvas 10 736 400 290 info 0;
+#X obj 1 809 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 812 библиотека: ceammc v0.9.8;
+#N canvas 10 831 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -82,9 +87,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 736 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 9 1;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 0 12 0;
+#X restore 10 831 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 14 0;

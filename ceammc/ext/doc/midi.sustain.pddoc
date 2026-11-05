@@ -18,12 +18,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">when pedal is on: ignore all note offs</tr>
-        <tr lang="ru">когда педаль включена: игнорировать все note off</tr>
+        <tr lang="en">the object stores the currently held notes and releases them when the pedal is turned off</tr>
+        <tr lang="ru">объект запоминает удерживаемые ноты и отпускает их при выключении педали</tr>
       </par>
       <par>
-        <tr lang="en">when pedal is off: output all sustained notes off</tr>
-        <tr lang="ru">когда педаль выключена: вывести note off для всех удерживаемых нот</tr>
+        <tr lang="en">if @ctlin is enabled, the pedal state is controlled by MIDI CC64 (sustain pedal) from the controller</tr>
+        <tr lang="ru">если включён @ctlin, состояние педали управляется MIDI CC64 (педаль сустейна) от контроллера</tr>
+      </par>
+      <par>
+        <tr lang="en">the second inlet turns the pedal on/off manually: 1 — on, 0 — off</tr>
+        <tr lang="ru">второй вход включает/выключает педаль вручную: 1 — вкл, 0 — выкл</tr>
+      </par>
+      <par>
+        <tr lang="en">note off messages are passed through when the pedal is off, and suppressed when the pedal is on</tr>
+        <tr lang="ru">сообщения note off проходят на выход, когда педаль выключена, и подавляются, когда педаль включена</tr>
       </par>
     </info>
     <arguments>
