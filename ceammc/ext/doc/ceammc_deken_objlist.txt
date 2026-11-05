@@ -1306,7 +1306,7 @@ system.hostname	outputs system hostname / выводит имя хоста си�
 system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
 system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
 system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
-system.screen_size	outputs the current screen size in pixels / выводит размер активного экрана в пикселях
+system.screen_size	outputs the current screen size in pixels / выводит размер текущего экрана в пикселях
 tl.bang	outputs a timeline bang / выводит событие bang временной шкалы
 tl.b	outputs a timeline bang / выводит событие bang временной шкалы
 tl.cue	defines the timeline section / определяет секцию на временной шкале
