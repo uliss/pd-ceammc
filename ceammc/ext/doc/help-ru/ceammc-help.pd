@@ -143,7 +143,7 @@ function.call-help.pd;
 #X obj 30 1602 ui.link @title [matrix~] @url matrix~-help.pd;
 #X text 200 1599 матрица маршрутизации сигналов;
 #X obj 30 1627 ui.link @title [merge~] @url merge~-help.pd;
-#X text 200 1624 слияние аудиосигналов;
+#X text 200 1624 объединяет аудиосигналы;
 #X obj 30 1652 ui.link @title [metro.choice] @url
 metro.choice-help.pd;
 #X text 200 1649 метроном со случайным выбором периода при каждом ударе

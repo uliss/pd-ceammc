@@ -75,8 +75,8 @@ log.stdout	advanced data logger for Pd window / продвинутый логг�
 log.stderr	advanced data logger for Pd window / продвинутый логгер для окна Pd
 matrix~	signal routing matrix / матрица маршрутизации сигналов
 ceammc/matrix~	signal routing matrix / матрица маршрутизации сигналов
-merge~	merge audio signals / слияние аудиосигналов
-ceammc/merge~	merge audio signals / слияние аудиосигналов
+merge~	merge audio signals / объединяет аудиосигналы
+ceammc/merge~	merge audio signals / объединяет аудиосигналы
 metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
 metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
 metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
