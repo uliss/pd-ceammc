@@ -100,7 +100,7 @@
         "WITH_FAUST": "OFF",
         "WITH_FFTW": "ON",
         "WITH_FLEXT_VASP": "OFF",
-        "WITH_FLUIDSYNTH": "OFF",
+        "WITH_FLUIDSYNTH": "ON",
         "WITH_FREESOUND": "OFF",
         "WITH_GAMEPAD": "ON",
         "WITH_HTTP": "ON",
