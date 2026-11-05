@@ -554,7 +554,7 @@ flt.resonbp~	simple resonant bandpass filter / простой резонансн
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр для эмуляции динамика
-fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
+fx.bitdown~	a bit downer and downsampler effect / эффект понижения разрядности и даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
 fx.dattorro~	Dattorro reverb / реверберация Dattorro
 fx.delay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи

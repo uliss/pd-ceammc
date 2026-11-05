@@ -817,7 +817,7 @@ flt.speaker~-help.pd;
 #X obj 20 8635 cnv 5 28 32 empty empty fx 4 16 0 17 -262144 -49933 0;
 #X obj 20 8677 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 8691 ui.link @title [fx.bitdown~] @url fx.bitdown~-help.pd;
-#X text 200 8688 понижение разрядности входного сигнала и эффект даунсемплинга;
+#X text 200 8688 эффект понижения разрядности и даунсемплинга;
 #X obj 30 8716 ui.link @title [fx.chorus~] @url fx.chorus~-help.pd;
 #X text 200 8713 хорус-эффект;
 #X obj 30 8741 ui.link @title [fx.dattorro~] @url

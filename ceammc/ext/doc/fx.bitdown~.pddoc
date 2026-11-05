@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">a bit downer and downsampler effect</tr>
-        <tr lang="ru">понижение разрядности входного сигнала и эффект даунсемплинга</tr>
+        <tr lang="ru">эффект понижения разрядности и даунсемплинга</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -17,14 +17,28 @@
       <keywords>fx bits downsample</keywords>
       <since>0.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object reduces the bit depth and sample rate of the input signal, producing a lo-fi or bitcrushed sound</tr>
+        <tr lang="ru">объект понижает разрядность и частоту дискретизации входного сигнала, создавая lo-fi или биткраш-звучание</tr>
+      </par>
+      <par>
+        <tr lang="en">@bits sets the output bit depth from 1 to 16 bits</tr>
+        <tr lang="ru">@bits задаёт выходную разрядность от 1 до 16 бит</tr>
+      </par>
+      <par>
+        <tr lang="en">@downsamp sets how many samples are skipped, a higher value gives a stronger downsampling effect</tr>
+        <tr lang="ru">@downsamp задаёт количество пропускаемых сэмплов, большее значение даёт более сильный эффект даунсемплинга</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="BITS" type="int" minvalue="1" maxvalue="16">
         <tr lang="en">number of bits</tr>
-        <tr lang="ru" finished="false">Количество бит</tr>
+        <tr lang="ru">количество бит</tr>
       </argument>
       <argument name="DOWNSAMP" type="int" minvalue="1" maxvalue="200" units="sample">
         <tr lang="en">number of samples to skip</tr>
-        <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
+        <tr lang="ru">количество пропускаемых сэмплов</tr>
       </argument>
     </arguments>
     <properties>
@@ -34,20 +48,17 @@
       <!-- @bits -->
       <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">
         <tr lang="en">output bits</tr>
-        <tr lang="ru" finished="false">выходные биты</tr>
+        <tr lang="ru">выходная разрядность</tr>
       </property>
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypass the processed signal</tr>
+        <tr lang="ru">флаг обхода. Если true: пропускать обработанный сигнал без изменений</tr>
       </property>
       <!-- @downsamp -->
       <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1" units="sample">
-        <tr lang="en">number samples to skip</tr>
-        <tr lang="ru" finished="false">Количество образцов для пропуска</tr>
+        <tr lang="en">number of samples to skip</tr>
+        <tr lang="ru">количество пропускаемых сэмплов</tr>
       </property>
     </properties>
     <methods>
@@ -55,7 +66,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset object</tr>
-          <tr lang="ru" finished="false">сбрасывать объект</tr>
+          <tr lang="ru">сбросить объект</tr>
         </info>
       </method>
     </methods>
@@ -63,7 +74,7 @@
       <inlet type="audio">
         <in>
           <tr lang="en">left channel</tr>
-          <tr lang="ru" finished="false">левый канал</tr>
+          <tr lang="ru">левый канал</tr>
         </in>
       </inlet>
     </inlets>
@@ -71,7 +82,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
     </outlets>
