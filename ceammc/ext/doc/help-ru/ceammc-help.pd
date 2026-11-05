@@ -863,7 +863,7 @@ fx.granulator~-help.pd;
 #X text 200 9088 гранулятор входного потока;
 #X obj 30 9116 ui.link @title [fx.greyhole~] @url
 fx.greyhole~-help.pd;
-#X text 200 9113 cложный эхоподобный эффект;
+#X text 200 9113 сложный эхоподобный эффект;
 #X obj 30 9141 ui.link @title [fx.infrev~] @url fx.infrev~-help.pd;
 #X text 200 9138 порт плагина Infinity VST из "airwindows";
 #X obj 30 9166 ui.link @title [fx.jcrev~] @url fx.jcrev~-help.pd;

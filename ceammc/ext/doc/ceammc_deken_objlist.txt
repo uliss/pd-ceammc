@@ -573,7 +573,7 @@ fx.freeverb2~	a stereo version of [fx.freeverb~] / стерео версия [fx
 fx.freeverb~	commonly used open-source reverb / широко используемый ревербератор с открытым исходным кодом
 fx.freqshift~	frequency shifter or the single-sideband ring modulation / сдвиг частоты или однополосный кольцевой модулятор
 fx.granulator~	input stream granulator / гранулятор входного потока
-fx.greyhole~	a complex echo-like effect / cложный эхоподобный эффект
+fx.greyhole~	a complex echo-like effect / сложный эхоподобный эффект
 fx.infrev~	port of Infinity VST plugin from "airwindows" / порт плагина Infinity VST из "airwindows"
 fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера 1972 года
 fx.looper~	a single track looper / однодорожечный лупер
