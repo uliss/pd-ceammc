@@ -22,30 +22,30 @@ SPN;
 #X text 130 261 1\.;
 #X text 170 261 list;
 #X obj 268 262 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 TONALITY: initial tomality. Тип: list.;
+#X text 270 261 TONALITY: начальная тональность. Тип: list.;
 #X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 302 @symbol;
-#X text 270 302 Output as symbol instead of string by default. Значение
+#X text 270 302 Выводить как символ вместо строки по умолчанию. Значение
 по умолчанию: 0\.;
 #X obj 250 344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 344 @tonality;
-#X text 270 344 Current tonality. Тип: list. Значение по умолчанию:
+#X text 270 344 Текущая тональность. Тип: list. Значение по умолчанию:
 C major.;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 401 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 390 1\.;
-#X text 170 390 float:;
-#X text 270 390 standart MIDI key number [0-127].;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 402 1\.;
+#X text 170 402 float:;
+#X text 270 402 номер стандартной MIDI-клавиши [0-127].;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 442 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 431 1\.;
-#X text 270 431 output key name.;
+#X text 130 443 1\.;
+#X text 270 443 имя клавиши на выходе.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -1500,7 +1500,8 @@ midi.event2prg-help.pd;
 #X text 200 15690 computer keyboard MIDI emulator;
 #X obj 30 15718 ui.link @title [midi.key2str] @url
 midi.key2str-help.pd;
-#X text 200 15715 converts the MIDI-key into the SPN name format;
+#X text 200 15715 converts a MIDI key number into the SPN note name
+format;
 #X obj 30 15743 ui.link @title [midi.modus] @url midi.modus-help.pd;
 #X text 200 15740 snap or skip MIDI-pitches according the specified
 modus;

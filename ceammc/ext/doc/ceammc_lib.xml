@@ -1711,7 +1711,7 @@
     <entry name="midi.kbd" descr="computer keyboard MIDI emulator" ref_view="link">
       <xi:include href="midi.kbd.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.key2str" descr="converts the MIDI-key into the SPN name format" ref_view="link">
+    <entry name="midi.key2str" descr="converts a MIDI key number into the SPN note name format" ref_view="link">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.modus" descr="snap or skip MIDI-pitches according the specified modus" ref_view="link">
