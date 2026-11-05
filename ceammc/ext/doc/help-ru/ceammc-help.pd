@@ -2369,7 +2369,7 @@ system.getenv-help.pd;
 system.hostname-help.pd;
 #X text 200 24438 выводит имя хоста системы;
 #X obj 30 24466 ui.link @title [system.info] @url system.info-help.pd;
-#X text 200 24463 получение информации о системе: ЦПУ и температура;
+#X text 200 24463 получает информацию о системе: процессор и температура;
 #X obj 30 24491 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
 #X text 200 24488 возвращает размер физической памяти (ОЗУ) в байтах;

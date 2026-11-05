@@ -1303,7 +1303,7 @@ system.exec	run the external command in a separate process / запуск вне
 system.exit	quit PureData / завершает PureData
 system.getenv	output system environment variables / выводит системные переменные окружения
 system.hostname	outputs system hostname / выводит имя хоста системы
-system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
+system.info	retrieve system information: CPU and temperature / получает информацию о системе: процессор и температура
 system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
 system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
 system.screen_size	outputs the current screen size in pixels / выводит размер текущего экрана в пикселях
