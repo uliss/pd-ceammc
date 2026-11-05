@@ -86,7 +86,8 @@
       <!-- @seed -->
       <property name="@seed" type="int" default="0" minvalue="0">
         <tr lang="en">random seed value (for reproducible random sequences)</tr>
-        <tr lang="ru">начальное значение генератора случайных чисел (для воспроизводимых последовательностей)</tr>
+        <tr lang="ru">начальное значение генератора случайных чисел (для воспроизводимых
+        последовательностей)</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"

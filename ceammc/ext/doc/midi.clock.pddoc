@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: because Pd messages are processed between DSP blocks, the measured bpm is not exact.</tr>
-        <tr lang="ru">Примечание: поскольку сообщения Pd обрабатываются между блоками DSP, измеренный BPM неточен.</tr>
+        <tr lang="en">Note: because Pd messages are processed between DSP blocks, the measured bpm
+        is not exact.</tr>
+        <tr lang="ru">Примечание: поскольку сообщения Pd обрабатываются между блоками DSP,
+        измеренный BPM неточен.</tr>
       </par>
     </info>
     <arguments>
@@ -31,8 +33,10 @@
     <properties>
       <!-- @div -->
       <property name="@div" type="int" enum="0 4 8 16 32" default="0">
-        <tr lang="en">clock subdivision: 0 — bang on every incoming MIDI clock message, 4 — every quarter note, 8 — every eighth note, etc.</tr>
-        <tr lang="ru">деление MIDI-клока: 0 — bang на каждое входящее MIDI-сообщение клока, 4 — каждая четверть, 8 — каждая восьмая и т.д.</tr>
+        <tr lang="en">clock subdivision: 0 — bang on every incoming MIDI clock message, 4 — every
+        quarter note, 8 — every eighth note, etc.</tr>
+        <tr lang="ru">деление MIDI-клока: 0 — bang на каждое входящее MIDI-сообщение клока, 4 —
+        каждая четверть, 8 — каждая восьмая и т.д.</tr>
       </property>
     </properties>
     <methods>

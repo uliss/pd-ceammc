@@ -27,35 +27,41 @@
       </argument>
     </arguments>
     <properties>
-      <!-- @min -->
-      <property name="@min" type="int" minvalue="0" maxvalue="127" default="0">
-        <tr lang="en">minimum pitch value</tr>
-        <tr lang="ru">минимальное значение ноты</tr>
+      <!-- @clamp -->
+      <property name="@clamp" type="alias">
+        <tr lang="en">alias to @mode clamp. Clamp to the nearest bound</tr>
+        <tr lang="ru">псевдоним для @mode clamp. Прижимает к ближайшей границе</tr>
+      </property>
+      <!-- @fold -->
+      <property name="@fold" type="alias">
+        <tr lang="en">alias to @mode fold. Shift by whole octaves until inside the range (preserves
+        pitch class)</tr>
+        <tr lang="ru">псевдоним для @mode fold. Сдвигает на целые октавы до попадания в диапазон
+        (сохраняет класс звуковысотности)</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="int" minvalue="0" maxvalue="127" default="127">
         <tr lang="en">maximum pitch value</tr>
         <tr lang="ru">максимальное значение ноты</tr>
       </property>
+      <!-- @min -->
+      <property name="@min" type="int" minvalue="0" maxvalue="127" default="0">
+        <tr lang="en">minimum pitch value</tr>
+        <tr lang="ru">минимальное значение ноты</tr>
+      </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="reject" enum="reject fold clamp">
-        <tr lang="en">quantization mode. reject — discard pitches outside the range. clamp — clamp to the nearest bound. fold — shift by whole octaves until inside the range (preserves pitch class)</tr>
-        <tr lang="ru">режим квантования. reject — отбрасывает ноты вне диапазона. clamp — прижимает к ближайшей границе. fold — сдвигает на целые октавы до попадания в диапазон (сохраняет класс звуковысотности)</tr>
+        <tr lang="en">quantization mode. reject — discard pitches outside the range. clamp — clamp
+        to the nearest bound. fold — shift by whole octaves until inside the range (preserves pitch
+        class)</tr>
+        <tr lang="ru">режим квантования. reject — отбрасывает ноты вне диапазона. clamp — прижимает
+        к ближайшей границе. fold — сдвигает на целые октавы до попадания в диапазон (сохраняет
+        класс звуковысотности)</tr>
       </property>
       <!-- @reject -->
       <property name="@reject" type="alias">
         <tr lang="en">alias to @mode reject. Discard pitches outside the range</tr>
         <tr lang="ru">псевдоним для @mode reject. Отбрасывает ноты вне диапазона</tr>
-      </property>
-      <!-- @fold -->
-      <property name="@fold" type="alias">
-        <tr lang="en">alias to @mode fold. Shift by whole octaves until inside the range (preserves pitch class)</tr>
-        <tr lang="ru">псевдоним для @mode fold. Сдвигает на целые октавы до попадания в диапазон (сохраняет класс звуковысотности)</tr>
-      </property>
-      <!-- @clamp -->
-      <property name="@clamp" type="alias">
-        <tr lang="en">alias to @mode clamp. Clamp to the nearest bound</tr>
-        <tr lang="ru">псевдоним для @mode clamp. Прижимает к ближайшей границе</tr>
       </property>
     </properties>
     <inlets>
