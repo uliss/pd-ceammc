@@ -52,7 +52,7 @@
     </info>
     <arguments>
       <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
-        <tr lang="en">time between arpeggio</tr>
+        <tr lang="en">time between arpeggio notes</tr>
         <tr lang="ru">время между нотами арпеджио</tr>
       </argument>
     </arguments>
@@ -64,13 +64,13 @@
       </property>
       <!-- @min_notes -->
       <property name="@min_notes" type="int" default="1" minvalue="1">
-        <tr lang="en">number of minimal notes to perform arpeggio</tr>
+        <tr lang="en">minimum number of notes to perform arpeggio</tr>
         <tr lang="ru">минимальное количество нот для запуска арпеджио</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="up"
       enum="up down tri up1 down1 tri1 random random1">
-        <tr lang="en">argpeggiator mode</tr>
+        <tr lang="en">arpeggiator mode</tr>
         <tr lang="ru">режим арпеджиатора</tr>
       </property>
       <!-- @on -->
@@ -85,13 +85,13 @@
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" default="0" minvalue="0">
-        <tr lang="en">random seed value (to get reproducible random series)</tr>
+        <tr lang="en">random seed value (for reproducible random sequences)</tr>
         <tr lang="ru">начальное значение генератора случайных чисел (для воспроизводимых последовательностей)</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" default="100" minvalue="1" maxvalue="1000"
       units="millisecond">
-        <tr lang="en">time between arpeggio</tr>
+        <tr lang="en">time between arpeggio notes</tr>
         <tr lang="ru">время между нотами арпеджио</tr>
       </property>
     </properties>
