@@ -1,13 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 681 50 cnv 1 84 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 686 50 MIDI-clock;
+#X obj 688 50 cnv 1 77 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 693 50 MIDI-клок;
 #X obj 1 1 cnv 5 765 40 empty empty midi.clock 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 midi.clock;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: cause in Pd messages are processed between DSP
-blocks - measured bpm is not exact;
+#X text 240 83 Примечание: поскольку сообщения Pd обрабатываются между
+блоками DSP \, измеренный BPM неточен.;
 #X obj 50 186 midi.clock 8;
 #X text 194 186 bang every eight note;
 #X obj 50 215 click~;
@@ -29,35 +29,37 @@ blocks - measured bpm is not exact;
 #X text 130 358 1\.;
 #X text 170 358 int;
 #X obj 268 359 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 DIV: @div clock subdivision. Разрешённые значения:
-0 \, 4 \, 8 \, 16 \, 32\. Тип: int.;
+#X text 270 358 DIV: деление MIDI-клока. Разрешённые значения: 0 \,
+4 \, 8 \, 16 \, 32\. Тип: int.;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 414 @div;
-#X text 270 414 Clock subdivision. If 0: bang each incoming midi clock
-message \, if 4: output every quoter note \, 8: every eight note etc.
-Тип: int. Значение по умолчанию: 0\. Разрешённые значения: 0 \, 4 \,
-8 \, 16 \, 32\.;
+#X text 270 414 Деление MIDI-клока: 0 — bang на каждое входящее MIDI-сообщение
+клока \, 4 — каждая четверть \, 8 — каждая восьмая и т.д. Тип: int.
+Значение по умолчанию: 0\. Разрешённые значения: 0 \, 4 \, 8 \, 16
+\, 32\.;
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 501 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 502 reset;
-#X text 270 502 reset beat counter.;
+#X text 270 502 сбросить счётчик долей.;
 #X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 552 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 553 1\.;
-#X text 270 553 control input.;
+#X text 270 553 вход управления.;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 593 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 594 1\.;
-#X text 270 594 bang: on specified beat.;
+#X text 170 594 bang:;
+#X text 270 594 bang: на указанной доле.;
 #X text 130 614 2\.;
-#X text 270 614 float: measured bpm (output every beat).;
+#X text 170 614 float:;
+#X text 270 614 измеренный BPM (выводится на каждой доле).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

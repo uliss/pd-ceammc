@@ -1479,7 +1479,7 @@ math.sync_xor-help.pd;
 #X obj 30 15488 ui.link @title [midi.cc] @url midi.cc-help.pd;
 #X text 200 15485 enhanced version of vanilla [ctlin];
 #X obj 30 15513 ui.link @title [midi.clock] @url midi.clock-help.pd;
-#X text 200 15510 MIDI-clock;
+#X text 200 15510 MIDI clock;
 #X obj 30 15538 ui.link @title [midi.ctl2str] @url
 midi.ctl2str-help.pd;
 #X text 200 15535 converts Standard MIDI Controllers number to name;
