@@ -5,76 +5,83 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.stutter~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 fx.stutter~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X msg 184 147 stop;
-#X obj 50 176 readsf~;
-#X obj 184 176 ui.btn;
-#X obj 270 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object captures a short fragment of the incoming
+audio and repeats it in a loop \, producing a stutter or glitch effect;
+#X text 240 138 @mode sets the playback direction of the fragment:
+forward \, backward or both;
+#X text 240 178 a bang on the right inlet turns the effect on for three
+periods \, a float 1 or 0 turns it on or off;
+#X msg 50 281 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 310 expand_env;
+#X msg 184 310 stop;
+#X obj 50 339 readsf~;
+#X obj 184 339 ui.btn;
+#X obj 270 339 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 205 fx.stutter~ 60;
-#X obj 50 234 ui.gain~ @size 120 14;
-#X obj 280 234 ui.dsp~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 368 fx.stutter~ 60;
+#X obj 50 397 ui.gain~ @size 120 14;
+#X obj 280 397 ui.dsp~;
+#X obj 50 425 dac~;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 480 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 float;
-#X obj 268 319 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 T(ms): stutter period. Type: float. Range: [1\..1000];
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 358 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 481 1\.;
+#X text 170 481 float;
+#X obj 268 482 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 481 T(ms): stutter period. Type: float. Range: [1\..1000];
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 521 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 361 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 524 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 359 @maxsize;
-#X text 270 359 (initonly) Max stutter period. Type: float. Units:
+#X msg 130 522 @maxsize;
+#X text 270 522 (initonly) Max stutter period. Type: float. Units:
 'ms'. Default value: 1000\. Range: [1\..10000].;
-#X obj 250 401 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 401 @env;
-#X text 270 401 Stutter envelope. Type: atom.;
-#X obj 250 431 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 431 @mode;
-#X text 270 431 Stutter mode. If 'fwd': play loop fragment forwards
-\, 'back': play loop fragment backwards \, 'tri': play loop fragment
-in both directions. Type: symbol. Default value: fwd. Allowed values:
-fwd \, back \, tri.;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @speed;
-#X text 270 503 Loop fragment playing speed. Type: float. Default value:
-1\. Range: [0.25\..4].;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 @t;
-#X text 270 545 Stutter period. Type: float. Units: 'ms'. Default value:
+#X obj 250 564 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 564 @env;
+#X text 270 564 Stutter envelope. Type: atom.;
+#X obj 250 594 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 594 @mode;
+#X text 270 594 Stutter mode. If 'fwd': play the loop fragment forwards
+\, 'back': play the loop fragment backwards \, 'tri': play the loop
+fragment in both directions. Type: symbol. Default value: fwd. Allowed
+values: fwd \, back \, tri.;
+#X obj 250 666 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 666 @speed;
+#X text 270 666 Loop fragment playback speed. Type: float. Default
+value: 1\. Range: [0.25\..4].;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 @t;
+#X text 270 708 Stutter period. Type: float. Units: 'ms'. Default value:
 50\. Range: [1\..1000].;
-#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 602 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 765 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 603 1\.;
-#X text 170 603 ~;
-#X text 270 603 input signal.;
-#X text 130 628 2\.;
-#X text 170 628 bang:;
-#X text 270 628 turn on effect for 3 periods.;
-#X text 170 653 float:;
-#X text 270 653 1: turn on \, 0: turn off.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 693 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 766 1\.;
+#X text 170 766 ~;
+#X text 270 766 input signal.;
+#X text 130 791 2\.;
+#X text 170 791 bang:;
+#X text 270 791 turn on effect for 3 periods.;
+#X text 170 816 float:;
+#X text 270 816 1: turn on \, 0: turn off.;
+#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 856 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 694 1\.;
-#X text 170 694 ~;
-#X text 270 694 output.;
+#X text 130 857 1\.;
+#X text 170 857 ~;
+#X text 270 857 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 744 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 747 library: ceammc v0.9.8;
-#N canvas 10 766 400 290 info 0;
+#X obj 1 907 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 910 library: ceammc v0.9.8;
+#N canvas 10 929 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,14 +105,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 766 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 7 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 1;
-#X connect 9 0 10 1;
+#X restore 10 929 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 1;
+#X connect 13 0 14 1;
+#X connect 14 0 15 0;
+#X connect 15 0 17 0;
+#X connect 15 0 17 1;
+#X connect 11 1 8 0;
 #X connect 10 0 11 0;
-#X connect 11 0 13 0;
-#X connect 11 0 13 1;
-#X connect 7 1 4 0;
-#X connect 6 0 7 0;

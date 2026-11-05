@@ -16,61 +16,70 @@
       <keywords>fx stutter glitch</keywords>
       <since>0.9.6</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object captures a short fragment of the incoming audio and repeats it in a loop, producing a stutter or glitch effect</tr>
+        <tr lang="ru">объект захватывает короткий фрагмент входящего аудио и повторяет его в петле, создавая эффект заикания или глитча</tr>
+      </par>
+      <par>
+        <tr lang="en">@mode sets the playback direction of the fragment: forward, backward or both</tr>
+        <tr lang="ru">@mode задаёт направление воспроизведения фрагмента: вперёд, назад или в обоих направлениях</tr>
+      </par>
+      <par>
+        <tr lang="en">a bang on the right inlet turns the effect on for three periods, a float 1 or 0 turns it on or off</tr>
+        <tr lang="ru">bang на правом входе включает эффект на три периода, число 1 или 0 включает или выключает его</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">
         <tr lang="en">stutter period</tr>
-        <tr lang="ru" finished="false">период заикания</tr>
+        <tr lang="ru">период заикания</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @env -->
       <property name="@env" type="atom">
         <tr lang="en">stutter envelope</tr>
-        <tr lang="ru" finished="false">заикающийся конверт</tr>
+        <tr lang="ru">огибающая заикания</tr>
       </property>
       <!-- @maxsize -->
       <property name="@maxsize" type="float" minvalue="1" maxvalue="10000" default="1000"
       units="millisecond" access="initonly">
         <tr lang="en">max stutter period</tr>
-        <tr lang="ru" finished="false">максимальный период заикания</tr>
+        <tr lang="ru">максимальный период заикания</tr>
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
-        <tr lang="en">stutter mode. If 'fwd': play loop fragment forwards, 'back': play loop
-        fragment backwards, 'tri': play loop fragment in both directions</tr>
-        <!-- old: режим заикания. Если «fwd»: фрагмент петли игры
-                вперед, «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих
-                направлениях -->
-        <tr lang="ru" finished="false">режим заикания. Если «fwd»: фрагмент петли игры вперед,
-        «back»: фрагмент петли игры назад, «tri»: фрагмент петли игры в обоих направлениях</tr>
+        <tr lang="en">stutter mode. If 'fwd': play the loop fragment forwards, 'back': play the loop fragment backwards, 'tri': play the loop fragment in both directions</tr>
+        <tr lang="ru">режим заикания. Если 'fwd': воспроизводить фрагмент петли вперёд, 'back': воспроизводить фрагмент петли назад, 'tri': воспроизводить фрагмент петли в обоих направлениях</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">
-        <tr lang="en">loop fragment playing speed</tr>
-        <tr lang="ru" finished="false">Фрагмент петли, играющий скорость</tr>
+        <tr lang="en">loop fragment playback speed</tr>
+        <tr lang="ru">скорость воспроизведения фрагмента петли</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="float" minvalue="1" maxvalue="1000" default="50"
       units="millisecond">
         <tr lang="en">stutter period</tr>
-        <tr lang="ru" finished="false">период заикания</tr>
+        <tr lang="ru">период заикания</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control">
         <in on="bang">
           <tr lang="en">turn on effect for 3 periods</tr>
-          <tr lang="ru" finished="false">Включите эффект на 3 периода</tr>
+          <tr lang="ru">включить эффект на 3 периода</tr>
         </in>
         <in on="float">
           <tr lang="en">1: turn on, 0: turn off</tr>
-          <tr lang="ru" finished="false">1: включить, 0: выключить</tr>
+          <tr lang="ru">1: включить, 0: выключить</tr>
         </in>
       </inlet>
     </inlets>
@@ -78,7 +87,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
     </outlets>
