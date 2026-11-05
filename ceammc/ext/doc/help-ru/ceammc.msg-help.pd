@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 120 ui.link @title [loadexpr] @url loadexpr-help.pd;
-#X text 220 117 отправить сообщение при загрузке патча;
+#X text 220 117 отправляет сообщение при загрузке патча;
 #X obj 30 145 ui.link @title [msg] @url msg-help.pd;
 #X text 220 142 конструктор сообщений;
 #X obj 30 170 ui.link @title [msg.after] @url msg.after-help.pd;

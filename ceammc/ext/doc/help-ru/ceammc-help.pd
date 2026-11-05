@@ -1622,7 +1622,7 @@ speech.whisper~-help.pd;
 0;
 #X obj 20 17135 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 17149 ui.link @title [loadexpr] @url loadexpr-help.pd;
-#X text 200 17146 отправить сообщение при загрузке патча;
+#X text 200 17146 отправляет сообщение при загрузке патча;
 #X obj 30 17174 ui.link @title [msg] @url msg-help.pd;
 #X text 200 17171 конструктор сообщений;
 #X obj 30 17199 ui.link @title [msg.after] @url msg.after-help.pd;

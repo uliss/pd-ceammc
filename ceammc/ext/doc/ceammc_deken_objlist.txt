@@ -968,8 +968,8 @@ rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoic
 speech.whisper~	speech recognition / распознование речи
 ceammc/whisper~	speech recognition / распознование речи
 whisper~	speech recognition / распознование речи
-loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
-ceammc/loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
+loadexpr	sends the message when the patch loads / отправляет сообщение при загрузке патча
+ceammc/loadexpr	sends the message when the patch loads / отправляет сообщение при загрузке патча
 msg	message constructor / конструктор сообщений
 ceammc/msg	message constructor / конструктор сообщений
 ceammc/m	message constructor / конструктор сообщений
