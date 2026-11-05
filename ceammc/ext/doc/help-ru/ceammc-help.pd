@@ -1664,7 +1664,7 @@ net.freesound-help.pd;
 #X text 200 17577 выводит IP-адрес по DNS-имени;
 #X obj 30 17605 ui.link @title [net.http.client] @url
 net.http.client-help.pd;
-#X text 200 17602 HTTP клиент;
+#X text 200 17602 HTTP-клиент;
 #X obj 30 17630 ui.link @title [net.http.send] @url
 net.http.send-help.pd;
 #X text 200 17627 отправляет HTTP запросы;

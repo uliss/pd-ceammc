@@ -992,8 +992,8 @@ artnet.send	ArtNet DMX message sender / отправитель сообщени�
 net.freesound	Freesound API v2 client / клиент Freesound API v2
 net.host2ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
 net.host->ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
-net.http.client	HTTP client / HTTP клиент
-http.client	HTTP client / HTTP клиент
+net.http.client	HTTP client / HTTP-клиент
+http.client	HTTP client / HTTP-клиент
 net.http.send	HTTP request sender / отправляет HTTP запросы
 http.send	HTTP request sender / отправляет HTTP запросы
 net.mdns	MDNS service discovery / обнаружение служб MDNS
