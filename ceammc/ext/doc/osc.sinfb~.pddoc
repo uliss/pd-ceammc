@@ -16,17 +16,28 @@
       <keywords>osc feedback</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">a sine oscillator with feedback, which produces a richer, more complex waveform than a plain sine</tr>
+        <tr lang="ru">синусоидальный осциллятор с обратной связью, который даёт более богатую и сложную форму волны, чем обычная синусоида</tr>
+      </par>
+      <par>
+        <tr lang="en">the feedback coefficient is set in the range 0..2π, a higher value increases the harmonic content and can drive the oscillator into a chaotic regime</tr>
+        <tr lang="ru">коэффициент обратной связи задаётся в диапазоне 0..2π, большее значение увеличивает гармоническое содержание и может перевести осциллятор в хаотический режим</tr>
+      </par>
+      <par>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-        <tr lang="en">See @freq</tr>
-        <tr lang="ru" finished="false">См. @freq</tr>
+        <tr lang="en">see @freq</tr>
+        <tr lang="ru">см. @freq</tr>
       </argument>
       <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="6.283185">
-        <tr lang="en">oscillator feedback coefficient in range 0..2pi</tr>
-        <!-- old: Коэффициент обратной связи осциллятора в диапазоне
-                0,2pi -->
-        <tr lang="ru" finished="false">Коэффициент обратной связи осциллятора в диапазоне
-        0,2pi</tr>
+        <tr lang="en">oscillator feedback coefficient in the range 0..2pi</tr>
+        <tr lang="ru">коэффициент обратной связи осциллятора в диапазоне 0..2π</tr>
       </argument>
     </arguments>
     <properties>
@@ -36,25 +47,25 @@
       <!-- @feedback -->
       <property name="@feedback" type="float" minvalue="0" maxvalue="6.2832" default="0">
         <tr lang="en">oscillator feedback coefficient</tr>
-        <tr lang="ru" finished="false">коэффициент обратной связи осциллятора</tr>
+        <tr lang="ru">коэффициент обратной связи осциллятора</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">frequency</tr>
-          <tr lang="ru" finished="false">частота</tr>
+          <tr lang="ru">частота</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">reset phase</tr>
-          <tr lang="ru" finished="false">фаза сброса</tr>
+          <tr lang="ru">сбросить фазу</tr>
         </in>
       </inlet>
     </inlets>
@@ -62,7 +73,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

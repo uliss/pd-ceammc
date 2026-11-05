@@ -5,75 +5,83 @@
 #X obj 1 1 cnv 5 765 40 empty empty osc.sinfb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 osc.sinfb~;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X obj 126 118 ui.knob @min 0 @max 6.28;
-#X msg 126 176 @feedback \$1;
-#X obj 50 205 osc.sinfb~ 440 2;
-#X obj 50 234 ui.gain~ @size 120 14;
-#X obj 290 234 ui.dsp~;
-#X obj 50 262 dac~;
-#X obj 126 262 ui.scope~ @size 150 100;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 a sine oscillator with feedback \, which produces a
+richer \, more complex waveform than a plain sine;
+#X text 240 123 the feedback coefficient is set in the range 0\..2π
+\, a higher value increases the harmonic content and can drive the
+oscillator into a chaotic regime;
+#X text 240 178 the left inlet receives the frequency in Hz \, a bang
+on the right inlet resets the phase;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X obj 126 281 ui.knob @min 0 @max 6.28;
+#X msg 126 339 @feedback \$1;
+#X obj 50 368 osc.sinfb~ 440 2;
+#X obj 50 397 ui.gain~ @size 120 14;
+#X obj 290 397 ui.dsp~;
+#X obj 50 425 dac~;
+#X obj 126 425 ui.scope~ @size 150 100;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 562 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 402 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 565 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 400 1\.;
-#X text 170 400 float;
-#X obj 268 401 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 400 FREQ(Hz): See @freq. Type: float. Range: [0.0\..22050];
-#X text 130 425 2\.;
-#X text 170 425 float;
-#X obj 268 426 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 425 FEEDBACK: oscillator feedback coefficient in range
+#X text 130 563 1\.;
+#X text 170 563 float;
+#X obj 268 564 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 563 FREQ(Hz): see @freq. Type: float. Range: [0.0\..22050];
+#X text 130 588 2\.;
+#X text 170 588 float;
+#X obj 268 589 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 588 FEEDBACK: oscillator feedback coefficient in the range
 0\..2pi. Type: float. Range: [0\..6.283185];
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 643 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 646 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 481 @id;
-#X text 270 481 (initonly) OSC address id. If specified \, bind all
+#X msg 130 644 @id;
+#X text 270 644 (initonly) OSC address id. If specified \, bind all
 properties to /ID/osc_sinfb/PROP_NAME osc address \, if empty bind
 to /osc_sinfb/PROP_NAME. Type: symbol.;
-#X obj 250 538 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 538 @osc;
-#X text 270 538 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 568 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 568 @active;
-#X text 270 568 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @osc;
+#X text 270 701 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 731 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 731 @active;
+#X text 270 731 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 598 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 598 @feedback;
-#X text 270 598 Oscillator feedback coefficient. Type: float. Default
+#X obj 250 761 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 761 @feedback;
+#X text 270 761 Oscillator feedback coefficient. Type: float. Default
 value: 0\. Range: [0\..6.2832].;
-#X obj 250 640 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 640 @freq;
-#X text 270 640 Frequency. Type: float. Units: 'Hz'. Default value:
+#X obj 250 803 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 803 @freq;
+#X text 270 803 Frequency. Type: float. Units: 'Hz'. Default value:
 0\. Range: [0\..22050].;
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 697 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 860 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 698 1\.;
-#X text 170 698 ~;
-#X text 270 698 frequency.;
-#X text 130 723 2\.;
-#X text 170 723 bang:;
-#X text 270 723 reset phase.;
-#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 763 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 861 1\.;
+#X text 170 861 ~;
+#X text 270 861 frequency.;
+#X text 130 886 2\.;
+#X text 170 886 bang:;
+#X text 270 886 reset phase.;
+#X obj 20 921 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 926 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 764 1\.;
-#X text 170 764 ~;
-#X text 270 764 output signal.;
+#X text 130 927 1\.;
+#X text 170 927 ~;
+#X text 270 927 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 817 library: ceammc v0.9.8;
-#N canvas 10 836 400 290 info 0;
+#X obj 1 977 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 980 library: ceammc v0.9.8;
+#N canvas 10 999 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,11 +105,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 836 pd info;
-#X connect 5 0 6 0;
-#X connect 4 0 7 0;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 10 0;
-#X connect 8 0 10 1;
+#X restore 10 999 pd info;
+#X connect 9 0 10 0;
 #X connect 8 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 12 0 14 1;
+#X connect 12 0 15 0;
