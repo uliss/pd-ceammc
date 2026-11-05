@@ -7,105 +7,102 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [mqtt.client] @url net.mqtt.client-help.pd;
 #X obj 631 8 net.mqtt.client;
-#X obj 230 78 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 MQTT (Message Queuing Telemetry Transport) is a lightweight
 publish/subscribe messaging protocol designed for constrained devices
 and low-bandwidth networks;
+#X obj 230 88 cnv 1 2 45 empty empty empty 17 7 0 10 -158925 -1 0;
 #X text 240 138 the object connects to an MQTT broker \, publishes
 messages to topics and subscribes to receive messages from them;
-#X text 240 193 @qos sets the quality of service level (0 — at most
-once \, 1 — at least once \, 2 — exactly once);
-#X text 240 233 the second outlet outputs a bang when a ping message
-is received from the broker;
-#X text 50 336 you can start testing mqtt server with command: 'nanomq
+#X text 50 256 you can start testing mqtt server with command: 'nanomq
 -start';
-#X msg 69 380 connect tcp://test.mosquitto.org:1883;
-#X msg 59 408 connect mqtt://ro:readonly@test.mosquitto.org:1884;
-#X msg 50 437 connect mqtt://localhost:1883;
-#X msg 366 437 subscribe topic/1;
-#X msg 69 466 close;
-#X msg 366 466 subscribe topic/2;
-#X msg 69 495 publish topic/1 MSG1;
-#X msg 366 495 subscribe topic/#;
-#X msg 69 523 publish topic/2 MSG2;
-#X msg 366 523 unsubscribe topic/1;
-#X msg 366 552 unsubscribe topic/2;
-#X msg 366 581 unsubscribe topic/#;
-#X obj 50 610 net.mqtt.client;
-#X obj 50 639 ui.dt;
-#X obj 232 639 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 69 300 connect tcp://test.mosquitto.org:1883;
+#X msg 59 328 connect mqtt://ro:readonly@test.mosquitto.org:1884;
+#X msg 50 357 connect mqtt://localhost:1883;
+#X msg 366 357 subscribe topic/1;
+#X msg 69 386 close;
+#X msg 366 386 subscribe topic/2;
+#X msg 69 415 publish topic/1 MSG1;
+#X msg 366 415 subscribe topic/#;
+#X msg 69 443 publish topic/2 MSG2;
+#X msg 366 443 unsubscribe topic/1;
+#X msg 366 472 unsubscribe topic/2;
+#X msg 366 501 unsubscribe topic/#;
+#X obj 50 530 net.mqtt.client;
+#X obj 50 559 ui.dt;
+#X obj 232 559 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 694 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 614 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 697 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 617 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 695 @id;
-#X text 270 695 Client id. Type: symbol. Default value: pd_mqtt_client_0\.;
-#X obj 250 725 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 725 @mode;
-#X text 270 725 Parsing mode for incoming/outgoing messages. If "fudi"
+#X msg 130 615 @id;
+#X text 270 615 Client id. Type: symbol. Default value: pd_mqtt_client_0\.;
+#X obj 250 645 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 645 @mode;
+#X text 270 645 Parsing mode for incoming/outgoing messages. If "fudi"
 — interpret data as Pd messages \, if "sym" — always interpret as symbols
 \, "data" — parse ceammc data \, "json" — convert JSON values to ceammc
 data. Type: symbol. Default value: fudi. Allowed values: data \, fudi
 \, json \, sym \, bytes.;
-#X obj 250 828 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 828 @qos;
-#X text 270 828 Quality of service. Type: int. Default value: 0\. Allowed
+#X obj 250 748 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 748 @qos;
+#X text 270 748 Quality of service. Type: int. Default value: 0\. Allowed
 values: 0 \, 1 \, 2\.;
-#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 870 @retain;
-#X text 270 870 Retain flag. Type: bool. Default value: 0\.;
-#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 915 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 790 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 790 @retain;
+#X text 270 790 Retain flag. Type: bool. Default value: 0\.;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 835 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 916 close;
-#X text 270 916 close MQTT connection.;
-#X obj 250 951 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 951 connect;
-#X text 270 951 connect to websocket server. Arguments are:;
-#X obj 300 976 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 976 URL: mqtt server url \, for ex.: mqtt://127.0.0.1:9000
+#X msg 130 836 close;
+#X text 270 836 close MQTT connection.;
+#X obj 250 871 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 871 connect;
+#X text 270 871 connect to websocket server. Arguments are:;
+#X obj 300 896 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 896 URL: mqtt server url \, for ex.: mqtt://127.0.0.1:9000
 \, tcp://user:pass@127.0.0.1:9000 \, ssl://user:pass@127.0.0.1 etc.
 Type: symbol.;
-#X obj 250 1039 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1039 publish;
-#X text 270 1039 publish message to topic. Arguments are:;
-#X obj 300 1064 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1064 TOPIC: topic. Type: symbol.;
-#X obj 300 1087 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1087 [ARGS]: content. Type: list.;
-#X obj 250 1120 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1120 subscribe;
-#X text 270 1120 subscribe to topic. Arguments are:;
-#X obj 300 1145 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1145 TOPIC: topic. Type: symbol.;
-#X obj 250 1178 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1178 unsubscribe;
-#X text 270 1178 unsubscribe from topic. Arguments are:;
-#X obj 300 1203 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1203 TOPIC: topic. Type: symbol.;
-#X obj 20 1246 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1251 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 250 959 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 959 publish;
+#X text 270 959 publish message to topic. Arguments are:;
+#X obj 300 984 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 984 TOPIC: topic. Type: symbol.;
+#X obj 300 1007 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1007 [ARGS]: content. Type: list.;
+#X obj 250 1040 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1040 subscribe;
+#X text 270 1040 subscribe to topic. Arguments are:;
+#X obj 300 1065 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1065 TOPIC: topic. Type: symbol.;
+#X obj 250 1098 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1098 unsubscribe;
+#X text 270 1098 unsubscribe from topic. Arguments are:;
+#X obj 300 1123 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1123 TOPIC: topic. Type: symbol.;
+#X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1171 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1252 1\.;
-#X text 270 1252 message input.;
-#X obj 20 1287 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1292 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1172 1\.;
+#X text 270 1172 message input.;
+#X obj 20 1207 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1212 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1293 1\.;
-#X text 270 1293 output messages: topic data.;
-#X text 130 1313 2\.;
-#X text 170 1313 bang:;
-#X text 270 1313 bang: on ping message.;
+#X text 130 1213 1\.;
+#X text 270 1213 output messages: topic data.;
+#X text 130 1233 2\.;
+#X text 170 1233 bang:;
+#X text 270 1233 bang: on ping message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1363 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1366 library: ceammc v0.9.8;
-#N canvas 10 1385 400 290 info 0;
+#X obj 1 1283 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1286 library: ceammc v0.9.8;
+#N canvas 10 1305 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -129,18 +126,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1385 pd info;
-#X connect 13 0 23 0;
-#X connect 23 0 24 0;
-#X connect 23 1 25 0;
-#X connect 15 0 23 0;
-#X connect 17 0 23 0;
-#X connect 19 0 23 0;
-#X connect 11 0 23 0;
-#X connect 12 0 23 0;
-#X connect 14 0 23 0;
-#X connect 16 0 23 0;
-#X connect 18 0 23 0;
-#X connect 20 0 23 0;
-#X connect 21 0 23 0;
+#X restore 10 1305 pd info;
+#X connect 12 0 22 0;
 #X connect 22 0 23 0;
+#X connect 22 1 24 0;
+#X connect 14 0 22 0;
+#X connect 16 0 22 0;
+#X connect 18 0 22 0;
+#X connect 10 0 22 0;
+#X connect 11 0 22 0;
+#X connect 13 0 22 0;
+#X connect 15 0 22 0;
+#X connect 17 0 22 0;
+#X connect 19 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;

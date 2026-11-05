@@ -7,106 +7,103 @@
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [mqtt.client] @url net.mqtt.client-help.pd;
 #X obj 631 8 net.mqtt.client;
-#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 130 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 MQTT (Message Queuing Telemetry Transport) — лёгкий
 протокол обмена сообщениями по схеме издатель/подписчик \, предназначенный
 для маломощных устройств и сетей с низкой пропускной способностью;
+#X obj 230 88 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
 #X text 240 153 объект подключается к MQTT-брокеру \, публикует сообщения
 в темы и подписывается на получение сообщений из них;
-#X text 240 193 @qos задаёт уровень качества обслуживания (0 — не более
-одного раза \, 1 — не менее одного раза \, 2 — ровно один раз);
-#X text 240 248 второй выход выдаёт bang при получении ping-сообщения
-от брокера;
-#X text 50 351 you can start testing mqtt server with command: 'nanomq
+#X text 50 256 you can start testing mqtt server with command: 'nanomq
 -start';
-#X msg 69 395 connect tcp://test.mosquitto.org:1883;
-#X msg 59 423 connect mqtt://ro:readonly@test.mosquitto.org:1884;
-#X msg 50 452 connect mqtt://localhost:1883;
-#X msg 366 452 subscribe topic/1;
-#X msg 69 481 close;
-#X msg 366 481 subscribe topic/2;
-#X msg 69 510 publish topic/1 MSG1;
-#X msg 366 510 subscribe topic/#;
-#X msg 69 538 publish topic/2 MSG2;
-#X msg 366 538 unsubscribe topic/1;
-#X msg 366 567 unsubscribe topic/2;
-#X msg 366 596 unsubscribe topic/#;
-#X obj 50 625 net.mqtt.client;
-#X obj 50 654 ui.dt;
-#X obj 232 654 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 69 300 connect tcp://test.mosquitto.org:1883;
+#X msg 59 328 connect mqtt://ro:readonly@test.mosquitto.org:1884;
+#X msg 50 357 connect mqtt://localhost:1883;
+#X msg 366 357 subscribe topic/1;
+#X msg 69 386 close;
+#X msg 366 386 subscribe topic/2;
+#X msg 69 415 publish topic/1 MSG1;
+#X msg 366 415 subscribe topic/#;
+#X msg 69 443 publish topic/2 MSG2;
+#X msg 366 443 unsubscribe topic/1;
+#X msg 366 472 unsubscribe topic/2;
+#X msg 366 501 unsubscribe topic/#;
+#X obj 50 530 net.mqtt.client;
+#X obj 50 559 ui.dt;
+#X obj 232 559 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 709 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 614 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 712 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 617 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 710 @id;
-#X text 270 710 Идентификатор клиента. Тип: symbol. Значение по умолчанию:
+#X msg 130 615 @id;
+#X text 270 615 Идентификатор клиента. Тип: symbol. Значение по умолчанию:
 pd_mqtt_client_0\.;
-#X obj 250 752 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 752 @mode;
-#X text 270 752 Режим разбора входящих/исходящих сообщений. Если "fudi"
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 657 @mode;
+#X text 270 657 Режим разбора входящих/исходящих сообщений. Если "fudi"
 — интерпретировать данные как Pd-сообщения \, если "sym" — всегда интерпретировать
 как символы \, "data" — разбирать данные ceammc \, "json" — преобразовывать
 значения JSON в данные ceammc. Тип: symbol. Значение по умолчанию:
 fudi. Разрешённые значения: data \, fudi \, json \, sym \, bytes.;
-#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 870 @qos;
-#X text 270 870 Качество обслуживания. Тип: int. Значение по умолчанию:
+#X obj 250 775 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 775 @qos;
+#X text 270 775 Качество обслуживания. Тип: int. Значение по умолчанию:
 0\. Разрешённые значения: 0 \, 1 \, 2\.;
-#X obj 250 912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 912 @retain;
-#X text 270 912 Флаг retain. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 957 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 817 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 817 @retain;
+#X text 270 817 Флаг retain. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 862 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 958 close;
-#X text 270 958 закрыть MQTT-соединение.;
-#X obj 250 993 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 993 connect;
-#X text 270 993 подключиться к серверу websocket. Аргументы:;
-#X obj 300 1018 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1018 URL: URL MQTT-сервера \, например: mqtt://127.0.0.1:9000
+#X msg 130 863 close;
+#X text 270 863 закрыть MQTT-соединение.;
+#X obj 250 898 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 898 connect;
+#X text 270 898 подключиться к серверу websocket. Аргументы:;
+#X obj 300 923 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 923 URL: URL MQTT-сервера \, например: mqtt://127.0.0.1:9000
 \, tcp://user:pass@127.0.0.1:9000 \, ssl://user:pass@127.0.0.1 и т.д.
 Тип: symbol.;
-#X obj 250 1081 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1081 publish;
-#X text 270 1081 опубликовать сообщение в тему. Аргументы:;
-#X obj 300 1106 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1106 TOPIC: тема. Тип: symbol.;
-#X obj 300 1129 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1129 [ARGS]: содержимое. Тип: list.;
-#X obj 250 1162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1162 subscribe;
-#X text 270 1162 подписаться на тему. Аргументы:;
-#X obj 300 1187 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1187 TOPIC: тема. Тип: symbol.;
-#X obj 250 1220 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1220 unsubscribe;
-#X text 270 1220 отписаться от темы. Аргументы:;
-#X obj 300 1245 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1245 TOPIC: тема. Тип: symbol.;
-#X obj 20 1288 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1293 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 986 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 986 publish;
+#X text 270 986 опубликовать сообщение в тему. Аргументы:;
+#X obj 300 1011 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1011 TOPIC: тема. Тип: symbol.;
+#X obj 300 1034 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1034 [ARGS]: содержимое. Тип: list.;
+#X obj 250 1067 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1067 subscribe;
+#X text 270 1067 подписаться на тему. Аргументы:;
+#X obj 300 1092 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1092 TOPIC: тема. Тип: symbol.;
+#X obj 250 1125 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1125 unsubscribe;
+#X text 270 1125 отписаться от темы. Аргументы:;
+#X obj 300 1150 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1150 TOPIC: тема. Тип: symbol.;
+#X obj 20 1193 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1198 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1294 1\.;
-#X text 270 1294 вход сообщений.;
-#X obj 20 1329 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1334 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1199 1\.;
+#X text 270 1199 вход сообщений.;
+#X obj 20 1234 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1239 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1335 1\.;
-#X text 270 1335 выходные сообщения: тема данные.;
-#X text 130 1355 2\.;
-#X text 170 1355 bang:;
-#X text 270 1355 bang: при ping-сообщении.;
+#X text 130 1240 1\.;
+#X text 270 1240 выходные сообщения: тема данные.;
+#X text 130 1260 2\.;
+#X text 170 1260 bang:;
+#X text 270 1260 bang: при ping-сообщении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1405 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1408 библиотека: ceammc v0.9.8;
-#N canvas 10 1427 400 290 info 0;
+#X obj 1 1310 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1313 библиотека: ceammc v0.9.8;
+#N canvas 10 1332 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -130,18 +127,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1427 pd info;
-#X connect 13 0 23 0;
-#X connect 23 0 24 0;
-#X connect 23 1 25 0;
-#X connect 15 0 23 0;
-#X connect 17 0 23 0;
-#X connect 19 0 23 0;
-#X connect 11 0 23 0;
-#X connect 12 0 23 0;
-#X connect 14 0 23 0;
-#X connect 16 0 23 0;
-#X connect 18 0 23 0;
-#X connect 20 0 23 0;
-#X connect 21 0 23 0;
+#X restore 10 1332 pd info;
+#X connect 12 0 22 0;
 #X connect 22 0 23 0;
+#X connect 22 1 24 0;
+#X connect 14 0 22 0;
+#X connect 16 0 22 0;
+#X connect 18 0 22 0;
+#X connect 10 0 22 0;
+#X connect 11 0 22 0;
+#X connect 13 0 22 0;
+#X connect 15 0 22 0;
+#X connect 17 0 22 0;
+#X connect 19 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;

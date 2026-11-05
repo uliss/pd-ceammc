@@ -20,21 +20,13 @@
       </aliases>
     </meta>
     <info>
-      <par>
+      <par style="info">
         <tr lang="en">MQTT (Message Queuing Telemetry Transport) is a lightweight publish/subscribe messaging protocol designed for constrained devices and low-bandwidth networks</tr>
         <tr lang="ru">MQTT (Message Queuing Telemetry Transport) — лёгкий протокол обмена сообщениями по схеме издатель/подписчик, предназначенный для маломощных устройств и сетей с низкой пропускной способностью</tr>
       </par>
       <par>
         <tr lang="en">the object connects to an MQTT broker, publishes messages to topics and subscribes to receive messages from them</tr>
         <tr lang="ru">объект подключается к MQTT-брокеру, публикует сообщения в темы и подписывается на получение сообщений из них</tr>
-      </par>
-      <par>
-        <tr lang="en">@qos sets the quality of service level (0 — at most once, 1 — at least once, 2 — exactly once)</tr>
-        <tr lang="ru">@qos задаёт уровень качества обслуживания (0 — не более одного раза, 1 — не менее одного раза, 2 — ровно один раз)</tr>
-      </par>
-      <par>
-        <tr lang="en">the second outlet outputs a bang when a ping message is received from the broker</tr>
-        <tr lang="ru">второй выход выдаёт bang при получении ping-сообщения от брокера</tr>
       </par>
     </info>
     <properties>
