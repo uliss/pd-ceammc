@@ -1573,7 +1573,7 @@ midi.pitch.quantize-help.pd;
 midi.prg2str-help.pd;
 #X text 200 16575 преобразует номер инструмента GeneralMidi в его имя;
 #X obj 30 16603 ui.link @title [midi.split] @url midi.split-help.pd;
-#X text 200 16600 разбивает MIDI ноты на диапазоны;
+#X text 200 16600 разделяет MIDI-ноты на диапазоны;
 #X obj 30 16628 ui.link @title [midi.sustain] @url
 midi.sustain-help.pd;
 #X text 200 16625 эмуляция педали сустейна;

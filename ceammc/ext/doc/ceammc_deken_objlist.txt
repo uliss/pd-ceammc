@@ -942,7 +942,7 @@ midi.oct	MIDI octave transposition / октавная MIDI транспозиц�
 midi.pitch.quantize	quantize MIDI pitch to the specified range / квантует MIDI-ноту в заданный диапазон
 midi.prg2str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
 midi.prg->str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
-midi.split	MIDI note range splitter / разбивает MIDI ноты на диапазоны
+midi.split	MIDI note range splitter / разделяет MIDI-ноты на диапазоны
 midi.sustain	sustain pedal emulation / эмуляция педали сустейна
 midi.sysex	output sysex input messages as a list / выводит входные sysex сообщения в виде списка
 midi.track	extracts the track from MidiFile message / извлекает трек из сообщения MidiFile

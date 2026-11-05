@@ -1,61 +1,70 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 519 50 разбивает MIDI ноты на диапазоны;
+#X text 519 50 разделяет MIDI-ноты на диапазоны;
 #X obj 1 1 cnv 5 765 40 empty empty midi.split 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 midi.split;
-#X obj 230 78 cnv 1 535 45 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Split midi note messages at specified pitch values;
-#X obj 50 171 ui.keyboard;
-#X obj 50 243 midi.split 40 60 80;
-#X obj 50 272 ui.dt;
-#X obj 107 301 ui.dt;
-#X obj 165 330 ui.dt;
-#X obj 222 358 ui.dt;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 110 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 разделяет MIDI-сообщения нот по заданным значениям высоты;
+#X text 240 108 количество выходов на единицу больше количества точек
+разделения;
+#X text 240 148 точки разделения должны идти строго по возрастанию;
+#X obj 230 153 cnv 1 2 15 empty empty empty 17 7 0 10 -221520 -1 0;
+#X obj 50 236 ui.keyboard;
+#X obj 50 308 midi.split 40 60 80;
+#X obj 50 337 ui.dt;
+#X obj 107 366 ui.dt;
+#X obj 165 395 ui.dt;
+#X obj 222 423 ui.dt;
+#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 478 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 481 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 414 1\.;
-#X text 170 414 list;
-#X obj 268 415 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 414 NOTES: list of note values (split points). Тип: list.;
-#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 454 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 479 1\.;
+#X text 170 479 list;
+#X obj 268 480 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 479 NOTES: список значений нот (точки разделения). Тип:
+list.;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 519 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 457 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 522 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 455 @points?;
-#X text 270 455 (только чтение) Split points. Should be in strict ascending
-order. Тип: list.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 512 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 520 @points?;
+#X text 270 520 (только чтение) Точки разделения \, должны идти строго
+по возрастанию. Тип: list.;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 577 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 513 1\.;
-#X text 170 513 list:;
-#X text 270 513 NOTE VELOCITY [DUR] list.;
-#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 553 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 578 1\.;
+#X text 170 578 list:;
+#X text 270 578 список НОТА СИЛА_НАЖАТИЯ [ДЛИТ].;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 554 1\.;
-#X text 270 554 midi pitches that are less than first split point.;
-#X text 130 574 ...;
-#X text 270 574 ...;
-#X text 130 594 n.;
-#X text 270 594 midi pitches that are greater or equal than N-th split
-point and less then N+1\.;
-#X text 130 629 n+1\.;
-#X text 270 629 notes that are greater or equal last split point.;
+#X text 130 619 1\.;
+#X text 170 619 list:;
+#X text 270 619 MIDI-ноты меньше первой точки разделения.;
+#X text 130 639 ...;
+#X text 170 639 list:;
+#X text 270 639 ...;
+#X text 130 659 n.;
+#X text 170 659 list:;
+#X text 270 659 MIDI-ноты больше или равные N-й точке разделения и
+меньше N+1\.;
+#X text 130 694 n+1\.;
+#X text 170 694 list:;
+#X text 270 694 ноты больше или равные последней точке разделения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 679 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 682 библиотека: ceammc v0.9.8;
-#N canvas 10 701 400 290 info 0;
+#X obj 1 744 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 747 библиотека: ceammc v0.9.8;
+#N canvas 10 766 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -79,9 +88,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 701 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 7 1 9 0;
-#X connect 7 2 10 0;
-#X connect 7 3 11 0;
+#X restore 10 766 pd info;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 10 2 13 0;
+#X connect 10 3 14 0;
