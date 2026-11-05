@@ -6,7 +6,7 @@
 #X text 539 50 объекты для работы с сетью;
 #X obj 30 120 ui.link @title [net.artnet.send] @url
 net.artnet.send-help.pd;
-#X text 220 117 отправление сообщений ArtNet DMX;
+#X text 220 117 отправитель сообщений ArtNet DMX;
 #X obj 30 145 ui.link @title [net.freesound] @url
 net.freesound-help.pd;
 #X text 220 142 клиент для Freesound API v2;
