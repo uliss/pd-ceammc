@@ -990,8 +990,8 @@ rhythm.lsystem	L-system pattern generator / генератор ритмичес�
 net.artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
 artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
 net.freesound	Freesound API v2 client / клиент для Freesound API v2
-net.host2ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
-net.host->ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
+net.host2ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
+net.host->ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
 net.http.client	HTTP client / HTTP клиент
 http.client	HTTP client / HTTP клиент
 net.http.send	HTTP request sender / отправляет HTTP запросы
