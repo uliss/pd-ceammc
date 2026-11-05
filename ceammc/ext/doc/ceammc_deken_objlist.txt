@@ -946,7 +946,7 @@ midi.sustain	sustain pedal emulation / эмуляция педали сусте�
 midi.sysex	output sysex input messages as a list / выводит входные sysex сообщения в виде списка
 midi.track	extracts the track from MidiFile message / извлекает трек из сообщения MidiFile
 midi.tuning	apply tuning to a note stream / применяет настройку к потоку нот
-midi.vramp	apply crescendo or diminuendo for notes flow / применяет crescendo или diminuendo для потока нот
+midi.vramp	apply crescendo or diminuendo to a note stream / применяет crescendo или diminuendo к потоку нот
 midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
 click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии

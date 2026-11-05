@@ -1581,7 +1581,7 @@ midi.sustain-help.pd;
 #X obj 30 16678 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
 #X text 200 16675 применяет настройку к потоку нот;
 #X obj 30 16703 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
-#X text 200 16700 применяет crescendo или diminuendo для потока нот;
+#X text 200 16700 применяет crescendo или diminuendo к потоку нот;
 #X obj 30 16728 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
 #X text 200 16725 рандомизатор силы нажатия MIDI;
 #X obj 550 16167 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1

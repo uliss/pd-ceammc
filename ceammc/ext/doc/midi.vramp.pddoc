@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">apply crescendo or diminuendo for notes flow</tr>
-        <tr lang="ru">применяет crescendo или diminuendo для потока нот</tr>
+        <tr lang="en">apply crescendo or diminuendo to a note stream</tr>
+        <tr lang="ru">применяет crescendo или diminuendo к потоку нот</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,40 +19,37 @@
     <arguments>
       <argument name="FROM" type="int" maxvalue="127" minvalue="0">
         <tr lang="en">start value</tr>
-        <tr lang="ru" finished="false">стартовая стоимость</tr>
+        <tr lang="ru">начальное значение</tr>
       </argument>
       <argument name="TO" type="int" maxvalue="127" minvalue="0">
         <tr lang="en">end value</tr>
-        <tr lang="ru" finished="false">конечная стоимость</tr>
+        <tr lang="ru">конечное значение</tr>
       </argument>
       <argument name="N" type="int" minvalue="0">
         <tr lang="en">number of steps</tr>
-        <tr lang="ru" finished="false">Количество шагов</tr>
+        <tr lang="ru">количество шагов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @auto -->
       <property name="@auto" type="bool" default="0">
-        <tr lang="en">auto reset mode. If true: reset to @start value after ramp is finished</tr>
-        <!-- old: Режим автоматического сброса. Если это правда:
-                перезагрузка до @start после завершения рампы -->
-        <tr lang="ru" finished="false">Режим автоматического сброса. Если это правда: перезагрузка
-        до @start после завершения рампы</tr>
+        <tr lang="en">auto reset mode. If true: reset to @from value after the ramp is finished</tr>
+        <tr lang="ru">режим автоматического сброса. Если true: сброс к значению @from после завершения перехода</tr>
       </property>
       <!-- @from -->
       <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">
         <tr lang="en">start value</tr>
-        <tr lang="ru" finished="false">стартовая стоимость</tr>
+        <tr lang="ru">начальное значение</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" default="0" minvalue="0">
         <tr lang="en">number of steps</tr>
-        <tr lang="ru" finished="false">Количество шагов</tr>
+        <tr lang="ru">количество шагов</tr>
       </property>
       <!-- @to -->
       <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">
         <tr lang="en">end value</tr>
-        <tr lang="ru" finished="false">конечная стоимость</tr>
+        <tr lang="ru">конечное значение</tr>
       </property>
     </properties>
     <methods>
@@ -60,36 +57,33 @@
       <method name="reset">
         <info>
           <tr lang="en">reset to start value</tr>
-          <tr lang="ru" finished="false">Сбросить, чтобы начать значение</tr>
+          <tr lang="ru">сбросить к начальному значению</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE, 0)</tr>
-          <!-- old: Если значение >0, относитесь к списку (VALUE
-                    127), в противном случае (-VALUE, 0) -->
-          <tr lang="ru" finished="false">Если значение &gt;0, относитесь к списку (VALUE 127), в
-          противном случае (-VALUE, 0)</tr>
+          <tr lang="en">if VALUE &gt; 0, treat as (VALUE 127) list, otherwise as (-VALUE, 0)</tr>
+          <tr lang="ru">если VALUE &gt; 0, трактовать как список (VALUE 127), иначе как (-VALUE, 0)</tr>
         </in>
         <in on="list">
           <tr lang="en">NOTE [VELOCITY] list expected</tr>
-          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ (Список ожидаемых)</tr>
+          <tr lang="ru">ожидается список НОТА [СКОРОСТЬ]</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">outputs NOTE VELOCITY pair</tr>
-          <tr lang="ru" finished="false">Отметить пару VELOCITY</tr>
+          <tr lang="ru">выводит пару НОТА СКОРОСТЬ</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang when destination value is reached</tr>
-          <tr lang="ru" finished="false">Bang, когда достигается значение назначения</tr>
+        <out type="bang">
+          <tr lang="en">when destination value is reached</tr>
+          <tr lang="ru">при достижении конечного значения</tr>
         </out>
       </outlet>
     </outlets>

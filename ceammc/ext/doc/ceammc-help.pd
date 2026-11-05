@@ -1525,7 +1525,7 @@ midi.sustain-help.pd;
 #X obj 30 15943 ui.link @title [midi.tuning] @url midi.tuning-help.pd;
 #X text 200 15940 apply tuning to a note stream;
 #X obj 30 15968 ui.link @title [midi.vramp] @url midi.vramp-help.pd;
-#X text 200 15965 apply crescendo or diminuendo for notes flow;
+#X text 200 15965 apply crescendo or diminuendo to a note stream;
 #X obj 30 15993 ui.link @title [midi.vrand] @url midi.vrand-help.pd;
 #X text 200 15990 midi velocity randomizer;
 #X obj 534 15417 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1

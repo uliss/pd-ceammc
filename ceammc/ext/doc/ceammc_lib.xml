@@ -1741,7 +1741,7 @@
     <entry name="midi.tuning" descr="apply tuning to a note stream" ref_view="link">
       <xi:include href="midi.tuning.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.vramp" descr="apply crescendo or diminuendo for notes flow" ref_view="link">
+    <entry name="midi.vramp" descr="apply crescendo or diminuendo to a note stream" ref_view="link">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="link">
