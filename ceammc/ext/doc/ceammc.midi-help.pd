@@ -11,7 +11,7 @@
 #X obj 30 170 ui.link @title [midi.clock] @url midi.clock-help.pd;
 #X text 220 167 MIDI clock;
 #X obj 30 195 ui.link @title [midi.ctl2str] @url midi.ctl2str-help.pd;
-#X text 220 192 converts Standard MIDI Controllers number to name;
+#X text 220 192 converts Standard MIDI Controller number to name;
 #X obj 30 220 ui.link @title [midi.event2ctl] @url
 midi.event2ctl-help.pd;
 #X text 220 217 converts the MidiEvent message into the controller

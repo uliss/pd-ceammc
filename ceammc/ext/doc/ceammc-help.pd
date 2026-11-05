@@ -1482,7 +1482,7 @@ math.sync_xor-help.pd;
 #X text 200 15510 MIDI clock;
 #X obj 30 15538 ui.link @title [midi.ctl2str] @url
 midi.ctl2str-help.pd;
-#X text 200 15535 converts Standard MIDI Controllers number to name;
+#X text 200 15535 converts Standard MIDI Controller number to name;
 #X obj 30 15563 ui.link @title [midi.event2ctl] @url
 midi.event2ctl-help.pd;
 #X text 200 15560 converts the MidiEvent message into the controller

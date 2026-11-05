@@ -1693,7 +1693,7 @@
     <entry name="midi.clock" descr="MIDI clock" ref_view="link">
       <xi:include href="midi.clock.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.ctl2str" descr="converts Standard MIDI Controllers number to name" ref_view="link">
+    <entry name="midi.ctl2str" descr="converts Standard MIDI Controller number to name" ref_view="link">
       <xi:include href="midi.ctl2str.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.event2ctl" descr="converts the MidiEvent message into the controller channel/value pair" ref_view="link">
