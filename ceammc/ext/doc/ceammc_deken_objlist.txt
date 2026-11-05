@@ -1032,7 +1032,7 @@ noise.torus	torus attractor / аттрактор в виде тора
 noise.verhulst	Verhulst distribution / распределение Ферхюльста
 noise.white~	white noise generator / генератор белого шума
 osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управляемыми гармониками
-osc.impulse~	bandlimited impulse train generator / генератор импульсного сигнала с ограниченным спектром
+osc.impulse~	bandlimited impulse train generator / генератор импульсной последовательности с ограниченным спектром
 osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
 osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
 osc.saw~	alias-free sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром

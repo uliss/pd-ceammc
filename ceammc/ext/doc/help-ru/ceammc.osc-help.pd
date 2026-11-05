@@ -7,21 +7,22 @@
 #X obj 30 120 ui.link @title [osc.blit~] @url osc.blit~-help.pd;
 #X text 220 117 генератор с ограниченным спектром и управляемыми гармониками;
 #X obj 30 145 ui.link @title [osc.impulse~] @url osc.impulse~-help.pd;
-#X text 220 142 генератор импульсного сигнала с ограниченным спектром;
-#X obj 30 170 ui.link @title [osc.pulse~] @url osc.pulse~-help.pd;
-#X text 220 167 осциллятор прямоугольной волны с ограниченным спектром;
-#X obj 30 195 ui.link @title [osc.saw4~] @url osc.saw4~-help.pd;
-#X text 220 192 осциллятор пилообразного сигнала с ограниченным спектром;
-#X obj 30 220 ui.link @title [osc.saw~] @url osc.saw~-help.pd;
-#X text 220 217 осциллятор пилообразного сигнала с ограниченным спектром;
-#X obj 30 245 ui.link @title [osc.sinfb~] @url osc.sinfb~-help.pd;
-#X text 220 242 синусоидальный осциллятор с обратной связью;
-#X obj 30 270 ui.link @title [osc.sin~] @url osc.sin~-help.pd;
-#X text 220 267 синусоидальный осциллятор;
-#X obj 30 295 ui.link @title [osc.square~] @url osc.square~-help.pd;
-#X text 220 292 осциллятор квадратной волны с ограниченным спектром;
-#X obj 30 320 ui.link @title [osc.tri~] @url osc.tri~-help.pd;
-#X text 220 317 осциллятор треугольной волны с ограниченным спектром;
+#X text 220 142 генератор импульсной последовательности с ограниченным
+спектром;
+#X obj 30 185 ui.link @title [osc.pulse~] @url osc.pulse~-help.pd;
+#X text 220 182 осциллятор прямоугольной волны с ограниченным спектром;
+#X obj 30 210 ui.link @title [osc.saw4~] @url osc.saw4~-help.pd;
+#X text 220 207 осциллятор пилообразного сигнала с ограниченным спектром;
+#X obj 30 235 ui.link @title [osc.saw~] @url osc.saw~-help.pd;
+#X text 220 232 осциллятор пилообразного сигнала с ограниченным спектром;
+#X obj 30 260 ui.link @title [osc.sinfb~] @url osc.sinfb~-help.pd;
+#X text 220 257 синусоидальный осциллятор с обратной связью;
+#X obj 30 285 ui.link @title [osc.sin~] @url osc.sin~-help.pd;
+#X text 220 282 синусоидальный осциллятор;
+#X obj 30 310 ui.link @title [osc.square~] @url osc.square~-help.pd;
+#X text 220 307 осциллятор квадратной волны с ограниченным спектром;
+#X obj 30 335 ui.link @title [osc.tri~] @url osc.tri~-help.pd;
+#X text 220 332 осциллятор треугольной волны с ограниченным спектром;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::osc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
