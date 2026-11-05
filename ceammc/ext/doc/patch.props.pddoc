@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">get or set the patch properties</tr>
-        <tr lang="ru">получение или установка свойств патча</tr>
+        <tr lang="ru">получает или устанавливает свойства патча</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,10 +22,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Property should be declared with [prop.declare]</tr>
-        <!-- old: Имущество должно быть объявлено с
-                [prop.declare] -->
-        <tr lang="ru" finished="false">Имущество должно быть объявлено с [prop.declare]</tr>
+        <tr lang="en">a property should be declared with [prop.declare] before use</tr>
+        <tr lang="ru">свойство должно быть объявлено через [prop.declare] перед использованием</tr>
+      </par>
+      <par>
+        <tr lang="en">on bang, all patch properties are output as a list</tr>
+        <tr lang="ru">по bang все свойства патча выводятся в виде списка</tr>
+      </par>
+      <par>
+        <tr lang="en">the *default* method resets all properties to their default values and outputs them</tr>
+        <tr lang="ru">метод *default* сбрасывает все свойства к значениям по умолчанию и выводит их</tr>
       </par>
     </info>
     <methods>
@@ -33,17 +39,14 @@
       <method name="@*?">
         <info>
           <tr lang="en">output all patch properties as list</tr>
-          <tr lang="ru" finished="false">Выведите все свойства патча в список</tr>
+          <tr lang="ru">вывести все свойства патча в виде списка</tr>
         </info>
       </method>
       <!-- default -->
       <method name="default">
         <info>
           <tr lang="en">reset all props to default value and output</tr>
-          <!-- old: Сбросить все реквизиты до значения по умолчанию
-                    и выхода -->
-          <tr lang="ru" finished="false">Сбросить все реквизиты до значения по умолчанию и
-          выхода</tr>
+          <tr lang="ru">сбросить все свойства к значению по умолчанию и вывести</tr>
         </info>
       </method>
     </methods>
@@ -51,14 +54,11 @@
       <inlet>
         <in on="bang">
           <tr lang="en">output all properties in [prop] objects</tr>
-          <tr lang="ru" finished="false">Вывод всех свойств в [prop] объектах</tr>
+          <tr lang="ru">вывести все свойства в объектах [prop]</tr>
         </in>
         <in on="any">
           <tr lang="en">get/set property value and output it</tr>
-          <!-- old: получить/установить стоимость имущества и
-                    выпустить его -->
-          <tr lang="ru" finished="false">получить/установить стоимость имущества и выпустить
-          его</tr>
+          <tr lang="ru">получить/установить значение свойства и вывести его</tr>
         </in>
       </inlet>
     </inlets>
@@ -66,7 +66,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="ru">выходное значение</tr>
         </out>
       </outlet>
     </outlets>
