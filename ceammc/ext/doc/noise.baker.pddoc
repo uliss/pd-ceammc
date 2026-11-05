@@ -22,8 +22,11 @@
         <tr lang="ru">порт объекта chaos-baker Ричарда из коллекции chaos</tr>
       </par>
       <par>
-        <tr lang="en">The baker's map is a chaotic map that stretches and folds the unit square, producing a random-looking sequence from a deterministic rule</tr>
-        <tr lang="ru">отображение пекаря — хаотическое отображение, которое растягивает и складывает единичный квадрат, порождая внешне случайную последовательность из детерминированного правила</tr>
+        <tr lang="en">The baker's map is a chaotic map that stretches and folds the unit square,
+        producing a random-looking sequence from a deterministic rule</tr>
+        <tr lang="ru">отображение пекаря — хаотическое отображение, которое растягивает и
+        складывает единичный квадрат, порождая внешне случайную последовательность из
+        детерминированного правила</tr>
       </par>
       <par>
         <tr lang="en">the output value lies in the [0..1] range and is produced on bang</tr>

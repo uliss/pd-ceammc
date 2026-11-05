@@ -24,11 +24,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a sawtooth wave without aliasing artifacts using Polynomial Transition Regions (PTR) with 2nd order interpolation</tr>
-        <tr lang="ru">генерирует пилообразную волну без артефактов алиасинга с помощью полиномиальных переходных областей (PTR) с интерполяцией 2-го порядка</tr>
+        <tr lang="en">generates a sawtooth wave without aliasing artifacts using Polynomial
+        Transition Regions (PTR) with 2nd order interpolation</tr>
+        <tr lang="ru">генерирует пилообразную волну без артефактов алиасинга с помощью
+        полиномиальных переходных областей (PTR) с интерполяцией 2-го порядка</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>

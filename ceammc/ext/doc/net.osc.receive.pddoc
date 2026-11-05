@@ -25,8 +25,12 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">OSC (Open Sound Control) is a protocol for communication among computers, sound synthesizers and other multimedia devices, optimized for modern networking technology</tr>
-        <tr lang="ru">OSC (Open Sound Control) — протокол обмена данными между компьютерами, синтезаторами и другими мультимедийными устройствами, оптимизированный для современных сетевых технологий</tr>
+        <tr lang="en">OSC (Open Sound Control) is a protocol for communication among computers,
+        sound synthesizers and other multimedia devices, optimized for modern networking
+        technology</tr>
+        <tr lang="ru">OSC (Open Sound Control) — протокол обмена данными между компьютерами,
+        синтезаторами и другими мультимедийными устройствами, оптимизированный для современных
+        сетевых технологий</tr>
       </par>
     </info>
     <arguments>

@@ -24,15 +24,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a bandlimited impulse train (BLIT), a series of narrow pulses with a controlled spectrum, free of aliasing artifacts</tr>
-        <tr lang="ru">генерирует последовательность импульсов с ограниченным спектром (BLIT) — серию узких импульсов с контролируемым спектром без артефактов алиасинга</tr>
+        <tr lang="en">generates a bandlimited impulse train (BLIT), a series of narrow pulses with
+        a controlled spectrum, free of aliasing artifacts</tr>
+        <tr lang="ru">генерирует последовательность импульсов с ограниченным спектром (BLIT) —
+        серию узких импульсов с контролируемым спектром без артефактов алиасинга</tr>
       </par>
       <par>
-        <tr lang="en">the output signal is suitable as an excitation source for subtractive synthesis and physical modelling</tr>
-        <tr lang="ru">выходной сигнал подходит в качестве источника возбуждения для субтрактивного синтеза и физического моделирования</tr>
+        <tr lang="en">the output signal is suitable as an excitation source for subtractive
+        synthesis and physical modelling</tr>
+        <tr lang="ru">выходной сигнал подходит в качестве источника возбуждения для субтрактивного
+        синтеза и физического моделирования</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>

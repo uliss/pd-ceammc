@@ -21,15 +21,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a bandlimited rectangular wave with a controllable duty cycle, free of aliasing artifacts</tr>
-        <tr lang="ru">генерирует прямоугольную волну с ограниченным спектром и управляемой скважностью без артефактов алиасинга</tr>
+        <tr lang="en">generates a bandlimited rectangular wave with a controllable duty cycle, free
+        of aliasing artifacts</tr>
+        <tr lang="ru">генерирует прямоугольную волну с ограниченным спектром и управляемой
+        скважностью без артефактов алиасинга</tr>
       </par>
       <par>
-        <tr lang="en">the duty cycle sets the ratio of the high part of the period, 0.5 gives a square wave</tr>
-        <tr lang="ru">скважность задаёт долю высокого уровня в периоде, при 0.5 получается меандр</tr>
+        <tr lang="en">the duty cycle sets the ratio of the high part of the period, 0.5 gives a
+        square wave</tr>
+        <tr lang="ru">скважность задаёт долю высокого уровня в периоде, при 0.5 получается
+        меандр</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>

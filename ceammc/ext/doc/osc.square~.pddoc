@@ -24,10 +24,12 @@
     <info>
       <par>
         <tr lang="en">generates a bandlimited square wave without aliasing artifacts</tr>
-        <tr lang="ru">генерирует квадратную волну с ограниченным спектром без артефактов алиасинга</tr>
+        <tr lang="ru">генерирует квадратную волну с ограниченным спектром без артефактов
+        алиасинга</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>

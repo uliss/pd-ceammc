@@ -28,7 +28,8 @@
         <tr lang="ru">генерирует синусоидальную волну заданной частоты</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
       <par>

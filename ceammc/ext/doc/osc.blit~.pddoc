@@ -22,15 +22,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">BLIT (Band-Limited Impulse Train) is an alias-free synthesis method that generates bandlimited waveforms by summing harmonics up to the Nyquist frequency</tr>
-        <tr lang="ru">BLIT (Band-Limited Impulse Train) — метод синтеза без алиасинга, генерирующий сигнал с ограниченным спектром путём суммирования гармоник до частоты Найквиста</tr>
+        <tr lang="en">BLIT (Band-Limited Impulse Train) is an alias-free synthesis method that
+        generates bandlimited waveforms by summing harmonics up to the Nyquist frequency</tr>
+        <tr lang="ru">BLIT (Band-Limited Impulse Train) — метод синтеза без алиасинга, генерирующий
+        сигнал с ограниченным спектром путём суммирования гармоник до частоты Найквиста</tr>
       </par>
       <par>
-        <tr lang="en">the number of harmonics controls the brightness of the waveform, if 0 — all harmonics up to SR/2 are used</tr>
-        <tr lang="ru">количество гармоник управляет яркостью сигнала, при 0 — используются все гармоники до SR/2</tr>
+        <tr lang="en">the number of harmonics controls the brightness of the waveform, if 0 — all
+        harmonics up to SR/2 are used</tr>
+        <tr lang="ru">количество гармоник управляет яркостью сигнала, при 0 — используются все
+        гармоники до SR/2</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>
@@ -40,8 +45,10 @@
         <tr lang="ru">частота по умолчанию (440 Гц, если не указана)</tr>
       </argument>
       <argument name="HARMONICS" type="int" minvalue="0">
-        <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until SR/2</tr>
-        <tr lang="ru">количество гармоник. Отсутствие или 0 означает все доступные гармоники до SR/2</tr>
+        <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
+        SR/2</tr>
+        <tr lang="ru">количество гармоник. Отсутствие или 0 означает все доступные гармоники до
+        SR/2</tr>
       </argument>
     </arguments>
     <properties>

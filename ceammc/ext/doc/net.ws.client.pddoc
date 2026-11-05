@@ -21,23 +21,34 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">WebSocket is a protocol that provides full-duplex communication channels over a single TCP connection, widely used in web applications for real-time data exchange</tr>
-        <tr lang="ru">WebSocket — протокол, обеспечивающий полнодуплексную передачу данных по одному TCP-соединению, широко используется в веб-приложениях для обмена данными в реальном времени</tr>
+        <tr lang="en">WebSocket is a protocol that provides full-duplex communication channels over
+        a single TCP connection, widely used in web applications for real-time data exchange</tr>
+        <tr lang="ru">WebSocket — протокол, обеспечивающий полнодуплексную передачу данных по
+        одному TCP-соединению, широко используется в веб-приложениях для обмена данными в реальном
+        времени</tr>
       </par>
       <par>
-        <tr lang="en">the object connects to a WebSocket server at the specified URL and exchanges text, binary or JSON messages</tr>
-        <tr lang="ru">объект подключается к WebSocket-серверу по указанному URL и обменивается текстовыми, бинарными или JSON-сообщениями</tr>
+        <tr lang="en">the object connects to a WebSocket server at the specified URL and exchanges
+        text, binary or JSON messages</tr>
+        <tr lang="ru">объект подключается к WebSocket-серверу по указанному URL и обменивается
+        текстовыми, бинарными или JSON-сообщениями</tr>
       </par>
       <par>
-        <tr lang="en">the *write* methods buffer messages, call *flush* to send them; the *send* methods send messages immediately</tr>
-        <tr lang="ru">методы *write* буферизуют сообщения, для отправки вызовите *flush*; методы *send* отправляют сообщения сразу</tr>
+        <tr lang="en">the *write* methods buffer messages, call *flush* to send them; the *send*
+        methods send messages immediately</tr>
+        <tr lang="ru">методы *write* буферизуют сообщения, для отправки вызовите *flush*; методы
+        *send* отправляют сообщения сразу</tr>
       </par>
     </info>
     <properties>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">
-        <tr lang="en">parsing mode for incoming messages. If "fudi" — interpret incoming websocket data as Pd messages, if "sym" — always interpret as symbols, "data" — parse ceammc data, "json" — convert JSON values to ceammc data</tr>
-        <tr lang="ru">режим разбора входящих сообщений. Если "fudi" — интерпретировать входящие данные websocket как Pd-сообщения, если "sym" — всегда интерпретировать как символы, "data" — разбирать данные ceammc, "json" — преобразовывать значения JSON в данные ceammc</tr>
+        <tr lang="en">parsing mode for incoming messages. If "fudi" — interpret incoming websocket
+        data as Pd messages, if "sym" — always interpret as symbols, "data" — parse ceammc data,
+        "json" — convert JSON values to ceammc data</tr>
+        <tr lang="ru">режим разбора входящих сообщений. Если "fudi" — интерпретировать входящие
+        данные websocket как Pd-сообщения, если "sym" — всегда интерпретировать как символы, "data"
+        — разбирать данные ceammc, "json" — преобразовывать значения JSON в данные ceammc</tr>
       </property>
     </properties>
     <methods>
@@ -77,7 +88,8 @@
       <method name="ping">
         <info>
           <tr lang="en">send ping message to server (on server answer outputs: pong DATA)</tr>
-          <tr lang="ru">отправить ping-сообщение на сервер (при ответе сервера выводит: pong DATA)</tr>
+          <tr lang="ru">отправить ping-сообщение на сервер (при ответе сервера выводит: pong
+          DATA)</tr>
         </info>
         <param name="DATA" type="list" required="false">
           <tr lang="en">list of integers in [0..255] range</tr>
@@ -139,8 +151,10 @@
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">write as text message to output buffer. You have to call [flush( method for sending</tr>
-          <tr lang="ru">записать как текстовое сообщение в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
+          <tr lang="en">write as text message to output buffer. You have to call [flush( method for
+          sending</tr>
+          <tr lang="ru">записать как текстовое сообщение в выходной буфер. Для отправки нужно
+          вызвать метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
@@ -150,8 +164,10 @@
       <!-- write_binary -->
       <method name="write_binary">
         <info>
-          <tr lang="en">write as binary bytes to output buffer. You have to call [flush( method for sending</tr>
-          <tr lang="ru">записать как бинарные байты в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
+          <tr lang="en">write as binary bytes to output buffer. You have to call [flush( method for
+          sending</tr>
+          <tr lang="ru">записать как бинарные байты в выходной буфер. Для отправки нужно вызвать
+          метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">list of integers in [0..255] range</tr>
@@ -161,8 +177,10 @@
       <!-- write_json -->
       <method name="write_json">
         <info>
-          <tr lang="en">write as encoded json to output buffer. You have to call [flush( method for sending</tr>
-          <tr lang="ru">записать как закодированный JSON в выходной буфер. Для отправки нужно вызвать метод [flush(</tr>
+          <tr lang="en">write as encoded json to output buffer. You have to call [flush( method for
+          sending</tr>
+          <tr lang="ru">записать как закодированный JSON в выходной буфер. Для отправки нужно
+          вызвать метод [flush(</tr>
         </info>
         <param name="ARGS" type="list" required="false">
           <tr lang="en">arguments</tr>
@@ -181,8 +199,10 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output messages: latency, ping, text, binary, closed, connected, disconnected</tr>
-          <tr lang="ru">выходные сообщения: latency, ping, text, binary, closed, connected, disconnected</tr>
+          <tr lang="en">output messages: latency, ping, text, binary, closed, connected,
+          disconnected</tr>
+          <tr lang="ru">выходные сообщения: latency, ping, text, binary, closed, connected,
+          disconnected</tr>
         </out>
       </outlet>
     </outlets>

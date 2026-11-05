@@ -38,8 +38,10 @@
         <tr lang="ru">где a, b, c, d — переменные, определяющие каждый аттрактор</tr>
       </par>
       <par>
-        <tr lang="en">the object outputs a pair of values (x, y) on bang, producing a chaotic sequence</tr>
-        <tr lang="ru">объект выдаёт пару значений (x, y) по bang, порождая хаотическую последовательность</tr>
+        <tr lang="en">the object outputs a pair of values (x, y) on bang, producing a chaotic
+        sequence</tr>
+        <tr lang="ru">объект выдаёт пару значений (x, y) по bang, порождая хаотическую
+        последовательность</tr>
       </par>
     </info>
     <arguments>

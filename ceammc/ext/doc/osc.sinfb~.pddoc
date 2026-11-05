@@ -18,15 +18,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a sine oscillator with feedback, which produces a richer, more complex waveform than a plain sine</tr>
-        <tr lang="ru">синусоидальный осциллятор с обратной связью, который даёт более богатую и сложную форму волны, чем обычная синусоида</tr>
+        <tr lang="en">a sine oscillator with feedback, which produces a richer, more complex
+        waveform than a plain sine</tr>
+        <tr lang="ru">синусоидальный осциллятор с обратной связью, который даёт более богатую и
+        сложную форму волны, чем обычная синусоида</tr>
       </par>
       <par>
-        <tr lang="en">the feedback coefficient is set in the range 0..2π, a higher value increases the harmonic content and can drive the oscillator into a chaotic regime</tr>
-        <tr lang="ru">коэффициент обратной связи задаётся в диапазоне 0..2π, большее значение увеличивает гармоническое содержание и может перевести осциллятор в хаотический режим</tr>
+        <tr lang="en">the feedback coefficient is set in the range 0..2π, a higher value increases
+        the harmonic content and can drive the oscillator into a chaotic regime</tr>
+        <tr lang="ru">коэффициент обратной связи задаётся в диапазоне 0..2π, большее значение
+        увеличивает гармоническое содержание и может перевести осциллятор в хаотический режим</tr>
       </par>
       <par>
-        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets the phase</tr>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
         <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>
