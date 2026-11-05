@@ -78,7 +78,7 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">quantized NOTE VELOCITY [DUR] list</tr>
           <tr lang="ru">квантованный список НОТА СКОРОСТЬ [ДЛИТ]</tr>
         </out>
