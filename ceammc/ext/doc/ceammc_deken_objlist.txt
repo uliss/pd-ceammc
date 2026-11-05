@@ -989,7 +989,7 @@ rhythm.hexbeat	hexbeat pattern generator / генератор ритмическ
 rhythm.lsystem	L-system pattern generator / генератор ритмических паттернов на основе L-систем
 net.artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
 artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
-net.freesound	Freesound API v2 client / клиент для Freesound API v2
+net.freesound	Freesound API v2 client / клиент Freesound API v2
 net.host2ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
 net.host->ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
 net.http.client	HTTP client / HTTP клиент

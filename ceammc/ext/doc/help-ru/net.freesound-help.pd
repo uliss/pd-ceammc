@@ -1,22 +1,22 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 212 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 558 50 клиент для Freesound API v2;
+#X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 588 50 клиент Freesound API v2;
 #X obj 1 1 cnv 5 765 40 empty empty net.freesound 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 net.freesound;
 #X obj 230 78 cnv 1 535 204 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 1) create Freesound API credentials at:;
+#X text 240 83 1) создайте учётные данные Freesound API по адресу:;
 #X obj 240 111 ui.link @background_color 0.90196 0.90196 0.90196
 @title https://freesound.org/apiv2/apply @url
 https://freesound.org/apiv2/apply;
-#X text 240 132 2) save this id/secret pair into the file if using
-@oauth_file property or set @oauth_id/@oauth_secret properties explicitly
-or enter it with the editor;
-#X text 240 187 3) [access auth( get a temporal application code from
-the Freesound website (valid for ~24 hours);
-#X text 240 227 4) [access code CODE( exchange this application code
-to the internal secret access token;
+#X text 240 132 2) сохраните пару id/secret в файл при использовании
+@oauth_file \, либо задайте @oauth_id/@oauth_secret явно \, либо введите
+их в редакторе;
+#X text 240 187 3) [access auth( — получить временный код приложения
+с сайта Freesound (действителен ~24 часа);
+#X text 240 227 4) [access code CODE( — обменять код приложения на
+внутренний секретный токен доступа;
 #X msg 50 330 search puredata @n 5 @fields id name @filter type mp3;
 #X msg 69 359 access auth;
 #X listbox 194 359 30 0 0 0 - - -;
@@ -54,8 +54,8 @@ to the internal secret access token;
 #X obj 735 789 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 787 @oauth_file;
-#X text 270 787 (при инициализации) Path to file with OAuth2 ID/secret
-\, one per line. Тип: symbol.;
+#X text 270 787 (при инициализации) Путь к файлу с OAuth2 ID/secret
+\, по одному на строку. Тип: symbol.;
 #X obj 250 829 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 829 @oauth_id;
 #X text 270 829 (при инициализации) Freesound OAuth2 ID. Тип: symbol.;
@@ -66,84 +66,84 @@ to the internal secret access token;
 #X obj 20 904 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 905 access auth;
-#X text 270 905 get application authorization code (valid ~24 hours)
-from Freesound page: should open in web browser.;
-#X obj 250 955 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 955 access code;
-#X text 270 955 exchange application authorization code to temp *access*
-token that will be used for every request. Note: you can do it only
-once \, otherwise you need to get another application authorization
-code from Freesite site. Аргументы:;
-#X obj 300 1040 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1040 CODE: application auth code. Copy it from from Freesound
-webpage!. Тип: symbol.;
-#X obj 250 1088 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1088 access load;
-#X text 270 1088 load temp *access* token (not OAuth id/secret!) from
-the special file from the current patch directory.;
-#X obj 250 1138 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1138 access store;
-#X text 270 1138 store temp *access* token (not OAuth id/secret!) into
-the special file in the current patch directory.;
-#X obj 250 1188 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1188 download;
-#X text 270 1188 download Freesound file. Аргументы:;
-#X obj 300 1213 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1213 ID: Freesound soundfile ID (get it from search result
-\, for examples). Тип: int.;
-#X obj 250 1261 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1261 load;
-#X text 270 1261 load Freesound file into Pd arrays. Аргументы:;
-#X obj 300 1286 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1286 ID: Freesound soundfile ID (get it from search result
-\, for examples). Тип: int.;
-#X obj 300 1324 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1324 @array: array name. Тип: symbol.;
-#X obj 300 1347 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1347 [@norm]: normalize sound. Тип: bool.;
-#X obj 250 1380 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1380 me;
-#X text 270 1380 get and output user information.;
-#X obj 250 1415 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1415 search;
-#X text 270 1415 perform search. Аргументы:;
-#X obj 300 1440 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1440 [@p]: search page number. Тип: int. Минимальное значение:
-1\.;
-#X obj 300 1463 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1463 [@n]: number of results. Тип: int. Минимальное значение:
-1\.;
-#X obj 300 1486 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1486 [@fields]: requested fields. Тип: symbol.;
-#X obj 300 1509 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1509 [@sort]: sort methods: "score" \, "duration_desc"
+#X text 270 905 получить код авторизации приложения (действителен ~24
+часа) со страницы Freesound \, которая должна открыться в веб-браузере.;
+#X obj 250 970 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 970 access code;
+#X text 270 970 обменять код авторизации приложения на временный токен
+*access* \, используемый для каждого запроса. Примечание: это можно
+сделать только один раз \, иначе потребуется получить новый код авторизации
+приложения с сайта Freesound. Аргументы:;
+#X obj 300 1055 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1055 CODE: код авторизации приложения. Скопируйте его с
+веб-страницы Freesound. Тип: symbol.;
+#X obj 250 1103 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1103 access load;
+#X text 270 1103 загрузить временный токен *access* (не OAuth id/secret)
+из специального файла в текущем каталоге патча.;
+#X obj 250 1153 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1153 access store;
+#X text 270 1153 сохранить временный токен *access* (не OAuth id/secret)
+в специальный файл в текущем каталоге патча.;
+#X obj 250 1203 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1203 download;
+#X text 270 1203 скачать файл с Freesound. Аргументы:;
+#X obj 300 1228 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1228 ID: ID звукового файла Freesound (например \, из результатов
+поиска). Тип: int.;
+#X obj 250 1276 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1276 load;
+#X text 270 1276 загрузить файл с Freesound в массивы Pd. Аргументы:;
+#X obj 300 1301 cnv 1 21 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1301 ID: ID звукового файла Freesound (например \, из результатов
+поиска). Тип: int.;
+#X obj 300 1339 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1339 @array: имя массива. Тип: symbol.;
+#X obj 300 1362 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1362 [@norm]: нормализовать звук. Тип: bool.;
+#X obj 250 1395 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1395 me;
+#X text 270 1395 получить и вывести информацию о пользователе.;
+#X obj 250 1430 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1430 search;
+#X text 270 1430 выполнить поиск. Аргументы:;
+#X obj 300 1455 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1455 [@p]: номер страницы поиска. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 1493 cnv 1 32 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1493 [@n]: количество результатов. Тип: int. Минимальное
+значение: 1\.;
+#X obj 300 1531 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1531 [@fields]: запрошенные поля. Тип: symbol.;
+#X obj 300 1554 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1554 [@sort]: методы сортировки: "score" \, "duration_desc"
 \, "duration_asc" \, "created_desc" \, "created_asc" \, "downloads_desc"
 \, "downloads_asc" \, "rating_desc" \, "rating_asc". Тип: symbol.;
-#X obj 300 1577 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1577 [@filter]: filter expression \, for example: @filter
-type mp3\. See https://freesound.org/docs/api/resources_apiv2\.html.
-Тип: symbol.;
-#X obj 20 1650 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1655 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1622 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1622 [@filter]: выражение фильтра \, например @filter type
+mp3\. См. https://freesound.org/docs/api/resources_apiv2\.html. Тип:
+symbol.;
+#X obj 20 1695 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1700 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1656 1\.;
-#X text 270 1656 input.;
-#X obj 20 1691 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1696 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1701 1\.;
+#X text 270 1701 вход.;
+#X obj 20 1736 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1741 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1697 1\.;
-#X text 270 1697 messages: [user DICT( - user info \, [progress VALUE(
-- download process information \, [loaded( - when finished loading
-\, [downloaded( - when file download is finished \, [results DICT(
-- search result.;
+#X text 130 1742 1\.;
+#X text 270 1742 сообщения: [user DICT( — информация о пользователе
+\, [progress VALUE( — прогресс загрузки \, [loaded( — загрузка завершена
+\, [downloaded( — скачивание файла завершено \, [results DICT( — результат
+поиска.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1792 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1795 библиотека: ceammc v0.9.8;
-#N canvas 10 1814 400 290 info 0;
+#X obj 1 1837 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1840 библиотека: ceammc v0.9.8;
+#N canvas 10 1859 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -167,7 +167,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1814 pd info;
+#X restore 10 1859 pd info;
 #X connect 12 0 15 0;
 #X connect 16 0 18 0;
 #X connect 17 0 19 0;

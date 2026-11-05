@@ -1659,7 +1659,7 @@ net.artnet.send-help.pd;
 #X text 200 17527 отправитель сообщений ArtNet DMX;
 #X obj 30 17555 ui.link @title [net.freesound] @url
 net.freesound-help.pd;
-#X text 200 17552 клиент для Freesound API v2;
+#X text 200 17552 клиент Freesound API v2;
 #X obj 30 17580 ui.link @title [net.host2ip] @url net.host2ip-help.pd;
 #X text 200 17577 выводит IP-адрес по DNS-имени;
 #X obj 30 17605 ui.link @title [net.http.client] @url
