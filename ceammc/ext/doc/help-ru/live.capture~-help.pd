@@ -1,97 +1,108 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 338 50 cnv 1 427 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 343 50 запись до 32 секунд звука и его воспроизведение в петле;
+#X obj 291 50 cnv 1 474 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 296 50 записывает до 32 секунд звука и воспроизводит записанный
+звук в петле;
 #X obj 1 1 cnv 5 765 40 empty empty live.capture~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 live.capture~;
-#X obj 50 118 adc~;
-#X msg 155 118 reset;
-#X msg 69 147 record;
-#X obj 174 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 88 176 stop;
-#X msg 174 176 @gate \$1;
-#X obj 280 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 205 live.capture~;
-#X obj 50 234 ui.gain~ @size 120 14;
-#X obj 280 234 ui.dsp~;
-#X obj 50 262 dac~;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 объект записывает входящий аудиосигнал во внутренний
+буфер до 32 секунд и воспроизводит его в петле;
+#X text 240 138 запись управляется методами *record* и *stop* или свойством
+@gate \, метод *reset* очищает записанные данные;
+#X text 240 178 огибающая записи формируется свойствами @attack \,
+@release и @sustain \, уровень воспроизведения задаётся свойством @gain;
+#X obj 50 296 adc~;
+#X msg 155 296 reset;
+#X obj 242 296 ui.tab 1 2 4 8;
+#X msg 69 325 record;
+#X obj 174 325 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 242 325 div \$1;
+#X msg 88 354 stop;
+#X msg 174 354 @gate \$1;
+#X obj 280 354 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 383 live.capture~;
+#X obj 50 412 ui.gain~ @size 120 14;
+#X obj 280 412 ui.dsp~;
+#X obj 50 440 dac~;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 495 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 318 @id;
-#X text 270 318 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 496 @id;
+#X text 270 496 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/live_capture/ИМЯ_СВОЙСТВА \, в противном случае к /live_capture/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 405 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 405 @osc;
-#X text 270 405 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 435 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 435 @active;
-#X text 270 435 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 583 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 583 @osc;
+#X text 270 583 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 613 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 613 @active;
+#X text 270 613 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 477 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 477 @attack;
-#X text 270 477 Rec envelope attack time. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 50\. Диапазон: [0\..100000].;
-#X obj 250 519 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 519 @gain;
-#X text 270 519 Playing gain. Тип: float. Единицы: 'db'. Значение по
-умолчанию: 0\. Диапазон: [-60\..12].;
-#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 561 @gate;
-#X text 270 561 Start/stop recording. Тип: bool. Значение по умолчанию:
+#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 655 @attack;
+#X text 270 655 Время атаки огибающей записи. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 50\. Диапазон: [0\..100000].;
+#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 697 @gain;
+#X text 270 697 Усиление при воспроизведении. Тип: float. Единицы:
+'db'. Значение по умолчанию: 0\. Диапазон: [-60\..12].;
+#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 739 @gate;
+#X text 270 739 Запуск/остановка записи. Тип: bool. Значение по умолчанию:
 0\.;
-#X obj 250 591 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 591 @release;
-#X text 270 591 Rec envelope release time. Тип: float. Единицы: 'ms'.
-Значение по умолчанию: 50\. Диапазон: [0\..100000].;
-#X obj 250 633 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 633 @sustain;
-#X text 270 633 Rec envelope sustain level - percent from trigger signal.
-Тип: float. Единицы: '%'. Значение по умолчанию: 100\. Диапазон: [0\..100].;
-#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 705 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 781 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 781 @release;
+#X text 270 781 Время спада огибающей записи. Тип: float. Единицы:
+'ms'. Значение по умолчанию: 50\. Диапазон: [0\..100000].;
+#X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 823 @sustain;
+#X text 270 823 Уровень удержания огибающей записи \, процент от сигнала
+триггера. Тип: float. Единицы: '%'. Значение по умолчанию: 100\. Диапазон:
+[0\..100].;
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 895 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 706 div;
-#X text 270 706 set rec division. Аргументы:;
-#X obj 300 731 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 731 [N]: value. Тип: int. Диапазон: [1\..8].;
-#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 764 record;
-#X text 270 764 start record.;
-#X obj 250 799 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 799 reset;
-#X text 270 799 reset recorded data.;
-#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 834 stop;
-#X text 270 834 stop record.;
-#X obj 20 879 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 884 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 896 div;
+#X text 270 896 задать деление петли. Аргументы:;
+#X obj 300 921 cnv 1 24 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 921 [N]: значение. Тип: int. Диапазон: [1\..8].;
+#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 954 record;
+#X text 270 954 начать запись.;
+#X obj 250 989 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 989 reset;
+#X text 270 989 сбросить записанные данные.;
+#X obj 250 1024 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1024 stop;
+#X text 270 1024 остановить запись.;
+#X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1074 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 885 1\.;
-#X text 170 885 ~;
-#X text 270 885 source signal.;
-#X text 130 910 2\.;
-#X text 170 910 float:;
-#X text 270 910 1/0 toggle signal.;
-#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 950 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 951 1\.;
-#X text 170 951 ~;
-#X text 270 951 recorded signal.;
+#X text 130 1075 1\.;
+#X text 170 1075 ~;
+#X text 270 1075 исходный сигнал.;
+#X text 130 1100 2\.;
+#X text 170 1100 float:;
+#X text 270 1100 сигнал переключения 1/0\.;
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1140 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1141 1\.;
+#X text 170 1141 ~;
+#X text 270 1141 записанный сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title live @url ceammc.live-help.pd;
-#X obj 1 1001 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1004 библиотека: ceammc v0.9.8;
-#N canvas 10 1023 400 290 info 0;
+#X obj 1 1191 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1194 библиотека: ceammc v0.9.8;
+#N canvas 10 1213 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -115,14 +126,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1023 pd info;
-#X connect 7 0 9 0;
-#X connect 4 0 11 0;
-#X connect 6 0 11 0;
-#X connect 8 0 11 0;
-#X connect 5 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 1;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 12 0 14 1;
+#X restore 10 1213 pd info;
+#X connect 10 0 13 0;
+#X connect 12 0 15 0;
+#X connect 8 0 17 0;
+#X connect 11 0 17 0;
+#X connect 14 0 17 0;
+#X connect 9 0 17 0;
+#X connect 15 0 17 0;
+#X connect 16 0 17 1;
+#X connect 17 0 18 0;
+#X connect 18 0 20 0;
+#X connect 18 0 20 1;
+#X connect 13 0 17 0;

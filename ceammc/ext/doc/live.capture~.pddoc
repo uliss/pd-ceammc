@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">record up to 32 seconds of sound and playback the recorded sound in loop</tr>
-        <tr lang="ru">запись до 32 секунд звука и его воспроизведение в петле</tr>
+        <tr lang="ru">записывает до 32 секунд звука и воспроизводит записанный звук в петле</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,6 +16,20 @@
       <keywords>live record</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object records the incoming audio signal into an internal buffer of up to 32 seconds and plays it back in a loop</tr>
+        <tr lang="ru">объект записывает входящий аудиосигнал во внутренний буфер до 32 секунд и воспроизводит его в петле</tr>
+      </par>
+      <par>
+        <tr lang="en">recording is controlled by the *record* and *stop* methods or by the @gate property, *reset* clears the recorded data</tr>
+        <tr lang="ru">запись управляется методами *record* и *stop* или свойством @gate, метод *reset* очищает записанные данные</tr>
+      </par>
+      <par>
+        <tr lang="en">the recording envelope is shaped by the @attack, @release and @sustain properties, the playback level is set by @gain</tr>
+        <tr lang="ru">огибающая записи формируется свойствами @attack, @release и @sustain, уровень воспроизведения задаётся свойством @gain</tr>
+      </par>
+    </info>
     <properties>
       <xi:include href="props_osc.xml" />
       <xi:include href="props_id.xml" />
@@ -23,66 +37,63 @@
       <!-- @attack -->
       <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="100000"
       default="50">
-        <tr lang="en">rec envelope attack time</tr>
-        <tr lang="ru" finished="false">Время атаки на конверт</tr>
+        <tr lang="en">recording envelope attack time</tr>
+        <tr lang="ru">время атаки огибающей записи</tr>
       </property>
       <!-- @gain -->
       <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12" units="decibel">
-        <tr lang="en">playing gain</tr>
-        <tr lang="ru" finished="false">Игровая прибыль</tr>
+        <tr lang="en">playback gain</tr>
+        <tr lang="ru">усиление при воспроизведении</tr>
       </property>
       <!-- @gate -->
       <property name="@gate" type="bool" default="0">
         <tr lang="en">start/stop recording</tr>
-        <tr lang="ru" finished="false">Запись Start/Stop</tr>
+        <tr lang="ru">запуск/остановка записи</tr>
       </property>
       <!-- @release -->
       <property name="@release" type="float" units="millisecond" minvalue="0" maxvalue="100000"
       default="50">
-        <tr lang="en">rec envelope release time</tr>
-        <tr lang="ru" finished="false">время выпуска река</tr>
+        <tr lang="en">recording envelope release time</tr>
+        <tr lang="ru">время спада огибающей записи</tr>
       </property>
       <!-- @sustain -->
       <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
       default="100">
-        <tr lang="en">rec envelope sustain level - percent from trigger signal</tr>
-        <!-- old: Рекомендуемый уровень поддержки - % от триггерного
-                сигнала -->
-        <tr lang="ru" finished="false">Рекомендуемый уровень поддержки - % от триггерного
-        сигнала</tr>
+        <tr lang="en">recording envelope sustain level, percent of the trigger signal</tr>
+        <tr lang="ru">уровень удержания огибающей записи, процент от сигнала триггера</tr>
       </property>
     </properties>
     <methods>
       <!-- div -->
       <method name="div">
         <info>
-          <tr lang="en">set rec division</tr>
-          <tr lang="ru" finished="false">Обсуждение Set Re Division</tr>
+          <tr lang="en">set loop division</tr>
+          <tr lang="ru">задать деление петли</tr>
         </info>
         <param name="N" type="int" minvalue="1" maxvalue="8">
           <tr lang="en">value</tr>
-          <tr lang="ru" finished="false">ценность</tr>
+          <tr lang="ru">значение</tr>
         </param>
       </method>
       <!-- record -->
       <method name="record">
         <info>
-          <tr lang="en">start record</tr>
-          <tr lang="ru" finished="false">Стартовый рекорд</tr>
+          <tr lang="en">start recording</tr>
+          <tr lang="ru">начать запись</tr>
         </info>
       </method>
       <!-- reset -->
       <method name="reset">
         <info>
           <tr lang="en">reset recorded data</tr>
-          <tr lang="ru" finished="false">Сброс записанных данных</tr>
+          <tr lang="ru">сбросить записанные данные</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stop record</tr>
-          <tr lang="ru" finished="false">стоп рекорд</tr>
+          <tr lang="en">stop recording</tr>
+          <tr lang="ru">остановить запись</tr>
         </info>
       </method>
     </methods>
@@ -90,13 +101,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">source signal</tr>
-          <tr lang="ru" finished="false">источник сигнала</tr>
+          <tr lang="ru">исходный сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">1/0 toggle signal</tr>
-          <tr lang="ru" finished="false">1/0 сигнал переключения</tr>
+          <tr lang="ru">сигнал переключения 1/0</tr>
         </in>
       </inlet>
     </inlets>
@@ -104,24 +115,25 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">recorded signal</tr>
-          <tr lang="ru" finished="false">регистрируемый сигнал</tr>
+          <tr lang="ru">записанный сигнал</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[adc~]     [reset(
-|          |
-| [record( | [T]
+[adc~]     [reset(  [ui.tab 1 2 4 8]
+|          |        |
+| [record( | [T]    [div $1 #a(
 | |        | |
 | | [stop( | [@gate $1( [T]
 | | |      | |          |.
-[live.capture~             ]
+[live.capture~            #x]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\
 [dac~]
+[X a->x]
 ]]>
       </pdascii>
     </example>

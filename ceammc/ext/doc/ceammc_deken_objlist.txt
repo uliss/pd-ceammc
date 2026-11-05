@@ -727,7 +727,7 @@ list.deinterleave	unpacks the input list into N lists of interleaved elements / 
 list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
 list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
 list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
-live.capture~	record up to 32 seconds of sound and playback the recorded sound in loop / запись до 32 секунд звука и его воспроизведение в петле
+live.capture~	record up to 32 seconds of sound and playback the recorded sound in loop / записывает до 32 секунд звука и воспроизводит записанный звук в петле
 local.dict	local named dict object / локальный для патча словарь
 local.json	local named dict object / локальный для патча словарь
 local.float	canvas-scoped named float variable / локальное для патча именованное число с плавающей точкой
