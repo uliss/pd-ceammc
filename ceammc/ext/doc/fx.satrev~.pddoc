@@ -16,10 +16,24 @@
       <keywords>fx room reverb schroeder</keywords>
       <since>0.9.6</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">a classic algorithmic reverberator based on the architecture proposed by Manfred Schroeder, built from parallel feedback comb filters followed by series allpass filters</tr>
+        <tr lang="ru">классический алгоритмический ревербератор на основе архитектуры, предложенной Манфредом Шрёдером, состоящий из параллельных гребёнчатых фильтров с обратной связью и последовательных аллпасс-фильтров</tr>
+      </par>
+      <par>
+        <tr lang="en">the parallel comb filters create the initial echo density, while the series allpass filters increase the density without adding coloration</tr>
+        <tr lang="ru">параллельные гребёнчатые фильтры создают начальную плотность эха, а последовательные аллпасс-фильтры увеличивают её, не добавляя окраски</tr>
+      </par>
+      <par>
+        <tr lang="en">this architecture became the foundation of many later reverberation algorithms, including the well-known Freeverb</tr>
+        <tr lang="ru">эта архитектура стала основой многих последующих алгоритмов реверберации, включая известный Freeverb</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-        <tr lang="en">drywet mix</tr>
-        <tr lang="ru" finished="false">сухая смесь</tr>
+        <tr lang="en">dry/wet mix</tr>
+        <tr lang="ru">баланс сухого/влажного сигнала</tr>
       </argument>
     </arguments>
     <properties>
@@ -28,20 +42,13 @@
       <xi:include href="props_active.xml" />
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypass the processed signal</tr>
+        <tr lang="ru">флаг обхода. Если true: пропускать обработанный сигнал без изменений</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.25">
-        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
-        - dry signal, 1 - wet</tr>
-        <!-- old: пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
-        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 — dry signal, 1 — wet</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным (влажным) сигналами. 0 — сухой сигнал, 1 — влажный</tr>
       </property>
     </properties>
     <methods>
@@ -49,7 +56,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset to initial state</tr>
-          <tr lang="ru" finished="false">Перезагрузка в начальное состояние</tr>
+          <tr lang="ru">сбросить в начальное состояние</tr>
         </info>
       </method>
     </methods>
@@ -57,13 +64,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input signal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">set drywet</tr>
-          <tr lang="ru" finished="false">установленный сухой</tr>
+          <tr lang="en">set dry/wet mix</tr>
+          <tr lang="ru">задать баланс сухого/влажного сигнала</tr>
         </in>
       </inlet>
     </inlets>
@@ -71,13 +78,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">left output signal</tr>
-          <tr lang="ru" finished="false">левый выходной сигнал</tr>
+          <tr lang="ru">левый выходной сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">right output signal</tr>
-          <tr lang="ru" finished="false">правильный выходной сигнал</tr>
+          <tr lang="ru">правый выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>
