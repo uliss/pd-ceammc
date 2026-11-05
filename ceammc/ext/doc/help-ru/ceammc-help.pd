@@ -1675,7 +1675,7 @@ net.mqtt.client-help.pd;
 #X text 200 17677 MQTT-клиент;
 #X obj 30 17705 ui.link @title [net.osc.receive] @url
 net.osc.receive-help.pd;
-#X text 200 17702 получение сообщений по протоколу OSC;
+#X text 200 17702 получает сообщения по протоколу OSC;
 #X obj 30 17730 ui.link @title [net.osc.send] @url
 net.osc.send-help.pd;
 #X text 200 17727 отправка сообщений протокола OSC;

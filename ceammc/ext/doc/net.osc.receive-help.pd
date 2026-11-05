@@ -8,9 +8,9 @@
 [net.osc.r] @url net.osc.receive-help.pd;
 #X obj 631 8 net.osc.receive;
 #X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 OSC type string: 'i' (int32) \, 'f' (float32) \, 's'/'S'
-(string) \, 'b' (blob) \, 'h' (int64) \, 'd' (float64) \, 'c' (char)
-\, 'm' (MIDI) \, 'T' (true) \, 'F' (false) \, 'N' (nil) \, 'I' (inf);
+#X text 240 83 OSC (Open Sound Control) is a protocol for communication
+among computers \, sound synthesizers and other multimedia devices
+\, optimized for modern networking technology;
 #X text 50 216 default OSC server: osc.udp://:9000;
 #X obj 434 216 net.osc.server TCP osc.tcp://:9001;
 #X obj 50 245 net.osc.receive /x;
