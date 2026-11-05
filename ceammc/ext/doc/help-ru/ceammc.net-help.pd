@@ -36,7 +36,7 @@ net.ws.client-help.pd;
 #X text 220 367 WebSocket-клиент;
 #X obj 30 395 ui.link @title [net.ws.server] @url
 net.ws.server-help.pd;
-#X text 220 392 WebSocket сервер;
+#X text 220 392 WebSocket-сервер;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
