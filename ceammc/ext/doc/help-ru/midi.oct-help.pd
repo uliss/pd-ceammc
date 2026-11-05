@@ -27,44 +27,45 @@
 #X text 130 376 1\.;
 #X text 170 376 int;
 #X obj 268 377 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 OCT: octave transposition. Тип: int. Диапазон: [-11\..11];
+#X text 270 376 OCT: октавная транспозиция. Тип: int. Диапазон: [-11\..11];
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 416 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 419 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 417 @mode;
-#X text 270 417 Octave mode. Тип: symbol. Значение по умолчанию: transpose.
-Разрешённые значения: transpose \, set.;
+#X text 270 417 Октавный режим. Тип: symbol. Значение по умолчанию:
+transpose. Разрешённые значения: transpose \, set.;
 #X obj 250 459 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 459 @oct;
-#X text 270 459 Octave transposition. Тип: int. Значение по умолчанию:
+#X text 270 459 Октавная транспозиция. Тип: int. Значение по умолчанию:
 0\. Диапазон: [-11\..11].;
 #X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 501 @random;
-#X text 270 501 Random octave range. Arguments are: MIN MAX. Тип: list.;
+#X text 270 501 Случайный диапазон октав. Аргументы: Мин Макс. Тип:
+list.;
 #X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 531 @set;
-#X text 270 531 Alias to @mode set.;
+#X text 270 531 Псевдоним для @mode set.;
 #X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 561 @transpose;
-#X text 270 561 Alias to @mode transpose.;
+#X text 270 561 Псевдоним для @mode transpose.;
 #X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 606 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 607 1\.;
 #X text 170 607 float:;
-#X text 270 607 note value.;
+#X text 270 607 значение ноты.;
 #X text 170 632 list:;
-#X text 270 632 NOTE VELOCITY [DUR] list.;
+#X text 270 632 список НОТА СКОРОСТЬ [ДЛИТ].;
 #X text 130 657 2\.;
 #X text 170 657 float:;
-#X text 270 657 set @oct value.;
+#X text 270 657 установить значение @oct.;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 697 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 698 1\.;
-#X text 270 698 transposed NOTE VELOCITY [DUR] list.;
+#X text 270 698 транспонированный список НОТА СКОРОСТЬ [ДЛИТ].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
