@@ -23,7 +23,7 @@ midi.event2prg-help.pd;
 #X text 220 267 конвертирует сообщение MidiEvent в MIDI: изменение
 программы;
 #X obj 30 295 ui.link @title [midi.file] @url midi.file-help.pd;
-#X text 220 292 чтение и запись стандартных MIDI файлов (SMF);
+#X text 220 292 чтение и запись стандартных MIDI-файлов (SMF);
 #X obj 30 320 ui.link @title [midi.kbd] @url midi.kbd-help.pd;
 #X text 220 317 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
 #X obj 30 345 ui.link @title [midi.key2str] @url midi.key2str-help.pd;

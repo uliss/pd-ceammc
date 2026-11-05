@@ -1551,7 +1551,7 @@ midi.event2prg-help.pd;
 #X text 200 16360 конвертирует сообщение MidiEvent в MIDI: изменение
 программы;
 #X obj 30 16388 ui.link @title [midi.file] @url midi.file-help.pd;
-#X text 200 16385 чтение и запись стандартных MIDI файлов (SMF);
+#X text 200 16385 чтение и запись стандартных MIDI-файлов (SMF);
 #X obj 30 16413 ui.link @title [midi.kbd] @url midi.kbd-help.pd;
 #X text 200 16410 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
 #X obj 30 16438 ui.link @title [midi.key2str] @url

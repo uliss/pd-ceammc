@@ -931,7 +931,7 @@ midi.event2note	converts the MidiEvent message into the midi note/velocity pair 
 midi.ev->note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
 midi.event2prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
 midi.ev->prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
-midi.file	the standard midi file (SMF) reader and writer / чтение и запись стандартных MIDI файлов (SMF)
+midi.file	standard MIDI file (SMF) reader and writer / чтение и запись стандартных MIDI-файлов (SMF)
 midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI клавиатуры c помощью клавиатуры компьютера
 midi.key2str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
 midi.key->str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN

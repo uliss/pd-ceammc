@@ -24,7 +24,7 @@ pair;
 midi.event2prg-help.pd;
 #X text 220 297 converts the MidiEvent message into the program change;
 #X obj 30 325 ui.link @title [midi.file] @url midi.file-help.pd;
-#X text 220 322 the standard midi file (SMF) reader and writer;
+#X text 220 322 standard MIDI file (SMF) reader and writer;
 #X obj 30 350 ui.link @title [midi.kbd] @url midi.kbd-help.pd;
 #X text 220 347 computer keyboard MIDI emulator;
 #X obj 30 375 ui.link @title [midi.key2str] @url midi.key2str-help.pd;

@@ -1705,7 +1705,7 @@
     <entry name="midi.event2prg" descr="converts the MidiEvent message into the program change" ref_view="link">
       <xi:include href="midi.event2prg.pddoc" parse="xml"/>
     </entry>
-    <entry name="midi.file" descr="the standard midi file (SMF) reader and writer" ref_view="link">
+    <entry name="midi.file" descr="standard MIDI file (SMF) reader and writer" ref_view="link">
       <xi:include href="midi.file.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.kbd" descr="computer keyboard MIDI emulator" ref_view="link">
