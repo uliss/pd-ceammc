@@ -822,7 +822,7 @@ flt.speaker~-help.pd;
 #X text 200 8713 хорус-эффект;
 #X obj 30 8741 ui.link @title [fx.dattorro~] @url
 fx.dattorro~-help.pd;
-#X text 200 8738 реверберация Dattorro;
+#X text 200 8738 ревербератор Dattorro;
 #X obj 30 8766 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
 #X text 200 8763 плавный дилей с регулировкой обратной связи;
 #X obj 30 8791 ui.link @title [fx.distortion1~] @url

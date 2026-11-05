@@ -556,7 +556,7 @@ flt.resonlp~	simple resonant lowpass filter / простой резонансн�
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр для эмуляции динамика
 fx.bitdown~	a bit downer and downsampler effect / эффект понижения разрядности и даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
-fx.dattorro~	Dattorro reverb / реверберация Dattorro
+fx.dattorro~	Dattorro reverb / ревербератор Dattorro
 fx.delay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
 fx.sdelay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
 fx.distortion1~	distortion #1 from Guitarix effects set / дисторшн №1 из набора эффектов Guitarix

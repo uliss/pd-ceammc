@@ -9,7 +9,7 @@
 #X obj 30 145 ui.link @title [fx.chorus~] @url fx.chorus~-help.pd;
 #X text 220 142 хорус-эффект;
 #X obj 30 170 ui.link @title [fx.dattorro~] @url fx.dattorro~-help.pd;
-#X text 220 167 реверберация Dattorro;
+#X text 220 167 ревербератор Dattorro;
 #X obj 30 195 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
 #X text 220 192 плавный дилей с регулировкой обратной связи;
 #X obj 30 220 ui.link @title [fx.distortion1~] @url
