@@ -867,7 +867,7 @@ fx.greyhole~-help.pd;
 #X obj 30 9141 ui.link @title [fx.infrev~] @url fx.infrev~-help.pd;
 #X text 200 9138 порт плагина Infinity VST из "airwindows";
 #X obj 30 9166 ui.link @title [fx.jcrev~] @url fx.jcrev~-help.pd;
-#X text 200 9163 квадрофонический ревербератор Шрёдера из 1972 года;
+#X text 200 9163 квадрофонический ревербератор Шрёдера 1972 года;
 #X obj 30 9191 ui.link @title [fx.looper~] @url fx.looper~-help.pd;
 #X text 200 9188 однодорожечный лупер;
 #X obj 30 9216 ui.link @title [fx.overdrive~] @url

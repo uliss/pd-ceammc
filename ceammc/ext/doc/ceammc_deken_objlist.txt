@@ -575,7 +575,7 @@ fx.freqshift~	frequency shifter or the single-sideband ring modulation / сдв�
 fx.granulator~	input stream granulator / гранулятор входного потока
 fx.greyhole~	a complex echo-like effect / cложный эхоподобный эффект
 fx.infrev~	port of Infinity VST plugin from "airwindows" / порт плагина Infinity VST из "airwindows"
-fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера из 1972 года
+fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера 1972 года
 fx.looper~	a single track looper / однодорожечный лупер
 fx.overdrive~	overdrive effect / эффект перегрузки
 fx.pitchshift_s~	signal version of [fx.pitchshift~] / сигнальная версия [fx.pitchshift~]

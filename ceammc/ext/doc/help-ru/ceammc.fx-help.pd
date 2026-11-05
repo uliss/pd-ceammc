@@ -52,7 +52,7 @@ fx.granulator~-help.pd;
 #X obj 30 570 ui.link @title [fx.infrev~] @url fx.infrev~-help.pd;
 #X text 220 567 порт плагина Infinity VST из "airwindows";
 #X obj 30 595 ui.link @title [fx.jcrev~] @url fx.jcrev~-help.pd;
-#X text 220 592 квадрофонический ревербератор Шрёдера из 1972 года;
+#X text 220 592 квадрофонический ревербератор Шрёдера 1972 года;
 #X obj 30 620 ui.link @title [fx.looper~] @url fx.looper~-help.pd;
 #X text 220 617 однодорожечный лупер;
 #X obj 30 645 ui.link @title [fx.overdrive~] @url
