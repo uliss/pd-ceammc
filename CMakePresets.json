@@ -109,7 +109,7 @@
         "WITH_LTC": "OFF",
         "WITH_LUAJIT": "OFF",
         "WITH_MODPLUG": "OFF",
-        "WITH_MQTT": "OFF",
+        "WITH_MQTT": "ON",
         "WITH_OBS": "ON",
         "WITH_OPENMP": "OFF",
         "WITH_PD_INSTANCE": "OFF",
