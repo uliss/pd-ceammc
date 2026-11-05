@@ -86,7 +86,7 @@ mix~	multichannel signal mixer / многоканальный микшер си�
 ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
 nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
-obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
+obj.props	extract object properties from the connected object / извлекает свойства подключённого объекта
 radio	non GUI radio switch / радиопереключатель без графического интерфейса
 ceammc/radio	non GUI radio switch / радиопереключатель без графического интерфейса
 split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов

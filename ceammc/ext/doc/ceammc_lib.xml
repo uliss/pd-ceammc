@@ -178,7 +178,7 @@
     <entry name="nsig~" descr="multichannel converter from the control signals to audio" ref_view="link">
       <xi:include href="nsig~.pddoc" parse="xml"/>
     </entry>
-    <entry name="obj.props" descr="Extract object properties from the connected object" ref_view="link">
+    <entry name="obj.props" descr="extract object properties from the connected object" ref_view="link">
       <xi:include href="obj.props.pddoc" parse="xml"/>
     </entry>
     <entry name="radio" descr="non GUI radio switch" ref_view="link">

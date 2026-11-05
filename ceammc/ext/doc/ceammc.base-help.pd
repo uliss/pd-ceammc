@@ -51,7 +51,7 @@ beat from a specified list with weighted coefficients;
 #X text 220 602 multichannel converter from the control signals to
 audio;
 #X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
-#X text 220 627 Extract object properties from the connected object;
+#X text 220 627 extract object properties from the connected object;
 #X obj 30 655 ui.link @title [radio] @url radio-help.pd;
 #X text 220 652 non GUI radio switch;
 #X obj 30 680 ui.link @title [split~] @url split~-help.pd;

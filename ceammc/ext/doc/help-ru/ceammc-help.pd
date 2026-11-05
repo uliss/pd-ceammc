@@ -168,7 +168,7 @@ metro.wchoice-help.pd;
 #X text 200 1844 многоканальный преобразователь управляющих сигналов
 в звуковые;
 #X obj 30 1887 ui.link @title [obj.props] @url obj.props-help.pd;
-#X text 200 1884 извлекает свойства из подключенного объекта;
+#X text 200 1884 извлекает свойства подключённого объекта;
 #X obj 30 1912 ui.link @title [radio] @url radio-help.pd;
 #X text 200 1909 радиопереключатель без графического интерфейса;
 #X obj 30 1937 ui.link @title [split~] @url split~-help.pd;

@@ -50,7 +50,7 @@ metro.wchoice-help.pd;
 #X text 220 587 многоканальный преобразователь управляющих сигналов
 в звуковые;
 #X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
-#X text 220 627 извлекает свойства из подключенного объекта;
+#X text 220 627 извлекает свойства подключённого объекта;
 #X obj 30 655 ui.link @title [radio] @url radio-help.pd;
 #X text 220 652 радиопереключатель без графического интерфейса;
 #X obj 30 680 ui.link @title [split~] @url split~-help.pd;
