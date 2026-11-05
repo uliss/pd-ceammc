@@ -1695,7 +1695,7 @@ net.ws.server-help.pd;
 0;
 #X obj 20 17869 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 17883 ui.link @title [noise.baker] @url noise.baker-help.pd;
-#X text 200 17880 хаотический генератор на основе преобразования Пекаря;
+#X text 200 17880 хаотический генератор на основе отображения пекаря;
 #X obj 30 17908 ui.link @title [noise.chua~] @url noise.chua~-help.pd;
 #X text 200 17905 диодная схема Чуа;
 #X obj 30 17933 ui.link @title [noise.clifford] @url

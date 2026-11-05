@@ -1007,7 +1007,7 @@ net.osc.server	OSC server start and control / запуск и управлени
 net.osc	OSC server start and control / запуск и управление OSC-сервером
 net.ws.client	WebSocket client / WebSocket-клиент
 net.ws.server	WebSocket server / WebSocket-сервер
-noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
+noise.baker	Baker map chaos generator / хаотический генератор на основе отображения пекаря
 noise.chua~	Chua's diode circuit / диодная схема Чуа
 noise.clifford	Clifford attractor / аттрактор Клиффорда
 noise.collatz	collatz conjecture output / выводит число последовательности Коллаца
