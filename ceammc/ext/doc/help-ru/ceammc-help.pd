@@ -885,7 +885,7 @@ fx.rb_pitchshift~-help.pd;
 #X obj 30 9316 ui.link @title [fx.recho~] @url fx.recho~-help.pd;
 #X text 200 9313 обратный эффект эха;
 #X obj 30 9341 ui.link @title [fx.ringmod~] @url fx.ringmod~-help.pd;
-#X text 200 9338 кольцевой модулятор;
+#X text 200 9338 эффект кольцевой модуляции;
 #X obj 30 9366 ui.link @title [fx.room~] @url fx.room~-help.pd;
 #X text 200 9363 алгоритм Гарднера для эмуляции комнаты;
 #X obj 30 9391 ui.link @title [fx.satrev~] @url fx.satrev~-help.pd;

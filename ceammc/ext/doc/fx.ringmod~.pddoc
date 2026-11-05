@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">ring modulator effect</tr>
-        <tr lang="ru">кольцевой модулятор</tr>
+        <tr lang="ru">эффект кольцевой модуляции</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,10 +16,24 @@
       <keywords>fx ring carrier modulate</keywords>
       <since>0.9.7</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">ring modulation multiplies the carrier signal by the modulator signal, producing new sideband frequencies at the sum and difference of the originals</tr>
+        <tr lang="ru">кольцевая модуляция умножает сигнал-несущую на сигнал-модулятор, порождая новые боковые частоты на сумме и разности исходных</tr>
+      </par>
+      <par>
+        <tr lang="en">the modulator source is selected by @src: the second inlet, an internal sinusoid oscillator or internal low-frequency noise</tr>
+        <tr lang="ru">источник модулятора задаётся свойством @src: второй вход, внутренний синусоидальный осциллятор или внутренний низкочастотный шум</tr>
+      </par>
+      <par>
+        <tr lang="en">@drive adds overdrive after the modulator, @offset shifts the modulator signal</tr>
+        <tr lang="ru">@drive добавляет перегрузку после модулятора, @offset смещает сигнал модулятора</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
         <tr lang="en">dry/wet ratio</tr>
-        <tr lang="ru" finished="false">сухое/мокрое соотношение</tr>
+        <tr lang="ru">соотношение исходного и обработанного сигнала</tr>
       </argument>
     </arguments>
     <properties>
@@ -28,45 +42,34 @@
       <xi:include href="props_active.xml" />
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypass the processed signal</tr>
+        <tr lang="ru">флаг обхода. Если true: пропускать обработанный сигнал без изменений</tr>
       </property>
       <!-- @drive -->
       <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">
-        <tr lang="en">overdrive effect after modulator</tr>
-        <tr lang="ru" finished="false">Эффект перегрузки после модулятора</tr>
+        <tr lang="en">overdrive effect after the modulator</tr>
+        <tr lang="ru">эффект перегрузки после модулятора</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
-        - dry signal, 1 - wet</tr>
-        <!-- old: пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
-        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 — dry signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
       units="hertz">
         <tr lang="en">internal modulator frequency</tr>
-        <tr lang="ru" finished="false">Частота внутренних модуляторов</tr>
+        <tr lang="ru">частота внутреннего модулятора</tr>
       </property>
       <!-- @offset -->
       <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">
         <tr lang="en">modulator offset</tr>
-        <tr lang="ru" finished="false">Модулятор смещения</tr>
+        <tr lang="ru">смещение модулятора</tr>
       </property>
       <!-- @src -->
       <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">
-        <tr lang="en">modulator source. 0: modulator from second inlet, 1: internal sinusoid
-        oscilallator, 2: internal low freq noise.</tr>
-        <!-- old: Источник модулятора. 0: модулятор от второго входа,
-                1: внутренний синусоидальный осциллятор, 2: внутренний низкий уровень шума. -->
-        <tr lang="ru" finished="false">Источник модулятора. 0: модулятор от второго входа, 1:
-        внутренний синусоидальный осциллятор, 2: внутренний низкий уровень шума.</tr>
+        <tr lang="en">modulator source. 0: modulator from the second inlet, 1: internal sinusoid oscillator, 2: internal low-frequency noise</tr>
+        <tr lang="ru">источник модулятора. 0: модулятор со второго входа, 1: внутренний синусоидальный осциллятор, 2: внутренний низкочастотный шум</tr>
       </property>
     </properties>
     <methods>
@@ -74,7 +77,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset object</tr>
-          <tr lang="ru" finished="false">сбрасывать объект</tr>
+          <tr lang="ru">сбросить объект</tr>
         </info>
       </method>
     </methods>
@@ -82,13 +85,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">carrier</tr>
-          <tr lang="ru" finished="false">перевозчик</tr>
+          <tr lang="ru">несущая</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">modulator</tr>
-          <tr lang="ru" finished="false">модулятор</tr>
+          <tr lang="ru">модулятор</tr>
         </in>
       </inlet>
     </inlets>
@@ -96,7 +99,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
     </outlets>
