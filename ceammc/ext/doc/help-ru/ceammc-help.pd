@@ -706,7 +706,7 @@ route.symbol-help.pd;
 #X obj 20 7464 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 7478 ui.link @title [flt.a-weight] @url
 flt.a-weight-help.pd;
-#X text 200 7475 вычисляет А-взвешенное значение для данной частоты;
+#X text 200 7475 вычисляет А-взвешенное значение для заданной частоты;
 #X obj 30 7503 ui.link @title [flt.biquad~] @url flt.biquad~-help.pd;
 #X text 200 7500 БИХ фильтр второго порядка;
 #X obj 30 7528 ui.link @title [flt.bpf12~] @url flt.bpf12~-help.pd;
