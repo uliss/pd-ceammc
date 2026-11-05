@@ -15,7 +15,6 @@
 #define MIDI_SUSTAIN_H
 
 #include "ceammc_object.h"
-#include "ceammc_property_enum.h"
 #include "ceammc_proxy.h"
 
 #include <bitset>
