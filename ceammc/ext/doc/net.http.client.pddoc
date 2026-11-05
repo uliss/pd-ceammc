@@ -21,12 +21,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object sends HTTP requests (GET, POST) and downloads or uploads files</tr>
-        <tr lang="ru">объект отправляет HTTP-запросы (GET, POST) и скачивает или загружает файлы</tr>
+        <tr lang="en">the object sends HTTP requests (GET, POST) and downloads or uploads
+        files</tr>
+        <tr lang="ru">объект отправляет HTTP-запросы (GET, POST) и скачивает или загружает
+        файлы</tr>
       </par>
       <par>
-        <tr lang="en">the first outlet outputs the HTTP status code, the second — the response body or the content of the selected element</tr>
-        <tr lang="ru">первый выход выдаёт код состояния HTTP, второй — тело ответа или содержимое выбранного элемента</tr>
+        <tr lang="en">the first outlet outputs the HTTP status code, the second — the response body
+        or the content of the selected element</tr>
+        <tr lang="ru">первый выход выдаёт код состояния HTTP, второй — тело ответа или содержимое
+        выбранного элемента</tr>
       </par>
       <par>
         <tr lang="en">with @json the response is parsed and output as data:Dict()</tr>
@@ -46,7 +50,8 @@
         </param>
         <param name="FILE" type="symbol" required="false">
           <tr lang="en">save filename. If not specified, use the HTTP document filename</tr>
-          <tr lang="ru">имя файла для сохранения. Если не указано, используется имя файла из HTTP-документа</tr>
+          <tr lang="ru">имя файла для сохранения. Если не указано, используется имя файла из
+          HTTP-документа</tr>
         </param>
         <param name="@PARAMS" type="list" required="false">
           <tr lang="en">see get method parameters</tr>
@@ -68,16 +73,26 @@
           <tr lang="ru">дополнительный HTTP-заголовок: @header NAME VALUE</tr>
         </param>
         <param name="@form" type="list" required="false">
-          <tr lang="en">form key-value pair: @form KEY VALUE, for the application/x-www-form-urlencoded MIME type</tr>
-          <tr lang="ru">пара ключ-значение формы: @form KEY VALUE, для MIME-типа application/x-www-form-urlencoded</tr>
+          <tr lang="en">form key-value pair: @form KEY VALUE, for the
+          application/x-www-form-urlencoded MIME type</tr>
+          <tr lang="ru">пара ключ-значение формы: @form KEY VALUE, для MIME-типа
+          application/x-www-form-urlencoded</tr>
         </param>
         <param name="@auth" type="list" required="false">
           <tr lang="en">basic auth username/password: @auth USER PASS</tr>
           <tr lang="ru">basic-авторизация логин/пароль: @auth USER PASS</tr>
         </param>
         <param name="@css" type="list" required="false">
-          <tr lang="en">apply CSS selector to the request body: @css SEL OUTPUT_TYPE, where OUTPUT_TYPE is one of "html", "inner", "text", "href", "none". "html" — returns the selected element HTML content, "inner" — returns inner HTML content without the element surrounding tags, "text" — returns element text without tags, "href" — returns the href attribute of the selected element, "none" — returns an empty string</tr>
-          <tr lang="ru">применить CSS-селектор к телу запроса: @css SEL OUTPUT_TYPE, где OUTPUT_TYPE — одно из "html", "inner", "text", "href", "none". "html" — возвращает HTML-содержимое выбранного элемента, "inner" — возвращает внутреннее HTML-содержимое без окружающих тегов элемента, "text" — возвращает текст элемента без тегов, "href" — возвращает атрибут href выбранного элемента, "none" — возвращает пустую строку</tr>
+          <tr lang="en">apply CSS selector to the request body: @css SEL OUTPUT_TYPE, where
+          OUTPUT_TYPE is one of "html", "inner", "text", "href", "none". "html" — returns the
+          selected element HTML content, "inner" — returns inner HTML content without the element
+          surrounding tags, "text" — returns element text without tags, "href" — returns the href
+          attribute of the selected element, "none" — returns an empty string</tr>
+          <tr lang="ru">применить CSS-селектор к телу запроса: @css SEL OUTPUT_TYPE, где
+          OUTPUT_TYPE — одно из "html", "inner", "text", "href", "none". "html" — возвращает
+          HTML-содержимое выбранного элемента, "inner" — возвращает внутреннее HTML-содержимое без
+          окружающих тегов элемента, "text" — возвращает текст элемента без тегов, "href" —
+          возвращает атрибут href выбранного элемента, "none" — возвращает пустую строку</tr>
         </param>
         <param name="@strip_ws" type="symbol" required="false">
           <tr lang="en">replace multiple whitespaces/newlines/tabs with a single space</tr>

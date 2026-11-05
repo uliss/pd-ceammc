@@ -21,8 +21,10 @@
     </meta>
     <info>
       <par style="info">
-        <tr lang="en">resolves a host name to one or more IP addresses using the system DNS resolver</tr>
-        <tr lang="ru">преобразует имя хоста в один или несколько IP-адресов через системный DNS-резолвер</tr>
+        <tr lang="en">resolves a host name to one or more IP addresses using the system DNS
+        resolver</tr>
+        <tr lang="ru">преобразует имя хоста в один или несколько IP-адресов через системный
+        DNS-резолвер</tr>
       </par>
     </info>
     <arguments>

@@ -18,35 +18,51 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">mDNS (Multicast DNS) is a protocol that resolves host names to IP addresses on a local network without a dedicated DNS server. It operates over UDP port 5353 and uses the '.local.' domain suffix</tr>
-        <tr lang="ru">mDNS (Multicast DNS) — протокол, который разрешает имена хостов в IP-адреса в локальной сети без выделенного DNS-сервера. Работает по UDP-порту 5353 и использует суффикс домена «.local.»</tr>
+        <tr lang="en">mDNS (Multicast DNS) is a protocol that resolves host names to IP addresses
+        on a local network without a dedicated DNS server. It operates over UDP port 5353 and uses
+        the '.local.' domain suffix</tr>
+        <tr lang="ru">mDNS (Multicast DNS) — протокол, который разрешает имена хостов в IP-адреса в
+        локальной сети без выделенного DNS-сервера. Работает по UDP-порту 5353 и использует суффикс
+        домена «.local.»</tr>
       </par>
       <par>
-        <tr lang="en">Service discovery in this object is based on DNS-SD (DNS-Based Service Discovery), which uses standard DNS PTR, SRV and TXT records to advertise and find services</tr>
-        <tr lang="ru">обнаружение служб в этом объекте основано на DNS-SD (DNS-Based Service Discovery), который использует стандартные DNS-записи PTR, SRV и TXT для анонсирования и поиска служб</tr>
+        <tr lang="en">Service discovery in this object is based on DNS-SD (DNS-Based Service
+        Discovery), which uses standard DNS PTR, SRV and TXT records to advertise and find
+        services</tr>
+        <tr lang="ru">обнаружение служб в этом объекте основано на DNS-SD (DNS-Based Service
+        Discovery), который использует стандартные DNS-записи PTR, SRV и TXT для анонсирования и
+        поиска служб</tr>
       </par>
       <par>
         <tr lang="en">Service '.local.' domain suffix is optional and can be omitted</tr>
         <tr lang="ru">суффикс домена «.local.» необязателен и может быть опущен</tr>
       </par>
       <par>
-        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http - '_http._tcp.local', #all - to subscribe to all available services on the network</tr>
-        <tr lang="ru">есть псевдонимы служб: #osc — вместо '_osc._udp.local', #http — '_http._tcp.local', #all — для подписки на все доступные службы в сети</tr>
+        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http -
+        '_http._tcp.local', #all - to subscribe to all available services on the network</tr>
+        <tr lang="ru">есть псевдонимы служб: #osc — вместо '_osc._udp.local', #http —
+        '_http._tcp.local', #all — для подписки на все доступные службы в сети</tr>
       </par>
       <par>
-        <tr lang="en">Note: on close the object will automatically unregister any previously registered services</tr>
-        <tr lang="ru">примечание: при закрытии объекта автоматически снимается регистрация всех ранее зарегистрированных служб</tr>
+        <tr lang="en">Note: on close the object will automatically unregister any previously
+        registered services</tr>
+        <tr lang="ru">примечание: при закрытии объекта автоматически снимается регистрация всех
+        ранее зарегистрированных служб</tr>
       </par>
       <par>
-        <tr lang="en">Note: the #all service is a special case — it outputs all available network service names with the format [service SERVICE(</tr>
-        <tr lang="ru">примечание: #all — особый случай, он выводит все доступные имена сетевых служб в формате [service SERVICE(</tr>
+        <tr lang="en">Note: the #all service is a special case — it outputs all available network
+        service names with the format [service SERVICE(</tr>
+        <tr lang="ru">примечание: #all — особый случай, он выводит все доступные имена сетевых
+        служб в формате [service SERVICE(</tr>
       </par>
     </info>
     <properties>
       <!-- @fullname -->
       <property name="@fullname" type="bool" default="1">
-        <tr lang="en">if true: output the full instance name (with service and domain suffix), for ex.: 'THE_SERVICE._xx.local.' format</tr>
-        <tr lang="ru">если true: выводить полное имя экземпляра (с суффиксом службы и домена), например: 'THE_SERVICE._xx.local.'</tr>
+        <tr lang="en">if true: output the full instance name (with service and domain suffix), for
+        ex.: 'THE_SERVICE._xx.local.' format</tr>
+        <tr lang="ru">если true: выводить полное имя экземпляра (с суффиксом службы и домена),
+        например: 'THE_SERVICE._xx.local.'</tr>
       </property>
       <!-- @ip -->
       <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">
@@ -65,8 +81,10 @@
       <!-- register -->
       <method name="register">
         <info>
-          <tr lang="en">register an MDNS service instance. The instance will be available with the DNS name NAME.local</tr>
-          <tr lang="ru">зарегистрировать экземпляр службы MDNS. Экземпляр будет доступен по DNS-имени NAME.local</tr>
+          <tr lang="en">register an MDNS service instance. The instance will be available with the
+          DNS name NAME.local</tr>
+          <tr lang="ru">зарегистрировать экземпляр службы MDNS. Экземпляр будет доступен по
+          DNS-имени NAME.local</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc</tr>
@@ -81,15 +99,19 @@
           <tr lang="ru">порт экземпляра</tr>
         </param>
         <param name="PROPS" type="list" required="false">
-          <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BAR will have TXT records prop1=FOO prop2=BAR</tr>
-          <tr lang="ru">список текстовых свойств (запись TXT), например: @prop1 FOO @prop2 BAR даст записи TXT prop1=FOO prop2=BAR</tr>
+          <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BAR will
+          have TXT records prop1=FOO prop2=BAR</tr>
+          <tr lang="ru">список текстовых свойств (запись TXT), например: @prop1 FOO @prop2 BAR даст
+          записи TXT prop1=FOO prop2=BAR</tr>
         </param>
       </method>
       <!-- resolve -->
       <method name="resolve">
         <info>
-          <tr lang="en">does mDNS name resolving: get service information (host, ip, port, etc.) by SERVICE type and INSTANCE name</tr>
-          <tr lang="ru">выполняет разрешение имён mDNS: получает информацию о службе (хост, IP, порт и т.д.) по типу SERVICE и имени INSTANCE</tr>
+          <tr lang="en">does mDNS name resolving: get service information (host, ip, port, etc.) by
+          SERVICE type and INSTANCE name</tr>
+          <tr lang="ru">выполняет разрешение имён mDNS: получает информацию о службе (хост, IP,
+          порт и т.д.) по типу SERVICE и имени INSTANCE</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #http</tr>
@@ -153,8 +175,10 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve SERVICE NAME HOST PORT IP PROPERTIES</tr>
-          <tr lang="ru">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve SERVICE NAME HOST PORT IP PROPERTIES</tr>
+          <tr lang="en">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve
+          SERVICE NAME HOST PORT IP PROPERTIES</tr>
+          <tr lang="ru">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve
+          SERVICE NAME HOST PORT IP PROPERTIES</tr>
         </out>
       </outlet>
     </outlets>
