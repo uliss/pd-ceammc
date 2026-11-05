@@ -1678,7 +1678,7 @@ net.osc.receive-help.pd;
 #X text 200 17702 получает сообщения по протоколу OSC;
 #X obj 30 17730 ui.link @title [net.osc.send] @url
 net.osc.send-help.pd;
-#X text 200 17727 отправка сообщений протокола OSC;
+#X text 200 17727 отправляет сообщения по протоколу OSC;
 #X obj 30 17755 ui.link @title [net.osc.server] @url
 net.osc.server-help.pd;
 #X text 200 17752 запуск и управление OSC-сервером;

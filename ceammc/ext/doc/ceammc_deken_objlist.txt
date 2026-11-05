@@ -1001,8 +1001,8 @@ net.mqtt.client	MQTT client / MQTT-клиент
 mqtt.client	MQTT client / MQTT-клиент
 net.osc.receive	receives messages via the OSC protocol / получает сообщения по протоколу OSC
 net.osc.r	receives messages via the OSC protocol / получает сообщения по протоколу OSC
-net.osc.send	sending messages via the OSC protocol / отправка сообщений протокола OSC
-net.osc.s	sending messages via the OSC protocol / отправка сообщений протокола OSC
+net.osc.send	sending messages via the OSC protocol / отправляет сообщения по протоколу OSC
+net.osc.s	sending messages via the OSC protocol / отправляет сообщения по протоколу OSC
 net.osc.server	OSC server start and control / запуск и управление OSC-сервером
 net.osc	OSC server start and control / запуск и управление OSC-сервером
 net.ws.client	WebSocket client / WebSocket клиент
