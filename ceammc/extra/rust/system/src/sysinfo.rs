@@ -112,6 +112,13 @@ impl Drop for system_info {
     }
 }
 
+fn normalize_spaces(input: &str) -> String {
+    input
+        .chars()
+        .map(|c| if c.is_whitespace() { '_' } else { c })
+        .collect()
+}
+
 #[no_mangle]
 pub extern "C" fn ceammc_sysinfo_create(
     cb_temp: sysinfo_temp_cb,
@@ -138,8 +145,8 @@ pub extern "C" fn ceammc_sysinfo_create(
                         for component in &mut components.iter_mut() {
                             component.refresh();
 
-                            let str = component.label();
-                            let lbl = CString::new(str).unwrap_or_default();
+                            let lbl = CString::new(normalize_spaces(component.label()))
+                                .unwrap_or_default();
 
                             if let Some(temp) = component.temperature() {
                                 if let Err(err) =
