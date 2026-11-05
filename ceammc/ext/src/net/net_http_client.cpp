@@ -1,6 +1,6 @@
 #ifndef WITH_HTTP
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(NetHttpClient, 1, 2, "compiled without http support");
+CONTROL_OBJECT_STUB(NetHttpClient, 1, 2, "compiled without HTTP support");
 OBJECT_STUB_SETUP(NetHttpClient, net_http_client, "net.http.client", "http.client");
 #else
 
