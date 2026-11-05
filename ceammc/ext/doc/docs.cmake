@@ -563,6 +563,7 @@ set(DOC_FILES
     midi.modus
     midi.note.pass
     midi.oct
+    midi.pitch.quantize
     midi.prg2str
     midi.split
     midi.sustain

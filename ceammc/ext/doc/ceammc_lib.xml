@@ -1723,6 +1723,9 @@
     <entry name="midi.oct" descr="MIDI octave transposition" ref_view="link">
       <xi:include href="midi.oct.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.pitch.quantize" descr="quantize MIDI pitch to the specified range" ref_view="link">
+      <xi:include href="midi.pitch.quantize.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.prg2str" descr="converts the GM Instrument number into the name" ref_view="link">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
     </entry>

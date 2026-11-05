@@ -17,11 +17,11 @@
       <since>0.9.5</since>
     </meta>
     <arguments>
-      <argument name="MIN" type="int" minvalue="0" maxvalue="127" default="0">
+      <argument name="MIN" type="int" minvalue="0" maxvalue="127">
         <tr lang="en">minimum pitch value</tr>
         <tr lang="ru">минимальное значение ноты</tr>
       </argument>
-      <argument name="MAX" type="int" minvalue="0" maxvalue="127" default="127">
+      <argument name="MAX" type="int" minvalue="0" maxvalue="127">
         <tr lang="en">maximum pitch value</tr>
         <tr lang="ru">максимальное значение ноты</tr>
       </argument>
@@ -87,13 +87,18 @@
     <example>
       <pdascii>
 <![CDATA[
-[60 80 300(
+[ui.hk]
 |
-[midi.pitch.quantize 48 72 @mode fold]
 |
-[makenote]
-*|*
-[midiout]
+|
+|
+|        [ui.tab reject fold clamp]
+|        |
+|        [@mode $2(
+|        |
+[midi.pitch.quantize 60 72 @mode fold]
+|
+[ui.dt]
 ]]>
       </pdascii>
     </example>
