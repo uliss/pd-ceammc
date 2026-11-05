@@ -125,8 +125,8 @@
       </outlet>
       <outlet>
         <out type="bang">
-          <tr lang="en">bang: on ping message</tr>
-          <tr lang="ru">bang: при ping-сообщении</tr>
+          <tr lang="en">on ping message</tr>
+          <tr lang="ru">при ping-сообщении</tr>
         </out>
       </outlet>
     </outlets>

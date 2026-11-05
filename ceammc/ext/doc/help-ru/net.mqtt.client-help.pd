@@ -95,7 +95,7 @@ fudi. Разрешённые значения: data \, fudi \, json \, sym \, by
 #X text 270 1240 выходные сообщения: тема данные.;
 #X text 130 1260 2\.;
 #X text 170 1260 bang:;
-#X text 270 1260 bang: при ping-сообщении.;
+#X text 270 1260 при ping-сообщении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

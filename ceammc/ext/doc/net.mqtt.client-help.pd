@@ -94,7 +94,7 @@ Type: symbol.;
 #X text 270 1213 output messages: topic data.;
 #X text 130 1233 2\.;
 #X text 170 1233 bang:;
-#X text 270 1233 bang: on ping message.;
+#X text 270 1233 on ping message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
