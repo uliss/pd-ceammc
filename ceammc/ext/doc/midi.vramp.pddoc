@@ -33,8 +33,10 @@
     <properties>
       <!-- @auto -->
       <property name="@auto" type="bool" default="0">
-        <tr lang="en">auto reset mode. If true: reset to @from value after the ramp is finished</tr>
-        <tr lang="ru">режим автоматического сброса. Если true: сброс к значению @from после завершения перехода</tr>
+        <tr lang="en">auto reset mode. If true: reset to @from value after the ramp is
+        finished</tr>
+        <tr lang="ru">режим автоматического сброса. Если true: сброс к значению @from после
+        завершения перехода</tr>
       </property>
       <!-- @from -->
       <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">
@@ -65,7 +67,8 @@
       <inlet>
         <in on="float">
           <tr lang="en">if VALUE &gt; 0, treat as (VALUE 127) list, otherwise as (-VALUE, 0)</tr>
-          <tr lang="ru">если VALUE &gt; 0, трактовать как список (VALUE 127), иначе как (-VALUE, 0)</tr>
+          <tr lang="ru">если VALUE &gt; 0, трактовать как список (VALUE 127), иначе как (-VALUE,
+          0)</tr>
         </in>
         <in on="list">
           <tr lang="en">NOTE [VELOCITY] list expected</tr>

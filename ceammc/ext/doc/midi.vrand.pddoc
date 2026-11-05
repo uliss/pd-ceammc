@@ -40,8 +40,16 @@
       <!-- @dist -->
       <property name="@dist" type="symbol" default="uniform"
       enum="uniform gauss linup lindown cmin cmax cmean">
-        <tr lang="en">random distribution. *uniform* - uniformly distributed value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@min)/3, *linup* - linear distribution with prob=0 at @min and prob=1 at @max, *lindown* - linear distribution with prob=1 at @min and prob=0 at @max, *cmin* - constant @min value, *cmax* - constant @max value, *cmean* - constant (@max+@min)/2 value</tr>
-        <tr lang="ru">распределение случайной величины. *uniform* — равномерно распределённое значение, *gauss* — среднее=(@max+@min)/2, sigma=(@max-@min)/3, *linup* — линейное распределение с prob=0 при @min и prob=1 при @max, *lindown* — линейное распределение с prob=1 при @min и prob=0 при @max, *cmin* — постоянное значение @min, *cmax* — постоянное значение @max, *cmean* — постоянное значение (@max+@min)/2</tr>
+        <tr lang="en">random distribution. *uniform* - uniformly distributed value, *gauss* -
+        mean=(@max+@min)/2, sigma=(@max-@min)/3, *linup* - linear distribution with prob=0 at @min
+        and prob=1 at @max, *lindown* - linear distribution with prob=1 at @min and prob=0 at @max,
+        *cmin* - constant @min value, *cmax* - constant @max value, *cmean* - constant
+        (@max+@min)/2 value</tr>
+        <tr lang="ru">распределение случайной величины. *uniform* — равномерно распределённое
+        значение, *gauss* — среднее=(@max+@min)/2, sigma=(@max-@min)/3, *linup* — линейное
+        распределение с prob=0 при @min и prob=1 при @max, *lindown* — линейное распределение с
+        prob=1 при @min и prob=0 при @max, *cmin* — постоянное значение @min, *cmax* — постоянное
+        значение @max, *cmean* — постоянное значение (@max+@min)/2</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="127">
@@ -55,8 +63,12 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" default="assign" enum="assign add sub">
-        <tr lang="en">assign mode. If *assign* - replace original velocity with a new random one (default), if *add* - add random value to the original velocity, if *sub* - subtract random value from the original velocity.</tr>
-        <tr lang="ru">режим. Если *assign* — заменить исходную силу нажатия на новую случайную (по умолчанию), если *add* — прибавить случайное значение к исходной силе нажатия, если *sub* — вычесть случайное значение из исходной силы нажатия.</tr>
+        <tr lang="en">assign mode. If *assign* - replace original velocity with a new random one
+        (default), if *add* - add random value to the original velocity, if *sub* - subtract random
+        value from the original velocity.</tr>
+        <tr lang="ru">режим. Если *assign* — заменить исходную силу нажатия на новую случайную (по
+        умолчанию), если *add* — прибавить случайное значение к исходной силе нажатия, если *sub* —
+        вычесть случайное значение из исходной силы нажатия.</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" default="0" minvalue="0">
@@ -85,7 +97,8 @@
       <outlet>
         <out type="list">
           <tr lang="en">outputs NOTE VELOCITY [DUR] list with randomized VELOCITY value</tr>
-          <tr lang="ru">выводит список НОТА СИЛА_НАЖАТИЯ [ДЛИТ] со случайным значением СИЛЫ НАЖАТИЯ</tr>
+          <tr lang="ru">выводит список НОТА СИЛА_НАЖАТИЯ [ДЛИТ] со случайным значением СИЛЫ
+          НАЖАТИЯ</tr>
         </out>
       </outlet>
     </outlets>

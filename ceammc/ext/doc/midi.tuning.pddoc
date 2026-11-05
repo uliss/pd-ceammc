@@ -18,8 +18,12 @@
     </meta>
     <arguments>
       <argument name="DEV" type="list">
-        <tr lang="en">if symbol: set named temperament deviations, valid names are "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or "zarlino". If list: set deviation in cents per pitch</tr>
-        <tr lang="ru">если символ: задать именованные отклонения темперации, допустимые имена — "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" или "zarlino". Если список: задать отклонение в центах на ступень</tr>
+        <tr lang="en">if symbol: set named temperament deviations, valid names are "eq", "just",
+        "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" or "zarlino". If
+        list: set deviation in cents per pitch</tr>
+        <tr lang="ru">если символ: задать именованные отклонения темперации, допустимые имена —
+        "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau", "valotti" или
+        "zarlino". Если список: задать отклонение в центах на ступень</tr>
       </argument>
     </arguments>
     <properties>
