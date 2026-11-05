@@ -21,12 +21,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object scans the patch (or subpatch) and collects the external objects and abstractions used in it</tr>
-        <tr lang="ru">объект просматривает патч (или субпатч) и собирает используемые в нём внешние объекты и абстракции</tr>
+        <tr lang="en">the object scans the patch (or subpatch) and collects the external objects
+        and abstractions used in it</tr>
+        <tr lang="ru">объект просматривает патч (или субпатч) и собирает используемые в нём внешние
+        объекты и абстракции</tr>
       </par>
       <par>
-        <tr lang="en">the result is output as data:Dict, where keys are library external paths or abstraction full paths and values are external or abstraction names</tr>
-        <tr lang="ru">результат выводится как data:Dict, где ключи — это пути к внешним библиотекам или полные пути абстракций, а значения — имена внешних объектов или абстракций</tr>
+        <tr lang="en">the result is output as data:Dict, where keys are library external paths or
+        abstraction full paths and values are external or abstraction names</tr>
+        <tr lang="ru">результат выводится как data:Dict, где ключи — это пути к внешним библиотекам
+        или полные пути абстракций, а значения — имена внешних объектов или абстракций</tr>
       </par>
       <par>
         <tr lang="en">Pure Data core objects are listed under the "_core" key</tr>
@@ -45,8 +49,12 @@
     <inlets>
       <inlet type="control">
         <in on="bang">
-          <tr lang="en">output patch dependencies as Dict. Keys are library external paths or abstraction full paths, values are external or abstraction names. Pure Data core objects are listed under the "_core" key.</tr>
-          <tr lang="ru">вывести зависимости патча как Dict. Ключи — это пути к внешним библиотекам или полные пути абстракций, значения — имена внешних объектов или абстракций. Объекты ядра Pure Data перечислены под ключом "_core".</tr>
+          <tr lang="en">output patch dependencies as Dict. Keys are library external paths or
+          abstraction full paths, values are external or abstraction names. Pure Data core objects
+          are listed under the "_core" key.</tr>
+          <tr lang="ru">вывести зависимости патча как Dict. Ключи — это пути к внешним библиотекам
+          или полные пути абстракций, значения — имена внешних объектов или абстракций. Объекты
+          ядра Pure Data перечислены под ключом "_core".</tr>
         </in>
       </inlet>
     </inlets>

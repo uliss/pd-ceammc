@@ -24,8 +24,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object calls a function previously defined by the [function] object and outputs its result</tr>
-        <tr lang="ru">объект вызывает функцию, ранее определённую объектом [function], и выводит её результат</tr>
+        <tr lang="en">the object calls a function previously defined by the [function] object and
+        outputs its result</tr>
+        <tr lang="ru">объект вызывает функцию, ранее определённую объектом [function], и выводит её
+        результат</tr>
       </par>
     </info>
     <arguments>

@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a four-channel (quad) algorithmic reverberator based on the architecture proposed by Manfred Schroeder</tr>
-        <tr lang="ru">четырёхканальный (квадрофонический) алгоритмический ревербератор на основе архитектуры, предложенной Манфредом Шрёдером</tr>
+        <tr lang="en">a four-channel (quad) algorithmic reverberator based on the architecture
+        proposed by Manfred Schroeder</tr>
+        <tr lang="ru">четырёхканальный (квадрофонический) алгоритмический ревербератор на основе
+        архитектуры, предложенной Манфредом Шрёдером</tr>
       </par>
       <par>
-        <tr lang="en">the classic Schroeder reverberator consists of parallel feedback comb filters followed by series allpass filters</tr>
-        <tr lang="ru">классический ревербератор Шрёдера состоит из параллельных гребёнчатых фильтров с обратной связью и последовательных аллпасс-фильтров</tr>
+        <tr lang="en">the classic Schroeder reverberator consists of parallel feedback comb filters
+        followed by series allpass filters</tr>
+        <tr lang="ru">классический ревербератор Шрёдера состоит из параллельных гребёнчатых
+        фильтров с обратной связью и последовательных аллпасс-фильтров</tr>
       </par>
       <par>
-        <tr lang="en">the four outputs provide a quadraphonic signal for a four-channel playback system</tr>
-        <tr lang="ru">четыре выхода дают квадрофонический сигнал для четырёхканальной системы воспроизведения</tr>
+        <tr lang="en">the four outputs provide a quadraphonic signal for a four-channel playback
+        system</tr>
+        <tr lang="ru">четыре выхода дают квадрофонический сигнал для четырёхканальной системы
+        воспроизведения</tr>
       </par>
     </info>
     <arguments>
@@ -47,8 +53,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.4">
-        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry signal, 1 — processed</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry
+        signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
     </properties>
     <methods>

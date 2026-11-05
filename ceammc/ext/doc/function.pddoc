@@ -26,8 +26,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the function is called by the [function.call] object, which passes the input values and receives the result</tr>
-        <tr lang="ru">функция вызывается объектом [function.call], который передаёт входные значения и получает результат</tr>
+        <tr lang="en">the function is called by the [function.call] object, which passes the input
+        values and receives the result</tr>
+        <tr lang="ru">функция вызывается объектом [function.call], который передаёт входные
+        значения и получает результат</tr>
       </par>
     </info>
     <arguments>

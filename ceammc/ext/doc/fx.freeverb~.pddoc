@@ -21,20 +21,30 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a simple Schroeder reverberator primarily developed by "Jezar at Dreampoint" that is extensively used in the free-software world</tr>
-        <tr lang="ru">простой ревербератор Шрёдера, разработанный в основном «Jezar at Dreampoint», широко используется в мире свободного программного обеспечения</tr>
+        <tr lang="en">a simple Schroeder reverberator primarily developed by "Jezar at Dreampoint"
+        that is extensively used in the free-software world</tr>
+        <tr lang="ru">простой ревербератор Шрёдера, разработанный в основном «Jezar at Dreampoint»,
+        широко используется в мире свободного программного обеспечения</tr>
       </par>
       <par>
-        <tr lang="en">it uses four Schroeder allpasses in series and eight parallel Schroeder-Moorer filtered-feedback comb filters for each audio channel, and is said to be especially well tuned</tr>
-        <tr lang="ru">использует четыре последовательных аллпасс-фильтра Шрёдера и восемь параллельных гребёнчатых фильтров с обратной связью и фильтрацией Шрёдера-Мурера для каждого аудиоканала, и считается особенно хорошо настроенным</tr>
+        <tr lang="en">it uses four Schroeder allpasses in series and eight parallel
+        Schroeder-Moorer filtered-feedback comb filters for each audio channel, and is said to be
+        especially well tuned</tr>
+        <tr lang="ru">использует четыре последовательных аллпасс-фильтра Шрёдера и восемь
+        параллельных гребёнчатых фильтров с обратной связью и фильтрацией Шрёдера-Мурера для
+        каждого аудиоканала, и считается особенно хорошо настроенным</tr>
       </par>
       <par>
-        <tr lang="en">@room sets the room size, @damp controls the damping of the lowpass comb filter, @drywet mixes the original (dry) and processed signals</tr>
-        <tr lang="ru">@room задаёт размер комнаты, @damp управляет демпфированием низкочастотного гребёнчатого фильтра, @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
+        <tr lang="en">@room sets the room size, @damp controls the damping of the lowpass comb
+        filter, @drywet mixes the original (dry) and processed signals</tr>
+        <tr lang="ru">@room задаёт размер комнаты, @damp управляет демпфированием низкочастотного
+        гребёнчатого фильтра, @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
       </par>
       <par>
-        <tr lang="en">@freeze holds the reverberation tail, the @fr_room, @fr_damp and @fr_time properties control the frozen tail</tr>
-        <tr lang="ru">@freeze удерживает хвост реверберации, свойства @fr_room, @fr_damp и @fr_time управляют замороженным хвостом</tr>
+        <tr lang="en">@freeze holds the reverberation tail, the @fr_room, @fr_damp and @fr_time
+        properties control the frozen tail</tr>
+        <tr lang="ru">@freeze удерживает хвост реверберации, свойства @fr_room, @fr_damp и @fr_time
+        управляют замороженным хвостом</tr>
       </par>
     </info>
     <arguments>
@@ -63,8 +73,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
-        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry signal, 1 — processed</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry
+        signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @fr_damp -->
       <property name="@fr_damp" type="float" minvalue="0" maxvalue="1" default="0.0001">

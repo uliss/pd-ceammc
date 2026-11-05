@@ -30,8 +30,10 @@
         <tr lang="ru">по bang все свойства патча выводятся в виде списка</tr>
       </par>
       <par>
-        <tr lang="en">the *default* method resets all properties to their default values and outputs them</tr>
-        <tr lang="ru">метод *default* сбрасывает все свойства к значениям по умолчанию и выводит их</tr>
+        <tr lang="en">the *default* method resets all properties to their default values and
+        outputs them</tr>
+        <tr lang="ru">метод *default* сбрасывает все свойства к значениям по умолчанию и выводит
+        их</tr>
       </par>
     </info>
     <methods>

@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object captures a short fragment of the incoming audio and repeats it in a loop, producing a stutter or glitch effect</tr>
-        <tr lang="ru">объект захватывает короткий фрагмент входящего аудио и повторяет его в петле, создавая эффект заикания или глитча</tr>
+        <tr lang="en">the object captures a short fragment of the incoming audio and repeats it in
+        a loop, producing a stutter or glitch effect</tr>
+        <tr lang="ru">объект захватывает короткий фрагмент входящего аудио и повторяет его в петле,
+        создавая эффект заикания или глитча</tr>
       </par>
       <par>
-        <tr lang="en">@mode sets the playback direction of the fragment: forward, backward or both</tr>
-        <tr lang="ru">@mode задаёт направление воспроизведения фрагмента: вперёд, назад или в обоих направлениях</tr>
+        <tr lang="en">@mode sets the playback direction of the fragment: forward, backward or
+        both</tr>
+        <tr lang="ru">@mode задаёт направление воспроизведения фрагмента: вперёд, назад или в обоих
+        направлениях</tr>
       </par>
       <par>
-        <tr lang="en">a bang on the right inlet turns the effect on for three periods, a float 1 or 0 turns it on or off</tr>
-        <tr lang="ru">bang на правом входе включает эффект на три периода, число 1 или 0 включает или выключает его</tr>
+        <tr lang="en">a bang on the right inlet turns the effect on for three periods, a float 1 or
+        0 turns it on or off</tr>
+        <tr lang="ru">bang на правом входе включает эффект на три периода, число 1 или 0 включает
+        или выключает его</tr>
       </par>
     </info>
     <arguments>
@@ -50,8 +56,11 @@
       </property>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="fwd back tri" default="fwd">
-        <tr lang="en">stutter mode. If 'fwd': play the loop fragment forwards, 'back': play the loop fragment backwards, 'tri': play the loop fragment in both directions</tr>
-        <tr lang="ru">режим заикания. Если 'fwd': воспроизводить фрагмент петли вперёд, 'back': воспроизводить фрагмент петли назад, 'tri': воспроизводить фрагмент петли в обоих направлениях</tr>
+        <tr lang="en">stutter mode. If 'fwd': play the loop fragment forwards, 'back': play the
+        loop fragment backwards, 'tri': play the loop fragment in both directions</tr>
+        <tr lang="ru">режим заикания. Если 'fwd': воспроизводить фрагмент петли вперёд, 'back':
+        воспроизводить фрагмент петли назад, 'tri': воспроизводить фрагмент петли в обоих
+        направлениях</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">

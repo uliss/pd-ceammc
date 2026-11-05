@@ -22,12 +22,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object arpeggiates a chord by turning notes on and off step by step, producing a pitch and velocity pair on each step</tr>
-        <tr lang="ru">объект арпеджирует аккорд, включая и выключая ноты шаг за шагом, и выдаёт на каждом шаге пару нота и скорость</tr>
+        <tr lang="en">the object arpeggiates a chord by turning notes on and off step by step,
+        producing a pitch and velocity pair on each step</tr>
+        <tr lang="ru">объект арпеджирует аккорд, включая и выключая ноты шаг за шагом, и выдаёт на
+        каждом шаге пару нота и скорость</tr>
       </par>
       <par>
-        <tr lang="en">the *asr* method sets the arpeggio mode and runs it, *on* and *off* control the active notes manually</tr>
-        <tr lang="ru">метод *asr* задаёт режим арпеджио и запускает его, методы *on* и *off* управляют активными нотами вручную</tr>
+        <tr lang="en">the *asr* method sets the arpeggio mode and runs it, *on* and *off* control
+        the active notes manually</tr>
+        <tr lang="ru">метод *asr* задаёт режим арпеджио и запускает его, методы *on* и *off*
+        управляют активными нотами вручную</tr>
       </par>
       <par>
         <tr lang="en">the second outlet outputs the number of currently active notes</tr>
@@ -78,8 +82,11 @@
           <tr lang="ru">выключить активные ноты</tr>
         </info>
         <param name="MODE" type="symbol" enum="first last all random">
-          <tr lang="en">if =first turn off the first active note in the chord list, if =last turn off the last inactive note in the chord list, if =all turn off all active notes</tr>
-          <tr lang="ru">если =first выключить первую активную ноту в списке аккорда, если =last выключить последнюю неактивную ноту в списке аккорда, если =all выключить все активные ноты</tr>
+          <tr lang="en">if =first turn off the first active note in the chord list, if =last turn
+          off the last inactive note in the chord list, if =all turn off all active notes</tr>
+          <tr lang="ru">если =first выключить первую активную ноту в списке аккорда, если =last
+          выключить последнюю неактивную ноту в списке аккорда, если =all выключить все активные
+          ноты</tr>
         </param>
         <param name="NUM" type="int" minvalue="1" default="1">
           <tr lang="en">number of notes to turn on</tr>
@@ -93,8 +100,11 @@
           <tr lang="ru">включить неактивные ноты</tr>
         </info>
         <param name="MODE" type="symbol" enum="first last all random">
-          <tr lang="en">if =first play the first inactive note in the chord list, if =last play the last inactive note in the chord list, if =all play all inactive notes</tr>
-          <tr lang="ru">если =first играть первую неактивную ноту в списке аккорда, если =last играть последнюю неактивную ноту в списке аккорда, если =all играть все неактивные ноты</tr>
+          <tr lang="en">if =first play the first inactive note in the chord list, if =last play the
+          last inactive note in the chord list, if =all play all inactive notes</tr>
+          <tr lang="ru">если =first играть первую неактивную ноту в списке аккорда, если =last
+          играть последнюю неактивную ноту в списке аккорда, если =all играть все неактивные
+          ноты</tr>
         </param>
         <param name="VEL" type="float" minvalue="1" maxvalue="127" default="127">
           <tr lang="en">note velocity</tr>

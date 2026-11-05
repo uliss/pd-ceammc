@@ -21,8 +21,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object builds the object tree of the current patch or subpatch, including nested abstractions</tr>
-        <tr lang="ru">объект строит дерево объектов текущего патча или субпатча, включая вложенные абстракции</tr>
+        <tr lang="en">the object builds the object tree of the current patch or subpatch, including
+        nested abstractions</tr>
+        <tr lang="ru">объект строит дерево объектов текущего патча или субпатча, включая вложенные
+        абстракции</tr>
       </par>
       <par>
         <tr lang="en">the result is output as data:Dict on bang</tr>

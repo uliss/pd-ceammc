@@ -18,12 +18,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">on bang, the object outputs a list of two integers: screen width and height in pixels</tr>
-        <tr lang="ru">по bang объект выводит список из двух целых чисел: ширина и высота экрана в пикселях</tr>
+        <tr lang="en">on bang, the object outputs a list of two integers: screen width and height
+        in pixels</tr>
+        <tr lang="ru">по bang объект выводит список из двух целых чисел: ширина и высота экрана в
+        пикселях</tr>
       </par>
       <par>
-        <tr lang="en">the screen size is reported by the operating system and corresponds to the primary display</tr>
-        <tr lang="ru">размер экрана сообщается операционной системой и соответствует основному дисплею</tr>
+        <tr lang="en">the screen size is reported by the operating system and corresponds to the
+        primary display</tr>
+        <tr lang="ru">размер экрана сообщается операционной системой и соответствует основному
+        дисплею</tr>
       </par>
     </info>
     <inlets>

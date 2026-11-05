@@ -18,12 +18,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object computes the A-weighting value for the given frequency according to the IEC 61672 standard</tr>
-        <tr lang="ru">объект вычисляет А-взвешенное значение для заданной частоты согласно стандарту IEC 61672</tr>
+        <tr lang="en">the object computes the A-weighting value for the given frequency according
+        to the IEC 61672 standard</tr>
+        <tr lang="ru">объект вычисляет А-взвешенное значение для заданной частоты согласно
+        стандарту IEC 61672</tr>
       </par>
       <par>
-        <tr lang="en">A-weighting is commonly used in audio measurements to approximate the frequency response of human hearing</tr>
-        <tr lang="ru">А-взвешивание обычно применяется в аудиоизмерениях для приближения к частотной характеристике человеческого слуха</tr>
+        <tr lang="en">A-weighting is commonly used in audio measurements to approximate the
+        frequency response of human hearing</tr>
+        <tr lang="ru">А-взвешивание обычно применяется в аудиоизмерениях для приближения к
+        частотной характеристике человеческого слуха</tr>
       </par>
     </info>
     <properties>

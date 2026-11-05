@@ -24,8 +24,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">it is mostly syntax sugar for clearer schemes, but can be used in dynamic patching</tr>
-        <tr lang="ru">в основном это синтаксический сахар для более наглядных схем, но объект можно использовать и при динамическом патчинге</tr>
+        <tr lang="en">it is mostly syntax sugar for clearer schemes, but can be used in dynamic
+        patching</tr>
+        <tr lang="ru">в основном это синтаксический сахар для более наглядных схем, но объект можно
+        использовать и при динамическом патчинге</tr>
       </par>
       <par>
         <tr lang="en">the reverse operation is performed by [split~]</tr>

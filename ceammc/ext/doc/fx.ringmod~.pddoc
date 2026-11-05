@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">ring modulation multiplies the carrier signal by the modulator signal, producing new sideband frequencies at the sum and difference of the originals</tr>
-        <tr lang="ru">кольцевая модуляция умножает сигнал-несущую на сигнал-модулятор, порождая новые боковые частоты на сумме и разности исходных</tr>
+        <tr lang="en">ring modulation multiplies the carrier signal by the modulator signal,
+        producing new sideband frequencies at the sum and difference of the originals</tr>
+        <tr lang="ru">кольцевая модуляция умножает сигнал-несущую на сигнал-модулятор, порождая
+        новые боковые частоты на сумме и разности исходных</tr>
       </par>
       <par>
-        <tr lang="en">the modulator source is selected by @src: the second inlet, an internal sinusoid oscillator or internal low-frequency noise</tr>
-        <tr lang="ru">источник модулятора задаётся свойством @src: второй вход, внутренний синусоидальный осциллятор или внутренний низкочастотный шум</tr>
+        <tr lang="en">the modulator source is selected by @src: the second inlet, an internal
+        sinusoid oscillator or internal low-frequency noise</tr>
+        <tr lang="ru">источник модулятора задаётся свойством @src: второй вход, внутренний
+        синусоидальный осциллятор или внутренний низкочастотный шум</tr>
       </par>
       <par>
-        <tr lang="en">@drive adds overdrive after the modulator, @offset shifts the modulator signal</tr>
-        <tr lang="ru">@drive добавляет перегрузку после модулятора, @offset смещает сигнал модулятора</tr>
+        <tr lang="en">@drive adds overdrive after the modulator, @offset shifts the modulator
+        signal</tr>
+        <tr lang="ru">@drive добавляет перегрузку после модулятора, @offset смещает сигнал
+        модулятора</tr>
       </par>
     </info>
     <arguments>
@@ -52,8 +58,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 — dry signal, 1 — processed</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 —
+        dry signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @freq -->
       <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
@@ -68,8 +76,10 @@
       </property>
       <!-- @src -->
       <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">
-        <tr lang="en">modulator source. 0: modulator from the second inlet, 1: internal sinusoid oscillator, 2: internal low-frequency noise</tr>
-        <tr lang="ru">источник модулятора. 0: модулятор со второго входа, 1: внутренний синусоидальный осциллятор, 2: внутренний низкочастотный шум</tr>
+        <tr lang="en">modulator source. 0: modulator from the second inlet, 1: internal sinusoid
+        oscillator, 2: internal low-frequency noise</tr>
+        <tr lang="ru">источник модулятора. 0: модулятор со второго входа, 1: внутренний
+        синусоидальный осциллятор, 2: внутренний низкочастотный шум</tr>
       </property>
     </properties>
     <methods>

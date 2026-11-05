@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object records the incoming audio signal into an internal buffer of up to 32 seconds and plays it back in a loop</tr>
-        <tr lang="ru">объект записывает входящий аудиосигнал во внутренний буфер до 32 секунд и воспроизводит его в петле</tr>
+        <tr lang="en">the object records the incoming audio signal into an internal buffer of up to
+        32 seconds and plays it back in a loop</tr>
+        <tr lang="ru">объект записывает входящий аудиосигнал во внутренний буфер до 32 секунд и
+        воспроизводит его в петле</tr>
       </par>
       <par>
-        <tr lang="en">recording is controlled by the *record* and *stop* methods or by the @gate property, *reset* clears the recorded data</tr>
-        <tr lang="ru">запись управляется методами *record* и *stop* или свойством @gate, метод *reset* очищает записанные данные</tr>
+        <tr lang="en">recording is controlled by the *record* and *stop* methods or by the @gate
+        property, *reset* clears the recorded data</tr>
+        <tr lang="ru">запись управляется методами *record* и *stop* или свойством @gate, метод
+        *reset* очищает записанные данные</tr>
       </par>
       <par>
-        <tr lang="en">the recording envelope is shaped by the @attack, @release and @sustain properties, the playback level is set by @gain</tr>
-        <tr lang="ru">огибающая записи формируется свойствами @attack, @release и @sustain, уровень воспроизведения задаётся свойством @gain</tr>
+        <tr lang="en">the recording envelope is shaped by the @attack, @release and @sustain
+        properties, the playback level is set by @gain</tr>
+        <tr lang="ru">огибающая записи формируется свойствами @attack, @release и @sustain, уровень
+        воспроизведения задаётся свойством @gain</tr>
       </par>
     </info>
     <properties>

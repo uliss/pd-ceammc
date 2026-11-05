@@ -32,8 +32,10 @@
         <tr lang="ru">клик по объекту повторно отправляет сообщение</tr>
       </par>
       <par>
-        <tr lang="en">the message is sent once when the patch is loaded and again on each click</tr>
-        <tr lang="ru">сообщение отправляется один раз при загрузке патча и повторно при каждом клике</tr>
+        <tr lang="en">the message is sent once when the patch is loaded and again on each
+        click</tr>
+        <tr lang="ru">сообщение отправляется один раз при загрузке патча и повторно при каждом
+        клике</tr>
       </par>
       <par>
         <tr lang="en">comma-separated messages are supported</tr>

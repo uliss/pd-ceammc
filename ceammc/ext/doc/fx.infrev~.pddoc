@@ -22,16 +22,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer sounds forever</tr>
-        <tr lang="ru">Infinity — это MatrixVerb, специально разработанный для бесконечного удержания и наслоения звуков</tr>
+        <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer sounds
+        forever</tr>
+        <tr lang="ru">Infinity — это MatrixVerb, специально разработанный для бесконечного
+        удержания и наслоения звуков</tr>
       </par>
       <par>
-        <tr lang="en">the object is a stereo reverb with a feedback matrix, which allows very long decay times up to infinite sustain</tr>
-        <tr lang="ru">объект представляет собой стереофонический ревербератор с матрицей обратной связи, что позволяет получать очень долгое затухание вплоть до бесконечного удержания</tr>
+        <tr lang="en">the object is a stereo reverb with a feedback matrix, which allows very long
+        decay times up to infinite sustain</tr>
+        <tr lang="ru">объект представляет собой стереофонический ревербератор с матрицей обратной
+        связи, что позволяет получать очень долгое затухание вплоть до бесконечного удержания</tr>
       </par>
       <par>
-        <tr lang="en">@size sets the room size, @filter and @damp control the tone of the reverb, @drywet mixes the original (dry) and processed signals</tr>
-        <tr lang="ru">@size задаёт размер комнаты, @filter и @damp управляют тембром реверберации, @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
+        <tr lang="en">@size sets the room size, @filter and @damp control the tone of the reverb,
+        @drywet mixes the original (dry) and processed signals</tr>
+        <tr lang="ru">@size задаёт размер комнаты, @filter и @damp управляют тембром реверберации,
+        @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
       </par>
       <a href="https://www.airwindows.com/infinity/">More info</a>
     </info>
@@ -58,8 +64,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry signal, 1 — processed</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry
+        signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @filter -->
       <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">

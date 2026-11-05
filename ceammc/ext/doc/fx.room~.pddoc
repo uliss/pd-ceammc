@@ -18,20 +18,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object emulates room acoustics using the algorithm proposed by William G. Gardner, based on a network of delay lines with feedback</tr>
-        <tr lang="ru">объект эмулирует акустику помещения по алгоритму, предложенному Уильямом Г. Гарднером, на основе сети линий задержки с обратной связью</tr>
+        <tr lang="en">the object emulates room acoustics using the algorithm proposed by William G.
+        Gardner, based on a network of delay lines with feedback</tr>
+        <tr lang="ru">объект эмулирует акустику помещения по алгоритму, предложенному Уильямом Г.
+        Гарднером, на основе сети линий задержки с обратной связью</tr>
       </par>
       <par>
-        <tr lang="en">@size selects one of four room presets (none, small, medium, large), non-integer values are interpolated between neighbouring presets</tr>
-        <tr lang="ru">@size выбирает один из четырёх пресетов помещения (нет, маленькое, среднее, большое), нецелые значения интерполируются между соседними пресетами</tr>
+        <tr lang="en">@size selects one of four room presets (none, small, medium, large),
+        non-integer values are interpolated between neighbouring presets</tr>
+        <tr lang="ru">@size выбирает один из четырёх пресетов помещения (нет, маленькое, среднее,
+        большое), нецелые значения интерполируются между соседними пресетами</tr>
       </par>
       <par>
-        <tr lang="en">@predelay sets the time before the first reflection, @hfdamp controls the damping of high frequencies, @fb sets the feedback coefficient</tr>
-        <tr lang="ru">@predelay задаёт время до первого отражения, @hfdamp управляет демпфированием высоких частот, @fb задаёт коэффициент обратной связи</tr>
+        <tr lang="en">@predelay sets the time before the first reflection, @hfdamp controls the
+        damping of high frequencies, @fb sets the feedback coefficient</tr>
+        <tr lang="ru">@predelay задаёт время до первого отражения, @hfdamp управляет демпфированием
+        высоких частот, @fb задаёт коэффициент обратной связи</tr>
       </par>
       <par>
-        <tr lang="en">@drywet controls the balance between the original (dry) and processed (wet) signal, @bypass disables processing entirely</tr>
-        <tr lang="ru">@drywet управляет балансом между исходным (сухим) и обработанным (влажным) сигналом, @bypass полностью отключает обработку</tr>
+        <tr lang="en">@drywet controls the balance between the original (dry) and processed (wet)
+        signal, @bypass disables processing entirely</tr>
+        <tr lang="ru">@drywet управляет балансом между исходным (сухим) и обработанным (влажным)
+        сигналом, @bypass полностью отключает обработку</tr>
       </par>
     </info>
     <arguments>
@@ -55,8 +63,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
-        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 — dry signal, 1 — wet</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным (влажным) сигналами. 0 — сухой сигнал, 1 — влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 —
+        dry signal, 1 — wet</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным (влажным) сигналами. 0
+        — сухой сигнал, 1 — влажный</tr>
       </property>
       <!-- @fb -->
       <property name="@fb" type="float" minvalue="0" maxvalue="1" default="0.3">
@@ -76,8 +86,12 @@
       </property>
       <!-- @size -->
       <property name="@size" type="float" minvalue="0" maxvalue="3" default="1">
-        <tr lang="en">room size (0: no room, 1: small, 2: medium, 3: large). Non-integer values are interpolated between neighbouring sizes, for example 1.3 is interpolation between the first and second room size with a 0.3 ratio.</tr>
-        <tr lang="ru">размер комнаты (0: без комнаты, 1: маленькая, 2: средняя, 3: большая). Нецелые значения интерполируются между соседними размерами, например 1.3 — интерполяция между первым и вторым размером комнаты с коэффициентом 0.3</tr>
+        <tr lang="en">room size (0: no room, 1: small, 2: medium, 3: large). Non-integer values are
+        interpolated between neighbouring sizes, for example 1.3 is interpolation between the first
+        and second room size with a 0.3 ratio.</tr>
+        <tr lang="ru">размер комнаты (0: без комнаты, 1: маленькая, 2: средняя, 3: большая).
+        Нецелые значения интерполируются между соседними размерами, например 1.3 — интерполяция
+        между первым и вторым размером комнаты с коэффициентом 0.3</tr>
       </property>
     </properties>
     <methods>

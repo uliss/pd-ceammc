@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object queries the operating system for information about the CPUs and temperature sensors</tr>
-        <tr lang="ru">объект запрашивает у операционной системы информацию о процессорах и датчиках температуры</tr>
+        <tr lang="en">the object queries the operating system for information about the CPUs and
+        temperature sensors</tr>
+        <tr lang="ru">объект запрашивает у операционной системы информацию о процессорах и датчиках
+        температуры</tr>
       </par>
     </info>
     <methods>
@@ -33,8 +35,10 @@
       <!-- temp -->
       <method name="temp">
         <info>
-          <tr lang="en">request system temperature information. Output in the format: temp SENSOR_NAME VALUE</tr>
-          <tr lang="ru">запросить информацию о температуре системы. Вывод в формате: temp SENSOR_NAME VALUE</tr>
+          <tr lang="en">request system temperature information. Output in the format: temp
+          SENSOR_NAME VALUE</tr>
+          <tr lang="ru">запросить информацию о температуре системы. Вывод в формате: temp
+          SENSOR_NAME VALUE</tr>
         </info>
       </method>
     </methods>

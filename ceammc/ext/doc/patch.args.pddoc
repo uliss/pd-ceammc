@@ -23,12 +23,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a Pd patch (or subpatch) can receive initial arguments when instantiated, the object outputs these arguments as a list</tr>
-        <tr lang="ru">патч Pd (или субпатч) может получать начальные аргументы при создании, объект выводит эти аргументы в виде списка</tr>
+        <tr lang="en">a Pd patch (or subpatch) can receive initial arguments when instantiated, the
+        object outputs these arguments as a list</tr>
+        <tr lang="ru">патч Pd (или субпатч) может получать начальные аргументы при создании, объект
+        выводит эти аргументы в виде списка</tr>
       </par>
       <par>
-        <tr lang="en">the @from property or the FROM argument sets the starting index, so the first N arguments can be skipped</tr>
-        <tr lang="ru">свойство @from или аргумент FROM задаёт начальный индекс, что позволяет пропустить первые N аргументов</tr>
+        <tr lang="en">the @from property or the FROM argument sets the starting index, so the first
+        N arguments can be skipped</tr>
+        <tr lang="ru">свойство @from или аргумент FROM задаёт начальный индекс, что позволяет
+        пропустить первые N аргументов</tr>
       </par>
       <par>
         <tr lang="en">output is produced on bang</tr>

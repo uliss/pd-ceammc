@@ -19,16 +19,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object reduces the bit depth and sample rate of the input signal, producing a lo-fi or bitcrushed sound</tr>
-        <tr lang="ru">объект понижает разрядность и частоту дискретизации входного сигнала, создавая lo-fi или биткраш-звучание</tr>
+        <tr lang="en">the object reduces the bit depth and sample rate of the input signal,
+        producing a lo-fi or bitcrushed sound</tr>
+        <tr lang="ru">объект понижает разрядность и частоту дискретизации входного сигнала,
+        создавая lo-fi или биткраш-звучание</tr>
       </par>
       <par>
         <tr lang="en">@bits sets the output bit depth from 1 to 16 bits</tr>
         <tr lang="ru">@bits задаёт выходную разрядность от 1 до 16 бит</tr>
       </par>
       <par>
-        <tr lang="en">@downsamp sets how many samples are skipped, a higher value gives a stronger downsampling effect</tr>
-        <tr lang="ru">@downsamp задаёт количество пропускаемых сэмплов, большее значение даёт более сильный эффект даунсемплинга</tr>
+        <tr lang="en">@downsamp sets how many samples are skipped, a higher value gives a stronger
+        downsampling effect</tr>
+        <tr lang="ru">@downsamp задаёт количество пропускаемых сэмплов, большее значение даёт более
+        сильный эффект даунсемплинга</tr>
       </par>
     </info>
     <arguments>

@@ -18,16 +18,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a classic algorithmic reverberator based on the architecture proposed by Manfred Schroeder, built from parallel feedback comb filters followed by series allpass filters</tr>
-        <tr lang="ru">классический алгоритмический ревербератор на основе архитектуры, предложенной Манфредом Шрёдером, состоящий из параллельных гребёнчатых фильтров с обратной связью и последовательных аллпасс-фильтров</tr>
+        <tr lang="en">a classic algorithmic reverberator based on the architecture proposed by
+        Manfred Schroeder, built from parallel feedback comb filters followed by series allpass
+        filters</tr>
+        <tr lang="ru">классический алгоритмический ревербератор на основе архитектуры, предложенной
+        Манфредом Шрёдером, состоящий из параллельных гребёнчатых фильтров с обратной связью и
+        последовательных аллпасс-фильтров</tr>
       </par>
       <par>
-        <tr lang="en">the parallel comb filters create the initial echo density, while the series allpass filters increase the density without adding coloration</tr>
-        <tr lang="ru">параллельные гребёнчатые фильтры создают начальную плотность эха, а последовательные аллпасс-фильтры увеличивают её, не добавляя окраски</tr>
+        <tr lang="en">the parallel comb filters create the initial echo density, while the series
+        allpass filters increase the density without adding coloration</tr>
+        <tr lang="ru">параллельные гребёнчатые фильтры создают начальную плотность эха, а
+        последовательные аллпасс-фильтры увеличивают её, не добавляя окраски</tr>
       </par>
       <par>
-        <tr lang="en">this architecture became the foundation of many later reverberation algorithms, including the well-known Freeverb</tr>
-        <tr lang="ru">эта архитектура стала основой многих последующих алгоритмов реверберации, включая известный Freeverb</tr>
+        <tr lang="en">this architecture became the foundation of many later reverberation
+        algorithms, including the well-known Freeverb</tr>
+        <tr lang="ru">эта архитектура стала основой многих последующих алгоритмов реверберации,
+        включая известный Freeverb</tr>
       </par>
     </info>
     <arguments>
@@ -47,8 +55,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.25">
-        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 — dry signal, 1 — wet</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным (влажным) сигналами. 0 — сухой сигнал, 1 — влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed (wet) signals. 0 —
+        dry signal, 1 — wet</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным (влажным) сигналами. 0
+        — сухой сигнал, 1 — влажный</tr>
       </property>
     </properties>
     <methods>
