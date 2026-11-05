@@ -148,7 +148,7 @@
     <entry name="gate~" descr="multichannel signal gate" ref_view="link">
       <xi:include href="gate~.pddoc" parse="xml"/>
     </entry>
-    <entry name="logger" descr="advanced data logger for Pd window" ref_view="link">
+    <entry name="logger" descr="advanced data logger for the Pd window" ref_view="link">
       <xi:include href="logger.pddoc" parse="xml"/>
     </entry>
     <entry name="matrix~" descr="signal routing matrix" ref_view="link">

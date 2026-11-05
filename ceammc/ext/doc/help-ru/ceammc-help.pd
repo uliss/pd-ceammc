@@ -139,7 +139,7 @@ function.call-help.pd;
 #X obj 30 1552 ui.link @title [gate~] @url gate~-help.pd;
 #X text 200 1549 многоканальный гейт для сигналов;
 #X obj 30 1577 ui.link @title [logger] @url logger-help.pd;
-#X text 200 1574 продвинутый логгер для окна Pd;
+#X text 200 1574 расширенный логгер данных для окна Pd;
 #X obj 30 1602 ui.link @title [matrix~] @url matrix~-help.pd;
 #X text 200 1599 матрица маршрутизации сигналов;
 #X obj 30 1627 ui.link @title [merge~] @url merge~-help.pd;

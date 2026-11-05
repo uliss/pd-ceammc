@@ -24,7 +24,7 @@ function.call-help.pd;
 #X obj 30 295 ui.link @title [gate~] @url gate~-help.pd;
 #X text 220 292 multichannel signal gate;
 #X obj 30 320 ui.link @title [logger] @url logger-help.pd;
-#X text 220 317 advanced data logger for Pd window;
+#X text 220 317 advanced data logger for the Pd window;
 #X obj 30 345 ui.link @title [matrix~] @url matrix~-help.pd;
 #X text 220 342 signal routing matrix;
 #X obj 30 370 ui.link @title [merge~] @url merge~-help.pd;

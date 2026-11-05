@@ -65,14 +65,14 @@ gain~	multichannel signal gain / многоканальное усиление �
 ceammc/gain~	multichannel signal gain / многоканальное усиление сигнала
 gate~	multichannel signal gate / многоканальный гейт для сигналов
 ceammc/gate~	multichannel signal gate / многоканальный гейт для сигналов
-logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
-ceammc/logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.error	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.post	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.debug	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.verbose	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.stdout	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.stderr	advanced data logger for Pd window / продвинутый логгер для окна Pd
+logger	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+ceammc/logger	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.error	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.post	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.debug	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.verbose	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.stdout	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.stderr	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
 matrix~	signal routing matrix / матрица маршрутизации сигналов
 ceammc/matrix~	signal routing matrix / матрица маршрутизации сигналов
 merge~	merge audio signals / объединяет аудиосигналы
