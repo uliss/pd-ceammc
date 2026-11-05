@@ -150,8 +150,9 @@
     {midi {
         midi.arp midi.cc midi.clock midi.ctl2str midi.event2ctl
         midi.event2note midi.event2prg midi.file midi.kbd midi.key2str
-        midi.modus midi.note.pass midi.oct midi.prg2str midi.split
-        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
+        midi.modus midi.note.pass midi.oct midi.pitch.quantize midi.prg2str
+        midi.split midi.sustain midi.sysex midi.track midi.tuning midi.vramp
+        midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ qrcode risset.gliss sfizz~ speech.flite
