@@ -921,7 +921,7 @@ math.tan~	tangent function / тангенс
 math.trunc	truncate to integer value / усечение до целочисленного значения
 math.trunc~	truncate to integer value / усечение до целочисленного значения
 midi.arp	MIDI arpeggiator / MIDI арпеджиатор
-midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
+midi.cc	enhanced version of vanilla [ctlin] / расширенная версия стандартного объекта [ctlin]
 midi.clock	MIDI-clock
 midi.ctl2str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
 midi.ctl->str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя

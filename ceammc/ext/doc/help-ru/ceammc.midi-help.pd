@@ -7,7 +7,7 @@
 #X obj 30 120 ui.link @title [midi.arp] @url midi.arp-help.pd;
 #X text 220 117 MIDI арпеджиатор;
 #X obj 30 145 ui.link @title [midi.cc] @url midi.cc-help.pd;
-#X text 220 142 усовершенствованная версия [ctlin];
+#X text 220 142 расширенная версия стандартного объекта [ctlin];
 #X obj 30 170 ui.link @title [midi.clock] @url midi.clock-help.pd;
 #X text 220 167 MIDI-clock;
 #X obj 30 195 ui.link @title [midi.ctl2str] @url midi.ctl2str-help.pd;

@@ -1532,7 +1532,7 @@ math.sync_xor-help.pd;
 #X obj 30 16213 ui.link @title [midi.arp] @url midi.arp-help.pd;
 #X text 200 16210 MIDI арпеджиатор;
 #X obj 30 16238 ui.link @title [midi.cc] @url midi.cc-help.pd;
-#X text 200 16235 усовершенствованная версия [ctlin];
+#X text 200 16235 расширенная версия стандартного объекта [ctlin];
 #X obj 30 16263 ui.link @title [midi.clock] @url midi.clock-help.pd;
 #X text 200 16260 MIDI-clock;
 #X obj 30 16288 ui.link @title [midi.ctl2str] @url

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">enhanced version of vanilla [ctlin]</tr>
-        <tr lang="ru">усовершенствованная версия [ctlin]</tr>
+        <tr lang="ru">расширенная версия стандартного объекта [ctlin]</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,63 +19,59 @@
     <arguments>
       <argument name="CC" type="int" minvalue="0" maxvalue="127">
         <tr lang="en">controller number</tr>
-        <tr lang="ru" finished="false">номер контроллера</tr>
+        <tr lang="ru">номер контроллера</tr>
       </argument>
       <argument name="MIN" type="float">
         <tr lang="en">@min value</tr>
-        <tr lang="ru" finished="false">@min значение</tr>
+        <tr lang="ru">значение @min</tr>
       </argument>
       <argument name="MAX" type="float">
         <tr lang="en">@max value</tr>
-        <tr lang="ru" finished="false">@max значение</tr>
+        <tr lang="ru">значение @max</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @cc -->
       <property name="@cc" type="int" default="0" minvalue="0" maxvalue="127">
         <tr lang="en">controller number</tr>
-        <tr lang="ru" finished="false">номер контроллера</tr>
+        <tr lang="ru">номер контроллера</tr>
       </property>
       <!-- @ch -->
       <property name="@ch" type="int" default="0" minvalue="0" maxvalue="16">
         <tr lang="en">MIDI channel</tr>
-        <tr lang="ru" finished="false">MIDI канал</tr>
+        <tr lang="ru">MIDI-канал</tr>
       </property>
       <!-- @curve -->
       <property name="@curve" type="float" default="0">
-        <tr lang="en">output curve. If @curve&lt;0: fast begin, slow end, else if @curve&gt;0: slow
-        begin, fast end, if @curve==0: linear speed</tr>
-        <!-- old: выходная кривая. Если @curve<0: быстрый старт,
-                медленный конец, если @curve>0: медленный старт, быстрый конец, если @curve==0:
-                линейная скорость -->
-        <tr lang="ru" finished="false">выходная кривая. Если @curve&lt;0: быстрый старт, медленный
-        конец, если @curve&gt;0: медленный старт, быстрый конец, если @curve==0: линейная
-        скорость</tr>
+        <tr lang="en">output curve. If @curve&lt;0: fast start, slow end; if @curve&gt;0: slow
+        start, fast end; if @curve==0: linear response</tr>
+        <tr lang="ru">выходная кривая. Если @curve&lt;0: быстрый старт, медленный конец; если
+        @curve&gt;0: медленный старт, быстрый конец; если @curve==0: линейная зависимость</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="127">
-        <tr lang="en">output value at midi input == 127</tr>
-        <tr lang="ru" finished="false">выходное значение на входе midi == 127</tr>
+        <tr lang="en">output value when MIDI input is 127</tr>
+        <tr lang="ru">выходное значение при входном MIDI-значении 127</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="0">
-        <tr lang="en">output value at midi input == 0</tr>
-        <tr lang="ru" finished="false">выходное значение на входе midi == 0</tr>
+        <tr lang="en">output value when MIDI input is 0</tr>
+        <tr lang="ru">выходное значение при входном MIDI-значении 0</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">вход управления</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">float value</tr>
-          <tr lang="ru" finished="false">плавающая стоимость</tr>
+        <out type="float">
+          <tr lang="en">controller value</tr>
+          <tr lang="ru">значение контроллера</tr>
         </out>
       </outlet>
     </outlets>
