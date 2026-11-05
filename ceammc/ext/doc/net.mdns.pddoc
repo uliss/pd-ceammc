@@ -19,54 +19,31 @@
     <info>
       <par>
         <tr lang="en">Service '.local.' domain suffix is optional and can be omitted.</tr>
-        <!-- old: Суффикс домена «.local.» является необязательным и
-                может быть опущен. -->
-        <tr lang="ru" finished="false">Суффикс домена «.local.» является необязательным и может
-        быть опущен.</tr>
+        <tr lang="ru">суффикс домена «.local.» необязателен и может быть опущен</tr>
       </par>
       <par>
-        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http -
-        '_http._tcp.local', #all - to subscribe to all available services on the network.</tr>
-        <!-- old: Существуют сервисные псевдонимы: #osc - вместо
-                '_osc._udp.local', #http - '_http._tcp.local', #all - для подписки на все доступные
-                сервисы в сети. -->
-        <tr lang="ru" finished="false">Существуют сервисные псевдонимы: #osc - вместо
-        '_osc._udp.local', #http - '_http._tcp.local', #all - для подписки на все доступные сервисы
-        в сети.</tr>
+        <tr lang="en">There are service aliases: #osc - instead of '_osc._udp.local', #http - '_http._tcp.local', #all - to subscribe to all available services on the network.</tr>
+        <tr lang="ru">есть псевдонимы служб: #osc — вместо '_osc._udp.local', #http — '_http._tcp.local', #all — для подписки на все доступные службы в сети</tr>
       </par>
       <par>
-        <tr lang="en">Note: on close object will automatically unregister any previously registered
-        services.</tr>
-        <!-- old: Примечание: на близком объекте автоматически
-                отменяется регистрация любых ранее зарегистрированных услуг. -->
-        <tr lang="ru" finished="false">Примечание: на близком объекте автоматически отменяется
-        регистрация любых ранее зарегистрированных услуг.</tr>
+        <tr lang="en">Note: on close the object will automatically unregister any previously registered services.</tr>
+        <tr lang="ru">примечание: при закрытии объекта автоматически снимается регистрация всех ранее зарегистрированных служб</tr>
       </par>
       <par>
-        <tr lang="en">Note: the #all service is the special case - it will output all available
-        network service names with format [service SERVICE(</tr>
-        <!-- old: Примечание: #all service is the special case - он
-                выведет все доступные названия сетевых сервисов с форматом [сервис SERVICE() -->
-        <tr lang="ru" finished="false">Примечание: #all service is the special case - он выведет
-        все доступные названия сетевых сервисов с форматом [сервис SERVICE()</tr>
+        <tr lang="en">Note: the #all service is a special case — it outputs all available network service names with the format [service SERVICE(</tr>
+        <tr lang="ru">примечание: #all — особый случай, он выводит все доступные имена сетевых служб в формате [service SERVICE(</tr>
       </par>
     </info>
     <properties>
       <!-- @fullname -->
       <property name="@fullname" type="bool" default="1">
-        <tr lang="en">if true: output full instance name (with service and domain suffix), for ex.:
-        'THE_SERVICE._xx.local.' format</tr>
-        <!-- old: если верно: выведите полное имя экземпляра (с
-                суффиксом службы и домена), для ex.: 'THE_SERVICE._xx.local.' формат -->
-        <!-- old: если верно: выведите полное имя экземпляра (с
-                суффиксом службы и домена), для ex.: 'THE_SERVICE._xx.local.' формат -->
-        <tr lang="ru" finished="false">если верно: выведите полное имя экземпляра (с суффиксом
-        службы и домена), для ex.: 'THE_SERVICE._xx.local.' формат</tr>
+        <tr lang="en">if true: output the full instance name (with service and domain suffix), for ex.: 'THE_SERVICE._xx.local.' format</tr>
+        <tr lang="ru">если true: выводить полное имя экземпляра (с суффиксом службы и домена), например: 'THE_SERVICE._xx.local.'</tr>
       </property>
       <!-- @ip -->
       <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">
         <tr lang="en">restrict addresses by type</tr>
-        <tr lang="ru" finished="false">Ограничить адреса по типу</tr>
+        <tr lang="ru">ограничить адреса по типу</tr>
       </property>
     </properties>
     <methods>
@@ -74,122 +51,86 @@
       <method name="ifaces">
         <info>
           <tr lang="en">output available network interfaces and their info</tr>
-          <!-- old: вывод доступных сетевых интерфейсов и их
-                    информация -->
-          <tr lang="ru" finished="false">вывод доступных сетевых интерфейсов и их информация</tr>
+          <tr lang="ru">вывести доступные сетевые интерфейсы и информацию о них</tr>
         </info>
       </method>
       <!-- register -->
       <method name="register">
         <info>
-          <tr lang="en">register MDNS service instance. Instance will be available with DNS name
-          NAME.local</tr>
-          <!-- old: Зарегистрируйте службу MDNS. Instance будет
-                    доступен с именем DNS NAME.local -->
-          <tr lang="ru" finished="false">Зарегистрируйте службу MDNS. Instance будет доступен с
-          именем DNS NAME.local</tr>
+          <tr lang="en">register an MDNS service instance. The instance will be available with the DNS name NAME.local</tr>
+          <tr lang="ru">зарегистрировать экземпляр службы MDNS. Экземпляр будет доступен по DNS-имени NAME.local</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc</tr>
-          <!-- old: Название службы, например: _osc._tcp, или
-                    псевдоним: #osc -->
-          <tr lang="ru" finished="false">Название службы, например: _osc._tcp, или псевдоним:
-          #osc</tr>
+          <tr lang="ru">имя службы, например: _osc._tcp, или псевдоним: #osc</tr>
         </param>
         <param name="NAME" type="symbol" required="true">
           <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
-          <tr lang="ru" finished="false">Имя экземпляра: MY_SUPER_SERVER</tr>
+          <tr lang="ru">имя экземпляра, например: MY_SUPER_SERVER</tr>
         </param>
         <param name="PORT" type="int" minvalue="0" required="true">
           <tr lang="en">instance port</tr>
-          <tr lang="ru" finished="false">порт</tr>
+          <tr lang="ru">порт экземпляра</tr>
         </param>
         <param name="PROPS" type="list" required="false">
-          <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BOO will
-          have TXT records prop1=FOO prop2=BAR</tr>
-          <!-- old: Список текстовых реквизитов (запись TXT),
-                    например: @prop1 FOO @prop2 BOO будет иметь записи TXT prop1=FOO prop2=BAR -->
-          <tr lang="ru" finished="false">Список текстовых реквизитов (запись TXT), например: @prop1
-          FOO @prop2 BOO будет иметь записи TXT prop1=FOO prop2=BAR</tr>
+          <tr lang="en">list of text props (TXT record), for example: @prop1 FOO @prop2 BAR will have TXT records prop1=FOO prop2=BAR</tr>
+          <tr lang="ru">список текстовых свойств (запись TXT), например: @prop1 FOO @prop2 BOR даст записи TXT prop1=FOO prop2=BAR</tr>
         </param>
       </method>
       <!-- resolve -->
       <method name="resolve">
         <info>
-          <tr lang="en">does mDNS name resolving: get service information: host, ip, port etc by
-          SERVICE type and INSTANCE name</tr>
-          <!-- old: Решение имен mDNS: получить информацию об
-                    услугах: хост, ip, порт и т.д. по типу SERVICE и имени INSTANCE -->
-          <tr lang="ru" finished="false">Решение имен mDNS: получить информацию об услугах: хост,
-          ip, порт и т.д. по типу SERVICE и имени INSTANCE</tr>
+          <tr lang="en">does mDNS name resolving: get service information (host, ip, port, etc.) by SERVICE type and INSTANCE name</tr>
+          <tr lang="ru">выполняет разрешение имён mDNS: получает информацию о службе (хост, IP, порт и т.д.) по типу SERVICE и имени INSTANCE</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #http</tr>
-          <!-- old: Название службы, например: _osc._tcp, или
-                    псевдоним: #osc или #http -->
-          <tr lang="ru" finished="false">Название службы, например: _osc._tcp, или псевдоним: #osc
-          или #http</tr>
+          <tr lang="ru">имя службы, например: _osc._tcp, или псевдоним: #osc или #http</tr>
         </param>
         <param name="NAME" type="symbol" required="true">
           <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
-          <tr lang="ru" finished="false">Имя экземпляра: MY_SUPER_SERVER</tr>
+          <tr lang="ru">имя экземпляра, например: MY_SUPER_SERVER</tr>
         </param>
       </method>
       <!-- subscribe -->
       <method name="subscribe">
         <info>
           <tr lang="en">subscribe to service events: add, remove and resolve</tr>
-          <!-- old: подписка на сервисные мероприятия: добавлять,
-                    удалять и разрешать -->
-          <tr lang="ru" finished="false">подписка на сервисные мероприятия: добавлять, удалять и
-          разрешать</tr>
+          <tr lang="ru">подписаться на события службы: добавление, удаление и разрешение</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #all</tr>
-          <!-- old: Название службы, например: _osc._tcp, или
-                    псевдоним: #osc или #all -->
-          <tr lang="ru" finished="false">Название службы, например: _osc._tcp, или псевдоним: #osc
-          или #all</tr>
+          <tr lang="ru">имя службы, например: _osc._tcp, или псевдоним: #osc или #all</tr>
         </param>
         <param name="ON" type="bool" required="false" default="true">
           <tr lang="en">if true: subscribe, false: unsubscribe</tr>
-          <!-- old: Если верно: подписывайтесь, ложно: не
-                    подписывайтесь -->
-          <tr lang="ru" finished="false">Если верно: подписывайтесь, ложно: не подписывайтесь</tr>
+          <tr lang="ru">если true: подписаться, если false: отписаться</tr>
         </param>
       </method>
       <!-- unregister -->
       <method name="unregister">
         <info>
-          <tr lang="en">manually unregister service instance.</tr>
-          <tr lang="ru" finished="false">вручную незарегистрированный сервис.</tr>
+          <tr lang="en">manually unregister a service instance</tr>
+          <tr lang="ru">вручную снять регистрацию экземпляра службы</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc</tr>
-          <!-- old: Название службы, например: _osc._tcp, или
-                    псевдоним: #osc -->
-          <tr lang="ru" finished="false">Название службы, например: _osc._tcp, или псевдоним:
-          #osc</tr>
+          <tr lang="ru">имя службы, например: _osc._tcp, или псевдоним: #osc</tr>
         </param>
         <param name="NAME" type="symbol" required="true">
           <tr lang="en">instance name, for example: MY_SUPER_SERVER</tr>
-          <tr lang="ru" finished="false">Имя экземпляра: MY_SUPER_SERVER</tr>
+          <tr lang="ru">имя экземпляра, например: MY_SUPER_SERVER</tr>
         </param>
       </method>
       <!-- unsubscribe -->
       <method name="unsubscribe">
         <info>
           <tr lang="en">unsubscribe from specified service events</tr>
-          <!-- old: Отписаться от указанных сервисных
-                    мероприятий -->
-          <tr lang="ru" finished="false">Отписаться от указанных сервисных мероприятий</tr>
+          <tr lang="ru">отписаться от указанных событий службы</tr>
         </info>
         <param name="SERVICE" type="symbol" required="true">
           <tr lang="en">service name, for example: _osc._tcp, or alias: #osc or #all</tr>
-          <!-- old: Название службы, например: _osc._tcp, или
-                    псевдоним: #osc или #all -->
-          <tr lang="ru" finished="false">Название службы, например: _osc._tcp, или псевдоним: #osc
-          или #all</tr>
+          <tr lang="ru">имя службы, например: _osc._tcp, или псевдоним: #osc или #all</tr>
         </param>
       </method>
     </methods>
@@ -197,17 +138,15 @@
       <inlet>
         <in>
           <tr lang="en">input</tr>
-          <tr lang="ru" finished="false">ввод</tr>
+          <tr lang="ru">вход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve
-          SERVICE NAME HOST PORT IP PROPERTIES</tr>
-          <tr lang="ru" finished="false">добавьте имя службы, удалите имя службы, сервис добавьте |
-          удалите службу, удалите имя службы HOST PORT IP PROPERTIES</tr>
+          <tr lang="en">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve SERVICE NAME HOST PORT IP PROPERTIES</tr>
+          <tr lang="ru">add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve SERVICE NAME HOST PORT IP PROPERTIES</tr>
         </out>
       </outlet>
     </outlets>

@@ -11,10 +11,10 @@ be omitted.;
 #X text 240 123 There are service aliases: #osc - instead of '_osc._udp.local'
 \, #http - '_http._tcp.local' \, #all - to subscribe to all available
 services on the network.;
-#X text 240 178 Note: on close object will automatically unregister
+#X text 240 178 Note: on close the object will automatically unregister
 any previously registered services.;
-#X text 240 218 Note: the #all service is the special case - it will
-output all available network service names with format [service SERVICE(;
+#X text 240 218 Note: the #all service is a special case — it outputs
+all available network service names with the format [service SERVICE(;
 #X msg 50 336 subscribe _http._tcp;
 #X msg 338 336 subscribe #all;
 #X msg 69 365 unsubscribe #http;
@@ -41,9 +41,9 @@ output all available network service names with format [service SERVICE(;
 #X obj 735 797 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 795 @fullname;
-#X text 270 795 If true: output full instance name (with service and
-domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type: bool.
-Default value: 1\.;
+#X text 270 795 If true: output the full instance name (with service
+and domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type:
+bool. Default value: 1\.;
 #X obj 250 852 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 852 @ip;
 #X text 270 852 Restrict addresses by type. Type: symbol. Default value:
@@ -55,76 +55,77 @@ v4\. Allowed values: v4 \, v6 \, any.;
 #X text 270 910 output available network interfaces and their info.;
 #X obj 250 945 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 945 register;
-#X text 270 945 register MDNS service instance. Instance will be available
-with DNS name NAME.local. Arguments are:;
-#X obj 300 985 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 985 SERVICE: service name \, for example: _osc._tcp \,
+#X text 270 945 register an MDNS service instance. The instance will
+be available with the DNS name NAME.local. Arguments are:;
+#X obj 300 1000 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1000 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc. Type: symbol.;
-#X obj 300 1023 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1023 NAME: instance name \, for example: MY_SUPER_SERVER.
+#X obj 300 1038 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1038 NAME: instance name \, for example: MY_SUPER_SERVER.
 Type: symbol.;
-#X obj 300 1061 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1061 PORT: instance port. Type: int. Min value: 0\.;
-#X obj 300 1084 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1084 [PROPS]: list of text props (TXT record) \, for example:
+#X obj 300 1076 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1076 PORT: instance port. Type: int. Min value: 0\.;
+#X obj 300 1099 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1099 [PROPS]: list of text props (TXT record) \, for example:
 @prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Type:
 list.;
-#X obj 250 1147 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1147 resolve;
-#X text 270 1147 does mDNS name resolving: get service information:
-host \, ip \, port etc by SERVICE type and INSTANCE name. Arguments
+#X obj 250 1162 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1162 resolve;
+#X text 270 1162 does mDNS name resolving: get service information
+(host \, ip \, port \, etc.) by SERVICE type and INSTANCE name. Arguments
 are:;
-#X obj 300 1202 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1202 SERVICE: service name \, for example: _osc._tcp \,
+#X obj 300 1217 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1217 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc or #http. Type: symbol.;
-#X obj 300 1240 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1240 NAME: instance name \, for example: MY_SUPER_SERVER.
+#X obj 300 1255 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1255 NAME: instance name \, for example: MY_SUPER_SERVER.
 Type: symbol.;
-#X obj 250 1288 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1288 subscribe;
-#X text 270 1288 subscribe to service events: add \, remove and resolve.
+#X obj 250 1303 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1303 subscribe;
+#X text 270 1303 subscribe to service events: add \, remove and resolve.
 Arguments are:;
-#X obj 300 1328 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1328 SERVICE: service name \, for example: _osc._tcp \,
+#X obj 300 1343 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1343 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc or #all. Type: symbol.;
-#X obj 300 1366 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1366 [ON=true]: if true: subscribe \, false: unsubscribe.
+#X obj 300 1381 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1381 [ON=true]: if true: subscribe \, false: unsubscribe.
 Type: bool.;
-#X obj 250 1414 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1414 unregister;
-#X text 270 1414 manually unregister service instance. Arguments are:;
-#X obj 300 1439 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1439 SERVICE: service name \, for example: _osc._tcp \,
-or alias: #osc. Type: symbol.;
-#X obj 300 1477 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1477 NAME: instance name \, for example: MY_SUPER_SERVER.
-Type: symbol.;
-#X obj 250 1525 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1525 unsubscribe;
-#X text 270 1525 unsubscribe from specified service events. Arguments
+#X obj 250 1429 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1429 unregister;
+#X text 270 1429 manually unregister a service instance. Arguments
 are:;
-#X obj 300 1550 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1550 SERVICE: service name \, for example: _osc._tcp \,
+#X obj 300 1454 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1454 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc. Type: symbol.;
+#X obj 300 1492 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1492 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X obj 250 1540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1540 unsubscribe;
+#X text 270 1540 unsubscribe from specified service events. Arguments
+are:;
+#X obj 300 1565 cnv 1 60 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1565 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc or #all. Type: symbol.;
-#X obj 20 1608 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1613 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 20 1623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1628 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1614 1\.;
-#X text 270 1614 input.;
-#X obj 20 1649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1654 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1629 1\.;
+#X text 270 1629 input.;
+#X obj 20 1664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1669 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1655 1\.;
-#X text 270 1655 add SERVICE NAME \, remove SERVICE NAME \, service
+#X text 130 1670 1\.;
+#X text 270 1670 add SERVICE NAME \, remove SERVICE NAME \, service
 add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1735 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1738 library: ceammc v0.9.8;
-#N canvas 10 1757 400 290 info 0;
+#X obj 1 1750 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1753 library: ceammc v0.9.8;
+#N canvas 10 1772 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -149,7 +150,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1757 pd info;
+#X restore 10 1772 pd info;
 #X connect 19 0 21 0;
 #X connect 21 0 22 0;
 #X connect 22 0 23 0;
