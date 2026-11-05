@@ -1808,7 +1808,7 @@ canvas.current-help.pd;
 #X obj 30 18984 ui.link @title [canvas.top] @url canvas.top-help.pd;
 #X text 200 18981 подробная информация о холсте верхнего уровня объекта;
 #X obj 30 19009 ui.link @title [patch.args] @url patch.args-help.pd;
-#X text 200 19006 получить начальные аргументы для патча или субпатча;
+#X text 200 19006 получает начальные аргументы патча или субпатча Pd;
 #X obj 30 19034 ui.link @title [patch.deps] @url patch.deps-help.pd;
 #X text 200 19031 выводит зависимости патча: используемые объекты и
 абстракции;

@@ -1047,7 +1047,7 @@ canvas.dir	outputs the current canvas directory of the object and the nesting le
 canvas.name	output the current canvas name of the object / выводит имя текущего холста объекта
 canvas.path	output the current canvas file system full path of the object / выводит полный путь холста объекта в файловой системе
 canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня объекта
-patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
+patch.args	get patch or subpatch initial arguments / получает начальные аргументы патча или субпатча Pd
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	outputs the file size / выводит размер файла
