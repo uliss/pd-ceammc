@@ -21,71 +21,71 @@ on the right inlet resets the phase;
 #X obj 50 397 ui.gain~ @size 120 14;
 #X obj 50 425 dac~;
 #X obj 136 425 ui.spectroscope~ @size 150 100;
-#X obj 50 483 ui.dsp~;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 538 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 497 ui.dsp~;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 552 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 555 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 539 1\.;
-#X text 170 539 float;
-#X obj 268 540 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 539 FREQ(Hz): see @freq. Type: float. Range: [0.0\..22050];
-#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 579 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 553 1\.;
+#X text 170 553 float;
+#X obj 268 554 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 553 FREQ(Hz): see @freq. Type: float. Range: [0.0\..22050];
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 593 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 596 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 580 @id;
-#X text 270 580 (initonly) OSC address id. If specified \, bind all
+#X msg 130 594 @id;
+#X text 270 594 (initonly) OSC address id. If specified \, bind all
 properties to /ID/osc_saw4/PROP_NAME osc address \, if empty bind to
 /osc_saw4/PROP_NAME. Type: symbol.;
-#X obj 250 637 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 637 @osc;
-#X text 270 637 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 667 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 667 @active;
-#X text 270 667 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 651 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 651 @osc;
+#X text 270 651 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 681 @active;
+#X text 270 681 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 697 @freq;
-#X text 270 697 Frequency. Type: float. Units: 'Hz'. Default value:
+#X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 711 @freq;
+#X text 270 711 Frequency. Type: float. Units: 'Hz'. Default value:
 0\. Range: [0\..22050].;
-#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 739 @phase;
-#X text 270 739 Phase. Type: float. Default value: 0\. Range: [0\..1].;
-#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 753 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 753 @phase;
+#X text 270 753 Phase. Type: float. Default value: 0\. Range: [0\..1].;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 785 1\.;
-#X text 170 785 float:;
-#X text 270 785 frequency in Hz.;
-#X text 130 810 2\.;
-#X text 170 810 bang:;
-#X text 270 810 reset phase.;
-#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 850 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 799 1\.;
+#X text 170 799 float:;
+#X text 270 799 frequency in Hz.;
+#X text 130 824 2\.;
+#X text 170 824 bang:;
+#X text 270 824 reset phase.;
+#X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 851 1\.;
-#X text 170 851 ~;
-#X text 270 851 output signal.;
+#X text 130 865 1\.;
+#X text 170 865 ~;
+#X text 270 865 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 901 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 904 library: ceammc v0.9.8;
-#X text 354 916 see also:;
-#X obj 429 919 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 918 library: ceammc v0.9.8;
+#X text 354 930 see also:;
+#X obj 429 933 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.saw~] @url osc.saw~-help.pd;
-#X obj 505 919 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 505 933 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.tri~] @url osc.tri~-help.pd;
-#X obj 581 919 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 581 933 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.square~] @url osc.square~-help.pd;
-#X obj 679 919 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 679 933 ui.link @background_color 0.78431 0.78431 0.78431
 @title [lfo.tri~] @url lfo.tri~-help.pd;
-#N canvas 10 923 400 290 info 0;
+#N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -109,7 +109,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 923 pd info;
+#X restore 10 937 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
 #X connect 10 0 12 0;
