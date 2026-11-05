@@ -1767,7 +1767,8 @@ noise.white~-help.pd;
 0;
 #X obj 20 18537 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 18551 ui.link @title [osc.blit~] @url osc.blit~-help.pd;
-#X text 200 18548 генератор с ограниченным спектром и управлением гармониками;
+#X text 200 18548 генератор с ограниченным спектром и управляемыми
+гармониками;
 #X obj 30 18576 ui.link @title [osc.impulse~] @url
 osc.impulse~-help.pd;
 #X text 200 18573 генератор импульсного сигнала с ограниченным спектром;

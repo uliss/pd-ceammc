@@ -5,7 +5,7 @@
 #X obj 649 50 cnv 1 91 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 654 50 осцилляторы;
 #X obj 30 120 ui.link @title [osc.blit~] @url osc.blit~-help.pd;
-#X text 220 117 генератор с ограниченным спектром и управлением гармониками;
+#X text 220 117 генератор с ограниченным спектром и управляемыми гармониками;
 #X obj 30 145 ui.link @title [osc.impulse~] @url osc.impulse~-help.pd;
 #X text 220 142 генератор импульсного сигнала с ограниченным спектром;
 #X obj 30 170 ui.link @title [osc.pulse~] @url osc.pulse~-help.pd;

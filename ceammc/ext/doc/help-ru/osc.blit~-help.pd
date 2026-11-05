@@ -1,73 +1,80 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 457 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 313 50 генератор с ограниченным спектром и управлением гармониками;
+#X obj 300 50 cnv 1 465 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 305 50 генератор с ограниченным спектром и управляемыми гармониками;
 #X obj 1 1 cnv 5 765 40 empty empty osc.blit~ 20 20 0 20 -104026 -4096
 0;
 #X obj 673 11 osc.blit~;
-#X floatatom 50 118 10 0 0 0 - - -;
-#X floatatom 213 118 5 0 0 0 - - -;
-#X msg 280 118 3;
-#X msg 328 118 6;
-#X msg 366 118 0;
-#X obj 50 147 sig~;
-#X msg 213 147 @harmonics \$1;
-#X obj 50 190 osc.blit~ 2000 4;
-#X obj 50 248 ui.spectroscope~ @size 150 100;
-#X obj 50 349 ui.dsp~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 BLIT (Band-Limited Impulse Train) — метод синтеза без
+алиасинга \, генерирующий сигнал с ограниченным спектром путём суммирования
+гармоник до частоты Найквиста;
+#X text 240 138 количество гармоник управляет яркостью сигнала \, при
+0 — используются все гармоники до SR/2;
+#X text 240 178 левый вход принимает частоту в Гц \, bang на правом
+входе сбрасывает фазу;
+#X floatatom 50 281 10 0 0 0 - - -;
+#X floatatom 213 281 5 0 0 0 - - -;
+#X msg 280 281 3;
+#X msg 328 281 6;
+#X msg 366 281 0;
+#X obj 50 310 sig~;
+#X msg 213 310 @harmonics \$1;
+#X obj 50 353 osc.blit~ 2000 4;
+#X obj 50 411 ui.spectroscope~ @size 150 100;
+#X obj 50 512 ui.dsp~;
+#X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 567 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 570 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 float;
-#X obj 268 406 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 FREQ(Hz): default frequency (440hz if not specified).
+#X text 130 568 1\.;
+#X text 170 568 float;
+#X obj 268 569 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 568 FREQ(Hz): частота по умолчанию (440 Гц \, если не указана).
 Тип: float. Минимальное значение: 0\.;
-#X text 130 445 2\.;
-#X text 170 445 int;
-#X obj 268 446 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 HARMONICS: number of harmonics. Missing or 0 means
-all available harmonics until SR/2\. Тип: int. Минимальное значение:
-0\.;
-#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 515 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 608 2\.;
+#X text 170 608 int;
+#X obj 268 609 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 608 HARMONICS: количество гармоник. Отсутствие или 0 означает
+все доступные гармоники до SR/2\. Тип: int. Минимальное значение: 0\.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 678 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 518 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 681 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 516 @harmonics;
-#X text 270 516 Number of harmonics. 0 means all available harmonics
-until SR/2\. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
+#X msg 130 679 @harmonics;
+#X text 270 679 Количество гармоник. 0 означает все доступные гармоники
+до SR/2\. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
 0\.;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 588 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 751 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 589 1\.;
-#X text 170 589 ~;
-#X text 270 589 frequency in Hz.;
-#X text 130 614 2\.;
-#X text 170 614 bang:;
-#X text 270 614 reset phase.;
-#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 654 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 752 1\.;
+#X text 170 752 ~;
+#X text 270 752 частота в Гц.;
+#X text 130 777 2\.;
+#X text 170 777 bang:;
+#X text 270 777 сбросить фазу.;
+#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 817 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 655 1\.;
-#X text 170 655 ~;
-#X text 270 655 output signal.;
+#X text 130 818 1\.;
+#X text 170 818 ~;
+#X text 270 818 выходной сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 705 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 708 библиотека: ceammc v0.9.8;
-#X text 460 720 смотрите также:;
-#X obj 581 723 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 868 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 871 библиотека: ceammc v0.9.8;
+#X text 460 883 смотрите также:;
+#X obj 581 886 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.saw~] @url osc.saw~-help.pd;
-#X obj 657 723 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 886 ui.link @background_color 0.78431 0.78431 0.78431
 @title [osc.square~] @url osc.square~-help.pd;
-#N canvas 10 727 400 290 info 0;
+#N canvas 10 890 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,12 +98,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 727 pd info;
-#X connect 4 0 9 0;
-#X connect 5 0 10 0;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 890 pd info;
+#X connect 8 0 13 0;
+#X connect 9 0 14 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
