@@ -428,7 +428,7 @@ flow.<=	numeric stream router by 'less or equal' condition / маршрутиз�
 flow.list2many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
-flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
+flow.match	routes the control flow by the regular expression match / маршрутизирует управляющий поток по совпадению с регулярным выражением
 flow.mem	store into the memory or output the control flow messages / сохраняет сообщения потока управления в памяти или выводит их
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока

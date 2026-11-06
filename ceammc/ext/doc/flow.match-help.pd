@@ -5,89 +5,93 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.match 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flow.match;
-#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Use backtick ` instead of backslash in regexp syntax;
-#X text 240 108 if you want to match property - use double quotes in
-arg list: "@prop+";
-#X msg 50 211 amp2;
-#X msg 117 211 amp3;
-#X msg 184 211 freq0;
-#X msg 261 211 freq1;
-#X msg 338 211 unmatched;
-#X floatatom 491 211 5 0 0 0 - - -;
-#X msg 491 240 @prop \$1;
-#X obj 50 269 symbol;
-#X obj 491 269 flow.match "@p.+";
-#X symbolatom 50 298 16 0 0 0 - - -;
-#X msg 184 298 freq3 X;
-#X msg 280 298 amp4 Y;
-#X obj 491 298 ui.dt;
-#X obj 50 341 flow.match freq`d amp`d;
-#X obj 50 384 ui.dt;
-#X obj 165 384 ui.dt;
-#X obj 270 384 ui.dt;
-#X obj 50 413 flow.match-syntax;
-#X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 468 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes a message to the outlet of the first
+matching pattern \, unmatched messages go to the last outlet;
+#X text 240 138 in regexp syntax use backtick ` instead of backslash
+\, and double quotes to match a property: "@prop+";
+#X text 240 178 the object can be used to dispatch OSC-like messages
+(for example "freq" and "amp") and to filter messages by selector pattern
+(for example "@p.+");
+#X msg 50 296 amp2;
+#X msg 117 296 amp3;
+#X msg 184 296 freq0;
+#X msg 261 296 freq1;
+#X msg 338 296 unmatched;
+#X floatatom 491 296 5 0 0 0 - - -;
+#X msg 491 325 @prop \$1;
+#X obj 50 354 symbol;
+#X obj 491 354 flow.match "@p.+";
+#X symbolatom 50 383 16 0 0 0 - - -;
+#X msg 184 383 freq3 X;
+#X msg 280 383 amp4 Y;
+#X obj 491 383 ui.dt;
+#X obj 50 426 flow.match freq`d amp`d;
+#X obj 50 469 ui.dt;
+#X obj 165 469 ui.dt;
+#X obj 270 469 ui.dt;
+#X obj 50 498 flow.match-syntax;
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 553 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 471 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 556 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 469 1\.;
-#X text 170 469 list;
-#X obj 268 470 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 469 PATTERNS: list of regular expressions. Type: list.;
-#X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 509 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 554 1\.;
+#X text 170 554 list;
+#X obj 268 555 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 554 PATTERNS: list of regular expressions. Type: list.;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 512 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 597 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 510 @patterns;
-#X text 270 510 (initonly) List of regular expressions. Type: list.;
-#X obj 250 540 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 540 @cut;
-#X text 270 540 Cut or pass message selector. Type: bool. Default value:
+#X msg 130 595 @patterns;
+#X text 270 595 (initonly) List of regular expressions. Type: list.;
+#X obj 250 625 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 625 @cut;
+#X text 270 625 Cut or pass message selector. Type: bool. Default value:
 0\.;
-#X obj 20 580 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 585 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 670 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 586 1\.;
-#X text 170 586 any:;
-#X text 270 586 input message.;
-#X text 170 611 symbol:;
-#X text 270 611 input symbol.;
-#X text 170 636 data:string:;
-#X text 270 636 input symbol.;
-#X text 130 661 2\.;
-#X text 170 661 symbol:;
-#X text 270 661 set first regexp.;
-#X text 130 686 ...;
-#X text 170 686 symbol:;
-#X text 270 686 set ... regexp.;
-#X text 130 711 n+1\.;
-#X text 170 711 symbol:;
-#X text 270 711 set n-th regexp.;
-#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 751 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 671 1\.;
+#X text 170 671 any:;
+#X text 270 671 input message.;
+#X text 170 696 symbol:;
+#X text 270 696 input symbol.;
+#X text 170 721 data:string:;
+#X text 270 721 input symbol.;
+#X text 130 746 2\.;
+#X text 170 746 symbol:;
+#X text 270 746 set first regexp.;
+#X text 130 771 ...;
+#X text 170 771 symbol:;
+#X text 270 771 set ... regexp.;
+#X text 130 796 n+1\.;
+#X text 170 796 symbol:;
+#X text 270 796 set n-th regexp.;
+#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 836 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 752 1\.;
-#X text 270 752 output match to first regexp.;
-#X text 130 772 ...;
-#X text 270 772 output match to ... regexp.;
-#X text 130 792 n.;
-#X text 270 792 output match to n-th regexp.;
-#X text 130 812 n+1\.;
-#X text 270 812 unmatched output.;
+#X text 130 837 1\.;
+#X text 270 837 output match to the first regexp.;
+#X text 130 857 ...;
+#X text 270 857 output match to ... regexp.;
+#X text 130 877 n.;
+#X text 270 877 output match to n-th regexp.;
+#X text 130 897 n+1\.;
+#X text 270 897 unmatched output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 862 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 865 library: ceammc v0.9.8;
-#X text 575 877 see also:;
-#X obj 650 880 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 947 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 950 library: ceammc v0.9.8;
+#X text 575 962 see also:;
+#X obj 650 965 ui.link @background_color 0.78431 0.78431 0.78431
 @title [string.match] @url string.match-help.pd;
-#N canvas 10 884 400 290 info 0;
+#N canvas 10 969 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -111,19 +115,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 884 pd info;
-#X connect 12 0 13 0;
-#X connect 7 0 14 0;
-#X connect 8 0 14 0;
-#X connect 9 0 14 0;
-#X connect 10 0 14 0;
-#X connect 11 0 14 0;
-#X connect 13 0 15 0;
+#X restore 10 969 pd info;
+#X connect 13 0 14 0;
+#X connect 8 0 15 0;
+#X connect 9 0 15 0;
+#X connect 10 0 15 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
 #X connect 14 0 16 0;
-#X connect 15 0 19 0;
+#X connect 15 0 17 0;
 #X connect 16 0 20 0;
-#X connect 17 0 20 0;
-#X connect 18 0 20 0;
-#X connect 20 0 21 0;
-#X connect 20 1 22 0;
-#X connect 20 2 23 0;
+#X connect 17 0 21 0;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 23 0;
+#X connect 21 2 24 0;
