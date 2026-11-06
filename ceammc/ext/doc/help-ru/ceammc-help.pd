@@ -642,7 +642,7 @@ flow.prepend-help.pd;
 #X obj 30 6740 ui.link @title [flow.queue] @url flow.queue-help.pd;
 #X text 200 6737 многоканальная очередь сообщений с возможностью синхронизации;
 #X obj 30 6765 ui.link @title [flow.record] @url flow.record-help.pd;
-#X text 200 6762 запись/воспроизведение управляющего потока;
+#X text 200 6762 запись и воспроизведение управляющего потока;
 #X obj 30 6790 ui.link @title [flow.reject] @url flow.reject-help.pd;
 #X text 200 6787 не пропускает указанные значения;
 #X obj 30 6815 ui.link @title [flow.reject_if] @url

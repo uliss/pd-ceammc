@@ -84,7 +84,7 @@ flow.multiplex~-help.pd;
 #X obj 30 910 ui.link @title [flow.queue] @url flow.queue-help.pd;
 #X text 220 907 многоканальная очередь сообщений с возможностью синхронизации;
 #X obj 30 935 ui.link @title [flow.record] @url flow.record-help.pd;
-#X text 220 932 запись/воспроизведение управляющего потока;
+#X text 220 932 запись и воспроизведение управляющего потока;
 #X obj 30 960 ui.link @title [flow.reject] @url flow.reject-help.pd;
 #X text 220 957 не пропускает указанные значения;
 #X obj 30 985 ui.link @title [flow.reject_if] @url

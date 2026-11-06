@@ -22,7 +22,7 @@
     <info>
       <par>
         <tr lang="en">the object records incoming messages and plays them back with the original timing</tr>
-        <tr lang="ru">объект записывает входящие сообщения и воспроизводит их с исходной временной раскладкой</tr>
+        <tr lang="ru">объект записывает входящие сообщения и воспроизводит их с исходным таймингом</tr>
       </par>
       <par>
         <tr lang="en">recording and playback are controlled by the [rec(, [play(, [stop(, [clear( and [flush( messages</tr>
