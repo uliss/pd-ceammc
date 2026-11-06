@@ -5,98 +5,98 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.pack 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 flow.pack;
-#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 78 cnv 1 535 140 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 83 the object stores the last received value for each inlet
 and outputs all of them as a single list or message;
 #X text 240 123 the first inlet triggers the output on bang \, float
 \, symbol \, list or any message;
-#X text 240 163 @init sets the initial values for all inlets; missing
+#X text 240 163 @init sets the initial values for all inlets \, missing
 values default to 0;
-#X obj 50 281 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 266 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 98 281 5 0 0 0 - - -;
-#X floatatom 155 281 5 0 0 0 - - -;
-#X msg 203 281 1 2;
-#X msg 280 281 1 2 3;
-#X floatatom 357 281 5 0 0 0 - - -;
-#X obj 50 325 flow.pack 3 0 0 ABC, f 20;
-#X obj 50 353 ui.dt;
-#X msg 50 382 a b c;
-#X obj 50 411 flow.pack 5 @init 1 2 3 4 5;
-#X obj 50 440 ui.dt;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 495 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X floatatom 98 266 5 0 0 0 - - -;
+#X floatatom 155 266 5 0 0 0 - - -;
+#X msg 203 266 1 2;
+#X msg 280 266 1 2 3;
+#X floatatom 357 266 5 0 0 0 - - -;
+#X obj 50 310 flow.pack 3 0 0 ABC, f 20;
+#X obj 50 338 ui.dt;
+#X msg 50 367 a b c;
+#X obj 50 396 flow.pack 5 @init 1 2 3 4 5;
+#X obj 50 425 ui.dt;
+#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 480 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 496 1\.;
-#X text 170 496 int;
-#X obj 268 497 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 496 N: number of inputs. Type: int. Range: [1\..255];
-#X text 130 521 2\.;
-#X text 170 521 list;
-#X obj 268 522 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 521 INIT: default values for all inlets. If not enough
+#X text 130 481 1\.;
+#X text 170 481 int;
+#X obj 268 482 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 481 N: number of inputs. Type: int. Range: [1\..255];
+#X text 130 506 2\.;
+#X text 170 506 list;
+#X obj 268 507 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 506 INIT: default values for all inlets. If not enough
 default values are given \, the rest is set to 0\. Type: list.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 591 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 576 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 594 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 579 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 592 @init;
-#X text 270 592 (initonly) Default init values. Type: list.;
-#X obj 250 622 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 622 @n;
-#X text 270 622 (initonly) Number of inlets. Type: int. Default value:
+#X msg 130 577 @init;
+#X text 270 577 (initonly) Default init values. Type: list.;
+#X obj 250 607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 607 @n;
+#X text 270 607 (initonly) Number of inlets. Type: int. Default value:
 1\. Range: [1\..255].;
-#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 679 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 664 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 680 1\.;
-#X text 170 680 bang:;
-#X text 270 680 output current value.;
-#X text 170 705 float:;
-#X text 270 705 change first packed value and output.;
-#X text 170 730 symbol:;
-#X text 270 730 change first packed value and output.;
-#X text 170 755 list:;
-#X text 270 755 propagate list values to other inlets and output.;
-#X text 170 780 any:;
-#X text 270 780 propagate message values to other inlets and output.;
-#X text 130 805 ...;
-#X text 170 805 float:;
-#X text 270 805 change ... packed value.;
-#X text 170 830 symbol:;
-#X text 270 830 change ... packed value.;
-#X text 170 855 list:;
-#X text 270 855 propagate ... list values among rest inlets.;
-#X text 130 880 n.;
-#X text 170 880 float:;
-#X text 270 880 change n-th packed value.;
-#X text 170 905 symbol:;
-#X text 270 905 change n-th packed value.;
-#X text 170 930 list:;
-#X text 270 930 propagate n-th list values among rest inlets.;
-#X obj 20 965 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 970 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 665 1\.;
+#X text 170 665 bang:;
+#X text 270 665 output current value.;
+#X text 170 690 float:;
+#X text 270 690 change first packed value and output.;
+#X text 170 715 symbol:;
+#X text 270 715 change first packed value and output.;
+#X text 170 740 list:;
+#X text 270 740 propagate list values to other inlets and output.;
+#X text 170 765 any:;
+#X text 270 765 propagate message values to other inlets and output.;
+#X text 130 790 ...;
+#X text 170 790 float:;
+#X text 270 790 change ... packed value.;
+#X text 170 815 symbol:;
+#X text 270 815 change ... packed value.;
+#X text 170 840 list:;
+#X text 270 840 propagate ... list values among rest inlets.;
+#X text 130 865 n.;
+#X text 170 865 float:;
+#X text 270 865 change n-th packed value.;
+#X text 170 890 symbol:;
+#X text 270 890 change n-th packed value.;
+#X text 170 915 list:;
+#X text 270 915 propagate n-th list values among rest inlets.;
+#X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 955 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 971 1\.;
-#X text 270 971 packed list or message (if message input).;
+#X text 130 956 1\.;
+#X text 270 956 packed list or message (if message input).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1021 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1024 library: ceammc v0.9.8;
-#X text 431 1036 see also:;
-#X obj 506 1039 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1006 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1009 library: ceammc v0.9.8;
+#X text 431 1021 see also:;
+#X obj 506 1024 ui.link @background_color 0.78431 0.78431 0.78431
 @title [pack] @url pack-help.pd;
-#X obj 553 1039 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 553 1024 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.sync] @url flow.sync-help.pd;
-#X obj 636 1039 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 636 1024 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.sync_pack] @url flow.sync_pack-help.pd;
-#N canvas 10 1043 400 290 info 0;
+#N canvas 10 1028 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -120,7 +120,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1043 pd info;
+#X restore 10 1028 pd info;
 #X connect 8 0 14 0;
 #X connect 9 0 14 0;
 #X connect 10 0 14 1;

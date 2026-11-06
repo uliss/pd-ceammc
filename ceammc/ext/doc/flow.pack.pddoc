@@ -35,9 +35,9 @@
         сообщению</tr>
       </par>
       <par>
-        <tr lang="en">@init sets the initial values for all inlets; missing values default to
+        <tr lang="en">@init sets the initial values for all inlets, missing values default to
         0</tr>
-        <tr lang="ru">@init задаёт начальные значения для всех входов; отсутствующие значения по
+        <tr lang="ru">@init задаёт начальные значения для всех входов, отсутствующие значения по
         умолчанию равны 0</tr>
       </par>
     </info>
