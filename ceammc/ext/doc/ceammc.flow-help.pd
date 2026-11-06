@@ -73,7 +73,7 @@ flow.multiplex~-help.pd;
 #X obj 30 820 ui.link @title [flow.pass_if] @url flow.pass_if-help.pd;
 #X text 220 817 passes the message accepted by the predicate side-chain;
 #X obj 30 845 ui.link @title [flow.pipe] @url flow.pipe-help.pd;
-#X text 220 842 enhanced version on the vanilla [pipe] object;
+#X text 220 842 enhanced version of the vanilla [pipe] object;
 #X obj 30 870 ui.link @title [flow.prepend] @url flow.prepend-help.pd;
 #X text 220 867 inject the message before the current one;
 #X obj 30 895 ui.link @title [flow.queue] @url flow.queue-help.pd;

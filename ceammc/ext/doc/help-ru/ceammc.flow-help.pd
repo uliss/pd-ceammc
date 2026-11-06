@@ -78,7 +78,7 @@ flow.multiplex~-help.pd;
 #X text 220 832 пропускает сообщение \, принятое предикатом боковой
 цепи;
 #X obj 30 860 ui.link @title [flow.pipe] @url flow.pipe-help.pd;
-#X text 220 857 усовершенствованная версия объекта [pipe];
+#X text 220 857 расширенная версия стандартного объекта [pipe];
 #X obj 30 885 ui.link @title [flow.prepend] @url flow.prepend-help.pd;
 #X text 220 882 вставляет сообщение перед текущим;
 #X obj 30 910 ui.link @title [flow.queue] @url flow.queue-help.pd;

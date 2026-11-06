@@ -635,7 +635,7 @@ flow.pass_if-help.pd;
 #X text 200 6662 пропускает сообщение \, принятое предикатом боковой
 цепи;
 #X obj 30 6690 ui.link @title [flow.pipe] @url flow.pipe-help.pd;
-#X text 200 6687 усовершенствованная версия объекта [pipe];
+#X text 200 6687 расширенная версия стандартного объекта [pipe];
 #X obj 30 6715 ui.link @title [flow.prepend] @url
 flow.prepend-help.pd;
 #X text 200 6712 вставляет сообщение перед текущим;
