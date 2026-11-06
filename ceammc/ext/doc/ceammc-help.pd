@@ -615,7 +615,7 @@ flow.prepend-help.pd;
 #X obj 30 6365 ui.link @title [flow.queue] @url flow.queue-help.pd;
 #X text 200 6362 multichannel message queue with sync capabilities;
 #X obj 30 6390 ui.link @title [flow.record] @url flow.record-help.pd;
-#X text 200 6387 control flow record/play;
+#X text 200 6387 records and plays back a stream of messages;
 #X obj 30 6415 ui.link @title [flow.reject] @url flow.reject-help.pd;
 #X text 200 6412 reject specified values;
 #X obj 30 6440 ui.link @title [flow.reject_if] @url

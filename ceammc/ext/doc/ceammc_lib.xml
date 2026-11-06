@@ -690,7 +690,7 @@
     <entry name="flow.queue" descr="multichannel message queue with sync capabilities" ref_view="link">
       <xi:include href="flow.queue.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.record" descr="control flow record/play" ref_view="link">
+    <entry name="flow.record" descr="records and plays back a stream of messages" ref_view="link">
       <xi:include href="flow.record.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="link">

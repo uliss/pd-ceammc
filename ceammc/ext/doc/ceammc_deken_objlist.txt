@@ -453,8 +453,8 @@ pass_if	passes the message accepted by the predicate side-chain / пропуск
 flow.pipe	enhanced version of the vanilla [pipe] object / расширенная версия стандартного объекта [pipe]
 flow.prepend	inject the message before the current one / вставляет сообщение перед текущим
 flow.queue	multichannel message queue with sync capabilities / многоканальная очередь сообщений с возможностью синхронизации
-flow.record	control flow record/play / запись и воспроизведение управляющего потока
-flow.rec	control flow record/play / запись и воспроизведение управляющего потока
+flow.record	records and plays back a stream of messages / записывает и воспроизводит поток сообщений
+flow.rec	records and plays back a stream of messages / записывает и воспроизводит поток сообщений
 flow.reject	reject specified values / не пропускает указанные значения
 ceammc/reject	reject specified values / не пропускает указанные значения
 reject	reject specified values / не пропускает указанные значения

@@ -79,7 +79,7 @@ flow.multiplex~-help.pd;
 #X obj 30 895 ui.link @title [flow.queue] @url flow.queue-help.pd;
 #X text 220 892 multichannel message queue with sync capabilities;
 #X obj 30 920 ui.link @title [flow.record] @url flow.record-help.pd;
-#X text 220 917 control flow record/play;
+#X text 220 917 records and plays back a stream of messages;
 #X obj 30 945 ui.link @title [flow.reject] @url flow.reject-help.pd;
 #X text 220 942 reject specified values;
 #X obj 30 970 ui.link @title [flow.reject_if] @url

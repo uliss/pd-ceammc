@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">control flow record/play</tr>
-        <tr lang="ru">запись и воспроизведение управляющего потока</tr>
+        <tr lang="en">records and plays back a stream of messages</tr>
+        <tr lang="ru">записывает и воспроизводит поток сообщений</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
