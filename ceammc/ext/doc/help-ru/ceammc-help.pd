@@ -660,7 +660,7 @@ flow.seqdelay-help.pd;
 #X text 200 6912 последовательный маршрутизатор с задержками для входного
 потока;
 #X obj 30 6955 ui.link @title [flow.space] @url flow.space-help.pd;
-#X text 200 6952 распределить во времени сообщения \, полученные одновременно;
+#X text 200 6952 распределяет во времени сообщения \, полученные одновременно;
 #X obj 30 6980 ui.link @title [flow.speedlim] @url
 flow.speedlim-help.pd;
 #X text 200 6977 ограничитель скорости потока;
