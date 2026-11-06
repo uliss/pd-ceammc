@@ -5,93 +5,103 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.queue 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flow.queue;
-#X text 50 118 single-lane sync message queue with size=5;
-#X msg 50 147 bang \, 100 \, symbol S \, 1 2 3 \, msg A B C;
-#X obj 434 147 ui.b @label Pop;
-#X obj 50 205 flow.queue 5, f 30;
-#X obj 50 234 ui.dt;
-#X text 50 277 single-lane async message queue with size=3 \,;
-#X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект сохраняет входящие сообщения в N независимых
+очередях FIFO и выводит их синхронно;
+#X text 240 123 bang или pop на последнем входе одновременно выводит
+и удаляет первое сообщение из каждой очереди;
+#X text 240 163 @max_size ограничивает длину очереди \, @auto_pop автоматически
+отбрасывает самый старый элемент при переполнении;
+#X text 240 218 объект можно использовать для синхронизации параллельных
+потоков событий \, например чтобы согласовать сообщения нот и сил нажатия;
+#X text 50 336 single-lane sync message queue with size=5;
+#X msg 50 365 bang \, 100 \, symbol S \, 1 2 3 \, msg A B C;
+#X obj 434 365 ui.b @label Pop;
+#X obj 50 423 flow.queue 5, f 30;
+#X obj 50 452 ui.dt;
+#X text 50 495 single-lane async message queue with size=3 \,;
+#X obj 50 523 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 334 flow.count;
-#X floatatom 69 363 5 0 0 0 - - -;
-#X msg 242 363 bang;
-#X obj 50 392 flow.queue 3 @auto_pop 1;
-#X obj 50 421 ui.dt;
-#X obj 50 478 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 174 478 ui.dsp~;
-#X obj 50 507 metro 200;
-#X obj 50 536 random.i 48 72;
-#X obj 50 565 makenote 127 180;
-#X obj 50 594 pack f f;
-#X obj 78 622 flow.queue 8 @auto_pop 1;
-#X obj 50 651 msg note;
-#X obj 174 651 msg note;
-#X obj 50 680 synth.ks~;
-#X obj 174 680 synth.ks~;
-#X obj 50 709 ui.hgain2~;
-#X obj 50 737 dac~;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 792 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 552 flow.count;
+#X floatatom 69 581 5 0 0 0 - - -;
+#X msg 242 581 bang;
+#X obj 50 610 flow.queue 3 @auto_pop 1;
+#X obj 50 639 ui.dt;
+#X obj 50 696 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 174 696 ui.dsp~;
+#X obj 50 725 metro 200;
+#X obj 50 754 random.i 48 72;
+#X obj 50 783 makenote 127 180;
+#X obj 50 812 pack f f;
+#X obj 78 840 flow.queue 8 @auto_pop 1;
+#X obj 50 869 msg note;
+#X obj 174 869 msg note;
+#X obj 50 898 synth.ks~;
+#X obj 174 898 synth.ks~;
+#X obj 50 927 ui.hgain2~;
+#X obj 50 955 dac~;
+#X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1010 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 795 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1013 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 793 1\.;
-#X text 170 793 int;
-#X obj 268 794 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 793 MAX_SIZE: max queue lane size. Тип: int. Диапазон:
+#X text 130 1011 1\.;
+#X text 170 1011 int;
+#X obj 268 1012 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1011 MAX_SIZE: максимальный размер очереди. Тип: int. Диапазон:
 [1\..1024];
-#X text 130 818 2\.;
-#X text 170 818 int;
-#X obj 268 819 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 818 N: number of lanes. Тип: int. Диапазон: [1\..32];
-#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 858 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 1051 2\.;
+#X text 170 1051 int;
+#X obj 268 1052 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 1051 N: количество очередей. Тип: int. Диапазон: [1\..32];
+#X obj 20 1086 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1091 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 861 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 1094 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 859 @auto_pop;
-#X text 270 859 Auto pop mode. If true automatically pops oldest elements
-when queue is full. Тип: bool. Значение по умолчанию: 0\.;
-#X obj 250 916 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 916 @max_size;
-#X text 270 916 Max queue lane size. Тип: int. Значение по умолчанию:
-32\. Диапазон: [1\..1024].;
-#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 973 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 1092 @auto_pop;
+#X text 270 1092 Режим автоизвлечения. Если true \, при переполнении
+очереди автоматически отбрасываются самые старые элементы. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 250 1149 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1149 @max_size;
+#X text 270 1149 Максимальный размер очереди. Тип: int. Значение по
+умолчанию: 32\. Диапазон: [1\..1024].;
+#X obj 20 1201 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1206 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 974 1\.;
-#X text 170 974 any:;
-#X text 270 974 1st queue input messages.;
-#X text 130 999 ...;
-#X text 170 999 any:;
-#X text 270 999 ... queue input messages.;
-#X text 130 1024 n.;
-#X text 170 1024 any:;
-#X text 270 1024 n-th queue input messages.;
-#X text 130 1049 n+1\.;
-#X text 170 1049 any:;
-#X text 270 1049 clear: remove all elements from all queues \, output:
-output all element from all queues \, flush: output and clear all element
-from all queues \, bang or pop: output and remove first message in
-all queues.;
-#X obj 20 1129 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1134 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1207 1\.;
+#X text 170 1207 any:;
+#X text 270 1207 входные сообщения 1-й очереди.;
+#X text 130 1232 ...;
+#X text 170 1232 any:;
+#X text 270 1232 ... входные сообщения очереди.;
+#X text 130 1257 n.;
+#X text 170 1257 any:;
+#X text 270 1257 входные сообщения N-й очереди.;
+#X text 130 1282 n+1\.;
+#X text 170 1282 any:;
+#X text 270 1282 clear: удалить все элементы из всех очередей \, output:
+вывести все элементы из всех очередей \, flush: вывести и очистить
+все элементы из всех очередей \, bang или pop: вывести и удалить первое
+сообщение во всех очередях.;
+#X obj 20 1362 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1367 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1135 1\.;
-#X text 270 1135 1st queue output.;
-#X text 130 1155 ...;
-#X text 270 1155 ... queue output.;
-#X text 130 1175 n.;
-#X text 270 1175 n-th queue output.;
+#X text 130 1368 1\.;
+#X text 270 1368 выход 1-й очереди.;
+#X text 130 1388 ...;
+#X text 270 1388 ... выход очереди.;
+#X text 130 1408 n.;
+#X text 270 1408 выход N-й очереди.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1225 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1228 библиотека: ceammc v0.9.8;
-#N canvas 10 1247 400 290 info 0;
+#X obj 1 1458 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1461 библиотека: ceammc v0.9.8;
+#N canvas 10 1480 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -115,26 +125,26 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1247 pd info;
-#X connect 5 0 7 0;
-#X connect 7 0 8 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 0 14 0;
-#X connect 13 0 14 1;
-#X connect 14 0 15 0;
-#X connect 16 0 18 0;
-#X connect 18 0 19 0;
+#X restore 10 1480 pd info;
+#X connect 10 0 12 0;
+#X connect 12 0 13 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 16 0 19 0;
+#X connect 18 0 19 1;
 #X connect 19 0 20 0;
-#X connect 20 0 21 0;
-#X connect 20 1 21 1;
-#X connect 21 0 22 0;
 #X connect 21 0 23 0;
-#X connect 22 0 24 0;
-#X connect 23 0 25 0;
-#X connect 24 0 26 0;
-#X connect 25 0 27 0;
-#X connect 26 0 27 1;
-#X connect 27 0 28 0;
-#X connect 27 1 28 1;
-#X connect 6 0 7 1;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 25 1 26 1;
+#X connect 26 0 27 0;
+#X connect 26 0 28 0;
+#X connect 27 0 29 0;
+#X connect 28 0 30 0;
+#X connect 29 0 31 0;
+#X connect 30 0 32 0;
+#X connect 31 0 32 1;
+#X connect 32 0 33 0;
+#X connect 32 1 33 1;
+#X connect 11 0 12 1;
