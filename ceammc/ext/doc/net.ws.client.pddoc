@@ -34,10 +34,10 @@
         текстовыми, бинарными или JSON-сообщениями</tr>
       </par>
       <par>
-        <tr lang="en">the *write* methods buffer messages, call *flush* to send them; the *send*
+        <tr lang="en">the [write( methods buffer messages, call [flush( to send them, the [send(
         methods send messages immediately</tr>
-        <tr lang="ru">методы *write* буферизуют сообщения, для отправки вызовите *flush*; методы
-        *send* отправляют сообщения сразу</tr>
+        <tr lang="ru">методы [write( буферизуют сообщения, для отправки вызовите [flush(, методы
+        [send( отправляют сообщения сразу</tr>
       </par>
     </info>
     <properties>
