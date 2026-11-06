@@ -9,65 +9,74 @@
 #X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [pass] @url flow.pass-help.pd;
 #X obj 675 8 flow.pass;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X symbolatom 117 118 5 0 0 0 - - -;
-#X msg 184 118 list 1 2 9 10;
-#X obj 78 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект пропускает входное значение только если оно найдено
+в списке пропуска \, иначе на выход ничего не поступает;
+#X text 240 138 список пропуска задаётся аргументом VALUES \, свойством
+@values или подачей списка на правый вход;
+#X text 240 178 объект можно использовать для фильтрации потока по
+фиксированному набору разрешённых значений \, например чтобы пропускать
+только определённые ноты;
+#X floatatom 50 296 5 0 0 0 - - -;
+#X symbolatom 117 296 5 0 0 0 - - -;
+#X msg 184 296 list 1 2 9 10;
+#X obj 78 325 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 203 147 a b c d;
-#X obj 50 190 flow.pass 1 10 100 a z;
-#X obj 50 219 ui.dt;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 203 325 a b c d;
+#X obj 50 368 flow.pass 1 10 100 a z;
+#X obj 50 397 ui.dt;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 452 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 277 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 455 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 275 1\.;
-#X text 170 275 list;
-#X obj 268 276 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 275 VALUES: atoms to pass. Тип: list.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 315 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 453 1\.;
+#X text 170 453 list;
+#X obj 268 454 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 453 VALUES: атомы для пропуска. Тип: list.;
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 493 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 318 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 496 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 316 @values;
-#X text 270 316 Atoms to pass. Тип: list.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 361 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 494 @values;
+#X text 270 494 Атомы для пропуска. Тип: list.;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 539 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 362 1\.;
-#X text 170 362 bang:;
-#X text 270 362 pass.;
-#X text 170 387 float:;
-#X text 270 387 pass if float found in pass list.;
-#X text 170 412 symbol:;
-#X text 270 412 pass if symbol found in pass list.;
-#X text 170 437 list:;
-#X text 270 437 pass if first atom found in pass list.;
-#X text 170 462 any:;
-#X text 270 462 pass if message selector found in pass list.;
-#X text 130 487 2\.;
-#X text 170 487 list:;
-#X text 270 487 set pass list.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 527 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 540 1\.;
+#X text 170 540 bang:;
+#X text 270 540 пропустить.;
+#X text 170 565 float:;
+#X text 270 565 пропустить \, если число найдено в списке пропуска.;
+#X text 170 590 symbol:;
+#X text 270 590 пропустить \, если символ найден в списке пропуска.;
+#X text 170 615 list:;
+#X text 270 615 пропустить \, если первый атом найден в списке пропуска.;
+#X text 170 640 any:;
+#X text 270 640 пропустить \, если селектор сообщения найден в списке
+пропуска.;
+#X text 130 665 2\.;
+#X text 170 665 list:;
+#X text 270 665 задать список пропуска.;
+#X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 705 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 528 1\.;
-#X text 270 528 passed values.;
+#X text 130 706 1\.;
+#X text 270 706 переданные значения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 578 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 581 библиотека: ceammc v0.9.8;
-#X text 431 593 смотрите также:;
-#X obj 552 596 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 756 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 759 библиотека: ceammc v0.9.8;
+#X text 431 771 смотрите также:;
+#X obj 552 774 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass_if] @url flow.pass_if-help.pd;
-#X obj 657 596 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 774 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject] @url flow.reject-help.pd;
-#N canvas 10 600 400 290 info 0;
+#N canvas 10 778 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,10 +100,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 600 pd info;
-#X connect 6 0 11 0;
-#X connect 9 0 11 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 778 pd info;
+#X connect 10 0 15 0;
+#X connect 13 0 15 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
