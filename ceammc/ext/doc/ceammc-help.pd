@@ -601,7 +601,7 @@ flow.multiplex~-help.pd;
 #X obj 30 6215 ui.link @title [flow.once] @url flow.once-help.pd;
 #X text 200 6212 pass the only message;
 #X obj 30 6240 ui.link @title [flow.pack] @url flow.pack-help.pd;
-#X text 200 6237 packs atoms from multiple stream into the single one;
+#X text 200 6237 packs atoms from multiple streams into a single one;
 #X obj 30 6265 ui.link @title [flow.pass] @url flow.pass-help.pd;
 #X text 200 6262 pass specified values;
 #X obj 30 6290 ui.link @title [flow.pass_if] @url

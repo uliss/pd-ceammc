@@ -672,7 +672,7 @@
     <entry name="flow.once" descr="pass the only message" ref_view="link">
       <xi:include href="flow.once.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.pack" descr="packs atoms from multiple stream into the single one" ref_view="link">
+    <entry name="flow.pack" descr="packs atoms from multiple streams into a single one" ref_view="link">
       <xi:include href="flow.pack.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.pass" descr="pass specified values" ref_view="link">

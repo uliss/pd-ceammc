@@ -71,7 +71,7 @@ flow.multiplex~-help.pd;
 #X obj 30 760 ui.link @title [flow.once] @url flow.once-help.pd;
 #X text 220 757 пропускает только одно сообщение;
 #X obj 30 785 ui.link @title [flow.pack] @url flow.pack-help.pd;
-#X text 220 782 упаковка атомов из нескольких потоков в один;
+#X text 220 782 упаковывает атомы из нескольких потоков в один;
 #X obj 30 810 ui.link @title [flow.pass] @url flow.pass-help.pd;
 #X text 220 807 пропускает указанные значения;
 #X obj 30 835 ui.link @title [flow.pass_if] @url flow.pass_if-help.pd;
