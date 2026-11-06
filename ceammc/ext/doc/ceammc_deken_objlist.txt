@@ -473,9 +473,9 @@ flow.space	spaces in time messages received at the same logical time / расп�
 flow.speedlim	control stream speed limiter / ограничитель скорости потока управления
 ceammc/speedlim	control stream speed limiter / ограничитель скорости потока управления
 speedlim	control stream speed limiter / ограничитель скорости потока управления
-flow.split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
-ceammc/split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
-split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+flow.split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
+ceammc/split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
+split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
 flow.stack	message stack / стек сообщений
 flow.sync	sync multichannel bus / синхронная многоканальная шина
 flow.'	sync multichannel bus / синхронная многоканальная шина
