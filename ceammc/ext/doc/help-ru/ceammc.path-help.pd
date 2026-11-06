@@ -12,7 +12,7 @@ path.basename-help.pd;
 #X obj 30 170 ui.link @title [path.dirname] @url path.dirname-help.pd;
 #X text 220 167 извлекает имя каталога из пути;
 #X obj 30 195 ui.link @title [path.exists] @url path.exists-help.pd;
-#X text 220 192 проверка существования пути;
+#X text 220 192 проверяет \, существует ли заданный путь;
 #X obj 30 220 ui.link @title [path.file] @url path.file-help.pd;
 #X text 220 217 файловый ввод/вывод;
 #X obj 30 245 ui.link @title [path.is_dir] @url path.is_dir-help.pd;
