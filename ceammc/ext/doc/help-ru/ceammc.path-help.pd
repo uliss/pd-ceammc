@@ -29,7 +29,7 @@ path.normalize-help.pd;
 #X obj 30 370 ui.link @title [path.search] @url path.search-help.pd;
 #X text 220 367 поиск файлов;
 #X obj 30 395 ui.link @title [path.split] @url path.split-help.pd;
-#X text 220 392 разбивает путь на имя каталога и файла;
+#X text 220 392 разбивает путь на имя каталога и имя файла;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

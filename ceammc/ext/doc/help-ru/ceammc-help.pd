@@ -1848,7 +1848,7 @@ path.pattern-help.pd;
 #X obj 30 19372 ui.link @title [path.search] @url path.search-help.pd;
 #X text 200 19369 поиск файлов;
 #X obj 30 19397 ui.link @title [path.split] @url path.split-help.pd;
-#X text 200 19394 разбивает путь на имя каталога и файла;
+#X text 200 19394 разбивает путь на имя каталога и имя файла;
 #X obj 489 19076 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 494 19076 работа с путями файловой системы;

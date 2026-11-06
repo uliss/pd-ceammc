@@ -1063,7 +1063,7 @@ path.normalize	normalize file paths / нормализует пути файло
 path.norm	normalize file paths / нормализует пути файлов
 path.pattern	pattern filename generator / генерирует имя файла по заданному шаблону
 path.search	file search / поиск файлов
-path.split	split path into dirname and basename / разбивает путь на имя каталога и файла
+path.split	split path into dirname and basename / разбивает путь на имя каталога и имя файла
 is_any	checks if the input has a general message type / проверяет, является ли входное сообщение сообщением общего типа
 is_bang	checks if the input is a *bang* / проверяет, является ли входное сообщение *bang*
 is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
