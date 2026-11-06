@@ -1,69 +1,77 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 301 50 cnv 1 464 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 306 50 маршрутизатор числового потока по условию 'меньше или
-равно';
+#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 304 50 маршрутизатор числового потока по условию «меньше или
+равно»;
 #X obj 1 1 cnv 5 765 40 empty empty flow.less_eq 20 20 0 20 -104026
 -4096 0;
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.<=] @url flow.less_eq-help.pd;
 #X obj 653 8 flow.less_eq;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Numbers thar are *less equal* then N-th argument are
-passed to N-th inlet;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X obj 50 244 flow.less_eq 0 10 20 30;
-#X floatatom 50 273 5 0 0 0 - - -;
-#X floatatom 107 273 5 0 0 0 - - -;
-#X floatatom 165 273 5 0 0 0 - - -;
-#X floatatom 222 273 5 0 0 0 - - -;
-#X floatatom 290 273 5 0 0 0 - - -;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 310 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект направляет входящие числа на выходы согласно
+пороговым значениям: число \, меньшее или равное первому значению \,
+идёт на первый выход \, число \, меньшее или равное N-му значению \,
+идёт на N-й выход;
+#X text 240 153 числа \, большие последнего порогового значения \,
+отправляются на последний выход;
+#X text 240 193 пороговые значения должны идти по возрастанию;
+#X text 240 218 объект можно использовать для разбиения числового потока
+на диапазоны \, например для распределения нот по разным инструментам
+или деления диапазона датчика на зоны;
+#X floatatom 50 336 5 0 0 0 - - -;
+#X obj 50 394 flow.less_eq 0 10 20 30;
+#X floatatom 50 423 5 0 0 0 - - -;
+#X floatatom 107 423 5 0 0 0 - - -;
+#X floatatom 165 423 5 0 0 0 - - -;
+#X floatatom 222 423 5 0 0 0 - - -;
+#X floatatom 290 423 5 0 0 0 - - -;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 460 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 313 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 463 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 311 1\.;
-#X text 170 311 list;
-#X obj 268 312 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 VALUES: compare values: list of floats in ascending
-order. Тип: list.;
-#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 366 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 461 1\.;
+#X text 170 461 list;
+#X obj 268 462 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 461 VALUES: пороговые значения: список чисел в порядке
+возрастания. Тип: list.;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 516 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 369 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 519 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 367 @values;
-#X text 270 367 (при инициализации) Compare values: list of floats
-in ascending order. Тип: list.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 424 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 517 @values;
+#X text 270 517 (при инициализации) Пороговые значения: список чисел
+в порядке возрастания. Тип: list.;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 574 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 425 1\.;
-#X text 170 425 float:;
-#X text 270 425 input flow.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 465 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 575 1\.;
+#X text 170 575 float:;
+#X text 270 575 входной поток.;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 615 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 466 1\.;
-#X text 270 466 numbers that are less equal then 1st argument.;
-#X text 130 486 ...;
-#X text 270 486 numbers that are less equal than ... argument.;
-#X text 130 506 n.;
-#X text 270 506 numbers that are less equal than N-th argument.;
-#X text 130 526 n+1\.;
-#X text 270 526 numbers that are greater than last argument.;
+#X text 130 616 1\.;
+#X text 270 616 числа \, меньшие или равные 1-му аргументу.;
+#X text 130 636 ...;
+#X text 270 636 числа \, меньшие или равные ... аргументу.;
+#X text 130 656 n.;
+#X text 270 656 числа \, меньшие или равные N-му аргументу.;
+#X text 130 676 n+1\.;
+#X text 270 676 числа \, большие последнего аргумента.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 579 библиотека: ceammc v0.9.8;
-#X text 551 591 смотрите также:;
-#X obj 672 594 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 726 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 729 библиотека: ceammc v0.9.8;
+#X text 551 741 смотрите также:;
+#X obj 672 744 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.less] @url flow.less-help.pd;
-#N canvas 10 598 400 290 info 0;
+#N canvas 10 748 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -87,10 +95,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 598 pd info;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 8 1 10 0;
-#X connect 8 2 11 0;
-#X connect 8 3 12 0;
-#X connect 8 4 13 0;
+#X restore 10 748 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 11 2 14 0;
+#X connect 11 3 15 0;
+#X connect 11 4 16 0;
