@@ -169,7 +169,7 @@
 <![CDATA[
 /*unix or macos*/
 
-[symbol .bashrc(  [T]
+[symbol .zshrc(  [T]
 |                 |
 |                 [@home $1(
 |                 |
