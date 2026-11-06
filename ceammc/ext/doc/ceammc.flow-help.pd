@@ -86,7 +86,7 @@ flow.multiplex~-help.pd;
 flow.reject_if-help.pd;
 #X text 220 967 rejects the message accepted by the predicate side-chain;
 #X obj 30 995 ui.link @title [flow.ring] @url flow.ring-help.pd;
-#X text 220 992 queue router for control flow;
+#X text 220 992 shifting queue with parallel output of all stored elements;
 #X obj 30 1020 ui.link @title [flow.route] @url flow.route-help.pd;
 #X text 220 1017 enhanced message router;
 #X obj 30 1045 ui.link @title [flow.select] @url flow.select-help.pd;

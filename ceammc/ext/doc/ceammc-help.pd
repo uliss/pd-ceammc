@@ -620,9 +620,10 @@ flow.prepend-help.pd;
 #X text 200 6412 reject specified values;
 #X obj 30 6440 ui.link @title [flow.reject_if] @url
 flow.reject_if-help.pd;
-#X text 200 6437 reject the message \, accepted by the predicate side-chain;
+#X text 200 6437 rejects the message accepted by the predicate side-chain;
 #X obj 30 6465 ui.link @title [flow.ring] @url flow.ring-help.pd;
-#X text 200 6462 queue router for control flow;
+#X text 200 6462 shifting queue with parallel output of all stored
+elements;
 #X obj 30 6490 ui.link @title [flow.route] @url flow.route-help.pd;
 #X text 200 6487 enhanced message router;
 #X obj 30 6515 ui.link @title [flow.select] @url flow.select-help.pd;

@@ -92,7 +92,7 @@ flow.reject_if-help.pd;
 #X text 220 982 не пропускает сообщение \, принятое предикатом боковой
 цепи;
 #X obj 30 1010 ui.link @title [flow.ring] @url flow.ring-help.pd;
-#X text 220 1007 маршрутизатор в виде очереди для управляющего потока;
+#X text 220 1007 очередь со сдвигом и параллельным выводом всех элементов;
 #X obj 30 1035 ui.link @title [flow.route] @url flow.route-help.pd;
 #X text 220 1032 улучшенный маршрутизатор сообщений;
 #X obj 30 1060 ui.link @title [flow.select] @url flow.select-help.pd;
