@@ -21,24 +21,33 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object records incoming messages and plays them back with the original timing</tr>
-        <tr lang="ru">объект записывает входящие сообщения и воспроизводит их с исходным таймингом</tr>
+        <tr lang="en">the object records incoming messages and plays them back with the original
+        timing</tr>
+        <tr lang="ru">объект записывает входящие сообщения и воспроизводит их с исходным
+        таймингом</tr>
       </par>
       <par>
-        <tr lang="en">recording and playback are controlled by the [rec(, [play(, [stop(, [clear( and [flush( messages</tr>
-        <tr lang="ru">запись и воспроизведение управляются сообщениями [rec(, [play(, [stop(, [clear( и [flush(</tr>
+        <tr lang="en">recording and playback are controlled by the [rec(, [play(, [stop(, [clear(
+        and [flush( messages</tr>
+        <tr lang="ru">запись и воспроизведение управляются сообщениями [rec(, [play(, [stop(,
+        [clear( и [flush(</tr>
       </par>
       <par>
-        <tr lang="en">@auto starts recording on the first input atom, @r sets the number of repeats, @speed sets the playback speed</tr>
-        <tr lang="ru">@auto запускает запись при первом входном атоме, @r задаёт число повторов, @speed задаёт скорость воспроизведения</tr>
+        <tr lang="en">@auto starts recording on the first input atom, @r sets the number of
+        repeats, @speed sets the playback speed</tr>
+        <tr lang="ru">@auto запускает запись при первом входном атоме, @r задаёт число повторов,
+        @speed задаёт скорость воспроизведения</tr>
       </par>
       <par>
         <tr lang="en">@sync uses an external bang pulse to synchronize the recorded events</tr>
-        <tr lang="ru">@sync использует внешний bang-импульс для синхронизации записанных событий</tr>
+        <tr lang="ru">@sync использует внешний bang-импульс для синхронизации записанных
+        событий</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to record a live performance gesture and loop it, for example to record a short keyboard phrase and play it back in a loop</tr>
-        <tr lang="ru">объект можно использовать для записи живого жеста и его зацикливания, например чтобы записать короткую фразу с клавиатуры и воспроизводить её в петле</tr>
+        <tr lang="en">the object can be used to record a live performance gesture and loop it, for
+        example to record a short keyboard phrase and play it back in a loop</tr>
+        <tr lang="ru">объект можно использовать для записи живого жеста и его зацикливания,
+        например чтобы записать короткую фразу с клавиатуры и воспроизводить её в петле</tr>
       </par>
     </info>
     <properties>
@@ -49,8 +58,10 @@
       </property>
       <!-- @max -->
       <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">
-        <tr lang="en">max number of events, if 0: no max size check. If @auto is set, playback starts when max size is reached</tr>
-        <tr lang="ru">максимальное число событий, если 0 — без проверки размера. Если задан @auto, воспроизведение начинается при достижении максимального размера</tr>
+        <tr lang="en">max number of events, if 0: no max size check. If @auto is set, playback
+        starts when max size is reached</tr>
+        <tr lang="ru">максимальное число событий, если 0 — без проверки размера. Если задан @auto,
+        воспроизведение начинается при достижении максимального размера</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" minvalue="-1" default="1">
@@ -105,8 +116,10 @@
           <tr lang="ru">[qlist( — вывести в объект qlist</tr>
         </in>
         <in>
-          <tr lang="en">[length FLOAT|time( - resize recorded messages (remove after specified length)</tr>
-          <tr lang="ru">[length FLOAT|time( — изменить размер записанных сообщений (удалять после указанной длины)</tr>
+          <tr lang="en">[length FLOAT|time( - resize recorded messages (remove after specified
+          length)</tr>
+          <tr lang="ru">[length FLOAT|time( — изменить размер записанных сообщений (удалять после
+          указанной длины)</tr>
         </in>
       </inlet>
     </inlets>

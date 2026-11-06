@@ -22,20 +22,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object passes through all control data no more often than the specified limit in milliseconds, and drops all messages that arrive within that interval</tr>
-        <tr lang="ru">объект пропускает все управляющие данные не чаще заданного предела в миллисекундах и отбрасывает все сообщения, пришедшие в течение этого интервала</tr>
+        <tr lang="en">the object passes through all control data no more often than the specified
+        limit in milliseconds, and drops all messages that arrive within that interval</tr>
+        <tr lang="ru">объект пропускает все управляющие данные не чаще заданного предела в
+        миллисекундах и отбрасывает все сообщения, пришедшие в течение этого интервала</tr>
       </par>
       <par>
-        <tr lang="en">initially the object is open, on the first message it passes it and then becomes closed for the specified time interval, after which it goes back to the open state</tr>
-        <tr lang="ru">изначально объект открыт, по первому сообщению он пропускает его и затем становится закрытым на заданный временной интервал, после чего возвращается в открытое состояние</tr>
+        <tr lang="en">initially the object is open, on the first message it passes it and then
+        becomes closed for the specified time interval, after which it goes back to the open
+        state</tr>
+        <tr lang="ru">изначально объект открыт, по первому сообщению он пропускает его и затем
+        становится закрытым на заданный временной интервал, после чего возвращается в открытое
+        состояние</tr>
       </par>
       <par>
         <tr lang="en">@limit sets the time limit, a value of 0 means no limitations</tr>
         <tr lang="ru">@limit задаёт предел времени, значение 0 означает отсутствие ограничений</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used for button debouncing or to throttle a stream of control messages, for example to limit the rate of a slider output</tr>
-        <tr lang="ru">объект можно использовать для подавления дребезга кнопок или для ограничения частоты потока управляющих сообщений, например для ограничения частоты выхода слайдера</tr>
+        <tr lang="en">the object can be used for button debouncing or to throttle a stream of
+        control messages, for example to limit the rate of a slider output</tr>
+        <tr lang="ru">объект можно использовать для подавления дребезга кнопок или для ограничения
+        частоты потока управляющих сообщений, например для ограничения частоты выхода слайдера</tr>
       </par>
     </info>
     <arguments>

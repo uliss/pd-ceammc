@@ -24,20 +24,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes the incoming numbers to the outlets according to the compare values: a number that is less than or equal to the first value goes to the first outlet, a number less than or equal to the N-th value goes to the N-th outlet</tr>
-        <tr lang="ru">объект направляет входящие числа на выходы согласно пороговым значениям: число, меньшее или равное первому значению, идёт на первый выход, число, меньшее или равное N-му значению, идёт на N-й выход</tr>
+        <tr lang="en">the object routes the incoming numbers to the outlets according to the
+        compare values: a number that is less than or equal to the first value goes to the first
+        outlet, a number less than or equal to the N-th value goes to the N-th outlet</tr>
+        <tr lang="ru">объект направляет входящие числа на выходы согласно пороговым значениям:
+        число, меньшее или равное первому значению, идёт на первый выход, число, меньшее или равное
+        N-му значению, идёт на N-й выход</tr>
       </par>
       <par>
         <tr lang="en">numbers greater than the last compare value are sent to the last outlet</tr>
-        <tr lang="ru">числа, большие последнего порогового значения, отправляются на последний выход</tr>
+        <tr lang="ru">числа, большие последнего порогового значения, отправляются на последний
+        выход</tr>
       </par>
       <par>
         <tr lang="en">the compare values must be in ascending order</tr>
         <tr lang="ru">пороговые значения должны идти по возрастанию</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to split a numeric stream into ranges, for example to map note pitches to different instruments or to divide a sensor range into zones</tr>
-        <tr lang="ru">объект можно использовать для разбиения числового потока на диапазоны, например для распределения нот по разным инструментам или деления диапазона датчика на зоны</tr>
+        <tr lang="en">the object can be used to split a numeric stream into ranges, for example to
+        map note pitches to different instruments or to divide a sensor range into zones</tr>
+        <tr lang="ru">объект можно использовать для разбиения числового потока на диапазоны,
+        например для распределения нот по разным инструментам или деления диапазона датчика на
+        зоны</tr>
       </par>
     </info>
     <arguments>

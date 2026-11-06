@@ -23,16 +23,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object stores the last received value for each inlet and outputs all of them as a single list or message</tr>
-        <tr lang="ru">объект хранит последнее полученное значение для каждого входа и выводит их все в виде одного списка или сообщения</tr>
+        <tr lang="en">the object stores the last received value for each inlet and outputs all of
+        them as a single list or message</tr>
+        <tr lang="ru">объект хранит последнее полученное значение для каждого входа и выводит их
+        все в виде одного списка или сообщения</tr>
       </par>
       <par>
-        <tr lang="en">the first inlet triggers the output on bang, float, symbol, list or any message</tr>
-        <tr lang="ru">первый вход запускает вывод по bang, числу, символу, списку или любому сообщению</tr>
+        <tr lang="en">the first inlet triggers the output on bang, float, symbol, list or any
+        message</tr>
+        <tr lang="ru">первый вход запускает вывод по bang, числу, символу, списку или любому
+        сообщению</tr>
       </par>
       <par>
-        <tr lang="en">@init sets the initial values for all inlets; missing values default to 0</tr>
-        <tr lang="ru">@init задаёт начальные значения для всех входов; отсутствующие значения по умолчанию равны 0</tr>
+        <tr lang="en">@init sets the initial values for all inlets; missing values default to
+        0</tr>
+        <tr lang="ru">@init задаёт начальные значения для всех входов; отсутствующие значения по
+        умолчанию равны 0</tr>
       </par>
     </info>
     <arguments>
@@ -41,8 +47,10 @@
         <tr lang="ru">количество входов</tr>
       </argument>
       <argument name="INIT" type="list">
-        <tr lang="en">default values for all inlets. If not enough default values are given, the rest is set to 0.</tr>
-        <tr lang="ru">значения по умолчанию для всех входов. Если значений по умолчанию не хватает, остальные устанавливаются в 0</tr>
+        <tr lang="en">default values for all inlets. If not enough default values are given, the
+        rest is set to 0.</tr>
+        <tr lang="ru">значения по умолчанию для всех входов. Если значений по умолчанию не хватает,
+        остальные устанавливаются в 0</tr>
       </argument>
     </arguments>
     <properties>

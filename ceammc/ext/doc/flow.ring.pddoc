@@ -21,12 +21,18 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object stores the last N messages in a queue and, on each new input, shifts the queue and outputs all stored elements in parallel: the newest element goes to the first outlet, the oldest to the last</tr>
-        <tr lang="ru">объект хранит последние N сообщений в очереди и при каждом новом входе сдвигает очередь и выводит все элементы параллельно: самый новый идёт на первый выход, самый старый — на последний</tr>
+        <tr lang="en">the object stores the last N messages in a queue and, on each new input,
+        shifts the queue and outputs all stored elements in parallel: the newest element goes to
+        the first outlet, the oldest to the last</tr>
+        <tr lang="ru">объект хранит последние N сообщений в очереди и при каждом новом входе
+        сдвигает очередь и выводит все элементы параллельно: самый новый идёт на первый выход,
+        самый старый — на последний</tr>
       </par>
       <par>
-        <tr lang="en">a bang on the right inlet outputs all buffer values, [get IDX( outputs the value at the specified index, [fill ARGS...( fills the buffer without output</tr>
-        <tr lang="ru">bang на правом входе выводит все значения буфера, [get IDX( выводит значение по указанному индексу, [fill ARGS...( заполняет буфер без вывода</tr>
+        <tr lang="en">a bang on the right inlet outputs all buffer values, [get IDX( outputs the
+        value at the specified index, [fill ARGS...( fills the buffer without output</tr>
+        <tr lang="ru">bang на правом входе выводит все значения буфера, [get IDX( выводит значение
+        по указанному индексу, [fill ARGS...( заполняет буфер без вывода</tr>
       </par>
     </info>
     <arguments>

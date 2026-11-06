@@ -26,16 +26,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object passes the input value only if it is found in the pass list, otherwise nothing is output</tr>
-        <tr lang="ru">объект пропускает входное значение только если оно найдено в списке пропуска, иначе на выход ничего не поступает</tr>
+        <tr lang="en">the object passes the input value only if it is found in the pass list,
+        otherwise nothing is output</tr>
+        <tr lang="ru">объект пропускает входное значение только если оно найдено в списке пропуска,
+        иначе на выход ничего не поступает</tr>
       </par>
       <par>
-        <tr lang="en">the pass list is set by the VALUES argument, the @values property, or by sending a list to the right inlet</tr>
-        <tr lang="ru">список пропуска задаётся аргументом VALUES, свойством @values или подачей списка на правый вход</tr>
+        <tr lang="en">the pass list is set by the VALUES argument, the @values property, or by
+        sending a list to the right inlet</tr>
+        <tr lang="ru">список пропуска задаётся аргументом VALUES, свойством @values или подачей
+        списка на правый вход</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to filter a stream by a fixed set of allowed values, for example to pass only specific note numbers</tr>
-        <tr lang="ru">объект можно использовать для фильтрации потока по фиксированному набору разрешённых значений, например чтобы пропускать только определённые ноты</tr>
+        <tr lang="en">the object can be used to filter a stream by a fixed set of allowed values,
+        for example to pass only specific note numbers</tr>
+        <tr lang="ru">объект можно использовать для фильтрации потока по фиксированному набору
+        разрешённых значений, например чтобы пропускать только определённые ноты</tr>
       </par>
     </info>
     <arguments>

@@ -18,20 +18,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object stores incoming messages in N independent FIFO lanes and outputs them in sync</tr>
-        <tr lang="ru">объект сохраняет входящие сообщения в N независимых очередях FIFO и выводит их синхронно</tr>
+        <tr lang="en">the object stores incoming messages in N independent FIFO lanes and outputs
+        them in sync</tr>
+        <tr lang="ru">объект сохраняет входящие сообщения в N независимых очередях FIFO и выводит
+        их синхронно</tr>
       </par>
       <par>
-        <tr lang="en">a bang or pop on the last inlet outputs and removes the first message from every lane at once</tr>
-        <tr lang="ru">bang или pop на последнем входе одновременно выводит и удаляет первое сообщение из каждой очереди</tr>
+        <tr lang="en">a bang or pop on the last inlet outputs and removes the first message from
+        every lane at once</tr>
+        <tr lang="ru">bang или pop на последнем входе одновременно выводит и удаляет первое
+        сообщение из каждой очереди</tr>
       </par>
       <par>
-        <tr lang="en">@max_size limits the lane length, @auto_pop automatically drops the oldest element when the queue is full</tr>
-        <tr lang="ru">@max_size ограничивает длину очереди, @auto_pop автоматически отбрасывает самый старый элемент при переполнении</tr>
+        <tr lang="en">@max_size limits the lane length, @auto_pop automatically drops the oldest
+        element when the queue is full</tr>
+        <tr lang="ru">@max_size ограничивает длину очереди, @auto_pop автоматически отбрасывает
+        самый старый элемент при переполнении</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to synchronize parallel event streams, for example to keep note and velocity messages aligned</tr>
-        <tr lang="ru">объект можно использовать для синхронизации параллельных потоков событий, например чтобы согласовать сообщения нот и сил нажатия</tr>
+        <tr lang="en">the object can be used to synchronize parallel event streams, for example to
+        keep note and velocity messages aligned</tr>
+        <tr lang="ru">объект можно использовать для синхронизации параллельных потоков событий,
+        например чтобы согласовать сообщения нот и сил нажатия</tr>
       </par>
     </info>
     <arguments>
@@ -47,8 +55,10 @@
     <properties>
       <!-- @auto_pop -->
       <property name="@auto_pop" type="bool" default="0">
-        <tr lang="en">auto pop mode. If true, automatically drops the oldest elements when the queue is full</tr>
-        <tr lang="ru">режим автоизвлечения. Если true, при переполнении очереди автоматически отбрасываются самые старые элементы</tr>
+        <tr lang="en">auto pop mode. If true, automatically drops the oldest elements when the
+        queue is full</tr>
+        <tr lang="ru">режим автоизвлечения. Если true, при переполнении очереди автоматически
+        отбрасываются самые старые элементы</tr>
       </property>
       <!-- @max_size -->
       <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
@@ -77,8 +87,12 @@
       </inlet>
       <inlet number="n+1">
         <in on="any">
-          <tr lang="en">clear: remove all elements from all queues, output: output all elements from all queues, flush: output and clear all elements from all queues, bang or pop: output and remove the first message in all queues</tr>
-          <tr lang="ru">clear: удалить все элементы из всех очередей, output: вывести все элементы из всех очередей, flush: вывести и очистить все элементы из всех очередей, bang или pop: вывести и удалить первое сообщение во всех очередях</tr>
+          <tr lang="en">clear: remove all elements from all queues, output: output all elements
+          from all queues, flush: output and clear all elements from all queues, bang or pop:
+          output and remove the first message in all queues</tr>
+          <tr lang="ru">clear: удалить все элементы из всех очередей, output: вывести все элементы
+          из всех очередей, flush: вывести и очистить все элементы из всех очередей, bang или pop:
+          вывести и удалить первое сообщение во всех очередях</tr>
         </in>
       </inlet>
     </inlets>

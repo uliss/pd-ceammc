@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object delays each incoming message by an increasing amount of time, so that messages received at the same logical time are spread out over time</tr>
-        <tr lang="ru">объект задерживает каждое входящее сообщение на всё большее время, так что сообщения, полученные одновременно, распределяются во времени</tr>
+        <tr lang="en">the object delays each incoming message by an increasing amount of time, so
+        that messages received at the same logical time are spread out over time</tr>
+        <tr lang="ru">объект задерживает каждое входящее сообщение на всё большее время, так что
+        сообщения, полученные одновременно, распределяются во времени</tr>
       </par>
       <par>
-        <tr lang="en">@delay sets the interval between consecutive messages, @dev adds random deviation to the interval</tr>
-        <tr lang="ru">@delay задаёт интервал между последовательными сообщениями, @dev добавляет случайное отклонение к интервалу</tr>
+        <tr lang="en">@delay sets the interval between consecutive messages, @dev adds random
+        deviation to the interval</tr>
+        <tr lang="ru">@delay задаёт интервал между последовательными сообщениями, @dev добавляет
+        случайное отклонение к интервалу</tr>
       </par>
       <par>
-        <tr lang="en">@done sets the time space after the last message, after which a bang is sent to the second outlet</tr>
-        <tr lang="ru">@done задаёт задержку после последнего сообщения, по истечении которой на второй выход отправляется bang</tr>
+        <tr lang="en">@done sets the time space after the last message, after which a bang is sent
+        to the second outlet</tr>
+        <tr lang="ru">@done задаёт задержку после последнего сообщения, по истечении которой на
+        второй выход отправляется bang</tr>
       </par>
     </info>
     <arguments>
@@ -53,8 +59,10 @@
       </property>
       <!-- @done -->
       <property name="@done" type="int" default="1" minvalue="0">
-        <tr lang="en">time space (=@done*@delay) after the last outputted message. After that delay a bang is output to the second outlet</tr>
-        <tr lang="ru">интервал (=@done*@delay) после последнего выведенного сообщения. По истечении этой задержки на второй выход выводится bang</tr>
+        <tr lang="en">time space (=@done*@delay) after the last outputted message. After that delay
+        a bang is output to the second outlet</tr>
+        <tr lang="ru">интервал (=@done*@delay) после последнего выведенного сообщения. По истечении
+        этой задержки на второй выход выводится bang</tr>
       </property>
     </properties>
     <inlets>
@@ -71,7 +79,8 @@
         </in>
         <in>
           <tr lang="en">reset: cancel all scheduled outputs and clear the message queue</tr>
-          <tr lang="ru">reset: отменить все запланированные выводы и очистить очередь сообщений</tr>
+          <tr lang="ru">reset: отменить все запланированные выводы и очистить очередь
+          сообщений</tr>
         </in>
         <in>
           <tr lang="en">@delay: set @delay property</tr>
@@ -93,7 +102,8 @@
       <outlet>
         <out type="bang">
           <tr lang="en">on finish (after @delay*@done ms after the last outputted message)</tr>
-          <tr lang="ru">по завершении (через @delay*@done мс после последнего выведенного сообщения)</tr>
+          <tr lang="ru">по завершении (через @delay*@done мс после последнего выведенного
+          сообщения)</tr>
         </out>
       </outlet>
     </outlets>

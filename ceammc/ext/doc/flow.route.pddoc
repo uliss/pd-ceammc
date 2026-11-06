@@ -18,20 +18,29 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes incoming messages to the outlets according to the match list</tr>
-        <tr lang="ru">объект направляет входящие сообщения на выходы согласно списку совпадений</tr>
+        <tr lang="en">the object routes incoming messages to the outlets according to the match
+        list</tr>
+        <tr lang="ru">объект направляет входящие сообщения на выходы согласно списку
+        совпадений</tr>
       </par>
       <par>
         <tr lang="en">if no match occurred, the original message is sent to the last outlet</tr>
-        <tr lang="ru">если совпадения не произошло, исходное сообщение отправляется на последний выход</tr>
+        <tr lang="ru">если совпадения не произошло, исходное сообщение отправляется на последний
+        выход</tr>
       </par>
       <par>
-        <tr lang="en">if a route starts with '*', the output includes the message selector, otherwise the selector is removed</tr>
-        <tr lang="ru">если шаблон начинается с '*', вывод включает селектор сообщения, иначе селектор удаляется</tr>
+        <tr lang="en">if a route starts with '*', the output includes the message selector,
+        otherwise the selector is removed</tr>
+        <tr lang="ru">если шаблон начинается с '*', вывод включает селектор сообщения, иначе
+        селектор удаляется</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to dispatch messages by selector or by the first list element, for example to route "note", "ctlin" or numeric messages to different destinations</tr>
-        <tr lang="ru">объект можно использовать для диспетчеризации сообщений по селектору или по первому элементу списка, например для маршрутизации сообщений "note", "ctlin" или числовых сообщений в разные места назначения</tr>
+        <tr lang="en">the object can be used to dispatch messages by selector or by the first list
+        element, for example to route "note", "ctlin" or numeric messages to different
+        destinations</tr>
+        <tr lang="ru">объект можно использовать для диспетчеризации сообщений по селектору или по
+        первому элементу списка, например для маршрутизации сообщений "note", "ctlin" или числовых
+        сообщений в разные места назначения</tr>
       </par>
     </info>
     <arguments>
@@ -43,20 +52,27 @@
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">match to the first list element, output to the corresponding outlet. If the route starts with *, output the list as is, otherwise output without the first element</tr>
-          <tr lang="ru">совпадение с первым элементом списка, вывод на соответствующий выход. Если шаблон начинается с *, вывести список как есть, иначе вывести без первого элемента</tr>
+          <tr lang="en">match to the first list element, output to the corresponding outlet. If the
+          route starts with *, output the list as is, otherwise output without the first
+          element</tr>
+          <tr lang="ru">совпадение с первым элементом списка, вывод на соответствующий выход. Если
+          шаблон начинается с *, вывести список как есть, иначе вывести без первого элемента</tr>
         </in>
         <in on="any">
-          <tr lang="en">match to the message selector, output to the corresponding outlet. On success outputs the message arguments to the corresponding outlet</tr>
-          <tr lang="ru">совпадение с селектором сообщения, вывод на соответствующий выход. При успехе выводит аргументы сообщения на соответствующий выход</tr>
+          <tr lang="en">match to the message selector, output to the corresponding outlet. On
+          success outputs the message arguments to the corresponding outlet</tr>
+          <tr lang="ru">совпадение с селектором сообщения, вывод на соответствующий выход. При
+          успехе выводит аргументы сообщения на соответствующий выход</tr>
         </in>
         <in on="data:mlist">
           <tr lang="en">same as list</tr>
           <tr lang="ru">то же, что список</tr>
         </in>
         <in on="data:dict">
-          <tr lang="en">match dict keys. On success outputs dict values to the corresponding outlets, if the route starts with * the output includes the matched key</tr>
-          <tr lang="ru">совпадение с ключами словаря. При успехе выводит значения словаря на соответствующие выходы, если шаблон начинается с *, вывод включает совпавший ключ</tr>
+          <tr lang="en">match dict keys. On success outputs dict values to the corresponding
+          outlets, if the route starts with * the output includes the matched key</tr>
+          <tr lang="ru">совпадение с ключами словаря. При успехе выводит значения словаря на
+          соответствующие выходы, если шаблон начинается с *, вывод включает совпавший ключ</tr>
         </in>
       </inlet>
     </inlets>

@@ -21,16 +21,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">acts like the vanilla [pipe] but for any messages: bangs, floats, symbols etc.</tr>
-        <tr lang="ru">работает как стандартный [pipe], но для любых сообщений: bang, чисел, символов и т.д.</tr>
+        <tr lang="en">acts like the vanilla [pipe] but for any messages: bangs, floats, symbols
+        etc.</tr>
+        <tr lang="ru">работает как стандартный [pipe], но для любых сообщений: bang, чисел,
+        символов и т.д.</tr>
       </par>
       <par>
         <tr lang="en">the object delays the incoming messages by @delay milliseconds</tr>
         <tr lang="ru">объект задерживает входящие сообщения на @delay миллисекунд</tr>
       </par>
       <par>
-        <tr lang="en">note: @delay property can be set only via the right inlet or the [prop.set] object</tr>
-        <tr lang="ru">примечание: свойство @delay можно задать только через правый вход или объект [prop.set]</tr>
+        <tr lang="en">note: @delay property can be set only via the right inlet or the [prop.set]
+        object</tr>
+        <tr lang="ru">примечание: свойство @delay можно задать только через правый вход или объект
+        [prop.set]</tr>
       </par>
     </info>
     <arguments>

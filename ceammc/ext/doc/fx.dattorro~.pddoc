@@ -18,16 +18,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a reverberator based on the Dattorro reverb topology with the default reverb parameters from the original paper</tr>
-        <tr lang="ru">ревербератор на основе топологии реверберации Dattorro с параметрами по умолчанию из оригинальной статьи</tr>
+        <tr lang="en">a reverberator based on the Dattorro reverb topology with the default reverb
+        parameters from the original paper</tr>
+        <tr lang="ru">ревербератор на основе топологии реверберации Dattorro с параметрами по
+        умолчанию из оригинальной статьи</tr>
       </par>
       <par>
-        <tr lang="en">Dattorro is Jon Dattorro, whose 1997 paper "Effect Design, Part 1" became a classic reference for digital reverb design</tr>
-        <tr lang="ru">Dattorro — это Jon Dattorro, чья статья «Effect Design, Part 1» (1997) стала классическим справочником по проектированию цифровых ревербераторов</tr>
+        <tr lang="en">Dattorro is Jon Dattorro, whose 1997 paper "Effect Design, Part 1" became a
+        classic reference for digital reverb design</tr>
+        <tr lang="ru">Dattorro — это Jon Dattorro, чья статья «Effect Design, Part 1» (1997) стала
+        классическим справочником по проектированию цифровых ревербераторов</tr>
       </par>
       <par>
-        <tr lang="en">@decay sets the decay rate, a value of 1.0 gives infinite decay, @damp controls the high-frequency damping</tr>
-        <tr lang="ru">@decay задаёт скорость затухания, значение 1.0 даёт бесконечное затухание, @damp управляет демпфированием высоких частот</tr>
+        <tr lang="en">@decay sets the decay rate, a value of 1.0 gives infinite decay, @damp
+        controls the high-frequency damping</tr>
+        <tr lang="ru">@decay задаёт скорость затухания, значение 1.0 даёт бесконечное затухание,
+        @damp управляет демпфированием высоких частот</tr>
       </par>
       <a href="https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf">
       https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf</a>
@@ -78,8 +84,10 @@
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
-        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry signal, 1 — processed</tr>
-        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой сигнал, 1 — обработанный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry
+        signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @idiff1 -->
       <property name="@idiff1" type="float" minvalue="0" maxvalue="1" default="0.625">
@@ -94,8 +102,10 @@
       <!-- @predelay -->
       <property name="@predelay" type="float" minvalue="0" maxvalue="100" default="40"
       units="millisecond">
-        <tr lang="en">a delay operating on the processed signal. Large values give the impression of a larger room</tr>
-        <tr lang="ru">задержка, действующая на обработанный сигнал. Большие значения дают ощущение большего помещения</tr>
+        <tr lang="en">a delay operating on the processed signal. Large values give the impression
+        of a larger room</tr>
+        <tr lang="ru">задержка, действующая на обработанный сигнал. Большие значения дают ощущение
+        большего помещения</tr>
       </property>
     </properties>
     <methods>

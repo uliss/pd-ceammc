@@ -21,16 +21,23 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes a message to the outlet of the first matching pattern, unmatched messages go to the last outlet</tr>
-        <tr lang="ru">объект направляет сообщение на выход, соответствующий первому совпавшему шаблону, несовпавшие сообщения идут на последний выход</tr>
+        <tr lang="en">the object routes a message to the outlet of the first matching pattern,
+        unmatched messages go to the last outlet</tr>
+        <tr lang="ru">объект направляет сообщение на выход, соответствующий первому совпавшему
+        шаблону, несовпавшие сообщения идут на последний выход</tr>
       </par>
       <par>
-        <tr lang="en">in regexp syntax use backtick ` instead of backslash, and double quotes to match a property: "@prop+"</tr>
-        <tr lang="ru">в синтаксисе регулярных выражений используйте обратный апостроф ` вместо обратного слэша, а для сопоставления свойства — двойные кавычки: "@prop+"</tr>
+        <tr lang="en">in regexp syntax use backtick ` instead of backslash, and double quotes to
+        match a property: "@prop+"</tr>
+        <tr lang="ru">в синтаксисе регулярных выражений используйте обратный апостроф ` вместо
+        обратного слэша, а для сопоставления свойства — двойные кавычки: "@prop+"</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to dispatch OSC-like messages (for example "freq" and "amp") and to filter messages by selector pattern (for example "@p.+")</tr>
-        <tr lang="ru">объект можно использовать для диспетчеризации сообщений в стиле OSC (например, "freq" и "amp") и для фильтрации сообщений по шаблону селектора (например, "@p.+")</tr>
+        <tr lang="en">the object can be used to dispatch OSC-like messages (for example "freq" and
+        "amp") and to filter messages by selector pattern (for example "@p.+")</tr>
+        <tr lang="ru">объект можно использовать для диспетчеризации сообщений в стиле OSC
+        (например, "freq" и "amp") и для фильтрации сообщений по шаблону селектора (например,
+        "@p.+")</tr>
       </par>
     </info>
     <arguments>

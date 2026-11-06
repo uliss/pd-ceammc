@@ -25,20 +25,29 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes the incoming numbers to the outlets according to the threshold values: a number that is less than the first value goes to the first outlet, a number less than the N-th value goes to the N-th outlet</tr>
-        <tr lang="ru">объект направляет входящие числа на выходы согласно пороговым значениям: число, меньшее первого значения, идёт на первый выход, число, меньшее N-го значения, идёт на N-й выход</tr>
+        <tr lang="en">the object routes the incoming numbers to the outlets according to the
+        threshold values: a number that is less than the first value goes to the first outlet, a
+        number less than the N-th value goes to the N-th outlet</tr>
+        <tr lang="ru">объект направляет входящие числа на выходы согласно пороговым значениям:
+        число, меньшее первого значения, идёт на первый выход, число, меньшее N-го значения, идёт
+        на N-й выход</tr>
       </par>
       <par>
-        <tr lang="en">numbers greater than or equal to the last threshold value are sent to the last outlet</tr>
-        <tr lang="ru">числа, большие или равные последнему пороговому значению, отправляются на последний выход</tr>
+        <tr lang="en">numbers greater than or equal to the last threshold value are sent to the
+        last outlet</tr>
+        <tr lang="ru">числа, большие или равные последнему пороговому значению, отправляются на
+        последний выход</tr>
       </par>
       <par>
         <tr lang="en">the threshold values must be in ascending order</tr>
         <tr lang="ru">пороговые значения должны идти по возрастанию</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to split a numeric stream into ranges, for example to map note pitches to different instruments or to divide a sensor range into zones</tr>
-        <tr lang="ru">объект можно использовать для разбиения числового потока на диапазоны, например для распределения нот по разным инструментам или деления диапазона датчика на зоны</tr>
+        <tr lang="en">the object can be used to split a numeric stream into ranges, for example to
+        map note pitches to different instruments or to divide a sensor range into zones</tr>
+        <tr lang="ru">объект можно использовать для разбиения числового потока на диапазоны,
+        например для распределения нот по разным инструментам или деления диапазона датчика на
+        зоны</tr>
       </par>
     </info>
     <arguments>

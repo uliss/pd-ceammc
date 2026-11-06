@@ -21,16 +21,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">on receiving a message, the object first outputs the stored message and then the incoming message</tr>
-        <tr lang="ru">при получении сообщения объект сначала выводит сохранённое сообщение, а затем — входящее</tr>
+        <tr lang="en">on receiving a message, the object first outputs the stored message and then
+        the incoming message</tr>
+        <tr lang="ru">при получении сообщения объект сначала выводит сохранённое сообщение, а затем
+        — входящее</tr>
       </par>
       <par>
-        <tr lang="en">the stored message is set by the MSG argument, the @msg property, or by sending a message to the right inlet</tr>
-        <tr lang="ru">сохраняемое сообщение задаётся аргументом MSG, свойством @msg или подачей сообщения на правый вход</tr>
+        <tr lang="en">the stored message is set by the MSG argument, the @msg property, or by
+        sending a message to the right inlet</tr>
+        <tr lang="ru">сохраняемое сообщение задаётся аргументом MSG, свойством @msg или подачей
+        сообщения на правый вход</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to send a fixed message before each incoming message, for example to trigger a reset</tr>
-        <tr lang="ru">объект можно использовать для отправки фиксированного сообщения перед каждым входящим, например для запуска сброса</tr>
+        <tr lang="en">the object can be used to send a fixed message before each incoming message,
+        for example to trigger a reset</tr>
+        <tr lang="ru">объект можно использовать для отправки фиксированного сообщения перед каждым
+        входящим, например для запуска сброса</tr>
       </par>
     </info>
     <arguments>

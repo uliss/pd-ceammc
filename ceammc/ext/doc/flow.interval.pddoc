@@ -21,12 +21,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object measures the time in milliseconds between the current and the previous message received on the inlet</tr>
-        <tr lang="ru">объект измеряет время в миллисекундах между текущим и предыдущим сообщением, полученным на входе</tr>
+        <tr lang="en">the object measures the time in milliseconds between the current and the
+        previous message received on the inlet</tr>
+        <tr lang="ru">объект измеряет время в миллисекундах между текущим и предыдущим сообщением,
+        полученным на входе</tr>
       </par>
       <par>
-        <tr lang="en">the first message after the object is created produces no output, since there is no previous message to compare with</tr>
-        <tr lang="ru">первое сообщение после создания объекта не даёт вывода, так как нет предыдущего сообщения для сравнения</tr>
+        <tr lang="en">the first message after the object is created produces no output, since there
+        is no previous message to compare with</tr>
+        <tr lang="ru">первое сообщение после создания объекта не даёт вывода, так как нет
+        предыдущего сообщения для сравнения</tr>
       </par>
     </info>
     <inlets>
@@ -40,7 +44,8 @@
     <outlets>
       <outlet>
         <out type="float">
-          <tr lang="en">output time between the current and the previous message in milliseconds</tr>
+          <tr lang="en">output time between the current and the previous message in
+          milliseconds</tr>
           <tr lang="ru">время между текущим и предыдущим сообщением в миллисекундах</tr>
         </out>
       </outlet>

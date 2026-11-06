@@ -27,8 +27,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object rejects the input value if the predicate object connected to the side-chain outputs 1, otherwise the value is passed</tr>
-        <tr lang="ru">объект отбрасывает входное значение, если объект-предикат, подключённый к боковой цепи, выводит 1, иначе значение пропускается</tr>
+        <tr lang="en">the object rejects the input value if the predicate object connected to the
+        side-chain outputs 1, otherwise the value is passed</tr>
+        <tr lang="ru">объект отбрасывает входное значение, если объект-предикат, подключённый к
+        боковой цепи, выводит 1, иначе значение пропускается</tr>
       </par>
       <par>
         <tr lang="en">the predicate should accept the value and output 0 or 1</tr>
@@ -39,8 +41,10 @@
         <tr lang="ru">примеры предикатов: [&lt;], [is_even], [is_list]</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to filter out values by an arbitrary condition, for example to reject only even numbers or only values greater than 10</tr>
-        <tr lang="ru">объект можно использовать для отбрасывания значений по произвольному условию, например чтобы отбросить только чётные числа или только значения больше 10</tr>
+        <tr lang="en">the object can be used to filter out values by an arbitrary condition, for
+        example to reject only even numbers or only values greater than 10</tr>
+        <tr lang="ru">объект можно использовать для отбрасывания значений по произвольному условию,
+        например чтобы отбросить только чётные числа или только значения больше 10</tr>
       </par>
     </info>
     <inlets>
@@ -53,7 +57,8 @@
       <inlet>
         <in on="int">
           <tr lang="en">value from the predicate (0 or 1). If 1, reject the value, if 0, pass</tr>
-          <tr lang="ru">значение от предиката (0 или 1). Если 1 — отбросить значение, если 0 — пропустить</tr>
+          <tr lang="ru">значение от предиката (0 или 1). Если 1 — отбросить значение, если 0 —
+          пропустить</tr>
         </in>
       </inlet>
     </inlets>
