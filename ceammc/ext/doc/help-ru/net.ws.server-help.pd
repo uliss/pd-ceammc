@@ -180,7 +180,8 @@ first \, last \, id \, == \, != \, except.;
 — при отключении клиента \, [text( — при текстовом сообщении \, [ping(
 — при ping-сообщении от клиента \, [binary( — при бинарном сообщении.;
 #X text 130 2541 2\.;
-#X text 270 2541 список: CLIENT_ID CLIENT_ADDR.;
+#X text 170 2541 list:;
+#X text 270 2541 CLIENT_ID CLIENT_ADDR.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

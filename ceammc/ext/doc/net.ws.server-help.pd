@@ -178,7 +178,8 @@ one of: 'id' \, '==' \, '!=' or 'except'. Type: int.;
 client closed \, [text( on text message \, [ping( on ping message from
 client \, [binary( on binary message.;
 #X text 130 2421 2\.;
-#X text 270 2421 list: CLIENT_ID CLIENT_ADDR.;
+#X text 170 2421 list:;
+#X text 270 2421 CLIENT_ID CLIENT_ADDR.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

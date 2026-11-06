@@ -271,9 +271,9 @@
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">list: CLIENT_ID CLIENT_ADDR</tr>
-          <tr lang="ru">список: CLIENT_ID CLIENT_ADDR</tr>
+        <out type="list">
+          <tr lang="en">CLIENT_ID CLIENT_ADDR</tr>
+          <tr lang="ru">CLIENT_ID CLIENT_ADDR</tr>
         </out>
       </outlet>
     </outlets>
