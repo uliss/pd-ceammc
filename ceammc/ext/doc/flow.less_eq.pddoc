@@ -63,25 +63,25 @@
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
-        <out type="any">
+        <out type="float">
           <tr lang="en">numbers that are less than or equal to the 1st argument</tr>
           <tr lang="ru">числа, меньшие или равные 1-му аргументу</tr>
         </out>
       </outlet>
       <outlet number="...">
-        <out type="any">
+        <out type="float">
           <tr lang="en">numbers that are less than or equal to the ... argument</tr>
           <tr lang="ru">числа, меньшие или равные ... аргументу</tr>
         </out>
       </outlet>
       <outlet number="n">
-        <out type="any">
+        <out type="float">
           <tr lang="en">numbers that are less than or equal to the N-th argument</tr>
           <tr lang="ru">числа, меньшие или равные N-му аргументу</tr>
         </out>
       </outlet>
       <outlet number="n+1">
-        <out type="any">
+        <out type="float">
           <tr lang="en">numbers that are greater than the last argument</tr>
           <tr lang="ru">числа, большие последнего аргумента</tr>
         </out>

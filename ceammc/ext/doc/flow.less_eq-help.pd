@@ -53,12 +53,16 @@ order. Type: list.;
 #X obj 20 630 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 631 1\.;
+#X text 170 631 float:;
 #X text 270 631 numbers that are less than or equal to the 1st argument.;
 #X text 130 651 ...;
+#X text 170 651 float:;
 #X text 270 651 numbers that are less than or equal to the ... argument.;
 #X text 130 671 n.;
+#X text 170 671 float:;
 #X text 270 671 numbers that are less than or equal to the N-th argument.;
 #X text 130 691 n+1\.;
+#X text 170 691 float:;
 #X text 270 691 numbers that are greater than the last argument.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
