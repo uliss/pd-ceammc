@@ -21,105 +21,88 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Searches file by name in user specified or PureData system paths.</tr>
-        <!-- old: Поиск файла по имени в заданных пользователем или
-                Пути системы PureData. -->
-        <tr lang="ru" finished="false">Поиск файла по имени в заданных пользователем или Пути
-        системы PureData.</tr>
+        <tr lang="en">searches for a file by name in user-defined paths or Pure Data system paths</tr>
+        <tr lang="ru">ищет файл по имени в путях, заданных пользователем, или в системных путях Pure Data</tr>
       </par>
       <par>
-        <tr lang="en">Outputs first found file.</tr>
-        <tr lang="ru" finished="false">Выходы первого найденного файла.</tr>
+        <tr lang="en">outputs the first found file</tr>
+        <tr lang="ru">выводит первый найденный файл</tr>
       </par>
       <par>
-        <tr lang="en">Search order: 1. user defined paths (@path property), 2. current patch
-        directory, 3. PureData system path, 4. home directory.</tr>
-        <!-- old: Порядок поиска: 1. пути, определенные пользователем
-                (@path property), 2. текущий каталог патчей, 3. Путь системы PureData, 4. домашний
-                каталог. -->
-        <tr lang="ru" finished="false">Порядок поиска: 1. пути, определенные пользователем (@path
-        property), 2. текущий каталог патчей, 3. Путь системы PureData, 4. домашний каталог.</tr>
+        <tr lang="en">search order: 1. user-defined paths (@paths property), 2. current patch directory, 3. Pure Data system path, 4. home directory</tr>
+        <tr lang="ru">порядок поиска: 1. заданные пользователем пути (свойство @paths), 2. текущий каталог патча, 3. системный путь Pure Data, 4. домашний каталог</tr>
       </par>
       <par>
-        <tr lang="en">Absolute paths processed before relative.</tr>
-        <!-- old: Абсолютные пути обрабатываются перед
-                относительными. -->
-        <tr lang="ru" finished="false">Абсолютные пути обрабатываются перед относительными.</tr>
+        <tr lang="en">absolute paths are processed before relative ones</tr>
+        <tr lang="ru">абсолютные пути обрабатываются перед относительными</tr>
       </par>
       <par>
-        <tr lang="en">Home directory can be specified with '~' symbol.</tr>
-        <!-- old: Домашний каталог может быть указан символом
-                «~». -->
-        <tr lang="ru" finished="false">Домашний каталог может быть указан символом «~».</tr>
+        <tr lang="en">the home directory can be specified with the '~' symbol</tr>
+        <tr lang="ru">домашний каталог можно указать символом '~'</tr>
       </par>
       <par>
-        <tr lang="en">Note: by default search request is performed asynchronously, so a delay will
-        occured between input and output.</tr>
-        <!-- old: Примечание: по умолчанию поисковый запрос
-                выполняется асинхронно, поэтому между входом и выходом возникает задержка. -->
-        <tr lang="ru" finished="false">Примечание: по умолчанию поисковый запрос выполняется
-        асинхронно, поэтому между входом и выходом возникает задержка.</tr>
+        <tr lang="en">note: by default the search request is performed asynchronously, so there is a delay between input and output</tr>
+        <tr lang="ru">примечание: по умолчанию поисковый запрос выполняется асинхронно, поэтому между входом и выходом возникает задержка</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to find a sample or a configuration file without knowing its full path</tr>
+        <tr lang="ru">объект можно использовать для поиска сэмпла или файла конфигурации, не зная полного пути к нему</tr>
       </par>
     </info>
     <arguments>
       <argument name="PATHS" type="list">
-        <tr lang="en">list of paths, can be quoted to handle whitespace.</tr>
-        <!-- old: Список путей можно процитировать для обработки
-                белого пространства. -->
-        <tr lang="ru" finished="false">Список путей можно процитировать для обработки белого
-        пространства.</tr>
+        <tr lang="en">list of paths, can be quoted to handle whitespace</tr>
+        <tr lang="ru">список путей, можно заключать в кавычки для обработки пробелов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @async -->
       <property name="@async" type="bool" default="1">
-        <tr lang="en">perform async search in separate thread</tr>
-        <tr lang="ru" finished="false">выполнить асинхронный поиск в отдельном потоке</tr>
+        <tr lang="en">perform async search in a separate thread</tr>
+        <tr lang="ru">выполнять асинхронный поиск в отдельном потоке</tr>
       </property>
       <!-- @depth -->
       <property name="@depth" type="int" minvalue="-1" default="0">
         <tr lang="en">search recursion depth (-1: infinite)</tr>
-        <tr lang="ru" finished="false">глубина рекурсии поиска (-1: бесконечность)</tr>
+        <tr lang="ru">глубина рекурсии поиска (-1: бесконечная)</tr>
       </property>
       <!-- @home -->
       <property name="@home" type="bool" default="1">
-        <tr lang="en">search in home directory</tr>
-        <tr lang="ru" finished="false">Поиск в домашнем каталоге</tr>
+        <tr lang="en">search in the home directory</tr>
+        <tr lang="ru">искать в домашнем каталоге</tr>
       </property>
       <!-- @nohome -->
       <property name="@nohome" type="alias">
-        <tr lang="en">alias to @home 0, do not search in home directory</tr>
-        <tr lang="ru" finished="false">alias to @home 0, не ищите в домашнем каталоге</tr>
+        <tr lang="en">alias to @home 0, do not search in the home directory</tr>
+        <tr lang="ru">псевдоним для @home 0, не искать в домашнем каталоге</tr>
       </property>
       <!-- @nostd -->
       <property name="@nostd" type="alias">
         <tr lang="en">alias to @std 0, do not search in standard dirs</tr>
-        <!-- old: alias to @std 0, не ищите в стандартных
-                закладках -->
-        <tr lang="ru" finished="false">alias to @std 0, не ищите в стандартных закладках</tr>
+        <tr lang="ru">псевдоним для @std 0, не искать в стандартных каталогах</tr>
       </property>
       <!-- @paths -->
       <property name="@paths" type="list" default="">
-        <tr lang="en">user defined search paths</tr>
-        <tr lang="ru" finished="false">определяемые пользователем пути поиска</tr>
+        <tr lang="en">user-defined search paths</tr>
+        <tr lang="ru">заданные пользователем пути поиска</tr>
       </property>
       <!-- @std -->
       <property name="@std" type="bool" default="1">
-        <tr lang="en">search in PureData standard directory</tr>
-        <tr lang="ru" finished="false">Поиск в стандартном каталоге PureData</tr>
+        <tr lang="en">search in the Pure Data standard directory</tr>
+        <tr lang="ru">искать в стандартном каталоге Pure Data</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="alias">
         <tr lang="en">alias to @async 0</tr>
-        <tr lang="ru" finished="false">Исполнитель: @async 0</tr>
+        <tr lang="ru">псевдоним для @async 0</tr>
       </property>
     </properties>
     <methods>
       <!-- cancel -->
       <method name="cancel">
         <info>
-          <tr lang="en">cancel search process</tr>
-          <tr lang="ru" finished="false">Отмена поискового процесса</tr>
+          <tr lang="en">cancel the search process</tr>
+          <tr lang="ru">отменить процесс поиска</tr>
         </info>
       </method>
     </methods>
@@ -127,25 +110,25 @@
       <inlet>
         <in on="symbol">
           <tr lang="en">filename</tr>
-          <tr lang="ru" finished="false">имя файла</tr>
+          <tr lang="ru">имя файла</tr>
         </in>
         <in on="data:string">
           <tr lang="en">filename</tr>
-          <tr lang="ru" finished="false">имя файла</tr>
+          <tr lang="ru">имя файла</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">symbol: full filename</tr>
-          <tr lang="ru" finished="false">Символ: полное имя файла</tr>
+        <out type="symbol">
+          <tr lang="en">full filename</tr>
+          <tr lang="ru">полное имя файла</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang: if not found</tr>
-          <tr lang="ru" finished="false">Bang: Если не найдено</tr>
+        <out type="bang">
+          <tr lang="en">if not found</tr>
+          <tr lang="ru">если не найдено</tr>
         </out>
       </outlet>
     </outlets>
