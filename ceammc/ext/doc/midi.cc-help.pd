@@ -5,73 +5,82 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.cc 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 midi.cc;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X floatatom 136 118 5 0 0 0 - - -;
-#X msg 50 147 @cc \$1;
-#X msg 136 147 @curve \$1;
-#X obj 50 176 midi.cc 10 @min 0 @max 1 @curve -2;
-#X obj 50 205 ui.hsl;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object receives the value of the specified MIDI
+controller and rescales it from the range 0\..127 to the range @min..@max
+using the @curve response;
+#X text 240 138 @ch selects the MIDI channel \, @cc sets the controller
+number;
+#X text 240 163 the object can be used to map a MIDI controller to
+any parameter range \, for example to map a mod wheel to a filter cutoff
+or to a volume level;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X floatatom 136 281 5 0 0 0 - - -;
+#X msg 50 310 @cc \$1;
+#X msg 136 310 @curve \$1;
+#X obj 50 339 midi.cc 10 @min 0 @max 1 @curve -2;
+#X obj 50 368 ui.hsl;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 423 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 int;
-#X obj 268 262 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 CC: controller number. Type: int. Range: [0\..127];
-#X text 130 286 2\.;
-#X text 170 286 float;
-#X obj 268 287 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 286 MIN: @min value. Type: float.;
-#X text 130 311 3\.;
-#X text 170 311 float;
-#X obj 268 312 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 MAX: @max value. Type: float.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 351 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 424 1\.;
+#X text 170 424 int;
+#X obj 268 425 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 424 CC: controller number. Type: int. Range: [0\..127];
+#X text 130 449 2\.;
+#X text 170 449 float;
+#X obj 268 450 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 449 MIN: @min value. Type: float.;
+#X text 130 474 3\.;
+#X text 170 474 float;
+#X obj 268 475 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 474 MAX: @max value. Type: float.;
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 514 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 354 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 517 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 352 @cc;
-#X text 270 352 Controller number. Type: int. Default value: 0\. Range:
+#X msg 130 515 @cc;
+#X text 270 515 Controller number. Type: int. Default value: 0\. Range:
 [0\..127].;
-#X obj 250 394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 394 @ch;
-#X text 270 394 MIDI channel. Type: int. Default value: 0\. Range:
+#X obj 250 557 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 557 @ch;
+#X text 270 557 MIDI channel. Type: int. Default value: 0\. Range:
 [0\..16].;
-#X obj 250 424 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 424 @curve;
-#X text 270 424 Output curve. If @curve<0: fast start \, slow end;
-if @curve>0: slow start \, fast end; if @curve==0: linear response.
-Type: float. Default value: 0\.;
-#X obj 250 511 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 511 @max;
-#X text 270 511 Output value when MIDI input is 127\. Type: float.
+#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 587 @curve;
+#X text 270 587 Output response curve. If @curve<0 the response starts
+fast and ends slow \, if @curve>0 it starts slow and ends fast \, if
+@curve==0 the response is linear. Type: float. Default value: 0\.;
+#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 659 @max;
+#X text 270 659 Output value when MIDI input is 127\. Type: float.
 Default value: 127\.;
-#X obj 250 553 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 553 @min;
-#X text 270 553 Output value when MIDI input is 0\. Type: float. Default
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @min;
+#X text 270 701 Output value when MIDI input is 0\. Type: float. Default
 value: 0\.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 610 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 758 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 611 1\.;
-#X text 270 611 control input.;
-#X obj 20 646 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 651 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 759 1\.;
+#X text 270 759 control input.;
+#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 799 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 652 1\.;
-#X text 170 652 float:;
-#X text 270 652 controller value.;
+#X text 130 800 1\.;
+#X text 170 800 float:;
+#X text 270 800 controller value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 702 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 705 library: ceammc v0.9.8;
-#N canvas 10 724 400 290 info 0;
+#X obj 1 850 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 853 library: ceammc v0.9.8;
+#N canvas 10 872 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,9 +104,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 724 pd info;
-#X connect 4 0 6 0;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 872 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
