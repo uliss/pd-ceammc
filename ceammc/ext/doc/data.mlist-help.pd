@@ -105,58 +105,73 @@ are:;
 #X obj 300 1134 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 300 1134 VAL: value to prepend. Type: atom.;
 #X obj 250 1167 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1167 remove;
-#X text 270 1167 removes the element at the specified index. Arguments
+#X msg 130 1167 read;
+#X text 270 1167 reads a list from the specified file in JSON format.
+Arguments are:;
+#X obj 300 1207 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1207 FNAME: file name to read from. Type: symbol.;
+#X obj 250 1240 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1240 remove;
+#X text 270 1240 removes the element at the specified index. Arguments
 are:;
-#X obj 300 1192 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1192 IDX: element index. Type: int.;
-#X obj 250 1225 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1225 reverse;
-#X text 270 1225 reverses the order of the list.;
-#X obj 250 1260 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1260 set;
-#X text 270 1260 sets a new list without output. Arguments are:;
-#X obj 300 1285 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1285 LIST: new list content. Type: list.;
-#X obj 250 1318 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1318 shuffle;
-#X text 270 1318 randomly reorders the elements.;
-#X obj 250 1353 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1353 sort;
-#X text 270 1353 sorts the list.;
-#X obj 250 1388 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1388 (....);
-#X text 270 1388 sets a new list without output.;
-#X obj 250 1423 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1423 dump;
-#X text 270 1423 outputs object information to the Pd window.;
-#X obj 20 1468 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1473 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X obj 300 1265 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1265 IDX: element index. Type: int.;
+#X obj 250 1298 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1298 reverse;
+#X text 270 1298 reverses the order of the list.;
+#X obj 250 1333 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1333 set;
+#X text 270 1333 sets a new list without output. Arguments are:;
+#X obj 300 1358 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1358 LIST: new list content. Type: list.;
+#X obj 250 1391 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1391 shuffle;
+#X text 270 1391 randomly reorders the elements.;
+#X obj 250 1426 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1426 sort;
+#X text 270 1426 sorts the list.;
+#X obj 250 1461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1461 write;
+#X text 270 1461 writes the current list to the specified file in JSON
+format. Without @force \, an existing file is not overwritten. Arguments
+are:;
+#X obj 300 1516 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1516 FNAME: file name to write to. Type: symbol.;
+#X obj 300 1539 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1539 [@force]: overwrite an existing file.;
+#X obj 250 1572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1572 (....);
+#X text 270 1572 sets a new list without output.;
+#X obj 250 1607 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1607 dump;
+#X text 270 1607 outputs object information to the Pd window.;
+#X obj 20 1652 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1657 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1474 1\.;
-#X text 170 1474 bang:;
-#X text 270 1474 outputs the current list value.;
-#X text 170 1499 symbol:;
-#X text 270 1499 sets a new list with a single symbol element and outputs
+#X text 130 1658 1\.;
+#X text 170 1658 bang:;
+#X text 270 1658 outputs the current list value.;
+#X text 170 1683 symbol:;
+#X text 270 1683 sets a new list with a single symbol element and outputs
 it.;
-#X text 170 1524 list:;
-#X text 270 1524 sets a new list and outputs it.;
-#X obj 20 1559 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1564 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 170 1708 list:;
+#X text 270 1708 sets a new list and outputs it.;
+#X obj 20 1743 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1748 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1565 1\.;
-#X text 270 1565 outputs a list or list elements.;
+#X text 130 1749 1\.;
+#X text 270 1749 outputs a list or list elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1618 library: ceammc v0.9.8;
-#X text 597 1630 see also:;
-#X obj 672 1633 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1799 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1802 library: ceammc v0.9.8;
+#X text 597 1814 see also:;
+#X obj 672 1817 ui.link @background_color 0.78431 0.78431 0.78431
 @title [data.list] @url data.list-help.pd;
-#N canvas 10 1637 400 290 info 0;
+#N canvas 10 1821 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -180,7 +195,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1637 pd info;
+#X restore 10 1821 pd info;
 #X connect 9 0 12 0;
 #X connect 10 0 12 0;
 #X connect 11 0 12 0;
