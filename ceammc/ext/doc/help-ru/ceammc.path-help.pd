@@ -18,7 +18,7 @@ path.basename-help.pd;
 #X obj 30 245 ui.link @title [path.is_dir] @url path.is_dir-help.pd;
 #X text 220 242 проверяет \, является ли путь каталогом;
 #X obj 30 270 ui.link @title [path.lsdir] @url path.lsdir-help.pd;
-#X text 220 267 cписок содержимого каталога;
+#X text 220 267 выводит список содержимого каталога;
 #X obj 30 295 ui.link @title [path.monitor] @url path.monitor-help.pd;
 #X text 220 292 мониторинг событий файловой системы;
 #X obj 30 320 ui.link @title [path.normalize] @url

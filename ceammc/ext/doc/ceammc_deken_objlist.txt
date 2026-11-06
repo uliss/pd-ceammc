@@ -1056,8 +1056,8 @@ path.dirname	outputs directory portion of path name / извлекает имя 
 path.exists	checks if the given path exists / проверяет, существует ли заданный путь
 path.file	file input/output / файловый ввод/вывод
 path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
-path.lsdir	list directory contents / cписок содержимого каталога
-path.ls	list directory contents / cписок содержимого каталога
+path.lsdir	list directory contents / выводит список содержимого каталога
+path.ls	list directory contents / выводит список содержимого каталога
 path.monitor	filesystem event monitor / мониторинг событий файловой системы
 path.normalize	normalize file paths / нормализует пути файлов
 path.norm	normalize file paths / нормализует пути файлов
