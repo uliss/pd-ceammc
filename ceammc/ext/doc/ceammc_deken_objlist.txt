@@ -1052,7 +1052,7 @@ patch.deps	output the patch dependencies: used objects and abstractions / выв
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	outputs the file size / выводит размер файла
 path.basename	outputs the filename portion of the path name / извлекает имя файла из пути
-path.dirname	outputs directory portion of path name / выводит имя каталога файла из пути к файлу
+path.dirname	outputs directory portion of path name / извлекает имя каталога из пути
 path.exists	checks if the given path exists / проверка существования пути
 path.file	file input/output / файловый ввод/вывод
 path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом

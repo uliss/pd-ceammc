@@ -1827,7 +1827,7 @@ path.basename-help.pd;
 #X text 200 19144 извлекает имя файла из пути;
 #X obj 30 19172 ui.link @title [path.dirname] @url
 path.dirname-help.pd;
-#X text 200 19169 выводит имя каталога файла из пути к файлу;
+#X text 200 19169 извлекает имя каталога из пути;
 #X obj 30 19197 ui.link @title [path.exists] @url path.exists-help.pd;
 #X text 200 19194 проверка существования пути;
 #X obj 30 19222 ui.link @title [path.file] @url path.file-help.pd;
