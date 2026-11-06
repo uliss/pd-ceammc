@@ -15,39 +15,47 @@
 [~->] @url flow.tee~-help.pd;
 #X restore 577 11 pd aliases;
 #X obj 674 11 flow.tee~;
-#X obj 50 118 osc~ 440;
-#X obj 165 118 ui.dsp~;
-#X obj 69 162 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект разделяет аудиопоток и управляющие сообщения
+\, которые передаются по одному аудиосоединению;
+#X text 240 123 аудиосигнал без изменений проходит на аудиовыход \,
+а управляющие сообщения отправляются на управляющий выход;
+#X text 240 163 объект можно использовать для передачи управляющих
+сообщений через аудиокабели \, например чтобы передать сообщение из
+одной части патча в другую без отдельного управляющего соединения;
+#X obj 50 296 osc~ 440;
+#X obj 165 296 ui.dsp~;
+#X obj 69 340 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 107 162 symbol A;
-#X msg 213 162 list 1 2 3;
-#X msg 338 162 @p 1;
-#X obj 50 205 flow.tee~;
-#X obj 117 234 ui.dt;
-#X obj 50 262 ui.hgain~;
-#X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 107 340 symbol A;
+#X msg 213 340 list 1 2 3;
+#X msg 338 340 @p 1;
+#X obj 50 383 flow.tee~;
+#X obj 117 412 ui.dt;
+#X obj 50 440 ui.hgain~;
+#X obj 50 469 dac~;
+#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 524 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 347 1\.;
-#X text 170 347 ~;
-#X text 270 347 mixed stream.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 387 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 525 1\.;
+#X text 170 525 ~;
+#X text 270 525 смешанный поток.;
+#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 565 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 388 1\.;
-#X text 170 388 ~;
-#X text 270 388 audio stream.;
-#X text 130 408 2\.;
-#X text 270 408 control stream.;
+#X text 130 566 1\.;
+#X text 170 566 ~;
+#X text 270 566 аудиопоток.;
+#X text 130 586 2\.;
+#X text 270 586 поток управления.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 636 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 639 библиотека: ceammc v0.9.8;
+#N canvas 10 658 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -71,13 +79,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 11 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 1 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 14 0;
-#X connect 13 0 14 1;
+#X restore 10 658 pd info;
+#X connect 9 0 15 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 1 16 0;
+#X connect 15 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 0 18 1;
