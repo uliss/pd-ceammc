@@ -167,9 +167,11 @@
       </pdascii>
       <pdascii id="home">
 <![CDATA[
-/*unix or macos*/
+/*unix, macos or win*/
 
-[symbol .zshrc(  [T]
+[.zshrc( [Downloads(
+|        |
+[symbol  ]        [T]
 |                 |
 |                 [@home $1(
 |                 |
@@ -177,7 +179,7 @@
 |          ^|
 |          [not found(
 |          |
-[ui.dt @size 500 35 @auto_size 0]
+[ui.dt @size 300 35 @auto_size 0]
 ]]>
       </pdascii>
     </example>
