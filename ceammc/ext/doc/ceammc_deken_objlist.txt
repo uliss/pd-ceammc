@@ -420,7 +420,7 @@ ceammc/group	group input atoms in lists of specified size / группирует
 group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
 flow.histogram	histogram for numeric control flow / гистограмма для числового потока управления
 flow.hist	histogram for numeric control flow / гистограмма для числового потока управления
-flow.interval	measure the time between messages / измерение времени между сообщениями
+flow.interval	measure the time between messages / измеряет время между сообщениями
 flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
 flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
 flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
