@@ -8,7 +8,7 @@
 #X text 220 117 выводит размер файла;
 #X obj 30 145 ui.link @title [path.basename] @url
 path.basename-help.pd;
-#X text 220 142 выводит имя файла из пути к файлу;
+#X text 220 142 извлекает имя файла из пути;
 #X obj 30 170 ui.link @title [path.dirname] @url path.dirname-help.pd;
 #X text 220 167 выводит имя каталога файла из пути к файлу;
 #X obj 30 195 ui.link @title [path.exists] @url path.exists-help.pd;

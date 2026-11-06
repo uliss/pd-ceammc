@@ -1051,7 +1051,7 @@ patch.args	get patch or subpatch initial arguments / получает начал
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	outputs the file size / выводит размер файла
-path.basename	outputs the filename portion of the path name / выводит имя файла из пути к файлу
+path.basename	outputs the filename portion of the path name / извлекает имя файла из пути
 path.dirname	outputs directory portion of path name / выводит имя каталога файла из пути к файлу
 path.exists	checks if the given path exists / проверка существования пути
 path.file	file input/output / файловый ввод/вывод
