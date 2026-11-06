@@ -24,25 +24,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">These conversions are purely lexical. They do not check that the paths exist,
-        do not follow symlinks, and do not access the filesystem at all</tr>
-        <!-- old: Эти преобразования являются чисто лексическими. Они
-                не проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к
-                файловой системе. -->
-        <tr lang="ru" finished="false">Эти преобразования являются чисто лексическими. Они не
-        проверяют наличие путей, не следуют по симлинкам и вообще не имеют доступа к файловой
-        системе.</tr>
+        <tr lang="en">the object normalizes a file path: removes redundant separators and '.' components, and resolves '..' components</tr>
+        <tr lang="ru">объект нормализует путь к файлу: удаляет лишние разделители и компоненты '.', а также раскрывает компоненты '..'</tr>
+      </par>
+      <par>
+        <tr lang="en">these conversions are purely lexical: they do not check that the paths exist, do not follow symlinks and do not access the filesystem at all</tr>
+        <tr lang="ru">эти преобразования чисто лексические: они не проверяют существование путей, не переходят по симлинкам и вообще не обращаются к файловой системе</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to clean up paths before comparing them or passing them to other objects</tr>
+        <tr lang="ru">объект можно использовать для очистки путей перед их сравнением или передачей другим объектам</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </in>
         <in on="data:string">
           <tr lang="en">file path</tr>
-          <tr lang="ru" finished="false">Файловый путь</tr>
+          <tr lang="ru">путь к файлу</tr>
         </in>
       </inlet>
     </inlets>
@@ -50,7 +52,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">symbol or data:string: normalized path</tr>
-          <tr lang="ru" finished="false">символ или данные: строка: нормированный путь</tr>
+          <tr lang="ru">символ или data:string: нормализованный путь</tr>
         </out>
       </outlet>
     </outlets>
