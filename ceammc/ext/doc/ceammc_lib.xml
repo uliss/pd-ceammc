@@ -696,7 +696,7 @@
     <entry name="flow.reject" descr="reject specified values" ref_view="link">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.reject_if" descr="reject the message, accepted by the predicate side-chain" ref_view="link">
+    <entry name="flow.reject_if" descr="rejects the message accepted by the predicate side-chain" ref_view="link">
       <xi:include href="flow.reject_if.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.ring" descr="queue router for control flow" ref_view="link">

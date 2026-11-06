@@ -459,9 +459,9 @@ flow.reject	reject specified values / не пропускает указанны
 ceammc/reject	reject specified values / не пропускает указанные значения
 reject	reject specified values / не пропускает указанные значения
 flow.!	reject specified values / не пропускает указанные значения
-flow.reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
-ceammc/reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
-reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
+flow.reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
+ceammc/reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
+reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
 flow.ring	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
 flow.>>	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
 flow.route	enhanced message router / улучшенный маршрутизатор сообщений

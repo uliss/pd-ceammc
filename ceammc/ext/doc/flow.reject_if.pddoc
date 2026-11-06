@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">reject the message, accepted by the predicate side-chain</tr>
-        <tr lang="ru">не пропускает значение, принятое предикатом боковой цепи обработки</tr>
+        <tr lang="en">rejects the message accepted by the predicate side-chain</tr>
+        <tr lang="ru">не пропускает сообщение, принятое предикатом боковой цепи</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -27,35 +27,33 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">conditional value reject according to *predicate* object. *predicate* should
-        accept value and ouput 0 or 1, for value passing.</tr>
-        <!-- old: Условная величина отклоняется согласно *предикату*
-                объекта. *предикат* должен принимать значение и выдавать 0 или 1, для прохождения
-                значения. -->
-        <tr lang="ru" finished="false">Условная величина отклоняется согласно *предикату* объекта.
-        *предикат* должен принимать значение и выдавать 0 или 1, для прохождения значения.</tr>
+        <tr lang="en">the object rejects the input value if the predicate object connected to the side-chain outputs 1, otherwise the value is passed</tr>
+        <tr lang="ru">объект отбрасывает входное значение, если объект-предикат, подключённый к боковой цепи, выводит 1, иначе значение пропускается</tr>
       </par>
       <par>
-        <tr lang="en">[&lt;] [is_even] [is_list] - examples of predicates.</tr>
-        <!-- old: [<] [is_even] [is_list] — примеры
-                предикатов. -->
-        <tr lang="ru" finished="false">[&lt;] [is_even] [is_list] — примеры предикатов.</tr>
+        <tr lang="en">the predicate should accept the value and output 0 or 1</tr>
+        <tr lang="ru">предикат должен принимать значение и выводить 0 или 1</tr>
+      </par>
+      <par>
+        <tr lang="en">examples of predicates: [&lt;], [is_even], [is_list]</tr>
+        <tr lang="ru">примеры предикатов: [&lt;], [is_even], [is_list]</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to filter out values by an arbitrary condition, for example to reject only even numbers or only values greater than 10</tr>
+        <tr lang="ru">объект можно использовать для отбрасывания значений по произвольному условию, например чтобы отбросить только чётные числа или только значения больше 10</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
-          <tr lang="en">value from predicate (0 or 1). If *1* reject value, if *0* - pass.</tr>
-          <!-- old: значение из предиката (0 или 1). Если *1*
-                    отклонить значение, если *0* - пройти. -->
-          <tr lang="ru" finished="false">значение из предиката (0 или 1). Если *1* отклонить
-          значение, если *0* - пройти.</tr>
+          <tr lang="en">value from the predicate (0 or 1). If 1, reject the value, if 0, pass</tr>
+          <tr lang="ru">значение от предиката (0 или 1). Если 1 — отбросить значение, если 0 — пропустить</tr>
         </in>
       </inlet>
     </inlets>
@@ -63,13 +61,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">passed values</tr>
-          <tr lang="ru" finished="false">переданные значения</tr>
+          <tr lang="ru">переданные значения</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">output value to predicate</tr>
-          <tr lang="ru" finished="false">выходное значение для предиката</tr>
+          <tr lang="en">output value to the predicate</tr>
+          <tr lang="ru">выходное значение для предиката</tr>
         </out>
       </outlet>
     </outlets>

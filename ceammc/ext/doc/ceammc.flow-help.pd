@@ -84,7 +84,7 @@ flow.multiplex~-help.pd;
 #X text 220 942 reject specified values;
 #X obj 30 970 ui.link @title [flow.reject_if] @url
 flow.reject_if-help.pd;
-#X text 220 967 reject the message \, accepted by the predicate side-chain;
+#X text 220 967 rejects the message accepted by the predicate side-chain;
 #X obj 30 995 ui.link @title [flow.ring] @url flow.ring-help.pd;
 #X text 220 992 queue router for control flow;
 #X obj 30 1020 ui.link @title [flow.route] @url flow.route-help.pd;

@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 435 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 не пропускает значение \, принятое предикатом боковой
-цепи обработки;
+#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 328 50 не пропускает сообщение \, принятое предикатом боковой
+цепи;
 #X obj 1 1 cnv 5 765 40 empty empty flow.reject_if 20 20 0 20 -104026
 -4096 0;
 #X obj 401 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -10,45 +10,50 @@
 #X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [reject_if] @url flow.reject_if-help.pd;
 #X obj 638 8 flow.reject_if;
-#X obj 230 93 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 conditional value reject according to *predicate* object.
-*predicate* should accept value and ouput 0 or 1 \, for value passing.;
-#X text 240 153 [<] [is_even] [is_list] - examples of predicates.;
-#X floatatom 50 241 5 0 0 0 - - -;
-#X obj 50 270 flow.reject_if;
-#X obj 232 270 < 10;
-#X floatatom 50 299 5 0 0 0 - - -;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 336 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 180 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект отбрасывает входное значение \, если объект-предикат
+\, подключённый к боковой цепи \, выводит 1 \, иначе значение пропускается;
+#X text 240 138 предикат должен принимать значение и выводить 0 или
+1;
+#X text 240 163 примеры предикатов: [<] \, [is_even] \, [is_list];
+#X text 240 188 объект можно использовать для отбрасывания значений
+по произвольному условию \, например чтобы отбросить только чётные
+числа или только значения больше 10;
+#X floatatom 50 306 5 0 0 0 - - -;
+#X obj 50 335 flow.reject_if;
+#X obj 232 335 < 10;
+#X floatatom 50 364 5 0 0 0 - - -;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 401 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 337 1\.;
-#X text 270 337 input value.;
-#X text 130 362 2\.;
-#X text 170 362 int:;
-#X text 270 362 value from predicate (0 or 1). If *1* reject value
-\, if *0* - pass.;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 417 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 402 1\.;
+#X text 270 402 входное значение.;
+#X text 130 427 2\.;
+#X text 170 427 int:;
+#X text 270 427 значение от предиката (0 или 1). Если 1 — отбросить
+значение \, если 0 — пропустить.;
+#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 482 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 418 1\.;
-#X text 270 418 passed values.;
-#X text 130 438 2\.;
-#X text 270 438 output value to predicate.;
+#X text 130 483 1\.;
+#X text 270 483 переданные значения.;
+#X text 130 503 2\.;
+#X text 270 503 выходное значение для предиката.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 362 520 смотрите также:;
-#X obj 483 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 556 библиотека: ceammc v0.9.8;
+#X text 362 568 смотрите также:;
+#X obj 483 571 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass_if] @url flow.pass_if-help.pd;
-#X obj 588 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 588 571 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject] @url flow.reject-help.pd;
-#X obj 686 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 686 571 ui.link @background_color 0.78431 0.78431 0.78431
 @title [is_even] @url is_even-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -72,8 +77,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 10 1 11 0;
-#X connect 11 0 10 1;
+#X restore 10 575 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 12 1 13 0;
+#X connect 13 0 12 1;

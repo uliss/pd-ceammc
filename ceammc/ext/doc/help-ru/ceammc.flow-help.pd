@@ -89,60 +89,60 @@ flow.multiplex~-help.pd;
 #X text 220 957 не пропускает указанные значения;
 #X obj 30 985 ui.link @title [flow.reject_if] @url
 flow.reject_if-help.pd;
-#X text 220 982 не пропускает значение \, принятое предикатом боковой
-цепи обработки;
-#X obj 30 1025 ui.link @title [flow.ring] @url flow.ring-help.pd;
-#X text 220 1022 маршрутизатор в виде очереди для управляющего потока;
-#X obj 30 1050 ui.link @title [flow.route] @url flow.route-help.pd;
-#X text 220 1047 улучшенный маршрутизатор сообщений;
-#X obj 30 1075 ui.link @title [flow.select] @url flow.select-help.pd;
-#X text 220 1072 улучшенный селектор сообщений;
-#X obj 30 1100 ui.link @title [flow.seqdelay] @url
-flow.seqdelay-help.pd;
-#X text 220 1097 последовательный маршрутизатор с задержками для входного
-потока;
-#X obj 30 1140 ui.link @title [flow.space] @url flow.space-help.pd;
-#X text 220 1137 распределить во времени сообщения \, полученные одновременно;
-#X obj 30 1165 ui.link @title [flow.speedlim] @url
-flow.speedlim-help.pd;
-#X text 220 1162 ограничитель скорости потока;
-#X obj 30 1190 ui.link @title [flow.split] @url flow.split-help.pd;
-#X text 220 1187 разделят управляющий поток внешним предикатом боковой
+#X text 220 982 не пропускает сообщение \, принятое предикатом боковой
 цепи;
-#X obj 30 1215 ui.link @title [flow.stack] @url flow.stack-help.pd;
-#X text 220 1212 стек сообщений;
-#X obj 30 1240 ui.link @title [flow.sync] @url flow.sync-help.pd;
-#X text 220 1237 синхронная многоканальная шина;
-#X obj 30 1265 ui.link @title [flow.sync_pack] @url
+#X obj 30 1010 ui.link @title [flow.ring] @url flow.ring-help.pd;
+#X text 220 1007 маршрутизатор в виде очереди для управляющего потока;
+#X obj 30 1035 ui.link @title [flow.route] @url flow.route-help.pd;
+#X text 220 1032 улучшенный маршрутизатор сообщений;
+#X obj 30 1060 ui.link @title [flow.select] @url flow.select-help.pd;
+#X text 220 1057 улучшенный селектор сообщений;
+#X obj 30 1085 ui.link @title [flow.seqdelay] @url
+flow.seqdelay-help.pd;
+#X text 220 1082 последовательный маршрутизатор с задержками для входного
+потока;
+#X obj 30 1125 ui.link @title [flow.space] @url flow.space-help.pd;
+#X text 220 1122 распределить во времени сообщения \, полученные одновременно;
+#X obj 30 1150 ui.link @title [flow.speedlim] @url
+flow.speedlim-help.pd;
+#X text 220 1147 ограничитель скорости потока;
+#X obj 30 1175 ui.link @title [flow.split] @url flow.split-help.pd;
+#X text 220 1172 разделят управляющий поток внешним предикатом боковой
+цепи;
+#X obj 30 1200 ui.link @title [flow.stack] @url flow.stack-help.pd;
+#X text 220 1197 стек сообщений;
+#X obj 30 1225 ui.link @title [flow.sync] @url flow.sync-help.pd;
+#X text 220 1222 синхронная многоканальная шина;
+#X obj 30 1250 ui.link @title [flow.sync_pack] @url
 flow.sync_pack-help.pd;
-#X text 220 1262 [flow.pack] со всеми "горячими" входами;
-#X obj 30 1290 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
-#X text 220 1287 извлекает управляющие сообщения из аудиосоединений;
-#X obj 30 1315 ui.link @title [replace] @url replace-help.pd;
-#X text 220 1312 заменяет атомы в потоке данных;
-#X obj 30 1340 ui.link @title [route.any] @url route.any-help.pd;
-#X text 220 1337 отделяет сообщения общего вида от пустых событий (bang)
+#X text 220 1247 [flow.pack] со всеми "горячими" входами;
+#X obj 30 1275 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
+#X text 220 1272 извлекает управляющие сообщения из аудиосоединений;
+#X obj 30 1300 ui.link @title [replace] @url replace-help.pd;
+#X text 220 1297 заменяет атомы в потоке данных;
+#X obj 30 1325 ui.link @title [route.any] @url route.any-help.pd;
+#X text 220 1322 отделяет сообщения общего вида от пустых событий (bang)
 \, числовых значений \, символов и списков;
-#X obj 30 1380 ui.link @title [route.bang] @url route.bang-help.pd;
-#X text 220 1377 отделяет пустые события (bangs) от сообщений других
+#X obj 30 1365 ui.link @title [route.bang] @url route.bang-help.pd;
+#X text 220 1362 отделяет пустые события (bangs) от сообщений других
 типов;
-#X obj 30 1405 ui.link @title [route.cycle] @url route.cycle-help.pd;
-#X text 220 1402 циклический маршрутизатор сообщений;
-#X obj 30 1430 ui.link @title [route.data] @url route.data-help.pd;
-#X text 220 1427 отделяет сообщения с данными от других;
-#X obj 30 1455 ui.link @title [route.float] @url route.float-help.pd;
-#X text 220 1452 отделяет числовые сообщения от других типов;
-#X obj 30 1480 ui.link @title [route.list] @url route.list-help.pd;
-#X text 220 1477 отделяет списки от сообщений других типов;
-#X obj 30 1505 ui.link @title [route.prop] @url route.prop-help.pd;
-#X text 220 1502 отделяет сообщения со свойствами от других типов;
-#X obj 30 1530 ui.link @title [route.random] @url
+#X obj 30 1390 ui.link @title [route.cycle] @url route.cycle-help.pd;
+#X text 220 1387 циклический маршрутизатор сообщений;
+#X obj 30 1415 ui.link @title [route.data] @url route.data-help.pd;
+#X text 220 1412 отделяет сообщения с данными от других;
+#X obj 30 1440 ui.link @title [route.float] @url route.float-help.pd;
+#X text 220 1437 отделяет числовые сообщения от других типов;
+#X obj 30 1465 ui.link @title [route.list] @url route.list-help.pd;
+#X text 220 1462 отделяет списки от сообщений других типов;
+#X obj 30 1490 ui.link @title [route.prop] @url route.prop-help.pd;
+#X text 220 1487 отделяет сообщения со свойствами от других типов;
+#X obj 30 1515 ui.link @title [route.random] @url
 route.random-help.pd;
-#X text 220 1527 направляет входное сообщение в случайный выход;
-#X obj 30 1555 ui.link @title [route.symbol] @url
+#X text 220 1512 направляет входное сообщение в случайный выход;
+#X obj 30 1540 ui.link @title [route.symbol] @url
 route.symbol-help.pd;
-#X text 220 1552 отделяет символьные сообщения от других типов;
+#X text 220 1537 отделяет символьные сообщения от других типов;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1577 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1587 library: ceammc;
+#X obj 1 1562 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1572 library: ceammc;
