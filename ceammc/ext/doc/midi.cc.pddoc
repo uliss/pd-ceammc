@@ -18,16 +18,21 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object receives the value of the specified MIDI controller and rescales it from the range 0..127 to the range @min..@max using the @curve response</tr>
-        <tr lang="ru">объект принимает значение указанного MIDI-контроллера и пересчитывает его из диапазона 0..127 в диапазон @min..@max с учётом кривой @curve</tr>
+        <tr lang="en">the object receives the value of the specified MIDI controller and rescales
+        it from the range 0..127 to the range @min..@max using the @curve response</tr>
+        <tr lang="ru">объект принимает значение указанного MIDI-контроллера и пересчитывает его из
+        диапазона 0..127 в диапазон @min..@max с учётом кривой @curve</tr>
       </par>
       <par>
         <tr lang="en">@ch selects the MIDI channel, @cc sets the controller number</tr>
         <tr lang="ru">@ch выбирает MIDI-канал, @cc задаёт номер контроллера</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to map a MIDI controller to any parameter range, for example to map a mod wheel to a filter cutoff or to a volume level</tr>
-        <tr lang="ru">объект можно использовать для привязки MIDI-контроллера к любому диапазону параметра, например чтобы привязать колесо модуляции к срезу фильтра или к уровню громкости</tr>
+        <tr lang="en">the object can be used to map a MIDI controller to any parameter range, for
+        example to map a mod wheel to a filter cutoff or to a volume level</tr>
+        <tr lang="ru">объект можно использовать для привязки MIDI-контроллера к любому диапазону
+        параметра, например чтобы привязать колесо модуляции к срезу фильтра или к уровню
+        громкости</tr>
       </par>
     </info>
     <arguments>
@@ -57,8 +62,11 @@
       </property>
       <!-- @curve -->
       <property name="@curve" type="float" default="0">
-        <tr lang="en">output response curve. If @curve&lt;0 the response starts fast and ends slow, if @curve&gt;0 it starts slow and ends fast, if @curve==0 the response is linear</tr>
-        <tr lang="ru">кривая отклика на выходе. Если @curve&lt;0, отклик начинается быстро и заканчивается медленно, если @curve&gt;0 — начинается медленно и заканчивается быстро, если @curve==0 — отклик линейный</tr>
+        <tr lang="en">output response curve. If @curve&lt;0 the response starts fast and ends slow,
+        if @curve&gt;0 it starts slow and ends fast, if @curve==0 the response is linear</tr>
+        <tr lang="ru">кривая отклика на выходе. Если @curve&lt;0, отклик начинается быстро и
+        заканчивается медленно, если @curve&gt;0 — начинается медленно и заканчивается быстро, если
+        @curve==0 — отклик линейный</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="127">

@@ -24,16 +24,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object separates the audio stream and the control messages that travel through the same audio connection</tr>
-        <tr lang="ru">объект разделяет аудиопоток и управляющие сообщения, которые передаются по одному аудиосоединению</tr>
+        <tr lang="en">the object separates the audio stream and the control messages that travel
+        through the same audio connection</tr>
+        <tr lang="ru">объект разделяет аудиопоток и управляющие сообщения, которые передаются по
+        одному аудиосоединению</tr>
       </par>
       <par>
-        <tr lang="en">the audio signal is passed unchanged to the audio outlet, while control messages are sent to the control outlet</tr>
-        <tr lang="ru">аудиосигнал без изменений проходит на аудиовыход, а управляющие сообщения отправляются на управляющий выход</tr>
+        <tr lang="en">the audio signal is passed unchanged to the audio outlet, while control
+        messages are sent to the control outlet</tr>
+        <tr lang="ru">аудиосигнал без изменений проходит на аудиовыход, а управляющие сообщения
+        отправляются на управляющий выход</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to route control messages through audio cables, for example to pass a message from one part of the patch to another without a separate control connection</tr>
-        <tr lang="ru">объект можно использовать для передачи управляющих сообщений через аудиокабели, например чтобы передать сообщение из одной части патча в другую без отдельного управляющего соединения</tr>
+        <tr lang="en">the object can be used to route control messages through audio cables, for
+        example to pass a message from one part of the patch to another without a separate control
+        connection</tr>
+        <tr lang="ru">объект можно использовать для передачи управляющих сообщений через
+        аудиокабели, например чтобы передать сообщение из одной части патча в другую без отдельного
+        управляющего соединения</tr>
       </par>
     </info>
     <inlets>

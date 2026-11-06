@@ -25,12 +25,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object works like [flow.pack], but all its inlets are hot, meaning that any inlet triggers the output of the whole packed list</tr>
-        <tr lang="ru">объект работает как [flow.pack], но все его входы «горячие», то есть любой вход запускает вывод всего упакованного списка</tr>
+        <tr lang="en">the object works like [flow.pack], but all its inlets are hot, meaning that
+        any inlet triggers the output of the whole packed list</tr>
+        <tr lang="ru">объект работает как [flow.pack], но все его входы «горячие», то есть любой
+        вход запускает вывод всего упакованного списка</tr>
       </par>
       <par>
-        <tr lang="en">@init sets the initial values for all inlets, missing values default to 0</tr>
-        <tr lang="ru">@init задаёт начальные значения для всех входов, отсутствующие значения по умолчанию равны 0</tr>
+        <tr lang="en">@init sets the initial values for all inlets, missing values default to
+        0</tr>
+        <tr lang="ru">@init задаёт начальные значения для всех входов, отсутствующие значения по
+        умолчанию равны 0</tr>
       </par>
     </info>
     <arguments>
@@ -39,8 +43,10 @@
         <tr lang="ru">количество входов</tr>
       </argument>
       <argument name="INIT" type="list">
-        <tr lang="en">default values for all inlets. If not enough default values are given, the rest is set to 0</tr>
-        <tr lang="ru">значения по умолчанию для всех входов. Если значений по умолчанию не хватает, остальные устанавливаются в 0</tr>
+        <tr lang="en">default values for all inlets. If not enough default values are given, the
+        rest is set to 0</tr>
+        <tr lang="ru">значения по умолчанию для всех входов. Если значений по умолчанию не хватает,
+        остальные устанавливаются в 0</tr>
       </argument>
     </arguments>
     <properties>

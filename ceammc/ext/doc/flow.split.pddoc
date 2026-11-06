@@ -26,16 +26,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes the input value to the first or second outlet depending on the result of the predicate connected to the side-chain</tr>
-        <tr lang="ru">объект направляет входное значение на первый или второй выход в зависимости от результата предиката, подключённого к боковой цепи</tr>
+        <tr lang="en">the object routes the input value to the first or second outlet depending on
+        the result of the predicate connected to the side-chain</tr>
+        <tr lang="ru">объект направляет входное значение на первый или второй выход в зависимости
+        от результата предиката, подключённого к боковой цепи</tr>
       </par>
       <par>
-        <tr lang="en">the predicate should accept the value and return 1 (true) or 0 (false): if 1, the value goes to the first outlet, if 0 — to the second</tr>
-        <tr lang="ru">предикат должен принимать значение и возвращать 1 (истина) или 0 (ложь): если 1 — значение идёт на первый выход, если 0 — на второй</tr>
+        <tr lang="en">the predicate should accept the value and return 1 (true) or 0 (false): if 1,
+        the value goes to the first outlet, if 0 — to the second</tr>
+        <tr lang="ru">предикат должен принимать значение и возвращать 1 (истина) или 0 (ложь): если
+        1 — значение идёт на первый выход, если 0 — на второй</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate a stream by any condition, for example to split notes into low and high registers</tr>
-        <tr lang="ru">объект можно использовать для разделения потока по любому условию, например чтобы разделить ноты на низкий и высокий регистры</tr>
+        <tr lang="en">the object can be used to separate a stream by any condition, for example to
+        split notes into low and high registers</tr>
+        <tr lang="ru">объект можно использовать для разделения потока по любому условию, например
+        чтобы разделить ноты на низкий и высокий регистры</tr>
       </par>
     </info>
     <inlets>
@@ -47,8 +53,10 @@
       </inlet>
       <inlet>
         <in on="float">
-          <tr lang="en">input from the predicate side-chain. If 1 is received, output to the first outlet. If 0, to the second</tr>
-          <tr lang="ru">вход от боковой цепи предиката. Если получено 1 — вывод на первый выход. Если 0 — на второй</tr>
+          <tr lang="en">input from the predicate side-chain. If 1 is received, output to the first
+          outlet. If 0, to the second</tr>
+          <tr lang="ru">вход от боковой цепи предиката. Если получено 1 — вывод на первый выход.
+          Если 0 — на второй</tr>
         </in>
       </inlet>
     </inlets>
