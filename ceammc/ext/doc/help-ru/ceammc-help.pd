@@ -620,7 +620,7 @@ flow.multiplex-help.pd;
 #X text 200 6512 мультиплексор управляющего потока;
 #X obj 30 6540 ui.link @title [flow.multiplex2~] @url
 flow.multiplex2~-help.pd;
-#X text 200 6537 мультиплексор стерео аудиопотока;
+#X text 200 6537 мультиплексор стереофонического аудиопотока;
 #X obj 30 6565 ui.link @title [flow.multiplex~] @url
 flow.multiplex~-help.pd;
 #X text 200 6562 мультиплексор аудиопотока;

@@ -432,10 +432,10 @@ flow.match	routes the control flow by the regular expression match / маршр�
 flow.mem	store into the memory or output the control flow messages / сохраняет сообщения потока управления в памяти или выводит их
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока
-flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-flow.mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+flow.mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
 flow.multiplex~	audio stream multiplexer / мультиплексор аудиопотока
 flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
 ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
