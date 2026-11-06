@@ -21,16 +21,20 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">searches for a file by name in user-defined paths or Pure Data system paths</tr>
-        <tr lang="ru">ищет файл по имени в путях, заданных пользователем, или в системных путях Pure Data</tr>
+        <tr lang="en">searches for a file by name in user-defined paths or Pure Data system
+        paths</tr>
+        <tr lang="ru">ищет файл по имени в путях, заданных пользователем, или в системных путях
+        Pure Data</tr>
       </par>
       <par>
         <tr lang="en">outputs the first found file</tr>
         <tr lang="ru">выводит первый найденный файл</tr>
       </par>
       <par>
-        <tr lang="en">search order: 1. user-defined paths (@paths property), 2. current patch directory, 3. Pure Data system path, 4. home directory</tr>
-        <tr lang="ru">порядок поиска: 1. заданные пользователем пути (свойство @paths), 2. текущий каталог патча, 3. системный путь Pure Data, 4. домашний каталог</tr>
+        <tr lang="en">search order: 1. user-defined paths (@paths property), 2. current patch
+        directory, 3. Pure Data system path, 4. home directory</tr>
+        <tr lang="ru">порядок поиска: 1. заданные пользователем пути (свойство @paths), 2. текущий
+        каталог патча, 3. системный путь Pure Data, 4. домашний каталог</tr>
       </par>
       <par>
         <tr lang="en">absolute paths are processed before relative ones</tr>
@@ -41,12 +45,16 @@
         <tr lang="ru">домашний каталог можно указать символом '~'</tr>
       </par>
       <par>
-        <tr lang="en">note: by default the search request is performed asynchronously, so there is a delay between input and output</tr>
-        <tr lang="ru">примечание: по умолчанию поисковый запрос выполняется асинхронно, поэтому между входом и выходом возникает задержка</tr>
+        <tr lang="en">note: by default the search request is performed asynchronously, so there is
+        a delay between input and output</tr>
+        <tr lang="ru">примечание: по умолчанию поисковый запрос выполняется асинхронно, поэтому
+        между входом и выходом возникает задержка</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to find a sample or a configuration file without knowing its full path</tr>
-        <tr lang="ru">объект можно использовать для поиска сэмпла или файла конфигурации, не зная полного пути к нему</tr>
+        <tr lang="en">the object can be used to find a sample or a configuration file without
+        knowing its full path</tr>
+        <tr lang="ru">объект можно использовать для поиска сэмпла или файла конфигурации, не зная
+        полного пути к нему</tr>
       </par>
     </info>
     <arguments>

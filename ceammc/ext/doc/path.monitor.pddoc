@@ -18,16 +18,21 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object monitors the specified directory for filesystem events and outputs messages when files are created, updated, moved or removed</tr>
-        <tr lang="ru">объект отслеживает заданный каталог на события файловой системы и выводит сообщения при создании, изменении, перемещении или удалении файлов</tr>
+        <tr lang="en">the object monitors the specified directory for filesystem events and outputs
+        messages when files are created, updated, moved or removed</tr>
+        <tr lang="ru">объект отслеживает заданный каталог на события файловой системы и выводит
+        сообщения при создании, изменении, перемещении или удалении файлов</tr>
       </par>
       <par>
-        <tr lang="en">the monitored directory is set by the PATH argument or the @path property</tr>
+        <tr lang="en">the monitored directory is set by the PATH argument or the @path
+        property</tr>
         <tr lang="ru">отслеживаемый каталог задаётся аргументом PATH или свойством @path</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to react to file changes, for example to reload a sample when it is updated or to log filesystem activity</tr>
-        <tr lang="ru">объект можно использовать для реакции на изменения файлов, например чтобы перезагрузить сэмпл при его обновлении или логировать активность файловой системы</tr>
+        <tr lang="en">the object can be used to react to file changes, for example to reload a
+        sample when it is updated or to log filesystem activity</tr>
+        <tr lang="ru">объект можно использовать для реакции на изменения файлов, например чтобы
+        перезагрузить сэмпл при его обновлении или логировать активность файловой системы</tr>
       </par>
     </info>
     <arguments>
@@ -55,7 +60,8 @@
       <outlet>
         <out type="any">
           <tr lang="en">messages: [create fname(, [update fname(, [move fname(, [remove fname(</tr>
-          <tr lang="ru">сообщения: [create fname(, [update fname(, [move fname(, [remove fname(</tr>
+          <tr lang="ru">сообщения: [create fname(, [update fname(, [move fname(, [remove
+          fname(</tr>
         </out>
       </outlet>
     </outlets>

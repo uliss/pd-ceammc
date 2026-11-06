@@ -18,8 +18,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object generates a new filename from a pattern, checking that the generated filename does not already exist</tr>
-        <tr lang="ru">объект генерирует новое имя файла по шаблону и проверяет, что сгенерированное имя ещё не существует</tr>
+        <tr lang="en">the object generates a new filename from a pattern, checking that the
+        generated filename does not already exist</tr>
+        <tr lang="ru">объект генерирует новое имя файла по шаблону и проверяет, что сгенерированное
+        имя ещё не существует</tr>
       </par>
       <par>
         <tr lang="en">### in the pattern is replaced with a number</tr>

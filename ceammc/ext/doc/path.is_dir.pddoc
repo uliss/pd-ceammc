@@ -30,8 +30,10 @@
         <tr lang="ru">второй выход выдаёт сам путь, если он является каталогом</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to validate a directory path before reading or writing files in it</tr>
-        <tr lang="ru">объект можно использовать для проверки пути к каталогу перед чтением или записью файлов в нём</tr>
+        <tr lang="en">the object can be used to validate a directory path before reading or writing
+        files in it</tr>
+        <tr lang="ru">объект можно использовать для проверки пути к каталогу перед чтением или
+        записью файлов в нём</tr>
       </par>
     </info>
     <inlets>

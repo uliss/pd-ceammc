@@ -21,16 +21,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object splits a filename into a directory part (dirname) and a file part (basename)</tr>
-        <tr lang="ru">объект разделяет имя файла на часть с каталогом (dirname) и часть с именем файла (basename)</tr>
+        <tr lang="en">the object splits a filename into a directory part (dirname) and a file part
+        (basename)</tr>
+        <tr lang="ru">объект разделяет имя файла на часть с каталогом (dirname) и часть с именем
+        файла (basename)</tr>
       </par>
       <par>
-        <tr lang="en">for example, for the path "/path/to/the/file.txt" the outputs are "/path/to/the" and "file.txt"</tr>
-        <tr lang="ru">например, для пути "/path/to/the/file.txt" на выходах будут "/path/to/the" и "file.txt"</tr>
+        <tr lang="en">for example, for the path "/path/to/the/file.txt" the outputs are
+        "/path/to/the" and "file.txt"</tr>
+        <tr lang="ru">например, для пути "/path/to/the/file.txt" на выходах будут "/path/to/the" и
+        "file.txt"</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate a directory from a filename, for example to get the folder of a sample or to build a new filename with a different extension</tr>
-        <tr lang="ru">объект можно использовать для отделения каталога от имени файла, например чтобы получить папку сэмпла или собрать новое имя файла с другим расширением</tr>
+        <tr lang="en">the object can be used to separate a directory from a filename, for example
+        to get the folder of a sample or to build a new filename with a different extension</tr>
+        <tr lang="ru">объект можно использовать для отделения каталога от имени файла, например
+        чтобы получить папку сэмпла или собрать новое имя файла с другим расширением</tr>
       </par>
     </info>
     <inlets>
