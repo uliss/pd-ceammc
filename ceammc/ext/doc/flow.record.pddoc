@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">control flow record/play</tr>
-        <tr lang="ru">запись/воспроизведение управляющего потока</tr>
+        <tr lang="ru">запись и воспроизведение управляющего потока</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,95 +19,94 @@
         <alias>flow.rec</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object records incoming messages and plays them back with the original timing</tr>
+        <tr lang="ru">объект записывает входящие сообщения и воспроизводит их с исходной временной раскладкой</tr>
+      </par>
+      <par>
+        <tr lang="en">recording and playback are controlled by the [rec(, [play(, [stop(, [clear( and [flush( messages</tr>
+        <tr lang="ru">запись и воспроизведение управляются сообщениями [rec(, [play(, [stop(, [clear( и [flush(</tr>
+      </par>
+      <par>
+        <tr lang="en">@auto starts recording on the first input atom, @r sets the number of repeats, @speed sets the playback speed</tr>
+        <tr lang="ru">@auto запускает запись при первом входном атоме, @r задаёт число повторов, @speed задаёт скорость воспроизведения</tr>
+      </par>
+      <par>
+        <tr lang="en">@sync uses an external bang pulse to synchronize the recorded events</tr>
+        <tr lang="ru">@sync использует внешний bang-импульс для синхронизации записанных событий</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to record a live performance gesture and loop it, for example to record a short keyboard phrase and play it back in a loop</tr>
+        <tr lang="ru">объект можно использовать для записи живого жеста и его зацикливания, например чтобы записать короткую фразу с клавиатуры и воспроизводить её в петле</tr>
+      </par>
+    </info>
     <properties>
       <!-- @auto -->
       <property name="@auto" type="bool" default="0">
-        <tr lang="en">autostart record on first input atom</tr>
-        <tr lang="ru" finished="false">запись автозапуска первого входного атома</tr>
+        <tr lang="en">autostart record on the first input atom</tr>
+        <tr lang="ru">автозапуск записи при первом входном атоме</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="int" minvalue="0" default="256" maxvalue="65536">
-        <tr lang="en">max number of events, if 0: no max size check. If @auto is set - starts
-        playback when max size reached</tr>
-        <!-- old: Максимальное количество событий, если 0: без
-                проверки максимального размера. Если установлен @auto - начинается воспроизведение,
-                когда максимальный размер достигнут -->
-        <tr lang="ru" finished="false">Максимальное количество событий, если 0: без проверки
-        максимального размера. Если установлен @auto - начинается воспроизведение, когда
-        максимальный размер достигнут</tr>
+        <tr lang="en">max number of events, if 0: no max size check. If @auto is set, playback starts when max size is reached</tr>
+        <tr lang="ru">максимальное число событий, если 0 — без проверки размера. Если задан @auto, воспроизведение начинается при достижении максимального размера</tr>
       </property>
       <!-- @r -->
       <property name="@r" type="int" minvalue="-1" default="1">
         <tr lang="en">number of repeats in play mode. If -1: repeat infinitely</tr>
-        <!-- old: Количество повторов в игровом режиме. Если -1:
-                повторять бесконечно -->
-        <tr lang="ru" finished="false">Количество повторов в игровом режиме. Если -1: повторять
-        бесконечно</tr>
+        <tr lang="ru">число повторов в режиме воспроизведения. Если -1 — повторять бесконечно</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" minvalue="0.0156" default="1" maxvalue="64">
         <tr lang="en">play speed</tr>
-        <tr lang="ru" finished="false">скорость игры</tr>
+        <tr lang="ru">скорость воспроизведения</tr>
       </property>
       <!-- @sync -->
       <property name="@sync" type="bool" default="0">
         <tr lang="en">use external bang pulse to sync recorded events with</tr>
-        <!-- old: использовать внешний импульс взрыва для
-                синхронизации записанных событий с -->
-        <tr lang="ru" finished="false">использовать внешний импульс взрыва для синхронизации
-        записанных событий с</tr>
+        <tr lang="ru">использовать внешний bang-импульс для синхронизации записанных событий</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input message</tr>
-          <tr lang="ru" finished="false">вводное сообщение</tr>
+          <tr lang="ru">входное сообщение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">sync tick (when @sync 1)</tr>
-          <tr lang="ru" finished="false">Синхронизация (когда @sync 1)</tr>
+          <tr lang="ru">такт синхронизации (при @sync 1)</tr>
         </in>
         <in>
           <tr lang="en">[rec (1|0)?( - start (stop) flow record</tr>
-          <!-- old: [rec (1 | 0)? ( - стартовая (стоп) запись
-                    потока) -->
-          <tr lang="ru" finished="false">[rec (1 | 0)? ( - стартовая (стоп) запись потока)</tr>
+          <tr lang="ru">[rec (1|0)?( — начать (остановить) запись потока</tr>
         </in>
         <in>
           <tr lang="en">[play (1|0)?( - play (stop) recorded flow</tr>
-          <!-- old: [play (1 | 0)? ( - play (stop) записываемый
-                    поток) -->
-          <tr lang="ru" finished="false">[play (1 | 0)? ( - play (stop) записываемый поток)</tr>
+          <tr lang="ru">[play (1|0)?( — воспроизвести (остановить) записанный поток</tr>
         </in>
         <in>
           <tr lang="en">[stop (1|0)?( - stop (play) recording</tr>
-          <tr lang="ru" finished="false">[стоп (1 | 0)? ( - стоп (игра) запись)</tr>
+          <tr lang="ru">[stop (1|0)?( — остановить (воспроизвести) запись</tr>
         </in>
         <in>
           <tr lang="en">[clear( - remove all recorded messages</tr>
-          <tr lang="ru" finished="false">[Clear() - удалить все записанные сообщения</tr>
+          <tr lang="ru">[clear( — удалить все записанные сообщения</tr>
         </in>
         <in>
           <tr lang="en">[flush( - output and remove all recorded messages</tr>
-          <!-- old: [flush( - вывод и удаление всех записанных
-                    сообщений)] -->
-          <tr lang="ru" finished="false">[flush( - вывод и удаление всех записанных
-          сообщений)]</tr>
+          <tr lang="ru">[flush( — вывести и удалить все записанные сообщения</tr>
         </in>
         <in>
           <tr lang="en">[qlist( - output to qlist object</tr>
-          <tr lang="ru" finished="false">[qlist( - вывод на объект qlist)</tr>
+          <tr lang="ru">[qlist( — вывести в объект qlist</tr>
         </in>
         <in>
-          <tr lang="en">[length FLOAT|time( - resize recorded messages (remove after specified
-          length)</tr>
-          <!-- old: [длина FLOAT | время ( - размер записанных
-                    сообщений (удалить после указанной длины)] -->
-          <tr lang="ru" finished="false">[длина FLOAT | время ( - размер записанных сообщений
-          (удалить после указанной длины)]</tr>
+          <tr lang="en">[length FLOAT|time( - resize recorded messages (remove after specified length)</tr>
+          <tr lang="ru">[length FLOAT|time( — изменить размер записанных сообщений (удалять после указанной длины)</tr>
         </in>
       </inlet>
     </inlets>
@@ -115,7 +114,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output message</tr>
-          <tr lang="ru" finished="false">выходное сообщение</tr>
+          <tr lang="ru">выходное сообщение</tr>
         </out>
       </outlet>
     </outlets>
