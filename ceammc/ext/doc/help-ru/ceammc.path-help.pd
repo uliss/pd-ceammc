@@ -25,7 +25,7 @@ path.basename-help.pd;
 path.normalize-help.pd;
 #X text 220 317 нормализует пути файлов;
 #X obj 30 345 ui.link @title [path.pattern] @url path.pattern-help.pd;
-#X text 220 342 генерирует имя файла по данному шаблону;
+#X text 220 342 генерирует имя файла по заданному шаблону;
 #X obj 30 370 ui.link @title [path.search] @url path.search-help.pd;
 #X text 220 367 поиск файлов;
 #X obj 30 395 ui.link @title [path.split] @url path.split-help.pd;

@@ -1061,7 +1061,7 @@ path.ls	list directory contents / выводит список содержимо
 path.monitor	filesystem event monitor / монитор событий файловой системы
 path.normalize	normalize file paths / нормализует пути файлов
 path.norm	normalize file paths / нормализует пути файлов
-path.pattern	pattern filename generator / генерирует имя файла по данному шаблону
+path.pattern	pattern filename generator / генерирует имя файла по заданному шаблону
 path.search	file search / поиск файлов
 path.split	split path into dirname and basename / разбивает путь на имя каталога и файла
 is_any	checks if the input has a general message type / проверяет, является ли входное сообщение сообщением общего типа
