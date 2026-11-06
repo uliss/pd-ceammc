@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">control stream speed limiter</tr>
-        <tr lang="ru">ограничитель скорости потока</tr>
+        <tr lang="ru">ограничитель скорости потока управления</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,63 +22,54 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Passthru all control data not often then specified limit in ms. Can be used
-        for button debouncing. In initial state is opened, on first message pass it and then became
-        closed within specified time interval. All incoming messages in that time are dropped.
-        After this interval expiried goes to opened state</tr>
-        <!-- old: Все контрольные данные не часто затем указывают
-                предел в мс. Может использоваться для отстегивания кнопок. В начальном состоянии
-                открывается, по первому сообщению проходит его и затем становится закрытым в
-                течение заданного временного интервала. Все входящие сообщения за это время
-                удаляются. После истечения этого интервала переходит в открытое состояние -->
-        <tr lang="ru" finished="false">Все контрольные данные не часто затем указывают предел в мс.
-        Может использоваться для отстегивания кнопок. В начальном состоянии открывается, по первому
-        сообщению проходит его и затем становится закрытым в течение заданного временного
-        интервала. Все входящие сообщения за это время удаляются. После истечения этого интервала
-        переходит в открытое состояние</tr>
+        <tr lang="en">the object passes through all control data no more often than the specified limit in milliseconds, and drops all messages that arrive within that interval</tr>
+        <tr lang="ru">объект пропускает все управляющие данные не чаще заданного предела в миллисекундах и отбрасывает все сообщения, пришедшие в течение этого интервала</tr>
+      </par>
+      <par>
+        <tr lang="en">initially the object is open, on the first message it passes it and then becomes closed for the specified time interval, after which it goes back to the open state</tr>
+        <tr lang="ru">изначально объект открыт, по первому сообщению он пропускает его и затем становится закрытым на заданный временной интервал, после чего возвращается в открытое состояние</tr>
+      </par>
+      <par>
+        <tr lang="en">@limit sets the time limit, a value of 0 means no limitations</tr>
+        <tr lang="ru">@limit задаёт предел времени, значение 0 означает отсутствие ограничений</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used for button debouncing or to throttle a stream of control messages, for example to limit the rate of a slider output</tr>
+        <tr lang="ru">объект можно использовать для подавления дребезга кнопок или для ограничения частоты потока управляющих сообщений, например для ограничения частоты выхода слайдера</tr>
       </par>
     </info>
     <arguments>
       <argument name="LIMIT" type="int" minvalue="0" units="millisecond">
         <tr lang="en">limit time</tr>
-        <tr lang="ru" finished="false">предельный срок</tr>
+        <tr lang="ru">предельное время</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @limit -->
       <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">
-        <tr lang="en">speed limit. If set to zero there is no flow limitations</tr>
-        <!-- old: ограничение скорости. При нулевом значении нет
-                ограничений потока -->
-        <tr lang="ru" finished="false">ограничение скорости. При нулевом значении нет ограничений
-        потока</tr>
+        <tr lang="en">speed limit. If set to zero there are no flow limitations</tr>
+        <tr lang="ru">ограничение скорости. При нулевом значении ограничений потока нет</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input flow</tr>
-          <tr lang="ru" finished="false">входной поток</tr>
+          <tr lang="ru">входной поток</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset internal timer and goes to opened state</tr>
-          <!-- old: сбросить внутренний таймер и перейти в открытое
-                    состояние -->
-          <tr lang="ru" finished="false">сбросить внутренний таймер и перейти в открытое
-          состояние</tr>
+          <tr lang="en">reset internal timer and go to the open state</tr>
+          <tr lang="ru">сбросить внутренний таймер и перейти в открытое состояние</tr>
         </in>
         <in on="float">
           <tr lang="en">set speed limit</tr>
-          <tr lang="ru" finished="false">установить ограничение скорости</tr>
+          <tr lang="ru">задать ограничение скорости</tr>
         </in>
         <in>
-          <tr lang="en">reset: reset internal timer and goes to opened state</tr>
-          <!-- old: Reset: сброс внутреннего таймера и переходит в
-                    открытое состояние -->
-          <tr lang="ru" finished="false">Reset: сброс внутреннего таймера и переходит в открытое
-          состояние</tr>
+          <tr lang="en">reset: reset internal timer and go to the open state</tr>
+          <tr lang="ru">reset: сбросить внутренний таймер и перейти в открытое состояние</tr>
         </in>
       </inlet>
     </inlets>
@@ -86,7 +77,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output flow</tr>
-          <tr lang="ru" finished="false">выходной поток</tr>
+          <tr lang="ru">выходной поток</tr>
         </out>
       </outlet>
     </outlets>

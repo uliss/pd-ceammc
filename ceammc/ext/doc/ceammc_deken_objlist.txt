@@ -470,9 +470,9 @@ flow.sel	enhanced message selector / улучшенный селектор со�
 flow.seqdelay	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
 flow.seqdel	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
 flow.space	spaces in time messages received at the same logical time / распределяет во времени сообщения, полученные одновременно
-flow.speedlim	control stream speed limiter / ограничитель скорости потока
-ceammc/speedlim	control stream speed limiter / ограничитель скорости потока
-speedlim	control stream speed limiter / ограничитель скорости потока
+flow.speedlim	control stream speed limiter / ограничитель скорости потока управления
+ceammc/speedlim	control stream speed limiter / ограничитель скорости потока управления
+speedlim	control stream speed limiter / ограничитель скорости потока управления
 flow.split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
 ceammc/split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
 split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи

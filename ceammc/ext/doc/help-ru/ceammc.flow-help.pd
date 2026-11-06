@@ -105,7 +105,7 @@ flow.seqdelay-help.pd;
 #X text 220 1122 распределяет во времени сообщения \, полученные одновременно;
 #X obj 30 1150 ui.link @title [flow.speedlim] @url
 flow.speedlim-help.pd;
-#X text 220 1147 ограничитель скорости потока;
+#X text 220 1147 ограничитель скорости потока управления;
 #X obj 30 1175 ui.link @title [flow.split] @url flow.split-help.pd;
 #X text 220 1172 разделят управляющий поток внешним предикатом боковой
 цепи;
