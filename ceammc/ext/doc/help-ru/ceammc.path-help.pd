@@ -20,7 +20,7 @@ path.basename-help.pd;
 #X obj 30 270 ui.link @title [path.lsdir] @url path.lsdir-help.pd;
 #X text 220 267 выводит список содержимого каталога;
 #X obj 30 295 ui.link @title [path.monitor] @url path.monitor-help.pd;
-#X text 220 292 мониторинг событий файловой системы;
+#X text 220 292 монитор событий файловой системы;
 #X obj 30 320 ui.link @title [path.normalize] @url
 path.normalize-help.pd;
 #X text 220 317 нормализует пути файлов;

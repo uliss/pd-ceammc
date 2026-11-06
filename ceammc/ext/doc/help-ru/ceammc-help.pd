@@ -1838,7 +1838,7 @@ path.dirname-help.pd;
 #X text 200 19269 выводит список содержимого каталога;
 #X obj 30 19297 ui.link @title [path.monitor] @url
 path.monitor-help.pd;
-#X text 200 19294 мониторинг событий файловой системы;
+#X text 200 19294 монитор событий файловой системы;
 #X obj 30 19322 ui.link @title [path.normalize] @url
 path.normalize-help.pd;
 #X text 200 19319 нормализует пути файлов;

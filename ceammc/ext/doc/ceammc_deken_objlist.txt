@@ -1058,7 +1058,7 @@ path.file	file input/output / файловый ввод/вывод
 path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
 path.lsdir	list directory contents / выводит список содержимого каталога
 path.ls	list directory contents / выводит список содержимого каталога
-path.monitor	filesystem event monitor / мониторинг событий файловой системы
+path.monitor	filesystem event monitor / монитор событий файловой системы
 path.normalize	normalize file paths / нормализует пути файлов
 path.norm	normalize file paths / нормализует пути файлов
 path.pattern	pattern filename generator / генерирует имя файла по данному шаблону
