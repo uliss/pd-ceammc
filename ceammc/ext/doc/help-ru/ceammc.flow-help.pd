@@ -94,7 +94,7 @@ flow.reject_if-help.pd;
 #X obj 30 1010 ui.link @title [flow.ring] @url flow.ring-help.pd;
 #X text 220 1007 очередь со сдвигом и параллельным выводом всех элементов;
 #X obj 30 1035 ui.link @title [flow.route] @url flow.route-help.pd;
-#X text 220 1032 улучшенный маршрутизатор сообщений;
+#X text 220 1032 расширенный маршрутизатор сообщений;
 #X obj 30 1060 ui.link @title [flow.select] @url flow.select-help.pd;
 #X text 220 1057 улучшенный селектор сообщений;
 #X obj 30 1085 ui.link @title [flow.seqdelay] @url

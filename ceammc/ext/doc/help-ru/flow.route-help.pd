@@ -1,72 +1,79 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 498 50 cnv 1 267 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 503 50 улучшенный маршрутизатор сообщений;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 496 50 расширенный маршрутизатор сообщений;
 #X obj 1 1 cnv 5 765 40 empty empty flow.route 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flow.route;
-#X obj 230 78 cnv 1 535 70 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 if no match occured - output original message to last
-outlet;
-#X text 240 108 if route starts with '*' - output with message selector;
-#X msg 50 196 list a b c;
-#X msg 50 225 a b c;
-#X msg 50 254 list d e f;
-#X msg 50 283 d e f;
-#X msg 50 312 100 200 300;
-#X msg 50 340 400 500 600;
-#X msg 222 340 unmatched;
-#X obj 50 369 flow.route a *d 100 *400, f 40;
-#X obj 50 398 ui.d @display_type 1;
-#X obj 270 398 ui.d @display_type 1;
-#X obj 117 427 ui.d @display_type 1;
-#X obj 376 427 ui.d @display_type 1;
-#X obj 184 456 ui.d @display_type 1;
-#X obj 50 484 flow.route-data;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 539 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект направляет входящие сообщения на выходы согласно
+списку совпадений;
+#X text 240 123 если совпадения не произошло \, исходное сообщение
+отправляется на последний выход;
+#X text 240 163 если шаблон начинается с '*' \, вывод включает селектор
+сообщения \, иначе селектор удаляется;
+#X text 240 203 объект можно использовать для диспетчеризации сообщений
+по селектору или по первому элементу списка \, например для маршрутизации
+сообщений "note" \, "ctlin" или числовых сообщений в разные места назначения;
+#X msg 50 336 list a b c;
+#X msg 50 365 a b c;
+#X msg 50 394 list d e f;
+#X msg 50 423 d e f;
+#X msg 50 452 100 200 300;
+#X msg 50 480 400 500 600;
+#X msg 222 480 unmatched;
+#X obj 50 509 flow.route a *d 100 *400, f 40;
+#X obj 50 538 ui.d @display_type 1;
+#X obj 270 538 ui.d @display_type 1;
+#X obj 117 567 ui.d @display_type 1;
+#X obj 376 567 ui.d @display_type 1;
+#X obj 184 596 ui.d @display_type 1;
+#X obj 50 624 flow.route-data;
+#X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 679 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 542 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 682 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 540 1\.;
-#X text 170 540 list;
-#X obj 268 541 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 540 MATCHES: list of route matches. Тип: list.;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 580 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 680 1\.;
+#X text 170 680 list;
+#X obj 268 681 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 680 MATCHES: список шаблонов маршрутизации. Тип: list.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 720 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 581 1\.;
-#X text 170 581 list:;
-#X text 270 581 match to first list element \, output to corresponding
-outlet. If route starts with * output list 'as is' \, otherwise output
-without first element.;
-#X text 170 636 any:;
-#X text 270 636 match to message selector \, output to corresponding
-outlet. On success outputs message arguments to corresponding outlet.;
-#X text 170 691 data:mlist:;
-#X text 270 691 same as list.;
-#X text 170 716 data:dict:;
-#X text 270 716 match dict keys. On success outputs dict values to
-corresponding outlets \, if starts with * output with matched key.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 786 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 721 1\.;
+#X text 170 721 list:;
+#X text 270 721 совпадение с первым элементом списка \, вывод на соответствующий
+выход. Если шаблон начинается с * \, вывести список как есть \, иначе
+вывести без первого элемента.;
+#X text 170 776 any:;
+#X text 270 776 совпадение с селектором сообщения \, вывод на соответствующий
+выход. При успехе выводит аргументы сообщения на соответствующий выход.;
+#X text 170 831 data:mlist:;
+#X text 270 831 то же \, что список.;
+#X text 170 856 data:dict:;
+#X text 270 856 совпадение с ключами словаря. При успехе выводит значения
+словаря на соответствующие выходы \, если шаблон начинается с * \,
+вывод включает совпавший ключ.;
+#X obj 20 921 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 926 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 787 1\.;
-#X text 270 787 first pattern match output.;
-#X text 130 807 ...;
-#X text 270 807 ... pattern match output.;
-#X text 130 827 n.;
-#X text 270 827 n-th pattern match output.;
-#X text 130 847 n+1\.;
-#X text 270 847 unmatched output.;
+#X text 130 927 1\.;
+#X text 270 927 выход первого совпадения с шаблоном.;
+#X text 130 947 ...;
+#X text 270 947 ... выход совпадения с шаблоном.;
+#X text 130 967 n.;
+#X text 270 967 выход N-го совпадения с шаблоном.;
+#X text 130 987 n+1\.;
+#X text 270 987 выход для несовпавших сообщений.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 897 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 900 библиотека: ceammc v0.9.8;
-#N canvas 10 919 400 290 info 0;
+#X obj 1 1037 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1040 библиотека: ceammc v0.9.8;
+#N canvas 10 1059 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,16 +97,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 919 pd info;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 1 17 0;
-#X connect 14 2 19 0;
-#X connect 14 3 16 0;
-#X connect 14 4 18 0;
-#X connect 7 0 14 0;
-#X connect 8 0 14 0;
-#X connect 9 0 14 0;
-#X connect 10 0 14 0;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
+#X restore 10 1059 pd info;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 16 1 19 0;
+#X connect 16 2 21 0;
+#X connect 16 3 18 0;
+#X connect 16 4 20 0;
+#X connect 9 0 16 0;
+#X connect 10 0 16 0;
+#X connect 11 0 16 0;
+#X connect 12 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;

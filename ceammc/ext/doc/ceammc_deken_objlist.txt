@@ -464,7 +464,7 @@ ceammc/reject_if	rejects the message accepted by the predicate side-chain / не
 reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
 flow.ring	shifting queue with parallel output of all stored elements / очередь со сдвигом и параллельным выводом всех элементов
 flow.>>	shifting queue with parallel output of all stored elements / очередь со сдвигом и параллельным выводом всех элементов
-flow.route	enhanced message router / улучшенный маршрутизатор сообщений
+flow.route	enhanced message router / расширенный маршрутизатор сообщений
 flow.select	enhanced message selector / улучшенный селектор сообщений
 flow.sel	enhanced message selector / улучшенный селектор сообщений
 flow.seqdelay	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
