@@ -115,7 +115,7 @@ flow.speedlim-help.pd;
 #X text 220 1222 синхронная многоканальная шина;
 #X obj 30 1250 ui.link @title [flow.sync_pack] @url
 flow.sync_pack-help.pd;
-#X text 220 1247 [flow.pack] со всеми "горячими" входами;
+#X text 220 1247 [flow.pack] со всеми «горячими» входами;
 #X obj 30 1275 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
 #X text 220 1272 извлекает управляющие сообщения из аудиосоединений;
 #X obj 30 1300 ui.link @title [replace] @url replace-help.pd;

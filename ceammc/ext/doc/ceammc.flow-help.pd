@@ -108,7 +108,7 @@ flow.speedlim-help.pd;
 #X text 220 1192 sync multichannel bus;
 #X obj 30 1220 ui.link @title [flow.sync_pack] @url
 flow.sync_pack-help.pd;
-#X text 220 1217 [flow.pack] with all "hot" inlets;
+#X text 220 1217 [flow.pack] with all hot inlets;
 #X obj 30 1245 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
 #X text 220 1242 extracts control messages from audio connections;
 #X obj 30 1270 ui.link @title [replace] @url replace-help.pd;

@@ -726,7 +726,7 @@
     <entry name="flow.sync" descr="sync multichannel bus" ref_view="link">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.sync_pack" descr="[flow.pack] with all &quot;hot&quot; inlets" ref_view="link">
+    <entry name="flow.sync_pack" descr="[flow.pack] with all hot inlets" ref_view="link">
       <xi:include href="flow.sync_pack.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.tee~" descr="extracts control messages from audio connections" ref_view="link">

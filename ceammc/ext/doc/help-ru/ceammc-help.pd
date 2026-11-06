@@ -673,7 +673,7 @@ flow.speedlim-help.pd;
 #X text 200 7052 синхронная многоканальная шина;
 #X obj 30 7080 ui.link @title [flow.sync_pack] @url
 flow.sync_pack-help.pd;
-#X text 200 7077 [flow.pack] со всеми "горячими" входами;
+#X text 200 7077 [flow.pack] со всеми «горячими» входами;
 #X obj 30 7105 ui.link @title [flow.tee~] @url flow.tee~-help.pd;
 #X text 200 7102 извлекает управляющие сообщения из аудиосоединений;
 #X obj 30 7130 ui.link @title [replace] @url replace-help.pd;

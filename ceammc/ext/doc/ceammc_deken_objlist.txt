@@ -479,8 +479,8 @@ split	splits control flow by external side-chain predicate / разделяет 
 flow.stack	message stack / стек сообщений
 flow.sync	sync multichannel bus / синхронная многоканальная шина
 flow.'	sync multichannel bus / синхронная многоканальная шина
-flow.sync_pack	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
-flow.pack'	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.sync_pack	[flow.pack] with all hot inlets / [flow.pack] со всеми «горячими» входами
+flow.pack'	[flow.pack] with all hot inlets / [flow.pack] со всеми «горячими» входами
 flow.tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ceammc/tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
