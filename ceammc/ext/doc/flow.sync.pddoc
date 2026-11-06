@@ -28,6 +28,10 @@
         <tr lang="ru">объект хранит последнее полученное значение с каждого входа и при поступлении нового значения выводит все сохранённые значения со всех выходов справа налево</tr>
       </par>
       <par>
+        <tr lang="en">unlike [flow.sync_pack], which packs all hot inlets into a single list on one outlet, [flow.sync] keeps a separate stored value for each inlet and outputs all of them in parallel from N outlets on every new input</tr>
+        <tr lang="ru">в отличие от [flow.sync_pack], который упаковывает все «горячие» входы в один список на одном выходе, [flow.sync] хранит отдельное значение для каждого входа и при каждом новом входе выводит все их параллельно с N выходов</tr>
+      </par>
+      <par>
         <tr lang="en">all inlets are hot, so any float, symbol or list triggers the output</tr>
         <tr lang="ru">все входы «горячие», поэтому любое число, символ или список запускает вывод</tr>
       </par>
