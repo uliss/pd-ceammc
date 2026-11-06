@@ -447,9 +447,9 @@ flow.pack	packs atoms from multiple streams into a single one / упаковыв
 flow.pass	pass specified values / пропускает указанные значения
 ceammc/pass	pass specified values / пропускает указанные значения
 pass	pass specified values / пропускает указанные значения
-flow.pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
-ceammc/pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
-pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
+flow.pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
+ceammc/pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
+pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
 flow.pipe	enhanced version on the vanilla [pipe] object / усовершенствованная версия объекта [pipe]
 flow.prepend	inject the message before the current one / вставляет сообщение перед текущим
 flow.queue	multichannel message queue with sync capabilities / многоканальная очередь сообщений с возможностью синхронизации

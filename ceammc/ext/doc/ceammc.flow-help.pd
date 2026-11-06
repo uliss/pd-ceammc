@@ -71,7 +71,7 @@ flow.multiplex~-help.pd;
 #X obj 30 795 ui.link @title [flow.pass] @url flow.pass-help.pd;
 #X text 220 792 pass specified values;
 #X obj 30 820 ui.link @title [flow.pass_if] @url flow.pass_if-help.pd;
-#X text 220 817 passes the message \, accepted by the predicate side-chain;
+#X text 220 817 passes the message accepted by the predicate side-chain;
 #X obj 30 845 ui.link @title [flow.pipe] @url flow.pipe-help.pd;
 #X text 220 842 enhanced version on the vanilla [pipe] object;
 #X obj 30 870 ui.link @title [flow.prepend] @url flow.prepend-help.pd;

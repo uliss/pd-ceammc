@@ -678,7 +678,7 @@
     <entry name="flow.pass" descr="pass specified values" ref_view="link">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.pass_if" descr="passes the message, accepted by the predicate side-chain" ref_view="link">
+    <entry name="flow.pass_if" descr="passes the message accepted by the predicate side-chain" ref_view="link">
       <xi:include href="flow.pass_if.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.pipe" descr="enhanced version on the vanilla [pipe] object" ref_view="link">
