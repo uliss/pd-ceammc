@@ -15,6 +15,7 @@ mod cli;
 mod common;
 mod dpkg;
 mod info;
+mod repo;
 mod update;
 mod wayfire;
 mod xdg;
