@@ -20,12 +20,15 @@ pub enum ParseError {
 #[derive(Debug, Clone, PartialEq)]
 pub struct DebFile {
     /// Full filename, e.g. package_1.2.3-4_amd64.deb
-    pub filename: String,
-    /// Version revision, e.g. 4 (from 1.2.3-4).
-    /// If there is no revision, the full version is returned.
-    pub revision: String,
-    /// Full version, e.g. 1.2.3-4
-    pub version: String,
+    filename: String,
+    revision: String,
+    version: String,
+}
+
+impl DebFile {
+    pub fn info(&self) -> String {
+        format!("{}.r{}", self.version, self.revision)
+    }
 }
 
 /// Fetches the page at `url` and returns the list of deb files.

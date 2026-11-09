@@ -1,0 +1,20 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH ceam-util-pd-version 1  "version " 
+.SH NAME
+ceam\-util\-pd\-version \- manage CEAMMC PureData versions
+.SH SYNOPSIS
+\fBceam\-util pd version\fR [\fB\-h\fR|\fB\-\-help\fR] <\fIsubcommands\fR>
+.SH DESCRIPTION
+manage CEAMMC PureData versions
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.SH SUBCOMMANDS
+.TP
+ceam\-util\-pd\-version\-list(1)
+list available versions in repo
+.TP
+ceam\-util\-pd\-version\-rollback(1)
+rollback to specified version
