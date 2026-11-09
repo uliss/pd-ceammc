@@ -34,6 +34,10 @@
         позволяет исключить резкие рывки. При этом общая скорость несколько уступает максимально
         возможной. Для движения на предельной скорости установите @smooth = 0.</tr>
       </par>
+      <par style="info">
+        <tr lang="en">Angle range and pulse width: the servo angle is controlled by the PWM pulse width. @min_pulse sets the pulse width corresponding to 0°, and @max_pulse sets the pulse width corresponding to 180°. These values are model-specific: for many common servos (e.g. SG90) the usable range is approximately 0.5–2.5 ms, while other models may have a narrower or wider range. Setting the wrong pulse limits can cause the servo to buzz, overheat, or hit a mechanical stop before reaching the expected angle. Always check the datasheet or calibrate the limits empirically for your specific servo model.</tr>
+        <tr lang="ru">Диапазон углов и ширина импульса: угол поворота сервопривода управляется шириной импульса ШИМ. @min_pulse задаёт ширину импульса, соответствующую 0°, а @max_pulse — ширину, соответствующую 180°. Эти значения зависят от модели: для многих распространённых сервоприводов (например, SG90) рабочий диапазон составляет примерно 0.5–2.5 мс, тогда как у других моделей он может быть уже или шире. Неправильные пределы импульса могут привести к гудению, перегреву или упору в механический ограничитель до достижения ожидаемого угла. Всегда сверяйтесь с документацией или подбирайте пределы эмпирически для конкретной модели.</tr>
+      </par>
       <par>
         <tr lang="en">Typical use cases:</tr>
         <tr lang="ru">Типичные сценарии применения:</tr>
