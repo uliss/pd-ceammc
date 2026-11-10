@@ -68,11 +68,11 @@
       <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
     </info>
     <arguments>
-      <argument name="X" type="float" default="1.2" >
+      <argument name="X" type="float">
         <tr lang="en">initial x value</tr>
         <tr lang="ru">начальное значение x</tr>
       </argument>
-      <argument name="Y" type="float" default="2.1" >
+      <argument name="Y" type="float">
         <tr lang="en">initial y value, default 2.1</tr>
         <tr lang="ru">начальное значение y</tr>
       </argument>

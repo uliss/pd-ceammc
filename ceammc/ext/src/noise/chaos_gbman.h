@@ -28,13 +28,13 @@ public:
 };
 
 class ChaosGbmanTilde : public SoundExternal {
-    double xn_, yn_;
-    long counter_;
+    FloatProperty *x_, *y_;
+    t_float xn_, yn_;
+    t_int counter_;
 
 public:
     ChaosGbmanTilde(const PdArgs& args);
     void processBlock(const t_sample** in, t_sample** out) final;
-    void dump() const final;
 };
 
 void setup_chaos_gbman();
