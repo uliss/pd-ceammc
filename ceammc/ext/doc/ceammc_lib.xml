@@ -1062,6 +1062,9 @@
     <entry name="hw.rpi.gpio" descr="GPIO control for Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.gpio.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.rpi.gpio.pcf8574" descr="PCF8574 I2C GPIO expander control" ref_view="link">
+      <xi:include href="hw.rpi.gpio.pcf8574.pddoc" parse="xml"/>
+    </entry>
     <entry name="hw.rpi.gpio.servo" descr="servo control via GPIO pins on Raspberry Pi" ref_view="link">
       <xi:include href="hw.rpi.gpio.servo.pddoc" parse="xml"/>
     </entry>
