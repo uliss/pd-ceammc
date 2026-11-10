@@ -183,7 +183,7 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">newly generated x-value</tr>
           <tr lang="ru">новое сгенерированное значение x</tr>
         </out>

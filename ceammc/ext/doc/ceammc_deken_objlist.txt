@@ -941,6 +941,7 @@ midi.note.pass	passes MIDI notes according to the calculated expression / про
 note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
 midi.oct	MIDI octave transposition / октавная MIDI транспозиция
 midi.pitch.quantize	quantize MIDI pitch to the specified range / квантует MIDI-ноту в заданный диапазон
+midi.pitch.q	quantize MIDI pitch to the specified range / квантует MIDI-ноту в заданный диапазон
 midi.prg2str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
 midi.prg->str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
 midi.split	MIDI note range splitter / разделяет MIDI-ноты на диапазоны

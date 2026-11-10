@@ -119,6 +119,7 @@ float.;
 #X obj 20 1732 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1733 1\.;
+#X text 170 1733 float:;
 #X text 270 1733 новое сгенерированное значение x.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

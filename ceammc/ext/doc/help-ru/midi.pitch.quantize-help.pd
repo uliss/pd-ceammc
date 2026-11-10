@@ -4,7 +4,9 @@
 #X text 474 50 квантует MIDI-ноту в заданный диапазон;
 #X obj 1 1 cnv 5 765 40 empty empty midi.pitch.quantize 20 20 0 20
 -104026 -4096 0;
-#X obj 602 11 midi.pitch.quantize;
+#X obj 487 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[midi.pitch.q] @url midi.pitch.quantize-help.pd;
+#X obj 602 8 midi.pitch.quantize;
 #X obj 50 118 ui.hk;
 #X obj 136 190 ui.tab reject fold clamp;
 #X msg 136 219 @mode \$2;
@@ -101,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 857 pd info;
-#X connect 5 0 6 0;
-#X connect 4 0 7 0;
 #X connect 6 0 7 0;
+#X connect 5 0 8 0;
 #X connect 7 0 8 0;
+#X connect 8 0 9 0;

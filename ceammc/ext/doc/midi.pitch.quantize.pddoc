@@ -15,6 +15,9 @@
       <category>midi</category>
       <keywords>midi pitch quantize range fold clamp reject</keywords>
       <since>0.9.5</since>
+      <aliases>
+          <alias>midi.pitch.q</alias>
+      </aliases>
     </meta>
     <arguments>
       <argument name="MIN" type="int" minvalue="0" maxvalue="127">
