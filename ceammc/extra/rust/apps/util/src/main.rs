@@ -89,6 +89,7 @@ fn main() -> anyhow::Result<()> {
             Pd::Version(ver) => match ver {
                 cli::VersionAct::List => {
                     let debs = parse_deb_page(RPI_APT_REPO_URL)?;
+                    println!("repository url: {}", RPI_APT_REPO_URL.cyan());
                     for deb in &debs {
                         println!("pd-ceammc: {}", deb.info().to_string().cyan())
                     }
