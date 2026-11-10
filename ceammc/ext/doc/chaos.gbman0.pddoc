@@ -87,15 +87,15 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs the x-value</tr>
-          <tr lang="ru">выводит значение x</tr>
+        <out type="float">
+          <tr lang="en">the x-value</tr>
+          <tr lang="ru">значение x</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs the y-value</tr>
-          <tr lang="ru">выводит значение y</tr>
+        <out type="float">
+          <tr lang="en">the y-value</tr>
+          <tr lang="ru">значение y</tr>
         </out>
       </outlet>
     </outlets>

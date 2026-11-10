@@ -79,9 +79,11 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 1028 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1029 1\.;
-#X text 270 1029 outputs the x-value.;
+#X text 170 1029 float:;
+#X text 270 1029 the x-value.;
 #X text 130 1049 2\.;
-#X text 270 1049 outputs the y-value.;
+#X text 170 1049 float:;
+#X text 270 1049 the y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
