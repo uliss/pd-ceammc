@@ -1,6 +1,9 @@
 use colored::Colorize;
 use regex::Regex;
-use std::{fs::File, process::Command};
+use std::{
+    fs::File,
+    process::{Command, Stdio},
+};
 use tagsoup::Document;
 use thiserror::Error;
 
@@ -20,8 +23,8 @@ pub enum RepoError {
     NotFound { version: String },
     #[error("IO error: {0}")]
     Io(#[from] std::io::Error),
-    #[error("dpkg failed with status {status}: {stderr}")]
-    DpkgFailed { status: i32, stderr: String },
+    #[error("dpkg failed with status {status}")]
+    DpkgFailed { status: i32 },
 }
 
 /// Information about a .deb file
@@ -157,17 +160,19 @@ pub fn download_and_install(
     println!("saved into: {}", file_path.to_string_lossy().cyan());
 
     // Run `dpkg -i <path>`.
-    let output = Command::new("sudo")
+    let exit_status = Command::new("sudo")
         .arg("dpkg")
         .arg("-i")
         .arg(&file_path)
-        .output()?;
+        .stdin(Stdio::inherit())
+        .stdout(Stdio::inherit())
+        .stderr(Stdio::inherit())
+        .spawn()?
+        .wait()?;
 
-    if !output.status.success() {
-        let stderr = String::from_utf8_lossy(&output.stderr).into_owned();
+    if !exit_status.success() {
         return Err(RepoError::DpkgFailed {
-            status: output.status.code().unwrap_or(-1),
-            stderr,
+            status: exit_status.code().unwrap_or(-1),
         });
     }
 
