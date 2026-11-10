@@ -157,7 +157,11 @@ pub fn download_and_install(
     println!("saved into: {}", file_path.to_string_lossy().cyan());
 
     // Run `dpkg -i <path>`.
-    let output = Command::new("dpkg").arg("-i").arg(&file_path).output()?;
+    let output = Command::new("sudo")
+        .arg("dpkg")
+        .arg("-i")
+        .arg(&file_path)
+        .output()?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr).into_owned();
