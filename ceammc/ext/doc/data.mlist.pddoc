@@ -177,6 +177,17 @@
           <tr lang="ru">добавляемое значение (в начало)</tr>
         </param>
       </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">reads a list from the specified file in JSON format</tr>
+          <tr lang="ru">читает список из указанного файла в формате JSON</tr>
+        </info>
+        <param name="FNAME" type="symbol" required="true">
+          <tr lang="en">file name to read from</tr>
+          <tr lang="ru">имя файла для чтения</tr>
+        </param>
+      </method>
       <!-- remove -->
       <method name="remove">
         <info>
@@ -220,22 +231,13 @@
           <tr lang="ru">сортирует список</tr>
         </info>
       </method>
-      <!-- read -->
-      <method name="read">
-        <info>
-          <tr lang="en">reads a list from the specified file in JSON format</tr>
-          <tr lang="ru">читает список из указанного файла в формате JSON</tr>
-        </info>
-        <param name="FNAME" type="symbol" required="true">
-          <tr lang="en">file name to read from</tr>
-          <tr lang="ru">имя файла для чтения</tr>
-        </param>
-      </method>
       <!-- write -->
       <method name="write">
         <info>
-          <tr lang="en">writes the current list to the specified file in JSON format. Without @force, an existing file is not overwritten</tr>
-          <tr lang="ru">записывает текущий список в указанный файл в формате JSON. Без @force существующий файл не перезаписывается</tr>
+          <tr lang="en">writes the current list to the specified file in JSON format. Without
+          @force, an existing file is not overwritten</tr>
+          <tr lang="ru">записывает текущий список в указанный файл в формате JSON. Без @force
+          существующий файл не перезаписывается</tr>
         </info>
         <param name="FNAME" type="symbol" required="true">
           <tr lang="en">file name to write to</tr>

@@ -16,7 +16,7 @@
       <keywords>midi pitch quantize range fold clamp reject</keywords>
       <since>0.9.5</since>
       <aliases>
-          <alias>midi.pitch.q</alias>
+        <alias>midi.pitch.q</alias>
       </aliases>
     </meta>
     <arguments>

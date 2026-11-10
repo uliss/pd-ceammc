@@ -78,16 +78,16 @@
       </argument>
     </arguments>
     <properties>
-    <!-- @x -->
-    <property name="@x" type="float" default="1.2" access="readwrite">
-      <tr lang="en">x value</tr>
-      <tr lang="ru">значение x</tr>
-    </property>
-    <!-- @y -->
-    <property name="@y" type="float" default="2.1" access="readwrite">
-      <tr lang="en">y value</tr>
-      <tr lang="ru">значение y</tr>
-    </property>
+      <!-- @x -->
+      <property name="@x" type="float" default="1.2" access="readwrite">
+        <tr lang="en">x value</tr>
+        <tr lang="ru">значение x</tr>
+      </property>
+      <!-- @y -->
+      <property name="@y" type="float" default="2.1" access="readwrite">
+        <tr lang="en">y value</tr>
+        <tr lang="ru">значение y</tr>
+      </property>
     </properties>
     <inlets>
       <inlet>
