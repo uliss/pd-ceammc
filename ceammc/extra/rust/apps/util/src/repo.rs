@@ -1,4 +1,6 @@
+use colored::Colorize;
 use regex::Regex;
+use std::{fs::File, io::Write, process::Command};
 use tagsoup::Document;
 use thiserror::Error;
 
@@ -14,6 +16,12 @@ pub enum ParseError {
     Regex(#[from] regex::Error),
     #[error("No .deb files found on page {0}")]
     NoDebFiles(String),
+    #[error("Package version {version} not found")]
+    NotFound { version: String },
+    #[error("IO error: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("dpkg failed with status {status}: {stderr}")]
+    DpkgFailed { status: i32, stderr: String },
 }
 
 /// Information about a .deb file
@@ -98,6 +106,68 @@ pub fn parse_deb_html(html: &str, base_url: &str) -> Result<Vec<DebFile>, ParseE
     }
 
     Ok(result)
+}
+
+pub fn rollback_to_version(version: &str) -> Result<(), ParseError> {
+    match parse_deb_page(RPI_APT_REPO_URL) {
+        Ok(files) => download_and_install(&files, RPI_APT_REPO_URL, version),
+        Err(_) => Err(ParseError::NotFound {
+            version: version.to_owned(),
+        }),
+    }
+}
+
+/// downloads it into a temporary directory, and installs it via `dpkg -i`.
+///
+/// `files` is the list returned by `parse_deb_page`.
+/// `base_url` is the page URL, used to build the absolute download link.
+pub fn download_and_install(
+    files: &[DebFile],
+    base_url: &str,
+    version: &str,
+) -> Result<(), ParseError> {
+    // Find the matching file
+    let target = files
+        .iter()
+        .find(|f| f.info().contains(version))
+        .ok_or_else(|| ParseError::NotFound {
+            version: version.to_string(),
+        })?;
+
+    println!("found deb package: {}", target.filename.cyan());
+
+    // Build the absolute download URL.
+    let base = url::Url::parse(base_url)?;
+    let download_url = base.join(&target.filename)?;
+
+    println!("download url: {}", download_url.to_string().cyan());
+
+    // Create a temporary directory. It is automatically deleted
+    // when `tmp_dir` goes out of scope.
+    let tmp_dir = tempdir::TempDir::new("ceammc")?;
+    let file_path = tmp_dir.path().join(&target.filename);
+
+    // Download the .deb file.
+    let mut response = reqwest::blocking::get(download_url)?;
+    if !response.status().is_success() {
+        return Err(ParseError::Http(response.error_for_status().unwrap_err()));
+    }
+    let mut file = File::create(&file_path)?;
+    std::io::copy(&mut response, &mut file).map_err(|e| ParseError::Io(e))?;
+    println!("saved into: {}", file_path.to_string_lossy().cyan());
+
+    // Run `dpkg -i <path>`.
+    let output = Command::new("dpkg").arg("-i").arg(&file_path).output()?;
+
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr).into_owned();
+        return Err(ParseError::DpkgFailed {
+            status: output.status.code().unwrap_or(-1),
+            stderr,
+        });
+    }
+
+    Ok(())
 }
 
 #[cfg(test)]

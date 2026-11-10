@@ -23,6 +23,7 @@ reqwest = { version = "0.13.5", features = ["blocking", "rustls"], default-featu
 tagsoup = { version = "0.2.0", default-features = false }
 url = "2.5.8"
 percent-encoding = "2.3.2"
+tempdir = "0.3.7"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 rust-apt = "0.9.0"

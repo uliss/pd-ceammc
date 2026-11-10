@@ -12,7 +12,10 @@ pub enum VersionAct {
     /// list available versions in repo
     List,
     /// rollback to specified version
-    Rollback,
+    Rollback {
+        /// desired version
+        version: String,
+    },
 }
 
 #[derive(Clone, Subcommand)]

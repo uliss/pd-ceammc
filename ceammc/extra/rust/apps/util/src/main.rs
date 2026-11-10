@@ -1,6 +1,6 @@
 use crate::cli::{Cli, Commands, LangName, Pd};
 use crate::common::output_error;
-use crate::repo::{parse_deb_page, RPI_APT_REPO_URL};
+use crate::repo::{parse_deb_page, rollback_to_version, RPI_APT_REPO_URL};
 use crate::{autostart::ProcessOptions, info::output_info};
 use anyhow::anyhow;
 use ceammc_shared_rs::config::{config_lang, config_store};
@@ -93,7 +93,7 @@ fn main() -> anyhow::Result<()> {
                         println!("pd-ceammc: {}", deb.info().to_string().cyan())
                     }
                 }
-                cli::VersionAct::Rollback => todo!(),
+                cli::VersionAct::Rollback { version } => rollback_to_version(&version)?,
             },
         },
         Commands::Info {
