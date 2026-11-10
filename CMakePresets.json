@@ -106,7 +106,7 @@
         "WITH_HTTP": "ON",
         "WITH_LIBSAMPLERATE": "ON",
         "WITH_LIBSNDFILE": "ON",
-        "WITH_LTC": "OFF",
+        "WITH_LTC": "ON",
         "WITH_LUAJIT": "OFF",
         "WITH_MODPLUG": "OFF",
         "WITH_MQTT": "ON",
