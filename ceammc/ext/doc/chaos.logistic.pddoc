@@ -35,7 +35,7 @@
         <tr lang="en">The map is defined by the difference equation:</tr>
         <tr lang="ru">Отображение задаётся разностным уравнением:</tr>
       </par>
-      <par>
+      <par indent="2">
         <tr lang="en">x[n+1] = λ * x[n] * (1 - x[n])</tr>
         <tr lang="ru">x[n+1] = λ * x[n] * (1 - x[n])</tr>
       </par>
@@ -204,7 +204,7 @@
 |
 [list.unpack 3           ]
 |             ^|       ^^|
-[sig~]        [* 400]  [/ 250]
+[sig~]        [* 400]  [/ 600]
 |             |        |
 |             [sig~]   [@res $1(
 |             |        |

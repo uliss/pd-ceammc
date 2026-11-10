@@ -12,7 +12,7 @@
 map \, a one-dimensional discrete dynamical system. On each bang the
 generator advances the map by one step and outputs the new x value.;
 #X text 240 153 The map is defined by the difference equation:;
-#X text 240 178 x[n+1] = λ * x[n] * (1 - x[n]);
+#X text 260 178 x[n+1] = λ * x[n] * (1 - x[n]);
 #X obj 240 206 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Logistic map @url
 https://en.wikipedia.org/wiki/Logistic_map;
@@ -58,7 +58,7 @@ signal \, useful for driving filters \, pan positions or pitches.;
 #X obj 50 1024 list.unpack 3;
 #X obj 50 1053 sig~;
 #X obj 184 1053 * 400;
-#X obj 270 1053 / 250;
+#X obj 270 1053 / 600;
 #X obj 184 1082 sig~;
 #X msg 270 1082 @res \$1;
 #X obj 50 1111 osc~;
