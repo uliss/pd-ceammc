@@ -23,34 +23,39 @@ constexpr long MIN_PERIOD = 1;
 
 static inline void gbman_next(double& xn, double& yn)
 {
-    //    x(n+1) = 1 - y(n) + |x(n)|
-    //    y(n+1) = x(n)
-    double xn0 = xn;
-    xn = 1 - yn + std::fabs(xn0);
-    yn = xn0;
 }
 
 ChaosGbman::ChaosGbman(const PdArgs& args)
     : BaseObject(args)
-    , xn_(parsedPosArgs().floatAt(0, DEF_X))
-    , yn_(parsedPosArgs().floatAt(1, DEF_Y))
 {
     createOutlet();
     createOutlet();
+
+    x_ = new FloatProperty("@x", DEF_X);
+    x_->setArgIndex(0);
+    addProperty(x_);
+
+    y_ = new FloatProperty("@y", DEF_Y);
+    y_->setArgIndex(1);
+    addProperty(y_);
 }
 
 void ChaosGbman::onBang()
 {
-    gbman_next(xn_, yn_);
-    floatTo(1, yn_);
-    floatTo(0, xn_);
+    next();
+    floatTo(1, y_->value());
+    floatTo(0, x_->value());
 }
 
-void ChaosGbman::dump() const
+void ChaosGbman::next()
 {
-    OBJ_DBG << "x: " << xn_;
-    OBJ_DBG << "y: " << yn_;
-    BaseObject::dump();
+    //    x(n+1) = 1 - y(n) + |x(n)|
+    //    y(n+1) = x(n)
+    auto y_next = x_->value();
+    auto x_next = 1 - y_->value() + std::fabs(x_->value());
+
+    x_->setValue(x_next);
+    y_->setValue(y_next);
 }
 
 ChaosGbmanTilde::ChaosGbmanTilde(const PdArgs& args)
@@ -97,6 +102,8 @@ void setup_chaos_gbman()
     obj.setCategory("chaos");
     obj.setKeywords({ "chaos", "generator", "gingerbreadman" });
     obj.addAuthor("Serge Poltavski");
+    obj.setInletsInfo({ "bang: generate next values" });
+    obj.setOutletsInfo({ "float: x", "float: y" });
     obj.setSinceVersion(0, 9);
 
     SoundExternalFactory<ChaosGbmanTilde> obj_tilde("chaos.gbman0~",

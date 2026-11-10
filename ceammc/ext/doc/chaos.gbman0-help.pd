@@ -12,8 +12,8 @@ generators that produce a continuous stream of values between two consecutive
 points \, this generator advances the map by one discrete step per
 incoming bang.;
 #X text 240 184 The map is defined by the difference equations:;
-#X text 240 209 x(n+1) = 1 - y(n) + |x(n)|;
-#X text 240 234 y(n+1) = x(n);
+#X text 260 209 x(n+1) = 1 - y(n) + |x(n)|;
+#X text 260 234 y(n+1) = x(n);
 #X text 240 259 For most initial values (x \, y) the sequence of points
 (x(n) \, y(n)) traces a bounded \, non-repeating orbit with a characteristic
 "gingerbread man" shape. Typical initial values that put the generator

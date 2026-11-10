@@ -18,12 +18,13 @@
 using namespace ceammc;
 
 class ChaosGbman : public BaseObject {
-    double xn_, yn_;
+    FloatProperty *x_, *y_;
 
 public:
     ChaosGbman(const PdArgs& args);
     void onBang() final;
-    void dump() const final;
+
+    void next();
 };
 
 class ChaosGbmanTilde : public SoundExternal {
