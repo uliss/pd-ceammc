@@ -1,13 +1,13 @@
 use colored::Colorize;
 use regex::Regex;
-use std::{fs::File, io::Write, process::Command};
+use std::{fs::File, process::Command};
 use tagsoup::Document;
 use thiserror::Error;
 
 pub const RPI_APT_REPO_URL: &str = "http://repo.poltavski.ru/rpi/pool/contrib/p/pd-ceammc/";
 
 #[derive(Error, Debug)]
-pub enum ParseError {
+pub enum RepoError {
     #[error("HTTP error: {0}")]
     Http(#[from] reqwest::Error),
     #[error("URL parse error: {0}")]
@@ -41,14 +41,14 @@ impl DebFile {
 
 /// Fetches the page at `url` and returns the list of deb files.
 /// This is the synchronous (blocking) counterpart of `parse_deb_page`.
-pub fn parse_deb_page(url: &str) -> Result<Vec<DebFile>, ParseError> {
+pub fn parse_deb_page(url: &str) -> Result<Vec<DebFile>, RepoError> {
     let client = reqwest::blocking::Client::new();
     let body = client.get(url).send()?.text()?;
     parse_deb_html(&body, url)
 }
 
 /// Parses HTML page content using tagsoup.
-pub fn parse_deb_html(html: &str, base_url: &str) -> Result<Vec<DebFile>, ParseError> {
+pub fn parse_deb_html(html: &str, base_url: &str) -> Result<Vec<DebFile>, RepoError> {
     let doc = Document::parse(html);
 
     // Regex for a deb filename: pd-ceammc-2000.00.r12345.*.deb
@@ -102,16 +102,16 @@ pub fn parse_deb_html(html: &str, base_url: &str) -> Result<Vec<DebFile>, ParseE
     }
 
     if result.is_empty() {
-        return Err(ParseError::NoDebFiles(base_url.to_string()));
+        return Err(RepoError::NoDebFiles(base_url.to_string()));
     }
 
     Ok(result)
 }
 
-pub fn rollback_to_version(version: &str) -> Result<(), ParseError> {
+pub fn rollback_to_version(version: &str) -> Result<(), RepoError> {
     match parse_deb_page(RPI_APT_REPO_URL) {
         Ok(files) => download_and_install(&files, RPI_APT_REPO_URL, version),
-        Err(_) => Err(ParseError::NotFound {
+        Err(_) => Err(RepoError::NotFound {
             version: version.to_owned(),
         }),
     }
@@ -125,12 +125,12 @@ pub fn download_and_install(
     files: &[DebFile],
     base_url: &str,
     version: &str,
-) -> Result<(), ParseError> {
+) -> Result<(), RepoError> {
     // Find the matching file
     let target = files
         .iter()
         .find(|f| f.info().contains(version))
-        .ok_or_else(|| ParseError::NotFound {
+        .ok_or_else(|| RepoError::NotFound {
             version: version.to_string(),
         })?;
 
@@ -150,10 +150,10 @@ pub fn download_and_install(
     // Download the .deb file.
     let mut response = reqwest::blocking::get(download_url)?;
     if !response.status().is_success() {
-        return Err(ParseError::Http(response.error_for_status().unwrap_err()));
+        return Err(RepoError::Http(response.error_for_status().unwrap_err()));
     }
     let mut file = File::create(&file_path)?;
-    std::io::copy(&mut response, &mut file).map_err(|e| ParseError::Io(e))?;
+    std::io::copy(&mut response, &mut file).map_err(|e| RepoError::Io(e))?;
     println!("saved into: {}", file_path.to_string_lossy().cyan());
 
     // Run `dpkg -i <path>`.
@@ -161,7 +161,7 @@ pub fn download_and_install(
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr).into_owned();
-        return Err(ParseError::DpkgFailed {
+        return Err(RepoError::DpkgFailed {
             status: output.status.code().unwrap_or(-1),
             stderr,
         });
