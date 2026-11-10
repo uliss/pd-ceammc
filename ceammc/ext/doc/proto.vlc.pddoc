@@ -230,15 +230,6 @@
           00h:00m:00s) или относительное смещение (+val, -val)</tr>
         </param>
       </method>
-      <!-- status -->
-      <method name="status">
-        <info>
-          <tr lang="en">request for the current VLC status. Output as a message [status( into the
-          second output</tr>
-          <tr lang="ru">запрос текущего статуса VLC. Вывод в виде сообщения [status( во второй
-          выход</tr>
-        </info>
-      </method>
       <!-- stop -->
       <method name="stop">
         <info>
@@ -258,6 +249,66 @@
           -VOL</tr>
         </param>
       </method>
+      <!-- repeat -->
+      <method name="repeat">
+        <info>
+          <tr lang="en">sets or toggles the repeat mode for the current media item</tr>
+          <tr lang="ru">устанавливает или переключает режим повтора текущего медиаэлемента</tr>
+        </info>
+        <param name="STATE" type="bool">
+          <tr lang="en">If == 1: turns on repeat. If == 0: turns it off. If the parameter is
+          omitted, it toggles between modes.</tr>
+          <tr lang="ru">Если == 1: включает повтор. Если == 0: выключает. Если параметр не указан,
+          переключает между режимами.</tr>
+        </param>
+      </method>
+      <!-- get_current -->
+      <method name="get_current">
+        <info>
+          <tr lang="en">request for the current playing item. Outputs as a message [current( with
+          a dictionary of item info (id, name, uri, duration, current) into the second output.</tr>
+          <tr lang="ru">запрос текущего воспроизводимого элемента. Выводит в виде сообщения
+          [current( со словарём информации об элементе (id, name, uri, duration, current) во второй
+          выход.</tr>
+        </info>
+      </method>
+      <!-- get_status -->
+      <method name="get_status">
+        <info>
+          <tr lang="en">request for the current VLC status. Outputs as a message [status( with a
+          dictionary of status data (apiversion, loop, repeat, random, fullscreen, position, volume,
+          time, length, rate, current_id) into the second output.</tr>
+          <tr lang="ru">запрос текущего статуса VLC. Выводит в виде сообщения [status( со словарём
+          данных статуса (apiversion, loop, repeat, random, fullscreen, position, volume, time,
+          length, rate, current_id) во второй выход.</tr>
+        </info>
+      </method>
+      <!-- sort -->
+      <method name="sort">
+        <info>
+          <tr lang="en">sorts the playlist by the specified key. The default key is id.</tr>
+          <tr lang="ru">сортирует плейлист по указанному ключу. Ключ по умолчанию — id.</tr>
+        </info>
+        <param name="@order" type="flag">
+          <tr lang="en">reverse the sort order</tr>
+          <tr lang="ru">обратный порядок сортировки</tr>
+        </param>
+        <param name="@by" type="symbol" required="false">
+          <tr lang="en">alternative way to set the sort key</tr>
+          <tr lang="ru">альтернативный способ задать ключ сортировки</tr>
+        </param>
+      </method>
+      <!-- speed -->
+      <method name="speed">
+        <info>
+          <tr lang="en">sets the playback rate (speed) of the current media</tr>
+          <tr lang="ru">устанавливает скорость воспроизведения текущего медиа</tr>
+        </info>
+        <param name="SPEED" type="float" required="true" minvalue="0.25" maxvalue="4">
+          <tr lang="en">playback rate (e.g. 1.0 is normal speed, 2.0 is double speed)</tr>
+          <tr lang="ru">скорость воспроизведения (например, 1.0 — нормальная, 2.0 — двойная)</tr>
+        </param>
+      </method>
     </methods>
     <inlets>
       <inlet>
@@ -269,15 +320,15 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="int">
           <tr lang="en">int: 1 on success, 0 on error</tr>
-          <tr lang="ru" finished="false">Инт: 1 об успехе, 0 об ошибке</tr>
+          <tr lang="ru">int: 1 при успехе, 0 при ошибке</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">dict: response data</tr>
-          <tr lang="ru" finished="false">ct: данные ответа</tr>
+          <tr lang="ru">dict: данные ответа</tr>
         </out>
       </outlet>
     </outlets>
