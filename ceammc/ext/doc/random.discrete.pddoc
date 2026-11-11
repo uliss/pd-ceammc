@@ -22,50 +22,45 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Produces random integers on the interval [0, N), where the probability of
-        each individual integer *i* defined as Wⁱ/S, that is the weight of the i-th integer divided
-        by the sum of all N weights.</tr>
-        <tr lang="ru" finished="false">Производит случайные целые числа на интервале [0, N], где
-        вероятность каждого отдельного целого числа *i* определяется как Wi/S, то есть вес i-го
-        целого числа, деленный на сумму всех N весов.</tr>
+        <tr lang="en">produces random integers on the interval [0, N), where the probability of each individual integer *i* is defined as Wⁱ/S, that is the weight of the i-th integer divided by the sum of all N weights</tr>
+        <tr lang="ru">генерирует случайные целые числа на интервале [0, N), где вероятность каждого отдельного целого числа *i* определяется как Wⁱ/S, то есть вес i-го числа, делённый на сумму всех N весов</tr>
       </par>
       <par>
-        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
-        explicitly set or specified, uses generator initialized with current time.</tr>
-        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
-        последовательностей. Если свойство @seed не было явно установлено или указано, используется
-        генератор, инициализированный с текущим временем.</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to generate weighted random choices, for example to pick notes with different probabilities or to simulate a loaded die</tr>
+        <tr lang="ru">объект можно использовать для генерации взвешенных случайных выборов, например чтобы выбирать ноты с разной вероятностью или имитировать загруженную игральную кость</tr>
       </par>
     </info>
     <arguments>
       <argument name="WEIGHTS" type="list">
         <tr lang="en">weights (list of non-negative floats)</tr>
-        <tr lang="ru" finished="false">Весы (список неотрицательных поплавков)</tr>
+        <tr lang="ru">веса (список неотрицательных чисел)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">начальное значение генератора</tr>
       </property>
       <!-- @weights -->
       <property name="@weights" type="list" default="">
         <tr lang="en">list of weights (non-negative floats)</tr>
-        <tr lang="ru" finished="false">Список весов (неотрицательные поплавки)</tr>
+        <tr lang="ru">список весов (неотрицательные числа)</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generates random number in interval [0, N), where N is number of
-          weights.</tr>
-          <tr lang="ru" finished="false">генерирует случайное число в интервале [0, N], где N —
-          число весов.</tr>
+          <tr lang="en">generates a random number in the interval [0, N), where N is the number of weights</tr>
+          <tr lang="ru">генерирует случайное число на интервале [0, N), где N — число весов</tr>
         </in>
         <in on="list">
           <tr lang="en">set new weights</tr>
-          <tr lang="ru" finished="false">установить новые весы</tr>
+          <tr lang="ru">задать новые веса</tr>
         </in>
       </inlet>
     </inlets>
@@ -73,7 +68,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+          <tr lang="ru">значение результата</tr>
         </out>
       </outlet>
     </outlets>

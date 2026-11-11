@@ -6,75 +6,77 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.discrete 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 random.discrete;
-#X obj 230 93 cnv 1 535 145 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Produces random integers on the interval [0 \, N) \,
-where the probability of each individual integer *i* defined as Wⁱ/S
-\, that is the weight of the i-th integer divided by the sum of all
-N weights.;
-#X text 240 168 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 286 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 93 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 генерирует случайные целые числа на интервале [0 \,
+N) \, где вероятность каждого отдельного целого числа *i* определяется
+как Wⁱ/S \, то есть вес i-го числа \, делённый на сумму всех N весов;
+#X text 240 168 используйте свойство @seed для получения воспроизводимых
+последовательностей. Если @seed не задан явно \, используется генератор
+\, инициализированный текущим временем;
+#X text 240 223 объект можно использовать для генерации взвешенных
+случайных выборов \, например чтобы выбирать ноты с разной вероятностью
+или имитировать загруженную игральную кость;
+#X obj 50 341 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 9 float 0;
 #X coords 0 1 9 0 200 140 1;
-#X restore 482 286 graph;
-#X obj 50 315 list.gen 1000;
-#X obj 203 315 random.discrete 1 2 3 4 0 1 2 4 5;
-#X obj 50 344 list.histogram @bins 9;
-#X obj 50 373 list.normalize @range;
-#X obj 50 402 list.enumerate @append;
-#X obj 50 430 list.repack 2;
-#X obj 50 459 tabwrite array1;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 514 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 482 341 graph;
+#X obj 50 370 list.gen 1000;
+#X obj 203 370 random.discrete 1 2 3 4 0 1 2 4 5;
+#X obj 50 399 list.histogram @bins 9;
+#X obj 50 428 list.normalize @range;
+#X obj 50 457 list.enumerate @append;
+#X obj 50 485 list.repack 2;
+#X obj 50 514 tabwrite array1;
+#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 569 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 517 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 572 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 515 1\.;
-#X text 170 515 list;
-#X obj 268 516 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 515 WEIGHTS: weights (list of non-negative floats). Тип:
+#X text 130 570 1\.;
+#X text 170 570 list;
+#X obj 268 571 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 570 WEIGHTS: веса (список неотрицательных чисел). Тип:
 list.;
-#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 555 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 610 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 558 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 556 @seed;
-#X text 270 556 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 598 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 598 @weights;
-#X text 270 598 List of weights (non-negative floats). Тип: list.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 643 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 611 @seed;
+#X text 270 611 Начальное значение генератора. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 653 @weights;
+#X text 270 653 Список весов (неотрицательные числа). Тип: list.;
+#X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 698 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 644 1\.;
-#X text 170 644 bang:;
-#X text 270 644 generates random number in interval [0 \, N) \, where
-N is number of weights.;
-#X text 170 684 list:;
-#X text 270 684 set new weights.;
-#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 724 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 699 1\.;
+#X text 170 699 bang:;
+#X text 270 699 генерирует случайное число на интервале [0 \, N) \,
+где N — число весов.;
+#X text 170 739 list:;
+#X text 270 739 задать новые веса.;
+#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 779 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 725 1\.;
-#X text 270 725 result value.;
+#X text 130 780 1\.;
+#X text 270 780 значение результата.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 775 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 778 библиотека: ceammc v0.9.8;
-#X text 395 790 смотрите также:;
-#X obj 516 793 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 833 библиотека: ceammc v0.9.8;
+#X text 395 845 смотрите также:;
+#X obj 516 848 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.linear] @url random.linear-help.pd;
-#X obj 628 793 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 628 848 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.pw_const] @url random.pw_const-help.pd;
-#N canvas 10 797 400 290 info 0;
+#N canvas 10 852 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,12 +100,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 797 pd info;
-#X connect 7 0 9 0;
-#X connect 9 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 852 pd info;
+#X connect 8 0 10 0;
+#X connect 10 0 12 0;
 #X connect 12 0 13 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
-#X connect 9 1 10 0;
-#X connect 10 0 9 1;
+#X connect 15 0 16 0;
+#X connect 10 1 11 0;
+#X connect 11 0 10 1;
