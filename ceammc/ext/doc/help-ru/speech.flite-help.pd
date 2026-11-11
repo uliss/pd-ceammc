@@ -1,87 +1,93 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 496 50 рендеринг синтезатора речи в массив;
+#X obj 568 50 cnv 1 197 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 573 50 синтезирует речь в массив;
 #X obj 1 1 cnv 5 765 40 empty empty speech.flite 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 speech.flite;
-#X obj 230 78 cnv 1 535 85 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Renders floats \, symbols and list to wavetables using
-flite TTS engine.;
-#X text 240 123 Rendering is performed in separate thread.;
+#X obj 230 78 cnv 1 535 180 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект синтезирует числа \, символы и списки в волновую
+таблицу в заданном массиве с помощью движка Flite TTS;
+#X text 240 123 синтез выполняется в отдельном потоке \, поэтому он
+не блокирует аудиопоток;
+#X text 240 163 по завершении синтеза на первый выход выдаётся bang;
+#X text 240 188 объект можно использовать для генерации произносимых
+слов или чисел \, например чтобы озвучивать значения или добавлять
+голосовые подсказки в патч;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array arr_flite 100 float 0;
 #X coords 0 1 100 -1 500 80 1;
-#X restore 50 211 graph;
-#X obj 50 298 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 327 metro 1000;
-#X obj 184 327 ui.menu kal16 slt rms awb;
-#X obj 453 327 ui.knob @min 1 @max 4;
-#X obj 50 355 flow.count;
-#X msg 184 355 @voice \$2;
-#X floatatom 299 355 5 0 0 0 - - -;
-#X msg 299 384 @pitch \$1;
-#X msg 453 384 @speed \$1;
-#X obj 50 413 speech.flite arr_flite;
-#X msg 50 442 0;
-#X obj 50 471 tabplay~ arr_flite;
-#X obj 50 499 ui.gain~ @size 120 16;
-#X obj 299 499 ui.dsp~;
-#X obj 50 528 dac~;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 583 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 50 306 graph;
+#X obj 50 393 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 422 metro 1000;
+#X obj 184 422 ui.menu kal16 slt rms awb;
+#X obj 453 422 ui.knob @min 1 @max 4;
+#X obj 50 450 flow.count;
+#X msg 184 450 @voice \$2;
+#X floatatom 299 450 5 0 0 0 - - -;
+#X msg 299 479 @pitch \$1;
+#X msg 453 479 @speed \$1;
+#X obj 50 508 speech.flite arr_flite;
+#X msg 50 537 0;
+#X obj 50 566 tabplay~ arr_flite;
+#X obj 50 594 ui.gain~ @size 120 16;
+#X obj 299 594 ui.dsp~;
+#X obj 50 623 dac~;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 678 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 586 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 681 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 584 1\.;
-#X text 170 584 symbol;
-#X obj 268 585 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 584 ARRAY: destination array name render to. Тип: symbol.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 624 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 679 1\.;
+#X text 170 679 symbol;
+#X obj 268 680 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 679 ARRAY: имя целевого массива для синтеза. Тип: symbol.;
+#X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 719 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 627 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 722 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 625 @array;
-#X text 270 625 Destination array name. Тип: symbol.;
-#X obj 250 655 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 655 @pitch;
-#X text 270 655 Voice pitch (-1 - default value). Тип: float. Значение
-по умолчанию: -1\.;
-#X obj 250 697 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 697 @speed;
-#X text 270 697 Speaking speed. Тип: float. Значение по умолчанию:
-1\. Диапазон: [1\..4].;
-#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 739 @voice;
-#X text 270 739 Default voice. Тип: symbol. Значение по умолчанию:
+#X msg 130 720 @array;
+#X text 270 720 Имя целевого массива. Тип: symbol.;
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 750 @pitch;
+#X text 270 750 Высота голоса (-1 — значение по умолчанию). Тип: float.
+Значение по умолчанию: -1\.;
+#X obj 250 792 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 792 @speed;
+#X text 270 792 Скорость речи. Тип: float. Значение по умолчанию: 1\.
+Диапазон: [1\..4].;
+#X obj 250 834 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 834 @voice;
+#X text 270 834 Голос по умолчанию. Тип: symbol. Значение по умолчанию:
 kal16\. Разрешённые значения: kal16 \, slt \, rms \, awb.;
-#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 796 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 891 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 797 1\.;
-#X text 170 797 float:;
-#X text 270 797 render number to array.;
-#X text 170 822 symbol:;
-#X text 270 822 render text to array.;
-#X text 170 847 list:;
-#X text 270 847 render text to array.;
-#X text 130 872 2\.;
-#X text 170 872 symbol:;
-#X text 270 872 set target array name.;
-#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 912 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 913 1\.;
-#X text 270 913 bang on done.;
+#X text 130 892 1\.;
+#X text 170 892 float:;
+#X text 270 892 синтезировать число в массив.;
+#X text 170 917 symbol:;
+#X text 270 917 синтезировать текст в массив.;
+#X text 170 942 list:;
+#X text 270 942 синтезировать текст в массив.;
+#X text 130 967 2\.;
+#X text 170 967 symbol:;
+#X text 270 967 задать имя целевого массива.;
+#X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1007 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1008 1\.;
+#X text 170 1008 bang:;
+#X text 270 1008 по завершении.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 963 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 966 библиотека: ceammc v0.9.8;
-#N canvas 10 985 400 290 info 0;
+#X obj 1 1058 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1061 библиотека: ceammc v0.9.8;
+#N canvas 10 1080 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -105,18 +111,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 985 pd info;
-#X connect 8 0 9 0;
-#X connect 9 0 12 0;
-#X connect 10 0 13 0;
-#X connect 14 0 15 0;
-#X connect 11 0 16 0;
-#X connect 12 0 17 0;
-#X connect 13 0 17 0;
-#X connect 15 0 17 0;
+#X restore 10 1080 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
 #X connect 16 0 17 0;
-#X connect 17 0 18 0;
+#X connect 13 0 18 0;
+#X connect 14 0 19 0;
+#X connect 15 0 19 0;
+#X connect 17 0 19 0;
 #X connect 18 0 19 0;
 #X connect 19 0 20 0;
-#X connect 20 0 22 0;
-#X connect 20 0 22 1;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 24 0;
+#X connect 22 0 24 1;

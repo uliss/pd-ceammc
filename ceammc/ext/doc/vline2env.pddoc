@@ -27,20 +27,30 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object converts a vline message into an envelope (Env) and outputs it as an Env data type</tr>
-        <tr lang="ru">объект преобразует сообщение vline в огибающую (Env) и выводит её как тип данных Env</tr>
+        <tr lang="en">the object converts a vline message into an envelope (Env) and outputs it as
+        an Env data type</tr>
+        <tr lang="ru">объект преобразует сообщение vline в огибающую (Env) и выводит её как тип
+        данных Env</tr>
       </par>
       <par>
-        <tr lang="en">a vline message is a list of value-time pairs, for example 0 1 200 describes a ramp from value 0 to value 1 over 200 ms</tr>
-        <tr lang="ru">сообщение vline — это список пар значение-время, например 0 1 200 описывает переход от значения 0 к значению 1 за 200 мс</tr>
+        <tr lang="en">a vline message is a list of value-time pairs, for example 0 1 200 describes
+        a ramp from value 0 to value 1 over 200 ms</tr>
+        <tr lang="ru">сообщение vline — это список пар значение-время, например 0 1 200 описывает
+        переход от значения 0 к значению 1 за 200 мс</tr>
       </par>
       <par>
-        <tr lang="en">a bang outputs the envelope that was built from the last received vline message</tr>
-        <tr lang="ru">bang выводит огибающую, построенную по последнему полученному сообщению vline</tr>
+        <tr lang="en">a bang outputs the envelope that was built from the last received vline
+        message</tr>
+        <tr lang="ru">bang выводит огибающую, построенную по последнему полученному сообщению
+        vline</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to convert vline automation into an Env for display, editing or saving, for example to draw the shape of an envelope or to store it in a preset</tr>
-        <tr lang="ru">объект можно использовать для преобразования автоматизации vline в Env для отображения, редактирования или сохранения, например чтобы нарисовать форму огибающей или сохранить её в пресете</tr>
+        <tr lang="en">the object can be used to convert vline automation into an Env for display,
+        editing or saving, for example to draw the shape of an envelope or to store it in a
+        preset</tr>
+        <tr lang="ru">объект можно использовать для преобразования автоматизации vline в Env для
+        отображения, редактирования или сохранения, например чтобы нарисовать форму огибающей или
+        сохранить её в пресете</tr>
       </par>
     </info>
     <inlets>
