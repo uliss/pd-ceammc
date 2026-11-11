@@ -16,8 +16,8 @@
       <keywords>seq arpeggio pattern</keywords>
       <since>0.9.1</since>
       <also>
-        <see>seq.b</see>
-        <see>seq.t</see>
+        <see>seq.bangs</see>
+        <see>seq.toggles</see>
       </also>
     </meta>
     <info>

@@ -16,7 +16,7 @@
       <keywords>conv amp dbfs decibel</keywords>
       <since>0.6</since>
       <also>
-        <see>amp-&gt;dbfs</see>
+        <see>conv.amp2dbfs</see>
       </also>
       <aliases>
         <alias>ceammc/dbfs-&gt;amp</alias>

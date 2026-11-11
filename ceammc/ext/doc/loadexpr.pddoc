@@ -16,7 +16,7 @@
       <keywords>message loadbang onload</keywords>
       <since>0.9.2</since>
       <also>
-        <see>loadmsg</see>
+        <see>msg.onload</see>
       </also>
       <aliases>
         <alias>ceammc/loadexpr</alias>

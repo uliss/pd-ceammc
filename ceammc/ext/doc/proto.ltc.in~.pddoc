@@ -19,7 +19,7 @@
         <alias>ltc.in~</alias>
       </aliases>
       <also>
-        <see>ltc.out~</see>
+        <see>proto.ltc.out~</see>
       </also>
     </meta>
     <properties>

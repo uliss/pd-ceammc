@@ -21,7 +21,7 @@
         <alias>env-&gt;array</alias>
       </aliases>
       <also>
-        <see>env-&gt;vline</see>
+        <see>env2vline</see>
       </also>
     </meta>
     <info>

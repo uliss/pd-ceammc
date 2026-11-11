@@ -16,8 +16,8 @@
       <keywords>envelope</keywords>
       <since>0.5</since>
       <also>
-        <see>env-&gt;array</see>
-        <see>env-&gt;vline</see>
+        <see>env2array</see>
+        <see>env2vline</see>
       </also>
       <aliases>
         <alias>ceammc/envelope</alias>

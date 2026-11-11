@@ -16,8 +16,8 @@
       <keywords>conv cc amp</keywords>
       <since>0.3</since>
       <also>
-        <see>lin-&gt;lin</see>
-        <see>lin-&gt;curve</see>
+        <see>conv.lin2lin</see>
+        <see>conv.lin2curve</see>
       </also>
       <aliases>
         <alias>ceammc/cc-&gt;amp</alias>

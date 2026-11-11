@@ -158,7 +158,7 @@ def main() -> int:
     # Load vanilla Pd object names
     core_objects = load_core_objects(args.core)
 
-    hardcoded_objects = set(["fiddle~", "sigmund~", "loadbang"])
+    hardcoded_objects = set(["fiddle~", "sigmund~", "hilbert~"])
 
     # 1. Collect all object names
     object_names: set[str] = set()
