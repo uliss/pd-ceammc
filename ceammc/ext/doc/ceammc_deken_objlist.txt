@@ -415,9 +415,9 @@ flow.greater	numeric stream router by 'greater' condition / маршрутиза
 flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
 flow.>=	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
-flow.group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
-ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
-group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+flow.group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
+ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
+group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
 flow.histogram	histogram for numeric control flow / гистограмма для числового потока управления
 flow.hist	histogram for numeric control flow / гистограмма для числового потока управления
 flow.interval	measure the time between messages / измеряет время между сообщениями

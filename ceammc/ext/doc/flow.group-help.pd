@@ -9,69 +9,79 @@
 #X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [group] @url flow.group-help.pd;
 #X obj 667 8 flow.group;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 98 118 1 2 3;
-#X obj 50 162 flow.group @by 5;
-#X obj 50 190 ui.dt;
-#X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 245 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object collects incoming atoms into groups of @by
+elements and outputs each group as a list when it is full;
+#X text 240 138 the group size is set by the BY argument or the @by
+property \, and can be changed by sending an integer to the right inlet;
+#X text 240 193 the [flush( method outputs the current incomplete group
+\, the [clear( method discards it;
+#X text 240 233 the object can be used to reassemble a stream of atoms
+into fixed-size lists \, for example to build note pairs from a stream
+of pitch and velocity values;
+#X floatatom 50 351 5 0 0 0 - - -;
+#X msg 98 351 1 2 3;
+#X obj 50 395 flow.group @by 5;
+#X obj 50 423 ui.dt;
+#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 478 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 248 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 481 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 246 1\.;
-#X text 170 246 int;
-#X obj 268 247 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 246 BY: group size (the length of output list). Type: int.
-Min value: 1;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 479 1\.;
+#X text 170 479 int;
+#X obj 268 480 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 479 BY: group size (the length of the output list). Type:
+int. Min value: 1;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 537 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 302 @by;
-#X text 270 302 Group size (the length of output list). Type: int.
+#X msg 130 535 @by;
+#X text 270 535 Group size (the length of the output list). Type: int.
 Default value: 1\. Min value: 1\.;
-#X obj 250 344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 344 @free?;
-#X text 270 344 (readonly) Free space that is left in the current group.
-Type: int. Default value: 0\. Min value: 0\.;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 401 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 577 @free?;
+#X text 270 577 (readonly) Free space left in the current group. Type:
+int. Default value: 0\. Min value: 0\.;
+#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 634 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 402 clear;
-#X text 270 402 clear the current group without output.;
-#X obj 250 437 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 437 flush;
-#X text 270 437 outputs and clears the current group.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 635 clear;
+#X text 270 635 clear the current group without output.;
+#X obj 250 670 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 670 flush;
+#X text 270 670 outputs and clears the current group.;
+#X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 720 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 170 488 float:;
-#X text 270 488 add float to group and flush if group is full packed.;
-#X text 170 513 symbol:;
-#X text 270 513 add symbol to group and flush if group is full packed.;
-#X text 170 538 list:;
-#X text 270 538 add list atoms to group and flush if needed.;
-#X text 170 563 data:;
-#X text 270 563 add data to group and flush if needed.;
-#X text 130 588 2\.;
-#X text 170 588 int:;
-#X text 270 588 set group size.;
-#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 628 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 721 1\.;
+#X text 170 721 float:;
+#X text 270 721 add float to group and flush if the group is full.;
+#X text 170 746 symbol:;
+#X text 270 746 add symbol to group and flush if the group is full.;
+#X text 170 771 list:;
+#X text 270 771 add list atoms to group and flush if needed.;
+#X text 170 796 data:;
+#X text 270 796 add data to group and flush if needed.;
+#X text 130 821 2\.;
+#X text 170 821 int:;
+#X text 270 821 set group size.;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 861 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 629 1\.;
-#X text 170 629 list:;
-#X text 270 629 regrouped input elements.;
+#X text 130 862 1\.;
+#X text 170 862 list:;
+#X text 270 862 regrouped input elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 679 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 682 library: ceammc v0.9.8;
-#N canvas 10 701 400 290 info 0;
+#X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 915 library: ceammc v0.9.8;
+#N canvas 10 934 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 701 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 934 pd info;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;

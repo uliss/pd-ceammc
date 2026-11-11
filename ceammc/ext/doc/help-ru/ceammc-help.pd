@@ -592,7 +592,7 @@ flow.greater_eq-help.pd;
 #X text 200 6272 маршрутизатор числового потока по условию 'больше
 или равно';
 #X obj 30 6300 ui.link @title [flow.group] @url flow.group-help.pd;
-#X text 200 6297 группирует входные атомы в списки указанного размера;
+#X text 200 6297 группирует входные атомы в списки заданного размера;
 #X obj 30 6325 ui.link @title [flow.histogram] @url
 flow.histogram-help.pd;
 #X text 200 6322 гистограмма для числового потока управления;
