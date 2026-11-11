@@ -22,12 +22,17 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object outputs a new list with the elements in reverse order: the last element becomes the first, the first becomes the last, and so on</tr>
-        <tr lang="ru">объект выводит новый список с элементами в обратном порядке: последний элемент становится первым, первый — последним и так далее</tr>
+        <tr lang="en">the object outputs a new list with the elements in reverse order: the last
+        element becomes the first, the first becomes the last, and so on</tr>
+        <tr lang="ru">объект выводит новый список с элементами в обратном порядке: последний
+        элемент становится первым, первый — последним и так далее</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to reverse the direction of a sequence, for example to play a list of notes backwards or to change the order of processing steps</tr>
-        <tr lang="ru">объект можно использовать для изменения направления последовательности, например чтобы проиграть список нот в обратном порядке или изменить порядок шагов обработки</tr>
+        <tr lang="en">the object can be used to reverse the direction of a sequence, for example to
+        play a list of notes backwards or to change the order of processing steps</tr>
+        <tr lang="ru">объект можно использовать для изменения направления последовательности,
+        например чтобы проиграть список нот в обратном порядке или изменить порядок шагов
+        обработки</tr>
       </par>
     </info>
     <inlets>

@@ -22,16 +22,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object passes each element (or a group of @step elements) of the input list through the rightmost outlet to an external object, which is expected to return the processed value back to the rightmost inlet</tr>
-        <tr lang="ru">объект передаёт каждый элемент (или группу из @step элементов) входного списка через правый выход во внешний объект, который должен вернуть обработанное значение обратно на правый вход</tr>
+        <tr lang="en">the object passes each element (or a group of @step elements) of the input
+        list through the rightmost outlet to an external object, which is expected to return the
+        processed value back to the rightmost inlet</tr>
+        <tr lang="ru">объект передаёт каждый элемент (или группу из @step элементов) входного
+        списка через правый выход во внешний объект, который должен вернуть обработанное значение
+        обратно на правый вход</tr>
       </par>
       <par>
-        <tr lang="en">this allows arbitrary mapping, transformation and filtering of list values via a side-chain, for example applying a function to every element or grouping elements before processing</tr>
-        <tr lang="ru">это позволяет произвольно отображать, преобразовывать и фильтровать значения списка через боковую цепь, например применять функцию к каждому элементу или группировать элементы перед обработкой</tr>
+        <tr lang="en">this allows arbitrary mapping, transformation and filtering of list values
+        via a side-chain, for example applying a function to every element or grouping elements
+        before processing</tr>
+        <tr lang="ru">это позволяет произвольно отображать, преобразовывать и фильтровать значения
+        списка через боковую цепь, например применять функцию к каждому элементу или группировать
+        элементы перед обработкой</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to apply the same operation to every list element, for example to square all values or to multiply every third element</tr>
-        <tr lang="ru">объект можно использовать для применения одной операции ко всем элементам списка, например чтобы возвести все значения в квадрат или умножить каждый третий элемент</tr>
+        <tr lang="en">the object can be used to apply the same operation to every list element, for
+        example to square all values or to multiply every third element</tr>
+        <tr lang="ru">объект можно использовать для применения одной операции ко всем элементам
+        списка, например чтобы возвести все значения в квадрат или умножить каждый третий
+        элемент</tr>
       </par>
     </info>
     <arguments>

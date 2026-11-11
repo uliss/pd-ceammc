@@ -23,16 +23,23 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object sorts the incoming list in ascending order and outputs a new sorted list</tr>
-        <tr lang="ru">объект сортирует входящий список по возрастанию и выводит новый отсортированный список</tr>
+        <tr lang="en">the object sorts the incoming list in ascending order and outputs a new
+        sorted list</tr>
+        <tr lang="ru">объект сортирует входящий список по возрастанию и выводит новый
+        отсортированный список</tr>
       </par>
       <par>
-        <tr lang="en">numbers are sorted numerically, symbols are sorted alphabetically, numbers come before symbols</tr>
-        <tr lang="ru">числа сортируются численно, символы — в алфавитном порядке, числа идут перед символами</tr>
+        <tr lang="en">numbers are sorted numerically, symbols are sorted alphabetically, numbers
+        come before symbols</tr>
+        <tr lang="ru">числа сортируются численно, символы — в алфавитном порядке, числа идут перед
+        символами</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to order a list of values before further processing, for example to sort note numbers or to arrange file names alphabetically</tr>
-        <tr lang="ru">объект можно использовать для упорядочивания списка значений перед дальнейшей обработкой, например чтобы отсортировать номера нот или расположить имена файлов по алфавиту</tr>
+        <tr lang="en">the object can be used to order a list of values before further processing,
+        for example to sort note numbers or to arrange file names alphabetically</tr>
+        <tr lang="ru">объект можно использовать для упорядочивания списка значений перед дальнейшей
+        обработкой, например чтобы отсортировать номера нот или расположить имена файлов по
+        алфавиту</tr>
       </par>
     </info>
     <inlets>

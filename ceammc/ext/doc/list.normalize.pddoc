@@ -22,16 +22,21 @@
         <tr lang="ru">есть два режима нормализации:</tr>
       </par>
       <par>
-        <tr lang="en">1. by sum — all elements are multiplied by such a number that their total sum becomes 1.0</tr>
-        <tr lang="ru">1. по сумме — все элементы умножаются на такое число, чтобы их общая сумма стала равна 1.0</tr>
+        <tr lang="en">1. by sum — all elements are multiplied by such a number that their total sum
+        becomes 1.0</tr>
+        <tr lang="ru">1. по сумме — все элементы умножаются на такое число, чтобы их общая сумма
+        стала равна 1.0</tr>
       </par>
       <par>
         <tr lang="en">2. by value range — all values are linearly mapped to the range 0..1</tr>
-        <tr lang="ru">2. по диапазону значений — все значения линейно отображаются в диапазон 0..1</tr>
+        <tr lang="ru">2. по диапазону значений — все значения линейно отображаются в диапазон
+        0..1</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to turn a list of weights into a probability distribution, for example to prepare values for random weighted selection</tr>
-        <tr lang="ru">объект можно использовать для превращения списка весов в распределение вероятностей, например чтобы подготовить значения для взвешенного случайного выбора</tr>
+        <tr lang="en">the object can be used to turn a list of weights into a probability
+        distribution, for example to prepare values for random weighted selection</tr>
+        <tr lang="ru">объект можно использовать для превращения списка весов в распределение
+        вероятностей, например чтобы подготовить значения для взвешенного случайного выбора</tr>
       </par>
     </info>
     <properties>

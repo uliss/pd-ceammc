@@ -25,16 +25,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object performs run-length decoding: it expands a list of single elements according to the corresponding repeat counts</tr>
-        <tr lang="ru">объект выполняет декодирование длин серий: разворачивает список одиночных элементов в соответствии с соответствующими счётчиками повторов</tr>
+        <tr lang="en">the object performs run-length decoding: it expands a list of single elements
+        according to the corresponding repeat counts</tr>
+        <tr lang="ru">объект выполняет декодирование длин серий: разворачивает список одиночных
+        элементов в соответствии с соответствующими счётчиками повторов</tr>
       </par>
       <par>
-        <tr lang="en">the first inlet receives the list of elements, the second inlet receives the list of repeat counts; the first element is repeated as many times as the first count, and so on</tr>
-        <tr lang="ru">на первый вход подаётся список элементов, на второй — список счётчиков повторов; первый элемент повторяется столько раз, сколько указано в первом счётчике, и так далее</tr>
+        <tr lang="en">the first inlet receives the list of elements, the second inlet receives the
+        list of repeat counts; the first element is repeated as many times as the first count, and
+        so on</tr>
+        <tr lang="ru">на первый вход подаётся список элементов, на второй — список счётчиков
+        повторов; первый элемент повторяется столько раз, сколько указано в первом счётчике, и так
+        далее</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to restore a list compressed by [list.rlencode], for example to decode a sequence of repeated notes or values</tr>
-        <tr lang="ru">объект можно использовать для восстановления списка, сжатого объектом [list.rlencode], например чтобы раскодировать последовательность повторяющихся нот или значений</tr>
+        <tr lang="en">the object can be used to restore a list compressed by [list.rlencode], for
+        example to decode a sequence of repeated notes or values</tr>
+        <tr lang="ru">объект можно использовать для восстановления списка, сжатого объектом
+        [list.rlencode], например чтобы раскодировать последовательность повторяющихся нот или
+        значений</tr>
       </par>
     </info>
     <arguments>
@@ -67,8 +76,10 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">result — elements repeated n times specified by corresponding values in the second list</tr>
-          <tr lang="ru">результат — элементы, повторённые n раз в соответствии со значениями во втором списке</tr>
+          <tr lang="en">result — elements repeated n times specified by corresponding values in the
+          second list</tr>
+          <tr lang="ru">результат — элементы, повторённые n раз в соответствии со значениями во
+          втором списке</tr>
         </out>
       </outlet>
     </outlets>

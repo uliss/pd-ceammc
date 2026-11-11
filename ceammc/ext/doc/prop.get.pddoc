@@ -7,8 +7,10 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">get the property value from the connected object, subpatch or abstraction</tr>
-        <tr lang="ru">получает значение свойства от подключённого объекта, субпатча или абстракции</tr>
+        <tr lang="en">get the property value from the connected object, subpatch or
+        abstraction</tr>
+        <tr lang="ru">получает значение свойства от подключённого объекта, субпатча или
+        абстракции</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,20 +26,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object reads properties from the object, subpatch or abstraction connected to its first outlet</tr>
-        <tr lang="ru">объект читает свойства у объекта, субпатча или абстракции, подключённых к его первому выходу</tr>
+        <tr lang="en">the object reads properties from the object, subpatch or abstraction
+        connected to its first outlet</tr>
+        <tr lang="ru">объект читает свойства у объекта, субпатча или абстракции, подключённых к его
+        первому выходу</tr>
       </par>
       <par>
-        <tr lang="en">the PROPS argument or the list sent to the inlet sets the names of the requested properties, the values are output from the corresponding outlets</tr>
-        <tr lang="ru">аргумент PROPS или список, поданный на вход, задаёт имена запрашиваемых свойств, значения выводятся с соответствующих выходов</tr>
+        <tr lang="en">the PROPS argument or the list sent to the inlet sets the names of the
+        requested properties, the values are output from the corresponding outlets</tr>
+        <tr lang="ru">аргумент PROPS или список, поданный на вход, задаёт имена запрашиваемых
+        свойств, значения выводятся с соответствующих выходов</tr>
       </par>
       <par>
-        <tr lang="en">on bang, all requested properties are output at once; when a single property name is sent, only that property is output to the second outlet</tr>
-        <tr lang="ru">по bang все запрошенные свойства выводятся сразу; при подаче одного имени свойства только это свойство выводится на второй выход</tr>
+        <tr lang="en">on bang, all requested properties are output at once; when a single property
+        name is sent, only that property is output to the second outlet</tr>
+        <tr lang="ru">по bang все запрошенные свойства выводятся сразу; при подаче одного имени
+        свойства только это свойство выводится на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">a left-click on the object gets the properties, which is convenient for quick inspection during patching</tr>
-        <tr lang="ru">левый клик по объекту запрашивает свойства, что удобно для быстрой проверки во время патчинга</tr>
+        <tr lang="en">a left-click on the object gets the properties, which is convenient for quick
+        inspection during patching</tr>
+        <tr lang="ru">левый клик по объекту запрашивает свойства, что удобно для быстрой проверки
+        во время патчинга</tr>
       </par>
     </info>
     <mouse>

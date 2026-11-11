@@ -21,16 +21,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object passes each element of the input list through the side-chain one by one and collects the processed values into a new list</tr>
-        <tr lang="ru">объект поочерёдно передаёт каждый элемент входного списка через боковую цепь и собирает обработанные значения в новый список</tr>
+        <tr lang="en">the object passes each element of the input list through the side-chain one
+        by one and collects the processed values into a new list</tr>
+        <tr lang="ru">объект поочерёдно передаёт каждый элемент входного списка через боковую цепь
+        и собирает обработанные значения в новый список</tr>
       </par>
       <par>
-        <tr lang="en">the second outlet outputs for each element: ATOM INDEX TOTAL, which can be used in the side-chain to compute a new value for the element</tr>
-        <tr lang="ru">второй выход для каждого элемента выдаёт ATOM INDEX TOTAL — эти данные можно использовать в боковой цепи, чтобы вычислить новое значение элемента</tr>
+        <tr lang="en">the second outlet outputs for each element: ATOM INDEX TOTAL, which can be
+        used in the side-chain to compute a new value for the element</tr>
+        <tr lang="ru">второй выход для каждого элемента выдаёт ATOM INDEX TOTAL — эти данные можно
+        использовать в боковой цепи, чтобы вычислить новое значение элемента</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to apply a formula to each list element, for example to normalize a list or to transform note numbers</tr>
-        <tr lang="ru">объект можно использовать для применения формулы к каждому элементу списка, например чтобы нормализовать список или преобразовать номера нот</tr>
+        <tr lang="en">the object can be used to apply a formula to each list element, for example
+        to normalize a list or to transform note numbers</tr>
+        <tr lang="ru">объект можно использовать для применения формулы к каждому элементу списка,
+        например чтобы нормализовать список или преобразовать номера нот</tr>
       </par>
     </info>
     <inlets>

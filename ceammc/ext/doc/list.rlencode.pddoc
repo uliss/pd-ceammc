@@ -25,16 +25,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object performs run-length encoding: it compresses consecutive repeated elements into a list of unique elements and a parallel list of repeat counts</tr>
-        <tr lang="ru">объект выполняет кодирование длинами серий: сжимает подряд идущие повторяющиеся элементы в список уникальных элементов и параллельный список счётчиков повторов</tr>
+        <tr lang="en">the object performs run-length encoding: it compresses consecutive repeated
+        elements into a list of unique elements and a parallel list of repeat counts</tr>
+        <tr lang="ru">объект выполняет кодирование длинами серий: сжимает подряд идущие
+        повторяющиеся элементы в список уникальных элементов и параллельный список счётчиков
+        повторов</tr>
       </par>
       <par>
-        <tr lang="en">the first outlet outputs the list of unique elements, the second outlet outputs the corresponding repeat counts</tr>
-        <tr lang="ru">первый выход выдаёт список уникальных элементов, второй выход — соответствующие счётчики повторов</tr>
+        <tr lang="en">the first outlet outputs the list of unique elements, the second outlet
+        outputs the corresponding repeat counts</tr>
+        <tr lang="ru">первый выход выдаёт список уникальных элементов, второй выход —
+        соответствующие счётчики повторов</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to compress a list with many repeated values, for example to shorten a long sequence of identical notes before transmitting or storing it</tr>
-        <tr lang="ru">объект можно использовать для сжатия списка с большим числом повторяющихся значений, например чтобы сократить длинную последовательность одинаковых нот перед передачей или сохранением</tr>
+        <tr lang="en">the object can be used to compress a list with many repeated values, for
+        example to shorten a long sequence of identical notes before transmitting or storing
+        it</tr>
+        <tr lang="ru">объект можно использовать для сжатия списка с большим числом повторяющихся
+        значений, например чтобы сократить длинную последовательность одинаковых нот перед
+        передачей или сохранением</tr>
       </par>
     </info>
     <inlets>
@@ -48,8 +57,10 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">first list: list entries without repetitions. For example, 1 1 2 2 2 1 1 becomes 1 2 1</tr>
-          <tr lang="ru">первый список: элементы без повторов. Например, 1 1 2 2 2 1 1 становится 1 2 1</tr>
+          <tr lang="en">first list: list entries without repetitions. For example, 1 1 2 2 2 1 1
+          becomes 1 2 1</tr>
+          <tr lang="ru">первый список: элементы без повторов. Например, 1 1 2 2 2 1 1 становится 1
+          2 1</tr>
         </out>
       </outlet>
       <outlet>
