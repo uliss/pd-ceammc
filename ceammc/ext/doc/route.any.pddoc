@@ -25,7 +25,7 @@
     <info>
       <par>
         <tr lang="en">the object routes messages with a selector (any messages) to the first outlet, and bangs, floats, symbols and lists to the second outlet</tr>
-        <tr lang="ru">объект направляет сообщения с селектором (any) на первый выход, а bang, числа, символы и списки — на второй выход</tr>
+        <tr lang="ru">объект направляет сообщения с селектором на первый выход, а bang, числа, символы и списки — на второй выход</tr>
       </par>
       <par>
         <tr lang="en">this is useful when a patch needs to handle generic messages separately from plain values</tr>

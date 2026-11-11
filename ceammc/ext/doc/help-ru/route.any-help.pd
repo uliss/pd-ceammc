@@ -6,62 +6,62 @@
 #X obj 1 1 cnv 5 765 40 empty empty route.any 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 route.any;
-#X obj 230 93 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 объект направляет сообщения с селектором (any) на первый
-выход \, а bang \, числа \, символы и списки — на второй выход;
-#X text 240 153 это полезно \, когда в патче нужно обрабатывать сообщения
+#X obj 230 93 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 объект направляет сообщения с селектором на первый выход
+\, а bang \, числа \, символы и списки — на второй выход;
+#X text 240 138 это полезно \, когда в патче нужно обрабатывать сообщения
 общего вида отдельно от простых значений;
-#X text 240 193 объект можно использовать для отделения управляющих
+#X text 240 178 объект можно использовать для отделения управляющих
 сообщений от значений \, например чтобы направлять сообщения "note"
 в синтезатор \, а простые числа — на дисплей;
-#X floatatom 50 311 5 0 0 0 - - -;
-#X msg 98 311 bang;
-#X msg 165 311 symbol ABC;
-#X msg 136 340 list 1 2 3;
-#X msg 165 369 list;
-#X msg 184 398 @any;
-#X msg 251 398 other;
-#X obj 50 427 route.any;
-#X obj 50 455 ui.dt;
-#X obj 136 484 ui.dt;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 539 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X floatatom 50 296 5 0 0 0 - - -;
+#X msg 98 296 bang;
+#X msg 165 296 symbol ABC;
+#X msg 136 325 list 1 2 3;
+#X msg 165 354 list;
+#X msg 184 383 @any;
+#X msg 251 383 other;
+#X obj 50 412 route.any;
+#X obj 50 440 ui.dt;
+#X obj 136 469 ui.dt;
+#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 524 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 540 1\.;
-#X text 170 540 any:;
-#X text 270 540 сообщение any на первый выход.;
-#X text 170 565 bang:;
-#X text 270 565 bang на второй выход.;
-#X text 170 590 float:;
-#X text 270 590 число на второй выход.;
-#X text 170 615 list:;
-#X text 270 615 список на второй выход.;
-#X text 170 640 symbol:;
-#X text 270 640 символ на второй выход.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 680 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 525 1\.;
+#X text 170 525 any:;
+#X text 270 525 сообщение any на первый выход.;
+#X text 170 550 bang:;
+#X text 270 550 bang на второй выход.;
+#X text 170 575 float:;
+#X text 270 575 число на второй выход.;
+#X text 170 600 list:;
+#X text 270 600 список на второй выход.;
+#X text 170 625 symbol:;
+#X text 270 625 символ на второй выход.;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 681 1\.;
-#X text 270 681 выход сообщений any.;
-#X text 130 701 2\.;
-#X text 270 701 bang \, числа \, символы и списки.;
+#X text 130 666 1\.;
+#X text 270 666 выход сообщений any.;
+#X text 130 686 2\.;
+#X text 270 686 bang \, числа \, символы и списки.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 751 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 754 библиотека: ceammc v0.9.8;
-#X text 251 766 смотрите также:;
-#X obj 372 769 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 736 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 739 библиотека: ceammc v0.9.8;
+#X text 251 751 смотрите также:;
+#X obj 372 754 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.float] @url route.float-help.pd;
-#X obj 470 769 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 470 754 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.list] @url route.list-help.pd;
-#X obj 560 769 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 560 754 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.random] @url route.random-help.pd;
-#X obj 665 769 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 754 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.prop] @url route.prop-help.pd;
-#N canvas 10 773 400 290 info 0;
+#N canvas 10 758 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 773 pd info;
+#X restore 10 758 pd info;
 #X connect 8 0 15 0;
 #X connect 9 0 15 0;
 #X connect 11 0 15 0;
