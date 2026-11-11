@@ -76,6 +76,10 @@
           <tr lang="en">resource URI (file:// or http:// or camera://)</tr>
           <tr lang="ru">URI ресурса (file:// или http:// или camera://)</tr>
         </param>
+        <param name="PLAY" type="bool" required="false" default="false">
+          <tr lang="en">play added URI</tr>
+          <tr lang="ru">воспроизвести добавленный URI</tr>
+        </param>
       </method>
       <!-- add_dir -->
       <method name="add_dir">
@@ -339,7 +343,7 @@
 
  [repeat #l( [get_status #m(
 
- [loop #k(   [get_playlist #c(
+ [loop #k(   [get_playlist #c( [add http://stream.radioparadise.com/flac 1 #n(
 
  [next #d(   [prev #e(
 
@@ -365,6 +369,7 @@
 [X k->z]
 [X l->z]
 [X m->z]
+[X n->z]
 #f %AUDIO% @file @glob *.wav
 #j @size 200 17
 #i @size 100 17

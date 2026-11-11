@@ -4,6 +4,8 @@ use log::debug;
 use log::error;
 use log::info;
 use path_slash::PathBufExt as _;
+use percent_encoding::utf8_percent_encode;
+use percent_encoding::NON_ALPHANUMERIC;
 use reqwest::ClientBuilder;
 use reqwest::Response;
 use serde::Deserialize;
@@ -18,6 +20,7 @@ use std::sync::mpsc::Sender;
 use std::time::Duration;
 use strum::EnumMessage;
 use strum::IntoEnumIterator;
+use thiserror::Error;
 use url::Url;
 
 use crate::common_ffi::callback_notify;
@@ -319,8 +322,14 @@ fn make_status_url(
     cmd: Option<&str>,
     id: Option<String>,
     value: Option<String>,
-) -> anyhow::Result<Url> {
-    let mut url = Url::parse(&format!("http://{host}:{port}/requests/status.json"))?;
+) -> Result<Url, VlcError> {
+    let mut url =
+        Url::parse(&format!("http://{host}:{port}/requests/status.json")).map_err(|err| {
+            VlcError::UriError {
+                uri: host.into(),
+                err: err.to_string(),
+            }
+        })?;
 
     if let Some(cmd) = cmd {
         url.query_pairs_mut().append_pair("command", cmd);
@@ -353,6 +362,26 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
     }
 
     Err(format!("volume parse error"))
+}
+
+fn make_add_url(host: &str, port: u16, uri: &str, play: &bool) -> Result<Url, VlcError> {
+    let uri = process_uri(uri)?;
+    let encoded_input = utf8_percent_encode(&uri, NON_ALPHANUMERIC).to_string();
+    Ok(if *play {
+        let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
+        url.set_query(Some(&format!("command=in_play&input={}", encoded_input)));
+        url
+    } else {
+        let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
+        url.set_query(Some(&format!("command=in_enqueue&input={}", encoded_input)));
+        url
+    })
+}
+
+#[derive(Debug, Error, PartialEq)]
+enum VlcError {
+    #[error("error processing uri '{uri}': {err}")]
+    UriError { uri: String, err: String },
 }
 
 fn process_prefix<'a>(
@@ -389,7 +418,34 @@ fn process_prefix<'a>(
         )),
     }
 }
-fn process_uri(uri: &String) -> anyhow::Result<String> {
+
+fn has_scheme(input: &str) -> bool {
+    let trimmed = input.trim();
+
+    // Find the first colon
+    let Some(colon_idx) = trimmed.find(':') else {
+        return false;
+    };
+
+    let candidate = &trimmed[..colon_idx];
+
+    // Scheme must not be empty
+    if candidate.is_empty() {
+        return false;
+    }
+
+    // First character must be a letter
+    let mut chars = candidate.chars();
+    let first = chars.next().unwrap();
+    if !first.is_ascii_alphabetic() {
+        return false;
+    }
+
+    // Remaining characters must be letters, digits, +, -, or .
+    chars.all(|c| c.is_ascii_alphanumeric() || c == '+' || c == '-' || c == '.' || c == '/')
+}
+
+fn process_uri(uri: &str) -> Result<String, VlcError> {
     process_prefix((&uri, None), vec!["~", "%HOME%"], &dirs::home_dir())
         .or_else(|uri| process_prefix(uri, vec!["%MUSIC%", "%AUDIO%"], &dirs::audio_dir()))
         .or_else(|uri| {
@@ -423,10 +479,13 @@ fn process_uri(uri: &String) -> anyhow::Result<String> {
         })
         .or_else(|err| match err {
             (src_uri, None) => Ok(src_uri.to_string()),
-            (src_uri, Some(err)) => anyhow::bail!("error processing uric'{src_uri}': {err}"),
+            (src_uri, Some(err)) => Err(VlcError::UriError {
+                uri: src_uri.into(),
+                err,
+            }),
         })
         .map(|mut uri| {
-            if !uri.starts_with("file://") {
+            if !has_scheme(&uri) {
                 uri.insert_str(0, "file://");
             }
             uri
@@ -546,23 +605,14 @@ async fn send2vlc(
             const MIN_RATE: f32 = 0.25;
             const MAX_RATE: f32 = 4.0;
             if *rate < MIN_RATE || *rate > MAX_RATE {
-                anyhow::bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
+                anyhow::bail!(
+                    "invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range"
+                )
             } else {
                 make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))?
             }
         }
-        VlcRequest::PlaylistAddUri(uri, play) => {
-            let uri = process_uri(uri)?;
-            if *play {
-                let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
-                url.query_pairs_mut().append_pair("input", &uri);
-                url
-            } else {
-                let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
-                url.query_pairs_mut().append_pair("input", &uri);
-                url
-            }
-        }
+        VlcRequest::PlaylistAddUri(uri, play) => make_add_url(host, port, uri, play)?,
         VlcRequest::Seek(rust_atom) => match rust_atom {
             RustAtom::Str(smol_str) => {
                 make_status_url(host, port, Some("seek"), None, Some(smol_str.to_string()))?
@@ -1017,4 +1067,67 @@ enum VlcReply {
     Playlist(Vec<PlaylistItem>),
     CurrentId(Option<PlaylistItem>),
     FileList(Vec<FileInfo>),
+}
+
+#[cfg(test)]
+mod test {
+    use url::Url;
+
+    use crate::vlc::{has_scheme, make_add_url, make_status_url, process_uri};
+
+    #[test]
+    fn test_has_scheme() {
+        assert!(has_scheme("https://example.com"));
+        assert!(has_scheme("file:///path"));
+        assert!(has_scheme("rtsp://stream"));
+        assert!(!has_scheme("/path/to/file"));
+        assert!(!has_scheme("example.com"));
+        assert!(has_scheme("http/m3u://example"));
+        assert!(!has_scheme("/m3u://example"));
+    }
+
+    #[test]
+    fn test_process_uri() {
+        assert_eq!(
+            process_uri("http://example.org"),
+            Ok("http://example.org".to_string())
+        );
+        assert_eq!(
+            process_uri("/path/to/file"),
+            Ok("file:///path/to/file".to_string())
+        );
+        assert_eq!(
+            process_uri("/path with spaces"),
+            Ok("file:///path with spaces".to_string())
+        );
+    }
+
+    #[test]
+    fn test_make_status_url() {
+        assert_eq!(
+            make_status_url("localhost", 9000, Some("in_enqueue"), None, None),
+            Ok(
+                Url::parse("http://localhost:9000/requests/status.json?command=in_enqueue")
+                    .unwrap()
+            )
+        );
+    }
+
+    #[test]
+    fn test_make_add_url() {
+        assert_eq!(
+            make_add_url("localhost", 9000, "file://path", &false),
+            Ok(Url::parse(
+                "http://localhost:9000/requests/status.json?command=in_enqueue&input=file%3A%2F%2Fpath"
+            )
+            .unwrap())
+        );
+        assert_eq!(
+            make_add_url("localhost", 9000, "file://path space", &false),
+            Ok(Url::parse(
+                "http://localhost:9000/requests/status.json?command=in_enqueue&input=file%3A%2F%2Fpath%20space"
+            )
+            .unwrap())
+        );
+    }
 }
