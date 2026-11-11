@@ -28,5 +28,12 @@ git submodule update --init --recursive --depth 1
 echo "building RHVoice ..."
 
 rm -rf ${RHVOICE_INSTALL_DIR}
-cd RHVoice
+cd ${RHVOICE_SRC_DIR}
 scons install languages=belarusian,russian,english prefix=$RHVOICE_INSTALL_DIR
+
+RHVOICE_LIB=~/.local/rhvoice/lib/libRHVoice.5.1.0.dylib
+RHVOICE_CORE_LIB=~/.local/rhvoice/lib/libRHVoice_core.7.0.0.dylib
+
+install_name_tool -id @rpath/libRHVoice.5.1.0.dylib ${RHVOICE_LIB}
+install_name_tool -change build/darwin/core/libRHVoice_core.7.0.0.dylib @rpath/libRHVoice_core.7.0.0.dylib ${RHVOICE_LIB}
+install_name_tool -id @rpath/libRHVoice_core.7.0.0.dylib ${RHVOICE_CORE_LIB}
