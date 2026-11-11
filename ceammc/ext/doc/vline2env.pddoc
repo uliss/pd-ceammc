@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">Converts vline messages to Env</tr>
-        <tr lang="ru">преобразование сообщений vline для Env</tr>
+        <tr lang="en">converts vline messages to Env</tr>
+        <tr lang="ru">преобразует сообщения vline в Env</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,15 +25,33 @@
         <see>env-&gt;array</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object converts a vline message into an envelope (Env) and outputs it as an Env data type</tr>
+        <tr lang="ru">объект преобразует сообщение vline в огибающую (Env) и выводит её как тип данных Env</tr>
+      </par>
+      <par>
+        <tr lang="en">a vline message is a list of value-time pairs, for example 0 1 200 describes a ramp from value 0 to value 1 over 200 ms</tr>
+        <tr lang="ru">сообщение vline — это список пар значение-время, например 0 1 200 описывает переход от значения 0 к значению 1 за 200 мс</tr>
+      </par>
+      <par>
+        <tr lang="en">a bang outputs the envelope that was built from the last received vline message</tr>
+        <tr lang="ru">bang выводит огибающую, построенную по последнему полученному сообщению vline</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to convert vline automation into an Env for display, editing or saving, for example to draw the shape of an envelope or to store it in a preset</tr>
+        <tr lang="ru">объект можно использовать для преобразования автоматизации vline в Env для отображения, редактирования или сохранения, например чтобы нарисовать форму огибающей или сохранить её в пресете</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output current envelope</tr>
-          <tr lang="ru" finished="false">выходной ток</tr>
+          <tr lang="en">output the current envelope</tr>
+          <tr lang="ru">вывести текущую огибающую</tr>
         </in>
         <in on="list">
           <tr lang="en">vline message</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="ru">сообщение vline</tr>
         </in>
       </inlet>
     </inlets>
@@ -41,7 +59,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">envelope output</tr>
-          <tr lang="ru" finished="false">выход конверта</tr>
+          <tr lang="ru">выход огибающей</tr>
         </out>
       </outlet>
     </outlets>

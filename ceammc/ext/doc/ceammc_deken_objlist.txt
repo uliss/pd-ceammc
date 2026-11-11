@@ -382,10 +382,10 @@ envelope	envelope data type / тип данных огибающей
 ceammc/envelope	envelope data type / тип данных огибающей
 ceammc/env	envelope data type / тип данных огибающей
 env	envelope data type / тип данных огибающей
-vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
-vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
+vline2env	converts vline messages to Env / преобразует сообщения vline в Env
+ceammc/vline2env	converts vline messages to Env / преобразует сообщения vline в Env
+ceammc/vline->env	converts vline messages to Env / преобразует сообщения vline в Env
+vline->env	converts vline messages to Env / преобразует сообщения vline в Env
 expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 ceammc/expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 flow.append	append message to flow stream / добавляет сообщение в поток
