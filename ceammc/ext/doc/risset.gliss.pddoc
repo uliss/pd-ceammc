@@ -16,75 +16,91 @@
       <keywords>misc risset glissando</keywords>
       <since>0.9.5</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object calculates the MIDI pitches and amplitudes for a Sheppard–Risset glissando: an auditory illusion of a tone that seems to rise or fall endlessly without ever reaching a limit</tr>
+        <tr lang="ru">объект вычисляет MIDI-ноты и амплитуды для глиссандо Шеппарда–Риссе: слуховой иллюзии тона, который бесконечно повышается или понижается, никогда не достигая предела</tr>
+      </par>
+      <par>
+        <tr lang="en">the illusion is created by several frequency components spaced an octave apart. Each component is shifted in frequency, while its amplitude follows a bell-shaped envelope that peaks near the center of the audible range. When a component reaches the edge of the range, it fades out and a new component fades in at the opposite edge, so the listener perceives continuous motion</tr>
+        <tr lang="ru">иллюзия создаётся несколькими частотными компонентами, отстоящими друг от друга на октаву. Каждый компонент сдвигается по частоте, а его амплитуда следует колоколообразной огибающей с пиком near the center of the audible range. Когда компонент достигает края диапазона, он затухает, а на противоположном краю появляется новый компонент, поэтому слушатель воспринимает непрерывное движение</tr>
+      </par>
+      <par>
+        <tr lang="en">the input value is the glissando phase, typically driven by a ramp from 0 to 1. The first outlet outputs a list of MIDI pitches, the second outlet outputs the corresponding list of amplitudes</tr>
+        <tr lang="ru">входное значение — это фаза глиссандо, обычно управляемая ramp-сигналом от 0 до 1. Первый выход выдаёт список MIDI-нот, второй выход — соответствующий список амплитуд</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="BASE" type="float" units="semitone" minvalue="10" maxvalue="100">
         <tr lang="en">base pitch</tr>
-        <tr lang="ru" finished="false">базовый уровень</tr>
+        <tr lang="ru">базовая высота тона</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @ampexp -->
       <property name="@ampexp" type="float" default="2">
         <tr lang="en">amplitude exponent</tr>
-        <tr lang="ru" finished="false">показатель амплитуды</tr>
+        <tr lang="ru">показатель степени амплитуды</tr>
       </property>
       <!-- @base -->
       <property name="@base" type="float" default="60" minvalue="10" maxvalue="100"
       units="semitone">
         <tr lang="en">base pitch</tr>
-        <tr lang="ru" finished="false">базовый уровень</tr>
+        <tr lang="ru">базовая высота тона</tr>
       </property>
       <!-- @interval -->
       <property name="@interval" type="float" default="12" units="semitone">
         <tr lang="en">interval between bands</tr>
-        <tr lang="ru" finished="false">интервал между полосами</tr>
+        <tr lang="ru">интервал между полосами</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" default="5" access="initonly">
         <tr lang="en">number of bands</tr>
-        <tr lang="ru" finished="false">Количество полос</tr>
+        <tr lang="ru">количество полос</tr>
       </property>
       <!-- @shift -->
       <property name="@shift" type="float" default="0">
         <tr lang="en">band shift in octaves</tr>
-        <tr lang="ru" finished="false">Сдвиг группы в октавах</tr>
+        <tr lang="ru">сдвиг полос в октавах</tr>
       </property>
     </properties>
-    <methods />
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">glissando phase</tr>
-          <tr lang="ru" finished="false">фаза глиссандо</tr>
+          <tr lang="ru">фаза глиссандо</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">list of midi pitches</tr>
-          <tr lang="ru" finished="false">Список игр Midi</tr>
+        <out type="list">
+          <tr lang="en">list of MIDI pitches</tr>
+          <tr lang="ru">список MIDI-нот</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list of amplitudes</tr>
-          <tr lang="ru" finished="false">Список амплитуд</tr>
+          <tr lang="ru">список амплитуд</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
-[0, 1 10000(  [F]               [F]
-|             |                 |
-[line 0 20]   [@interval $1 #a( [@shift $1 #b(
+  [1, 0 10000 #c(
+
+[0, 1 10000(     [F]               [F]
+|                |                 |
+[line 0 20 #d]   [@interval $1 #a( [@shift $1 #b(
 |
 |
 |
 [risset.gliss 60 #x]
 |          ^|
 [msg \#:0] [msg \#:0]
+|          |
 |.         |..
 [hoa.process~ 5 risset.gliss-osc~ planewaves {i:3,o:5}]
 | ^| ^^| ^^^| ^^^^|
@@ -93,7 +109,7 @@
 |\
 [dac~ 1 2]
 
-[X a->x]
+[X a->x] [X c->d]
 [X b->x]
 ]]>
       </pdascii>

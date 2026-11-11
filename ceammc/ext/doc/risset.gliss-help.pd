@@ -5,75 +5,88 @@
 #X obj 1 1 cnv 5 765 40 empty empty risset.gliss 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 risset.gliss;
-#X msg 50 118 0 \, 1 10000;
-#X floatatom 184 118 5 0 0 0 - - -;
-#X floatatom 357 118 5 0 0 0 - - -;
-#X obj 50 147 line 0 20;
-#X msg 184 147 @interval \$1;
-#X msg 357 147 @shift \$1;
-#X obj 50 205 risset.gliss 60;
-#X obj 50 234 msg \#:0;
-#X obj 155 234 msg \#:0;
-#X obj 50 262 hoa.process~ 5 risset.gliss-osc~ planewaves;
-#X obj 50 305 ui.hgain~;
-#X obj 357 305 ui.dsp~;
-#X obj 50 334 dac~ 1 2;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 276 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object calculates the MIDI pitches and amplitudes
+for a Sheppard–Risset glissando: an auditory illusion of a tone that
+seems to rise or fall endlessly without ever reaching a limit;
+#X text 240 153 the illusion is created by several frequency components
+spaced an octave apart. Each component is shifted in frequency \, while
+its amplitude follows a bell-shaped envelope that peaks near the center
+of the audible range. When a component reaches the edge of the range
+\, it fades out and a new component fades in at the opposite edge \,
+so the listener perceives continuous motion;
+#X text 240 269 the input value is the glissando phase \, typically
+driven by a ramp from 0 to 1\. The first outlet outputs a list of MIDI
+pitches \, the second outlet outputs the corresponding list of amplitudes;
+#X msg 69 402 1 \, 0 10000;
+#X msg 50 431 0 \, 1 10000;
+#X floatatom 213 431 5 0 0 0 - - -;
+#X floatatom 386 431 5 0 0 0 - - -;
+#X obj 50 460 line 0 20;
+#X msg 213 460 @interval \$1;
+#X msg 386 460 @shift \$1;
+#X obj 50 518 risset.gliss 60;
+#X obj 50 546 msg \#:0;
+#X obj 155 546 msg \#:0;
+#X obj 50 589 hoa.process~ 5 risset.gliss-osc~ planewaves;
+#X obj 50 633 ui.hgain~;
+#X obj 357 633 ui.dsp~;
+#X obj 50 662 dac~ 1 2;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 717 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 720 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 390 1\.;
-#X text 170 390 float;
-#X obj 268 391 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 BASE(semitone): base pitch. Type: float. Range: [10\..100];
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 718 1\.;
+#X text 170 718 float;
+#X obj 268 719 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 718 BASE(semitone): base pitch. Type: float. Range: [10\..100];
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 758 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 761 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 431 @n;
-#X text 270 431 (initonly) Number of bands. Type: int. Default value:
+#X msg 130 759 @n;
+#X text 270 759 (initonly) Number of bands. Type: int. Default value:
 5\.;
-#X obj 250 461 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 461 @ampexp;
-#X text 270 461 Amplitude exponent. Type: float. Default value: 2\.;
-#X obj 250 491 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 491 @base;
-#X text 270 491 Base pitch. Type: float. Units: 'semitone'. Default
+#X obj 250 789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 789 @ampexp;
+#X text 270 789 Amplitude exponent. Type: float. Default value: 2\.;
+#X obj 250 819 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 819 @base;
+#X text 270 819 Base pitch. Type: float. Units: 'semitone'. Default
 value: 60\. Range: [10\..100].;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @interval;
-#X text 270 533 Interval between bands. Type: float. Units: 'semitone'.
+#X obj 250 861 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 861 @interval;
+#X text 270 861 Interval between bands. Type: float. Units: 'semitone'.
 Default value: 12\.;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @shift;
-#X text 270 575 Band shift in octaves. Type: float. Default value:
+#X obj 250 903 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 903 @shift;
+#X text 270 903 Band shift in octaves. Type: float. Default value:
 0\.;
-#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 620 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
--49933 0;
-#X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 646 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 943 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 948 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 647 1\.;
-#X text 170 647 float:;
-#X text 270 647 glissando phase.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 687 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 949 1\.;
+#X text 170 949 float:;
+#X text 270 949 glissando phase.;
+#X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 989 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 688 1\.;
-#X text 270 688 list of midi pitches.;
-#X text 130 708 2\.;
-#X text 270 708 list of amplitudes.;
+#X text 130 990 1\.;
+#X text 170 990 list:;
+#X text 270 990 list of MIDI pitches.;
+#X text 130 1010 2\.;
+#X text 170 1010 list:;
+#X text 270 1010 list of amplitudes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 758 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 761 library: ceammc v0.9.8;
-#N canvas 10 780 400 290 info 0;
+#X obj 1 1060 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1063 library: ceammc v0.9.8;
+#N canvas 10 1082 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,21 +110,22 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 780 pd info;
-#X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 1 12 0;
-#X connect 11 0 13 1;
-#X connect 12 0 13 2;
-#X connect 13 0 14 0;
-#X connect 13 1 14 0;
-#X connect 13 2 14 0;
-#X connect 13 3 14 0;
-#X connect 13 4 14 0;
-#X connect 14 0 16 0;
-#X connect 14 0 16 1;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X restore 10 1082 pd info;
+#X connect 9 0 12 0;
+#X connect 10 0 13 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
+#X connect 16 0 18 1;
+#X connect 17 0 18 2;
+#X connect 18 0 19 0;
+#X connect 18 1 19 0;
+#X connect 18 2 19 0;
+#X connect 18 3 19 0;
+#X connect 18 4 19 0;
+#X connect 19 0 21 0;
+#X connect 19 0 21 1;
+#X connect 13 0 15 0;
+#X connect 8 0 12 0;
+#X connect 14 0 15 0;
