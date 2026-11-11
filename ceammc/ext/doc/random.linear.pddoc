@@ -22,16 +22,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a random number in the interval [@v0, @v1) with a linear distribution [@p0, @p1)</tr>
-        <tr lang="ru">генерирует случайное число на интервале [@v0, @v1) с линейным распределением [@p0, @p1)</tr>
+        <tr lang="en">generates a random number in the interval [@v0, @v1) with a linear
+        distribution [@p0, @p1)</tr>
+        <tr lang="ru">генерирует случайное число на интервале [@v0, @v1) с линейным распределением
+        [@p0, @p1)</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to bias random values toward one end of a range, for example to make low notes more likely than high notes or to create a gradual fade-in effect</tr>
-        <tr lang="ru">объект можно использовать для смещения случайных значений к одному краю диапазона, например чтобы низкие ноты выпадали чаще высоких или чтобы создать эффект постепенного нарастания</tr>
+        <tr lang="en">the object can be used to bias random values toward one end of a range, for
+        example to make low notes more likely than high notes or to create a gradual fade-in
+        effect</tr>
+        <tr lang="ru">объект можно использовать для смещения случайных значений к одному краю
+        диапазона, например чтобы низкие ноты выпадали чаще высоких или чтобы создать эффект
+        постепенного нарастания</tr>
       </par>
     </info>
     <properties>

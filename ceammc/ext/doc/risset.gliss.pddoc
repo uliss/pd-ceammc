@@ -18,16 +18,32 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object calculates the MIDI pitches and amplitudes for a Sheppard–Risset glissando: an auditory illusion of a tone that seems to rise or fall endlessly without ever reaching a limit</tr>
-        <tr lang="ru">объект вычисляет MIDI-ноты и амплитуды для глиссандо Шеппарда–Риссе: слуховой иллюзии тона, который бесконечно повышается или понижается, никогда не достигая предела</tr>
+        <tr lang="en">the object calculates the MIDI pitches and amplitudes for a Sheppard–Risset
+        glissando: an auditory illusion of a tone that seems to rise or fall endlessly without ever
+        reaching a limit</tr>
+        <tr lang="ru">объект вычисляет MIDI-ноты и амплитуды для глиссандо Шеппарда–Риссе: слуховой
+        иллюзии тона, который бесконечно повышается или понижается, никогда не достигая
+        предела</tr>
       </par>
       <par>
-        <tr lang="en">the illusion is created by several frequency components spaced an octave apart. Each component is shifted in frequency, while its amplitude follows a bell-shaped envelope that peaks near the center of the audible range. When a component reaches the edge of the range, it fades out and a new component fades in at the opposite edge, so the listener perceives continuous motion</tr>
-        <tr lang="ru">иллюзия создаётся несколькими частотными компонентами, отстоящими друг от друга на октаву. Каждый компонент сдвигается по частоте, а его амплитуда следует колоколообразной огибающей с пиком near the center of the audible range. Когда компонент достигает края диапазона, он затухает, а на противоположном краю появляется новый компонент, поэтому слушатель воспринимает непрерывное движение</tr>
+        <tr lang="en">the illusion is created by several frequency components spaced an octave
+        apart. Each component is shifted in frequency, while its amplitude follows a bell-shaped
+        envelope that peaks near the center of the audible range. When a component reaches the edge
+        of the range, it fades out and a new component fades in at the opposite edge, so the
+        listener perceives continuous motion</tr>
+        <tr lang="ru">иллюзия создаётся несколькими частотными компонентами, отстоящими друг от
+        друга на октаву. Каждый компонент сдвигается по частоте, а его амплитуда следует
+        колоколообразной огибающей с пиком near the center of the audible range. Когда компонент
+        достигает края диапазона, он затухает, а на противоположном краю появляется новый
+        компонент, поэтому слушатель воспринимает непрерывное движение</tr>
       </par>
       <par>
-        <tr lang="en">the input value is the glissando phase, typically driven by a ramp from 0 to 1. The first outlet outputs a list of MIDI pitches, the second outlet outputs the corresponding list of amplitudes</tr>
-        <tr lang="ru">входное значение — это фаза глиссандо, обычно управляемая ramp-сигналом от 0 до 1. Первый выход выдаёт список MIDI-нот, второй выход — соответствующий список амплитуд</tr>
+        <tr lang="en">the input value is the glissando phase, typically driven by a ramp from 0 to
+        1. The first outlet outputs a list of MIDI pitches, the second outlet outputs the
+        corresponding list of amplitudes</tr>
+        <tr lang="ru">входное значение — это фаза глиссандо, обычно управляемая ramp-сигналом от 0
+        до 1. Первый выход выдаёт список MIDI-нот, второй выход — соответствующий список
+        амплитуд</tr>
       </par>
     </info>
     <arguments>

@@ -21,16 +21,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes each incoming message to one of N outlets, chosen at random</tr>
-        <tr lang="ru">объект направляет каждое входящее сообщение на один из N выходов, выбранный случайным образом</tr>
+        <tr lang="en">the object routes each incoming message to one of N outlets, chosen at
+        random</tr>
+        <tr lang="ru">объект направляет каждое входящее сообщение на один из N выходов, выбранный
+        случайным образом</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to distribute events randomly over several destinations, for example to trigger different sounds or effects at random</tr>
-        <tr lang="ru">объект можно использовать для случайного распределения событий по нескольким получателям, например чтобы случайно запускать разные звуки или эффекты</tr>
+        <tr lang="en">the object can be used to distribute events randomly over several
+        destinations, for example to trigger different sounds or effects at random</tr>
+        <tr lang="ru">объект можно использовать для случайного распределения событий по нескольким
+        получателям, например чтобы случайно запускать разные звуки или эффекты</tr>
       </par>
     </info>
     <arguments>

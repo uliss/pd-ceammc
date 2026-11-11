@@ -22,16 +22,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">produces random integers on the interval [0, N), where the probability of each individual integer *i* is defined as Wⁱ/S, that is the weight of the i-th integer divided by the sum of all N weights</tr>
-        <tr lang="ru">генерирует случайные целые числа на интервале [0, N), где вероятность каждого отдельного целого числа *i* определяется как Wⁱ/S, то есть вес i-го числа, делённый на сумму всех N весов</tr>
+        <tr lang="en">produces random integers on the interval [0, N), where the probability of
+        each individual integer *i* is defined as Wⁱ/S, that is the weight of the i-th integer
+        divided by the sum of all N weights</tr>
+        <tr lang="ru">генерирует случайные целые числа на интервале [0, N), где вероятность каждого
+        отдельного целого числа *i* определяется как Wⁱ/S, то есть вес i-го числа, делённый на
+        сумму всех N весов</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to generate weighted random choices, for example to pick notes with different probabilities or to simulate a loaded die</tr>
-        <tr lang="ru">объект можно использовать для генерации взвешенных случайных выборов, например чтобы выбирать ноты с разной вероятностью или имитировать загруженную игральную кость</tr>
+        <tr lang="en">the object can be used to generate weighted random choices, for example to
+        pick notes with different probabilities or to simulate a loaded die</tr>
+        <tr lang="ru">объект можно использовать для генерации взвешенных случайных выборов,
+        например чтобы выбирать ноты с разной вероятностью или имитировать загруженную игральную
+        кость</tr>
       </par>
     </info>
     <arguments>
@@ -55,7 +64,8 @@
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generates a random number in the interval [0, N), where N is the number of weights</tr>
+          <tr lang="en">generates a random number in the interval [0, N), where N is the number of
+          weights</tr>
           <tr lang="ru">генерирует случайное число на интервале [0, N), где N — число весов</tr>
         </in>
         <in on="list">

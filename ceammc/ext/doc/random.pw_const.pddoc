@@ -22,26 +22,40 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">produces random floating-point numbers that are uniformly distributed within each of several subintervals [b0, b1), each with its own weight</tr>
-        <tr lang="ru">генерирует случайные числа с плавающей точкой, равномерно распределённые внутри каждого из нескольких подинтервалов [b0, b1), каждый со своим весом</tr>
+        <tr lang="en">produces random floating-point numbers that are uniformly distributed within
+        each of several subintervals [b0, b1), each with its own weight</tr>
+        <tr lang="ru">генерирует случайные числа с плавающей точкой, равномерно распределённые
+        внутри каждого из нескольких подинтервалов [b0, b1), каждый со своим весом</tr>
       </par>
       <par>
-        <tr lang="en">constant segments are specified as: bound0, weight0, bound1, weight1, bound2 etc.</tr>
-        <tr lang="ru">постоянные сегменты задаются как: bound0, weight0, bound1, weight1, bound2 и т.д.</tr>
+        <tr lang="en">constant segments are specified as: bound0, weight0, bound1, weight1, bound2
+        etc.</tr>
+        <tr lang="ru">постоянные сегменты задаются как: bound0, weight0, bound1, weight1, bound2 и
+        т.д.</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to create a weighted random selection over several ranges, for example to make values near the center more likely than values at the edges</tr>
-        <tr lang="ru">объект можно использовать для создания взвешенного случайного выбора по нескольким диапазонам, например чтобы значения ближе к центру выпадали чаще, чем по краям</tr>
+        <tr lang="en">the object can be used to create a weighted random selection over several
+        ranges, for example to make values near the center more likely than values at the
+        edges</tr>
+        <tr lang="ru">объект можно использовать для создания взвешенного случайного выбора по
+        нескольким диапазонам, например чтобы значения ближе к центру выпадали чаще, чем по
+        краям</tr>
       </par>
     </info>
     <arguments>
       <argument name="V" type="list">
-        <tr lang="en">interleaved interval boundaries and boundary probabilities. Note: the number of arguments should be odd and &gt;=5. Boundaries should be in strictly increasing order and weights should be non-negative</tr>
-        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Примечание: количество аргументов должно быть нечётным и &gt;=5. Границы должны идти строго по возрастанию, веса должны быть неотрицательными</tr>
+        <tr lang="en">interleaved interval boundaries and boundary probabilities. Note: the number
+        of arguments should be odd and &gt;=5. Boundaries should be in strictly increasing order
+        and weights should be non-negative</tr>
+        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Примечание: количество
+        аргументов должно быть нечётным и &gt;=5. Границы должны идти строго по возрастанию, веса
+        должны быть неотрицательными</tr>
       </argument>
     </arguments>
     <properties>

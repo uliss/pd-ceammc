@@ -25,24 +25,32 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">chooses a random atom from the specified list (with weights) and outputs it</tr>
+        <tr lang="en">chooses a random atom from the specified list (with weights) and outputs
+        it</tr>
         <tr lang="ru">выбирает случайный атом из заданного списка (с весами) и выводит его</tr>
       </par>
       <par>
-        <tr lang="en">if no weights are specified, elements are chosen with a uniform random distribution</tr>
-        <tr lang="ru">если веса не заданы, элементы выбираются с равномерным случайным распределением</tr>
+        <tr lang="en">if no weights are specified, elements are chosen with a uniform random
+        distribution</tr>
+        <tr lang="ru">если веса не заданы, элементы выбираются с равномерным случайным
+        распределением</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
         <tr lang="en">note: when @nonrep is set, the distribution is not uniform or weighted</tr>
-        <tr lang="ru">примечание: если задано @nonrep, распределение не является равномерным или взвешенным</tr>
+        <tr lang="ru">примечание: если задано @nonrep, распределение не является равномерным или
+        взвешенным</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to generate random note sequences with a musical weighting, for example to make some notes more likely than others</tr>
-        <tr lang="ru">объект можно использовать для генерации случайных нотных последовательностей с музыкальными весами, например чтобы одни ноты выпадали чаще других</tr>
+        <tr lang="en">the object can be used to generate random note sequences with a musical
+        weighting, for example to make some notes more likely than others</tr>
+        <tr lang="ru">объект можно использовать для генерации случайных нотных последовательностей
+        с музыкальными весами, например чтобы одни ноты выпадали чаще других</tr>
       </par>
     </info>
     <arguments>
@@ -54,8 +62,10 @@
     <properties>
       <!-- @nonrep -->
       <property name="@nonrep" type="bool" default="0">
-        <tr lang="en">generate non-repeated adjacent values (note: the distribution will change)</tr>
-        <tr lang="ru">генерировать неповторяющиеся соседние значения (примечание: распределение изменится)</tr>
+        <tr lang="en">generate non-repeated adjacent values (note: the distribution will
+        change)</tr>
+        <tr lang="ru">генерировать неповторяющиеся соседние значения (примечание: распределение
+        изменится)</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">

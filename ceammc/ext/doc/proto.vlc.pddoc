@@ -160,6 +160,16 @@
           полноэкранного режима. Если параметер не указан, переключает между режимами.</tr>
         </param>
       </method>
+      <!-- get_current -->
+      <method name="get_current">
+        <info>
+          <tr lang="en">request for the current playing item. Outputs as a message [current( with a
+          dictionary of item info (id, name, uri, duration, current) into the second output.</tr>
+          <tr lang="ru">запрос текущего воспроизводимого элемента. Выводит в виде сообщения
+          [current( со словарём информации об элементе (id, name, uri, duration, current) во второй
+          выход.</tr>
+        </info>
+      </method>
       <!-- get_playlist -->
       <method name="get_playlist">
         <info>
@@ -167,6 +177,17 @@
           second output.</tr>
           <tr lang="ru">запрос текущего плейлиста. Выводит в виде сообщения [playlist( во второй
           выход</tr>
+        </info>
+      </method>
+      <!-- get_status -->
+      <method name="get_status">
+        <info>
+          <tr lang="en">request for the current VLC status. Outputs as a message [status( with a
+          dictionary of status data (apiversion, loop, repeat, random, fullscreen, position,
+          volume, time, length, rate, current_id) into the second output.</tr>
+          <tr lang="ru">запрос текущего статуса VLC. Выводит в виде сообщения [status( со словарём
+          данных статуса (apiversion, loop, repeat, random, fullscreen, position, volume, time,
+          length, rate, current_id) во второй выход.</tr>
         </info>
       </method>
       <!-- loop -->
@@ -221,38 +242,6 @@
           <tr lang="ru">перейти к предыдущей записи в плейлисте</tr>
         </info>
       </method>
-      <!-- seek -->
-      <method name="seek">
-        <info>
-          <tr lang="en">jump to the specified playback position</tr>
-          <tr lang="ru">перейти в указанную позицию времени воспроизведения</tr>
-        </info>
-        <param name="TIME" type="atom" required="true">
-          <tr lang="en">absolute position in time (in integer seconds, percents or in the format
-          00h:00m:00s) or relative offset (+val, -val)</tr>
-          <tr lang="ru">абсолютная позиция во времени (в целых секундах, процентах или формате
-          00h:00m:00s) или относительное смещение (+val, -val)</tr>
-        </param>
-      </method>
-      <!-- stop -->
-      <method name="stop">
-        <info>
-          <tr lang="en">stop playback</tr>
-          <tr lang="ru">остановить воспроизведение</tr>
-        </info>
-      </method>
-      <!-- volume -->
-      <method name="volume">
-        <info>
-          <tr lang="en">set the playback volume</tr>
-          <tr lang="ru">установить громкость воспроизведения</tr>
-        </info>
-        <param name="VAL" type="atom" required="true">
-          <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
-          <tr lang="ru">абсолютное значение в процентах или относительное изменение +VOL или
-          -VOL</tr>
-        </param>
-      </method>
       <!-- repeat -->
       <method name="repeat">
         <info>
@@ -266,26 +255,18 @@
           переключает между режимами.</tr>
         </param>
       </method>
-      <!-- get_current -->
-      <method name="get_current">
+      <!-- seek -->
+      <method name="seek">
         <info>
-          <tr lang="en">request for the current playing item. Outputs as a message [current( with
-          a dictionary of item info (id, name, uri, duration, current) into the second output.</tr>
-          <tr lang="ru">запрос текущего воспроизводимого элемента. Выводит в виде сообщения
-          [current( со словарём информации об элементе (id, name, uri, duration, current) во второй
-          выход.</tr>
+          <tr lang="en">jump to the specified playback position</tr>
+          <tr lang="ru">перейти в указанную позицию времени воспроизведения</tr>
         </info>
-      </method>
-      <!-- get_status -->
-      <method name="get_status">
-        <info>
-          <tr lang="en">request for the current VLC status. Outputs as a message [status( with a
-          dictionary of status data (apiversion, loop, repeat, random, fullscreen, position, volume,
-          time, length, rate, current_id) into the second output.</tr>
-          <tr lang="ru">запрос текущего статуса VLC. Выводит в виде сообщения [status( со словарём
-          данных статуса (apiversion, loop, repeat, random, fullscreen, position, volume, time,
-          length, rate, current_id) во второй выход.</tr>
-        </info>
+        <param name="TIME" type="atom" required="true">
+          <tr lang="en">absolute position in time (in integer seconds, percents or in the format
+          00h:00m:00s) or relative offset (+val, -val)</tr>
+          <tr lang="ru">абсолютная позиция во времени (в целых секундах, процентах или формате
+          00h:00m:00s) или относительное смещение (+val, -val)</tr>
+        </param>
       </method>
       <!-- sort -->
       <method name="sort">
@@ -311,6 +292,25 @@
         <param name="SPEED" type="float" required="true" minvalue="0.25" maxvalue="4">
           <tr lang="en">playback rate (e.g. 1.0 is normal speed, 2.0 is double speed)</tr>
           <tr lang="ru">скорость воспроизведения (например, 1.0 — нормальная, 2.0 — двойная)</tr>
+        </param>
+      </method>
+      <!-- stop -->
+      <method name="stop">
+        <info>
+          <tr lang="en">stop playback</tr>
+          <tr lang="ru">остановить воспроизведение</tr>
+        </info>
+      </method>
+      <!-- volume -->
+      <method name="volume">
+        <info>
+          <tr lang="en">set the playback volume</tr>
+          <tr lang="ru">установить громкость воспроизведения</tr>
+        </info>
+        <param name="VAL" type="atom" required="true">
+          <tr lang="en">absolute value in percent or relative change +VOL or -VOL</tr>
+          <tr lang="ru">абсолютное значение в процентах или относительное изменение +VOL или
+          -VOL</tr>
         </param>
       </method>
     </methods>

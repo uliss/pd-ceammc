@@ -21,27 +21,38 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes float messages to the first outlet and all other messages (bang, symbol, list, any) to the second outlet</tr>
-        <tr lang="ru">объект направляет числовые сообщения на первый выход, а все остальные (bang, символы, списки, any) — на второй выход</tr>
+        <tr lang="en">the object routes float messages to the first outlet and all other messages
+        (bang, symbol, list, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет числовые сообщения на первый выход, а все остальные (bang,
+        символы, списки, any) — на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">by default a list containing a single float is treated as a float. Set @strict to true to disable this behavior and route such lists to the second outlet</tr>
-        <tr lang="ru">по умолчанию список из одного числа рассматривается как число. Установите @strict в true, чтобы отключить это поведение и направлять такие списки на второй выход</tr>
+        <tr lang="en">by default a list containing a single float is treated as a float. Set
+        @strict to true to disable this behavior and route such lists to the second outlet</tr>
+        <tr lang="ru">по умолчанию список из одного числа рассматривается как число. Установите
+        @strict в true, чтобы отключить это поведение и направлять такие списки на второй
+        выход</tr>
       </par>
       <par>
-        <tr lang="en">to get properties, use the [prop.get] object, since all messages (including property requests) are passed through</tr>
-        <tr lang="ru">для получения свойств используйте объект [prop.get], так как все сообщения (включая запросы свойств) проходят насквозь</tr>
+        <tr lang="en">to get properties, use the [prop.get] object, since all messages (including
+        property requests) are passed through</tr>
+        <tr lang="ru">для получения свойств используйте объект [prop.get], так как все сообщения
+        (включая запросы свойств) проходят насквозь</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate numeric values from other messages, for example to route numbers to a display and everything else to a logger</tr>
-        <tr lang="ru">объект можно использовать для отделения числовых значений от других сообщений, например чтобы направлять числа на дисплей, а всё остальное — в логгер</tr>
+        <tr lang="en">the object can be used to separate numeric values from other messages, for
+        example to route numbers to a display and everything else to a logger</tr>
+        <tr lang="ru">объект можно использовать для отделения числовых значений от других
+        сообщений, например чтобы направлять числа на дисплей, а всё остальное — в логгер</tr>
       </par>
     </info>
     <properties>
       <!-- @strict -->
       <property name="@strict" type="bool" default="0">
-        <tr lang="en">strict mode. By default a list with a single float is treated as a float. Set to true to disable this behavior</tr>
-        <tr lang="ru">строгий режим. По умолчанию список с одним числом рассматривается как число. Установите true, чтобы отключить это поведение</tr>
+        <tr lang="en">strict mode. By default a list with a single float is treated as a float. Set
+        to true to disable this behavior</tr>
+        <tr lang="ru">строгий режим. По умолчанию список с одним числом рассматривается как число.
+        Установите true, чтобы отключить это поведение</tr>
       </property>
     </properties>
     <inlets>

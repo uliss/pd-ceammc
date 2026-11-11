@@ -22,16 +22,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes property messages (such as [prop VALUE( and [prop?( requests) to the first outlet, and all other messages to the second outlet</tr>
-        <tr lang="ru">объект направляет сообщения со свойствами (например, [prop VALUE( и запросы [prop?() на первый выход, а все остальные сообщения — на второй выход</tr>
+        <tr lang="en">the object routes property messages (such as [prop VALUE( and [prop?(
+        requests) to the first outlet, and all other messages to the second outlet</tr>
+        <tr lang="ru">объект направляет сообщения со свойствами (например, [prop VALUE( и запросы
+        [prop?() на первый выход, а все остальные сообщения — на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">property messages are recognized by the leading '@' in the selector, for example @freq or @prop?</tr>
-        <tr lang="ru">сообщения со свойствами распознаются по ведущему символу '@' в селекторе, например @freq или @prop?</tr>
+        <tr lang="en">property messages are recognized by the leading '@' in the selector, for
+        example @freq or @prop?</tr>
+        <tr lang="ru">сообщения со свойствами распознаются по ведущему символу '@' в селекторе,
+        например @freq или @prop?</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate property changes from ordinary control messages, for example to route parameter automation to a preset system and plain values to a display</tr>
-        <tr lang="ru">объект можно использовать для отделения изменений свойств от обычных управляющих сообщений, например чтобы направлять автоматизацию параметров в систему пресетов, а простые значения — на дисплей</tr>
+        <tr lang="en">the object can be used to separate property changes from ordinary control
+        messages, for example to route parameter automation to a preset system and plain values to
+        a display</tr>
+        <tr lang="ru">объект можно использовать для отделения изменений свойств от обычных
+        управляющих сообщений, например чтобы направлять автоматизацию параметров в систему
+        пресетов, а простые значения — на дисплей</tr>
       </par>
     </info>
     <inlets>

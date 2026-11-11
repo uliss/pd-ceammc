@@ -24,16 +24,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes messages with a selector (any messages) to the first outlet, and bangs, floats, symbols and lists to the second outlet</tr>
-        <tr lang="ru">объект направляет сообщения с селектором на первый выход, а bang, числа, символы и списки — на второй выход</tr>
+        <tr lang="en">the object routes messages with a selector (any messages) to the first
+        outlet, and bangs, floats, symbols and lists to the second outlet</tr>
+        <tr lang="ru">объект направляет сообщения с селектором на первый выход, а bang, числа,
+        символы и списки — на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">this is useful when a patch needs to handle generic messages separately from plain values</tr>
-        <tr lang="ru">это полезно, когда в патче нужно обрабатывать сообщения общего вида отдельно от простых значений</tr>
+        <tr lang="en">this is useful when a patch needs to handle generic messages separately from
+        plain values</tr>
+        <tr lang="ru">это полезно, когда в патче нужно обрабатывать сообщения общего вида отдельно
+        от простых значений</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate control messages from audio-rate values, for example to route "note" messages to a synth and plain numbers to a display</tr>
-        <tr lang="ru">объект можно использовать для отделения управляющих сообщений от значений, например чтобы направлять сообщения "note" в синтезатор, а простые числа — на дисплей</tr>
+        <tr lang="en">the object can be used to separate control messages from audio-rate values,
+        for example to route "note" messages to a synth and plain numbers to a display</tr>
+        <tr lang="ru">объект можно использовать для отделения управляющих сообщений от значений,
+        например чтобы направлять сообщения "note" в синтезатор, а простые числа — на дисплей</tr>
       </par>
     </info>
     <inlets>

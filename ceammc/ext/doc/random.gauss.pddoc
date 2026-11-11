@@ -22,24 +22,36 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a random value with a Gaussian distribution. It has the shape of a bell curve and is characterized by two parameters, mu and sigma</tr>
-        <tr lang="ru">генерирует случайное значение с гауссовым распределением. Оно имеет форму колоколообразной кривой и характеризуется двумя параметрами — mu и sigma</tr>
+        <tr lang="en">generates a random value with a Gaussian distribution. It has the shape of a
+        bell curve and is characterized by two parameters, mu and sigma</tr>
+        <tr lang="ru">генерирует случайное значение с гауссовым распределением. Оно имеет форму
+        колоколообразной кривой и характеризуется двумя параметрами — mu и sigma</tr>
       </par>
       <par>
-        <tr lang="en">the center of the density function, mu, is the mean of the random variable. The spread of the density function is measured by a parameter called *standard deviation* or sigma. 68.26% of all results fall within the interval of width ±SIGMA centered on the mean: the random variable is unbounded both above and below the mean</tr>
-        <tr lang="ru">центр функции плотности, mu, — это среднее значение случайной величины. Разброс функции плотности измеряется параметром, называемым *стандартным отклонением* или sigma. 68.26% всех результатов попадают в интервал шириной ±SIGMA с центром в среднем: случайная величина не ограничена ни сверху, ни снизу от среднего</tr>
+        <tr lang="en">the center of the density function, mu, is the mean of the random variable.
+        The spread of the density function is measured by a parameter called *standard deviation*
+        or sigma. 68.26% of all results fall within the interval of width ±SIGMA centered on the
+        mean: the random variable is unbounded both above and below the mean</tr>
+        <tr lang="ru">центр функции плотности, mu, — это среднее значение случайной величины.
+        Разброс функции плотности измеряется параметром, называемым *стандартным отклонением* или
+        sigma. 68.26% всех результатов попадают в интервал шириной ±SIGMA с центром в среднем:
+        случайная величина не ограничена ни сверху, ни снизу от среднего</tr>
       </par>
       <par>
         <tr lang="en">99.74% of all results fall within ±3 SIGMA</tr>
         <tr lang="ru">99.74% всех результатов попадают в интервал ±3 SIGMA</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to add natural-looking random variation, for example to humanize timing and velocity or to simulate measurement noise</tr>
-        <tr lang="ru">объект можно использовать для добавления естественной случайной вариации, например чтобы очеловечить тайминг и скорость или имитировать шум измерений</tr>
+        <tr lang="en">the object can be used to add natural-looking random variation, for example
+        to humanize timing and velocity or to simulate measurement noise</tr>
+        <tr lang="ru">объект можно использовать для добавления естественной случайной вариации,
+        например чтобы очеловечить тайминг и скорость или имитировать шум измерений</tr>
       </par>
     </info>
     <arguments>

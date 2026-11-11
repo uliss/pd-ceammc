@@ -22,26 +22,38 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">produces random floating-point numbers that are distributed according to a linear probability density function within each of several subintervals [b0, b1)</tr>
-        <tr lang="ru">генерирует случайные числа с плавающей точкой, распределённые по линейной функции плотности вероятности внутри каждого из нескольких подинтервалов [b0, b1)</tr>
+        <tr lang="en">produces random floating-point numbers that are distributed according to a
+        linear probability density function within each of several subintervals [b0, b1)</tr>
+        <tr lang="ru">генерирует случайные числа с плавающей точкой, распределённые по линейной
+        функции плотности вероятности внутри каждого из нескольких подинтервалов [b0, b1)</tr>
       </par>
       <par>
         <tr lang="en">linear segments are specified as: bound0, prob0, bound1, prob1, etc.</tr>
         <tr lang="ru">линейные сегменты задаются как: bound0, prob0, bound1, prob1 и т.д.</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to create a smoothly varying random distribution, for example to make values near the center more likely than values at the edges without hard steps</tr>
-        <tr lang="ru">объект можно использовать для создания плавно меняющегося случайного распределения, например чтобы значения ближе к центру выпадали чаще, чем по краям, без резких ступенек</tr>
+        <tr lang="en">the object can be used to create a smoothly varying random distribution, for
+        example to make values near the center more likely than values at the edges without hard
+        steps</tr>
+        <tr lang="ru">объект можно использовать для создания плавно меняющегося случайного
+        распределения, например чтобы значения ближе к центру выпадали чаще, чем по краям, без
+        резких ступенек</tr>
       </par>
     </info>
     <arguments>
       <argument name="V" type="list">
-        <tr lang="en">interleaved interval boundaries and boundary probabilities. Note: the number of arguments should be even and &gt;=4. Boundaries should be in strictly increasing order and weights should be non-negative</tr>
-        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Примечание: количество аргументов должно быть чётным и &gt;=4. Границы должны идти строго по возрастанию, веса должны быть неотрицательными</tr>
+        <tr lang="en">interleaved interval boundaries and boundary probabilities. Note: the number
+        of arguments should be even and &gt;=4. Boundaries should be in strictly increasing order
+        and weights should be non-negative</tr>
+        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Примечание: количество
+        аргументов должно быть чётным и &gt;=4. Границы должны идти строго по возрастанию, веса
+        должны быть неотрицательными</tr>
       </argument>
     </arguments>
     <properties>
@@ -57,8 +69,10 @@
       </property>
       <!-- @v -->
       <property name="@v" type="list" default="">
-        <tr lang="en">interleaved interval boundaries and boundary probabilities. For example, the values 0 0 0.5 1 1 0 produce a triangular distribution</tr>
-        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Например, значения 0 0 0.5 1 1 0 дают треугольное распределение</tr>
+        <tr lang="en">interleaved interval boundaries and boundary probabilities. For example, the
+        values 0 0 0.5 1 1 0 produce a triangular distribution</tr>
+        <tr lang="ru">чередующиеся границы интервалов и вероятности границ. Например, значения 0 0
+        0.5 1 1 0 дают треугольное распределение</tr>
       </property>
       <!-- @weights -->
       <property name="@weights" type="list" access="readonly" default="">

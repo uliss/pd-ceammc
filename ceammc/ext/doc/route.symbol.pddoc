@@ -25,12 +25,17 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes symbol messages to the first outlet and all other messages (bang, float, list, any) to the second outlet</tr>
-        <tr lang="ru">объект направляет символьные сообщения на первый выход, а все остальные (bang, числа, списки, any) — на второй выход</tr>
+        <tr lang="en">the object routes symbol messages to the first outlet and all other messages
+        (bang, float, list, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет символьные сообщения на первый выход, а все остальные
+        (bang, числа, списки, any) — на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate string values from numeric and structural messages, for example to route file names or parameter names to a dedicated handler</tr>
-        <tr lang="ru">объект можно использовать для отделения строковых значений от числовых и структурных сообщений, например чтобы направлять имена файлов или имена параметров в отдельный обработчик</tr>
+        <tr lang="en">the object can be used to separate string values from numeric and structural
+        messages, for example to route file names or parameter names to a dedicated handler</tr>
+        <tr lang="ru">объект можно использовать для отделения строковых значений от числовых и
+        структурных сообщений, например чтобы направлять имена файлов или имена параметров в
+        отдельный обработчик</tr>
       </par>
     </info>
     <inlets>

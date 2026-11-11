@@ -25,27 +25,37 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes bang messages to the first outlet and all other messages (floats, symbols, lists, any) to the second outlet</tr>
-        <tr lang="ru">объект направляет bang на первый выход, а все остальные сообщения (числа, символы, списки, any) — на второй выход</tr>
+        <tr lang="en">the object routes bang messages to the first outlet and all other messages
+        (floats, symbols, lists, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет bang на первый выход, а все остальные сообщения (числа,
+        символы, списки, any) — на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">by default an empty list is treated as a bang. Set @strict to true to disable this behavior and route empty lists to the second outlet</tr>
-        <tr lang="ru">по умолчанию пустой список рассматривается как bang. Установите @strict в true, чтобы отключить это поведение и направлять пустые списки на второй выход</tr>
+        <tr lang="en">by default an empty list is treated as a bang. Set @strict to true to disable
+        this behavior and route empty lists to the second outlet</tr>
+        <tr lang="ru">по умолчанию пустой список рассматривается как bang. Установите @strict в
+        true, чтобы отключить это поведение и направлять пустые списки на второй выход</tr>
       </par>
       <par>
-        <tr lang="en">to get properties, use the [prop.get] object, since all messages (including property requests) are passed through</tr>
-        <tr lang="ru">для получения свойств используйте объект [prop.get], так как все сообщения (включая запросы свойств) проходят насквозь</tr>
+        <tr lang="en">to get properties, use the [prop.get] object, since all messages (including
+        property requests) are passed through</tr>
+        <tr lang="ru">для получения свойств используйте объект [prop.get], так как все сообщения
+        (включая запросы свойств) проходят насквозь</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to separate bangs from other messages, for example to trigger an action only on a bang and ignore floats or symbols</tr>
-        <tr lang="ru">объект можно использовать для отделения bang от других сообщений, например чтобы запускать действие только по bang и игнорировать числа или символы</tr>
+        <tr lang="en">the object can be used to separate bangs from other messages, for example to
+        trigger an action only on a bang and ignore floats or symbols</tr>
+        <tr lang="ru">объект можно использовать для отделения bang от других сообщений, например
+        чтобы запускать действие только по bang и игнорировать числа или символы</tr>
       </par>
     </info>
     <properties>
       <!-- @strict -->
       <property name="@strict" type="bool" default="0">
-        <tr lang="en">strict mode. By default an empty list is treated as a bang. Set to true to disable this behavior</tr>
-        <tr lang="ru">строгий режим. По умолчанию пустой список рассматривается как bang. Установите true, чтобы отключить это поведение</tr>
+        <tr lang="en">strict mode. By default an empty list is treated as a bang. Set to true to
+        disable this behavior</tr>
+        <tr lang="ru">строгий режим. По умолчанию пустой список рассматривается как bang.
+        Установите true, чтобы отключить это поведение</tr>
       </property>
     </properties>
     <inlets>
@@ -64,7 +74,8 @@
         </in>
         <in on="list">
           <tr lang="en">list to the second outlet. See the @strict property for more info.</tr>
-          <tr lang="ru">список на второй выход. См. свойство @strict для получения дополнительной информации</tr>
+          <tr lang="ru">список на второй выход. См. свойство @strict для получения дополнительной
+          информации</tr>
         </in>
         <in on="symbol">
           <tr lang="en">symbol to the second outlet</tr>

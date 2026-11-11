@@ -22,24 +22,35 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes each incoming message to the next outlet in a round-robin manner, cycling through all outlets</tr>
-        <tr lang="ru">объект направляет каждое входящее сообщение на следующий выход по кругу, перебирая все выходы</tr>
+        <tr lang="en">the object routes each incoming message to the next outlet in a round-robin
+        manner, cycling through all outlets</tr>
+        <tr lang="ru">объект направляет каждое входящее сообщение на следующий выход по кругу,
+        перебирая все выходы</tr>
       </par>
       <par>
-        <tr lang="en">@offset sets the starting outlet index, @step sets how many outlets to skip after each message (the step can be negative for reverse rotation)</tr>
-        <tr lang="ru">@offset задаёт начальный индекс выхода, @step задаёт, сколько выходов пропускать после каждого сообщения (шаг может быть отрицательным для обратного вращения)</tr>
+        <tr lang="en">@offset sets the starting outlet index, @step sets how many outlets to skip
+        after each message (the step can be negative for reverse rotation)</tr>
+        <tr lang="ru">@offset задаёт начальный индекс выхода, @step задаёт, сколько выходов
+        пропускать после каждого сообщения (шаг может быть отрицательным для обратного
+        вращения)</tr>
       </par>
       <par>
-        <tr lang="en">a bang on the second inlet resets the current outlet index to the initial value</tr>
-        <tr lang="ru">bang на втором входе сбрасывает текущий индекс выхода к начальному значению</tr>
+        <tr lang="en">a bang on the second inlet resets the current outlet index to the initial
+        value</tr>
+        <tr lang="ru">bang на втором входе сбрасывает текущий индекс выхода к начальному
+        значению</tr>
       </par>
       <par>
-        <tr lang="en">notice: to get properties, use the [prop.get] object, since all messages (including property requests) are passed through</tr>
-        <tr lang="ru">примечание: для получения свойств используйте объект [prop.get], так как все сообщения (включая запросы свойств) проходят насквозь</tr>
+        <tr lang="en">notice: to get properties, use the [prop.get] object, since all messages
+        (including property requests) are passed through</tr>
+        <tr lang="ru">примечание: для получения свойств используйте объект [prop.get], так как все
+        сообщения (включая запросы свойств) проходят насквозь</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to distribute events over several destinations in turn, for example to trigger different sounds or effects in rotation</tr>
-        <tr lang="ru">объект можно использовать для поочерёдного распределения событий по нескольким получателям, например чтобы по очереди запускать разные звуки или эффекты</tr>
+        <tr lang="en">the object can be used to distribute events over several destinations in
+        turn, for example to trigger different sounds or effects in rotation</tr>
+        <tr lang="ru">объект можно использовать для поочерёдного распределения событий по
+        нескольким получателям, например чтобы по очереди запускать разные звуки или эффекты</tr>
       </par>
     </info>
     <arguments>

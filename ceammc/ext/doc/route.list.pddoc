@@ -25,8 +25,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes list messages to the first outlet and all other messages (bang, float, symbol, any) to the second outlet</tr>
-        <tr lang="ru">объект направляет списки на первый выход, а все остальные сообщения (bang, числа, символы, any) — на второй выход</tr>
+        <tr lang="en">the object routes list messages to the first outlet and all other messages
+        (bang, float, symbol, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет списки на первый выход, а все остальные сообщения (bang,
+        числа, символы, any) — на второй выход</tr>
       </par>
     </info>
     <inlets>

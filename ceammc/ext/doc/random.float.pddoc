@@ -8,7 +8,8 @@
       </authors>
       <description>
         <tr lang="en">uniform random generator of floats in the specified range</tr>
-        <tr lang="ru">равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне</tr>
+        <tr lang="ru">равномерный генератор случайных чисел с плавающей точкой в заданном
+        диапазоне</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,20 +26,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">generates a random floating-point value uniformly distributed in the range [min..max)</tr>
-        <tr lang="ru">генерирует случайное значение с плавающей точкой, равномерно распределённое в диапазоне [min..max)</tr>
+        <tr lang="en">generates a random floating-point value uniformly distributed in the range
+        [min..max)</tr>
+        <tr lang="ru">генерирует случайное значение с плавающей точкой, равномерно распределённое в
+        диапазоне [min..max)</tr>
       </par>
       <par>
-        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
         <tr lang="en">algorithm: 32-bit Mersenne Twister by Matsumoto and Nishimura, 1998</tr>
         <tr lang="ru">алгоритм: 32-битный Mersenne Twister Мацумото и Нисимуры, 1998</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to add subtle random variation to parameters, for example to humanize note velocities or add slight detuning to oscillators</tr>
-        <tr lang="ru">объект можно использовать для добавления лёгкой случайной вариации к параметрам, например чтобы очеловечить скорость нот или добавить небольшой расстрой осцилляторам</tr>
+        <tr lang="en">the object can be used to add subtle random variation to parameters, for
+        example to humanize note velocities or add slight detuning to oscillators</tr>
+        <tr lang="ru">объект можно использовать для добавления лёгкой случайной вариации к
+        параметрам, например чтобы очеловечить скорость нот или добавить небольшой расстрой
+        осцилляторам</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">wiki: Mersenne Twister</a>
     </info>
