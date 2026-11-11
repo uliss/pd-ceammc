@@ -128,7 +128,7 @@ flow.sync_pack-help.pd;
 #X obj 30 1390 ui.link @title [route.cycle] @url route.cycle-help.pd;
 #X text 220 1387 циклический маршрутизатор сообщений;
 #X obj 30 1415 ui.link @title [route.data] @url route.data-help.pd;
-#X text 220 1412 отделяет сообщения с данными от других;
+#X text 220 1412 отделяет сообщения с данными от остальных;
 #X obj 30 1440 ui.link @title [route.float] @url route.float-help.pd;
 #X text 220 1437 отделяет числовые сообщения от других типов;
 #X obj 30 1465 ui.link @title [route.list] @url route.list-help.pd;

@@ -492,8 +492,8 @@ route.any	separate messages from bangs, floats, symbols and lists / отделя
 route.bang	separates the bang messages from others / отделяет bang от сообщений других типов
 route.b	separates the bang messages from others / отделяет bang от сообщений других типов
 route.cycle	cyclic message router / циклический маршрутизатор сообщений
-route.data	separates data messages from others / отделяет сообщения с данными от других
-route.d	separates data messages from others / отделяет сообщения с данными от других
+route.data	separates data messages from others / отделяет сообщения с данными от остальных
+route.d	separates data messages from others / отделяет сообщения с данными от остальных
 route.float	separates float messages from others / отделяет числовые сообщения от других типов
 route.f	separates float messages from others / отделяет числовые сообщения от других типов
 route.list	separates list messages from other types / отделяет списки от сообщений других типов

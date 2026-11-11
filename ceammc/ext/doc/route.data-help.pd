@@ -7,73 +7,82 @@
 #X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [route.d] @url route.data-help.pd;
 #X obj 668 8 route.data;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes data messages (such as data:Dict \,
+data:MList or data:String) to the first outlet \, and all other messages
+to the second outlet;
+#X text 240 138 the optional TYPE argument or the @type property restricts
+routing to a specific data type \, for example MList;
+#X text 240 178 the object can be used to separate data objects from
+control messages \, for example to route dictionaries to a data processing
+chain and plain numbers elsewhere;
+#X obj 50 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 299 118 route.data-datatype;
-#X obj 50 147 data.dict \[a: 1\];
-#X msg 59 176 bang;
-#X listbox 155 176 20 0 0 0 - - -;
-#X msg 69 205 1;
-#X symbolatom 78 234 5 0 0 0 - - -;
-#X obj 50 262 route.data;
-#X obj 50 291 ui.dt;
-#X obj 136 320 ui.dt;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 299 296 route.data-datatype;
+#X obj 50 325 data.dict \[a: 1\];
+#X msg 59 354 bang;
+#X listbox 155 354 20 0 0 0 - - -;
+#X msg 69 383 1;
+#X symbolatom 78 412 5 0 0 0 - - -;
+#X obj 50 440 route.data;
+#X obj 50 469 ui.dt;
+#X obj 136 498 ui.dt;
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 553 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 556 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 376 1\.;
-#X text 170 376 symbol;
-#X obj 268 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 TYPE: routed data type name (optional). Type: symbol.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 416 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 554 1\.;
+#X text 170 554 symbol;
+#X obj 268 555 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 554 TYPE: routed data type name (optional). Type: symbol.;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 419 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 597 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 417 @type;
-#X text 270 417 (initonly) Routed data type name. Type: symbol.;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 462 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 595 @type;
+#X text 270 595 (initonly) Routed data type name. Type: symbol.;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 640 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 463 1\.;
-#X text 170 463 data:;
-#X text 270 463 data to *first* outlet.;
-#X text 170 488 any:;
-#X text 270 488 any to second outlet.;
-#X text 170 513 bang:;
-#X text 270 513 bang to second outlet.;
-#X text 170 538 float:;
-#X text 270 538 float to second outlet.;
-#X text 170 563 list:;
-#X text 270 563 list to second outlet.;
-#X text 170 588 symbol:;
-#X text 270 588 symbol to second outlet.;
-#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 628 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 641 1\.;
+#X text 170 641 data:;
+#X text 270 641 data to the first outlet.;
+#X text 170 666 any:;
+#X text 270 666 any message to the second outlet.;
+#X text 170 691 bang:;
+#X text 270 691 bang to the second outlet.;
+#X text 170 716 float:;
+#X text 270 716 float to the second outlet.;
+#X text 170 741 list:;
+#X text 270 741 list to the second outlet.;
+#X text 170 766 symbol:;
+#X text 270 766 symbol to the second outlet.;
+#X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 806 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 629 1\.;
-#X text 270 629 data output.;
-#X text 130 649 2\.;
-#X text 270 649 other messages.;
+#X text 130 807 1\.;
+#X text 270 807 data output.;
+#X text 130 827 2\.;
+#X text 270 827 other messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 699 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 702 library: ceammc v0.9.8;
-#X text 304 714 see also:;
-#X obj 379 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 877 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 880 library: ceammc v0.9.8;
+#X text 304 892 see also:;
+#X obj 379 895 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.float] @url route.float-help.pd;
-#X obj 477 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 477 895 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.list] @url route.list-help.pd;
-#X obj 567 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 567 895 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.random] @url route.random-help.pd;
-#X obj 672 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 895 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.any] @url route.any-help.pd;
-#N canvas 10 721 400 290 info 0;
+#N canvas 10 899 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,12 +106,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 721 pd info;
-#X connect 5 0 7 0;
-#X connect 12 0 13 0;
-#X connect 12 1 14 0;
-#X connect 7 0 12 0;
-#X connect 8 0 12 0;
-#X connect 10 0 12 0;
-#X connect 11 0 12 0;
-#X connect 9 0 12 0;
+#X restore 10 899 pd info;
+#X connect 9 0 11 0;
+#X connect 16 0 17 0;
+#X connect 16 1 18 0;
+#X connect 11 0 16 0;
+#X connect 12 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 0;
+#X connect 13 0 16 0;

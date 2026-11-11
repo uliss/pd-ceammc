@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">separates data messages from others</tr>
-        <tr lang="ru">отделяет сообщения с данными от других</tr>
+        <tr lang="ru">отделяет сообщения с данными от остальных</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,44 +25,58 @@
         <alias>route.d</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes data messages (such as data:Dict, data:MList or data:String) to the first outlet, and all other messages to the second outlet</tr>
+        <tr lang="ru">объект направляет сообщения с данными (например, data:Dict, data:MList или data:String) на первый выход, а все остальные сообщения — на второй выход</tr>
+      </par>
+      <par>
+        <tr lang="en">the optional TYPE argument or the @type property restricts routing to a specific data type, for example MList</tr>
+        <tr lang="ru">необязательный аргумент TYPE или свойство @type ограничивает маршрутизацию конкретным типом данных, например MList</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to separate data objects from control messages, for example to route dictionaries to a data processing chain and plain numbers elsewhere</tr>
+        <tr lang="ru">объект можно использовать для отделения объектов данных от управляющих сообщений, например чтобы направлять словари в цепочку обработки данных, а простые числа — в другое место</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="TYPE" type="symbol">
         <tr lang="en">routed data type name (optional)</tr>
-        <tr lang="ru" finished="false">имя маршрутизируемого типа данных (факультативно)</tr>
+        <tr lang="ru">имя маршрутизируемого типа данных (необязательно)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @type -->
       <property name="@type" type="symbol" default="" access="initonly">
         <tr lang="en">routed data type name</tr>
-        <tr lang="ru" finished="false">имя маршрутизируемого типа данных</tr>
+        <tr lang="ru">имя маршрутизируемого типа данных</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="data">
-          <tr lang="en">data to *first* outlet</tr>
-          <tr lang="ru" finished="false">Данные для *First* Outlet</tr>
+          <tr lang="en">data to the first outlet</tr>
+          <tr lang="ru">данные на первый выход</tr>
         </in>
         <in on="any">
-          <tr lang="en">any to second outlet</tr>
-          <tr lang="ru" finished="false">любой второй выход</tr>
+          <tr lang="en">any message to the second outlet</tr>
+          <tr lang="ru">сообщение any на второй выход</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to second outlet</tr>
-          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+          <tr lang="en">bang to the second outlet</tr>
+          <tr lang="ru">bang на второй выход</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to second outlet</tr>
-          <tr lang="ru" finished="false">Поплавать на второй выход</tr>
+          <tr lang="en">float to the second outlet</tr>
+          <tr lang="ru">число на второй выход</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to second outlet</tr>
-          <tr lang="ru" finished="false">Список для второго выхода</tr>
+          <tr lang="en">list to the second outlet</tr>
+          <tr lang="ru">список на второй выход</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to second outlet</tr>
-          <tr lang="ru" finished="false">Символ для второго выхода</tr>
+          <tr lang="en">symbol to the second outlet</tr>
+          <tr lang="ru">символ на второй выход</tr>
         </in>
       </inlet>
     </inlets>
@@ -70,13 +84,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">data output</tr>
-          <tr lang="ru" finished="false">выход данных</tr>
+          <tr lang="ru">выход данных</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">other messages</tr>
-          <tr lang="ru" finished="false">Другие сообщения</tr>
+          <tr lang="ru">другие сообщения</tr>
         </out>
       </outlet>
     </outlets>
