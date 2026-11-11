@@ -698,8 +698,8 @@ list.resample	resamples the values in the list with the specified length ratio /
 list.r	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
 list.resize	changes the list size / изменяет длину списка
 list.reverse	reverses the order of the elements in the list / меняет порядок элементов в списке на обратный
-list.rldecode	run-length decoding lists / декодирование повторов в списках
-list.unwrap	run-length decoding lists / декодирование повторов в списках
+list.rldecode	run-length decoding lists / декодирует списки, закодированные длинами серий
+list.unwrap	run-length decoding lists / декодирует списки, закодированные длинами серий
 list.rlencode	run-length encoding for lists / кодирование повторов в списках
 list.wrap	run-length encoding for lists / кодирование повторов в списках
 list.rotate	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов

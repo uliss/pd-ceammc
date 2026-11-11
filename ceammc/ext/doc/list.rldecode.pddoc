@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">run-length decoding lists</tr>
-        <tr lang="ru">декодирование повторов в списках</tr>
+        <tr lang="ru">декодирует списки, закодированные длинами серий</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,40 +23,52 @@
         <alias>list.unwrap</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object performs run-length decoding: it expands a list of single elements according to the corresponding repeat counts</tr>
+        <tr lang="ru">объект выполняет декодирование длин серий: разворачивает список одиночных элементов в соответствии с соответствующими счётчиками повторов</tr>
+      </par>
+      <par>
+        <tr lang="en">the first inlet receives the list of elements, the second inlet receives the list of repeat counts; the first element is repeated as many times as the first count, and so on</tr>
+        <tr lang="ru">на первый вход подаётся список элементов, на второй — список счётчиков повторов; первый элемент повторяется столько раз, сколько указано в первом счётчике, и так далее</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to restore a list compressed by [list.rlencode], for example to decode a sequence of repeated notes or values</tr>
+        <tr lang="ru">объект можно использовать для восстановления списка, сжатого объектом [list.rlencode], например чтобы раскодировать последовательность повторяющихся нот или значений</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="L" type="list">
         <tr lang="en">initial element repeat list</tr>
-        <tr lang="ru" finished="false">Первоначальный повторный список элементов</tr>
+        <tr lang="ru">начальный список повторов элементов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @l -->
       <property name="@l" type="list" default="">
         <tr lang="en">list of repeats</tr>
-        <tr lang="ru" finished="false">Список повторений</tr>
+        <tr lang="ru">список повторов</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">First list - single elements</tr>
-          <tr lang="ru" finished="false">Первый список - одиночные элементы</tr>
+          <tr lang="en">first list — single elements</tr>
+          <tr lang="ru">первый список — одиночные элементы</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
-          <tr lang="en">Second list - count of each element</tr>
-          <tr lang="ru" finished="false">Второй список - подсчет каждого элемента</tr>
+          <tr lang="en">second list — count of each element</tr>
+          <tr lang="ru">второй список — количество повторов каждого элемента</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">result - elements repeated n times specified by corresponding values in
-          second list</tr>
-          <tr lang="ru" finished="false">результат - элементы, повторяемые n раз, заданные
-          соответствующими значениями во втором списке</tr>
+          <tr lang="en">result — elements repeated n times specified by corresponding values in the second list</tr>
+          <tr lang="ru">результат — элементы, повторённые n раз в соответствии со значениями во втором списке</tr>
         </out>
       </outlet>
     </outlets>

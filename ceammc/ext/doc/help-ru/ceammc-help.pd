@@ -1203,7 +1203,7 @@ list.reverse-help.pd;
 #X text 200 12543 меняет порядок элементов в списке на обратный;
 #X obj 30 12571 ui.link @title [list.rldecode] @url
 list.rldecode-help.pd;
-#X text 200 12568 декодирование повторов в списках;
+#X text 200 12568 декодирует списки \, закодированные длинами серий;
 #X obj 30 12596 ui.link @title [list.rlencode] @url
 list.rlencode-help.pd;
 #X text 200 12593 кодирование повторов в списках;
