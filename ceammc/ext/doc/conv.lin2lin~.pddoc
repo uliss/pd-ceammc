@@ -27,16 +27,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object linearly maps an audio signal from the input range [@in_from, @in_to] to the output range [@out_from, @out_to]</tr>
-        <tr lang="ru">объект линейно отображает аудиосигнал из входного диапазона [@in_from, @in_to] в выходной диапазон [@out_from, @out_to]</tr>
+        <tr lang="en">the object linearly maps an audio signal from the input range [@in_from,
+        @in_to] to the output range [@out_from, @out_to]</tr>
+        <tr lang="ru">объект линейно отображает аудиосигнал из входного диапазона [@in_from,
+        @in_to] в выходной диапазон [@out_from, @out_to]</tr>
       </par>
       <par>
-        <tr lang="en">@clip controls clipping of the result: noclip — no clipping, min — clip at the lower bound, max — clip at the upper bound, minmax — clip at both bounds</tr>
-        <tr lang="ru">@clip управляет ограничением результата: noclip — без ограничения, min — ограничение по нижней границе, max — по верхней, minmax — по обеим границам</tr>
+        <tr lang="en">@clip controls clipping of the result: noclip — no clipping, min — clip at
+        the lower bound, max — clip at the upper bound, minmax — clip at both bounds</tr>
+        <tr lang="ru">@clip управляет ограничением результата: noclip — без ограничения, min —
+        ограничение по нижней границе, max — по верхней, minmax — по обеим границам</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to scale a signal into a useful range, for example to map an oscillator from -1..1 to a frequency range or to an amplitude range</tr>
-        <tr lang="ru">объект можно использовать для масштабирования сигнала в полезный диапазон, например чтобы отобразить выход осциллятора из -1..1 в диапазон частот или амплитуд</tr>
+        <tr lang="en">the object can be used to scale a signal into a useful range, for example to
+        map an oscillator from -1..1 to a frequency range or to an amplitude range</tr>
+        <tr lang="ru">объект можно использовать для масштабирования сигнала в полезный диапазон,
+        например чтобы отобразить выход осциллятора из -1..1 в диапазон частот или амплитуд</tr>
       </par>
     </info>
     <arguments>
@@ -60,8 +66,10 @@
     <properties>
       <!-- @clip -->
       <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
-        <tr lang="en">clipping mode: noclip — no clipping, min — clip at the lower bound, max — clip at the upper bound, minmax — clip at both bounds</tr>
-        <tr lang="ru">режим ограничения: noclip — без ограничения, min — по нижней границе, max — по верхней, minmax — по обеим границам</tr>
+        <tr lang="en">clipping mode: noclip — no clipping, min — clip at the lower bound, max —
+        clip at the upper bound, minmax — clip at both bounds</tr>
+        <tr lang="ru">режим ограничения: noclip — без ограничения, min — по нижней границе, max —
+        по верхней, minmax — по обеим границам</tr>
       </property>
       <!-- @in_from -->
       <property name="@in_from" type="float" default="-1">

@@ -24,24 +24,36 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object delays each incoming message by a corresponding delay time from the @t list and outputs it from the corresponding outlet</tr>
-        <tr lang="ru">объект задерживает каждое входящее сообщение на соответствующее время из списка @t и выводит его с соответствующего выхода</tr>
+        <tr lang="en">the object delays each incoming message by a corresponding delay time from
+        the @t list and outputs it from the corresponding outlet</tr>
+        <tr lang="ru">объект задерживает каждое входящее сообщение на соответствующее время из
+        списка @t и выводит его с соответствующего выхода</tr>
       </par>
       <par>
-        <tr lang="en">if @block is 0 and a new message arrives before the delay time of the previous one has expired, the old message is discarded and the new delay time starts from the current moment</tr>
-        <tr lang="ru">если @block равен 0 и новое сообщение приходит до истечения времени задержки предыдущего, старое сообщение отбрасывается, а новое время задержки отсчитывается с текущего момента</tr>
+        <tr lang="en">if @block is 0 and a new message arrives before the delay time of the
+        previous one has expired, the old message is discarded and the new delay time starts from
+        the current moment</tr>
+        <tr lang="ru">если @block равен 0 и новое сообщение приходит до истечения времени задержки
+        предыдущего, старое сообщение отбрасывается, а новое время задержки отсчитывается с
+        текущего момента</tr>
       </par>
       <par>
-        <tr lang="en">a zero delay time means the message is output on the next Pd runloop iteration (as soon as possible)</tr>
-        <tr lang="ru">нулевое время задержки означает, что сообщение выводится на следующей итерации runloop Pd (как можно скорее)</tr>
+        <tr lang="en">a zero delay time means the message is output on the next Pd runloop
+        iteration (as soon as possible)</tr>
+        <tr lang="ru">нулевое время задержки означает, что сообщение выводится на следующей
+        итерации runloop Pd (как можно скорее)</tr>
       </par>
       <par>
-        <tr lang="en">note: @t and @block can be set only via the right inlet or with the [prop.set] object</tr>
-        <tr lang="ru">примечание: @t и @block можно задать только через правый вход или объектом [prop.set]</tr>
+        <tr lang="en">note: @t and @block can be set only via the right inlet or with the
+        [prop.set] object</tr>
+        <tr lang="ru">примечание: @t и @block можно задать только через правый вход или объектом
+        [prop.set]</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to create rhythmic delays and canonical patterns, for example to trigger a series of events with different delays</tr>
-        <tr lang="ru">объект можно использовать для создания ритмических задержек и канонических паттернов, например чтобы запускать серию событий с разными задержками</tr>
+        <tr lang="en">the object can be used to create rhythmic delays and canonical patterns, for
+        example to trigger a series of events with different delays</tr>
+        <tr lang="ru">объект можно использовать для создания ритмических задержек и канонических
+        паттернов, например чтобы запускать серию событий с разными задержками</tr>
       </par>
     </info>
     <arguments>
@@ -53,8 +65,10 @@
     <properties>
       <!-- @block -->
       <property name="@block" type="bool" default="0">
-        <tr lang="en">blocking mode. If true, discards incoming messages until the scheduled message is output, after which it is ready to accept a new one</tr>
-        <tr lang="ru">режим блокировки. Если true, отбрасывает входящие сообщения до вывода запланированного сообщения, после чего готов принять новое</tr>
+        <tr lang="en">blocking mode. If true, discards incoming messages until the scheduled
+        message is output, after which it is ready to accept a new one</tr>
+        <tr lang="ru">режим блокировки. Если true, отбрасывает входящие сообщения до вывода
+        запланированного сообщения, после чего готов принять новое</tr>
       </property>
       <!-- @t -->
       <property name="@t" type="list" minvalue="0" units="millisecond" default="">
@@ -84,8 +98,10 @@
           <tr lang="ru">задать времена задержки</tr>
         </in>
         <in on="any">
-          <tr lang="en">'reset' — reset all scheduled delays, '@t' — set the @t property, '@block' — set the @block property, 'dump' — dump object info to the Pd window</tr>
-          <tr lang="ru">'reset' — сбросить все запланированные задержки, '@t' — задать свойство @t, '@block' — задать свойство @block, 'dump' — вывести информацию об объекте в окно Pd</tr>
+          <tr lang="en">'reset' — reset all scheduled delays, '@t' — set the @t property, '@block'
+          — set the @block property, 'dump' — dump object info to the Pd window</tr>
+          <tr lang="ru">'reset' — сбросить все запланированные задержки, '@t' — задать свойство @t,
+          '@block' — задать свойство @block, 'dump' — вывести информацию об объекте в окно Pd</tr>
         </in>
       </inlet>
     </inlets>

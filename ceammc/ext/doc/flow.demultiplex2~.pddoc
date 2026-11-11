@@ -27,11 +27,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object routes the stereo input to one of N stereo output pairs, the selection is controlled by the last (control) inlet</tr>
-        <tr lang="ru">объект направляет стереовход на одну из N выходных стереопар, выбор управляется последним (управляющим) входом</tr>
+        <tr lang="en">the object routes the stereo input to one of N stereo output pairs, the
+        selection is controlled by the last (control) inlet</tr>
+        <tr lang="ru">объект направляет стереовход на одну из N выходных стереопар, выбор
+        управляется последним (управляющим) входом</tr>
       </par>
       <par>
-        <tr lang="en">the control value is the index of the selected output pair, starting from 0</tr>
+        <tr lang="en">the control value is the index of the selected output pair, starting from
+        0</tr>
         <tr lang="ru">управляющее значение — индекс выбранной выходной пары, начиная с 0</tr>
       </par>
       <par>
@@ -39,8 +42,11 @@
         <tr lang="ru">@value задаёт коэффициенты усиления для каждого выхода</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to switch a stereo signal between several destinations, for example to send it to different effects or to different pairs of speakers</tr>
-        <tr lang="ru">объект можно использовать для переключения стереосигнала между несколькими получателями, например чтобы направить его в разные эффекты или на разные пары колонок</tr>
+        <tr lang="en">the object can be used to switch a stereo signal between several
+        destinations, for example to send it to different effects or to different pairs of
+        speakers</tr>
+        <tr lang="ru">объект можно использовать для переключения стереосигнала между несколькими
+        получателями, например чтобы направить его в разные эффекты или на разные пары колонок</tr>
       </par>
     </info>
     <arguments>

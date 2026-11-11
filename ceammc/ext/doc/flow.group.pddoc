@@ -22,20 +22,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object collects incoming atoms into groups of @by elements and outputs each group as a list when it is full</tr>
-        <tr lang="ru">объект собирает входящие атомы в группы по @by элементов и выводит каждую группу в виде списка, когда она заполнена</tr>
+        <tr lang="en">the object collects incoming atoms into groups of @by elements and outputs
+        each group as a list when it is full</tr>
+        <tr lang="ru">объект собирает входящие атомы в группы по @by элементов и выводит каждую
+        группу в виде списка, когда она заполнена</tr>
       </par>
       <par>
-        <tr lang="en">the group size is set by the BY argument or the @by property, and can be changed by sending an integer to the right inlet</tr>
-        <tr lang="ru">размер группы задаётся аргументом BY или свойством @by и может быть изменён подачей целого числа на правый вход</tr>
+        <tr lang="en">the group size is set by the BY argument or the @by property, and can be
+        changed by sending an integer to the right inlet</tr>
+        <tr lang="ru">размер группы задаётся аргументом BY или свойством @by и может быть изменён
+        подачей целого числа на правый вход</tr>
       </par>
       <par>
-        <tr lang="en">the [flush( method outputs the current incomplete group, the [clear( method discards it</tr>
-        <tr lang="ru">метод [flush( выводит текущую незавершённую группу, метод [clear( отбрасывает её</tr>
+        <tr lang="en">the [flush( method outputs the current incomplete group, the [clear( method
+        discards it</tr>
+        <tr lang="ru">метод [flush( выводит текущую незавершённую группу, метод [clear( отбрасывает
+        её</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to reassemble a stream of atoms into fixed-size lists, for example to build note pairs from a stream of pitch and velocity values</tr>
-        <tr lang="ru">объект можно использовать для сборки потока атомов в списки фиксированного размера, например чтобы собрать пары нот из потока значений высоты и скорости</tr>
+        <tr lang="en">the object can be used to reassemble a stream of atoms into fixed-size lists,
+        for example to build note pairs from a stream of pitch and velocity values</tr>
+        <tr lang="ru">объект можно использовать для сборки потока атомов в списки фиксированного
+        размера, например чтобы собрать пары нот из потока значений высоты и скорости</tr>
       </par>
     </info>
     <arguments>

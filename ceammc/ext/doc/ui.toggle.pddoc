@@ -29,8 +29,10 @@
         <tr lang="ru">это аналог стандартного переключателя в ceammc</tr>
       </par>
       <par>
-        <tr lang="en">the widget has two states (on and off) and outputs @on_value or @off_value depending on the current state</tr>
-        <tr lang="ru">виджет имеет два состояния (вкл и выкл) и выводит @on_value или @off_value в зависимости от текущего состояния</tr>
+        <tr lang="en">the widget has two states (on and off) and outputs @on_value or @off_value
+        depending on the current state</tr>
+        <tr lang="ru">виджет имеет два состояния (вкл и выкл) и выводит @on_value или @off_value в
+        зависимости от текущего состояния</tr>
       </par>
     </info>
     <mouse>
@@ -59,7 +61,8 @@
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
         <tr lang="en">bound MIDI controller number. -1 means not bound to any controller</tr>
-        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не привязан</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не
+        привязан</tr>
       </property>
       <!-- @off_value -->
       <property name="@off_value" type="float" default="0">
@@ -160,8 +163,10 @@
           <tr lang="ru">изменить состояние переключателя</tr>
         </in>
         <in on="float">
-          <tr lang="en">if 0 is given, sets state to unchecked and outputs @off_value. On any other number sets to checked state and outputs @on_value</tr>
-          <tr lang="ru">если подано 0, устанавливает состояние «выкл» и выводит @off_value. При любом другом числе устанавливает состояние «вкл» и выводит @on_value</tr>
+          <tr lang="en">if 0 is given, sets state to unchecked and outputs @off_value. On any other
+          number sets to checked state and outputs @on_value</tr>
+          <tr lang="ru">если подано 0, устанавливает состояние «выкл» и выводит @off_value. При
+          любом другом числе устанавливает состояние «вкл» и выводит @on_value</tr>
         </in>
       </inlet>
     </inlets>

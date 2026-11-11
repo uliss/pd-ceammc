@@ -23,20 +23,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a rectangular matrix of toggle cells. Note: all matrix operations use the following cell address format — ROW COL</tr>
-        <tr lang="ru">прямоугольная матрица ячеек-переключателей. Примечание: все операции с матрицей используют следующий формат адреса ячейки — СТРОКА СТОЛБЕЦ</tr>
+        <tr lang="en">a rectangular matrix of toggle cells. Note: all matrix operations use the
+        following cell address format — ROW COL</tr>
+        <tr lang="ru">прямоугольная матрица ячеек-переключателей. Примечание: все операции с
+        матрицей используют следующий формат адреса ячейки — СТРОКА СТОЛБЕЦ</tr>
       </par>
       <par>
         <tr lang="en">on a click, outputs a message in the format [cell ROW COL VALUE(</tr>
         <tr lang="ru">по клику выводит сообщение в формате [cell ROW COL VALUE(</tr>
       </par>
       <par>
-        <tr lang="en">the number of rows and columns is set by the ROW and COL arguments or by the @rows and @cols properties</tr>
-        <tr lang="ru">количество строк и столбцов задаётся аргументами ROW и COL или свойствами @rows и @cols</tr>
+        <tr lang="en">the number of rows and columns is set by the ROW and COL arguments or by the
+        @rows and @cols properties</tr>
+        <tr lang="ru">количество строк и столбцов задаётся аргументами ROW и COL или свойствами
+        @rows и @cols</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to build a step sequencer grid, to route signals between several inputs and outputs, or to toggle groups of parameters</tr>
-        <tr lang="ru">объект можно использовать для построения сетки шагового секвенсора, для маршрутизации сигналов между несколькими входами и выходами или для переключения групп параметров</tr>
+        <tr lang="en">the object can be used to build a step sequencer grid, to route signals
+        between several inputs and outputs, or to toggle groups of parameters</tr>
+        <tr lang="ru">объект можно использовать для построения сетки шагового секвенсора, для
+        маршрутизации сигналов между несколькими входами и выходами или для переключения групп
+        параметров</tr>
       </par>
     </info>
     <mouse>
@@ -77,18 +84,23 @@
       </property>
       <!-- @current_col -->
       <property name="@current_col" type="int" minvalue="-1" default="-1">
-        <tr lang="en">current column index. -1 if not specified. This property is not saved in the patch</tr>
-        <tr lang="ru">текущий индекс столбца. -1, если не указан. Это свойство не сохраняется в патче</tr>
+        <tr lang="en">current column index. -1 if not specified. This property is not saved in the
+        patch</tr>
+        <tr lang="ru">текущий индекс столбца. -1, если не указан. Это свойство не сохраняется в
+        патче</tr>
       </property>
       <!-- @current_color -->
       <property name="@current_color" type="list" default="1 0.75 0 1">
         <tr lang="en">current row/column color (list of red, green, blue values in 0–1 range)</tr>
-        <tr lang="ru">текущий цвет строки/столбца (список значений красного, зелёного, синего в диапазоне 0–1)</tr>
+        <tr lang="ru">текущий цвет строки/столбца (список значений красного, зелёного, синего в
+        диапазоне 0–1)</tr>
       </property>
       <!-- @current_row -->
       <property name="@current_row" type="int" minvalue="-1" default="-1">
-        <tr lang="en">current row index. -1 if not specified. This property is not saved in the patch</tr>
-        <tr lang="ru">текущий индекс строки. -1, если не указан. Это свойство не сохраняется в патче</tr>
+        <tr lang="en">current row index. -1 if not specified. This property is not saved in the
+        patch</tr>
+        <tr lang="ru">текущий индекс строки. -1, если не указан. Это свойство не сохраняется в
+        патче</tr>
       </property>
       <!-- @rows -->
       <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">
@@ -207,8 +219,10 @@
       <!-- get list -->
       <method name="get list">
         <info>
-          <tr lang="en">outputs all cell values as a list, row by row, for example [0 1 1 1 0...(</tr>
-          <tr lang="ru">выводит все значения ячеек в виде списка, строка за строкой, например [0 1 1 1 0...(</tr>
+          <tr lang="en">outputs all cell values as a list, row by row, for example [0 1 1 1
+          0...(</tr>
+          <tr lang="ru">выводит все значения ячеек в виде списка, строка за строкой, например [0 1
+          1 1 0...(</tr>
         </info>
       </method>
       <!-- get matrix -->
@@ -279,8 +293,10 @@
       <!-- read -->
       <method name="read">
         <param name="FNAME" type="symbol">
-          <tr lang="en">read matrix values from a text file (space separated). If the fname argument is not specified, opens a file chooser dialog</tr>
-          <tr lang="ru">читает значения матрицы из текстового файла (через пробелы). Если аргумент fname не указан, открывается диалог выбора файла</tr>
+          <tr lang="en">read matrix values from a text file (space separated). If the fname
+          argument is not specified, opens a file chooser dialog</tr>
+          <tr lang="ru">читает значения матрицы из текстового файла (через пробелы). Если аргумент
+          fname не указан, открывается диалог выбора файла</tr>
         </param>
       </method>
       <!-- reset -->
@@ -364,8 +380,10 @@
       <!-- write -->
       <method name="write">
         <param name="FNAME" type="symbol">
-          <tr lang="en">write matrix values to a text file (space separated). If the fname argument is not specified, opens a file chooser dialog</tr>
-          <tr lang="ru">записывает значения матрицы в текстовый файл (через пробелы). Если аргумент fname не указан, открывается диалог выбора файла</tr>
+          <tr lang="en">write matrix values to a text file (space separated). If the fname argument
+          is not specified, opens a file chooser dialog</tr>
+          <tr lang="ru">записывает значения матрицы в текстовый файл (через пробелы). Если аргумент
+          fname не указан, открывается диалог выбора файла</tr>
         </param>
       </method>
     </methods>
@@ -377,7 +395,8 @@
         </in>
         <in on="list">
           <tr lang="en">sets matrix state. Input format: 0 and 1, row by row</tr>
-          <tr lang="ru">устанавливает состояние матрицы. Формат входа: 0 и 1, строка за строкой</tr>
+          <tr lang="ru">устанавливает состояние матрицы. Формат входа: 0 и 1, строка за
+          строкой</tr>
         </in>
       </inlet>
     </inlets>

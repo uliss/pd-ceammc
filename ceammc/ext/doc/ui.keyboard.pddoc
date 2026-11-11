@@ -31,8 +31,10 @@
         <tr lang="ru">виджет фортепианной клавиатуры</tr>
       </par>
       <par>
-        <tr lang="en">the widget outputs a two-element list: MIDI pitch and velocity. Velocity depends on the click position on the key</tr>
-        <tr lang="ru">виджет выводит список из двух элементов: MIDI-нота и скорость. Скорость зависит от положения клика на клавише</tr>
+        <tr lang="en">the widget outputs a two-element list: MIDI pitch and velocity. Velocity
+        depends on the click position on the key</tr>
+        <tr lang="ru">виджет выводит список из двух элементов: MIDI-нота и скорость. Скорость
+        зависит от положения клика на клавише</tr>
       </par>
     </info>
     <mouse>
@@ -121,8 +123,10 @@
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">list of two elements: MIDI pitch and MIDI velocity. Velocity depends on the key press position</tr>
-          <tr lang="ru">список из двух элементов: MIDI-нота и скорость. Скорость зависит от положения нажатия на клавише</tr>
+          <tr lang="en">list of two elements: MIDI pitch and MIDI velocity. Velocity depends on the
+          key press position</tr>
+          <tr lang="ru">список из двух элементов: MIDI-нота и скорость. Скорость зависит от
+          положения нажатия на клавише</tr>
         </out>
       </outlet>
     </outlets>

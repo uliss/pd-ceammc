@@ -27,16 +27,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">[ui.hsl] is an alias for the horizontal slider, [ui.vsl] — for the vertical one</tr>
-        <tr lang="ru">[ui.hsl] — псевдоним для горизонтального слайдера, [ui.vsl] — для вертикального</tr>
+        <tr lang="en">[ui.hsl] is an alias for the horizontal slider, [ui.vsl] — for the vertical
+        one</tr>
+        <tr lang="ru">[ui.hsl] — псевдоним для горизонтального слайдера, [ui.vsl] — для
+        вертикального</tr>
       </par>
       <par>
-        <tr lang="en">the slider value is set by dragging the mouse or by a click that jumps to the clicked position, unless @mode is on</tr>
-        <tr lang="ru">значение слайдера задаётся перетаскиванием мыши или кликом, который переходит в позицию клика, если только не включён @mode</tr>
+        <tr lang="en">the slider value is set by dragging the mouse or by a click that jumps to the
+        clicked position, unless @mode is on</tr>
+        <tr lang="ru">значение слайдера задаётся перетаскиванием мыши или кликом, который переходит
+        в позицию клика, если только не включён @mode</tr>
       </par>
       <par>
-        <tr lang="en">@min, @max and @scale define the value range and response curve, @show_value displays the numeric value</tr>
-        <tr lang="ru">@min, @max и @scale задают диапазон значений и кривую отклика, @show_value отображает числовое значение</tr>
+        <tr lang="en">@min, @max and @scale define the value range and response curve, @show_value
+        displays the numeric value</tr>
+        <tr lang="ru">@min, @max и @scale задают диапазон значений и кривую отклика, @show_value
+        отображает числовое значение</tr>
       </par>
     </info>
     <mouse>
@@ -102,12 +108,17 @@
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
         <tr lang="en">bound MIDI controller number. -1 means not bound to any controller</tr>
-        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не привязан</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не
+        привязан</tr>
       </property>
       <!-- @midi_pickup -->
       <property name="@midi_pickup" type="bool" default="1">
-        <tr lang="en">pickup current value. If the slider is bound to a MIDI controller, you first have to pass over the current value to make the binding. This prevents a sudden value jump on the first control change</tr>
-        <tr lang="ru">подхват текущего значения. Если слайдер привязан к MIDI-контроллеру, сначала нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный скачок значения при первом изменении контроллера</tr>
+        <tr lang="en">pickup current value. If the slider is bound to a MIDI controller, you first
+        have to pass over the current value to make the binding. This prevents a sudden value jump
+        on the first control change</tr>
+        <tr lang="ru">подхват текущего значения. Если слайдер привязан к MIDI-контроллеру, сначала
+        нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный
+        скачок значения при первом изменении контроллера</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="0">
@@ -121,8 +132,10 @@
       </property>
       <!-- @mouse_events -->
       <property name="@mouse_events" type="bool" default="0">
-        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and @mouse_drag events</tr>
-        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down, @mouse_up и @mouse_drag</tr>
+        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down,
+        @mouse_up и @mouse_drag</tr>
       </property>
       <!-- @scale -->
       <property name="@scale" type="symbol" default="linear" enum="linear log">
@@ -142,7 +155,8 @@
       <!-- @text_color -->
       <property name="@text_color" type="list" default="0 0 0 1">
         <tr lang="en">value text color (list of red, green, blue values in 0–1 range)</tr>
-        <tr lang="ru">цвет текста значения (список значений красного, зелёного, синего в диапазоне 0–1)</tr>
+        <tr lang="ru">цвет текста значения (список значений красного, зелёного, синего в диапазоне
+        0–1)</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="float" default="0">

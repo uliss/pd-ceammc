@@ -25,20 +25,29 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object synthesizes speech from text using the RHVoice engine and outputs it as an audio signal</tr>
-        <tr lang="ru">объект синтезирует речь из текста с помощью движка RHVoice и выводит её как аудиосигнал</tr>
+        <tr lang="en">the object synthesizes speech from text using the RHVoice engine and outputs
+        it as an audio signal</tr>
+        <tr lang="ru">объект синтезирует речь из текста с помощью движка RHVoice и выводит её как
+        аудиосигнал</tr>
       </par>
       <par>
-        <tr lang="en">note: voices are not distributed with Pure Data-ceammc, you have to install the voice data manually</tr>
-        <tr lang="ru">примечание: голоса не поставляются вместе с Pure Data-ceammc, голосовые данные нужно устанавливать вручную</tr>
+        <tr lang="en">note: voices are not distributed with Pure Data-ceammc, you have to install
+        the voice data manually</tr>
+        <tr lang="ru">примечание: голоса не поставляются вместе с Pure Data-ceammc, голосовые
+        данные нужно устанавливать вручную</tr>
       </par>
       <par>
-        <tr lang="en">download the language and voice data files and put them into the ~/Documents/Pd/rhvoice directory</tr>
-        <tr lang="ru">скачайте файлы языковых и голосовых данных и поместите их в каталог ~/Documents/Pd/rhvoice</tr>
+        <tr lang="en">download the language and voice data files and put them into the
+        ~/Documents/Pd/rhvoice directory</tr>
+        <tr lang="ru">скачайте файлы языковых и голосовых данных и поместите их в каталог
+        ~/Documents/Pd/rhvoice</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to add voice prompts or spoken feedback to a patch, for example to announce parameter values or to read out messages</tr>
-        <tr lang="ru">объект можно использовать для добавления голосовых подсказок или речевой обратной связи в патч, например чтобы озвучивать значения параметров или зачитывать сообщения</tr>
+        <tr lang="en">the object can be used to add voice prompts or spoken feedback to a patch,
+        for example to announce parameter values or to read out messages</tr>
+        <tr lang="ru">объект можно использовать для добавления голосовых подсказок или речевой
+        обратной связи в патч, например чтобы озвучивать значения параметров или зачитывать
+        сообщения</tr>
       </par>
       <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
       <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
@@ -51,8 +60,10 @@
       </property>
       <!-- @punct -->
       <property name="@punct" type="symbol" default="">
-        <tr lang="en">punctuation for pronunciation. If 'all' — pronounce all, otherwise pronounce only the specified punctuation characters</tr>
-        <tr lang="ru">пунктуация для произношения. Если 'all' — произносить все знаки, иначе произносить только указанные знаки препинания</tr>
+        <tr lang="en">punctuation for pronunciation. If 'all' — pronounce all, otherwise pronounce
+        only the specified punctuation characters</tr>
+        <tr lang="ru">пунктуация для произношения. Если 'all' — произносить все знаки, иначе
+        произносить только указанные знаки препинания</tr>
       </property>
       <!-- @rate -->
       <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">
@@ -129,8 +140,10 @@
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">bang on done, [word 1( on word start, [word 0( on word end, [sentence 1( on sentence start, [sentence 0( on sentence end</tr>
-          <tr lang="ru">bang по завершении, [word 1( в начале слова, [word 0( в конце слова, [sentence 1( в начале предложения, [sentence 0( в конце предложения</tr>
+          <tr lang="en">bang on done, [word 1( on word start, [word 0( on word end, [sentence 1( on
+          sentence start, [sentence 0( on sentence end</tr>
+          <tr lang="ru">bang по завершении, [word 1( в начале слова, [word 0( в конце слова,
+          [sentence 1( в начале предложения, [sentence 0( в конце предложения</tr>
         </out>
       </outlet>
     </outlets>

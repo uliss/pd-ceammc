@@ -22,12 +22,18 @@
         <tr lang="ru">выводит пилообразный управляющий сигнал в диапазоне [0..1] или [0..1)</tr>
       </par>
       <par>
-        <tr lang="en">note: the control rate in Pure Data depends on the block size and sample rate. Do not rely on strict timing for this object, especially at high frequencies</tr>
-        <tr lang="ru">примечание: частота обновления управляющего сигнала в Pure Data зависит от размера блока и частоты дискретизации. Не полагайтесь на строгий тайминг для этого объекта, особенно на высоких частотах</tr>
+        <tr lang="en">note: the control rate in Pure Data depends on the block size and sample
+        rate. Do not rely on strict timing for this object, especially at high frequencies</tr>
+        <tr lang="ru">примечание: частота обновления управляющего сигнала в Pure Data зависит от
+        размера блока и частоты дискретизации. Не полагайтесь на строгий тайминг для этого объекта,
+        особенно на высоких частотах</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used as a control-rate LFO, for example to modulate a filter cutoff, pan position or any other parameter that is updated at control rate</tr>
-        <tr lang="ru">объект можно использовать как LFO с управляющей частотой, например чтобы модулировать срез фильтра, панораму или любой другой параметр, обновляемый с управляющей частотой</tr>
+        <tr lang="en">the object can be used as a control-rate LFO, for example to modulate a
+        filter cutoff, pan position or any other parameter that is updated at control rate</tr>
+        <tr lang="ru">объект можно использовать как LFO с управляющей частотой, например чтобы
+        модулировать срез фильтра, панораму или любой другой параметр, обновляемый с управляющей
+        частотой</tr>
       </par>
     </info>
     <arguments>
@@ -54,8 +60,10 @@
       </property>
       <!-- @open -->
       <property name="@open" type="bool" default="0">
-        <tr lang="en">output signal values in the open [0..1) range, otherwise the output range is [0..1] (by default)</tr>
-        <tr lang="ru">выводить значения сигнала в полуоткрытом диапазоне [0..1), иначе выходной диапазон [0..1] (по умолчанию)</tr>
+        <tr lang="en">output signal values in the open [0..1) range, otherwise the output range is
+        [0..1] (by default)</tr>
+        <tr lang="ru">выводить значения сигнала в полуоткрытом диапазоне [0..1), иначе выходной
+        диапазон [0..1] (по умолчанию)</tr>
       </property>
       <!-- @steps -->
       <property name="@steps" type="int" default="128" minvalue="3">

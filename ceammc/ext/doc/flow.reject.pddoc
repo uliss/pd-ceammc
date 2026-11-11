@@ -27,16 +27,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object passes the input value only if it is not found in the reject list, otherwise nothing is output</tr>
-        <tr lang="ru">объект пропускает входное значение только если оно не найдено в списке отклонения, иначе на выход ничего не поступает</tr>
+        <tr lang="en">the object passes the input value only if it is not found in the reject list,
+        otherwise nothing is output</tr>
+        <tr lang="ru">объект пропускает входное значение только если оно не найдено в списке
+        отклонения, иначе на выход ничего не поступает</tr>
       </par>
       <par>
-        <tr lang="en">the reject list is set by the VALUES argument, the @values property, or by sending a list to the right inlet</tr>
-        <tr lang="ru">список отклонения задаётся аргументом VALUES, свойством @values или подачей списка на правый вход</tr>
+        <tr lang="en">the reject list is set by the VALUES argument, the @values property, or by
+        sending a list to the right inlet</tr>
+        <tr lang="ru">список отклонения задаётся аргументом VALUES, свойством @values или подачей
+        списка на правый вход</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to filter out unwanted values from a stream, for example to remove zero values before a division or to block specific note numbers</tr>
-        <tr lang="ru">объект можно использовать для отбрасывания нежелательных значений из потока, например чтобы убрать нули перед делением или заблокировать определённые номера нот</tr>
+        <tr lang="en">the object can be used to filter out unwanted values from a stream, for
+        example to remove zero values before a division or to block specific note numbers</tr>
+        <tr lang="ru">объект можно использовать для отбрасывания нежелательных значений из потока,
+        например чтобы убрать нули перед делением или заблокировать определённые номера нот</tr>
       </par>
     </info>
     <arguments>

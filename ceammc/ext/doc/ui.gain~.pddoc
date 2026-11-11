@@ -22,16 +22,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">a gain control widget with an audio input and an audio output. The gain can be set in decibels or as an amplitude ratio</tr>
-        <tr lang="ru">виджет-регулятор усиления с аудиовходом и аудиовыходом. Усиление можно задавать в децибелах или как амплитудное отношение</tr>
+        <tr lang="en">a gain control widget with an audio input and an audio output. The gain can
+        be set in decibels or as an amplitude ratio</tr>
+        <tr lang="ru">виджет-регулятор усиления с аудиовходом и аудиовыходом. Усиление можно
+        задавать в децибелах или как амплитудное отношение</tr>
       </par>
       <par>
-        <tr lang="en">the gain is controlled by dragging the mouse or scrolling the wheel. Hold Shift to change the gain slowly, double-click with Cmd to switch the orientation</tr>
-        <tr lang="ru">усиление регулируется перетаскиванием мыши или прокруткой колеса. Удерживайте Shift для медленного изменения, двойной клик с Cmd переключает ориентацию</tr>
+        <tr lang="en">the gain is controlled by dragging the mouse or scrolling the wheel. Hold
+        Shift to change the gain slowly, double-click with Cmd to switch the orientation</tr>
+        <tr lang="ru">усиление регулируется перетаскиванием мыши или прокруткой колеса. Удерживайте
+        Shift для медленного изменения, двойной клик с Cmd переключает ориентацию</tr>
       </par>
       <par>
-        <tr lang="en">@db and @amp set the gain in decibels or as an amplitude ratio, @min and @max define the range, @relative enables relative mouse mode</tr>
-        <tr lang="ru">@db и @amp задают усиление в децибелах или как амплитудное отношение, @min и @max задают диапазон, @relative включает относительный режим мыши</tr>
+        <tr lang="en">@db and @amp set the gain in decibels or as an amplitude ratio, @min and @max
+        define the range, @relative enables relative mouse mode</tr>
+        <tr lang="ru">@db и @amp задают усиление в децибелах или как амплитудное отношение, @min и
+        @max задают диапазон, @relative включает относительный режим мыши</tr>
       </par>
     </info>
     <mouse>
@@ -89,12 +95,17 @@
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
         <tr lang="en">bound MIDI controller number. -1 means not bound to any controller</tr>
-        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не привязан</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не
+        привязан</tr>
       </property>
       <!-- @midi_pickup -->
       <property name="@midi_pickup" type="bool" default="1">
-        <tr lang="en">pickup current value. If the slider is bound to a MIDI controller, you first have to pass over the current value to make the binding. This prevents a sudden value jump on the first control change</tr>
-        <tr lang="ru">подхват текущего значения. Если слайдер привязан к MIDI-контроллеру, сначала нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный скачок значения при первом изменении контроллера</tr>
+        <tr lang="en">pickup current value. If the slider is bound to a MIDI controller, you first
+        have to pass over the current value to make the binding. This prevents a sudden value jump
+        on the first control change</tr>
+        <tr lang="ru">подхват текущего значения. Если слайдер привязан к MIDI-контроллеру, сначала
+        нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный
+        скачок значения при первом изменении контроллера</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="int" minvalue="-90" maxvalue="-15" default="-60" units="decibel">
@@ -103,8 +114,10 @@
       </property>
       <!-- @mouse_events -->
       <property name="@mouse_events" type="bool" default="0">
-        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and @mouse_drag events</tr>
-        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down, @mouse_up и @mouse_drag</tr>
+        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down,
+        @mouse_up и @mouse_drag</tr>
       </property>
       <!-- @output_value -->
       <property name="@output_value" type="bool" default="0">
@@ -114,7 +127,8 @@
       <!-- @relative -->
       <property name="@relative" type="bool" default="1">
         <tr lang="en">relative input mode. When set, do not jump to value on click</tr>
-        <tr lang="ru">относительный режим ввода. Если включён, не переходить к значению по клику</tr>
+        <tr lang="ru">относительный режим ввода. Если включён, не переходить к значению по
+        клику</tr>
       </property>
       <!-- @show_range -->
       <property name="@show_range" type="bool" default="1">

@@ -18,20 +18,26 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object renders numbers, symbols and lists to a wavetable in the specified array using the Flite TTS engine</tr>
-        <tr lang="ru">объект синтезирует числа, символы и списки в волновую таблицу в заданном массиве с помощью движка Flite TTS</tr>
+        <tr lang="en">the object renders numbers, symbols and lists to a wavetable in the specified
+        array using the Flite TTS engine</tr>
+        <tr lang="ru">объект синтезирует числа, символы и списки в волновую таблицу в заданном
+        массиве с помощью движка Flite TTS</tr>
       </par>
       <par>
-        <tr lang="en">rendering is performed in a separate thread, so it does not block the audio thread</tr>
-        <tr lang="ru">синтез выполняется в отдельном потоке, поэтому он не блокирует аудиопоток</tr>
+        <tr lang="en">rendering is performed in a separate thread, so it does not block the audio
+        thread</tr>
+        <tr lang="ru">синтез выполняется в отдельном потоке, поэтому он не блокирует
+        аудиопоток</tr>
       </par>
       <par>
         <tr lang="en">a bang is output on the first outlet when rendering is finished</tr>
         <tr lang="ru">по завершении синтеза на первый выход выдаётся bang</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to generate spoken words or numbers, for example to announce values or to add voice prompts to a patch</tr>
-        <tr lang="ru">объект можно использовать для генерации произносимых слов или чисел, например чтобы озвучивать значения или добавлять голосовые подсказки в патч</tr>
+        <tr lang="en">the object can be used to generate spoken words or numbers, for example to
+        announce values or to add voice prompts to a patch</tr>
+        <tr lang="ru">объект можно использовать для генерации произносимых слов или чисел, например
+        чтобы озвучивать значения или добавлять голосовые подсказки в патч</tr>
       </par>
     </info>
     <arguments>

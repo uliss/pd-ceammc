@@ -29,12 +29,17 @@
         <tr lang="ru">простой виджет-поворотный регулятор с диапазоном по умолчанию 0–1</tr>
       </par>
       <par>
-        <tr lang="en">the knob value is set by dragging the mouse or scrolling the wheel. Hold Shift to change the value slowly, double-click to set the knob to the middle position</tr>
-        <tr lang="ru">значение регулятора задаётся перетаскиванием мыши или прокруткой колеса. Удерживайте Shift для медленного изменения, двойной клик устанавливает регулятор в среднее положение</tr>
+        <tr lang="en">the knob value is set by dragging the mouse or scrolling the wheel. Hold
+        Shift to change the value slowly, double-click to set the knob to the middle position</tr>
+        <tr lang="ru">значение регулятора задаётся перетаскиванием мыши или прокруткой колеса.
+        Удерживайте Shift для медленного изменения, двойной клик устанавливает регулятор в среднее
+        положение</tr>
       </par>
       <par>
-        <tr lang="en">@min, @max and @scale define the value range and response curve, @mouse_events enables output of mouse events</tr>
-        <tr lang="ru">@min, @max и @scale задают диапазон значений и кривую отклика, @mouse_events включает вывод событий мыши</tr>
+        <tr lang="en">@min, @max and @scale define the value range and response curve,
+        @mouse_events enables output of mouse events</tr>
+        <tr lang="ru">@min, @max и @scale задают диапазон значений и кривую отклика, @mouse_events
+        включает вывод событий мыши</tr>
       </par>
     </info>
     <mouse>
@@ -90,7 +95,8 @@
       <!-- @knob_color -->
       <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">
         <tr lang="en">knob color (list of red, green, blue values in 0–1 range)</tr>
-        <tr lang="ru">цвет регулятора (список значений красного, зелёного, синего в диапазоне 0–1)</tr>
+        <tr lang="ru">цвет регулятора (список значений красного, зелёного, синего в диапазоне
+        0–1)</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="1">
@@ -100,12 +106,17 @@
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
         <tr lang="en">bound MIDI controller number. -1 means not bound to any controller</tr>
-        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не привязан</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не
+        привязан</tr>
       </property>
       <!-- @midi_pickup -->
       <property name="@midi_pickup" type="bool" default="1">
-        <tr lang="en">pickup current value. If the knob is bound to a MIDI controller, you first have to pass over the current value to make the binding. This prevents a sudden value jump on the first control change</tr>
-        <tr lang="ru">подхват текущего значения. Если регулятор привязан к MIDI-контроллеру, сначала нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный скачок значения при первом изменении контроллера</tr>
+        <tr lang="en">pickup current value. If the knob is bound to a MIDI controller, you first
+        have to pass over the current value to make the binding. This prevents a sudden value jump
+        on the first control change</tr>
+        <tr lang="ru">подхват текущего значения. Если регулятор привязан к MIDI-контроллеру,
+        сначала нужно пройти через текущее значение, чтобы установить связь. Это предотвращает
+        внезапный скачок значения при первом изменении контроллера</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="0">
@@ -114,8 +125,10 @@
       </property>
       <!-- @mouse_events -->
       <property name="@mouse_events" type="bool" default="0">
-        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and @mouse_drag events</tr>
-        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down, @mouse_up и @mouse_drag</tr>
+        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and
+        @mouse_drag events</tr>
+        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down,
+        @mouse_up и @mouse_drag</tr>
       </property>
       <!-- @scale -->
       <property name="@scale" type="symbol" default="linear" enum="linear log">

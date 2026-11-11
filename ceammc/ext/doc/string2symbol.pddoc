@@ -23,8 +23,10 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object converts a data:String value into a symbol, so that string data can be used in objects that expect symbols</tr>
-        <tr lang="ru">объект преобразует значение data:String в символ, чтобы строковые данные можно было использовать в объектах, ожидающих символ</tr>
+        <tr lang="en">the object converts a data:String value into a symbol, so that string data
+        can be used in objects that expect symbols</tr>
+        <tr lang="ru">объект преобразует значение data:String в символ, чтобы строковые данные
+        можно было использовать в объектах, ожидающих символ</tr>
       </par>
     </info>
     <inlets>
