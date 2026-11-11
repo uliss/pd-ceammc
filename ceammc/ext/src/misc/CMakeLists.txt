@@ -81,6 +81,7 @@ if(WITH_TTS_FLITE)
 endif()
 
 if(WITH_TTS_RHVOICE)
+  set(CMAKE_PREFIX_PATH "$ENV{HOME}/.local/rhvoice")
   find_package(RHVoice REQUIRED)
 
   if(RHVOICE_FOUND)

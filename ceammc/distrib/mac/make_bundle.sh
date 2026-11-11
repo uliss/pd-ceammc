@@ -304,8 +304,9 @@ then
 fi
 
 section "Copying CEAMMC dll and externals"
+export RUST_LOG=info
 $DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
-    --rpaths=${BUILD_DIR}/ceammc/ext/src/lib \
+    --rpaths ${BUILD_DIR}/ceammc/ext/src/lib ${HOME}/.local/rhvoice/lib \
     --files $(find ${BUILD_DIR}/ceammc -name '*.dylib' -o -name '*.d_fat' -o -name '*.d_amd64' -o -name '*.d_i386' -o -name '*.pd_darwin' | grep -v tcl | tr '\n' ' ')
 
 if [[ $? -ne 0 ]]
@@ -406,6 +407,8 @@ fi
 section "Copying rust apps"
 mkdir -p "${BUNDLE_CEAMMC}"
 copy $BUILD_DIR/ceammc/extra/rust/rhvoice_download "${BUNDLE_CEAMMC}"
+$DYLIBFIX --dir "${BUNDLE_CEAMMC}" \
+    --files $BUILD_DIR/ceammc/extra/rust/rhvoice_download
 
 
 section "Codesign"

@@ -126,7 +126,7 @@
         "WITH_SYSTEM_INFO": "ON",
         "WITH_TELEGRAM": "OFF",
         "WITH_TTS_FLITE": "ON",
-        "WITH_TTS_RHVOICE": "OFF",
+        "WITH_TTS_RHVOICE": "ON",
         "WITH_VEROVIO": "OFF",
         "WITH_VLC": "ON",
         "WITH_WEBSOCKET": "ON",
