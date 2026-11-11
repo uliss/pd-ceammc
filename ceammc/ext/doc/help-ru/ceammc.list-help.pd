@@ -176,7 +176,7 @@ list.shuffle-help.pd;
 #X obj 30 1940 ui.link @title [list.slice] @url list.slice-help.pd;
 #X text 220 1937 выводит подсписок;
 #X obj 30 1965 ui.link @title [list.sort] @url list.sort-help.pd;
-#X text 220 1962 сортирует список в порядке возрастания;
+#X text 220 1962 сортирует список по возрастанию;
 #X obj 30 1990 ui.link @title [list.sort_with] @url
 list.sort_with-help.pd;
 #X text 220 1987 сортирует список при помощи боковой цепи обработки;

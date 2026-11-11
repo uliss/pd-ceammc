@@ -716,7 +716,7 @@ list.set	sets the value of the list item at the specified position / устан�
 list.shift	cyclic shift of a list by a real number with a linear Interpolation / циклический сдвиг списка на вещественное число с линейной интерполяцией
 list.shuffle	rearranges the elements of the list in a random order / переставляет элементы списка в случайном порядке
 list.slice	outputs a sublist / выводит подсписок
-list.sort	sorts the list in ascending order / сортирует список в порядке возрастания
+list.sort	sorts the list in ascending order / сортирует список по возрастанию
 list.sort_with	sorts the list using a side processing chain / сортирует список при помощи боковой цепи обработки
 list.split	divides the list into two parts at the specified index position / разделяет список на две части по указанному индексу
 list.stretch	changes the length of the list by adjusting its values using linear interpolation / изменяет длину списка, изменяя его значения с помощью линейной интерполяции
