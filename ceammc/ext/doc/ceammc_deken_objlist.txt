@@ -679,7 +679,7 @@ list.mean	calculates the average value in a list / вычисляет средн
 list.average	calculates the average value in a list / вычисляет среднее значение в списке
 list.min	returns the smallest list element / возвращает наименьший элемент в списке
 list.none_of	checks if none of list elements is accepted by the predicate side-chain / проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки
-list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка, чтобы их сумма была равна единице
+list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка так, чтобы их сумма была равна 1.0
 list.pass	leave in list only specified elements / оставлять в списке только указанные элементы
 list.pass_if	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
 list.filter	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки

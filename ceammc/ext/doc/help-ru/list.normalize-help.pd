@@ -1,60 +1,63 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 323 50 cnv 1 442 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 328 50 нормализует числовые значения списка \, чтобы их сумма
-была равна единице;
+#X obj 292 50 cnv 1 473 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 297 50 нормализует числовые значения списка так \, чтобы их
+сумма была равна 1.0;
 #X obj 1 1 cnv 5 765 40 empty empty list.normalize 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 list.normalize;
-#X obj 230 93 cnv 1 535 110 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 There are two modes of normalization:;
-#X text 240 123 1\. by sum - multiply all elements to such number to
-get total sum = 1.0;
-#X text 240 163 2\. by value range - maps all values to range 0\..1
-lineary;
-#X msg 50 251 1 2 3 4;
-#X msg 78 280 1 2 a b c d;
-#X msg 213 280 @range;
-#X msg 299 280 @sum;
-#X obj 50 338 list.normalize @sum;
-#X obj 69 367 ui.dt;
-#X obj 50 410 list.sum;
-#X floatatom 50 438 5 0 0 0 - - -;
-#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 475 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 180 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 есть два режима нормализации:;
+#X text 240 123 1\. по сумме — все элементы умножаются на такое число
+\, чтобы их общая сумма стала равна 1.0;
+#X text 240 163 2\. по диапазону значений — все значения линейно отображаются
+в диапазон 0\..1;
+#X text 240 203 объект можно использовать для превращения списка весов
+в распределение вероятностей \, например чтобы подготовить значения
+для взвешенного случайного выбора;
+#X msg 50 321 1 2 3 4;
+#X msg 78 350 1 2 a b c d;
+#X msg 213 350 @range;
+#X msg 299 350 @sum;
+#X obj 50 408 list.normalize @sum;
+#X obj 69 437 ui.dt;
+#X obj 50 480 list.sum;
+#X floatatom 50 508 5 0 0 0 - - -;
+#X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 545 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 478 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 548 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 476 @by;
-#X text 270 476 Normalization mode. Тип: symbol. Значение по умолчанию:
+#X msg 130 546 @by;
+#X text 270 546 Режим нормализации. Тип: symbol. Значение по умолчанию:
 sum. Разрешённые значения: sum \, range.;
-#X obj 250 518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 518 @range;
-#X text 270 518 Alias to @by range.;
-#X obj 250 548 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 548 @sum;
-#X text 270 548 Alias to @by sum.;
-#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 593 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 588 @range;
+#X text 270 588 Псевдоним для @by range.;
+#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 618 @sum;
+#X text 270 618 Псевдоним для @by sum.;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 663 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 594 1\.;
-#X text 170 594 list:;
-#X text 270 594 input list of floats. Non float values are rejected.;
-#X text 170 619 data:mlist:;
-#X text 270 619 same as list.;
-#X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 659 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 664 1\.;
+#X text 170 664 list:;
+#X text 270 664 входной список чисел. Нечисловые значения отбрасываются.;
+#X text 170 689 data:mlist:;
+#X text 270 689 то же \, что список.;
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 729 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 660 1\.;
-#X text 270 660 output list.;
+#X text 130 730 1\.;
+#X text 270 730 выходной список.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 710 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 713 библиотека: ceammc v0.9.8;
-#N canvas 10 732 400 290 info 0;
+#X obj 1 780 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 783 библиотека: ceammc v0.9.8;
+#N canvas 10 802 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -78,11 +81,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 732 pd info;
-#X connect 8 0 12 0;
-#X connect 9 0 12 0;
-#X connect 10 0 12 0;
-#X connect 11 0 12 0;
+#X restore 10 802 pd info;
+#X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
 #X connect 12 0 13 0;
-#X connect 12 0 14 0;
-#X connect 14 0 15 0;
+#X connect 13 0 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;

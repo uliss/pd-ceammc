@@ -96,8 +96,8 @@ list.none_of-help.pd;
 предикатом боковой цепи обработки;
 #X obj 30 1100 ui.link @title [list.normalize] @url
 list.normalize-help.pd;
-#X text 220 1097 нормализует числовые значения списка \, чтобы их сумма
-была равна единице;
+#X text 220 1097 нормализует числовые значения списка так \, чтобы
+их сумма была равна 1.0;
 #X obj 30 1140 ui.link @title [list.pass] @url list.pass-help.pd;
 #X text 220 1137 оставлять в списке только указанные элементы;
 #X obj 30 1165 ui.link @title [list.pass_if] @url
