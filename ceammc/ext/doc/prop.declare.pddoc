@@ -20,65 +20,76 @@
         <see>patch.props</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object declares a named property that belongs to the current subpatch or abstraction and can be accessed by name from other objects</tr>
+        <tr lang="ru">объект объявляет именованное свойство, принадлежащее текущему субпатчу или абстракции и доступное по имени из других объектов</tr>
+      </par>
+      <par>
+        <tr lang="en">the property name is set by the NAME argument, the type and constraints are set by the @type, @min, @max, @enum and @default properties</tr>
+        <tr lang="ru">имя свойства задаётся аргументом NAME, тип и ограничения — свойствами @type, @min, @max, @enum и @default</tr>
+      </par>
+      <par>
+        <tr lang="en">declared properties can be read and written with the [prop] and [prop.set] objects, or with [patch.props]</tr>
+        <tr lang="ru">объявленные свойства можно читать и записывать объектами [prop] и [prop.set] или через [patch.props]</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="NAME" type="symbol">
-        <tr lang="en">property name without @ (should be unique for current canvas)</tr>
-        <tr lang="ru" finished="false">Имя собственности без @ (должно быть уникальным для текущего
-        холста)</tr>
+        <tr lang="en">property name without @ (should be unique for the current canvas)</tr>
+        <tr lang="ru">имя свойства без @ (должно быть уникальным для текущего холста)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @b -->
       <property name="@b" type="alias">
         <tr lang="en">alias to @type bool</tr>
-        <tr lang="ru" finished="false">Исполнитель: @type Bool</tr>
+        <tr lang="ru">псевдоним для @type bool</tr>
       </property>
       <!-- @default -->
       <property name="@default" type="list" access="initonly" default="">
         <tr lang="en">default property value</tr>
-        <tr lang="ru" finished="false">Стоимость недвижимости по умолчанию</tr>
+        <tr lang="ru">значение свойства по умолчанию</tr>
       </property>
       <!-- @enum -->
       <property name="@enum" type="list" access="initonly" default="">
-        <tr lang="en">allowed values (without default value) (for symbol properties only)</tr>
-        <tr lang="ru" finished="false">разрешенные значения (без значения по умолчанию) (только для
-        свойств символа)</tr>
+        <tr lang="en">allowed values (without the default value) (for symbol properties only)</tr>
+        <tr lang="ru">допустимые значения (без значения по умолчанию) (только для символьных свойств)</tr>
       </property>
       <!-- @f -->
       <property name="@f" type="alias">
         <tr lang="en">alias to @type float</tr>
-        <tr lang="ru" finished="false">Исполнитель: @type Float</tr>
+        <tr lang="ru">псевдоним для @type float</tr>
       </property>
       <!-- @i -->
       <property name="@i" type="alias">
         <tr lang="en">alias to @type int</tr>
-        <tr lang="ru" finished="false">Исполнитель: @type Int</tr>
+        <tr lang="ru">псевдоним для @type int</tr>
       </property>
       <!-- @l -->
       <property name="@l" type="alias">
         <tr lang="en">alias to @type list</tr>
-        <tr lang="ru" finished="false">Источник: @type list</tr>
+        <tr lang="ru">псевдоним для @type list</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="+inf" access="initonly">
         <tr lang="en">maximum value (for float and int properties only)</tr>
-        <tr lang="ru" finished="false">Максимальное значение (только для свойств float и int)</tr>
+        <tr lang="ru">максимальное значение (только для свойств float и int)</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="-inf" access="initonly">
         <tr lang="en">minimal value (for float and int properties only)</tr>
-        <tr lang="ru" finished="false">Минимальное значение (только для поплавковых и
-        инт-свойств)</tr>
+        <tr lang="ru">минимальное значение (только для свойств float и int)</tr>
       </property>
       <!-- @s -->
       <property name="@s" type="alias">
         <tr lang="en">alias to @type symbol</tr>
-        <tr lang="ru" finished="false">псевдоним @type symbol</tr>
+        <tr lang="ru">псевдоним для @type symbol</tr>
       </property>
       <!-- @type -->
       <property name="@type" type="symbol" enum="float int bool enum symbol list" default="float">
         <tr lang="en">property type</tr>
-        <tr lang="ru" finished="false">Тип собственности</tr>
+        <tr lang="ru">тип свойства</tr>
       </property>
     </properties>
     <example>

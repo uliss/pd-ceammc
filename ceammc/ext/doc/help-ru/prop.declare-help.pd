@@ -5,74 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty prop.declare 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 prop.declare;
-#X obj 50 118 prop.declare freq @min 20 @max 20000 @default 1000;
-#X obj 50 147 prop.declare gain @min -60 @max 12 @default 3;
-#X obj 50 176 prop @freq;
-#X obj 174 176 prop @gain;
-#X floatatom 50 205 5 0 0 0 - - -;
-#X floatatom 174 205 5 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект объявляет именованное свойство \, принадлежащее
+текущему субпатчу или абстракции и доступное по имени из других объектов;
+#X text 240 138 имя свойства задаётся аргументом NAME \, тип и ограничения
+— свойствами @type \, @min \, @max \, @enum и @default;
+#X text 240 178 объявленные свойства можно читать и записывать объектами
+[prop] и [prop.set] или через [patch.props];
+#X obj 50 281 prop.declare freq @min 20 @max 20000 @default 1000;
+#X obj 50 310 prop.declare gain @min -60 @max 12 @default 3;
+#X obj 50 339 prop @freq;
+#X obj 174 339 prop @gain;
+#X floatatom 50 368 5 0 0 0 - - -;
+#X floatatom 174 368 5 0 0 0 - - -;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 405 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 408 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 243 1\.;
-#X text 170 243 symbol;
-#X obj 268 244 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 NAME: property name without @ (should be unique for
-current canvas). Тип: symbol.;
-#X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 298 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 406 1\.;
+#X text 170 406 symbol;
+#X obj 268 407 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 406 NAME: имя свойства без @ (должно быть уникальным для
+текущего холста). Тип: symbol.;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 301 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 299 @default;
-#X text 270 299 (при инициализации) Default property value. Тип: list.;
-#X obj 250 329 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 329 @enum;
-#X text 270 329 (при инициализации) Allowed values (without default
-value) (for symbol properties only). Тип: list.;
-#X obj 250 371 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 371 @max;
-#X text 270 371 (при инициализации) Maximum value (for float and int
-properties only). Тип: float. Значение по умолчанию: +inf.;
-#X obj 250 428 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 428 @min;
-#X text 270 428 (при инициализации) Minimal value (for float and int
-properties only). Тип: float. Значение по умолчанию: -inf.;
-#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 485 @b;
-#X text 270 485 Alias to @type bool.;
-#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 515 @f;
-#X text 270 515 Alias to @type float.;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 @i;
-#X text 270 545 Alias to @type int.;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @l;
-#X text 270 575 Alias to @type list.;
-#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 605 @s;
-#X text 270 605 Alias to @type symbol.;
-#X obj 250 635 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 635 @type;
-#X text 270 635 Property type. Тип: symbol. Значение по умолчанию:
-float. Разрешённые значения: float \, int \, bool \, enum \, symbol
-\, list.;
+#X msg 130 462 @default;
+#X text 270 462 (при инициализации) Значение свойства по умолчанию.
+Тип: list.;
+#X obj 250 504 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 504 @enum;
+#X text 270 504 (при инициализации) Допустимые значения (без значения
+по умолчанию) (только для символьных свойств). Тип: list.;
+#X obj 250 561 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 561 @max;
+#X text 270 561 (при инициализации) Максимальное значение (только для
+свойств float и int). Тип: float. Значение по умолчанию: +inf.;
+#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 618 @min;
+#X text 270 618 (при инициализации) Минимальное значение (только для
+свойств float и int). Тип: float. Значение по умолчанию: -inf.;
+#X obj 250 675 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 675 @b;
+#X text 270 675 Псевдоним для @type bool.;
+#X obj 250 705 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 705 @f;
+#X text 270 705 Псевдоним для @type float.;
+#X obj 250 735 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 735 @i;
+#X text 270 735 Псевдоним для @type int.;
+#X obj 250 765 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 765 @l;
+#X text 270 765 Псевдоним для @type list.;
+#X obj 250 795 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 795 @s;
+#X text 270 795 Псевдоним для @type symbol.;
+#X obj 250 825 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 825 @type;
+#X text 270 825 Тип свойства. Тип: symbol. Значение по умолчанию: float.
+Разрешённые значения: float \, int \, bool \, enum \, symbol \, list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 722 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 725 библиотека: ceammc v0.9.8;
-#X text 489 737 смотрите также:;
-#X obj 610 740 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 912 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 915 библиотека: ceammc v0.9.8;
+#X text 489 927 смотрите также:;
+#X obj 610 930 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop] @url prop-help.pd;
-#X obj 657 740 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 930 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.props] @url patch.props-help.pd;
-#N canvas 10 744 400 290 info 0;
+#N canvas 10 934 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,6 +103,6 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 744 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 9 0;
+#X restore 10 934 pd info;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
