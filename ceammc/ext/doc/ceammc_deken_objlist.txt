@@ -1131,8 +1131,8 @@ proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch / парсе
 proto.vlc	VLC video player control over HTTP / управление видеоплеером VLC через HTTP
 proto.whammy	control for Digitech Whammy pedal / управление педалью Digitech Whammy Pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol / управление Behringer XTouch XMidi
-random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
-random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атома из заданного списка
+random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атома из заданного списка
 random.discrete	generate random weighted integers on the interval [0, n) / генерирует случайные взвешенные целые числа на интервале [0, n)
 random.float	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
 random.f	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне

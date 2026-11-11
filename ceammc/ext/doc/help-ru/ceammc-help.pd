@@ -1994,7 +1994,7 @@ proto.xtouch_ext-help.pd;
 -49933 0;
 #X obj 20 20848 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 30 20862 ui.link @title [random.atom] @url random.atom-help.pd;
-#X text 200 20859 случайный взвешенный выбор атомов из указанного списка;
+#X text 200 20859 случайный взвешенный выбор атома из заданного списка;
 #X obj 30 20887 ui.link @title [random.discrete] @url
 random.discrete-help.pd;
 #X text 200 20884 генерирует случайные взвешенные целые числа на интервале

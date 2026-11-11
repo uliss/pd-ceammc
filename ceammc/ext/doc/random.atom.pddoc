@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">weighed choosing of the random atom from the specified list</tr>
-        <tr lang="ru">случайный взвешенный выбор атомов из указанного списка</tr>
+        <tr lang="ru">случайный взвешенный выбор атома из заданного списка</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,71 +25,65 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Choose random atom from specified list (with weights) and output it.</tr>
-        <tr lang="ru" finished="false">Выберите случайный атом из указанного списка (с весами) и
-        выведите его.</tr>
+        <tr lang="en">chooses a random atom from the specified list (with weights) and outputs it</tr>
+        <tr lang="ru">выбирает случайный атом из заданного списка (с весами) и выводит его</tr>
       </par>
       <par>
-        <tr lang="en">If no weights specified, choose elements with random uniform
-        distribution.</tr>
-        <tr lang="ru" finished="false">Если вес не указан, выберите элементы со случайным
-        однородным распределением.</tr>
+        <tr lang="en">if no weights are specified, elements are chosen with a uniform random distribution</tr>
+        <tr lang="ru">если веса не заданы, элементы выбираются с равномерным случайным распределением</tr>
       </par>
       <par>
-        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
-        explicitly set or specified, uses generator initialized with current time.</tr>
-        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
-        последовательностей. Если свойство @seed не было явно установлено или указано, используется
-        генератор, инициализированный с текущим временем.</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">Note: when @nonrep property is set, distribution is not uniform or
-        weighted.</tr>
-        <tr lang="ru" finished="false">Примечание: когда свойство @nonrep установлено,
-        распределение не является однородным или взвешенным.</tr>
+        <tr lang="en">note: when @nonrep is set, the distribution is not uniform or weighted</tr>
+        <tr lang="ru">примечание: если задано @nonrep, распределение не является равномерным или взвешенным</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to generate random note sequences with a musical weighting, for example to make some notes more likely than others</tr>
+        <tr lang="ru">объект можно использовать для генерации случайных нотных последовательностей с музыкальными весами, например чтобы одни ноты выпадали чаще других</tr>
       </par>
     </info>
     <arguments>
       <argument name="VALUE" type="list">
         <tr lang="en">list of atoms</tr>
-        <tr lang="ru" finished="false">Список атомов</tr>
+        <tr lang="ru">список атомов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @nonrep -->
       <property name="@nonrep" type="bool" default="0">
-        <tr lang="en">generate non-repeated adjacent values (note: distribution will changed!)</tr>
-        <tr lang="ru" finished="false">генерировать неповторяющиеся смежные значения (примечание:
-        распределение изменится!)</tr>
+        <tr lang="en">generate non-repeated adjacent values (note: the distribution will change)</tr>
+        <tr lang="ru">генерировать неповторяющиеся соседние значения (примечание: распределение изменится)</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">начальное значение генератора</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="list" default="">
         <tr lang="en">list of atoms</tr>
-        <tr lang="ru" finished="false">Список атомов</tr>
+        <tr lang="ru">список атомов</tr>
       </property>
       <!-- @w -->
       <property name="@w" type="list" default="">
         <tr lang="en">list of atom weights</tr>
-        <tr lang="ru" finished="false">Список атомных весов</tr>
+        <tr lang="ru">список весов атомов</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">output random atom</tr>
-          <tr lang="ru" finished="false">выход случайного атома</tr>
+          <tr lang="ru">вывести случайный атом</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
-          <tr lang="en">set list of elements to choose from. Note: clear all weights.</tr>
-          <tr lang="ru" finished="false">Список элементов на выбор. Примечание: очистить все
-          веса.</tr>
+          <tr lang="en">set list of elements to choose from. Note: clears all weights</tr>
+          <tr lang="ru">задать список элементов для выбора. Примечание: очищает все веса</tr>
         </in>
       </inlet>
     </inlets>
@@ -97,7 +91,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">random atom value</tr>
-          <tr lang="ru" finished="false">случайное значение атома</tr>
+          <tr lang="ru">случайное значение атома</tr>
         </out>
       </outlet>
     </outlets>
