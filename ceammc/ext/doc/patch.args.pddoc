@@ -17,7 +17,7 @@
       <also>
         <see>canvas.current</see>
         <see>canvas.top</see>
-        <see>list-&gt;props</see>
+        <see>conv.list2props</see>
       </also>
       <since>0.4</since>
     </meta>

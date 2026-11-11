@@ -128,9 +128,9 @@ Type: float. Units: 'ms'. Default value: 50\. Range: [0\..500].;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1376 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1379 library: ceammc v0.9.8;
-#X text 590 1391 see also:;
-#X obj 665 1394 ui.link @background_color 0.78431 0.78431 0.78431
-@title [fx.sdelay~] @url fx.sdelay~-help.pd;
+#X text 597 1391 see also:;
+#X obj 672 1394 ui.link @background_color 0.78431 0.78431 0.78431
+@title [fx.delay~] @url fx.delay~-help.pd;
 #N canvas 10 1398 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

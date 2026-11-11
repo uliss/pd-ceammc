@@ -56,13 +56,13 @@
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 671 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 674 библиотека: ceammc v0.9.8;
-#X text 327 686 смотрите также:;
-#X obj 448 689 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 298 686 смотрите также:;
+#X obj 419 689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.current] @url canvas.current-help.pd;
-#X obj 567 689 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 538 689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.top] @url canvas.top-help.pd;
-#X obj 657 689 ui.link @background_color 0.78431 0.78431 0.78431
-@title [list->props] @url list->props-help.pd;
+#X obj 628 689 ui.link @background_color 0.78431 0.78431 0.78431
+@title [conv.list2props] @url conv.list2props-help.pd;
 #N canvas 10 693 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

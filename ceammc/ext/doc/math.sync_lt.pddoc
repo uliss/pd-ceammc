@@ -21,7 +21,7 @@
       </aliases>
       <since>0.8</since>
       <also>
-        <see>math.&gt;'</see>
+        <see>math.sync_ge</see>
       </also>
     </meta>
     <arguments>

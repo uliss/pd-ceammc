@@ -16,7 +16,7 @@
       <keywords>fx echo delay</keywords>
       <since>0.6</since>
       <also>
-        <see>fx.sdelay~</see>
+        <see>fx.delay~</see>
       </also>
       <aliases>
         <alias>fx.secho~</alias>

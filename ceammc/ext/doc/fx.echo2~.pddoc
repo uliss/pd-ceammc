@@ -17,7 +17,7 @@
       <since>0.9.4</since>
       <also>
         <see>fx.echo2~</see>
-        <see>fx.sdelay~</see>
+        <see>fx.delay~</see>
       </also>
     </meta>
     <arguments>
