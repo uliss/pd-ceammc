@@ -1,3 +1,4 @@
+use ceammc_rs_msg::{msg_cb, msg_notify};
 use function_name::named;
 use log::{debug, error, warn};
 use obws::requests::scene_items::SetEnabled;
@@ -7,12 +8,12 @@ use std::ptr::null_mut;
 
 use obws::Client;
 
-use crate::common_ffi::{callback_msg, callback_notify, Error};
+use crate::common_ffi::Error;
 use crate::obs_ffi::{obs_client, obs_init, obs_result_cb, OBSReply, OBSRequest};
 use crate::{fn_error, str_from_cstr};
 
 async fn reply_send(
-    cb: &callback_notify,
+    cb: &msg_notify,
     rep_tx: &tokio::sync::mpsc::Sender<Result<OBSReply, crate::common_ffi::Error>>,
     msg: OBSReply,
 ) {
@@ -24,7 +25,7 @@ async fn reply_send(
 }
 
 async fn reply_error(
-    cb: &callback_notify,
+    cb: &msg_notify,
     rep_tx: &tokio::sync::mpsc::Sender<Result<OBSReply, Error>>,
     msg: String,
 ) {
@@ -286,22 +287,16 @@ async fn process_request(req: OBSRequest, cli: &mut Client) -> Result<RequestRes
 
 /// create OBS Studio client
 /// @param params - connection params
-/// @param cb_err - callback for error messages
-/// @param cb_post - callback for post messages
-/// @param cb_debug - callback for debug messages
-/// @param cb_log - callback for log messages
+/// @param cb_msg - callback for messages
 /// @param cb_reply - reply callbacks
 /// @param cb_notify - notification callback
 /// @return pointer to obs client or NULL on error
 #[no_mangle]
 pub extern "C" fn ceammc_obs_new(
     params: obs_init,
-    cb_err: callback_msg,
-    cb_post: callback_msg,
-    cb_debug: callback_msg,
-    cb_log: callback_msg,
+    cb_msg: msg_cb,
     cb_reply: obs_result_cb,
-    cb_notify: callback_notify,
+    cb_notify: msg_notify,
 ) -> *mut obs_client {
     match tokio::runtime::Runtime::new() {
         Ok(rt) => {
@@ -360,12 +355,10 @@ pub extern "C" fn ceammc_obs_new(
                 debug!("exit worker thread ...");
             });
 
-            return Box::into_raw(Box::new(obs_client::new(
-                req_tx, rep_rx, cb_err, cb_post, cb_debug, cb_log, cb_reply,
-            )));
+            return Box::into_raw(Box::new(obs_client::new(req_tx, rep_rx, cb_msg, cb_reply)));
         }
         Err(err) => {
-            cb_err.exec(format!("tokio runtime creation error: {err}").as_str());
+            cb_msg.error_str(format!("tokio runtime creation error: {err}").as_str());
             return null_mut();
         }
     }

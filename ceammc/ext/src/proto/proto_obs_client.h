@@ -16,15 +16,13 @@
 
 #ifdef WITH_OBS
 
-#include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
+#include "proto_rust.hpp"
 #include "proto_rust_struct.hpp"
-
-#include <memory>
+#include "ceammc_rs_msg_object.h"
 
 using namespace ceammc;
 
-using BaseOBSClient = DispatchedObject<BaseObject>;
+using BaseOBSClient = RustMessageObject<BaseObject>;
 using ObsClientImpl = proto::ProtoService<ceammc_obs_client, ceammc_obs_init, ceammc_obs_result_cb>;
 
 namespace ceammc {

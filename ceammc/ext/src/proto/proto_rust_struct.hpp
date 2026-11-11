@@ -14,11 +14,10 @@
 #ifndef PROTO_RUST_STRUCT_HPP
 #define PROTO_RUST_STRUCT_HPP
 
-#include "proto_rust.hpp"
+#include "ceammc_rs_msg.hpp"
 
 #include <cstdint>
 #include <functional>
-#include <iostream>
 
 namespace ceammc {
 namespace proto {
@@ -28,12 +27,9 @@ namespace proto {
     public:
         using service_handle_new_fn = T*(
             InitParams,
-            ceammc_callback_msg,
-            ceammc_callback_msg,
-            ceammc_callback_msg,
-            ceammc_callback_msg,
+            ceammc_msg_cb,
             ResultCallback,
-            ceammc_callback_notify);
+            ceammc_msg_notify);
 
         using service_handle_free_fn = void(T*);
         using service_handle_proc_fn = bool(T*);
@@ -44,15 +40,14 @@ namespace proto {
         std::function<void(T*)> cb_free_;
         std::function<bool(T*)> cb_proc_;
         std::function<void(int)> cb_progress_;
-        std::function<void(const char*msg)> cb_err_, cb_post_, cb_debug_, cb_log_;
-
     public:
         ProtoService(const InitParams& init_params,
             service_handle_new_fn cb_new,
             service_handle_free_fn cb_free,
             service_handle_proc_fn cb_proc,
             ResultCallback cb_result,
-            ceammc_callback_notify cb_notify //
+            ceammc_msg_cb cb_msg,
+            ceammc_msg_notify cb_notify //
             )
             : handle_(nullptr)
             , cb_free_(cb_free)
@@ -60,10 +55,7 @@ namespace proto {
         {
             handle_ = cb_new( //
                 init_params,
-                { this, onError },
-                { this, onPost },
-                { this, onDebug },
-                { this, onLog },
+                cb_msg,
                 cb_result,
                 cb_notify);
         }
@@ -84,60 +76,9 @@ namespace proto {
 
         T* handle() { return handle_; }
 
-        void setErrorCallback(std::function<void(const char*)> cb)
-        {
-            cb_err_ = cb;
-        }
-
-        void setPostCallback(std::function<void(const char*)> cb)
-        {
-            cb_post_ = cb;
-        }
-
-        void setDebugCallback(std::function<void(const char*)> cb)
-        {
-            cb_debug_ = cb;
-        }
-
-        void setLogCallback(std::function<void(const char*)> cb)
-        {
-            cb_log_ = cb;
-        }
-
         void setProgressCallback(std::function<void(int)> cb)
         {
             cb_progress_ = cb;
-        }
-
-    public:
-        static void onError(void* user, const char* msg)
-        {
-            auto this_ = static_cast<ProtoService*>(user);
-            if (this_ && this_->cb_err_)
-                this_->cb_err_(msg);
-            else
-                std::cerr << msg << std::endl;
-        }
-
-        static void onPost(void* user, const char* msg)
-        {
-            auto this_ = static_cast<ProtoService*>(user);
-            if (this_ && this_->cb_post_)
-                this_->cb_post_(msg);
-        }
-
-        static void onDebug(void* user, const char* msg)
-        {
-            auto this_ = static_cast<ProtoService*>(user);
-            if (this_ && this_->cb_debug_)
-                this_->cb_debug_(msg);
-        }
-
-        static void onLog(void* user, const char* msg)
-        {
-            auto this_ = static_cast<ProtoService*>(user);
-            if (this_ && this_->cb_log_)
-                this_->cb_log_(msg);
         }
     };
 

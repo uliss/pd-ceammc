@@ -22,7 +22,7 @@ include_version = false
 # namespaces = ["ceammc"]
 using_namespaces = []
 sys_includes = ["cstddef", "cstdint", "type_traits"]
-includes = []
+includes = ["ceammc_rs_msg.hpp"]
 no_includes = true
 after_includes = '''
 

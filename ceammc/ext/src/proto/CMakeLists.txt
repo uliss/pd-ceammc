@@ -75,8 +75,9 @@ if(WITH_RUST_PROTO)
     target_include_directories(ceammc_proto PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
     )
-    target_link_libraries(ceammc_proto PUBLIC proto_rust)
+    target_link_libraries(ceammc_proto PUBLIC proto_rust)    
 endif()
 
 target_link_libraries(ceammc_proto PRIVATE date proto_firmata)

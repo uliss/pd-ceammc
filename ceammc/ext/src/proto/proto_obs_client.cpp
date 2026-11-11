@@ -124,16 +124,14 @@ void ProtoObsClient::m_connect(t_symbol* s, const AtomListView& lv)
                 PROC_FN(user, processConnect, state);
             },
         },
-        ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
+        on_message(),
+        on_notify()));
 
     if (!cli_->handle()) {
         cli_.reset();
         msg_connected(false);
         return;
     }
-
-    cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
-    cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
 }
 
 void ProtoObsClient::m_disconnect(t_symbol* s, const AtomListView& lv)

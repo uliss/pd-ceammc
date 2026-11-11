@@ -3,8 +3,7 @@
 
 #ifdef WITH_VLC
 
-#include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
+#include "ceammc_rs_msg_object.h"
 
 #include <memory>
 
@@ -12,7 +11,7 @@ struct ceammc_vlc;
 
 using namespace ceammc;
 
-class ProtoVlc : public DispatchedObject<BaseObject> {
+class ProtoVlc : public RustMessageObject<BaseObject> {
     SymbolProperty* host_;
     IntProperty* port_;
     AtomProperty* pass_;

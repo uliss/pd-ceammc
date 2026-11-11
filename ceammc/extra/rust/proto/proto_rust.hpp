@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
+#include "ceammc_rs_msg.hpp"
 
 namespace ceammc {
 namespace proto_rust {
@@ -88,11 +89,6 @@ struct ceammc_obs_init {
     uint16_t port;
 };
 
-struct ceammc_callback_msg {
-    void *user;
-    void (*cb)(void *user, const char *msg);
-};
-
 struct ceammc_obs_result_cb {
     /// user data pointer (can be NULL)
     void *user;
@@ -112,11 +108,6 @@ struct ceammc_obs_result_cb {
     void (*cb_current_scene)(void *user, const char *name);
     /// connected/disconnected callback function (can be NULL)
     void (*cb_connected)(void *user, bool state);
-};
-
-struct ceammc_callback_notify {
-    size_t id;
-    void (*cb)(size_t id);
 };
 
 union ceammc_rust_value {
@@ -384,20 +375,14 @@ bool ceammc_obs_list_scenes(const ceammc_obs_client *cli);
 
 /// create OBS Studio client
 /// @param params - connection params
-/// @param cb_err - callback for error messages
-/// @param cb_post - callback for post messages
-/// @param cb_debug - callback for debug messages
-/// @param cb_log - callback for log messages
+/// @param cb_msg - callback for messages
 /// @param cb_reply - reply callbacks
 /// @param cb_notify - notification callback
 /// @return pointer to obs client or NULL on error
 ceammc_obs_client *ceammc_obs_new(ceammc_obs_init params,
-                                  ceammc_callback_msg cb_err,
-                                  ceammc_callback_msg cb_post,
-                                  ceammc_callback_msg cb_debug,
-                                  ceammc_callback_msg cb_log,
+                                  ceammc_msg_cb cb_msg,
                                   ceammc_obs_result_cb cb_reply,
-                                  ceammc_callback_notify cb_notify);
+                                  ceammc_msg_notify cb_notify);
 
 /// move to next OBS scene
 /// @param cli - pointer to obs client
@@ -492,8 +477,8 @@ bool ceammc_vlc_clear(ceammc_vlc *vlc);
 ceammc_vlc *ceammc_vlc_create(const char *host,
                               uint16_t port,
                               const char *pass,
-                              ceammc_callback_msg cb,
-                              ceammc_callback_notify notify);
+                              ceammc_msg_cb cb,
+                              ceammc_msg_notify notify);
 
 /// remove item from playlist
 /// @param vlc - vlc control handle
@@ -579,7 +564,7 @@ void ceammc_vlc_playlist_iter(const ceammc_vlc_playlist_item *items,
 /// @param on_current - called when 'current_item' received from the worker thread
 /// @param on_filelist - called when 'filelist' received from the worker thread
 bool ceammc_vlc_poll(ceammc_vlc *vlc,
-                     ceammc_callback_msg on_msg,
+                     ceammc_msg_cb on_msg,
                      ceammc_vlc_status_cb on_stat,
                      ceammc_vlc_playlist_cb on_playlist,
                      ceammc_vlc_playlist_item_cb on_current,

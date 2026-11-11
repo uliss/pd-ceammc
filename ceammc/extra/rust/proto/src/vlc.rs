@@ -1,4 +1,6 @@
 use anyhow::Context;
+use ceammc_rs_msg::msg_cb;
+use ceammc_rs_msg::msg_notify;
 use globset::GlobBuilder;
 use log::debug;
 use log::error;
@@ -23,7 +25,6 @@ use strum::IntoEnumIterator;
 use thiserror::Error;
 use url::Url;
 
-use crate::common_ffi::callback_notify;
 use crate::rust_atom;
 use crate::vlc_ffi::vlc_fileinfo;
 use crate::vlc_ffi::vlc_filelist;
@@ -48,7 +49,7 @@ enum VlcVolume {
 pub struct Vlc {
     tx: std::sync::mpsc::Sender<VlcRequest>,
     rx: std::sync::mpsc::Receiver<VlcReply>,
-    cb: crate::common_ffi::callback_msg,
+    cb: msg_cb,
 }
 
 #[derive(Debug)]
@@ -501,7 +502,7 @@ async fn send2vlc(
     port: u16,
     req: VlcRequest,
     tx: &Sender<VlcReply>,
-    notify: callback_notify,
+    notify: msg_notify,
 ) -> anyhow::Result<bool> {
     let url: Url = match &req {
         VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None, None)?,
@@ -733,8 +734,8 @@ impl Vlc {
         host: Option<&c_char>,
         port: u16,
         pass: Option<&c_char>,
-        cb: crate::common_ffi::callback_msg,
-        notify: crate::common_ffi::callback_notify,
+        cb: msg_cb,
+        notify: msg_notify,
     ) -> Self {
         let (req_tx, req_rx) = std::sync::mpsc::channel::<VlcRequest>();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel::<VlcReply>();
@@ -953,10 +954,10 @@ impl Vlc {
     }
 
     fn client_err(self: &Self, str: String) {
-        self.cb.exec(str.as_str());
+        self.cb.error_str(str);
     }
 
-    fn worker_err(str: String, tx: &Sender<VlcReply>, notify: crate::common_ffi::callback_notify) {
+    fn worker_err(str: String, tx: &Sender<VlcReply>, notify: msg_notify) {
         let str = format!("[worker] {str}");
         error!("[worker] error: {str}");
         if let Err(_err) = tx.send(VlcReply::Error(str.clone())) {
@@ -968,7 +969,7 @@ impl Vlc {
 
     pub fn poll(
         self: &Self,
-        on_msg: crate::common_ffi::callback_msg,
+        on_msg: msg_cb,
         on_stat: vlc_status_cb,
         on_playlist: vlc_playlist_cb,
         on_current_id: vlc_playlist_item_cb,
@@ -979,7 +980,7 @@ impl Vlc {
 
             match msg {
                 VlcReply::Error(err) => {
-                    on_msg.exec(err.as_str());
+                    on_msg.error_str(err);
                 }
                 VlcReply::Status(vlc_status) => {
                     on_stat.exec(&vlc_status);

@@ -1,5 +1,6 @@
 use crate::{rust_atom, vlc::Vlc};
 
+use ceammc_rs_msg::msg_cb;
 use log::error;
 use serde::Deserialize;
 use std::ffi::{c_char, c_void, CStr};
@@ -295,8 +296,8 @@ pub extern "C" fn ceammc_vlc_create(
     host: Option<&std::ffi::c_char>,
     port: u16,
     pass: Option<&std::ffi::c_char>,
-    cb: crate::common_ffi::callback_msg,
-    notify: crate::common_ffi::callback_notify,
+    cb: msg_cb,
+    notify: ceammc_rs_msg::msg_notify,
 ) -> *mut vlc {
     return Box::into_raw(Box::new(vlc {
         imp: Vlc::new(host, port, pass, cb, notify),
@@ -331,7 +332,7 @@ macro_rules! vlc_null_check {
 /// @param on_filelist - called when 'filelist' received from the worker thread
 pub extern "C" fn ceammc_vlc_poll(
     vlc: Option<&mut vlc>,
-    on_msg: crate::common_ffi::callback_msg,
+    on_msg: msg_cb,
     on_stat: vlc_status_cb,
     on_playlist: vlc_playlist_cb,
     on_current: vlc_playlist_item_cb,
@@ -487,8 +488,8 @@ pub extern "C" fn ceammc_vlc_add_dir_files(
 #[no_mangle]
 /// seek to specified time
 /// @param vlc - vlc control handle
-/// @param seek - seek time value: 
-///     number is seconds 
+/// @param seek - seek time value:
+///     number is seconds
 ///     (+|-) relative seek in seconds
 ///     absolute or relative percent value, like: 30%, +10%
 ///     time in (+|-)(00H:)00M::00S format

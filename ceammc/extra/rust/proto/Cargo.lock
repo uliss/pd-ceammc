@@ -208,6 +208,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ceammc_rs_msg"
+version = "0.5.2"
+dependencies = [
+ "cbindgen",
+ "log",
+ "tokio",
+ "tokio-util",
+]
+
+[[package]]
 name = "cesu8"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1243,6 +1253,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "cbindgen",
+ "ceammc_rs_msg",
  "dirs",
  "env_logger",
  "function_name",
@@ -2031,7 +2042,19 @@ dependencies = [
  "mio",
  "pin-project-lite",
  "socket2",
+ "tokio-macros",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "2.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c55a2eff8b69ce66c84f85e1da1c233edc36ceb85a2058d11b0d6a3c7e7569c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.115",
 ]
 
 [[package]]
