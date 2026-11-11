@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">separates property messages from other types</tr>
-        <tr lang="ru">отделяет сообщения со свойствами от других типов</tr>
+        <tr lang="ru">отделяет сообщения со свойствами от сообщений других типов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,28 +20,41 @@
         <see>route.any</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes property messages (such as [prop VALUE( and [prop?( requests) to the first outlet, and all other messages to the second outlet</tr>
+        <tr lang="ru">объект направляет сообщения со свойствами (например, [prop VALUE( и запросы [prop?() на первый выход, а все остальные сообщения — на второй выход</tr>
+      </par>
+      <par>
+        <tr lang="en">property messages are recognized by the leading '@' in the selector, for example @freq or @prop?</tr>
+        <tr lang="ru">сообщения со свойствами распознаются по ведущему символу '@' в селекторе, например @freq или @prop?</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to separate property changes from ordinary control messages, for example to route parameter automation to a preset system and plain values to a display</tr>
+        <tr lang="ru">объект можно использовать для отделения изменений свойств от обычных управляющих сообщений, например чтобы направлять автоматизацию параметров в систему пресетов, а простые значения — на дисплей</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">property to *first* outlet, any other messages to second outlet</tr>
-          <tr lang="ru" finished="false">собственность на *первую* розетку, любые другие сообщения
-          на вторую розетку</tr>
+          <tr lang="en">property to the first outlet, any other messages to the second outlet</tr>
+          <tr lang="ru">свойство на первый выход, любые другие сообщения — на второй выход</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to second outlet</tr>
-          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+          <tr lang="en">bang to the second outlet</tr>
+          <tr lang="ru">bang на второй выход</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to first outlet</tr>
-          <tr lang="ru" finished="false">Поплавать на первом выходе</tr>
+          <tr lang="en">float to the second outlet</tr>
+          <tr lang="ru">число на второй выход</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to second outlet</tr>
-          <tr lang="ru" finished="false">Список для второго выхода</tr>
+          <tr lang="en">list to the second outlet</tr>
+          <tr lang="ru">список на второй выход</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to second outlet</tr>
-          <tr lang="ru" finished="false">Символ для второго выхода</tr>
+          <tr lang="en">symbol to the second outlet</tr>
+          <tr lang="ru">символ на второй выход</tr>
         </in>
       </inlet>
     </inlets>
@@ -49,13 +62,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">property output</tr>
-          <tr lang="ru" finished="false">выдача имущества</tr>
+          <tr lang="ru">выход свойств</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">other messages</tr>
-          <tr lang="ru" finished="false">Другие сообщения</tr>
+          <tr lang="ru">другие сообщения</tr>
         </out>
       </outlet>
     </outlets>

@@ -692,7 +692,8 @@ flow.sync_pack-help.pd;
 #X obj 30 7295 ui.link @title [route.list] @url route.list-help.pd;
 #X text 200 7292 отделяет списки от сообщений других типов;
 #X obj 30 7320 ui.link @title [route.prop] @url route.prop-help.pd;
-#X text 200 7317 отделяет сообщения со свойствами от других типов;
+#X text 200 7317 отделяет сообщения со свойствами от сообщений других
+типов;
 #X obj 30 7345 ui.link @title [route.random] @url
 route.random-help.pd;
 #X text 200 7342 направляет входное сообщение в случайный выход;
