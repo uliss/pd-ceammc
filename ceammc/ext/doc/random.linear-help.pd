@@ -5,76 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.linear 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 random.linear;
-#X obj 230 78 cnv 1 535 115 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Generates random number in interval [@v0 \, @v1) with
-linear distribution [@p0 \, @p1);
-#X text 240 123 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 241 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 generates a random number in the interval [@v0 \, @v1)
+with a linear distribution [@p0 \, @p1);
+#X text 240 123 use the @seed property to get reproducible sequences.
+If @seed is not set explicitly \, a generator initialized with the
+current time is used;
+#X text 240 178 the object can be used to bias random values toward
+one end of a range \, for example to make low notes more likely than
+high notes or to create a gradual fade-in effect;
+#X obj 50 311 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 270 list.gen 100;
+#X obj 50 340 list.gen 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 280 270 graph;
-#X obj 50 299 random.linear;
-#X obj 50 328 * 100;
-#X obj 50 357 math.floor;
-#X obj 50 385 t f f;
-#X obj 98 414 tabread array1;
-#X obj 98 443 + 0.01;
-#X obj 50 472 swap;
-#X msg 280 472 const 0;
-#X msg 376 472 normalize;
-#X obj 50 501 tabwrite array1;
-#X obj 280 501 s array1;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 556 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X restore 280 340 graph;
+#X obj 50 369 random.linear;
+#X obj 50 398 * 100;
+#X obj 50 427 math.floor;
+#X obj 50 455 t f f;
+#X obj 98 484 tabread array1;
+#X obj 98 513 + 0.01;
+#X obj 50 542 swap;
+#X msg 280 542 const 0;
+#X msg 376 542 normalize;
+#X obj 50 571 tabwrite array1;
+#X obj 280 571 s array1;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 626 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 559 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 629 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 557 @p0;
-#X text 270 557 Probability at begin. Type: float. Default value: 1\.;
-#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 587 @p1;
-#X text 270 587 Probability at end. Type: float. Default value: 0\.;
-#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 617 @seed;
-#X text 270 617 Generator seed. Type: int. Default value: 0\. Min value:
+#X msg 130 627 @p0;
+#X text 270 627 Probability at the beginning. Type: float. Default
+value: 1\.;
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 657 @p1;
+#X text 270 657 Probability at the end. Type: float. Default value:
 0\.;
-#X obj 250 647 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 647 @v0;
-#X text 270 647 Begin of value interval. Type: float. Default value:
+#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 687 @seed;
+#X text 270 687 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 250 677 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 677 @v1;
-#X text 270 677 End of value interval. Type: float. Default value:
+#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 717 @v0;
+#X text 270 717 Beginning of the value interval. Type: float. Default
+value: 0\.;
+#X obj 250 759 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 759 @v1;
+#X text 270 759 End of the value interval. Type: float. Default value:
 1\.;
-#X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 723 1\.;
-#X text 170 723 bang:;
-#X text 270 723 generates random number.;
-#X obj 20 758 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 763 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 805 1\.;
+#X text 170 805 bang:;
+#X text 270 805 generates a random number.;
+#X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 845 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 764 1\.;
-#X text 270 764 result value.;
+#X text 130 846 1\.;
+#X text 270 846 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 817 library: ceammc v0.9.8;
-#X text 485 829 see also:;
-#X obj 560 832 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 896 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 899 library: ceammc v0.9.8;
+#X text 485 911 see also:;
+#X obj 560 914 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.float] @url random.float-help.pd;
-#X obj 665 832 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 914 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.int] @url random.int-help.pd;
-#N canvas 10 836 400 290 info 0;
+#N canvas 10 918 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,17 +103,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 836 pd info;
-#X connect 7 0 8 0;
-#X connect 8 1 10 0;
-#X connect 10 0 11 0;
+#X restore 10 918 pd info;
+#X connect 8 0 9 0;
+#X connect 9 1 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;
-#X connect 13 1 14 0;
-#X connect 14 0 15 0;
-#X connect 13 0 16 0;
-#X connect 15 0 16 1;
-#X connect 16 0 19 0;
-#X connect 16 1 19 1;
+#X connect 13 0 14 0;
+#X connect 14 1 15 0;
+#X connect 15 0 16 0;
+#X connect 14 0 17 0;
+#X connect 16 0 17 1;
 #X connect 17 0 20 0;
-#X connect 18 0 20 0;
+#X connect 17 1 20 1;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;

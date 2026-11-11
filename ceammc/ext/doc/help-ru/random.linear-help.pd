@@ -5,78 +5,81 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.linear 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 random.linear;
-#X obj 230 78 cnv 1 535 115 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Generates random number in interval [@v0 \, @v1) with
-linear distribution [@p0 \, @p1);
-#X text 240 123 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 241 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 генерирует случайное число на интервале [@v0 \, @v1)
+с линейным распределением [@p0 \, @p1);
+#X text 240 123 используйте свойство @seed для получения воспроизводимых
+последовательностей. Если @seed не задан явно \, используется генератор
+\, инициализированный текущим временем;
+#X text 240 178 объект можно использовать для смещения случайных значений
+к одному краю диапазона \, например чтобы низкие ноты выпадали чаще
+высоких или чтобы создать эффект постепенного нарастания;
+#X obj 50 311 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 270 list.gen 100;
+#X obj 50 340 list.gen 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 280 270 graph;
-#X obj 50 299 random.linear;
-#X obj 50 328 * 100;
-#X obj 50 357 math.floor;
-#X obj 50 385 t f f;
-#X obj 98 414 tabread array1;
-#X obj 98 443 + 0.01;
-#X obj 50 472 swap;
-#X msg 280 472 const 0;
-#X msg 376 472 normalize;
-#X obj 50 501 tabwrite array1;
-#X obj 280 501 s array1;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 556 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X restore 280 340 graph;
+#X obj 50 369 random.linear;
+#X obj 50 398 * 100;
+#X obj 50 427 math.floor;
+#X obj 50 455 t f f;
+#X obj 98 484 tabread array1;
+#X obj 98 513 + 0.01;
+#X obj 50 542 swap;
+#X msg 280 542 const 0;
+#X msg 376 542 normalize;
+#X obj 50 571 tabwrite array1;
+#X obj 280 571 s array1;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 626 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 559 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 629 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 557 @p0;
-#X text 270 557 Probability at begin. Тип: float. Значение по умолчанию:
+#X msg 130 627 @p0;
+#X text 270 627 Вероятность в начале. Тип: float. Значение по умолчанию:
 1\.;
-#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 587 @p1;
-#X text 270 587 Probability at end. Тип: float. Значение по умолчанию:
+#X obj 250 657 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 657 @p1;
+#X text 270 657 Вероятность в конце. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 617 @seed;
-#X text 270 617 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 659 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 659 @v0;
-#X text 270 659 Begin of value interval. Тип: float. Значение по умолчанию:
-0\.;
-#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 701 @v1;
-#X text 270 701 End of value interval. Тип: float. Значение по умолчанию:
+#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 687 @seed;
+#X text 270 687 Начальное значение генератора. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 729 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 729 @v0;
+#X text 270 729 Начало интервала значений. Тип: float. Значение по
+умолчанию: 0\.;
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 771 @v1;
+#X text 270 771 Конец интервала значений. Тип: float. Значение по умолчанию:
 1\.;
-#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 746 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 828 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 747 1\.;
-#X text 170 747 bang:;
-#X text 270 747 generates random number.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 787 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 829 1\.;
+#X text 170 829 bang:;
+#X text 270 829 генерирует случайное число.;
+#X obj 20 864 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 869 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 788 1\.;
-#X text 270 788 result value.;
+#X text 130 870 1\.;
+#X text 270 870 значение результата.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 838 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 841 библиотека: ceammc v0.9.8;
-#X text 439 853 смотрите также:;
-#X obj 560 856 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 920 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 923 библиотека: ceammc v0.9.8;
+#X text 439 935 смотрите также:;
+#X obj 560 938 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.float] @url random.float-help.pd;
-#X obj 665 856 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 938 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.int] @url random.int-help.pd;
-#N canvas 10 860 400 290 info 0;
+#N canvas 10 942 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -100,17 +103,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 860 pd info;
-#X connect 7 0 8 0;
-#X connect 8 1 10 0;
-#X connect 10 0 11 0;
+#X restore 10 942 pd info;
+#X connect 8 0 9 0;
+#X connect 9 1 11 0;
 #X connect 11 0 12 0;
 #X connect 12 0 13 0;
-#X connect 13 1 14 0;
-#X connect 14 0 15 0;
-#X connect 13 0 16 0;
-#X connect 15 0 16 1;
-#X connect 16 0 19 0;
-#X connect 16 1 19 1;
+#X connect 13 0 14 0;
+#X connect 14 1 15 0;
+#X connect 15 0 16 0;
+#X connect 14 0 17 0;
+#X connect 16 0 17 1;
 #X connect 17 0 20 0;
-#X connect 18 0 20 0;
+#X connect 17 1 20 1;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;
