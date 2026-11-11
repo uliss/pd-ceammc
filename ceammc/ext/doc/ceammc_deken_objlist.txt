@@ -1103,12 +1103,12 @@ prop->	separates properties from the dataflow / отделяет свойств�
 ceammc/prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
 ceammc/@->	separates properties from the dataflow / отделяет свойства от основного потока данных
 prop.split	separates properties from the dataflow / отделяет свойства от основного потока данных
-prop.route~	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-ceammc/prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-ceammc/@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop.get~	property extractor from audio connections / отделяет свойства от аудиосоединений
+prop.route~	property extractor from audio connections / извлекает свойства из аудиосоединений
+prop~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+@~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+ceammc/prop~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+ceammc/@~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+prop.get~	property extractor from audio connections / извлекает свойства из аудиосоединений
 prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
 p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
 proto.arturia.minilab	simple SysEx control for Arturia MiniLab / управление по SysEx для Arturia MiniLab

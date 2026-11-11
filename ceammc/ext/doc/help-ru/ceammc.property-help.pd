@@ -21,7 +21,7 @@
 #X obj 30 300 ui.link @title [prop.route] @url prop.route-help.pd;
 #X text 220 297 отделяет свойства от основного потока данных;
 #X obj 30 325 ui.link @title [prop.route~] @url prop.route~-help.pd;
-#X text 220 322 отделяет свойства от аудиосоединений;
+#X text 220 322 извлекает свойства из аудиосоединений;
 #X obj 30 350 ui.link @title [prop.set] @url prop.set-help.pd;
 #X text 220 347 устанавливает значение свойства для подключённого объекта
 \, субпатча или абстракции;

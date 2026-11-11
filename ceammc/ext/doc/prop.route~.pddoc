@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">property extractor from audio connections</tr>
-        <tr lang="ru">отделяет свойства от аудиосоединений</tr>
+        <tr lang="ru">извлекает свойства из аудиосоединений</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -28,17 +28,27 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Extracts properties from audio stream with matching. Non property values are
-        passed untouched.</tr>
-        <tr lang="ru" finished="false">Извлекает свойства из аудиопотока с сопоставлением.
-        Неимущественные ценности передаются нетронутыми.</tr>
+        <tr lang="en">the object extracts properties from the audio stream by matching. Non-property values and the audio signal are passed through untouched to the first outlet</tr>
+        <tr lang="ru">объект извлекает свойства из аудиопотока по совпадению. Значения, не являющиеся свойствами, и аудиосигнал проходят без изменений на первый выход</tr>
+      </par>
+      <par style="info">
+        <tr lang="en">note: although audio connections in Pd usually carry only audio signals, they can also carry ordinary control messages, which are routed through the same patch cords. This is rare but possible, and the object takes such messages into account</tr>
+        <tr lang="ru">примечание: хотя аудиосоединения в Pd обычно передают только аудиосигналы, они могут также передавать обычные управляющие сообщения, которые проходят по тем же соединительным линиям. Это встречается редко, но возможно, и объект учитывает такие сообщения</tr>
+      </par>
+      <par>
+        <tr lang="en">each matched property is output from its own outlet without the property selector, unmatched properties are output from the last outlet</tr>
+        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства, несовпавшие свойства выводятся с последнего выхода</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to extract parameter values that travel through audio connections, for example to read the current value of a property from a GUI object while the audio signal continues through the patch</tr>
+        <tr lang="ru">объект можно использовать для извлечения значений параметров, передаваемых через аудиосоединения, например чтобы прочитать текущее значение свойства GUI-объекта, пока аудиосигнал продолжает идти по патчу</tr>
       </par>
     </info>
     <inlets>
       <inlet type="audio">
         <in on="any">
           <tr lang="en">input values and sound</tr>
-          <tr lang="ru" finished="false">входные значения и звук</tr>
+          <tr lang="ru">входные значения и звук</tr>
         </in>
       </inlet>
     </inlets>
@@ -46,25 +56,25 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">passed values and sound</tr>
-          <tr lang="ru" finished="false">Прошедшие значения и звук</tr>
+          <tr lang="ru">прошедшие значения и звук</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">first matched property output</tr>
-          <tr lang="ru" finished="false">Первый сопоставимый вывод собственности</tr>
+          <tr lang="ru">выход первого совпавшего свойства</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">others matched property output</tr>
-          <tr lang="ru" finished="false">Другие соответствуют выходу собственности</tr>
+          <tr lang="en">other matched property outputs</tr>
+          <tr lang="ru">выходы других совпавших свойств</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
           <tr lang="en">unmatched property output</tr>
-          <tr lang="ru" finished="false">Непревзойденная собственность</tr>
+          <tr lang="ru">выход несовпавших свойств</tr>
         </out>
       </outlet>
     </outlets>
