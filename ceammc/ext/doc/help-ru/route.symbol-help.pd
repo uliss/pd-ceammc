@@ -1,55 +1,61 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 420 50 отделяет символьные сообщения от других типов;
+#X obj 338 50 cnv 1 427 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 343 50 отделяет символьные сообщения от сообщений других типов;
 #X obj 1 1 cnv 5 765 40 empty empty route.symbol 20 20 0 20 -104026
 -4096 0;
 #X obj 575 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [route.s] @url route.symbol-help.pd;
 #X obj 654 8 route.symbol;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 98 118 bang;
-#X msg 165 118 symbol ABC;
-#X msg 136 147 list 1 2 3;
-#X msg 165 176 list;
-#X msg 184 205 @any;
-#X obj 50 234 route.symbol;
-#X obj 50 262 ui.dt;
-#X obj 136 291 ui.dt;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 145 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект направляет символьные сообщения на первый выход
+\, а все остальные (bang \, числа \, списки \, any) — на второй выход;
+#X text 240 138 объект можно использовать для отделения строковых значений
+от числовых и структурных сообщений \, например чтобы направлять имена
+файлов или имена параметров в отдельный обработчик;
+#X floatatom 50 271 5 0 0 0 - - -;
+#X msg 98 271 bang;
+#X msg 165 271 symbol ABC;
+#X msg 136 300 list 1 2 3;
+#X msg 165 329 list;
+#X msg 184 358 @any;
+#X obj 50 387 route.symbol;
+#X obj 50 415 ui.dt;
+#X obj 136 444 ui.dt;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 499 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 347 1\.;
-#X text 170 347 any:;
-#X text 270 347 any to second outlet.;
-#X text 170 372 bang:;
-#X text 270 372 bang to second outlet.;
-#X text 170 397 float:;
-#X text 270 397 float to second outlet.;
-#X text 170 422 list:;
-#X text 270 422 list to second outlet.;
-#X text 170 447 symbol:;
-#X text 270 447 symbol to *first* outlet.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 500 1\.;
+#X text 170 500 any:;
+#X text 270 500 сообщение any на второй выход.;
+#X text 170 525 bang:;
+#X text 270 525 bang на второй выход.;
+#X text 170 550 float:;
+#X text 270 550 число на второй выход.;
+#X text 170 575 list:;
+#X text 270 575 список на второй выход.;
+#X text 170 600 symbol:;
+#X text 270 600 символ на первый выход.;
+#X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 640 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 270 488 symbol output.;
-#X text 130 508 2\.;
-#X text 270 508 other messages.;
+#X text 130 641 1\.;
+#X text 270 641 выход символов.;
+#X text 130 661 2\.;
+#X text 270 661 другие сообщения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 561 библиотека: ceammc v0.9.8;
-#X text 431 573 смотрите также:;
-#X obj 552 576 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 711 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 714 библиотека: ceammc v0.9.8;
+#X text 431 726 смотрите также:;
+#X obj 552 729 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.float] @url route.float-help.pd;
-#X obj 650 576 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 729 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.random] @url route.random-help.pd;
-#N canvas 10 580 400 290 info 0;
+#N canvas 10 733 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -73,12 +79,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 580 pd info;
-#X connect 5 0 11 0;
-#X connect 6 0 11 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
-#X connect 7 0 11 0;
+#X restore 10 733 pd info;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 1 16 0;
+#X connect 10 0 14 0;
