@@ -106,9 +106,9 @@ float. Диапазон: [0\..2π];
 #X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 1043 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1046 библиотека: ceammc v0.9.8;
-#X text 580 1058 смотрите также:;
-#X obj 701 1061 ui.link @background_color 0.78431 0.78431 0.78431
-@title [pan4~] @url pan4~-help.pd;
+#X text 544 1058 смотрите также:;
+#X obj 665 1061 ui.link @background_color 0.78431 0.78431 0.78431
+@title [spat.pan4~] @url spat.pan4~-help.pd;
 #N canvas 10 1065 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;

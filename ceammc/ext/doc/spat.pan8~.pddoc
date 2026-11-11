@@ -20,7 +20,7 @@
         <alias>pan8~</alias>
       </aliases>
       <also>
-        <see>pan4~</see>
+        <see>spat.pan4~</see>
       </also>
     </meta>
     <arguments>
