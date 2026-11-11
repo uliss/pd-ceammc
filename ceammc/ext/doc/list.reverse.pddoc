@@ -20,15 +20,25 @@
         <see>list.shuffle</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object outputs a new list with the elements in reverse order: the last element becomes the first, the first becomes the last, and so on</tr>
+        <tr lang="ru">объект выводит новый список с элементами в обратном порядке: последний элемент становится первым, первый — последним и так далее</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to reverse the direction of a sequence, for example to play a list of notes backwards or to change the order of processing steps</tr>
+        <tr lang="ru">объект можно использовать для изменения направления последовательности, например чтобы проиграть список нот в обратном порядке или изменить порядок шагов обработки</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">input list</tr>
-          <tr lang="ru" finished="false">вводный список</tr>
+          <tr lang="ru">входной список</tr>
         </in>
         <in on="data:mlist">
-          <tr lang="en">input mlist</tr>
-          <tr lang="ru" finished="false">входной млечный</tr>
+          <tr lang="en">input MList</tr>
+          <tr lang="ru">входной MList</tr>
         </in>
       </inlet>
     </inlets>
@@ -36,7 +46,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">reversed list</tr>
-          <tr lang="ru" finished="false">обратный список</tr>
+          <tr lang="ru">список в обратном порядке</tr>
         </out>
       </outlet>
     </outlets>
