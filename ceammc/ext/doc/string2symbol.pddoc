@@ -21,19 +21,25 @@
         <alias>str-&gt;sym</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object converts a data:String value into a symbol, so that string data can be used in objects that expect symbols</tr>
+        <tr lang="ru">объект преобразует значение data:String в символ, чтобы строковые данные можно было использовать в объектах, ожидающих символ</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input string value</tr>
-          <tr lang="ru" finished="false">значение входной строки</tr>
+          <tr lang="ru">входное строковое значение</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="symbol">
           <tr lang="en">symbol output</tr>
-          <tr lang="ru" finished="false">символьный выход</tr>
+          <tr lang="ru">выход символа</tr>
         </out>
       </outlet>
     </outlets>
