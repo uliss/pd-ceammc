@@ -19,7 +19,7 @@
       <keywords>hoa decoder</keywords>
       <since>0.8</since>
       <also>
-        <see>hoa.encoder~</see>
+        <see>hoa.2d.encoder~</see>
       </also>
       <aliases>
         <alias>hoa.decoder~</alias>

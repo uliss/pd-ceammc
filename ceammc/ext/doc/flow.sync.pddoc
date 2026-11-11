@@ -19,7 +19,7 @@
         <alias>flow.'</alias>
       </aliases>
       <also>
-        <see>flow.pack'</see>
+        <see>flow.sync_pack</see>
       </also>
     </meta>
     <info>

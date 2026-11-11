@@ -72,9 +72,9 @@ int. Значение по умолчанию: 2\. Диапазон: [2\..16].;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 905 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 908 библиотека: ceammc v0.9.8;
-#X text 544 920 смотрите также:;
-#X obj 665 923 ui.link @background_color 0.78431 0.78431 0.78431
-@title [flow.pack'] @url flow.pack'-help.pd;
+#X text 515 920 смотрите также:;
+#X obj 636 923 ui.link @background_color 0.78431 0.78431 0.78431
+@title [flow.sync_pack] @url flow.sync_pack-help.pd;
 #N canvas 10 927 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
