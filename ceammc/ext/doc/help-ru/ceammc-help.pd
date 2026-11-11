@@ -2475,7 +2475,7 @@ ui.mouse_route-help.pd;
 #X obj 30 25617 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 200 25614 виджет просмотра формы волны;
 #X obj 30 25642 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 25639 виджет слайдера (ползунка);
+#X text 200 25639 виджет-слайдер;
 #X obj 30 25667 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
 #X text 200 25664 2D виджет слайдера;
 #X obj 30 25692 ui.link @title [ui.sliders] @url ui.sliders-help.pd;

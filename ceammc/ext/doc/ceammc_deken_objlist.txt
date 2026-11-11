@@ -1380,9 +1380,9 @@ ui.vrd*	radio toggle with multiselect option / радиопереключате�
 ui.rslider	two range slider / двухдиапазонный слайдер
 ui.rsl	two range slider / двухдиапазонный слайдер
 ui.scope~	waveform signal scope widget / виджет просмотра формы волны
-ui.slider	slider widget / виджет слайдера (ползунка)
-ui.hsl	slider widget / виджет слайдера (ползунка)
-ui.vsl	slider widget / виджет слайдера (ползунка)
+ui.slider	slider widget / виджет-слайдер
+ui.hsl	slider widget / виджет-слайдер
+ui.vsl	slider widget / виджет-слайдер
 ui.slider2d	2D slider widget / 2D виджет слайдера
 ui.s2d	2D slider widget / 2D виджет слайдера
 ui.sliders	multiple slider widget / виджет многоползункового слайдера
