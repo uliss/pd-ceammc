@@ -2044,7 +2044,7 @@ random.pw_lin-help.pd;
 #X text 200 21330 выводит заданное число bang-ов с заданными интервалами
 времени;
 #X obj 30 21373 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
-#X text 200 21370 генератор фазора (пилы) для контрольных сигналов;
+#X text 200 21370 генератор фазора (пилы) для управляющих сигналов;
 #X obj 30 21398 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
 #X text 200 21395 секвенсор переключающих событий (toggle);
 #X obj 30 21423 ui.link @title [sequencer] @url sequencer-help.pd;

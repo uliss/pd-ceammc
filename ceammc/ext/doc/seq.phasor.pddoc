@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">control rate phasor generator</tr>
-        <tr lang="ru">генератор фазора (пилы) для контрольных сигналов</tr>
+        <tr lang="ru">генератор фазора (пилы) для управляющих сигналов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,15 +18,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Outputs a sawtooth control signal in the [0..1] or [0..1) range.</tr>
-        <tr lang="ru">Выводит пилообразный управляющий сигнал в [0..1] или [0..1) диапазоне.</tr>
+        <tr lang="en">outputs a sawtooth control signal in the [0..1] or [0..1) range</tr>
+        <tr lang="ru">выводит пилообразный управляющий сигнал в диапазоне [0..1] или [0..1)</tr>
       </par>
       <par>
-        <tr lang="en">Note: control rate in PureData depends on block size and samplerate. Do not
-        rely on strict timing for this object, especially at high frequencies!</tr>
-        <tr lang="ru">Примечание: частота обновления управляющего сигнала в PureData зависит от
-        размера блока и частоты семплирования. Не полагайтесь на строгий тайминг для этого объекта,
-        особенно на высоких частотах!</tr>
+        <tr lang="en">note: the control rate in Pure Data depends on the block size and sample rate. Do not rely on strict timing for this object, especially at high frequencies</tr>
+        <tr lang="ru">примечание: частота обновления управляющего сигнала в Pure Data зависит от размера блока и частоты дискретизации. Не полагайтесь на строгий тайминг для этого объекта, особенно на высоких частотах</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used as a control-rate LFO, for example to modulate a filter cutoff, pan position or any other parameter that is updated at control rate</tr>
+        <tr lang="ru">объект можно использовать как LFO с управляющей частотой, например чтобы модулировать срез фильтра, панораму или любой другой параметр, обновляемый с управляющей частотой</tr>
       </par>
     </info>
     <arguments>
@@ -43,9 +44,8 @@
       </property>
       <!-- @invert -->
       <property name="@invert" type="bool" default="0">
-        <tr lang="en">inversion sawtooth mode. If true: outputs descreasing waveform</tr>
-        <tr lang="ru">режим инверсии пилообразного сигнала. Если true: выводит убывающую форму
-        волны</tr>
+        <tr lang="en">inverted sawtooth mode. If true, outputs a decreasing waveform</tr>
+        <tr lang="ru">режим инвертированной пилы. Если true, выводит убывающую форму волны</tr>
       </property>
       <!-- @on -->
       <property name="@on" type="bool" default="0">
@@ -54,14 +54,12 @@
       </property>
       <!-- @open -->
       <property name="@open" type="bool" default="0">
-        <tr lang="en">output signal values in open [0..1) range, otherwise the output range is
-        [0..1] (by default)</tr>
-        <tr lang="ru">выходить значения сигнала в полуоткрытом диапазоне [0..1), в противном случае
-        выходной диапазон составляет [0..1] (по умолчанию)</tr>
+        <tr lang="en">output signal values in the open [0..1) range, otherwise the output range is [0..1] (by default)</tr>
+        <tr lang="ru">выводить значения сигнала в полуоткрытом диапазоне [0..1), иначе выходной диапазон [0..1] (по умолчанию)</tr>
       </property>
       <!-- @steps -->
       <property name="@steps" type="int" default="128" minvalue="3">
-        <tr lang="en">numbers of steps</tr>
+        <tr lang="en">number of steps</tr>
         <tr lang="ru">количество шагов</tr>
       </property>
     </properties>
@@ -74,7 +72,7 @@
         </info>
         <param name="VALUE" type="float">
           <tr lang="en">new phase value</tr>
-          <tr lang="ru" finished="false">Новая фазовая стоимость</tr>
+          <tr lang="ru">новое значение фазы</tr>
         </param>
       </method>
       <!-- reset -->
@@ -88,14 +86,14 @@
       <method name="rewind">
         <info>
           <tr lang="en">reset the phase without stopping the output</tr>
-          <tr lang="ru">сброс фазы без остановки вывода</tr>
+          <tr lang="ru">сбросить фазу без остановки вывода</tr>
         </info>
       </method>
       <!-- start -->
       <method name="start">
         <info>
-          <tr lang="en">start from current position</tr>
-          <tr lang="ru" finished="false">Начните с текущей позиции</tr>
+          <tr lang="en">start from the current position</tr>
+          <tr lang="ru">начать с текущей позиции</tr>
         </info>
       </method>
       <!-- stop -->
@@ -116,21 +114,21 @@
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">1: starts output, 0: stop</tr>
-          <tr lang="ru">1: начало вывода, 0: остановка</tr>
+          <tr lang="en">1: start output, 0: stop</tr>
+          <tr lang="ru">1: запустить вывод, 0: остановить</tr>
         </in>
       </inlet>
       <inlet>
         <in on="any">
           <tr lang="en">reset the phase to 0</tr>
-          <tr lang="ru">сбросить фазу на 0</tr>
+          <tr lang="ru">сбросить фазу в 0</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">float value in 0..1 range</tr>
+          <tr lang="en">float value in the 0..1 range</tr>
           <tr lang="ru">числовое значение в диапазоне 0..1</tr>
         </out>
       </outlet>
