@@ -11,61 +11,69 @@
 #X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.!] @url flow.reject-help.pd;
 #X obj 660 8 flow.reject;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X obj 50 147 flow.reject 0;
-#X obj 50 176 1/x;
-#X floatatom 50 205 12 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object passes the input value only if it is not
+found in the reject list \, otherwise nothing is output;
+#X text 240 123 the reject list is set by the VALUES argument \, the
+@values property \, or by sending a list to the right inlet;
+#X text 240 163 the object can be used to filter out unwanted values
+from a stream \, for example to remove zero values before a division
+or to block specific note numbers;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X obj 50 310 flow.reject 0;
+#X obj 50 339 1/x;
+#X floatatom 50 368 12 0 0 0 - - -;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 405 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 408 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 243 1\.;
-#X text 170 243 list;
-#X obj 268 244 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 VALUES: list of atoms to reject. Type: list.;
-#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 406 1\.;
+#X text 170 406 list;
+#X obj 268 407 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 406 VALUES: list of atoms to reject. Type: list.;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 446 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 286 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 449 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 284 @values;
-#X text 270 284 Atoms to reject. Type: list.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 329 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 447 @values;
+#X text 270 447 Atoms to reject. Type: list.;
+#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 492 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 330 1\.;
-#X text 170 330 bang:;
-#X text 270 330 pass.;
-#X text 170 355 float:;
-#X text 270 355 reject if float is in reject list.;
-#X text 170 380 symbol:;
-#X text 270 380 reject if symbol is in reject list.;
-#X text 170 405 list:;
-#X text 270 405 reject if first atom is in reject list.;
-#X text 170 430 any:;
-#X text 270 430 reject if message selector is in reject list.;
-#X text 130 455 2\.;
-#X text 170 455 list:;
-#X text 270 455 set reject list.;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 495 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 493 1\.;
+#X text 170 493 bang:;
+#X text 270 493 pass.;
+#X text 170 518 float:;
+#X text 270 518 reject if the float is in the reject list.;
+#X text 170 543 symbol:;
+#X text 270 543 reject if the symbol is in the reject list.;
+#X text 170 568 list:;
+#X text 270 568 reject if the first atom is in the reject list.;
+#X text 170 593 any:;
+#X text 270 593 reject if the message selector is in the reject list.;
+#X text 130 618 2\.;
+#X text 170 618 list:;
+#X text 270 618 set the reject list.;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 658 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 496 1\.;
-#X text 270 496 passed values.;
+#X text 130 659 1\.;
+#X text 270 659 passed values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 546 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 549 library: ceammc v0.9.8;
-#X text 478 561 see also:;
-#X obj 553 564 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 709 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 712 library: ceammc v0.9.8;
+#X text 478 724 see also:;
+#X obj 553 727 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject_if] @url flow.reject_if-help.pd;
-#X obj 672 564 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 727 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass] @url flow.pass-help.pd;
-#N canvas 10 568 400 290 info 0;
+#N canvas 10 731 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 568 pd info;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 731 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;

@@ -11,61 +11,70 @@
 #X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.!] @url flow.reject-help.pd;
 #X obj 660 8 flow.reject;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X obj 50 147 flow.reject 0;
-#X obj 50 176 1/x;
-#X floatatom 50 205 12 0 0 0 - - -;
-#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект пропускает входное значение только если оно не
+найдено в списке отклонения \, иначе на выход ничего не поступает;
+#X text 240 138 список отклонения задаётся аргументом VALUES \, свойством
+@values или подачей списка на правый вход;
+#X text 240 178 объект можно использовать для отбрасывания нежелательных
+значений из потока \, например чтобы убрать нули перед делением или
+заблокировать определённые номера нот;
+#X floatatom 50 296 5 0 0 0 - - -;
+#X obj 50 325 flow.reject 0;
+#X obj 50 354 1/x;
+#X floatatom 50 383 12 0 0 0 - - -;
+#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 420 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 245 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 423 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 243 1\.;
-#X text 170 243 list;
-#X obj 268 244 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 243 VALUES: list of atoms to reject. Тип: list.;
-#X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 283 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 421 1\.;
+#X text 170 421 list;
+#X obj 268 422 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 421 VALUES: список атомов для отклонения. Тип: list.;
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 461 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 286 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 464 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 284 @values;
-#X text 270 284 Atoms to reject. Тип: list.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 329 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 462 @values;
+#X text 270 462 Атомы для отклонения. Тип: list.;
+#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 507 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 330 1\.;
-#X text 170 330 bang:;
-#X text 270 330 pass.;
-#X text 170 355 float:;
-#X text 270 355 reject if float is in reject list.;
-#X text 170 380 symbol:;
-#X text 270 380 reject if symbol is in reject list.;
-#X text 170 405 list:;
-#X text 270 405 reject if first atom is in reject list.;
-#X text 170 430 any:;
-#X text 270 430 reject if message selector is in reject list.;
-#X text 130 455 2\.;
-#X text 170 455 list:;
-#X text 270 455 set reject list.;
-#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 495 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 508 1\.;
+#X text 170 508 bang:;
+#X text 270 508 пропустить.;
+#X text 170 533 float:;
+#X text 270 533 отклонить \, если число есть в списке отклонения.;
+#X text 170 558 symbol:;
+#X text 270 558 отклонить \, если символ есть в списке отклонения.;
+#X text 170 583 list:;
+#X text 270 583 отклонить \, если первый атом есть в списке отклонения.;
+#X text 170 608 any:;
+#X text 270 608 отклонить \, если селектор сообщения есть в списке
+отклонения.;
+#X text 130 633 2\.;
+#X text 170 633 list:;
+#X text 270 633 задать список отклонения.;
+#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 673 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 496 1\.;
-#X text 270 496 passed values.;
+#X text 130 674 1\.;
+#X text 270 674 переданные значения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 546 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 549 библиотека: ceammc v0.9.8;
-#X text 432 561 смотрите также:;
-#X obj 553 564 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 724 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 727 библиотека: ceammc v0.9.8;
+#X text 432 739 смотрите также:;
+#X obj 553 742 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject_if] @url flow.reject_if-help.pd;
-#X obj 672 564 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 742 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass] @url flow.pass-help.pd;
-#N canvas 10 568 400 290 info 0;
+#N canvas 10 746 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 568 pd info;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 9 0 10 0;
+#X restore 10 746 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
