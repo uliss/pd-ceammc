@@ -8,67 +8,67 @@ subpatch or abstraction;
 #X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [p.get] @url prop.get-help.pd;
 #X obj 682 8 prop.get;
-#X obj 230 93 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X obj 230 93 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
 #X text 240 98 the object reads properties from the object \, subpatch
 or abstraction connected to its first outlet;
 #X text 240 138 the PROPS argument or the list sent to the inlet sets
 the names of the requested properties \, the values are output from
 the corresponding outlets;
-#X text 240 193 on bang \, all requested properties are output at once;
-when a single property name is sent \, only that property is output
+#X text 240 193 on bang \, all requested properties are output at once.
+When a single property name is sent \, only that property is output
 to the second outlet;
-#X text 240 263 a left-click on the object gets the properties \, which
+#X text 240 248 a left-click on the object gets the properties \, which
 is convenient for quick inspection during patching;
-#X msg 50 366 bang;
-#X obj 50 395 prop.get @size @value;
-#X obj 222 424 ui.dt;
-#X obj 50 453 ui.knob;
-#X obj 155 453 ui.dt;
-#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 508 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
+#X msg 50 351 bang;
+#X obj 50 380 prop.get @size @value;
+#X obj 222 409 ui.dt;
+#X obj 50 438 ui.knob;
+#X obj 155 438 ui.dt;
+#X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 493 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 130 543 Left-click;
-#X text 310 543 get properties.;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 578 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X text 130 528 Left-click;
+#X text 310 528 get properties.;
+#X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 563 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 581 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 566 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 579 1\.;
-#X text 170 579 list;
-#X obj 268 580 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 579 PROPS: property names. Type: list.;
-#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 619 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X text 130 564 1\.;
+#X text 170 564 list;
+#X obj 268 565 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 564 PROPS: property names. Type: list.;
+#X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 604 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 620 1\.;
-#X text 170 620 bang:;
-#X text 270 620 output the specified properties to the corresponding
+#X text 130 605 1\.;
+#X text 170 605 bang:;
+#X text 270 605 output the specified properties to the corresponding
 outlets.;
-#X text 170 645 any:;
-#X text 270 645 output the specified property to the second outlet.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 685 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 170 630 any:;
+#X text 270 630 output the specified property to the second outlet.;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 670 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 686 1\.;
-#X text 270 686 connected to the destination object.;
-#X text 130 706 2\.;
-#X text 270 706 output of the first requested property.;
-#X text 130 726 ...;
-#X text 270 726 output of the ... requested property.;
-#X text 130 746 n+1\.;
-#X text 270 746 output of the n-th requested property.;
+#X text 130 671 1\.;
+#X text 270 671 connected to the destination object.;
+#X text 130 691 2\.;
+#X text 270 691 output of the first requested property.;
+#X text 130 711 ...;
+#X text 270 711 output of the ... requested property.;
+#X text 130 731 n+1\.;
+#X text 270 731 output of the n-th requested property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 796 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 799 library: ceammc v0.9.8;
-#X text 619 811 see also:;
-#X obj 694 814 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 781 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 784 library: ceammc v0.9.8;
+#X text 619 796 see also:;
+#X obj 694 799 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop<-] @url prop<--help.pd;
-#N canvas 10 818 400 290 info 0;
+#N canvas 10 803 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 818 pd info;
+#X restore 10 803 pd info;
 #X connect 10 0 11 0;
 #X connect 11 2 12 0;
 #X connect 11 0 13 0;

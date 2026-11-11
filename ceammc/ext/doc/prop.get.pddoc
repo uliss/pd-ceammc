@@ -38,9 +38,9 @@
         свойств, значения выводятся с соответствующих выходов</tr>
       </par>
       <par>
-        <tr lang="en">on bang, all requested properties are output at once; when a single property
+        <tr lang="en">on bang, all requested properties are output at once. When a single property
         name is sent, only that property is output to the second outlet</tr>
-        <tr lang="ru">по bang все запрошенные свойства выводятся сразу; при подаче одного имени
+        <tr lang="ru">по bang все запрошенные свойства выводятся сразу. При подаче одного имени
         свойства только это свойство выводится на второй выход</tr>
       </par>
       <par>
