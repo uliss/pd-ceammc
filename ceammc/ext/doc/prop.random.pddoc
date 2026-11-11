@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">property value randomizer</tr>
-        <tr lang="ru">рандомизатор значения свойства</tr>
+        <tr lang="ru">рандомизатор значений свойств</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,54 +21,68 @@
         <see>patch.props</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object sets a random value to the specified properties of the connected object, subpatch or abstraction</tr>
+        <tr lang="ru">объект присваивает случайное значение указанным свойствам подключённого объекта, субпатча или абстракции</tr>
+      </par>
+      <par>
+        <tr lang="en">the properties must be declared with [prop.declare] first; the random value is chosen within the property's @min and @max limits</tr>
+        <tr lang="ru">свойства должны быть предварительно объявлены через [prop.declare]; случайное значение выбирается в пределах @min и @max свойства</tr>
+      </par>
+      <par>
+        <tr lang="en">use @seed for reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте @seed для воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="SEED" type="int">
-        <tr lang="en">init random seed</tr>
-        <tr lang="ru" finished="false">случайное семя</tr>
+        <tr lang="en">initial random seed</tr>
+        <tr lang="ru">начальное значение генератора случайных чисел</tr>
       </argument>
       <argument name="PROPS" type="list">
-        <tr lang="en">properties names</tr>
-        <tr lang="ru" finished="false">Имена свойств</tr>
+        <tr lang="en">property names</tr>
+        <tr lang="ru">имена свойств</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @seed -->
       <property name="@seed" type="int" default="0">
         <tr lang="en">random seed</tr>
-        <tr lang="ru" finished="false">случайное семя</tr>
+        <tr lang="ru">начальное значение генератора случайных чисел</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet number="1">
         <in>
           <tr lang="en">first specified property</tr>
-          <tr lang="ru" finished="false">первое указанное имущество</tr>
+          <tr lang="ru">первое указанное свойство</tr>
         </in>
       </inlet>
       <inlet number="...">
         <in>
           <tr lang="en">... specified property</tr>
-          <tr lang="ru" finished="false">... определенного имущества</tr>
+          <tr lang="ru">... указанное свойство</tr>
         </in>
       </inlet>
       <inlet number="n">
         <in>
           <tr lang="en">n-th specified property</tr>
-          <tr lang="ru" finished="false">n-е указанное имущество</tr>
+          <tr lang="ru">N-е указанное свойство</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">connect to target object</tr>
-          <tr lang="ru" finished="false">Подключение к целевому объекту</tr>
+          <tr lang="en">connect to the target object</tr>
+          <tr lang="ru">подключить к целевому объекту</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">atom: new random value</tr>
-          <tr lang="ru" finished="false">Атом: новое случайное значение</tr>
+          <tr lang="ru">атом: новое случайное значение</tr>
         </out>
       </outlet>
     </outlets>

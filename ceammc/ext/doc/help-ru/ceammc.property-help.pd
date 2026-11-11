@@ -17,7 +17,7 @@
 #X obj 30 250 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 220 247 добавляет свойства в основной поток данных;
 #X obj 30 275 ui.link @title [prop.random] @url prop.random-help.pd;
-#X text 220 272 рандомизатор значения свойства;
+#X text 220 272 рандомизатор значений свойств;
 #X obj 30 300 ui.link @title [prop.route] @url prop.route-help.pd;
 #X text 220 297 отделяет свойства от основного потока данных;
 #X obj 30 325 ui.link @title [prop.route~] @url prop.route~-help.pd;

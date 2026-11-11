@@ -1096,7 +1096,7 @@ prop.get	get the property value from the connected object, subpatch or abstracti
 p.get	get the property value from the connected object, subpatch or abstraction / получает значение свойства от подключённого объекта, субпатча или абстракции
 prop.join	inject properties into the main data flow / добавляет свойства в основной поток данных
 prop<-	inject properties into the main data flow / добавляет свойства в основной поток данных
-prop.random	property value randomizer / рандомизатор значения свойства
+prop.random	property value randomizer / рандомизатор значений свойств
 prop.route	separates properties from the dataflow / отделяет свойства от основного потока данных
 prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
 @->	separates properties from the dataflow / отделяет свойства от основного потока данных
