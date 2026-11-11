@@ -395,10 +395,10 @@ flow.delay	enhanced version of the vanilla [delay] object / расширенна
 flow.del	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
 flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
-flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-flow.demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+flow.demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
 flow.demultiplex~	audio stream demultiplexer / демультиплексор аудиопотока
 flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
 ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока

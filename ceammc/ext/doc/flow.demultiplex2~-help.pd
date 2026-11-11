@@ -13,88 +13,97 @@
 [demux2~] @url flow.demultiplex2~-help.pd;
 #X restore 512 11 pd aliases;
 #X obj 609 11 flow.demultiplex2~;
-#X obj 50 118 sig~ 1;
-#X obj 242 118 ui.radio @nitems 2;
-#X obj 443 118 ui.dsp~;
-#X obj 98 147 sig~ 0.125;
-#X msg 290 190 @value?;
-#X obj 50 219 flow.demultiplex2~ 2;
-#X obj 50 248 ~->;
-#X obj 78 277 ui.display @display_type 1;
-#X obj 50 305 env~;
-#X obj 136 305 env~;
-#X obj 232 305 env~;
-#X obj 328 305 env~;
-#X floatatom 50 334 5 0 0 0 - - -;
-#X floatatom 136 334 5 0 0 0 - - -;
-#X floatatom 232 334 5 0 0 0 - - -;
-#X floatatom 328 334 5 0 0 0 - - -;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 195 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes the stereo input to one of N stereo
+output pairs \, the selection is controlled by the last (control) inlet;
+#X text 240 138 the control value is the index of the selected output
+pair \, starting from 0;
+#X text 240 178 @value sets the gain coefficients for each output;
+#X text 240 203 the object can be used to switch a stereo signal between
+several destinations \, for example to send it to different effects
+or to different pairs of speakers;
+#X obj 50 321 sig~ 1;
+#X obj 242 321 ui.radio @nitems 2;
+#X obj 443 321 ui.dsp~;
+#X obj 98 350 sig~ 0.125;
+#X msg 290 393 @value?;
+#X obj 50 422 flow.demultiplex2~ 2;
+#X obj 50 451 ~->;
+#X obj 78 480 ui.display @display_type 1;
+#X obj 50 508 env~;
+#X obj 136 508 env~;
+#X obj 232 508 env~;
+#X obj 328 508 env~;
+#X floatatom 50 537 5 0 0 0 - - -;
+#X floatatom 136 537 5 0 0 0 - - -;
+#X floatatom 232 537 5 0 0 0 - - -;
+#X floatatom 328 537 5 0 0 0 - - -;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 574 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 374 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 577 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 372 1\.;
-#X text 170 372 int;
-#X obj 268 373 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 372 N: number of output stereo-pairs. Type: int. Range:
+#X text 130 575 1\.;
+#X text 170 575 int;
+#X obj 268 576 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 575 N: number of output stereo pairs. Type: int. Range:
 [2\..16];
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 412 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 615 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 415 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 618 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 413 @n;
-#X text 270 413 (initonly) Number of output stereo channels. Type:
+#X msg 130 616 @n;
+#X text 270 616 (initonly) Number of output stereo channels. Type:
 int. Default value: 2\. Range: [2\..16].;
-#X obj 250 455 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 455 @value;
-#X text 270 455 Gain coefficients per each output. Type: list.;
-#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 500 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 658 @value;
+#X text 270 658 Gain coefficients for each output. Type: list.;
+#X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 703 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 501 1\.;
-#X text 170 501 ~;
-#X text 270 501 left input signal.;
-#X text 130 526 2\.;
-#X text 170 526 ~;
-#X text 270 526 right input signal.;
-#X text 130 551 3\.;
-#X text 270 551 demultiplexer control.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 591 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 704 1\.;
+#X text 170 704 ~;
+#X text 270 704 left input signal.;
+#X text 130 729 2\.;
+#X text 170 729 ~;
+#X text 270 729 right input signal.;
+#X text 130 754 3\.;
+#X text 270 754 demultiplexer control.;
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 794 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 592 1\.;
-#X text 170 592 ~;
-#X text 270 592 first left output.;
-#X text 130 612 2\.;
-#X text 170 612 ~;
-#X text 270 612 first right output.;
-#X text 130 632 ...;
-#X text 170 632 ~;
-#X text 270 632 ... left output.;
-#X text 130 652 ...;
-#X text 170 652 ~;
-#X text 270 652 ... right output.;
-#X text 130 672 n-1\.;
-#X text 170 672 ~;
-#X text 270 672 last left output.;
-#X text 130 692 n.;
-#X text 170 692 ~;
-#X text 270 692 last right output.;
+#X text 130 795 1\.;
+#X text 170 795 ~;
+#X text 270 795 first left output.;
+#X text 130 815 2\.;
+#X text 170 815 ~;
+#X text 270 815 first right output.;
+#X text 130 835 ...;
+#X text 170 835 ~;
+#X text 270 835 ... left output.;
+#X text 130 855 ...;
+#X text 170 855 ~;
+#X text 270 855 ... right output.;
+#X text 130 875 n-1\.;
+#X text 170 875 ~;
+#X text 270 875 last left output.;
+#X text 130 895 n.;
+#X text 170 895 ~;
+#X text 270 895 last right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 742 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 745 library: ceammc v0.9.8;
-#X text 405 757 see also:;
-#X obj 480 760 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 948 library: ceammc v0.9.8;
+#X text 405 960 see also:;
+#X obj 480 963 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.demultiplex~] @url flow.demultiplex~-help.pd;
-#X obj 621 760 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 621 963 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.demultiplex] @url flow.demultiplex-help.pd;
-#N canvas 10 764 400 290 info 0;
+#N canvas 10 967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,18 +127,18 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 764 pd info;
-#X connect 5 0 10 0;
-#X connect 8 0 10 1;
-#X connect 6 0 10 2;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 11 1 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 17 0;
-#X connect 14 0 18 0;
-#X connect 15 0 19 0;
-#X connect 16 0 20 0;
-#X connect 10 1 14 0;
-#X connect 10 2 15 0;
-#X connect 10 3 16 0;
+#X restore 10 967 pd info;
+#X connect 10 0 15 0;
+#X connect 13 0 15 1;
+#X connect 11 0 15 2;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 1 17 0;
+#X connect 16 0 18 0;
+#X connect 18 0 22 0;
+#X connect 19 0 23 0;
+#X connect 20 0 24 0;
+#X connect 21 0 25 0;
+#X connect 15 1 19 0;
+#X connect 15 2 20 0;
+#X connect 15 3 21 0;

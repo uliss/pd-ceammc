@@ -19,7 +19,7 @@ flow.demultiplex-help.pd;
 #X text 220 242 демультиплексор управляющего потока;
 #X obj 30 270 ui.link @title [flow.demultiplex2~] @url
 flow.demultiplex2~-help.pd;
-#X text 220 267 демультиплексор стерео аудиопотока;
+#X text 220 267 демультиплексор стереофонического аудиопотока;
 #X obj 30 295 ui.link @title [flow.demultiplex~] @url
 flow.demultiplex~-help.pd;
 #X text 220 292 демультиплексор аудиопотока;
