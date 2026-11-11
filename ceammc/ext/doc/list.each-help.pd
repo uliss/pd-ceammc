@@ -5,75 +5,82 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 list.each;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Each @step elements are passed via righmost outlet to
-extenal object \, that suppose to return it back to rightmost inlet.
-So various mapping and filtering are possible.;
-#X msg 50 216 1 2 3 4 5 6 7 8 9;
-#X msg 261 216 1 2 3 4 5 6 7 8 9;
-#X obj 50 245 list.each;
-#X obj 184 245 pow 2;
-#X obj 261 245 list.each 2;
-#X obj 414 245 *;
-#X obj 50 274 ui.dt;
-#X obj 261 274 ui.dt;
-#X text 50 303 more complex example: multiply by three element in list;
-#X msg 50 332 1 2 3 4 5 6 7 8 9;
-#X obj 78 360 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object passes each element (or a group of @step
+elements) of the input list through the rightmost outlet to an external
+object \, which is expected to return the processed value back to the
+rightmost inlet;
+#X text 240 153 this allows arbitrary mapping \, transformation and
+filtering of list values via a side-chain \, for example applying a
+function to every element or grouping elements before processing;
+#X text 240 223 the object can be used to apply the same operation
+to every list element \, for example to square all values or to multiply
+every third element;
+#X msg 50 341 1 2 3 4 5 6 7 8 9;
+#X msg 261 341 1 2 3 4 5 6 7 8 9;
+#X obj 50 370 list.each;
+#X obj 184 370 pow 2;
+#X obj 261 370 list.each 2;
+#X obj 414 370 *;
+#X obj 50 399 ui.dt;
+#X obj 261 399 ui.dt;
+#X text 50 428 more complex example: multiply by three element in list;
+#X msg 50 457 1 2 3 4 5 6 7 8 9;
+#X obj 78 485 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X msg 78 389 @step \$1;
-#X obj 50 418 list.each 3;
-#X obj 203 418 list.reduce;
-#X obj 357 418 *;
-#X obj 50 447 ui.dt;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 502 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 78 514 @step \$1;
+#X obj 50 543 list.each 3;
+#X obj 203 543 list.reduce;
+#X obj 357 543 *;
+#X obj 50 572 ui.dt;
+#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 627 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 505 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 630 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 503 1\.;
-#X text 170 503 int;
-#X obj 268 504 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 503 STEP: see @step property. Type: int. Range: [1\..1024];
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 543 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 628 1\.;
+#X text 170 628 int;
+#X obj 268 629 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 628 STEP: see the @step property. Type: int. Range: [1\..1024];
+#X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 668 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 546 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 671 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 544 @step;
-#X text 270 544 Number of elements outputted to rightmost outlet on
+#X msg 130 669 @step;
+#X text 270 669 Number of elements output to the rightmost outlet on
 each iteration. Type: int. Default value: 1\. Range: [1\..1024].;
-#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 616 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 741 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 617 1\.;
-#X text 170 617 list:;
-#X text 270 617 Input list.;
-#X text 170 642 data:mlist:;
-#X text 270 642 Input mlist.;
-#X text 130 667 2\.;
-#X text 270 667 New modified value from applied object.;
-#X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 707 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 742 1\.;
+#X text 170 742 list:;
+#X text 270 742 input list.;
+#X text 170 767 data:mlist:;
+#X text 270 767 input MList.;
+#X text 130 792 2\.;
+#X text 270 792 new modified value from the applied object.;
+#X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 832 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 708 1\.;
-#X text 270 708 New modified list (or mlist).;
-#X text 130 728 2\.;
-#X text 270 728 single element or list of values (if @step property
+#X text 130 833 1\.;
+#X text 270 833 new modified list (or MList).;
+#X text 130 853 2\.;
+#X text 270 853 single element or list of values (if @step property
 > 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 778 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 781 library: ceammc v0.9.8;
-#X text 499 793 see also:;
-#X obj 574 796 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 903 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 906 library: ceammc v0.9.8;
+#X text 499 918 see also:;
+#X obj 574 921 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.do] @url list.do-help.pd;
-#X obj 643 796 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 643 921 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.apply_to] @url list.apply_to-help.pd;
-#N canvas 10 800 400 290 info 0;
+#N canvas 10 925 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,20 +104,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 800 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 10 0;
-#X connect 8 0 12 0;
-#X connect 10 0 13 0;
-#X connect 16 0 17 0;
-#X connect 15 0 18 0;
-#X connect 17 0 18 0;
-#X connect 18 0 21 0;
-#X connect 8 1 9 0;
-#X connect 9 0 8 1;
+#X restore 10 925 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 12 0;
+#X connect 10 0 14 0;
+#X connect 12 0 15 0;
+#X connect 18 0 19 0;
+#X connect 17 0 20 0;
+#X connect 19 0 20 0;
+#X connect 20 0 23 0;
 #X connect 10 1 11 0;
 #X connect 11 0 10 1;
-#X connect 18 1 19 0;
-#X connect 19 0 18 1;
-#X connect 19 1 20 0;
-#X connect 20 0 19 1;
+#X connect 12 1 13 0;
+#X connect 13 0 12 1;
+#X connect 20 1 21 0;
+#X connect 21 0 20 1;
+#X connect 21 1 22 0;
+#X connect 22 0 21 1;
