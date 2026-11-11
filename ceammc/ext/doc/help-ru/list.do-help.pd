@@ -1,44 +1,53 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 322 50 cnv 1 443 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 327 50 итерирование и изменение содержимого списка через боковую
-цепь обработки;
+#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 328 50 итерирует и изменяет содержимое списка через боковую
+цепь;
 #X obj 1 1 cnv 5 765 40 empty empty list.do 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 list.do;
-#X msg 50 118 1 1 1 1 1;
-#X obj 50 147 list.do;
-#X obj 203 147 expr $f1 - ($f2 / $f3);
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект поочерёдно передаёт каждый элемент входного списка
+через боковую цепь и собирает обработанные значения в новый список;
+#X text 240 138 второй выход для каждого элемента выдаёт ATOM INDEX
+TOTAL — эти данные можно использовать в боковой цепи \, чтобы вычислить
+новое значение элемента;
+#X text 240 193 объект можно использовать для применения формулы к
+каждому элементу списка \, например чтобы нормализовать список или
+преобразовать номера нот;
+#X msg 50 311 1 1 1 1 1;
+#X obj 50 340 list.do;
+#X obj 203 340 expr $f1 - ($f2 / $f3);
+#X obj 50 369 ui.dt;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 424 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 232 1\.;
-#X text 170 232 list:;
-#X text 270 232 input list.;
-#X text 170 257 data:;
-#X text 270 257 input mlist.;
-#X text 130 282 2\.;
-#X text 170 282 atom:;
-#X text 270 282 processed atom from side-chain.;
-#X obj 20 317 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 322 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 425 1\.;
+#X text 170 425 list:;
+#X text 270 425 входной список.;
+#X text 170 450 data:;
+#X text 270 450 входной MList.;
+#X text 130 475 2\.;
+#X text 170 475 atom:;
+#X text 270 475 обработанный атом из боковой цепи.;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 515 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 323 1\.;
-#X text 270 323 output processed list.;
-#X text 130 343 2\.;
-#X text 270 343 output per each list element: ATOM INDEX TOTAL.;
+#X text 130 516 1\.;
+#X text 270 516 выход обработанного списка.;
+#X text 130 536 2\.;
+#X text 270 536 выход для каждого элемента списка: ATOM INDEX TOTAL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 551 520 смотрите также:;
-#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 586 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 589 библиотека: ceammc v0.9.8;
+#X text 551 601 смотрите также:;
+#X obj 672 604 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.each] @url list.each-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 608 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -62,8 +71,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 7 0;
-#X connect 5 1 6 0;
-#X connect 6 0 5 1;
+#X restore 10 608 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 9 1 10 0;
+#X connect 10 0 9 1;

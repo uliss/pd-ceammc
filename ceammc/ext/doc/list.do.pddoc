@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">iterate and modify the list contents via a side-chain</tr>
-        <tr lang="ru">итерирование и изменение содержимого списка через боковую цепь обработки</tr>
+        <tr lang="ru">итерирует и изменяет содержимое списка через боковую цепь</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,21 +19,35 @@
         <see>list.each</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object passes each element of the input list through the side-chain one by one and collects the processed values into a new list</tr>
+        <tr lang="ru">объект поочерёдно передаёт каждый элемент входного списка через боковую цепь и собирает обработанные значения в новый список</tr>
+      </par>
+      <par>
+        <tr lang="en">the second outlet outputs for each element: ATOM INDEX TOTAL, which can be used in the side-chain to compute a new value for the element</tr>
+        <tr lang="ru">второй выход для каждого элемента выдаёт ATOM INDEX TOTAL — эти данные можно использовать в боковой цепи, чтобы вычислить новое значение элемента</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to apply a formula to each list element, for example to normalize a list or to transform note numbers</tr>
+        <tr lang="ru">объект можно использовать для применения формулы к каждому элементу списка, например чтобы нормализовать список или преобразовать номера нот</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">input list</tr>
-          <tr lang="ru" finished="false">вводный список</tr>
+          <tr lang="ru">входной список</tr>
         </in>
         <in on="data">
-          <tr lang="en">input mlist</tr>
-          <tr lang="ru" finished="false">входной млечный</tr>
+          <tr lang="en">input MList</tr>
+          <tr lang="ru">входной MList</tr>
         </in>
       </inlet>
       <inlet>
         <in on="atom">
-          <tr lang="en">processed atom from side-chain</tr>
-          <tr lang="ru" finished="false">Обработанный атом из боковой цепи</tr>
+          <tr lang="en">processed atom from the side-chain</tr>
+          <tr lang="ru">обработанный атом из боковой цепи</tr>
         </in>
       </inlet>
     </inlets>
@@ -41,13 +55,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">output processed list</tr>
-          <tr lang="ru" finished="false">Перечень обработанных данных</tr>
+          <tr lang="ru">выход обработанного списка</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">output per each list element: ATOM INDEX TOTAL</tr>
-          <tr lang="ru" finished="false">выход для каждого элемента списка: ATOM INDEX TOTAL</tr>
+          <tr lang="en">output for each list element: ATOM INDEX TOTAL</tr>
+          <tr lang="ru">выход для каждого элемента списка: ATOM INDEX TOTAL</tr>
         </out>
       </outlet>
     </outlets>

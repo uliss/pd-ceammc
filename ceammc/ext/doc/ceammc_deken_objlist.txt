@@ -660,7 +660,7 @@ list.count	output the number of items that equal to specified value / вывод
 list.count_if	output the number of items that satisfy to a side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
 list.delta	outputs and saves the list of differences between the current and the previously saved list / выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком
 list.distribution	output list value distribution / выводит список распределения значений в списке
-list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
+list.do	iterate and modify the list contents via a side-chain / итерирует и изменяет содержимое списка через боковую цепь
 list.each	maps a list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
 list.enumerate	enumerates list elements / нумерует элементы списка
 list.equal	list equal check / проверка списков на равенство
