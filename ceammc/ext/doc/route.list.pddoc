@@ -23,41 +23,47 @@
         <see>route.random</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes list messages to the first outlet and all other messages (bang, float, symbol, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет списки на первый выход, а все остальные сообщения (bang, числа, символы, any) — на второй выход</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">any to second outlet</tr>
-          <tr lang="ru" finished="false">любой второй выход</tr>
+          <tr lang="en">any message to the second outlet</tr>
+          <tr lang="ru">сообщение any на второй выход</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to second outlet</tr>
-          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+          <tr lang="en">bang to the second outlet</tr>
+          <tr lang="ru">bang на второй выход</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to second outlet</tr>
-          <tr lang="ru" finished="false">Поплавать на второй выход</tr>
+          <tr lang="en">float to the second outlet</tr>
+          <tr lang="ru">число на второй выход</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to *first* outlet</tr>
-          <tr lang="ru" finished="false">Список *первый* выход</tr>
+          <tr lang="en">list to the first outlet</tr>
+          <tr lang="ru">список на первый выход</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to second outlet</tr>
-          <tr lang="ru" finished="false">Символ для второго выхода</tr>
+          <tr lang="en">symbol to the second outlet</tr>
+          <tr lang="ru">символ на второй выход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list output</tr>
-          <tr lang="ru" finished="false">перечень мероприятий</tr>
+          <tr lang="ru">выход списков</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">other messages</tr>
-          <tr lang="ru" finished="false">Другие сообщения</tr>
+          <tr lang="ru">другие сообщения</tr>
         </out>
       </outlet>
     </outlets>
