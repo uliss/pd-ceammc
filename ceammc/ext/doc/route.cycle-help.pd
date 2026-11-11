@@ -5,99 +5,110 @@
 #X obj 1 1 cnv 5 765 40 empty empty route.cycle 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 route.cycle;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 NOTICE: to get properties use [prop.get] object \, cause
-all messages (including property requests) are passed thru;
-#X obj 50 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 230 metro 150;
-#X msg 69 259 bang;
-#X obj 50 288 route.cycle 4;
-#X obj 50 345 click~;
-#X obj 174 345 click~;
-#X obj 299 345 click~;
-#X obj 424 345 click~;
-#X obj 50 374 flt.resonlp~ 400;
-#X obj 88 403 flt.resonlp~ 600;
-#X obj 126 432 flt.resonlp~ 800;
-#X obj 165 461 flt.resonlp~ 1200;
-#X obj 50 489 pan.spread~ 4;
-#X obj 50 518 ui.hgain2~;
-#X obj 270 518 ui.dsp~;
-#X obj 50 547 dac~;
-#X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 602 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 280 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes each incoming message to the next
+outlet in a round-robin manner \, cycling through all outlets;
+#X text 240 138 @offset sets the starting outlet index \, @step sets
+how many outlets to skip after each message (the step can be negative
+for reverse rotation);
+#X text 240 193 a bang on the second inlet resets the current outlet
+index to the initial value;
+#X text 240 233 notice: to get properties \, use the [prop.get] object
+\, since all messages (including property requests) are passed through;
+#X text 240 288 the object can be used to distribute events over several
+destinations in turn \, for example to trigger different sounds or
+effects in rotation;
+#X obj 50 406 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 435 metro 150;
+#X msg 69 464 bang;
+#X obj 50 493 route.cycle 4;
+#X obj 50 550 click~;
+#X obj 174 550 click~;
+#X obj 299 550 click~;
+#X obj 424 550 click~;
+#X obj 50 579 flt.resonlp~ 400;
+#X obj 88 608 flt.resonlp~ 600;
+#X obj 126 637 flt.resonlp~ 800;
+#X obj 165 666 flt.resonlp~ 1200;
+#X obj 50 694 pan.spread~ 4;
+#X obj 50 723 ui.hgain2~;
+#X obj 270 723 ui.dsp~;
+#X obj 50 752 dac~;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 605 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 810 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 603 1\.;
-#X text 170 603 int;
-#X obj 268 604 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 603 N: number of outlets. Type: int. Range: [1\..64];
-#X text 130 628 2\.;
-#X text 170 628 int;
-#X obj 268 629 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 628 OFFSET: start position. Type: int. Range: [-64\..64];
-#X text 130 653 3\.;
-#X text 170 653 int;
-#X obj 268 654 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 653 STEP: cycle step. Type: int.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 693 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 808 1\.;
+#X text 170 808 int;
+#X obj 268 809 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 808 N: number of outlets. Type: int. Range: [1\..64];
+#X text 130 833 2\.;
+#X text 170 833 int;
+#X obj 268 834 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 833 OFFSET: start position. Type: int. Range: [-64\..64];
+#X text 130 858 3\.;
+#X text 170 858 int;
+#X obj 268 859 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 858 STEP: cycle step. Type: int.;
+#X obj 20 893 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 898 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 696 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 901 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 694 @n;
-#X text 270 694 (initonly) Number of outlets. Type: int. Default value:
+#X msg 130 899 @n;
+#X text 270 899 (initonly) Number of outlets. Type: int. Default value:
 2\. Range: [1\..64].;
-#X obj 250 736 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 736 @index;
-#X text 270 736 Current outlet index. Type: int. Default value: 0\.;
-#X obj 250 766 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 766 @offset;
-#X text 270 766 Init cycle offset. Type: int. Default value: 0\. Range:
+#X obj 250 941 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 941 @index;
+#X text 270 941 Current outlet index. Type: int. Default value: 0\.;
+#X obj 250 971 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 971 @offset;
+#X text 270 971 Init cycle offset. Type: int. Default value: 0\. Range:
 [-64\..64].;
-#X obj 250 808 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 808 @step;
-#X text 270 808 Cycle step. Type: int. Default value: 1\.;
-#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 853 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 854 1\.;
-#X text 170 854 any:;
-#X text 270 854 any to current outlet \, then move to next.;
-#X text 170 879 bang:;
-#X text 270 879 bang to current outlet \, then move to next.;
-#X text 170 904 float:;
-#X text 270 904 float to current outlet \, then move to next.;
-#X text 170 929 list:;
-#X text 270 929 list to to current outlet \, then move to next.;
-#X text 170 954 symbol:;
-#X text 270 954 symbol to current outlet \, then move to next.;
-#X text 130 979 2\.;
-#X text 170 979 bang:;
-#X text 270 979 reset to initial outlet index.;
-#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1019 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 250 1013 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1013 @step;
+#X text 270 1013 Cycle step. Type: int. Default value: 1\.;
+#X obj 20 1053 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1058 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1020 1\.;
-#X text 270 1020 first output.;
-#X text 130 1040 ...;
-#X text 270 1040 ... output.;
-#X text 130 1060 n.;
-#X text 270 1060 nth output.;
+#X text 130 1059 1\.;
+#X text 170 1059 any:;
+#X text 270 1059 any message to the current outlet \, then move to
+the next.;
+#X text 170 1084 bang:;
+#X text 270 1084 bang to the current outlet \, then move to the next.;
+#X text 170 1109 float:;
+#X text 270 1109 float to the current outlet \, then move to the next.;
+#X text 170 1134 list:;
+#X text 270 1134 list to the current outlet \, then move to the next.;
+#X text 170 1159 symbol:;
+#X text 270 1159 symbol to the current outlet \, then move to the next.;
+#X text 130 1184 2\.;
+#X text 170 1184 bang:;
+#X text 270 1184 reset to the initial outlet index.;
+#X obj 20 1219 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1224 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1225 1\.;
+#X text 270 1225 first output.;
+#X text 130 1245 ...;
+#X text 270 1245 ... output.;
+#X text 130 1265 n.;
+#X text 270 1265 n-th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1110 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1113 library: ceammc v0.9.8;
-#X text 492 1125 see also:;
-#X obj 567 1128 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1315 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1318 library: ceammc v0.9.8;
+#X text 492 1330 see also:;
+#X obj 567 1333 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.ring] @url flow.ring-help.pd;
-#X obj 650 1128 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 1333 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.random] @url route.random-help.pd;
-#N canvas 10 1132 400 290 info 0;
+#N canvas 10 1337 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,23 +132,23 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1132 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 18 0 19 0;
-#X connect 18 1 19 1;
-#X connect 19 0 21 0;
-#X connect 19 1 21 1;
+#X restore 10 1337 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 22 0 23 0;
+#X connect 22 1 23 1;
+#X connect 23 0 25 0;
+#X connect 23 1 25 1;
+#X connect 18 0 22 0;
+#X connect 19 0 22 1;
+#X connect 20 0 22 2;
+#X connect 21 0 22 3;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 13 2 16 0;
+#X connect 13 3 17 0;
 #X connect 14 0 18 0;
-#X connect 15 0 18 1;
-#X connect 16 0 18 2;
-#X connect 17 0 18 3;
-#X connect 9 0 10 0;
-#X connect 9 1 11 0;
-#X connect 9 2 12 0;
-#X connect 9 3 13 0;
-#X connect 10 0 14 0;
-#X connect 11 0 15 0;
-#X connect 12 0 16 0;
-#X connect 13 0 17 0;
+#X connect 15 0 19 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
