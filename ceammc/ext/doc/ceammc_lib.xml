@@ -2095,7 +2095,7 @@
     <entry name="patch.props" descr="get or set the patch properties" ref_view="link">
       <xi:include href="patch.props.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop" descr="get/set the named property value for subpatch or abstraction" ref_view="link">
+    <entry name="prop" descr="get/set the named property value for a subpatch or an abstraction" ref_view="link">
       <xi:include href="prop.pddoc" parse="xml"/>
     </entry>
     <entry name="prop.declare" descr="declare the named property for a subpatch or an abstraction" ref_view="link">

@@ -1913,7 +1913,7 @@ preset.symbol-help.pd;
 #X obj 30 20006 ui.link @title [patch.props] @url patch.props-help.pd;
 #X text 200 20003 получает или устанавливает свойства патча;
 #X obj 30 20031 ui.link @title [prop] @url prop-help.pd;
-#X text 200 20028 получить/установить именованное значение свойства
+#X text 200 20028 получает/устанавливает значение именованного свойства
 для субпатча или абстракции;
 #X obj 30 20071 ui.link @title [prop.declare] @url
 prop.declare-help.pd;

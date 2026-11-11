@@ -7,8 +7,8 @@
 #X obj 30 120 ui.link @title [patch.props] @url patch.props-help.pd;
 #X text 220 117 получает или устанавливает свойства патча;
 #X obj 30 145 ui.link @title [prop] @url prop-help.pd;
-#X text 220 142 получить/установить именованное значение свойства для
-субпатча или абстракции;
+#X text 220 142 получает/устанавливает значение именованного свойства
+для субпатча или абстракции;
 #X obj 30 185 ui.link @title [prop.declare] @url prop.declare-help.pd;
 #X text 220 182 объявляет именованное свойство для субпатча или абстракции;
 #X obj 30 210 ui.link @title [prop.get] @url prop.get-help.pd;

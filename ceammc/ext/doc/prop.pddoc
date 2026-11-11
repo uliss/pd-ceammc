@@ -7,9 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">get/set the named property value for subpatch or abstraction</tr>
-        <tr lang="ru">получить/установить именованное значение свойства для субпатча или
-        абстракции</tr>
+        <tr lang="en">get/set the named property value for a subpatch or an abstraction</tr>
+        <tr lang="ru">получает/устанавливает значение именованного свойства для субпатча или абстракции</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -26,24 +25,30 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The property should be declared with [prop.declare]. Min/max limits can be
-        set to the property</tr>
-        <tr lang="ru" finished="false">Имущество должно быть объявлено с [prop.declare]. Мин/макс
-        лимиты могут быть установлены на имущество</tr>
+        <tr lang="en">the object gets or sets the value of a named property in the current subpatch or abstraction</tr>
+        <tr lang="ru">объект читает или устанавливает значение именованного свойства в текущем субпатче или абстракции</tr>
+      </par>
+      <par>
+        <tr lang="en">the property must be declared with [prop.declare] first. The min/max limits are set at declaration time</tr>
+        <tr lang="ru">свойство должно быть предварительно объявлено через [prop.declare]. Ограничения min/max задаются при объявлении</tr>
+      </par>
+      <par>
+        <tr lang="en">a bang on the inlet outputs the current property value, an incoming value sets the property and outputs it</tr>
+        <tr lang="ru">bang на входе выводит текущее значение свойства, входящее значение устанавливает свойство и выводит его</tr>
       </par>
     </info>
     <arguments>
       <argument name="@NAME" type="symbol">
         <tr lang="en">property name</tr>
-        <tr lang="ru" finished="false">Имя собственности</tr>
+        <tr lang="ru">имя свойства</tr>
       </argument>
     </arguments>
     <methods>
       <!-- default -->
       <method name="default">
         <info>
-          <tr lang="en">reset to default value and output</tr>
-          <tr lang="ru" finished="false">Сброс значения по умолчанию и выход</tr>
+          <tr lang="en">reset to the default value and output</tr>
+          <tr lang="ru">сбросить к значению по умолчанию и вывести</tr>
         </info>
       </method>
     </methods>
@@ -51,11 +56,11 @@
       <inlet>
         <in on="bang">
           <tr lang="en">output property value</tr>
-          <tr lang="ru" finished="false">выходная стоимость имущества</tr>
+          <tr lang="ru">вывести значение свойства</tr>
         </in>
         <in on="any">
           <tr lang="en">set property value and output it</tr>
-          <tr lang="ru" finished="false">установить стоимость имущества и произвести его</tr>
+          <tr lang="ru">установить значение свойства и вывести его</tr>
         </in>
       </inlet>
     </inlets>
@@ -63,7 +68,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output value</tr>
-          <tr lang="ru" finished="false">выходная стоимость</tr>
+          <tr lang="ru">выходное значение</tr>
         </out>
       </outlet>
     </outlets>
