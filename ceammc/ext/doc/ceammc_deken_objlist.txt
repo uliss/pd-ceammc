@@ -1390,5 +1390,5 @@ ui.vsliders	multiple slider widget / виджет многоползунково
 ui.spectroscope~	spectroscope widget / виджет просмотрщика спектра
 ui.ssc~	spectroscope widget / виджет просмотрщика спектра
 ui.tab	displays a list of text buttons or text toggles / список текстовых кнопок или текстовых переключателей
-ui.toggle	modern toggle widget / cовременный виджет переключателя
-ui.t	modern toggle widget / cовременный виджет переключателя
+ui.toggle	modern toggle widget / современный виджет-переключатель
+ui.t	modern toggle widget / современный виджет-переключатель

@@ -87,7 +87,7 @@ ui.spectroscope~-help.pd;
 #X obj 30 1070 ui.link @title [ui.tab] @url ui.tab-help.pd;
 #X text 220 1067 список текстовых кнопок или текстовых переключателей;
 #X obj 30 1095 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 220 1092 cовременный виджет переключателя;
+#X text 220 1092 современный виджет-переключатель;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::ui 20 20 0 20 -104026
 -4096 0;
 #X obj 1 1117 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
