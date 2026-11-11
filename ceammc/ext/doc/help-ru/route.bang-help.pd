@@ -1,71 +1,79 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 328 50 отделяет пустые события (bangs) от сообщений других
-типов;
+#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 465 50 отделяет bang от сообщений других типов;
 #X obj 1 1 cnv 5 765 40 empty empty route.bang 20 20 0 20 -104026
 -4096 0;
 #X obj 589 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [route.b] @url route.bang-help.pd;
 #X obj 668 8 route.bang;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 to get properties use *prop.get* object \, cause all
-messages (including property requests) are passed thru;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X msg 98 186 bang;
-#X msg 165 186 symbol ABC;
-#X msg 136 215 list 1 2 3;
-#X obj 280 215 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 165 244 list;
-#X obj 280 244 prop.set @strict;
-#X msg 184 273 @any;
-#X obj 50 302 route.bang;
-#X obj 50 330 ui.dt;
-#X obj 136 359 ui.dt;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 414 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 240 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект направляет bang на первый выход \, а все остальные
+сообщения (числа \, символы \, списки \, any) — на второй выход;
+#X text 240 138 по умолчанию пустой список рассматривается как bang.
+Установите @strict в true \, чтобы отключить это поведение и направлять
+пустые списки на второй выход;
+#X text 240 193 для получения свойств используйте объект [prop.get]
+\, так как все сообщения (включая запросы свойств) проходят насквозь;
+#X text 240 248 объект можно использовать для отделения bang от других
+сообщений \, например чтобы запускать действие только по bang и игнорировать
+числа или символы;
+#X floatatom 50 366 5 0 0 0 - - -;
+#X msg 98 366 bang;
+#X msg 165 366 symbol ABC;
+#X msg 136 395 list 1 2 3;
+#X obj 280 395 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 165 424 list;
+#X obj 280 424 prop.set @strict;
+#X msg 184 453 @any;
+#X obj 50 482 route.bang;
+#X obj 50 510 ui.dt;
+#X obj 136 539 ui.dt;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 417 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 597 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 415 @strict;
-#X text 270 415 Strict mode. By default empty list treated as bang.
-Set to true to disable this behavior. Тип: bool. Значение по умолчанию:
-0\.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 595 @strict;
+#X text 270 595 Строгий режим. По умолчанию пустой список рассматривается
+как bang. Установите true \, чтобы отключить это поведение. Тип: bool.
+Значение по умолчанию: 0\.;
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 667 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 170 488 any:;
-#X text 270 488 any to second outlet.;
-#X text 170 513 bang:;
-#X text 270 513 bang to *first* outlet.;
-#X text 170 538 float:;
-#X text 270 538 float to second outlet.;
-#X text 170 563 list:;
-#X text 270 563 list to second outlet. See @strict property for more
-info.;
-#X text 170 588 symbol:;
-#X text 270 588 symbol to second outlet.;
-#X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 628 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 668 1\.;
+#X text 170 668 any:;
+#X text 270 668 сообщение any на второй выход.;
+#X text 170 693 bang:;
+#X text 270 693 bang на первый выход.;
+#X text 170 718 float:;
+#X text 270 718 число на второй выход.;
+#X text 170 743 list:;
+#X text 270 743 список на второй выход. См. свойство @strict для получения
+дополнительной информации.;
+#X text 170 783 symbol:;
+#X text 270 783 символ на второй выход.;
+#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 823 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 629 1\.;
-#X text 270 629 bang output.;
-#X text 130 649 2\.;
-#X text 270 649 other messages.;
+#X text 130 824 1\.;
+#X text 170 824 bang:;
+#X text 270 824 выход bang.;
+#X text 130 844 2\.;
+#X text 270 844 другие сообщения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 699 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 702 библиотека: ceammc v0.9.8;
-#X text 431 714 смотрите также:;
-#X obj 552 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 894 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 897 библиотека: ceammc v0.9.8;
+#X text 431 909 смотрите также:;
+#X obj 552 912 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.float] @url route.float-help.pd;
-#X obj 650 717 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 912 ui.link @background_color 0.78431 0.78431 0.78431
 @title [route.random] @url route.random-help.pd;
-#N canvas 10 721 400 290 info 0;
+#N canvas 10 916 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,14 +97,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 721 pd info;
-#X connect 11 0 13 0;
-#X connect 7 0 15 0;
-#X connect 8 0 15 0;
-#X connect 10 0 15 0;
-#X connect 12 0 15 0;
-#X connect 14 0 15 0;
-#X connect 13 0 15 0;
-#X connect 15 0 16 0;
-#X connect 15 1 17 0;
-#X connect 9 0 15 0;
+#X restore 10 916 pd info;
+#X connect 14 0 16 0;
+#X connect 10 0 18 0;
+#X connect 11 0 18 0;
+#X connect 13 0 18 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;
+#X connect 12 0 18 0;

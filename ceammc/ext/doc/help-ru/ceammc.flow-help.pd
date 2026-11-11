@@ -124,8 +124,7 @@ flow.sync_pack-help.pd;
 #X text 220 1322 отделяет сообщения общего вида от bang \, чисел \,
 символов и списков;
 #X obj 30 1365 ui.link @title [route.bang] @url route.bang-help.pd;
-#X text 220 1362 отделяет пустые события (bangs) от сообщений других
-типов;
+#X text 220 1362 отделяет bang от сообщений других типов;
 #X obj 30 1390 ui.link @title [route.cycle] @url route.cycle-help.pd;
 #X text 220 1387 циклический маршрутизатор сообщений;
 #X obj 30 1415 ui.link @title [route.data] @url route.data-help.pd;

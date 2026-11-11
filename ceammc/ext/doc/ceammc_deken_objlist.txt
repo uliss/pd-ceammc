@@ -489,8 +489,8 @@ ceammc/~->	extracts control messages from audio connections / извлекает
 replace	replace atoms in data stream / заменяет атомы в потоке данных
 ceammc/replace	replace atoms in data stream / заменяет атомы в потоке данных
 route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от bang, чисел, символов и списков
-route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
-route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.bang	separates the bang messages from others / отделяет bang от сообщений других типов
+route.b	separates the bang messages from others / отделяет bang от сообщений других типов
 route.cycle	cyclic message router / циклический маршрутизатор сообщений
 route.data	separates data messages from others / отделяет сообщения с данными от других
 route.d	separates data messages from others / отделяет сообщения с данными от других
