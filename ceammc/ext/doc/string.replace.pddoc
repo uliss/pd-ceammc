@@ -19,7 +19,7 @@
         <alias>str.replace</alias>
       </aliases>
       <also>
-        <see>str.remove</see>
+        <see>string.remove</see>
       </also>
     </meta>
     <arguments>

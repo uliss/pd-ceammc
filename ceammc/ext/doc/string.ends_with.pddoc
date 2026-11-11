@@ -19,7 +19,7 @@
         <alias>str.ends_with</alias>
       </aliases>
       <also>
-        <see>str.starts_with</see>
+        <see>string.starts_with</see>
       </also>
     </meta>
     <arguments>

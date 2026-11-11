@@ -19,7 +19,7 @@
         <alias>str.contains</alias>
       </aliases>
       <also>
-        <see>str.ends_with</see>
+        <see>string.ends_with</see>
       </also>
     </meta>
     <arguments>
