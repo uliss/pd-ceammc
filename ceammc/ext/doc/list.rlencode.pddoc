@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">run-length encoding for lists</tr>
-        <tr lang="ru">кодирование повторов в списках</tr>
+        <tr lang="ru">кодирует списки длинами серий</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,27 +23,39 @@
         <alias>list.wrap</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object performs run-length encoding: it compresses consecutive repeated elements into a list of unique elements and a parallel list of repeat counts</tr>
+        <tr lang="ru">объект выполняет кодирование длинами серий: сжимает подряд идущие повторяющиеся элементы в список уникальных элементов и параллельный список счётчиков повторов</tr>
+      </par>
+      <par>
+        <tr lang="en">the first outlet outputs the list of unique elements, the second outlet outputs the corresponding repeat counts</tr>
+        <tr lang="ru">первый выход выдаёт список уникальных элементов, второй выход — соответствующие счётчики повторов</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to compress a list with many repeated values, for example to shorten a long sequence of identical notes before transmitting or storing it</tr>
+        <tr lang="ru">объект можно использовать для сжатия списка с большим числом повторяющихся значений, например чтобы сократить длинную последовательность одинаковых нот перед передачей или сохранением</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">input list</tr>
-          <tr lang="ru" finished="false">вводный список</tr>
+          <tr lang="ru">входной список</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">First list: list entries without repetitions. For example 1 1 2 2 2 1 1
-          becomes 1 2 1</tr>
-          <tr lang="ru" finished="false">Первый список: список записей без повторений. Например, 1
-          1 2 2 2 1 1 становится 1 2 1</tr>
+          <tr lang="en">first list: list entries without repetitions. For example, 1 1 2 2 2 1 1 becomes 1 2 1</tr>
+          <tr lang="ru">первый список: элементы без повторов. Например, 1 1 2 2 2 1 1 становится 1 2 1</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">Second list: count of entries</tr>
-          <tr lang="ru" finished="false">Второй список: количество записей</tr>
+          <tr lang="en">second list: count of entries</tr>
+          <tr lang="ru">второй список: количество повторов</tr>
         </out>
       </outlet>
     </outlets>

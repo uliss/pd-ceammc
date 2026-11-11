@@ -142,7 +142,7 @@ list.rldecode-help.pd;
 #X text 220 1547 декодирует списки \, закодированные длинами серий;
 #X obj 30 1575 ui.link @title [list.rlencode] @url
 list.rlencode-help.pd;
-#X text 220 1572 кодирование повторов в списках;
+#X text 220 1572 кодирует списки длинами серий;
 #X obj 30 1600 ui.link @title [list.rotate] @url list.rotate-help.pd;
 #X text 220 1597 циклическое вращение списка на целое число шагов;
 #X obj 30 1625 ui.link @title [list.route] @url list.route-help.pd;

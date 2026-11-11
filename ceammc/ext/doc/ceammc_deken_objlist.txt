@@ -700,8 +700,8 @@ list.resize	changes the list size / изменяет длину списка
 list.reverse	reverses the order of the elements in the list / меняет порядок элементов в списке на обратный
 list.rldecode	run-length decoding lists / декодирует списки, закодированные длинами серий
 list.unwrap	run-length decoding lists / декодирует списки, закодированные длинами серий
-list.rlencode	run-length encoding for lists / кодирование повторов в списках
-list.wrap	run-length encoding for lists / кодирование повторов в списках
+list.rlencode	run-length encoding for lists / кодирует списки длинами серий
+list.wrap	run-length encoding for lists / кодирует списки длинами серий
 list.rotate	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.<<	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.>>	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
