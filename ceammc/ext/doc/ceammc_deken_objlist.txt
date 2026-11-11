@@ -1339,9 +1339,9 @@ ui.filter~	sound filter widget / виджет звукового фильтра
 ui.gain2~	stereo gain control / стерео-регулятор громкости
 ui.hgain2~	stereo gain control / стерео-регулятор громкости
 ui.vgain2~	stereo gain control / стерео-регулятор громкости
-ui.gain~	gain control / контроль громкости
-ui.hgain~	gain control / контроль громкости
-ui.vgain~	gain control / контроль громкости
+ui.gain~	gain control / регулятор усиления
+ui.hgain~	gain control / регулятор усиления
+ui.vgain~	gain control / регулятор усиления
 ui.icon	simple icon with button capabilities / простая иконка с возможностями нажатия
 ui.incdec	value increment or decrement widget / виджет увеличения или уменьшения значения
 ui.keyboard	keyboard widget / виджет клавиатуры

@@ -2428,7 +2428,7 @@ ui.colorpanel-help.pd;
 #X obj 30 25067 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
 #X text 200 25064 стерео-регулятор громкости;
 #X obj 30 25092 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 200 25089 контроль громкости;
+#X text 200 25089 регулятор усиления;
 #X obj 30 25117 ui.link @title [ui.icon] @url ui.icon-help.pd;
 #X text 200 25114 простая иконка с возможностями нажатия;
 #X obj 30 25142 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
