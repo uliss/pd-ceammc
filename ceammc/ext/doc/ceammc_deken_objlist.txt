@@ -201,11 +201,11 @@ ceammc/lin->lin	converts from the one linear range into another / преобра
 lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
 ceammc/l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
 l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
-conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+conv.lin2lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/lin->lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+lin->lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/l->l~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+l->l~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 conv.list2props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 ceammc/list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств

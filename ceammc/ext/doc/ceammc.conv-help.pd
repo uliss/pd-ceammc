@@ -79,7 +79,7 @@ conv.lin2curve-help.pd;
 #X text 220 807 converts from the one linear range into another;
 #X obj 30 835 ui.link @title [conv.lin2lin~] @url
 conv.lin2lin~-help.pd;
-#X text 220 832 converts from the one linear range to another for signals;
+#X text 220 832 converts from one linear range to another for signals;
 #X obj 30 860 ui.link @title [conv.list2props] @url
 conv.list2props-help.pd;
 #X text 220 857 converts list to series of property messages;

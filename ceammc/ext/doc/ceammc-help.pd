@@ -288,8 +288,7 @@ conv.lin2lin-help.pd;
 #X text 200 3020 converts from the one linear range into another;
 #X obj 30 3048 ui.link @title [conv.lin2lin~] @url
 conv.lin2lin~-help.pd;
-#X text 200 3045 converts from the one linear range to another for
-signals;
+#X text 200 3045 converts from one linear range to another for signals;
 #X obj 30 3073 ui.link @title [conv.list2props] @url
 conv.list2props-help.pd;
 #X text 200 3070 converts list to series of property messages;

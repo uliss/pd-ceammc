@@ -315,7 +315,7 @@
     <entry name="conv.lin2lin" descr="converts from the one linear range into another" ref_view="link">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
-    <entry name="conv.lin2lin~" descr="converts from the one linear range to another for signals" ref_view="link">
+    <entry name="conv.lin2lin~" descr="converts from one linear range to another for signals" ref_view="link">
       <xi:include href="conv.lin2lin~.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.list2props" descr="converts list to series of property messages" ref_view="link">
