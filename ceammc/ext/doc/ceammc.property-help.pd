@@ -11,8 +11,8 @@
 #X obj 30 170 ui.link @title [prop.declare] @url prop.declare-help.pd;
 #X text 220 167 declare the named property for a subpatch or an abstraction;
 #X obj 30 195 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 220 192 get the property value from connected object \, subpatch
-or abstraction;
+#X text 220 192 get the property value from the connected object \,
+subpatch or abstraction;
 #X obj 30 235 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 220 232 inject properties into the main data flow;
 #X obj 30 260 ui.link @title [prop.random] @url prop.random-help.pd;

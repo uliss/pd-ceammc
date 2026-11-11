@@ -529,7 +529,7 @@ for [vline~] object;
 #X obj 30 5487 ui.link @title [envelope] @url envelope-help.pd;
 #X text 200 5484 envelope data type;
 #X obj 30 5512 ui.link @title [vline2env] @url vline2env-help.pd;
-#X text 200 5509 Converts vline messages to Env;
+#X text 200 5509 converts vline messages to Env;
 #X obj 519 5086 cnv 1 221 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 524 5086 working with sound envelopes;
 #X obj 20 5534 cnv 5 49 32 empty empty flow 4 16 0 17 -262144 -49933
@@ -1860,8 +1860,8 @@ abstraction;
 prop.declare-help.pd;
 #X text 200 19303 declare the named property for a subpatch or an abstraction;
 #X obj 30 19331 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 200 19328 get the property value from connected object \, subpatch
-or abstraction;
+#X text 200 19328 get the property value from the connected object
+\, subpatch or abstraction;
 #X obj 30 19371 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 200 19368 inject properties into the main data flow;
 #X obj 30 19396 ui.link @title [prop.random] @url prop.random-help.pd;

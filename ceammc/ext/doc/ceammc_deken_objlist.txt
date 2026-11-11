@@ -1092,8 +1092,8 @@ patch.props	get or set the patch properties / получает или устан
 prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
 ceammc/prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
 prop.declare	declare the named property for a subpatch or an abstraction / объявляет именованное свойство для субпатча или абстракции
-prop.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
-p.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
+prop.get	get the property value from the connected object, subpatch or abstraction / получает значение свойства от подключённого объекта, субпатча или абстракции
+p.get	get the property value from the connected object, subpatch or abstraction / получает значение свойства от подключённого объекта, субпатча или абстракции
 prop.join	inject properties into the main data flow / добавляет свойства в основной поток данных
 prop<-	inject properties into the main data flow / добавляет свойства в основной поток данных
 prop.random	property value randomizer / рандомизатор значения свойства

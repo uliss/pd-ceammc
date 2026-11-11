@@ -12,7 +12,7 @@
 #X obj 30 185 ui.link @title [prop.declare] @url prop.declare-help.pd;
 #X text 220 182 объявляет именованное свойство для субпатча или абстракции;
 #X obj 30 210 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 220 207 получить значение свойства от подсоединённого объекта
+#X text 220 207 получает значение свойства от подключённого объекта
 \, субпатча или абстракции;
 #X obj 30 250 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 220 247 добавляет свойства в основной поток данных;

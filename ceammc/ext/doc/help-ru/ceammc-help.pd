@@ -1919,7 +1919,7 @@ preset.symbol-help.pd;
 prop.declare-help.pd;
 #X text 200 20068 объявляет именованное свойство для субпатча или абстракции;
 #X obj 30 20096 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 200 20093 получить значение свойства от подсоединённого объекта
+#X text 200 20093 получает значение свойства от подключённого объекта
 \, субпатча или абстракции;
 #X obj 30 20136 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 200 20133 добавляет свойства в основной поток данных;

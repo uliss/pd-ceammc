@@ -588,7 +588,7 @@
     <entry name="envelope" descr="envelope data type" ref_view="link">
       <xi:include href="envelope.pddoc" parse="xml"/>
     </entry>
-    <entry name="vline2env" descr="Converts vline messages to Env" ref_view="link">
+    <entry name="vline2env" descr="converts vline messages to Env" ref_view="link">
       <xi:include href="vline2env.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_env.xml" parse="xml"/>
@@ -2101,7 +2101,7 @@
     <entry name="prop.declare" descr="declare the named property for a subpatch or an abstraction" ref_view="link">
       <xi:include href="prop.declare.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.get" descr="get the property value from connected object, subpatch or abstraction" ref_view="link">
+    <entry name="prop.get" descr="get the property value from the connected object, subpatch or abstraction" ref_view="link">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
     <entry name="prop.join" descr="inject properties into the main data flow" ref_view="link">
