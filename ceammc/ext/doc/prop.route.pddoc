@@ -29,12 +29,17 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object extracts properties from the data stream by matching. Non-property values are passed through untouched to the first outlet</tr>
-        <tr lang="ru">объект извлекает свойства из потока данных по совпадению. Значения, не являющиеся свойствами, проходят без изменений на первый выход</tr>
+        <tr lang="en">the object extracts properties from the data stream by matching. Non-property
+        values are passed through untouched to the first outlet</tr>
+        <tr lang="ru">объект извлекает свойства из потока данных по совпадению. Значения, не
+        являющиеся свойствами, проходят без изменений на первый выход</tr>
       </par>
       <par>
-        <tr lang="en">each matched property is output from its own outlet without the property selector, unmatched properties are output from the last outlet with the selector preserved</tr>
-        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства, несовпавшие свойства выводятся с последнего выхода с сохранением селектора</tr>
+        <tr lang="en">each matched property is output from its own outlet without the property
+        selector, unmatched properties are output from the last outlet with the selector
+        preserved</tr>
+        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства,
+        несовпавшие свойства выводятся с последнего выхода с сохранением селектора</tr>
       </par>
     </info>
     <inlets>

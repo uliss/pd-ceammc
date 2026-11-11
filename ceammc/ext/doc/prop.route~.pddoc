@@ -28,20 +28,34 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object extracts properties from the audio stream by matching. Non-property values and the audio signal are passed through untouched to the first outlet</tr>
-        <tr lang="ru">объект извлекает свойства из аудиопотока по совпадению. Значения, не являющиеся свойствами, и аудиосигнал проходят без изменений на первый выход</tr>
+        <tr lang="en">the object extracts properties from the audio stream by matching.
+        Non-property values and the audio signal are passed through untouched to the first
+        outlet</tr>
+        <tr lang="ru">объект извлекает свойства из аудиопотока по совпадению. Значения, не
+        являющиеся свойствами, и аудиосигнал проходят без изменений на первый выход</tr>
       </par>
       <par style="info">
-        <tr lang="en">note: although audio connections in Pd usually carry only audio signals, they can also carry ordinary control messages, which are routed through the same patch cords. This is rare but possible, and the object takes such messages into account</tr>
-        <tr lang="ru">примечание: хотя аудиосоединения в Pd обычно передают только аудиосигналы, они могут также передавать обычные управляющие сообщения, которые проходят по тем же соединительным линиям. Это встречается редко, но возможно, и объект учитывает такие сообщения</tr>
+        <tr lang="en">note: although audio connections in Pd usually carry only audio signals, they
+        can also carry ordinary control messages, which are routed through the same patch cords.
+        This is rare but possible, and the object takes such messages into account</tr>
+        <tr lang="ru">примечание: хотя аудиосоединения в Pd обычно передают только аудиосигналы,
+        они могут также передавать обычные управляющие сообщения, которые проходят по тем же
+        соединительным линиям. Это встречается редко, но возможно, и объект учитывает такие
+        сообщения</tr>
       </par>
       <par>
-        <tr lang="en">each matched property is output from its own outlet without the property selector, unmatched properties are output from the last outlet</tr>
-        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства, несовпавшие свойства выводятся с последнего выхода</tr>
+        <tr lang="en">each matched property is output from its own outlet without the property
+        selector, unmatched properties are output from the last outlet</tr>
+        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства,
+        несовпавшие свойства выводятся с последнего выхода</tr>
       </par>
       <par>
-        <tr lang="en">the object can be used to extract parameter values that travel through audio connections, for example to read the current value of a property from a GUI object while the audio signal continues through the patch</tr>
-        <tr lang="ru">объект можно использовать для извлечения значений параметров, передаваемых через аудиосоединения, например чтобы прочитать текущее значение свойства GUI-объекта, пока аудиосигнал продолжает идти по патчу</tr>
+        <tr lang="en">the object can be used to extract parameter values that travel through audio
+        connections, for example to read the current value of a property from a GUI object while
+        the audio signal continues through the patch</tr>
+        <tr lang="ru">объект можно использовать для извлечения значений параметров, передаваемых
+        через аудиосоединения, например чтобы прочитать текущее значение свойства GUI-объекта, пока
+        аудиосигнал продолжает идти по патчу</tr>
       </par>
     </info>
     <inlets>

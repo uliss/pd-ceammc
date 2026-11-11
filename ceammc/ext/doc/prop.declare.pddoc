@@ -22,16 +22,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object declares a named property that belongs to the current subpatch or abstraction and can be accessed by name from other objects</tr>
-        <tr lang="ru">объект объявляет именованное свойство, принадлежащее текущему субпатчу или абстракции и доступное по имени из других объектов</tr>
+        <tr lang="en">the object declares a named property that belongs to the current subpatch or
+        abstraction and can be accessed by name from other objects</tr>
+        <tr lang="ru">объект объявляет именованное свойство, принадлежащее текущему субпатчу или
+        абстракции и доступное по имени из других объектов</tr>
       </par>
       <par>
-        <tr lang="en">the property name is set by the NAME argument, the type and constraints are set by the @type, @min, @max, @enum and @default properties</tr>
-        <tr lang="ru">имя свойства задаётся аргументом NAME, тип и ограничения — свойствами @type, @min, @max, @enum и @default</tr>
+        <tr lang="en">the property name is set by the NAME argument, the type and constraints are
+        set by the @type, @min, @max, @enum and @default properties</tr>
+        <tr lang="ru">имя свойства задаётся аргументом NAME, тип и ограничения — свойствами @type,
+        @min, @max, @enum и @default</tr>
       </par>
       <par>
-        <tr lang="en">declared properties can be read and written with the [prop] and [prop.set] objects, or with [patch.props]</tr>
-        <tr lang="ru">объявленные свойства можно читать и записывать объектами [prop] и [prop.set] или через [patch.props]</tr>
+        <tr lang="en">declared properties can be read and written with the [prop] and [prop.set]
+        objects, or with [patch.props]</tr>
+        <tr lang="ru">объявленные свойства можно читать и записывать объектами [prop] и [prop.set]
+        или через [patch.props]</tr>
       </par>
     </info>
     <arguments>
@@ -54,7 +60,8 @@
       <!-- @enum -->
       <property name="@enum" type="list" access="initonly" default="">
         <tr lang="en">allowed values (without the default value) (for symbol properties only)</tr>
-        <tr lang="ru">допустимые значения (без значения по умолчанию) (только для символьных свойств)</tr>
+        <tr lang="ru">допустимые значения (без значения по умолчанию) (только для символьных
+        свойств)</tr>
       </property>
       <!-- @f -->
       <property name="@f" type="alias">

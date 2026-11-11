@@ -23,16 +23,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object sets a random value to the specified properties of the connected object, subpatch or abstraction</tr>
-        <tr lang="ru">объект присваивает случайное значение указанным свойствам подключённого объекта, субпатча или абстракции</tr>
+        <tr lang="en">the object sets a random value to the specified properties of the connected
+        object, subpatch or abstraction</tr>
+        <tr lang="ru">объект присваивает случайное значение указанным свойствам подключённого
+        объекта, субпатча или абстракции</tr>
       </par>
       <par>
-        <tr lang="en">the properties must be declared with [prop.declare] first; the random value is chosen within the property's @min and @max limits</tr>
-        <tr lang="ru">свойства должны быть предварительно объявлены через [prop.declare]; случайное значение выбирается в пределах @min и @max свойства</tr>
+        <tr lang="en">the properties must be declared with [prop.declare] first; the random value
+        is chosen within the property's @min and @max limits</tr>
+        <tr lang="ru">свойства должны быть предварительно объявлены через [prop.declare]; случайное
+        значение выбирается в пределах @min и @max свойства</tr>
       </par>
       <par>
-        <tr lang="en">use @seed for reproducible sequences. If @seed is not set explicitly, a generator initialized with the current time is used</tr>
-        <tr lang="ru">используйте @seed для воспроизводимых последовательностей. Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+        <tr lang="en">use @seed for reproducible sequences. If @seed is not set explicitly, a
+        generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте @seed для воспроизводимых последовательностей. Если @seed не
+        задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
     </info>
     <arguments>
