@@ -38,7 +38,7 @@ ui.colorpanel-help.pd;
 #X obj 30 495 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
 #X text 220 492 виджет клавиатуры;
 #X obj 30 520 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 220 517 виджет ручки;
+#X text 220 517 виджет-поворотный регулятор;
 #X obj 30 545 ui.link @title [ui.label] @url ui.label-help.pd;
 #X text 220 542 простой виджет надписи;
 #X obj 30 570 ui.link @title [ui.lcd] @url ui.lcd-help.pd;

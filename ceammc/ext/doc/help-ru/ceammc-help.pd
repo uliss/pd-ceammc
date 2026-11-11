@@ -2436,7 +2436,7 @@ ui.colorpanel-help.pd;
 #X obj 30 25167 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
 #X text 200 25164 виджет клавиатуры;
 #X obj 30 25192 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 200 25189 виджет ручки;
+#X text 200 25189 виджет-поворотный регулятор;
 #X obj 30 25217 ui.link @title [ui.label] @url ui.label-help.pd;
 #X text 200 25214 простой виджет надписи;
 #X obj 30 25242 ui.link @title [ui.lcd] @url ui.lcd-help.pd;

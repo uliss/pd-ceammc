@@ -1348,8 +1348,8 @@ ui.keyboard	keyboard widget / виджет клавиатуры
 ui.hk	keyboard widget / виджет клавиатуры
 ui.vkeyboard	keyboard widget / виджет клавиатуры
 ui.vk	keyboard widget / виджет клавиатуры
-ui.knob	knob widget / виджет ручки
-ui.k	knob widget / виджет ручки
+ui.knob	knob widget / виджет-поворотный регулятор
+ui.k	knob widget / виджет-поворотный регулятор
 ui.label	simple label widget / простой виджет надписи
 ui.lcd	black and white bitmap display / черно-белый растровый дисплей
 ui.link	hyperlink widget / виджет гиперссылки

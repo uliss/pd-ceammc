@@ -9,7 +9,7 @@
       </authors>
       <description>
         <tr lang="en">knob widget</tr>
-        <tr lang="ru">виджет ручки</tr>
+        <tr lang="ru">виджет-поворотный регулятор</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,8 +25,16 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Simple knob widget with default range 0-1.</tr>
-        <tr lang="ru" finished="false">Простой виджет ручки с диапазоном по умолчанию 0-1.</tr>
+        <tr lang="en">a simple knob widget with a default range of 0–1</tr>
+        <tr lang="ru">простой виджет-поворотный регулятор с диапазоном по умолчанию 0–1</tr>
+      </par>
+      <par>
+        <tr lang="en">the knob value is set by dragging the mouse or scrolling the wheel. Hold Shift to change the value slowly, double-click to set the knob to the middle position</tr>
+        <tr lang="ru">значение регулятора задаётся перетаскиванием мыши или прокруткой колеса. Удерживайте Shift для медленного изменения, двойной клик устанавливает регулятор в среднее положение</tr>
+      </par>
+      <par>
+        <tr lang="en">@min, @max and @scale define the value range and response curve, @mouse_events enables output of mouse events</tr>
+        <tr lang="ru">@min, @max и @scale задают диапазон значений и кривую отклика, @mouse_events включает вывод событий мыши</tr>
       </par>
     </info>
     <mouse>
@@ -49,11 +57,11 @@
     <arguments>
       <argument name="MIN" type="float">
         <tr lang="en">min value</tr>
-        <tr lang="ru" finished="false">минимальная стоимость</tr>
+        <tr lang="ru">минимальное значение</tr>
       </argument>
       <argument name="MAX" type="float">
         <tr lang="en">max value</tr>
-        <tr lang="ru" finished="false">максимальное значение</tr>
+        <tr lang="ru">максимальное значение</tr>
       </argument>
     </arguments>
     <properties>
@@ -76,67 +84,58 @@
       <xi:include href="props_preset.xml" />
       <!-- @active_scale -->
       <property name="@active_scale" type="bool" default="0">
-        <tr lang="en">if should draw active scale</tr>
-        <tr lang="ru" finished="false">Если нарисовать активную шкалу</tr>
+        <tr lang="en">if true, draw the active scale</tr>
+        <tr lang="ru">если true, рисовать активную шкалу</tr>
       </property>
       <!-- @knob_color -->
       <property name="@knob_color" type="list" category="color" default="0 0.75 1 1">
-        <tr lang="en">knob color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">цвет ручки (список красных, зеленых, синих значений в
-        диапазоне 0-1)</tr>
+        <tr lang="en">knob color (list of red, green, blue values in 0–1 range)</tr>
+        <tr lang="ru">цвет регулятора (список значений красного, зелёного, синего в диапазоне 0–1)</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="float" default="1">
         <tr lang="en">maximum knob value</tr>
-        <tr lang="ru" finished="false">Максимальное значение ручки</tr>
+        <tr lang="ru">максимальное значение регулятора</tr>
       </property>
       <!-- @midi_control -->
       <property name="@midi_control" type="int" minvalue="-1" maxvalue="127" default="-1">
-        <tr lang="en">binded MIDI controller number. -1 means not binded to any controller.</tr>
-        <tr lang="ru" finished="false">Связанный номер контроллера MIDI. -1 означает, что он не
-        связан с каким-либо контроллером.</tr>
+        <tr lang="en">bound MIDI controller number. -1 means not bound to any controller</tr>
+        <tr lang="ru">привязанный номер MIDI-контроллера. -1 означает, что контроллер не привязан</tr>
       </property>
       <!-- @midi_pickup -->
       <property name="@midi_pickup" type="bool" default="1">
-        <tr lang="en">pickup current value. If slider is binded to value, first time you should
-        pass over this value to make binding. It prevents from sudden value change on first control
-        change</tr>
-        <tr lang="ru" finished="false">Текущая стоимость пикапа. Если слайдер привязывается к
-        значению, сначала вы должны пройти через это значение, чтобы сделать связывание. Это
-        предотвращает внезапное изменение стоимости при первом изменении управления.</tr>
+        <tr lang="en">pickup current value. If the knob is bound to a MIDI controller, you first have to pass over the current value to make the binding. This prevents a sudden value jump on the first control change</tr>
+        <tr lang="ru">подхват текущего значения. Если регулятор привязан к MIDI-контроллеру, сначала нужно пройти через текущее значение, чтобы установить связь. Это предотвращает внезапный скачок значения при первом изменении контроллера</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="0">
         <tr lang="en">minimum knob value</tr>
-        <tr lang="ru" finished="false">Минимальное значение ручки</tr>
+        <tr lang="ru">минимальное значение регулятора</tr>
       </property>
       <!-- @mouse_events -->
       <property name="@mouse_events" type="bool" default="0">
-        <tr lang="en">mouse events output mode. If on outputs @mouse_down, @mouse_up and
-        @mouse_drag events</tr>
-        <tr lang="ru" finished="false">Режим вывода событий мыши. Если на выходе @mouse_down,
-        @mouse_up и @mouse_drag события</tr>
+        <tr lang="en">mouse events output mode. If on, outputs @mouse_down, @mouse_up and @mouse_drag events</tr>
+        <tr lang="ru">режим вывода событий мыши. Если включён, выводит события @mouse_down, @mouse_up и @mouse_drag</tr>
       </property>
       <!-- @scale -->
       <property name="@scale" type="symbol" default="linear" enum="linear log">
-        <tr lang="en">scale mode. Linear or logarithmic.</tr>
-        <tr lang="ru" finished="false">Режим масштаба. Линейный или логарифмический.</tr>
+        <tr lang="en">scale mode: linear or logarithmic</tr>
+        <tr lang="ru">режим шкалы: линейный или логарифмический</tr>
       </property>
       <!-- @scale_color -->
       <property name="@scale_color" type="list" category="color" default="0.6 0.6 0.6 1">
-        <tr lang="en">scale color (list of red, green, blue values in 0-1 range)</tr>
-        <tr lang="ru" finished="false">цвет шкалы (список красных, зеленых, синих значений в
-        диапазоне 0-1)</tr>
+        <tr lang="en">scale color (list of red, green, blue values in 0–1 range)</tr>
+        <tr lang="ru">цвет шкалы (список значений красного, зелёного, синего в диапазоне 0–1)</tr>
       </property>
       <!-- @show_range -->
       <property name="@show_range" type="bool" default="0">
         <tr lang="en">show knob range</tr>
-        <tr lang="ru" finished="false">Показать диапазон ручек</tr>
+        <tr lang="ru">показывать диапазон регулятора</tr>
       </property>
       <!-- @show_value -->
       <property name="@show_value" type="bool" default="0">
         <tr lang="en">show value</tr>
-        <tr lang="ru" finished="false">показать ценность</tr>
+        <tr lang="ru">показывать значение</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" category="basic" default="40 40">
@@ -146,6 +145,7 @@
       <!-- @value -->
       <property name="@value" type="float" default="0">
         <tr lang="en">current value</tr>
+        <tr lang="ru">текущее значение</tr>
       </property>
     </properties>
     <methods>
@@ -153,141 +153,140 @@
       <method name="*">
         <info>
           <tr lang="en">multiply knob value without output</tr>
-          <tr lang="ru" finished="false">Умножить значение ручки без вывода</tr>
+          <tr lang="ru">умножить значение регулятора без вывода</tr>
         </info>
         <param name="V" type="float" required="true">
           <tr lang="en">multiplied value</tr>
-          <tr lang="ru" finished="false">умноженная стоимость</tr>
+          <tr lang="ru">умножаемое значение</tr>
         </param>
       </method>
       <!-- + -->
       <method name="+">
         <info>
           <tr lang="en">add value to knob without output</tr>
-          <tr lang="ru" finished="false">Добавить значение в ручку без вывода</tr>
+          <tr lang="ru">прибавить значение к регулятору без вывода</tr>
         </info>
         <param name="V" type="float" required="true">
           <tr lang="en">added value</tr>
-          <tr lang="ru" finished="false">добавленная стоимость</tr>
+          <tr lang="ru">прибавляемое значение</tr>
         </param>
       </method>
       <!-- ++ -->
       <method name="++">
         <info>
           <tr lang="en">increment knob value without output</tr>
-          <tr lang="ru" finished="false">значение knob без выхода</tr>
+          <tr lang="ru">увеличить значение регулятора на единицу без вывода</tr>
         </info>
       </method>
       <method name="-">
         <info>
           <tr lang="en">subtract value from knob without output</tr>
-          <tr lang="ru" finished="false">вычитать значение из ручки без вывода</tr>
+          <tr lang="ru">вычесть значение из регулятора без вывода</tr>
         </info>
         <param name="V" type="float" required="true">
           <tr lang="en">subtracted value</tr>
-          <tr lang="ru" finished="false">вычитаемая стоимость</tr>
+          <tr lang="ru">вычитаемое значение</tr>
         </param>
       </method>
       <method name="--">
         <info>
           <tr lang="en">decrement knob value without output</tr>
-          <tr lang="ru" finished="false">значение knob без выхода</tr>
+          <tr lang="ru">уменьшить значение регулятора на единицу без вывода</tr>
         </info>
       </method>
       <!-- / -->
       <method name="/">
         <info>
           <tr lang="en">divide knob value without output</tr>
-          <tr lang="ru" finished="false">делить значение ручки без вывода</tr>
+          <tr lang="ru">разделить значение регулятора без вывода</tr>
         </info>
         <param name="V" type="float" required="true">
           <tr lang="en">denominator value</tr>
-          <tr lang="ru" finished="false">Значение знаменателя</tr>
+          <tr lang="ru">значение знаменателя</tr>
         </param>
       </method>
       <!-- clear -->
       <method name="clear" category="preset">
         <info>
-          <tr lang="en">clears specified preset</tr>
-          <tr lang="ru" finished="false">заданный заранее</tr>
+          <tr lang="en">clears the specified preset</tr>
+          <tr lang="ru">очищает указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
       <!-- dump -->
       <method name="dump">
         <info>
-          <tr lang="en">dumps all object info to Pd console window</tr>
-          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
-          Pd</tr>
+          <tr lang="en">dumps all object info to the Pd console window</tr>
+          <tr lang="ru">выводит всю информацию об объекте в окно консоли Pd</tr>
         </info>
       </method>
       <!-- interp -->
       <method name="interp">
         <info>
-          <tr lang="en">interplolates between presets</tr>
-          <tr lang="ru" finished="false">Интерплолаты между предустановленными</tr>
+          <tr lang="en">interpolates between presets</tr>
+          <tr lang="ru">интерполирует между пресетами</tr>
         </info>
         <param name="IDX" type="float" required="true">
           <tr lang="en">preset fraction index</tr>
-          <tr lang="ru" finished="false">предустановленный дробный индекс</tr>
+          <tr lang="ru">дробный индекс пресета</tr>
         </param>
       </method>
       <!-- load -->
       <method name="load" category="preset">
         <info>
-          <tr lang="en">loads specified preset</tr>
-          <tr lang="ru" finished="false">заданный заранее заданный</tr>
+          <tr lang="en">loads the specified preset</tr>
+          <tr lang="ru">загружает указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
       <!-- pos -->
       <method name="pos" category="basic">
         <info>
           <tr lang="en">set UI element position</tr>
-          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+          <tr lang="ru">задать положение элемента UI</tr>
         </info>
         <param name="X" type="float" required="true">
           <tr lang="en">top left x-coord</tr>
-          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+          <tr lang="ru">x-координата верхнего левого угла</tr>
         </param>
         <param name="Y" type="float" required="true">
           <tr lang="en">top right y-coord</tr>
-          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+          <tr lang="ru">y-координата верхнего левого угла</tr>
         </param>
       </method>
       <!-- random -->
       <method name="random">
         <info>
-          <tr lang="en">set knob to random value and output</tr>
-          <tr lang="ru" finished="false">Установите ручку для случайного значения и вывода</tr>
+          <tr lang="en">set knob to a random value and output</tr>
+          <tr lang="ru">установить регулятор в случайное значение и вывести</tr>
         </info>
       </method>
       <!-- set -->
       <method name="set">
         <info>
           <tr lang="en">sets knob value without output</tr>
-          <tr lang="ru" finished="false">устанавливает значение ручки без вывода</tr>
+          <tr lang="ru">устанавливает значение регулятора без вывода</tr>
         </info>
         <param name="V" type="atom" required="true">
           <tr lang="en">new float value or 'random'</tr>
-          <tr lang="ru" finished="false">Новая поплавковая стоимость или «случайность»</tr>
+          <tr lang="ru">новое числовое значение или 'random'</tr>
         </param>
       </method>
       <!-- store -->
       <method name="store" category="preset">
         <info>
-          <tr lang="en">stores specified preset</tr>
-          <tr lang="ru" finished="false">магазины, указанные Preset</tr>
+          <tr lang="en">stores the specified preset</tr>
+          <tr lang="ru">сохраняет указанный пресет</tr>
         </info>
         <param name="IDX" type="int" required="true">
           <tr lang="en">preset index</tr>
-          <tr lang="ru" finished="false">предустановленный индекс</tr>
+          <tr lang="ru">индекс пресета</tr>
         </param>
       </method>
     </methods>
@@ -295,11 +294,11 @@
       <inlet>
         <in on="bang">
           <tr lang="en">outputs knob value</tr>
-          <tr lang="ru" finished="false">значение knob</tr>
+          <tr lang="ru">выводит значение регулятора</tr>
         </in>
         <in on="float">
-          <tr lang="en">sets knob value and output it</tr>
-          <tr lang="ru" finished="false">устанавливает значение ручки и выводит ее</tr>
+          <tr lang="en">sets knob value and outputs it</tr>
+          <tr lang="ru">устанавливает значение регулятора и выводит его</tr>
         </in>
       </inlet>
     </inlets>
@@ -307,7 +306,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">knob output</tr>
-          <tr lang="ru" finished="false">выход ручки</tr>
+          <tr lang="ru">выход регулятора</tr>
         </out>
       </outlet>
     </outlets>
