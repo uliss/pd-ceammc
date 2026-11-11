@@ -58,9 +58,9 @@
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 680 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 683 библиотека: ceammc v0.9.8;
-#X text 475 695 смотрите также:;
-#X obj 596 698 ui.link @background_color 0.78431 0.78431 0.78431
-@title [prop<-] @url prop<--help.pd;
+#X text 453 695 смотрите также:;
+#X obj 574 698 ui.link @background_color 0.78431 0.78431 0.78431
+@title [prop.join] @url prop.join-help.pd;
 #X obj 657 698 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop.route~] @url prop.route~-help.pd;
 #N canvas 10 702 400 290 info 0;

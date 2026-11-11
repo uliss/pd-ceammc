@@ -19,7 +19,7 @@
         <alias>prop&lt;-</alias>
       </aliases>
       <also>
-        <see>prop-&gt;</see>
+        <see>prop.route</see>
       </also>
     </meta>
     <info>

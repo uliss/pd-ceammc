@@ -23,7 +23,7 @@
         <alias deprecated="true">prop.get~</alias>
       </aliases>
       <also>
-        <see>prop-&gt;</see>
+        <see>prop.join</see>
       </also>
     </meta>
     <info>

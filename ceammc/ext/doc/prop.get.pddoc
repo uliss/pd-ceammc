@@ -21,7 +21,7 @@
         <alias>p.get</alias>
       </aliases>
       <also>
-        <see>prop&lt;-</see>
+        <see>prop.route</see>
       </also>
     </meta>
     <info>

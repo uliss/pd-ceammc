@@ -23,7 +23,7 @@
         <alias deprecated="true">prop.split</alias>
       </aliases>
       <also>
-        <see>prop&lt;-</see>
+        <see>prop.join</see>
         <see>prop.route~</see>
       </also>
     </meta>
