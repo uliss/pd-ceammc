@@ -24,32 +24,35 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Injects properties into data stream. Values from first inlet are passed
-        unchanged and named property values added to stream. Note: all property inlets are *hot*,
-        i.e. if object receives new value on inlet it immediately outputs it.</tr>
-        <tr lang="ru" finished="false">Вводим свойства в поток данных. Значения от первого входа
-        передаются без изменений и называются значениями свойств, добавленными в поток. Примечание:
-        все входы свойств являются горячими, то есть, если объект получает новое значение на входе,
-        он немедленно выводит его.</tr>
+        <tr lang="en">the object injects properties into the data stream: values from the first inlet are passed unchanged, and the named property values are added to the stream</tr>
+        <tr lang="ru">объект добавляет свойства в поток данных: значения с первого входа проходят без изменений, а значения именованных свойств добавляются в поток</tr>
+      </par>
+      <par>
+        <tr lang="en">note: all property inlets are hot, so when the object receives a new value on an inlet, it immediately outputs it</tr>
+        <tr lang="ru">примечание: все входы свойств «горячие», поэтому при получении нового значения на входе объект немедленно выводит его</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to attach metadata to a stream of values, for example to add a size or a name to each element before sending it to another object</tr>
+        <tr lang="ru">объект можно использовать для прикрепления метаданных к потоку значений, например чтобы добавить размер или имя к каждому элементу перед отправкой в другой объект</tr>
       </par>
     </info>
     <inlets dynamic="true">
       <inlet>
         <in>
           <tr lang="en">data stream</tr>
-          <tr lang="ru" finished="false">поток данных</tr>
+          <tr lang="ru">поток данных</tr>
         </in>
       </inlet>
       <inlet>
         <in>
           <tr lang="en">property value</tr>
-          <tr lang="ru" finished="false">стоимость имущества</tr>
+          <tr lang="ru">значение свойства</tr>
         </in>
       </inlet>
       <inlet number="...">
         <in>
           <tr lang="en">property value</tr>
-          <tr lang="ru" finished="false">стоимость имущества</tr>
+          <tr lang="ru">значение свойства</tr>
         </in>
       </inlet>
     </inlets>
@@ -57,7 +60,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output values</tr>
-          <tr lang="ru" finished="false">выходные значения</tr>
+          <tr lang="ru">выходные значения</tr>
         </out>
       </outlet>
     </outlets>
