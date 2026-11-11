@@ -1109,8 +1109,8 @@ prop~>	property extractor from audio connections / отделяет свойст
 ceammc/prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
 ceammc/@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
 prop.get~	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
-p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
+prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
+p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
 proto.arturia.minilab	simple SysEx control for Arturia MiniLab / управление по SysEx для Arturia MiniLab
 proto.feelworld	controlling the FeelWorld LivePro L1 HDMI mixer / управление видео-микшером FeelWorld LivePro L1 HDMI
 proto.firmata	Firmata Arduino protocol support / поддержка протокола Firmata для Arduino

@@ -1,71 +1,76 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 316 50 cnv 1 449 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 321 50 устанавливает значение свойства для подключенного объекта
+#X text 321 50 устанавливает значение свойства для подключённого объекта
 \, субпатча или абстракции;
 #X obj 1 1 cnv 5 765 40 empty empty prop.set 20 20 0 20 -104026 -4096
 0;
 #X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [p.set] @url prop.set-help.pd;
 #X obj 682 8 prop.set;
-#X obj 230 93 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 The object adds ability to change properties of flow
-objects that should accept any incoming messages. The object should
-be connected to destination \, but it not sends pd messages to change
-props \, but using internal pd method calls;
-#X text 240 183 Object can be used with patch declared user properties;
-#X text 240 208 Note: you can connect to *any* destination inlet;
-#X msg 50 296 @delay 400;
-#X text 165 296 passed thru;
-#X msg 328 296 400;
-#X msg 386 296 0;
-#X text 414 296 change delay time;
-#X obj 328 325 prop.set @delay;
-#X obj 50 354 flow.delay 1000;
-#X obj 50 383 ui.dt;
-#X floatatom 50 412 5 0 0 0 - - -;
-#X text 88 412 the only way to resize;
-#X msg 50 440 \$1 20;
-#X obj 50 469 prop.set @size;
-#X obj 50 498 ui.d;
-#X floatatom 50 541 5 0 0 0 - - -;
-#X text 88 541 abstraction property;
-#X obj 50 570 prop.set @p1;
-#X obj 50 599 prop.set-patch;
-#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 654 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 210 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 объект позволяет изменять свойства объектов \, принимающих
+произвольные входящие сообщения. Его нужно подключить к получателю
+\, но вместо отправки Pd-сообщений он использует внутренние вызовы
+Pd-методов;
+#X text 240 168 объект можно использовать со свойствами \, объявленными
+в патче;
+#X text 240 193 примечание: подключаться можно к любому входу получателя;
+#X text 240 218 объект можно использовать для изменения свойства без
+отправки сообщения \, которое целевой объект мог бы интерпретировать
+иначе \, например чтобы изменить время задержки [flow.delay] или размер
+GUI-объекта;
+#X msg 50 351 @delay 400;
+#X text 165 351 passed thru;
+#X msg 328 351 400;
+#X msg 386 351 0;
+#X text 414 351 change delay time;
+#X obj 328 380 prop.set @delay;
+#X obj 50 409 flow.delay 1000;
+#X obj 50 438 ui.dt;
+#X floatatom 50 467 5 0 0 0 - - -;
+#X text 88 467 the only way to resize;
+#X msg 50 495 \$1 20;
+#X obj 50 524 prop.set @size;
+#X obj 50 553 ui.d;
+#X floatatom 50 596 5 0 0 0 - - -;
+#X text 88 596 abstraction property;
+#X obj 50 625 prop.set @p1;
+#X obj 50 654 prop.set-patch;
+#X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 709 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 657 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 712 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 655 1\.;
-#X text 170 655 list;
-#X obj 268 656 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 655 PROPS: property names. Тип: list.;
-#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 695 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X text 130 710 1\.;
+#X text 170 710 list;
+#X obj 268 711 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 710 PROPS: имена свойств. Тип: list.;
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 750 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 696 1\.;
-#X text 270 696 first property value.;
-#X text 130 721 ...;
-#X text 270 721 ... property value.;
-#X text 130 746 n.;
-#X text 270 746 n-th property value.;
-#X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 786 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 751 1\.;
+#X text 270 751 значение первого свойства.;
+#X text 130 776 ...;
+#X text 270 776 ... значение свойства.;
+#X text 130 801 n.;
+#X text 270 801 значение N-го свойства.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 787 1\.;
-#X text 270 787 outputs nothing. connect to destination object(s).;
+#X text 130 842 1\.;
+#X text 270 842 ничего не выводит. Подключите к объекту(ам) назначения.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 837 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 840 библиотека: ceammc v0.9.8;
-#X text 558 852 смотрите также:;
-#X obj 679 855 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 библиотека: ceammc v0.9.8;
+#X text 558 907 смотрите также:;
+#X obj 679 910 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop.get] @url prop.get-help.pd;
-#N canvas 10 859 400 290 info 0;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -89,14 +94,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 859 pd info;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
-#X connect 9 0 15 0;
-#X connect 14 0 15 1;
-#X connect 15 0 16 0;
-#X connect 17 0 19 0;
-#X connect 19 0 20 0;
+#X restore 10 914 pd info;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 10 0 16 0;
+#X connect 15 0 16 1;
+#X connect 16 0 17 0;
+#X connect 18 0 20 0;
 #X connect 20 0 21 0;
-#X connect 22 0 24 0;
-#X connect 24 0 25 0;
+#X connect 21 0 22 0;
+#X connect 23 0 25 0;
+#X connect 25 0 26 0;
