@@ -158,6 +158,8 @@ def main() -> int:
     # Load vanilla Pd object names
     core_objects = load_core_objects(args.core)
 
+    hardcoded_objects = set(["fiddle~", "sigmund~", "loadbang"])
+
     # 1. Collect all object names
     object_names: set[str] = set()
     parse_errors: list[tuple[Path, str]] = []
@@ -170,7 +172,7 @@ def main() -> int:
         object_names.add(name)
 
     # Vanilla Pd objects also count as valid <see> targets
-    known_names = object_names | core_objects
+    known_names = object_names | core_objects | hardcoded_objects
 
     print(c("Files found:", Color.BOLD), len(files))
     print(c("Unique object names:", Color.BOLD), len(object_names))
