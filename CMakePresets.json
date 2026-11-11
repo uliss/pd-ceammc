@@ -108,7 +108,7 @@
         "WITH_LIBSNDFILE": "ON",
         "WITH_LTC": "ON",
         "WITH_LUAJIT": "OFF",
-        "WITH_MODPLUG": "OFF",
+        "WITH_MODPLUG": "ON",
         "WITH_MQTT": "ON",
         "WITH_OBS": "ON",
         "WITH_OPENMP": "OFF",
