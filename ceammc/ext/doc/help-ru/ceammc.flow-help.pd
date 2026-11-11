@@ -121,8 +121,8 @@ flow.sync_pack-help.pd;
 #X obj 30 1300 ui.link @title [replace] @url replace-help.pd;
 #X text 220 1297 заменяет атомы в потоке данных;
 #X obj 30 1325 ui.link @title [route.any] @url route.any-help.pd;
-#X text 220 1322 отделяет сообщения общего вида от пустых событий (bang)
-\, числовых значений \, символов и списков;
+#X text 220 1322 отделяет сообщения общего вида от bang \, чисел \,
+символов и списков;
 #X obj 30 1365 ui.link @title [route.bang] @url route.bang-help.pd;
 #X text 220 1362 отделяет пустые события (bangs) от сообщений других
 типов;
