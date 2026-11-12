@@ -90,6 +90,14 @@ bool NetWledUdp::notify(int code)
     return true;
 }
 
+void NetWledUdp::m_brightness(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkFfiObject(true, s))
+        return;
+
+    ceammc_wled_udp_set_brightness(ffiObject(), lv.intAt(0, 255));
+}
+
 void NetWledUdp::m_clear(t_symbol* s, const AtomListView& lv)
 {
     if (!checkFfiObject(true, s))
@@ -174,7 +182,7 @@ void NetWledUdp::m_set_pixel(t_symbol* s, const AtomListView& lv)
         return;
 
     if (!checkFfiObject(false, s)) {
-        auto dev = ceammc_wled_udp_new(addr_->cstr(), port_->value(), on_notify(), on_message());
+        auto dev = ceammc_wled_udp_new(addr_->cstr(), port_->value(), size_->value(), on_notify(), on_message());
         if (dev)
             createObject(dev);
     }
@@ -192,9 +200,22 @@ void NetWledUdp::m_set_pixel(t_symbol* s, const AtomListView& lv)
 void setup_net_wled_udp()
 {
     ObjectFactory<NetWledUdp> obj("net.wled");
+    obj.addMethod("brightness", &NetWledUdp::m_brightness);
     obj.addMethod("clear", &NetWledUdp::m_clear);
     obj.addMethod("fill", &NetWledUdp::m_fill);
     obj.addMethod("set_pixel", &NetWledUdp::m_set_pixel);
+
+
+    // obj.addMethod("brightness", &HwSpiWs2812::m_brightness);
+    // obj.addMethod("clear", &HwSpiWs2812::m_clear);
+    // obj.addMethod("fill", &HwSpiWs2812::m_fill);
+    // obj.addMethod("fill_bits", &HwSpiWs2812::m_fill_bits);
+    // obj.addMethod("fill_pixels", &HwSpiWs2812::m_fill_pixels);
+    // obj.addMethod("flush", &HwSpiWs2812::m_flush);
+    // obj.addMethod("fx", &HwSpiWs2812::m_fx);
+    // obj.addMethod("rotate", &HwSpiWs2812::m_rotate);
+    // obj.addMethod("set_pixel", &HwSpiWs2812::m_set_pixel);
+    // obj.addMethod("write", &HwSpiWs2812::m_write);
 }
 
 } // namespace ceammc
