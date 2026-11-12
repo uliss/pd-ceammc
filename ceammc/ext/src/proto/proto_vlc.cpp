@@ -1,4 +1,6 @@
 #include "proto_vlc.h"
+
+#ifdef WITH_VLC
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -27,7 +29,7 @@ ceammc_rust_atom to_rust(const Atom& a)
 } // namespace
 
 ProtoVlc::ProtoVlc(const PdArgs& args)
-    : DispatchedObject<BaseObject>(args)
+    : RustMessageObject<BaseObject>(args)
     , host_(nullptr)
     , port_(nullptr)
     , pass_(nullptr)
@@ -55,8 +57,8 @@ void ProtoVlc::initDone()
         host_->cstr(),
         port_->value(),
         pass.c_str(),
-        { this, [](void* user, const char* msg) {} },
-        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
+        on_message(),
+        on_notify()));
 }
 
 void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
@@ -65,7 +67,7 @@ void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this, s))
         chk.usage(this, s);
 
-    ceammc_vlc_play(vlc_.get(), to_rust(lv.atomAt(0, {})));
+    ceammc_vlc_play(vlc_.get(), to_rust(lv.atomAt(0, { })));
 }
 
 void ProtoVlc::m_stop(t_symbol* s, const AtomListView& lv)
@@ -159,7 +161,7 @@ void ProtoVlc::m_repeat(t_symbol* s, const AtomListView& lv)
 
 void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
 {
-    ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, {})), to_rust(lv.atomAt(1, {})));
+    ceammc_vlc_volume(vlc_.get(), to_rust(lv.atomAt(0, { })), to_rust(lv.atomAt(1, { })));
 }
 
 void ProtoVlc::m_speed(t_symbol* s, const AtomListView& lv)
@@ -245,10 +247,7 @@ void ProtoVlc::m_browse(t_symbol* s, const AtomListView& lv)
 bool ProtoVlc::notify(int code)
 {
     return ceammc_vlc_poll(vlc_.get(),
-        { this, [](void* user, const char* msg) {
-             auto obj = static_cast<ProtoVlc*>(user);
-             Error(obj) << msg;
-         } },
+        on_message(),
         { this, [](void* user, const ceammc_vlc_status* stat) {
              auto obj = static_cast<ProtoVlc*>(user);
              if (!obj)
@@ -359,3 +358,5 @@ void setup_proto_vlc()
     obj.addMethod("stop", &ProtoVlc::m_stop);
     obj.addMethod("volume", &ProtoVlc::m_volume);
 }
+
+#endif

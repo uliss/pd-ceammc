@@ -97,7 +97,7 @@ function(pd_add_external)
             SUFFIX        "${PD_EXTERNAL_EXTENSION}"
             COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
             OUTPUT        "${_PD_EXT_NAME}"
-            )
+        )
 
         if(WIN32)
             list(APPEND _PD_EXT_LINK puredata-core)

@@ -1,66 +1,73 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 212 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 558 50 cписок содержимого каталога;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 496 50 выводит список содержимого каталога;
 #X obj 1 1 cnv 5 765 40 empty empty path.lsdir 20 20 0 20 -104026
 -4096 0;
 #X obj 588 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [path.ls] @url path.lsdir-help.pd;
 #X obj 667 8 path.lsdir;
-#X msg 50 118 bang;
-#X msg 155 118 symbol /;
-#X obj 299 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект выводит список имён файлов \, найденных в указанном
+каталоге;
+#X text 240 123 свойство @match фильтрует результаты по маске \, например
+*.wav для всех файлов wav;
+#X msg 50 226 bang;
+#X msg 155 226 symbol /;
+#X obj 299 226 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X symbolatom 462 118 10 0 0 0 - - -;
-#X obj 299 147 path.lsdir ~ @match *.aiff;
-#X obj 50 176 path.lsdir ~;
-#X obj 299 176 ui.dt;
-#X obj 50 205 ui.dt;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X symbolatom 462 226 10 0 0 0 - - -;
+#X obj 299 255 path.lsdir ~ @match *.aiff;
+#X obj 50 284 path.lsdir ~;
+#X obj 299 284 ui.dt;
+#X obj 50 313 ui.dt;
+#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 368 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 371 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 list;
-#X obj 268 262 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 PATH: init directory value. Тип: list.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 369 1\.;
+#X text 170 369 list;
+#X obj 268 370 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 369 PATH: начальное значение каталога. Тип: list.;
+#X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 409 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 412 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 302 @match;
-#X text 270 302 Match mask: for example *.wav for all wav files. Тип:
-symbol.;
-#X obj 250 332 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 332 @path;
-#X text 270 332 Current path. Тип: list.;
-#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 377 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 410 @match;
+#X text 270 410 Маска совпадения: например *.wav для всех файлов wav.
+Тип: symbol.;
+#X obj 250 452 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 452 @path;
+#X text 270 452 Текущий путь. Тип: list.;
+#X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 497 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 378 1\.;
-#X text 170 378 bang:;
-#X text 270 378 output directory content.;
-#X text 170 403 symbol:;
-#X text 270 403 set directory path (symbol or string) and output it
-content. If not absolute path is given list current patch directory.;
-#X text 130 458 2\.;
-#X text 170 458 symbol:;
-#X text 270 458 set @match property.;
-#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 498 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 498 1\.;
+#X text 170 498 bang:;
+#X text 270 498 вывести содержимое каталога.;
+#X text 170 523 symbol:;
+#X text 270 523 задать путь каталога (символ или строка) и вывести
+его содержимое. Если указан неабсолютный путь \, выводится относительно
+текущего каталога патча.;
+#X text 130 578 2\.;
+#X text 170 578 symbol:;
+#X text 270 578 задать свойство @match.;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 618 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 499 1\.;
-#X text 270 499 list of strings.;
+#X text 130 619 1\.;
+#X text 170 619 list:;
+#X text 270 619 список строк.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 552 библиотека: ceammc v0.9.8;
-#N canvas 10 571 400 290 info 0;
+#X obj 1 669 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 672 библиотека: ceammc v0.9.8;
+#N canvas 10 691 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,10 +91,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 571 pd info;
-#X connect 7 0 9 0;
-#X connect 8 0 9 1;
-#X connect 5 0 10 0;
-#X connect 6 0 10 0;
-#X connect 9 0 11 0;
+#X restore 10 691 pd info;
 #X connect 10 0 12 0;
+#X connect 11 0 12 1;
+#X connect 8 0 13 0;
+#X connect 9 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;

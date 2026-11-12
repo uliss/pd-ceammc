@@ -14,6 +14,8 @@
 #ifndef HW_RPI_GPIO_SERVO_H
 #define HW_RPI_GPIO_SERVO_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
@@ -65,8 +67,17 @@ private:
     void outputCurrentAngle();
 };
 
+} // namespace ceammc
+
 void setup_hw_rpi_gpio_servo();
 
-} // namespace ceammc
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiGpioServo, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiGpioServo, hw_rpi_gpio_servo, "hw.rpi.gpio.servo");
+
+#endif
 
 #endif // HW_RPI_GPIO_SERVO_H

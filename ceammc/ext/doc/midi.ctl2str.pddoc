@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">converts Standard MIDI Controllers number to name</tr>
-        <tr lang="ru">преобразует номер стандартного MIDI контроллера в имя</tr>
+        <tr lang="en">converts Standard MIDI Controller number to name</tr>
+        <tr lang="ru">преобразует номер стандартного MIDI-контроллера в имя</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,22 +23,22 @@
       <!-- @symbol -->
       <property name="@symbol" type="flag" default="0" access="initonly">
         <tr lang="en">output as symbol instead of string by default</tr>
-        <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
+        <tr lang="ru">выводить как символ вместо строки по умолчанию</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">Standart MIDI controller number [0-127]</tr>
-          <tr lang="ru" finished="false">Стандартный контроллер MIDI [0-127]</tr>
+          <tr lang="en">Standard MIDI controller number [0-127]</tr>
+          <tr lang="ru">номер стандартного MIDI-контроллера [0-127]</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">output Standart MIDI controller name (string or symbol)</tr>
-          <tr lang="ru" finished="false">имя контроллера Standart MIDI (струна или символ)</tr>
+          <tr lang="en">Standard MIDI controller name (string or symbol)</tr>
+          <tr lang="ru">имя стандартного MIDI-контроллера (строка или символ)</tr>
         </out>
       </outlet>
     </outlets>

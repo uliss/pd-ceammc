@@ -54,154 +54,154 @@ list.count_if-help.pd;
 list.distribution-help.pd;
 #X text 220 627 выводит список распределения значений в списке;
 #X obj 30 655 ui.link @title [list.do] @url list.do-help.pd;
-#X text 220 652 итерирование и изменение содержимого списка через боковую
-цепь обработки;
-#X obj 30 695 ui.link @title [list.each] @url list.each-help.pd;
-#X text 220 692 отображает каждое значение списка через внешнюю боковую
-цепь обработки;
-#X obj 30 735 ui.link @title [list.enumerate] @url
+#X text 220 652 итерирует и изменяет содержимое списка через боковую
+цепь;
+#X obj 30 680 ui.link @title [list.each] @url list.each-help.pd;
+#X text 220 677 отображает каждое значение списка через внешнюю боковую
+цепь;
+#X obj 30 705 ui.link @title [list.enumerate] @url
 list.enumerate-help.pd;
-#X text 220 732 нумерует элементы списка;
-#X obj 30 760 ui.link @title [list.equal] @url list.equal-help.pd;
-#X text 220 757 проверка списков на равенство;
-#X obj 30 785 ui.link @title [list.first] @url list.first-help.pd;
-#X text 220 782 выводит первый элемент списка;
-#X obj 30 810 ui.link @title [list.gen] @url list.gen-help.pd;
-#X text 220 807 генерирует список указанной длины через генератор боковой
+#X text 220 702 нумерует элементы списка;
+#X obj 30 730 ui.link @title [list.equal] @url list.equal-help.pd;
+#X text 220 727 проверка списков на равенство;
+#X obj 30 755 ui.link @title [list.first] @url list.first-help.pd;
+#X text 220 752 выводит первый элемент списка;
+#X obj 30 780 ui.link @title [list.gen] @url list.gen-help.pd;
+#X text 220 777 генерирует список указанной длины через генератор боковой
 цепи;
-#X obj 30 850 ui.link @title [list.histogram] @url
+#X obj 30 820 ui.link @title [list.histogram] @url
 list.histogram-help.pd;
-#X text 220 847 выводит гистограмму распределений списка;
-#X obj 30 875 ui.link @title [list.insert] @url list.insert-help.pd;
-#X text 220 872 вставляет элементы в указанную позицию в списке;
-#X obj 30 900 ui.link @title [list.integrator] @url
+#X text 220 817 выводит гистограмму распределений списка;
+#X obj 30 845 ui.link @title [list.insert] @url list.insert-help.pd;
+#X text 220 842 вставляет элементы в указанную позицию в списке;
+#X obj 30 870 ui.link @title [list.integrator] @url
 list.integrator-help.pd;
-#X text 220 897 выводит и сохраняет список сумм между ранее сохраненным
+#X text 220 867 выводит и сохраняет список сумм между ранее сохраненным
 списком и текущим;
-#X obj 30 940 ui.link @title [list.last] @url list.last-help.pd;
-#X text 220 937 выводит последний элемент списка;
-#X obj 30 965 ui.link @title [list.length] @url list.length-help.pd;
-#X text 220 962 выводит количество элементов в списке;
-#X obj 30 990 ui.link @title [list.map] @url list.map-help.pd;
-#X text 220 987 map list values by specified dictionary;
-#X obj 30 1015 ui.link @title [list.max] @url list.max-help.pd;
-#X text 220 1012 выводит самый большой элемент в списке;
-#X obj 30 1040 ui.link @title [list.mean] @url list.mean-help.pd;
-#X text 220 1037 вычисляет среднее значение в списке;
-#X obj 30 1065 ui.link @title [list.min] @url list.min-help.pd;
-#X text 220 1062 возвращает наименьший элемент в списке;
-#X obj 30 1090 ui.link @title [list.none_of] @url
+#X obj 30 910 ui.link @title [list.last] @url list.last-help.pd;
+#X text 220 907 выводит последний элемент списка;
+#X obj 30 935 ui.link @title [list.length] @url list.length-help.pd;
+#X text 220 932 выводит количество элементов в списке;
+#X obj 30 960 ui.link @title [list.map] @url list.map-help.pd;
+#X text 220 957 map list values by specified dictionary;
+#X obj 30 985 ui.link @title [list.max] @url list.max-help.pd;
+#X text 220 982 выводит самый большой элемент в списке;
+#X obj 30 1010 ui.link @title [list.mean] @url list.mean-help.pd;
+#X text 220 1007 вычисляет среднее значение в списке;
+#X obj 30 1035 ui.link @title [list.min] @url list.min-help.pd;
+#X text 220 1032 возвращает наименьший элемент в списке;
+#X obj 30 1060 ui.link @title [list.none_of] @url
 list.none_of-help.pd;
-#X text 220 1087 проверяет \, что ни один из элементов не принимается
+#X text 220 1057 проверяет \, что ни один из элементов не принимается
 предикатом боковой цепи обработки;
-#X obj 30 1130 ui.link @title [list.normalize] @url
+#X obj 30 1100 ui.link @title [list.normalize] @url
 list.normalize-help.pd;
-#X text 220 1127 нормализует числовые значения списка \, чтобы их сумма
-была равна единице;
-#X obj 30 1170 ui.link @title [list.pass] @url list.pass-help.pd;
-#X text 220 1167 оставлять в списке только указанные элементы;
-#X obj 30 1195 ui.link @title [list.pass_if] @url
+#X text 220 1097 нормализует числовые значения списка так \, чтобы
+их сумма была равна 1.0;
+#X obj 30 1140 ui.link @title [list.pass] @url list.pass-help.pd;
+#X text 220 1137 оставлять в списке только указанные элементы;
+#X obj 30 1165 ui.link @title [list.pass_if] @url
 list.pass_if-help.pd;
-#X text 220 1192 оставляет в списке только элементы \, принятые предикатом
+#X text 220 1162 оставляет в списке только элементы \, принятые предикатом
 боковой цепи обработки;
-#X obj 30 1235 ui.link @title [list.prepend] @url
+#X obj 30 1205 ui.link @title [list.prepend] @url
 list.prepend-help.pd;
-#X text 220 1232 вставить элементы в начало списка;
-#X obj 30 1260 ui.link @title [list.product] @url
+#X text 220 1202 вставить элементы в начало списка;
+#X obj 30 1230 ui.link @title [list.product] @url
 list.product-help.pd;
-#X text 220 1257 вычисляет произведение всех чисел в списке;
-#X obj 30 1285 ui.link @title [list.range] @url list.range-help.pd;
-#X text 220 1282 выводит минимальный и максимальный элемент в списке;
-#X obj 30 1310 ui.link @title [list.reduce] @url list.reduce-help.pd;
-#X text 220 1307 преобразование списка к единственному значению через
+#X text 220 1227 вычисляет произведение всех чисел в списке;
+#X obj 30 1255 ui.link @title [list.range] @url list.range-help.pd;
+#X text 220 1252 выводит минимальный и максимальный элемент в списке;
+#X obj 30 1280 ui.link @title [list.reduce] @url list.reduce-help.pd;
+#X text 220 1277 преобразование списка к единственному значению через
 боковую цепь обработки;
-#X obj 30 1350 ui.link @title [list.reject] @url list.reject-help.pd;
-#X text 220 1347 удаляет указанные элементы из списка;
-#X obj 30 1375 ui.link @title [list.remove] @url list.remove-help.pd;
-#X text 220 1372 удалить элементы списка по указанным позициям;
-#X obj 30 1400 ui.link @title [list.remove_if] @url
+#X obj 30 1320 ui.link @title [list.reject] @url list.reject-help.pd;
+#X text 220 1317 удаляет указанные элементы из списка;
+#X obj 30 1345 ui.link @title [list.remove] @url list.remove-help.pd;
+#X text 220 1342 удалить элементы списка по указанным позициям;
+#X obj 30 1370 ui.link @title [list.remove_if] @url
 list.remove_if-help.pd;
-#X text 220 1397 удалить элементы списка при помощи предиката боковой
+#X text 220 1367 удалить элементы списка при помощи предиката боковой
 цепи;
-#X obj 30 1425 ui.link @title [list.repack] @url list.repack-help.pd;
-#X text 220 1422 переупаковать список в последовательность списков
+#X obj 30 1395 ui.link @title [list.repack] @url list.repack-help.pd;
+#X text 220 1392 переупаковать список в последовательность списков
 определенного размера;
-#X obj 30 1465 ui.link @title [list.repeat] @url list.repeat-help.pd;
-#X text 220 1462 создает список на основе повторов исходного списка;
-#X obj 30 1490 ui.link @title [list.resample] @url
+#X obj 30 1435 ui.link @title [list.repeat] @url list.repeat-help.pd;
+#X text 220 1432 создает список на основе повторов исходного списка;
+#X obj 30 1460 ui.link @title [list.resample] @url
 list.resample-help.pd;
-#X text 220 1487 пересемплирует значения в списке с указанным соотношением
+#X text 220 1457 пересемплирует значения в списке с указанным соотношением
 длины;
-#X obj 30 1530 ui.link @title [list.resize] @url list.resize-help.pd;
-#X text 220 1527 изменяет длину списка;
-#X obj 30 1555 ui.link @title [list.reverse] @url
+#X obj 30 1500 ui.link @title [list.resize] @url list.resize-help.pd;
+#X text 220 1497 изменяет длину списка;
+#X obj 30 1525 ui.link @title [list.reverse] @url
 list.reverse-help.pd;
-#X text 220 1552 меняет порядок элементов в списке на обратный;
-#X obj 30 1580 ui.link @title [list.rldecode] @url
+#X text 220 1522 меняет порядок элементов в списке на обратный;
+#X obj 30 1550 ui.link @title [list.rldecode] @url
 list.rldecode-help.pd;
-#X text 220 1577 декодирование повторов в списках;
-#X obj 30 1605 ui.link @title [list.rlencode] @url
+#X text 220 1547 декодирует списки \, закодированные длинами серий;
+#X obj 30 1575 ui.link @title [list.rlencode] @url
 list.rlencode-help.pd;
-#X text 220 1602 кодирование повторов в списках;
-#X obj 30 1630 ui.link @title [list.rotate] @url list.rotate-help.pd;
-#X text 220 1627 циклическое вращение списка на целое число шагов;
-#X obj 30 1655 ui.link @title [list.route] @url list.route-help.pd;
-#X text 220 1652 маршрутизирует список по первому элементу \, как объект
+#X text 220 1572 кодирует списки длинами серий;
+#X obj 30 1600 ui.link @title [list.rotate] @url list.rotate-help.pd;
+#X text 220 1597 циклическое вращение списка на целое число шагов;
+#X obj 30 1625 ui.link @title [list.route] @url list.route-help.pd;
+#X text 220 1622 маршрутизирует список по первому элементу \, как объект
 [route];
-#X obj 30 1680 ui.link @title [list.rundiff] @url
+#X obj 30 1650 ui.link @title [list.rundiff] @url
 list.rundiff-help.pd;
-#X text 220 1677 вычисляет разницу между соседними элементами входного
+#X text 220 1647 вычисляет разницу между соседними элементами входного
 списка;
-#X obj 30 1705 ui.link @title [list.runsum] @url list.runsum-help.pd;
-#X text 220 1702 выводит список позиционных сумм \, который обновляется
+#X obj 30 1675 ui.link @title [list.runsum] @url list.runsum-help.pd;
+#X text 220 1672 выводит список позиционных сумм \, который обновляется
 при каждом входящем списке;
-#X obj 30 1745 ui.link @title [list.search] @url list.search-help.pd;
-#X text 220 1742 выводит позиции предварительно заданных элементов
+#X obj 30 1715 ui.link @title [list.search] @url list.search-help.pd;
+#X text 220 1712 выводит позиции предварительно заданных элементов
 во входном списке;
-#X obj 30 1785 ui.link @title [list.separate] @url
+#X obj 30 1755 ui.link @title [list.separate] @url
 list.separate-help.pd;
-#X text 220 1782 поочередно выводит каждый элемент списка в виде отдельного
+#X text 220 1752 поочередно выводит каждый элемент списка в виде отдельного
 сообщения;
-#X obj 30 1825 ui.link @title [list.seq] @url list.seq-help.pd;
-#X text 220 1822 генерирует последовательноть чисел в виде списка;
-#X obj 30 1850 ui.link @title [list.set] @url list.set-help.pd;
-#X text 220 1847 устанавливает значение элемента списка в указанной
+#X obj 30 1795 ui.link @title [list.seq] @url list.seq-help.pd;
+#X text 220 1792 генерирует последовательноть чисел в виде списка;
+#X obj 30 1820 ui.link @title [list.set] @url list.set-help.pd;
+#X text 220 1817 устанавливает значение элемента списка в указанной
 позиции;
-#X obj 30 1875 ui.link @title [list.shift] @url list.shift-help.pd;
-#X text 220 1872 циклический сдвиг списка на вещественное число с линейной
+#X obj 30 1845 ui.link @title [list.shift] @url list.shift-help.pd;
+#X text 220 1842 циклический сдвиг списка на вещественное число с линейной
 интерполяцией;
-#X obj 30 1915 ui.link @title [list.shuffle] @url
+#X obj 30 1885 ui.link @title [list.shuffle] @url
 list.shuffle-help.pd;
-#X text 220 1912 переставляет элементы списка в случайном порядке;
-#X obj 30 1940 ui.link @title [list.slice] @url list.slice-help.pd;
-#X text 220 1937 выводит подсписок;
-#X obj 30 1965 ui.link @title [list.sort] @url list.sort-help.pd;
-#X text 220 1962 сортирует список в порядке возрастания;
-#X obj 30 1990 ui.link @title [list.sort_with] @url
+#X text 220 1882 переставляет элементы списка в случайном порядке;
+#X obj 30 1910 ui.link @title [list.slice] @url list.slice-help.pd;
+#X text 220 1907 выводит подсписок;
+#X obj 30 1935 ui.link @title [list.sort] @url list.sort-help.pd;
+#X text 220 1932 сортирует список по возрастанию;
+#X obj 30 1960 ui.link @title [list.sort_with] @url
 list.sort_with-help.pd;
-#X text 220 1987 сортирует список при помощи боковой цепи обработки;
-#X obj 30 2015 ui.link @title [list.split] @url list.split-help.pd;
-#X text 220 2012 разделяет список на две части по указанному индексу;
-#X obj 30 2040 ui.link @title [list.stretch] @url
+#X text 220 1957 сортирует список при помощи боковой цепи обработки;
+#X obj 30 1985 ui.link @title [list.split] @url list.split-help.pd;
+#X text 220 1982 разделяет список на две части по указанному индексу;
+#X obj 30 2010 ui.link @title [list.stretch] @url
 list.stretch-help.pd;
-#X text 220 2037 изменяет длину списка \, изменяя его значения с помощью
+#X text 220 2007 изменяет длину списка \, изменяя его значения с помощью
 линейной интерполяции;
-#X obj 30 2080 ui.link @title [list.sum] @url list.sum-help.pd;
-#X text 220 2077 вычисляет сумму элементов в списке;
-#X obj 30 2105 ui.link @title [list.unique] @url list.unique-help.pd;
-#X text 220 2102 удаляет дубликаты из списка;
-#X obj 30 2130 ui.link @title [list.unpack] @url list.unpack-help.pd;
-#X text 220 2127 распаковывает элементы списка в соответствующие им
+#X obj 30 2050 ui.link @title [list.sum] @url list.sum-help.pd;
+#X text 220 2047 вычисляет сумму элементов в списке;
+#X obj 30 2075 ui.link @title [list.unique] @url list.unique-help.pd;
+#X text 220 2072 удаляет дубликаты из списка;
+#X obj 30 2100 ui.link @title [list.unpack] @url list.unpack-help.pd;
+#X text 220 2097 распаковывает элементы списка в соответствующие им
 выходы объекта;
-#X obj 30 2170 ui.link @title [list.unzip] @url list.unzip-help.pd;
-#X text 220 2167 распаковывает входной список на N списков из чередующихся
+#X obj 30 2140 ui.link @title [list.unzip] @url list.unzip-help.pd;
+#X text 220 2137 распаковывает входной список на N списков из чередующихся
 элементов;
-#X obj 30 2210 ui.link @title [list.walk] @url list.walk-help.pd;
-#X text 220 2207 различные алгоритмы обхода элементов в списке;
-#X obj 30 2235 ui.link @title [list.zip] @url list.zip-help.pd;
-#X text 220 2232 создает чередующийся список элементов из N входных
+#X obj 30 2180 ui.link @title [list.walk] @url list.walk-help.pd;
+#X text 220 2177 различные алгоритмы обхода элементов в списке;
+#X obj 30 2205 ui.link @title [list.zip] @url list.zip-help.pd;
+#X text 220 2202 создает чередующийся список элементов из N входных
 списков;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2257 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2267 library: ceammc;
+#X obj 1 2227 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2237 library: ceammc;

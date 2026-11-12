@@ -8,86 +8,90 @@
 #X obj 583 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [random.i] @url random.int-help.pd;
 #X obj 669 8 random.int;
-#X obj 230 93 cnv 1 535 164 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 98 Generates pseudo-random number in specified closed interval.;
-#X text 240 123 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X text 240 178 Algorithm: 32-bit Mersenne Twister by Matsumoto and
-Nishimura \, 1998;
-#X obj 240 221 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 93 cnv 1 535 234 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 генерирует псевдослучайное число в заданном замкнутом
+интервале;
+#X text 240 138 используйте свойство @seed для получения воспроизводимых
+последовательностей. Если @seed не задан явно \, используется генератор
+\, инициализированный текущим временем;
+#X text 240 193 алгоритм: 32-битный Mersenne Twister Мацумото и Нисимуры
+\, 1998;
+#X text 240 233 объект можно использовать для выбора случайных индексов
+\, нот или других целых значений \, например чтобы выбрать случайный
+сэмпл из списка;
+#X obj 240 291 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Mersenne Twister @url
 https://en.wikipedia.org/wiki/Mersenne_Twister;
-#X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 375 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 305 @seed 0;
-#X msg 184 305 gen 5;
-#X obj 50 363 random.int -10 10;
-#X obj 50 392 ui.dt;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 88 375 @seed 0;
+#X msg 184 375 gen 5;
+#X obj 50 433 random.int -10 10;
+#X obj 50 462 ui.dt;
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 517 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 450 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 520 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 448 1\.;
-#X text 170 448 list;
-#X obj 268 449 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 448 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
-arg: @min=0 \, @max=ARG[0]. Тип: list.;
-#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 503 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 518 1\.;
+#X text 170 518 list;
+#X obj 268 519 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 518 ARG: @min=ARG[0] \, @max=ARG[1] \, в случае одного
+аргумента: @min=0 \, @max=ARG[0]. Тип: list.;
+#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 573 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 506 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 576 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 504 @max;
-#X text 270 504 Random range upper bound. Тип: int. Значение по умолчанию:
-255\.;
-#X obj 250 546 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 546 @min;
-#X text 270 546 Random range lower bound. Тип: int. Значение по умолчанию:
-0\.;
-#X obj 250 588 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 588 @seed;
-#X text 270 588 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 645 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 574 @max;
+#X text 270 574 Верхняя граница случайного диапазона. Тип: int. Значение
+по умолчанию: 255\.;
+#X obj 250 616 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 616 @min;
+#X text 270 616 Нижняя граница случайного диапазона. Тип: int. Значение
+по умолчанию: 0\.;
+#X obj 250 658 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 658 @seed;
+#X text 270 658 Начальное значение генератора. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 715 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 646 gen;
-#X text 270 646 generate list of random integers with specified length.
-Аргументы:;
-#X obj 300 686 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 686 N: list length. Тип: int. Минимальное значение: 1\.;
-#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 734 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 716 gen;
+#X text 270 716 генерирует список случайных целых чисел с заданной
+длиной. Аргументы:;
+#X obj 300 756 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 756 N: длина списка. Тип: int. Минимальное значение: 1\.;
+#X obj 20 799 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 804 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 735 1\.;
-#X text 170 735 bang:;
-#X text 270 735 generate new number.;
-#X text 130 760 2\.;
-#X text 170 760 int:;
-#X text 270 760 set @min property.;
-#X text 130 785 3\.;
-#X text 170 785 int:;
-#X text 270 785 set @max property.;
-#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 825 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 805 1\.;
+#X text 170 805 bang:;
+#X text 270 805 генерировать новое число.;
+#X text 130 830 2\.;
+#X text 170 830 int:;
+#X text 270 830 задать свойство @min.;
+#X text 130 855 3\.;
+#X text 170 855 int:;
+#X text 270 855 задать свойство @max.;
+#X obj 20 890 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 895 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 826 1\.;
-#X text 270 826 int or list: generated value.;
+#X text 130 896 1\.;
+#X text 270 896 число или список: сгенерированное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 876 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 879 библиотека: ceammc v0.9.8;
-#X text 424 891 смотрите также:;
-#X obj 545 894 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 946 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 949 библиотека: ceammc v0.9.8;
+#X text 424 961 смотрите также:;
+#X obj 545 964 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.float] @url random.float-help.pd;
-#X obj 650 894 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 650 964 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.gauss] @url random.gauss-help.pd;
-#N canvas 10 898 400 290 info 0;
+#N canvas 10 968 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -111,8 +115,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 898 pd info;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
+#X restore 10 968 pd info;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
 #X connect 13 0 14 0;
+#X connect 14 0 15 0;

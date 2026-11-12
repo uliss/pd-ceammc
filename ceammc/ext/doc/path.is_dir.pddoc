@@ -16,32 +16,49 @@
       <keywords>path dir</keywords>
       <since>0.9</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object checks whether the given path exists and is a directory</tr>
+        <tr lang="ru">объект проверяет, существует ли заданный путь и является ли он каталогом</tr>
+      </par>
+      <par>
+        <tr lang="en">the first outlet outputs 1 if the path is a directory, otherwise 0</tr>
+        <tr lang="ru">первый выход выдаёт 1, если путь является каталогом, иначе 0</tr>
+      </par>
+      <par>
+        <tr lang="en">the second outlet outputs the path itself if it is a directory</tr>
+        <tr lang="ru">второй выход выдаёт сам путь, если он является каталогом</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to validate a directory path before reading or writing
+        files in it</tr>
+        <tr lang="ru">объект можно использовать для проверки пути к каталогу перед чтением или
+        записью файлов в нём</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">output 1 if given path is found and is directory, otherwise false</tr>
-          <!-- old: выход 1 если данный путь найден и является
-                    каталогом, в противном случае ложным -->
-          <tr lang="ru" finished="false">выход 1 если данный путь найден и является каталогом, в
-          противном случае ложным</tr>
+          <tr lang="en">output 1 if the given path is found and is a directory, otherwise 0</tr>
+          <tr lang="ru">выдаёт 1, если заданный путь найден и является каталогом, иначе 0</tr>
         </in>
         <in on="data:string">
           <tr lang="en">same as for symbol</tr>
-          <tr lang="ru" finished="false">То же, что и символ</tr>
+          <tr lang="ru">то же, что для символа</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="int">
           <tr lang="en">1 or 0</tr>
-          <tr lang="ru" finished="false">1 или 0</tr>
+          <tr lang="ru">1 или 0</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">output path if it's directory</tr>
-          <tr lang="ru" finished="false">Путь вывода, если это каталог</tr>
+          <tr lang="en">output path if it is a directory</tr>
+          <tr lang="ru">вывести путь, если это каталог</tr>
         </out>
       </outlet>
     </outlets>
@@ -50,9 +67,12 @@
 <![CDATA[
 [symbol ~( [symbol abc(
 |          |
-[path.is_dir]
+[path.is_dir #x]
 |
-[T]
+[ui.dt]
+
+          [ui.dt #a]
+[X x:1->a]
 ]]>
       </pdascii>
     </example>

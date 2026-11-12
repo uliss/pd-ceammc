@@ -1,6 +1,8 @@
 #ifndef HW_RPI_ADC_ADS1115_H
 #define HW_RPI_ADC_ADS1115_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 #include "hw_rpi_device.h"
@@ -39,5 +41,15 @@ private:
 };
 
 void setup_hw_rpi_adc_ads1115();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiAdcAds1115, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiAdcAds1115, hw_rpi_adc_ads1115, "hw.rpi.adc.ads1115");
+
+
+#endif
 
 #endif // HW_RPI_ADC_ADS1115_H

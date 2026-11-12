@@ -1,66 +1,71 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 542 50 выводит IP-адрес по имени DNS;
+#X text 542 50 выводит IP-адрес по DNS-имени;
 #X obj 1 1 cnv 5 765 40 empty empty net.host2ip 20 20 0 20 -104026
 -4096 0;
 #X obj 545 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [net.host->ip] @url net.host2ip-help.pd;
 #X obj 660 8 net.host2ip;
-#X msg 50 118 localhost;
-#X msg 69 147 bbc.com;
-#X obj 50 176 symbol;
-#X symbolatom 50 205 16 0 0 0 - - -;
-#X obj 203 205 ui.tab ipv4 ipv6;
-#X msg 203 234 \$2;
-#X obj 203 262 msg @type;
-#X obj 50 291 net.host->ip;
-#X obj 50 320 ui.dt;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 преобразует имя хоста в один или несколько IP-адресов
+через системный DNS-резолвер;
+#X obj 230 88 cnv 1 2 30 empty empty empty 17 7 0 10 -158925 -1 0;
+#X msg 50 186 localhost;
+#X msg 69 215 bbc.com;
+#X msg 165 215 ya.ru;
+#X obj 50 244 symbol;
+#X symbolatom 50 273 16 0 0 0 - - -;
+#X obj 203 273 ui.tab ipv4 ipv6;
+#X msg 203 302 @type \$2;
+#X obj 50 330 net.host->ip;
+#X obj 50 359 ui.dt;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 414 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 417 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 376 1\.;
-#X text 170 376 symbol;
-#X obj 268 377 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 TYPE: result IP type. Разрешённые значения: ipv4 \,
-ipv6\. Тип: symbol.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 415 1\.;
+#X text 170 415 symbol;
+#X obj 268 416 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 415 TYPE: тип IP-адреса в результате. Разрешённые значения:
+ipv4 \, ipv6\. Тип: symbol.;
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 470 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 434 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 473 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 432 @ipv4;
-#X text 270 432 Shortcut for @type ipv4\.;
-#X obj 250 462 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 462 @ipv6;
-#X text 270 462 Shortcut for @type ipv6\.;
-#X obj 250 492 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 492 @type;
-#X text 270 492 Result IP type. Тип: symbol. Значение по умолчанию:
-ipv4\. Разрешённые значения: ipv4 \, ipv6\.;
-#X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 549 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 471 @ipv4;
+#X text 270 471 Сокращение для @type ipv4\.;
+#X obj 250 501 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 501 @ipv6;
+#X text 270 501 Сокращение для @type ipv6\.;
+#X obj 250 531 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 531 @type;
+#X text 270 531 Тип IP-адреса в результате. Тип: symbol. Значение по
+умолчанию: ipv4\. Разрешённые значения: ipv4 \, ipv6\.;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 588 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 550 1\.;
-#X text 170 550 symbol:;
-#X text 270 550 DNS name.;
-#X text 170 575 any:;
-#X text 270 575 DNS name.;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 615 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 589 1\.;
+#X text 170 589 symbol:;
+#X text 270 589 DNS-имя.;
+#X text 170 614 any:;
+#X text 270 614 DNS-имя.;
+#X obj 20 649 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 654 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 616 1\.;
-#X text 270 616 list of resolved IP's.;
+#X text 130 655 1\.;
+#X text 170 655 list:;
+#X text 270 655 список разрешённых IP-адресов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 666 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 669 библиотека: ceammc v0.9.8;
-#N canvas 10 688 400 290 info 0;
+#X obj 1 705 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 708 библиотека: ceammc v0.9.8;
+#N canvas 10 727 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -84,12 +89,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 688 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 9 0 10 0;
+#X restore 10 727 pd info;
+#X connect 8 0 11 0;
+#X connect 9 0 11 0;
 #X connect 10 0 11 0;
-#X connect 8 0 12 0;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

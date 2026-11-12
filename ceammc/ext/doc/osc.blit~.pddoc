@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">bandlimited oscillator with controllable harmonics</tr>
-        <tr lang="ru">генератор с ограниченным спектром и управлением гармониками</tr>
+        <tr lang="ru">генератор с ограниченным спектром и управляемыми гармониками</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,38 +20,55 @@
         <see>osc.square~</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">BLIT (Band-Limited Impulse Train) is an alias-free synthesis method that
+        generates bandlimited waveforms by summing harmonics up to the Nyquist frequency</tr>
+        <tr lang="ru">BLIT (Band-Limited Impulse Train) — метод синтеза без алиасинга, генерирующий
+        сигнал с ограниченным спектром путём суммирования гармоник до частоты Найквиста</tr>
+      </par>
+      <par>
+        <tr lang="en">the number of harmonics controls the brightness of the waveform, if 0 — all
+        harmonics up to SR/2 are used</tr>
+        <tr lang="ru">количество гармоник управляет яркостью сигнала, при 0 — используются все
+        гармоники до SR/2</tr>
+      </par>
+      <par>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
+        <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="FREQ" type="float" units="hertz" minvalue="0">
-        <tr lang="en">default frequency (440hz if not specified)</tr>
-        <tr lang="ru" finished="false">Частота по умолчанию (440 Гц, если не указано)</tr>
+        <tr lang="en">default frequency (440 Hz if not specified)</tr>
+        <tr lang="ru">частота по умолчанию (440 Гц, если не указана)</tr>
       </argument>
       <argument name="HARMONICS" type="int" minvalue="0">
         <tr lang="en">number of harmonics. Missing or 0 means all available harmonics until
         SR/2</tr>
-        <!-- old: Количество гармоник. Отсутствие или 0 означает все
-                доступные гармоники до SR/2. -->
-        <tr lang="ru" finished="false">Количество гармоник. Отсутствие или 0 означает все доступные
-        гармоники до SR/2.</tr>
+        <tr lang="ru">количество гармоник. Отсутствие или 0 означает все доступные гармоники до
+        SR/2</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @harmonics -->
       <property name="@harmonics" type="int" minvalue="0" default="0">
         <tr lang="en">number of harmonics. 0 means all available harmonics until SR/2</tr>
-        <tr lang="ru" finished="false">0 означает все доступные гармоники до SR/2</tr>
+        <tr lang="ru">количество гармоник. 0 означает все доступные гармоники до SR/2</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">frequency in Hz</tr>
-          <tr lang="ru" finished="false">частота в Гц</tr>
+          <tr lang="ru">частота в Гц</tr>
         </in>
       </inlet>
       <inlet type="control">
         <in on="bang">
           <tr lang="en">reset phase</tr>
-          <tr lang="ru" finished="false">фаза сброса</tr>
+          <tr lang="ru">сбросить фазу</tr>
         </in>
       </inlet>
     </inlets>
@@ -59,7 +76,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

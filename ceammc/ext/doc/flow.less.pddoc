@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">numeric stream router by 'less' condition</tr>
-        <tr lang="ru">маршрутизатор числового потока по условию 'меньше'</tr>
+        <tr lang="ru">маршрутизатор числового потока по условию «меньше»</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,63 +25,75 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Numbers thar are *less* then N-th argument are passed to N-th inlet</tr>
-        <!-- old: Номера thar *less *, затем N-й аргумент передается
-                на N-й вход -->
-        <tr lang="ru" finished="false">Номера thar *less *, затем N-й аргумент передается на N-й
-        вход</tr>
+        <tr lang="en">the object routes the incoming numbers to the outlets according to the
+        threshold values: a number that is less than the first value goes to the first outlet, a
+        number less than the N-th value goes to the N-th outlet</tr>
+        <tr lang="ru">объект направляет входящие числа на выходы согласно пороговым значениям:
+        число, меньшее первого значения, идёт на первый выход, число, меньшее N-го значения, идёт
+        на N-й выход</tr>
+      </par>
+      <par>
+        <tr lang="en">numbers greater than or equal to the last threshold value are sent to the
+        last outlet</tr>
+        <tr lang="ru">числа, большие или равные последнему пороговому значению, отправляются на
+        последний выход</tr>
+      </par>
+      <par>
+        <tr lang="en">the threshold values must be in ascending order</tr>
+        <tr lang="ru">пороговые значения должны идти по возрастанию</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to split a numeric stream into ranges, for example to
+        map note pitches to different instruments or to divide a sensor range into zones</tr>
+        <tr lang="ru">объект можно использовать для разбиения числового потока на диапазоны,
+        например для распределения нот по разным инструментам или деления диапазона датчика на
+        зоны</tr>
       </par>
     </info>
     <arguments>
       <argument name="VALUES" type="list">
-        <tr lang="en">compare values: list of floats in ascending order</tr>
-        <!-- old: Сравнительные значения: список поплавков в порядке
-                возрастания -->
-        <tr lang="ru" finished="false">Сравнительные значения: список поплавков в порядке
-        возрастания</tr>
+        <tr lang="en">threshold values: list of floats in ascending order</tr>
+        <tr lang="ru">пороговые значения: список чисел в порядке возрастания</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @values -->
       <property name="@values" type="list" access="initonly" default="">
-        <tr lang="en">compare values: list of floats in ascending order</tr>
-        <!-- old: Сравнительные значения: список поплавков в порядке
-                возрастания -->
-        <tr lang="ru" finished="false">Сравнительные значения: список поплавков в порядке
-        возрастания</tr>
+        <tr lang="en">threshold values: list of floats in ascending order</tr>
+        <tr lang="ru">пороговые значения: список чисел в порядке возрастания</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">input flow</tr>
-          <tr lang="ru" finished="false">входной поток</tr>
+          <tr lang="ru">входной поток</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
-        <out type="any">
-          <tr lang="en">numbers that are less then 1st argument</tr>
-          <tr lang="ru" finished="false">Число, которое меньше 1-го аргумента</tr>
+        <out type="float">
+          <tr lang="en">numbers that are less than the 1st argument</tr>
+          <tr lang="ru">числа, меньшие 1-го аргумента</tr>
         </out>
       </outlet>
       <outlet number="...">
-        <out type="any">
-          <tr lang="en">numbers that are less than ... argument</tr>
-          <tr lang="ru" finished="false">Цифры, которые меньше, чем аргументы</tr>
+        <out type="float">
+          <tr lang="en">numbers that are less than the ... argument</tr>
+          <tr lang="ru">числа, меньшие ... аргумента</tr>
         </out>
       </outlet>
       <outlet number="n">
-        <out type="any">
-          <tr lang="en">numbers that are less than N-th argument</tr>
-          <tr lang="ru" finished="false">Цифры, которые меньше N-го аргумента</tr>
+        <out type="float">
+          <tr lang="en">numbers that are less than the N-th argument</tr>
+          <tr lang="ru">числа, меньшие N-го аргумента</tr>
         </out>
       </outlet>
       <outlet number="n+1">
-        <out type="any">
-          <tr lang="en">numbers that are greater or equal than last argument</tr>
-          <tr lang="ru" finished="false">Число, которое больше или равно последнему аргументу</tr>
+        <out type="float">
+          <tr lang="en">numbers that are greater than or equal to the last argument</tr>
+          <tr lang="ru">числа, большие или равные последнему аргументу</tr>
         </out>
       </outlet>
     </outlets>

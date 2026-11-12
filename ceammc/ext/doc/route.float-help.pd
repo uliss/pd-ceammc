@@ -7,58 +7,69 @@
 #X obj 582 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [route.f] @url route.float-help.pd;
 #X obj 661 8 route.float;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 to get properties use *prop.get* object \, cause all
-messages (including property requests) are passed thru;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X msg 98 186 bang;
-#X symbolatom 165 186 10 0 0 0 - - -;
-#X msg 136 215 list 1 2 3;
-#X obj 280 215 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 165 244 list 123;
-#X obj 280 244 prop.set @strict;
-#X msg 184 273 @any;
-#X obj 50 302 route.float;
-#X floatatom 50 330 5 0 0 0 - - -;
-#X obj 126 330 ui.dt;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 385 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 240 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes float messages to the first outlet
+and all other messages (bang \, symbol \, list \, any) to the second
+outlet;
+#X text 240 138 by default a list containing a single float is treated
+as a float. Set @strict to true to disable this behavior and route
+such lists to the second outlet;
+#X text 240 193 to get properties \, use the [prop.get] object \, since
+all messages (including property requests) are passed through;
+#X text 240 248 the object can be used to separate numeric values from
+other messages \, for example to route numbers to a display and everything
+else to a logger;
+#X floatatom 50 366 5 0 0 0 - - -;
+#X msg 98 366 bang;
+#X symbolatom 165 366 10 0 0 0 - - -;
+#X msg 136 395 list 1 2 3;
+#X obj 280 395 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 165 424 list 123;
+#X obj 280 424 prop.set @strict;
+#X msg 184 453 @any;
+#X obj 50 482 route.float;
+#X floatatom 50 510 5 0 0 0 - - -;
+#X obj 126 510 ui.dt;
+#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 565 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 388 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 568 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 386 @strict;
-#X text 270 386 Strict mode. By default list with single float treated
-as float. Set to true to disable this behavior. Type: bool. Default
-value: 0\.;
-#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 458 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 566 @strict;
+#X text 270 566 Strict mode. By default a list with a single float
+is treated as a float. Set to true to disable this behavior. Type:
+bool. Default value: 0\.;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 638 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 459 1\.;
-#X text 170 459 float:;
-#X text 270 459 float to *first* outlet.;
-#X text 170 484 bang:;
-#X text 270 484 bang to second outlet.;
-#X text 170 509 symbol:;
-#X text 270 509 symbol to second outlet.;
-#X text 170 534 list:;
-#X text 270 534 list to second outlet. See @strict property for details.;
-#X text 170 559 any:;
-#X text 270 559 any to second outlet.;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 599 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 639 1\.;
+#X text 170 639 float:;
+#X text 270 639 float to the first outlet.;
+#X text 170 664 bang:;
+#X text 270 664 bang to the second outlet.;
+#X text 170 689 symbol:;
+#X text 270 689 symbol to the second outlet.;
+#X text 170 714 list:;
+#X text 270 714 list to the second outlet. See the @strict property
+for details.;
+#X text 170 754 any:;
+#X text 270 754 any message to the second outlet.;
+#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 794 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 600 1\.;
-#X text 270 600 float output.;
-#X text 130 620 2\.;
-#X text 270 620 other messages.;
+#X text 130 795 1\.;
+#X text 170 795 float:;
+#X text 270 795 float output.;
+#X text 130 815 2\.;
+#X text 270 815 other messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 670 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 673 library: ceammc v0.9.8;
-#N canvas 10 692 400 290 info 0;
+#X obj 1 865 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 868 library: ceammc v0.9.8;
+#N canvas 10 887 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -82,14 +93,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 692 pd info;
-#X connect 11 0 13 0;
-#X connect 7 0 15 0;
-#X connect 8 0 15 0;
-#X connect 10 0 15 0;
-#X connect 12 0 15 0;
-#X connect 14 0 15 0;
-#X connect 13 0 15 0;
-#X connect 15 0 16 0;
-#X connect 15 1 17 0;
-#X connect 9 0 15 0;
+#X restore 10 887 pd info;
+#X connect 14 0 16 0;
+#X connect 10 0 18 0;
+#X connect 11 0 18 0;
+#X connect 13 0 18 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;
+#X connect 12 0 18 0;

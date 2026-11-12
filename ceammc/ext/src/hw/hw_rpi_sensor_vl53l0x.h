@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SENSOR_VL53L0X_H
 #define HW_RPI_SENSOR_VL53L0X_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -24,5 +26,14 @@ public:
 };
 
 void setup_hw_rpi_sensor_vl53l0x();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiSensorVl53l0x, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiSensorVl53l0x, hw_rpi_sensor_vl53l0x, "hw.rpi.sensor.vl53l0x");
+
+#endif
 
 #endif // HW_RPI_SENSOR_VL53L0X_H

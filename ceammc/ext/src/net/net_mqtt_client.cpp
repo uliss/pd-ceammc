@@ -13,8 +13,8 @@
  *****************************************************************************/
 #ifndef WITH_MQTT
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(NetMqtt, 1, 2, "compiled without mqtt support");
-OBJECT_STUB_SETUP(NetMqtt, net_mqtt_client, "net.mqtt");
+CONTROL_OBJECT_STUB(NetMqtt, 1, 2, "compiled without MQTT support");
+OBJECT_STUB_SETUP(NetMqtt, net_mqtt_client, "net.mqtt.client", "mqtt.client");
 #else
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"

@@ -9,65 +9,72 @@
 #X obj 618 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [pass] @url flow.pass-help.pd;
 #X obj 675 8 flow.pass;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X symbolatom 117 118 5 0 0 0 - - -;
-#X msg 184 118 list 1 2 9 10;
-#X obj 78 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object passes the input value only if it is found
+in the pass list \, otherwise nothing is output;
+#X text 240 123 the pass list is set by the VALUES argument \, the
+@values property \, or by sending a list to the right inlet;
+#X text 240 163 the object can be used to filter a stream by a fixed
+set of allowed values \, for example to pass only specific note numbers;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X symbolatom 117 281 5 0 0 0 - - -;
+#X msg 184 281 list 1 2 9 10;
+#X obj 78 310 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 203 147 a b c d;
-#X obj 50 190 flow.pass 1 10 100 a z;
-#X obj 50 219 ui.dt;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X msg 203 310 a b c d;
+#X obj 50 353 flow.pass 1 10 100 a z;
+#X obj 50 382 ui.dt;
+#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 437 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 277 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 440 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 275 1\.;
-#X text 170 275 list;
-#X obj 268 276 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 275 VALUES: atoms to pass. Type: list.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 315 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 438 1\.;
+#X text 170 438 list;
+#X obj 268 439 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 438 VALUES: atoms to pass. Type: list.;
+#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 478 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 318 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 481 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 316 @values;
-#X text 270 316 Atoms to pass. Type: list.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 361 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 479 @values;
+#X text 270 479 Atoms to pass. Type: list.;
+#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 524 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 362 1\.;
-#X text 170 362 bang:;
-#X text 270 362 pass.;
-#X text 170 387 float:;
-#X text 270 387 pass if float found in pass list.;
-#X text 170 412 symbol:;
-#X text 270 412 pass if symbol found in pass list.;
-#X text 170 437 list:;
-#X text 270 437 pass if first atom found in pass list.;
-#X text 170 462 any:;
-#X text 270 462 pass if message selector found in pass list.;
-#X text 130 487 2\.;
-#X text 170 487 list:;
-#X text 270 487 set pass list.;
-#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 527 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 525 1\.;
+#X text 170 525 bang:;
+#X text 270 525 pass.;
+#X text 170 550 float:;
+#X text 270 550 pass if float found in pass list.;
+#X text 170 575 symbol:;
+#X text 270 575 pass if symbol found in pass list.;
+#X text 170 600 list:;
+#X text 270 600 pass if first atom found in pass list.;
+#X text 170 625 any:;
+#X text 270 625 pass if message selector found in pass list.;
+#X text 130 650 2\.;
+#X text 170 650 list:;
+#X text 270 650 set pass list.;
+#X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 690 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 528 1\.;
-#X text 270 528 passed values.;
+#X text 130 691 1\.;
+#X text 270 691 passed values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 578 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 581 library: ceammc v0.9.8;
-#X text 477 593 see also:;
-#X obj 552 596 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 744 library: ceammc v0.9.8;
+#X text 477 756 see also:;
+#X obj 552 759 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass_if] @url flow.pass_if-help.pd;
-#X obj 657 596 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 759 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject] @url flow.reject-help.pd;
-#N canvas 10 600 400 290 info 0;
+#N canvas 10 763 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -91,10 +98,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 600 pd info;
-#X connect 6 0 11 0;
-#X connect 9 0 11 0;
-#X connect 7 0 11 0;
-#X connect 8 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 763 pd info;
+#X connect 10 0 15 0;
+#X connect 13 0 15 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

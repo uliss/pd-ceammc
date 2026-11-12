@@ -12,8 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_rpi_gpio_pcf8574.h"
+#ifdef WITH_RPI
 #include "ceammc_factory.h"
 #include "hw_rpi_gpio_pcf8574_args.hpp"
+
+
 
 namespace ceammc {
 
@@ -214,8 +217,11 @@ void HwRpiGpioPcf8574::m_read(t_symbol* s, const AtomListView& lv)
     ceammc_hw_pcf8674_read_pin(device(), args.pin);
 }
 
+} // namespace ceammc
+
 void setup_hw_rpi_gpio_pcf8574()
 {
+    using namespace ceammc;
     ObjectFactory<HwRpiGpioPcf8574> obj("hw.rpi.gpio.pcf8574");
 
     obj.addMethod("impulse", &HwRpiGpioPcf8574::m_impulse);
@@ -226,5 +232,4 @@ void setup_hw_rpi_gpio_pcf8574()
     obj.addMethod("write_all", &HwRpiGpioPcf8574::m_write_all);
     obj.addMethod("write", &HwRpiGpioPcf8574::m_write);
 }
-
-} // namespace ceammc
+#endif

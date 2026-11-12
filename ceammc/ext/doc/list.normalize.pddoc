@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">normalizes numeric list values to get their sum equal to 1.0</tr>
-        <tr lang="ru">нормализует числовые значения списка, чтобы их сумма была равна единице</tr>
+        <tr lang="ru">нормализует числовые значения списка так, чтобы их сумма была равна 1.0</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,53 +18,53 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">There are two modes of normalization:</tr>
-        <tr lang="ru" finished="false">Существует два способа нормализации:</tr>
+        <tr lang="en">there are two normalization modes:</tr>
+        <tr lang="ru">есть два режима нормализации:</tr>
       </par>
       <par>
-        <tr lang="en">1. by sum - multiply all elements to such number to get total sum = 1.0</tr>
-        <!-- old: 1. по сумме - умножьте все элементы на такое число,
-                чтобы получить общую сумму = 1,0 -->
-        <tr lang="ru" finished="false">1. по сумме - умножьте все элементы на такое число, чтобы
-        получить общую сумму = 1,0</tr>
+        <tr lang="en">1. by sum — all elements are multiplied by such a number that their total sum
+        becomes 1.0</tr>
+        <tr lang="ru">1. по сумме — все элементы умножаются на такое число, чтобы их общая сумма
+        стала равна 1.0</tr>
       </par>
       <par>
-        <tr lang="en">2. by value range - maps all values to range 0..1 lineary</tr>
-        <!-- old: 2. по диапазону значений - отображает все значения в
-                диапазоне 0,1 -->
-        <tr lang="ru" finished="false">2. по диапазону значений - отображает все значения в
-        диапазоне 0,1</tr>
+        <tr lang="en">2. by value range — all values are linearly mapped to the range 0..1</tr>
+        <tr lang="ru">2. по диапазону значений — все значения линейно отображаются в диапазон
+        0..1</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to turn a list of weights into a probability
+        distribution, for example to prepare values for random weighted selection</tr>
+        <tr lang="ru">объект можно использовать для превращения списка весов в распределение
+        вероятностей, например чтобы подготовить значения для взвешенного случайного выбора</tr>
       </par>
     </info>
     <properties>
       <!-- @by -->
       <property name="@by" type="symbol" enum="sum range" default="sum">
         <tr lang="en">normalization mode</tr>
-        <tr lang="ru" finished="false">режим нормализации</tr>
+        <tr lang="ru">режим нормализации</tr>
       </property>
       <!-- @range -->
       <property name="@range" type="alias">
         <tr lang="en">alias to @by range</tr>
-        <tr lang="ru" finished="false">Исполнитель: @by Range</tr>
+        <tr lang="ru">псевдоним для @by range</tr>
       </property>
       <!-- @sum -->
       <property name="@sum" type="alias">
         <tr lang="en">alias to @by sum</tr>
-        <tr lang="ru" finished="false">псевдоним @by sum</tr>
+        <tr lang="ru">псевдоним для @by sum</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">input list of floats. Non float values are rejected</tr>
-          <!-- old: Список входных поплавков. Неподвижные значения
-                    отклонены -->
-          <tr lang="ru" finished="false">Список входных поплавков. Неподвижные значения
-          отклонены</tr>
+          <tr lang="en">input list of floats. Non-float values are rejected</tr>
+          <tr lang="ru">входной список чисел. Нечисловые значения отбрасываются</tr>
         </in>
         <in on="data:mlist">
           <tr lang="en">same as list</tr>
-          <tr lang="ru" finished="false">Тот же список</tr>
+          <tr lang="ru">то же, что список</tr>
         </in>
       </inlet>
     </inlets>
@@ -72,7 +72,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output list</tr>
-          <tr lang="ru" finished="false">перечень мероприятий</tr>
+          <tr lang="ru">выходной список</tr>
         </out>
       </outlet>
     </outlets>

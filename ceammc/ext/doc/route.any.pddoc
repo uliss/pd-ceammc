@@ -8,8 +8,7 @@
       </authors>
       <description>
         <tr lang="en">separate messages from bangs, floats, symbols and lists</tr>
-        <tr lang="ru">отделяет сообщения общего вида от пустых событий (bang), числовых значений,
-        символов и списков</tr>
+        <tr lang="ru">отделяет сообщения общего вида от bang, чисел, символов и списков</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,41 +22,61 @@
         <see>route.prop</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes messages with a selector (any messages) to the first
+        outlet, and bangs, floats, symbols and lists to the second outlet</tr>
+        <tr lang="ru">объект направляет сообщения с селектором на первый выход, а bang, числа,
+        символы и списки — на второй выход</tr>
+      </par>
+      <par>
+        <tr lang="en">this is useful when a patch needs to handle generic messages separately from
+        plain values</tr>
+        <tr lang="ru">это полезно, когда в патче нужно обрабатывать сообщения общего вида отдельно
+        от простых значений</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to separate control messages from audio-rate values,
+        for example to route "note" messages to a synth and plain numbers to a display</tr>
+        <tr lang="ru">объект можно использовать для отделения управляющих сообщений от значений,
+        например чтобы направлять сообщения "note" в синтезатор, а простые числа — на дисплей</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">any to *first* outlet</tr>
-          <tr lang="ru" finished="false">Любой *первый* выход</tr>
+          <tr lang="en">any message to the first outlet</tr>
+          <tr lang="ru">сообщение any на первый выход</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to second outlet</tr>
-          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+          <tr lang="en">bang to the second outlet</tr>
+          <tr lang="ru">bang на второй выход</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to second outlet</tr>
-          <tr lang="ru" finished="false">Поплавать на второй выход</tr>
+          <tr lang="en">float to the second outlet</tr>
+          <tr lang="ru">число на второй выход</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to second outlet</tr>
-          <tr lang="ru" finished="false">Список для второго выхода</tr>
+          <tr lang="en">list to the second outlet</tr>
+          <tr lang="ru">список на второй выход</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to second outlet</tr>
-          <tr lang="ru" finished="false">Символ для второго выхода</tr>
+          <tr lang="en">symbol to the second outlet</tr>
+          <tr lang="ru">символ на второй выход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">any output</tr>
-          <tr lang="ru" finished="false">любой выход</tr>
+          <tr lang="en">any message output</tr>
+          <tr lang="ru">выход сообщений any</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">bangs, floats, symbols and lists</tr>
-          <tr lang="ru" finished="false">Банги, поплавки, символы и списки</tr>
+          <tr lang="ru">bang, числа, символы и списки</tr>
         </out>
       </outlet>
     </outlets>

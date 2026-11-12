@@ -1,6 +1,8 @@
 #ifndef HW_RPI_DISPLAY_HD44780_H
 #define HW_RPI_DISPLAY_HD44780_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 #include "hw_rpi_device.h"
@@ -37,5 +39,14 @@ public:
 };
 
 void setup_hw_rpi_display_hd44780();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiDisplayHd44780, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiDisplayHd44780, hw_rpi_display_hd44780, "hw.rpi.display.hd44780");
+
+#endif
 
 #endif // HW_RPI_DISPLAY_HD44780_H

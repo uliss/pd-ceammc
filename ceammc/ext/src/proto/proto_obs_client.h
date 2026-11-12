@@ -14,15 +14,15 @@
 #ifndef CEAMMC_PROTO_OBS_CLIENT_H_
 #define CEAMMC_PROTO_OBS_CLIENT_H_
 
-#include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
-#include "proto_rust_struct.hpp"
+#ifdef WITH_OBS
 
-#include <memory>
+#include "proto_rust.hpp"
+#include "proto_rust_struct.hpp"
+#include "ceammc_rs_msg_object.h"
 
 using namespace ceammc;
 
-using BaseOBSClient = DispatchedObject<BaseObject>;
+using BaseOBSClient = RustMessageObject<BaseObject>;
 using ObsClientImpl = proto::ProtoService<ceammc_obs_client, ceammc_obs_init, ceammc_obs_result_cb>;
 
 namespace ceammc {
@@ -61,5 +61,14 @@ private:
 } // namespace ceammc
 
 void setup_proto_obs_client();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(ProtoObsClient, 1, 1, "compiled without OBS support");
+OBJECT_STUB_SETUP(ProtoObsClient, proto_obs_client, "proto.obs");
+
+#endif
 
 #endif // CEAMMC_PROTO_OBS_CLIENT_H_

@@ -1,0 +1,195 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 429 50 cnv 1 336 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 434 50 управление расширителем GPIO PCF8574 по I2C;
+#X obj 1 1 cnv 5 765 40 empty empty hw.rpi.gpio.pcf8574 20 20 0 20
+-104026 -4096 0;
+#X obj 602 11 hw.rpi.gpio.pcf8574;
+#X obj 230 78 cnv 1 535 395 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 PCF8574 — это 8-битный расширитель GPIO с интерфейсом
+I2C. Объект предоставляет 8 дополнительных выводов GPIO (0–7) \, управляемых
+по шине I2C \, что полезно \, когда собственных выводов Raspberry Pi
+не хватает.;
+#X obj 230 88 cnv 1 2 60 empty empty empty 17 7 0 10 -221520 -1 0;
+#X text 240 153 Каждый вывод можно независимо настроить как вход или
+выход методами [input( и [output(. Выводы \, настроенные как выход
+\, можно записывать методами [write( или [write_all( \, выводы \, настроенные
+как вход \, можно читать методами [read( или [read_all(.;
+#X obj 230 158 cnv 1 2 75 empty empty empty 17 7 0 10 -158925 -1 0;
+#X text 240 238 Метод [impulse( отправляет импульс заданной длины на
+вывод \, настроенный как выход: вывод устанавливается в высокий уровень
+\, а по истечении заданного времени автоматически сбрасывается в низкий.;
+#X obj 230 243 cnv 1 2 60 empty empty empty 17 7 0 10 -158925 -1 0;
+#X text 240 308 Типичные сценарии применения:;
+#X text 250 333 • Расширение GPIO — добавление 8 дополнительных выводов
+в проект на Raspberry Pi \, например для управления светодиодами \,
+реле или чтения кнопок и датчиков.;
+#X text 250 388 • Ввод по прерываниям — использование свойства @irq
+для подключения вывода прерывания расширителя к GPIO Raspberry Pi \,
+чтобы изменения выводов сообщались без опроса.;
+#X obj 50 521 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 155 521 0;
+#X msg 194 521 7;
+#X msg 338 521 0;
+#X msg 376 521 7;
+#X msg 50 550 @irq \$1;
+#X msg 155 550 output \$1;
+#X msg 338 550 input \$1;
+#X obj 155 579 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 222 579 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 155 608 0 \$1;
+#X msg 222 608 7 \$1;
+#X msg 338 608 255;
+#X msg 405 608 0;
+#X msg 155 637 write \$1 \$2;
+#X msg 338 637 write_all \$1;
+#X msg 155 665 0 50;
+#X msg 222 665 7 50;
+#X msg 338 665 read_all;
+#X msg 155 694 impulse \$1 \$2;
+#X obj 50 752 hw.rpi.gpio.pcf8574;
+#X obj 50 781 ui.dt;
+#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 836 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 839 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 837 @i2c_addr;
+#X text 270 837 (при инициализации) Адрес I²C. Также принимается значение
+'default' (для адреса 0x20). Тип: int. Значение по умолчанию: -1\.
+Диапазон: [-4\..119].;
+#X obj 250 894 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 894 @i2c_bus;
+#X text 270 894 (при инициализации) Шина I²C. Тип: atom. Значение по
+умолчанию: none. Разрешённые значения: 1 \, 2 \, 3 \, 4 \, 5 \, 6 \,
+default \, none.;
+#X obj 250 951 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 951 @irq;
+#X text 270 951 (при инициализации) Вывод GPIO Raspberry Pi \, подключённый
+к выходу прерывания расширителя. Если задан \, изменения выводов сообщаются
+через прерывание вместо опроса. Тип: int. Значение по умолчанию: -1\.
+Диапазон: [-1\..127].;
+#X obj 250 1038 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1038 @clear;
+#X text 270 1038 Если true \, при закрытии объекта все выводы сбрасываются
+в 0\. Тип: bool. Значение по умолчанию: 1\.;
+#X obj 250 1080 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1080 @inverted;
+#X text 270 1080 Если true \, состояния входных выводов инвертируются
+(логическая 1 становится 0 и наоборот). Тип: bool. Значение по умолчанию:
+1\.;
+#X obj 20 1147 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1152 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1153 impulse;
+#X text 270 1153 отправляет импульс заданной длины на вывод \, настроенный
+как выход: вывод устанавливается в высокий уровень \, а по истечении
+заданного времени автоматически сбрасывается в низкий. Аргументы:;
+#X obj 300 1223 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1223 PIN: индекс вывода. Тип: int. Диапазон: [0\..7].;
+#X obj 300 1246 cnv 1 52 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1246 LENGTH: длительность импульса. Тип: float. Диапазон:
+[0.01\..100].;
+#X obj 250 1294 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1294 input;
+#X text 270 1294 настраивает вывод как вход. Аргументы:;
+#X obj 300 1319 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1319 PIN: индекс вывода. Тип: int. Диапазон: [0\..7].;
+#X obj 250 1352 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1352 output;
+#X text 270 1352 настраивает вывод как выход и сбрасывает его в низкий
+уровень. Аргументы:;
+#X obj 300 1392 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1392 PIN: индекс вывода. Тип: int. Диапазон: [0\..7].;
+#X obj 250 1425 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1425 read;
+#X text 270 1425 читает значение вывода \, настроенного как вход. Аргументы:;
+#X obj 300 1450 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1450 PIN: индекс вывода. Тип: int. Диапазон: [0\..7].;
+#X obj 250 1483 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1483 read_all;
+#X text 270 1483 читает значения всех выводов \, настроенных как вход.;
+#X obj 250 1518 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1518 write;
+#X text 270 1518 записывает значение в вывод \, настроенный как выход.
+Аргументы:;
+#X obj 300 1558 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1558 PIN: индекс вывода. Тип: int. Диапазон: [0\..7].;
+#X obj 300 1581 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1581 VALUE: новое значение. Тип: bool.;
+#X obj 250 1614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1614 write_all;
+#X text 270 1614 записывает байт во все выводы \, настроенные как выход:
+каждый бит значения задаёт состояние соответствующего вывода (бит 0
+— вывод 0 \, бит 1 — вывод 1 и т.д.). Аргументы:;
+#X obj 300 1684 cnv 1 45 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1684 VALUE: значение для всех выводов \, где каждый бит
+соответствует выводу. Тип: int. Диапазон: [0\..255].;
+#X obj 20 1742 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1747 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1748 1\.;
+#X text 270 1748 вход управляющих сообщений.;
+#X obj 20 1783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1788 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1789 1\.;
+#X msg 170 1789 pins;
+#X text 270 1789 выводит список из 8 значений выводов (0 или 1) при
+изменении входных выводов: [pins 0 1 0 0 1 0 0 0(.;
+#X msg 170 1829 pin;
+#X text 270 1829 выводит индекс изменившегося вывода и его новое состояние:
+[pin PIN VALUE(.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 1 1894 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1897 библиотека: ceammc v0.9.8;
+#N canvas 10 1916 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 библиотека:;
+#X text 120 10 ceammc;
+#X text 10 32 версия:;
+#X text 120 32 0.9.8;
+#X text 10 54 объект:;
+#X text 120 54 hw.rpi.gpio.pcf8574;
+#X text 10 76 категория:;
+#X text 120 76 hw;
+#X text 10 98 с версии:;
+#X text 120 98 0.9.8;
+#X text 10 120 авторы:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 лицензия:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 ключевые слова:;
+#X text 120 164 gpio \, raspberry \, i2c \, pcf8574 \, expander;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X text 120 268 сгенерировано при помощи pddoc;
+#X restore 10 1916 pd info;
+#X connect 14 0 19 0;
+#X connect 15 0 20 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
+#X connect 18 0 21 0;
+#X connect 22 0 24 0;
+#X connect 23 0 25 0;
+#X connect 24 0 28 0;
+#X connect 25 0 28 0;
+#X connect 26 0 29 0;
+#X connect 27 0 29 0;
+#X connect 30 0 33 0;
+#X connect 31 0 33 0;
+#X connect 19 0 34 0;
+#X connect 34 0 35 0;
+#X connect 20 0 34 0;
+#X connect 21 0 34 0;
+#X connect 28 0 34 0;
+#X connect 29 0 34 0;
+#X connect 33 0 34 0;
+#X connect 32 0 34 0;

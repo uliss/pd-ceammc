@@ -5,25 +5,25 @@
 #X obj 428 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 433 50 работа со свойствами объектов или патчей;
 #X obj 30 120 ui.link @title [patch.props] @url patch.props-help.pd;
-#X text 220 117 получение или установка свойств патча;
+#X text 220 117 получает или устанавливает свойства патча;
 #X obj 30 145 ui.link @title [prop] @url prop-help.pd;
-#X text 220 142 получить/установить именованное значение свойства для
-субпатча или абстракции;
+#X text 220 142 получает/устанавливает значение именованного свойства
+для субпатча или абстракции;
 #X obj 30 185 ui.link @title [prop.declare] @url prop.declare-help.pd;
 #X text 220 182 объявляет именованное свойство для субпатча или абстракции;
 #X obj 30 210 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 220 207 получить значение свойства от подсоединённого объекта
+#X text 220 207 получает значение свойства от подключённого объекта
 \, субпатча или абстракции;
 #X obj 30 250 ui.link @title [prop.join] @url prop.join-help.pd;
 #X text 220 247 добавляет свойства в основной поток данных;
 #X obj 30 275 ui.link @title [prop.random] @url prop.random-help.pd;
-#X text 220 272 рандомизатор значения свойства;
+#X text 220 272 рандомизатор значений свойств;
 #X obj 30 300 ui.link @title [prop.route] @url prop.route-help.pd;
 #X text 220 297 отделяет свойства от основного потока данных;
 #X obj 30 325 ui.link @title [prop.route~] @url prop.route~-help.pd;
-#X text 220 322 отделяет свойства от аудиосоединений;
+#X text 220 322 извлекает свойства из аудиосоединений;
 #X obj 30 350 ui.link @title [prop.set] @url prop.set-help.pd;
-#X text 220 347 устанавливает значение свойства для подключенного объекта
+#X text 220 347 устанавливает значение свойства для подключённого объекта
 \, субпатча или абстракции;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;

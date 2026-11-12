@@ -6,76 +6,77 @@
 0;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.preset] @url ui.preset-help.pd;
-#X obj 230 78 cnv 1 535 140 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Saves presets value of UI objects that have @presetname
-property. Can handle UI objects only on the save canvas \, no subpatches
-or abstractions are supported.;
-#X text 240 138 NOTE: if no UI widgets with @presetname on canvas -
-*Shift-click* is disabled.;
-#X text 240 178 Active slot is highlighted \, available slots are dark
-gray;
-#X obj 50 266 ui.radio @presetname P-radio;
-#X obj 366 266 ui.sliders @presetname P-sliders;
-#X obj 50 310 ui.toggle @presetname P-toggle @size 17 17;
-#X obj 50 353 ui.rslider @presetname P-rslider;
-#X floatatom 50 382 5 0 0 0 - - -;
-#X msg 50 410 load \$1;
-#X obj 299 410 ui.hsl @min 0 @max 2 @show_value 1;
-#X msg 69 439 clear 1;
-#X msg 184 439 clearall;
-#X msg 299 439 interp \$1;
-#X msg 88 468 store 1;
-#X obj 203 468 loadmsg read %CEAMMC%/prs.txt;
-#X obj 203 497 expand_env;
-#X obj 50 526 ui.preset @size 102 42;
-#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 605 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 сохраняет значения UI-объектов \, у которых есть свойство
+@presetname;
+#X text 240 123 примечание: если на холсте нет UI-виджетов со свойством
+@presetname \, Shift-клик отключён;
+#X text 240 163 активный слот выделен \, доступные слоты — тёмно-серые;
+#X obj 50 251 ui.radio @presetname P-radio;
+#X obj 366 251 ui.sliders @presetname P-sliders;
+#X obj 50 295 ui.toggle @presetname P-toggle @size 17 17;
+#X obj 50 338 ui.rslider @presetname P-rslider;
+#X floatatom 50 367 5 0 0 0 - - -;
+#X msg 50 395 load \$1;
+#X obj 299 395 ui.hsl @min 0 @max 2 @show_value 1;
+#X msg 69 424 clear 1;
+#X msg 184 424 clearall;
+#X msg 299 424 interp \$1;
+#X msg 88 453 store 1;
+#X obj 203 453 loadmsg read %CEAMMC%/prs.txt;
+#X obj 203 482 expand_env;
+#X obj 50 511 ui.preset @size 102 42;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 590 cnv 5 115 25 empty empty события_мыши: 4 12 0 14 -262144
 -49933 0;
-#X text 130 640 Mouse-move;
-#X text 310 640 highlight the slot under the cursor.;
-#X text 130 660 Left-click;
-#X text 310 660 select preset slot under the cursor.;
-#X text 130 680 Left-click + ⇧;
-#X text 310 680 saves current settings to specified preset slot.;
-#X text 130 700 Left-click + ⌥;
-#X text 310 700 clear all values from specified preset slot.;
-#X text 130 720 Right-click;
-#X text 310 720 opens popup menu with read/write/duplicate actions.;
-#X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 755 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 625 Mouse-move;
+#X text 310 625 highlight the slot under the cursor.;
+#X text 130 645 Left-click;
+#X text 310 645 select preset slot under the cursor.;
+#X text 130 665 Left-click + ⇧;
+#X text 310 665 saves current settings to specified preset slot.;
+#X text 130 685 Left-click + ⌥;
+#X text 310 685 clear all values from specified preset slot.;
+#X text 130 705 Right-click;
+#X text 310 705 opens popup menu with read/write/duplicate actions.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 740 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 758 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 743 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 756 @receive;
-#X text 270 756 Источник получения сообщений. Тип: symbol. Значение
+#X msg 130 741 @receive;
+#X text 270 741 Источник получения сообщений. Тип: symbol. Значение
 по умолчанию: (null).;
-#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 798 @active_color;
-#X text 270 798 Цвет активного элемента (список из красного \, зеленого
+#X obj 250 783 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 783 @active_color;
+#X text 270 783 Цвет активного элемента (список из красного \, зеленого
 и синего цвета в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0 0.75 1 1\.;
-#X obj 250 855 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 855 @background_color;
-#X text 270 855 Цвета фона у объекта (список из красного \, зеленого
+#X obj 250 840 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 840 @background_color;
+#X text 270 840 Цвета фона у объекта (список из красного \, зеленого
 и синего значений в диапазоне [0\..1]). Тип: list. Значение по умолчанию:
 0.93 0.93 0.93 1\.;
-#X obj 250 912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 912 @border_color;
-#X text 270 912 Цвет границы объекта (список из красного \, зеленого
+#X obj 250 897 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 897 @border_color;
+#X text 270 897 Цвет границы объекта (список из красного \, зеленого
 и синего цветов в [0\..1] диапазоне). Тип: list. Значение по умолчанию:
 0.6 0.6 0.6 1\.;
-#X obj 250 969 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 969 @empty_color;
-#X text 270 969 Empty cell color (list of red \, green \, blue values
-in 0-1 range). Тип: list. Значение по умолчанию: 0.86 0.86 0.86 1\.;
-#X obj 250 1026 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1026 @stored_color;
-#X text 270 1026 Stored cell color (list of red \, green \, blue values
-in 0-1 range). Тип: list. Значение по умолчанию: 0.5 0.5 0.5 1\.;
-#X obj 250 1083 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1083 @text_color;
-#X text 270 1083 Text color (list of red \, green \, blue values in
-0-1 range). Тип: list. Значение по умолчанию: 0 0 0 1\.;
+#X obj 250 954 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 954 @empty_color;
+#X text 270 954 Цвет пустых ячеек (список значений красного \, зелёного
+\, синего в диапазоне 0–1). Тип: list. Значение по умолчанию: 0.86
+0.86 0.86 1\.;
+#X obj 250 1011 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1011 @stored_color;
+#X text 270 1011 Цвет сохранённых ячеек (список значений красного \,
+зелёного \, синего в диапазоне 0–1). Тип: list. Значение по умолчанию:
+0.5 0.5 0.5 1\.;
+#X obj 250 1068 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1068 @text_color;
+#X text 270 1068 Цвет текста (список значений красного \, зелёного
+\, синего в диапазоне 0–1). Тип: list. Значение по умолчанию: 0 0 0
+1\.;
 #X obj 250 1125 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1125 @fontname;
 #X text 270 1125 Имя шрифта. Тип: symbol. Значение по умолчанию: Helvetica.
@@ -103,56 +104,56 @@ normal. Разрешённые значения: normal \, bold.;
 по умолчанию: 102 42\.;
 #X obj 250 1407 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1407 @current?;
-#X text 270 1407 (только чтение) Current preset index. Тип: int. Значение
-по умолчанию: -1\.;
+#X text 270 1407 (только чтение) Текущий индекс пресета. Тип: int.
+Значение по умолчанию: -1\.;
 #X obj 20 1459 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 1464 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
 #X msg 130 1465 clear;
-#X text 270 1465 clear specified preset. Аргументы:;
+#X text 270 1465 очищает указанный пресет. Аргументы:;
 #X obj 300 1490 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1490 IDX: preset index. Тип: int. Минимальное значение:
+#X text 300 1490 IDX: индекс пресета. Тип: int. Минимальное значение:
 0\.;
 #X obj 250 1523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1523 clearall;
-#X text 270 1523 clear all existing presets.;
+#X text 270 1523 очищает все существующие пресеты.;
 #X obj 250 1558 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1558 duplicate;
-#X text 270 1558 fill empty presets by coping exiting values.;
+#X text 270 1558 заполняет пустые пресеты \, копируя существующие значения.;
 #X obj 250 1593 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1593 interp;
-#X text 270 1593 loads linearry interpolated value between preset \,
-for example: 1.5 means load interpolated value between preset 1 and
-2\. Аргументы:;
+#X text 270 1593 загружает линейно интерполированное значение между
+пресетами \, например 1.5 загружает интерполированное значение между
+пресетами 1 и 2\. Аргументы:;
 #X obj 300 1648 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1648 IDX: preset interpolation index. Тип: float.;
+#X text 300 1648 IDX: индекс интерполяции пресета. Тип: float.;
 #X obj 250 1681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1681 load;
-#X text 270 1681 loads specified preset. Аргументы:;
+#X text 270 1681 загружает указанный пресет. Аргументы:;
 #X obj 300 1706 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1706 IDX: preset index. Тип: int.;
+#X text 300 1706 IDX: индекс пресета. Тип: int.;
 #X obj 250 1739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1739 pos;
-#X text 270 1739 set UI element position. Аргументы:;
+#X text 270 1739 задать положение элемента UI. Аргументы:;
 #X obj 300 1764 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1764 X: top left x-coord. Тип: float.;
+#X text 300 1764 X: x-координата верхнего левого угла. Тип: float.;
 #X obj 300 1787 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1787 Y: top right y-coord. Тип: float.;
+#X text 300 1787 Y: y-координата верхнего левого угла. Тип: float.;
 #X obj 250 1820 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1820 read;
-#X text 270 1820 read presets from file. Аргументы:;
+#X text 270 1820 читает пресеты из файла. Аргументы:;
 #X obj 300 1845 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1845 PATH: path to preset file. Тип: symbol.;
+#X text 300 1845 PATH: путь к файлу пресетов. Тип: symbol.;
 #X obj 250 1878 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1878 store;
-#X text 270 1878 stores specified preset. Аргументы:;
+#X text 270 1878 сохраняет указанный пресет. Аргументы:;
 #X obj 300 1903 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1903 IDX: preset index. Тип: int.;
+#X text 300 1903 IDX: индекс пресета. Тип: int.;
 #X obj 250 1936 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 1936 write;
-#X text 270 1936 read presets from file. Аргументы:;
+#X text 270 1936 записывает пресеты в файл. Аргументы:;
 #X obj 300 1961 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1961 PATH: path to preset file. Тип: symbol.;
+#X text 300 1961 PATH: путь к файлу пресетов. Тип: symbol.;
 #X obj 20 2004 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 2009 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;

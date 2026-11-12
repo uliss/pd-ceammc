@@ -5,84 +5,87 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 random.pw_const;
-#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Produces random floating-point numbers \, which are
-uniformly distributed within each of the several subintervals [b0 \,
-b1) \, each with its own weight;
-#X text 240 138 Const segments specified as: bound0 \, weight0 \, bound1
-\, weight0 \, bound2 etc;
-#X text 240 178 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 генерирует случайные числа с плавающей точкой \, равномерно
+распределённые внутри каждого из нескольких подинтервалов [b0 \, b1)
+\, каждый со своим весом;
+#X text 240 138 постоянные сегменты задаются как: bound0 \, weight0
+\, bound1 \, weight1 \, bound2 и т.д.;
+#X text 240 178 используйте свойство @seed для получения воспроизводимых
+последовательностей. Если @seed не задан явно \, используется генератор
+\, инициализированный текущим временем;
+#X text 240 233 объект можно использовать для создания взвешенного
+случайного выбора по нескольким диапазонам \, например чтобы значения
+ближе к центру выпадали чаще \, чем по краям;
+#X obj 50 351 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 472 296 graph;
-#X obj 50 325 list.gen 1000;
-#X obj 203 325 random.pw_const 0 1 1 0 2 2 3;
-#X obj 50 354 list.histogram @bins 100;
-#X obj 50 383 list.normalize @range;
-#X obj 50 412 list.enumerate @append;
-#X obj 50 440 list.repack 2;
-#X obj 50 469 tabwrite array1;
-#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 524 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X restore 472 351 graph;
+#X obj 50 380 list.gen 1000;
+#X obj 203 380 random.pw_const 0 1 1 0 2 2 3;
+#X obj 50 409 list.histogram @bins 100;
+#X obj 50 438 list.normalize @range;
+#X obj 50 467 list.enumerate @append;
+#X obj 50 495 list.repack 2;
+#X obj 50 524 tabwrite array1;
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 579 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 527 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 582 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 525 1\.;
-#X text 170 525 list;
-#X obj 268 526 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 525 V: interleaved interval boundaries and boundary propabilities.
-Note: number of arguments should be odd and >=5\. Boundaries should
-be in strictly increasing order and weights should be non-negative.
+#X text 130 580 1\.;
+#X text 170 580 list;
+#X obj 268 581 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 580 V: чередующиеся границы интервалов и вероятности границ.
+Примечание: количество аргументов должно быть нечётным и >=5\. Границы
+должны идти строго по возрастанию \, веса должны быть неотрицательными.
 Тип: list.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 610 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 668 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 611 @seed;
-#X text 270 611 Generator seed. Тип: int. Значение по умолчанию: 0\.
-Минимальное значение: 0\.;
-#X obj 250 653 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 653 @v;
-#X text 270 653 Interleaved interval boundaries and boundary propabilities.
+#X msg 130 666 @seed;
+#X text 270 666 Начальное значение генератора. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 @v;
+#X text 270 708 Чередующиеся границы интервалов и вероятности границ.
 Тип: list.;
-#X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 695 @bounds?;
-#X text 270 695 (только чтение) List of boundaries. Тип: list.;
-#X obj 250 725 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 725 @weights?;
-#X text 270 725 (только чтение) List of weights. Тип: list.;
-#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 770 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 750 @bounds?;
+#X text 270 750 (только чтение) Список границ. Тип: list.;
+#X obj 250 780 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 780 @weights?;
+#X text 270 780 (только чтение) Список весов. Тип: list.;
+#X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 825 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 771 1\.;
-#X text 170 771 bang:;
-#X text 270 771 generates random number.;
-#X text 170 796 list:;
-#X text 270 796 set new distribution values.;
-#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 836 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 826 1\.;
+#X text 170 826 bang:;
+#X text 270 826 генерирует случайное число.;
+#X text 170 851 list:;
+#X text 270 851 задать новые значения распределения.;
+#X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 891 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 837 1\.;
-#X text 270 837 result value.;
+#X text 130 892 1\.;
+#X text 270 892 значение результата.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 887 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 890 библиотека: ceammc v0.9.8;
-#X text 410 902 смотрите также:;
-#X obj 531 905 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 942 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 945 библиотека: ceammc v0.9.8;
+#X text 410 957 смотрите также:;
+#X obj 531 960 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.linear] @url random.linear-help.pd;
-#X obj 643 905 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 643 960 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.pw_lin] @url random.pw_lin-help.pd;
-#N canvas 10 909 400 290 info 0;
+#N canvas 10 964 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -106,12 +109,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 909 pd info;
-#X connect 8 0 10 0;
-#X connect 10 0 12 0;
-#X connect 12 0 13 0;
+#X restore 10 964 pd info;
+#X connect 9 0 11 0;
+#X connect 11 0 13 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;
-#X connect 10 1 11 0;
-#X connect 11 0 10 1;
+#X connect 16 0 17 0;
+#X connect 11 1 12 0;
+#X connect 12 0 11 1;

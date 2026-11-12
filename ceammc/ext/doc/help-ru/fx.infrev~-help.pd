@@ -5,102 +5,108 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.infrev~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 fx.infrev~;
-#X obj 230 78 cnv 1 535 84 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Infinity is a MatrixVerb specifically designed to sustain
-and layer sounds forever.;
-#X obj 240 126 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 230 78 cnv 1 535 194 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 Infinity — это MatrixVerb \, специально разработанный
+для бесконечного удержания и наслоения звуков;
+#X text 240 123 объект представляет собой стереофонический ревербератор
+с матрицей обратной связи \, что позволяет получать очень долгое затухание
+вплоть до бесконечного удержания;
+#X text 240 178 @size задаёт размер комнаты \, @filter и @damp управляют
+тембром реверберации \, @drywet смешивает исходный (сухой) и обработанный
+сигналы;
+#X obj 240 236 ui.link @background_color 0.90196 0.90196 0.90196
 @title More info @url https://www.airwindows.com/infinity/;
-#X msg 50 210 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 414 210 loadmsg 0.5 0.2 0.9 0.7;
-#X obj 50 239 expand_env;
-#X msg 174 239 open %DOC%/sound/voice.wav \, 1;
-#X msg 69 268 reset;
-#X obj 174 268 expand_env;
-#X obj 414 268 ui.sliders 4 @size 125 70;
-#X obj 50 297 readsf~;
-#X obj 174 297 readsf~;
-#X obj 270 311 r $0-r;
-#X obj 50 326 fx.infrev~;
-#X obj 50 354 ui.hgain2~;
-#X obj 232 354 ui.dsp~;
-#X msg 414 354 @filter \$1 \, @damp \$2 \, @size \$3 \, @drywet \$4;
-#X obj 50 383 dac~;
-#X obj 414 383 s $0-r;
-#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 438 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X msg 50 320 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 414 320 loadmsg 0.5 0.2 0.9 0.7;
+#X obj 50 349 expand_env;
+#X msg 174 349 open %DOC%/sound/voice.wav \, 1;
+#X msg 69 378 reset;
+#X obj 174 378 expand_env;
+#X obj 414 378 ui.sliders 4 @size 125 70;
+#X obj 50 407 readsf~;
+#X obj 174 407 readsf~;
+#X obj 270 421 r $0-r;
+#X obj 50 436 fx.infrev~;
+#X obj 50 464 ui.hgain2~;
+#X obj 232 464 ui.dsp~;
+#X msg 414 464 @filter \$1 \, @damp \$2 \, @size \$3 \, @drywet \$4;
+#X obj 50 493 dac~;
+#X obj 414 493 s $0-r;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 548 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 551 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 439 1\.;
-#X text 170 439 float;
-#X obj 268 440 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 439 SIZE: room size. Тип: float. Диапазон: [0\..1];
-#X text 130 464 2\.;
-#X text 170 464 float;
-#X obj 268 465 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 464 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Тип: float. Диапазон: [0\..1];
-#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 534 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 549 1\.;
+#X text 170 549 float;
+#X obj 268 550 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 549 SIZE: размер комнаты. Тип: float. Диапазон: [0\..1];
+#X text 130 574 2\.;
+#X text 170 574 float;
+#X obj 268 575 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 574 DRYWET: пропорция смеси между исходным (сухим) и обработанным
+сигналами. Тип: float. Диапазон: [0\..1];
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 629 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 537 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 632 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 535 @bypass;
-#X text 270 535 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 577 @damp;
-#X text 270 577 Damping of the lowpass comb filter. Тип: float. Значение
-по умолчанию: 0\. Диапазон: [0\..1].;
-#X obj 250 619 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 619 @drywet;
-#X text 270 619 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Тип: float. Значение по умолчанию:
+#X msg 130 630 @bypass;
+#X text 270 630 Флаг обхода. Если true: пропускать обработанный сигнал
+без изменений. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 672 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 672 @damp;
+#X text 270 672 Демпфирование низкочастотного гребёнчатого фильтра.
+Тип: float. Значение по умолчанию: 0\. Диапазон: [0\..1].;
+#X obj 250 714 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 714 @drywet;
+#X text 270 714 Пропорция смеси между исходным (сухим) и обработанным
+сигналами. 0 — сухой сигнал \, 1 — обработанный. Тип: float. Значение
+по умолчанию: 1\. Диапазон: [0\..1].;
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 771 @filter;
+#X text 270 771 Коэффициент фильтра. Тип: float. Значение по умолчанию:
 1\. Диапазон: [0\..1].;
-#X obj 250 676 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 676 @filter;
-#X text 270 676 Filter coefficient. Тип: float. Значение по умолчанию:
-1\. Диапазон: [0\..1].;
-#X obj 250 718 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 718 @size;
-#X text 270 718 Room size. Тип: float. Значение по умолчанию: 0.5\.
-Диапазон: [0\..1].;
-#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 775 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 813 @size;
+#X text 270 813 Размер комнаты. Тип: float. Значение по умолчанию:
+0.5\. Диапазон: [0\..1].;
+#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 870 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 776 reset;
-#X text 270 776 reset reverb.;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 826 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 871 reset;
+#X text 270 871 сбросить реверберацию.;
+#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 921 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 827 1\.;
-#X text 170 827 ~;
-#X text 270 827 input Left signal.;
-#X text 130 852 2\.;
-#X text 170 852 ~;
-#X text 270 852 input Right signal.;
-#X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 892 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 922 1\.;
+#X text 170 922 ~;
+#X text 270 922 входной левый сигнал.;
+#X text 130 947 2\.;
+#X text 170 947 ~;
+#X text 270 947 входной правый сигнал.;
+#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 987 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 893 1\.;
-#X text 170 893 ~;
-#X text 270 893 output Left signal.;
-#X text 130 913 2\.;
-#X text 170 913 ~;
-#X text 270 913 output Right signal.;
+#X text 130 988 1\.;
+#X text 170 988 ~;
+#X text 270 988 выходной левый сигнал.;
+#X text 130 1008 2\.;
+#X text 170 1008 ~;
+#X text 270 1008 выходной правый сигнал.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 963 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 966 библиотека: ceammc v0.9.8;
-#X text 417 978 смотрите также:;
-#X obj 538 981 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1058 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1061 библиотека: ceammc v0.9.8;
+#X text 417 1073 смотрите также:;
+#X obj 538 1076 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.freeverb~] @url fx.freeverb~-help.pd;
-#X obj 643 981 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 643 1076 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.zita_rev1~] @url fx.zita_rev1~-help.pd;
-#N canvas 10 985 400 290 info 0;
+#N canvas 10 1080 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -124,19 +130,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 985 pd info;
-#X connect 7 0 9 0;
-#X connect 10 0 12 0;
-#X connect 9 0 14 0;
-#X connect 12 0 15 0;
+#X restore 10 1080 pd info;
+#X connect 9 0 11 0;
+#X connect 12 0 14 0;
+#X connect 11 0 16 0;
 #X connect 14 0 17 0;
-#X connect 15 0 17 1;
-#X connect 17 0 18 0;
-#X connect 17 1 18 1;
-#X connect 13 0 20 0;
-#X connect 18 0 21 0;
-#X connect 18 1 21 1;
-#X connect 20 0 22 0;
-#X connect 11 0 17 0;
-#X connect 16 0 17 0;
-#X connect 8 0 13 0;
+#X connect 16 0 19 0;
+#X connect 17 0 19 1;
+#X connect 19 0 20 0;
+#X connect 19 1 20 1;
+#X connect 15 0 22 0;
+#X connect 20 0 23 0;
+#X connect 20 1 23 1;
+#X connect 22 0 24 0;
+#X connect 13 0 19 0;
+#X connect 18 0 19 0;
+#X connect 10 0 15 0;

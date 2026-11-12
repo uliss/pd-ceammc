@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_rpi_gpio_servo.h"
+
+#ifdef WITH_RPI
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "hw_rpi_gpio_servo_args.hpp"
@@ -342,8 +344,12 @@ void HwRpiGpioServo::updateServoAngle()
     ceammc_hw_gpio_set_pwm(device(), pin_->value(), pulsePeriod(), pulseValue());
 }
 
+} // namespace ceammc
+
 void setup_hw_rpi_gpio_servo()
 {
+    using namespace ceammc;
+
     ObjectFactory<HwRpiGpioServo> obj("hw.rpi.gpio.servo");
     obj.addAlias("hw.rpi.servo");
 
@@ -356,4 +362,4 @@ void setup_hw_rpi_gpio_servo()
     obj.addMethod("rotate_phase", &HwRpiGpioServo::m_rotate_phase);
 }
 
-} // namespace ceammc
+#endif

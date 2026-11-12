@@ -7,8 +7,9 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">get the property value from connected object, subpatch or abstraction</tr>
-        <tr lang="ru">получить значение свойства от подсоединённого объекта, субпатча или
+        <tr lang="en">get the property value from the connected object, subpatch or
+        abstraction</tr>
+        <tr lang="ru">получает значение свойства от подключённого объекта, субпатча или
         абстракции</tr>
       </description>
       <license>GPL3 or later</license>
@@ -25,9 +26,28 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Get properties from connected object/subpatch/abstraction</tr>
-        <tr lang="ru" finished="false">Получите свойства от подключенного объекта / подпатчи /
-        абстракции</tr>
+        <tr lang="en">the object reads properties from the object, subpatch or abstraction
+        connected to its first outlet</tr>
+        <tr lang="ru">объект читает свойства у объекта, субпатча или абстракции, подключённых к его
+        первому выходу</tr>
+      </par>
+      <par>
+        <tr lang="en">the PROPS argument or the list sent to the inlet sets the names of the
+        requested properties, the values are output from the corresponding outlets</tr>
+        <tr lang="ru">аргумент PROPS или список, поданный на вход, задаёт имена запрашиваемых
+        свойств, значения выводятся с соответствующих выходов</tr>
+      </par>
+      <par>
+        <tr lang="en">on bang, all requested properties are output at once. When a single property
+        name is sent, only that property is output to the second outlet</tr>
+        <tr lang="ru">по bang все запрошенные свойства выводятся сразу. При подаче одного имени
+        свойства только это свойство выводится на второй выход</tr>
+      </par>
+      <par>
+        <tr lang="en">a left-click on the object gets the properties, which is convenient for quick
+        inspection during patching</tr>
+        <tr lang="ru">левый клик по объекту запрашивает свойства, что удобно для быстрой проверки
+        во время патчинга</tr>
       </par>
     </info>
     <mouse>
@@ -36,44 +56,44 @@
     <arguments>
       <argument name="PROPS" type="list">
         <tr lang="en">property names</tr>
-        <tr lang="ru" finished="false">Имена собственности</tr>
+        <tr lang="ru">имена свойств</tr>
       </argument>
     </arguments>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output specified properites to corresponding outlets</tr>
-          <tr lang="ru" finished="false">выдача указанных свойств в соответствующие выходы</tr>
+          <tr lang="en">output the specified properties to the corresponding outlets</tr>
+          <tr lang="ru">вывести указанные свойства на соответствующие выходы</tr>
         </in>
         <in on="any">
-          <tr lang="en">output specified property to second outlet</tr>
-          <tr lang="ru" finished="false">выводить указанное свойство на второй выход</tr>
+          <tr lang="en">output the specified property to the second outlet</tr>
+          <tr lang="ru">вывести указанное свойство на второй выход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
         <out type="any">
-          <tr lang="en">connected to destination object</tr>
-          <tr lang="ru" finished="false">подключенный к объекту назначения</tr>
+          <tr lang="en">connected to the destination object</tr>
+          <tr lang="ru">подключён к объекту назначения</tr>
         </out>
       </outlet>
       <outlet number="2">
         <out type="any">
-          <tr lang="en">output of first requested property</tr>
-          <tr lang="ru" finished="false">выход первого запрашиваемого имущества</tr>
+          <tr lang="en">output of the first requested property</tr>
+          <tr lang="ru">выход первого запрошенного свойства</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">output of ... requested property</tr>
-          <tr lang="ru" finished="false">... запрашиваемой собственности</tr>
+          <tr lang="en">output of the ... requested property</tr>
+          <tr lang="ru">выход ... запрошенного свойства</tr>
         </out>
       </outlet>
       <outlet number="n+1">
         <out type="any">
-          <tr lang="en">output of n-th requested property</tr>
-          <tr lang="ru" finished="false">n-го запрашиваемого имущества</tr>
+          <tr lang="en">output of the n-th requested property</tr>
+          <tr lang="ru">выход N-го запрошенного свойства</tr>
         </out>
       </outlet>
     </outlets>

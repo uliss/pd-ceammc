@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">maps a list value via an external side-chain</tr>
-        <tr lang="ru">отображает каждое значение списка через внешнюю боковую цепь обработки</tr>
+        <tr lang="ru">отображает каждое значение списка через внешнюю боковую цепь</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -22,67 +22,71 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Each @step elements are passed via righmost outlet to extenal object, that
-        suppose to return it back to rightmost inlet. So various mapping and filtering are
-        possible.</tr>
-        <!-- old: Каждый элемент @step передается через самую высокую
-                розетку на экстенальный объект, который, как предполагается, возвращает его обратно
-                в самую правую розетку. Таким образом, возможны различные картографирование и
-                фильтрация. -->
-        <tr lang="ru" finished="false">Каждый элемент @step передается через самую высокую розетку
-        на экстенальный объект, который, как предполагается, возвращает его обратно в самую правую
-        розетку. Таким образом, возможны различные картографирование и фильтрация.</tr>
+        <tr lang="en">the object passes each element (or a group of @step elements) of the input
+        list through the rightmost outlet to an external object, which is expected to return the
+        processed value back to the rightmost inlet</tr>
+        <tr lang="ru">объект передаёт каждый элемент (или группу из @step элементов) входного
+        списка через правый выход во внешний объект, который должен вернуть обработанное значение
+        обратно на правый вход</tr>
+      </par>
+      <par>
+        <tr lang="en">this allows arbitrary mapping, transformation and filtering of list values
+        via a side-chain, for example applying a function to every element or grouping elements
+        before processing</tr>
+        <tr lang="ru">это позволяет произвольно отображать, преобразовывать и фильтровать значения
+        списка через боковую цепь, например применять функцию к каждому элементу или группировать
+        элементы перед обработкой</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to apply the same operation to every list element, for
+        example to square all values or to multiply every third element</tr>
+        <tr lang="ru">объект можно использовать для применения одной операции ко всем элементам
+        списка, например чтобы возвести все значения в квадрат или умножить каждый третий
+        элемент</tr>
       </par>
     </info>
     <arguments>
       <argument name="STEP" type="int" minvalue="1" maxvalue="1024">
-        <tr lang="en">see @step property</tr>
-        <tr lang="ru" finished="false">См. @step property</tr>
+        <tr lang="en">see the @step property</tr>
+        <tr lang="ru">см. свойство @step</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @step -->
       <property name="@step" type="int" minvalue="1" maxvalue="1024" default="1">
-        <tr lang="en">number of elements outputted to rightmost outlet on each iteration</tr>
-        <!-- old: количество элементов, выводимых в самую правильную
-                точку на каждой итерации -->
-        <tr lang="ru" finished="false">количество элементов, выводимых в самую правильную точку на
-        каждой итерации</tr>
+        <tr lang="en">number of elements output to the rightmost outlet on each iteration</tr>
+        <tr lang="ru">количество элементов, выводимых на правый выход за одну итерацию</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">Input list</tr>
-          <tr lang="ru" finished="false">Список вводимых данных</tr>
+          <tr lang="en">input list</tr>
+          <tr lang="ru">входной список</tr>
         </in>
         <in on="data:mlist">
-          <tr lang="en">Input mlist</tr>
-          <tr lang="ru" finished="false">Входной млист</tr>
+          <tr lang="en">input MList</tr>
+          <tr lang="ru">входной MList</tr>
         </in>
       </inlet>
       <inlet>
         <in>
-          <tr lang="en">New modified value from applied object.</tr>
-          <!-- old: Новое модифицированное значение от прикладного
-                    объекта. -->
-          <tr lang="ru" finished="false">Новое модифицированное значение от прикладного
-          объекта.</tr>
+          <tr lang="en">new modified value from the applied object</tr>
+          <tr lang="ru">новое изменённое значение от применённого объекта</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">New modified list (or mlist)</tr>
-          <tr lang="ru" finished="false">Новый измененный список (или млист)</tr>
+          <tr lang="en">new modified list (or MList)</tr>
+          <tr lang="ru">новый изменённый список (или MList)</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">single element or list of values (if @step property &gt; 1)</tr>
-          <tr lang="ru" finished="false">один элемент или список значений (если @step свойство &gt;
-          1)</tr>
+          <tr lang="ru">один элемент или список значений (если свойство @step &gt; 1)</tr>
         </out>
       </outlet>
     </outlets>

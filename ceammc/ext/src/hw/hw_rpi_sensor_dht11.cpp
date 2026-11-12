@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_dht11.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
@@ -69,3 +71,4 @@ void setup_hw_rpi_sensor_dht11()
     ObjectFactory<HwRpiSensorDht11> obj("hw.rpi.sensor.dht11");
     obj.addMethod("poll", &HwRpiSensorDht11::m_poll);
 }
+#endif

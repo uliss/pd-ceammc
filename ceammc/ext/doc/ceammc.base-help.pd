@@ -24,7 +24,7 @@ function.call-help.pd;
 #X obj 30 295 ui.link @title [gate~] @url gate~-help.pd;
 #X text 220 292 multichannel signal gate;
 #X obj 30 320 ui.link @title [logger] @url logger-help.pd;
-#X text 220 317 advanced data logger for Pd window;
+#X text 220 317 advanced data logger for the Pd window;
 #X obj 30 345 ui.link @title [matrix~] @url matrix~-help.pd;
 #X text 220 342 signal routing matrix;
 #X obj 30 370 ui.link @title [merge~] @url merge~-help.pd;
@@ -51,7 +51,7 @@ beat from a specified list with weighted coefficients;
 #X text 220 602 multichannel converter from the control signals to
 audio;
 #X obj 30 630 ui.link @title [obj.props] @url obj.props-help.pd;
-#X text 220 627 Extract object properties from the connected object;
+#X text 220 627 extract object properties from the connected object;
 #X obj 30 655 ui.link @title [radio] @url radio-help.pd;
 #X text 220 652 non GUI radio switch;
 #X obj 30 680 ui.link @title [split~] @url split~-help.pd;

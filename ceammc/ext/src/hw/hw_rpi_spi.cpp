@@ -15,6 +15,8 @@
 #include "ceammc_factory.h"
 #include "hw_rpi_spi_args.hpp"
 
+#ifdef WITH_RPI
+
 namespace ceammc {
 
 HwSpi::HwSpi(const PdArgs& args)
@@ -89,12 +91,15 @@ void HwSpi::m_loopback_test(t_symbol* s, const AtomListView& lv)
     ceammc_hw_spi_loopback_test(device());
 }
 
+} // namespace ceammc
+
 void setup_hw_rpi_spi()
 {
+    using namespace ceammc;
     ObjectFactory<HwSpi> obj("hw.rpi.spi");
     obj.addAlias("hw.spi");
     obj.addMethod("transfer", &HwSpi::m_transfer);
     obj.addMethod("loopback_test", &HwSpi::m_loopback_test);
 }
 
-} // namespace ceammc
+#endif

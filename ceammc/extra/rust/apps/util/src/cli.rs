@@ -8,6 +8,17 @@ pub enum LangName {
 }
 
 #[derive(Clone, Subcommand)]
+pub enum VersionAct {
+    /// list available versions in repo
+    List,
+    /// rollback to specified version
+    Rollback {
+        /// desired version
+        version: String,
+    },
+}
+
+#[derive(Clone, Subcommand)]
 pub enum Pd {
     /// auto start control: enable, disable, set main patch symlink
     #[group(required = false, multiple = false)]
@@ -51,6 +62,9 @@ pub enum Pd {
         #[arg(short, long)]
         force: bool,
     },
+    #[command(subcommand)]
+    /// manage CEAMMC PureData versions
+    Version(VersionAct),
 }
 
 #[derive(Clone, Subcommand)]

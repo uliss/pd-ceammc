@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">filesystem event monitor</tr>
-        <tr lang="ru">мониторинг событий файловой системы</tr>
+        <tr lang="ru">монитор событий файловой системы</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,28 +16,43 @@
       <keywords>path filesystem</keywords>
       <since>0.9.5</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object monitors the specified directory for filesystem events and outputs
+        messages when files are created, updated, moved or removed</tr>
+        <tr lang="ru">объект отслеживает заданный каталог на события файловой системы и выводит
+        сообщения при создании, изменении, перемещении или удалении файлов</tr>
+      </par>
+      <par>
+        <tr lang="en">the monitored directory is set by the PATH argument or the @path
+        property</tr>
+        <tr lang="ru">отслеживаемый каталог задаётся аргументом PATH или свойством @path</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to react to file changes, for example to reload a
+        sample when it is updated or to log filesystem activity</tr>
+        <tr lang="ru">объект можно использовать для реакции на изменения файлов, например чтобы
+        перезагрузить сэмпл при его обновлении или логировать активность файловой системы</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="PATH" type="symbol">
         <tr lang="en">directory to monitor filesystem events</tr>
-        <!-- old: каталог для мониторинга событий файловой
-                системы -->
-        <tr lang="ru" finished="false">каталог для мониторинга событий файловой системы</tr>
+        <tr lang="ru">каталог для отслеживания событий файловой системы</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @path -->
       <property name="@path" type="symbol" default="">
         <tr lang="en">directory to monitor filesystem events</tr>
-        <!-- old: каталог для мониторинга событий файловой
-                системы -->
-        <tr lang="ru" finished="false">каталог для мониторинга событий файловой системы</tr>
+        <tr lang="ru">каталог для отслеживания событий файловой системы</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">...</tr>
-          <tr lang="ru" finished="false">...</tr>
+          <tr lang="ru">...</tr>
         </in>
       </inlet>
     </inlets>
@@ -45,7 +60,8 @@
       <outlet>
         <out type="any">
           <tr lang="en">messages: [create fname(, [update fname(, [move fname(, [remove fname(</tr>
-          <tr lang="ru" finished="false">[править] [править] [править] [править] [править]</tr>
+          <tr lang="ru">сообщения: [create fname(, [update fname(, [move fname(, [remove
+          fname(</tr>
         </out>
       </outlet>
     </outlets>

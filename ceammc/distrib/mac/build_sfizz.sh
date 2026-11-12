@@ -11,7 +11,7 @@ echo "cloning sfizz info $(pwd)"
 
 if [[ ! -d sfizz ]]
 then
-    git clone https://github.com/sfztools/sfizz --depth 10
+    git clone --recurse-submodules --shallow-submodules --depth 10 https://github.com/sfztools/sfizz
     if [[ $? -ne 0 ]]
     then
         exit 1
@@ -20,7 +20,7 @@ fi
 
 cd "${SFIZZ_SRC_DIR}"
 git checkout f5c6e29f23b8057867c08e88f5f6ac6738baa30b
-git submodule update --init --recursive --depth 10
+git submodule update --init --recursive --depth 1
 
 echo "building sfizz ..."
 

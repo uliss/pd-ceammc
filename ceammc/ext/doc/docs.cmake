@@ -328,6 +328,7 @@ set(DOC_FILES
     hw.rpi.display.hd44780
     hw.rpi.display.ssd1306
     hw.rpi.gpio
+    hw.rpi.gpio.pcf8574
     hw.rpi.gpio.servo
     hw.rpi.i2c.pca9685
     hw.rpi.pwm
@@ -563,6 +564,7 @@ set(DOC_FILES
     midi.modus
     midi.note.pass
     midi.oct
+    midi.pitch.quantize
     midi.prg2str
     midi.split
     midi.sustain

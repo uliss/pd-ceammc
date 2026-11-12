@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 354 50 cnv 1 411 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 359 50 преобразует номер стандартного MIDI контроллера в имя;
+#X text 359 50 преобразует номер стандартного MIDI-контроллера в имя;
 #X obj 1 1 cnv 5 765 40 empty empty midi.ctl2str 20 20 0 20 -104026
 -4096 0;
 #X obj 530 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -21,19 +21,19 @@
 #X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 261 @symbol;
-#X text 270 261 Output as symbol instead of string by default. Значение
+#X text 270 261 Выводить как символ вместо строки по умолчанию. Значение
 по умолчанию: 0\.;
 #X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 318 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 319 1\.;
 #X text 170 319 float:;
-#X text 270 319 Standart MIDI controller number [0-127].;
+#X text 270 319 номер стандартного MIDI-контроллера [0-127].;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 359 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 360 1\.;
-#X text 270 360 output Standart MIDI controller name (string or symbol).;
+#X text 270 360 имя стандартного MIDI-контроллера (строка или символ).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

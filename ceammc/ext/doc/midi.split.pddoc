@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">MIDI note range splitter</tr>
-        <tr lang="ru">разбивает MIDI ноты на диапазоны</tr>
+        <tr lang="ru">разделяет MIDI-ноты на диапазоны</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,59 +18,63 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Split midi note messages at specified pitch values</tr>
-        <!-- old: Сплит-сообщения Midi Notes с заданными значениями
-                шага -->
-        <tr lang="ru" finished="false">Сплит-сообщения Midi Notes с заданными значениями шага</tr>
+        <tr lang="en">Split MIDI note messages at the specified pitch values</tr>
+        <tr lang="ru">разделяет MIDI-сообщения нот по заданным значениям высоты</tr>
+      </par>
+      <par>
+        <tr lang="en">the number of outlets is one more than the number of split points</tr>
+        <tr lang="ru">количество выходов на единицу больше количества точек разделения</tr>
+      </par>
+      <par style="important">
+        <tr lang="en">split points must be in strict ascending order</tr>
+        <tr lang="ru">точки разделения должны идти строго по возрастанию</tr>
       </par>
     </info>
     <arguments>
       <argument name="NOTES" type="list">
         <tr lang="en">list of note values (split points)</tr>
-        <tr lang="ru" finished="false">Список значений нот (сплит-точки)</tr>
+        <tr lang="ru">список значений нот (точки разделения)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @points -->
       <property name="@points" type="list" access="readonly" default="">
-        <tr lang="en">split points. Should be in strict ascending order</tr>
-        <tr lang="ru" finished="false">разделять точки. Должно быть в строгом порядке</tr>
+        <tr lang="en">split points, must be in strict ascending order</tr>
+        <tr lang="ru">точки разделения, должны идти строго по возрастанию</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="list">
           <tr lang="en">NOTE VELOCITY [DUR] list</tr>
-          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
+          <tr lang="ru">список НОТА СИЛА_НАЖАТИЯ [ДЛИТ]</tr>
         </in>
       </inlet>
     </inlets>
     <outlets dynamic="true">
       <outlet number="1">
-        <out type="any">
-          <tr lang="en">midi pitches that are less than first split point</tr>
-          <tr lang="ru" finished="false">Миди-точки, которые меньше первой точки разделения</tr>
+        <out type="list">
+          <tr lang="en">MIDI pitches less than the first split point</tr>
+          <tr lang="ru">MIDI-ноты меньше первой точки разделения</tr>
         </out>
       </outlet>
       <outlet number="...">
-        <out type="any">
+        <out type="list">
           <tr lang="en">...</tr>
-          <tr lang="ru" finished="false">...</tr>
+          <tr lang="ru">...</tr>
         </out>
       </outlet>
       <outlet number="n">
-        <out type="any">
-          <tr lang="en">midi pitches that are greater or equal than N-th split point and less then
+        <out type="list">
+          <tr lang="en">MIDI pitches greater than or equal to the N-th split point and less than
           N+1</tr>
-          <tr lang="ru" finished="false">миди-точки, которые больше или равны N-й точке сплита и
-          меньше N+1</tr>
+          <tr lang="ru">MIDI-ноты больше или равные N-й точке разделения и меньше N+1</tr>
         </out>
       </outlet>
       <outlet number="n+1">
-        <out type="any">
-          <tr lang="en">notes that are greater or equal last split point</tr>
-          <tr lang="ru" finished="false">ноты, которые больше или равны последней точке
-          разделения</tr>
+        <out type="list">
+          <tr lang="en">notes greater than or equal to the last split point</tr>
+          <tr lang="ru">ноты больше или равные последней точке разделения</tr>
         </out>
       </outlet>
     </outlets>

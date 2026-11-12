@@ -13,8 +13,8 @@
 поток значений между двумя соседними точками \, этот генератор делает
 один дискретный шаг отображения на каждый приходящий bang.;
 #X text 240 199 Отображение задаётся разностными уравнениями:;
-#X text 240 224 x(n+1) = 1 - y(n) + |x(n)|;
-#X text 240 249 y(n+1) = x(n);
+#X text 260 224 x(n+1) = 1 - y(n) + |x(n)|;
+#X text 260 249 y(n+1) = x(n);
 #X text 240 274 Для большинства начальных значений (x \, y) последовательность
 точек (x(n) \, y(n)) образует ограниченную \, не повторяющуюся траекторию
 характерной формы «пряничного человечка». Типичные начальные значения
@@ -65,37 +65,47 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X text 130 937 1\.;
 #X text 170 937 float;
 #X obj 268 938 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 937 X: начальное значение x \, по умолчанию 1.2\. Тип:
-float.;
+#X text 270 937 X: начальное значение x. Тип: float.;
 #X text 130 962 2\.;
 #X text 170 962 float;
 #X obj 268 963 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 962 Y: начальное значение y \, по умолчанию 2.1\. Тип:
-float.;
+#X text 270 962 Y: начальное значение y. Тип: float.;
 #X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 1003 1\.;
-#X text 170 1003 bang:;
-#X text 270 1003 генерирует и выводит следующее значение x.;
-#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1043 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X obj 20 1002 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1044 1\.;
-#X text 270 1044 выводит значение x.;
-#X text 130 1064 2\.;
-#X text 270 1064 выводит значение y.;
+#X obj 735 1005 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 1003 @x;
+#X text 270 1003 Значение x. Тип: float. Значение по умолчанию: 1.2\.;
+#X obj 250 1033 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1033 @y;
+#X text 270 1033 Значение y. Тип: float. Значение по умолчанию: 2.1\.;
+#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1078 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+0;
+#X text 130 1079 1\.;
+#X text 170 1079 bang:;
+#X text 270 1079 генерирует и выводит следующее значение x.;
+#X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1119 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1120 1\.;
+#X text 170 1120 float:;
+#X text 270 1120 значение x.;
+#X text 130 1140 2\.;
+#X text 170 1140 float:;
+#X text 270 1140 значение y.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1114 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1117 библиотека: ceammc v0.9.8;
-#X text 529 1129 смотрите также:;
-#X obj 650 1132 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1190 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1193 библиотека: ceammc v0.9.8;
+#X text 529 1205 смотрите также:;
+#X obj 650 1208 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.gbman0] @url chaos.gbman0-help.pd;
-#N canvas 10 1136 400 290 info 0;
+#N canvas 10 1212 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -119,7 +129,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1136 pd info;
+#X restore 10 1212 pd info;
 #X connect 12 0 15 0;
 #X connect 14 0 16 0;
 #X connect 14 0 17 0;

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">audio stream stereo demultiplexer</tr>
-        <tr lang="ru">демультиплексор стерео аудиопотока</tr>
+        <tr lang="ru">демультиплексор стереофонического аудиопотока</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,41 +25,65 @@
         <see>flow.demultiplex</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes the stereo input to one of N stereo output pairs, the
+        selection is controlled by the last (control) inlet</tr>
+        <tr lang="ru">объект направляет стереовход на одну из N выходных стереопар, выбор
+        управляется последним (управляющим) входом</tr>
+      </par>
+      <par>
+        <tr lang="en">the control value is the index of the selected output pair, starting from
+        0</tr>
+        <tr lang="ru">управляющее значение — индекс выбранной выходной пары, начиная с 0</tr>
+      </par>
+      <par>
+        <tr lang="en">@value sets the gain coefficients for each output</tr>
+        <tr lang="ru">@value задаёт коэффициенты усиления для каждого выхода</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to switch a stereo signal between several
+        destinations, for example to send it to different effects or to different pairs of
+        speakers</tr>
+        <tr lang="ru">объект можно использовать для переключения стереосигнала между несколькими
+        получателями, например чтобы направить его в разные эффекты или на разные пары колонок</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="16">
-        <tr lang="en">number of output stereo-pairs</tr>
-        <tr lang="ru" finished="false">Количество выходных стереопар</tr>
+        <tr lang="en">number of output stereo pairs</tr>
+        <tr lang="ru">количество выходных стереопар</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @n -->
       <property name="@n" type="int" minvalue="2" default="2" maxvalue="16" access="initonly">
         <tr lang="en">number of output stereo channels</tr>
-        <tr lang="ru" finished="false">Количество выходных стереоканалов</tr>
+        <tr lang="ru">количество выходных стереоканалов</tr>
       </property>
       <!-- @value -->
       <property name="@value" type="list" default="">
-        <tr lang="en">gain coefficients per each output</tr>
-        <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
+        <tr lang="en">gain coefficients for each output</tr>
+        <tr lang="ru">коэффициенты усиления для каждого выхода</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
           <tr lang="en">left input signal</tr>
-          <tr lang="ru" finished="false">левый входной сигнал</tr>
+          <tr lang="ru">левый входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">right input signal</tr>
-          <tr lang="ru" finished="false">правильный входной сигнал</tr>
+          <tr lang="ru">правый входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control">
         <in>
           <tr lang="en">demultiplexer control</tr>
-          <tr lang="ru" finished="false">контроль демультиплекса</tr>
+          <tr lang="ru">управление демультиплексором</tr>
         </in>
       </inlet>
     </inlets>
@@ -67,37 +91,37 @@
       <outlet type="audio" number="1">
         <out type="any">
           <tr lang="en">first left output</tr>
-          <tr lang="ru" finished="false">Первый левый выход</tr>
+          <tr lang="ru">первый левый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="2">
         <out type="any">
           <tr lang="en">first right output</tr>
-          <tr lang="ru" finished="false">Первый правильный результат</tr>
+          <tr lang="ru">первый правый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... left output</tr>
-          <tr lang="ru" finished="false">Левый выход</tr>
+          <tr lang="ru">... левый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="...">
         <out type="any">
           <tr lang="en">... right output</tr>
-          <tr lang="ru" finished="false">Правильный выход</tr>
+          <tr lang="ru">... правый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n-1">
         <out type="any">
           <tr lang="en">last left output</tr>
-          <tr lang="ru" finished="false">Последний левый выход</tr>
+          <tr lang="ru">последний левый выход</tr>
         </out>
       </outlet>
       <outlet type="audio" number="n">
         <out type="any">
           <tr lang="en">last right output</tr>
-          <tr lang="ru" finished="false">Последний правильный результат</tr>
+          <tr lang="ru">последний правый выход</tr>
         </out>
       </outlet>
     </outlets>

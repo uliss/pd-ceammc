@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.16">
+  <object name="hw.rpi.gpio.pcf8574">
+    <title>hw.rpi.gpio.pcf8574</title>
+    <meta>
+      <authors>
+        <author>Serge Poltavsky</author>
+      </authors>
+      <description>
+        <tr lang="en">PCF8574 I2C GPIO expander control</tr>
+        <tr lang="ru">управление расширителем GPIO PCF8574 по I2C</tr>
+      </description>
+      <license>GPL3 or later</license>
+      <library>ceammc</library>
+      <category>hw</category>
+      <keywords>gpio raspberry i2c pcf8574 expander</keywords>
+      <since>0.9.8</since>
+    </meta>
+    <info>
+      <par style="important">
+        <tr lang="en">The PCF8574 is an I2C-based 8-bit GPIO expander. The object provides 8
+        additional GPIO pins (0–7) controlled over the I2C bus, which is useful when the Raspberry
+        Pi's native GPIO pins are not enough.</tr>
+        <tr lang="ru">PCF8574 — это 8-битный расширитель GPIO с интерфейсом I2C. Объект
+        предоставляет 8 дополнительных выводов GPIO (0–7), управляемых по шине I2C, что полезно,
+        когда собственных выводов Raspberry Pi не хватает.</tr>
+      </par>
+      <par style="info">
+        <tr lang="en">Each pin can be configured independently as input or output using the [input(
+        and [output( methods. Pins configured as output can be written with [write( or [write_all(,
+        pins configured as input can be read with [read( or [read_all(.</tr>
+        <tr lang="ru">Каждый вывод можно независимо настроить как вход или выход методами [input( и
+        [output(. Выводы, настроенные как выход, можно записывать методами [write( или [write_all(,
+        выводы, настроенные как вход, можно читать методами [read( или [read_all(.</tr>
+      </par>
+      <par style="info">
+        <tr lang="en">The [impulse( method sends a pulse of the specified length to a pin
+        configured as output: the pin is set high, and after the given time it is automatically set
+        low.</tr>
+        <tr lang="ru">Метод [impulse( отправляет импульс заданной длины на вывод, настроенный как
+        выход: вывод устанавливается в высокий уровень, а по истечении заданного времени
+        автоматически сбрасывается в низкий.</tr>
+      </par>
+      <par>
+        <tr lang="en">Typical use cases:</tr>
+        <tr lang="ru">Типичные сценарии применения:</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Expanding GPIO — adding 8 extra pins to a Raspberry Pi project, for example
+        to drive LEDs, relays or read buttons and sensors.</tr>
+        <tr lang="ru">• Расширение GPIO — добавление 8 дополнительных выводов в проект на Raspberry
+        Pi, например для управления светодиодами, реле или чтения кнопок и датчиков.</tr>
+      </par>
+      <par indent="1">
+        <tr lang="en">• Interrupt-driven input — using the @irq property to connect the expander's
+        interrupt pin to a Raspberry Pi GPIO, so that pin changes are reported without
+        polling.</tr>
+        <tr lang="ru">• Ввод по прерываниям — использование свойства @irq для подключения вывода
+        прерывания расширителя к GPIO Raspberry Pi, чтобы изменения выводов сообщались без
+        опроса.</tr>
+      </par>
+    </info>
+    <properties>
+      <!-- @clear -->
+      <property name="@clear" type="bool" default="1" access="readwrite">
+        <tr lang="en">if true, all pins are cleared (set to 0) when the object is closed</tr>
+        <tr lang="ru">если true, при закрытии объекта все выводы сбрасываются в 0</tr>
+      </property>
+      <!-- @i2c_addr -->
+      <property name="@i2c_addr" type="int" default="-1" minvalue="-4" maxvalue="119"
+      access="initonly">
+        <tr lang="en">I²C address. The 'default' value is also accepted (for address 0x20).</tr>
+        <tr lang="ru">адрес I²C. Также принимается значение 'default' (для адреса 0x20)</tr>
+      </property>
+      <!-- @i2c_bus -->
+      <property name="@i2c_bus" type="atom" default="none" enum="1 2 3 4 5 6 default none"
+      access="initonly">
+        <tr lang="en">I²C bus</tr>
+        <tr lang="ru">шина I²C</tr>
+      </property>
+      <!-- @inverted -->
+      <property name="@inverted" type="bool" default="1" access="readwrite">
+        <tr lang="en">if true, the input pin states are inverted (logical 1 becomes 0 and vice
+        versa)</tr>
+        <tr lang="ru">если true, состояния входных выводов инвертируются (логическая 1 становится 0
+        и наоборот)</tr>
+      </property>
+      <!-- @irq -->
+      <property name="@irq" type="int" minvalue="-1" maxvalue="127" default="-1" access="initonly">
+        <tr lang="en">Raspberry Pi GPIO pin connected to the expander's interrupt output. If set,
+        pin changes are reported via the interrupt instead of polling</tr>
+        <tr lang="ru">вывод GPIO Raspberry Pi, подключённый к выходу прерывания расширителя. Если
+        задан, изменения выводов сообщаются через прерывание вместо опроса</tr>
+      </property>
+    </properties>
+    <methods>
+      <!-- impulse -->
+      <method name="impulse">
+        <info>
+          <tr lang="en">sends a pulse of the specified length to a pin configured as output: the
+          pin is set high, and after the given time it is automatically set low</tr>
+          <tr lang="ru">отправляет импульс заданной длины на вывод, настроенный как выход: вывод
+          устанавливается в высокий уровень, а по истечении заданного времени автоматически
+          сбрасывается в низкий</tr>
+        </info>
+        <param name="PIN" type="int" required="true" minvalue="0" maxvalue="7">
+          <tr lang="en">pin index</tr>
+          <tr lang="ru">индекс вывода</tr>
+        </param>
+        <param name="LENGTH" type="float" required="true" minvalue="0.01" maxvalue="100">
+          <tr lang="en">pulse length</tr>
+          <tr lang="ru">длительность импульса</tr>
+        </param>
+      </method>
+      <!-- input -->
+      <method name="input">
+        <info>
+          <tr lang="en">configures a pin as input</tr>
+          <tr lang="ru">настраивает вывод как вход</tr>
+        </info>
+        <param name="PIN" type="int" required="true" minvalue="0" maxvalue="7">
+          <tr lang="en">pin index</tr>
+          <tr lang="ru">индекс вывода</tr>
+        </param>
+      </method>
+      <!-- output -->
+      <method name="output">
+        <info>
+          <tr lang="en">configures a pin as output and sets it low</tr>
+          <tr lang="ru">настраивает вывод как выход и сбрасывает его в низкий уровень</tr>
+        </info>
+        <param name="PIN" type="int" required="true" minvalue="0" maxvalue="7">
+          <tr lang="en">pin index</tr>
+          <tr lang="ru">индекс вывода</tr>
+        </param>
+      </method>
+      <!-- read -->
+      <method name="read">
+        <info>
+          <tr lang="en">reads the value of a pin configured as input</tr>
+          <tr lang="ru">читает значение вывода, настроенного как вход</tr>
+        </info>
+        <param name="PIN" type="int" required="true" minvalue="0" maxvalue="7">
+          <tr lang="en">pin index</tr>
+          <tr lang="ru">индекс вывода</tr>
+        </param>
+      </method>
+      <!-- read_all -->
+      <method name="read_all">
+        <info>
+          <tr lang="en">reads the values of all pins configured as input</tr>
+          <tr lang="ru">читает значения всех выводов, настроенных как вход</tr>
+        </info>
+      </method>
+      <!-- write -->
+      <method name="write">
+        <info>
+          <tr lang="en">writes a value to a pin configured as output</tr>
+          <tr lang="ru">записывает значение в вывод, настроенный как выход</tr>
+        </info>
+        <param name="PIN" type="int" required="true" minvalue="0" maxvalue="7">
+          <tr lang="en">pin index</tr>
+          <tr lang="ru">индекс вывода</tr>
+        </param>
+        <param name="VALUE" type="bool" required="true">
+          <tr lang="en">new value</tr>
+          <tr lang="ru">новое значение</tr>
+        </param>
+      </method>
+      <!-- write_all -->
+      <method name="write_all">
+        <info>
+          <tr lang="en">writes a byte to all pins configured as output: each bit of the value sets
+          the state of the corresponding pin (bit 0 — pin 0, bit 1 — pin 1, etc.)</tr>
+          <tr lang="ru">записывает байт во все выводы, настроенные как выход: каждый бит значения
+          задаёт состояние соответствующего вывода (бит 0 — вывод 0, бит 1 — вывод 1 и т.д.)</tr>
+        </info>
+        <param name="VALUE" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">pins output value, where each bit corresponds to a pin</tr>
+          <tr lang="ru">значение для всех выводов, где каждый бит соответствует выводу</tr>
+        </param>
+      </method>
+    </methods>
+    <inlets>
+      <inlet>
+        <in>
+          <tr lang="en">control message input</tr>
+          <tr lang="ru">вход управляющих сообщений</tr>
+        </in>
+      </inlet>
+    </inlets>
+    <outlets>
+      <outlet>
+        <out name="pins" type="any">
+          <tr lang="en">outputs a list of 8 pin values (0 or 1) on input pin change: [pins 0 1 0 0
+          1 0 0 0(</tr>
+          <tr lang="ru">выводит список из 8 значений выводов (0 или 1) при изменении входных
+          выводов: [pins 0 1 0 0 1 0 0 0(</tr>
+        </out>
+        <out name="pin" type="any">
+          <tr lang="en">outputs the changed pin index and its new state: [pin PIN VALUE(</tr>
+          <tr lang="ru">выводит индекс изменившегося вывода и его новое состояние: [pin PIN
+          VALUE(</tr>
+        </out>
+      </outlet>
+    </outlets>
+    <example>
+      <pdascii>
+<![CDATA[
+[T]        [0( [7(            [0( [7(
+|          |   |              |   |
+[@irq $1(  [output $1 #a(     [input $1 #b(
+|
+|          [T]    [T]
+|          |      |
+|          [0 $1( [7 $1(      [255(  [0(
+|          |      |           |      |
+|          [write $1 $2 #c(   [write_all $1 #d(
+|
+|          [0 50( [7 50(      [read_all #f(
+|          |      |
+|          [impulse $1 $2 #e(
+|
+|
+|
+[hw.rpi.gpio.pcf8574 #x]
+|
+[ui.dt]
+
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x]
+]]>
+      </pdascii>
+    </example>
+  </object>
+</pddoc>

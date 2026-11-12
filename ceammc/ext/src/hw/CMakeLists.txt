@@ -48,11 +48,6 @@ target_link_libraries(ceammc_hw PRIVATE serial readerwriterqueue hw_arduino
 # gamepad
 target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
 if(WITH_GAMEPAD)
-  target_include_directories(
-    ceammc_hw
-    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg)
-  target_link_libraries(ceammc_hw PRIVATE hw_rust)
   target_compile_definitions(ceammc_hw PRIVATE WITH_GAMEPAD)
 
   if(UNIX AND NOT APPLE)
@@ -73,8 +68,7 @@ if(WITH_PRINTER)
 
     target_sources(ceammc_hw PRIVATE hw_printer.cpp)
     target_include_directories(
-      ceammc_hw PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-                        ${CUPS_INCLUDE_DIRS})
+      ceammc_hw PRIVATE ${CUPS_INCLUDE_DIRS})
     target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
   else()
     file(GLOB PDFIUM_DLL "${PROJECT_BINARY_DIR}/cargo/hw*/pdfium.dll")
@@ -86,8 +80,7 @@ if(WITH_PRINTER)
 
     target_sources(ceammc_hw PRIVATE hw_printer.cpp)
     target_include_directories(
-      ceammc_hw PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-                        ${CUPS_INCLUDE_DIRS})
+      ceammc_hw PRIVATE ${CUPS_INCLUDE_DIRS})
   endif()
 endif()
 
@@ -116,6 +109,13 @@ pd_method_args(ceammc_hw hw_rpi_gpio_servo)
 pd_method_args(ceammc_hw hw_rpi_sensor_mpr121)
 pd_method_args(ceammc_hw hw_rpi_spi)
 pd_method_args(ceammc_hw hw_rpi_spi_ws2812)
+
+if(WITH_RUST_HW)
+  target_include_directories(
+    ceammc_hw PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+                      ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg)
+  target_link_libraries(ceammc_hw PRIVATE hw_rust)
+endif()
 
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES

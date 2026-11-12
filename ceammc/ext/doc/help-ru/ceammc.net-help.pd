@@ -6,15 +6,15 @@
 #X text 539 50 объекты для работы с сетью;
 #X obj 30 120 ui.link @title [net.artnet.send] @url
 net.artnet.send-help.pd;
-#X text 220 117 отправление сообщений ArtNet DMX;
+#X text 220 117 отправитель сообщений ArtNet DMX;
 #X obj 30 145 ui.link @title [net.freesound] @url
 net.freesound-help.pd;
-#X text 220 142 клиент для Freesound API v2;
+#X text 220 142 клиент Freesound API v2;
 #X obj 30 170 ui.link @title [net.host2ip] @url net.host2ip-help.pd;
-#X text 220 167 выводит IP-адрес по имени DNS;
+#X text 220 167 выводит IP-адрес по DNS-имени;
 #X obj 30 195 ui.link @title [net.http.client] @url
 net.http.client-help.pd;
-#X text 220 192 HTTP клиент;
+#X text 220 192 HTTP-клиент;
 #X obj 30 220 ui.link @title [net.http.send] @url
 net.http.send-help.pd;
 #X text 220 217 отправляет HTTP запросы;
@@ -22,21 +22,21 @@ net.http.send-help.pd;
 #X text 220 242 обнаружение служб MDNS;
 #X obj 30 270 ui.link @title [net.mqtt.client] @url
 net.mqtt.client-help.pd;
-#X text 220 267 MQTT клиент;
+#X text 220 267 MQTT-клиент;
 #X obj 30 295 ui.link @title [net.osc.receive] @url
 net.osc.receive-help.pd;
-#X text 220 292 получение сообщений по протоколу OSC;
+#X text 220 292 получает сообщения по протоколу OSC;
 #X obj 30 320 ui.link @title [net.osc.send] @url net.osc.send-help.pd;
-#X text 220 317 отправка сообщений протокола OSC;
+#X text 220 317 отправляет сообщения по протоколу OSC;
 #X obj 30 345 ui.link @title [net.osc.server] @url
 net.osc.server-help.pd;
 #X text 220 342 запуск и управление OSC-сервером;
 #X obj 30 370 ui.link @title [net.ws.client] @url
 net.ws.client-help.pd;
-#X text 220 367 WebSocket клиент;
+#X text 220 367 WebSocket-клиент;
 #X obj 30 395 ui.link @title [net.ws.server] @url
 net.ws.server-help.pd;
-#X text 220 392 WebSocket сервер;
+#X text 220 392 WebSocket-сервер;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

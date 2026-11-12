@@ -1,6 +1,8 @@
 #ifndef HW_RPI_PWM_H
 #define HW_RPI_PWM_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -26,5 +28,14 @@ public:
 };
 
 void setup_hw_rpi_pwm();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiPwm, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiPwm, hw_rpi_pwm, "hw.rpi.pwm");
+
+#endif
 
 #endif // HW_RPI_PWM_H

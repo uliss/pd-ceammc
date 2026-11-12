@@ -1,6 +1,8 @@
 #ifndef HW_RPI_ROTENC_H
 #define HW_RPI_ROTENC_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -32,5 +34,14 @@ public:
 };
 
 void setup_hw_rpi_rotenc();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiRotaryEncoder, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiRotaryEncoder, hw_rpi_rotenc, "hw.rpi.rotenc");
+
+#endif
 
 #endif // HW_RPI_ROTENC_H

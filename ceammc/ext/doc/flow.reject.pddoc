@@ -25,51 +25,66 @@
         <see>flow.pass</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object passes the input value only if it is not found in the reject list,
+        otherwise nothing is output</tr>
+        <tr lang="ru">объект пропускает входное значение только если оно не найдено в списке
+        отклонения, иначе на выход ничего не поступает</tr>
+      </par>
+      <par>
+        <tr lang="en">the reject list is set by the VALUES argument, the @values property, or by
+        sending a list to the right inlet</tr>
+        <tr lang="ru">список отклонения задаётся аргументом VALUES, свойством @values или подачей
+        списка на правый вход</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to filter out unwanted values from a stream, for
+        example to remove zero values before a division or to block specific note numbers</tr>
+        <tr lang="ru">объект можно использовать для отбрасывания нежелательных значений из потока,
+        например чтобы убрать нули перед делением или заблокировать определённые номера нот</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="VALUES" type="list">
         <tr lang="en">list of atoms to reject</tr>
-        <tr lang="ru" finished="false">Список атомов для отклонения</tr>
+        <tr lang="ru">список атомов для отклонения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @values -->
       <property name="@values" type="list" default="">
         <tr lang="en">atoms to reject</tr>
-        <tr lang="ru" finished="false">Атомы отвергают</tr>
+        <tr lang="ru">атомы для отклонения</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">pass</tr>
-          <tr lang="ru" finished="false">проход</tr>
+          <tr lang="ru">пропустить</tr>
         </in>
         <in on="float">
-          <tr lang="en">reject if float is in reject list</tr>
-          <tr lang="ru" finished="false">Отклонить, если в списке отклонить</tr>
+          <tr lang="en">reject if the float is in the reject list</tr>
+          <tr lang="ru">отклонить, если число есть в списке отклонения</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">reject if symbol is in reject list</tr>
-          <tr lang="ru" finished="false">Отклонить, если символ в списке отклонений</tr>
+          <tr lang="en">reject if the symbol is in the reject list</tr>
+          <tr lang="ru">отклонить, если символ есть в списке отклонения</tr>
         </in>
         <in on="list">
-          <tr lang="en">reject if first atom is in reject list</tr>
-          <!-- old: Если первый атом находится в списке
-                    отклонений -->
-          <tr lang="ru" finished="false">Если первый атом находится в списке отклонений</tr>
+          <tr lang="en">reject if the first atom is in the reject list</tr>
+          <tr lang="ru">отклонить, если первый атом есть в списке отклонения</tr>
         </in>
         <in on="any">
-          <tr lang="en">reject if message selector is in reject list</tr>
-          <!-- old: Отклонить, если селектор сообщения находится в
-                    списке отклонений -->
-          <tr lang="ru" finished="false">Отклонить, если селектор сообщения находится в списке
-          отклонений</tr>
+          <tr lang="en">reject if the message selector is in the reject list</tr>
+          <tr lang="ru">отклонить, если селектор сообщения есть в списке отклонения</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
-          <tr lang="en">set reject list</tr>
-          <tr lang="ru" finished="false">Отклонить список</tr>
+          <tr lang="en">set the reject list</tr>
+          <tr lang="ru">задать список отклонения</tr>
         </in>
       </inlet>
     </inlets>
@@ -77,7 +92,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">passed values</tr>
-          <tr lang="ru" finished="false">переданные значения</tr>
+          <tr lang="ru">переданные значения</tr>
         </out>
       </outlet>
     </outlets>

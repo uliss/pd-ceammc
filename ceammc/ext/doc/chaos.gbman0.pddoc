@@ -34,11 +34,11 @@
         <tr lang="en">The map is defined by the difference equations:</tr>
         <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
-      <par>
+      <par indent="2">
         <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
         <tr lang="ru">x(n+1) = 1 - y(n) + |x(n)|</tr>
       </par>
-      <par>
+      <par indent="2">
         <tr lang="en">y(n+1) = x(n)</tr>
         <tr lang="ru">y(n+1) = x(n)</tr>
       </par>
@@ -69,14 +69,26 @@
     </info>
     <arguments>
       <argument name="X" type="float">
-        <tr lang="en">initial x value, default 1.2</tr>
-        <tr lang="ru">начальное значение x, по умолчанию 1.2</tr>
+        <tr lang="en">initial x value</tr>
+        <tr lang="ru">начальное значение x</tr>
       </argument>
       <argument name="Y" type="float">
         <tr lang="en">initial y value, default 2.1</tr>
-        <tr lang="ru">начальное значение y, по умолчанию 2.1</tr>
+        <tr lang="ru">начальное значение y</tr>
       </argument>
     </arguments>
+    <properties>
+      <!-- @x -->
+      <property name="@x" type="float" default="1.2" access="readwrite">
+        <tr lang="en">x value</tr>
+        <tr lang="ru">значение x</tr>
+      </property>
+      <!-- @y -->
+      <property name="@y" type="float" default="2.1" access="readwrite">
+        <tr lang="en">y value</tr>
+        <tr lang="ru">значение y</tr>
+      </property>
+    </properties>
     <inlets>
       <inlet>
         <in on="bang">
@@ -87,15 +99,15 @@
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs the x-value</tr>
-          <tr lang="ru">выводит значение x</tr>
+        <out type="float">
+          <tr lang="en">the x-value</tr>
+          <tr lang="ru">значение x</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">outputs the y-value</tr>
-          <tr lang="ru">выводит значение y</tr>
+        <out type="float">
+          <tr lang="en">the y-value</tr>
+          <tr lang="ru">значение y</tr>
         </out>
       </outlet>
     </outlets>

@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">converts the MIDI-key into the SPN name format</tr>
+        <tr lang="en">converts a MIDI key number into the SPN note name format</tr>
         <tr lang="ru">преобразует номер MIDI-клавиши в имя ноты в формате SPN</tr>
       </description>
       <license>GPL3 or later</license>
@@ -21,27 +21,27 @@
     </meta>
     <arguments>
       <argument name="TONALITY" type="list">
-        <tr lang="en">initial tomality</tr>
-        <tr lang="ru" finished="false">начальная теплота</tr>
+        <tr lang="en">initial tonality</tr>
+        <tr lang="ru">начальная тональность</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @symbol -->
       <property name="@symbol" type="flag" default="0" access="initonly">
         <tr lang="en">output as symbol instead of string by default</tr>
-        <tr lang="ru" finished="false">вывод как символ вместо строки по умолчанию</tr>
+        <tr lang="ru">выводить как символ вместо строки по умолчанию</tr>
       </property>
       <!-- @tonality -->
       <property name="@tonality" type="list" default="C major">
         <tr lang="en">current tonality</tr>
-        <tr lang="ru" finished="false">текущая тональность</tr>
+        <tr lang="ru">текущая тональность</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">standart MIDI key number [0-127]</tr>
-          <tr lang="ru" finished="false">Стандартный номер MIDI [0-127]</tr>
+          <tr lang="en">standard MIDI key number [0-127]</tr>
+          <tr lang="ru">номер стандартной MIDI-клавиши [0-127]</tr>
         </in>
       </inlet>
     </inlets>
@@ -49,13 +49,19 @@
       <outlet>
         <out type="any">
           <tr lang="en">output key name</tr>
-          <tr lang="ru" finished="false">Выходное ключевое имя</tr>
+          <tr lang="ru">имя клавиши на выходе</tr>
         </out>
       </outlet>
     </outlets>
     <example>
       <pdascii>
 <![CDATA[
+[ui.hk]
+|
+|
+|
+|
+|
 [F]  [@tonality F minor( [@tonality E( [@tonality C(
 |    |                   |             |
 |    |                   |             |

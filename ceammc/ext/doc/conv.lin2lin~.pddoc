@@ -7,7 +7,7 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">converts from the one linear range to another for signals</tr>
+        <tr lang="en">converts from one linear range to another for signals</tr>
         <tr lang="ru">отображает один линейный диапазон в другой для сигналов</tr>
       </description>
       <license>GPL3 or later</license>
@@ -25,82 +25,98 @@
         <alias>l-&gt;l~</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object linearly maps an audio signal from the input range [@in_from,
+        @in_to] to the output range [@out_from, @out_to]</tr>
+        <tr lang="ru">объект линейно отображает аудиосигнал из входного диапазона [@in_from,
+        @in_to] в выходной диапазон [@out_from, @out_to]</tr>
+      </par>
+      <par>
+        <tr lang="en">@clip controls clipping of the result: noclip — no clipping, min — clip at
+        the lower bound, max — clip at the upper bound, minmax — clip at both bounds</tr>
+        <tr lang="ru">@clip управляет ограничением результата: noclip — без ограничения, min —
+        ограничение по нижней границе, max — по верхней, minmax — по обеим границам</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to scale a signal into a useful range, for example to
+        map an oscillator from -1..1 to a frequency range or to an amplitude range</tr>
+        <tr lang="ru">объект можно использовать для масштабирования сигнала в полезный диапазон,
+        например чтобы отобразить выход осциллятора из -1..1 в диапазон частот или амплитуд</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="IN_FROM" type="float">
-        <tr lang="en">begin of input range</tr>
+        <tr lang="en">beginning of the input range</tr>
         <tr lang="ru">начало входного диапазона</tr>
       </argument>
       <argument name="IN_TO" type="float">
-        <tr lang="en">end of input range</tr>
+        <tr lang="en">end of the input range</tr>
         <tr lang="ru">конец входного диапазона</tr>
       </argument>
       <argument name="OUT_FROM" type="float">
-        <tr lang="en">begin of output range</tr>
+        <tr lang="en">beginning of the output range</tr>
         <tr lang="ru">начало выходного диапазона</tr>
       </argument>
       <argument name="OUT_TO" type="float">
-        <tr lang="en">end of input range</tr>
+        <tr lang="en">end of the output range</tr>
         <tr lang="ru">конец выходного диапазона</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @clip -->
       <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
-        <tr lang="en">noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip
-        both).</tr>
-        <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
-                floor) minmax (clip both). -->
-        <!-- old: noclip (Don't Clip) max (clip ceiling) min (clip
-                floor) minmax (clip both). -->
-        <tr lang="ru" finished="false">noclip (Don't Clip) max (clip ceiling) min (clip floor)
-        minmax (clip both).</tr>
+        <tr lang="en">clipping mode: noclip — no clipping, min — clip at the lower bound, max —
+        clip at the upper bound, minmax — clip at both bounds</tr>
+        <tr lang="ru">режим ограничения: noclip — без ограничения, min — по нижней границе, max —
+        по верхней, minmax — по обеим границам</tr>
       </property>
       <!-- @in_from -->
       <property name="@in_from" type="float" default="-1">
-        <tr lang="en">begin of input range</tr>
-        <tr lang="ru" finished="false">начало входного диапазона</tr>
+        <tr lang="en">beginning of the input range</tr>
+        <tr lang="ru">начало входного диапазона</tr>
       </property>
       <!-- @in_to -->
       <property name="@in_to" type="float" default="1">
-        <tr lang="en">end of input range</tr>
-        <tr lang="ru" finished="false">конец входного диапазона</tr>
+        <tr lang="en">end of the input range</tr>
+        <tr lang="ru">конец входного диапазона</tr>
       </property>
       <!-- @max -->
       <property name="@max" type="alias">
         <tr lang="en">alias to @clip max</tr>
-        <tr lang="ru" finished="false">Исполнитель: @clip max</tr>
+        <tr lang="ru">псевдоним для @clip max</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="alias">
         <tr lang="en">alias to @clip min</tr>
-        <tr lang="ru" finished="false">Исполнитель: @clip Min</tr>
+        <tr lang="ru">псевдоним для @clip min</tr>
       </property>
       <!-- @minmax -->
       <property name="@minmax" type="alias">
         <tr lang="en">alias to @clip minmax</tr>
-        <tr lang="ru" finished="false">Исполнитель: @clip Minmax</tr>
+        <tr lang="ru">псевдоним для @clip minmax</tr>
       </property>
       <!-- @noclip -->
       <property name="@noclip" type="alias">
         <tr lang="en">alias to @clip noclip</tr>
-        <tr lang="ru" finished="false">Исполнитель: @clip noclip</tr>
+        <tr lang="ru">псевдоним для @clip noclip</tr>
       </property>
       <!-- @out_from -->
       <property name="@out_from" type="float" default="-1">
-        <tr lang="en">begin of output range</tr>
-        <tr lang="ru" finished="false">начало выходного диапазона</tr>
+        <tr lang="en">beginning of the output range</tr>
+        <tr lang="ru">начало выходного диапазона</tr>
       </property>
       <!-- @out_to -->
       <property name="@out_to" type="float" default="1">
-        <tr lang="en">end of output range</tr>
-        <tr lang="ru" finished="false">предельный выходной диапазон</tr>
+        <tr lang="en">end of the output range</tr>
+        <tr lang="ru">конец выходного диапазона</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in>
-          <tr lang="en">input singnal</tr>
-          <tr lang="ru" finished="false">входной сигнал</tr>
+          <tr lang="en">input signal</tr>
+          <tr lang="ru">входной сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -108,7 +124,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">converted signal</tr>
-          <tr lang="ru" finished="false">преобразованный сигнал</tr>
+          <tr lang="ru">преобразованный сигнал</tr>
         </out>
       </outlet>
     </outlets>

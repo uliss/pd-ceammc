@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SENSOR_MPU6050_H
 #define HW_RPI_SENSOR_MPU6050_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 using namespace ceammc;
@@ -24,5 +26,14 @@ private:
 };
 
 void setup_hw_rpi_sensor_mpu6050();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiSensorMpu6050, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiSensorMpu6050, hw_rpi_sensor_mpu6050, "hw.rpi.sensor.mpu6050");
+
+#endif
 
 #endif // HW_RPI_SENSOR_MPU6050_H

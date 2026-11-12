@@ -7,22 +7,23 @@
 #X obj 30 120 ui.link @title [patch.props] @url patch.props-help.pd;
 #X text 220 117 get or set the patch properties;
 #X obj 30 145 ui.link @title [prop] @url prop-help.pd;
-#X text 220 142 get/set the named property value for subpatch or abstraction;
-#X obj 30 170 ui.link @title [prop.declare] @url prop.declare-help.pd;
-#X text 220 167 declare the named property for a subpatch or an abstraction;
-#X obj 30 195 ui.link @title [prop.get] @url prop.get-help.pd;
-#X text 220 192 get the property value from connected object \, subpatch
-or abstraction;
-#X obj 30 235 ui.link @title [prop.join] @url prop.join-help.pd;
-#X text 220 232 inject properties into the main data flow;
-#X obj 30 260 ui.link @title [prop.random] @url prop.random-help.pd;
-#X text 220 257 property value randomizer;
-#X obj 30 285 ui.link @title [prop.route] @url prop.route-help.pd;
-#X text 220 282 separates properties from the dataflow;
-#X obj 30 310 ui.link @title [prop.route~] @url prop.route~-help.pd;
-#X text 220 307 property extractor from audio connections;
-#X obj 30 335 ui.link @title [prop.set] @url prop.set-help.pd;
-#X text 220 332 set the property value for connected object \, subpatch
+#X text 220 142 get/set the named property value for a subpatch or
+an abstraction;
+#X obj 30 185 ui.link @title [prop.declare] @url prop.declare-help.pd;
+#X text 220 182 declare the named property for a subpatch or an abstraction;
+#X obj 30 210 ui.link @title [prop.get] @url prop.get-help.pd;
+#X text 220 207 get the property value from the connected object \,
+subpatch or abstraction;
+#X obj 30 250 ui.link @title [prop.join] @url prop.join-help.pd;
+#X text 220 247 inject properties into the main data flow;
+#X obj 30 275 ui.link @title [prop.random] @url prop.random-help.pd;
+#X text 220 272 property value randomizer;
+#X obj 30 300 ui.link @title [prop.route] @url prop.route-help.pd;
+#X text 220 297 separates properties from the dataflow;
+#X obj 30 325 ui.link @title [prop.route~] @url prop.route~-help.pd;
+#X text 220 322 property extractor from audio connections;
+#X obj 30 350 ui.link @title [prop.set] @url prop.set-help.pd;
+#X text 220 347 set the property value for connected object \, subpatch
 or abstraction;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;

@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_rpi_nfc_pn532.h"
+
+#ifdef WITH_RPI
 #include "ceammc_factory.h"
 
 using namespace ceammc;
@@ -67,3 +69,5 @@ void setup_hw_rpi_nfc_pn532()
     //    obj.addMethod("poll", &HwRpiSensorMpr121::m_poll);
     //    obj.addMethod("address", &HwRpiSensorMpr121::m_address);
 }
+
+#endif

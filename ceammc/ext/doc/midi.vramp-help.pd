@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 421 50 cnv 1 344 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 426 50 apply crescendo or diminuendo for notes flow;
+#X obj 406 50 cnv 1 359 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 411 50 apply crescendo or diminuendo to a note stream;
 #X obj 1 1 cnv 5 765 40 empty empty midi.vramp 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 midi.vramp;
@@ -36,8 +36,8 @@
 #X obj 735 483 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 481 @auto;
-#X text 270 481 Auto reset mode. If true: reset to @start value after
-ramp is finished. Type: bool. Default value: 0\.;
+#X text 270 481 Auto reset mode. If true: reset to @from value after
+the ramp is finished. Type: bool. Default value: 0\.;
 #X obj 250 523 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 523 @from;
 #X text 270 523 Start value. Type: int. Default value: 127\. Range:
@@ -59,7 +59,7 @@ value: 0\.;
 0;
 #X text 130 692 1\.;
 #X text 170 692 float:;
-#X text 270 692 if VALUE >0 \, treat as (VALUE 127) list \, otherwise
+#X text 270 692 if VALUE > 0 \, treat as (VALUE 127) list \, otherwise
 as (-VALUE \, 0).;
 #X text 170 732 list:;
 #X text 270 732 NOTE [VELOCITY] list expected.;
@@ -67,9 +67,11 @@ as (-VALUE \, 0).;
 #X obj 20 772 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 130 773 1\.;
+#X text 170 773 list:;
 #X text 270 773 outputs NOTE VELOCITY pair.;
 #X text 130 793 2\.;
-#X text 270 793 bang when destination value is reached.;
+#X text 170 793 bang:;
+#X text 270 793 when destination value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

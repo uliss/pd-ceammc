@@ -1,4 +1,6 @@
 #include "hw_rpi_display_hd44780.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -224,3 +226,5 @@ void setup_hw_rpi_display_hd44780()
 
     obj.addMethod("font", &HwRpiDisplayHd44780::m_font);
 }
+
+#endif

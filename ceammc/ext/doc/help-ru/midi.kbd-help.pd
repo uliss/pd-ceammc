@@ -1,13 +1,13 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 330 50 cnv 1 435 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 335 50 эмулятор MIDI клавиатуры c помощью клавиатуры компьютера;
-#X obj 1 1 cnv 5 765 40 empty empty midi.kdb 20 20 0 20 -104026 -4096
+#X text 335 50 эмулятор MIDI-клавиатуры с помощью клавиатуры компьютера;
+#X obj 1 1 cnv 5 765 40 empty empty midi.kbd 20 20 0 20 -104026 -4096
 0;
-#X obj 681 11 midi.kdb;
+#X obj 681 11 midi.kbd;
 #X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Default keyboard layout is QWERTY \, but you can specify
-custom one;
+#X text 240 83 раскладка клавиатуры по умолчанию — QWERTY \, но можно
+указать собственную;
 #X obj 50 186 ui.tab qwerty names custom @size 200 15;
 #X floatatom 174 215 5 0 0 0 - - -;
 #X msg 366 215 custom zxcvbnmasdfghjklqwertyuiop;
@@ -26,55 +26,56 @@ custom one;
 #X text 130 458 1\.;
 #X text 170 458 symbol;
 #X obj 268 459 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 458 LAYOUT: layout name. Разрешённые значения: qwerty \,
-names \, custom. Тип: symbol.;
+#X text 270 458 LAYOUT: название раскладки. Разрешённые значения: qwerty
+\, names \, custom. Тип: symbol.;
 #X text 130 498 2\.;
 #X text 170 498 bool;
 #X obj 268 499 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 498 ON: init on/off state. Тип: bool.;
+#X text 270 498 ON: начальное состояние вкл/выкл. Тип: bool.;
 #X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 538 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 541 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 539 @custom;
-#X text 270 539 Custom layout (Dict data type). Тип: atom. Значение
-по умолчанию: [].;
+#X text 270 539 Пользовательская раскладка (тип данных Dict). Тип:
+atom. Значение по умолчанию: [].;
 #X obj 250 581 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 581 @layout;
-#X text 270 581 Current layout. Тип: symbol. Значение по умолчанию:
+#X text 270 581 Текущая раскладка. Тип: symbol. Значение по умолчанию:
 qwerty. Разрешённые значения: qwerty \, names \, custom.;
 #X obj 250 623 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 623 @octave;
-#X text 270 623 Output octave. Тип: int. Значение по умолчанию: 4\.
+#X text 270 623 Выходная октава. Тип: int. Значение по умолчанию: 4\.
 Диапазон: [0\..8].;
 #X obj 250 665 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 665 @on;
-#X text 270 665 On/off state. Тип: bool. Значение по умолчанию: 1\.;
+#X text 270 665 Состояние вкл/выкл. Тип: bool. Значение по умолчанию:
+1\.;
 #X obj 250 695 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 695 @vel;
-#X text 270 695 Output velocity. Тип: float. Значение по умолчанию:
-100\. Диапазон: [0\..127].;
+#X text 270 695 Выходная скорость (velocity). Тип: float. Значение
+по умолчанию: 100\. Диапазон: [0\..127].;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 752 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 753 custom;
-#X text 270 753 set custom. Аргументы:;
+#X text 270 753 задать пользовательскую раскладку. Аргументы:;
 #X obj 300 778 cnv 1 53 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 778 KEYSTR: key string. Тип: symbol.;
+#X text 300 778 KEYSTR: строка клавиш. Тип: symbol.;
 #X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 826 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 827 1\.;
-#X text 270 827 control input.;
+#X text 270 827 вход управления.;
 #X text 130 852 2\.;
 #X text 170 852 int:;
-#X text 270 852 1 or 0: turn on/off.;
+#X text 270 852 1 или 0: включить/выключить.;
 #X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 892 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 893 1\.;
-#X text 270 893 MIDI output: NOTE VEL.;
+#X text 270 893 вывод MIDI: НОТА СКОРОСТЬ.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -89,7 +90,7 @@ qwerty. Разрешённые значения: qwerty \, names \, custom.;
 #X text 10 32 версия:;
 #X text 120 32 0.9.8;
 #X text 10 54 объект:;
-#X text 120 54 midi.kdb;
+#X text 120 54 midi.kbd;
 #X text 10 76 категория:;
 #X text 120 76 midi;
 #X text 10 98 с версии:;

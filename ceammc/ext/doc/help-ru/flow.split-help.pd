@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 320 50 разделят управляющий поток внешним предикатом боковой
+#X obj 307 50 cnv 1 458 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 312 50 разделяет управляющий поток внешним предикатом боковой
 цепи;
 #X obj 1 1 cnv 5 765 40 empty empty flow.split 20 20 0 20 -104026
 -4096 0;
@@ -10,54 +10,62 @@
 #X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [split] @url flow.split-help.pd;
 #X obj 668 8 flow.split;
-#X obj 230 78 cnv 1 535 75 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Predicate side chain should accept value and return
-1 (true) or 0 (false). If true \, input value is outputed to first
-outlet. Otherwise to second outlet.;
-#X floatatom 50 201 5 0 0 0 - - -;
-#X msg 270 201 1 2;
-#X msg 328 201 2 1;
-#X obj 453 201 flow.split-more;
-#X obj 50 230 flow.split;
-#X obj 174 230 > 0;
-#X obj 270 230 flow.split;
-#X obj 395 230 <;
-#X obj 453 230 flow.split-sound;
-#X floatatom 50 259 5 0 0 0 - - -;
-#X floatatom 98 259 5 0 0 0 - - -;
-#X obj 328 259 ui.dt;
-#X obj 270 288 ui.dt;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 343 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект направляет входное значение на первый или второй
+выход в зависимости от результата предиката \, подключённого к боковой
+цепи;
+#X text 240 138 предикат должен принимать значение и возвращать 1 (истина)
+или 0 (ложь): если 1 — значение идёт на первый выход \, если 0 — на
+второй;
+#X text 240 193 объект можно использовать для разделения потока по
+любому условию \, например чтобы разделить ноты на низкий и высокий
+регистры;
+#X floatatom 50 311 5 0 0 0 - - -;
+#X msg 270 311 1 2;
+#X msg 328 311 2 1;
+#X obj 453 311 flow.split-more;
+#X obj 50 340 flow.split;
+#X obj 174 340 > 0;
+#X obj 270 340 flow.split;
+#X obj 395 340 <;
+#X obj 453 340 flow.split-sound;
+#X floatatom 50 369 5 0 0 0 - - -;
+#X floatatom 98 369 5 0 0 0 - - -;
+#X obj 328 369 ui.dt;
+#X obj 270 398 ui.dt;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 453 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 344 1\.;
-#X text 270 344 input value.;
-#X text 130 369 2\.;
-#X text 170 369 float:;
-#X text 270 369 input from predicate side chain. If 1 received - output
-for first outlet. If 0 - to second.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 454 1\.;
+#X text 270 454 входное значение.;
+#X text 130 479 2\.;
+#X text 170 479 float:;
+#X text 270 479 вход от боковой цепи предиката. Если получено 1 — вывод
+на первый выход. Если 0 — на второй.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 425 1\.;
-#X text 270 425 values for which predicate side-chain returned true.;
-#X text 130 445 2\.;
-#X text 270 445 values for which predicate side-chain returned false.;
-#X text 130 465 3\.;
-#X text 270 465 value to predicate side-chain.;
+#X text 130 535 1\.;
+#X text 270 535 значения \, для которых боковая цепь предиката вернула
+истину.;
+#X text 130 555 2\.;
+#X text 270 555 значения \, для которых боковая цепь предиката вернула
+ложь.;
+#X text 130 575 3\.;
+#X text 270 575 значение для боковой цепи предиката.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 515 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 518 библиотека: ceammc v0.9.8;
-#X text 453 530 смотрите также:;
-#X obj 574 533 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 625 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 628 библиотека: ceammc v0.9.8;
+#X text 453 640 смотрите также:;
+#X obj 574 643 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pass] @url flow.pass-help.pd;
-#X obj 657 533 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 643 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.reject] @url flow.reject-help.pd;
-#N canvas 10 537 400 290 info 0;
+#N canvas 10 647 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,15 +89,15 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 537 pd info;
-#X connect 8 0 12 0;
-#X connect 9 0 14 0;
+#X restore 10 647 pd info;
 #X connect 10 0 14 0;
-#X connect 12 0 17 0;
-#X connect 12 1 18 0;
-#X connect 14 1 19 0;
-#X connect 14 0 20 0;
-#X connect 12 2 13 0;
-#X connect 13 0 12 1;
+#X connect 11 0 16 0;
+#X connect 12 0 16 0;
+#X connect 14 0 19 0;
+#X connect 14 1 20 0;
+#X connect 16 1 21 0;
+#X connect 16 0 22 0;
 #X connect 14 2 15 0;
 #X connect 15 0 14 1;
+#X connect 16 2 17 0;
+#X connect 17 0 16 1;

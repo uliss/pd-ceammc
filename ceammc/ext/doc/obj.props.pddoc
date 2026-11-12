@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">Extract object properties from the connected object</tr>
-        <tr lang="ru">извлекает свойства из подключенного объекта</tr>
+        <tr lang="en">extract object properties from the connected object</tr>
+        <tr lang="ru">извлекает свойства подключённого объекта</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,32 +18,40 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">extract properties from object, connected to second outlet</tr>
-        <!-- old: извлекать свойства из объекта, подключенного ко
-                второй розетке -->
-        <tr lang="ru" finished="false">извлекать свойства из объекта, подключенного ко второй
-        розетке</tr>
+        <tr lang="en">extract properties from the object connected to the second outlet</tr>
+        <tr lang="ru">извлекает свойства объекта, подключённого ко второму выходу</tr>
+      </par>
+      <par>
+        <tr lang="en">the second outlet is used as an input for connecting to the examined
+        object</tr>
+        <tr lang="ru">второй выход используется как вход для подключения к исследуемому
+        объекту</tr>
+      </par>
+      <par>
+        <tr lang="en">on bang, the extracted properties are output as data:Dict to the first
+        outlet</tr>
+        <tr lang="ru">по bang извлечённые свойства выводятся как data:Dict на первый выход</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">output extracted properties to first outlet</tr>
-          <tr lang="ru" finished="false">вывод извлеченных свойств на первый выход</tr>
+          <tr lang="en">output extracted properties to the first outlet</tr>
+          <tr lang="ru">вывести извлечённые свойства на первый выход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">property output (data:dict)</tr>
-          <tr lang="ru" finished="false">Свойства вывода (data:dict)</tr>
+          <tr lang="en">property output (data:Dict)</tr>
+          <tr lang="ru">выход свойств (data:Dict)</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">connect to examined object</tr>
-          <tr lang="ru" finished="false">Подключение к исследуемому объекту</tr>
+          <tr lang="en">connect to the examined object</tr>
+          <tr lang="ru">подключение к исследуемому объекту</tr>
         </out>
       </outlet>
     </outlets>

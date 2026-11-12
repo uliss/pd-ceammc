@@ -27,13 +27,14 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Piano keyboard widget</tr>
-        <tr lang="ru" finished="false">Виджет фортепианной клавиатуры</tr>
+        <tr lang="en">piano keyboard widget</tr>
+        <tr lang="ru">виджет фортепианной клавиатуры</tr>
       </par>
       <par>
-        <tr lang="en">[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</tr>
-        <tr lang="ru" finished="false">[ui.vkeyboard] и [ui.vk] - псевдонимы для вертикальной
-        клавиатуры</tr>
+        <tr lang="en">the widget outputs a two-element list: MIDI pitch and velocity. Velocity
+        depends on the click position on the key</tr>
+        <tr lang="ru">виджет выводит список из двух элементов: MIDI-нота и скорость. Скорость
+        зависит от положения клика на клавише</tr>
       </par>
     </info>
     <mouse>
@@ -54,11 +55,11 @@
     <arguments>
       <argument name="KEYS" type="int" minvalue="5" maxvalue="88">
         <tr lang="en">number of keys</tr>
-        <tr lang="ru" finished="false">Количество ключей</tr>
+        <tr lang="ru">количество клавиш</tr>
       </argument>
       <argument name="SHIFT" type="int" minvalue="6" maxvalue="88">
-        <tr lang="en">pitch of starting key</tr>
-        <tr lang="ru" finished="false">Шаг стартового ключа</tr>
+        <tr lang="en">pitch of the starting key</tr>
+        <tr lang="ru">высота начальной клавиши</tr>
       </argument>
     </arguments>
     <properties>
@@ -74,12 +75,12 @@
       <!-- @keys -->
       <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">
         <tr lang="en">number of keys</tr>
-        <tr lang="ru" finished="false">Количество ключей</tr>
+        <tr lang="ru">количество клавиш</tr>
       </property>
       <!-- @shift -->
       <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">
-        <tr lang="en">MIDI pitch of starting key</tr>
-        <tr lang="ru" finished="false">MIDI шаг стартового ключа</tr>
+        <tr lang="en">MIDI pitch of the starting key</tr>
+        <tr lang="ru">MIDI-нота начальной клавиши</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="list" default="433 60">
@@ -91,24 +92,23 @@
       <!-- dump -->
       <method name="dump">
         <info>
-          <tr lang="en">dumps all object info to Pd console window</tr>
-          <tr lang="ru" finished="false">сбрасывает всю информацию об объекте в окно консоли
-          Pd</tr>
+          <tr lang="en">dumps all object info to the Pd console window</tr>
+          <tr lang="ru">выводит всю информацию об объекте в окно консоли Pd</tr>
         </info>
       </method>
       <!-- pos -->
       <method name="pos">
         <info>
           <tr lang="en">set UI element position</tr>
-          <tr lang="ru" finished="false">Установите положение элемента UI</tr>
+          <tr lang="ru">задать положение элемента UI</tr>
         </info>
         <param name="X" type="float" required="true">
           <tr lang="en">top left x-coord</tr>
-          <tr lang="ru" finished="false">верхний левый x-coord</tr>
+          <tr lang="ru">x-координата верхнего левого угла</tr>
         </param>
         <param name="Y" type="float" required="true">
           <tr lang="en">top right y-coord</tr>
-          <tr lang="ru" finished="false">верхняя правая y-coord</tr>
+          <tr lang="ru">y-координата верхнего левого угла</tr>
         </param>
       </method>
     </methods>
@@ -116,17 +116,17 @@
       <inlet>
         <in>
           <tr lang="en">control inlet</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">вход управления</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">list from two elements: MIDI pitch, MIDI velocity. Velocity depends from
-          key press position.</tr>
-          <tr lang="ru" finished="false">Список из двух элементов: MIDI шаг, MIDI скорость.
-          Скорость зависит от ключевой позиции прессы.</tr>
+          <tr lang="en">list of two elements: MIDI pitch and MIDI velocity. Velocity depends on the
+          key press position</tr>
+          <tr lang="ru">список из двух элементов: MIDI-нота и скорость. Скорость зависит от
+          положения нажатия на клавише</tr>
         </out>
       </outlet>
     </outlets>

@@ -1,4 +1,7 @@
 #include "hw_rpi_rotenc.h"
+
+#ifdef WITH_RPI
+
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
@@ -158,3 +161,5 @@ void setup_hw_rpi_rotenc()
     obj.addMethod("reset", &HwRpiRotaryEncoder::m_reset);
     obj.addMethod("set", &HwRpiRotaryEncoder::m_set);
 }
+
+#endif

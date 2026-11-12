@@ -7,69 +7,78 @@
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [route.r] @url route.random-help.pd;
 #X obj 653 8 route.random;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 78 147 1 2 3;
-#X msg 107 176 bang;
-#X msg 174 176 any message;
-#X obj 50 205 route.random 4;
-#X obj 155 234 ui.dt;
-#X obj 126 262 ui.dt;
-#X obj 88 291 ui.dt;
-#X obj 50 320 ui.dt;
-#X obj 50 349 route.random-chord;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes each incoming message to one of N
+outlets \, chosen at random;
+#X text 240 123 use the @seed property to get reproducible sequences.
+If @seed is not set explicitly \, a generator initialized with the
+current time is used;
+#X text 240 178 the object can be used to distribute events randomly
+over several destinations \, for example to trigger different sounds
+or effects at random;
+#X floatatom 50 296 5 0 0 0 - - -;
+#X msg 78 325 1 2 3;
+#X msg 107 354 bang;
+#X msg 174 354 any message;
+#X obj 50 383 route.random 4;
+#X obj 155 412 ui.dt;
+#X obj 126 440 ui.dt;
+#X obj 88 469 ui.dt;
+#X obj 50 498 ui.dt;
+#X obj 50 527 route.random-chord;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 585 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 int;
-#X obj 268 406 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 N: number of outlets. See @n property. Type: int. Range:
-[2\..64];
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 460 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 583 1\.;
+#X text 170 583 int;
+#X obj 268 584 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 583 N: number of outlets. See the @n property. Type: int.
+Range: [2\..64];
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 638 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 463 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 641 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 461 @n;
-#X text 270 461 (initonly) Number of outlets. Type: int. Default value:
+#X msg 130 639 @n;
+#X text 270 639 (initonly) Number of outlets. Type: int. Default value:
 2\. Range: [2\..64].;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @seed;
-#X text 270 503 Generator seed. Type: int. Default value: 0\. Min value:
+#X obj 250 681 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 681 @seed;
+#X text 270 681 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 548 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 721 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 726 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 549 1\.;
-#X text 170 549 bang:;
-#X text 270 549 bang to random outlet.;
-#X text 170 574 float:;
-#X text 270 574 float to random outlet.;
-#X text 170 599 symbol:;
-#X text 270 599 symbol to random outlet.;
-#X text 170 624 list:;
-#X text 270 624 list to random outlet.;
-#X text 170 649 any:;
-#X text 270 649 any to random outlet.;
-#X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 689 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 727 1\.;
+#X text 170 727 bang:;
+#X text 270 727 bang to a random outlet.;
+#X text 170 752 float:;
+#X text 270 752 float to a random outlet.;
+#X text 170 777 symbol:;
+#X text 270 777 symbol to a random outlet.;
+#X text 170 802 list:;
+#X text 270 802 list to a random outlet.;
+#X text 170 827 any:;
+#X text 270 827 any message to a random outlet.;
+#X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 867 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 690 1\.;
-#X text 270 690 first outlet.;
-#X text 130 710 ...;
-#X text 270 710 ... outlet.;
-#X text 130 730 n.;
-#X text 270 730 n-th outlet.;
+#X text 130 868 1\.;
+#X text 270 868 first outlet.;
+#X text 130 888 ...;
+#X text 270 888 ... outlet.;
+#X text 130 908 n.;
+#X text 270 908 n-th outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 780 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 783 library: ceammc v0.9.8;
-#N canvas 10 802 400 290 info 0;
+#X obj 1 958 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 961 library: ceammc v0.9.8;
+#N canvas 10 980 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,12 +102,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 802 pd info;
-#X connect 5 0 9 0;
-#X connect 6 0 9 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 9 3 10 0;
-#X connect 9 2 11 0;
-#X connect 9 1 12 0;
+#X restore 10 980 pd info;
 #X connect 9 0 13 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 3 14 0;
+#X connect 13 2 15 0;
+#X connect 13 1 16 0;
+#X connect 13 0 17 0;

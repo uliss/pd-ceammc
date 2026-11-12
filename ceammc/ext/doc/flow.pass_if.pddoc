@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">passes the message, accepted by the predicate side-chain</tr>
-        <tr lang="ru">пропускает значение, принятое предикатом боковой цепи обработки</tr>
+        <tr lang="en">passes the message accepted by the predicate side-chain</tr>
+        <tr lang="ru">пропускает сообщение, принятое предикатом боковой цепи</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -25,37 +25,38 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">conditional value pass according to *predicate* side-chain. *predicate*
-        should accept value and ouput 0 or 1, for value passing.</tr>
-        <!-- old: Условное значение проходит в соответствии с
-                *predicate* side-chain. *предикат* должен принимать значение и выдавать 0 или 1,
-                для прохождения значения. -->
-        <tr lang="ru" finished="false">Условное значение проходит в соответствии с *predicate*
-        side-chain. *предикат* должен принимать значение и выдавать 0 или 1, для прохождения
-        значения.</tr>
+        <tr lang="en">the object passes the input value only if the predicate object connected to
+        the side-chain outputs 1, otherwise the value is rejected</tr>
+        <tr lang="ru">объект пропускает входное значение только если объект-предикат, подключённый
+        к боковой цепи, выводит 1, иначе значение отбрасывается</tr>
       </par>
       <par>
-        <tr lang="en">[&gt;=] [is_even] [is_list] - examples of predicates.</tr>
-        <!-- old: [>=] [is_even] [is_list] — примеры
-                предикатов. -->
-        <tr lang="ru" finished="false">[&gt;=] [is_even] [is_list] — примеры предикатов.</tr>
+        <tr lang="en">the predicate should accept the value and output 0 or 1</tr>
+        <tr lang="ru">предикат должен принимать значение и выводить 0 или 1</tr>
+      </par>
+      <par>
+        <tr lang="en">examples of predicates: [&gt;=], [is_even], [is_list]</tr>
+        <tr lang="ru">примеры предикатов: [&gt;=], [is_even], [is_list]</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to filter a stream of values by an arbitrary
+        condition, for example to pass only even numbers or only values less than 64</tr>
+        <tr lang="ru">объект можно использовать для фильтрации потока значений по произвольному
+        условию, например чтобы пропускать только чётные числа или только значения меньше 64</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int" minvalue="0" maxvalue="1">
-          <tr lang="en">conditional output from predicate object. '1' means pass, '0' means
+          <tr lang="en">conditional output from the predicate object. 1 means pass, 0 means
           reject</tr>
-          <!-- old: Условный выход из объекта предиката. «1»
-                    означает проход, «0» означает отказ -->
-          <tr lang="ru" finished="false">Условный выход из объекта предиката. «1» означает проход,
-          «0» означает отказ</tr>
+          <tr lang="ru">условный выход от объекта-предиката. 1 — пропустить, 0 — отбросить</tr>
         </in>
       </inlet>
     </inlets>
@@ -63,13 +64,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">passed values</tr>
-          <tr lang="ru" finished="false">переданные значения</tr>
+          <tr lang="ru">переданные значения</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">output to predicate side-chain</tr>
-          <tr lang="ru" finished="false">Производитель: Predicate Side Chain</tr>
+          <tr lang="ru">выход в боковую цепь предиката</tr>
         </out>
       </outlet>
     </outlets>

@@ -65,18 +65,18 @@ gain~	multichannel signal gain / многоканальное усиление �
 ceammc/gain~	multichannel signal gain / многоканальное усиление сигнала
 gate~	multichannel signal gate / многоканальный гейт для сигналов
 ceammc/gate~	multichannel signal gate / многоканальный гейт для сигналов
-logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
-ceammc/logger	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.error	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.post	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.debug	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.verbose	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.stdout	advanced data logger for Pd window / продвинутый логгер для окна Pd
-log.stderr	advanced data logger for Pd window / продвинутый логгер для окна Pd
+logger	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+ceammc/logger	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.error	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.post	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.debug	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.verbose	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.stdout	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
+log.stderr	advanced data logger for the Pd window / расширенный логгер данных для окна Pd
 matrix~	signal routing matrix / матрица маршрутизации сигналов
 ceammc/matrix~	signal routing matrix / матрица маршрутизации сигналов
-merge~	merge audio signals / слияние аудиосигналов
-ceammc/merge~	merge audio signals / слияние аудиосигналов
+merge~	merge audio signals / объединяет аудиосигналы
+ceammc/merge~	merge audio signals / объединяет аудиосигналы
 metro.choice	a metronome that randomly selects a period for each beat from a given set / метроном со случайным выбором периода при каждом ударе из заданного списка
 metro.pattern	metronome with rhythmic patterns / метроном с ритмическими паттернами
 metro.random	a metronome with a random period selection within a specified range / метроном со случайным выбором периода в указанном диапазоне
@@ -86,7 +86,7 @@ mix~	multichannel signal mixer / многоканальный микшер си�
 ceammc/mix~	multichannel signal mixer / многоканальный микшер сигналов
 nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
 ceammc/nsig~	multichannel converter from the control signals to audio / многоканальный преобразователь управляющих сигналов в звуковые
-obj.props	Extract object properties from the connected object / извлекает свойства из подключенного объекта
+obj.props	extract object properties from the connected object / извлекает свойства подключённого объекта
 radio	non GUI radio switch / радиопереключатель без графического интерфейса
 ceammc/radio	non GUI radio switch / радиопереключатель без графического интерфейса
 split~	parametrized multichannel signal splitter / параметризованный многоканальный разделитель сигналов
@@ -201,11 +201,11 @@ ceammc/lin->lin	converts from the one linear range into another / преобра
 lin->lin	converts from the one linear range into another / преобразует один линейный диапазон в другой
 ceammc/l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
 l->l	converts from the one linear range into another / преобразует один линейный диапазон в другой
-conv.lin2lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-ceammc/lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-lin->lin~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-ceammc/l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
-l->l~	converts from the one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+conv.lin2lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/lin->lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+lin->lin~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+ceammc/l->l~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
+l->l~	converts from one linear range to another for signals / отображает один линейный диапазон в другой для сигналов
 conv.list2props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 ceammc/list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
 list->props	converts list to series of property messages / преобразует список в серию сообщений-свойств
@@ -382,10 +382,10 @@ envelope	envelope data type / тип данных огибающей
 ceammc/envelope	envelope data type / тип данных огибающей
 ceammc/env	envelope data type / тип данных огибающей
 env	envelope data type / тип данных огибающей
-vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline2env	Converts vline messages to Env / преобразование сообщений vline для Env
-ceammc/vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
-vline->env	Converts vline messages to Env / преобразование сообщений vline для Env
+vline2env	converts vline messages to Env / преобразует сообщения vline в Env
+ceammc/vline2env	converts vline messages to Env / преобразует сообщения vline в Env
+ceammc/vline->env	converts vline messages to Env / преобразует сообщения vline в Env
+vline->env	converts vline messages to Env / преобразует сообщения vline в Env
 expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 ceammc/expand_env	substitutes environment variables in a data stream / подставляет значения переменных среды в поток данных
 flow.append	append message to flow stream / добавляет сообщение в поток
@@ -395,10 +395,10 @@ flow.delay	enhanced version of the vanilla [delay] object / расширенна
 flow.del	enhanced version of the vanilla [delay] object / расширенная версия стандартного объекта [delay]
 flow.demultiplex	demultiplex of the control flow / демультиплексор управляющего потока
 flow.demux	demultiplex of the control flow / демультиплексор управляющего потока
-flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-flow.demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
-demux2~	audio stream stereo demultiplexer / демультиплексор стерео аудиопотока
+flow.demultiplex2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+flow.demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+ceammc/demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
+demux2~	audio stream stereo demultiplexer / демультиплексор стереофонического аудиопотока
 flow.demultiplex~	audio stream demultiplexer / демультиплексор аудиопотока
 flow.demux~	audio stream demultiplexer / демультиплексор аудиопотока
 ceammc/demux~	audio stream demultiplexer / демультиплексор аудиопотока
@@ -415,27 +415,27 @@ flow.greater	numeric stream router by 'greater' condition / маршрутиза
 flow.>	numeric stream router by 'greater' condition / маршрутизатор числового потока по условию 'больше'
 flow.greater_eq	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
 flow.>=	numeric stream router by 'greater or equal' condition / маршрутизатор числового потока по условию 'больше или равно'
-flow.group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
-ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
-group	group input atoms in lists of specified size / группирует входные атомы в списки указанного размера
+flow.group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
+ceammc/group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
+group	group input atoms in lists of specified size / группирует входные атомы в списки заданного размера
 flow.histogram	histogram for numeric control flow / гистограмма для числового потока управления
 flow.hist	histogram for numeric control flow / гистограмма для числового потока управления
-flow.interval	measure the time between messages / измерение времени между сообщениями
-flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
-flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию 'меньше'
-flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
-flow.<=	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию 'меньше или равно'
+flow.interval	measure the time between messages / измеряет время между сообщениями
+flow.less	numeric stream router by 'less' condition / маршрутизатор числового потока по условию «меньше»
+flow.<	numeric stream router by 'less' condition / маршрутизатор числового потока по условию «меньше»
+flow.less_eq	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию «меньше или равно»
+flow.<=	numeric stream router by 'less or equal' condition / маршрутизатор числового потока по условию «меньше или равно»
 flow.list2many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 ceammc/list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
 list->many	routes the list element with the corresponding message / маршрутизирует элементы списка с соответствующими сообщениями
-flow.match	routes the control flow by the regular expression match / маршрутизатор управляющего потока с помощью совпадений с регулярным выражением
+flow.match	routes the control flow by the regular expression match / маршрутизирует управляющий поток по совпадению с регулярным выражением
 flow.mem	store into the memory or output the control flow messages / сохраняет сообщения потока управления в памяти или выводит их
 flow.multiplex	control flow multiplexer / мультиплексор управляющего потока
 flow.mux	control flow multiplexer / мультиплексор управляющего потока
-flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-flow.mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
-mux2~	audio stream stereo multiplexer / мультиплексор стерео аудиопотока
+flow.multiplex2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+flow.mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+ceammc/mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
+mux2~	audio stream stereo multiplexer / мультиплексор стереофонического аудиопотока
 flow.multiplex~	audio stream multiplexer / мультиплексор аудиопотока
 flow.mux~	audio stream multiplexer / мультиплексор аудиопотока
 ceammc/mux~	audio stream multiplexer / мультиплексор аудиопотока
@@ -443,44 +443,44 @@ mux~	audio stream multiplexer / мультиплексор аудиопоток�
 flow.once	pass the only message / пропускает только одно сообщение
 ceammc/once	pass the only message / пропускает только одно сообщение
 once	pass the only message / пропускает только одно сообщение
-flow.pack	packs atoms from multiple stream into the single one / упаковка атомов из нескольких потоков в один
+flow.pack	packs atoms from multiple streams into a single one / упаковывает атомы из нескольких потоков в один
 flow.pass	pass specified values / пропускает указанные значения
 ceammc/pass	pass specified values / пропускает указанные значения
 pass	pass specified values / пропускает указанные значения
-flow.pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
-ceammc/pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
-pass_if	passes the message, accepted by the predicate side-chain / пропускает значение, принятое предикатом боковой цепи обработки
-flow.pipe	enhanced version on the vanilla [pipe] object / усовершенствованная версия объекта [pipe]
+flow.pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
+ceammc/pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
+pass_if	passes the message accepted by the predicate side-chain / пропускает сообщение, принятое предикатом боковой цепи
+flow.pipe	enhanced version of the vanilla [pipe] object / расширенная версия стандартного объекта [pipe]
 flow.prepend	inject the message before the current one / вставляет сообщение перед текущим
 flow.queue	multichannel message queue with sync capabilities / многоканальная очередь сообщений с возможностью синхронизации
-flow.record	control flow record/play / запись/воспроизведение управляющего потока
-flow.rec	control flow record/play / запись/воспроизведение управляющего потока
+flow.record	records and plays back a stream of messages / записывает и воспроизводит поток сообщений
+flow.rec	records and plays back a stream of messages / записывает и воспроизводит поток сообщений
 flow.reject	reject specified values / не пропускает указанные значения
 ceammc/reject	reject specified values / не пропускает указанные значения
 reject	reject specified values / не пропускает указанные значения
 flow.!	reject specified values / не пропускает указанные значения
-flow.reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
-ceammc/reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
-reject_if	reject the message, accepted by the predicate side-chain / не пропускает значение, принятое предикатом боковой цепи обработки
-flow.ring	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
-flow.>>	queue router for control flow / маршрутизатор в виде очереди для управляющего потока
-flow.route	enhanced message router / улучшенный маршрутизатор сообщений
+flow.reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
+ceammc/reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
+reject_if	rejects the message accepted by the predicate side-chain / не пропускает сообщение, принятое предикатом боковой цепи
+flow.ring	shifting queue with parallel output of all stored elements / очередь со сдвигом и параллельным выводом всех элементов
+flow.>>	shifting queue with parallel output of all stored elements / очередь со сдвигом и параллельным выводом всех элементов
+flow.route	enhanced message router / расширенный маршрутизатор сообщений
 flow.select	enhanced message selector / улучшенный селектор сообщений
 flow.sel	enhanced message selector / улучшенный селектор сообщений
 flow.seqdelay	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
 flow.seqdel	sequential delay/router for the input stream / последовательный маршрутизатор с задержками для входного потока
-flow.space	spaces in time messages received at the same logical time / распределить во времени сообщения, полученные одновременно
-flow.speedlim	control stream speed limiter / ограничитель скорости потока
-ceammc/speedlim	control stream speed limiter / ограничитель скорости потока
-speedlim	control stream speed limiter / ограничитель скорости потока
-flow.split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
-ceammc/split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
-split	splits control flow by external side-chain predicate / разделят управляющий поток внешним предикатом боковой цепи
+flow.space	spaces in time messages received at the same logical time / распределяет во времени сообщения, полученные одновременно
+flow.speedlim	control stream speed limiter / ограничитель скорости потока управления
+ceammc/speedlim	control stream speed limiter / ограничитель скорости потока управления
+speedlim	control stream speed limiter / ограничитель скорости потока управления
+flow.split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
+ceammc/split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
+split	splits control flow by external side-chain predicate / разделяет управляющий поток внешним предикатом боковой цепи
 flow.stack	message stack / стек сообщений
 flow.sync	sync multichannel bus / синхронная многоканальная шина
 flow.'	sync multichannel bus / синхронная многоканальная шина
-flow.sync_pack	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
-flow.pack'	[flow.pack] with all "hot" inlets / [flow.pack] со всеми "горячими" входами
+flow.sync_pack	[flow.pack] with all hot inlets / [flow.pack] со всеми «горячими» входами
+flow.pack'	[flow.pack] with all hot inlets / [flow.pack] со всеми «горячими» входами
 flow.tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 ceammc/tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 tee~	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
@@ -488,22 +488,22 @@ ceammc/~->	extracts control messages from audio connections / извлекает
 ~->	extracts control messages from audio connections / извлекает управляющие сообщения из аудиосоединений
 replace	replace atoms in data stream / заменяет атомы в потоке данных
 ceammc/replace	replace atoms in data stream / заменяет атомы в потоке данных
-route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от пустых событий (bang), числовых значений, символов и списков
-route.bang	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
-route.b	separates the bang messages from others / отделяет пустые события (bangs) от сообщений других типов
+route.any	separate messages from bangs, floats, symbols and lists / отделяет сообщения общего вида от bang, чисел, символов и списков
+route.bang	separates the bang messages from others / отделяет bang от сообщений других типов
+route.b	separates the bang messages from others / отделяет bang от сообщений других типов
 route.cycle	cyclic message router / циклический маршрутизатор сообщений
-route.data	separates data messages from others / отделяет сообщения с данными от других
-route.d	separates data messages from others / отделяет сообщения с данными от других
-route.float	separates float messages from others / отделяет числовые сообщения от других типов
-route.f	separates float messages from others / отделяет числовые сообщения от других типов
+route.data	separates data messages from others / отделяет сообщения с данными от остальных
+route.d	separates data messages from others / отделяет сообщения с данными от остальных
+route.float	separates float messages from others / отделяет числовые сообщения от сообщений других типов
+route.f	separates float messages from others / отделяет числовые сообщения от сообщений других типов
 route.list	separates list messages from other types / отделяет списки от сообщений других типов
 route.l	separates list messages from other types / отделяет списки от сообщений других типов
-route.prop	separates property messages from other types / отделяет сообщения со свойствами от других типов
+route.prop	separates property messages from other types / отделяет сообщения со свойствами от сообщений других типов
 route.random	routes the input message into the random outlet / направляет входное сообщение в случайный выход
 route.r	routes the input message into the random outlet / направляет входное сообщение в случайный выход
-route.symbol	separates symbol messages from other types / отделяет символьные сообщения от других типов
-route.s	separates symbol messages from other types / отделяет символьные сообщения от других типов
-flt.a-weight	convert frequency to A-weight value / вычисляет А-взвешенное значение для данной частоты
+route.symbol	separates symbol messages from other types / отделяет символьные сообщения от сообщений других типов
+route.s	separates symbol messages from other types / отделяет символьные сообщения от сообщений других типов
+flt.a-weight	convert frequency to A-weight value / вычисляет А-взвешенное значение для заданной частоты
 flt.biquad~	second order IIR filter / БИХ фильтр второго порядка
 flt.bpf12~	two pole band-pass Butterworth filter / двухполюсный полосовой фильтр Баттерворта
 flt.bpf24~	four pole band-pass Butterworth filter / четырехполюсный полосовой фильтр Баттерворта
@@ -554,9 +554,9 @@ flt.resonbp~	simple resonant bandpass filter / простой резонансн
 flt.resonhp~	simple resonant highpass filter / простой резонансный ФВЧ
 flt.resonlp~	simple resonant lowpass filter / простой резонансный ФНЧ
 flt.speaker~	speaker emulation band-pass filter / полосовой фильтр для эмуляции динамика
-fx.bitdown~	a bit downer and downsampler effect / понижение разрядности входного сигнала и эффект даунсемплинга
+fx.bitdown~	a bit downer and downsampler effect / эффект понижения разрядности и даунсемплинга
 fx.chorus~	chorus effect / хорус-эффект
-fx.dattorro~	Dattorro reverb / реверберация Dattorro
+fx.dattorro~	Dattorro reverb / ревербератор Dattorro
 fx.delay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
 fx.sdelay~	smooth delay with feedback control / плавный дилей с регулировкой обратной связи
 fx.distortion1~	distortion #1 from Guitarix effects set / дисторшн №1 из набора эффектов Guitarix
@@ -573,16 +573,16 @@ fx.freeverb2~	a stereo version of [fx.freeverb~] / стерео версия [fx
 fx.freeverb~	commonly used open-source reverb / широко используемый ревербератор с открытым исходным кодом
 fx.freqshift~	frequency shifter or the single-sideband ring modulation / сдвиг частоты или однополосный кольцевой модулятор
 fx.granulator~	input stream granulator / гранулятор входного потока
-fx.greyhole~	a complex echo-like effect / cложный эхоподобный эффект
+fx.greyhole~	a complex echo-like effect / сложный эхоподобный эффект
 fx.infrev~	port of Infinity VST plugin from "airwindows" / порт плагина Infinity VST из "airwindows"
-fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера из 1972 года
+fx.jcrev~	Schroeder quad reverberator from 1972 / квадрофонический ревербератор Шрёдера 1972 года
 fx.looper~	a single track looper / однодорожечный лупер
 fx.overdrive~	overdrive effect / эффект перегрузки
 fx.pitchshift_s~	signal version of [fx.pitchshift~] / сигнальная версия [fx.pitchshift~]
 fx.pitchshift~	simple pitch shifter based on 2 delay lines / простой питчшифтер на основе 2 линий задержки
 fx.rb_pitchshift~	pitchshift from the rubberband library / питчшифтер из библиотеки rubberband
 fx.recho~	reversed echo effect / обратный эффект эха
-fx.ringmod~	ring modulator effect / кольцевой модулятор
+fx.ringmod~	ring modulator effect / эффект кольцевой модуляции
 fx.room~	Gardner's room emulation algorithm / алгоритм Гарднера для эмуляции комнаты
 fx.satrev~	Schroeder reverberator from 1971 / ревербератор Шрёдера 1971 года
 fx.scramble~	scramble delayed sound fragments / скремблирование задержанных звуковых фрагментов
@@ -614,6 +614,7 @@ hw.rpi.display.lcd1602	LCD display driver for Raspberry Pi (1602 or 2004 module)
 hw.rpi.display.lcd2004	LCD display driver for Raspberry Pi (1602 or 2004 module) / драйвер ЖК-дисплея (модуль 1602 или 2004) для Raspberry Pi
 hw.rpi.display.ssd1306	driver for OLED display on SSD1306 chip for Raspberry Pi / драйвер OLED-дисплея на чипе SSD1306 для Raspberry Pi
 hw.rpi.gpio	GPIO control for Raspberry Pi / управление GPIO на Raspberry Pi
+hw.rpi.gpio.pcf8574	PCF8574 I2C GPIO expander control / управление расширителем GPIO PCF8574 по I2C
 hw.rpi.gpio.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
 hw.rpi.servo	servo control via GPIO pins on Raspberry Pi / управление сервоприводом через выводы GPIO на Raspberry Pi
 hw.rpi.i2c.pca9685	driver for a 16-channel 12-bit PWM module on the PCA9685 chip for Raspberry Pi / драйвер 16-канального 12-битного ШИМ-модуля на чипе PCA9685 для Raspberry Pi
@@ -659,8 +660,8 @@ list.count	output the number of items that equal to specified value / вывод
 list.count_if	output the number of items that satisfy to a side-chain predicate / выводит число элементов, удовлетворяющих внешнему предикату боковой цепи обработки
 list.delta	outputs and saves the list of differences between the current and the previously saved list / выводит и сохраняет список разностей между текущим и предыдущим сохраненным списком
 list.distribution	output list value distribution / выводит список распределения значений в списке
-list.do	iterate and modify the list contents via a side-chain / итерирование и изменение содержимого списка через боковую цепь обработки
-list.each	maps a list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь обработки
+list.do	iterate and modify the list contents via a side-chain / итерирует и изменяет содержимое списка через боковую цепь
+list.each	maps a list value via an external side-chain / отображает каждое значение списка через внешнюю боковую цепь
 list.enumerate	enumerates list elements / нумерует элементы списка
 list.equal	list equal check / проверка списков на равенство
 list.first	output the first list element / выводит первый элемент списка
@@ -678,7 +679,7 @@ list.mean	calculates the average value in a list / вычисляет средн
 list.average	calculates the average value in a list / вычисляет среднее значение в списке
 list.min	returns the smallest list element / возвращает наименьший элемент в списке
 list.none_of	checks if none of list elements is accepted by the predicate side-chain / проверяет, что ни один из элементов не принимается предикатом боковой цепи обработки
-list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка, чтобы их сумма была равна единице
+list.normalize	normalizes numeric list values to get their sum equal to 1.0 / нормализует числовые значения списка так, чтобы их сумма была равна 1.0
 list.pass	leave in list only specified elements / оставлять в списке только указанные элементы
 list.pass_if	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
 list.filter	leave only elements accepted by side-chain predicate / оставляет в списке только элементы, принятые предикатом боковой цепи обработки
@@ -697,10 +698,10 @@ list.resample	resamples the values in the list with the specified length ratio /
 list.r	resamples the values in the list with the specified length ratio / пересемплирует значения в списке с указанным соотношением длины
 list.resize	changes the list size / изменяет длину списка
 list.reverse	reverses the order of the elements in the list / меняет порядок элементов в списке на обратный
-list.rldecode	run-length decoding lists / декодирование повторов в списках
-list.unwrap	run-length decoding lists / декодирование повторов в списках
-list.rlencode	run-length encoding for lists / кодирование повторов в списках
-list.wrap	run-length encoding for lists / кодирование повторов в списках
+list.rldecode	run-length decoding lists / декодирует списки, закодированные длинами серий
+list.unwrap	run-length decoding lists / декодирует списки, закодированные длинами серий
+list.rlencode	run-length encoding for lists / кодирует списки длинами серий
+list.wrap	run-length encoding for lists / кодирует списки длинами серий
 list.rotate	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.<<	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
 list.>>	a cyclic list rotation by an integer number of steps / циклическое вращение списка на целое число шагов
@@ -715,7 +716,7 @@ list.set	sets the value of the list item at the specified position / устан�
 list.shift	cyclic shift of a list by a real number with a linear Interpolation / циклический сдвиг списка на вещественное число с линейной интерполяцией
 list.shuffle	rearranges the elements of the list in a random order / переставляет элементы списка в случайном порядке
 list.slice	outputs a sublist / выводит подсписок
-list.sort	sorts the list in ascending order / сортирует список в порядке возрастания
+list.sort	sorts the list in ascending order / сортирует список по возрастанию
 list.sort_with	sorts the list using a side processing chain / сортирует список при помощи боковой цепи обработки
 list.split	divides the list into two parts at the specified index position / разделяет список на две части по указанному индексу
 list.stretch	changes the length of the list by adjusting its values using linear interpolation / изменяет длину списка, изменяя его значения с помощью линейной интерполяции
@@ -727,7 +728,7 @@ list.deinterleave	unpacks the input list into N lists of interleaved elements / 
 list.walk	various algorithms for traversing elements in a list / различные алгоритмы обхода элементов в списке
 list.zip	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
 list.interleave	creates an interleaved list of items from N input lists / создает чередующийся список элементов из N входных списков
-live.capture~	record up to 32 seconds of sound and playback the recorded sound in loop / запись до 32 секунд звука и его воспроизведение в петле
+live.capture~	record up to 32 seconds of sound and playback the recorded sound in loop / записывает до 32 секунд звука и воспроизводит записанный звук в петле
 local.dict	local named dict object / локальный для патча словарь
 local.json	local named dict object / локальный для патча словарь
 local.float	canvas-scoped named float variable / локальное для патча именованное число с плавающей точкой
@@ -921,33 +922,35 @@ math.tan~	tangent function / тангенс
 math.trunc	truncate to integer value / усечение до целочисленного значения
 math.trunc~	truncate to integer value / усечение до целочисленного значения
 midi.arp	MIDI arpeggiator / MIDI арпеджиатор
-midi.cc	enhanced version of vanilla [ctlin] / усовершенствованная версия [ctlin]
-midi.clock	MIDI-clock
-midi.ctl2str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
-midi.ctl->str	converts Standard MIDI Controllers number to name / преобразует номер стандартного MIDI контроллера в имя
+midi.cc	enhanced version of vanilla [ctlin] / расширенная версия стандартного объекта [ctlin]
+midi.clock	MIDI clock / MIDI-клок
+midi.ctl2str	converts Standard MIDI Controller number to name / преобразует номер стандартного MIDI-контроллера в имя
+midi.ctl->str	converts Standard MIDI Controller number to name / преобразует номер стандартного MIDI-контроллера в имя
 midi.event2ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
 midi.ev->ctl	converts the MidiEvent message into the controller channel/value pair / конвертирует сообщение MidiEvent в пару канал/значение
 midi.event2note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
 midi.ev->note	converts the MidiEvent message into the midi note/velocity pair / конвертирует сообщение MidiEvent в пару нота/сила нажатия
 midi.event2prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
 midi.ev->prg	converts the MidiEvent message into the program change / конвертирует сообщение MidiEvent в MIDI: изменение программы
-midi.file	the standard midi file (SMF) reader and writer / чтение и запись стандартных MIDI файлов (SMF)
-midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI клавиатуры c помощью клавиатуры компьютера
-midi.key2str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
-midi.key->str	converts the MIDI-key into the SPN name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
-midi.modus	snap or skip MIDI-pitches according the specified modus / приводит или удаляет MIDI-ноты согласно указанному ладу
+midi.file	standard MIDI file (SMF) reader and writer / чтение и запись стандартных MIDI-файлов (SMF)
+midi.kbd	computer keyboard MIDI emulator / эмулятор MIDI-клавиатуры с помощью клавиатуры компьютера
+midi.key2str	converts a MIDI key number into the SPN note name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.key->str	converts a MIDI key number into the SPN note name format / преобразует номер MIDI-клавиши в имя ноты в формате SPN
+midi.modus	snap or skip MIDI-pitches according the specified modus / подстраивает или пропускает MIDI-ноты в соответствии с указанным ладом
 midi.note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
 note.pass	passes MIDI notes according to the calculated expression / пропускает MIDI-ноты согласно вычисляемому выражению
 midi.oct	MIDI octave transposition / октавная MIDI транспозиция
+midi.pitch.quantize	quantize MIDI pitch to the specified range / квантует MIDI-ноту в заданный диапазон
+midi.pitch.q	quantize MIDI pitch to the specified range / квантует MIDI-ноту в заданный диапазон
 midi.prg2str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
 midi.prg->str	converts the GM Instrument number into the name / преобразует номер инструмента GeneralMidi в его имя
-midi.split	MIDI note range splitter / разбивает MIDI ноты на диапазоны
+midi.split	MIDI note range splitter / разделяет MIDI-ноты на диапазоны
 midi.sustain	sustain pedal emulation / эмуляция педали сустейна
 midi.sysex	output sysex input messages as a list / выводит входные sysex сообщения в виде списка
 midi.track	extracts the track from MidiFile message / извлекает трек из сообщения MidiFile
-midi.tuning	apply the tuning for notes flow / применяет настройку для нотного потока
-midi.vramp	apply crescendo or diminuendo for notes flow / применяет crescendo или diminuendo для потока нот
-midi.vrand	midi velocity randomizer / рандомизатор силы нажатия MIDI
+midi.tuning	apply tuning to a note stream / применяет настройку к потоку нот
+midi.vramp	apply crescendo or diminuendo to a note stream / применяет crescendo или diminuendo к потоку нот
+midi.vrand	MIDI velocity randomizer / рандомизатор силы нажатия MIDI-нот
 click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 ceammc/click~	outputs a single impulse on a bang input / выводит единичный импульс при пустом входном событии
 fluid~	FluidSynth SoundFont 2 player / проигрыватель SoundFont 2 (FluidSynth)
@@ -959,7 +962,7 @@ ceammc/qrcode	QR code generator / генератор QR-кодов
 risset.gliss	Sheppard/Risset glissando calculator / калькулятор для глиссандо Шеппарда/Риссе
 sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
 ceammc/sfizz~	SFZ format sample player / проигрыватель сэмплов в формате SFZ
-speech.flite	render speech to array / рендеринг синтезатора речи в массив
+speech.flite	render speech to array / синтезирует речь в массив
 speech.flite~	Flite text-to-speech synthesis / синтезатор речи Flite
 speech.rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
 ceammc/rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoice
@@ -967,8 +970,8 @@ rhvoice~	RHVoice text to speech synthesis / синтезатор речи RHVoic
 speech.whisper~	speech recognition / распознование речи
 ceammc/whisper~	speech recognition / распознование речи
 whisper~	speech recognition / распознование речи
-loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
-ceammc/loadexpr	sends the message when the patch loads / отправить сообщение при загрузке патча
+loadexpr	sends the message when the patch loads / отправляет сообщение при загрузке патча
+ceammc/loadexpr	sends the message when the patch loads / отправляет сообщение при загрузке патча
 msg	message constructor / конструктор сообщений
 ceammc/msg	message constructor / конструктор сообщений
 ceammc/m	message constructor / конструктор сообщений
@@ -986,27 +989,27 @@ msg.unpack	message unpack to selector and arguments / распаковка со�
 rhythm.euclid	Euclid pattern generator / генератор ритмических паттернов по алгоритму Евклида
 rhythm.hexbeat	hexbeat pattern generator / генератор ритмических паттернов из шестнадцатеричных значений
 rhythm.lsystem	L-system pattern generator / генератор ритмических паттернов на основе L-систем
-net.artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
-artnet.send	ArtNet DMX message sender / отправление сообщений ArtNet DMX
-net.freesound	Freesound API v2 client / клиент для Freesound API v2
-net.host2ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
-net.host->ip	outputs IP address by DNS name / выводит IP-адрес по имени DNS
-net.http.client	HTTP client / HTTP клиент
-http.client	HTTP client / HTTP клиент
+net.artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
+artnet.send	ArtNet DMX message sender / отправитель сообщений ArtNet DMX
+net.freesound	Freesound API v2 client / клиент Freesound API v2
+net.host2ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
+net.host->ip	outputs IP address by DNS name / выводит IP-адрес по DNS-имени
+net.http.client	HTTP client / HTTP-клиент
+http.client	HTTP client / HTTP-клиент
 net.http.send	HTTP request sender / отправляет HTTP запросы
 http.send	HTTP request sender / отправляет HTTP запросы
 net.mdns	MDNS service discovery / обнаружение служб MDNS
-net.mqtt.client	MQTT client / MQTT клиент
-mqtt.client	MQTT client / MQTT клиент
-net.osc.receive	receives messages via the OSC protocol / получение сообщений по протоколу OSC
-net.osc.r	receives messages via the OSC protocol / получение сообщений по протоколу OSC
-net.osc.send	sending messages via the OSC protocol / отправка сообщений протокола OSC
-net.osc.s	sending messages via the OSC protocol / отправка сообщений протокола OSC
+net.mqtt.client	MQTT client / MQTT-клиент
+mqtt.client	MQTT client / MQTT-клиент
+net.osc.receive	receives messages via the OSC protocol / получает сообщения по протоколу OSC
+net.osc.r	receives messages via the OSC protocol / получает сообщения по протоколу OSC
+net.osc.send	sending messages via the OSC protocol / отправляет сообщения по протоколу OSC
+net.osc.s	sending messages via the OSC protocol / отправляет сообщения по протоколу OSC
 net.osc.server	OSC server start and control / запуск и управление OSC-сервером
 net.osc	OSC server start and control / запуск и управление OSC-сервером
-net.ws.client	WebSocket client / WebSocket клиент
-net.ws.server	WebSocket server / WebSocket сервер
-noise.baker	Baker map chaos generator / хаотический генератор на основе преобразования Пекаря
+net.ws.client	WebSocket client / WebSocket-клиент
+net.ws.server	WebSocket server / WebSocket-сервер
+noise.baker	Baker map chaos generator / хаотический генератор на основе отображения пекаря
 noise.chua~	Chua's diode circuit / диодная схема Чуа
 noise.clifford	Clifford attractor / аттрактор Клиффорда
 noise.collatz	collatz conjecture output / выводит число последовательности Коллаца
@@ -1030,11 +1033,11 @@ noise.stein	Stein distribution / распределение Штейна
 noise.torus	torus attractor / аттрактор в виде тора
 noise.verhulst	Verhulst distribution / распределение Ферхюльста
 noise.white~	white noise generator / генератор белого шума
-osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управлением гармониками
-osc.impulse~	bandlimited impulse train generator / генератор импульсного сигнала с ограниченным спектром
+osc.blit~	bandlimited oscillator with controllable harmonics / генератор с ограниченным спектром и управляемыми гармониками
+osc.impulse~	bandlimited impulse train generator / генератор импульсной последовательности с ограниченным спектром
 osc.pulse~	bandlimited pulse train oscillator / осциллятор прямоугольной волны с ограниченным спектром
-osc.saw4~	bandlimited sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
-osc.saw~	alias-free sawtooth wave / осциллятор пилообразного сигнала с ограниченным спектром
+osc.saw4~	bandlimited sawtooth wave / пилообразная волна с ограниченным спектром
+osc.saw~	alias-free sawtooth wave / пилообразная волна без алиасинга
 osc.sinfb~	sine oscillator with feedback / синусоидальный осциллятор с обратной связью
 osc.sin~	sine wave oscillator / синусоидальный осциллятор
 osc.square~	bandlimited square wave oscillator / осциллятор квадратной волны с ограниченным спектром
@@ -1046,23 +1049,23 @@ canvas.dir	outputs the current canvas directory of the object and the nesting le
 canvas.name	output the current canvas name of the object / выводит имя текущего холста объекта
 canvas.path	output the current canvas file system full path of the object / выводит полный путь холста объекта в файловой системе
 canvas.top	verbose information about top-level canvas of the object / подробная информация о холсте верхнего уровня объекта
-patch.args	get patch or subpatch initial arguments / получить начальные аргументы для патча или субпатча
+patch.args	get patch or subpatch initial arguments / получает начальные аргументы патча или субпатча Pd
 patch.deps	output the patch dependencies: used objects and abstractions / выводит зависимости патча: используемые объекты и абстракции
 patch.tree	output the object tree of the patch / выводит дерево объектов патча
 file.size	outputs the file size / выводит размер файла
-path.basename	outputs the filename portion of the path name / выводит имя файла из пути к файлу
-path.dirname	outputs directory portion of path name / выводит имя каталога файла из пути к файлу
-path.exists	checks if the given path exists / проверка существования пути
+path.basename	outputs the filename portion of the path name / извлекает имя файла из пути
+path.dirname	outputs directory portion of path name / извлекает имя каталога из пути
+path.exists	checks if the given path exists / проверяет, существует ли заданный путь
 path.file	file input/output / файловый ввод/вывод
 path.is_dir	checks if the path is a directory / проверяет, является ли путь каталогом
-path.lsdir	list directory contents / cписок содержимого каталога
-path.ls	list directory contents / cписок содержимого каталога
-path.monitor	filesystem event monitor / мониторинг событий файловой системы
+path.lsdir	list directory contents / выводит список содержимого каталога
+path.ls	list directory contents / выводит список содержимого каталога
+path.monitor	filesystem event monitor / монитор событий файловой системы
 path.normalize	normalize file paths / нормализует пути файлов
 path.norm	normalize file paths / нормализует пути файлов
-path.pattern	pattern filename generator / генерирует имя файла по данному шаблону
+path.pattern	pattern filename generator / генерирует имя файла по заданному шаблону
 path.search	file search / поиск файлов
-path.split	split path into dirname and basename / разбивает путь на имя каталога и файла
+path.split	split path into dirname and basename / разбивает путь на имя каталога и имя файла
 is_any	checks if the input has a general message type / проверяет, является ли входное сообщение сообщением общего типа
 is_bang	checks if the input is a *bang* / проверяет, является ли входное сообщение *bang*
 is_data	checks if the input is a *data* type / проверяет, является ли входное сообщение типом данных
@@ -1085,29 +1088,29 @@ preset.l	loads or store the list into a preset / загружает или со�
 preset.storage	preset storage controller / управление пресетами
 preset.symbol	load or store the symbol into a preset / загружает или сохраняет символ в пресет
 preset.s	load or store the symbol into a preset / загружает или сохраняет символ в пресет
-patch.props	get or set the patch properties / получение или установка свойств патча
-prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
-ceammc/prop	get/set the named property value for subpatch or abstraction / получить/установить именованное значение свойства для субпатча или абстракции
+patch.props	get or set the patch properties / получает или устанавливает свойства патча
+prop	get/set the named property value for a subpatch or an abstraction / получает/устанавливает значение именованного свойства для субпатча или абстракции
+ceammc/prop	get/set the named property value for a subpatch or an abstraction / получает/устанавливает значение именованного свойства для субпатча или абстракции
 prop.declare	declare the named property for a subpatch or an abstraction / объявляет именованное свойство для субпатча или абстракции
-prop.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
-p.get	get the property value from connected object, subpatch or abstraction / получить значение свойства от подсоединённого объекта, субпатча или абстракции
+prop.get	get the property value from the connected object, subpatch or abstraction / получает значение свойства от подключённого объекта, субпатча или абстракции
+p.get	get the property value from the connected object, subpatch or abstraction / получает значение свойства от подключённого объекта, субпатча или абстракции
 prop.join	inject properties into the main data flow / добавляет свойства в основной поток данных
 prop<-	inject properties into the main data flow / добавляет свойства в основной поток данных
-prop.random	property value randomizer / рандомизатор значения свойства
+prop.random	property value randomizer / рандомизатор значений свойств
 prop.route	separates properties from the dataflow / отделяет свойства от основного потока данных
 prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
 @->	separates properties from the dataflow / отделяет свойства от основного потока данных
 ceammc/prop->	separates properties from the dataflow / отделяет свойства от основного потока данных
 ceammc/@->	separates properties from the dataflow / отделяет свойства от основного потока данных
 prop.split	separates properties from the dataflow / отделяет свойства от основного потока данных
-prop.route~	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-ceammc/prop~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-ceammc/@~>	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop.get~	property extractor from audio connections / отделяет свойства от аудиосоединений
-prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
-p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключенного объекта, субпатча или абстракции
+prop.route~	property extractor from audio connections / извлекает свойства из аудиосоединений
+prop~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+@~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+ceammc/prop~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+ceammc/@~>	property extractor from audio connections / извлекает свойства из аудиосоединений
+prop.get~	property extractor from audio connections / извлекает свойства из аудиосоединений
+prop.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
+p.set	set the property value for connected object, subpatch or abstraction / устанавливает значение свойства для подключённого объекта, субпатча или абстракции
 proto.arturia.minilab	simple SysEx control for Arturia MiniLab / управление по SysEx для Arturia MiniLab
 proto.feelworld	controlling the FeelWorld LivePro L1 HDMI mixer / управление видео-микшером FeelWorld LivePro L1 HDMI
 proto.firmata	Firmata Arduino protocol support / поддержка протокола Firmata для Arduino
@@ -1128,8 +1131,8 @@ proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch / парсе
 proto.vlc	VLC video player control over HTTP / управление видеоплеером VLC через HTTP
 proto.whammy	control for Digitech Whammy pedal / управление педалью Digitech Whammy Pedal
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol / управление Behringer XTouch XMidi
-random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
-random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атомов из указанного списка
+random.atom	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атома из заданного списка
+random.a	weighed choosing of the random atom from the specified list / случайный взвешенный выбор атома из заданного списка
 random.discrete	generate random weighted integers on the interval [0, n) / генерирует случайные взвешенные целые числа на интервале [0, n)
 random.float	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
 random.f	uniform random generator of floats in the specified range / равномерный генератор случайных чисел с плавающей точкой в заданном диапазоне
@@ -1149,7 +1152,7 @@ seq.life	Conway game of life sequencer / секвенсор на основе и
 seq.matrix	sequencer control for [ui.matrix] object / управление секвенсором для объекта [ui.matrix]
 seq.nbangs	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов с заданными интервалами времени
 seq.nb	outputs the specified number of bangs with a time intervals / выводит заданное число bang-ов с заданными интервалами времени
-seq.phasor	control rate phasor generator / генератор фазора (пилы) для контрольных сигналов
+seq.phasor	control rate phasor generator / генератор фазора (пилы) для управляющих сигналов
 seq.toggles	toggle sequencer / секвенсор переключающих событий (toggle)
 seq.t	toggle sequencer / секвенсор переключающих событий (toggle)
 sequencer	basic sequence player / базовый проигрыватель последовательностей
@@ -1302,10 +1305,10 @@ system.exec	run the external command in a separate process / запуск вне
 system.exit	quit PureData / завершает PureData
 system.getenv	output system environment variables / выводит системные переменные окружения
 system.hostname	outputs system hostname / выводит имя хоста системы
-system.info	retrieve system information: CPU and temperature / получение информации о системе: ЦПУ и температура
+system.info	retrieve system information: CPU and temperature / получает информацию о системе: процессор и температура
 system.memsize	returns the size of physical memory (RAM) in bytes / возвращает размер физической памяти (ОЗУ) в байтах
 system.memused	outputs the process physical memory usage - current and peak / выводит использование физической памяти процессом - текущее и пиковое
-system.screen_size	outputs the current screen size in pixels / выводит размер активного экрана в пикселях
+system.screen_size	outputs the current screen size in pixels / выводит размер текущего экрана в пикселях
 tl.bang	outputs a timeline bang / выводит событие bang временной шкалы
 tl.b	outputs a timeline bang / выводит событие bang временной шкалы
 tl.cue	defines the timeline section / определяет секцию на временной шкале
@@ -1336,17 +1339,17 @@ ui.filter~	sound filter widget / виджет звукового фильтра
 ui.gain2~	stereo gain control / стерео-регулятор громкости
 ui.hgain2~	stereo gain control / стерео-регулятор громкости
 ui.vgain2~	stereo gain control / стерео-регулятор громкости
-ui.gain~	gain control / контроль громкости
-ui.hgain~	gain control / контроль громкости
-ui.vgain~	gain control / контроль громкости
+ui.gain~	gain control / регулятор усиления
+ui.hgain~	gain control / регулятор усиления
+ui.vgain~	gain control / регулятор усиления
 ui.icon	simple icon with button capabilities / простая иконка с возможностями нажатия
 ui.incdec	value increment or decrement widget / виджет увеличения или уменьшения значения
 ui.keyboard	keyboard widget / виджет клавиатуры
 ui.hk	keyboard widget / виджет клавиатуры
 ui.vkeyboard	keyboard widget / виджет клавиатуры
 ui.vk	keyboard widget / виджет клавиатуры
-ui.knob	knob widget / виджет ручки
-ui.k	knob widget / виджет ручки
+ui.knob	knob widget / виджет-поворотный регулятор
+ui.k	knob widget / виджет-поворотный регулятор
 ui.label	simple label widget / простой виджет надписи
 ui.lcd	black and white bitmap display / черно-белый растровый дисплей
 ui.link	hyperlink widget / виджет гиперссылки
@@ -1377,9 +1380,9 @@ ui.vrd*	radio toggle with multiselect option / радиопереключате�
 ui.rslider	two range slider / двухдиапазонный слайдер
 ui.rsl	two range slider / двухдиапазонный слайдер
 ui.scope~	waveform signal scope widget / виджет просмотра формы волны
-ui.slider	slider widget / виджет слайдера (ползунка)
-ui.hsl	slider widget / виджет слайдера (ползунка)
-ui.vsl	slider widget / виджет слайдера (ползунка)
+ui.slider	slider widget / виджет-слайдер
+ui.hsl	slider widget / виджет-слайдер
+ui.vsl	slider widget / виджет-слайдер
 ui.slider2d	2D slider widget / 2D виджет слайдера
 ui.s2d	2D slider widget / 2D виджет слайдера
 ui.sliders	multiple slider widget / виджет многоползункового слайдера
@@ -1387,5 +1390,5 @@ ui.vsliders	multiple slider widget / виджет многоползунково
 ui.spectroscope~	spectroscope widget / виджет просмотрщика спектра
 ui.ssc~	spectroscope widget / виджет просмотрщика спектра
 ui.tab	displays a list of text buttons or text toggles / список текстовых кнопок или текстовых переключателей
-ui.toggle	modern toggle widget / cовременный виджет переключателя
-ui.t	modern toggle widget / cовременный виджет переключателя
+ui.toggle	modern toggle widget / современный виджет-переключатель
+ui.t	modern toggle widget / современный виджет-переключатель

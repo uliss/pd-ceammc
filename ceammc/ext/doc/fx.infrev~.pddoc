@@ -23,62 +23,61 @@
     <info>
       <par>
         <tr lang="en">Infinity is a MatrixVerb specifically designed to sustain and layer sounds
-        forever.</tr>
-        <!-- old: Infinity - это MatrixVerb, специально разработанный
-                для поддержания и сложения звуков навсегда. -->
-        <tr lang="ru" finished="false">Infinity - это MatrixVerb, специально разработанный для
-        поддержания и сложения звуков навсегда.</tr>
+        forever</tr>
+        <tr lang="ru">Infinity — это MatrixVerb, специально разработанный для бесконечного
+        удержания и наслоения звуков</tr>
+      </par>
+      <par>
+        <tr lang="en">the object is a stereo reverb with a feedback matrix, which allows very long
+        decay times up to infinite sustain</tr>
+        <tr lang="ru">объект представляет собой стереофонический ревербератор с матрицей обратной
+        связи, что позволяет получать очень долгое затухание вплоть до бесконечного удержания</tr>
+      </par>
+      <par>
+        <tr lang="en">@size sets the room size, @filter and @damp control the tone of the reverb,
+        @drywet mixes the original (dry) and processed signals</tr>
+        <tr lang="ru">@size задаёт размер комнаты, @filter и @damp управляют тембром реверберации,
+        @drywet смешивает исходный (сухой) и обработанный сигналы</tr>
       </par>
       <a href="https://www.airwindows.com/infinity/">More info</a>
     </info>
     <arguments>
       <argument name="SIZE" type="float" minvalue="0" maxvalue="1">
         <tr lang="en">room size</tr>
-        <tr lang="ru" finished="false">размер комнаты</tr>
+        <tr lang="ru">размер комнаты</tr>
       </argument>
       <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">
-        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet)
-        signals</tr>
-        <!-- old: Пропорция смеси между исходными (сухими) и
-                «вредными» (мокрыми) сигналами -->
-        <tr lang="ru" finished="false">Пропорция смеси между исходными (сухими) и «вредными»
-        (мокрыми) сигналами</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @bypass -->
       <property name="@bypass" type="bool" default="0">
-        <tr lang="en">bypass flag. If true: bypass 'effected' signal.</tr>
-        <!-- old: Обходной флаг. Если это правда, обойдите
-                «эффективный» сигнал. -->
-        <tr lang="ru" finished="false">Обходной флаг. Если это правда, обойдите «эффективный»
-        сигнал.</tr>
+        <tr lang="en">bypass flag. If true: bypass the processed signal</tr>
+        <tr lang="ru">флаг обхода. Если true: пропускать обработанный сигнал без изменений</tr>
       </property>
       <!-- @damp -->
       <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">
         <tr lang="en">damping of the lowpass comb filter</tr>
-        <!-- old: демпфирование низкопроходного гребенчатого
-                фильтра -->
-        <tr lang="ru" finished="false">демпфирование низкопроходного гребенчатого фильтра</tr>
+        <tr lang="ru">демпфирование низкочастотного гребёнчатого фильтра</tr>
       </property>
       <!-- @drywet -->
       <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-        <tr lang="en">proportion of mix between the original (dry) and 'effected' (wet) signals. 0
-        - dry signal, 1 - wet</tr>
-        <!-- old: пропорция смеси между исходными (сухими) и
-                "влажными" сигналами. 0 - сухой сигнал, 1 - влажный -->
-        <tr lang="ru" finished="false">пропорция смеси между исходными (сухими) и "влажными"
-        сигналами. 0 - сухой сигнал, 1 - влажный</tr>
+        <tr lang="en">proportion of mix between the original (dry) and processed signals. 0 — dry
+        signal, 1 — processed</tr>
+        <tr lang="ru">пропорция смеси между исходным (сухим) и обработанным сигналами. 0 — сухой
+        сигнал, 1 — обработанный</tr>
       </property>
       <!-- @filter -->
       <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">
         <tr lang="en">filter coefficient</tr>
-        <tr lang="ru" finished="false">коэффициент фильтрации</tr>
+        <tr lang="ru">коэффициент фильтра</tr>
       </property>
       <!-- @size -->
       <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">
         <tr lang="en">room size</tr>
-        <tr lang="ru" finished="false">размер комнаты</tr>
+        <tr lang="ru">размер комнаты</tr>
       </property>
     </properties>
     <methods>
@@ -86,7 +85,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset reverb</tr>
-          <tr lang="ru" finished="false">реверберация</tr>
+          <tr lang="ru">сбросить реверберацию</tr>
         </info>
       </method>
     </methods>
@@ -94,13 +93,13 @@
       <inlet type="audio">
         <in>
           <tr lang="en">input Left signal</tr>
-          <tr lang="ru" finished="false">Левый входной сигнал</tr>
+          <tr lang="ru">входной левый сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio">
         <in>
           <tr lang="en">input Right signal</tr>
-          <tr lang="ru" finished="false">Входной сигнал Правый сигнал</tr>
+          <tr lang="ru">входной правый сигнал</tr>
         </in>
       </inlet>
     </inlets>
@@ -108,13 +107,13 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output Left signal</tr>
-          <tr lang="ru" finished="false">Выходной левый сигнал</tr>
+          <tr lang="ru">выходной левый сигнал</tr>
         </out>
       </outlet>
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output Right signal</tr>
-          <tr lang="ru" finished="false">Выходной сигнал Right</tr>
+          <tr lang="ru">выходной правый сигнал</tr>
         </out>
       </outlet>
     </outlets>

@@ -22,51 +22,58 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Generates random number in interval [@v0, @v1) with linear distribution [@p0,
-        @p1)</tr>
-        <tr lang="ru" finished="false">Генерирует случайное число в интервале [@v0, @v1) с линейным
-        распределением [@p0, @p1)</tr>
+        <tr lang="en">generates a random number in the interval [@v0, @v1) with a linear
+        distribution [@p0, @p1)</tr>
+        <tr lang="ru">генерирует случайное число на интервале [@v0, @v1) с линейным распределением
+        [@p0, @p1)</tr>
       </par>
       <par>
-        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
-        explicitly set or specified, uses generator initialized with current time.</tr>
-        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
-        последовательностей. Если свойство @seed не было явно установлено или указано, используется
-        генератор, инициализированный с текущим временем.</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to bias random values toward one end of a range, for
+        example to make low notes more likely than high notes or to create a gradual fade-in
+        effect</tr>
+        <tr lang="ru">объект можно использовать для смещения случайных значений к одному краю
+        диапазона, например чтобы низкие ноты выпадали чаще высоких или чтобы создать эффект
+        постепенного нарастания</tr>
       </par>
     </info>
     <properties>
       <!-- @p0 -->
       <property name="@p0" type="float" default="1">
-        <tr lang="en">probability at begin</tr>
-        <tr lang="ru" finished="false">Вероятность в начале</tr>
+        <tr lang="en">probability at the beginning</tr>
+        <tr lang="ru">вероятность в начале</tr>
       </property>
       <!-- @p1 -->
       <property name="@p1" type="float" default="0">
-        <tr lang="en">probability at end</tr>
-        <tr lang="ru" finished="false">Вероятность в конце</tr>
+        <tr lang="en">probability at the end</tr>
+        <tr lang="ru">вероятность в конце</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">начальное значение генератора</tr>
       </property>
       <!-- @v0 -->
       <property name="@v0" type="float" default="0">
-        <tr lang="en">begin of value interval</tr>
-        <tr lang="ru" finished="false">начало интервала значений</tr>
+        <tr lang="en">beginning of the value interval</tr>
+        <tr lang="ru">начало интервала значений</tr>
       </property>
       <!-- @v1 -->
       <property name="@v1" type="float" default="1">
-        <tr lang="en">end of value interval</tr>
-        <tr lang="ru" finished="false">конец интервала значений</tr>
+        <tr lang="en">end of the value interval</tr>
+        <tr lang="ru">конец интервала значений</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">generates random number</tr>
-          <tr lang="ru" finished="false">генерирует случайное число</tr>
+          <tr lang="en">generates a random number</tr>
+          <tr lang="ru">генерирует случайное число</tr>
         </in>
       </inlet>
     </inlets>
@@ -74,7 +81,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">result value</tr>
-          <tr lang="ru" finished="false">значение результата</tr>
+          <tr lang="ru">значение результата</tr>
         </out>
       </outlet>
     </outlets>

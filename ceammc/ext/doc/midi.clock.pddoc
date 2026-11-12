@@ -7,8 +7,8 @@
         <author>Serge Poltavsky</author>
       </authors>
       <description>
-        <tr lang="en">MIDI-clock</tr>
-        <tr lang="ru">MIDI-clock</tr>
+        <tr lang="en">MIDI clock</tr>
+        <tr lang="ru">MIDI-клок</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,31 +18,25 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: cause in Pd messages are processed between DSP blocks - measured bpm is
-        not exact</tr>
-        <!-- old: Примечание: причина в сообщениях Pd обрабатывается
-                между блоками DSP - измеренный bpm не точен -->
-        <tr lang="ru" finished="false">Примечание: причина в сообщениях Pd обрабатывается между
-        блоками DSP - измеренный bpm не точен</tr>
+        <tr lang="en">Note: because Pd messages are processed between DSP blocks, the measured bpm
+        is not exact.</tr>
+        <tr lang="ru">Примечание: поскольку сообщения Pd обрабатываются между блоками DSP,
+        измеренный BPM неточен.</tr>
       </par>
     </info>
     <arguments>
       <argument name="DIV" type="int" enum="0 4 8 16 32">
-        <tr lang="en">@div clock subdivision</tr>
-        <tr lang="ru" finished="false">@div Часы подраздел</tr>
+        <tr lang="en">clock subdivision</tr>
+        <tr lang="ru">деление MIDI-клока</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @div -->
       <property name="@div" type="int" enum="0 4 8 16 32" default="0">
-        <tr lang="en">clock subdivision. If 0: bang each incoming midi clock message, if 4: output
-        every quoter note, 8: every eight note etc.</tr>
-        <!-- old: Часовое подразделение. Если 0: ударить каждое
-                входящее сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую
-                восьмую заметку и т.д. -->
-        <tr lang="ru" finished="false">Часовое подразделение. Если 0: ударить каждое входящее
-        сообщение миди-часа, если 4: вывести каждую заметку цитатора, 8: каждую восьмую заметку и
-        т.д.</tr>
+        <tr lang="en">clock subdivision: 0 — bang on every incoming MIDI clock message, 4 — every
+        quarter note, 8 — every eighth note, etc.</tr>
+        <tr lang="ru">деление MIDI-клока: 0 — bang на каждое входящее MIDI-сообщение клока, 4 —
+        каждая четверть, 8 — каждая восьмая и т.д.</tr>
       </property>
     </properties>
     <methods>
@@ -50,7 +44,7 @@
       <method name="reset">
         <info>
           <tr lang="en">reset beat counter</tr>
-          <tr lang="ru" finished="false">Обсуждение Beat Counter</tr>
+          <tr lang="ru">сбросить счётчик долей</tr>
         </info>
       </method>
     </methods>
@@ -58,21 +52,21 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">вход управления</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang: on specified beat</tr>
-          <tr lang="ru" finished="false">Взрыв: определенный удар</tr>
+        <out type="bang">
+          <tr lang="en">bang: on the specified beat</tr>
+          <tr lang="ru">bang: на указанной доле</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">float: measured bpm (output every beat)</tr>
-          <tr lang="ru" finished="false">Поплавок: измеренный bpm (выход каждого удара)</tr>
+        <out type="float">
+          <tr lang="en">measured bpm (output on every beat)</tr>
+          <tr lang="ru">измеренный BPM (выводится на каждой доле)</tr>
         </out>
       </outlet>
     </outlets>

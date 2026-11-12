@@ -16,6 +16,7 @@
 
 #include "m_pd.h"
 
+#include <utility>
 #include <boost/container/static_vector.hpp>
 #include <boost/variant.hpp>
 #include <memory>

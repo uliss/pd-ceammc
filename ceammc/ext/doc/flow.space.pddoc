@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">spaces in time messages received at the same logical time</tr>
-        <tr lang="ru">распределить во времени сообщения, полученные одновременно</tr>
+        <tr lang="ru">распределяет во времени сообщения, полученные одновременно</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,67 +16,79 @@
       <keywords>space</keywords>
       <since>0.9.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object delays each incoming message by an increasing amount of time, so
+        that messages received at the same logical time are spread out over time</tr>
+        <tr lang="ru">объект задерживает каждое входящее сообщение на всё большее время, так что
+        сообщения, полученные одновременно, распределяются во времени</tr>
+      </par>
+      <par>
+        <tr lang="en">@delay sets the interval between consecutive messages, @dev adds random
+        deviation to the interval</tr>
+        <tr lang="ru">@delay задаёт интервал между последовательными сообщениями, @dev добавляет
+        случайное отклонение к интервалу</tr>
+      </par>
+      <par>
+        <tr lang="en">@done sets the time space after the last message, after which a bang is sent
+        to the second outlet</tr>
+        <tr lang="ru">@done задаёт задержку после последнего сообщения, по истечении которой на
+        второй выход отправляется bang</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="DELAY" type="float" units="millisecond" minvalue="1">
         <tr lang="en">time space between messages</tr>
-        <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
+        <tr lang="ru">интервал между сообщениями</tr>
       </argument>
       <argument name="DONE" type="int" minvalue="0">
-        <tr lang="en">time space = N*space after last outputted message</tr>
-        <!-- old: Пространство времени = N* Пространство после
-                последнего выведенного сообщения -->
-        <tr lang="ru" finished="false">Пространство времени = N* Пространство после последнего
-        выведенного сообщения</tr>
+        <tr lang="en">time space = N*space after the last outputted message</tr>
+        <tr lang="ru">интервал = N*delay после последнего выведенного сообщения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @delay -->
       <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
-        <tr lang="en">time-space between messages</tr>
-        <tr lang="ru" finished="false">Пространство времени между сообщениями</tr>
+        <tr lang="en">time space between messages</tr>
+        <tr lang="ru">интервал между сообщениями</tr>
       </property>
       <!-- @dev -->
       <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">
         <tr lang="en">random deviation</tr>
-        <tr lang="ru" finished="false">случайное отклонение</tr>
+        <tr lang="ru">случайное отклонение</tr>
       </property>
       <!-- @done -->
       <property name="@done" type="int" default="1" minvalue="0">
-        <tr lang="en">time space (=@done*@delay) after last outputted message. After that delay
-        output bang to second outlet</tr>
-        <!-- old: Пространство времени (=@done*@delay) после
-                последнего отправленного сообщения. После этого отсрочка выхода Bang на вторую
-                розетку -->
-        <tr lang="ru" finished="false">Пространство времени (=@done*@delay) после последнего
-        отправленного сообщения. После этого отсрочка выхода Bang на вторую розетку</tr>
+        <tr lang="en">time space (=@done*@delay) after the last outputted message. After that delay
+        a bang is output to the second outlet</tr>
+        <tr lang="ru">интервал (=@done*@delay) после последнего выведенного сообщения. По истечении
+        этой задержки на второй выход выводится bang</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">messages</tr>
-          <tr lang="ru" finished="false">сообщения</tr>
+          <tr lang="ru">сообщения</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set space interval (ms)</tr>
-          <tr lang="ru" finished="false">установленный интервал пространства (ms)</tr>
+          <tr lang="ru">задать интервал (мс)</tr>
         </in>
         <in>
-          <tr lang="en">reset: cancel all scheduled outputs and clear message queue</tr>
-          <!-- old: Сброс: отменить все запланированные выходы и
-                    четкую очередь сообщений -->
-          <tr lang="ru" finished="false">Сброс: отменить все запланированные выходы и четкую
-          очередь сообщений</tr>
+          <tr lang="en">reset: cancel all scheduled outputs and clear the message queue</tr>
+          <tr lang="ru">reset: отменить все запланированные выводы и очистить очередь
+          сообщений</tr>
         </in>
         <in>
           <tr lang="en">@delay: set @delay property</tr>
-          <tr lang="ru" finished="false">@delay: set @delay property</tr>
+          <tr lang="ru">@delay: задать свойство @delay</tr>
         </in>
         <in>
           <tr lang="en">@done: set @done property</tr>
-          <tr lang="ru" finished="false">Оригинальное название: Set @done Property</tr>
+          <tr lang="ru">@done: задать свойство @done</tr>
         </in>
       </inlet>
     </inlets>
@@ -84,14 +96,14 @@
       <outlet>
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang on finish (after @delay*@done ms after last outputted message)</tr>
-          <tr lang="ru" finished="false">bang on finish (после @delay*@done ms после последнего
-          отправленного сообщения)</tr>
+        <out type="bang">
+          <tr lang="en">on finish (after @delay*@done ms after the last outputted message)</tr>
+          <tr lang="ru">по завершении (через @delay*@done мс после последнего выведенного
+          сообщения)</tr>
         </out>
       </outlet>
     </outlets>

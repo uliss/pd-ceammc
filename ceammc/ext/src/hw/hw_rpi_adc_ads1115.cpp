@@ -1,4 +1,6 @@
 #include "hw_rpi_adc_ads1115.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
@@ -220,3 +222,4 @@ void setup_hw_rpi_adc_ads1115()
     obj.addMethod("measure", &HwRpiAdcAds1115::m_measure);
     obj.addMethod("poll", &HwRpiAdcAds1115::m_poll);
 }
+#endif

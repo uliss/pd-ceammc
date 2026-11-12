@@ -22,30 +22,38 @@
       </also>
       <since>0.3</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object calls a function previously defined by the [function] object and
+        outputs its result</tr>
+        <tr lang="ru">объект вызывает функцию, ранее определённую объектом [function], и выводит её
+        результат</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="NAME" type="symbol">
         <tr lang="en">function name</tr>
-        <tr lang="ru" finished="false">название функции</tr>
+        <tr lang="ru">имя функции</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @name -->
       <property name="@name" type="symbol" default="">
         <tr lang="en">function name</tr>
-        <tr lang="ru" finished="false">название функции</tr>
+        <tr lang="ru">имя функции</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in>
           <tr lang="en">input value</tr>
-          <tr lang="ru" finished="false">входная стоимость</tr>
+          <tr lang="ru">входное значение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
           <tr lang="en">change function name</tr>
-          <tr lang="ru" finished="false">Изменение названия функции</tr>
+          <tr lang="ru">изменить имя функции</tr>
         </in>
       </inlet>
     </inlets>
@@ -53,7 +61,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">function result</tr>
-          <tr lang="ru" finished="false">Функция Результат</tr>
+          <tr lang="ru">результат функции</tr>
         </out>
       </outlet>
     </outlets>

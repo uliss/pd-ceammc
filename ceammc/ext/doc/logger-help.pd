@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 497 50 cnv 1 268 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 502 50 advanced data logger for Pd window;
+#X obj 467 50 cnv 1 298 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 472 50 advanced data logger for the Pd window;
 #X obj 1 1 cnv 5 765 40 empty empty logger 20 20 0 20 -104026 -4096 0;
 #N canvas 599 11 250 400 aliases 0;
 #X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -20,53 +20,61 @@
 [log.stderr] @url logger-help.pd;
 #X restore 599 11 pd aliases;
 #X obj 696 11 logger;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 107 118 1 2 3;
-#X obj 203 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 147 log.error ERROR!;
-#X floatatom 50 176 5 0 0 0 - - -;
-#X msg 107 176 message;
-#X obj 203 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 205 log.debug;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object outputs messages to the Pd window with an
+optional prefix;
+#X text 240 123 several aliases are provided for different log levels:
+log.error \, log.debug \, log.post \, log.verbose \, log.stdout and
+log.stderr;
+#X text 240 178 logging can be enabled or disabled with the @active
+property or by sending 1 or 0 to the right inlet;
+#X floatatom 50 281 5 0 0 0 - - -;
+#X msg 107 281 1 2 3;
+#X obj 203 281 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 310 log.error ERROR!;
+#X floatatom 50 339 5 0 0 0 - - -;
+#X msg 107 339 message;
+#X obj 203 339 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 368 log.debug;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 423 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 426 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 list;
-#X obj 268 262 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 PREFIX: log message prefix. Type: list.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 424 1\.;
+#X text 170 424 list;
+#X obj 268 425 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 424 PREFIX: log message prefix. Type: list.;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 464 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 467 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 302 @active;
-#X text 270 302 Enabled/disabled logging state. Type: bool. Default
+#X msg 130 465 @active;
+#X text 270 465 Enabled/disabled logging state. Type: bool. Default
 value: 1\.;
-#X obj 250 344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 344 @prefix;
-#X text 270 344 Log message prefix. Type: list.;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 507 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 507 @prefix;
+#X text 270 507 Log message prefix. Type: list.;
+#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 552 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 390 1\.;
-#X text 270 390 log input.;
-#X text 130 415 2\.;
-#X text 170 415 float:;
-#X text 270 415 1: enable logging \, 0: disable logging.;
-#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 455 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 553 1\.;
+#X text 270 553 log input.;
+#X text 130 578 2\.;
+#X text 170 578 float:;
+#X text 270 578 1: enable logging \, 0: disable logging.;
+#X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 618 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 659 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 662 library: ceammc v0.9.8;
+#N canvas 10 681 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,10 +98,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 1;
+#X restore 10 681 pd info;
 #X connect 9 0 12 0;
 #X connect 10 0 12 0;
 #X connect 11 0 12 1;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 1;

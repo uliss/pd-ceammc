@@ -1,64 +1,69 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 466 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 304 50 get/set the named property value for subpatch or abstraction;
+#X obj 353 50 cnv 1 412 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 358 50 get/set the named property value for a subpatch or an
+abstraction;
 #X obj 1 1 cnv 5 765 40 empty empty prop 20 20 0 20 -104026 -4096 0;
 #X obj 602 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/prop] @url prop-help.pd;
 #X obj 710 8 prop;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 The property should be declared with [prop.declare].
-Min/max limits can be set to the property;
-#X obj 50 186 prop.declare freq @min 20 @max 20000 @default 1000;
-#X obj 50 215 prop.declare gain @min -60 @max 12 @default -3;
-#X floatatom 50 244 5 0 0 0 - - -;
-#X obj 50 273 prop @freq;
-#X obj 174 273 prop @gain;
-#X floatatom 50 302 5 0 0 0 - - -;
-#X floatatom 174 302 5 0 0 0 - - -;
-#X msg 50 330 default;
-#X obj 50 359 prop @freq;
-#X floatatom 50 388 5 0 0 0 - - -;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 425 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 93 cnv 1 535 140 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 98 the object gets or sets the value of a named property
+in the current subpatch or abstraction;
+#X text 240 138 the property must be declared with [prop.declare] first.
+The min/max limits are set at declaration time;
+#X text 240 178 a bang on the inlet outputs the current property value
+\, an incoming value sets the property and outputs it;
+#X obj 50 281 prop.declare freq @min 20 @max 20000 @default 1000;
+#X obj 50 310 prop.declare gain @min -60 @max 12 @default -3;
+#X floatatom 50 339 5 0 0 0 - - -;
+#X obj 50 368 prop @freq;
+#X obj 174 368 prop @gain;
+#X floatatom 50 397 5 0 0 0 - - -;
+#X floatatom 174 397 5 0 0 0 - - -;
+#X msg 50 425 default;
+#X obj 50 454 prop @freq;
+#X floatatom 50 483 5 0 0 0 - - -;
+#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 520 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 428 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 523 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 426 1\.;
-#X text 170 426 symbol;
-#X obj 268 427 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 426 @NAME: property name. Type: symbol.;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 466 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X text 130 521 1\.;
+#X text 170 521 symbol;
+#X obj 268 522 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 521 @NAME: property name. Type: symbol.;
+#X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 561 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 467 default;
-#X text 270 467 reset to default value and output.;
-#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 517 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 562 default;
+#X text 270 562 reset to the default value and output.;
+#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 612 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 518 1\.;
-#X text 170 518 bang:;
-#X text 270 518 output property value.;
-#X text 170 543 any:;
-#X text 270 543 set property value and output it.;
-#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 583 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 613 1\.;
+#X text 170 613 bang:;
+#X text 270 613 output property value.;
+#X text 170 638 any:;
+#X text 270 638 set property value and output it.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 678 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 584 1\.;
-#X text 270 584 output value.;
+#X text 130 679 1\.;
+#X text 270 679 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 634 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 637 library: ceammc v0.9.8;
-#X text 477 649 see also:;
-#X obj 552 652 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 729 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 732 library: ceammc v0.9.8;
+#X text 477 744 see also:;
+#X obj 552 747 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop.declare] @url prop.declare-help.pd;
-#X obj 657 652 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 747 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.props] @url patch.props-help.pd;
-#N canvas 10 656 400 290 info 0;
+#N canvas 10 751 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -82,9 +87,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 656 pd info;
-#X connect 9 0 10 0;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 14 0 15 0;
-#X connect 15 0 16 0;
+#X restore 10 751 pd info;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;

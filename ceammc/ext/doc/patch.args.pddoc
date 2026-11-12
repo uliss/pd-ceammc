@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">get patch or subpatch initial arguments</tr>
-        <tr lang="ru">получить начальные аргументы для патча или субпатча</tr>
+        <tr lang="ru">получает начальные аргументы патча или субпатча Pd</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,24 +21,42 @@
       </also>
       <since>0.4</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">a Pd patch (or subpatch) can receive initial arguments when instantiated, the
+        object outputs these arguments as a list</tr>
+        <tr lang="ru">патч Pd (или субпатч) может получать начальные аргументы при создании, объект
+        выводит эти аргументы в виде списка</tr>
+      </par>
+      <par>
+        <tr lang="en">the @from property or the FROM argument sets the starting index, so the first
+        N arguments can be skipped</tr>
+        <tr lang="ru">свойство @from или аргумент FROM задаёт начальный индекс, что позволяет
+        пропустить первые N аргументов</tr>
+      </par>
+      <par>
+        <tr lang="en">output is produced on bang</tr>
+        <tr lang="ru">вывод происходит по bang</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="FROM" type="int" minvalue="0">
         <tr lang="en">starting args index</tr>
-        <tr lang="ru" finished="false">Стартовый индекс Args</tr>
+        <tr lang="ru">начальный индекс аргументов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @from -->
       <property name="@from" type="int" minvalue="0" default="0">
         <tr lang="en">starting args index</tr>
-        <tr lang="ru" finished="false">Стартовый индекс Args</tr>
+        <tr lang="ru">начальный индекс аргументов</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">output patch or subpatch arguments</tr>
-          <tr lang="ru" finished="false">выходной патч или аргументы субпатча</tr>
+          <tr lang="ru">вывести аргументы патча или субпатча</tr>
         </in>
       </inlet>
     </inlets>
@@ -46,7 +64,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">list of arguments</tr>
-          <tr lang="ru" finished="false">Список аргументов</tr>
+          <tr lang="ru">список аргументов</tr>
         </out>
       </outlet>
     </outlets>

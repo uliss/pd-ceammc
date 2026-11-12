@@ -23,7 +23,7 @@ system.getenv-help.pd;
 system.hostname-help.pd;
 #X text 220 282 выводит имя хоста системы;
 #X obj 30 310 ui.link @title [system.info] @url system.info-help.pd;
-#X text 220 307 получение информации о системе: ЦПУ и температура;
+#X text 220 307 получает информацию о системе: процессор и температура;
 #X obj 30 335 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
 #X text 220 332 возвращает размер физической памяти (ОЗУ) в байтах;
@@ -33,7 +33,7 @@ system.memused-help.pd;
 текущее и пиковое;
 #X obj 30 400 ui.link @title [system.screen_size] @url
 system.screen_size-help.pd;
-#X text 220 397 выводит размер активного экрана в пикселях;
+#X text 220 397 выводит размер текущего экрана в пикселях;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

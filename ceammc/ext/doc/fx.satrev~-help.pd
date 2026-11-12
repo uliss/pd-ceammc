@@ -5,85 +5,94 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.satrev~ 20 20 0 20 -104026
 -4096 0;
 #X obj 666 11 fx.satrev~;
-#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 147 metro 250;
-#X obj 50 176 random.a 68 26 84;
-#X obj 50 205 makenote 127 200;
-#X obj 232 205 ui.k;
-#X obj 50 234 pack f f;
-#X obj 366 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 262 synth.dubdub~;
-#X msg 232 262 @drywet \$1;
-#X msg 366 262 @bypass \$1;
-#X obj 50 291 fx.satrev~;
-#X obj 50 320 ui.hgain2~;
-#X obj 232 320 ui.dsp~;
-#X obj 50 349 dac~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 a classic algorithmic reverberator based on the architecture
+proposed by Manfred Schroeder \, built from parallel feedback comb
+filters followed by series allpass filters;
+#X text 240 153 the parallel comb filters create the initial echo density
+\, while the series allpass filters increase the density without adding
+coloration;
+#X text 240 208 this architecture became the foundation of many later
+reverberation algorithms \, including the well-known Freeverb;
+#X obj 50 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 355 metro 250;
+#X obj 50 384 random.a 68 26 84;
+#X obj 50 413 makenote 127 200;
+#X obj 232 413 ui.k;
+#X obj 50 442 pack f f;
+#X obj 366 442 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 470 synth.dubdub~;
+#X msg 232 470 @drywet \$1;
+#X msg 366 470 @bypass \$1;
+#X obj 50 499 fx.satrev~;
+#X obj 50 528 ui.hgain2~;
+#X obj 232 528 ui.dsp~;
+#X obj 50 557 dac~;
+#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 612 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 407 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 615 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 405 1\.;
-#X text 170 405 float;
-#X obj 268 406 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 405 DRYWET: drywet mix. Type: float. Range: [0\..1];
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 613 1\.;
+#X text 170 613 float;
+#X obj 268 614 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 613 DRYWET: dry/wet mix. Type: float. Range: [0\..1];
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 653 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 448 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 656 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 446 @id;
-#X text 270 446 (initonly) OSC address id. If specified \, bind all
+#X msg 130 654 @id;
+#X text 270 654 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_satrev/PROP_NAME osc address \, if empty bind
 to /fx_satrev/PROP_NAME. Type: symbol.;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @osc;
-#X text 270 503 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 533 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 533 @active;
-#X text 270 533 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 711 @osc;
+#X text 270 711 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 741 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 741 @active;
+#X text 270 741 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 563 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 563 @bypass;
-#X text 270 563 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 605 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 605 @drywet;
-#X text 270 605 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+#X obj 250 771 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 771 @bypass;
+#X text 270 771 Bypass flag. If true: bypass the processed signal.
+Type: bool. Default value: 0\.;
+#X obj 250 813 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 813 @drywet;
+#X text 270 813 Proportion of mix between the original (dry) and processed
+(wet) signals. 0 — dry signal \, 1 — wet. Type: float. Default value:
 0.25\. Range: [0\..1].;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 677 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 880 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 885 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 678 reset;
-#X text 270 678 reset to initial state.;
-#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 728 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 886 reset;
+#X text 270 886 reset to initial state.;
+#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 936 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 729 1\.;
-#X text 170 729 ~;
-#X text 270 729 input signal.;
-#X text 130 754 2\.;
-#X text 170 754 float:;
-#X text 270 754 set drywet.;
-#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 794 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 937 1\.;
+#X text 170 937 ~;
+#X text 270 937 input signal.;
+#X text 130 962 2\.;
+#X text 170 962 float:;
+#X text 270 962 set dry/wet mix.;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1002 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 795 1\.;
-#X text 170 795 ~;
-#X text 270 795 left output signal.;
-#X text 130 815 2\.;
-#X text 170 815 ~;
-#X text 270 815 right output signal.;
+#X text 130 1003 1\.;
+#X text 170 1003 ~;
+#X text 270 1003 left output signal.;
+#X text 130 1023 2\.;
+#X text 170 1023 ~;
+#X text 270 1023 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 865 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 868 library: ceammc v0.9.8;
-#N canvas 10 887 400 290 info 0;
+#X obj 1 1073 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1076 library: ceammc v0.9.8;
+#N canvas 10 1095 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,19 +116,19 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 887 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 7 1 9 1;
-#X connect 9 0 11 0;
-#X connect 8 0 12 0;
-#X connect 10 0 13 0;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 1 15 1;
-#X connect 15 0 17 0;
-#X connect 15 1 17 1;
+#X restore 10 1095 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 1 13 1;
+#X connect 13 0 15 0;
+#X connect 12 0 16 0;
+#X connect 14 0 17 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 19 1;
+#X connect 19 0 21 0;
+#X connect 19 1 21 1;

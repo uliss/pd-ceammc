@@ -6,75 +6,78 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.discrete 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 random.discrete;
-#X obj 230 78 cnv 1 535 145 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Produces random integers on the interval [0 \, N) \,
-where the probability of each individual integer *i* defined as Wⁱ/S
-\, that is the weight of the i-th integer divided by the sum of all
-N weights.;
-#X text 240 153 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 271 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 produces random integers on the interval [0 \, N) \,
+where the probability of each individual integer *i* is defined as
+Wⁱ/S \, that is the weight of the i-th integer divided by the sum of
+all N weights;
+#X text 240 153 use the @seed property to get reproducible sequences.
+If @seed is not set explicitly \, a generator initialized with the
+current time is used;
+#X text 240 208 the object can be used to generate weighted random
+choices \, for example to pick notes with different probabilities or
+to simulate a loaded die;
+#X obj 50 326 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 9 float 0;
 #X coords 0 1 9 0 200 140 1;
-#X restore 482 271 graph;
-#X obj 50 300 list.gen 1000;
-#X obj 203 300 random.discrete 1 2 3 4 0 1 2 4 5;
-#X obj 50 329 list.histogram @bins 9;
-#X obj 50 358 list.normalize @range;
-#X obj 50 387 list.enumerate @append;
-#X obj 50 415 list.repack 2;
-#X obj 50 444 tabwrite array1;
-#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 499 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 482 326 graph;
+#X obj 50 355 list.gen 1000;
+#X obj 203 355 random.discrete 1 2 3 4 0 1 2 4 5;
+#X obj 50 384 list.histogram @bins 9;
+#X obj 50 413 list.normalize @range;
+#X obj 50 442 list.enumerate @append;
+#X obj 50 470 list.repack 2;
+#X obj 50 499 tabwrite array1;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 502 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 557 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 500 1\.;
-#X text 170 500 list;
-#X obj 268 501 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 500 WEIGHTS: weights (list of non-negative floats). Type:
+#X text 130 555 1\.;
+#X text 170 555 list;
+#X obj 268 556 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 555 WEIGHTS: weights (list of non-negative floats). Type:
 list.;
-#X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 540 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 595 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 543 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 598 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 541 @seed;
-#X text 270 541 Generator seed. Type: int. Default value: 0\. Min value:
+#X msg 130 596 @seed;
+#X text 270 596 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 250 571 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 571 @weights;
-#X text 270 571 List of weights (non-negative floats). Type: list.;
-#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 616 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 626 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 626 @weights;
+#X text 270 626 List of weights (non-negative floats). Type: list.;
+#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 671 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 617 1\.;
-#X text 170 617 bang:;
-#X text 270 617 generates random number in interval [0 \, N) \, where
-N is number of weights.;
-#X text 170 657 list:;
-#X text 270 657 set new weights.;
-#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 697 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 672 1\.;
+#X text 170 672 bang:;
+#X text 270 672 generates a random number in the interval [0 \, N)
+\, where N is the number of weights.;
+#X text 170 712 list:;
+#X text 270 712 set new weights.;
+#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 752 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 698 1\.;
-#X text 270 698 result value.;
+#X text 130 753 1\.;
+#X text 270 753 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 751 library: ceammc v0.9.8;
-#X text 441 763 see also:;
-#X obj 516 766 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 803 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 806 library: ceammc v0.9.8;
+#X text 441 818 see also:;
+#X obj 516 821 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.linear] @url random.linear-help.pd;
-#X obj 628 766 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 628 821 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.pw_const] @url random.pw_const-help.pd;
-#N canvas 10 770 400 290 info 0;
+#N canvas 10 825 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,12 +101,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 770 pd info;
-#X connect 7 0 9 0;
-#X connect 9 0 11 0;
-#X connect 11 0 12 0;
+#X restore 10 825 pd info;
+#X connect 8 0 10 0;
+#X connect 10 0 12 0;
 #X connect 12 0 13 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
-#X connect 9 1 10 0;
-#X connect 10 0 9 1;
+#X connect 15 0 16 0;
+#X connect 10 1 11 0;
+#X connect 11 0 10 1;

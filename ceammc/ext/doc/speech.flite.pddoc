@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">render speech to array</tr>
-        <tr lang="ru">рендеринг синтезатора речи в массив</tr>
+        <tr lang="ru">синтезирует речь в массив</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -18,70 +18,83 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Renders floats, symbols and list to wavetables using flite TTS engine.</tr>
-        <tr lang="ru" finished="false">Отображает поплавки, символы и список для волновых таблиц с
-        использованием движка flite TTS.</tr>
+        <tr lang="en">the object renders numbers, symbols and lists to a wavetable in the specified
+        array using the Flite TTS engine</tr>
+        <tr lang="ru">объект синтезирует числа, символы и списки в волновую таблицу в заданном
+        массиве с помощью движка Flite TTS</tr>
       </par>
       <par>
-        <tr lang="en">Rendering is performed in separate thread.</tr>
-        <tr lang="ru" finished="false">Рендеринг выполняется в отдельной нити.</tr>
+        <tr lang="en">rendering is performed in a separate thread, so it does not block the audio
+        thread</tr>
+        <tr lang="ru">синтез выполняется в отдельном потоке, поэтому он не блокирует
+        аудиопоток</tr>
+      </par>
+      <par>
+        <tr lang="en">a bang is output on the first outlet when rendering is finished</tr>
+        <tr lang="ru">по завершении синтеза на первый выход выдаётся bang</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to generate spoken words or numbers, for example to
+        announce values or to add voice prompts to a patch</tr>
+        <tr lang="ru">объект можно использовать для генерации произносимых слов или чисел, например
+        чтобы озвучивать значения или добавлять голосовые подсказки в патч</tr>
       </par>
     </info>
     <arguments>
       <argument name="ARRAY" type="symbol">
-        <tr lang="en">destination array name render to</tr>
-        <tr lang="ru" finished="false">Имя адресата рендерить</tr>
+        <tr lang="en">name of the destination array to render to</tr>
+        <tr lang="ru">имя целевого массива для синтеза</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @array -->
       <property name="@array" type="symbol" default="">
         <tr lang="en">destination array name</tr>
-        <tr lang="ru" finished="false">Имя адресата</tr>
+        <tr lang="ru">имя целевого массива</tr>
       </property>
       <!-- @pitch -->
       <property name="@pitch" type="float" default="-1">
-        <tr lang="en">voice pitch (-1 - default value)</tr>
-        <tr lang="ru" finished="false">голосовой шаг (-1 - значение по умолчанию)</tr>
+        <tr lang="en">voice pitch (-1 — default value)</tr>
+        <tr lang="ru">высота голоса (-1 — значение по умолчанию)</tr>
       </property>
       <!-- @speed -->
       <property name="@speed" type="float" minvalue="1" maxvalue="4" default="1">
         <tr lang="en">speaking speed</tr>
-        <tr lang="ru" finished="false">Скорость речи</tr>
+        <tr lang="ru">скорость речи</tr>
       </property>
       <!-- @voice -->
       <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">
         <tr lang="en">default voice</tr>
-        <tr lang="ru" finished="false">Голос по умолчанию</tr>
+        <tr lang="ru">голос по умолчанию</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">render number to array</tr>
-          <tr lang="ru" finished="false">Отображение числа в массив</tr>
+          <tr lang="en">render a number to the array</tr>
+          <tr lang="ru">синтезировать число в массив</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">render text to array</tr>
-          <tr lang="ru" finished="false">Отображение текста в массив</tr>
+          <tr lang="en">render text to the array</tr>
+          <tr lang="ru">синтезировать текст в массив</tr>
         </in>
         <in on="list">
-          <tr lang="en">render text to array</tr>
-          <tr lang="ru" finished="false">Отображение текста в массив</tr>
+          <tr lang="en">render text to the array</tr>
+          <tr lang="ru">синтезировать текст в массив</tr>
         </in>
       </inlet>
       <inlet>
         <in on="symbol">
-          <tr lang="en">set target array name</tr>
-          <tr lang="ru" finished="false">имя целевого массива</tr>
+          <tr lang="en">set the target array name</tr>
+          <tr lang="ru">задать имя целевого массива</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">bang on done</tr>
-          <tr lang="ru" finished="false">бахвальство</tr>
+        <out type="bang">
+          <tr lang="en">on done</tr>
+          <tr lang="ru">по завершении</tr>
         </out>
       </outlet>
     </outlets>

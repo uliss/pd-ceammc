@@ -1,16 +1,16 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 489 50 получение сообщений по протоколу OSC;
+#X obj 491 50 cnv 1 274 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 496 50 получает сообщения по протоколу OSC;
 #X obj 1 1 cnv 5 765 40 empty empty net.osc.receive 20 20 0 20 -104026
 -4096 0;
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [net.osc.r] @url net.osc.receive-help.pd;
 #X obj 631 8 net.osc.receive;
 #X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 строка типов OSC: 'i' (int32) \, 'f' (float32) \, 's'/'S'
-(строка) \, 'b' (blob) \, 'h' (int64) \, 'd' (float64) \, 'c' (char)
-\, 'm' (MIDI) \, 'T' (истина) \, 'F' (ложь) \, 'N' (nil) \, 'I' (бесконечность);
+#X text 240 83 OSC (Open Sound Control) — протокол обмена данными между
+компьютерами \, синтезаторами и другими мультимедийными устройствами
+\, оптимизированный для современных сетевых технологий;
 #X text 50 216 default OSC server: osc.udp://:9000;
 #X obj 434 216 net.osc.server TCP osc.tcp://:9001;
 #X obj 50 245 net.osc.receive /x;

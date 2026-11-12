@@ -11,61 +11,71 @@
 #X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [mux~] @url flow.multiplex~-help.pd;
 #X obj 630 8 flow.multiplex~;
-#X obj 50 118 osc~ 400;
-#X obj 155 118 osc~ 800;
-#X obj 261 118 osc~ 1600;
-#X obj 414 118 ui.dsp~;
-#X obj 309 162 ui.radio @nitems 3;
-#X obj 50 219 flow.multiplex~ 3;
-#X obj 50 248 ui.gain~ @size 120 16;
-#X obj 50 277 dac~;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 195 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object selects one of N audio input signals and
+sends it to the output \, the selection is controlled by the last (control)
+inlet;
+#X text 240 138 the control value is the index of the selected input
+\, starting from 0;
+#X text 240 178 @value sets the gain coefficients for each output;
+#X text 240 203 the object can be used to switch between several sound
+sources \, for example to select an oscillator waveform or to route
+one of several audio streams to the output;
+#X obj 50 321 osc~ 400;
+#X obj 155 321 osc~ 800;
+#X obj 261 321 osc~ 1600;
+#X obj 414 321 ui.dsp~;
+#X obj 309 365 ui.radio @nitems 3;
+#X obj 50 422 flow.multiplex~ 3;
+#X obj 50 451 ui.gain~ @size 120 16;
+#X obj 50 480 dac~;
+#X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 535 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 335 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 538 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 333 1\.;
-#X text 170 333 int;
-#X obj 268 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 N: number of signals inputs. Type: int. Range: [2\..16];
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 536 1\.;
+#X text 170 536 int;
+#X obj 268 537 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 536 N: number of signal inputs. Type: int. Range: [2\..16];
+#X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 576 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 579 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 374 @value;
-#X text 270 374 Gain coefficients per each output. Type: list. Default
+#X msg 130 577 @value;
+#X text 270 577 Gain coefficients for each output. Type: list. Default
 value: 1 0\.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 634 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 432 1\.;
-#X text 170 432 ~;
-#X text 270 432 first input signal.;
-#X text 130 457 n.;
-#X text 170 457 ~;
-#X text 270 457 last input signal.;
-#X text 130 482 n+1\.;
-#X text 270 482 multiplexer control.;
-#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 522 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 635 1\.;
+#X text 170 635 ~;
+#X text 270 635 first input signal.;
+#X text 130 660 n.;
+#X text 170 660 ~;
+#X text 270 660 last input signal.;
+#X text 130 685 n+1\.;
+#X text 270 685 multiplexer control.;
+#X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 725 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 523 1\.;
-#X text 170 523 ~;
-#X text 270 523 output.;
+#X text 130 726 1\.;
+#X text 170 726 ~;
+#X text 270 726 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 576 library: ceammc v0.9.8;
-#X text 427 588 see also:;
-#X obj 502 591 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 776 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 779 library: ceammc v0.9.8;
+#X text 427 791 see also:;
+#X obj 502 794 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.multiplex2~] @url flow.multiplex2~-help.pd;
-#X obj 636 591 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 636 794 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.multiplex] @url flow.multiplex-help.pd;
-#N canvas 10 595 400 290 info 0;
+#N canvas 10 798 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,11 +99,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 595 pd info;
-#X connect 7 0 12 0;
-#X connect 8 0 12 1;
-#X connect 9 0 12 2;
-#X connect 11 0 12 3;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 13 0 14 1;
+#X restore 10 798 pd info;
+#X connect 12 0 17 0;
+#X connect 13 0 17 1;
+#X connect 14 0 17 2;
+#X connect 16 0 17 3;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 0 19 1;

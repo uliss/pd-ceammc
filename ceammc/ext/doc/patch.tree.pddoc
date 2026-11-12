@@ -19,11 +19,23 @@
         <see>patch.deps</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object builds the object tree of the current patch or subpatch, including
+        nested abstractions</tr>
+        <tr lang="ru">объект строит дерево объектов текущего патча или субпатча, включая вложенные
+        абстракции</tr>
+      </par>
+      <par>
+        <tr lang="en">the result is output as data:Dict on bang</tr>
+        <tr lang="ru">результат выводится как data:Dict по bang</tr>
+      </par>
+    </info>
     <inlets>
       <inlet type="control">
         <in on="bang">
           <tr lang="en">output current patch tree as Dict</tr>
-          <tr lang="ru" finished="false">Производить текущее патч-дерево Dict</tr>
+          <tr lang="ru">вывести дерево текущего патча как Dict</tr>
         </in>
       </inlet>
     </inlets>
@@ -31,7 +43,7 @@
       <outlet type="control">
         <out type="any">
           <tr lang="en">patch tree as Dict</tr>
-          <tr lang="ru" finished="false">Повязка дерева Dict</tr>
+          <tr lang="ru">дерево патча как Dict</tr>
         </out>
       </outlet>
     </outlets>

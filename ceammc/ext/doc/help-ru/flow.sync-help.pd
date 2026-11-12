@@ -7,66 +7,75 @@
 #X obj 604 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.'] @url flow.sync-help.pd;
 #X obj 675 8 flow.sync;
-#X obj 230 78 cnv 1 535 90 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Sync data flow. All inlets are 'hot'. When float \,
-symbol or list arrives to inlet \, it's value stored. Then output all
-stored values from all inlets from rightmost to leftmost;
-#X obj 50 216 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+#X obj 230 78 cnv 1 535 270 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект хранит последнее полученное значение с каждого
+входа и при поступлении нового значения выводит все сохранённые значения
+со всех выходов справа налево;
+#X text 240 138 в отличие от [flow.sync_pack] \, который упаковывает
+все «горячие» входы в один список на одном выходе \, [flow.sync] хранит
+отдельное значение для каждого входа и при каждом новом входе выводит
+все их параллельно с N выходов;
+#X text 240 223 все входы «горячие» \, поэтому любое число \, символ
+или список запускает вывод;
+#X text 240 263 объект можно использовать для синхронизации параллельных
+управляющих потоков \, например чтобы вывести несколько значений параметров
+вместе при изменении любого из них;
+#X obj 50 396 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
-#X obj 88 245 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
+#X obj 88 425 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
-#X obj 126 274 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
+#X obj 126 454 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
 10 -262144 -1 -1 0 0;
-#X obj 50 303 flow.sync 3;
-#X obj 126 332 ui.dt;
-#X obj 88 360 ui.dt;
-#X obj 50 389 ui.dt;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 444 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 483 flow.sync 3;
+#X obj 126 512 ui.dt;
+#X obj 88 540 ui.dt;
+#X obj 50 569 ui.dt;
+#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 624 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 447 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 627 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 445 1\.;
-#X text 170 445 int;
-#X obj 268 446 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 445 N: Number of input/outputs. Тип: int. Диапазон: [2\..16];
-#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 485 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 625 1\.;
+#X text 170 625 int;
+#X obj 268 626 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 625 N: количество входов/выходов. Тип: int. Диапазон: [2\..16];
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 488 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 668 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 486 @n;
-#X text 270 486 (при инициализации) Number of inputs/outputs. Тип:
+#X msg 130 666 @n;
+#X text 270 666 (при инициализации) Количество входов/выходов. Тип:
 int. Значение по умолчанию: 2\. Диапазон: [2\..16].;
-#X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 543 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 723 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 544 1\.;
-#X text 270 544 first inlet.;
-#X text 130 569 ...;
-#X text 270 569 ...;
-#X text 130 594 n.;
-#X text 270 594 Nth inlet.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 634 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 724 1\.;
+#X text 270 724 первый вход.;
+#X text 130 749 ...;
+#X text 270 749 ...;
+#X text 130 774 n.;
+#X text 270 774 N-й вход.;
+#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 814 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 635 1\.;
-#X text 270 635 first outlet.;
-#X text 130 655 ...;
-#X text 270 655 ... outlet.;
-#X text 130 675 n.;
-#X text 270 675 Nth outlet.;
+#X text 130 815 1\.;
+#X text 270 815 первый выход.;
+#X text 130 835 ...;
+#X text 270 835 ... выход.;
+#X text 130 855 n.;
+#X text 270 855 N-й выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 725 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 728 библиотека: ceammc v0.9.8;
-#X text 544 740 смотрите также:;
-#X obj 665 743 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 905 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 908 библиотека: ceammc v0.9.8;
+#X text 544 920 смотрите также:;
+#X obj 665 923 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.pack'] @url flow.pack'-help.pd;
-#N canvas 10 747 400 290 info 0;
+#N canvas 10 927 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -90,10 +99,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 747 pd info;
-#X connect 7 0 10 0;
-#X connect 8 0 10 1;
-#X connect 9 0 10 2;
-#X connect 10 2 11 0;
-#X connect 10 1 12 0;
+#X restore 10 927 pd info;
 #X connect 10 0 13 0;
+#X connect 11 0 13 1;
+#X connect 12 0 13 2;
+#X connect 13 2 14 0;
+#X connect 13 1 15 0;
+#X connect 13 0 16 0;

@@ -1,73 +1,84 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 535 50 рандомизатор значения свойства;
+#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 542 50 рандомизатор значений свойств;
 #X obj 1 1 cnv 5 765 40 empty empty prop.random 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 prop.random;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект присваивает случайное значение указанным свойствам
+подключённого объекта \, субпатча или абстракции;
+#X text 240 123 свойства должны быть предварительно объявлены через
+[prop.declare]; случайное значение выбирается в пределах @min и @max
+свойства;
+#X text 240 193 используйте @seed для воспроизводимых последовательностей.
+Если @seed не задан явно \, используется генератор \, инициализированный
+текущим временем;
+#X obj 50 311 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 prop.random @feedback;
-#X obj 69 176 sig~ 50;
-#X floatatom 194 176 5 0 0 0 - - -;
-#X obj 50 205 osc.sinfb~;
-#X obj 194 205 ui.dsp~;
-#X obj 50 234 ui.hgain~;
-#X obj 50 262 dac~;
-#X obj 50 291 prop.random-1;
-#X obj 222 291 prop.random-2;
-#X obj 50 320 prop.random-3;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 50 340 prop.random @feedback;
+#X obj 69 369 sig~ 50;
+#X floatatom 194 369 5 0 0 0 - - -;
+#X obj 50 398 osc.sinfb~;
+#X obj 194 398 ui.dsp~;
+#X obj 50 427 ui.hgain~;
+#X obj 50 455 dac~;
+#X obj 50 484 prop.random-1;
+#X obj 222 484 prop.random-2;
+#X obj 50 513 prop.random-3;
+#X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 568 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 571 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 376 1\.;
-#X text 170 376 int;
-#X obj 268 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 SEED: init random seed. Тип: int.;
-#X text 130 401 2\.;
-#X text 170 401 list;
-#X obj 268 402 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 401 PROPS: properties names. Тип: list.;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 441 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 569 1\.;
+#X text 170 569 int;
+#X obj 268 570 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 569 SEED: начальное значение генератора случайных чисел.
+Тип: int.;
+#X text 130 609 2\.;
+#X text 170 609 list;
+#X obj 268 610 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 609 PROPS: имена свойств. Тип: list.;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 649 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 444 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 652 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 442 @seed;
-#X text 270 442 Random seed. Тип: int. Значение по умолчанию: 0\.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 650 @seed;
+#X text 270 650 Начальное значение генератора случайных чисел. Тип:
+int. Значение по умолчанию: 0\.;
+#X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 707 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 270 488 first specified property.;
-#X text 130 513 ...;
-#X text 270 513 ... specified property.;
-#X text 130 538 n.;
-#X text 270 538 n-th specified property.;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 578 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 708 1\.;
+#X text 270 708 первое указанное свойство.;
+#X text 130 733 ...;
+#X text 270 733 ... указанное свойство.;
+#X text 130 758 n.;
+#X text 270 758 N-е указанное свойство.;
+#X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 798 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 579 1\.;
-#X text 270 579 connect to target object.;
-#X text 130 599 2\.;
-#X text 270 599 atom: new random value.;
+#X text 130 799 1\.;
+#X text 270 799 подключить к целевому объекту.;
+#X text 130 819 2\.;
+#X text 270 819 атом: новое случайное значение.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 652 библиотека: ceammc v0.9.8;
-#X text 384 664 смотрите также:;
-#X obj 505 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 869 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 872 библиотека: ceammc v0.9.8;
+#X text 384 884 смотрите также:;
+#X obj 505 887 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop] @url prop-help.pd;
-#X obj 552 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 552 887 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop.declare] @url prop.declare-help.pd;
-#X obj 657 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 887 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.props] @url patch.props-help.pd;
-#N canvas 10 671 400 290 info 0;
+#N canvas 10 891 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -91,11 +102,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 671 pd info;
-#X connect 4 0 5 0;
-#X connect 5 1 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 8 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 0 11 1;
+#X restore 10 891 pd info;
+#X connect 8 0 9 0;
+#X connect 9 1 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;

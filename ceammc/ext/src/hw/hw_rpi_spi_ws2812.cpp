@@ -1,4 +1,6 @@
 #include "hw_rpi_spi_ws2812.h"
+
+#ifdef WITH_RPI
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
@@ -389,3 +391,5 @@ void setup_hw_rpi_spi_ws2812()
     obj.addMethod("set_pixel", &HwSpiWs2812::m_set_pixel);
     obj.addMethod("write", &HwSpiWs2812::m_write);
 }
+
+#endif

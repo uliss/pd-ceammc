@@ -5,76 +5,90 @@
 #X obj 1 1 cnv 5 765 40 empty empty risset.gliss 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 risset.gliss;
-#X msg 50 118 0 \, 1 10000;
-#X floatatom 184 118 5 0 0 0 - - -;
-#X floatatom 357 118 5 0 0 0 - - -;
-#X obj 50 147 line 0 20;
-#X msg 184 147 @interval \$1;
-#X msg 357 147 @shift \$1;
-#X obj 50 205 risset.gliss 60;
-#X obj 50 234 msg \#:0;
-#X obj 155 234 msg \#:0;
-#X obj 50 262 hoa.process~ 5 risset.gliss-osc~ planewaves;
-#X obj 50 305 ui.hgain~;
-#X obj 357 305 ui.dsp~;
-#X obj 50 334 dac~ 1 2;
-#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 291 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект вычисляет MIDI-ноты и амплитуды для глиссандо
+Шеппарда–Риссе: слуховой иллюзии тона \, который бесконечно повышается
+или понижается \, никогда не достигая предела;
+#X text 240 153 иллюзия создаётся несколькими частотными компонентами
+\, отстоящими друг от друга на октаву. Каждый компонент сдвигается
+по частоте \, а его амплитуда следует колоколообразной огибающей с
+пиком near the center of the audible range. Когда компонент достигает
+края диапазона \, он затухает \, а на противоположном краю появляется
+новый компонент \, поэтому слушатель воспринимает непрерывное движение;
+#X text 240 284 входное значение — это фаза глиссандо \, обычно управляемая
+ramp-сигналом от 0 до 1\. Первый выход выдаёт список MIDI-нот \, второй
+выход — соответствующий список амплитуд;
+#X msg 69 417 1 \, 0 10000;
+#X msg 50 446 0 \, 1 10000;
+#X floatatom 213 446 5 0 0 0 - - -;
+#X floatatom 386 446 5 0 0 0 - - -;
+#X obj 50 475 line 0 20;
+#X msg 213 475 @interval \$1;
+#X msg 386 475 @shift \$1;
+#X obj 50 533 risset.gliss 60;
+#X obj 50 561 msg \#:0;
+#X obj 155 561 msg \#:0;
+#X obj 50 604 hoa.process~ 5 risset.gliss-osc~ planewaves;
+#X obj 50 648 ui.hgain~;
+#X obj 357 648 ui.dsp~;
+#X obj 50 677 dac~ 1 2;
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 732 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 392 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 735 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 390 1\.;
-#X text 170 390 float;
-#X obj 268 391 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 390 BASE(semitone): base pitch. Тип: float. Диапазон: [10\..100];
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 430 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 733 1\.;
+#X text 170 733 float;
+#X obj 268 734 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 733 BASE(semitone): базовая высота тона. Тип: float. Диапазон:
+[10\..100];
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 788 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 433 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 791 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 431 @n;
-#X text 270 431 (при инициализации) Number of bands. Тип: int. Значение
+#X msg 130 789 @n;
+#X text 270 789 (при инициализации) Количество полос. Тип: int. Значение
 по умолчанию: 5\.;
-#X obj 250 473 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 473 @ampexp;
-#X text 270 473 Amplitude exponent. Тип: float. Значение по умолчанию:
-2\.;
-#X obj 250 503 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 503 @base;
-#X text 270 503 Base pitch. Тип: float. Единицы: 'semitone'. Значение
-по умолчанию: 60\. Диапазон: [10\..100].;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 @interval;
-#X text 270 545 Interval between bands. Тип: float. Единицы: 'semitone'.
+#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 831 @ampexp;
+#X text 270 831 Показатель степени амплитуды. Тип: float. Значение
+по умолчанию: 2\.;
+#X obj 250 873 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 873 @base;
+#X text 270 873 Базовая высота тона. Тип: float. Единицы: 'semitone'.
+Значение по умолчанию: 60\. Диапазон: [10\..100].;
+#X obj 250 915 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 915 @interval;
+#X text 270 915 Интервал между полосами. Тип: float. Единицы: 'semitone'.
 Значение по умолчанию: 12\.;
-#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 587 @shift;
-#X text 270 587 Band shift in octaves. Тип: float. Значение по умолчанию:
+#X obj 250 957 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 957 @shift;
+#X text 270 957 Сдвиг полос в октавах. Тип: float. Значение по умолчанию:
 0\.;
-#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 632 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1002 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 658 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 659 1\.;
-#X text 170 659 float:;
-#X text 270 659 glissando phase.;
-#X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 699 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
-0;
-#X text 130 700 1\.;
-#X text 270 700 list of midi pitches.;
-#X text 130 720 2\.;
-#X text 270 720 list of amplitudes.;
+#X text 130 1003 1\.;
+#X text 170 1003 float:;
+#X text 270 1003 фаза глиссандо.;
+#X obj 20 1038 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1043 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1044 1\.;
+#X text 170 1044 list:;
+#X text 270 1044 список MIDI-нот.;
+#X text 130 1064 2\.;
+#X text 170 1064 list:;
+#X text 270 1064 список амплитуд.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 770 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 773 библиотека: ceammc v0.9.8;
-#N canvas 10 792 400 290 info 0;
+#X obj 1 1114 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1117 библиотека: ceammc v0.9.8;
+#N canvas 10 1136 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -98,21 +112,22 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 792 pd info;
-#X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 1 12 0;
-#X connect 11 0 13 1;
-#X connect 12 0 13 2;
-#X connect 13 0 14 0;
-#X connect 13 1 14 0;
-#X connect 13 2 14 0;
-#X connect 13 3 14 0;
-#X connect 13 4 14 0;
-#X connect 14 0 16 0;
-#X connect 14 0 16 1;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
+#X restore 10 1136 pd info;
+#X connect 9 0 12 0;
+#X connect 10 0 13 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
+#X connect 16 0 18 1;
+#X connect 17 0 18 2;
+#X connect 18 0 19 0;
+#X connect 18 1 19 0;
+#X connect 18 2 19 0;
+#X connect 18 3 19 0;
+#X connect 18 4 19 0;
+#X connect 19 0 21 0;
+#X connect 19 0 21 1;
+#X connect 13 0 15 0;
+#X connect 8 0 12 0;
+#X connect 14 0 15 0;

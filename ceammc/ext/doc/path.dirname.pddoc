@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs directory portion of path name</tr>
-        <tr lang="ru">выводит имя каталога файла из пути к файлу</tr>
+        <tr lang="ru">извлекает имя каталога из пути</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,15 +19,21 @@
         <see>path.basename</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">for example, for the path "/dir/file.txt" the output is "/dir"</tr>
+        <tr lang="ru">например, для пути "/dir/file.txt" вывод — "/dir"</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">outputs directory portion of pathname</tr>
-          <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
+          <tr lang="ru">выводит имя каталога из пути</tr>
         </in>
         <in on="data:string">
           <tr lang="en">outputs directory portion of pathname</tr>
-          <tr lang="ru" finished="false">Выходит часть каталога Pathname</tr>
+          <tr lang="ru">выводит имя каталога из пути</tr>
         </in>
       </inlet>
     </inlets>
@@ -35,7 +41,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">directory name</tr>
-          <tr lang="ru" finished="false">имя директории</tr>
+          <tr lang="ru">имя каталога</tr>
         </out>
       </outlet>
     </outlets>

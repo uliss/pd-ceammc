@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs IP address by DNS name</tr>
-        <tr lang="ru">выводит IP-адрес по имени DNS</tr>
+        <tr lang="ru">выводит IP-адрес по DNS-имени</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,46 +19,54 @@
         <alias>net.host-&gt;ip</alias>
       </aliases>
     </meta>
+    <info>
+      <par style="info">
+        <tr lang="en">resolves a host name to one or more IP addresses using the system DNS
+        resolver</tr>
+        <tr lang="ru">преобразует имя хоста в один или несколько IP-адресов через системный
+        DNS-резолвер</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="TYPE" type="symbol" enum="ipv4 ipv6">
         <tr lang="en">result IP type</tr>
-        <tr lang="ru" finished="false">Результат IP типа</tr>
+        <tr lang="ru">тип IP-адреса в результате</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @ipv4 -->
       <property name="@ipv4" type="alias">
         <tr lang="en">shortcut for @type ipv4</tr>
-        <tr lang="ru" finished="false">Обсуждение @type ipv4</tr>
+        <tr lang="ru">сокращение для @type ipv4</tr>
       </property>
       <!-- @ipv6 -->
       <property name="@ipv6" type="alias">
         <tr lang="en">shortcut for @type ipv6</tr>
-        <tr lang="ru" finished="false">Обсуждение @type ipv6</tr>
+        <tr lang="ru">сокращение для @type ipv6</tr>
       </property>
       <!-- @type -->
       <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">
         <tr lang="en">result IP type</tr>
-        <tr lang="ru" finished="false">Результат IP типа</tr>
+        <tr lang="ru">тип IP-адреса в результате</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">DNS name</tr>
-          <tr lang="ru" finished="false">Имя DNS</tr>
+          <tr lang="ru">DNS-имя</tr>
         </in>
         <in on="any">
           <tr lang="en">DNS name</tr>
-          <tr lang="ru" finished="false">Имя DNS</tr>
+          <tr lang="ru">DNS-имя</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">list of resolved IP's</tr>
-          <tr lang="ru" finished="false">Список разрешенных IP</tr>
+        <out type="list">
+          <tr lang="en">list of resolved IP addresses</tr>
+          <tr lang="ru">список разрешённых IP-адресов</tr>
         </out>
       </outlet>
     </outlets>
@@ -67,15 +75,13 @@
 <![CDATA[
 [localhost(
 |
-| [bbc.com(
-| |
-[symbol]
+| [bbc.com( [ya.ru(
+| |         |
+[symbol     ]
 |
 [S digits=16]   [ui.tab ipv4 ipv6]
 |               |
-|               [$2(
-|               |
-|               [msg @type]
+|               [@type $2(
 |               |
 [net.host->ip   ]
 |

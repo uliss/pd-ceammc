@@ -275,7 +275,6 @@ TEST_CASE("data.mlist", "[externals]")
         Ext t_alias("ml");
     }
 
-
     SECTION("at")
     {
         Obj t("data.mlist");
@@ -302,5 +301,24 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         WHEN_CALL_N(t, at, -4);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+    }
+
+    SECTION("read/write")
+    {
+        Obj t("data.mlist", LP("(1 2 3)"));
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
+
+        WHEN_CALL_N(t, write, TEST_BIN_DIR "/mlist_data.json", "@force");
+        REQUIRE_NO_MSG(t);
+
+        WHEN_CALL(t, clear);
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_DATA_AT(0, t, ML());
+
+        WHEN_CALL_N(t, read, TEST_BIN_DIR "/mlist_data.json");
+        REQUIRE_NO_MSG(t);
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
     }
 }

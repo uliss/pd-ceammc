@@ -1,58 +1,68 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 513 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 518 50 декодирование повторов в списках;
+#X obj 399 50 cnv 1 366 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 404 50 декодирует списки \, закодированные длинами серий;
 #X obj 1 1 cnv 5 765 40 empty empty list.rldecode 20 20 0 20 -104026
 -4096 0;
 #X obj 538 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [list.unwrap] @url list.rldecode-help.pd;
 #X obj 646 8 list.rldecode;
-#X msg 50 118 1 2 1 3;
-#X msg 174 118 1 2 3 4;
-#X obj 50 147 list.rldecode 4 3 2 1;
-#X obj 50 176 ui.dt;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 231 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 215 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект выполняет декодирование длин серий: разворачивает
+список одиночных элементов в соответствии с соответствующими счётчиками
+повторов;
+#X text 240 138 на первый вход подаётся список элементов \, на второй
+— список счётчиков повторов; первый элемент повторяется столько раз
+\, сколько указано в первом счётчике \, и так далее;
+#X text 240 208 объект можно использовать для восстановления списка
+\, сжатого объектом [list.rlencode] \, например чтобы раскодировать
+последовательность повторяющихся нот или значений;
+#X msg 50 341 1 2 1 3;
+#X msg 174 341 1 2 3 4;
+#X obj 50 370 list.rldecode 4 3 2 1;
+#X obj 50 399 ui.dt;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 454 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 234 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 457 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 232 1\.;
-#X text 170 232 list;
-#X obj 268 233 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 232 L: initial element repeat list. Тип: list.;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 272 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 455 1\.;
+#X text 170 455 list;
+#X obj 268 456 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 455 L: начальный список повторов элементов. Тип: list.;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 495 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 275 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 273 @l;
-#X text 270 273 List of repeats. Тип: list.;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 318 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 496 @l;
+#X text 270 496 Список повторов. Тип: list.;
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 541 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 319 1\.;
-#X text 170 319 list:;
-#X text 270 319 First list - single elements.;
-#X text 130 344 2\.;
-#X text 170 344 list:;
-#X text 270 344 Second list - count of each element.;
-#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 384 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 542 1\.;
+#X text 170 542 list:;
+#X text 270 542 первый список — одиночные элементы.;
+#X text 130 567 2\.;
+#X text 170 567 list:;
+#X text 270 567 второй список — количество повторов каждого элемента.;
+#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 607 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 385 1\.;
-#X text 270 385 result - elements repeated n times specified by corresponding
-values in second list.;
+#X text 130 608 1\.;
+#X text 270 608 результат — элементы \, повторённые n раз в соответствии
+со значениями во втором списке.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#X text 522 520 смотрите также:;
-#X obj 643 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 673 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 676 библиотека: ceammc v0.9.8;
+#X text 522 688 смотрите также:;
+#X obj 643 691 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list.rlencode] @url list.rlencode-help.pd;
-#N canvas 10 527 400 290 info 0;
+#N canvas 10 695 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -76,7 +86,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 7 1;
-#X connect 7 0 8 0;
+#X restore 10 695 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;

@@ -13,8 +13,8 @@
 к диапазону [-1 \, 1]. Отображение широко используется как модель хаоса
 в гамильтоновых системах.;
 #X text 240 199 Отображение задаётся разностными уравнениями:;
-#X text 240 224 y(n+1) = (y(n) + k * sin(x(n))) mod 2π;
-#X text 240 249 x(n+1) = (x(n) + y(n+1)) mod 2π;
+#X text 260 224 y(n+1) = (y(n) + k * sin(x(n))) mod 2π;
+#X text 260 249 x(n+1) = (x(n) + y(n+1)) mod 2π;
 #X text 240 274 Значение k управляет поведением отображения. При малых
 k (примерно k < 1) траектории в основном регулярные (квазипериодические
 или периодические) \, а при больших k система становится всё более
@@ -69,44 +69,39 @@ https://en.wikipedia.org/wiki/Standard_map;
 #X obj 268 1054 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 270 1053 Y: начальное значение y (по умолчанию 0). Тип: float.;
 #X obj 20 1088 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1093 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 1093 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 1096 ui.link @background_color 0.90196 0.90196 0.90196
-@title [?] @url ceammc.props-info.pd;
 #X obj 20 1114 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1119 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144
--49933 0;
-#X obj 20 1140 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1145 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 1119 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1146 1\.;
-#X text 170 1146 bang:;
-#X text 270 1146 генерирует и выводит следующее значение x.;
-#X text 130 1171 2\.;
-#X text 170 1171 float:;
-#X text 270 1171 устанавливает значение k.;
-#X obj 20 1206 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1211 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1120 1\.;
+#X text 170 1120 bang:;
+#X text 270 1120 генерирует и выводит следующее значение x.;
+#X text 130 1145 2\.;
+#X text 170 1145 float:;
+#X text 270 1145 устанавливает значение k.;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1185 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1212 1\.;
-#X text 170 1212 float:;
-#X text 270 1212 выводит значение x \, приведённое к диапазону [-1
+#X text 130 1186 1\.;
+#X text 170 1186 float:;
+#X text 270 1186 выводит значение x \, приведённое к диапазону [-1
 \, 1].;
-#X text 130 1232 2\.;
-#X text 170 1232 float:;
-#X text 270 1232 выводит значение y \, приведённое к диапазону [-1
+#X text 130 1206 2\.;
+#X text 170 1206 float:;
+#X text 270 1206 выводит значение y \, приведённое к диапазону [-1
 \, 1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 1282 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1285 библиотека: ceammc v0.9.8;
-#X text 536 1297 смотрите также:;
-#X obj 657 1300 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1256 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1259 библиотека: ceammc v0.9.8;
+#X text 536 1271 смотрите также:;
+#X obj 657 1274 ui.link @background_color 0.78431 0.78431 0.78431
 @title [chaos.std0~] @url chaos.std0~-help.pd;
-#N canvas 10 1304 400 290 info 0;
+#N canvas 10 1278 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -130,7 +125,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1304 pd info;
+#X restore 10 1278 pd info;
 #X connect 13 0 16 0;
 #X connect 15 0 17 0;
 #X connect 16 0 18 0;

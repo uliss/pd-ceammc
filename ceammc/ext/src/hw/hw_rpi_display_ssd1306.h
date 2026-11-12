@@ -1,6 +1,8 @@
 #ifndef HW_RPI_DISPLAY_SSD1306_H
 #define HW_RPI_DISPLAY_SSD1306_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 #include "hw_rpi_device.h"
@@ -43,4 +45,14 @@ private:
 };
 
 void setup_hw_rpi_display_ssd1306();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiDisplaySsd1306, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiDisplaySsd1306, hw_rpi_display_ssd1306, "hw.rpi.display.ssd1306");
+
+#endif
+
 #endif // HW_RPI_DISPLAY_SSD1306_H

@@ -3,13 +3,12 @@ use std::{
     ptr::null,
 };
 
+use ceammc_rs_msg::msg_cb;
 use log::warn;
 use obws::responses::{
     scene_collections::SceneCollections,
     scene_items::{SceneItem, SourceType},
 };
-
-use crate::common_ffi::callback_msg;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -538,10 +537,7 @@ impl obs_result_cb {
 pub struct obs_client {
     send: tokio::sync::mpsc::Sender<OBSRequest>,
     recv: tokio::sync::mpsc::Receiver<Result<OBSReply, crate::common_ffi::Error>>,
-    cb_err: callback_msg,
-    cb_post: callback_msg,
-    cb_debug: callback_msg,
-    cb_log: callback_msg,
+    cb_msg: msg_cb,
     cb_reply: obs_result_cb,
 }
 
@@ -549,19 +545,13 @@ impl obs_client {
     pub fn new(
         send: tokio::sync::mpsc::Sender<OBSRequest>,
         recv: tokio::sync::mpsc::Receiver<Result<OBSReply, crate::common_ffi::Error>>,
-        cb_err: callback_msg,
-        cb_post: callback_msg,
-        cb_debug: callback_msg,
-        cb_log: callback_msg,
+        cb_msg: msg_cb,
         cb_reply: obs_result_cb,
     ) -> Self {
         Self {
             send,
             recv,
-            cb_err,
-            cb_post,
-            cb_debug,
-            cb_log,
+            cb_msg,
             cb_reply,
         }
     }
@@ -589,10 +579,10 @@ impl obs_client {
                     OBSReply::CurrentCollection(coll) => self.cb_reply.current_collection(coll),
                 },
                 Err(err) => match err {
-                    Error::Error(msg) => self.cb_err.exec(msg.as_str()),
-                    Error::Post(msg) => self.cb_post.exec(msg.as_str()),
-                    Error::Debug(msg) => self.cb_debug.exec(msg.as_str()),
-                    Error::Log(msg) => self.cb_log.exec(msg.as_str()),
+                    Error::Error(msg) => self.cb_msg.error_str(msg),
+                    Error::Post(msg) => self.cb_msg.post_str(msg),
+                    Error::Debug(msg) => self.cb_msg.debug_str(msg),
+                    Error::Log(msg) => self.cb_msg.log_str(msg),
                 },
             }
         }

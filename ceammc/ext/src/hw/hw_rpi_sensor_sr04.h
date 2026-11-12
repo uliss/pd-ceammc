@@ -1,6 +1,8 @@
 #ifndef HW_RPI_SENSOR_SR04_H
 #define HW_RPI_SENSOR_SR04_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -23,5 +25,14 @@ public:
 };
 
 void setup_hw_rpi_sensor_sr04();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiSensorSr04, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiSensorSr04, hw_rpi_sensor_sr04, "hw.rpi.sensor.sr04");
+
+#endif
 
 #endif // HW_RPI_SENSOR_SR04_H

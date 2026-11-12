@@ -1,25 +1,31 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 442 50 выводит размер активного экрана в пикселях;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 выводит размер текущего экрана в пикселях;
 #X obj 1 1 cnv 5 765 40 empty empty system.screen_size 20 20 0 20
 -104026 -4096 0;
 #X obj 609 11 system.screen_size;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 по bang объект выводит список из двух целых чисел: ширина
+и высота экрана в пикселях;
+#X text 240 123 размер экрана сообщается операционной системой и соответствует
+основному дисплею;
+#X obj 50 226 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 system.screen_size;
-#X obj 50 190 ui.display;
-#X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 245 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 50 255 system.screen_size;
+#X obj 50 298 ui.display;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 353 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 246 1\.;
-#X text 170 246 bang:;
-#X text 270 246 outputs screen size in pixels.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 286 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 354 1\.;
+#X text 170 354 bang:;
+#X text 270 354 вывести размер экрана в пикселях.;
+#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 394 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 287 1\.;
-#X text 270 287 list of two values: width and height.;
+#X text 130 395 1\.;
+#X text 170 395 list:;
+#X text 270 395 список из двух значений: ширина и высота.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -52,5 +58,5 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
 #X restore 10 527 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;

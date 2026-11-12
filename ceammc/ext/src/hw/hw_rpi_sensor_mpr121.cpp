@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_mpr121.h"
+
+#ifdef WITH_RPI
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "hw_rpi_sensor_mpr121_args.hpp"
@@ -199,3 +201,5 @@ void setup_hw_rpi_sensor_mpr121()
     obj.addMethod("filtered", &HwRpiSensorMpr121::m_filtered);
     obj.addMethod("reset", &HwRpiSensorMpr121::m_reset);
 }
+
+#endif

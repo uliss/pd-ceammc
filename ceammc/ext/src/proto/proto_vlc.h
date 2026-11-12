@@ -1,8 +1,9 @@
 #ifndef PROTO_VLC_H
 #define PROTO_VLC_H
 
-#include "ceammc_object.h"
-#include "ceammc_poll_dispatcher.h"
+#ifdef WITH_VLC
+
+#include "ceammc_rs_msg_object.h"
 
 #include <memory>
 
@@ -10,7 +11,7 @@ struct ceammc_vlc;
 
 using namespace ceammc;
 
-class ProtoVlc : public DispatchedObject<BaseObject> {
+class ProtoVlc : public RustMessageObject<BaseObject> {
     SymbolProperty* host_;
     IntProperty* port_;
     AtomProperty* pass_;
@@ -47,5 +48,13 @@ public:
 };
 
 void setup_proto_vlc();
+
+#else
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(ProtoVlc, 1, 2, "compiled without VLC support");
+OBJECT_STUB_SETUP(ProtoVlc, proto_vlc, "proto.vlc");
+
+#endif
 
 #endif // PROTO_VLC_H

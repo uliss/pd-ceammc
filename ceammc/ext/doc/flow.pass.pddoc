@@ -24,51 +24,66 @@
         <see>flow.reject</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object passes the input value only if it is found in the pass list,
+        otherwise nothing is output</tr>
+        <tr lang="ru">объект пропускает входное значение только если оно найдено в списке пропуска,
+        иначе на выход ничего не поступает</tr>
+      </par>
+      <par>
+        <tr lang="en">the pass list is set by the VALUES argument, the @values property, or by
+        sending a list to the right inlet</tr>
+        <tr lang="ru">список пропуска задаётся аргументом VALUES, свойством @values или подачей
+        списка на правый вход</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to filter a stream by a fixed set of allowed values,
+        for example to pass only specific note numbers</tr>
+        <tr lang="ru">объект можно использовать для фильтрации потока по фиксированному набору
+        разрешённых значений, например чтобы пропускать только определённые ноты</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="VALUES" type="list">
         <tr lang="en">atoms to pass</tr>
-        <tr lang="ru" finished="false">Атомы проходят</tr>
+        <tr lang="ru">атомы для пропуска</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @values -->
       <property name="@values" type="list" default="">
         <tr lang="en">atoms to pass</tr>
-        <tr lang="ru" finished="false">Атомы проходят</tr>
+        <tr lang="ru">атомы для пропуска</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="bang">
           <tr lang="en">pass</tr>
-          <tr lang="ru" finished="false">проход</tr>
+          <tr lang="ru">пропустить</tr>
         </in>
         <in on="float">
           <tr lang="en">pass if float found in pass list</tr>
-          <!-- old: Пройти, если поплавок найден в списке
-                    пропусков -->
-          <tr lang="ru" finished="false">Пройти, если поплавок найден в списке пропусков</tr>
+          <tr lang="ru">пропустить, если число найдено в списке пропуска</tr>
         </in>
         <in on="symbol">
           <tr lang="en">pass if symbol found in pass list</tr>
-          <tr lang="ru" finished="false">если символ найден в списке пропусков</tr>
+          <tr lang="ru">пропустить, если символ найден в списке пропуска</tr>
         </in>
         <in on="list">
           <tr lang="en">pass if first atom found in pass list</tr>
-          <tr lang="ru" finished="false">если первый атом найден в списке пропусков</tr>
+          <tr lang="ru">пропустить, если первый атом найден в списке пропуска</tr>
         </in>
         <in on="any">
           <tr lang="en">pass if message selector found in pass list</tr>
-          <!-- old: Pass, если селектор сообщений найден в списке
-                    пропусков -->
-          <tr lang="ru" finished="false">Pass, если селектор сообщений найден в списке
-          пропусков</tr>
+          <tr lang="ru">пропустить, если селектор сообщения найден в списке пропуска</tr>
         </in>
       </inlet>
       <inlet>
         <in on="list">
           <tr lang="en">set pass list</tr>
-          <tr lang="ru" finished="false">Установить список</tr>
+          <tr lang="ru">задать список пропуска</tr>
         </in>
       </inlet>
     </inlets>
@@ -76,7 +91,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">passed values</tr>
-          <tr lang="ru" finished="false">переданные значения</tr>
+          <tr lang="ru">переданные значения</tr>
         </out>
       </outlet>
     </outlets>

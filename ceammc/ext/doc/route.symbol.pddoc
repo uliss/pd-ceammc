@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">separates symbol messages from other types</tr>
-        <tr lang="ru">отделяет символьные сообщения от других типов</tr>
+        <tr lang="ru">отделяет символьные сообщения от сообщений других типов</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -23,27 +23,42 @@
         <see>route.random</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object routes symbol messages to the first outlet and all other messages
+        (bang, float, list, any) to the second outlet</tr>
+        <tr lang="ru">объект направляет символьные сообщения на первый выход, а все остальные
+        (bang, числа, списки, any) — на второй выход</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to separate string values from numeric and structural
+        messages, for example to route file names or parameter names to a dedicated handler</tr>
+        <tr lang="ru">объект можно использовать для отделения строковых значений от числовых и
+        структурных сообщений, например чтобы направлять имена файлов или имена параметров в
+        отдельный обработчик</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">any to second outlet</tr>
-          <tr lang="ru" finished="false">любой второй выход</tr>
+          <tr lang="en">any message to the second outlet</tr>
+          <tr lang="ru">сообщение any на второй выход</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to second outlet</tr>
-          <tr lang="ru" finished="false">Bang to Second Outlet (альбом)</tr>
+          <tr lang="en">bang to the second outlet</tr>
+          <tr lang="ru">bang на второй выход</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to second outlet</tr>
-          <tr lang="ru" finished="false">Поплавать на второй выход</tr>
+          <tr lang="en">float to the second outlet</tr>
+          <tr lang="ru">число на второй выход</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to second outlet</tr>
-          <tr lang="ru" finished="false">Список для второго выхода</tr>
+          <tr lang="en">list to the second outlet</tr>
+          <tr lang="ru">список на второй выход</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to *first* outlet</tr>
-          <tr lang="ru" finished="false">Символ *первый* выход</tr>
+          <tr lang="en">symbol to the first outlet</tr>
+          <tr lang="ru">символ на первый выход</tr>
         </in>
       </inlet>
     </inlets>
@@ -51,13 +66,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">symbol output</tr>
-          <tr lang="ru" finished="false">символьный выход</tr>
+          <tr lang="ru">выход символов</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">other messages</tr>
-          <tr lang="ru" finished="false">Другие сообщения</tr>
+          <tr lang="ru">другие сообщения</tr>
         </out>
       </outlet>
     </outlets>

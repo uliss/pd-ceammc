@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 361 50 cnv 1 404 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 366 50 группирует входные атомы в списки указанного размера;
+#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 374 50 группирует входные атомы в списки заданного размера;
 #X obj 1 1 cnv 5 765 40 empty empty flow.group 20 20 0 20 -104026
 -4096 0;
 #X obj 488 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -9,70 +9,80 @@
 #X obj 603 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [group] @url flow.group-help.pd;
 #X obj 667 8 flow.group;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X msg 98 118 1 2 3;
-#X obj 50 162 flow.group @by 5;
-#X obj 50 190 ui.dt;
-#X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 245 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект собирает входящие атомы в группы по @by элементов
+и выводит каждую группу в виде списка \, когда она заполнена;
+#X text 240 138 размер группы задаётся аргументом BY или свойством
+@by и может быть изменён подачей целого числа на правый вход;
+#X text 240 193 метод [flush( выводит текущую незавершённую группу
+\, метод [clear( отбрасывает её;
+#X text 240 233 объект можно использовать для сборки потока атомов
+в списки фиксированного размера \, например чтобы собрать пары нот
+из потока значений высоты и скорости;
+#X floatatom 50 351 5 0 0 0 - - -;
+#X msg 98 351 1 2 3;
+#X obj 50 395 flow.group @by 5;
+#X obj 50 423 ui.dt;
+#X obj 20 473 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 478 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 248 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 481 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 246 1\.;
-#X text 170 246 int;
-#X obj 268 247 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 246 BY: размер группы (длина выходного списка). Тип: int.
+#X text 130 479 1\.;
+#X text 170 479 int;
+#X obj 268 480 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 479 BY: размер группы (длина выходного списка). Тип: int.
 Минимальное значение: 1\.;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 301 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 534 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 304 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 537 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 302 @by;
-#X text 270 302 Размер группы (длина выходного списка). Тип: int. Значение
+#X msg 130 535 @by;
+#X text 270 535 Размер группы (длина выходного списка). Тип: int. Значение
 по умолчанию: 1\. Минимальное значение: 1\.;
-#X obj 250 344 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 344 @free?;
-#X text 270 344 (только чтение) Cвободное пространство \, которое осталось
-в текущей группе. Тип: int. Значение по умолчанию: 0\. Минимальное
-значение: 0\.;
-#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 416 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 577 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 577 @free?;
+#X text 270 577 (только чтение) Свободное место \, оставшееся в текущей
+группе. Тип: int. Значение по умолчанию: 0\. Минимальное значение:
+0\.;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 649 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 417 clear;
-#X text 270 417 очистить текущую группу без вывода.;
-#X obj 250 452 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 452 flush;
-#X text 270 452 вывести и очистить текущую группу.;
-#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 502 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 650 clear;
+#X text 270 650 очистить текущую группу без вывода.;
+#X obj 250 685 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 685 flush;
+#X text 270 685 вывести и очистить текущую группу.;
+#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 735 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 503 1\.;
-#X text 170 503 float:;
-#X text 270 503 add float to group and flush if group is full packed.;
-#X text 170 528 symbol:;
-#X text 270 528 add symbol to group and flush if group is full packed.;
-#X text 170 553 list:;
-#X text 270 553 add list atoms to group and flush if needed.;
-#X text 170 578 data:;
-#X text 270 578 add data to group and flush if needed.;
-#X text 130 603 2\.;
-#X text 170 603 int:;
-#X text 270 603 установить размер группы.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 643 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 736 1\.;
+#X text 170 736 float:;
+#X text 270 736 добавить число в группу и вывести \, если группа заполнена.;
+#X text 170 761 symbol:;
+#X text 270 761 добавить символ в группу и вывести \, если группа заполнена.;
+#X text 170 786 list:;
+#X text 270 786 добавить атомы списка в группу и вывести \, если нужно.;
+#X text 170 811 data:;
+#X text 270 811 добавить данные в группу и вывести \, если нужно.;
+#X text 130 836 2\.;
+#X text 170 836 int:;
+#X text 270 836 задать размер группы.;
+#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 876 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 644 1\.;
-#X text 170 644 list:;
-#X text 270 644 перегруппированные входные элементы.;
+#X text 130 877 1\.;
+#X text 170 877 list:;
+#X text 270 877 перегруппированные входные элементы.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 694 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 697 библиотека: ceammc v0.9.8;
-#N canvas 10 716 400 290 info 0;
+#X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 930 библиотека: ceammc v0.9.8;
+#N canvas 10 949 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -96,7 +106,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 716 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 949 pd info;
+#X connect 11 0 13 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;

@@ -5,84 +5,90 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.bitdown~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 fx.bitdown~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X floatatom 174 147 5 0 0 0 - - -;
-#X floatatom 280 147 5 0 0 0 - - -;
-#X obj 50 176 readsf~;
-#X msg 174 176 @bits \$1;
-#X msg 280 176 @downsamp \$1;
-#X obj 50 234 fx.bitdown~ 8 12;
-#X obj 50 262 ui.gain~ @size 120 14;
-#X obj 280 262 ui.dsp~;
-#X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object reduces the bit depth and sample rate of
+the input signal \, producing a lo-fi or bitcrushed sound;
+#X text 240 123 @bits sets the output bit depth from 1 to 16 bits;
+#X text 240 148 @downsamp sets how many samples are skipped \, a higher
+value gives a stronger downsampling effect;
+#X msg 50 251 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 280 expand_env;
+#X floatatom 174 280 5 0 0 0 - - -;
+#X floatatom 280 280 5 0 0 0 - - -;
+#X obj 50 309 readsf~;
+#X msg 174 309 @bits \$1;
+#X msg 280 309 @downsamp \$1;
+#X obj 50 367 fx.bitdown~ 8 12;
+#X obj 50 395 ui.gain~ @size 120 14;
+#X obj 280 395 ui.dsp~;
+#X obj 50 424 dac~;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 479 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 482 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 347 1\.;
-#X text 170 347 int;
-#X obj 268 348 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 BITS: number of bits. Type: int. Range: [1\..16];
-#X text 130 372 2\.;
-#X text 170 372 int;
-#X obj 268 373 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 372 DOWNSAMP(samp): number of samples to skip. Type: int.
+#X text 130 480 1\.;
+#X text 170 480 int;
+#X obj 268 481 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 480 BITS: number of bits. Type: int. Range: [1\..16];
+#X text 130 505 2\.;
+#X text 170 505 int;
+#X obj 268 506 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 505 DOWNSAMP(samp): number of samples to skip. Type: int.
 Range: [1\..200];
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 563 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 428 @id;
-#X text 270 428 (initonly) OSC address id. If specified \, bind all
+#X msg 130 561 @id;
+#X text 270 561 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_bitdown/PROP_NAME osc address \, if empty bind
 to /fx_bitdown/PROP_NAME. Type: symbol.;
-#X obj 250 485 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 485 @osc;
-#X text 270 485 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 515 @active;
-#X text 270 515 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 618 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 618 @osc;
+#X text 270 618 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 648 @active;
+#X text 270 648 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 @bits;
-#X text 270 545 Output bits. Type: int. Default value: 16\. Range:
+#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 678 @bits;
+#X text 270 678 Output bits. Type: int. Default value: 16\. Range:
 [1\..16].;
-#X obj 250 575 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 575 @bypass;
-#X text 270 575 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 617 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 617 @downsamp;
-#X text 270 617 Number samples to skip. Type: int. Units: 'samp'. Default
-value: 1\. Range: [1\..200].;
-#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 674 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 250 708 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 708 @bypass;
+#X text 270 708 Bypass flag. If true: bypass the processed signal.
+Type: bool. Default value: 0\.;
+#X obj 250 750 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 750 @downsamp;
+#X text 270 750 Number of samples to skip. Type: int. Units: 'samp'.
+Default value: 1\. Range: [1\..200].;
+#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 807 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 675 reset;
-#X text 270 675 reset object.;
-#X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 725 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 808 reset;
+#X text 270 808 reset object.;
+#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 858 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 726 1\.;
-#X text 170 726 ~;
-#X text 270 726 left channel.;
-#X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 766 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 859 1\.;
+#X text 170 859 ~;
+#X text 270 859 left channel.;
+#X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 899 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 767 1\.;
-#X text 170 767 ~;
-#X text 270 767 output.;
+#X text 130 900 1\.;
+#X text 170 900 ~;
+#X text 270 900 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 817 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 820 library: ceammc v0.9.8;
-#N canvas 10 839 400 290 info 0;
+#X obj 1 950 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 953 library: ceammc v0.9.8;
+#N canvas 10 972 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,14 +112,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 839 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 12 0 14 1;
+#X restore 10 972 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 12 0;
+#X connect 10 0 13 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 16 0 18 1;

@@ -31,7 +31,7 @@ echo "cloning verovio info $(pwd)"
 
 if [[ ! -d verovio ]]
 then
-    git clone https://github.com/rism-digital/verovio
+    git clone  --recurse-submodules --shallow-submodules --depth 1 https://github.com/rism-digital/verovio
     if [[ $? -ne 0 ]]
     then
         exit 1
@@ -41,7 +41,7 @@ fi
 cd "${VEROVIO_SRC_DIR}"
 git fetch --tags
 git checkout tags/$TAGS
-git submodule update --init --recursive
+git submodule update --init --recursive --depth 1
 
 echo "building verovio ..."
 

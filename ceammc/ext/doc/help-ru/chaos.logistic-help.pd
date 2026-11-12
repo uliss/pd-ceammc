@@ -13,7 +13,7 @@
 bang генератор делает один шаг отображения и выводит новое значение
 x.;
 #X text 240 153 Отображение задаётся разностным уравнением:;
-#X text 240 178 x[n+1] = λ * x[n] * (1 - x[n]);
+#X text 260 178 x[n+1] = λ * x[n] * (1 - x[n]);
 #X obj 240 206 ui.link @background_color 0.90196 0.90196 0.90196
 @title wiki: Logistic map @url
 https://en.wikipedia.org/wiki/Logistic_map;
@@ -58,7 +58,7 @@ https://en.wikipedia.org/wiki/Logistic_map;
 #X obj 50 1039 list.unpack 3;
 #X obj 50 1068 sig~;
 #X obj 184 1068 * 400;
-#X obj 270 1068 / 250;
+#X obj 270 1068 / 600;
 #X obj 184 1097 sig~;
 #X msg 270 1097 @res \$1;
 #X obj 50 1126 osc~;
@@ -119,6 +119,7 @@ float.;
 #X obj 20 1732 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
 #X text 130 1733 1\.;
+#X text 170 1733 float:;
 #X text 270 1733 новое сгенерированное значение x.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

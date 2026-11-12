@@ -1,4 +1,6 @@
 #include "hw_rpi_display_ssd1306.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -315,3 +317,5 @@ void setup_hw_rpi_display_ssd1306()
     obj.addMethod("text", &HwRpiDisplaySsd1306::m_text);
     obj.addMethod("write", &HwRpiDisplaySsd1306::m_write);
 }
+
+#endif

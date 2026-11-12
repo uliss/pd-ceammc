@@ -1,89 +1,95 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 292 50 cnv 1 473 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 297 50 понижение разрядности входного сигнала и эффект даунсемплинга;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 427 50 эффект понижения разрядности и даунсемплинга;
 #X obj 1 1 cnv 5 765 40 empty empty fx.bitdown~ 20 20 0 20 -104026
 -4096 0;
 #X obj 659 11 fx.bitdown~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X floatatom 174 147 5 0 0 0 - - -;
-#X floatatom 280 147 5 0 0 0 - - -;
-#X obj 50 176 readsf~;
-#X msg 174 176 @bits \$1;
-#X msg 280 176 @downsamp \$1;
-#X obj 50 234 fx.bitdown~ 8 12;
-#X obj 50 262 ui.gain~ @size 120 14;
-#X obj 280 262 ui.dsp~;
-#X obj 50 291 dac~;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект понижает разрядность и частоту дискретизации
+входного сигнала \, создавая lo-fi или биткраш-звучание;
+#X text 240 123 @bits задаёт выходную разрядность от 1 до 16 бит;
+#X text 240 148 @downsamp задаёт количество пропускаемых сэмплов \,
+большее значение даёт более сильный эффект даунсемплинга;
+#X msg 50 251 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 280 expand_env;
+#X floatatom 174 280 5 0 0 0 - - -;
+#X floatatom 280 280 5 0 0 0 - - -;
+#X obj 50 309 readsf~;
+#X msg 174 309 @bits \$1;
+#X msg 280 309 @downsamp \$1;
+#X obj 50 367 fx.bitdown~ 8 12;
+#X obj 50 395 ui.gain~ @size 120 14;
+#X obj 280 395 ui.dsp~;
+#X obj 50 424 dac~;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 479 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 349 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 482 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 347 1\.;
-#X text 170 347 int;
-#X obj 268 348 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 347 BITS: number of bits. Тип: int. Диапазон: [1\..16];
-#X text 130 372 2\.;
-#X text 170 372 int;
-#X obj 268 373 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 372 DOWNSAMP(samp): number of samples to skip. Тип: int.
-Диапазон: [1\..200];
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 427 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 480 1\.;
+#X text 170 480 int;
+#X obj 268 481 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 480 BITS: количество бит. Тип: int. Диапазон: [1\..16];
+#X text 130 505 2\.;
+#X text 170 505 int;
+#X obj 268 506 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 505 DOWNSAMP(samp): количество пропускаемых сэмплов. Тип:
+int. Диапазон: [1\..200];
+#X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 560 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 430 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 563 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 428 @id;
-#X text 270 428 (при инициализации) Идентификатор для OSC адреса. Если
+#X msg 130 561 @id;
+#X text 270 561 (при инициализации) Идентификатор для OSC адреса. Если
 установлен \, все свойства объекта привязываются к OSC адресам вида:
 /ИДЕНТИФИКАТОР/fx_bitdown/ИМЯ_СВОЙСТВА \, в противном случае к /fx_bitdown/ИМЯ_СВОЙСТВА.
 Тип: symbol.;
-#X obj 250 515 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 515 @osc;
-#X text 270 515 (при инициализации) Имя OSC сервера. Тип: symbol.;
-#X obj 250 545 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 545 @active;
-#X text 270 545 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
+#X obj 250 648 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 648 @osc;
+#X text 270 648 (при инициализации) Имя OSC сервера. Тип: symbol.;
+#X obj 250 678 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 678 @active;
+#X text 270 678 Вкл/выкл. обработку сигнала объектом. Тип: bool. Значение
 по умолчанию: 1\.;
-#X obj 250 587 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 587 @bits;
-#X text 270 587 Output bits. Тип: int. Значение по умолчанию: 16\.
-Диапазон: [1\..16].;
-#X obj 250 629 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 629 @bypass;
-#X text 270 629 Bypass flag. If true: bypass 'effected' signal. Тип:
-bool. Значение по умолчанию: 0\.;
-#X obj 250 671 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 671 @downsamp;
-#X text 270 671 Number samples to skip. Тип: int. Единицы: 'samp'.
-Значение по умолчанию: 1\. Диапазон: [1\..200].;
-#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 728 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 250 720 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 720 @bits;
+#X text 270 720 Выходная разрядность. Тип: int. Значение по умолчанию:
+16\. Диапазон: [1\..16].;
+#X obj 250 762 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 762 @bypass;
+#X text 270 762 Флаг обхода. Если true: пропускать обработанный сигнал
+без изменений. Тип: bool. Значение по умолчанию: 0\.;
+#X obj 250 804 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 804 @downsamp;
+#X text 270 804 Количество пропускаемых сэмплов. Тип: int. Единицы:
+'samp'. Значение по умолчанию: 1\. Диапазон: [1\..200].;
+#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 861 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 729 reset;
-#X text 270 729 reset object.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 779 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 862 reset;
+#X text 270 862 сбросить объект.;
+#X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 912 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 780 1\.;
-#X text 170 780 ~;
-#X text 270 780 left channel.;
-#X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 820 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 913 1\.;
+#X text 170 913 ~;
+#X text 270 913 левый канал.;
+#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 953 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 821 1\.;
-#X text 170 821 ~;
-#X text 270 821 output.;
+#X text 130 954 1\.;
+#X text 170 954 ~;
+#X text 270 954 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 871 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 874 библиотека: ceammc v0.9.8;
-#N canvas 10 893 400 290 info 0;
+#X obj 1 1004 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1007 библиотека: ceammc v0.9.8;
+#N canvas 10 1026 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -107,14 +113,14 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 893 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 8 0 11 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 12 0 14 1;
+#X restore 10 1026 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 12 0;
+#X connect 10 0 13 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 16 0 18 1;

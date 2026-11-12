@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">split path into dirname and basename</tr>
-        <tr lang="ru">разбивает путь на имя каталога и файла</tr>
+        <tr lang="ru">разбивает путь на имя каталога и имя файла</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,33 +21,47 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Split filename to dirname and basename.</tr>
-        <tr lang="ru" finished="false">Разделите имя файла на dirname и basename.</tr>
+        <tr lang="en">the object splits a filename into a directory part (dirname) and a file part
+        (basename)</tr>
+        <tr lang="ru">объект разделяет имя файла на часть с каталогом (dirname) и часть с именем
+        файла (basename)</tr>
+      </par>
+      <par>
+        <tr lang="en">for example, for the path "/path/to/the/file.txt" the outputs are
+        "/path/to/the" and "file.txt"</tr>
+        <tr lang="ru">например, для пути "/path/to/the/file.txt" на выходах будут "/path/to/the" и
+        "file.txt"</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to separate a directory from a filename, for example
+        to get the folder of a sample or to build a new filename with a different extension</tr>
+        <tr lang="ru">объект можно использовать для отделения каталога от имени файла, например
+        чтобы получить папку сэмпла или собрать новое имя файла с другим расширением</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="symbol">
           <tr lang="en">filename</tr>
-          <tr lang="ru" finished="false">имя файла</tr>
+          <tr lang="ru">имя файла</tr>
         </in>
         <in on="data:string">
           <tr lang="en">filename</tr>
-          <tr lang="ru" finished="false">имя файла</tr>
+          <tr lang="ru">имя файла</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">symbol: dirname</tr>
-          <tr lang="ru" finished="false">Символ: Dirname</tr>
+        <out type="symbol">
+          <tr lang="en">dirname</tr>
+          <tr lang="ru">имя каталога</tr>
         </out>
       </outlet>
       <outlet>
-        <out type="any">
-          <tr lang="en">symbol: basename</tr>
-          <tr lang="ru" finished="false">Символ: базовое имя</tr>
+        <out type="symbol">
+          <tr lang="en">basename</tr>
+          <tr lang="ru">имя файла</tr>
         </out>
       </outlet>
     </outlets>

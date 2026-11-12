@@ -5,69 +5,78 @@
 #X obj 1 1 cnv 5 765 40 empty empty prop.random 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 prop.random;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object sets a random value to the specified properties
+of the connected object \, subpatch or abstraction;
+#X text 240 123 the properties must be declared with [prop.declare]
+first; the random value is chosen within the property's @min and @max
+limits;
+#X text 240 178 use @seed for reproducible sequences. If @seed is not
+set explicitly \, a generator initialized with the current time is
+used;
+#X obj 50 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 prop.random @feedback;
-#X obj 69 176 sig~ 50;
-#X floatatom 194 176 5 0 0 0 - - -;
-#X obj 50 205 osc.sinfb~;
-#X obj 194 205 ui.dsp~;
-#X obj 50 234 ui.hgain~;
-#X obj 50 262 dac~;
-#X obj 50 291 prop.random-1;
-#X obj 222 291 prop.random-2;
-#X obj 50 320 prop.random-3;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 50 325 prop.random @feedback;
+#X obj 69 354 sig~ 50;
+#X floatatom 194 354 5 0 0 0 - - -;
+#X obj 50 383 osc.sinfb~;
+#X obj 194 383 ui.dsp~;
+#X obj 50 412 ui.hgain~;
+#X obj 50 440 dac~;
+#X obj 50 469 prop.random-1;
+#X obj 222 469 prop.random-2;
+#X obj 50 498 prop.random-3;
+#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 553 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 378 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 556 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 376 1\.;
-#X text 170 376 int;
-#X obj 268 377 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 376 SEED: init random seed. Type: int.;
-#X text 130 401 2\.;
-#X text 170 401 list;
-#X obj 268 402 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 401 PROPS: properties names. Type: list.;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 441 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 554 1\.;
+#X text 170 554 int;
+#X obj 268 555 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 554 SEED: initial random seed. Type: int.;
+#X text 130 579 2\.;
+#X text 170 579 list;
+#X obj 268 580 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 579 PROPS: property names. Type: list.;
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 619 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 444 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 622 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 442 @seed;
-#X text 270 442 Random seed. Type: int. Default value: 0\.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 487 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X msg 130 620 @seed;
+#X text 270 620 Random seed. Type: int. Default value: 0\.;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 665 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 488 1\.;
-#X text 270 488 first specified property.;
-#X text 130 513 ...;
-#X text 270 513 ... specified property.;
-#X text 130 538 n.;
-#X text 270 538 n-th specified property.;
-#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 578 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 666 1\.;
+#X text 270 666 first specified property.;
+#X text 130 691 ...;
+#X text 270 691 ... specified property.;
+#X text 130 716 n.;
+#X text 270 716 n-th specified property.;
+#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 756 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 579 1\.;
-#X text 270 579 connect to target object.;
-#X text 130 599 2\.;
-#X text 270 599 atom: new random value.;
+#X text 130 757 1\.;
+#X text 270 757 connect to the target object.;
+#X text 130 777 2\.;
+#X text 270 777 atom: new random value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 649 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 652 library: ceammc v0.9.8;
-#X text 430 664 see also:;
-#X obj 505 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 827 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 830 library: ceammc v0.9.8;
+#X text 430 842 see also:;
+#X obj 505 845 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop] @url prop-help.pd;
-#X obj 552 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 552 845 ui.link @background_color 0.78431 0.78431 0.78431
 @title [prop.declare] @url prop.declare-help.pd;
-#X obj 657 667 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 845 ui.link @background_color 0.78431 0.78431 0.78431
 @title [patch.props] @url patch.props-help.pd;
-#N canvas 10 671 400 290 info 0;
+#N canvas 10 849 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -91,11 +100,11 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 671 pd info;
-#X connect 4 0 5 0;
-#X connect 5 1 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 8 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 0 11 1;
+#X restore 10 849 pd info;
+#X connect 8 0 9 0;
+#X connect 9 1 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;

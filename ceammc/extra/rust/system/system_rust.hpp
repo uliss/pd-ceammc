@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include "ceammc_rs_msg.hpp"
 
 
 enum class ceammc_system_process_mode {
@@ -40,11 +41,6 @@ struct ceammc_sysinfo_cpu_cb {
                const char *vendor);
 };
 
-struct ceammc_system_notify_cb {
-    size_t client_id;
-    void (*cb)(size_t client_id);
-};
-
 struct ceammc_system_process_cmd {
     const char *prog;
     const char *const *argv;
@@ -56,7 +52,7 @@ extern "C" {
 
 ceammc_system_info *ceammc_sysinfo_create(ceammc_sysinfo_temp_cb cb_temp,
                                           ceammc_sysinfo_cpu_cb cb_cpu,
-                                          ceammc_system_notify_cb cb_notify);
+                                          ceammc_msg_notify cb_notify);
 
 void ceammc_sysinfo_free(ceammc_system_info *sysinfo);
 

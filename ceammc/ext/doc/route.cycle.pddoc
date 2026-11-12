@@ -22,77 +22,100 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">NOTICE: to get properties use [prop.get] object, cause all messages
-        (including property requests) are passed thru</tr>
-        <tr lang="ru" finished="false">ПРИМЕЧАНИЕ: чтобы получить свойства использовать [prop.get]
-        объект, причина все сообщения (включая запросы собственности) передаются через</tr>
+        <tr lang="en">the object routes each incoming message to the next outlet in a round-robin
+        manner, cycling through all outlets</tr>
+        <tr lang="ru">объект направляет каждое входящее сообщение на следующий выход по кругу,
+        перебирая все выходы</tr>
+      </par>
+      <par>
+        <tr lang="en">@offset sets the starting outlet index, @step sets how many outlets to skip
+        after each message (the step can be negative for reverse rotation)</tr>
+        <tr lang="ru">@offset задаёт начальный индекс выхода, @step задаёт, сколько выходов
+        пропускать после каждого сообщения (шаг может быть отрицательным для обратного
+        вращения)</tr>
+      </par>
+      <par>
+        <tr lang="en">a bang on the second inlet resets the current outlet index to the initial
+        value</tr>
+        <tr lang="ru">bang на втором входе сбрасывает текущий индекс выхода к начальному
+        значению</tr>
+      </par>
+      <par>
+        <tr lang="en">notice: to get properties, use the [prop.get] object, since all messages
+        (including property requests) are passed through</tr>
+        <tr lang="ru">примечание: для получения свойств используйте объект [prop.get], так как все
+        сообщения (включая запросы свойств) проходят насквозь</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to distribute events over several destinations in
+        turn, for example to trigger different sounds or effects in rotation</tr>
+        <tr lang="ru">объект можно использовать для поочерёдного распределения событий по
+        нескольким получателям, например чтобы по очереди запускать разные звуки или эффекты</tr>
       </par>
     </info>
     <arguments>
       <argument name="N" type="int" minvalue="1" maxvalue="64">
         <tr lang="en">number of outlets</tr>
-        <tr lang="ru" finished="false">количество торговых точек</tr>
+        <tr lang="ru">количество выходов</tr>
       </argument>
       <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">
         <tr lang="en">start position</tr>
-        <tr lang="ru" finished="false">стартовая позиция</tr>
+        <tr lang="ru">начальная позиция</tr>
       </argument>
       <argument name="STEP" type="int">
         <tr lang="en">cycle step</tr>
-        <tr lang="ru" finished="false">этап цикла</tr>
+        <tr lang="ru">шаг цикла</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @index -->
       <property name="@index" type="int" default="0">
         <tr lang="en">current outlet index</tr>
-        <tr lang="ru" finished="false">Текущий индекс выхода</tr>
+        <tr lang="ru">текущий индекс выхода</tr>
       </property>
       <!-- @n -->
       <property name="@n" type="int" default="2" minvalue="1" maxvalue="64" access="initonly">
         <tr lang="en">number of outlets</tr>
-        <tr lang="ru" finished="false">количество торговых точек</tr>
+        <tr lang="ru">количество выходов</tr>
       </property>
       <!-- @offset -->
       <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">
         <tr lang="en">init cycle offset</tr>
-        <tr lang="ru" finished="false">Смещение цикла init</tr>
+        <tr lang="ru">начальное смещение цикла</tr>
       </property>
       <!-- @step -->
       <property name="@step" type="int" default="1">
         <tr lang="en">cycle step</tr>
-        <tr lang="ru" finished="false">этап цикла</tr>
+        <tr lang="ru">шаг цикла</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
-          <tr lang="en">any to current outlet, then move to next</tr>
-          <tr lang="ru" finished="false">любой к текущему выходу, затем перейти к следующему</tr>
+          <tr lang="en">any message to the current outlet, then move to the next</tr>
+          <tr lang="ru">сообщение any на текущий выход, затем переход к следующему</tr>
         </in>
         <in on="bang">
-          <tr lang="en">bang to current outlet, then move to next</tr>
-          <tr lang="ru" finished="false">Bang to current outlet, затем перейти к следующему</tr>
+          <tr lang="en">bang to the current outlet, then move to the next</tr>
+          <tr lang="ru">bang на текущий выход, затем переход к следующему</tr>
         </in>
         <in on="float">
-          <tr lang="en">float to current outlet, then move to next</tr>
-          <tr lang="ru" finished="false">Поплавать к текущей розетке, затем перейти к
-          следующей</tr>
+          <tr lang="en">float to the current outlet, then move to the next</tr>
+          <tr lang="ru">число на текущий выход, затем переход к следующему</tr>
         </in>
         <in on="list">
-          <tr lang="en">list to to current outlet, then move to next</tr>
-          <tr lang="ru" finished="false">Перечислите текущий выход, затем перейдите к
-          следующему</tr>
+          <tr lang="en">list to the current outlet, then move to the next</tr>
+          <tr lang="ru">список на текущий выход, затем переход к следующему</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">symbol to current outlet, then move to next</tr>
-          <tr lang="ru" finished="false">символ к текущей розетке, затем перейти к следующей</tr>
+          <tr lang="en">symbol to the current outlet, then move to the next</tr>
+          <tr lang="ru">символ на текущий выход, затем переход к следующему</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
-          <tr lang="en">reset to initial outlet index</tr>
-          <tr lang="ru" finished="false">Сброс начального индекса выхода</tr>
+          <tr lang="en">reset to the initial outlet index</tr>
+          <tr lang="ru">сбросить к начальному индексу выхода</tr>
         </in>
       </inlet>
     </inlets>
@@ -100,19 +123,19 @@
       <outlet number="1">
         <out type="any">
           <tr lang="en">first output</tr>
-          <tr lang="ru" finished="false">первый выход</tr>
+          <tr lang="ru">первый выход</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
           <tr lang="en">... output</tr>
-          <tr lang="ru" finished="false">... выход</tr>
+          <tr lang="ru">... выход</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
-          <tr lang="en">nth output</tr>
-          <tr lang="ru" finished="false">выходной</tr>
+          <tr lang="en">n-th output</tr>
+          <tr lang="ru">N-й выход</tr>
         </out>
       </outlet>
     </outlets>

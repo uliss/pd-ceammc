@@ -19,32 +19,50 @@
         <see>flow.append</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">on receiving a message, the object first outputs the stored message and then
+        the incoming message</tr>
+        <tr lang="ru">при получении сообщения объект сначала выводит сохранённое сообщение, а затем
+        — входящее</tr>
+      </par>
+      <par>
+        <tr lang="en">the stored message is set by the MSG argument, the @msg property, or by
+        sending a message to the right inlet</tr>
+        <tr lang="ru">сохраняемое сообщение задаётся аргументом MSG, свойством @msg или подачей
+        сообщения на правый вход</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to send a fixed message before each incoming message,
+        for example to trigger a reset</tr>
+        <tr lang="ru">объект можно использовать для отправки фиксированного сообщения перед каждым
+        входящим, например для запуска сброса</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="MSG" type="list">
-        <tr lang="en">init value for prepended message</tr>
-        <!-- old: значение init для заранее подготовленного
-                сообщения -->
-        <tr lang="ru" finished="false">значение init для заранее подготовленного сообщения</tr>
+        <tr lang="en">initial value for the prepended message</tr>
+        <tr lang="ru">начальное значение для вставляемого сообщения</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @msg -->
       <property name="@msg" type="list" default="">
         <tr lang="en">prepended message</tr>
-        <tr lang="ru" finished="false">предварительное сообщение</tr>
+        <tr lang="ru">вставляемое сообщение</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input message</tr>
-          <tr lang="ru" finished="false">вводное сообщение</tr>
+          <tr lang="ru">входное сообщение</tr>
         </in>
       </inlet>
       <inlet>
         <in on="any">
           <tr lang="en">set prepend value</tr>
-          <tr lang="ru" finished="false">Устанавливать предоплаченную стоимость</tr>
+          <tr lang="ru">задать вставляемое значение</tr>
         </in>
       </inlet>
     </inlets>
@@ -52,7 +70,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output message</tr>
-          <tr lang="ru" finished="false">выходное сообщение</tr>
+          <tr lang="ru">выходное сообщение</tr>
         </out>
       </outlet>
     </outlets>

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">measure the time between messages</tr>
-        <tr lang="ru">измерение времени между сообщениями</tr>
+        <tr lang="ru">измеряет время между сообщениями</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,21 +19,34 @@
         <see>timer</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object measures the time in milliseconds between the current and the
+        previous message received on the inlet</tr>
+        <tr lang="ru">объект измеряет время в миллисекундах между текущим и предыдущим сообщением,
+        полученным на входе</tr>
+      </par>
+      <par>
+        <tr lang="en">the first message after the object is created produces no output, since there
+        is no previous message to compare with</tr>
+        <tr lang="ru">первое сообщение после создания объекта не даёт вывода, так как нет
+        предыдущего сообщения для сравнения</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input flow</tr>
-          <tr lang="ru" finished="false">входной поток</tr>
+          <tr lang="ru">входной поток</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="float">
           <tr lang="en">output time between the current and the previous message in
           milliseconds</tr>
-          <tr lang="ru" finished="false">время вывода между текущим и предыдущим сообщением в
-          миллисекундах</tr>
+          <tr lang="ru">время между текущим и предыдущим сообщением в миллисекундах</tr>
         </out>
       </outlet>
     </outlets>

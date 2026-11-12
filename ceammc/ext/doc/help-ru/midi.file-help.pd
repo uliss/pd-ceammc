@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 416 50 cnv 1 349 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 421 50 чтение и запись стандартных MIDI файлов (SMF);
+#X text 421 50 чтение и запись стандартных MIDI-файлов (SMF);
 #X obj 1 1 cnv 5 765 40 empty empty midi.file 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 midi.file;
@@ -28,56 +28,56 @@
 #X text 130 491 1\.;
 #X text 170 491 symbol;
 #X obj 268 492 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 491 FILENAME: initial MIDI filename. Тип: symbol.;
+#X text 270 491 FILENAME: начальное имя MIDI-файла. Тип: symbol.;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 531 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 534 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 532 @filename;
-#X text 270 532 Current filename. Тип: symbol.;
+#X text 270 532 Текущее имя файла. Тип: symbol.;
 #X obj 250 562 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 562 @length_beat?;
-#X text 270 562 (только чтение) File length in quarters. Тип: float.
+#X text 270 562 (только чтение) Длина файла в четвертях. Тип: float.
 Значение по умолчанию: 0\.;
 #X obj 250 604 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 604 @length_sec?;
-#X text 270 604 (только чтение) File length. Тип: float. Единицы: 'sec'.
+#X text 270 604 (только чтение) Длина файла. Тип: float. Единицы: 'sec'.
 Значение по умолчанию: 0\.;
 #X obj 250 646 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 646 @length_tick?;
-#X text 270 646 (только чтение) File length in ticks. Тип: int. Значение
+#X text 270 646 (только чтение) Длина файла в тиках. Тип: int. Значение
 по умолчанию: 0\.;
 #X obj 250 688 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 688 @tempo?;
-#X text 270 688 (только чтение) Midi tempo in ticks per quarter. Тип:
+#X text 270 688 (только чтение) Темп MIDI в тиках на четверть. Тип:
 int. Значение по умолчанию: 120\.;
 #X obj 250 730 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 730 @tracks?;
-#X text 270 730 (только чтение) Number of tracks. Тип: int. Значение
+#X text 270 730 (только чтение) Количество дорожек. Тип: int. Значение
 по умолчанию: 1\.;
 #X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 787 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
 #X msg 130 788 clear;
-#X text 270 788 removes all midi file content.;
+#X text 270 788 удаляет всё содержимое MIDI-файла.;
 #X obj 250 823 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 823 read;
-#X text 270 823 read specified midi file. No output.;
+#X text 270 823 читает указанный MIDI-файл \, без вывода.;
 #X obj 250 858 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
 #X msg 130 858 write;
-#X text 270 858 write to specified midi file.;
+#X text 270 858 записывает в указанный MIDI-файл.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 908 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 909 1\.;
 #X text 170 909 bang:;
-#X text 270 909 output MidiFile data type.;
+#X text 270 909 вывести данные типа MidiFile.;
 #X obj 20 944 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 949 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 950 1\.;
-#X text 270 950 MidiStream data type.;
+#X text 270 950 данные типа MidiStream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

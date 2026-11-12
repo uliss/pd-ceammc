@@ -38,6 +38,7 @@ if(APPLE)
 
     configure_file(build_all.sh ${PROJECT_BINARY_DIR}/scripts/build_all.sh @ONLY)
     configure_file(build_faust.sh ${PROJECT_BINARY_DIR}/scripts/build_faust.sh @ONLY)
+    configure_file(build_rhvoice.sh ${PROJECT_BINARY_DIR}/scripts/build_rhvoice.sh @ONLY)
     configure_file(build_sfizz.sh ${PROJECT_BINARY_DIR}/scripts/build_sfizz.sh @ONLY)
     configure_file(build_verovio.sh ${PROJECT_BINARY_DIR}/scripts/build_verovio.sh @ONLY)
     configure_file(gen_examples.sh ${PROJECT_BINARY_DIR}/scripts/gen_examples.sh @ONLY)

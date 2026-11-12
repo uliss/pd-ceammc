@@ -5,11 +5,11 @@
 #X obj 535 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 540 50 различные звуковые эффекты;
 #X obj 30 120 ui.link @title [fx.bitdown~] @url fx.bitdown~-help.pd;
-#X text 220 117 понижение разрядности входного сигнала и эффект даунсемплинга;
+#X text 220 117 эффект понижения разрядности и даунсемплинга;
 #X obj 30 145 ui.link @title [fx.chorus~] @url fx.chorus~-help.pd;
 #X text 220 142 хорус-эффект;
 #X obj 30 170 ui.link @title [fx.dattorro~] @url fx.dattorro~-help.pd;
-#X text 220 167 реверберация Dattorro;
+#X text 220 167 ревербератор Dattorro;
 #X obj 30 195 ui.link @title [fx.delay~] @url fx.delay~-help.pd;
 #X text 220 192 плавный дилей с регулировкой обратной связи;
 #X obj 30 220 ui.link @title [fx.distortion1~] @url
@@ -48,11 +48,11 @@ fx.freqshift~-help.pd;
 fx.granulator~-help.pd;
 #X text 220 517 гранулятор входного потока;
 #X obj 30 545 ui.link @title [fx.greyhole~] @url fx.greyhole~-help.pd;
-#X text 220 542 cложный эхоподобный эффект;
+#X text 220 542 сложный эхоподобный эффект;
 #X obj 30 570 ui.link @title [fx.infrev~] @url fx.infrev~-help.pd;
 #X text 220 567 порт плагина Infinity VST из "airwindows";
 #X obj 30 595 ui.link @title [fx.jcrev~] @url fx.jcrev~-help.pd;
-#X text 220 592 квадрофонический ревербератор Шрёдера из 1972 года;
+#X text 220 592 квадрофонический ревербератор Шрёдера 1972 года;
 #X obj 30 620 ui.link @title [fx.looper~] @url fx.looper~-help.pd;
 #X text 220 617 однодорожечный лупер;
 #X obj 30 645 ui.link @title [fx.overdrive~] @url
@@ -70,7 +70,7 @@ fx.rb_pitchshift~-help.pd;
 #X obj 30 745 ui.link @title [fx.recho~] @url fx.recho~-help.pd;
 #X text 220 742 обратный эффект эха;
 #X obj 30 770 ui.link @title [fx.ringmod~] @url fx.ringmod~-help.pd;
-#X text 220 767 кольцевой модулятор;
+#X text 220 767 эффект кольцевой модуляции;
 #X obj 30 795 ui.link @title [fx.room~] @url fx.room~-help.pd;
 #X text 220 792 алгоритм Гарднера для эмуляции комнаты;
 #X obj 30 820 ui.link @title [fx.satrev~] @url fx.satrev~-help.pd;

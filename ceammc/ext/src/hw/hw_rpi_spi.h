@@ -14,6 +14,8 @@
 #ifndef HW_RPI_SPI_H
 #define HW_RPI_SPI_H
 
+#ifdef WITH_RPI
+
 #include "hw_rpi_device.h"
 
 namespace ceammc {
@@ -31,8 +33,17 @@ public:
     void m_loopback_test(t_symbol* s, const AtomListView& lv);
 };
 
+} // namespace ceammc
+
 void setup_hw_rpi_spi();
 
-} // namespace ceammc
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwSpi, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwSpi, hw_rpi_spi, "hw.rpi.spi");
+
+#endif
 
 #endif // HW_RPI_SPI_H

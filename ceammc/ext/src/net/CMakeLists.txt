@@ -1,20 +1,16 @@
-add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
+add_library(ceammc_net STATIC mod_net.cpp net_host.cpp osc_property.cpp)
 
-target_sources(ceammc_net
-    PRIVATE
-        net_osc_send.cpp
-        net_osc_server.cpp
-        net_osc_receive.cpp
-        osc_property.cpp)
+function(ceammc_net_external name)
+  target_sources(ceammc_net PRIVATE "net_${name}.h" "net_${name}.cpp")
+endfunction()
+
+ceammc_net_external(osc_send)
+ceammc_net_external(osc_server)
+ceammc_net_external(osc_receive)
 
 # MQTT
 target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
 if(WITH_MQTT)
-    target_include_directories(ceammc_net PRIVATE
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-    )
-    target_link_libraries(ceammc_net PRIVATE net_rust)
     target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
@@ -38,14 +34,11 @@ if(WITH_TELEGRAM)
 endif()
 
 # libartnet
+ceammc_net_external(artnet_send)
 if(WITH_ARTNET)
+    ceammc_net_external(artnet_impl)
     target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
-    target_sources(ceammc_net
-        PRIVATE
-        net_artnet_send.cpp
-        net_artnet_impl.cpp
-    )
-    target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
+    target_include_directories(ceammc_net PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
     target_link_libraries(ceammc_net PUBLIC artnet)
 endif()
 
@@ -112,14 +105,10 @@ if(WITH_ZEROCONF)
 endif()
 
 # websocket
-target_sources(ceammc_net PRIVATE net_ws_client.cpp net_ws_server.cpp)
+ceammc_net_external(ws_client)
+ceammc_net_external(ws_server)
 if(WITH_WEBSOCKET)
     target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-        )
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
         target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
@@ -127,29 +116,26 @@ if(WITH_WEBSOCKET)
 endif()
 
 # esphome
-target_sources(ceammc_net PRIVATE net_esphome_client.h net_esphome_client.cpp)
+ceammc_net_external(esphome_client)
 if(WITH_ESPHOME)
     target_compile_definitions(ceammc_net PRIVATE WITH_ESPHOME)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
-        )
     pd_method_args(ceammc_net net_esphome_client)
 endif()
 
 # wled
-target_sources(ceammc_net PRIVATE net_wled.h net_wled.cpp)
+ceammc_net_external(wled)
 if(WITH_WLED)
     target_compile_definitions(ceammc_net PRIVATE WITH_WLED)
-    target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_include_directories(ceammc_net
+    pd_method_args(ceammc_net net_wled)
+endif()
+
+if(WITH_RUST_NET)
+    target_include_directories(ceammc_net PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
-        )
-    pd_method_args(ceammc_net net_wled)
+    )
+    target_link_libraries(ceammc_net PUBLIC net_rust)
 endif()
 
 

@@ -28,58 +28,61 @@
       <par>
         <tr lang="en">generates a random floating-point value uniformly distributed in the range
         [min..max)</tr>
-        <tr lang="ru" finished="false">генерирует случайное значение с плавающей точкой, равномерно
-        распределенное в диапазоне [min..max]</tr>
+        <tr lang="ru">генерирует случайное значение с плавающей точкой, равномерно распределённое в
+        диапазоне [min..max)</tr>
       </par>
       <par>
-        <tr lang="en">Use @seed property to get reproducible sequences. If @seed property was not
-        explicitly set or specified, uses generator initialized with current time.</tr>
-        <tr lang="ru" finished="false">Используйте свойство @seed для получения воспроизводимых
-        последовательностей. Если свойство @seed не было явно установлено или указано, используется
-        генератор, инициализированный с текущим временем.</tr>
+        <tr lang="en">use the @seed property to get reproducible sequences. If @seed is not set
+        explicitly, a generator initialized with the current time is used</tr>
+        <tr lang="ru">используйте свойство @seed для получения воспроизводимых последовательностей.
+        Если @seed не задан явно, используется генератор, инициализированный текущим временем</tr>
       </par>
       <par>
-        <tr lang="en">Algorithm: 32-bit Mersenne Twister by Matsumoto and Nishimura, 1998</tr>
-        <tr lang="ru" finished="false">Алгоритм: 32-битный Мерсенн Твистер Мацумото и Нисимура,
-        1998</tr>
+        <tr lang="en">algorithm: 32-bit Mersenne Twister by Matsumoto and Nishimura, 1998</tr>
+        <tr lang="ru">алгоритм: 32-битный Mersenne Twister Мацумото и Нисимуры, 1998</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to add subtle random variation to parameters, for
+        example to humanize note velocities or add slight detuning to oscillators</tr>
+        <tr lang="ru">объект можно использовать для добавления лёгкой случайной вариации к
+        параметрам, например чтобы очеловечить скорость нот или добавить небольшой расстрой
+        осцилляторам</tr>
       </par>
       <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">wiki: Mersenne Twister</a>
     </info>
     <arguments>
       <argument name="ARG" type="list">
-        <tr lang="en">@min=ARG[0], @max=ARG[1], in case of signle arg: @min=0, @max=ARG[0]</tr>
-        <tr lang="ru" finished="false">@min=ARG[0], @max=ARG[1], в случае знакового arg: @min=0,
-        @max=ARG[0]</tr>
+        <tr lang="en">@min=ARG[0], @max=ARG[1], in case of a single arg: @min=0, @max=ARG[0]</tr>
+        <tr lang="ru">@min=ARG[0], @max=ARG[1], в случае одного аргумента: @min=0, @max=ARG[0]</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @max -->
       <property name="@max" type="float" default="1">
         <tr lang="en">random range upper bound</tr>
-        <tr lang="ru" finished="false">верхняя граница случайного диапазона</tr>
+        <tr lang="ru">верхняя граница случайного диапазона</tr>
       </property>
       <!-- @min -->
       <property name="@min" type="float" default="0">
         <tr lang="en">random range lower bound</tr>
-        <tr lang="ru" finished="false">нижняя граница случайного диапазона</tr>
+        <tr lang="ru">нижняя граница случайного диапазона</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" minvalue="0" default="0">
         <tr lang="en">generator seed</tr>
-        <tr lang="ru" finished="false">генератор</tr>
+        <tr lang="ru">начальное значение генератора</tr>
       </property>
     </properties>
     <methods>
       <!-- gen -->
       <method name="gen">
         <info>
-          <tr lang="en">generate list of random floats with specified length</tr>
-          <tr lang="ru" finished="false">генерировать список случайных поплавков с заданной
-          длиной</tr>
+          <tr lang="en">generate a list of random floats with the specified length</tr>
+          <tr lang="ru">генерирует список случайных чисел с заданной длиной</tr>
         </info>
         <param name="N" type="int" required="true" minvalue="1">
           <tr lang="en">list length</tr>
-          <tr lang="ru" finished="false">длинный список</tr>
+          <tr lang="ru">длина списка</tr>
         </param>
       </method>
     </methods>
@@ -87,27 +90,27 @@
       <inlet>
         <in on="bang">
           <tr lang="en">generate new number</tr>
-          <tr lang="ru" finished="false">генерировать новое число</tr>
+          <tr lang="ru">генерировать новое число</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set @min property</tr>
-          <tr lang="ru" finished="false">@min Недвижимость</tr>
+          <tr lang="ru">задать свойство @min</tr>
         </in>
       </inlet>
       <inlet>
         <in on="float">
           <tr lang="en">set @max property</tr>
-          <tr lang="ru" finished="false">Обсуждение @max Property</tr>
+          <tr lang="ru">задать свойство @max</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">float ot list: result value</tr>
-          <tr lang="ru" finished="false">Float ot list: значение результата</tr>
+          <tr lang="en">float or list: result value</tr>
+          <tr lang="ru">число или список: значение результата</tr>
         </out>
       </outlet>
     </outlets>

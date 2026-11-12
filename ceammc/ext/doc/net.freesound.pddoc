@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">Freesound API v2 client</tr>
-        <tr lang="ru">клиент для Freesound API v2</tr>
+        <tr lang="ru">клиент Freesound API v2</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -19,36 +19,26 @@
     <info>
       <par>
         <tr lang="en">1) create Freesound API credentials at:</tr>
-        <!-- old: 1) создать учетные данные API Freesound по
-                адресу: -->
-        <tr lang="ru" finished="false">1) создать учетные данные API Freesound по адресу:</tr>
+        <tr lang="ru">1) создайте учётные данные Freesound API по адресу:</tr>
       </par>
       <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
       <par>
-        <tr lang="en">2) save this id/secret pair into the file if using @oauth_file property or
-        set @oauth_id/@oauth_secret properties explicitly or enter it with the editor</tr>
-        <!-- old: 2) сохранить эту пара id/secret в файле при
-                использовании свойства @oauth_file или установить @oauth_id/@oauth_secret свойства
-                явно или ввести его с редактором -->
-        <tr lang="ru" finished="false">2) сохранить эту пара id/secret в файле при использовании
-        свойства @oauth_file или установить @oauth_id/@oauth_secret свойства явно или ввести его с
-        редактором</tr>
+        <tr lang="en">2) save the id/secret pair to a file when using @oauth_file, or set
+        @oauth_id/@oauth_secret explicitly, or enter them in the editor</tr>
+        <tr lang="ru">2) сохраните пару id/secret в файл при использовании @oauth_file, либо
+        задайте @oauth_id/@oauth_secret явно, либо введите их в редакторе</tr>
       </par>
       <par>
-        <tr lang="en">3) [access auth( get a temporal application code from the Freesound website
-        (valid for ~24 hours)</tr>
-        <!-- old: 3) [access auth (получить временный код приложения с
-                сайта Freesound (действительный в течение ~24 часов)] -->
-        <tr lang="ru" finished="false">3) [access auth (получить временный код приложения с сайта
-        Freesound (действительный в течение ~24 часов)]</tr>
+        <tr lang="en">3) [access auth( — get a temporary application code from the Freesound
+        website (valid for ~24 hours)</tr>
+        <tr lang="ru">3) [access auth( — получить временный код приложения с сайта Freesound
+        (действителен ~24 часа)</tr>
       </par>
       <par>
-        <tr lang="en">4) [access code CODE( exchange this application code to the internal secret
+        <tr lang="en">4) [access code CODE( — exchange the application code for the internal secret
         access token</tr>
-        <!-- old: 4) [код доступа CODE (обмен этим кодом приложения на
-                внутренний секретный токен доступа) -->
-        <tr lang="ru" finished="false">4) [код доступа CODE (обмен этим кодом приложения на
-        внутренний секретный токен доступа)</tr>
+        <tr lang="ru">4) [access code CODE( — обменять код приложения на внутренний секретный токен
+        доступа</tr>
       </par>
     </info>
     <mouse>
@@ -58,156 +48,128 @@
       <!-- @oauth_file -->
       <property name="@oauth_file" type="symbol" default="" access="initonly">
         <tr lang="en">path to file with OAuth2 ID/secret, one per line</tr>
-        <tr lang="ru" finished="false">путь к файлу с OAuth2 ID/secret, один на строку</tr>
+        <tr lang="ru">путь к файлу с OAuth2 ID/secret, по одному на строку</tr>
       </property>
       <!-- @oauth_id -->
       <property name="@oauth_id" type="symbol" default="" access="initonly">
         <tr lang="en">Freesound OAuth2 ID</tr>
-        <tr lang="ru" finished="false">Фризунд OAuth2 ID</tr>
+        <tr lang="ru">Freesound OAuth2 ID</tr>
       </property>
       <!-- @oauth_secret -->
       <property name="@oauth_secret" type="symbol" default="" access="initonly">
         <tr lang="en">Freesound OAuth2 secret</tr>
-        <tr lang="ru" finished="false">Тайна Freesound OAuth2</tr>
+        <tr lang="ru">Freesound OAuth2 secret</tr>
       </property>
     </properties>
     <methods>
       <!-- access auth -->
       <method name="access auth">
         <info>
-          <tr lang="en">get application authorization code (valid ~24 hours) from Freesound page:
-          should open in web browser.</tr>
-          <!-- old: получить код авторизации приложения
-                    (действительный ~ 24 часа) со страницы Freesound: следует открыть в
-                    веб-браузере. -->
-          <tr lang="ru" finished="false">получить код авторизации приложения (действительный ~ 24
-          часа) со страницы Freesound: следует открыть в веб-браузере.</tr>
+          <tr lang="en">get an application authorization code (valid ~24 hours) from the Freesound
+          page, which should open in a web browser</tr>
+          <tr lang="ru">получить код авторизации приложения (действителен ~24 часа) со страницы
+          Freesound, которая должна открыться в веб-браузере</tr>
         </info>
       </method>
       <!-- access code -->
       <method name="access code">
         <info>
-          <tr lang="en">exchange application authorization code to temp *access* token that will be
-          used for every request. Note: you can do it only once, otherwise you need to get another
-          application authorization code from Freesite site.</tr>
-          <!-- old: обмен кода авторизации заявки на временный токен
-                    *access*, который будет использоваться для каждого запроса. Примечание: вы
-                    можете сделать это только один раз, в противном случае вам нужно получить
-                    другой код авторизации приложения с сайта Freesite. -->
-          <tr lang="ru" finished="false">обмен кода авторизации заявки на временный токен *access*,
-          который будет использоваться для каждого запроса. Примечание: вы можете сделать это
-          только один раз, в противном случае вам нужно получить другой код авторизации приложения
-          с сайта Freesite.</tr>
+          <tr lang="en">exchange the application authorization code for a temp *access* token used
+          for every request. Note: this can be done only once, otherwise you need to get another
+          application authorization code from the Freesound site.</tr>
+          <tr lang="ru">обменять код авторизации приложения на временный токен *access*,
+          используемый для каждого запроса. Примечание: это можно сделать только один раз, иначе
+          потребуется получить новый код авторизации приложения с сайта Freesound.</tr>
         </info>
         <param name="CODE" type="symbol" required="true">
-          <tr lang="en">application auth code. Copy it from from Freesound webpage!</tr>
-          <!-- old: AUTH-код приложения. Скопируйте это с
-                    веб-страницы Freesound! -->
-          <tr lang="ru" finished="false">AUTH-код приложения. Скопируйте это с веб-страницы
-          Freesound!</tr>
+          <tr lang="en">application auth code. Copy it from the Freesound webpage</tr>
+          <tr lang="ru">код авторизации приложения. Скопируйте его с веб-страницы Freesound</tr>
         </param>
       </method>
       <!-- access load -->
       <method name="access load">
         <info>
-          <tr lang="en">load temp *access* token (not OAuth id/secret!) from the special file from
+          <tr lang="en">load the temp *access* token (not OAuth id/secret) from a special file in
           the current patch directory</tr>
-          <!-- old: Скачать temp *access* token (не OAuth
-                    id/secret!) из специального файла из текущего каталога патчей -->
-          <tr lang="ru" finished="false">Скачать temp *access* token (не OAuth id/secret!) из
-          специального файла из текущего каталога патчей</tr>
+          <tr lang="ru">загрузить временный токен *access* (не OAuth id/secret) из специального
+          файла в текущем каталоге патча</tr>
         </info>
       </method>
       <!-- access store -->
       <method name="access store">
         <info>
-          <tr lang="en">store temp *access* token (not OAuth id/secret!) into the special file in
+          <tr lang="en">store the temp *access* token (not OAuth id/secret) into a special file in
           the current patch directory</tr>
-          <!-- old: (не OAuth id/secret!) в специальный файл в
-                    текущем каталоге патчей -->
-          <tr lang="ru" finished="false">(не OAuth id/secret!) в специальный файл в текущем
-          каталоге патчей</tr>
+          <tr lang="ru">сохранить временный токен *access* (не OAuth id/secret) в специальный файл
+          в текущем каталоге патча</tr>
         </info>
       </method>
       <!-- download -->
       <method name="download">
         <info>
-          <tr lang="en">download Freesound file</tr>
-          <tr lang="ru" finished="false">Скачать Freesound файл</tr>
+          <tr lang="en">download a Freesound file</tr>
+          <tr lang="ru">скачать файл с Freesound</tr>
         </info>
         <param name="ID" type="int" required="true">
-          <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
-          <!-- old: Идентификатор звукового файла Freesound
-                    (получить его из результатов поиска, например) -->
-          <tr lang="ru" finished="false">Идентификатор звукового файла Freesound (получить его из
-          результатов поиска, например)</tr>
+          <tr lang="en">Freesound soundfile ID (get it from a search result, for example)</tr>
+          <tr lang="ru">ID звукового файла Freesound (например, из результатов поиска)</tr>
         </param>
       </method>
       <!-- load -->
       <method name="load">
         <info>
-          <tr lang="en">load Freesound file into Pd arrays</tr>
-          <tr lang="ru" finished="false">Загрузите файл Freesound в Pd массивы</tr>
+          <tr lang="en">load a Freesound file into Pd arrays</tr>
+          <tr lang="ru">загрузить файл с Freesound в массивы Pd</tr>
         </info>
         <param name="ID" type="int" required="true">
-          <tr lang="en">Freesound soundfile ID (get it from search result, for examples)</tr>
-          <!-- old: Идентификатор звукового файла Freesound
-                    (получить его из результатов поиска, например) -->
-          <tr lang="ru" finished="false">Идентификатор звукового файла Freesound (получить его из
-          результатов поиска, например)</tr>
+          <tr lang="en">Freesound soundfile ID (get it from a search result, for example)</tr>
+          <tr lang="ru">ID звукового файла Freesound (например, из результатов поиска)</tr>
         </param>
         <param name="@array" type="symbol" required="true">
           <tr lang="en">array name</tr>
-          <tr lang="ru" finished="false">имя массива</tr>
+          <tr lang="ru">имя массива</tr>
         </param>
         <param name="@norm" type="bool" required="false">
           <tr lang="en">normalize sound</tr>
-          <tr lang="ru" finished="false">нормализовать звук</tr>
+          <tr lang="ru">нормализовать звук</tr>
         </param>
       </method>
       <!-- me -->
       <method name="me">
         <info>
           <tr lang="en">get and output user information</tr>
-          <!-- old: Получать и выводить информацию о
-                    пользователях -->
-          <tr lang="ru" finished="false">Получать и выводить информацию о пользователях</tr>
+          <tr lang="ru">получить и вывести информацию о пользователе</tr>
         </info>
       </method>
       <!-- search -->
       <method name="search">
         <info>
-          <tr lang="en">perform search</tr>
-          <tr lang="ru" finished="false">выполнить поиск</tr>
+          <tr lang="en">perform a search</tr>
+          <tr lang="ru">выполнить поиск</tr>
         </info>
         <param name="@p" type="int" required="false" minvalue="1">
           <tr lang="en">search page number</tr>
-          <tr lang="ru" finished="false">номер страницы поиска</tr>
+          <tr lang="ru">номер страницы поиска</tr>
         </param>
         <param name="@n" type="int" required="false" minvalue="1">
           <tr lang="en">number of results</tr>
-          <tr lang="ru" finished="false">количество результатов</tr>
+          <tr lang="ru">количество результатов</tr>
         </param>
         <param name="@fields" type="symbol" required="false">
           <tr lang="en">requested fields</tr>
-          <tr lang="ru" finished="false">Запрошенные поля</tr>
+          <tr lang="ru">запрошенные поля</tr>
         </param>
         <param name="@sort" type="symbol" required="false">
           <tr lang="en">sort methods: "score", "duration_desc", "duration_asc", "created_desc",
           "created_asc", "downloads_desc", "downloads_asc", "rating_desc", "rating_asc"</tr>
-          <!-- old: методы сортировки: "score", "duration_desc",
-                    "duration_asc", "created_desc", "created_asc", "downloads_desc",
-                    "downloads_asc", "rating_desc", "rating_asc" -->
-          <tr lang="ru" finished="false">методы сортировки: "score", "duration_desc",
-          "duration_asc", "created_desc", "created_asc", "downloads_desc", "downloads_asc",
-          "rating_desc", "rating_asc"</tr>
+          <tr lang="ru">методы сортировки: "score", "duration_desc", "duration_asc",
+          "created_desc", "created_asc", "downloads_desc", "downloads_asc", "rating_desc",
+          "rating_asc"</tr>
         </param>
         <param name="@filter" type="symbol" required="false">
-          <tr lang="en">filter expression, for example: @filter type mp3. See
+          <tr lang="en">filter expression, for example @filter type mp3. See
           https://freesound.org/docs/api/resources_apiv2.html</tr>
-          <!-- old: Выражение фильтра, например: @filter type mp3.
-                    https://freesound.org/docs/api/resources_apiv2.html -->
-          <tr lang="ru" finished="false">Выражение фильтра, например: @filter type mp3.
+          <tr lang="ru">выражение фильтра, например @filter type mp3. См.
           https://freesound.org/docs/api/resources_apiv2.html</tr>
         </param>
       </method>
@@ -216,19 +178,19 @@
       <inlet>
         <in>
           <tr lang="en">input</tr>
-          <tr lang="ru" finished="false">ввод</tr>
+          <tr lang="ru">вход</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">messages: [user DICT( - user info, [progress VALUE( - download process
-          information, [loaded( - when finished loading, [downloaded( - when file download is
-          finished, [results DICT( - search result.</tr>
-          <tr lang="ru" finished="false">сообщения: [user DICT( - user info, [progress VALUE( -
-          download process information, [loaded( - when finished loading, [downloaded( - when file
-          download is finished, [результаты DICT( - результат поиска)]]</tr>
+          <tr lang="en">messages: [user DICT( — user info, [progress VALUE( — download progress,
+          [loaded( — when loading is finished, [downloaded( — when file download is finished,
+          [results DICT( — search result</tr>
+          <tr lang="ru">сообщения: [user DICT( — информация о пользователе, [progress VALUE( —
+          прогресс загрузки, [loaded( — загрузка завершена, [downloaded( — скачивание файла
+          завершено, [results DICT( — результат поиска</tr>
         </out>
       </outlet>
     </outlets>

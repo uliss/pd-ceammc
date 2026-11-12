@@ -71,6 +71,9 @@ set(DOC_CHECK_SCRIPTS
 
 add_custom_target(distrib_doc_check_scripts SOURCES ${DOC_CHECK_SCRIPTS})
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_translations.py ${PROJECT_BINARY_DIR}/scripts @ONLY)
+target_sources(distrib_doc_check_scripts PRIVATE check_translations.py)
+
 foreach(_s ${DOC_CHECK_SCRIPTS})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_s} ${PROJECT_BINARY_DIR} @ONLY)
 endforeach()

@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">snap or skip MIDI-pitches according the specified modus</tr>
-        <tr lang="ru">приводит или удаляет MIDI-ноты согласно указанному ладу</tr>
+        <tr lang="ru">подстраивает или пропускает MIDI-ноты в соответствии с указанным ладом</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,43 +21,45 @@
       enum="A A# A## Ab Abb B B# B## Bb Bbb C C# C## Cb Cbb D D# D## Db Dbb E E# E## Eb Ebb F F# F## Fb Fbb G G# G## Gb Gbb">
 
         <tr lang="en">root key</tr>
-        <tr lang="ru" finished="false">Ключ</tr>
+        <tr lang="ru">основная тональность</tr>
       </argument>
-      <argument name="SCALE" type="symbol">
+      <argument name="SCALE" type="symbol"
+      enum="aeolian ahirbhairav ajam atharKurd augmented augmented2 bartok bastanikar bayati bhairav chinese chromatic chromatic24 diminished diminished2 dorian egyptian enigmatic farahfaza gong hex_aeolian hex_dorian hex_major6 hex_major7 hex_phrygian hex_sus hijaz hijaz_desc hijaz_kar hindu hirajoshi husseini huzam indian ionian iraq iwato jiao jiharkah karjighar kijaz_kar_kurd kumoi kurd locrian lydian mahur major major_harmonic major_locrian major_melodic major_neapolitan major_pentatonic marva minor minor_harmonic minor_hungarian minor_lydian minor_melodic minor_melodic_desc minor_neapolitan minor_pentatonic minor_romanian mixolydian murassah mustar nahawand nahawand_desc nairuz nawa_athar nikriz partch_o1 partch_o2 partch_o3 partch_o4 partch_o5 partch_o6 partch_u1 partch_u2 partch_u3 partch_u4 partch_u5 partch_u6 pelog phrygian prometheus purvi rast rast_desc ritusen saba scriabin shang shawq_afza sikah sikah_desc spanish super_locrian suznak todi ushaq_mashri whole whole_leading yakah yakah_desc yu zamzam zanjaran zhi">
+
         <tr lang="en">modus scale</tr>
-        <tr lang="ru" finished="false">шкала модусов</tr>
+        <tr lang="ru">лад/шкала</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @mode -->
       <property name="@mode" type="symbol" enum="snap skip" default="snap">
         <tr lang="en">snap or skip incoming pitches</tr>
-        <tr lang="ru" finished="false">щелкать или пропускать входящие поля</tr>
+        <tr lang="ru">подстраивать или пропускать входящие ноты</tr>
       </property>
       <!-- @root -->
       <property name="@root" type="atom" default="C"
       enum="Cbb Cb C C# C## Dbb Db D D# D## Ebb Eb E E# E## Fbb Fb F F# F## Gbb Gb G G# G## Abb Ab A A# A## Bbb Bb B B# B##">
 
         <tr lang="en">root key</tr>
-        <tr lang="ru" finished="false">Ключ</tr>
+        <tr lang="ru">основная тональность</tr>
       </property>
       <!-- @scale -->
       <property name="@scale" type="symbol" default="chromatic"
       enum="ahirbhairav indian kurd diminished2 partch_u6 gong partch_o4 rast_desc nairuz hirajoshi hex_major6 farahfaza minor pelog partch_o3 partch_u1 partch_u3 yakah kumoi nikriz yakah_desc lydian whole ritusen jiharkah major_melodic augmented2 locrian mustar mixolydian nahawand partch_o1 ionian partch_u5 hex_dorian nawa_athar hex_aeolian minor_harmonic minor_melodic yu minor_melodic_desc minor_lydian zhi dorian sikah_desc marva hijaz partch_o6 major_pentatonic partch_u4 diminished shang partch_o5 whole_leading iraq major_harmonic bartok zamzam super_locrian chromatic24 ajam prometheus atharKurd chinese mahur augmented jiao egyptian suznak hijaz_kar saba kijaz_kar_kurd husseini huzam major_neapolitan shawq_afza hex_phrygian minor_pentatonic bastanikar hex_sus bayati minor_romanian major_locrian rast scriabin major murassah ushaq_mashri partch_u2 sikah partch_o2 nahawand_desc minor_hungarian iwato chromatic aeolian enigmatic hindu phrygian zanjaran karjighar spanish purvi minor_neapolitan bhairav hijaz_desc todi hex_major7">
 
         <tr lang="en">modus scale</tr>
-        <tr lang="ru" finished="false">шкала модусов</tr>
+        <tr lang="ru">лад/шкала</tr>
       </property>
     </properties>
     <inlets>
       <inlet>
         <in on="float">
           <tr lang="en">note value</tr>
-          <tr lang="ru" finished="false">примечание</tr>
+          <tr lang="ru">значение ноты</tr>
         </in>
         <in on="list">
           <tr lang="en">NOTE VELOCITY [DUR] list</tr>
-          <tr lang="ru" finished="false">ПРИМЕЧАНИЕ ВЕЛИКОБРИТАНИЯ [ДУР]</tr>
+          <tr lang="ru">список НОТА СКОРОСТЬ [ДЛИТ]</tr>
         </in>
       </inlet>
     </inlets>
@@ -65,14 +67,13 @@
       <outlet>
         <out type="any">
           <tr lang="en">accepted note or NOTE VELOCITY [DUR] list</tr>
-          <tr lang="ru" finished="false">Принятое примечание или ПРИМЕЧАНИЕ ПРИМЕЧАНИЕ ПРИМЕЧАНИЕ
-          [DUR]</tr>
+          <tr lang="ru">принятая нота или список НОТА СКОРОСТЬ [ДЛИТ]</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">discarded message</tr>
-          <tr lang="ru" finished="false">Отброшенное сообщение</tr>
+          <tr lang="ru">отброшенное сообщение</tr>
         </out>
       </outlet>
     </outlets>

@@ -1,68 +1,69 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 604 50 слияние аудиосигналов;
+#X obj 582 50 cnv 1 183 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 587 50 объединяет аудиосигналы;
 #X obj 1 1 cnv 5 765 40 empty empty merge~ 20 20 0 20 -104026 -4096 0;
 #X obj 573 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ceammc/merge~] @url merge~-help.pd;
 #X obj 695 8 merge~;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 mostly syntax sugar for clear schemes \, but can be
-used in dynamic pathing;
-#X obj 50 186 sig~ 1;
-#X obj 136 186 sig~ 2;
-#X obj 222 186 sig~ 3;
-#X obj 309 186 ui.hrd* 3;
-#X obj 50 215 gate~ 3, f 30;
-#X obj 50 244 merge~ 3, f 30;
-#X obj 50 273 ui.n~;
-#X obj 50 302 ui.dsp~;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 100 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 в основном это синтаксический сахар для более наглядных
+схем \, но объект можно использовать и при динамическом патчинге;
+#X text 240 138 обратную операцию выполняет [split~];
+#X obj 50 226 sig~ 1;
+#X obj 136 226 sig~ 2;
+#X obj 222 226 sig~ 3;
+#X obj 309 226 ui.hrd* 3;
+#X obj 50 255 gate~ 3, f 30;
+#X obj 50 284 merge~ 3, f 30;
+#X obj 50 313 ui.n~;
+#X obj 50 342 ui.dsp~;
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 397 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 360 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 400 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 358 1\.;
-#X text 170 358 int;
-#X obj 268 359 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 N: number of inputs. Тип: int. Диапазон: [2\..64];
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 398 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 398 1\.;
+#X text 170 398 int;
+#X obj 268 399 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 398 N: количество входов. Тип: int. Диапазон: [2\..64];
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 438 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 401 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 399 @n;
-#X text 270 399 (при инициализации) Number of inputs. Тип: int. Значение
+#X msg 130 439 @n;
+#X text 270 439 (при инициализации) Количество входов. Тип: int. Значение
 по умолчанию: 2\. Диапазон: [2\..64].;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 456 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 496 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 457 1\.;
-#X text 170 457 ~;
-#X text 270 457 first input signal.;
-#X text 130 482 ...;
-#X text 170 482 ~;
-#X text 270 482 ... input signal.;
-#X text 130 507 n.;
-#X text 170 507 ~;
-#X text 270 507 n-th input signal.;
-#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 547 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 497 1\.;
+#X text 170 497 ~;
+#X text 270 497 первый входной сигнал.;
+#X text 130 522 ...;
+#X text 170 522 ~;
+#X text 270 522 ... входной сигнал.;
+#X text 130 547 n.;
+#X text 170 547 ~;
+#X text 270 547 n-й входной сигнал.;
+#X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 587 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 548 1\.;
-#X text 170 548 ~;
-#X text 270 548 output.;
+#X text 130 588 1\.;
+#X text 170 588 ~;
+#X text 270 588 выход.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 598 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 601 библиотека: ceammc v0.9.8;
-#X text 573 613 смотрите также:;
-#X obj 694 616 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 641 библиотека: ceammc v0.9.8;
+#X text 573 653 смотрите также:;
+#X obj 694 656 ui.link @background_color 0.78431 0.78431 0.78431
 @title [split~] @url split~-help.pd;
-#N canvas 10 620 400 290 info 0;
+#N canvas 10 660 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -86,12 +87,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 620 pd info;
-#X connect 7 0 11 0;
-#X connect 8 0 11 1;
-#X connect 9 0 11 2;
-#X connect 10 0 11 3;
-#X connect 11 0 12 0;
-#X connect 11 1 12 1;
-#X connect 11 2 12 2;
+#X restore 10 660 pd info;
+#X connect 8 0 12 0;
+#X connect 9 0 12 1;
+#X connect 10 0 12 2;
+#X connect 11 0 12 3;
 #X connect 12 0 13 0;
+#X connect 12 1 13 1;
+#X connect 12 2 13 2;
+#X connect 13 0 14 0;

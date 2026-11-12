@@ -7,62 +7,74 @@
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.<=] @url flow.less_eq-help.pd;
 #X obj 653 8 flow.less_eq;
-#X obj 230 78 cnv 1 535 60 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Numbers thar are *less equal* then N-th argument are
-passed to N-th inlet;
-#X floatatom 50 186 5 0 0 0 - - -;
-#X obj 50 244 flow.less_eq 0 10 20 30;
-#X floatatom 50 273 5 0 0 0 - - -;
-#X floatatom 107 273 5 0 0 0 - - -;
-#X floatatom 165 273 5 0 0 0 - - -;
-#X floatatom 222 273 5 0 0 0 - - -;
-#X floatatom 290 273 5 0 0 0 - - -;
-#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 310 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 225 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object routes the incoming numbers to the outlets
+according to the compare values: a number that is less than or equal
+to the first value goes to the first outlet \, a number less than or
+equal to the N-th value goes to the N-th outlet;
+#X text 240 168 numbers greater than the last compare value are sent
+to the last outlet;
+#X text 240 208 the compare values must be in ascending order;
+#X text 240 233 the object can be used to split a numeric stream into
+ranges \, for example to map note pitches to different instruments
+or to divide a sensor range into zones;
+#X floatatom 50 351 5 0 0 0 - - -;
+#X obj 50 409 flow.less_eq 0 10 20 30;
+#X floatatom 50 438 5 0 0 0 - - -;
+#X floatatom 107 438 5 0 0 0 - - -;
+#X floatatom 165 438 5 0 0 0 - - -;
+#X floatatom 222 438 5 0 0 0 - - -;
+#X floatatom 290 438 5 0 0 0 - - -;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 475 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 313 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 478 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 311 1\.;
-#X text 170 311 list;
-#X obj 268 312 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 VALUES: compare values: list of floats in ascending
+#X text 130 476 1\.;
+#X text 170 476 list;
+#X obj 268 477 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 476 VALUES: compare values: list of floats in ascending
 order. Type: list.;
-#X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 366 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 369 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 534 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 367 @values;
-#X text 270 367 (initonly) Compare values: list of floats in ascending
+#X msg 130 532 @values;
+#X text 270 532 (initonly) Compare values: list of floats in ascending
 order. Type: list.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 589 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 425 1\.;
-#X text 170 425 float:;
-#X text 270 425 input flow.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 465 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 590 1\.;
+#X text 170 590 float:;
+#X text 270 590 input flow.;
+#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 630 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 466 1\.;
-#X text 270 466 numbers that are less equal then 1st argument.;
-#X text 130 486 ...;
-#X text 270 486 numbers that are less equal than ... argument.;
-#X text 130 506 n.;
-#X text 270 506 numbers that are less equal than N-th argument.;
-#X text 130 526 n+1\.;
-#X text 270 526 numbers that are greater than last argument.;
+#X text 130 631 1\.;
+#X text 170 631 float:;
+#X text 270 631 numbers that are less than or equal to the 1st argument.;
+#X text 130 651 ...;
+#X text 170 651 float:;
+#X text 270 651 numbers that are less than or equal to the ... argument.;
+#X text 130 671 n.;
+#X text 170 671 float:;
+#X text 270 671 numbers that are less than or equal to the N-th argument.;
+#X text 130 691 n+1\.;
+#X text 170 691 float:;
+#X text 270 691 numbers that are greater than the last argument.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 576 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 579 library: ceammc v0.9.8;
-#X text 597 591 see also:;
-#X obj 672 594 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 741 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 744 library: ceammc v0.9.8;
+#X text 597 756 see also:;
+#X obj 672 759 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.less] @url flow.less-help.pd;
-#N canvas 10 598 400 290 info 0;
+#N canvas 10 763 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -86,10 +98,10 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 598 pd info;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 8 1 10 0;
-#X connect 8 2 11 0;
-#X connect 8 3 12 0;
-#X connect 8 4 13 0;
+#X restore 10 763 pd info;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 11 2 14 0;
+#X connect 11 3 15 0;
+#X connect 11 4 16 0;

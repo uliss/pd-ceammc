@@ -5,120 +5,126 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.freeverb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 652 11 fx.freeverb~;
-#X obj 230 78 cnv 1 535 121 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 A simple Schroeder reverberator primarily developed
+#X obj 230 78 cnv 1 535 240 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 a simple Schroeder reverberator primarily developed
 by "Jezar at Dreampoint" that is extensively used in the free-software
-world. It uses four Schroeder allpasses in series and eight parallel
-Schroeder-Moorer filtered-feedback comb-filters for each audio channel
-\, and is said to be especially well tuned.;
-#X floatatom 50 247 5 0 0 0 - - -;
-#X msg 232 247 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 276 lfo.impulse~ 2;
-#X obj 232 276 expand_env;
-#X obj 78 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 232 305 ui.knob;
-#X obj 338 305 ui.knob;
-#X obj 443 305 ui.knob;
-#X obj 50 334 *~;
-#X obj 107 334 readsf~;
-#X msg 232 363 @room \$1;
-#X msg 338 363 @damp \$1;
-#X msg 443 363 @drywet \$1;
-#X obj 50 420 fx.freeverb~ 0.95 0.125;
-#X obj 50 449 ui.gain~ @size 120 16;
-#X obj 280 449 ui.dsp~;
-#X obj 50 478 dac~;
-#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 533 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+world;
+#X text 240 138 it uses four Schroeder allpasses in series and eight
+parallel Schroeder-Moorer filtered-feedback comb filters for each audio
+channel \, and is said to be especially well tuned;
+#X text 240 208 @room sets the room size \, @damp controls the damping
+of the lowpass comb filter \, @drywet mixes the original (dry) and
+processed signals;
+#X text 240 263 @freeze holds the reverberation tail \, the @fr_room
+\, @fr_damp and @fr_time properties control the frozen tail;
+#X floatatom 50 366 5 0 0 0 - - -;
+#X msg 232 366 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 395 lfo.impulse~ 2;
+#X obj 232 395 expand_env;
+#X obj 78 424 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 232 424 ui.knob;
+#X obj 338 424 ui.knob;
+#X obj 443 424 ui.knob;
+#X obj 50 453 *~;
+#X obj 107 453 readsf~;
+#X msg 232 482 @room \$1;
+#X msg 338 482 @damp \$1;
+#X msg 443 482 @drywet \$1;
+#X obj 50 539 fx.freeverb~ 0.95 0.125;
+#X obj 50 568 ui.gain~ @size 120 16;
+#X obj 280 568 ui.dsp~;
+#X obj 50 597 dac~;
+#X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 652 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 536 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 655 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 534 1\.;
-#X text 170 534 float;
-#X obj 268 535 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 534 ROOM: room size. Type: float. Range: [0\..1];
-#X text 130 559 2\.;
-#X text 170 559 float;
-#X obj 268 560 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 559 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Type: float. Range: [0\..1];
-#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 629 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X text 130 653 1\.;
+#X text 170 653 float;
+#X obj 268 654 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 653 ROOM: room size. Type: float. Range: [0\..1];
+#X text 130 678 2\.;
+#X text 170 678 float;
+#X obj 268 679 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 678 DRYWET: proportion of mix between the original (dry)
+and processed signals. Type: float. Range: [0\..1];
+#X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 733 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 632 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 736 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 630 @id;
-#X text 270 630 (initonly) OSC address id. If specified \, bind all
+#X msg 130 734 @id;
+#X text 270 734 (initonly) OSC address id. If specified \, bind all
 properties to /ID/fx_freeverb/PROP_NAME osc address \, if empty bind
 to /fx_freeverb/PROP_NAME. Type: symbol.;
-#X obj 250 687 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 687 @osc;
-#X text 270 687 (initonly) OSC server name to listen. Type: symbol.;
-#X obj 250 717 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 717 @active;
-#X text 270 717 On/off object dsp processing. Type: bool. Default value:
+#X obj 250 791 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 791 @osc;
+#X text 270 791 (initonly) OSC server name to listen. Type: symbol.;
+#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 821 @active;
+#X text 270 821 On/off object dsp processing. Type: bool. Default value:
 1\.;
-#X obj 250 747 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 747 @bypass;
-#X text 270 747 Bypass flag. If true: bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X obj 250 789 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 789 @damp;
-#X text 270 789 Damping of the lowpass comb filter. Type: float. Default
+#X obj 250 851 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 851 @bypass;
+#X text 270 851 Bypass flag. If true: bypass the processed signal.
+Type: bool. Default value: 0\.;
+#X obj 250 893 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 893 @damp;
+#X text 270 893 Damping of the lowpass comb filter. Type: float. Default
 value: 0.5\. Range: [0\..1].;
-#X obj 250 831 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 831 @drywet;
-#X text 270 831 Proportion of mix between the original (dry) and 'effected'
-(wet) signals. 0 - dry signal \, 1 - wet. Type: float. Default value:
+#X obj 250 935 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 935 @drywet;
+#X text 270 935 Proportion of mix between the original (dry) and processed
+signals. 0 — dry signal \, 1 — processed. Type: float. Default value:
 0.33\. Range: [0\..1].;
-#X obj 250 888 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 888 @fr_damp;
-#X text 270 888 Freeze room damp. Type: float. Default value: 0.0001\.
+#X obj 250 992 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 992 @fr_damp;
+#X text 270 992 Freeze room damping. Type: float. Default value: 0.0001\.
 Range: [0\..1].;
-#X obj 250 930 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 930 @fr_room;
-#X text 270 930 Freeze room size. Type: float. Default value: 0.999\.
+#X obj 250 1034 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1034 @fr_room;
+#X text 270 1034 Freeze room size. Type: float. Default value: 0.999\.
 Range: [0\..1].;
-#X obj 250 972 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 972 @fr_time;
-#X text 270 972 Length of freeze tail. Type: float. Units: 'ms'. Default
-value: 100\. Range: [0\..1000].;
-#X obj 250 1014 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1014 @freeze;
-#X text 270 1014 Freeze reverberation tail. Type: bool. Default value:
+#X obj 250 1076 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1076 @fr_time;
+#X text 270 1076 Length of the freeze tail. Type: float. Units: 'ms'.
+Default value: 100\. Range: [0\..1000].;
+#X obj 250 1118 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1118 @freeze;
+#X text 270 1118 Freeze reverberation tail. Type: bool. Default value:
 0\.;
-#X obj 250 1044 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1044 @room;
-#X text 270 1044 Room size. Type: float. Default value: 0.5\. Range:
+#X obj 250 1148 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1148 @room;
+#X text 270 1148 Room size. Type: float. Default value: 0.5\. Range:
 [0\..1].;
-#X obj 20 1084 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1089 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+#X obj 20 1188 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1193 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
-#X msg 130 1090 reset;
-#X text 270 1090 reset reverb.;
-#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1140 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+#X msg 130 1194 reset;
+#X text 270 1194 reset reverb.;
+#X obj 20 1239 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1244 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1141 1\.;
-#X text 170 1141 ~;
-#X text 270 1141 input signal.;
-#X obj 20 1176 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1181 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 1245 1\.;
+#X text 170 1245 ~;
+#X text 270 1245 input signal.;
+#X obj 20 1280 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1285 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1182 1\.;
-#X text 170 1182 ~;
-#X text 270 1182 output signal.;
+#X text 130 1286 1\.;
+#X text 170 1286 ~;
+#X text 270 1286 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1232 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1235 library: ceammc v0.9.8;
-#X text 568 1247 see also:;
-#X obj 643 1250 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1336 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1339 library: ceammc v0.9.8;
+#X text 568 1351 see also:;
+#X obj 643 1354 ui.link @background_color 0.78431 0.78431 0.78431
 @title [fx.freeverb2~] @url fx.freeverb2~-help.pd;
-#N canvas 10 1254 400 290 info 0;
+#N canvas 10 1358 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -142,20 +148,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1254 pd info;
-#X connect 6 0 8 0;
-#X connect 7 0 9 0;
-#X connect 8 0 14 0;
-#X connect 10 0 14 1;
-#X connect 11 0 16 0;
-#X connect 12 0 17 0;
-#X connect 13 0 18 0;
+#X restore 10 1358 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 17 0;
+#X connect 13 0 17 1;
 #X connect 14 0 19 0;
-#X connect 15 0 19 0;
-#X connect 16 0 19 0;
-#X connect 17 0 19 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
+#X connect 15 0 20 0;
+#X connect 16 0 21 0;
+#X connect 17 0 22 0;
+#X connect 18 0 22 0;
+#X connect 19 0 22 0;
 #X connect 20 0 22 0;
-#X connect 20 0 22 1;
-#X connect 9 0 15 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 25 0;
+#X connect 23 0 25 1;
+#X connect 12 0 18 0;

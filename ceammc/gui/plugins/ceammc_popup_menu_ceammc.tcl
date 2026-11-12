@@ -94,10 +94,10 @@
         hw.apple_smc hw.apple_sms hw.arduino hw.display hw.gamepad
         hw.kbd_light hw.motu.avb hw.printer hw.rpi.adc.ads1115
         hw.rpi.display.hd44780 hw.rpi.display.ssd1306 hw.rpi.gpio
-        hw.rpi.gpio.servo hw.rpi.i2c.pca9685 hw.rpi.pwm hw.rpi.rotenc
-        hw.rpi.sensor.dht11 hw.rpi.sensor.ir hw.rpi.sensor.mpr121
-        hw.rpi.sensor.mpu6050 hw.rpi.sensor.sr04 hw.rpi.sensor.vl53l0x
-        hw.rpi.spi.max7219 hw.rpi.spi.ws2812 hw.serial
+        hw.rpi.gpio.pcf8574 hw.rpi.gpio.servo hw.rpi.i2c.pca9685 hw.rpi.pwm
+        hw.rpi.rotenc hw.rpi.sensor.dht11 hw.rpi.sensor.ir
+        hw.rpi.sensor.mpr121 hw.rpi.sensor.mpu6050 hw.rpi.sensor.sr04
+        hw.rpi.sensor.vl53l0x hw.rpi.spi.max7219 hw.rpi.spi.ws2812 hw.serial
     }}
     {lang {
         lang.faust~ lang.lua ui.faust~
@@ -150,8 +150,9 @@
     {midi {
         midi.arp midi.cc midi.clock midi.ctl2str midi.event2ctl
         midi.event2note midi.event2prg midi.file midi.kbd midi.key2str
-        midi.modus midi.note.pass midi.oct midi.prg2str midi.split
-        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
+        midi.modus midi.note.pass midi.oct midi.pitch.quantize midi.prg2str
+        midi.split midi.sustain midi.sysex midi.track midi.tuning midi.vramp
+        midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ qrcode risset.gliss sfizz~ speech.flite

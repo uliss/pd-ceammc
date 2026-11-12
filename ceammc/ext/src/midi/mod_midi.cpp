@@ -20,6 +20,7 @@
 #include "midi_vrand.h"
 
 void setup_midi_note_pass();
+void setup_midi_pitch_quantize();
 
 void ceammc_midi_setup()
 {
@@ -35,6 +36,7 @@ void ceammc_midi_setup()
     setup_midi_modus();
     setup_midi_note_pass();
     setup_midi_octave();
+    setup_midi_pitch_quantize();
     setup_midi_prg2str();
     setup_midi_split();
     setup_midi_sustain();

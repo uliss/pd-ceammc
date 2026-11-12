@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">set the property value for connected object, subpatch or abstraction</tr>
-        <tr lang="ru">устанавливает значение свойства для подключенного объекта, субпатча или
+        <tr lang="ru">устанавливает значение свойства для подключённого объекта, субпатча или
         абстракции</tr>
       </description>
       <license>GPL3 or later</license>
@@ -25,57 +25,61 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">The object adds ability to change properties of flow objects that should
-        accept any incoming messages. The object should be connected to destination, but it not
-        sends pd messages to change props, but using internal pd method calls</tr>
-        <tr lang="ru" finished="false">Объект добавляет возможность изменять свойства потоковых
-        объектов, которые должны принимать любые входящие сообщения. Объект должен быть подключен к
-        пункту назначения, но он не посылает сообщения pd для изменения реквизита, а использует
-        внутренние вызовы pd-метода.</tr>
+        <tr lang="en">the object allows changing the properties of objects that accept arbitrary
+        incoming messages. It should be connected to the destination, but instead of sending Pd
+        messages it uses internal Pd method calls</tr>
+        <tr lang="ru">объект позволяет изменять свойства объектов, принимающих произвольные
+        входящие сообщения. Его нужно подключить к получателю, но вместо отправки Pd-сообщений он
+        использует внутренние вызовы Pd-методов</tr>
       </par>
       <par>
-        <tr lang="en">Object can be used with patch declared user properties</tr>
-        <tr lang="ru" finished="false">Объект может быть использован с патчем объявленных свойств
-        пользователя</tr>
+        <tr lang="en">the object can be used with patch-declared user properties</tr>
+        <tr lang="ru">объект можно использовать со свойствами, объявленными в патче</tr>
       </par>
       <par>
-        <tr lang="en">Note: you can connect to *any* destination inlet</tr>
-        <tr lang="ru" finished="false">Примечание: Вы можете подключиться к *любому* входу
-        назначения</tr>
+        <tr lang="en">note: you can connect to any destination inlet</tr>
+        <tr lang="ru">примечание: подключаться можно к любому входу получателя</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to change a property without sending a message that
+        the target object might interpret, for example to change the delay time of [flow.delay] or
+        to resize a GUI object</tr>
+        <tr lang="ru">объект можно использовать для изменения свойства без отправки сообщения,
+        которое целевой объект мог бы интерпретировать иначе, например чтобы изменить время
+        задержки [flow.delay] или размер GUI-объекта</tr>
       </par>
     </info>
     <arguments>
       <argument name="PROPS" type="list">
         <tr lang="en">property names</tr>
-        <tr lang="ru" finished="false">Имена собственности</tr>
+        <tr lang="ru">имена свойств</tr>
       </argument>
     </arguments>
     <inlets dynamic="true">
       <inlet number="1">
         <in>
           <tr lang="en">first property value</tr>
-          <tr lang="ru" finished="false">Первая стоимость недвижимости</tr>
+          <tr lang="ru">значение первого свойства</tr>
         </in>
       </inlet>
       <inlet number="...">
         <in>
           <tr lang="en">... property value</tr>
-          <tr lang="ru" finished="false">стоимость имущества</tr>
+          <tr lang="ru">... значение свойства</tr>
         </in>
       </inlet>
       <inlet number="n">
         <in>
           <tr lang="en">n-th property value</tr>
-          <tr lang="ru" finished="false">n-я стоимость имущества</tr>
+          <tr lang="ru">значение N-го свойства</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
         <out type="any">
-          <tr lang="en">outputs nothing. connect to destination object(s)</tr>
-          <tr lang="ru" finished="false">ничего не выводит. подключиться к объекту(ам)
-          назначения</tr>
+          <tr lang="en">outputs nothing. Connect to the destination object(s)</tr>
+          <tr lang="ru">ничего не выводит. Подключите к объекту(ам) назначения</tr>
         </out>
       </outlet>
     </outlets>

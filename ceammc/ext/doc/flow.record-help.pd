@@ -1,87 +1,99 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 580 50 control flow record/play;
+#X obj 431 50 cnv 1 334 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 436 50 records and plays back a stream of messages;
 #X obj 1 1 cnv 5 765 40 empty empty flow.record 20 20 0 20 -104026
 -4096 0;
 #X obj 574 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [flow.rec] @url flow.record-help.pd;
 #X obj 660 8 flow.record;
-#X obj 50 118 ui.keyboard 24;
-#X msg 107 190 stop;
-#X msg 174 190 play;
-#X msg 242 190 clear;
-#X obj 50 219 flow.record @auto 1 @r -1;
-#X obj 50 248 ui.keyboard 24;
-#X obj 50 363 ui.keyboard;
-#X msg 107 435 stop;
-#X msg 174 435 play;
-#X msg 242 435 clear;
-#X obj 50 464 flow.record @auto 1;
-#X obj 50 493 msg note;
-#X msg 69 521 notes_off;
-#X obj 50 550 fluid~;
-#X obj 222 550 ui.dsp~;
-#X obj 50 579 ui.hgain2~;
-#X obj 50 608 dac~;
-#X obj 50 637 flow.record-speed;
-#X obj 270 637 flow.record-qlist;
-#X obj 50 666 flow.record-sync;
-#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 721 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 235 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object records incoming messages and plays them
+back with the original timing;
+#X text 240 123 recording and playback are controlled by the [rec(
+\, [play( \, [stop( \, [clear( and [flush( messages;
+#X text 240 163 @auto starts recording on the first input atom \, @r
+sets the number of repeats \, @speed sets the playback speed;
+#X text 240 203 @sync uses an external bang pulse to synchronize the
+recorded events;
+#X text 240 243 the object can be used to record a live performance
+gesture and loop it \, for example to record a short keyboard phrase
+and play it back in a loop;
+#X obj 50 361 ui.keyboard 24;
+#X msg 107 433 stop;
+#X msg 174 433 play;
+#X msg 242 433 clear;
+#X obj 50 462 flow.record @auto 1 @r -1;
+#X obj 50 491 ui.keyboard 24;
+#X obj 50 606 ui.keyboard;
+#X msg 107 678 stop;
+#X msg 174 678 play;
+#X msg 242 678 clear;
+#X obj 50 707 flow.record @auto 1;
+#X obj 50 736 msg note;
+#X msg 69 764 notes_off;
+#X obj 50 793 fluid~;
+#X obj 222 793 ui.dsp~;
+#X obj 50 822 ui.hgain2~;
+#X obj 50 851 dac~;
+#X obj 50 880 flow.record-speed;
+#X obj 270 880 flow.record-qlist;
+#X obj 50 909 flow.record-sync;
+#X obj 20 959 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 964 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 724 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 967 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 722 @auto;
-#X text 270 722 Autostart record on first input atom. Type: bool. Default
-value: 0\.;
-#X obj 250 764 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 764 @max;
-#X text 270 764 Max number of events \, if 0: no max size check. If
-@auto is set - starts playback when max size reached. Type: int. Default
-value: 256\. Range: [0\..65536].;
-#X obj 250 821 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 821 @r;
-#X text 270 821 Number of repeats in play mode. If -1: repeat infinitely.
+#X msg 130 965 @auto;
+#X text 270 965 Autostart record on the first input atom. Type: bool.
+Default value: 0\.;
+#X obj 250 1007 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1007 @max;
+#X text 270 1007 Max number of events \, if 0: no max size check. If
+@auto is set \, playback starts when max size is reached. Type: int.
+Default value: 256\. Range: [0\..65536].;
+#X obj 250 1064 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1064 @r;
+#X text 270 1064 Number of repeats in play mode. If -1: repeat infinitely.
 Type: int. Default value: 1\. Min value: -1\.;
-#X obj 250 863 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 863 @speed;
-#X text 270 863 Play speed. Type: float. Default value: 1\. Range:
+#X obj 250 1106 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1106 @speed;
+#X text 270 1106 Play speed. Type: float. Default value: 1\. Range:
 [0.0156\..64].;
-#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 905 @sync;
-#X text 270 905 Use external bang pulse to sync recorded events with.
+#X obj 250 1148 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1148 @sync;
+#X text 270 1148 Use external bang pulse to sync recorded events with.
 Type: bool. Default value: 0\.;
-#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 962 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 130 963 1\.;
-#X text 170 963 any:;
-#X text 270 963 input message.;
-#X text 130 988 2\.;
-#X text 170 988 bang:;
-#X text 270 988 sync tick (when @sync 1).;
-#X text 270 1013 [rec (1|0)?( - start (stop) flow record.;
-#X text 270 1038 [play (1|0)?( - play (stop) recorded flow.;
-#X text 270 1063 [stop (1|0)?( - stop (play) recording.;
-#X text 270 1088 [clear( - remove all recorded messages.;
-#X text 270 1113 [flush( - output and remove all recorded messages.;
-#X text 270 1138 [qlist( - output to qlist object.;
-#X text 270 1163 [length FLOAT|time( - resize recorded messages (remove
-after specified length).;
-#X obj 20 1213 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1218 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 1200 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1205 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1219 1\.;
-#X text 270 1219 output message.;
+#X text 130 1206 1\.;
+#X text 170 1206 any:;
+#X text 270 1206 input message.;
+#X text 130 1231 2\.;
+#X text 170 1231 bang:;
+#X text 270 1231 sync tick (when @sync 1).;
+#X text 270 1256 [rec (1|0)?( - start (stop) flow record.;
+#X text 270 1281 [play (1|0)?( - play (stop) recorded flow.;
+#X text 270 1306 [stop (1|0)?( - stop (play) recording.;
+#X text 270 1331 [clear( - remove all recorded messages.;
+#X text 270 1356 [flush( - output and remove all recorded messages.;
+#X text 270 1381 [qlist( - output to qlist object.;
+#X text 270 1406 [length FLOAT|time( - resize recorded messages (remove
+after specified length).;
+#X obj 20 1456 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1461 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1462 1\.;
+#X text 270 1462 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 1269 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1272 library: ceammc v0.9.8;
-#N canvas 10 1291 400 290 info 0;
+#X obj 1 1512 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1515 library: ceammc v0.9.8;
+#N canvas 10 1534 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,20 +117,20 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1291 pd info;
-#X connect 5 0 9 0;
-#X connect 6 0 9 1;
-#X connect 7 0 9 1;
-#X connect 8 0 9 1;
-#X connect 9 0 10 0;
+#X restore 10 1534 pd info;
 #X connect 11 0 15 0;
 #X connect 12 0 15 1;
 #X connect 13 0 15 1;
 #X connect 14 0 15 1;
 #X connect 15 0 16 0;
-#X connect 16 0 18 0;
-#X connect 17 0 18 0;
-#X connect 18 0 20 0;
-#X connect 18 1 20 1;
-#X connect 20 0 21 0;
-#X connect 20 1 21 1;
+#X connect 17 0 21 0;
+#X connect 18 0 21 1;
+#X connect 19 0 21 1;
+#X connect 20 0 21 1;
+#X connect 21 0 22 0;
+#X connect 22 0 24 0;
+#X connect 23 0 24 0;
+#X connect 24 0 26 0;
+#X connect 24 1 26 1;
+#X connect 26 0 27 0;
+#X connect 26 1 27 1;

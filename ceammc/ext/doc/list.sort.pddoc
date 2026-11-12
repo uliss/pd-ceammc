@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">sorts the list in ascending order</tr>
-        <tr lang="ru">сортирует список в порядке возрастания</tr>
+        <tr lang="ru">сортирует список по возрастанию</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -21,19 +21,40 @@
         <see>list.shuffle</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object sorts the incoming list in ascending order and outputs a new
+        sorted list</tr>
+        <tr lang="ru">объект сортирует входящий список по возрастанию и выводит новый
+        отсортированный список</tr>
+      </par>
+      <par>
+        <tr lang="en">numbers are sorted numerically, symbols are sorted alphabetically, numbers
+        come before symbols</tr>
+        <tr lang="ru">числа сортируются численно, символы — в алфавитном порядке, числа идут перед
+        символами</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to order a list of values before further processing,
+        for example to sort note numbers or to arrange file names alphabetically</tr>
+        <tr lang="ru">объект можно использовать для упорядочивания списка значений перед дальнейшей
+        обработкой, например чтобы отсортировать номера нот или расположить имена файлов по
+        алфавиту</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="list">
-          <tr lang="en">input list.</tr>
-          <tr lang="ru" finished="false">Список входов.</tr>
+          <tr lang="en">input list</tr>
+          <tr lang="ru">входной список</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">new sorted list</tr>
-          <tr lang="ru" finished="false">Новый сортированный список</tr>
+          <tr lang="ru">новый отсортированный список</tr>
         </out>
       </outlet>
     </outlets>

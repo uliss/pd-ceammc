@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">retrieve system information: CPU and temperature</tr>
-        <tr lang="ru">получение информации о системе: ЦПУ и температура</tr>
+        <tr lang="ru">получает информацию о системе: процессор и температура</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,21 +16,29 @@
       <keywords>system info cpu</keywords>
       <since>0.9.8</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object queries the operating system for information about the CPUs and
+        temperature sensors</tr>
+        <tr lang="ru">объект запрашивает у операционной системы информацию о процессорах и датчиках
+        температуры</tr>
+      </par>
+    </info>
     <methods>
       <!-- cpu -->
       <method name="cpu">
         <info>
-          <tr lang="en">request information about system cpus</tr>
-          <tr lang="ru" finished="false">Запрос информации о системе cpus</tr>
+          <tr lang="en">request information about system CPUs</tr>
+          <tr lang="ru">запросить информацию о процессорах системы</tr>
         </info>
       </method>
       <!-- temp -->
       <method name="temp">
         <info>
-          <tr lang="en">request system temperature information. Output in format: temp SENSOR_NAME
-          VALUE</tr>
-          <tr lang="ru" finished="false">запросить информацию о температуре системы. Выход в
-          формате: temp SENSOR_NAME VALUE</tr>
+          <tr lang="en">request system temperature information. Output in the format: temp
+          SENSOR_NAME VALUE</tr>
+          <tr lang="ru">запросить информацию о температуре системы. Вывод в формате: temp
+          SENSOR_NAME VALUE</tr>
         </info>
       </method>
     </methods>
@@ -38,7 +46,7 @@
       <inlet>
         <in>
           <tr lang="en">control input</tr>
-          <tr lang="ru" finished="false">контрольный вход</tr>
+          <tr lang="ru">управляющий вход</tr>
         </in>
       </inlet>
     </inlets>
@@ -46,7 +54,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">output [temp SENSOR_NAME VALUE( or [cpu INFO_DICT(</tr>
-          <tr lang="ru" finished="false">[temp SENSOR_NAME VALUE (или [cpu INFO_DICT]]</tr>
+          <tr lang="ru">вывод [temp SENSOR_NAME VALUE( или [cpu INFO_DICT(</tr>
         </out>
       </outlet>
     </outlets>

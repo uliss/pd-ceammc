@@ -1,96 +1,105 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 675 50 cnv 1 90 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 680 50 HTTP клиент;
+#X text 680 50 HTTP-клиент;
 #X obj 1 1 cnv 5 765 40 empty empty net.http.client 20 20 0 20 -104026
 -4096 0;
 #X obj 523 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [http.client] @url net.http.client-help.pd;
 #X obj 631 8 net.http.client;
-#X msg 50 118 get http://puredata.info/ @css title text @strip_ws;
-#X msg 69 147 get https://github.com/uliss/pd-ceammc/releases @css a[href\$=".dmg"] href;
-#X msg 88 205 get http://ip.jsontest.com/ @json;
-#X obj 50 234 net.http.client;
-#X floatatom 50 262 5 0 0 0 - - -;
-#X obj 174 262 print;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 125 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект отправляет HTTP-запросы (GET \, POST) и скачивает
+или загружает файлы;
+#X text 240 123 первый выход выдаёт код состояния HTTP \, второй —
+тело ответа или содержимое выбранного элемента;
+#X text 240 163 при @json ответ разбирается и выводится как data:Dict();
+#X msg 50 251 get http://puredata.info/ @css title text @strip_ws;
+#X msg 69 280 get https://github.com/uliss/pd-ceammc/releases @css a[href\$=".dmg"] href;
+#X msg 88 338 get http://ip.jsontest.com/ @json;
+#X obj 50 367 net.http.client;
+#X floatatom 50 395 5 0 0 0 - - -;
+#X obj 174 395 print;
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 450 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 318 download;
-#X text 270 318 download file. Аргументы:;
-#X obj 300 343 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 343 URL: download URL. Тип: symbol.;
-#X obj 300 366 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 366 [FILE]: save filename. If not specified \, use HTTP
-document filename. Тип: symbol.;
-#X obj 300 404 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 404 [@PARAMS]: see get method parameters. Тип: list.;
-#X obj 250 437 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 437 get;
-#X text 270 437 send GET request. Аргументы:;
-#X obj 300 462 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 462 URL: request URL. Тип: symbol.;
-#X obj 300 485 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 485 [@header]: additional http header: @header NAME VALUE.
-Тип: list.;
-#X obj 300 523 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 523 [@form]: form key-value pair: @form KEY VALUE. For
-application/x-www-form-urlencoded MIME type. Тип: list.;
-#X obj 300 561 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 561 [@auth]: basic auth username/password: @auth USER PASS.
-Тип: list.;
-#X obj 300 599 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 599 [@css]: apply CSS selector to the request body: @css
-SEL OUTPUT_TYPE \, where OUTPUT_TYPE is one of: 'html' \, 'inner' \,
-'text' \, 'href' \, 'none'. 'html' - returns selected elenent HTML
-content \, 'inner' - returns inner HTML content \, without element
-surrounding tags \, 'text' returns element text without tags \, 'href'
-- return href attribute of selected element \, 'none' - returns empty
-string. Тип: list.;
-#X obj 300 728 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 728 [@strip_ws]: replace multiple whitespaces/newlines/tabs
-with single space. Тип: symbol.;
-#X obj 300 766 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 766 [@json]: parse result as Json and output it as data:Dict().
+#X msg 130 451 download;
+#X text 270 451 скачать файл. Аргументы:;
+#X obj 300 476 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 476 URL: URL для скачивания. Тип: symbol.;
+#X obj 300 499 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 499 [FILE]: имя файла для сохранения. Если не указано \,
+используется имя файла из HTTP-документа. Тип: symbol.;
+#X obj 300 537 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 537 [@PARAMS]: см. параметры метода get. Тип: list.;
+#X obj 250 570 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 570 get;
+#X text 270 570 отправить GET-запрос. Аргументы:;
+#X obj 300 595 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 595 URL: URL запроса. Тип: symbol.;
+#X obj 300 618 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 618 [@header]: дополнительный HTTP-заголовок: @header NAME
+VALUE. Тип: list.;
+#X obj 300 656 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 656 [@form]: пара ключ-значение формы: @form KEY VALUE
+\, для MIME-типа application/x-www-form-urlencoded. Тип: list.;
+#X obj 300 709 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 709 [@auth]: basic-авторизация логин/пароль: @auth USER
+PASS. Тип: list.;
+#X obj 300 747 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 747 [@css]: применить CSS-селектор к телу запроса: @css
+SEL OUTPUT_TYPE \, где OUTPUT_TYPE — одно из "html" \, "inner" \, "text"
+\, "href" \, "none". "html" — возвращает HTML-содержимое выбранного
+элемента \, "inner" — возвращает внутреннее HTML-содержимое без окружающих
+тегов элемента \, "text" — возвращает текст элемента без тегов \, "href"
+— возвращает атрибут href выбранного элемента \, "none" — возвращает
+пустую строку. Тип: list.;
+#X obj 300 876 cnv 1 86 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 876 [@strip_ws]: заменить несколько пробелов/переводов
+строк/табуляций одним пробелом. Тип: symbol.;
+#X obj 300 914 cnv 1 55 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 914 [@json]: разобрать результат как JSON и вывести его
+как data:Dict(). Тип: symbol.;
+#X obj 250 962 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 962 post;
+#X text 270 962 отправить POST-запрос. Аргументы:;
+#X obj 300 987 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 987 URL: URL запроса. Тип: symbol.;
+#X obj 300 1010 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1010 [@PARAMS]: см. параметры метода get. Тип: list.;
+#X obj 250 1043 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1043 upload;
+#X text 270 1043 загрузить файл для формы. Аргументы:;
+#X obj 300 1068 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1068 URL: URL для загрузки. Тип: symbol.;
+#X obj 300 1091 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1091 FILE: путь к загружаемому файлу в файловой системе.
 Тип: symbol.;
-#X obj 250 814 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 814 post;
-#X text 270 814 send POST request. Аргументы:;
-#X obj 300 839 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 839 URL: request URL. Тип: symbol.;
-#X obj 300 862 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 862 [@PARAMS]: see get method parameters. Тип: list.;
-#X obj 250 895 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 895 upload;
-#X text 270 895 updload file for the form. Аргументы:;
-#X obj 300 920 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 920 URL: upload URL. Тип: symbol.;
-#X obj 300 943 cnv 1 36 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 943 FILE: upload file path in the filesystem. Тип: symbol.;
-#X obj 300 966 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 966 FORM_KEY: form entry key. Тип: symbol.;
-#X obj 300 989 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 989 [@PARAMS]: see get method parameters. Тип: list.;
-#X obj 20 1032 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1037 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1129 cnv 1 68 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1129 FORM_KEY: ключ записи формы. Тип: symbol.;
+#X obj 300 1152 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1152 [@PARAMS]: см. параметры метода get. Тип: list.;
+#X obj 20 1195 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1200 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1038 1\.;
-#X text 270 1038 input.;
-#X obj 20 1073 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1078 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1201 1\.;
+#X text 270 1201 вход.;
+#X obj 20 1236 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1241 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1079 1\.;
-#X text 270 1079 int: HTTP status code.;
-#X text 130 1099 2\.;
-#X text 270 1099 data:String: HTTP body or content of selected element.;
+#X text 130 1242 1\.;
+#X text 170 1242 int:;
+#X text 270 1242 код состояния HTTP.;
+#X text 130 1262 2\.;
+#X text 270 1262 data:String: тело HTTP-ответа или содержимое выбранного
+элемента.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1149 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1152 библиотека: ceammc v0.9.8;
-#N canvas 10 1171 400 290 info 0;
+#X obj 1 1327 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1330 библиотека: ceammc v0.9.8;
+#N canvas 10 1349 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -114,9 +123,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1171 pd info;
-#X connect 5 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 8 1 10 0;
-#X connect 6 0 8 0;
+#X restore 10 1349 pd info;
+#X connect 9 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 10 0 12 0;

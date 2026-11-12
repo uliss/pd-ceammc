@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">sends the message when the patch loads</tr>
-        <tr lang="ru">отправить сообщение при загрузке патча</tr>
+        <tr lang="ru">отправляет сообщение при загрузке патча</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,17 +24,22 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">like [loadmsg], but support expression calls and datatype</tr>
-        <!-- old: как [loadmsg], но поддерживает вызовы выражения и
-                тип данных -->
-        <tr lang="ru" finished="false">как [loadmsg], но поддерживает вызовы выражения и тип
-        данных</tr>
+        <tr lang="en">like [loadmsg], but supports expression calls and data types</tr>
+        <tr lang="ru">как [loadmsg], но поддерживает вызовы выражений и типы данных</tr>
       </par>
       <par>
-        <tr lang="en">Click on object sends message again</tr>
-        <!-- old: Нажмите на объект, чтобы снова отправить
-                сообщение -->
-        <tr lang="ru" finished="false">Нажмите на объект, чтобы снова отправить сообщение</tr>
+        <tr lang="en">click on the object to send the message again</tr>
+        <tr lang="ru">клик по объекту повторно отправляет сообщение</tr>
+      </par>
+      <par>
+        <tr lang="en">the message is sent once when the patch is loaded and again on each
+        click</tr>
+        <tr lang="ru">сообщение отправляется один раз при загрузке патча и повторно при каждом
+        клике</tr>
+      </par>
+      <par>
+        <tr lang="en">comma-separated messages are supported</tr>
+        <tr lang="ru">поддерживаются сообщения, разделённые запятыми</tr>
       </par>
     </info>
     <mouse>
@@ -42,10 +47,8 @@
     </mouse>
     <arguments>
       <argument name="ARGS" type="list">
-        <tr lang="en">message. Comma separated messages are supported</tr>
-        <!-- old: Сообщение. Поддерживаются сообщения, разделенные
-                Comma -->
-        <tr lang="ru" finished="false">Сообщение. Поддерживаются сообщения, разделенные Comma</tr>
+        <tr lang="en">message. Comma-separated messages are supported</tr>
+        <tr lang="ru">сообщение. Поддерживаются сообщения, разделённые запятыми</tr>
       </argument>
     </arguments>
     <inlets />
@@ -53,7 +56,7 @@
       <outlet>
         <out type="any">
           <tr lang="en">message output</tr>
-          <tr lang="ru" finished="false">сообщение</tr>
+          <tr lang="ru">выход сообщения</tr>
         </out>
       </outlet>
     </outlets>

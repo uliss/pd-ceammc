@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">outputs the current screen size in pixels</tr>
-        <tr lang="ru">выводит размер активного экрана в пикселях</tr>
+        <tr lang="ru">выводит размер текущего экрана в пикселях</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,19 +16,33 @@
       <keywords>screen info</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">on bang, the object outputs a list of two integers: screen width and height
+        in pixels</tr>
+        <tr lang="ru">по bang объект выводит список из двух целых чисел: ширина и высота экрана в
+        пикселях</tr>
+      </par>
+      <par>
+        <tr lang="en">the screen size is reported by the operating system and corresponds to the
+        primary display</tr>
+        <tr lang="ru">размер экрана сообщается операционной системой и соответствует основному
+        дисплею</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="bang">
-          <tr lang="en">outputs screen size in pixels</tr>
-          <tr lang="ru" finished="false">Размер экрана в пикселях</tr>
+          <tr lang="en">output screen size in pixels</tr>
+          <tr lang="ru">вывести размер экрана в пикселях</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
+        <out type="list">
           <tr lang="en">list of two values: width and height</tr>
-          <tr lang="ru" finished="false">Список из двух значений: ширина и высота</tr>
+          <tr lang="ru">список из двух значений: ширина и высота</tr>
         </out>
       </outlet>
     </outlets>

@@ -5,85 +5,88 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.pw_lin 20 20 0 20 -104026
 -4096 0;
 #X obj 647 11 random.pw_lin;
-#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Produces random floating-point numbers \, which are
-distributed according to a linear probability density function within
-each of the several subintervals [b0 \, b1);
-#X text 240 138 Linear segments specified as: bound0 \, prob0 \, bound1
-\, prob1 \, etc;
-#X text 240 178 Use @seed property to get reproducible sequences. If
-@seed property was not explicitly set or specified \, uses generator
-initialized with current time.;
-#X obj 50 296 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 240 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 produces random floating-point numbers that are distributed
+according to a linear probability density function within each of several
+subintervals [b0 \, b1);
+#X text 240 138 linear segments are specified as: bound0 \, prob0 \,
+bound1 \, prob1 \, etc.;
+#X text 240 178 use the @seed property to get reproducible sequences.
+If @seed is not set explicitly \, a generator initialized with the
+current time is used;
+#X text 240 233 the object can be used to create a smoothly varying
+random distribution \, for example to make values near the center more
+likely than values at the edges without hard steps;
+#X obj 50 366 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 50 float 0;
 #X coords 0 1 50 0 200 140 1;
-#X restore 443 296 graph;
-#X obj 50 325 list.gen 1000;
-#X obj 203 325 random.pw_lin 0 0 10 1 20 0 30 1;
-#X obj 50 354 list.histogram @bins 50;
-#X obj 50 383 list.normalize @range;
-#X obj 50 412 list.enumerate @append;
-#X obj 50 440 list.repack 2;
-#X obj 50 469 tabwrite array1;
-#X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 524 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+#X restore 443 366 graph;
+#X obj 50 395 list.gen 1000;
+#X obj 203 395 random.pw_lin 0 0 10 1 20 0 30 1;
+#X obj 50 424 list.histogram @bins 50;
+#X obj 50 453 list.normalize @range;
+#X obj 50 482 list.enumerate @append;
+#X obj 50 510 list.repack 2;
+#X obj 50 539 tabwrite array1;
+#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 594 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 527 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 597 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 525 1\.;
-#X text 170 525 list;
-#X obj 268 526 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 525 V: interleaved interval boundaries and boundary propabilities.
-Note: number of arguments should be even and >=4\. Boundaries should
+#X text 130 595 1\.;
+#X text 170 595 list;
+#X obj 268 596 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 595 V: interleaved interval boundaries and boundary probabilities.
+Note: the number of arguments should be even and >=4\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Type: list.;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 610 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 680 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 613 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 683 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 611 @seed;
-#X text 270 611 Generator seed. Type: int. Default value: 0\. Min value:
+#X msg 130 681 @seed;
+#X text 270 681 Generator seed. Type: int. Default value: 0\. Min value:
 0\.;
-#X obj 250 641 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 641 @v;
-#X text 270 641 Interleaved interval boundaries and boundary propabilities.
-For example: values 0 0 0.5 0 1 0 produce triangle distribution. Type:
-list.;
-#X obj 250 698 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 698 @bounds?;
-#X text 270 698 (readonly) List of boundaries. Type: list.;
-#X obj 250 728 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 728 @weights?;
-#X text 270 728 (readonly) List of weights. Type: list.;
-#X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 773 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 250 711 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 711 @v;
+#X text 270 711 Interleaved interval boundaries and boundary probabilities.
+For example \, the values 0 0 0.5 1 1 0 produce a triangular distribution.
+Type: list.;
+#X obj 250 768 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 768 @bounds?;
+#X text 270 768 (readonly) List of boundaries. Type: list.;
+#X obj 250 798 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 798 @weights?;
+#X text 270 798 (readonly) List of weights. Type: list.;
+#X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 843 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 130 774 1\.;
-#X text 170 774 bang:;
-#X text 270 774 generates random number.;
-#X text 170 799 list:;
-#X text 270 799 set new distribution values.;
-#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 839 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 130 844 1\.;
+#X text 170 844 bang:;
+#X text 270 844 generates a random number.;
+#X text 170 869 list:;
+#X text 270 869 set new distribution values.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 909 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 130 840 1\.;
-#X text 270 840 result value.;
+#X text 130 910 1\.;
+#X text 270 910 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 893 library: ceammc v0.9.8;
-#X text 441 905 see also:;
-#X obj 516 908 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 960 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 963 library: ceammc v0.9.8;
+#X text 441 975 see also:;
+#X obj 516 978 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.linear] @url random.linear-help.pd;
-#X obj 628 908 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 628 978 ui.link @background_color 0.78431 0.78431 0.78431
 @title [random.pw_const] @url random.pw_const-help.pd;
-#N canvas 10 912 400 290 info 0;
+#N canvas 10 982 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,12 +110,12 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 912 pd info;
-#X connect 8 0 10 0;
-#X connect 10 0 12 0;
-#X connect 12 0 13 0;
+#X restore 10 982 pd info;
+#X connect 9 0 11 0;
+#X connect 11 0 13 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
 #X connect 15 0 16 0;
-#X connect 10 1 11 0;
-#X connect 11 0 10 1;
+#X connect 16 0 17 0;
+#X connect 11 1 12 0;
+#X connect 12 0 11 1;

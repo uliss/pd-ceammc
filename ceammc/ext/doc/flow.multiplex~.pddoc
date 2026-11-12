@@ -25,36 +25,60 @@
         <see>flow.multiplex</see>
       </also>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object selects one of N audio input signals and sends it to the output,
+        the selection is controlled by the last (control) inlet</tr>
+        <tr lang="ru">объект выбирает один из N входных аудиосигналов и отправляет его на выход,
+        выбор управляется последним (управляющим) входом</tr>
+      </par>
+      <par>
+        <tr lang="en">the control value is the index of the selected input, starting from 0</tr>
+        <tr lang="ru">управляющее значение — индекс выбранного входа, начиная с 0</tr>
+      </par>
+      <par>
+        <tr lang="en">@value sets the gain coefficients for each output</tr>
+        <tr lang="ru">@value задаёт коэффициенты усиления для каждого выхода</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to switch between several sound sources, for example
+        to select an oscillator waveform or to route one of several audio streams to the
+        output</tr>
+        <tr lang="ru">объект можно использовать для переключения между несколькими источниками
+        звука, например для выбора формы волны осциллятора или для направления одного из нескольких
+        аудиопотоков на выход</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="N" type="int" minvalue="2" maxvalue="16">
-        <tr lang="en">number of signals inputs</tr>
-        <tr lang="ru" finished="false">Количество входов сигналов</tr>
+        <tr lang="en">number of signal inputs</tr>
+        <tr lang="ru">количество входов сигналов</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @value -->
       <property name="@value" type="list" default="1 0">
-        <tr lang="en">gain coefficients per each output</tr>
-        <tr lang="ru" finished="false">коэффициенты усиления на каждый выход</tr>
+        <tr lang="en">gain coefficients for each output</tr>
+        <tr lang="ru">коэффициенты усиления для каждого выхода</tr>
       </property>
     </properties>
     <inlets dynamic="true">
       <inlet type="audio" number="1">
         <in>
           <tr lang="en">first input signal</tr>
-          <tr lang="ru" finished="false">Первый входной сигнал</tr>
+          <tr lang="ru">первый входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="audio" number="n">
         <in>
           <tr lang="en">last input signal</tr>
-          <tr lang="ru" finished="false">Последний входной сигнал</tr>
+          <tr lang="ru">последний входной сигнал</tr>
         </in>
       </inlet>
       <inlet type="control" number="n+1">
         <in>
           <tr lang="en">multiplexer control</tr>
-          <tr lang="ru" finished="false">управление мультиплексором</tr>
+          <tr lang="ru">управление мультиплексором</tr>
         </in>
       </inlet>
     </inlets>
@@ -62,7 +86,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output</tr>
-          <tr lang="ru" finished="false">выход</tr>
+          <tr lang="ru">выход</tr>
         </out>
       </outlet>
     </outlets>

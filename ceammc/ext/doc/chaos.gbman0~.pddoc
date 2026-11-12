@@ -36,11 +36,11 @@
         <tr lang="en">The map is defined by the difference equations:</tr>
         <tr lang="ru">Отображение задаётся разностными уравнениями:</tr>
       </par>
-      <par>
+      <par indent="2">
         <tr lang="en">x(n+1) = 1 - y(n) + |x(n)|</tr>
         <tr lang="ru">x(n+1) = 1 - y(n) + |x(n)|</tr>
       </par>
-      <par>
+      <par indent="2">
         <tr lang="en">y(n+1) = x(n)</tr>
         <tr lang="ru">y(n+1) = x(n)</tr>
       </par>
@@ -58,16 +58,26 @@
     </info>
     <arguments>
       <argument name="X" type="float">
-        <tr lang="en">initial x value, default 1.2</tr>
-        <tr lang="ru">начальное значение x, по умолчанию 1.2</tr>
+        <tr lang="en">initial x value</tr>
+        <tr lang="ru">начальное значение x</tr>
       </argument>
       <argument name="Y" type="float">
-        <tr lang="en">initial y value, default 2.1</tr>
-        <tr lang="ru">начальное значение y, по умолчанию 2.1</tr>
+        <tr lang="en">initial y value</tr>
+        <tr lang="ru">начальное значение y</tr>
       </argument>
     </arguments>
-    <properties />
-    <methods />
+    <properties>
+      <!-- @x -->
+      <property name="@x" type="float" default="1.2" access="readwrite">
+        <tr lang="en">x value</tr>
+        <tr lang="ru">значение x</tr>
+      </property>
+      <!-- @y -->
+      <property name="@y" type="float" default="2.1" access="readwrite">
+        <tr lang="en">y value</tr>
+        <tr lang="ru">значение y</tr>
+      </property>
+    </properties>
     <inlets>
       <inlet type="audio">
         <in>
@@ -93,9 +103,12 @@
     <example>
       <pdascii>
 <![CDATA[
+[ui.hsl 10 1000 @show_value 1 #a]
+
+
 [10( [100( [20000( [ui.dsp~] [sig~ 35]
 |    |     |                 |
-[sig~    10]                 [chaos.gbman0~]
+[sig~    10 #x]              [chaos.gbman0~]
 |                            |
 [chaos.gbman0~]              [l->l~ -3 6 50 10000 @clip minmax]
 |                            |
@@ -104,6 +117,8 @@
 [ui.hgain~]                  [ui.hgain~]
 |\                           |\
 [dac~]                       [dac~]
+
+[X a->x]
 ]]>
       </pdascii>
     </example>

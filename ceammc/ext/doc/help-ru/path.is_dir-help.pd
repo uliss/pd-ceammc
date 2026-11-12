@@ -5,34 +5,44 @@
 #X obj 1 1 cnv 5 765 40 empty empty path.is_dir 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 path.is_dir;
-#X msg 50 118 symbol ~;
-#X msg 155 118 symbol abc;
-#X obj 50 147 path.is_dir;
-#X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 213 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 230 78 cnv 1 535 150 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект проверяет \, существует ли заданный путь и является
+ли он каталогом;
+#X text 240 123 первый выход выдаёт 1 \, если путь является каталогом
+\, иначе 0;
+#X text 240 148 второй выход выдаёт сам путь \, если он является каталогом;
+#X text 240 173 объект можно использовать для проверки пути к каталогу
+перед чтением или записью файлов в нём;
+#X msg 50 276 symbol ~;
+#X msg 155 276 symbol abc;
+#X obj 50 305 path.is_dir;
+#X obj 50 334 ui.dt;
+#X obj 146 363 ui.dt;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 418 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 214 1\.;
-#X text 170 214 symbol:;
-#X text 270 214 output 1 if given path is found and is directory \,
-otherwise false.;
-#X text 170 254 data:string:;
-#X text 270 254 same as for symbol.;
-#X obj 20 289 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 294 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 419 1\.;
+#X text 170 419 symbol:;
+#X text 270 419 выдаёт 1 \, если заданный путь найден и является каталогом
+\, иначе 0\.;
+#X text 170 459 data:string:;
+#X text 270 459 то же \, что для символа.;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 499 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 295 1\.;
-#X text 270 295 1 or 0\.;
-#X text 130 315 2\.;
-#X text 270 315 output path if it's directory.;
+#X text 130 500 1\.;
+#X text 170 500 int:;
+#X text 270 500 1 или 0\.;
+#X text 130 520 2\.;
+#X text 270 520 вывести путь \, если это каталог.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 библиотека: ceammc v0.9.8;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 570 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 573 библиотека: ceammc v0.9.8;
+#N canvas 10 592 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -56,7 +66,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 527 pd info;
-#X connect 4 0 6 0;
-#X connect 5 0 6 0;
-#X connect 6 0 7 0;
+#X restore 10 592 pd info;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;

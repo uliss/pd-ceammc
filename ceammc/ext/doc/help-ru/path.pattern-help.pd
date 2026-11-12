@@ -1,24 +1,24 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 генерирует имя файла по данному шаблону;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 генерирует имя файла по заданному шаблону;
 #X obj 1 1 cnv 5 765 40 empty empty path.pattern 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 path.pattern;
 #X obj 230 78 cnv 1 535 335 empty empty empty 17 7 0 10 -237178 -1 0;
-#X text 240 83 Note: generate NEW filename (checks that generated filename
-not exists);
-#X text 240 123 ### sequence is replaced with number;
-#X text 240 148 Following variables in pattern expanded:;
-#X text 240 173 • %YEAR% - current year (4-digits);
-#X text 240 198 • %MONTH% - current month (2-digits);
-#X text 240 223 • %DAY% - current day (2-digits);
-#X text 240 248 • %HOUR% - current hour (2-digits);
-#X text 240 273 • %MIN% - current minute (2-digits);
-#X text 240 298 • %SEC% - current second (2-digits);
-#X text 240 323 • %TIME% - current time: %HOUR%-%MIN%-%SEC%;
-#X text 240 348 • %DATE% - current date: %YEAR%-%MONTH%-%DAY%;
-#X text 240 373 • %NOW% - current datetime: %DATE%_%TIME%;
+#X text 240 83 объект генерирует новое имя файла по шаблону и проверяет
+\, что сгенерированное имя ещё не существует;
+#X text 240 123 ### в шаблоне заменяется числом;
+#X text 240 148 следующие переменные в шаблоне раскрываются:;
+#X text 240 173 • %YEAR% — текущий год (4 цифры);
+#X text 240 198 • %MONTH% — текущий месяц (2 цифры);
+#X text 240 223 • %DAY% — текущий день (2 цифры);
+#X text 240 248 • %HOUR% — текущий час (2 цифры);
+#X text 240 273 • %MIN% — текущая минута (2 цифры);
+#X text 240 298 • %SEC% — текущая секунда (2 цифры);
+#X text 240 323 • %TIME% — текущее время: %HOUR%-%MIN%-%SEC%;
+#X text 240 348 • %DATE% — текущая дата: %YEAR%-%MONTH%-%DAY%;
+#X text 240 373 • %NOW% — текущие дата и время: %DATE%_%TIME%;
 #X msg 50 461 symbol file-###.wav;
 #X msg 78 490 symbol ~/test-%NOW%.wav;
 #X msg 107 519 bang;
@@ -32,27 +32,28 @@ not exists);
 #X text 130 633 1\.;
 #X text 170 633 symbol;
 #X obj 268 634 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 633 PATTERN: filename generation pattern. Тип: symbol.;
+#X text 270 633 PATTERN: шаблон генерации имени файла. Тип: symbol.;
 #X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 673 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 676 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
 #X msg 130 674 @pattern;
-#X text 270 674 Filename pattern. Тип: symbol.;
+#X text 270 674 Шаблон имени файла. Тип: symbol.;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 719 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 720 1\.;
 #X text 170 720 bang:;
-#X text 270 720 output generated filename pattern.;
+#X text 270 720 вывести сгенерированное имя файла.;
 #X text 170 745 symbol:;
-#X text 270 745 set new pattern and generate filename pattern.;
+#X text 270 745 задать новый шаблон и сгенерировать имя файла.;
 #X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X obj 20 785 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
 #X text 130 786 1\.;
-#X text 270 786 symbol: filename.;
+#X text 170 786 symbol:;
+#X text 270 786 имя файла.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

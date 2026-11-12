@@ -1,6 +1,8 @@
 #ifndef HW_RPI_I2C_PCA9685_H
 #define HW_RPI_I2C_PCA9685_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rpi_device.h"
 #include "hw_rust.hpp"
@@ -33,5 +35,14 @@ public:
 };
 
 void setup_hw_rpi_i2c_pca9685();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwI2cPca8695, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwI2cPca8695, hw_rpi_i2c_pca9685, "hw.rpi.i2c.pca9685");
+
+#endif
 
 #endif // HW_RPI_I2C_PCA9685_H

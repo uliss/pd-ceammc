@@ -1,10 +1,13 @@
-use anyhow::bail;
 use anyhow::Context;
+use ceammc_rs_msg::msg_cb;
+use ceammc_rs_msg::msg_notify;
 use globset::GlobBuilder;
 use log::debug;
 use log::error;
 use log::info;
 use path_slash::PathBufExt as _;
+use percent_encoding::utf8_percent_encode;
+use percent_encoding::NON_ALPHANUMERIC;
 use reqwest::ClientBuilder;
 use reqwest::Response;
 use serde::Deserialize;
@@ -19,9 +22,9 @@ use std::sync::mpsc::Sender;
 use std::time::Duration;
 use strum::EnumMessage;
 use strum::IntoEnumIterator;
+use thiserror::Error;
 use url::Url;
 
-use crate::common_ffi::callback_notify;
 use crate::rust_atom;
 use crate::vlc_ffi::vlc_fileinfo;
 use crate::vlc_ffi::vlc_filelist;
@@ -46,7 +49,7 @@ enum VlcVolume {
 pub struct Vlc {
     tx: std::sync::mpsc::Sender<VlcRequest>,
     rx: std::sync::mpsc::Receiver<VlcReply>,
-    cb: crate::common_ffi::callback_msg,
+    cb: msg_cb,
 }
 
 #[derive(Debug)]
@@ -259,10 +262,10 @@ async fn request_playlist(
     if response.status().is_success() {
         let data = response.text().await?;
         let playlist: JsonPlaylist =
-            serde_json::from_str(&data).or_else(|err| bail!("playlist: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("playlist: {err}"))?;
         Ok(playlist)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -285,10 +288,10 @@ async fn request_browse(
     if response.status().is_success() {
         let data = response.text().await?;
         let stat: JsonFileList =
-            serde_json::from_str(&data).or_else(|err| bail!("browse: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("browse: {err}"))?;
         Ok(stat)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -307,10 +310,10 @@ async fn send_get_request(
         let data = response.text().await?;
         // debug!("status: {data}");
         let stat: vlc_status =
-            serde_json::from_str(&data).or_else(|err| bail!("vlc json: {err}"))?;
+            serde_json::from_str(&data).or_else(|err| anyhow::bail!("vlc json: {err}"))?;
         Ok(stat)
     } else {
-        bail!("Status: {}", response.status())
+        anyhow::bail!("Status: {}", response.status())
     }
 }
 
@@ -320,8 +323,14 @@ fn make_status_url(
     cmd: Option<&str>,
     id: Option<String>,
     value: Option<String>,
-) -> anyhow::Result<Url> {
-    let mut url = Url::parse(&format!("http://{host}:{port}/requests/status.json"))?;
+) -> Result<Url, VlcError> {
+    let mut url =
+        Url::parse(&format!("http://{host}:{port}/requests/status.json")).map_err(|err| {
+            VlcError::UriError {
+                uri: host.into(),
+                err: err.to_string(),
+            }
+        })?;
 
     if let Some(cmd) = cmd {
         url.query_pairs_mut().append_pair("command", cmd);
@@ -354,6 +363,26 @@ fn parse_volume(v0: &RustAtom, v1: &RustAtom) -> Result<VlcVolume, String> {
     }
 
     Err(format!("volume parse error"))
+}
+
+fn make_add_url(host: &str, port: u16, uri: &str, play: &bool) -> Result<Url, VlcError> {
+    let uri = process_uri(uri)?;
+    let encoded_input = utf8_percent_encode(&uri, NON_ALPHANUMERIC).to_string();
+    Ok(if *play {
+        let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
+        url.set_query(Some(&format!("command=in_play&input={}", encoded_input)));
+        url
+    } else {
+        let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
+        url.set_query(Some(&format!("command=in_enqueue&input={}", encoded_input)));
+        url
+    })
+}
+
+#[derive(Debug, Error, PartialEq)]
+enum VlcError {
+    #[error("error processing uri '{uri}': {err}")]
+    UriError { uri: String, err: String },
 }
 
 fn process_prefix<'a>(
@@ -390,7 +419,34 @@ fn process_prefix<'a>(
         )),
     }
 }
-fn process_uri(uri: &String) -> anyhow::Result<String> {
+
+fn has_scheme(input: &str) -> bool {
+    let trimmed = input.trim();
+
+    // Find the first colon
+    let Some(colon_idx) = trimmed.find(':') else {
+        return false;
+    };
+
+    let candidate = &trimmed[..colon_idx];
+
+    // Scheme must not be empty
+    if candidate.is_empty() {
+        return false;
+    }
+
+    // First character must be a letter
+    let mut chars = candidate.chars();
+    let first = chars.next().unwrap();
+    if !first.is_ascii_alphabetic() {
+        return false;
+    }
+
+    // Remaining characters must be letters, digits, +, -, or .
+    chars.all(|c| c.is_ascii_alphanumeric() || c == '+' || c == '-' || c == '.' || c == '/')
+}
+
+fn process_uri(uri: &str) -> Result<String, VlcError> {
     process_prefix((&uri, None), vec!["~", "%HOME%"], &dirs::home_dir())
         .or_else(|uri| process_prefix(uri, vec!["%MUSIC%", "%AUDIO%"], &dirs::audio_dir()))
         .or_else(|uri| {
@@ -424,10 +480,13 @@ fn process_uri(uri: &String) -> anyhow::Result<String> {
         })
         .or_else(|err| match err {
             (src_uri, None) => Ok(src_uri.to_string()),
-            (src_uri, Some(err)) => bail!("error processing uric'{src_uri}': {err}"),
+            (src_uri, Some(err)) => Err(VlcError::UriError {
+                uri: src_uri.into(),
+                err,
+            }),
         })
         .map(|mut uri| {
-            if !uri.starts_with("file://") {
+            if !has_scheme(&uri) {
                 uri.insert_str(0, "file://");
             }
             uri
@@ -443,7 +502,7 @@ async fn send2vlc(
     port: u16,
     req: VlcRequest,
     tx: &Sender<VlcReply>,
-    notify: callback_notify,
+    notify: msg_notify,
 ) -> anyhow::Result<bool> {
     let url: Url = match &req {
         VlcRequest::Next => make_status_url(host, port, Some("pl_next"), None, None)?,
@@ -485,7 +544,7 @@ async fn send2vlc(
                     .collect::<Vec<_>>()
                     .join(", ");
 
-                bail!("{err:?}. Valid variants are: {usage}")
+                anyhow::bail!("{err:?}. Valid variants are: {usage}")
             }
         },
         VlcRequest::Empty => make_status_url(host, port, Some("pl_empty"), None, None)?,
@@ -541,29 +600,20 @@ async fn send2vlc(
                     make_status_url(host, port, Some("volume"), None, Some(format!("{v}")))?
                 }
             },
-            Err(err) => bail!("{err}"),
+            Err(err) => anyhow::bail!("{err}"),
         },
         VlcRequest::PlaybackRate(rate) => {
             const MIN_RATE: f32 = 0.25;
             const MAX_RATE: f32 = 4.0;
             if *rate < MIN_RATE || *rate > MAX_RATE {
-                bail!("invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range")
+                anyhow::bail!(
+                    "invalid playback rate: {rate}, should be in [{MIN_RATE}, {MAX_RATE}] range"
+                )
             } else {
                 make_status_url(host, port, Some("rate"), None, Some(format!("{rate}")))?
             }
         }
-        VlcRequest::PlaylistAddUri(uri, play) => {
-            let uri = process_uri(uri)?;
-            if *play {
-                let mut url = make_status_url(host, port, Some("in_play"), None, None)?;
-                url.query_pairs_mut().append_pair("input", &uri);
-                url
-            } else {
-                let mut url = make_status_url(host, port, Some("in_enqueue"), None, None)?;
-                url.query_pairs_mut().append_pair("input", &uri);
-                url
-            }
-        }
+        VlcRequest::PlaylistAddUri(uri, play) => make_add_url(host, port, uri, play)?,
         VlcRequest::Seek(rust_atom) => match rust_atom {
             RustAtom::Str(smol_str) => {
                 make_status_url(host, port, Some("seek"), None, Some(smol_str.to_string()))?
@@ -571,7 +621,7 @@ async fn send2vlc(
             RustAtom::Float(t_sec) => {
                 make_status_url(host, port, Some("seek"), None, Some(format!("{t_sec}")))?
             }
-            RustAtom::Null => bail!("seek is not specified"),
+            RustAtom::Null => anyhow::bail!("seek is not specified"),
         },
         VlcRequest::DeleteById(id) => {
             make_status_url(host, port, Some("pl_delete"), Some(id.to_string()), None)?
@@ -585,7 +635,7 @@ async fn send2vlc(
             } else if (pos.abs() as usize) <= count {
                 count - (pos.abs() as usize)
             } else {
-                bail!("invalid item position: {pos}")
+                anyhow::bail!("invalid item position: {pos}")
             };
 
             make_status_url(
@@ -606,7 +656,7 @@ async fn send2vlc(
             let playlist = request_playlist(cli, host, port, pass).await?;
             let items = playlist.find_by_name(name);
             if items.is_empty() {
-                bail!("playlist item '{name}' not found")
+                anyhow::bail!("playlist item '{name}' not found")
             }
             for item in items {
                 let url =
@@ -684,8 +734,8 @@ impl Vlc {
         host: Option<&c_char>,
         port: u16,
         pass: Option<&c_char>,
-        cb: crate::common_ffi::callback_msg,
-        notify: crate::common_ffi::callback_notify,
+        cb: msg_cb,
+        notify: msg_notify,
     ) -> Self {
         let (req_tx, req_rx) = std::sync::mpsc::channel::<VlcRequest>();
         let (rep_tx, rep_rx) = std::sync::mpsc::channel::<VlcReply>();
@@ -904,10 +954,10 @@ impl Vlc {
     }
 
     fn client_err(self: &Self, str: String) {
-        self.cb.exec(str.as_str());
+        self.cb.error_str(str);
     }
 
-    fn worker_err(str: String, tx: &Sender<VlcReply>, notify: crate::common_ffi::callback_notify) {
+    fn worker_err(str: String, tx: &Sender<VlcReply>, notify: msg_notify) {
         let str = format!("[worker] {str}");
         error!("[worker] error: {str}");
         if let Err(_err) = tx.send(VlcReply::Error(str.clone())) {
@@ -919,7 +969,7 @@ impl Vlc {
 
     pub fn poll(
         self: &Self,
-        on_msg: crate::common_ffi::callback_msg,
+        on_msg: msg_cb,
         on_stat: vlc_status_cb,
         on_playlist: vlc_playlist_cb,
         on_current_id: vlc_playlist_item_cb,
@@ -930,7 +980,7 @@ impl Vlc {
 
             match msg {
                 VlcReply::Error(err) => {
-                    on_msg.exec(err.as_str());
+                    on_msg.error_str(err);
                 }
                 VlcReply::Status(vlc_status) => {
                     on_stat.exec(&vlc_status);
@@ -1018,4 +1068,67 @@ enum VlcReply {
     Playlist(Vec<PlaylistItem>),
     CurrentId(Option<PlaylistItem>),
     FileList(Vec<FileInfo>),
+}
+
+#[cfg(test)]
+mod test {
+    use url::Url;
+
+    use crate::vlc::{has_scheme, make_add_url, make_status_url, process_uri};
+
+    #[test]
+    fn test_has_scheme() {
+        assert!(has_scheme("https://example.com"));
+        assert!(has_scheme("file:///path"));
+        assert!(has_scheme("rtsp://stream"));
+        assert!(!has_scheme("/path/to/file"));
+        assert!(!has_scheme("example.com"));
+        assert!(has_scheme("http/m3u://example"));
+        assert!(!has_scheme("/m3u://example"));
+    }
+
+    #[test]
+    fn test_process_uri() {
+        assert_eq!(
+            process_uri("http://example.org"),
+            Ok("http://example.org".to_string())
+        );
+        assert_eq!(
+            process_uri("/path/to/file"),
+            Ok("file:///path/to/file".to_string())
+        );
+        assert_eq!(
+            process_uri("/path with spaces"),
+            Ok("file:///path with spaces".to_string())
+        );
+    }
+
+    #[test]
+    fn test_make_status_url() {
+        assert_eq!(
+            make_status_url("localhost", 9000, Some("in_enqueue"), None, None),
+            Ok(
+                Url::parse("http://localhost:9000/requests/status.json?command=in_enqueue")
+                    .unwrap()
+            )
+        );
+    }
+
+    #[test]
+    fn test_make_add_url() {
+        assert_eq!(
+            make_add_url("localhost", 9000, "file://path", &false),
+            Ok(Url::parse(
+                "http://localhost:9000/requests/status.json?command=in_enqueue&input=file%3A%2F%2Fpath"
+            )
+            .unwrap())
+        );
+        assert_eq!(
+            make_add_url("localhost", 9000, "file://path space", &false),
+            Ok(Url::parse(
+                "http://localhost:9000/requests/status.json?command=in_enqueue&input=file%3A%2F%2Fpath%20space"
+            )
+            .unwrap())
+        );
+    }
 }

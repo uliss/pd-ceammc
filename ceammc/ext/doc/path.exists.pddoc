@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">checks if the given path exists</tr>
-        <tr lang="ru">проверка существования пути</tr>
+        <tr lang="ru">проверяет, существует ли заданный путь</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -16,25 +16,33 @@
       <keywords>path exists</keywords>
       <since>0.1</since>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object checks whether the given path exists in the file system</tr>
+        <tr lang="ru">объект проверяет, существует ли заданный путь в файловой системе</tr>
+      </par>
+      <par>
+        <tr lang="en">the result is output as 1 if the path exists, otherwise 0</tr>
+        <tr lang="ru">результат выводится как 1, если путь существует, иначе 0</tr>
+      </par>
+    </info>
     <inlets>
       <inlet>
         <in on="symbol">
-          <tr lang="en">checks if given path exists</tr>
-          <tr lang="ru" finished="false">Проверка наличия данного пути</tr>
+          <tr lang="en">checks if the given path exists</tr>
+          <tr lang="ru">проверяет, существует ли заданный путь</tr>
         </in>
         <in on="data">
-          <tr lang="en">If string given - checks if path exists</tr>
-          <!-- old: Если дана строка - проверяет, существует ли
-                    путь -->
-          <tr lang="ru" finished="false">Если дана строка - проверяет, существует ли путь</tr>
+          <tr lang="en">if a string is given, checks if the path exists</tr>
+          <tr lang="ru">если передана строка, проверяет, существует ли путь</tr>
         </in>
       </inlet>
     </inlets>
     <outlets>
       <outlet>
-        <out type="any">
-          <tr lang="en">1 - on success, 0 - if not exists</tr>
-          <tr lang="ru" finished="false">1 - на успех, 0 - если не существует</tr>
+        <out type="int">
+          <tr lang="en">1 on success, 0 if not exists</tr>
+          <tr lang="ru">1 при успехе, 0 если не существует</tr>
         </out>
       </outlet>
     </outlets>

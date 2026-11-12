@@ -1,63 +1,69 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 374 50 получить начальные аргументы для патча или субпатча;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 381 50 получает начальные аргументы патча или субпатча Pd;
 #X obj 1 1 cnv 5 765 40 empty empty patch.args 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 patch.args;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 140 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 патч Pd (или субпатч) может получать начальные аргументы
+при создании \, объект выводит эти аргументы в виде списка;
+#X text 240 138 свойство @from или аргумент FROM задаёт начальный индекс
+\, что позволяет пропустить первые N аргументов;
+#X text 240 178 вывод происходит по bang;
+#X obj 50 266 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 patch.args-ex1 1 2 3 4 5;
-#X obj 50 176 ui.dt;
-#X obj 50 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 295 patch.args-ex1 1 2 3 4 5;
+#X obj 50 324 ui.dt;
+#X obj 50 353 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 88 205 @from 2;
-#X obj 50 234 patch.args-ex2 1 2 3 4 5;
-#X obj 50 262 ui.dt;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X text 88 353 @from 2;
+#X obj 50 382 patch.args-ex2 1 2 3 4 5;
+#X obj 50 410 ui.dt;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 465 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 320 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 468 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 318 1\.;
-#X text 170 318 int;
-#X obj 268 319 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 318 FROM: starting args index. Тип: int. Минимальное значение:
-0\.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 373 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 466 1\.;
+#X text 170 466 int;
+#X obj 268 467 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 466 FROM: начальный индекс аргументов. Тип: int. Минимальное
+значение: 0\.;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 521 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 376 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 524 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 374 @from;
-#X text 270 374 Starting args index. Тип: int. Значение по умолчанию:
-0\. Минимальное значение: 0\.;
-#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 431 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X msg 130 522 @from;
+#X text 270 522 Начальный индекс аргументов. Тип: int. Значение по
+умолчанию: 0\. Минимальное значение: 0\.;
+#X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 579 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 432 1\.;
-#X text 170 432 bang:;
-#X text 270 432 output patch or subpatch arguments.;
-#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 472 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 580 1\.;
+#X text 170 580 bang:;
+#X text 270 580 вывести аргументы патча или субпатча.;
+#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 620 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 473 1\.;
-#X text 270 473 list of arguments.;
+#X text 130 621 1\.;
+#X text 270 621 список аргументов.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
-#X obj 1 523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 526 библиотека: ceammc v0.9.8;
-#X text 327 538 смотрите также:;
-#X obj 448 541 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 671 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 674 библиотека: ceammc v0.9.8;
+#X text 327 686 смотрите также:;
+#X obj 448 689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.current] @url canvas.current-help.pd;
-#X obj 567 541 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 567 689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [canvas.top] @url canvas.top-help.pd;
-#X obj 657 541 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 657 689 ui.link @background_color 0.78431 0.78431 0.78431
 @title [list->props] @url list->props-help.pd;
-#N canvas 10 545 400 290 info 0;
+#N canvas 10 693 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -81,8 +87,8 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 545 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
-#X connect 7 0 9 0;
+#X restore 10 693 pd info;
+#X connect 8 0 9 0;
 #X connect 9 0 10 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;

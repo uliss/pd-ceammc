@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">alias-free sawtooth wave</tr>
-        <tr lang="ru">осциллятор пилообразного сигнала с ограниченным спектром</tr>
+        <tr lang="ru">пилообразная волна без алиасинга</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -24,18 +24,21 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Polynomial Transition Regions (PTR) used for aliasing suppression. 2nd order
-        interpolation.</tr>
-        <!-- old: Полиномиальные переходные области (ПТР),
-                используемые для псевдонима подавления. Интерполяция 2-го порядка. -->
-        <tr lang="ru" finished="false">Полиномиальные переходные области (ПТР), используемые для
-        псевдонима подавления. Интерполяция 2-го порядка.</tr>
+        <tr lang="en">generates a sawtooth wave without aliasing artifacts using Polynomial
+        Transition Regions (PTR) with 2nd order interpolation</tr>
+        <tr lang="ru">генерирует пилообразную волну без артефактов алиасинга с помощью
+        полиномиальных переходных областей (PTR) с интерполяцией 2-го порядка</tr>
+      </par>
+      <par>
+        <tr lang="en">the left inlet receives the frequency in Hz, a bang on the right inlet resets
+        the phase</tr>
+        <tr lang="ru">левый вход принимает частоту в Гц, bang на правом входе сбрасывает фазу</tr>
       </par>
     </info>
     <arguments>
       <argument name="FREQ" type="float" minvalue="0.0" maxvalue="22050" units="hertz">
-        <tr lang="en">See @freq</tr>
-        <tr lang="ru" finished="false">См. @freq</tr>
+        <tr lang="en">see @freq</tr>
+        <tr lang="ru">см. @freq</tr>
       </argument>
     </arguments>
     <properties>
@@ -45,20 +48,20 @@
       <!-- @freq -->
       <property name="@freq" type="float" default="0" minvalue="0" maxvalue="22050" units="hertz">
         <tr lang="en">frequency</tr>
-        <tr lang="ru" finished="false">частота</tr>
+        <tr lang="ru">частота</tr>
       </property>
     </properties>
     <inlets>
       <inlet type="audio">
         <in on="float">
           <tr lang="en">frequency in Hz</tr>
-          <tr lang="ru" finished="false">частота в Гц</tr>
+          <tr lang="ru">частота в Гц</tr>
         </in>
       </inlet>
       <inlet>
         <in on="bang">
           <tr lang="en">reset phase</tr>
-          <tr lang="ru" finished="false">фаза сброса</tr>
+          <tr lang="ru">сбросить фазу</tr>
         </in>
       </inlet>
     </inlets>
@@ -66,7 +69,7 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">output signal</tr>
-          <tr lang="ru" finished="false">выходной сигнал</tr>
+          <tr lang="ru">выходной сигнал</tr>
         </out>
       </outlet>
     </outlets>

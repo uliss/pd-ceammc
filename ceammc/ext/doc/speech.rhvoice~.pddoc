@@ -25,16 +25,29 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Note: voices are not distributed with PureData-ceammc, you have to install
-        voice data manually</tr>
-        <tr lang="ru" finished="false">Примечание: голоса не распространяются с помощью
-        PureData-ceammc, необходимо установить голосовые данные вручную</tr>
+        <tr lang="en">the object synthesizes speech from text using the RHVoice engine and outputs
+        it as an audio signal</tr>
+        <tr lang="ru">объект синтезирует речь из текста с помощью движка RHVoice и выводит её как
+        аудиосигнал</tr>
       </par>
       <par>
-        <tr lang="en">Download language and voice datafiles and put them into
+        <tr lang="en">note: voices are not distributed with Pure Data-ceammc, you have to install
+        the voice data manually</tr>
+        <tr lang="ru">примечание: голоса не поставляются вместе с Pure Data-ceammc, голосовые
+        данные нужно устанавливать вручную</tr>
+      </par>
+      <par>
+        <tr lang="en">download the language and voice data files and put them into the
         ~/Documents/Pd/rhvoice directory</tr>
-        <tr lang="ru" finished="false">Загрузите языковые и голосовые файлы данных и поместите их в
-        каталог ~/Documents/Pd/rhvoice</tr>
+        <tr lang="ru">скачайте файлы языковых и голосовых данных и поместите их в каталог
+        ~/Documents/Pd/rhvoice</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to add voice prompts or spoken feedback to a patch,
+        for example to announce parameter values or to read out messages</tr>
+        <tr lang="ru">объект можно использовать для добавления голосовых подсказок или речевой
+        обратной связи в патч, например чтобы озвучивать значения параметров или зачитывать
+        сообщения</tr>
       </par>
       <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
       <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
@@ -43,78 +56,78 @@
       <!-- @pitch -->
       <property name="@pitch" type="float" default="0" minvalue="-1" maxvalue="1">
         <tr lang="en">voice pitch</tr>
-        <tr lang="ru" finished="false">голосовой звук</tr>
+        <tr lang="ru">высота голоса</tr>
       </property>
       <!-- @punct -->
       <property name="@punct" type="symbol" default="">
-        <tr lang="en">punctuation for pronunciation. If 'all' - pronounce all, otherwise pronounce
-        only specified punctuation characters.</tr>
-        <tr lang="ru" finished="false">пунктуация для произношения. Если «все» — произноси все,
-        иначе произноси только указанные знаки препинания.</tr>
+        <tr lang="en">punctuation for pronunciation. If 'all' — pronounce all, otherwise pronounce
+        only the specified punctuation characters</tr>
+        <tr lang="ru">пунктуация для произношения. Если 'all' — произносить все знаки, иначе
+        произносить только указанные знаки препинания</tr>
       </property>
       <!-- @rate -->
       <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">
         <tr lang="en">speaking rate</tr>
-        <tr lang="ru" finished="false">разговорный уровень</tr>
+        <tr lang="ru">скорость речи</tr>
       </property>
       <!-- @voice -->
       <property name="@voice" type="symbol" default="Anna">
         <tr lang="en">voice</tr>
-        <tr lang="ru" finished="false">голос</tr>
+        <tr lang="ru">голос</tr>
       </property>
       <!-- @volume -->
       <property name="@volume" type="float" default="1" minvalue="0" maxvalue="1">
         <tr lang="en">voice volume</tr>
-        <tr lang="ru" finished="false">громкость голоса</tr>
+        <tr lang="ru">громкость голоса</tr>
       </property>
     </properties>
     <methods>
       <!-- clear -->
       <method name="clear">
         <info>
-          <tr lang="en">clear TTS queue</tr>
-          <tr lang="ru" finished="false">Чистая очередь TTS</tr>
+          <tr lang="en">clear the TTS queue</tr>
+          <tr lang="ru">очистить очередь TTS</tr>
         </info>
       </method>
       <!-- read -->
       <method name="read">
         <info>
-          <tr lang="en">read TTS file (text or SSML)</tr>
-          <tr lang="ru" finished="false">Читать файл TTS (текст или SSML)</tr>
+          <tr lang="en">read a TTS file (text or SSML)</tr>
+          <tr lang="ru">прочитать файл TTS (текст или SSML)</tr>
         </info>
         <param name="FILE" type="symbol" required="true">
           <tr lang="en">absolute or relative path to the file</tr>
-          <tr lang="ru" finished="false">Абсолютный или относительный путь к файлу</tr>
+          <tr lang="ru">абсолютный или относительный путь к файлу</tr>
         </param>
       </method>
       <!-- ssml -->
       <method name="ssml">
         <info>
           <tr lang="en">speak SSML text markup</tr>
-          <tr lang="ru" finished="false">Разметка текста SSML</tr>
+          <tr lang="ru">произнести текст с разметкой SSML</tr>
         </info>
       </method>
       <!-- stop -->
       <method name="stop">
         <info>
-          <tr lang="en">stops speech and clear TTS queue</tr>
-          <tr lang="ru" finished="false">Прекратить речь и очистить очередь TTS</tr>
+          <tr lang="en">stop speech and clear the TTS queue</tr>
+          <tr lang="ru">остановить речь и очистить очередь TTS</tr>
         </info>
       </method>
     </methods>
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">speak number</tr>
-          <tr lang="ru" finished="false">разговорный номер</tr>
+          <tr lang="en">speak a number</tr>
+          <tr lang="ru">произнести число</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">speak symbol</tr>
-          <tr lang="ru" finished="false">Говорить символ</tr>
+          <tr lang="en">speak a symbol</tr>
+          <tr lang="ru">произнести символ</tr>
         </in>
         <in on="list">
-          <tr lang="en">speak list of symbols</tr>
-          <tr lang="ru" finished="false">Список говорящих символов</tr>
+          <tr lang="en">speak a list of symbols</tr>
+          <tr lang="ru">произнести список символов</tr>
         </in>
       </inlet>
     </inlets>
@@ -122,15 +135,15 @@
       <outlet type="audio">
         <out type="any">
           <tr lang="en">TTS output</tr>
-          <tr lang="ru" finished="false">Производитель TTS</tr>
+          <tr lang="ru">выход TTS</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
           <tr lang="en">bang on done, [word 1( on word start, [word 0( on word end, [sentence 1( on
           sentence start, [sentence 0( on sentence end</tr>
-          <tr lang="ru" finished="false">bg on done, [слово 1(начало слова, [слово 0(конец слова,
-          [предложение 1(начало предложения,] предложение 0(конец предложения)]</tr>
+          <tr lang="ru">bang по завершении, [word 1( в начале слова, [word 0( в конце слова,
+          [sentence 1( в начале предложения, [sentence 0( в конце предложения</tr>
         </out>
       </outlet>
     </outlets>

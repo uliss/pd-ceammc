@@ -29,17 +29,24 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">Extracts properties from data stream with matching. Non property values are
-        passed untouched</tr>
-        <tr lang="ru" finished="false">Извлекает свойства из потока данных с помощью сопоставления.
-        Неимущественные ценности передаются нетронутым</tr>
+        <tr lang="en">the object extracts properties from the data stream by matching. Non-property
+        values are passed through untouched to the first outlet</tr>
+        <tr lang="ru">объект извлекает свойства из потока данных по совпадению. Значения, не
+        являющиеся свойствами, проходят без изменений на первый выход</tr>
+      </par>
+      <par>
+        <tr lang="en">each matched property is output from its own outlet without the property
+        selector, unmatched properties are output from the last outlet with the selector
+        preserved</tr>
+        <tr lang="ru">каждое совпавшее свойство выводится со своего выхода без селектора свойства,
+        несовпавшие свойства выводятся с последнего выхода с сохранением селектора</tr>
       </par>
     </info>
     <inlets>
       <inlet>
         <in on="any">
           <tr lang="en">input values</tr>
-          <tr lang="ru" finished="false">входные значения</tr>
+          <tr lang="ru">входные значения</tr>
         </in>
       </inlet>
     </inlets>
@@ -47,26 +54,25 @@
       <outlet>
         <out type="any">
           <tr lang="en">passed values</tr>
-          <tr lang="ru" finished="false">переданные значения</tr>
+          <tr lang="ru">переданные значения</tr>
         </out>
       </outlet>
       <outlet>
         <out type="any">
-          <tr lang="en">first matched property value (without property selector)</tr>
-          <tr lang="ru" finished="false">первая соответствующая стоимость недвижимости (без выбора
-          недвижимости)</tr>
+          <tr lang="en">first matched property value (without the property selector)</tr>
+          <tr lang="ru">значение первого совпавшего свойства (без селектора свойства)</tr>
         </out>
       </outlet>
       <outlet number="...">
         <out type="any">
-          <tr lang="en">others matched property value</tr>
-          <tr lang="ru" finished="false">Другие соответствуют стоимости недвижимости</tr>
+          <tr lang="en">other matched property values</tr>
+          <tr lang="ru">значения других совпавших свойств</tr>
         </out>
       </outlet>
       <outlet number="n">
         <out type="any">
           <tr lang="en">unmatched property output (with selector)</tr>
-          <tr lang="ru" finished="false">непревзойденный выход свойств (с селектором)</tr>
+          <tr lang="ru">выход несовпавших свойств (с селектором)</tr>
         </out>
       </outlet>
     </outlets>

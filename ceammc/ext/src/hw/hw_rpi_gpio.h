@@ -14,6 +14,8 @@
 #ifndef HW_RPI_GPIO_H
 #define HW_RPI_GPIO_H
 
+#ifdef WITH_RPI
+
 #include "ceammc_object.h"
 #include "hw_rust.hpp"
 #include "ceammc_rs_msg_object.h"
@@ -48,5 +50,14 @@ private:
 };
 
 void setup_hw_rpi_gpio();
+
+#else
+
+#include "ceammc_stub.h"
+
+CONTROL_OBJECT_STUB(HwRpiGpio, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwRpiGpio, hw_rpi_gpio, "hw.rpi.gpio");
+
+#endif
 
 #endif // HW_RPI_GPIO_H

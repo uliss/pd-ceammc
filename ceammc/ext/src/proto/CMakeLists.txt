@@ -3,7 +3,7 @@ add_subdirectory(firmata)
 add_library(ceammc_proto STATIC mod_proto.cpp mpv_ipc.cpp)
 
 function(ceammc_proto_external name)
-    target_sources(ceammc_proto PRIVATE "proto_${name}.cpp")
+    target_sources(ceammc_proto PRIVATE "proto_${name}.h" "proto_${name}.cpp")
 endfunction()
 
 ceammc_proto_external(arturia_minilab)
@@ -18,6 +18,7 @@ ceammc_proto_external(midi_sysex)
 ceammc_proto_external(moppy)
 ceammc_proto_external(morse)
 ceammc_proto_external(mpv)
+ceammc_proto_external(obs_client)
 ceammc_proto_external(sp_alpaca)
 ceammc_proto_external(vlc)
 ceammc_proto_external(volca_keys)
@@ -36,6 +37,15 @@ if(RAGEL_FOUND)
     add_custom_target(parser_src SOURCES parser_whammy.rl parser_vlc.rl)
 endif()
 
+if(WITH_VLC)
+    target_compile_definitions(ceammc_proto PRIVATE -DWITH_VLC=1)
+    target_sources(ceammc_proto PRIVATE parser_vlc.cpp)
+endif()
+
+if(WITH_OBS)
+    target_compile_definitions(ceammc_proto PRIVATE -DWITH_OBS=1)
+endif()
+
 if(WITH_LTC)
     target_sources(ceammc_proto PRIVATE proto_ltc_in_tilde.cpp)
     target_sources(ceammc_proto PRIVATE proto_ltcout_tilde.cpp)
@@ -47,22 +57,8 @@ if(WITH_LTC)
     endif()
 endif()
 
-if(WITH_OBS)
-    target_sources(ceammc_proto PRIVATE
-        proto_rust_struct.hpp
-        proto_obs_client.h
-        proto_obs_client.cpp
-    )
-    target_include_directories(ceammc_proto PRIVATE
-        PRIVATE
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
-    )
-    target_link_libraries(ceammc_proto PUBLIC proto_rust)
-endif()
-
 target_sources(ceammc_proto
     PRIVATE
-        parser_vlc.cpp
         parser_whammy.cpp
         proto_midi_parser.cpp
 )
@@ -74,4 +70,14 @@ target_include_directories(ceammc_proto
         ${CMAKE_CURRENT_SOURCE_DIR}/../midi
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
+
+if(WITH_RUST_PROTO)
+    target_include_directories(ceammc_proto PRIVATE
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/proto
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg
+    )
+    target_link_libraries(ceammc_proto PUBLIC proto_rust)    
+endif()
+
 target_link_libraries(ceammc_proto PRIVATE date proto_firmata)

@@ -1,95 +1,105 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 427 50 упаковка атомов из нескольких потоков в один;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 412 50 упаковывает атомы из нескольких потоков в один;
 #X obj 1 1 cnv 5 765 40 empty empty flow.pack 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 flow.pack;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 230 78 cnv 1 535 155 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект хранит последнее полученное значение для каждого
+входа и выводит их все в виде одного списка или сообщения;
+#X text 240 138 первый вход запускает вывод по bang \, числу \, символу
+\, списку или любому сообщению;
+#X text 240 178 @init задаёт начальные значения для всех входов \,
+отсутствующие значения по умолчанию равны 0;
+#X obj 50 281 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 98 118 5 0 0 0 - - -;
-#X floatatom 155 118 5 0 0 0 - - -;
-#X msg 203 118 1 2;
-#X msg 280 118 1 2 3;
-#X floatatom 357 118 5 0 0 0 - - -;
-#X obj 50 162 flow.pack 3 0 0 ABC, f 20;
-#X obj 50 190 ui.dt;
-#X msg 50 219 a b c;
-#X obj 50 248 flow.pack 5 @init 1 2 3 4 5;
-#X obj 50 277 ui.dt;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 332 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X floatatom 98 281 5 0 0 0 - - -;
+#X floatatom 155 281 5 0 0 0 - - -;
+#X msg 203 281 1 2;
+#X msg 280 281 1 2 3;
+#X floatatom 357 281 5 0 0 0 - - -;
+#X obj 50 325 flow.pack 3 0 0 ABC, f 20;
+#X obj 50 353 ui.dt;
+#X msg 50 382 a b c;
+#X obj 50 411 flow.pack 5 @init 1 2 3 4 5;
+#X obj 50 440 ui.dt;
+#X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 495 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 335 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 498 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 333 1\.;
-#X text 170 333 int;
-#X obj 268 334 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 333 N: number of inputs. Тип: int. Диапазон: [1\..255];
-#X text 130 358 2\.;
-#X text 170 358 list;
-#X obj 268 359 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 358 INIT: default values for all inlets. If not enough
-default values given it sets to 0\. Тип: list.;
-#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 413 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 496 1\.;
+#X text 170 496 int;
+#X obj 268 497 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 496 N: количество входов. Тип: int. Диапазон: [1\..255];
+#X text 130 521 2\.;
+#X text 170 521 list;
+#X obj 268 522 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 521 INIT: значения по умолчанию для всех входов. Если значений
+по умолчанию не хватает \, остальные устанавливаются в 0\. Тип: list.;
+#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 591 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 416 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 594 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 414 @init;
-#X text 270 414 (при инициализации) Default init values. Тип: list.;
-#X obj 250 444 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 444 @n;
-#X text 270 444 (при инициализации) Number of inlets. Тип: int. Значение
+#X msg 130 592 @init;
+#X text 270 592 (при инициализации) Значения инициализации по умолчанию.
+Тип: list.;
+#X obj 250 634 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 634 @n;
+#X text 270 634 (при инициализации) Количество входов. Тип: int. Значение
 по умолчанию: 1\. Диапазон: [1\..255].;
-#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 501 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 691 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 502 1\.;
-#X text 170 502 bang:;
-#X text 270 502 output current value.;
-#X text 170 527 float:;
-#X text 270 527 change first packed value and output.;
-#X text 170 552 symbol:;
-#X text 270 552 change first packed value and output.;
-#X text 170 577 list:;
-#X text 270 577 propagate list values to other inlets and output.;
-#X text 170 602 any:;
-#X text 270 602 propagate message values to other inlets and output.;
-#X text 130 627 ...;
-#X text 170 627 float:;
-#X text 270 627 change ... packed value.;
-#X text 170 652 symbol:;
-#X text 270 652 change ... packed value.;
-#X text 170 677 list:;
-#X text 270 677 propagate ... list values among rest inlets.;
-#X text 130 702 n.;
-#X text 170 702 float:;
-#X text 270 702 change n-th packed value.;
-#X text 170 727 symbol:;
-#X text 270 727 change n-th packed value.;
-#X text 170 752 list:;
-#X text 270 752 propagate n-th list values among rest inlets.;
-#X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 792 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 692 1\.;
+#X text 170 692 bang:;
+#X text 270 692 вывести текущее значение.;
+#X text 170 717 float:;
+#X text 270 717 изменить первое упакованное значение и вывести.;
+#X text 170 742 symbol:;
+#X text 270 742 изменить первое упакованное значение и вывести.;
+#X text 170 767 list:;
+#X text 270 767 распространить значения списка на другие входы и вывести.;
+#X text 170 792 any:;
+#X text 270 792 распространить значения сообщения на другие входы и
+вывести.;
+#X text 130 817 ...;
+#X text 170 817 float:;
+#X text 270 817 изменить ... упакованное значение.;
+#X text 170 842 symbol:;
+#X text 270 842 изменить ... упакованное значение.;
+#X text 170 867 list:;
+#X text 270 867 распространить ... значения списка на остальные входы.;
+#X text 130 892 n.;
+#X text 170 892 float:;
+#X text 270 892 изменить n-е упакованное значение.;
+#X text 170 917 symbol:;
+#X text 270 917 изменить n-е упакованное значение.;
+#X text 170 942 list:;
+#X text 270 942 распространить значения n-го списка на остальные входы.;
+#X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 982 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 793 1\.;
-#X text 270 793 packed list or message (if message input).;
+#X text 130 983 1\.;
+#X text 270 983 упакованный список или сообщение (если на вход подан
+message).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 843 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 846 библиотека: ceammc v0.9.8;
-#X text 385 858 смотрите также:;
-#X obj 506 861 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1048 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1051 библиотека: ceammc v0.9.8;
+#X text 385 1063 смотрите также:;
+#X obj 506 1066 ui.link @background_color 0.78431 0.78431 0.78431
 @title [pack] @url pack-help.pd;
-#X obj 553 861 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 553 1066 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.sync] @url flow.sync-help.pd;
-#X obj 636 861 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 636 1066 ui.link @background_color 0.78431 0.78431 0.78431
 @title [flow.sync_pack] @url flow.sync_pack-help.pd;
-#N canvas 10 865 400 290 info 0;
+#N canvas 10 1070 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -113,13 +123,13 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 865 pd info;
-#X connect 4 0 10 0;
-#X connect 5 0 10 0;
-#X connect 6 0 10 1;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 2;
-#X connect 10 0 11 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
+#X restore 10 1070 pd info;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 10 0 14 1;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 2;
+#X connect 14 0 15 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;

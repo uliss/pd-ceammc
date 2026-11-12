@@ -1,76 +1,86 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 500 50 cnv 1 265 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 505 50 усовершенствованная версия [ctlin];
+#X obj 401 50 cnv 1 364 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 406 50 расширенная версия стандартного объекта [ctlin];
 #X obj 1 1 cnv 5 765 40 empty empty midi.cc 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 midi.cc;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X floatatom 136 118 5 0 0 0 - - -;
-#X msg 50 147 @cc \$1;
-#X msg 136 147 @curve \$1;
-#X obj 50 176 midi.cc 10 @min 0 @max 1 @curve -2;
-#X obj 50 205 ui.hsl;
-#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
+#X obj 230 78 cnv 1 535 170 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 объект принимает значение указанного MIDI-контроллера
+и пересчитывает его из диапазона 0\..127 в диапазон @min..@max с учётом
+кривой @curve;
+#X text 240 138 @ch выбирает MIDI-канал \, @cc задаёт номер контроллера;
+#X text 240 163 объект можно использовать для привязки MIDI-контроллера
+к любому диапазону параметра \, например чтобы привязать колесо модуляции
+к срезу фильтра или к уровню громкости;
+#X floatatom 50 296 5 0 0 0 - - -;
+#X floatatom 136 296 5 0 0 0 - - -;
+#X msg 50 325 @cc \$1;
+#X msg 136 325 @curve \$1;
+#X obj 50 354 midi.cc 10 @min 0 @max 1 @curve -2;
+#X obj 50 383 ui.hsl;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 438 cnv 5 90 25 empty empty аргументы: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 263 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 441 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.args-info.pd;
-#X text 130 261 1\.;
-#X text 170 261 int;
-#X obj 268 262 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 261 CC: controller number. Тип: int. Диапазон: [0\..127];
-#X text 130 286 2\.;
-#X text 170 286 float;
-#X obj 268 287 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 286 MIN: @min value. Тип: float.;
-#X text 130 311 3\.;
-#X text 170 311 float;
-#X obj 268 312 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 270 311 MAX: @max value. Тип: float.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 351 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X text 130 439 1\.;
+#X text 170 439 int;
+#X obj 268 440 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 439 CC: номер контроллера. Тип: int. Диапазон: [0\..127];
+#X text 130 464 2\.;
+#X text 170 464 float;
+#X obj 268 465 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 464 MIN: значение @min. Тип: float.;
+#X text 130 489 3\.;
+#X text 170 489 float;
+#X obj 268 490 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 489 MAX: значение @max. Тип: float.;
+#X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 529 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 354 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 532 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 352 @cc;
-#X text 270 352 Controller number. Тип: int. Значение по умолчанию:
+#X msg 130 530 @cc;
+#X text 270 530 Номер контроллера. Тип: int. Значение по умолчанию:
 0\. Диапазон: [0\..127].;
-#X obj 250 394 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 394 @ch;
-#X text 270 394 MIDI channel. Тип: int. Значение по умолчанию: 0\.
-Диапазон: [0\..16].;
-#X obj 250 436 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 436 @curve;
-#X text 270 436 Output curve. If @curve<0: fast begin \, slow end \,
-else if @curve>0: slow begin \, fast end \, if @curve==0: linear speed.
-Тип: float. Значение по умолчанию: 0\.;
-#X obj 250 493 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 493 @max;
-#X text 270 493 Output value at midi input == 127\. Тип: float. Значение
-по умолчанию: 127\.;
-#X obj 250 535 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 535 @min;
-#X text 270 535 Output value at midi input == 0\. Тип: float. Значение
-по умолчанию: 0\.;
-#X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 592 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 250 572 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 572 @ch;
+#X text 270 572 MIDI-канал. Тип: int. Значение по умолчанию: 0\. Диапазон:
+[0\..16].;
+#X obj 250 614 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 614 @curve;
+#X text 270 614 Кривая отклика на выходе. Если @curve<0 \, отклик начинается
+быстро и заканчивается медленно \, если @curve>0 — начинается медленно
+и заканчивается быстро \, если @curve==0 — отклик линейный. Тип: float.
+Значение по умолчанию: 0\.;
+#X obj 250 701 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 701 @max;
+#X text 270 701 Выходное значение при входном MIDI-значении 127\. Тип:
+float. Значение по умолчанию: 127\.;
+#X obj 250 743 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 743 @min;
+#X text 270 743 Выходное значение при входном MIDI-значении 0\. Тип:
+float. Значение по умолчанию: 0\.;
+#X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 800 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 593 1\.;
-#X text 270 593 control input.;
-#X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 633 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
+#X text 130 801 1\.;
+#X text 270 801 вход управления.;
+#X obj 20 836 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 841 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 634 1\.;
-#X text 270 634 float value.;
+#X text 130 842 1\.;
+#X text 170 842 float:;
+#X text 270 842 значение контроллера.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 684 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 687 библиотека: ceammc v0.9.8;
-#N canvas 10 706 400 290 info 0;
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 библиотека: ceammc v0.9.8;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -94,9 +104,9 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 706 pd info;
-#X connect 4 0 6 0;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X restore 10 914 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;

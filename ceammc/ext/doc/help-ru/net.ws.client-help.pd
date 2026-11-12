@@ -1,132 +1,143 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 636 50 cnv 1 129 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 641 50 WebSocket клиент;
+#X text 641 50 WebSocket-клиент;
 #X obj 1 1 cnv 5 765 40 empty empty net.ws.client 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 net.ws.client;
-#X text 50 118 you can start testing websocket server with command:
+#X obj 230 78 cnv 1 535 185 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 WebSocket — протокол \, обеспечивающий полнодуплексную
+передачу данных по одному TCP-соединению \, широко используется в веб-приложениях
+для обмена данными в реальном времени;
+#X text 240 153 объект подключается к WebSocket-серверу по указанному
+URL и обменивается текстовыми \, бинарными или JSON-сообщениями;
+#X text 240 208 методы [write( буферизуют сообщения \, для отправки
+вызовите [flush( \, методы [send( отправляют сообщения сразу;
+#X text 50 311 you can start testing websocket server with command:
 'websocat -s 8000 -t -v';
-#X msg 50 162 connect ws://localhost:8000;
+#X msg 50 355 connect ws://localhost:8000;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array WS-CLI 50 float 0;
 #X coords 0 100 50 0 150 100 1;
-#X restore 414 162 graph;
-#X msg 69 190 close;
-#X msg 194 190 write MSG1;
-#X msg 69 219 ping;
-#X msg 194 219 write MSG2;
-#X msg 69 248 latency;
-#X msg 194 248 flush;
-#X msg 69 277 send MESSAGE;
-#X msg 213 277 send_json 1 2 A;
-#X msg 88 305 send_array WS-CLI;
-#X obj 50 334 net.ws.client;
-#X obj 50 363 t a a;
-#X obj 50 392 print;
-#X obj 88 421 ui.dt;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 476 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
+#X restore 414 355 graph;
+#X msg 69 383 close;
+#X msg 194 383 write MSG1;
+#X msg 69 412 ping;
+#X msg 194 412 write MSG2;
+#X msg 69 441 latency;
+#X msg 194 441 flush;
+#X msg 69 470 send MESSAGE;
+#X msg 213 470 send_json 1 2 A;
+#X msg 88 498 send_array WS-CLI;
+#X obj 50 527 net.ws.client;
+#X obj 50 556 t a a;
+#X obj 50 585 print;
+#X obj 88 614 ui.dt;
+#X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 669 cnv 5 81 25 empty empty свойства: 4 12 0 14 -262144
 -49933 0;
-#X obj 735 479 ui.link @background_color 0.90196 0.90196 0.90196
+#X obj 735 672 ui.link @background_color 0.90196 0.90196 0.90196
 @title [?] @url ceammc.props-info.pd;
-#X msg 130 477 @mode;
-#X text 270 477 Parsing mode for incoming messages. If 'fudi' - interpret
-incoming websocket data as Pd messages \, if 'sym' - always interpret
-as symbols \, 'data' - parse ceammc data \, 'json' - convert json values
-to ceammc data. Тип: symbol. Значение по умолчанию: fudi. Разрешённые
-значения: data \, fudi \, json \, sym.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 595 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
+#X msg 130 670 @mode;
+#X text 270 670 Режим разбора входящих сообщений. Если "fudi" — интерпретировать
+входящие данные websocket как Pd-сообщения \, если "sym" — всегда интерпретировать
+как символы \, "data" — разбирать данные ceammc \, "json" — преобразовывать
+значения JSON в данные ceammc. Тип: symbol. Значение по умолчанию:
+fudi. Разрешённые значения: data \, fudi \, json \, sym.;
+#X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 803 cnv 5 65 25 empty empty методы: 4 12 0 14 -262144 -49933
 0;
-#X msg 130 596 close;
-#X text 270 596 gracefully close connection (with websocket handshake).;
-#X obj 250 631 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 631 connect;
-#X text 270 631 connect to websocket server. Аргументы:;
-#X obj 300 656 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 656 URL: url - ws://HOST:PORT/ \, for ex.: ws://127.0.0.1:9000/path.
+#X msg 130 804 close;
+#X text 270 804 корректно закрыть соединение (с websocket-рукопожатием).;
+#X obj 250 839 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 839 connect;
+#X text 270 839 подключиться к websocket-серверу. Аргументы:;
+#X obj 300 864 cnv 1 29 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 864 URL: URL — ws://HOST:PORT/ \, например: ws://127.0.0.1:9000/path.
 Тип: symbol.;
-#X obj 250 704 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 704 flush;
-#X text 270 704 flush output stream: sends all buffered messages.;
-#X obj 250 739 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 739 latency;
-#X text 270 739 measure rountrip latency. Outputs: latency TIME_MSEC.;
-#X obj 250 774 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 774 ping;
-#X text 270 774 send ping message to server (on server answer outputs:
-pong DATA). Аргументы:;
-#X obj 300 814 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 814 [DATA]: list of integers in [0\..255] range. Тип: list.;
-#X obj 250 847 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 847 send;
-#X text 270 847 send as text message. Аргументы:;
-#X obj 300 872 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 872 [ARGS]: arguments. Тип: list.;
-#X obj 250 905 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 905 send_array;
-#X text 270 905 send as Pd array content as json array. Аргументы:;
-#X obj 300 930 cnv 1 31 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 930 ARR: array name. Тип: symbol.;
-#X obj 300 953 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 953 [START=0]: array start index. Тип: int. Минимальное
+#X obj 250 912 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 912 flush;
+#X text 270 912 сбросить выходной поток: отправить все буферизованные
+сообщения.;
+#X obj 250 962 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 962 latency;
+#X text 270 962 измерить задержку кругового обхода. Выводит: latency
+TIME_MSEC.;
+#X obj 250 1012 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1012 ping;
+#X text 270 1012 отправить ping-сообщение на сервер (при ответе сервера
+выводит: pong DATA). Аргументы:;
+#X obj 300 1052 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1052 [DATA]: список целых чисел в диапазоне [0\..255].
+Тип: list.;
+#X obj 250 1085 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1085 send;
+#X text 270 1085 отправить как текстовое сообщение. Аргументы:;
+#X obj 300 1110 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1110 [ARGS]: аргументы. Тип: list.;
+#X obj 250 1143 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1143 send_array;
+#X text 270 1143 отправить содержимое Pd-массива как JSON-массив. Аргументы:;
+#X obj 300 1168 cnv 1 31 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1168 ARR: имя массива. Тип: symbol.;
+#X obj 300 1191 cnv 1 70 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1191 [START=0]: начальный индекс массива. Тип: int. Минимальное
 значение: 0\. Единицы: 'samp'.;
-#X obj 300 991 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 991 [LENGTH]: read length. If not specified - read until
-array end. Тип: int. Минимальное значение: 0\. Единицы: 'samp'.;
-#X obj 250 1054 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1054 send_binary;
-#X text 270 1054 send as binary bytes. Аргументы:;
-#X obj 300 1079 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1079 [ARGS]: list of integers in [0\..255] range. Тип:
-list.;
-#X obj 250 1112 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1112 send_json;
-#X text 270 1112 send as encoded json. Аргументы:;
-#X obj 300 1137 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1137 [ARGS]: arguments. Тип: list.;
-#X obj 250 1170 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1170 write;
-#X text 270 1170 write as text message to output buffer. You have to
-call [flush( method for sending. Аргументы:;
-#X obj 300 1210 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1210 [ARGS]: arguments. Тип: list.;
-#X obj 250 1243 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1243 write_binary;
-#X text 270 1243 write as binary bytes to output buffer. You have to
-call [flush( method for sending. Аргументы:;
-#X obj 300 1283 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1283 [ARGS]: list of integers in [0\..255] range. Тип:
-list.;
-#X obj 250 1316 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
-#X msg 130 1316 write_json;
-#X text 270 1316 write as encoded json to output buffer. You have to
-call [flush( method for sending. Аргументы:;
-#X obj 300 1356 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 300 1356 [ARGS]: arguments. Тип: list.;
-#X obj 20 1399 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1404 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
+#X obj 300 1229 cnv 1 63 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1229 [LENGTH]: длина чтения. Если не указана — читать до
+конца массива. Тип: int. Минимальное значение: 0\. Единицы: 'samp'.;
+#X obj 250 1292 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1292 send_binary;
+#X text 270 1292 отправить как бинарные байты. Аргументы:;
+#X obj 300 1317 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1317 [ARGS]: список целых чисел в диапазоне [0\..255].
+Тип: list.;
+#X obj 250 1350 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1350 send_json;
+#X text 270 1350 отправить как закодированный JSON. Аргументы:;
+#X obj 300 1375 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1375 [ARGS]: аргументы. Тип: list.;
+#X obj 250 1408 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1408 write;
+#X text 270 1408 записать как текстовое сообщение в выходной буфер.
+Для отправки нужно вызвать метод [flush(. Аргументы:;
+#X obj 300 1448 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1448 [ARGS]: аргументы. Тип: list.;
+#X obj 250 1481 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1481 write_binary;
+#X text 270 1481 записать как бинарные байты в выходной буфер. Для
+отправки нужно вызвать метод [flush(. Аргументы:;
+#X obj 300 1521 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1521 [ARGS]: список целых чисел в диапазоне [0\..255].
+Тип: list.;
+#X obj 250 1554 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1554 write_json;
+#X text 270 1554 записать как закодированный JSON в выходной буфер.
+Для отправки нужно вызвать метод [flush(. Аргументы:;
+#X obj 300 1594 cnv 1 47 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1594 [ARGS]: аргументы. Тип: list.;
+#X obj 20 1637 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1642 cnv 5 56 25 empty empty входы: 4 12 0 14 -262144 -49933
 0;
-#X text 130 1405 1\.;
-#X text 270 1405 message input.;
-#X obj 20 1440 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 20 1445 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
+#X text 130 1643 1\.;
+#X text 270 1643 вход сообщений.;
+#X obj 20 1678 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1683 cnv 5 64 25 empty empty выходы: 4 12 0 14 -262144
 -49933 0;
-#X text 130 1446 1\.;
-#X text 270 1446 output messages: latency \, ping \, text \, binary
+#X text 130 1684 1\.;
+#X text 270 1684 выходные сообщения: latency \, ping \, text \, binary
 \, closed \, connected \, disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1511 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1514 библиотека: ceammc v0.9.8;
-#X text 522 1526 смотрите также:;
-#X obj 643 1529 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1749 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1752 библиотека: ceammc v0.9.8;
+#X text 522 1764 смотрите также:;
+#X obj 643 1767 ui.link @background_color 0.78431 0.78431 0.78431
 @title [net.ws.server] @url net.ws.server-help.pd;
-#N canvas 10 1533 400 290 info 0;
+#N canvas 10 1771 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 библиотека:;
 #X text 120 10 ceammc;
@@ -150,17 +161,17 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
 #X text 120 268 сгенерировано при помощи pddoc;
-#X restore 10 1533 pd info;
-#X connect 5 0 16 0;
-#X connect 13 0 16 0;
-#X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 17 1 19 0;
-#X connect 7 0 16 0;
-#X connect 9 0 16 0;
-#X connect 11 0 16 0;
-#X connect 8 0 16 0;
-#X connect 10 0 16 0;
-#X connect 12 0 16 0;
-#X connect 14 0 16 0;
+#X restore 10 1771 pd info;
+#X connect 9 0 20 0;
+#X connect 17 0 20 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 23 0;
+#X connect 11 0 20 0;
+#X connect 13 0 20 0;
+#X connect 15 0 20 0;
+#X connect 12 0 20 0;
+#X connect 14 0 20 0;
+#X connect 16 0 20 0;
+#X connect 18 0 20 0;

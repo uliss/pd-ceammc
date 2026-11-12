@@ -8,7 +8,7 @@
       </authors>
       <description>
         <tr lang="en">group input atoms in lists of specified size</tr>
-        <tr lang="ru">группирует входные атомы в списки указанного размера</tr>
+        <tr lang="ru">группирует входные атомы в списки заданного размера</tr>
       </description>
       <license>GPL3 or later</license>
       <library>ceammc</library>
@@ -20,22 +20,48 @@
         <alias>group</alias>
       </aliases>
     </meta>
+    <info>
+      <par>
+        <tr lang="en">the object collects incoming atoms into groups of @by elements and outputs
+        each group as a list when it is full</tr>
+        <tr lang="ru">объект собирает входящие атомы в группы по @by элементов и выводит каждую
+        группу в виде списка, когда она заполнена</tr>
+      </par>
+      <par>
+        <tr lang="en">the group size is set by the BY argument or the @by property, and can be
+        changed by sending an integer to the right inlet</tr>
+        <tr lang="ru">размер группы задаётся аргументом BY или свойством @by и может быть изменён
+        подачей целого числа на правый вход</tr>
+      </par>
+      <par>
+        <tr lang="en">the [flush( method outputs the current incomplete group, the [clear( method
+        discards it</tr>
+        <tr lang="ru">метод [flush( выводит текущую незавершённую группу, метод [clear( отбрасывает
+        её</tr>
+      </par>
+      <par>
+        <tr lang="en">the object can be used to reassemble a stream of atoms into fixed-size lists,
+        for example to build note pairs from a stream of pitch and velocity values</tr>
+        <tr lang="ru">объект можно использовать для сборки потока атомов в списки фиксированного
+        размера, например чтобы собрать пары нот из потока значений высоты и скорости</tr>
+      </par>
+    </info>
     <arguments>
       <argument name="BY" type="int" minvalue="1">
-        <tr lang="en">group size (the length of output list)</tr>
+        <tr lang="en">group size (the length of the output list)</tr>
         <tr lang="ru">размер группы (длина выходного списка)</tr>
       </argument>
     </arguments>
     <properties>
       <!-- @by -->
       <property name="@by" type="int" minvalue="1" default="1">
-        <tr lang="en">group size (the length of output list)</tr>
+        <tr lang="en">group size (the length of the output list)</tr>
         <tr lang="ru">размер группы (длина выходного списка)</tr>
       </property>
       <!-- @free -->
       <property name="@free" type="int" access="readonly" default="0" minvalue="0">
-        <tr lang="en">free space that is left in the current group</tr>
-        <tr lang="ru">cвободное пространство, которое осталось в текущей группе</tr>
+        <tr lang="en">free space left in the current group</tr>
+        <tr lang="ru">свободное место, оставшееся в текущей группе</tr>
       </property>
     </properties>
     <methods>
@@ -57,37 +83,26 @@
     <inlets>
       <inlet>
         <in on="float">
-          <tr lang="en">add float to group and flush if group is full packed</tr>
-          <!-- old: Добавить поплавок в группу и смыть, если группа
-                    заполнена -->
-          <tr lang="ru" finished="false">Добавить поплавок в группу и смыть, если группа
-          заполнена</tr>
+          <tr lang="en">add float to group and flush if the group is full</tr>
+          <tr lang="ru">добавить число в группу и вывести, если группа заполнена</tr>
         </in>
         <in on="symbol">
-          <tr lang="en">add symbol to group and flush if group is full packed</tr>
-          <!-- old: Добавить символ в группу и смыть, если группа
-                    заполнена -->
-          <tr lang="ru" finished="false">Добавить символ в группу и смыть, если группа
-          заполнена</tr>
+          <tr lang="en">add symbol to group and flush if the group is full</tr>
+          <tr lang="ru">добавить символ в группу и вывести, если группа заполнена</tr>
         </in>
         <in on="list">
           <tr lang="en">add list atoms to group and flush if needed</tr>
-          <!-- old: Добавить атомы списка в группу и смыть, если это
-                    необходимо. -->
-          <tr lang="ru" finished="false">Добавить атомы списка в группу и смыть, если это
-          необходимо.</tr>
+          <tr lang="ru">добавить атомы списка в группу и вывести, если нужно</tr>
         </in>
         <in on="data">
           <tr lang="en">add data to group and flush if needed</tr>
-          <!-- old: Добавление данных в группу и смыв при
-                    необходимости -->
-          <tr lang="ru" finished="false">Добавление данных в группу и смыв при необходимости</tr>
+          <tr lang="ru">добавить данные в группу и вывести, если нужно</tr>
         </in>
       </inlet>
       <inlet>
         <in on="int">
           <tr lang="en">set group size</tr>
-          <tr lang="ru">установить размер группы</tr>
+          <tr lang="ru">задать размер группы</tr>
         </in>
       </inlet>
     </inlets>

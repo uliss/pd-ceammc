@@ -1,4 +1,6 @@
 #include "hw_rpi_sensor_sr04.h"
+
+#ifdef WITH_RPI
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
@@ -95,3 +97,5 @@ void setup_hw_rpi_sensor_sr04()
     ObjectFactory<HwRpiSensorSr04> obj("hw.rpi.sensor.sr04");
     obj.addMethod("poll", &HwRpiSensorSr04::m_poll);
 }
+
+#endif
