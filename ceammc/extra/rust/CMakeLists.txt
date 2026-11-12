@@ -1,17 +1,20 @@
 find_package(Rust)
 if(Rust_FOUND)
+  set(CARGO_FLAGS )
+
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.rs
                  ${CMAKE_CURRENT_SOURCE_DIR}/apps/src/ceammc_config.rs @ONLY)
 
   corrosion_import_crate(MANIFEST_PATH resvg/crates/c-api/Cargo.toml
-                         CRATE_TYPES staticlib)
+                         CRATE_TYPES staticlib FLAGS ${CARGO_FLAGS})
 
-  corrosion_import_crate(MANIFEST_PATH rimg/Cargo.toml CRATE_TYPES staticlib)
+  corrosion_import_crate(MANIFEST_PATH rimg/Cargo.toml CRATE_TYPES staticlib
+                         FLAGS ${CARGO_FLAGS})
 
   if(WITH_RUST_APPS)
     # rhvoice_download
     # ##########################################################################
-    corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml)
+    corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml FLAGS ${CARGO_FLAGS})
     install(
       FILES $<TARGET_FILE:rhvoice_download>
       DESTINATION ${CEAMMC_INSTALL_PATH}
@@ -22,7 +25,8 @@ if(Rust_FOUND)
     # ceam-util executable
     # ##########################################################################
     if(UNIX)
-      corrosion_import_crate(MANIFEST_PATH apps/util/Cargo.toml)
+      corrosion_import_crate(MANIFEST_PATH apps/util/Cargo.toml FLAGS
+                             ${CARGO_FLAGS})
 
       if(UNIX AND NOT APPLE)
         cmake_path(SET ceam_util_install_dir "bin")
@@ -39,7 +43,8 @@ if(Rust_FOUND)
       file(GLOB _man_files "apps/util/man/*.1")
       add_custom_target(ceam_util_man_files SOURCES ${_man_files})
       include(GNUInstallDirs)
-      install(FILES ${_man_files} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+            install(FILES ${_man_files} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+      # include(GNUInstallDirs install(FILES ${_man_files} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
     endif()
     # ##########################################################################
 
@@ -51,12 +56,13 @@ if(Rust_FOUND)
   # rust ceammc_shared
   # ############################################################################
   if(WIN32)
-    corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES cdylib)
+    corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES cdylib
+                           FLAGS ${CARGO_FLAGS})
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_shared_rs.dll
             DESTINATION bin)
   else()
     corrosion_import_crate(MANIFEST_PATH shared/Cargo.toml CRATE_TYPES
-                           staticlib)
+                           staticlib FLAGS ${CARGO_FLAGS})
   endif()
 
   # include cbindgen generated headers
@@ -69,35 +75,47 @@ if(Rust_FOUND)
   # ############################################################################
   if(WITH_RUST_CORE)
     if(WIN32)
-      corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)
+      corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib
+                             FLAGS ${CARGO_FLAGS})
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/core_rust.dll DESTINATION bin)
-      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES cdylib)
-      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_rs_msg.dll DESTINATION bin)
+      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES cdylib
+                             FLAGS ${CARGO_FLAGS})
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ceammc_rs_msg.dll
+              DESTINATION bin)
     else()
       corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES
-                             staticlib)
-      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES
-                             staticlib)
+                             staticlib FLAGS ${CARGO_FLAGS})
+      corrosion_import_crate(MANIFEST_PATH msg/Cargo.toml CRATE_TYPES staticlib
+                             FLAGS ${CARGO_FLAGS})
     endif()
     target_include_directories(
       core_rust INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core>)
     target_include_directories(
-      ceammc_rs_msg INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/msg>)
+      ceammc_rs_msg
+      INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/msg>)
   endif()
 
   # rust hw
   # ############################################################################
   if(WITH_RUST_HW)
     if(WIN32)
-      corrosion_import_crate(MANIFEST_PATH hw/Cargo.toml CRATE_TYPES cdylib)
+      corrosion_import_crate(MANIFEST_PATH hw/Cargo.toml CRATE_TYPES cdylib
+                             FLAGS ${CARGO_FLAGS})
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/hw_rust.dll DESTINATION bin)
     else()
       set(_features "")
       if(WITH_PRINTER)
         set(_features "cups")
       endif()
-      corrosion_import_crate(MANIFEST_PATH hw/Cargo.toml CRATE_TYPES staticlib
-                             FEATURES ${_features})
+      corrosion_import_crate(
+        MANIFEST_PATH
+        hw/Cargo.toml
+        CRATE_TYPES
+        staticlib
+        FEATURES
+        ${_features}
+        FLAGS
+        ${CARGO_FLAGS})
     endif()
   endif()
 
@@ -109,8 +127,8 @@ if(Rust_FOUND)
       set(RUST_PROTO_CRATE_TYPE cdylib)
     endif()
 
-    corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES ${RUST_PROTO_CRATE_TYPE})
-    if(WIN32)  
+    corrosion_import_crate(MANIFEST_PATH proto/Cargo.toml CRATE_TYPES ${RUST_PROTO_CRATE_TYPE} FLAGS ${CARGO_FLAGS})
+    if(WIN32)
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/proto_rust.dll DESTINATION bin)
     endif()
   endif()
@@ -124,7 +142,7 @@ if(Rust_FOUND)
     endif()
 
     corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES
-                           ${RUST_NET_CRATE_TYPE})
+                           ${RUST_NET_CRATE_TYPE} FLAGS ${CARGO_FLAGS})
 
     if(WIN32)
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/net_rust.dll DESTINATION bin)
@@ -152,10 +170,13 @@ if(Rust_FOUND)
   if(WITH_RUST_SYSTEM)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES cdylib)
-      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/system_rust.dll DESTINATION bin)
+      install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/system_rust.dll
+        DESTINATION bin
+        FLAGS ${CARGO_FLAGS})
     else()
       corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES
-                             staticlib)
+                             staticlib FLAGS ${CARGO_FLAGS})
     endif()
   endif()
 
@@ -164,10 +185,13 @@ if(Rust_FOUND)
   if(WITH_RUST_SYNTH)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES cdylib)
-      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/synth_rust.dll DESTINATION bin)
+      install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/synth_rust.dll
+        DESTINATION bin
+        FLAGS ${CARGO_FLAGS})
     else()
       corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES
-                             staticlib)
+                             staticlib FLAGS ${CARGO_FLAGS})
     endif()
   endif()
 
@@ -176,12 +200,12 @@ if(Rust_FOUND)
   if(WITH_RUST_WHISPER)
     if(WIN32)
       corrosion_import_crate(MANIFEST_PATH whisper/Cargo.toml CRATE_TYPES
-                             cdylib)
+                             cdylib FLAGS ${CARGO_FLAGS})
       install(FILES ${CMAKE_CURRENT_BINARY_DIR}/whisper_rust.dll
               DESTINATION bin)
     else()
       corrosion_import_crate(MANIFEST_PATH whisper/Cargo.toml CRATE_TYPES
-                             staticlib)
+                             staticlib FLAGS ${CARGO_FLAGS})
     endif()
   endif()
 endif()

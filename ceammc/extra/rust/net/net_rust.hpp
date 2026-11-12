@@ -1056,14 +1056,22 @@ void ceammc_wled_udp_free(ceammc_wled_udp *cli);
 /// create new wled UDP client
 /// @param addr - wled device ip address or server name
 /// @param port - wled device port
+/// @param size - wled strip length
 /// @param notify - client notification from worker
 /// @param on_msg - client callback for messages from worker
 /// @param on_data - client callback for data from worker
 /// @return pointer to handle or nullptr on error
 ceammc_wled_udp *ceammc_wled_udp_new(const char *addr,
                                      uint16_t port,
+                                     size_t size,
                                      ceammc_msg_notify notify,
                                      ceammc_msg_cb on_msg);
+
+/// send wled global brightness
+/// @param cli - esphome device handle
+/// @param value - brightness
+/// @return true on sucess, false on error (if device is disconnected etc.)
+bool ceammc_wled_udp_set_brightness(ceammc_wled_udp *cli, uint8_t value);
 
 /// send wled pixels
 /// @param cli - esphome device handle

@@ -43,6 +43,9 @@ struct m_transfer_args {
             // number of matched items
             return take_count;
         }
+        operator bool() const {
+            return _count > 0;
+        }
         static const char* arg_data_info() {
             return "DATA+ (byte values), byte[0..255] range";
         }
