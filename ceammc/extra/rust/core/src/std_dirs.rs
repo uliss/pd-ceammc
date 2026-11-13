@@ -47,8 +47,7 @@ pub extern "C" fn ceammc_home_dir(cb: rust_str_cb) -> bool {
 #[no_mangle]
 /// cross-platform pd user directory path with '/' slashes
 pub extern "C" fn ceammc_pd_user_dir(cb: rust_str_cb) -> bool {
-    let path = dirs::home_dir().map(|mut path| {
-        path.push("Documents");
+    let path = dirs::document_dir().map(|mut path| {
         path.push("Pd");
         path
     });

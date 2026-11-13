@@ -32,6 +32,57 @@ using namespace ceammc::platform;
 #define basename_(str) ceammc::platform::basename(str)
 #define dirname_(str) ceammc::platform::dirname(str)
 
+#ifdef __linux__
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <stdexcept>
+
+/**
+ * Reads the locale name from the ~/.config/user-dirs.locale file.
+ *
+ * @return A string containing the locale name (e.g., "ru_RU.UTF-8").
+ * @throws std::runtime_error If the file is not found, inaccessible, empty,
+ *         or if the home directory cannot be determined.
+ */
+std::string read_xdg_user_locale() {
+    // 1. Get the path to the home directory
+    const char* home = std::getenv("HOME");
+    if (home == nullptr) {
+        throw std::runtime_error("Failed to determine home directory: HOME environment variable is not set.");
+    }
+
+    // 2. Construct the full file path
+    std::string filepath = std::string(home) + "/.config/user-dirs.locale";
+
+    // 3. Open the file
+    std::ifstream file(filepath);
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open file: " + filepath);
+    }
+
+    // 4. Read the content
+    std::string locale_str;
+    std::getline(file, locale_str);
+
+    // 5. Remove a possible carriage return (\r) if the file was edited on Windows
+    if (!locale_str.empty() && locale_str.back() == '\r') {
+        locale_str.pop_back();
+    }
+
+    // 6. Check if the resulting string is not empty
+    if (locale_str.empty()) {
+        throw std::runtime_error("File is empty: " + filepath);
+    }
+
+    return locale_str;
+}
+
+bool check_xdg_locale(const char* locale) {
+    return read_xdg_user_locale().find(locale) != std::string::npos;
+}
+#endif
+
 TEST_CASE("ceammc::platform", "[ceammc::lib]")
 {
     // strange link fix: do not remove!
@@ -324,7 +375,17 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
     SECTION("make_abs_path_with_canvas")
     {
         REQUIRE(make_abs_filepath_with_canvas(nullptr, "") == "");
+
+#ifdef __linux__
+        if (check_xdg_locale("ru_RU")) {
+            REQUIRE(make_abs_filepath_with_canvas(nullptr, "abc.json") == home_directory() + "/Документы/Pd/abc.json");
+        } else if (check_xdg_locale("en")) {
+            REQUIRE(make_abs_filepath_with_canvas(nullptr, "abc.json") == home_directory() + "/Documents/Pd/abc.json");
+        }
+#else
         REQUIRE(make_abs_filepath_with_canvas(nullptr, "abc.json") == home_directory() + "/Documents/Pd/abc.json");
+#endif
+
         REQUIRE(make_abs_filepath_with_canvas(nullptr, "~/1.json") == home_directory() + "/1.json");
         REQUIRE(make_abs_filepath_with_canvas(nullptr, "~") == "");
         REQUIRE(make_abs_filepath_with_canvas(nullptr, "~/") == "");
@@ -418,11 +479,21 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         auto user = platform::user_name();
         REQUIRE(standard_dir_get(StandardDir::Home) == fmt::format("/home/{}", user));
         REQUIRE(standard_dir_get(StandardDir::Home) == home_directory());
-        REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Music"));
-        REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Desktop"));
-        REQUIRE(standard_dir_get(StandardDir::Documents) == (home_directory() + "/Documents"));
-        REQUIRE(standard_dir_get(StandardDir::Downloads) == (home_directory() + "/Downloads"));
-        REQUIRE(standard_dir_get(StandardDir::PdUser) == (home_directory() + "/Documents/Pd"));
+
+        if (check_xdg_locale("ru_RU")) {
+            REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Музыка"));
+            REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Рабочий стол"));
+            REQUIRE(standard_dir_get(StandardDir::Documents) == (home_directory() + "/Документы"));
+            REQUIRE(standard_dir_get(StandardDir::Downloads) == (home_directory() + "/Загрузки"));
+            REQUIRE(standard_dir_get(StandardDir::PdUser) == (home_directory() + "/Документы/Pd"));
+            REQUIRE(standard_dir_get(StandardDir::Video) == (home_directory() + "/Видео"));
+        } else {
+            REQUIRE(standard_dir_get(StandardDir::Audio) == (home_directory() + "/Music"));
+            REQUIRE(standard_dir_get(StandardDir::Desktop) == (home_directory() + "/Desktop"));
+            REQUIRE(standard_dir_get(StandardDir::Documents) == (home_directory() + "/Documents"));
+            REQUIRE(standard_dir_get(StandardDir::Downloads) == (home_directory() + "/Downloads"));
+            REQUIRE(standard_dir_get(StandardDir::PdUser) == (home_directory() + "/Documents/Pd"));
+        }
 
         char buf[1024] = { 0 };
         REQUIRE(getcwd(buf, sizeof(buf)));
