@@ -1,6 +1,6 @@
 find_package(Rust)
 if(Rust_FOUND)
-  set(CARGO_FLAGS )
+  set(CARGO_FLAGS)
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.rs
                  ${CMAKE_CURRENT_SOURCE_DIR}/apps/src/ceammc_config.rs @ONLY)
@@ -169,11 +169,10 @@ if(Rust_FOUND)
   # ############################################################################
   if(WITH_RUST_SYSTEM)
     if(WIN32)
-      corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES cdylib)
+      corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES cdylib FLAGS ${CARGO_FLAGS})
       install(
         FILES ${CMAKE_CURRENT_BINARY_DIR}/system_rust.dll
-        DESTINATION bin
-        FLAGS ${CARGO_FLAGS})
+        DESTINATION bin)
     else()
       corrosion_import_crate(MANIFEST_PATH system/Cargo.toml CRATE_TYPES
                              staticlib FLAGS ${CARGO_FLAGS})
@@ -184,11 +183,10 @@ if(Rust_FOUND)
   # ############################################################################
   if(WITH_RUST_SYNTH)
     if(WIN32)
-      corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES cdylib)
+      corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES cdylib FLAGS ${CARGO_FLAGS})
       install(
         FILES ${CMAKE_CURRENT_BINARY_DIR}/synth_rust.dll
-        DESTINATION bin
-        FLAGS ${CARGO_FLAGS})
+        DESTINATION bin)
     else()
       corrosion_import_crate(MANIFEST_PATH synth/Cargo.toml CRATE_TYPES
                              staticlib FLAGS ${CARGO_FLAGS})
