@@ -53,7 +53,7 @@ if(WITH_GAMEPAD)
   if(UNIX AND NOT APPLE)
     find_package(udev REQUIRED)
     target_include_directories(ceammc_hw PRIVATE ${UDEV_INCLUDE_DIRS})
-    target_link_libraries(ceammc_hw PRIVATE ${UDEV_LIBRARIES})
+    target_link_libraries(ceammc_hw PUBLIC ${UDEV_LIBRARIES})
   endif()
 endif()
 
