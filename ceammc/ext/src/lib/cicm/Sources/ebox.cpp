@@ -439,8 +439,6 @@ static void ebox_update_label_font(t_ebox* x)
 
 void ebox_new(t_ebox* x, long flags)
 {
-    static t_symbol* SYM_LEFT = gensym("left");
-
     x->b_flags = flags;
     x->b_ready_to_draw = false;
     x->b_have_window = false;
@@ -456,7 +454,7 @@ void ebox_new(t_ebox* x, long flags)
     x->label_align = sym_label_align_left();
     x->label_valign = sym_label_valign_center();
     x->label_inner = 0;
-    x->label_side = SYM_LEFT;
+    x->label_side = gensym("left");
     x->label_margins[0] = 0;
     x->label_margins[1] = 0;
     x->cursor = ECURSOR_LEFT_PTR;
