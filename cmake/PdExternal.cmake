@@ -97,6 +97,7 @@ function(pd_add_external)
             SUFFIX        "${PD_EXTERNAL_EXTENSION}"
             COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
             OUTPUT        "${_PD_EXT_NAME}"
+            NO_SONAME     TRUE
         )
 
         if(WIN32)
