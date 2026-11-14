@@ -154,6 +154,8 @@ endif()
 
 if(APPLE)
     include(CheckCXXCompilerFlag)
+    include(CheckLinkerFlag)
+
     add_compile_options(-funroll-loops)
     check_cxx_compiler_flag("-Wno-deprecated-builtins" WARN_NO_DEPRECATED_BUILTINS)
     if(WARN_NO_DEPRECATED_BUILTINS)
@@ -176,6 +178,12 @@ if(APPLE)
 
     if(NOT WITH_ASAN AND NOT WITH_PROFILE)
         add_compile_options(-fomit-frame-pointer)
+    endif()
+
+    check_linker_flag(C "-Wl,-no_fixup_chains" HAS_NO_FIXUP_CHAINS)
+    if(HAS_NO_FIXUP_CHAINS)
+      add_link_options("-Wl,-no_fixup_chains")
+      message(STATUS "Linker supports -no_fixup_chains, adding flag.")
     endif()
 
     set(BUNDLE ${PD_MACOSX_APP})
