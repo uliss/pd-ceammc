@@ -137,8 +137,8 @@ std::vector<PropertyInfo> ceammc_ui_properties(t_object* x)
 
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
 {
-    static t_symbol* SYM_PROP_DECL = gensym("prop.declare");
-    static t_symbol* SYM_CANVAS = gensym("canvas");
+    auto SYM_PROP_DECL = gensym("prop.declare");
+    auto SYM_CANVAS = gensym("canvas");
 
     if (!x)
         return {};
