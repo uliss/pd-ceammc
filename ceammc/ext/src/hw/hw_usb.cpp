@@ -81,8 +81,8 @@ static AtomList toList(const EventInfo& ev)
 
 void HwUsb::tick()
 {
-    static t_symbol* SYM_CONNECTED = gensym("connected");
-    static t_symbol* SYM_DISCONNECTED = gensym("disconnected");
+    auto SYM_CONNECTED = gensym("connected");
+    auto SYM_DISCONNECTED = gensym("disconnected");
 
     clock_.delay(POLL_TIME_MS);
 
