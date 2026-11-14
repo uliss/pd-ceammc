@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "tl_eventlist.h"
 #include "ceammc_log.h"
+#include "ceammc_crc32.h"
 
 #include <algorithm>
 
@@ -21,6 +22,8 @@ using namespace ceammc::tl;
 
 #define TL_ERR ceammc::LIB_ERR << "[tl] "
 #define TL_DBG ceammc::LIB_DBG << "[tl] "
+
+CEAMMC_DEFINE_SYM(end)
 
 Event::Event(Event&& ev)
     : abs_time(ev.abs_time)
@@ -135,11 +138,9 @@ EventList::const_pointer EventList::at(long relPos) const
 void EventList::clear(double time)
 {
     static const size_t DEF_SIZE = 32;
-    static t_symbol* SYM_END = gensym("end");
-
     vec_.clear();
 
-    addAbsEvent(Event(time, SYM_END));
+    addAbsEvent(Event(time, sym_end()));
     vec_.reserve(DEF_SIZE);
 }
 
