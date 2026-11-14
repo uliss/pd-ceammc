@@ -33,6 +33,13 @@ ceammc_hw_external(kbd_light)
 ceammc_hw_external(motu_avb)
 ceammc_hw_external(serial)
 
+if(WITH_RUST_HW)
+  target_include_directories(
+    ceammc_hw PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+                      ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg)
+  target_link_libraries(ceammc_hw PRIVATE hw_rust)
+endif()
+
 # if(LIBUSB_1_FOUND) ceammc_hw_external(usb) add_definitions(-DWITH_LIBUSB_1)
 # include_directories(${LIBUSB_1_INCLUDE_DIRS})
 # add_compile_options(${LIBUSB_1_DEFINITIONS}) list(APPEND HW_SOURCES
@@ -109,13 +116,6 @@ pd_method_args(ceammc_hw hw_rpi_gpio_servo)
 pd_method_args(ceammc_hw hw_rpi_sensor_mpr121)
 pd_method_args(ceammc_hw hw_rpi_spi)
 pd_method_args(ceammc_hw hw_rpi_spi_ws2812)
-
-if(WITH_RUST_HW)
-  target_include_directories(
-    ceammc_hw PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-                      ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/msg)
-  target_link_libraries(ceammc_hw PRIVATE hw_rust)
-endif()
 
 
 # if(WITH_EXPERIMENTAL) add_definitions(-DWITH_LIBUSB_01) set(HW_SOURCES
