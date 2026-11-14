@@ -8,7 +8,7 @@ public:
     FltMoogVcf(const PdArgs& args)
         : faust_flt_moog_vcf_tilde(args)
     {
-        static t_symbol* SYM_PROP_RES = gensym("@res");
+        auto SYM_PROP_RES = gensym("@res");
 
         bindPositionalArgsToProps({ SYM_PROP_RES });
     }

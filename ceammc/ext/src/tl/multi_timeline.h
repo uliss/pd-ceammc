@@ -20,8 +20,6 @@
 
 namespace ceammc {
 namespace tl {
-    static t_symbol* SYM_TL_DEFAULT = gensym("default");
-
     template <class T>
     struct TLEntry {
         t_symbol* name;
@@ -40,7 +38,7 @@ namespace tl {
         MultiTimeLine(T* owner, double length_ms)
             : owner_(owner)
         {
-            tl_list_.push_back(TLEntry({ SYM_TL_DEFAULT, new TimeLineSingle<T>(owner, length_ms) }));
+            tl_list_.push_back(TLEntry({ gensym("default"), new TimeLineSingle<T>(owner, length_ms) }));
         }
     };
 }

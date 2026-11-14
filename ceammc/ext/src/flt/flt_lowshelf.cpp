@@ -8,8 +8,8 @@ public:
     FltLowShelf(const PdArgs& args)
         : faust_flt_lowshelf_tilde(args)
     {
-        static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-        static t_symbol* SYM_PROP_GAIN = gensym("@gain");
+        auto SYM_PROP_FREQ = gensym("@freq");
+        auto SYM_PROP_GAIN = gensym("@gain");
 
         bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_GAIN });
     }

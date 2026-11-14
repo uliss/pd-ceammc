@@ -57,9 +57,9 @@ void UIGain2::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
 
 void UIGain2::setup()
 {
-    static t_symbol* SYM_DB = gensym("db");
-    static t_symbol* SYM_MAX = gensym("max");
-    static t_symbol* SYM_MIN = gensym("min");
+    auto SYM_DB = gensym("db");
+    auto SYM_MAX = gensym("max");
+    auto SYM_MIN = gensym("min");
 
     UIObjectFactory<UIGain2> obj("ui.gain2~");
     obj.addAlias("ui.vgain2~");

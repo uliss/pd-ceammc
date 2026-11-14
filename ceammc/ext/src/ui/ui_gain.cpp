@@ -396,9 +396,8 @@ void UIGain::onMidiCtrl(const AtomListView& l)
 
 void UIGain::doOutput()
 {
-    static t_symbol* SYM_DB = gensym("@db");
     Atom db = dbValue();
-    anyTo(0, SYM_DB, AtomListView(db));
+    anyTo(0, gensym("@db"), AtomListView(db));
 }
 
 void UIGain::updateIndicators()
@@ -521,9 +520,9 @@ void UIGain::m_dec()
 
 void UIGain::setup()
 {
-    static t_symbol* SYM_DB = gensym("db");
-    static t_symbol* SYM_MAX = gensym("max");
-    static t_symbol* SYM_MIN = gensym("min");
+    auto SYM_DB = gensym("db");
+    auto SYM_MAX = gensym("max");
+    auto SYM_MIN = gensym("min");
 
     UIObjectFactory<UIGain> obj("ui.gain~");
     obj.addAlias("ui.hgain~");

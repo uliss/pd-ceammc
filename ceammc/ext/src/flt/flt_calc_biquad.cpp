@@ -20,7 +20,7 @@ FltCalcBiquad::FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam)
     , q_(nullptr)
     , rad_(nullptr)
 {
-    static t_symbol* PROP_RAD = gensym("@rad");
+    auto PROP_RAD = gensym("@rad");
     const bool rad = args.args.contains(PROP_RAD);
     const auto freq_def = (rad ? fparam.ang_freq_default : fparam.freq_default);
 
