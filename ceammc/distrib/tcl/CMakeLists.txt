@@ -12,12 +12,12 @@ install(FILES
     DESTINATION
         ${PD_GUI_PLUGINS_PATH}/tkdnd)
 
-install(TARGETS tkdnd2.9.3
+install(TARGETS tkdnd2.9.5
     RUNTIME DESTINATION ${PD_GUI_PLUGINS_PATH}/tkdnd
     LIBRARY DESTINATION ${PD_GUI_PLUGINS_PATH}/tkdnd
     ARCHIVE DESTINATION ${PD_GUI_PLUGINS_PATH}/tkdnd
 )
 
 if(UNIX AND NOT APPLE)
-    set_target_properties(tkdnd2.9.3 PROPERTIES SOVERSION "2.9.3")
+    set_target_properties(tkdnd2.9.5 PROPERTIES SOVERSION "2.9.5")
 endif()
