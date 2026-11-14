@@ -41,13 +41,11 @@ AtomList RepeatProperty::get() const
 
 bool RepeatProperty::setList(const AtomListView& lv)
 {
-    static t_symbol* SYM_INF = gensym("inf");
-
     if (value() >= 0)
         return IntProperty::setList(lv);
     else if (lv.isFloat()) // <0, inf
         return setValue(lv[0].asT<t_float>());
-    else if (lv == SYM_INF)
+    else if (lv == sym_inf())
         return true;
     else {
         PROP_ERR() << "invalid value: " << lv;
