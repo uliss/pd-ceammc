@@ -33,7 +33,7 @@
       при помощи аппаратных генераторов Raspberry Pi, которые обеспечивают большую стабильность
       параметров модуляции.</tr>
     </info>
-    <info object="hw.rpi.pwm.pca9685">
+    <info object="hw.rpi.i2c.pca9685">
       <tr lang="en">- driver for a 16-channel PWM on the PCA9685 chip for working with servos,
       LEDs, etc., connected to the I2C bus.</tr>
       <tr lang="ru">- драйвер для 16-канального ШИМ на микросхеме PCA9685 для работы с
