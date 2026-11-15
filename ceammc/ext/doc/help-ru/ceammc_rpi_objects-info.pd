@@ -20,8 +20,8 @@ ceammc-i18n://ceammc_rpi_stepper-info.pd;
 #X text 230 314 - работа с ШИМ (PWM) - широтно-импульсной модуляцией
 (pulse width modulation) при помощи аппаратных генераторов Raspberry
 Pi \, которые обеспечивают большую стабильность параметров модуляции.;
-#X obj 40 387 ui.link @title [hw.rpi.pwm.pca9685] @url
-hw.rpi.pwm.pca9685-help.pd;
+#X obj 40 387 ui.link @title [hw.rpi.i2c.pca9685] @url
+hw.rpi.i2c.pca9685-help.pd;
 #X text 230 384 - драйвер для 16-канального ШИМ на микросхеме PCA9685
 для работы с сервоприводами \, светодиодами и др. \, подключаемый к
 шине I2C.;
