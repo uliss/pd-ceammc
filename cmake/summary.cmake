@@ -83,7 +83,8 @@ message(STATUS "       verovio:        ${WITH_VEROVIO} (WITH_VEROVIO=${WITH_VERO
 message(STATUS "       zeroconf:       ${WITH_ZEROCONF} (WITH_ZEROCONF=${WITH_ZEROCONF})")
 
 
-
+message(STATUS "  Raspberry Pi:")
+message(STATUS "       WITH_RPI:       ${WITH_RPI}")
 
 message(STATUS "  3rd party externals:")
 message(STATUS "       lyonpotpourri:  ${WITH_EXT_LYONPOTPOURRI} (WITH_EXT_LYONPOTPOURRI=${WITH_EXT_LYONPOTPOURRI})")
