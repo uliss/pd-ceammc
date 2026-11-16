@@ -40,6 +40,11 @@ if(WITH_RUST_HW)
   target_link_libraries(ceammc_hw PRIVATE hw_rust)
 endif()
 
+if(WITH_RPI)
+  target_compile_definitions(ceammc_hw PRIVATE WITH_RPI)
+endif()
+
+
 # if(LIBUSB_1_FOUND) ceammc_hw_external(usb) add_definitions(-DWITH_LIBUSB_1)
 # include_directories(${LIBUSB_1_INCLUDE_DIRS})
 # add_compile_options(${LIBUSB_1_DEFINITIONS}) list(APPEND HW_SOURCES
