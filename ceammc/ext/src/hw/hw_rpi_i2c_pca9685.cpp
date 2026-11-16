@@ -1,6 +1,12 @@
-#include "hw_rpi_i2c_pca9685.h"
+constexpr const char* OBJ_NAME = "hw.rpi.i2c.pca9685";
+constexpr const char* OBJ_ALIAS = "hw.rpi.pwm.pca9685";
 
-#ifdef WITH_RPI
+#ifndef WITH_RPI
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(HwI2cPca8695, 1, 1, "compiled without RPi support");
+OBJECT_STUB_SETUP(HwI2cPca8695, hw_rpi_i2c_pca9685, OBJ_NAME, OBJ_ALIAS);
+#else
+#include "hw_rpi_i2c_pca9685.h"
 #include "args/argcheck.h"
 #include "ceammc_factory.h"
 
@@ -215,8 +221,8 @@ HwI2cPca8695::HwRpiDevice::Device HwI2cPca8695::createDevice()
 
 void setup_hw_rpi_i2c_pca9685()
 {
-    ObjectFactory<HwI2cPca8695> obj("hw.rpi.i2c.pca9685");
-    obj.addAlias("hw.rpi.pwm.pca9685");
+    ObjectFactory<HwI2cPca8695> obj(OBJ_NAME);
+    obj.addAlias(OBJ_ALIAS);
 
     obj.addMethod("const", &HwI2cPca8695::m_const);
     obj.addMethod("duty", &HwI2cPca8695::m_duty);
