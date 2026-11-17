@@ -216,8 +216,8 @@
         samp.time~
     }}
     {seq {
-        seq.arp seq.bangs seq.counter seq.life seq.matrix seq.nbangs
-        seq.phasor seq.toggles sequencer
+        seq.arp seq.bangs seq.counter seq.life seq.markov seq.matrix
+        seq.nbangs seq.phasor seq.toggles sequencer
     }}
     {snd {
         snd.file snd.play~
