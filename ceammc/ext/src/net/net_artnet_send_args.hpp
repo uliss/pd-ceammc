@@ -18,7 +18,7 @@ struct m_rgb_args {
     // props
     enum class PropProcessState { Ok, NotFound, InvalidValue };
     // types
-    struct prop_addr_t {
+    struct prop_offset_t {
         int _count {0};
         t_int channel {1}; // value
         int process_channel(const AtomListView& lv, const BaseObject* obj, bool print_err) {
@@ -42,7 +42,7 @@ struct m_rgb_args {
             return "CHANNEL (value), int in [1..510] range";
         }
         static const char* info() {
-            return "@addr CHANNEL (DMX address)";
+            return "@offset CHANNEL (device channel offset)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
@@ -56,7 +56,7 @@ struct m_rgb_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[rgb @addr( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[rgb @offset( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -65,7 +65,7 @@ struct m_rgb_args {
         }
     };
     // vars
-    prop_addr_t prop_addr; // DMX address
+    prop_offset_t prop_offset; // device channel offset
     // methods
     int process_red(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -109,15 +109,15 @@ struct m_rgb_args {
         // number of matched items
         return 1;
     }
-    PropProcessState process_prop_addr (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    PropProcessState process_prop_offset (const AtomListView& lv, const BaseObject* obj, bool print_err) {
         AtomListView prop;
-        if (!lv.getProperty(gensym("@addr"), prop)) {
+        if (!lv.getProperty(gensym("@offset"), prop)) {
             return PropProcessState::NotFound;
         }
-        if (!prop_addr.parse_args(prop, obj, print_err)) {
+        if (!prop_offset.parse_args(prop, obj, print_err)) {
             return PropProcessState::InvalidValue;
         }
-        prop_addr._count++;
+        prop_offset._count++;
         return PropProcessState::Ok;
     }
     static const char* arg_red_info() {
@@ -130,7 +130,7 @@ struct m_rgb_args {
         return "BLUE (BLUE), float in [0..1] range";
     }
     static const char* usage() {
-        return "usage: [rgb RED GREEN BLUE @addr?(";
+        return "usage: [rgb RED GREEN BLUE @offset?(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -140,7 +140,7 @@ struct m_rgb_args {
         Post(obj) << " - " << arg_red_info();
         Post(obj) << " - " << arg_green_info();
         Post(obj) << " - " << arg_blue_info();
-        Post(obj) << " - " << prop_addr_t::info();
+        Post(obj) << " - " << prop_offset_t::info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
@@ -206,20 +206,20 @@ struct m_rgb_args {
         }
         // check properties
         PropProcessState prop_st = PropProcessState::Ok;
-        prop_st = process_prop_addr(lv, obj, print_err);
+        prop_st = process_prop_offset(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "[rgb( invalid value for @addr property, expected:";
+                Error(obj) << "[rgb( invalid value for @offset property, expected:";
             }
             if (print_err) {
-                Post(obj) << prop_addr_t::info();
+                Post(obj) << prop_offset_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
-            if (prop_addr._count > 1) {
+            if (prop_offset._count > 1) {
                 if (print_err) {
-                    Error(obj) << "too many @addr properties are specified";
-                    Error(obj) << "only 0 or 1 entries for property @addr are expected";
+                    Error(obj) << "too many @offset properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @offset are expected";
                 }
                 return false;
             }
@@ -244,7 +244,7 @@ struct m_rgb8_args {
     // props
     enum class PropProcessState { Ok, NotFound, InvalidValue };
     // types
-    struct prop_addr_t {
+    struct prop_offset_t {
         int _count {0};
         t_int channel {0}; // value
         int process_channel(const AtomListView& lv, const BaseObject* obj, bool print_err) {
@@ -253,7 +253,7 @@ struct m_rgb8_args {
                 return NOT_ENOUGH_ARGS;
             }
             // check values
-            if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 510))) {
+            if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 511))) {
                 return INVALID_VALUE;
             }
             // set value
@@ -265,10 +265,10 @@ struct m_rgb8_args {
             return _count > 0;
         }
         static const char* arg_channel_info() {
-            return "CHANNEL (value), int in [0..510] range";
+            return "CHANNEL (value), int in [0..511] range";
         }
         static const char* info() {
-            return "@addr CHANNEL (DMX address offset)";
+            return "@offset CHANNEL (device channel offset)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
@@ -282,7 +282,7 @@ struct m_rgb8_args {
             // check extra arguments
             if (left_args.size()) {
                 if (print_err) {
-                    Error(obj) << "[rgb8 @addr( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    Error(obj) << "[rgb8 @offset( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
                     output_usage(obj);
                 }
                 return false;
@@ -291,7 +291,7 @@ struct m_rgb8_args {
         }
     };
     // vars
-    prop_addr_t prop_addr; // DMX address offset
+    prop_offset_t prop_offset; // device channel offset
     // methods
     int process_red(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
@@ -335,15 +335,15 @@ struct m_rgb8_args {
         // number of matched items
         return 1;
     }
-    PropProcessState process_prop_addr (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+    PropProcessState process_prop_offset (const AtomListView& lv, const BaseObject* obj, bool print_err) {
         AtomListView prop;
-        if (!lv.getProperty(gensym("@addr"), prop)) {
+        if (!lv.getProperty(gensym("@offset"), prop)) {
             return PropProcessState::NotFound;
         }
-        if (!prop_addr.parse_args(prop, obj, print_err)) {
+        if (!prop_offset.parse_args(prop, obj, print_err)) {
             return PropProcessState::InvalidValue;
         }
-        prop_addr._count++;
+        prop_offset._count++;
         return PropProcessState::Ok;
     }
     static const char* arg_red_info() {
@@ -356,7 +356,7 @@ struct m_rgb8_args {
         return "BLUE (BLUE), byte[0..255] range";
     }
     static const char* usage() {
-        return "usage: [rgb8 RED GREEN BLUE @addr?(";
+        return "usage: [rgb8 RED GREEN BLUE @offset?(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -366,7 +366,7 @@ struct m_rgb8_args {
         Post(obj) << " - " << arg_red_info();
         Post(obj) << " - " << arg_green_info();
         Post(obj) << " - " << arg_blue_info();
-        Post(obj) << " - " << prop_addr_t::info();
+        Post(obj) << " - " << prop_offset_t::info();
     }
     bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
         int matched = 0;
@@ -432,20 +432,20 @@ struct m_rgb8_args {
         }
         // check properties
         PropProcessState prop_st = PropProcessState::Ok;
-        prop_st = process_prop_addr(lv, obj, print_err);
+        prop_st = process_prop_offset(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {
-                Error(obj) << "[rgb8( invalid value for @addr property, expected:";
+                Error(obj) << "[rgb8( invalid value for @offset property, expected:";
             }
             if (print_err) {
-                Post(obj) << prop_addr_t::info();
+                Post(obj) << prop_offset_t::info();
             }
             return false;
         } else if (prop_st == PropProcessState::Ok) {
-            if (prop_addr._count > 1) {
+            if (prop_offset._count > 1) {
                 if (print_err) {
-                    Error(obj) << "too many @addr properties are specified";
-                    Error(obj) << "only 0 or 1 entries for property @addr are expected";
+                    Error(obj) << "too many @offset properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @offset are expected";
                 }
                 return false;
             }

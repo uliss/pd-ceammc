@@ -406,7 +406,7 @@ namespace net {
     ///     #red   float "RED"   { check: [0..1] }
     ///     #green float "GREEN" { check: [0..1] }
     ///     #blue  float "BLUE"  { check: [0..1] }
-    ///     @addr  ? "DMX address" {
+    ///     @offset  ? "device channel offset" {
     ///         #channel int "value" { default: 1, check: [1..510] }
     ///     }
     /// }
@@ -418,7 +418,7 @@ namespace net {
 
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto chan = args.prop_addr.channel + address_->value();
+        auto chan = args.prop_offset.channel + address_->value();
         if (!checkDmxChannel(chan, 3))
             return;
 
@@ -430,11 +430,11 @@ namespace net {
     }
 
     /// @function "Set DMX channels from an RGB color specified as a int8 list" {
-    ///     #red   byte "RED"   {}
-    ///     #green byte "GREEN" {}
-    ///     #blue  byte "BLUE"  {}
-    ///     @addr  ? "DMX address offset" {
-    ///         #channel int "value" { default: 0, check: [0..510] }
+    ///     #red    byte "RED"   {}
+    ///     #green  byte "GREEN" {}
+    ///     #blue   byte "BLUE"  {}
+    ///     @offset ? "device channel offset" {
+    ///         #channel int "value" { default: 0, check: [0..511] }
     ///     }
     /// }
     void NetArtnetSend::m_rgb8(t_symbol* s, const AtomListView& lv)
@@ -445,7 +445,7 @@ namespace net {
 
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto chan = args.prop_addr.channel + address_->value();
+        auto chan = args.prop_offset.channel + address_->value();
         if (!checkDmxChannel(chan, 3))
             return;
 

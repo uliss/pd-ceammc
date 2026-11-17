@@ -155,6 +155,52 @@
           <tr lang="ru">отправить запрос опроса, вывести ответ в окно Pd</tr>
         </info>
       </method>
+      <!-- rgb -->
+      <method name="rgb">
+        <info>
+          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as floats in the 0–1 range</tr>
+          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного числами в диапазоне 0–1</tr>
+        </info>
+        <param name="RED" type="float" required="true" minvalue="0" maxvalue="1">
+          <tr lang="en">red component, 0–1</tr>
+          <tr lang="ru">красная составляющая, 0–1</tr>
+        </param>
+        <param name="GREEN" type="float" required="true" minvalue="0" maxvalue="1">
+          <tr lang="en">green component, 0–1</tr>
+          <tr lang="ru">зелёная составляющая, 0–1</tr>
+        </param>
+        <param name="BLUE" type="float" required="true" minvalue="0" maxvalue="1">
+          <tr lang="en">blue component, 0–1</tr>
+          <tr lang="ru">синяя составляющая, 0–1</tr>
+        </param>
+        <param name="@offset" type="int" required="false" default="0" minvalue="0" maxvalue="511">
+          <tr lang="en">device channel offset</tr>
+          <tr lang="ru">смещение канала устройства</tr>
+        </param>
+      </method>
+      <!-- rgb8 -->
+      <method name="rgb8">
+        <info>
+          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as integers in the 0–255 range</tr>
+          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного целыми числами в диапазоне 0–255</tr>
+        </info>
+        <param name="RED" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">red component</tr>
+          <tr lang="ru">красная составляющая</tr>
+        </param>
+        <param name="GREEN" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">green component</tr>
+          <tr lang="ru">зелёная составляющая</tr>
+        </param>
+        <param name="BLUE" type="int" required="true" minvalue="0" maxvalue="255">
+          <tr lang="en">blue component</tr>
+          <tr lang="ru">синяя составляющая</tr>
+        </param>
+        <param name="@offset" type="int" required="false" default="0" minvalue="0" maxvalue="511">
+          <tr lang="en">device channel offset</tr>
+          <tr lang="ru">смещение канала устройства</tr>
+        </param>
+      </method>
     </methods>
     <inlets>
       <inlet>
