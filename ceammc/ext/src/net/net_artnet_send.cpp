@@ -402,7 +402,34 @@ namespace net {
         needs_update_ = true;
     }
 
-    /// @function "set DMX channels to RGB integer list color" {
+    /// @function "set DMX channels from an RGB color specified as a float list" {
+    ///     #red   float "RED"   { check: [0..1] }
+    ///     #green float "GREEN" { check: [0..1] }
+    ///     #blue  float "BLUE"  { check: [0..1] }
+    ///     @addr  ? "DMX address" {
+    ///         #channel int "value" { default: 1, check: [1..510] }
+    ///     }
+    /// }
+    void NetArtnetSend::m_rgb(t_symbol* s, const AtomListView& lv)
+    {
+        m_rgb_args args;
+        if (!args.parse_args(lv, this))
+            return;
+
+        initPacket(ARTNET_CMD_SEND_DMX);
+
+        auto chan = args.prop_addr.channel + address_->value();
+        if (!checkDmxChannel(chan, 3))
+            return;
+
+        if (setDmxChannel(chan, args.red * MAX_DMX_VALUE)
+            && setDmxChannel(chan + 1, args.green * MAX_DMX_VALUE)
+            && setDmxChannel(chan + 2, args.blue * MAX_DMX_VALUE)) {
+            needs_update_ = true;
+        }
+    }
+
+    /// @function "Set DMX channels from an RGB color specified as a int8 list" {
     ///     #red   byte "RED"   {}
     ///     #green byte "GREEN" {}
     ///     #blue  byte "BLUE"  {}
@@ -508,6 +535,7 @@ void setup_net_artnet_send()
     obj.addMethod("dmx_fill", &NetArtnetSend::m_dmx_fill);
     obj.addMethod("dmx_set", &NetArtnetSend::m_dmx_set);
     obj.addMethod("rgb8", &NetArtnetSend::m_rgb8);
+    obj.addMethod("rgb", &NetArtnetSend::m_rgb);
     obj.addMethod("poll", &NetArtnetSend::m_poll);
 }
 
