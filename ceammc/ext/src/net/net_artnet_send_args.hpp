@@ -246,14 +246,14 @@ struct m_rgb8_args {
     // types
     struct prop_addr_t {
         int _count {0};
-        t_int channel {1}; // value
+        t_int channel {0}; // value
         int process_channel(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             // check size
             if (lv.size() < 1) {
                 return NOT_ENOUGH_ARGS;
             }
             // check values
-            if (!(lv[0].isInteger() && (1 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 510))) {
+            if (!(lv[0].isInteger() && (0 <= lv[0].asT<t_int>()) && (lv[0].asT<t_int>() <= 510))) {
                 return INVALID_VALUE;
             }
             // set value
@@ -265,10 +265,10 @@ struct m_rgb8_args {
             return _count > 0;
         }
         static const char* arg_channel_info() {
-            return "CHANNEL (value), int in [1..510] range";
+            return "CHANNEL (value), int in [0..510] range";
         }
         static const char* info() {
-            return "@addr CHANNEL (DMX address)";
+            return "@addr CHANNEL (DMX address offset)";
         }
         bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             int matched = 0;
@@ -291,7 +291,7 @@ struct m_rgb8_args {
         }
     };
     // vars
-    prop_addr_t prop_addr; // DMX address
+    prop_addr_t prop_addr; // DMX address offset
     // methods
     int process_red(const AtomListView& lv, const BaseObject* obj, bool print_err) {
         // check size
