@@ -306,9 +306,9 @@ namespace net {
         subnet_->setArgIndex(1);
         addProperty(subnet_);
 
-        address_ = new IntProperty("@addr", 1);
-        address_->checkClosedRange(1, MAX_DMX_CHANNELS);
-        addProperty(address_);
+        offset_ = new IntProperty("@offset", 1);
+        offset_->checkClosedRange(1, MAX_DMX_CHANNELS);
+        addProperty(offset_);
 
         sync_ = new BoolProperty("@sync", false);
         sync_->setSuccessFn([this](Property* p) {
@@ -371,7 +371,7 @@ namespace net {
         initPacket(ARTNET_CMD_SEND_DMX);
 
         for (size_t i = 0; i < lv.size(); i++) {
-            auto chan = address_->value() + i;
+            auto chan = offset_->value() + i;
             auto value = lv[i].asInt();
             if (!setDmxChannel(chan, value)) {
                 METHOD_ERR(s) << fmt::format("invalid DMX[{}] = {}", chan, value);
@@ -387,7 +387,7 @@ namespace net {
         if (!checkArgs(lv, ARG_INT, ARG_BYTE))
             return;
 
-        auto chan = lv[0].asInt() + address_->value();
+        auto chan = lv[0].asInt() + offset_->value();
         if (!checkDmxChannel(chan))
             return;
 
@@ -418,7 +418,7 @@ namespace net {
 
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto chan = args.prop_offset.channel + address_->value();
+        auto chan = args.prop_offset.channel + offset_->value();
         if (!checkDmxChannel(chan, 3))
             return;
 
@@ -445,7 +445,7 @@ namespace net {
 
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto chan = args.prop_offset.channel + address_->value();
+        auto chan = args.prop_offset.channel + offset_->value();
         if (!checkDmxChannel(chan, 3))
             return;
 

@@ -38,7 +38,7 @@ namespace net {
     class NetArtnetSend : public BaseObject {
         IntProperty* universe_ { nullptr };
         IntProperty* subnet_ { nullptr };
-        IntProperty* address_ { nullptr };
+        IntProperty* offset_ { nullptr };
         BoolProperty* sync_ { nullptr };
         SymbolProperty* ip_ { nullptr };
         FloatProperty* send_rate_ { nullptr };

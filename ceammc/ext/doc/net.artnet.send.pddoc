@@ -76,7 +76,7 @@
         интерфейс.</tr>
       </property>
       <!-- @offset -->
-      <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">
+      <property name="@offset" type="int" default="1" minvalue="1" maxvalue="512">
         <tr lang="en">DMX channel offset</tr>
         <tr lang="ru">смещение канала DMX</tr>
       </property>
