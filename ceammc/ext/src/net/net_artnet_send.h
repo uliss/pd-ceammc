@@ -25,7 +25,7 @@ namespace net {
     };
 
     struct ArtNetCommand {
-        std::array<uint8_t, MAX_DMX_CHANNELS> data;
+        std::array<uint8_t, MAX_DMX_CHANNELS> data {};
         ArtNetCmdType cmd;
         std::uint8_t port;
 
@@ -38,7 +38,7 @@ namespace net {
     class NetArtnetSend : public BaseObject {
         IntProperty* universe_ { nullptr };
         IntProperty* subnet_ { nullptr };
-        IntProperty* offset_ { nullptr };
+        IntProperty* address_ { nullptr };
         BoolProperty* sync_ { nullptr };
         SymbolProperty* ip_ { nullptr };
         FloatProperty* send_rate_ { nullptr };
@@ -48,7 +48,7 @@ namespace net {
         bool needs_update_ { false };
 
     public:
-        NetArtnetSend(const PdArgs& args);
+        explicit NetArtnetSend(const PdArgs& args);
         void initDone() final;
 
         void onBang() override;
@@ -59,12 +59,14 @@ namespace net {
         void m_blackout(t_symbol* s, const AtomListView& lv);
         void m_dmx(t_symbol* s, const AtomListView& lv);
         void m_dmx_set(t_symbol* s, const AtomListView& lv);
-        void m_dmx_rgb(t_symbol* s, const AtomListView& lv);
+        void m_rgb8(t_symbol* s, const AtomListView& lv);
         void m_dmx_fill(t_symbol* s, const AtomListView& lv);
         void m_poll(t_symbol* s, const AtomListView& lv);
 
     private:
         void initPacket(ArtNetCmdType t);
+        bool checkDmxChannel(t_int chan, size_t len = 1) const;
+        bool setDmxChannel(t_int chan, t_int value);
     };
 
 } // namespace net

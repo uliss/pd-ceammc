@@ -7,6 +7,7 @@
 #include "fmt/core.h"
 #include "fmt/format.h"
 #include "net_artnet_impl.h"
+#include "net_artnet_send_args.hpp"
 #include "readerwriterqueue.h"
 
 #include <future>
@@ -57,10 +58,15 @@ ArtnetPtr make_artnet(const char* ip)
     return ArtnetPtr(artnet_new(ip, 0), &artnet_destroy);
 }
 
-}
+} // namespace
 
 namespace ceammc {
 namespace net {
+
+    constexpr t_int MIN_DMX_CHAN = 1;
+    constexpr t_int MAX_DMX_CHAN = 512;
+    constexpr t_int MIN_DMX_VALUE = 0;
+    constexpr t_int MAX_DMX_VALUE = 511;
 
     class ArtnetSendWorker {
         using Pipe = moodycamel::ReaderWriterQueue<ArtNetCommand, 64>;
@@ -275,8 +281,8 @@ namespace net {
     };
 
     ArtnetSendWorker::WorkerList ArtnetSendWorker::workers_;
-}
-}
+} // namespace net
+} // namespace ceammc
 
 namespace ceammc {
 namespace net {
@@ -300,9 +306,9 @@ namespace net {
         subnet_->setArgIndex(1);
         addProperty(subnet_);
 
-        offset_ = new IntProperty("@offset", 0);
-        offset_->checkClosedRange(0, MAX_DMX_CHANNELS - 1);
-        addProperty(offset_);
+        address_ = new IntProperty("@addr", 1);
+        address_->checkClosedRange(1, MAX_DMX_CHANNELS);
+        addProperty(address_);
 
         sync_ = new BoolProperty("@sync", false);
         sync_->setSuccessFn([this](Property* p) {
@@ -364,12 +370,13 @@ namespace net {
     {
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto OFFSET = offset_->value();
-        for (size_t i = 0; i < packet_.data.size(); i++) {
-            if (i >= OFFSET && i < (lv.size() + OFFSET))
-                packet_.data[i] = lv[i - OFFSET].asInt();
-            else
-                packet_.data[i] = 0;
+        for (size_t i = 0; i < lv.size(); i++) {
+            auto chan = address_->value() + i;
+            auto value = lv[i].asInt();
+            if (!setDmxChannel(chan, value)) {
+                METHOD_ERR(s) << fmt::format("invalid DMX[{}] = {}", chan, value);
+                return;
+            }
         }
 
         needs_update_ = true;
@@ -380,23 +387,46 @@ namespace net {
         if (!checkArgs(lv, ARG_INT, ARG_BYTE))
             return;
 
-        auto idx = lv[0].asInt() + offset_->value();
-        if (idx < 0 || idx >= packet_.data.size()) {
-            METHOD_ERR(s) << fmt::format("invalid DMX channel: {}", idx);
+        auto chan = lv[0].asInt() + address_->value();
+        if (!checkDmxChannel(chan))
             return;
-        }
 
         initPacket(ARTNET_CMD_SEND_DMX);
 
-        auto val = lv[1].asInt();
-        if (packet_.data[idx] != val) {
-            packet_.data[idx] = val;
-            needs_update_ = true;
+        auto value = lv[1].asInt();
+        if (!setDmxChannel(chan, value)) {
+            METHOD_ERR(s) << fmt::format("invalid DMX[{}] = {}", chan, value);
+            return;
         }
+
+        needs_update_ = true;
     }
 
-    void NetArtnetSend::m_dmx_rgb(t_symbol* s, const AtomListView& lv)
+    /// @function "set DMX channels to RGB integer list color" {
+    ///     #red   byte "RED"   {}
+    ///     #green byte "GREEN" {}
+    ///     #blue  byte "BLUE"  {}
+    ///     @addr  ? "DMX address" {
+    ///         #channel int "value" { default: 1, check: [1..510] }
+    ///     }
+    /// }
+    void NetArtnetSend::m_rgb8(t_symbol* s, const AtomListView& lv)
     {
+        m_rgb8_args args;
+        if (!args.parse_args(lv, this))
+            return;
+
+        initPacket(ARTNET_CMD_SEND_DMX);
+
+        auto chan = args.prop_addr.channel + address_->value();
+        if (!checkDmxChannel(chan, 3))
+            return;
+
+        if (setDmxChannel(chan, args.red)
+            && setDmxChannel(chan + 1, args.green)
+            && setDmxChannel(chan + 2, args.blue)) {
+            needs_update_ = true;
+        }
     }
 
     void NetArtnetSend::m_dmx_fill(t_symbol* s, const AtomListView& lv)
@@ -433,22 +463,52 @@ namespace net {
         }
     }
 
+    bool NetArtnetSend::checkDmxChannel(t_int chan, size_t len) const
+    {
+        if (chan < MIN_DMX_CHAN || (chan + len > MAX_DMX_CHAN + 1)) {
+            OBJ_ERR << fmt::format("invalid DMX channel: {}, expected in {}..{} range", chan, MIN_DMX_CHAN, MAX_DMX_CHAN);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    bool NetArtnetSend::setDmxChannel(t_int chan, t_int value)
+    {
+        if (chan < MIN_DMX_CHAN
+            || chan > MAX_DMX_CHAN
+            || value < MIN_DMX_VALUE
+            || value > MAX_DMX_VALUE) {
+            return false;
+        } else {
+            const size_t idx = value - 1;
+            if (idx < packet_.data.size()) {
+                packet_.data[idx] = value;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 } // namespace net
 } // namespace ceammc
 
 void setup_net_artnet_send()
 {
     using namespace ceammc;
+    using namespace net;
     ObjectFactory<net::NetArtnetSend> obj("net.artnet.send");
     obj.addAlias("artnet.send");
 
     obj.useClick();
 
-    obj.addMethod("blackout", &net::NetArtnetSend::m_poll);
-    obj.addMethod("dmx", &net::NetArtnetSend::m_dmx);
-    obj.addMethod("dmx_fill", &net::NetArtnetSend::m_dmx_fill);
-    obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);
-    obj.addMethod("poll", &net::NetArtnetSend::m_poll);
+    obj.addMethod("blackout", &NetArtnetSend::m_blackout);
+    obj.addMethod("dmx", &NetArtnetSend::m_dmx);
+    obj.addMethod("dmx_fill", &NetArtnetSend::m_dmx_fill);
+    obj.addMethod("dmx_set", &NetArtnetSend::m_dmx_set);
+    obj.addMethod("rgb8", &NetArtnetSend::m_rgb8);
+    obj.addMethod("poll", &NetArtnetSend::m_poll);
 }
 
 #endif
