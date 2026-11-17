@@ -1977,449 +1977,451 @@ random.pw_lin-help.pd;
 #X text 200 20460 cyclic counter;
 #X obj 30 20488 ui.link @title [seq.life] @url seq.life-help.pd;
 #X text 200 20485 Conway game of life sequencer;
-#X obj 30 20513 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
-#X text 200 20510 sequencer control for [ui.matrix] object;
-#X obj 30 20538 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
-#X text 200 20535 outputs the specified number of bangs with a time
+#X obj 30 20513 ui.link @title [seq.markov] @url seq.markov-help.pd;
+#X text 200 20510 Markov chain melody generator;
+#X obj 30 20538 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
+#X text 200 20535 sequencer control for [ui.matrix] object;
+#X obj 30 20563 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
+#X text 200 20560 outputs the specified number of bangs with a time
 intervals;
-#X obj 30 20563 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
-#X text 200 20560 control rate phasor generator;
-#X obj 30 20588 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
-#X text 200 20585 toggle sequencer;
-#X obj 30 20613 ui.link @title [sequencer] @url sequencer-help.pd;
-#X text 200 20610 basic sequence player;
+#X obj 30 20588 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
+#X text 200 20585 control rate phasor generator;
+#X obj 30 20613 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
+#X text 200 20610 toggle sequencer;
+#X obj 30 20638 ui.link @title [sequencer] @url sequencer-help.pd;
+#X text 200 20635 basic sequence player;
 #X obj 359 20367 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1
 0;
 #X text 364 20367 sequencers: traversing the data in a various ways;
-#X obj 20 20635 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
+#X obj 20 20660 cnv 5 37 32 empty empty snd 4 16 0 17 -262144 -49933
 0;
-#X obj 20 20677 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 20691 ui.link @title [snd.file] @url snd.file-help.pd;
-#X text 200 20688 sound file loader with additional features;
-#X obj 30 20716 ui.link @title [snd.play~] @url snd.play~-help.pd;
-#X text 200 20713 sound file player with additional capabilities;
-#X obj 20 20738 cnv 5 48 32 empty empty spat 4 16 0 17 -262144 -49933
+#X obj 20 20702 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 20716 ui.link @title [snd.file] @url snd.file-help.pd;
+#X text 200 20713 sound file loader with additional features;
+#X obj 30 20741 ui.link @title [snd.play~] @url snd.play~-help.pd;
+#X text 200 20738 sound file player with additional capabilities;
+#X obj 20 20763 cnv 5 48 32 empty empty spat 4 16 0 17 -262144 -49933
 0;
-#X obj 20 20780 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 20794 ui.link @title [hoa.2d.decoder~] @url
+#X obj 20 20805 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 20819 ui.link @title [hoa.2d.decoder~] @url
 hoa.2d.decoder~-help.pd;
-#X text 200 20791 2D decoder of higher order ambisonics;
-#X obj 30 20819 ui.link @title [hoa.2d.encoder~] @url
+#X text 200 20816 2D decoder of higher order ambisonics;
+#X obj 30 20844 ui.link @title [hoa.2d.encoder~] @url
 hoa.2d.encoder~-help.pd;
-#X text 200 20816 2D encoder of higher order ambisonics;
-#X obj 30 20844 ui.link @title [hoa.2d.exchanger~] @url
+#X text 200 20841 2D encoder of higher order ambisonics;
+#X obj 30 20869 ui.link @title [hoa.2d.exchanger~] @url
 hoa.2d.exchanger~-help.pd;
-#X text 200 20841 renumbers and normalizes the channels in 2d ambisonics;
-#X obj 30 20869 ui.link @title [hoa.2d.map~] @url hoa.2d.map~-help.pd;
-#X text 200 20866 a 2D ambisonic multisource spatializer;
-#X obj 30 20894 ui.link @title [hoa.2d.optim~] @url
+#X text 200 20866 renumbers and normalizes the channels in 2d ambisonics;
+#X obj 30 20894 ui.link @title [hoa.2d.map~] @url hoa.2d.map~-help.pd;
+#X text 200 20891 a 2D ambisonic multisource spatializer;
+#X obj 30 20919 ui.link @title [hoa.2d.optim~] @url
 hoa.2d.optim~-help.pd;
-#X text 200 20891 a 2D ambisonic optimization tool;
-#X obj 30 20919 ui.link @title [hoa.2d.projector~] @url
+#X text 200 20916 a 2D ambisonic optimization tool;
+#X obj 30 20944 ui.link @title [hoa.2d.projector~] @url
 hoa.2d.projector~-help.pd;
-#X text 200 20916 a plane waves decomposer from circular harmonics
+#X text 200 20941 a plane waves decomposer from circular harmonics
 domain;
-#X obj 30 20944 ui.link @title [hoa.2d.recomposer~] @url
+#X obj 30 20969 ui.link @title [hoa.2d.recomposer~] @url
 hoa.2d.recomposer~-help.pd;
-#X text 200 20941 recomposes a 2d plane wave decomposition into circular
+#X text 200 20966 recomposes a 2d plane wave decomposition into circular
 harmonics;
-#X obj 30 20984 ui.link @title [hoa.2d.rotate~] @url
+#X obj 30 21009 ui.link @title [hoa.2d.rotate~] @url
 hoa.2d.rotate~-help.pd;
-#X text 200 20981 a 2D ambisonic sound field rotation;
-#X obj 30 21009 ui.link @title [hoa.2d.space] @url
+#X text 200 21006 a 2D ambisonic sound field rotation;
+#X obj 30 21034 ui.link @title [hoa.2d.space] @url
 hoa.2d.space-help.pd;
-#X text 200 21006 2D planewaves amplitude control;
-#X obj 30 21034 ui.link @title [hoa.2d.wider~] @url
+#X text 200 21031 2D planewaves amplitude control;
+#X obj 30 21059 ui.link @title [hoa.2d.wider~] @url
 hoa.2d.wider~-help.pd;
-#X text 200 21031 a 2D fractional ambisonic order simulator;
-#X obj 30 21059 ui.link @title [hoa.3d.decoder~] @url
+#X text 200 21056 a 2D fractional ambisonic order simulator;
+#X obj 30 21084 ui.link @title [hoa.3d.decoder~] @url
 hoa.3d.decoder~-help.pd;
-#X text 200 21056 3D decoder of higher order ambisonics;
-#X obj 30 21084 ui.link @title [hoa.3d.encoder~] @url
+#X text 200 21081 3D decoder of higher order ambisonics;
+#X obj 30 21109 ui.link @title [hoa.3d.encoder~] @url
 hoa.3d.encoder~-help.pd;
-#X text 200 21081 3D encoder of higher order ambisonics;
-#X obj 30 21109 ui.link @title [hoa.3d.exchanger~] @url
+#X text 200 21106 3D encoder of higher order ambisonics;
+#X obj 30 21134 ui.link @title [hoa.3d.exchanger~] @url
 hoa.3d.exchanger~-help.pd;
-#X text 200 21106 renumbers and normalizes the channels;
-#X obj 30 21134 ui.link @title [hoa.3d.map~] @url hoa.3d.map~-help.pd;
-#X text 200 21131 a 3D ambisonic multisource spatializer;
-#X obj 30 21159 ui.link @title [hoa.3d.meter~] @url
+#X text 200 21131 renumbers and normalizes the channels;
+#X obj 30 21159 ui.link @title [hoa.3d.map~] @url hoa.3d.map~-help.pd;
+#X text 200 21156 a 3D ambisonic multisource spatializer;
+#X obj 30 21184 ui.link @title [hoa.3d.meter~] @url
 hoa.3d.meter~-help.pd;
-#X text 200 21156 multi spherical meter with sound field descriptor;
-#X obj 30 21184 ui.link @title [hoa.3d.optim~] @url
+#X text 200 21181 multi spherical meter with sound field descriptor;
+#X obj 30 21209 ui.link @title [hoa.3d.optim~] @url
 hoa.3d.optim~-help.pd;
-#X text 200 21181 a 3D ambisonic optimization tool;
-#X obj 30 21209 ui.link @title [hoa.3d.scope~] @url
+#X text 200 21206 a 3D ambisonic optimization tool;
+#X obj 30 21234 ui.link @title [hoa.3d.scope~] @url
 hoa.3d.scope~-help.pd;
-#X text 200 21206 a 3d ambisonic harmonic scope;
-#X obj 30 21234 ui.link @title [hoa.3d.wider~] @url
+#X text 200 21231 a 3d ambisonic harmonic scope;
+#X obj 30 21259 ui.link @title [hoa.3d.wider~] @url
 hoa.3d.wider~-help.pd;
-#X text 200 21231 a 3d fractional ambisonic order simulator;
-#X obj 30 21259 ui.link @title [hoa.@process] @url
+#X text 200 21256 a 3d fractional ambisonic order simulator;
+#X obj 30 21284 ui.link @title [hoa.@process] @url
 hoa.@process-help.pd;
-#X text 200 21256 properties manager for [hoa.process~] object;
-#X obj 30 21284 ui.link @title [hoa.in] @url hoa.in-help.pd;
-#X text 200 21281 message inlet for a patcher loaded by [hoa.process~]
+#X text 200 21281 properties manager for [hoa.process~] object;
+#X obj 30 21309 ui.link @title [hoa.in] @url hoa.in-help.pd;
+#X text 200 21306 message inlet for a patcher loaded by [hoa.process~]
 object;
-#X obj 30 21309 ui.link @title [hoa.in~] @url hoa.in~-help.pd;
-#X text 200 21306 signal inlet for a patcher loaded by [hoa.process~]
+#X obj 30 21334 ui.link @title [hoa.in~] @url hoa.in~-help.pd;
+#X text 200 21331 signal inlet for a patcher loaded by [hoa.process~]
 object;
-#X obj 30 21334 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
-#X text 200 21331 a GUI to spatialize sources on a map;
-#X obj 30 21359 ui.link @title [hoa.out] @url hoa.out-help.pd;
-#X text 200 21356 message outlet for a patcher loaded by hoa.process~;
-#X obj 30 21384 ui.link @title [hoa.out~] @url hoa.out~-help.pd;
-#X text 200 21381 signal inlet for a patcher loaded by hoa.process~;
-#X obj 30 21409 ui.link @title [hoa.process~] @url
+#X obj 30 21359 ui.link @title [hoa.map.ui] @url hoa.map.ui-help.pd;
+#X text 200 21356 a GUI to spatialize sources on a map;
+#X obj 30 21384 ui.link @title [hoa.out] @url hoa.out-help.pd;
+#X text 200 21381 message outlet for a patcher loaded by hoa.process~;
+#X obj 30 21409 ui.link @title [hoa.out~] @url hoa.out~-help.pd;
+#X text 200 21406 signal inlet for a patcher loaded by hoa.process~;
+#X obj 30 21434 ui.link @title [hoa.process~] @url
 hoa.process~-help.pd;
-#X text 200 21406 patcher loader for multichannel processing;
-#X obj 30 21434 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
-#X text 200 21431 a 2d ambisonic harmonic scope;
-#X obj 30 21459 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
-#X text 200 21456 two-channel equal power sine/cosine panner;
-#X obj 30 21484 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
-#X text 200 21481 two-channel linear panner with signal control;
-#X obj 30 21509 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
-#X text 200 21506 two-channel linear panner;
-#X obj 30 21534 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
-#X text 200 21531 spreads input channels across the stereo field;
-#X obj 30 21559 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
-#X text 200 21556 two-channel equal power square root panner;
-#X obj 30 21584 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
-#X text 200 21581 GMEM SPAT: 4-outputs spatializer;
-#X obj 30 21609 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
-#X text 200 21606 GMEM SPAT: 8-outputs spatializer;
-#X obj 30 21634 ui.link @title [spat.zita6x8~] @url
+#X text 200 21431 patcher loader for multichannel processing;
+#X obj 30 21459 ui.link @title [hoa.scope~] @url hoa.scope~-help.pd;
+#X text 200 21456 a 2d ambisonic harmonic scope;
+#X obj 30 21484 ui.link @title [pan.cos~] @url pan.cos~-help.pd;
+#X text 200 21481 two-channel equal power sine/cosine panner;
+#X obj 30 21509 ui.link @title [pan.linsig~] @url pan.linsig~-help.pd;
+#X text 200 21506 two-channel linear panner with signal control;
+#X obj 30 21534 ui.link @title [pan.lin~] @url pan.lin~-help.pd;
+#X text 200 21531 two-channel linear panner;
+#X obj 30 21559 ui.link @title [pan.spread~] @url pan.spread~-help.pd;
+#X text 200 21556 spreads input channels across the stereo field;
+#X obj 30 21584 ui.link @title [pan.sqrt~] @url pan.sqrt~-help.pd;
+#X text 200 21581 two-channel equal power square root panner;
+#X obj 30 21609 ui.link @title [spat.pan4~] @url spat.pan4~-help.pd;
+#X text 200 21606 GMEM SPAT: 4-outputs spatializer;
+#X obj 30 21634 ui.link @title [spat.pan8~] @url spat.pan8~-help.pd;
+#X text 200 21631 GMEM SPAT: 8-outputs spatializer;
+#X obj 30 21659 ui.link @title [spat.zita6x8~] @url
 spat.zita6x8~-help.pd;
-#X text 200 21631 spat with 6 inputs sources to 8 channel output;
-#X obj 30 21659 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
-#X text 200 21656 8 channel reverb spatializer;
-#X obj 480 20748 cnv 1 260 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 21656 spat with 6 inputs sources to 8 channel output;
+#X obj 30 21684 ui.link @title [spat.zita8~] @url spat.zita8~-help.pd;
+#X text 200 21681 8 channel reverb spatializer;
+#X obj 480 20773 cnv 1 260 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 485 20748 working with sound spatialisation;
-#X obj 20 21681 cnv 5 68 32 empty empty string 4 16 0 17 -262144
+#X text 485 20773 working with sound spatialisation;
+#X obj 20 21706 cnv 5 68 32 empty empty string 4 16 0 17 -262144
 -49933 0;
-#X obj 20 21723 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 21737 ui.link @title [string] @url string-help.pd;
-#X text 200 21734 constructs the string;
-#X obj 30 21762 ui.link @title [string.contains] @url
+#X obj 20 21748 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 21762 ui.link @title [string] @url string-help.pd;
+#X text 200 21759 constructs the string;
+#X obj 30 21787 ui.link @title [string.contains] @url
 string.contains-help.pd;
-#X text 200 21759 checks if the string contains specified substring;
-#X obj 30 21787 ui.link @title [string.ends_with] @url
+#X text 200 21784 checks if the string contains specified substring;
+#X obj 30 21812 ui.link @title [string.ends_with] @url
 string.ends_with-help.pd;
-#X text 200 21784 checks if the string ends with the specified substring;
-#X obj 30 21812 ui.link @title [string.equal] @url
+#X text 200 21809 checks if the string ends with the specified substring;
+#X obj 30 21837 ui.link @title [string.equal] @url
 string.equal-help.pd;
-#X text 200 21809 check strings or symbols for equality;
-#X obj 30 21837 ui.link @title [string.format] @url
+#X text 200 21834 check strings or symbols for equality;
+#X obj 30 21862 ui.link @title [string.format] @url
 string.format-help.pd;
-#X text 200 21834 formats a string like printf function;
-#X obj 30 21862 ui.link @title [string.join] @url string.join-help.pd;
-#X text 200 21859 joins the list into a string with the element separator;
-#X obj 30 21887 ui.link @title [string.length] @url
+#X text 200 21859 formats a string like printf function;
+#X obj 30 21887 ui.link @title [string.join] @url string.join-help.pd;
+#X text 200 21884 joins the list into a string with the element separator;
+#X obj 30 21912 ui.link @title [string.length] @url
 string.length-help.pd;
-#X text 200 21884 number of characters in the string (with Unicode
+#X text 200 21909 number of characters in the string (with Unicode
 support);
-#X obj 30 21912 ui.link @title [string.match] @url
+#X obj 30 21937 ui.link @title [string.match] @url
 string.match-help.pd;
-#X text 200 21909 checks if the string matches to the regular expression;
-#X obj 30 21937 ui.link @title [string.remove] @url
+#X text 200 21934 checks if the string matches to the regular expression;
+#X obj 30 21962 ui.link @title [string.remove] @url
 string.remove-help.pd;
-#X text 200 21934 removes a substring from the input string;
-#X obj 30 21962 ui.link @title [string.replace] @url
+#X text 200 21959 removes a substring from the input string;
+#X obj 30 21987 ui.link @title [string.replace] @url
 string.replace-help.pd;
-#X text 200 21959 replace from one substring to another in the input
+#X text 200 21984 replace from one substring to another in the input
 string;
-#X obj 30 21987 ui.link @title [string.split] @url
+#X obj 30 22012 ui.link @title [string.split] @url
 string.split-help.pd;
-#X text 200 21984 splits the string or symbol into the list by the
+#X text 200 22009 splits the string or symbol into the list by the
 separator;
-#X obj 30 22012 ui.link @title [string.starts_with] @url
+#X obj 30 22037 ui.link @title [string.starts_with] @url
 string.starts_with-help.pd;
-#X text 200 22009 checks if the string starts with the specified substring;
-#X obj 30 22037 ui.link @title [string.substr] @url
+#X text 200 22034 checks if the string starts with the specified substring;
+#X obj 30 22062 ui.link @title [string.substr] @url
 string.substr-help.pd;
-#X text 200 22034 extract a substring from the input string;
-#X obj 30 22062 ui.link @title [string2symbol] @url
+#X text 200 22059 extract a substring from the input string;
+#X obj 30 22087 ui.link @title [string2symbol] @url
 string2symbol-help.pd;
-#X text 200 22059 converts the string into the symbol;
-#X obj 518 21691 cnv 1 222 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 22084 converts the string into the symbol;
+#X obj 518 21716 cnv 1 222 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 523 21691 working with String datatype;
-#X obj 20 22084 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
+#X text 523 21716 working with String datatype;
+#X obj 20 22109 cnv 5 69 32 empty empty symbol 4 16 0 17 -262144
 -49933 0;
-#X obj 20 22126 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 22140 ui.link @title [symbol.equal] @url
+#X obj 20 22151 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 22165 ui.link @title [symbol.equal] @url
 symbol.equal-help.pd;
-#X text 200 22137 check symbols for equality;
-#X obj 30 22165 ui.link @title [symbol.length] @url
+#X text 200 22162 check symbols for equality;
+#X obj 30 22190 ui.link @title [symbol.length] @url
 symbol.length-help.pd;
-#X text 200 22162 outputs the number of characters in a symbol (Unicode
+#X text 200 22187 outputs the number of characters in a symbol (Unicode
 supported);
-#X obj 30 22205 ui.link @title [symbol.num_compare] @url
+#X obj 30 22230 ui.link @title [symbol.num_compare] @url
 symbol.num_compare-help.pd;
-#X text 200 22202 numeric symbol compare;
-#X obj 30 22230 ui.link @title [symbol2any] @url symbol2any-help.pd;
-#X text 200 22227 converts symbol or string into a message;
-#X obj 30 22255 ui.link @title [symbol2intlist] @url
+#X text 200 22227 numeric symbol compare;
+#X obj 30 22255 ui.link @title [symbol2any] @url symbol2any-help.pd;
+#X text 200 22252 converts symbol or string into a message;
+#X obj 30 22280 ui.link @title [symbol2intlist] @url
 symbol2intlist-help.pd;
-#X text 200 22252 converts the symbol into a list of character codes;
-#X obj 580 22094 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 22277 converts the symbol into a list of character codes;
+#X obj 580 22119 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 585 22094 working with symbols;
-#X obj 20 22277 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
+#X text 585 22119 working with symbols;
+#X obj 20 22302 cnv 5 58 32 empty empty synth 4 16 0 17 -262144 -49933
 0;
-#X obj 20 22319 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 22333 ui.link @title [synth.bee3~] @url synth.bee3~-help.pd;
-#X text 200 22330 Hammond-oid organ FM synthesis instrument;
-#X obj 30 22358 ui.link @title [synth.birds~] @url
+#X obj 20 22344 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 22358 ui.link @title [synth.bee3~] @url synth.bee3~-help.pd;
+#X text 200 22355 Hammond-oid organ FM synthesis instrument;
+#X obj 30 22383 ui.link @title [synth.birds~] @url
 synth.birds~-help.pd;
-#X text 200 22355 bird singing generator;
-#X obj 30 22383 ui.link @title [synth.church_bell~] @url
+#X text 200 22380 bird singing generator;
+#X obj 30 22408 ui.link @title [synth.church_bell~] @url
 synth.church_bell~-help.pd;
-#X text 200 22380 generic church bell modal model;
-#X obj 30 22408 ui.link @title [synth.clap~] @url synth.clap~-help.pd;
-#X text 200 22405 clap synth from Faust libraries;
-#X obj 30 22433 ui.link @title [synth.dubdub~] @url
+#X text 200 22405 generic church bell modal model;
+#X obj 30 22433 ui.link @title [synth.clap~] @url synth.clap~-help.pd;
+#X text 200 22430 clap synth from Faust libraries;
+#X obj 30 22458 ui.link @title [synth.dubdub~] @url
 synth.dubdub~-help.pd;
-#X text 200 22430 simple synth based on a sawtooth wave filtered by
+#X text 200 22455 simple synth based on a sawtooth wave filtered by
 a resonant lowpass;
-#X obj 30 22473 ui.link @title [synth.dx7~] @url synth.dx7~-help.pd;
-#X text 200 22470 dx7 implementation from Faust libraries;
-#X obj 30 22498 ui.link @title [synth.eguitar~] @url
+#X obj 30 22498 ui.link @title [synth.dx7~] @url synth.dx7~-help.pd;
+#X text 200 22495 dx7 implementation from Faust libraries;
+#X obj 30 22523 ui.link @title [synth.eguitar~] @url
 synth.eguitar~-help.pd;
-#X text 200 22495 simple electric guitar model with steel strings;
-#X obj 30 22523 ui.link @title [synth.english_bell~] @url
+#X text 200 22520 simple electric guitar model with steel strings;
+#X obj 30 22548 ui.link @title [synth.english_bell~] @url
 synth.english_bell~-help.pd;
-#X text 200 22520 English church bell modal model;
-#X obj 30 22548 ui.link @title [synth.fgrain~] @url
+#X text 200 22545 English church bell modal model;
+#X obj 30 22573 ui.link @title [synth.fgrain~] @url
 synth.fgrain~-help.pd;
-#X text 200 22545 file granulator from STK libraries;
-#X obj 30 22573 ui.link @title [synth.french_bell~] @url
+#X text 200 22570 file granulator from STK libraries;
+#X obj 30 22598 ui.link @title [synth.french_bell~] @url
 synth.french_bell~-help.pd;
-#X text 200 22570 french church bell modal model;
-#X obj 30 22598 ui.link @title [synth.german_bell~] @url
+#X text 200 22595 french church bell modal model;
+#X obj 30 22623 ui.link @title [synth.german_bell~] @url
 synth.german_bell~-help.pd;
-#X text 200 22595 German church bell modal model;
-#X obj 30 22623 ui.link @title [synth.glass_harm~] @url
+#X text 200 22620 German church bell modal model;
+#X obj 30 22648 ui.link @title [synth.glass_harm~] @url
 synth.glass_harm~-help.pd;
-#X text 200 22620 nonlinear banded waveguide modeled glass harmonica;
-#X obj 30 22648 ui.link @title [synth.glitch~] @url
+#X text 200 22645 nonlinear banded waveguide modeled glass harmonica;
+#X obj 30 22673 ui.link @title [synth.glitch~] @url
 synth.glitch~-help.pd;
-#X text 200 22645 glitch synthesizer by naivesound;
-#X obj 30 22673 ui.link @title [synth.harpsichord~] @url
+#X text 200 22670 glitch synthesizer by naivesound;
+#X obj 30 22698 ui.link @title [synth.harpsichord~] @url
 synth.harpsichord~-help.pd;
-#X text 200 22670 waveguide commuted harpsichord;
-#X obj 30 22698 ui.link @title [synth.hat~] @url synth.hat~-help.pd;
-#X text 200 22695 hi-hat synth from Faust libraries;
-#X obj 30 22723 ui.link @title [synth.kick2~] @url
+#X text 200 22695 waveguide commuted harpsichord;
+#X obj 30 22723 ui.link @title [synth.hat~] @url synth.hat~-help.pd;
+#X text 200 22720 hi-hat synth from Faust libraries;
+#X obj 30 22748 ui.link @title [synth.kick2~] @url
 synth.kick2~-help.pd;
-#X text 200 22720 low-kick synth from Faust libraries;
-#X obj 30 22748 ui.link @title [synth.kick~] @url synth.kick~-help.pd;
-#X text 200 22745 low-kick synth from Guitarix project;
-#X obj 30 22773 ui.link @title [synth.ks~] @url synth.ks~-help.pd;
-#X text 200 22770 Karplus-Strong string;
-#X obj 30 22798 ui.link @title [synth.marimba~] @url
+#X text 200 22745 low-kick synth from Faust libraries;
+#X obj 30 22773 ui.link @title [synth.kick~] @url synth.kick~-help.pd;
+#X text 200 22770 low-kick synth from Guitarix project;
+#X obj 30 22798 ui.link @title [synth.ks~] @url synth.ks~-help.pd;
+#X text 200 22795 Karplus-Strong string;
+#X obj 30 22823 ui.link @title [synth.marimba~] @url
 synth.marimba~-help.pd;
-#X text 200 22795 simple marimba physical model implementing a single
+#X text 200 22820 simple marimba physical model implementing a single
 tone bar connected to tube;
-#X obj 30 22838 ui.link @title [synth.metro~] @url
+#X obj 30 22863 ui.link @title [synth.metro~] @url
 synth.metro~-help.pd;
-#X text 200 22835 ready to use metronome synth;
-#X obj 30 22863 ui.link @title [synth.piano~] @url
+#X text 200 22860 ready to use metronome synth;
+#X obj 30 22888 ui.link @title [synth.piano~] @url
 synth.piano~-help.pd;
-#X text 200 22860 waveguide commuted piano;
-#X obj 30 22888 ui.link @title [synth.rhodey~] @url
+#X text 200 22885 waveguide commuted piano;
+#X obj 30 22913 ui.link @title [synth.rhodey~] @url
 synth.rhodey~-help.pd;
-#X text 200 22885 STK Fender Rhodes electric piano FM synthesis instrument;
-#X obj 30 22913 ui.link @title [synth.risset_arp~] @url
+#X text 200 22910 STK Fender Rhodes electric piano FM synthesis instrument;
+#X obj 30 22938 ui.link @title [synth.risset_arp~] @url
 synth.risset_arp~-help.pd;
-#X text 200 22910 Jean-Claude Risset's harmonic arpeggio effect;
-#X obj 30 22938 ui.link @title [synth.risset_bell~] @url
+#X text 200 22935 Jean-Claude Risset's harmonic arpeggio effect;
+#X obj 30 22963 ui.link @title [synth.risset_bell~] @url
 synth.risset_bell~-help.pd;
-#X text 200 22935 Jean-Claude Risset's bell synth;
-#X obj 30 22963 ui.link @title [synth.risset_tone~] @url
+#X text 200 22960 Jean-Claude Risset's bell synth;
+#X obj 30 22988 ui.link @title [synth.risset_tone~] @url
 synth.risset_tone~-help.pd;
-#X text 200 22960 Jean-Claude Risset's endless glissando;
-#X obj 30 22988 ui.link @title [synth.russian_bell~] @url
+#X text 200 22985 Jean-Claude Risset's endless glissando;
+#X obj 30 23013 ui.link @title [synth.russian_bell~] @url
 synth.russian_bell~-help.pd;
-#X text 200 22985 Russian church bell modal model;
-#X obj 30 23013 ui.link @title [synth.shakers~] @url
+#X text 200 23010 Russian church bell modal model;
+#X obj 30 23038 ui.link @title [synth.shakers~] @url
 synth.shakers~-help.pd;
-#X text 200 23010 various percussion sounds from STK library;
-#X obj 30 23038 ui.link @title [synth.sitar~] @url
+#X text 200 23035 various percussion sounds from STK library;
+#X obj 30 23063 ui.link @title [synth.sitar~] @url
 synth.sitar~-help.pd;
-#X text 200 23035 STK sitar;
-#X obj 30 23063 ui.link @title [synth.snare~] @url
+#X text 200 23060 STK sitar;
+#X obj 30 23088 ui.link @title [synth.snare~] @url
 synth.snare~-help.pd;
-#X text 200 23060 snare drum synth from Guitarix project;
-#X obj 30 23088 ui.link @title [synth.standard_bell~] @url
+#X text 200 23085 snare drum synth from Guitarix project;
+#X obj 30 23113 ui.link @title [synth.standard_bell~] @url
 synth.standard_bell~-help.pd;
-#X text 200 23085 Standard bell modal model;
-#X obj 30 23113 ui.link @title [synth.tube_bell~] @url
+#X text 200 23110 Standard bell modal model;
+#X obj 30 23138 ui.link @title [synth.tube_bell~] @url
 synth.tube_bell~-help.pd;
-#X text 200 23110 STK tubular bell (orchestral chime) FM synthesis
+#X text 200 23135 STK tubular bell (orchestral chime) FM synthesis
 instrument;
-#X obj 30 23138 ui.link @title [synth.voice_fofc~] @url
+#X obj 30 23163 ui.link @title [synth.voice_fofc~] @url
 synth.voice_fofc~-help.pd;
-#X text 200 23135 simple formant/vocal synthesizer with FOF-cycle filterbank.;
-#X obj 30 23163 ui.link @title [synth.voice_fofs~] @url
+#X text 200 23160 simple formant/vocal synthesizer with FOF-cycle filterbank.;
+#X obj 30 23188 ui.link @title [synth.voice_fofs~] @url
 synth.voice_fofs~-help.pd;
-#X text 200 23160 simple formant/vocal synthesizer with FOF-smooth
+#X text 200 23185 simple formant/vocal synthesizer with FOF-smooth
 filterbank.;
-#X obj 30 23188 ui.link @title [synth.wurley~] @url
+#X obj 30 23213 ui.link @title [synth.wurley~] @url
 synth.wurley~-help.pd;
-#X text 200 23185 Wurlitzer electric piano FM synthesis instrument;
-#X obj 620 22287 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 23210 Wurlitzer electric piano FM synthesis instrument;
+#X obj 620 22312 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 625 22287 sound synthesis;
-#X obj 20 23210 cnv 5 69 32 empty empty system 4 16 0 17 -262144
+#X text 625 22312 sound synthesis;
+#X obj 20 23235 cnv 5 69 32 empty empty system 4 16 0 17 -262144
 -49933 0;
-#X obj 20 23252 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 23266 ui.link @title [system.colorpanel] @url
+#X obj 20 23277 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 23291 ui.link @title [system.colorpanel] @url
 system.colorpanel-help.pd;
-#X text 200 23263 system color panel dialog popup;
-#X obj 30 23291 ui.link @title [system.command] @url
+#X text 200 23288 system color panel dialog popup;
+#X obj 30 23316 ui.link @title [system.command] @url
 system.command-help.pd;
-#X text 200 23288 run commands with pipes on Unix and Windows;
-#X obj 30 23316 ui.link @title [system.cursor] @url
+#X text 200 23313 run commands with pipes on Unix and Windows;
+#X obj 30 23341 ui.link @title [system.cursor] @url
 system.cursor-help.pd;
-#X text 200 23313 outputs the cursor motion \, mouse wheel and button
+#X text 200 23338 outputs the cursor motion \, mouse wheel and button
 clicks;
-#X obj 30 23341 ui.link @title [system.exec] @url system.exec-help.pd;
-#X text 200 23338 run the external command in a separate process;
-#X obj 30 23366 ui.link @title [system.exit] @url system.exit-help.pd;
-#X text 200 23363 quit PureData;
-#X obj 30 23391 ui.link @title [system.getenv] @url
+#X obj 30 23366 ui.link @title [system.exec] @url system.exec-help.pd;
+#X text 200 23363 run the external command in a separate process;
+#X obj 30 23391 ui.link @title [system.exit] @url system.exit-help.pd;
+#X text 200 23388 quit PureData;
+#X obj 30 23416 ui.link @title [system.getenv] @url
 system.getenv-help.pd;
-#X text 200 23388 output system environment variables;
-#X obj 30 23416 ui.link @title [system.hostname] @url
+#X text 200 23413 output system environment variables;
+#X obj 30 23441 ui.link @title [system.hostname] @url
 system.hostname-help.pd;
-#X text 200 23413 outputs system hostname;
-#X obj 30 23441 ui.link @title [system.info] @url system.info-help.pd;
-#X text 200 23438 retrieve system information: CPU and temperature;
-#X obj 30 23466 ui.link @title [system.memsize] @url
+#X text 200 23438 outputs system hostname;
+#X obj 30 23466 ui.link @title [system.info] @url system.info-help.pd;
+#X text 200 23463 retrieve system information: CPU and temperature;
+#X obj 30 23491 ui.link @title [system.memsize] @url
 system.memsize-help.pd;
-#X text 200 23463 returns the size of physical memory (RAM) in bytes;
-#X obj 30 23491 ui.link @title [system.memused] @url
+#X text 200 23488 returns the size of physical memory (RAM) in bytes;
+#X obj 30 23516 ui.link @title [system.memused] @url
 system.memused-help.pd;
-#X text 200 23488 outputs the process physical memory usage - current
+#X text 200 23513 outputs the process physical memory usage - current
 and peak;
-#X obj 30 23516 ui.link @title [system.screen_size] @url
+#X obj 30 23541 ui.link @title [system.screen_size] @url
 system.screen_size-help.pd;
-#X text 200 23513 outputs the current screen size in pixels;
-#X obj 20 23538 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
-#X obj 20 23580 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 23594 ui.link @title [tl.bang] @url tl.bang-help.pd;
-#X text 200 23591 outputs a timeline bang;
-#X obj 30 23619 ui.link @title [tl.cue] @url tl.cue-help.pd;
-#X text 200 23616 defines the timeline section;
-#X obj 30 23644 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
-#X text 200 23641 timeline event scheduler;
-#X obj 30 23669 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
-#X text 200 23666 timeline toggle;
-#X obj 30 23694 ui.link @title [tl.transport] @url
+#X text 200 23538 outputs the current screen size in pixels;
+#X obj 20 23563 cnv 5 28 32 empty empty tl 4 16 0 17 -262144 -49933 0;
+#X obj 20 23605 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 23619 ui.link @title [tl.bang] @url tl.bang-help.pd;
+#X text 200 23616 outputs a timeline bang;
+#X obj 30 23644 ui.link @title [tl.cue] @url tl.cue-help.pd;
+#X text 200 23641 defines the timeline section;
+#X obj 30 23669 ui.link @title [tl.timeline] @url tl.timeline-help.pd;
+#X text 200 23666 timeline event scheduler;
+#X obj 30 23694 ui.link @title [tl.toggle] @url tl.toggle-help.pd;
+#X text 200 23691 timeline toggle;
+#X obj 30 23719 ui.link @title [tl.transport] @url
 tl.transport-help.pd;
-#X text 200 23691 timeline transport control;
-#X obj 572 23548 cnv 1 168 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 23716 timeline transport control;
+#X obj 572 23573 cnv 1 168 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 577 23548 working with timeline;
-#X obj 20 23716 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
-#X obj 20 23758 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
-#X obj 30 23772 ui.link @title [ui.aview] @url ui.aview-help.pd;
-#X text 200 23769 array view with cursor and range selection;
-#X obj 30 23797 ui.link @title [ui.bang] @url ui.bang-help.pd;
-#X text 200 23794 a button that sends an empty event (bang);
-#X obj 30 23822 ui.link @title [ui.button] @url ui.button-help.pd;
-#X text 200 23819 on/off button widget;
-#X obj 30 23847 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
-#X text 200 23844 canvas for drawing;
-#X obj 30 23872 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
-#X text 200 23869 multichannel circular signal meter;
-#X obj 30 23897 ui.link @title [ui.colorpanel] @url
+#X text 577 23573 working with timeline;
+#X obj 20 23741 cnv 5 28 32 empty empty ui 4 16 0 17 -262144 -49933 0;
+#X obj 20 23783 cnv 1 720 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 30 23797 ui.link @title [ui.aview] @url ui.aview-help.pd;
+#X text 200 23794 array view with cursor and range selection;
+#X obj 30 23822 ui.link @title [ui.bang] @url ui.bang-help.pd;
+#X text 200 23819 a button that sends an empty event (bang);
+#X obj 30 23847 ui.link @title [ui.button] @url ui.button-help.pd;
+#X text 200 23844 on/off button widget;
+#X obj 30 23872 ui.link @title [ui.canvas] @url ui.canvas-help.pd;
+#X text 200 23869 canvas for drawing;
+#X obj 30 23897 ui.link @title [ui.cmeter~] @url ui.cmeter~-help.pd;
+#X text 200 23894 multichannel circular signal meter;
+#X obj 30 23922 ui.link @title [ui.colorpanel] @url
 ui.colorpanel-help.pd;
-#X text 200 23894 Color chooser widget;
-#X obj 30 23922 ui.link @title [ui.display] @url ui.display-help.pd;
-#X text 200 23919 display widget;
-#X obj 30 23947 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
-#X text 200 23944 widget to switch DSP on or off;
-#X obj 30 23972 ui.link @title [ui.env] @url ui.env-help.pd;
-#X text 200 23969 envelope editor;
-#X obj 30 23997 ui.link @title [ui.filter] @url ui.filter-help.pd;
-#X text 200 23994 filter widget for calculating [flt.biquad~] coefficients;
-#X obj 30 24022 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
-#X text 200 24019 sound filter widget;
-#X obj 30 24047 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
-#X text 200 24044 stereo gain control;
-#X obj 30 24072 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
-#X text 200 24069 gain control;
-#X obj 30 24097 ui.link @title [ui.icon] @url ui.icon-help.pd;
-#X text 200 24094 simple icon with button capabilities;
-#X obj 30 24122 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
-#X text 200 24119 value increment or decrement widget;
-#X obj 30 24147 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
-#X text 200 24144 keyboard widget;
-#X obj 30 24172 ui.link @title [ui.knob] @url ui.knob-help.pd;
-#X text 200 24169 knob widget;
-#X obj 30 24197 ui.link @title [ui.label] @url ui.label-help.pd;
-#X text 200 24194 simple label widget;
-#X obj 30 24222 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
-#X text 200 24219 black and white bitmap display;
-#X obj 30 24247 ui.link @title [ui.link] @url ui.link-help.pd;
-#X text 200 24244 hyperlink widget;
-#X obj 30 24272 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
-#X text 200 24269 toggle matrix;
-#X obj 30 24297 ui.link @title [ui.menu] @url ui.menu-help.pd;
-#X text 200 24294 dropdown menu;
-#X obj 30 24322 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
-#X text 200 24319 peak and RMS signal level;
-#X obj 30 24347 ui.link @title [ui.midi] @url ui.midi-help.pd;
-#X text 200 24344 incoming MIDI message viewport;
-#X obj 30 24372 ui.link @title [ui.mouse_filter] @url
+#X text 200 23919 Color chooser widget;
+#X obj 30 23947 ui.link @title [ui.display] @url ui.display-help.pd;
+#X text 200 23944 display widget;
+#X obj 30 23972 ui.link @title [ui.dsp~] @url ui.dsp~-help.pd;
+#X text 200 23969 widget to switch DSP on or off;
+#X obj 30 23997 ui.link @title [ui.env] @url ui.env-help.pd;
+#X text 200 23994 envelope editor;
+#X obj 30 24022 ui.link @title [ui.filter] @url ui.filter-help.pd;
+#X text 200 24019 filter widget for calculating [flt.biquad~] coefficients;
+#X obj 30 24047 ui.link @title [ui.filter~] @url ui.filter~-help.pd;
+#X text 200 24044 sound filter widget;
+#X obj 30 24072 ui.link @title [ui.gain2~] @url ui.gain2~-help.pd;
+#X text 200 24069 stereo gain control;
+#X obj 30 24097 ui.link @title [ui.gain~] @url ui.gain~-help.pd;
+#X text 200 24094 gain control;
+#X obj 30 24122 ui.link @title [ui.icon] @url ui.icon-help.pd;
+#X text 200 24119 simple icon with button capabilities;
+#X obj 30 24147 ui.link @title [ui.incdec] @url ui.incdec-help.pd;
+#X text 200 24144 value increment or decrement widget;
+#X obj 30 24172 ui.link @title [ui.keyboard] @url ui.keyboard-help.pd;
+#X text 200 24169 keyboard widget;
+#X obj 30 24197 ui.link @title [ui.knob] @url ui.knob-help.pd;
+#X text 200 24194 knob widget;
+#X obj 30 24222 ui.link @title [ui.label] @url ui.label-help.pd;
+#X text 200 24219 simple label widget;
+#X obj 30 24247 ui.link @title [ui.lcd] @url ui.lcd-help.pd;
+#X text 200 24244 black and white bitmap display;
+#X obj 30 24272 ui.link @title [ui.link] @url ui.link-help.pd;
+#X text 200 24269 hyperlink widget;
+#X obj 30 24297 ui.link @title [ui.matrix] @url ui.matrix-help.pd;
+#X text 200 24294 toggle matrix;
+#X obj 30 24322 ui.link @title [ui.menu] @url ui.menu-help.pd;
+#X text 200 24319 dropdown menu;
+#X obj 30 24347 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
+#X text 200 24344 peak and RMS signal level;
+#X obj 30 24372 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 24369 incoming MIDI message viewport;
+#X obj 30 24397 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 24369 filter mouse events from UI objects;
-#X obj 30 24397 ui.link @title [ui.mouse_route] @url
+#X text 200 24394 filter mouse events from UI objects;
+#X obj 30 24422 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 24394 routes mouse events from UI objects;
-#X obj 30 24422 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 24419 number box;
-#X obj 30 24447 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 24444 number viewport for signals;
-#X obj 30 24472 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 24469 signal plotter;
-#X obj 30 24497 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 24494 2D slider in polar coordinates;
-#X obj 30 24522 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 24519 preset manager;
-#X obj 30 24547 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 24544 radio toggle with multiselect option;
-#X obj 30 24572 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 24569 two range slider;
-#X obj 30 24597 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 24594 waveform signal scope widget;
-#X obj 30 24622 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 24619 slider widget;
-#X obj 30 24647 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 24644 2D slider widget;
-#X obj 30 24672 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 24669 multiple slider widget;
-#X obj 30 24697 ui.link @title [ui.spectroscope~] @url
+#X text 200 24419 routes mouse events from UI objects;
+#X obj 30 24447 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 24444 number box;
+#X obj 30 24472 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 24469 number viewport for signals;
+#X obj 30 24497 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 24494 signal plotter;
+#X obj 30 24522 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 24519 2D slider in polar coordinates;
+#X obj 30 24547 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 24544 preset manager;
+#X obj 30 24572 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 24569 radio toggle with multiselect option;
+#X obj 30 24597 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 24594 two range slider;
+#X obj 30 24622 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 24619 waveform signal scope widget;
+#X obj 30 24647 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 24644 slider widget;
+#X obj 30 24672 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 24669 2D slider widget;
+#X obj 30 24697 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 24694 multiple slider widget;
+#X obj 30 24722 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 24694 spectroscope widget;
-#X obj 30 24722 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 24719 displays a list of text buttons or text toggles;
-#X obj 30 24747 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 24744 modern toggle widget;
-#X obj 489 23726 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
+#X text 200 24719 spectroscope widget;
+#X obj 30 24747 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 24744 displays a list of text buttons or text toggles;
+#X obj 30 24772 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 24769 modern toggle widget;
+#X obj 489 23751 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1
 0;
-#X text 494 23726 graphical user interface objects;
+#X text 494 23751 graphical user interface objects;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 24769 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 24769 version: v0.9.8 \, license: GPL3;
-#X obj 20 24797 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 24794 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 24794 version: v0.9.8 \, license: GPL3;
+#X obj 20 24822 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 24821 ui.link @title Generated with pddoc v0.16.0 @url
+#X obj 20 24846 ui.link @title Generated with pddoc v0.16.0 @url
 https://github.com/uliss/pddoc;
-#X obj 670 24784 loadmsg 0;
-#X obj 670 24819 switch~;
-#X connect 1880 0 1881 0;
+#X obj 670 24809 loadmsg 0;
+#X obj 670 24844 switch~;
+#X connect 1882 0 1883 0;

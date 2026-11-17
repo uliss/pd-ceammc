@@ -12,16 +12,18 @@
 #X text 220 167 cyclic counter;
 #X obj 30 195 ui.link @title [seq.life] @url seq.life-help.pd;
 #X text 220 192 Conway game of life sequencer;
-#X obj 30 220 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
-#X text 220 217 sequencer control for [ui.matrix] object;
-#X obj 30 245 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
-#X text 220 242 outputs the specified number of bangs with a time intervals;
-#X obj 30 270 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
-#X text 220 267 control rate phasor generator;
-#X obj 30 295 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
-#X text 220 292 toggle sequencer;
-#X obj 30 320 ui.link @title [sequencer] @url sequencer-help.pd;
-#X text 220 317 basic sequence player;
+#X obj 30 220 ui.link @title [seq.markov] @url seq.markov-help.pd;
+#X text 220 217 Markov chain melody generator;
+#X obj 30 245 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
+#X text 220 242 sequencer control for [ui.matrix] object;
+#X obj 30 270 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
+#X text 220 267 outputs the specified number of bangs with a time intervals;
+#X obj 30 295 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
+#X text 220 292 control rate phasor generator;
+#X obj 30 320 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
+#X text 220 317 toggle sequencer;
+#X obj 30 345 ui.link @title [sequencer] @url sequencer-help.pd;
+#X text 220 342 basic sequence player;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

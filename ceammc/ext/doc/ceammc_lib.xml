@@ -2223,6 +2223,9 @@
     <entry name="seq.life" descr="Conway game of life sequencer" ref_view="link">
       <xi:include href="seq.life.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.markov" descr="Markov chain melody generator" ref_view="link">
+      <xi:include href="seq.markov.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.matrix" descr="sequencer control for [ui.matrix] object" ref_view="link">
       <xi:include href="seq.matrix.pddoc" parse="xml"/>
     </entry>

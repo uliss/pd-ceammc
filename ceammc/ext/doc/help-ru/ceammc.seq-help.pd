@@ -12,17 +12,19 @@
 #X text 220 167 циклический счётчик;
 #X obj 30 195 ui.link @title [seq.life] @url seq.life-help.pd;
 #X text 220 192 секвенсор на основе игры «Жизнь» Конвея;
-#X obj 30 220 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
-#X text 220 217 управление секвенсором для объекта [ui.matrix];
-#X obj 30 245 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
-#X text 220 242 выводит заданное число bang-ов с заданными интервалами
+#X obj 30 220 ui.link @title [seq.markov] @url seq.markov-help.pd;
+#X text 220 217 генератор мелодий на основе цепей Маркова;
+#X obj 30 245 ui.link @title [seq.matrix] @url seq.matrix-help.pd;
+#X text 220 242 управление секвенсором для объекта [ui.matrix];
+#X obj 30 270 ui.link @title [seq.nbangs] @url seq.nbangs-help.pd;
+#X text 220 267 выводит заданное число bang-ов с заданными интервалами
 времени;
-#X obj 30 285 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
-#X text 220 282 генератор фазора (пилы) для управляющих сигналов;
-#X obj 30 310 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
-#X text 220 307 секвенсор переключающих событий (toggle);
-#X obj 30 335 ui.link @title [sequencer] @url sequencer-help.pd;
-#X text 220 332 базовый проигрыватель последовательностей;
+#X obj 30 310 ui.link @title [seq.phasor] @url seq.phasor-help.pd;
+#X text 220 307 генератор фазора (пилы) для управляющих сигналов;
+#X obj 30 335 ui.link @title [seq.toggles] @url seq.toggles-help.pd;
+#X text 220 332 секвенсор переключающих событий (toggle);
+#X obj 30 360 ui.link @title [sequencer] @url sequencer-help.pd;
+#X text 220 357 базовый проигрыватель последовательностей;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

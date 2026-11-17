@@ -1,0 +1,158 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 536 50 cnv 1 229 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 541 50 Markov chain melody generator;
+#X obj 1 1 cnv 5 765 40 empty empty seq.markov 20 20 0 20 -104026
+-4096 0;
+#X obj 667 11 seq.markov;
+#X obj 230 78 cnv 1 535 200 empty empty empty 17 7 0 10 -237178 -1 0;
+#X text 240 83 the object generates melodies using a Markov chain.
+It learns note transitions from the incoming note messages and then
+generates new sequences based on the learned probabilities;
+#X text 240 153 @order sets the order of the Markov chain: 0 — order
+0 (random notes) \, 1 — order 1 (each note depends on the previous
+one) \, 2 — order 2 (each note depends on the two previous ones);
+#X text 240 223 the first outlet outputs the generated MIDI pitch \,
+the second outlet outputs the duration bin;
+#X obj 50 326 ui.keyboard;
+#X obj 50 398 stripnote;
+#X obj 290 398 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 366 398 5 0 0 0 - - -;
+#X msg 50 427 train \$1 4;
+#X msg 174 427 clear;
+#X obj 290 427 metro 200;
+#X obj 50 456 seq.markov 1;
+#X obj 50 485 mtof;
+#X floatatom 117 485 5 0 0 0 - - -;
+#X obj 50 513 t b f;
+#X obj 50 542 click~;
+#X msg 146 542 @freq \$1;
+#X obj 50 571 flt.resonlp~;
+#X obj 261 571 ui.dsp~;
+#X obj 50 600 ui.hgain~;
+#X obj 50 629 dac~;
+#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 684 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 687 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.args-info.pd;
+#X text 130 685 1\.;
+#X text 170 685 int;
+#X obj 268 686 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 270 685 ORDER: Markov chain order. See the @order property.
+Allowed values: 0 \, 1 \, 2\. Type: int.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 740 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
+-49933 0;
+#X obj 735 743 ui.link @background_color 0.90196 0.90196 0.90196
+@title [?] @url ceammc.props-info.pd;
+#X msg 130 741 @order;
+#X text 270 741 (initonly) Markov chain order: 0 — order 0 (random
+notes) \, 1 — order 1 (each note depends on the previous one) \, 2
+— order 2 (each note depends on the two previous ones). Type: int.
+Default value: 1\. Allowed values: 0 \, 1 \, 2\.;
+#X obj 250 828 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 828 @seed;
+#X text 270 828 (initonly) Random seed for reproducible generation.
+Type: int. Default value: 0\.;
+#X obj 250 870 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 870 @backoff;
+#X text 270 870 If true \, fall back to a lower-order chain when the
+current order has no transition for the current state. Type: bool.
+Default value: 1\.;
+#X obj 250 927 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 927 @restart;
+#X text 270 927 If true \, restart the sequence from the beginning
+when the generator reaches a state with no outgoing transitions. Type:
+bool. Default value: 1\.;
+#X obj 250 984 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 984 @t;
+#X text 270 984 Temperature for sampling. Values above 1 make the output
+more random \, values below 1 make it more predictable. Type: float.
+Default value: 1\. Range: [0\..1024].;
+#X obj 250 1041 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1041 @top_k;
+#X text 270 1041 Top-K sampling: if greater than 0 \, only the K most
+probable notes are considered when generating the next note. Type:
+int. Default value: 0\. Range: [0\..12].;
+#X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1113 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
+-49933 0;
+#X msg 130 1114 clear;
+#X text 270 1114 clears the learned transitions.;
+#X obj 250 1149 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1149 reset;
+#X text 270 1149 resets the generator to its initial state without
+clearing the learned transitions.;
+#X obj 250 1199 cnv 1 515 1 empty empty empty 17 7 0 10 -216373 -1 0;
+#X msg 130 1199 train;
+#X text 270 1199 trains the Markov chain on a single note with the
+given duration. Arguments are:;
+#X obj 300 1239 cnv 1 44 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1239 PITCH: MIDI pitch. Type: int. Range: [0\..127].;
+#X obj 300 1262 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 300 1262 DUR: note duration. Type: atom.;
+#X obj 20 1305 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1310 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1311 1\.;
+#X text 170 1311 bang:;
+#X text 270 1311 generate the next note.;
+#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X obj 20 1351 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 130 1352 1\.;
+#X text 170 1352 int:;
+#X text 270 1352 generated MIDI pitch.;
+#X text 130 1372 2\.;
+#X text 170 1372 int:;
+#X text 270 1372 generated duration bin.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
+#X obj 1 1422 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1425 library: ceammc v0.9.8;
+#N canvas 10 1444 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.8;
+#X text 10 54 object:;
+#X text 120 54 seq.markov;
+#X text 10 76 category:;
+#X text 120 76 seq;
+#X text 10 98 since:;
+#X text 120 98 0.9.8;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 seq \, markov \, chain \, melody \, generator;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -196023 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1444 pd info;
+#X connect 8 0 9 0;
+#X connect 9 0 12 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 1;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 18 0 19 0;
+#X connect 18 1 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 0;
+#X connect 21 0 23 0;
+#X connect 23 0 24 0;
+#X connect 23 0 24 1;

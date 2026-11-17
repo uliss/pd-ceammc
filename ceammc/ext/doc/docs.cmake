@@ -730,6 +730,7 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    seq.markov
     sfizz~
     snd.file
     snd.play~
