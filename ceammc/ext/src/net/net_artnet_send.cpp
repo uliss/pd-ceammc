@@ -433,8 +433,8 @@ namespace net {
     ///     #red   byte "RED"   {}
     ///     #green byte "GREEN" {}
     ///     #blue  byte "BLUE"  {}
-    ///     @addr  ? "DMX address" {
-    ///         #channel int "value" { default: 1, check: [1..510] }
+    ///     @addr  ? "DMX address offset" {
+    ///         #channel int "value" { default: 0, check: [0..510] }
     ///     }
     /// }
     void NetArtnetSend::m_rgb8(t_symbol* s, const AtomListView& lv)
