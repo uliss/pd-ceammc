@@ -108,7 +108,7 @@ bool SeqMarkov::notify(int code)
 void SeqMarkov::onBang()
 {
     size_t top_k = top_k_->value();
-    float t = t_->value();
+    const float t = t_->value();
     ceammc_markov_bang_with_config(markov_.get(),
         {
             top_k,
