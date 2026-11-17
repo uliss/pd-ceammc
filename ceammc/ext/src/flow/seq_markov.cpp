@@ -35,7 +35,7 @@ SeqMarkov::SeqMarkov(const PdArgs& args)
     top_k_->checkClosedRange(0, 12);
     addProperty(top_k_);
 
-    t_ =  new FloatProperty("@t", 1);
+    t_ = new FloatProperty("@t", 1);
     t_->checkClosedRange(0, 1024);
     addProperty(t_);
 
@@ -49,7 +49,7 @@ SeqMarkov::SeqMarkov(const PdArgs& args)
 void SeqMarkov::initDone()
 {
     auto order = ceammc_markov_order::Order1;
-    switch(order_->value()) {
+    switch (order_->value()) {
     case 0:
         order = ceammc_markov_order::Order0;
         break;
@@ -118,12 +118,12 @@ void SeqMarkov::onBang()
         });
 }
 
-void SeqMarkov::m_clear(t_symbol *s, const AtomListView &lv)
+void SeqMarkov::m_clear(t_symbol* s, const AtomListView& lv)
 {
     ceammc_markov_clear(markov_.get());
 }
 
-void SeqMarkov::m_reset(t_symbol *s, const AtomListView &lv)
+void SeqMarkov::m_reset(t_symbol* s, const AtomListView& lv)
 {
     ceammc_markov_reset(markov_.get());
 }
@@ -138,15 +138,15 @@ void SeqMarkov::m_train(t_symbol* s, const AtomListView& lv)
     auto d = lv.atomAt(1, Atom());
 
     music::Duration dur;
-    if(!parser::parse_duration(lv.atomAt(1, d), dur)) {
+    if (!parser::parse_duration(lv.atomAt(1, d), dur)) {
         METHOD_ERR(s) << "invalid duration: " << d;
         return;
     }
 
     auto ffi_dur = ceammc_markov_duration::D1;
-    if(dur == music::Duration(1, 1)) {
+    if (dur == music::Duration(1, 1)) {
         ffi_dur = ceammc_markov_duration::D1;
-    } else if(dur == music::Duration(1, 2)) {
+    } else if (dur == music::Duration(1, 2)) {
         ffi_dur = ceammc_markov_duration::D2;
     } else if (dur == music::Duration(1, 4)) {
         ffi_dur = ceammc_markov_duration::D4;
