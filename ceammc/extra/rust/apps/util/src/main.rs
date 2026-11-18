@@ -1,5 +1,6 @@
 use crate::cli::{Cli, Commands, LangName, Pd};
 use crate::common::output_error;
+use crate::dpkg::dpkg_version;
 use crate::repo::{parse_deb_page, rollback_to_version, RPI_APT_REPO_URL};
 use crate::{autostart::ProcessOptions, info::output_info};
 use anyhow::anyhow;
@@ -86,15 +87,18 @@ fn main() -> anyhow::Result<()> {
                     None => println!("lang: {}", cfg.doc_lang.to_string().cyan()),
                 }
             }
-            Pd::Version(ver) => match ver {
-                cli::VersionAct::List => {
-                    let debs = parse_deb_page(RPI_APT_REPO_URL)?;
-                    println!("repository url: {}", RPI_APT_REPO_URL.cyan());
-                    for deb in &debs {
-                        println!("pd-ceammc: {}", deb.info().to_string().cyan())
+            Pd::Version { act } => match act {
+                Some(cmd) => match cmd {
+                    cli::VersionAct::List => {
+                        let debs = parse_deb_page(RPI_APT_REPO_URL)?;
+                        println!("repository url: {}", RPI_APT_REPO_URL.cyan());
+                        for deb in &debs {
+                            println!("pd-ceammc: {}", deb.info().to_string().cyan())
+                        }
                     }
-                }
-                cli::VersionAct::Rollback { version } => rollback_to_version(&version)?,
+                    cli::VersionAct::Rollback { version } => rollback_to_version(&version)?,
+                },
+                None => println!("Installed version: {}", dpkg_version()),
             },
         },
         Commands::Info {

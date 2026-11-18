@@ -62,9 +62,11 @@ pub enum Pd {
         #[arg(short, long)]
         force: bool,
     },
-    #[command(subcommand)]
     /// manage CEAMMC PureData versions
-    Version(VersionAct),
+    Version {
+        #[command(subcommand)]
+        act: Option<VersionAct>,
+    },
 }
 
 #[derive(Clone, Subcommand)]

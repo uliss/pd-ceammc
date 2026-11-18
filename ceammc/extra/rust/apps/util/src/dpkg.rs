@@ -5,6 +5,5 @@ pub fn dpkg_version() -> String {
         .output()
         .ok()
         .map(|x| String::from_utf8(x.stdout).unwrap_or("invalid output".to_string()))
-        .unwrap_or("_".to_string())
+        .unwrap_or("?".to_string())
 }
-
