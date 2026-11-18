@@ -16,38 +16,16 @@ struct m_train_midi_args {
     // props
     enum class PropProcessState { Ok, NotFound, InvalidValue };
     // types
-    struct prop_all_t {
-        int _count {0};
-        operator bool() const {
-            return _count > 0;
-        }
-        static const char* info() {
-            return "@all (extract all notes from all tracks)";
-        }
-        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
-            int matched = 0;
-            AtomListView left_args = lv.arguments();
-            // check extra arguments
-            if (left_args.size()) {
-                if (print_err) {
-                    Error(obj) << "[train_midi @all( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
-                    output_usage(obj);
-                }
-                return false;
-            }
-            return true;
-        }
-    };
     struct prop_index_t {
         int _count {0};
-        t_int value {0}; // track index
+        std::uint8_t value {0}; // track index
         int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
             // check size
             if (lv.size() < 1) {
                 return NOT_ENOUGH_ARGS;
             }
             // check values
-            if (!(lv[0].isInteger() && (lv[0].asT<t_int>() >= 0))) {
+            if (!(lv[0].isInteger() && lv[0].isIntInClosedInterval(0, 255) && (lv[0].asT<t_int>() >= 0))) {
                 return INVALID_VALUE;
             }
             // set value
@@ -59,7 +37,7 @@ struct m_train_midi_args {
             return _count > 0;
         }
         static const char* arg_value_info() {
-            return "VALUE (track index), int >= 0";
+            return "VALUE (track index), byte >= 0";
         }
         static const char* info() {
             return "@index VALUE (specify track index to extract notes)";
@@ -131,7 +109,6 @@ struct m_train_midi_args {
         }
     };
     // vars
-    prop_all_t prop_all; // extract all notes from all tracks
     prop_index_t prop_index; // specify track index to extract notes
     prop_name_t prop_name; // specify track name to extract notes
     // methods
@@ -148,17 +125,6 @@ struct m_train_midi_args {
         file = lv[0].asT<t_symbol*>();
         // number of matched items
         return 1;
-    }
-    PropProcessState process_prop_all (const AtomListView& lv, const BaseObject* obj, bool print_err) {
-        AtomListView prop;
-        if (!lv.getProperty(gensym("@all"), prop)) {
-            return PropProcessState::NotFound;
-        }
-        if (!prop_all.parse_args(prop, obj, print_err)) {
-            return PropProcessState::InvalidValue;
-        }
-        prop_all._count++;
-        return PropProcessState::Ok;
     }
     PropProcessState process_prop_index (const AtomListView& lv, const BaseObject* obj, bool print_err) {
         AtomListView prop;
@@ -186,7 +152,7 @@ struct m_train_midi_args {
         return "FILE (path to midi file), symbol";
     }
     static const char* usage() {
-        return "usage: [train_midi FILE @all? @index? @name?(";
+        return "usage: [train_midi FILE @index? @name?(";
     }
     static void output_usage(const BaseObject* obj) {
         Post(obj) << usage();
@@ -194,7 +160,6 @@ struct m_train_midi_args {
     static void output_usage_verbose(const BaseObject* obj) {
         Error(obj) << usage() << " where:";
         Post(obj) << " - " << arg_file_info();
-        Post(obj) << " - " << prop_all_t::info();
         Post(obj) << " - " << prop_index_t::info();
         Post(obj) << " - " << prop_name_t::info();
     }
@@ -228,24 +193,6 @@ struct m_train_midi_args {
         }
         // check properties
         PropProcessState prop_st = PropProcessState::Ok;
-        prop_st = process_prop_all(lv, obj, print_err);
-        if (prop_st == PropProcessState::InvalidValue) {
-            if (print_err) {
-                Error(obj) << "[train_midi( invalid value for @all property, expected:";
-            }
-            if (print_err) {
-                Post(obj) << prop_all_t::info();
-            }
-            return false;
-        } else if (prop_st == PropProcessState::Ok) {
-            if (prop_all._count > 1) {
-                if (print_err) {
-                    Error(obj) << "too many @all properties are specified";
-                    Error(obj) << "only 0 or 1 entries for property @all are expected";
-                }
-                return false;
-            }
-        }
         prop_st = process_prop_index(lv, obj, print_err);
         if (prop_st == PropProcessState::InvalidValue) {
             if (print_err) {

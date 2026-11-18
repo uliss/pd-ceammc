@@ -11,6 +11,7 @@ OBJECT_STUB_SETUP(SeqMarkov, setup_seq_markov, "seq.markov");
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
 #include "rust_markov.hpp"
+#include "seq_markov_args.hpp"
 
 #include "fmt/core.h"
 
@@ -184,28 +185,37 @@ void SeqMarkov::m_save(t_symbol* s, const AtomListView& lv)
 
 /// @function "train markov from midi file" {
 ///     #file      symbol "path to midi file" {}
-///     @all       ?      "extract all notes from all tracks" {}
 ///     @index     ?      "specify track index to extract notes" {
-///         #value int    "track index" { check: >= 0 }
+///         #value byte   "track index" { check: >= 0 }
 ///     }
 ///     @name      ?      "specify track name to extract notes" {
 ///         #value symbol "track name" {}
 ///     }
 /// }
-void SeqMarkov::m_train_midi(t_symbol *s, const AtomListView &lv)
+void SeqMarkov::m_train_midi(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("MIDI:s");
-    if (!chk.check(lv, this, s))
+    m_train_midi_args args;
+    if (!args.parse_args(lv, this)) {
+        METHOD_ERR(s) << args.usage();
         return;
+    }
 
-    auto path = lv.symbolAt(0, &s_)->s_name;
+    auto path = args.file->s_name;
     auto full_path = findInStdPaths(path);
     if (full_path.empty()) {
         METHOD_ERR(s) << fmt::format("MIDI-file '{}' not found", path);
         return;
     }
 
-    const auto opts = ceammc_markov_train_mode_track_by_index(0);
+    ceammc_markov_train_midi_opts opts {};
+    if (args.prop_index) {
+        opts = ceammc_markov_train_mode_track_by_index(args.prop_index.value);
+    } else if (args.prop_name) {
+        opts = ceammc_markov_train_mode_track_by_name(args.prop_name.value->s_name);
+    } else {
+        opts = ceammc_markov_train_mode_all_tracks();
+    }
+
     ceammc_markov_train_midi(markov_.get(), full_path.c_str(), opts);
 }
 
