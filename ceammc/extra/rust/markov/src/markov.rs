@@ -266,8 +266,10 @@ impl markov {
                                     Ok(())
                                 }
                                 Request::TrainMidi(path, mode) => {
+                                    println!("herea");
                                     match extract_notes_async(path, mode).await {
                                         Ok(notes) => {
+                                            println!("extracted notes: {notes:?}");
                                             for n in &notes {
                                                 let note = markov_note {
                                                     pitch: n.pitch,
@@ -722,6 +724,7 @@ pub extern "C" fn ceammc_markov_train_midi(
             }
         }
     } else {
+        log::error!("invalid path string");
         false
     }
 }

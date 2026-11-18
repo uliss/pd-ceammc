@@ -182,6 +182,16 @@ void SeqMarkov::m_save(t_symbol* s, const AtomListView& lv)
     ceammc_markov_save(markov_.get(), full_path.c_str());
 }
 
+/// @function "train markov from midi file" {
+///     #file      symbol "path to midi file" {}
+///     @all       ?      "extract all notes from all tracks" {}
+///     @index     ?      "specify track index to extract notes" {
+///         #value int    "track index" { check: >= 0 }
+///     }
+///     @name      ?      "specify track name to extract notes" {
+///         #value symbol "track name" {}
+///     }
+/// }
 void SeqMarkov::m_train_midi(t_symbol *s, const AtomListView &lv)
 {
     static const args::ArgChecker chk("MIDI:s");

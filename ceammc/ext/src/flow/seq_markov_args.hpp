@@ -9,6 +9,290 @@
 using namespace ceammc;
 
 namespace {
+struct m_train_midi_args {
+    enum ArgProcessState { NOT_ENOUGH_ARGS = -3, INVALID_VALUE = -1 };
+    // args
+    t_symbol* file {&s_}; // path to midi file
+    // props
+    enum class PropProcessState { Ok, NotFound, InvalidValue };
+    // types
+    struct prop_all_t {
+        int _count {0};
+        operator bool() const {
+            return _count > 0;
+        }
+        static const char* info() {
+            return "@all (extract all notes from all tracks)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[train_midi @all( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    struct prop_index_t {
+        int _count {0};
+        t_int value {0}; // track index
+        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!(lv[0].isInteger() && (lv[0].asT<t_int>() >= 0))) {
+                return INVALID_VALUE;
+            }
+            // set value
+            value = lv[0].asT<t_int>();
+            // number of matched items
+            return 1;
+        }
+        operator bool() const {
+            return _count > 0;
+        }
+        static const char* arg_value_info() {
+            return "VALUE (track index), int >= 0";
+        }
+        static const char* info() {
+            return "@index VALUE (specify track index to extract notes)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_value(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[train_midi @index( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    struct prop_name_t {
+        int _count {0};
+        t_symbol* value {&s_}; // track name
+        int process_value(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            // check size
+            if (lv.size() < 1) {
+                return NOT_ENOUGH_ARGS;
+            }
+            // check values
+            if (!lv[0].isSymbol()) {
+                return INVALID_VALUE;
+            }
+            // set value
+            value = lv[0].asT<t_symbol*>();
+            // number of matched items
+            return 1;
+        }
+        operator bool() const {
+            return _count > 0;
+        }
+        static const char* arg_value_info() {
+            return "VALUE (track name), symbol";
+        }
+        static const char* info() {
+            return "@name VALUE (specify track name to extract notes)";
+        }
+        bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+            int matched = 0;
+            AtomListView left_args = lv.arguments();
+            matched = process_value(left_args, obj, print_err);
+            if (matched >= 0) {
+                left_args = left_args.subView(matched);
+            } else {
+                return false;
+            }
+            // check extra arguments
+            if (left_args.size()) {
+                if (print_err) {
+                    Error(obj) << "[train_midi @name( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                    output_usage(obj);
+                }
+                return false;
+            }
+            return true;
+        }
+    };
+    // vars
+    prop_all_t prop_all; // extract all notes from all tracks
+    prop_index_t prop_index; // specify track index to extract notes
+    prop_name_t prop_name; // specify track name to extract notes
+    // methods
+    int process_file(const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        // check size
+        if (lv.size() < 1) {
+            return NOT_ENOUGH_ARGS;
+        }
+        // check values
+        if (!lv[0].isSymbol()) {
+            return INVALID_VALUE;
+        }
+        // set value
+        file = lv[0].asT<t_symbol*>();
+        // number of matched items
+        return 1;
+    }
+    PropProcessState process_prop_all (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@all"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_all.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_all._count++;
+        return PropProcessState::Ok;
+    }
+    PropProcessState process_prop_index (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@index"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_index.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_index._count++;
+        return PropProcessState::Ok;
+    }
+    PropProcessState process_prop_name (const AtomListView& lv, const BaseObject* obj, bool print_err) {
+        AtomListView prop;
+        if (!lv.getProperty(gensym("@name"), prop)) {
+            return PropProcessState::NotFound;
+        }
+        if (!prop_name.parse_args(prop, obj, print_err)) {
+            return PropProcessState::InvalidValue;
+        }
+        prop_name._count++;
+        return PropProcessState::Ok;
+    }
+    static const char* arg_file_info() {
+        return "FILE (path to midi file), symbol";
+    }
+    static const char* usage() {
+        return "usage: [train_midi FILE @all? @index? @name?(";
+    }
+    static void output_usage(const BaseObject* obj) {
+        Post(obj) << usage();
+    }
+    static void output_usage_verbose(const BaseObject* obj) {
+        Error(obj) << usage() << " where:";
+        Post(obj) << " - " << arg_file_info();
+        Post(obj) << " - " << prop_all_t::info();
+        Post(obj) << " - " << prop_index_t::info();
+        Post(obj) << " - " << prop_name_t::info();
+    }
+    bool parse_args(const AtomListView& lv, const BaseObject* obj, bool print_err = true) {
+        int matched = 0;
+        AtomListView left_args = lv.arguments();
+        matched = process_file(left_args, obj, print_err);
+        if (matched >= 0) {
+            left_args = left_args.subView(matched);
+        } else {
+            if (print_err) {
+                if (matched == NOT_ENOUGH_ARGS) {
+                    Error(obj) << "[train_midi( argument #0 'FILE' is required:";
+                    Post(obj) << " - " << arg_file_info();
+                    output_usage(obj);
+                } else if (matched == INVALID_VALUE) {
+                    Error(obj) << "[train_midi( argument #0 'FILE' check failed, expected:";
+                    Post(obj) << " - " << arg_file_info();
+                    output_usage_verbose(obj);
+                }
+            }
+            return false;
+        }
+        // check extra arguments
+        if (left_args.size()) {
+            if (print_err) {
+                Error(obj) << "[train_midi( " << left_args.size() << " unexpected extra arguments were found: " << left_args;
+                output_usage(obj);
+            }
+            return false;
+        }
+        // check properties
+        PropProcessState prop_st = PropProcessState::Ok;
+        prop_st = process_prop_all(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[train_midi( invalid value for @all property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_all_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_all._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @all properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @all are expected";
+                }
+                return false;
+            }
+        }
+        prop_st = process_prop_index(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[train_midi( invalid value for @index property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_index_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_index._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @index properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @index are expected";
+                }
+                return false;
+            }
+        }
+        prop_st = process_prop_name(lv, obj, print_err);
+        if (prop_st == PropProcessState::InvalidValue) {
+            if (print_err) {
+                Error(obj) << "[train_midi( invalid value for @name property, expected:";
+            }
+            if (print_err) {
+                Post(obj) << prop_name_t::info();
+            }
+            return false;
+        } else if (prop_st == PropProcessState::Ok) {
+            if (prop_name._count > 1) {
+                if (print_err) {
+                    Error(obj) << "too many @name properties are specified";
+                    Error(obj) << "only 0 or 1 entries for property @name are expected";
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+const char* m_train_midi_args_info() {
+    return "train markov from midi file";
+}
+void m_train_midi_args_info_output(const BaseObject* obj) {
+    logpost(obj ? static_cast<void*>(obj->owner()) : nullptr,
+        PD_NORMAL, "%s", m_train_midi_args_info());
+}
 } // namespace 
 
 #endif // SEQ_MARKOV_ARGS_HPP_
