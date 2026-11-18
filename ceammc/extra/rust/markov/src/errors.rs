@@ -49,9 +49,6 @@ pub enum markov_error {
     #[error("invalid midi train mode: {msg}")]
     InvalidMidiTrainMode { msg: String },
 
-    #[error("task join error: {msg}")]
-    TokioTaskJoinError { msg: String },
-
     #[error("midi parse error: {msg}")]
     MidiParseError { msg: String },
 

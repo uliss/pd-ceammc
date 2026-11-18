@@ -42,9 +42,7 @@ pub async fn extract_notes_async<P: AsRef<Path> + std::fmt::Debug>(
             msg: e.to_string(),
         })?;
 
-    tokio::task::spawn_blocking(move || extract_notes_from_bytes(&data, mode))
-        .await
-        .map_err(|e| markov_error::TokioTaskJoinError { msg: e.to_string() })?
+    extract_notes_from_bytes(&data, mode)
 }
 
 /// Synchronous core: parses MIDI bytes and extracts notes.
