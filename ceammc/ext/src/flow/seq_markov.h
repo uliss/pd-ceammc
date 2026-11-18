@@ -30,8 +30,11 @@ public:
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_train(t_symbol* s, const AtomListView& lv);
+
+    void m_load(t_symbol* s, const AtomListView& lv);
+    void m_save(t_symbol* s, const AtomListView& lv);
 };
-}
+} // namespace ceammc
 
 void setup_seq_markov();
 

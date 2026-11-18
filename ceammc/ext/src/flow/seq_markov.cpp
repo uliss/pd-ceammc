@@ -1,3 +1,4 @@
+#include "ceammc_platform.h"
 #ifndef WITH_MARKOV
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(SeqMarkov, 1, 1, "compiled without Markov chains support");
@@ -107,7 +108,7 @@ bool SeqMarkov::notify(int code)
 
 void SeqMarkov::onBang()
 {
-    size_t top_k = top_k_->value();
+    const size_t top_k = top_k_->value();
     const float t = t_->value();
     ceammc_markov_bang_with_config(markov_.get(),
         {
@@ -130,11 +131,11 @@ void SeqMarkov::m_reset(t_symbol* s, const AtomListView& lv)
 
 void SeqMarkov::m_train(t_symbol* s, const AtomListView& lv)
 {
-    args::ArgChecker chk("PITCH1:i[0,127] DUR1:a?");
+    static const args::ArgChecker chk("PITCH1:i[0,127] DUR1:a?");
     if (!chk.check(lv, this, s))
         return;
 
-    std::uint8_t pitch = lv.intAt(0, -1);
+    const std::uint8_t pitch = lv.intAt(0, -1);
     auto d = lv.atomAt(1, Atom());
 
     music::Duration dur;
@@ -155,6 +156,32 @@ void SeqMarkov::m_train(t_symbol* s, const AtomListView& lv)
     ceammc_markov_train(markov_.get(), ceammc_markov_note { pitch, ffi_dur });
 }
 
+void SeqMarkov::m_load(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("PATH:s");
+    if (!chk.check(lv, this, s))
+        return;
+
+    auto path = lv.symbolAt(0, &s_)->s_name;
+    auto full_path = findInStdPaths(path);
+    if (full_path.empty()) {
+        METHOD_ERR(s) << fmt::format("file '{}' not found", path);
+        return;
+    }
+
+    ceammc_markov_load(markov_.get(), full_path.c_str());
+}
+
+void SeqMarkov::m_save(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("PATH:s");
+    if (!chk.check(lv, this, s))
+        return;
+
+    auto full_path = platform::make_abs_filepath_with_canvas(canvas(), lv.symbolAt(0, &s_)->s_name);
+    ceammc_markov_save(markov_.get(), full_path.c_str());
+}
+
 void setup_seq_markov()
 {
     ObjectFactory<SeqMarkov> obj("seq.markov");
@@ -162,6 +189,8 @@ void setup_seq_markov()
     obj.addMethod("clear", &SeqMarkov::m_clear);
     obj.addMethod("reset", &SeqMarkov::m_reset);
     obj.addMethod("train", &SeqMarkov::m_train);
+    obj.addMethod("load", &SeqMarkov::m_load);
+    obj.addMethod("save", &SeqMarkov::m_save);
 }
 
 #endif
