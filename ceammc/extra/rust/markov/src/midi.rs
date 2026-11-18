@@ -2,6 +2,8 @@ use midly::{MetaMessage, MidiMessage, Smf, TrackEventKind};
 use std::collections::HashMap;
 use std::path::Path;
 
+use crate::errors::markov_error;
+
 /// Note extraction mode
 #[derive(Debug, Clone)]
 pub enum ExtractMode {
@@ -29,34 +31,36 @@ pub struct Note {
 }
 
 /// Reads a MIDI file asynchronously and extracts notes according to the given mode.
-pub async fn extract_notes_async<P: AsRef<Path>>(
+pub async fn extract_notes_async<P: AsRef<Path> + std::fmt::Debug>(
     path: P,
     mode: ExtractMode,
-) -> Result<Vec<Note>, String> {
-    let data = tokio::fs::read(path)
+) -> Result<Vec<Note>, markov_error> {
+    let data = tokio::fs::read(&path)
         .await
-        .map_err(|e| format!("Failed to read file: {}", e))?;
+        .map_err(|e| markov_error::FSReadError {
+            path: format!("{path:?}"),
+            msg: e.to_string(),
+        })?;
 
     tokio::task::spawn_blocking(move || extract_notes_from_bytes(&data, mode))
         .await
-        .map_err(|e| format!("Task join error: {}", e))?
+        .map_err(|e| markov_error::TokioTaskJoinError { msg: e.to_string() })?
 }
 
 /// Synchronous core: parses MIDI bytes and extracts notes.
 /// Kept public so it can be reused or tested without a runtime.
-pub fn extract_notes_from_bytes(data: &[u8], mode: ExtractMode) -> Result<Vec<Note>, String> {
-    let smf = Smf::parse(data).map_err(|e| format!("MIDI parse error: {}", e))?;
+pub fn extract_notes_from_bytes(data: &[u8], mode: ExtractMode) -> Result<Vec<Note>, markov_error> {
+    let smf = Smf::parse(data).map_err(|e| markov_error::MidiParseError { msg: e.to_string() })?;
 
     // Determine which tracks to process
     let track_indices: Vec<usize> = match mode {
         ExtractMode::AllTracks => (0..smf.tracks.len()).collect(),
         ExtractMode::TrackByIndex(idx) => {
             if idx >= smf.tracks.len() {
-                return Err(format!(
-                    "Track with index {} not found (total tracks: {})",
+                return Err(markov_error::TrackIndexNotFound {
                     idx,
-                    smf.tracks.len()
-                ));
+                    total: smf.tracks.len(),
+                });
             }
             vec![idx]
         }
@@ -79,7 +83,7 @@ pub fn extract_notes_from_bytes(data: &[u8], mode: ExtractMode) -> Result<Vec<No
             }
             match found {
                 Some(i) => vec![i],
-                None => return Err(format!("Track with name '{}' not found", name)),
+                None => return Err(markov_error::TrackNameNotFound { name: name.clone() }),
             }
         }
     };
@@ -279,7 +283,7 @@ mod tests {
 
         let data = build_smf(vec![t0]);
         let err = extract_notes_from_bytes(&data, ExtractMode::TrackByIndex(5)).unwrap_err();
-        assert!(err.contains("not found"));
+        assert_eq!(err, markov_error::TrackIndexNotFound { idx: 5, total: 1 });
     }
 
     #[test]
@@ -314,7 +318,12 @@ mod tests {
         let err =
             extract_notes_from_bytes(&data, ExtractMode::TrackByName("Nonexistent".to_string()))
                 .unwrap_err();
-        assert!(err.contains("not found"));
+        assert_eq!(
+            err,
+            markov_error::TrackNameNotFound {
+                name: "Nonexistent".into()
+            }
+        );
     }
 
     #[test]
@@ -336,7 +345,12 @@ mod tests {
     #[test]
     fn test_midi_parse_error() {
         let err = extract_notes_from_bytes(b"not a midi file", ExtractMode::AllTracks).unwrap_err();
-        assert!(err.contains("MIDI parse error"));
+        assert_eq!(
+            err,
+            markov_error::MidiParseError {
+                msg: "invalid midi: not a midi file".into()
+            }
+        );
     }
 
     #[tokio::test]
@@ -344,7 +358,13 @@ mod tests {
         let err = extract_notes_async("/nonexistent/path/to/file.mid", ExtractMode::AllTracks)
             .await
             .unwrap_err();
-        assert!(err.contains("Failed to read file"));
+        assert_eq!(
+            err,
+            markov_error::FSReadError {
+                path: "\"/nonexistent/path/to/file.mid\"".into(),
+                msg: "No such file or directory (os error 2)".into()
+            }
+        );
     }
 
     #[tokio::test]

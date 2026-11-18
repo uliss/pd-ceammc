@@ -182,6 +182,23 @@ void SeqMarkov::m_save(t_symbol* s, const AtomListView& lv)
     ceammc_markov_save(markov_.get(), full_path.c_str());
 }
 
+void SeqMarkov::m_train_midi(t_symbol *s, const AtomListView &lv)
+{
+    static const args::ArgChecker chk("MIDI:s");
+    if (!chk.check(lv, this, s))
+        return;
+
+    auto path = lv.symbolAt(0, &s_)->s_name;
+    auto full_path = findInStdPaths(path);
+    if (full_path.empty()) {
+        METHOD_ERR(s) << fmt::format("MIDI-file '{}' not found", path);
+        return;
+    }
+
+    const auto opts = ceammc_markov_train_mode_track_by_index(0);
+    ceammc_markov_train_midi(markov_.get(), full_path.c_str(), opts);
+}
+
 void setup_seq_markov()
 {
     ObjectFactory<SeqMarkov> obj("seq.markov");
@@ -191,6 +208,7 @@ void setup_seq_markov()
     obj.addMethod("train", &SeqMarkov::m_train);
     obj.addMethod("load", &SeqMarkov::m_load);
     obj.addMethod("save", &SeqMarkov::m_save);
+    obj.addMethod("train_midi", &SeqMarkov::m_train_midi);
 }
 
 #endif

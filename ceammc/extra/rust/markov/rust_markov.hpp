@@ -364,7 +364,7 @@ bool ceammc_markov_train_midi(ceammc_markov *m,
 /// - `extract_mode` is set to `AllTracks`
 /// - `track_index` is 0 (unused in this mode)
 /// - `track_name` is null (unused in this mode)
-ceammc_markov_train_midi_opts markov_train_mode_all_tracks();
+ceammc_markov_train_midi_opts ceammc_markov_train_mode_all_tracks();
 
 /// Creates options for training on a single track identified by its index.
 ///
@@ -372,7 +372,7 @@ ceammc_markov_train_midi_opts markov_train_mode_all_tracks();
 /// - `extract_mode` is set to `TrackByIndex`
 /// - `track_index` is set to `index`
 /// - `track_name` is null (unused in this mode)
-ceammc_markov_train_midi_opts markov_train_mode_track_by_index(uint8_t index);
+ceammc_markov_train_midi_opts ceammc_markov_train_mode_track_by_index(uint8_t index);
 
 /// Creates options for training on a single track identified by its name.
 ///
@@ -385,7 +385,7 @@ ceammc_markov_train_midi_opts markov_train_mode_track_by_index(uint8_t index);
 /// `name` must be a valid null-terminated C string that stays alive for the
 /// lifetime of the returned options. The caller is responsible for keeping
 /// the pointed-to buffer valid until the options are consumed by the trainer.
-ceammc_markov_train_midi_opts markov_train_mode_track_by_name(const char *name);
+ceammc_markov_train_midi_opts ceammc_markov_train_mode_track_by_name(const char *name);
 
 }  // extern "C"
 

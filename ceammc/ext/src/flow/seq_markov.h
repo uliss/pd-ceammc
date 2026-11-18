@@ -33,6 +33,7 @@ public:
 
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_save(t_symbol* s, const AtomListView& lv);
+    void m_train_midi(t_symbol* s, const AtomListView& lv);
 };
 } // namespace ceammc
 

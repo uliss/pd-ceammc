@@ -277,7 +277,7 @@ impl markov {
                                             }
                                         }
                                         Err(err) => out_chan
-                                            .send_msg(WorkerMessage::error(err))
+                                            .send_msg(WorkerMessage::error(err.to_string()))
                                             .to_worker_result()?,
                                     }
 
@@ -625,7 +625,7 @@ pub struct markov_train_midi_opts {
 /// - `track_index` is 0 (unused in this mode)
 /// - `track_name` is null (unused in this mode)
 #[no_mangle]
-pub extern "C" fn markov_train_mode_all_tracks() -> markov_train_midi_opts {
+pub extern "C" fn ceammc_markov_train_mode_all_tracks() -> markov_train_midi_opts {
     markov_train_midi_opts {
         num_notes: 0,
         extract_mode: markov_train_midi_mode::AllTracks,
@@ -641,7 +641,7 @@ pub extern "C" fn markov_train_mode_all_tracks() -> markov_train_midi_opts {
 /// - `track_index` is set to `index`
 /// - `track_name` is null (unused in this mode)
 #[no_mangle]
-pub extern "C" fn markov_train_mode_track_by_index(index: u8) -> markov_train_midi_opts {
+pub extern "C" fn ceammc_markov_train_mode_track_by_index(index: u8) -> markov_train_midi_opts {
     markov_train_midi_opts {
         num_notes: 0,
         extract_mode: markov_train_midi_mode::TrackByIndex,
@@ -662,7 +662,9 @@ pub extern "C" fn markov_train_mode_track_by_index(index: u8) -> markov_train_mi
 /// lifetime of the returned options. The caller is responsible for keeping
 /// the pointed-to buffer valid until the options are consumed by the trainer.
 #[no_mangle]
-pub extern "C" fn markov_train_mode_track_by_name(name: *const c_char) -> markov_train_midi_opts {
+pub extern "C" fn ceammc_markov_train_mode_track_by_name(
+    name: *const c_char,
+) -> markov_train_midi_opts {
     markov_train_midi_opts {
         num_notes: 0,
         extract_mode: markov_train_midi_mode::TrackByName,
