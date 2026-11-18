@@ -134,31 +134,31 @@ fn main() -> anyhow::Result<()> {
                 output_error(&err);
             }
         }
-        Commands::System(system) => {
-            match match system {
-                cli::System::Fs(act) => {
-                    match act {
-                        cli::FileSystem::Readonly => cli::System::Readwrite => system::enable_overlayfs(true),
-                        cli::FileSystem::Readwrite => cli::System::Readwrite => system::enable_overlayfs(false),
-                    }
-                    Ok(())
-
-                },
-                cli::System::FileShare(act) => samba::file_share(act),
-            } {
-                Ok(value) => match value {
-                    system::OverlayFsState::Changed(new_state) => {
-                        log::info!("OverlayFS: {new_state}");
-                        log::warn!("You should reboot your computer to apply the changes");
-                    }
-                    system::OverlayFsState::NoChange(state) => {
-                        let status = if state { "enabled" } else { "disabled" };
-                        log::info!("OverlayFS is already {status}. Nothing to do");
-                    }
-                },
-                Err(err) => output_error(&err),
+        Commands::System(system) => match system {
+            cli::System::Fs(act) => {
+                let res = match act {
+                    cli::FileSystem::Readonly => system::enable_overlayfs(true),
+                    cli::FileSystem::Readwrite => system::enable_overlayfs(false),
+                };
+                match res {
+                    Ok(value) => match value {
+                        system::OverlayFsState::NoChange(state) => {
+                            let status = if state { "enabled" } else { "disabled" };
+                            log::info!("OverlayFS is already {status}. Nothing to do");
+                        }
+                        system::OverlayFsState::Changed(new_state) => {
+                            log::info!("OverlayFS: {new_state}");
+                            log::warn!("You should reboot your computer to apply the changes");
+                        }
+                    },
+                    Err(err) => output_error(&err),
+                };
             }
-        }
+            cli::System::FileShare(act) => match samba::file_share(act) {
+                Ok(_) => {}
+                Err(err) => output_error(&err),
+            },
+        },
     }
 
     Ok(())

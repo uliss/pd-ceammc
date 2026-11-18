@@ -7,9 +7,9 @@ const WAYFIRE_CONFIG_XCB_SECTION: &'static str = "input";
 const WAYFIRE_CONFIG_XCB_LAYOUT: &'static str = "xkb_layout";
 const WAYFIRE_CONFIG_XCB_OPTIONS: &'static str = "xkb_options";
 
-pub enum LayoutChange {
-    AltShift,
-}
+// pub enum LayoutChange {
+//     AltShift,
+// }
 
 #[derive(Debug)]
 pub enum LayoutIndicator {
