@@ -12,7 +12,15 @@ pub fn enable_overlayfs(new_state: bool) -> Result<bool, Error> {
         Ok(new_state)
     } else {
         let output = Command::new("sudo")
-            .args(["raspi-config", "nonint", "enable_overlayfs"])
+            .args([
+                "raspi-config",
+                "nonint",
+                if new_state {
+                    "enable_overlayfs"
+                } else {
+                    "disable_overlayfs"
+                },
+            ])
             .output()
             .map_err(|e| {
                 Error::SystemConfigError(format!("failed to run sudo raspi-config: {}", e))
