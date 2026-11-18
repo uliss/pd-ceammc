@@ -1,4 +1,7 @@
-use std::ffi::{c_char, c_void};
+use std::{
+    ffi::{c_char, c_void},
+    ptr::null,
+};
 
 use ceammc_rs_msg::{cstr_to_string, msg_cb, msg_notify, TokioClient, WorkerMessage};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
@@ -8,6 +11,7 @@ use crate::{
     chain::{markov_sample_config, MarkovChain},
     errors::markov_error,
     markov::markov_order::{Order0, Order1, Order2},
+    midi::{extract_notes_async, ExtractMode},
 };
 
 /// Quantized note duration used as the second component of a Markov state.
@@ -138,6 +142,8 @@ enum Request {
     Save(String),
     /// Load chain from the file
     Load(String),
+    /// Load chain from the file
+    TrainMidi(String, ExtractMode),
 }
 
 /// Replies sent from the worker thread back to the control thread.
@@ -184,11 +190,7 @@ impl markov {
                         .recv_loop(&mut async |req| -> Result<(), String> {
                             match req {
                                 Request::Train(markov_note) => {
-                                    if let Err(err) = markov_gen.train(markov_note) {
-                                        out_chan
-                                            .send_msg(WorkerMessage::error(err.to_string()))
-                                            .to_worker_result()?
-                                    }
+                                    markov_gen.train(markov_note);
                                     Ok(())
                                 }
                                 Request::Bang => {
@@ -261,6 +263,24 @@ impl markov {
                                             .send_msg(WorkerMessage::error(err.to_string()))
                                             .to_worker_result()?
                                     }
+                                    Ok(())
+                                }
+                                Request::TrainMidi(path, mode) => {
+                                    match extract_notes_async(path, mode).await {
+                                        Ok(notes) => {
+                                            for n in &notes {
+                                                let note = markov_note {
+                                                    pitch: n.pitch,
+                                                    dur_bin: markov_duration::D4,
+                                                };
+                                                markov_gen.train(note);
+                                            }
+                                        }
+                                        Err(err) => out_chan
+                                            .send_msg(WorkerMessage::error(err))
+                                            .to_worker_result()?,
+                                    }
+
                                     Ok(())
                                 }
                             }
@@ -578,6 +598,127 @@ pub extern "C" fn ceammc_markov_save(m: *mut markov, path: *const c_char) -> boo
 pub extern "C" fn ceammc_markov_load(m: *mut markov, path: *const c_char) -> bool {
     if let Some(path) = cstr_to_string(path) {
         markov::send_request(m, Request::Load(path))
+    } else {
+        false
+    }
+}
+
+#[repr(C)]
+pub enum markov_train_midi_mode {
+    AllTracks,
+    TrackByIndex,
+    TrackByName,
+}
+
+#[repr(C)]
+pub struct markov_train_midi_opts {
+    num_notes: i64,
+    extract_mode: markov_train_midi_mode,
+    track_index: u8,
+    track_name: *const c_char,
+}
+
+/// Creates default options for training on all tracks of a MIDI file.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `AllTracks`
+/// - `track_index` is 0 (unused in this mode)
+/// - `track_name` is null (unused in this mode)
+#[no_mangle]
+pub extern "C" fn markov_train_mode_all_tracks() -> markov_train_midi_opts {
+    markov_train_midi_opts {
+        num_notes: 0,
+        extract_mode: markov_train_midi_mode::AllTracks,
+        track_index: 0,
+        track_name: null(),
+    }
+}
+
+/// Creates options for training on a single track identified by its index.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `TrackByIndex`
+/// - `track_index` is set to `index`
+/// - `track_name` is null (unused in this mode)
+#[no_mangle]
+pub extern "C" fn markov_train_mode_track_by_index(index: u8) -> markov_train_midi_opts {
+    markov_train_midi_opts {
+        num_notes: 0,
+        extract_mode: markov_train_midi_mode::TrackByIndex,
+        track_index: index,
+        track_name: null(),
+    }
+}
+
+/// Creates options for training on a single track identified by its name.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `TrackByName`
+/// - `track_index` is 0 (unused in this mode)
+/// - `track_name` is set to `name`
+///
+/// # Safety
+/// `name` must be a valid null-terminated C string that stays alive for the
+/// lifetime of the returned options. The caller is responsible for keeping
+/// the pointed-to buffer valid until the options are consumed by the trainer.
+#[no_mangle]
+pub extern "C" fn markov_train_mode_track_by_name(name: *const c_char) -> markov_train_midi_opts {
+    markov_train_midi_opts {
+        num_notes: 0,
+        extract_mode: markov_train_midi_mode::TrackByName,
+        track_index: 0,
+        track_name: name,
+    }
+}
+
+impl TryInto<ExtractMode> for markov_train_midi_opts {
+    type Error = markov_error;
+
+    fn try_into(self) -> Result<ExtractMode, Self::Error> {
+        match self.extract_mode {
+            markov_train_midi_mode::AllTracks => Ok(ExtractMode::AllTracks),
+            markov_train_midi_mode::TrackByIndex => {
+                Ok(ExtractMode::TrackByIndex(self.track_index.into()))
+            }
+            markov_train_midi_mode::TrackByName => {
+                let track_name = cstr_to_string(self.track_name).ok_or_else(|| {
+                    markov_error::InvalidMidiTrainMode {
+                        msg: format!("invalid track name"),
+                    }
+                })?;
+                Ok(ExtractMode::TrackByName(track_name))
+            }
+        }
+    }
+}
+
+/// Trains the Markov chain on notes extracted from a MIDI file.
+///
+/// # Parameters
+/// - `m` — raw pointer to the Markov chain instance.
+/// - `midi_file` — null-terminated C string with the path to the MIDI file.
+///   Must be a valid C string; the function makes its own owned copy.
+/// - `opts` — plain-data options describing which notes to extract. The
+///   `track_name` field, if used, must point to a valid null-terminated
+///   string that stays alive for the duration of this call.
+///
+/// # Returns
+/// - `true` if the request was queued successfully.
+/// - `false`otherwise
+#[no_mangle]
+pub extern "C" fn ceammc_markov_train_midi(
+    m: *mut markov,
+    midi_file: *const c_char,
+    opts: markov_train_midi_opts,
+) -> bool {
+    if let Some(path) = cstr_to_string(midi_file) {
+        match opts.try_into() {
+            Ok(mode) => markov::send_request(m, Request::TrainMidi(path, mode)),
+            Err(err) => {
+                log::error!("error: {err}");
+                false
+            }
+        }
     } else {
         false
     }

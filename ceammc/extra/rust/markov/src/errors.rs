@@ -45,4 +45,7 @@ pub enum markov_error {
 
     #[error("error '{msg}' while reading from file: '{path}'")]
     FSReadError { path: String, msg: String },
+
+    #[error("invalid midi train mode: {msg}")]
+    InvalidMidiTrainMode { msg: String },
 }

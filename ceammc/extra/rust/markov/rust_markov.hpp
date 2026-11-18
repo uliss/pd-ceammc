@@ -69,6 +69,12 @@ enum class ceammc_markov_order : uint8_t {
     Order2,
 };
 
+enum class ceammc_markov_train_midi_mode {
+    AllTracks,
+    TrackByIndex,
+    TrackByName,
+};
+
 /// Opaque handle to a Markov chain generator, owned by the C side.
 ///
 /// The C side holds a `*mut markov` and must call [`ceammc_markov_free`]
@@ -109,6 +115,13 @@ struct ceammc_markov_cb {
     void *user;
     /// Callback function pointer; `None` means "do nothing".
     void (*cb)(void *user, ceammc_markov_note note);
+};
+
+struct ceammc_markov_train_midi_opts {
+    int64_t num_notes;
+    ceammc_markov_train_midi_mode extract_mode;
+    uint8_t track_index;
+    const char *track_name;
 };
 
 
@@ -327,6 +340,52 @@ bool ceammc_markov_set_seed(ceammc_markov *m, uint32_t seed);
 /// # Safety
 /// `m` must be a valid handle from [`ceammc_markov_new`].
 bool ceammc_markov_train(ceammc_markov *m, ceammc_markov_note note);
+
+/// Trains the Markov chain on notes extracted from a MIDI file.
+///
+/// # Parameters
+/// - `m` — raw pointer to the Markov chain instance.
+/// - `midi_file` — null-terminated C string with the path to the MIDI file.
+///   Must be a valid C string; the function makes its own owned copy.
+/// - `opts` — plain-data options describing which notes to extract. The
+///   `track_name` field, if used, must point to a valid null-terminated
+///   string that stays alive for the duration of this call.
+///
+/// # Returns
+/// - `true` if the request was queued successfully.
+/// - `false`otherwise
+bool ceammc_markov_train_midi(ceammc_markov *m,
+                              const char *midi_file,
+                              ceammc_markov_train_midi_opts opts);
+
+/// Creates default options for training on all tracks of a MIDI file.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `AllTracks`
+/// - `track_index` is 0 (unused in this mode)
+/// - `track_name` is null (unused in this mode)
+ceammc_markov_train_midi_opts markov_train_mode_all_tracks();
+
+/// Creates options for training on a single track identified by its index.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `TrackByIndex`
+/// - `track_index` is set to `index`
+/// - `track_name` is null (unused in this mode)
+ceammc_markov_train_midi_opts markov_train_mode_track_by_index(uint8_t index);
+
+/// Creates options for training on a single track identified by its name.
+///
+/// - `num_notes` is set to 0 (no limit)
+/// - `extract_mode` is set to `TrackByName`
+/// - `track_index` is 0 (unused in this mode)
+/// - `track_name` is set to `name`
+///
+/// # Safety
+/// `name` must be a valid null-terminated C string that stays alive for the
+/// lifetime of the returned options. The caller is responsible for keeping
+/// the pointed-to buffer valid until the options are consumed by the trainer.
+ceammc_markov_train_midi_opts markov_train_mode_track_by_name(const char *name);
 
 }  // extern "C"
 
