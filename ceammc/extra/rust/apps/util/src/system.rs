@@ -2,14 +2,15 @@ use std::process::Command;
 
 use crate::common::Error;
 
-pub fn enable_overlayfs(new_state: bool) -> Result<bool, Error> {
+pub enum OverlayFsState {
+    Changed(bool),
+    NoChange(bool),
+}
+
+pub fn enable_overlayfs(new_state: bool) -> Result<OverlayFsState, Error> {
     let current_state = get_overlay_status()?;
     if current_state == new_state {
-        log::info!(
-            "OverlayFS already {}. Nothing to do",
-            if new_state { "enabled" } else { "disabled" }
-        );
-        Ok(new_state)
+        Ok(OverlayFsState::NoChange(new_state))
     } else {
         let output = Command::new("sudo")
             .args([
@@ -27,7 +28,7 @@ pub fn enable_overlayfs(new_state: bool) -> Result<bool, Error> {
             })?;
 
         if output.status.success() {
-            Ok(new_state)
+            Ok(OverlayFsState::Changed(new_state))
         } else {
             Err(Error::SystemConfigError(format!(
                 "failed to enable overlayfs: {}",

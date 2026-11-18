@@ -138,7 +138,16 @@ fn main() -> anyhow::Result<()> {
                 cli::System::Readonly => system::enable_overlayfs(true),
                 cli::System::Readwrite => system::enable_overlayfs(false),
             } {
-                Ok(value) => log::info!("OverlayFS: {value}"),
+                Ok(value) => match value {
+                    system::OverlayFsState::Changed(new_state) => {
+                        log::info!("OverlayFS: {new_state}");
+                        log::warn!("You should reboot your computer to apply the changes");
+                    }
+                    system::OverlayFsState::NoChange(state) => {
+                        let status = if state { "enabled" } else { "disabled" };
+                        log::info!("OverlayFS is already {status}. Nothing to do");
+                    }
+                },
                 Err(err) => output_error(&err),
             }
         }
