@@ -84,11 +84,31 @@ pub enum Keyboard {
 }
 
 #[derive(Clone, Subcommand)]
-pub enum System {
+pub enum FileShare {
+    /// enable service autostart and start it
+    Enable,
+    /// disable service autostart and stop it
+    Disable,
+    /// show service status
+    Status,
+}
+
+#[derive(Clone, Subcommand)]
+pub enum FileSystem {
     /// Switch the root filesystem to read-only mode (OverlayFS)
     Readonly,
     /// Switch the root filesystem back to read-write mode
     Readwrite,
+}
+
+#[derive(Clone, Subcommand)]
+pub enum System {
+    /// OverlayFS managements
+    #[command(subcommand)]
+    Fs(FileSystem),
+    /// Samba file sharing management
+    #[command(subcommand)]
+    FileShare(FileShare),
 }
 
 /// CEAM utilities

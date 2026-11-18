@@ -18,6 +18,7 @@ mod common;
 mod dpkg;
 mod info;
 mod repo;
+mod samba;
 mod system;
 mod update;
 mod wayfire;
@@ -135,8 +136,15 @@ fn main() -> anyhow::Result<()> {
         }
         Commands::System(system) => {
             match match system {
-                cli::System::Readonly => system::enable_overlayfs(true),
-                cli::System::Readwrite => system::enable_overlayfs(false),
+                cli::System::Fs(act) => {
+                    match act {
+                        cli::FileSystem::Readonly => cli::System::Readwrite => system::enable_overlayfs(true),
+                        cli::FileSystem::Readwrite => cli::System::Readwrite => system::enable_overlayfs(false),
+                    }
+                    Ok(())
+
+                },
+                cli::System::FileShare(act) => samba::file_share(act),
             } {
                 Ok(value) => match value {
                     system::OverlayFsState::Changed(new_state) => {
