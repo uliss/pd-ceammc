@@ -34,6 +34,7 @@ pub enum Error {
     SymlinkError(PathBuf, PathBuf, String),
     NotSymlink(PathBuf),
     IOError(String, String, PathBuf),
+    SystemConfigError(String),
 }
 
 impl Error {
@@ -87,6 +88,9 @@ pub fn output_error(err: &Error) {
                 "IO error while {while_op}: {err} ({})",
                 path.to_string_lossy().as_ref().cyan(),
             )
+        }
+        Error::SystemConfigError(msg) => {
+            error!("system config error: {}", msg.cyan())
         }
     }
 }

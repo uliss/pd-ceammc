@@ -18,6 +18,7 @@ mod common;
 mod dpkg;
 mod info;
 mod repo;
+mod system;
 mod update;
 mod wayfire;
 mod xdg;
@@ -130,6 +131,15 @@ fn main() -> anyhow::Result<()> {
                 }
             } {
                 output_error(&err);
+            }
+        }
+        Commands::System(system) => {
+            match match system {
+                cli::System::Readonly => system::enable_overlayfs(true),
+                cli::System::Readwrite => system::enable_overlayfs(false),
+            } {
+                Ok(value) => log::info!("OverlayFS: {value}"),
+                Err(err) => output_error(&err),
             }
         }
     }

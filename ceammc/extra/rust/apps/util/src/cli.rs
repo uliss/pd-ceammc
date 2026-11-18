@@ -83,6 +83,14 @@ pub enum Keyboard {
     Info,
 }
 
+#[derive(Clone, Subcommand)]
+pub enum System {
+    /// Switch the root filesystem to read-only mode (OverlayFS)
+    Readonly,
+    /// Switch the root filesystem back to read-write mode
+    Readwrite,
+}
+
 /// CEAM utilities
 #[derive(Subcommand, Clone)]
 #[command(version, about, long_about = None)]
@@ -126,6 +134,9 @@ pub enum Commands {
     /// keyboard layout
     #[command(subcommand)]
     Keyboard(Keyboard),
+    /// system management
+    #[command(subcommand)]
+    System(System),
 }
 
 #[derive(Parser)]

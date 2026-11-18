@@ -1,0 +1,20 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH ceam-util-system 1  "system " 
+.SH NAME
+ceam\-util\-system \- system management
+.SH SYNOPSIS
+\fBceam\-util system\fR [\fB\-h\fR|\fB\-\-help\fR] <\fIsubcommands\fR>
+.SH DESCRIPTION
+system management
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.SH SUBCOMMANDS
+.TP
+ceam\-util\-system\-readonly(1)
+Switch the root filesystem to read\-only mode (OverlayFS)
+.TP
+ceam\-util\-system\-readwrite(1)
+Switch the root filesystem back to read\-write mode
