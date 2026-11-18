@@ -280,7 +280,7 @@ void UiTouchOsc::m_save(t_symbol* s, const AtomListView& lv)
         }
     }
 }
-}
+} // namespace ceammc
 
 void setup_ui_touchosc()
 {
