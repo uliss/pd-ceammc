@@ -508,7 +508,7 @@ namespace net {
             || value > MAX_DMX_VALUE) {
             return false;
         } else {
-            const size_t idx = value - 1;
+            const size_t idx = chan - 1;
             if (idx < packet_.data.size()) {
                 packet_.data[idx] = value;
                 return true;
