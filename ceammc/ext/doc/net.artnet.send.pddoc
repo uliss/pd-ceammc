@@ -158,8 +158,10 @@
       <!-- rgb -->
       <method name="rgb">
         <info>
-          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as floats in the 0–1 range</tr>
-          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного числами в диапазоне 0–1</tr>
+          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as floats
+          in the 0–1 range</tr>
+          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного
+          числами в диапазоне 0–1</tr>
         </info>
         <param name="RED" type="float" required="true" minvalue="0" maxvalue="1">
           <tr lang="en">red component, 0–1</tr>
@@ -181,8 +183,10 @@
       <!-- rgb8 -->
       <method name="rgb8">
         <info>
-          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as integers in the 0–255 range</tr>
-          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного целыми числами в диапазоне 0–255</tr>
+          <tr lang="en">sets three consecutive DMX channels from an RGB color specified as integers
+          in the 0–255 range</tr>
+          <tr lang="ru">устанавливает три последовательных канала DMX из цвета RGB, заданного
+          целыми числами в диапазоне 0–255</tr>
         </info>
         <param name="RED" type="int" required="true" minvalue="0" maxvalue="255">
           <tr lang="en">red component</tr>

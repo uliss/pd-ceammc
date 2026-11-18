@@ -18,16 +18,26 @@
     </meta>
     <info>
       <par>
-        <tr lang="en">the object generates melodies using a Markov chain. It learns note transitions from the incoming note messages and then generates new sequences based on the learned probabilities</tr>
-        <tr lang="ru">объект генерирует мелодии на основе цепи Маркова. Он обучается переходам между нотами на входящих сообщениях, а затем генерирует новые последовательности на основе выученных вероятностей</tr>
+        <tr lang="en">the object generates melodies using a Markov chain. It learns note
+        transitions from the incoming note messages and then generates new sequences based on the
+        learned probabilities</tr>
+        <tr lang="ru">объект генерирует мелодии на основе цепи Маркова. Он обучается переходам
+        между нотами на входящих сообщениях, а затем генерирует новые последовательности на основе
+        выученных вероятностей</tr>
       </par>
       <par>
-        <tr lang="en">@order sets the order of the Markov chain: 0 — order 0 (random notes), 1 — order 1 (each note depends on the previous one), 2 — order 2 (each note depends on the two previous ones)</tr>
-        <tr lang="ru">@order задаёт порядок цепи Маркова: 0 — порядок 0 (случайные ноты), 1 — порядок 1 (каждая нота зависит от предыдущей), 2 — порядок 2 (каждая нота зависит от двух предыдущих)</tr>
+        <tr lang="en">@order sets the order of the Markov chain: 0 — order 0 (random notes), 1 —
+        order 1 (each note depends on the previous one), 2 — order 2 (each note depends on the two
+        previous ones)</tr>
+        <tr lang="ru">@order задаёт порядок цепи Маркова: 0 — порядок 0 (случайные ноты), 1 —
+        порядок 1 (каждая нота зависит от предыдущей), 2 — порядок 2 (каждая нота зависит от двух
+        предыдущих)</tr>
       </par>
       <par>
-        <tr lang="en">the first outlet outputs the generated MIDI pitch, the second outlet outputs the duration bin</tr>
-        <tr lang="ru">первый выход выдаёт сгенерированную MIDI-ноту, второй выход — код длительности</tr>
+        <tr lang="en">the first outlet outputs the generated MIDI pitch, the second outlet outputs
+        the duration bin</tr>
+        <tr lang="ru">первый выход выдаёт сгенерированную MIDI-ноту, второй выход — код
+        длительности</tr>
       </par>
     </info>
     <arguments>
@@ -37,35 +47,45 @@
       </argument>
     </arguments>
     <properties>
+      <!-- @backoff -->
+      <property name="@backoff" type="bool" default="1">
+        <tr lang="en">if true, fall back to a lower-order chain when the current order has no
+        transition for the current state</tr>
+        <tr lang="ru">если true, переходить к цепи меньшего порядка, когда для текущего состояния
+        нет перехода в текущем порядке</tr>
+      </property>
       <!-- @order -->
       <property name="@order" type="int" enum="0 1 2" default="1" access="initonly">
-        <tr lang="en">Markov chain order: 0 — order 0 (random notes), 1 — order 1 (each note depends on the previous one), 2 — order 2 (each note depends on the two previous ones)</tr>
-        <tr lang="ru">порядок цепи Маркова: 0 — порядок 0 (случайные ноты), 1 — порядок 1 (каждая нота зависит от предыдущей), 2 — порядок 2 (каждая нота зависит от двух предыдущих)</tr>
+        <tr lang="en">Markov chain order: 0 — order 0 (random notes), 1 — order 1 (each note
+        depends on the previous one), 2 — order 2 (each note depends on the two previous ones)</tr>
+        <tr lang="ru">порядок цепи Маркова: 0 — порядок 0 (случайные ноты), 1 — порядок 1 (каждая
+        нота зависит от предыдущей), 2 — порядок 2 (каждая нота зависит от двух предыдущих)</tr>
+      </property>
+      <!-- @restart -->
+      <property name="@restart" type="bool" default="1">
+        <tr lang="en">if true, restart the sequence from the beginning when the generator reaches a
+        state with no outgoing transitions</tr>
+        <tr lang="ru">если true, начинать последовательность заново, когда генератор достигает
+        состояния без исходящих переходов</tr>
       </property>
       <!-- @seed -->
       <property name="@seed" type="int" default="0" access="initonly">
         <tr lang="en">random seed for reproducible generation</tr>
         <tr lang="ru">начальное значение генератора для воспроизводимой генерации</tr>
       </property>
-      <!-- @top_k -->
-      <property name="@top_k" type="int" default="0" minvalue="0" maxvalue="12">
-        <tr lang="en">top-K sampling: if greater than 0, only the K most probable notes are considered when generating the next note</tr>
-        <tr lang="ru">top-K сэмплирование: если больше 0, при генерации следующей ноты рассматриваются только K наиболее вероятных нот</tr>
-      </property>
       <!-- @t -->
       <property name="@t" type="float" default="1" minvalue="0" maxvalue="1024">
-        <tr lang="en">temperature for sampling. Values above 1 make the output more random, values below 1 make it more predictable</tr>
-        <tr lang="ru">температура сэмплирования. Значения больше 1 делают вывод более случайным, меньше 1 — более предсказуемым</tr>
+        <tr lang="en">temperature for sampling. Values above 1 make the output more random, values
+        below 1 make it more predictable</tr>
+        <tr lang="ru">температура сэмплирования. Значения больше 1 делают вывод более случайным,
+        меньше 1 — более предсказуемым</tr>
       </property>
-      <!-- @restart -->
-      <property name="@restart" type="bool" default="1">
-        <tr lang="en">if true, restart the sequence from the beginning when the generator reaches a state with no outgoing transitions</tr>
-        <tr lang="ru">если true, начинать последовательность заново, когда генератор достигает состояния без исходящих переходов</tr>
-      </property>
-      <!-- @backoff -->
-      <property name="@backoff" type="bool" default="1">
-        <tr lang="en">if true, fall back to a lower-order chain when the current order has no transition for the current state</tr>
-        <tr lang="ru">если true, переходить к цепи меньшего порядка, когда для текущего состояния нет перехода в текущем порядке</tr>
+      <!-- @top_k -->
+      <property name="@top_k" type="int" default="0" minvalue="0" maxvalue="12">
+        <tr lang="en">top-K sampling: if greater than 0, only the K most probable notes are
+        considered when generating the next note</tr>
+        <tr lang="ru">top-K сэмплирование: если больше 0, при генерации следующей ноты
+        рассматриваются только K наиболее вероятных нот</tr>
       </property>
     </properties>
     <methods>
@@ -79,8 +99,10 @@
       <!-- reset -->
       <method name="reset">
         <info>
-          <tr lang="en">resets the generator to its initial state without clearing the learned transitions</tr>
-          <tr lang="ru">сбрасывает генератор в начальное состояние без очистки выученных переходов</tr>
+          <tr lang="en">resets the generator to its initial state without clearing the learned
+          transitions</tr>
+          <tr lang="ru">сбрасывает генератор в начальное состояние без очистки выученных
+          переходов</tr>
         </info>
       </method>
       <!-- train -->

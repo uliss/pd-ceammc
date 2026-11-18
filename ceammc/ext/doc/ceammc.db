@@ -716,6 +716,7 @@ seq.arp		.		..
 seq.bangs,seq.b		..		..
 seq.counter		..		..
 seq.life		.		.
+seq.markov		.		..
 seq.matrix		..		..
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..
